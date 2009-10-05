@@ -26,7 +26,7 @@ import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -113,7 +113,7 @@ public class TestRunContainer implements Container {
         }
 
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
-            GenericDelegator testDelegator = modelSuite.getDelegator();
+            Delegator testDelegator = modelSuite.getDelegator();
             TestSuite suite = modelSuite.makeTestSuite();
             JUnitTest test = new JUnitTest();
             test.setName(suite.getName());

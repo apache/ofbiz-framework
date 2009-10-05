@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -71,7 +71,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
      * @param processVersion
      * @throws WfException
      */
-    public WfProcessMgrImpl(GenericDelegator delegator, String packageId, String packageVersion,
+    public WfProcessMgrImpl(Delegator delegator, String packageId, String packageVersion,
             String processId, String processVersion) throws WfException {
         Map finder = UtilMisc.toMap("packageId", packageId, "processId", processId);
         List order = UtilMisc.toList("-packageVersion", "-processVersion");
@@ -254,7 +254,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     }
 
     private void buildInitialContext() throws WfException {
-        GenericDelegator delegator = processDef.getDelegator();
+        Delegator delegator = processDef.getDelegator();
         this.initialContext = new HashMap();
         List dataFields = new ArrayList();
         try {

@@ -46,7 +46,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.event.EventFactory;
@@ -98,13 +98,13 @@ public class RequestHandler {
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         doRequest(request, response, requestUri, userLogin, delegator);
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
-            GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
+            GenericValue userLogin, Delegator delegator) throws RequestHandlerException {
 
         HttpSession session = request.getSession();
 
@@ -699,7 +699,7 @@ public class RequestHandler {
     }
     private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
-        GenericDelegator delegator = (GenericDelegator) req.getAttribute("delegator");
+        Delegator delegator = (Delegator) req.getAttribute("delegator");
         // workaraound if we are in the root webapp
         String cname = UtilHttp.getApplicationName(req);
         String oldView = view;
@@ -913,7 +913,7 @@ public class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 
         String httpsPort = null;

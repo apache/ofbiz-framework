@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.service.GenericDispatcher;
@@ -52,7 +53,7 @@ public class ModelTestSuite {
     protected String originalDelegatorName;
     protected String originalDispatcherName;
 
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
 
     protected List<Test> testList = FastList.newInstance();
@@ -130,7 +131,7 @@ public class ModelTestSuite {
         return this.suiteName;
     }
 
-    GenericDelegator getDelegator() {
+    Delegator getDelegator() {
         return this.delegator;
     }
     

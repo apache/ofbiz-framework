@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -61,7 +61,7 @@ public class ProductFeatureServices {
      */
     public static Map<String, Object> getProductFeaturesByType(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         /* because we might need to search either for product features or for product features of a product, the search code has to be generic.
          * we will determine which entity and field to search on based on what the user has supplied us with.
@@ -127,7 +127,7 @@ public class ProductFeatureServices {
      */
     public static Map<String, Object> getAllExistingVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
         List<String> curProductFeatureAndAppls = UtilGenerics.checkList(context.get("productFeatureAppls"));

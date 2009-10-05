@@ -28,6 +28,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
@@ -84,7 +85,7 @@ public class EntityData extends MethodOperation {
         String location = this.locationExdr.expandString(methodContext.getEnvMap());
         String delegatorName = this.delegatorNameExdr.expandString(methodContext.getEnvMap());
 
-        GenericDelegator delegator = methodContext.getDelegator();
+        Delegator delegator = methodContext.getDelegator();
         if (delegatorName != null && delegatorName.length() > 0) {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }

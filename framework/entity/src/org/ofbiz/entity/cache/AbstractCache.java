@@ -19,6 +19,7 @@
 package org.ofbiz.entity.cache;
 
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 
 public abstract class AbstractCache<K, V> {
@@ -31,7 +32,7 @@ public abstract class AbstractCache<K, V> {
     }
 
     @SuppressWarnings("deprecation")
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return GenericDelegator.getGenericDelegator(delegatorName);
     }
 

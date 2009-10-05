@@ -19,11 +19,12 @@
 package org.ofbiz.shark.instance;
 
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 
 public abstract class InstanceEntityObject {
 
-    protected transient GenericDelegator delegator = null;
+    protected transient Delegator delegator = null;
     protected EntityPersistentMgr mgr = null;
     protected String delegatorName = null;
 
@@ -37,7 +38,7 @@ public abstract class InstanceEntityObject {
         return this.mgr;
     }
 
-    public GenericDelegator getGenericDelegator() {
+    public Delegator getGenericDelegator() {
         if (this.delegator == null && delegatorName != null) {
             this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }

@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -463,7 +463,7 @@ public class ManagerEvents {
         BigDecimal othTotal = ZERO;
         BigDecimal total = ZERO;
 
-        GenericDelegator delegator = pos.getSession().getDelegator();
+        Delegator delegator = pos.getSession().getDelegator();
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
                 EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
         EntityListIterator eli = null;

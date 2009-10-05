@@ -29,7 +29,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -180,7 +180,7 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     }
 
     @Override
-    public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public Object getValue(Delegator delegator, Map<String, ? extends Object> map) {
         if (map == null) {
             return null;
         }

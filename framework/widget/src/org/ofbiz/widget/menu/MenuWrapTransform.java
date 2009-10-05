@@ -33,7 +33,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.ftl.LoopWriter;
 import org.ofbiz.widget.WidgetContentWorker;
@@ -76,7 +76,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
-        final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final HttpSession session = (HttpSession) FreeMarkerWorker.getWrappedObject("session", env);

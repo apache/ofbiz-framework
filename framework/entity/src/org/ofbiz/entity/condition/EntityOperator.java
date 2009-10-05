@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -261,12 +261,12 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
 
 
     /*
-    public T eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public T eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
     */
 
-    public abstract boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs);
+    public abstract boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs);
     public abstract void validateSql(ModelEntity entity, Object lhs, Object rhs) throws GenericModelException;
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs, datasourceInfo);

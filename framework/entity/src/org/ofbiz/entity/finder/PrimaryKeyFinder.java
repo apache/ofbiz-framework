@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -66,7 +66,7 @@ public class PrimaryKeyFinder extends Finder {
     }
 
     @Override
-    public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
+    public void runFind(Map<String, Object> context, Delegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
 
         String useCacheString = this.useCacheStrExdr.expandString(context);
@@ -91,7 +91,7 @@ public class PrimaryKeyFinder extends Finder {
         }
     }
 
-    public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, GenericDelegator delegator, boolean useCache, boolean autoFieldMap,
+    public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, Delegator delegator, boolean useCache, boolean autoFieldMap,
             Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
 
         // assemble the field map

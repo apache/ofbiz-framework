@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -61,7 +61,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
     }
 
     public List getAllParticipantMappings(ParticipantMappingTransaction mappingTransaction) throws RootException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
             lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfParticipantMap, null, null, null, null, false);
@@ -94,7 +94,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
     }
 
     public List getParticipantMappings(ParticipantMappingTransaction mappingTransaction, String packageId, String processDefId, String participantId) throws RootException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
             lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.packageId, packageId, org.ofbiz.shark.SharkConstants.processDefId, processDefId, org.ofbiz.shark.SharkConstants.participantId, participantId));
@@ -115,7 +115,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
     }
 
     public List getParticipantMappings(ParticipantMappingTransaction mappingTransaction, String userName) throws RootException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
             lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfParticipantMap, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName));

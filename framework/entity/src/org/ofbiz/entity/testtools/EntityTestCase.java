@@ -21,21 +21,21 @@ package org.ofbiz.entity.testtools;
 
 import junit.framework.TestCase;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public class EntityTestCase extends TestCase {
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
 
     public EntityTestCase(String name) {
         super(name);
     }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
     
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return delegator;
     }
 }

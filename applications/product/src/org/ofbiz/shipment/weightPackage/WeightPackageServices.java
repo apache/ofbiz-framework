@@ -29,7 +29,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -39,7 +39,7 @@ public class WeightPackageServices {
     private static BigDecimal ZERO = BigDecimal.ZERO;
 
     public static Map<String, Object> setPackageInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
         Locale locale = (Locale) context.get("locale");
 
@@ -126,7 +126,7 @@ public class WeightPackageServices {
     }
 
     public static Map<String, Object> completePackage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
         Locale locale = (Locale) context.get("locale");
 

@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.view.AbstractViewHandler;
@@ -85,7 +85,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         }
         try {
             if (Debug.verboseOn()) Debug.logVerbose("SCVH(0a)- dataResourceId:" + dataResourceId, module);
-            GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {

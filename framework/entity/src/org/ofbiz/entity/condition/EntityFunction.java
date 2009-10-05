@@ -25,7 +25,7 @@ import java.util.Map;
 import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -294,7 +294,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     }
 
     @Override
-    public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public Object getValue(Delegator delegator, Map<String, ? extends Object> map) {
         Object value = nested != null ? nested.getValue(delegator, map) : this.value;
         return value != null ? fetcher.getValue(value) : null;
     }

@@ -29,7 +29,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -52,7 +52,7 @@ public class PaymentMethodServices {
      */
     public static Map deletePaymentMethod(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -115,7 +115,7 @@ public class PaymentMethodServices {
      */
     public static Map createCreditCard(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -231,7 +231,7 @@ public class PaymentMethodServices {
      */
     public static Map updateCreditCard(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -408,7 +408,7 @@ public class PaymentMethodServices {
         String paymentMethodId = (String) context.get("paymentMethodId");
 
         // get the cc object
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue creditCard;
         try {
             creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId));
@@ -446,7 +446,7 @@ public class PaymentMethodServices {
 
     public static Map createGiftCard(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -499,7 +499,7 @@ public class PaymentMethodServices {
 
     public static Map updateGiftCard(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -625,7 +625,7 @@ public class PaymentMethodServices {
      */
     public static Map createEftAccount(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -717,7 +717,7 @@ public class PaymentMethodServices {
      */
     public static Map updateEftAccount(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 

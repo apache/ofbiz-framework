@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -55,7 +55,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         return getValue(entity.getDelegator(), entity);
     }
 
-    public abstract Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map);
+    public abstract Object getValue(Delegator delegator, Map<String, ? extends Object> map);
 
     public abstract EntityConditionValue freeze();
 

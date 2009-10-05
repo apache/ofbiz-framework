@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -77,7 +78,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     public static final MathContext generalRounding = new MathContext(10);
 
-    private transient GenericDelegator delegator = null;
+    private transient Delegator delegator = null;
     /** the actual or variant product */
     private transient GenericValue _product = null;
     /** the virtual product if _product is a variant */
@@ -171,7 +172,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
             LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp cancelBackOrderDate)
                 throws CartItemModifyException, ItemNotFoundException {
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
         GenericValue product = null;
 
         try {
@@ -310,7 +311,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper,
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
         GenericValue product = null;
         GenericValue parentProduct = null;
 
@@ -603,7 +604,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup,
             LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool) throws CartItemModifyException {
 
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
         ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes, prodCatalogId, cart.getLocale(), itemGroup);
 
         // add to cart before setting quantity so that we can get order total, etc
@@ -739,7 +740,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** Creates new ShopingCartItem object. */
-    protected ShoppingCartItem(GenericDelegator delegator, String itemTypeId, String description, String categoryId, BigDecimal basePrice, Map attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+    protected ShoppingCartItem(Delegator delegator, String itemTypeId, String description, String categoryId, BigDecimal basePrice, Map attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
         this.delegator = delegator;
         this.itemType = itemTypeId;
         this.itemGroup = itemGroup;
@@ -849,7 +850,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available */
     public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, ShoppingCart cart) {
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
         // find related fixedAsset
         List selFixedAssetProduct = null;
         GenericValue fixedAssetProduct = null;
@@ -2401,7 +2402,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (delegator == null) {
             if (UtilValidate.isEmpty(delegatorName)) {
                 throw new IllegalStateException("Bad delegator name");

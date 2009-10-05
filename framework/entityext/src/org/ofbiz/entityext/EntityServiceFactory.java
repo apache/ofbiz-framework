@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entityext;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
@@ -30,12 +30,12 @@ public class EntityServiceFactory {
 
     public static final String module = EntityServiceFactory.class.getName();
 
-    public static LocalDispatcher getLocalDispatcher(GenericDelegator delegator) {
+    public static LocalDispatcher getLocalDispatcher(Delegator delegator) {
         LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher("entity-" + delegator.getDelegatorName(), delegator);
         return dispatcher;
     }
 
-    public static DispatchContext getDispatchContext(GenericDelegator delegator) {
+    public static DispatchContext getDispatchContext(Delegator delegator) {
         LocalDispatcher dispatcher = getLocalDispatcher(delegator);
         if (dispatcher == null) return null;
         return dispatcher.getDispatchContext();

@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -657,7 +657,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         String expandedDataResourceId = content.getDataResourceId(context);
         String renderedContent = null;
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+        Delegator delegator = (Delegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
         Map<String, Object> contentContext = FastMap.newInstance();
@@ -790,7 +790,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             String expandedMapKey = content.getMapKey(context);
             String renderedContent = null;
             LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-            GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+            Delegator delegator = (Delegator) context.get("delegator");
 
             // create a new map for the content rendering; so our current context does not get overwritten!
             Map<String, Object> contentContext = FastMap.newInstance();
@@ -856,7 +856,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 //HttpSession session = request.getSession();
                 //GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
                 /* don't know why this is here. might come to me later. -amb
-                GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+                Delegator delegator = (Delegator)request.getAttribute("delegator");
                 String contentIdTo = content.getContentId(context);
                 String mapKey = content.getAssocName(context);
                 GenericValue view = null;

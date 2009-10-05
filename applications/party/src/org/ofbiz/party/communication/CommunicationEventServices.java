@@ -55,7 +55,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -76,7 +76,7 @@ public class CommunicationEventServices {
     public static final String resource = "PartyErrorUiLabels";
 
     public static Map<String, Object> sendCommEventAsEmail(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -268,7 +268,7 @@ public class CommunicationEventServices {
     }
 
     public static Map<String, Object> sendEmailToContactList(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -486,7 +486,7 @@ public class CommunicationEventServices {
      */
     public static Map<String, Object> createCommEventFromEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String subject = (String) context.get("subject");
@@ -640,7 +640,7 @@ public class CommunicationEventServices {
     @SuppressWarnings("unchecked")
     public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
         
@@ -969,7 +969,7 @@ public class CommunicationEventServices {
         }
     }
     
-    private static void createCommEventRoles(GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher, String communicationEventId, List<Map<String, Object>> parties, String roleTypeId) {
+    private static void createCommEventRoles(GenericValue userLogin, Delegator delegator, LocalDispatcher dispatcher, String communicationEventId, List<Map<String, Object>> parties, String roleTypeId) {
         // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
         // check and see if this role was already created and ignore if true
         try {
@@ -1058,7 +1058,7 @@ public class CommunicationEventServices {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");        
         
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
                 
         int parts = wrapper.getMainPartCount();
 
@@ -1228,7 +1228,7 @@ public class CommunicationEventServices {
         // update the communication event
         if (communicationEventId != null) {
             Debug.logInfo("Marking communicationEventId [" + communicationEventId + "] from path info : " + request.getPathInfo() + " as read.", module);
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue communicationEvent = null;
             try {                
                 communicationEvent = delegator.findOne("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId), true);                

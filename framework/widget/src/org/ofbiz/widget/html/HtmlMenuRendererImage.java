@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.WidgetContentWorker;
@@ -50,7 +50,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
 
         StringBuilder imgStr = new StringBuilder("<img src=\"");
         String contentId = menuItem.getAssociatedContentId(context);
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         GenericValue webSitePublishPoint = null;
                 //Debug.logInfo("in HtmlMenuRendererImage, contentId:" + contentId,"");
         try {

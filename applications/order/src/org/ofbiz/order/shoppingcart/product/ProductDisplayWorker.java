@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -55,7 +55,7 @@ public class ProductDisplayWorker {
     /* ============================= Special Data Retreival Methods ===========================*/
 
     public static List getRandomCartProductAssoc(ServletRequest request, boolean checkViewAllow) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         ShoppingCart cart = (ShoppingCart) httpRequest.getSession().getAttribute("shoppingCart");
 
@@ -148,7 +148,7 @@ public class ProductDisplayWorker {
     }
 
     public static Map getQuickReorderProducts(ServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         GenericValue userLogin = (GenericValue) httpRequest.getSession().getAttribute("userLogin");
         Map results = new HashMap();

@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -70,7 +70,7 @@ public class GoogleRequestServices {
     public static Map<String, Object> sendShoppingCartRequest(DispatchContext dctx, Map<String, ? extends Object> context) {        
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String productStoreId = cart.getProductStoreId();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue googleCfg = getGoogleConfiguration(delegator, productStoreId);
         MerchantInfo mInfo = getMerchantInfo(delegator, productStoreId);
         if (mInfo == null) {
@@ -225,7 +225,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendOrderNumberRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -245,7 +245,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendAuthorizeRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -266,7 +266,7 @@ public class GoogleRequestServices {
     
     // trigger on captureOrderPayments
     public static Map<String, Object> sendChargeRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -292,7 +292,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendReturnRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");  
         
         // sort by order
@@ -393,7 +393,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendShipRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");                
         try {
             sendItemsShipped(delegator, shipmentId);
@@ -405,7 +405,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendOrderCancelRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -425,7 +425,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendOrderItemCancelRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         GenericValue order = findGoogleOrder(delegator, orderId);
@@ -456,7 +456,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendArchiveOrderRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -476,7 +476,7 @@ public class GoogleRequestServices {
     }
     
     public static Map<String, Object> sendUnarchiveOrderRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -497,7 +497,7 @@ public class GoogleRequestServices {
     
     // special service to tigger off of events which prevent editing orders
     public static Map<String, Object> catchEditGoogleOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
@@ -507,7 +507,7 @@ public class GoogleRequestServices {
         return ServiceUtil.returnSuccess();        
     }    
     
-    private static void sendItemsShipped(GenericDelegator delegator, String shipmentId) throws GeneralException {
+    private static void sendItemsShipped(Delegator delegator, String shipmentId) throws GeneralException {
         List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId));
         if (issued != null && issued.size() > 0) {
             for (GenericValue issue : issued) {
@@ -573,7 +573,7 @@ public class GoogleRequestServices {
         }
     }
     
-    public static GenericValue findGoogleOrder(GenericDelegator delegator, String orderId) {
+    public static GenericValue findGoogleOrder(Delegator delegator, String orderId) {
         GenericValue order = null;
         try {
             order = delegator.findOne("OrderHeader", false, "orderId", orderId);
@@ -591,7 +591,7 @@ public class GoogleRequestServices {
         return null;
     }
     
-    public static String getProductStoreFromShipment(GenericDelegator delegator, String shipmentId) {
+    public static String getProductStoreFromShipment(Delegator delegator, String shipmentId) {
         GenericValue shipment = null;
         try {
             shipment = delegator.findOne("Shipment", false, "shipmentId", shipmentId);
@@ -612,7 +612,7 @@ public class GoogleRequestServices {
         return null;
     }
      
-    public static GenericValue getGoogleConfiguration(GenericDelegator delegator, String productStoreId) {
+    public static GenericValue getGoogleConfiguration(Delegator delegator, String productStoreId) {
         if (productStoreId == null) return null;
         GenericValue config = null;
         try {
@@ -623,7 +623,7 @@ public class GoogleRequestServices {
         return config;
     }
     
-    public static MerchantInfo getMerchantInfo(GenericDelegator delegator, String productStoreId) {
+    public static MerchantInfo getMerchantInfo(Delegator delegator, String productStoreId) {
         // google configuration
         GenericValue config = getGoogleConfiguration(delegator, productStoreId);
         if (config == null) {

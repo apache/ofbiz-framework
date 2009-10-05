@@ -35,6 +35,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -68,7 +69,7 @@ public class PackingSession implements java.io.Serializable {
     protected int packageSeq = -1;
     protected int status = 1;
 
-    private transient GenericDelegator _delegator = null;
+    private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
 
     public PackingSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId, String binId, String orderId, String shipGrp) {
@@ -498,7 +499,7 @@ public class PackingSession implements java.io.Serializable {
         return _dispatcher;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (_delegator == null) {
             _delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
@@ -709,7 +710,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void createShipment() throws GeneralException {
         // first create the shipment
-        GenericDelegator delegator = this.getDelegator();
+        Delegator delegator = this.getDelegator();
         Map<String, Object> newShipment = FastMap.newInstance();
         newShipment.put("originFacilityId", this.facilityId);
         newShipment.put("primaryShipGroupSeqId", primaryShipGrp);

@@ -31,7 +31,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
@@ -103,7 +103,7 @@ public class FormFactory {
                 modelForm = formWebappCache.get(cacheKey);
                 if (modelForm == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
-                    GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+                    Delegator delegator = (Delegator) request.getAttribute("delegator");
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
                     URL formFileUrl = servletContext.getResource(resourceName);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);

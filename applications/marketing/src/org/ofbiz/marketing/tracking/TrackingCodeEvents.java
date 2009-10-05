@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.product.category.CategoryWorker;
@@ -57,7 +57,7 @@ public class TrackingCodeEvents {
 
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //tracking code is specified on the request, get the TrackingCode value and handle accordingly
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue trackingCode;
             try {
                 trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
@@ -94,7 +94,7 @@ public class TrackingCodeEvents {
 
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //partner managed tracking code is specified on the request
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             GenericValue trackingCode;
             try {
                 trackingCode = delegator.findByPrimaryKeyCache("TrackingCode", UtilMisc.toMap("trackingCodeId", trackingCodeId));
@@ -171,7 +171,7 @@ public class TrackingCodeEvents {
     }
 
     private static String processTrackingCode(GenericValue trackingCode, HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String trackingCodeId = trackingCode.getString("trackingCodeId");
 
         //check effective dates
@@ -308,7 +308,7 @@ public class TrackingCodeEvents {
      * of events that run on the first hit in a visit.
      */
     public static String checkTrackingCodeCookies(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         GenericValue visit = VisitHandler.getVisit(request.getSession());
         if (visit == null) {
@@ -365,7 +365,7 @@ public class TrackingCodeEvents {
     }
 
     public static String checkAccessTrackingCode(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
 
         String trackingCodeId = request.getParameter("autoTrackingCode");
@@ -436,7 +436,7 @@ public class TrackingCodeEvents {
 
     /** Makes a list of TrackingCodeOrder entities to be attached to the current order; called by the createOrder event; the values in the returned List will not have the orderId set */
     public static List<GenericValue> makeTrackingCodeOrders(HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         List<GenericValue> trackingCodeOrders = FastList.newInstance();
 

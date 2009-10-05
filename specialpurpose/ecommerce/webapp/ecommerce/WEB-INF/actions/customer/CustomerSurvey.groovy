@@ -18,7 +18,7 @@
  */
 
 import org.ofbiz.base.util.*;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.product.store.ProductStoreSurveyWrapper;
 

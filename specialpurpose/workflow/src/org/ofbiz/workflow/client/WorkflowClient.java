@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.job.Job;
@@ -45,19 +45,19 @@ public class WorkflowClient {
 
     public static final String module = WorkflowClient.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
 
     protected WorkflowClient() {}
 
     /**
      * Get a new instance of the Workflow Client
-     * @param delegator the GenericDelegator object which matchs the delegator used by the workflow engine.
+     * @param delegator the Delegator object which matchs the delegator used by the workflow engine.
      * @param dispatcher a LocalDispatcher object to invoke the workflow services.
      */
-    public WorkflowClient(GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public WorkflowClient(Delegator delegator, LocalDispatcher dispatcher) {
         if (delegator == null)
-            throw new IllegalArgumentException("GenericDelegator cannot be null");
+            throw new IllegalArgumentException("Delegator cannot be null");
         if (dispatcher == null)
             throw new IllegalArgumentException("LocalDispatcher cannot be null");
         this.delegator = delegator;

@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.KeywordSearchUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
@@ -70,7 +70,7 @@ public class ProductSearch {
     public static final String resource = "ProductUiLabels";
     public static final String resourceCommon = "CommonUiLabels";
 
-    public static ArrayList parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, GenericDelegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set<String> featureIdSet = FastSet.newInstance();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
@@ -79,7 +79,7 @@ public class ProductSearch {
         return parametricKeywordSearch(featureIdSet, keywordsString, delegator, productCategoryId, true, visitId, anyPrefix, anySuffix, isAnd);
     }
 
-    public static ArrayList parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, GenericDelegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         List<ProductSearchConstraint> productSearchConstraintList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
@@ -99,7 +99,7 @@ public class ProductSearch {
         return searchProducts(productSearchConstraintList, new SortKeywordRelevancy(), delegator, visitId);
     }
 
-    public static ArrayList<String> searchProducts(List<ProductSearchConstraint> productSearchConstraintList, ResultSortOrder resultSortOrder, GenericDelegator delegator, String visitId) {
+    public static ArrayList<String> searchProducts(List<ProductSearchConstraint> productSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
 
         productSearchContext.addProductSearchConstraints(productSearchConstraintList);
@@ -109,12 +109,12 @@ public class ProductSearch {
         return productIds;
     }
 
-    public static void getAllSubCategoryIds(String productCategoryId, Set<String> productCategoryIdSet, GenericDelegator delegator, Timestamp nowTimestamp) {
+    public static void getAllSubCategoryIds(String productCategoryId, Set<String> productCategoryIdSet, Delegator delegator, Timestamp nowTimestamp) {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
 
-        // this will use the GenericDelegator cache as much as possible, but not a dedicated cache because it would get stale to easily and is too much of a pain to maintain in development and production
+        // this will use the Delegator cache as much as possible, but not a dedicated cache because it would get stale to easily and is too much of a pain to maintain in development and production
 
         // first make sure the current category id is in the Set
         productCategoryIdSet.add(productCategoryId);
@@ -155,7 +155,7 @@ public class ProductSearch {
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
-        protected GenericDelegator delegator = null;
+        protected Delegator delegator = null;
         protected String visitId = null;
         protected Integer totalResults = null;
 
@@ -181,7 +181,7 @@ public class ProductSearch {
         public Set<String> excludeFeatureGroupIds = FastSet.newInstance();
         public Set<String> alwaysIncludeFeatureGroupIds = FastSet.newInstance();
 
-        public ProductSearchContext(GenericDelegator delegator, String visitId) {
+        public ProductSearchContext(Delegator delegator, String visitId) {
             this.delegator = delegator;
             this.visitId = visitId;
             dynamicViewEntity.addMemberEntity("PROD", "Product");
@@ -189,7 +189,7 @@ public class ProductSearch {
             dynamicViewEntity.addViewLink("PROD", "PRODCI", Boolean.TRUE, ModelKeyMap.makeKeyMapList("productId"));
         }
 
-        public GenericDelegator getDelegator() {
+        public Delegator getDelegator() {
             return this.delegator;
         }
 
@@ -624,7 +624,7 @@ public class ProductSearch {
             Debug.logInfo("topCond=" + topCond.makeWhereString(null, FastList.<EntityConditionParam>newInstance(), EntityConfigUtil.getDatasourceInfo(delegator.getEntityHelperName("Product"))), module);
         }
 
-        public EntityListIterator doQuery(GenericDelegator delegator) {
+        public EntityListIterator doQuery(Delegator delegator) {
             // handle the now assembled or and and keyword fixed lists
             this.finishKeywordConstraints();
 
@@ -817,7 +817,7 @@ public class ProductSearch {
 
         public abstract void addConstraint(ProductSearchContext productSearchContext);
         /** pretty print for log messages and even UI stuff */
-        public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale);
+        public abstract String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale);
     }
 
 
@@ -858,7 +858,7 @@ public class ProductSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue prodCatalog = null;
             try {
                 prodCatalog = delegator.findByPrimaryKeyCache("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId));
@@ -938,7 +938,7 @@ public class ProductSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productCategory = null;
             try {
                 productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
@@ -1021,7 +1021,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeature = null;
             GenericValue productFeatureType = null;
             try {
@@ -1103,7 +1103,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureCategory = null;
             try {
                 productFeatureCategory = delegator.findByPrimaryKeyCache("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
@@ -1183,7 +1183,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productFeatureGroup = null;
             try {
                 productFeatureGroup = delegator.findByPrimaryKeyCache("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId));
@@ -1272,7 +1272,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder infoOut = new StringBuilder();
             try {
                 for (String featureId: this.productFeatureIdSet) {
@@ -1344,7 +1344,7 @@ public class ProductSearch {
             }
         }
 
-        public Set<String> makeFullKeywordSet(GenericDelegator delegator) {
+        public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<String>();
 
@@ -1403,7 +1403,7 @@ public class ProductSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "ProductKeywords", locale)).append(": \"");
             ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "ProductKeywordWhere", locale)).append(" ");
@@ -1461,7 +1461,7 @@ public class ProductSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             // TODO: implement the pretty print for log messages and even UI stuff
             return null;
         }
@@ -1532,7 +1532,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder buff = new StringBuilder();
             buff.append("Product Store Mandatory Price Constraint: ");
             buff.append("Product Store Group [").append(productStoreGroupId).append("], ");
@@ -1605,7 +1605,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             if (this.lowPrice == null && this.highPrice == null) {
                 // dummy constraint, no values
                 return null;
@@ -1686,7 +1686,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             return UtilProperties.getMessage(resource, "ProductSupplier", locale)+": " + PartyHelper.getPartyName(delegator, supplierPartyId, false);
         }
 
@@ -1727,7 +1727,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             return UtilProperties.getMessage(resource, "ProductExcludeVariants", locale);
         }
 
@@ -1758,7 +1758,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             return UtilProperties.getMessage(resource, "ProductFilterByAvailabilityDates", locale);
         }
 
@@ -1823,7 +1823,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             if (UtilValidate.isEmpty(goodIdentificationTypeId) &&
                 UtilValidate.isEmpty(goodIdentificationValue) &&
                 UtilValidate.isEmpty(include)) {
@@ -1884,7 +1884,7 @@ public class ProductSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             return UtilProperties.getMessage(resource, "ProductKeywords", locale);
         }
 
@@ -2096,7 +2096,7 @@ public class ProductSearch {
 
     /** A rather large and verbose method that doesn't use the cool constraint and sort order objects */
     /*
-    public static ArrayList parametricKeywordSearchStandAlone(Set featureIdSet, String keywordsString, GenericDelegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList parametricKeywordSearchStandAlone(Set featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         // TODO: implement this for the new features
         boolean removeStems = UtilProperties.propertyValueEquals("prodsearch", "remove.stems", "true");
 

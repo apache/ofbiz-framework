@@ -31,7 +31,7 @@ import org.ofbiz.common.authentication.api.AuthenticatorException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -52,7 +52,7 @@ public class CrowdAuthenticator extends CrowdWorker implements Authenticator {
     private static final String props = "crowd.properties";
 
     protected LocalDispatcher dispatcher;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
 
     /**
      * Method called when authenticator is first initialized (the delegator

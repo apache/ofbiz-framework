@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.io.Serializable;
 
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
@@ -52,7 +53,7 @@ import org.enhydra.shark.WfProcessIteratorWrapper;
 public abstract class AbstractRequester implements WfRequester, Serializable {
 
     public static final String module = LoggingRequester.class.getName();
-    protected transient GenericDelegator delegator = null;
+    protected transient Delegator delegator = null;
     protected transient GenericValue userLogin = null;
     protected String delegatorName = null;
     protected String userLoginId = null;
@@ -144,7 +145,7 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
         return wrdMap;
     }
 
-    protected synchronized GenericDelegator getDelegator() {
+    protected synchronized Delegator getDelegator() {
         if (this.delegator == null && this.delegatorName != null) {
             this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         }
@@ -153,7 +154,7 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
 
     protected synchronized GenericValue getUserLogin() throws GenericEntityException {
         if (userLogin == null && this.userLoginId != null) {
-            GenericDelegator delegator = this.getDelegator();
+            Delegator delegator = this.getDelegator();
             if (delegator != null) {
                 this.userLogin = delegator.findByPrimaryKey("UserLogin",
                         UtilMisc.toMap("userLoginId", this.userLoginId));

@@ -38,7 +38,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.webapp.control.ContextFilter;
 import org.ofbiz.webapp.view.AbstractViewHandler;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
@@ -71,7 +71,7 @@ public class JasperReportsXmlViewHandler extends AbstractViewHandler {
         // tell the ContextFilter we are forwarding
         request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.valueOf(true));
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         if (delegator == null) {
             throw new ViewHandlerException("The delegator object was null, how did that happen?");

@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -78,10 +78,10 @@ public class CheckOutHelper {
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
     protected LocalDispatcher dispatcher = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected ShoppingCart cart = null;
 
-    public CheckOutHelper(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart) {
+    public CheckOutHelper(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart) {
         this.delegator = delegator;
         this.dispatcher = dispatcher;
         this.cart = cart;
@@ -885,7 +885,7 @@ public class CheckOutHelper {
         return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, manualHold, dispatcher, delegator);
     }
 
-    public static Map processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, GenericDelegator delegator) throws GeneralException {
+    public static Map processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
         // Get some payment related strings
         String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
         String ERROR_MESSAGE = productStore.getString("authErrorMessage");
@@ -1107,7 +1107,7 @@ public class CheckOutHelper {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List allPaymentPrefs, GenericValue userLogin, GenericDelegator delegator) throws GeneralException {
+    public static void adjustFaceToFacePayment(String orderId, BigDecimal cartTotal, List allPaymentPrefs, GenericValue userLogin, Delegator delegator) throws GeneralException {
         BigDecimal prefTotal = BigDecimal.ZERO;
         if (allPaymentPrefs != null) {
             Iterator i = allPaymentPrefs.iterator();

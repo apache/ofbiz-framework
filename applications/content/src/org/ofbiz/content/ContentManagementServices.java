@@ -41,7 +41,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentServices;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -73,7 +73,7 @@ public class ContentManagementServices {
      */
     public static Map<String, Object> getSubContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         //Security security = dctx.getSecurity();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String) context.get("contentId");
         String subContentId = (String) context.get("subContentId");
@@ -111,7 +111,7 @@ public class ContentManagementServices {
      */
     public static Map<String, Object> getContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         //Security security = dctx.getSecurity();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String contentId = (String) context.get("contentId");
         //GenericValue userLogin = (GenericValue)context.get("userLogin");
         GenericValue view = null;
@@ -135,7 +135,7 @@ public class ContentManagementServices {
      */
     public static Map<String, Object> addMostRecent(DispatchContext dctx, Map<String, ? extends Object> context) {
         //Security security = dctx.getSecurity();
-        //GenericDelegator delegator = dctx.getDelegator();
+        //Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         //HttpServletRequest request = (HttpServletRequest)context.get("request");
         //String suffix = (String) context.get("suffix");
@@ -162,7 +162,7 @@ public class ContentManagementServices {
      * This service does not accept straight ContentAssoc parameters. They must be prefaced with "ca" + cap first letter
      */
     public static Map<String, Object> persistContentAndAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
 
@@ -453,7 +453,7 @@ public class ContentManagementServices {
    */
     public static Map<String, Object> updateSiteRoles(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         //String userLoginPartyId = userLogin.getString("partyId");
       Map results = FastMap.newInstance();
@@ -553,7 +553,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
   }
 
     public static Map<String, Object> persistDataResourceAndData(DispatchContext dctx, Map<String, ? extends Object> context) {
-      //GenericDelegator delegator = dctx.getDelegator();
+      //Delegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       //String contentId = (String)context.get("contentId");
       Map result = FastMap.newInstance();
@@ -587,7 +587,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map<String, Object> persistDataResourceAndDataMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException, Exception {
-      GenericDelegator delegator = dctx.getDelegator();
+      Delegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
       Map result = FastMap.newInstance();
@@ -762,7 +762,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     return result;
   }
 
-    public static void addRoleToUser(GenericDelegator delegator, LocalDispatcher dispatcher, Map serviceContext) throws GenericServiceException, GenericEntityException {
+    public static void addRoleToUser(Delegator delegator, LocalDispatcher dispatcher, Map serviceContext) throws GenericServiceException, GenericEntityException {
     String partyId = (String)serviceContext.get("partyId");
     Map findMap = UtilMisc.toMap("partyId", partyId);
         List userLoginList = delegator.findByAnd("UserLogin", findMap);
@@ -778,7 +778,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateSiteRolesDyn(DispatchContext dctx, Map<String, ? extends Object> context) {
 
       LocalDispatcher dispatcher = dctx.getDispatcher();
-      GenericDelegator delegator = dctx.getDelegator();
+      Delegator delegator = dctx.getDelegator();
       Map results = FastMap.newInstance();
       Map serviceContext = FastMap.newInstance();
       // siteContentId will equal "ADMIN_MASTER", "AGINC_MASTER", etc.
@@ -852,7 +852,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateOrRemove(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Map results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String entityName = (String)context.get("entityName");
         String action = (String)context.get("action");
         String pkFieldCount = (String)context.get("pkFieldCount");
@@ -898,7 +898,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> resequence(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
 
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentIdTo");
         Integer seqInc = (Integer)context.get("seqInc");
         if (seqInc == null)
@@ -971,7 +971,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> changeLeafToNode(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String)context.get("contentId");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -1039,7 +1039,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateLeafCount(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
 
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List typeList = (List)context.get("typeList");
         if (typeList == null)
             typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
@@ -1058,7 +1058,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateLeafChange(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
 
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List typeList = (List)context.get("typeList");
         if (typeList == null)
             typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
@@ -1120,7 +1120,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
      */
     public static Map<String, Object> updatePageType(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map results = FastMap.newInstance();
         Set visitedSet = (Set)context.get("visitedSet");
@@ -1161,7 +1161,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> resetToOutlineMode(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map results = FastMap.newInstance();
         Set visitedSet = (Set)context.get("visitedSet");
@@ -1322,7 +1322,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> findSubNodes(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentId");
         List condList = FastList.newInstance();
         EntityExpr expr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
@@ -1381,7 +1381,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> incrementContentChildStats(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
             String contentId = (String)context.get("contentId");
             String contentAssocTypeId = (String)context.get("contentAssocTypeId");
@@ -1407,7 +1407,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> decrementContentChildStats(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
             String contentId = (String)context.get("contentId");
             String contentAssocTypeId = (String)context.get("contentAssocTypeId");
@@ -1433,7 +1433,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> updateContentChildStats(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String contentId = (String)context.get("contentId");
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
@@ -1454,7 +1454,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> updateContentSubscription(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -1534,7 +1534,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateContentSubscriptionByProduct(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
@@ -1581,7 +1581,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> updateContentSubscriptionByOrder(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
 
@@ -1632,7 +1632,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> followNodeChildren(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
 
         Map result = null;
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -1697,7 +1697,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
    */
   public static Map<String, Object> persistContentWithRevision(DispatchContext dctx, Map<String, ? extends Object> context) {
       Map result = null;
-      GenericDelegator delegator = dctx.getDelegator();
+      Delegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       GenericValue dataResource = null;
       String masterRevisionContentId = (String)context.get("masterRevisionContentId");

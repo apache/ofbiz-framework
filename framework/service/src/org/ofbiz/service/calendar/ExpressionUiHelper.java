@@ -30,7 +30,7 @@ import java.util.Set;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -139,7 +139,7 @@ public class ExpressionUiHelper {
      * for inclusion
      * @return Set of candidate tempExprId Strings
      */
-    public static Set<String> getCandidateIncludeIds(GenericDelegator delegator, String tempExprId) throws GenericEntityException {
+    public static Set<String> getCandidateIncludeIds(Delegator delegator, String tempExprId) throws GenericEntityException {
         List<GenericValue> findList = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
         Set<String> excludedIds = FastSet.newInstance();
         for (GenericValue value : findList) {

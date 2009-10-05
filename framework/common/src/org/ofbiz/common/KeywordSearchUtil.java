@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -214,7 +214,7 @@ public class KeywordSearchUtil {
         return keywords.keySet();
     }
 
-    public static boolean expandKeywordForSearch(String enteredKeyword, Set<String> addToSet, GenericDelegator delegator) {
+    public static boolean expandKeywordForSearch(String enteredKeyword, Set<String> addToSet, Delegator delegator) {
         boolean replaceEnteredKeyword = false;
 
         try {

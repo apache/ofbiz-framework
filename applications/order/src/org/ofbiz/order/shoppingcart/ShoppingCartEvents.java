@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -115,7 +115,7 @@ public class ShoppingCartEvents {
 
     /** Event to add an item to the shopping cart. */
     public static String addToCart(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
@@ -571,7 +571,7 @@ public class ShoppingCartEvents {
         // not used yet: Locale locale = UtilHttp.getLocale(request);
 
         ShoppingCart cart = getCartObject(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -597,7 +597,7 @@ public class ShoppingCartEvents {
     public static String addToCartBulk(HttpServletRequest request, HttpServletResponse response) {
         String categoryId = request.getParameter("category_id");
         ShoppingCart cart = getCartObject(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
@@ -619,7 +619,7 @@ public class ShoppingCartEvents {
     }
 
     public static String quickInitPurchaseOrder(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
@@ -682,7 +682,7 @@ public class ShoppingCartEvents {
      */
     public static String addToCartBulkRequirements(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
@@ -712,7 +712,7 @@ public class ShoppingCartEvents {
         String categoryId = request.getParameter("category_id");
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         ShoppingCart cart = getCartObject(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
@@ -958,7 +958,7 @@ public class ShoppingCartEvents {
     /** For GWP Promotions with multiple alternatives, selects an alternative to the current GWP */
     public static String setDesiredAlternateGwpProductId(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String alternateGwpProductId = request.getParameter("alternateGwpProductId");
         String alternateGwpLineStr = request.getParameter("alternateGwpLine");
@@ -1118,7 +1118,7 @@ public class ShoppingCartEvents {
 
     /** Assign agreement **/
     public static String selectAgreement(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
@@ -1133,7 +1133,7 @@ public class ShoppingCartEvents {
 
     /** Assign currency **/
     public static String setCurrency(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
@@ -1399,7 +1399,7 @@ public class ShoppingCartEvents {
 
     /** Initialize order entry **/
     public static String initializeOrderEntry(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
@@ -1549,7 +1549,7 @@ public class ShoppingCartEvents {
 
     public static String doManualPromotions(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = getCartObject(request);
         List manualPromotions = new LinkedList();
 
@@ -1578,7 +1578,7 @@ public class ShoppingCartEvents {
 
 
     public static String bulkAddProducts(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
@@ -1685,7 +1685,7 @@ public class ShoppingCartEvents {
     // request method for setting the currency, agreement, OrderId and shipment dates at once
     public static String setOrderCurrencyAgreementShipDates(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
 
@@ -1760,7 +1760,7 @@ public class ShoppingCartEvents {
 
     public static String getConfigDetailsEvent(HttpServletRequest request, HttpServletResponse response) {
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("product_id");
         String currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
         ProductConfigWrapper configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, currencyUomId, request);
@@ -1780,7 +1780,7 @@ public class ShoppingCartEvents {
     }
 
     public static String bulkAddProductsInApprovedOrder(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         String productId = null;

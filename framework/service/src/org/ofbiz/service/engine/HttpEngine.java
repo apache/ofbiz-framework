@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -109,7 +109,7 @@ public class HttpEngine extends GenericAsyncEngine {
      */
     public static String httpEngine(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         String serviceName = request.getParameter("serviceName");
         String serviceMode = request.getParameter("serviceMode");

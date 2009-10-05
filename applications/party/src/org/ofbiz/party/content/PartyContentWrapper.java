@@ -24,7 +24,7 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -114,12 +114,12 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public static String getPartyContentAsText(GenericValue party, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
         return getPartyContentAsText(party, null, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher, useCache);
     }
 
     public static String getPartyContentAsText(GenericValue party, String contentId, String partyContentTypeId,
-            Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, boolean useCache) {
+            Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, boolean useCache) {
         if (party == null) {
             return null;
         }
@@ -163,7 +163,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
-    public static void getPartyContentAsText(String contentId, String partyId, GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
+    public static void getPartyContentAsText(String contentId, String partyId, GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (partyId == null && party != null) {
             partyId = party.getString("partyId");
         }
@@ -230,7 +230,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
 
-    public static List<String> getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
+    public static List<String> getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
         List<GenericValue> partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
@@ -249,7 +249,7 @@ public class PartyContentWrapper implements ContentWrapper {
         return contentList;
     }
 
-    public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId, GenericDelegator delegator) {
+    public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId, Delegator delegator) {
         if (partyId == null && party != null) {
             partyId = party.getString("partyId");
         }
@@ -259,7 +259,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
 
         if (delegator == null) {
-            throw new IllegalArgumentException("GenericDelegator missing");
+            throw new IllegalArgumentException("Delegator missing");
         }
 
         List<GenericValue> partyContentList = null;

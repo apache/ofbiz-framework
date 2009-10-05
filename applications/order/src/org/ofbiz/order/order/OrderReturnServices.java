@@ -45,7 +45,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -86,7 +86,7 @@ public class OrderReturnServices {
 
     // locate the return item's initial inventory item cost
     public static Map getReturnItemInitialCost(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         String returnItemSeqId = (String) context.get("returnItemSeqId");
 
@@ -97,7 +97,7 @@ public class OrderReturnServices {
 
     // obtain order/return total information
     public static Map getOrderAvailableReturnedTotal(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = null;
         try {
@@ -129,7 +129,7 @@ public class OrderReturnServices {
     }
 
     // worker method which can be used in screen iterations
-    public static BigDecimal getReturnItemInitialCost(GenericDelegator delegator, String returnId, String returnItemSeqId) {
+    public static BigDecimal getReturnItemInitialCost(Delegator delegator, String returnId, String returnItemSeqId) {
         if (delegator == null || returnId == null || returnItemSeqId == null) {
             throw new IllegalArgumentException("Method parameters cannot contain nulls");
         }
@@ -192,7 +192,7 @@ public class OrderReturnServices {
 
     // helper method for sending return notifications
     private static Map sendReturnNotificationScreen(DispatchContext dctx, Map context, String emailType) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String returnId = (String) context.get("returnId");
@@ -309,7 +309,7 @@ public class OrderReturnServices {
     
     // cancel replacement order if return not received within 30 days and send notification
     public static Map<String,Object> autoCancelReplacementOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<GenericValue> returnHeaders = null;
@@ -446,7 +446,7 @@ public class OrderReturnServices {
     // get a map of returnable items (items not already returned) and quantities
     public static Map getReturnableItems(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
 
@@ -581,7 +581,7 @@ public class OrderReturnServices {
 
     // check return items status and update return header status
     public static Map checkReturnComplete(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String returnId = (String) context.get("returnId");
@@ -676,7 +676,7 @@ public class OrderReturnServices {
     // credit (billingAccount) return
     public static Map processCreditReturn(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -974,7 +974,7 @@ public class OrderReturnServices {
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountBalance(String billingAccountId, DispatchContext dctx) throws GenericEntityException {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
 
         BigDecimal balance = ZERO;
@@ -1083,7 +1083,7 @@ public class OrderReturnServices {
     }
 
     public static Map processRefundReturnForReplacement(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1141,7 +1141,7 @@ public class OrderReturnServices {
 
     // refund (cash/charge) return
     public static Map processRefundReturn(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String returnId = (String) context.get("returnId");
         String returnTypeId = (String) context.get("returnTypeId");
@@ -1468,7 +1468,7 @@ public class OrderReturnServices {
     }
 
     public static Map refundBillingAccountPayment(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -1559,7 +1559,7 @@ public class OrderReturnServices {
 
     public static Map createPaymentApplicationsFromReturnItemResponse(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         // the strategy for this service is to get a list of return invoices via the return items -> return item billing relationships
@@ -1647,7 +1647,7 @@ public class OrderReturnServices {
     // replacement return (create new order adjusted to be at no charge)
     public static Map processReplacementReturn(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         String returnTypeId = (String) context.get("returnTypeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2134,7 +2134,7 @@ public class OrderReturnServices {
     }
 
     public static Map processSubscriptionReturn(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -2197,7 +2197,7 @@ public class OrderReturnServices {
      * @param delegator
      * @param returnId
      */
-    public static void groupReturnItemsByOrder(List returnItems, Map returnItemsByOrderId, Map totalByOrder, GenericDelegator delegator, String returnId, String returnTypeId) {
+    public static void groupReturnItemsByOrder(List returnItems, Map returnItemsByOrderId, Map totalByOrder, Delegator delegator, String returnId, String returnTypeId) {
         Iterator itemIt = returnItems.iterator();
         while (itemIt.hasNext()) {
             GenericValue returnItem = (GenericValue) itemIt.next();
@@ -2258,7 +2258,7 @@ public class OrderReturnServices {
 
 
     public static Map getReturnAmountByOrder(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         Locale locale = (Locale) context.get("locale");
         List returnItems = null;
@@ -2302,7 +2302,7 @@ public class OrderReturnServices {
 
     public static Map checkPaymentAmountForRefund(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
         Locale locale = (Locale) context.get("locale");
         Map returnAmountByOrder = null;
@@ -2345,7 +2345,7 @@ public class OrderReturnServices {
     }
 
     public static Map createReturnAdjustment(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderAdjustmentId = (String) context.get("orderAdjustmentId");
         String returnAdjustmentTypeId = (String) context.get("returnAdjustmentTypeId");
         String returnId = (String) context.get("returnId");
@@ -2452,7 +2452,7 @@ public class OrderReturnServices {
     }
 
     public static Map updateReturnAdjustment(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue returnItem = null;
         GenericValue returnAdjustment = null;
@@ -2559,7 +2559,7 @@ public class OrderReturnServices {
      * @param condition
      * @return
      */
-    public static BigDecimal getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
+    public static BigDecimal getReturnAdjustmentTotal(Delegator delegator, Map condition) {
         BigDecimal total = BigDecimal.ZERO;
         List adjustments;
         try {

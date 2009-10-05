@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 
 /**
@@ -257,10 +257,10 @@ public interface WfExecutionObject {
 
     /**
      * Returns the delegator being used by this workflow
-     * @return GenericDelegator used for this workflow
+     * @return Delegator used for this workflow
      * @throws WfException
      */
-    public GenericDelegator getDelegator() throws WfException;
+    public Delegator getDelegator() throws WfException;
 
 } // interface WfExecutionObjectOperations
 

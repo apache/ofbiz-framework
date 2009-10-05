@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -61,7 +61,7 @@ public class CmsEvents {
     public static final String module = CmsEvents.class.getName();
 
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
@@ -262,7 +262,7 @@ public class CmsEvents {
         //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
     }
 
-    protected static boolean verifyContentToWebSite(GenericDelegator delegator, String webSiteId, String contentId) throws GeneralException {
+    protected static boolean verifyContentToWebSite(Delegator delegator, String webSiteId, String contentId) throws GeneralException {
         // first check if the passed in contentId is a publish point for the web site
         List<GenericValue> publishPoints = null;
         try {
@@ -295,7 +295,7 @@ public class CmsEvents {
         return false;
     }
 
-    protected static boolean verifySubContent(GenericDelegator delegator, String contentId, String contentIdFrom) throws GeneralException {
+    protected static boolean verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
         List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (contentAssoc == null || contentAssoc.size() == 0) {

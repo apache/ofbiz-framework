@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.LRUMap;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -72,7 +73,7 @@ public class ServiceDispatcher {
     protected static boolean enableJMS = true;
     protected static boolean enableSvcs = true;
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected GenericEngineFactory factory = null;
     protected Authorization authz = null;
     protected Security security = null;
@@ -81,7 +82,7 @@ public class ServiceDispatcher {
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
 
-    protected ServiceDispatcher(GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
+    protected ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
         Debug.logInfo("[ServiceDispatcher] : Creating new instance.", module);
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
@@ -102,7 +103,7 @@ public class ServiceDispatcher {
 
         // job manager needs to always be running, but the poller thread does not
         try {
-            GenericDelegator origDelegator = this.delegator;
+            Delegator origDelegator = this.delegator;
             if (!this.delegator.getOriginalDelegatorName().equals(this.delegator.getDelegatorName())) {
                 origDelegator = GenericDelegator.getGenericDelegator(this.delegator.getOriginalDelegatorName());
             }
@@ -121,7 +122,7 @@ public class ServiceDispatcher {
         }
     }
 
-    protected ServiceDispatcher(GenericDelegator delegator) {
+    protected ServiceDispatcher(Delegator delegator) {
         this(delegator, enableJM, enableJMS, enableSvcs);
     }
 
@@ -130,7 +131,7 @@ public class ServiceDispatcher {
      * @param delegator the local delegator
      * @return A reference to this global ServiceDispatcher
      */
-    public static ServiceDispatcher getInstance(String name, GenericDelegator delegator) {
+    public static ServiceDispatcher getInstance(String name, Delegator delegator) {
         ServiceDispatcher sd = getInstance(null, null, delegator);
 
         if (!sd.containsContext(name)) {
@@ -146,7 +147,7 @@ public class ServiceDispatcher {
      * @param delegator the local delegator
      * @return A reference to this global ServiceDispatcher
      */
-    public static ServiceDispatcher getInstance(String name, DispatchContext context, GenericDelegator delegator) {
+    public static ServiceDispatcher getInstance(String name, DispatchContext context, Delegator delegator) {
         ServiceDispatcher sd;
 
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
@@ -791,10 +792,10 @@ public class ServiceDispatcher {
     }
 
     /**
-     * Gets the GenericDelegator associated with this dispatcher
-     * @return GenericDelegator associated with this dispatcher
+     * Gets the Delegator associated with this dispatcher
+     * @return Delegator associated with this dispatcher
      */
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return this.delegator;
     }
 

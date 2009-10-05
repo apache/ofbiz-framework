@@ -30,7 +30,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -58,7 +58,7 @@ public class TechDataServices {
      * @return result: a map containing lookupResult (list of RoutingTask <=> workEffortId with currentStatusId = "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
      */
     public static Map lookupRoutingTask(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map result = new HashMap();
 
         String workEffortName = (String) context.get("workEffortName");
@@ -96,7 +96,7 @@ public class TechDataServices {
      * @return result      a map containing sequenceNumNotOk which is equal to "Y" if it's not Ok
      */
     public static Map checkRoutingTaskAssoc(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map result = new HashMap();
         String sequenceNumNotOk = "N";
 
@@ -186,7 +186,7 @@ public class TechDataServices {
         }
         if (techDataCalendar == null) {
             try {
-                GenericDelegator delegator = routingTask.getDelegator();
+                Delegator delegator = routingTask.getDelegator();
                 techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar",UtilMisc.toMap("calendarId","DEFAULT"));
             } catch (GenericEntityException e) {
                 Debug.logError("Pb reading TechDataCalendar DEFAULT"+e.getMessage(), module);

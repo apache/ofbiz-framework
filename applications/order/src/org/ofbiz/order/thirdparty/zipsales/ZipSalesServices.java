@@ -41,7 +41,7 @@ import org.ofbiz.datafile.DataFile;
 import org.ofbiz.datafile.DataFileException;
 import org.ofbiz.datafile.Record;
 import org.ofbiz.datafile.RecordIterator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -65,7 +65,7 @@ public class ZipSalesServices {
 
     // import table service
     public static Map importFlatTable(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String taxFileLocation = (String) context.get("taxFileLocation");
@@ -211,7 +211,7 @@ public class ZipSalesServices {
 
     // tax calc service
     public static Map flatTaxCalc(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List itemProductList = (List) context.get("itemProductList");
         List itemAmountList = (List) context.get("itemAmountList");
         List itemShippingList = (List) context.get("itemShippingList");
@@ -261,7 +261,7 @@ public class ZipSalesServices {
         return result;
     }
 
-    private static List getItemTaxList(GenericDelegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
+    private static List getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
         List adjustments = new ArrayList();
 
         // check the item for tax status

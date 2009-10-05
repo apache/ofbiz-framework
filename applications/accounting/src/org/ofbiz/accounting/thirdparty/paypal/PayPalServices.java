@@ -46,7 +46,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
@@ -167,7 +167,7 @@ public class PayPalServices {
 
     public static Map<String, Object> payPalCheckoutUpdate(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
 
@@ -344,7 +344,7 @@ public class PayPalServices {
 
     public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
@@ -661,7 +661,7 @@ public class PayPalServices {
     // that may occur.
     public static Map<String, Object> doExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         OrderReadHelper orh = new OrderReadHelper(delegator, paymentPref.getString("orderId"));
@@ -738,7 +738,7 @@ public class PayPalServices {
     }
 
     public static Map<String, Object> doAuthorization(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         GenericValue payPalPaymentMethod = (GenericValue) context.get("payPalPaymentMethod");
@@ -929,7 +929,7 @@ public class PayPalServices {
     }
 
     private static GenericValue getPaymentMethodGatewayPayPal(DispatchContext dctx, Map<String, ? extends Object> context, String paymentServiceTypeEnumId) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         GenericValue payPalGatewayConfig = null;
 
@@ -987,7 +987,7 @@ public class PayPalServices {
         return decoder;
     }
 
-    private static String getCountryGeoIdFromGeoCode(String geoCode, GenericDelegator delegator) {
+    private static String getCountryGeoIdFromGeoCode(String geoCode, Delegator delegator) {
         String geoId = null;
         try {
             EntityCondition cond =EntityCondition.makeCondition(UtilMisc.toMap("geoTypeId", "COUNTRY", "geoCode", geoCode));
@@ -1001,7 +1001,7 @@ public class PayPalServices {
         return geoId;
     }
 
-    private static String parseStateProvinceGeoId(String payPalShipToState, String countryGeoId, GenericDelegator delegator) {
+    private static String parseStateProvinceGeoId(String payPalShipToState, String countryGeoId, Delegator delegator) {
         String lookupField = "geoName";
         List<EntityCondition> conditionList = FastList.newInstance();
         conditionList.add(EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"));

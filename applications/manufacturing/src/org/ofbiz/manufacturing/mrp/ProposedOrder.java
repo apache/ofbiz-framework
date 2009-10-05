@@ -29,7 +29,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -97,7 +97,7 @@ public class ProposedOrder {
      * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.
      * <li>else null.
      **/
-    public Map calculateStartDate(int daysToShip, GenericValue routing, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
+    public Map calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
         Map result = null;
         Timestamp endDate = (Timestamp)requiredByDate.clone();
         Timestamp startDate = endDate;
@@ -227,7 +227,7 @@ public class ProposedOrder {
             return null;
         }
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map parameters = UtilMisc.toMap("userLogin", userLogin);
         if (isBuilt) {
             try {

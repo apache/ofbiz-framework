@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.shark.instance;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
@@ -38,7 +38,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     protected GenericValue assignment = null;
     protected boolean newValue = false;
 
-    protected Assignment(EntityPersistentMgr mgr, GenericDelegator delegator, String activityId, String userName) throws PersistenceException {
+    protected Assignment(EntityPersistentMgr mgr, Delegator delegator, String activityId, String userName) throws PersistenceException {
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
@@ -56,7 +56,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
         this.assignment = assignment;
     }
 
-    public Assignment(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public Assignment(EntityPersistentMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.assignment = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAssignment);

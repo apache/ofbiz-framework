@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -42,7 +42,7 @@ public class GlEvents {
 public static final String module = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request, HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-    final GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+    final Delegator delegator = (Delegator)request.getAttribute("delegator");
     GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
     Map<String, Object> ctx = UtilHttp.getParameterMap(request);
     String acctgTransId;

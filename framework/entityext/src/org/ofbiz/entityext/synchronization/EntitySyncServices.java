@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -130,7 +131,7 @@ public class EntitySyncServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map storeEntitySyncData(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String overrideDelegatorName = (String) context.get("delegatorName");
         if (UtilValidate.isNotEmpty(overrideDelegatorName)) {
             delegator = GenericDelegator.getGenericDelegator(overrideDelegatorName);
@@ -527,7 +528,7 @@ public class EntitySyncServices {
 
     public static Map<String, Object> loadOfflineSyncData(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String fileName = (String) context.get("xmlFileName");
 
@@ -598,7 +599,7 @@ public class EntitySyncServices {
      */
     public static Map<String, Object> cleanSyncRemoveInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logInfo("Running cleanSyncRemoveInfo", module);
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         try {
             // find the largest keepRemoveInfoHours value on an EntitySyncRemove and kill everything before that, if none found default to 10 days (240 hours)

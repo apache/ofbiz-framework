@@ -44,7 +44,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -62,7 +62,7 @@ public class EbayHelper {
     private static final String module = EbayHelper.class.getName();
     public static final String resource = "EbayUiLabels";
 
-    public static Map<String, Object> buildEbayConfig(Map<String, Object> context, GenericDelegator delegator) {
+    public static Map<String, Object> buildEbayConfig(Map<String, Object> context, Delegator delegator) {
         Map<String, Object> buildEbayConfigContext = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
@@ -165,7 +165,7 @@ public class EbayHelper {
         return outputBuilder.toString();
     }
     
-    public static void setShipmentMethodType(ShoppingCart cart, String shippingService, String productStoreId, GenericDelegator delegator) {
+    public static void setShipmentMethodType(ShoppingCart cart, String shippingService, String productStoreId, Delegator delegator) {
         String partyId = "_NA_";
         String shipmentMethodTypeId = "NO_SHIPPING";
         try {
@@ -181,7 +181,7 @@ public class EbayHelper {
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);
     }
     
-    public static boolean createPaymentFromPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
+    public static boolean createPaymentFromPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
             String orderId, String externalId, Timestamp orderDate, String partyIdFrom) {
         List<GenericValue> paymentPreferences = null;
         try {
@@ -208,7 +208,7 @@ public class EbayHelper {
     public static boolean createPayment(LocalDispatcher dispatcher, GenericValue userLogin,
             GenericValue paymentPreference, String orderId, String externalId, Timestamp orderDate, String partyIdFrom) {
         try {
-            GenericDelegator delegator = paymentPreference.getDelegator();
+            Delegator delegator = paymentPreference.getDelegator();
 
             // create the PaymentGatewayResponse
             String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
@@ -239,7 +239,7 @@ public class EbayHelper {
         }
     }
 
-    public static GenericValue makeOrderAdjustment(GenericDelegator delegator, String orderAdjustmentTypeId,
+    public static GenericValue makeOrderAdjustment(Delegator delegator, String orderAdjustmentTypeId,
             String orderId, String orderItemSeqId, String shipGroupSeqId, double amount, double sourcePercentage) {
         GenericValue orderAdjustment = null;
 
@@ -442,7 +442,7 @@ public class EbayHelper {
         }
     }
 
-    public static Map<String, Object> getCountryGeoId(GenericDelegator delegator, String geoCode) {
+    public static Map<String, Object> getCountryGeoId(Delegator delegator, String geoCode) {
         GenericValue geo = null;
         try {
             Debug.logInfo("geocode: " + geoCode, module);
@@ -471,7 +471,7 @@ public class EbayHelper {
         return result;
     }
 
-    public static String setShippingAddressContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
+    public static String setShippingAddressContactMech(LocalDispatcher dispatcher, Delegator delegator,
             GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
@@ -519,7 +519,7 @@ public class EbayHelper {
         return createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", context);
     }
 
-    public static String setEmailContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
+    public static String setEmailContactMech(LocalDispatcher dispatcher, Delegator delegator,
             GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
@@ -544,7 +544,7 @@ public class EbayHelper {
         return createPartyEmail(dispatcher, partyId, (String) context.get("emailBuyer"), userLogin);
     }
 
-    public static String setPhoneContactMech(LocalDispatcher dispatcher, GenericDelegator delegator,
+    public static String setPhoneContactMech(LocalDispatcher dispatcher, Delegator delegator,
             GenericValue party, GenericValue userLogin, Map<String, Object> context) {
         String contactMechId = null;
         String partyId = (String) party.get("partyId");
@@ -579,7 +579,7 @@ public class EbayHelper {
         return createPartyPhone(dispatcher, partyId, (String) context.get("shippingAddressPhone"), userLogin);
     }
     
-    public static String retrieveProductIdFromTitle(GenericDelegator delegator, String title) {
+    public static String retrieveProductIdFromTitle(Delegator delegator, String title) {
         String productId = "";
         try {
             // First try to get an exact match: title == internalName

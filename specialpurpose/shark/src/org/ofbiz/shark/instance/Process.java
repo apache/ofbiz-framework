@@ -25,7 +25,7 @@ import org.enhydra.shark.api.internal.instancepersistence.ProcessPersistenceInte
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -43,7 +43,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     protected GenericValue process = null;
     protected boolean newValue = false;
 
-    protected Process(EntityPersistentMgr mgr, GenericDelegator delegator, String processId) throws PersistenceException {
+    protected Process(EntityPersistentMgr mgr, Delegator delegator, String processId) throws PersistenceException {
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
@@ -63,7 +63,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
         this.process = process;
     }
 
-    public Process(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public Process(EntityPersistentMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.process = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcess);

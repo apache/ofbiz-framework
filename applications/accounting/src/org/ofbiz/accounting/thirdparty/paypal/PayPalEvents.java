@@ -45,7 +45,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -67,7 +67,7 @@ public class PayPalEvents {
     /** Initiate PayPal Request */
     public static String callPayPal(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         // get the orderId
@@ -181,7 +181,7 @@ public class PayPalEvents {
     /** PayPal Call-Back Event */
     public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         // get the product store
@@ -404,7 +404,7 @@ public class PayPalEvents {
         return "success";
     }
 
-    private static boolean setPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
+    private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment prefrences..", module);
         List <GenericValue> paymentPrefs = null;
         try {
@@ -461,7 +461,7 @@ public class PayPalEvents {
         toStore.add(paymentPreference);
 
 
-        GenericDelegator delegator = paymentPreference.getDelegator();
+        Delegator delegator = paymentPreference.getDelegator();
 
         // create the PaymentGatewayResponse
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
@@ -509,7 +509,7 @@ public class PayPalEvents {
         return true;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {

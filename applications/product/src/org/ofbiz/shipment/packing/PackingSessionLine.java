@@ -27,7 +27,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
@@ -204,7 +204,7 @@ public class PackingSessionLine implements java.io.Serializable {
         if (picklistBinId != null) {
             // find the pick list item
             Debug.log("Looking up picklist item for bin ID #" + picklistBinId, module);
-            GenericDelegator delegator = dispatcher.getDelegator();
+            Delegator delegator = dispatcher.getDelegator();
             Map<String, Object> itemLookup = FastMap.newInstance();
             itemLookup.put("picklistBinId", picklistBinId);
             itemLookup.put("orderId", this.getOrderId());

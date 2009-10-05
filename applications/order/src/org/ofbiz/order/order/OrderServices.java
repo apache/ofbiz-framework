@@ -50,7 +50,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.common.DataModelConstants;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -115,7 +115,7 @@ public class OrderServices {
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(taxDecimals, taxRounding);
 
 
-    private static boolean hasPermission(String orderId, GenericValue userLogin, String action, Security security, GenericDelegator delegator) {
+    private static boolean hasPermission(String orderId, GenericValue userLogin, String action, Security security, Delegator delegator) {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         String orderTypeId = orh.getOrderTypeId();
         String partyId = null;
@@ -179,7 +179,7 @@ public class OrderServices {
     }
     /** Service for creating a new order */
     public static Map createOrder(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Security security = ctx.getSecurity();
         List toBeStored = new LinkedList();
@@ -1116,7 +1116,7 @@ public class OrderServices {
         return successResult;
     }
 
-    public static void reserveInventory(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List orderItemShipGroupInfo, List dropShipGroupIds, Map itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
+    public static void reserveInventory(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List orderItemShipGroupInfo, List dropShipGroupIds, Map itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
         boolean isImmediatelyFulfilled = false;
         GenericValue productStore = null;
         if (UtilValidate.isNotEmpty(productStoreId)) {
@@ -1284,7 +1284,7 @@ public class OrderServices {
 
     /** Service for resetting the OrderHeader grandTotal */
     public static Map resetGrandTotal(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         //appears to not be used: GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
 
@@ -1346,7 +1346,7 @@ public class OrderServices {
 
     /** Service for setting the OrderHeader grandTotal for all OrderHeaders with no grandTotal */
     public static Map setEmptyGrandTotals(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Boolean forceAll = (Boolean) context.get("forceAll");
@@ -1404,7 +1404,7 @@ public class OrderServices {
     /** Service for checking and re-calc the tax amount */
     public static Map recalcOrderTax(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -1616,7 +1616,7 @@ public class OrderServices {
     /** Service for checking and re-calc the shipping amount */
     public static Map recalcOrderShipping(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -1711,7 +1711,7 @@ public class OrderServices {
 
     /** Service for checking to see if an order is fully completed or canceled */
     public static Map checkItemStatus(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -1844,7 +1844,7 @@ public class OrderServices {
     /** Service to cancel an order item quantity */
     public static Map cancelOrderItem(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1997,7 +1997,7 @@ public class OrderServices {
 
     /** Service for changing the status on order item(s) */
     public static Map setItemStatus(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -2089,7 +2089,7 @@ public class OrderServices {
     /** Service for changing the status on an order header */
     public static Map setOrderStatus(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String statusId = (String) context.get("statusId");
@@ -2193,7 +2193,7 @@ public class OrderServices {
     /** Service to update the order tracking number */
     public static Map updateTrackingNumber(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String trackingNumber = (String) context.get("trackingNumber");
@@ -2221,7 +2221,7 @@ public class OrderServices {
     /** Service to add a role type to an order */
     public static Map addRoleType(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
         String roleTypeId = (String) context.get("roleTypeId");
@@ -2261,7 +2261,7 @@ public class OrderServices {
     /** Service to remove a role type from an order */
     public static Map removeRoleType(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
         String roleTypeId = (String) context.get("roleTypeId");
@@ -2323,7 +2323,7 @@ public class OrderServices {
 
     protected static Map sendOrderNotificationScreen(DispatchContext dctx, Map context, String emailType) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
@@ -2464,7 +2464,7 @@ public class OrderServices {
     /** Service to email order notifications for pending actions */
     public static Map sendProcessNotification(DispatchContext ctx, Map context) {
         //appears to not be used: Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         String adminEmailList = (String) context.get("adminEmailList");
         String assignedToUser = (String) context.get("assignedPartyId");
@@ -2559,7 +2559,7 @@ public class OrderServices {
     /** Service to create an order payment preference */
     public static Map createPaymentPreference(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String paymentMethodTypeId = (String) context.get("paymentMethodTypeId");
         String paymentMethodId = (String) context.get("paymentMethodId");
@@ -2597,7 +2597,7 @@ public class OrderServices {
 
     /** Service to get order header information as standard results. */
     public static Map getOrderHeaderInformation(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
 
@@ -2618,7 +2618,7 @@ public class OrderServices {
 
     /** Service to get the total shipping for an order. */
     public static Map getOrderShippingAmount(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
 
@@ -2652,7 +2652,7 @@ public class OrderServices {
     /** Service to get an order contact mech. */
     public static Map getOrderAddress(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String orderId = (String) context.get("orderId");
         //appears to not be used: GenericValue v = null;
@@ -2697,7 +2697,7 @@ public class OrderServices {
 
     /** Service to create a order header note. */
     public static Map createOrderNote(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String noteString = (String) context.get("note");
@@ -2737,7 +2737,7 @@ public class OrderServices {
     }
 
     public static Map allowOrderSplit(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
@@ -2783,7 +2783,7 @@ public class OrderServices {
     }
 
     public static Map cancelFlaggedSalesOrders(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         //Locale locale = (Locale) context.get("locale");
@@ -2905,7 +2905,7 @@ public class OrderServices {
     }
 
     public static Map checkDigitalItemFulfillment(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -3080,7 +3080,7 @@ public class OrderServices {
     }
 
     public static Map fulfillDigitalItems(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         //appears to not be used: String orderId = (String) context.get("orderId");
         List orderItems = (List) context.get("orderItems");
@@ -3186,7 +3186,7 @@ public class OrderServices {
 
     /** Service to invoice service items from order*/
     public static Map invoiceServiceItems(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -3309,7 +3309,7 @@ public class OrderServices {
 
     public static Map addItemToApprovedOrder(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
@@ -3402,7 +3402,7 @@ public class OrderServices {
 
     public static Map updateApprovedOrderItems(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
@@ -3604,7 +3604,7 @@ public class OrderServices {
 
     public static Map loadCartForUpdate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3632,7 +3632,7 @@ public class OrderServices {
      *           must be stored back using the method saveUpdatedCartToOrder(...),
      *           because that method will recreate the data.
      */
-    private static ShoppingCart loadCartForUpdate(LocalDispatcher dispatcher, GenericDelegator delegator, GenericValue userLogin, String orderId) throws GeneralException {
+    private static ShoppingCart loadCartForUpdate(LocalDispatcher dispatcher, Delegator delegator, GenericValue userLogin, String orderId) throws GeneralException {
         // load the order into a shopping cart
         Map loadCartResp = null;
         try {
@@ -3793,7 +3793,7 @@ public class OrderServices {
     public static Map saveUpdatedCartToOrder(DispatchContext dctx, Map context) throws GeneralException {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3815,7 +3815,7 @@ public class OrderServices {
         return result;
     }
 
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, GenericDelegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap) throws GeneralException {
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap) throws GeneralException {
         // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
@@ -4088,7 +4088,7 @@ public class OrderServices {
 
     public static Map processOrderPayments(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
 
@@ -4158,7 +4158,7 @@ public class OrderServices {
      * @return Map
      */
     public static Map createPaymentFromPreference(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -4272,7 +4272,7 @@ public class OrderServices {
 
     public static Map massChangeOrderStatus(DispatchContext dctx, Map context, String statusId) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List orderIds = (List) context.get("orderIdList");
         Iterator i = orderIds.iterator();
@@ -4313,7 +4313,7 @@ public class OrderServices {
 
     public static Map massChangeItemStatus(DispatchContext dctx, Map context, String statusId) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List orderIds = (List) context.get("orderIdList");
         Iterator i = orderIds.iterator();
@@ -4380,7 +4380,7 @@ public class OrderServices {
 
     public static Map massPickOrders(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         // grouped by facility
@@ -4541,7 +4541,7 @@ public class OrderServices {
     }
 
     public static Map checkCreateDropShipPurchaseOrders(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         // TODO (use the "system" user)
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -4624,7 +4624,7 @@ public class OrderServices {
     }
 
     public static Map updateOrderPaymentPreference(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -4686,7 +4686,7 @@ public class OrderServices {
      * @return
      */
     public static Map generateReqsFromCancelledPOItems(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -4761,7 +4761,7 @@ public class OrderServices {
      * @return
      */
     public static Map cancelRemainingPurchaseOrderItems(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -4839,7 +4839,7 @@ public class OrderServices {
     // create simple non-product order
     public static Map createSimpleNonProductSalesOrder(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -4911,7 +4911,7 @@ public class OrderServices {
     // generic method for creating an order from a shopping cart
     public static Map createOrderFromShoppingCart(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         GenericValue userLogin = cart.getUserLogin();
@@ -4932,7 +4932,7 @@ public class OrderServices {
     // generic method for processing an order's payment(s)
     public static Map callProcessOrderPayments(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         Transaction trans = null;
         try {
@@ -4988,7 +4988,7 @@ public class OrderServices {
      * @return Map
      */
     public static Map getOrderItemInvoicedAmountAndQuantity(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         String orderId = (String) context.get("orderId");
@@ -5119,7 +5119,7 @@ public class OrderServices {
 
     public static Map setOrderPaymentStatus(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
         String changeReason = (String) context.get("changeReason");
@@ -5155,7 +5155,7 @@ public class OrderServices {
     }
     public static Map runSubscriptionAutoReorders(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -5262,7 +5262,7 @@ public class OrderServices {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error creating subscription auto-reorders", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
             }
 
             String errMsg = "Error while creating new shopping list based automatic reorder" + e.toString();
@@ -5280,7 +5280,7 @@ public class OrderServices {
     }
 
     public static Map setShippingInstructions(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String shippingInstructions = (String) context.get("shippingInstructions");
@@ -5295,7 +5295,7 @@ public class OrderServices {
     }
 
     public static Map setGiftMessage(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String giftMessage = (String) context.get("giftMessage");
@@ -5311,7 +5311,7 @@ public class OrderServices {
     }
 
     public static Map<String, Object> createAlsoBoughtProductAssocs(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         // All orders with an entryDate > orderEntryFromDateTime will be processed
         Timestamp orderEntryFromDateTime = (Timestamp) context.get("orderEntryFromDateTime");
@@ -5382,7 +5382,7 @@ public class OrderServices {
     
     public static Map<String, Object> createAlsoBoughtProductAssocsForOrder(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         List<GenericValue> orderItems = orh.getOrderItems();

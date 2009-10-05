@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.base.crypto.HashCrypt;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.party.contact.ContactHelper;
@@ -118,7 +118,7 @@ public class LoginEvents {
      *@return String specifying the exit status of this event
      */
     public static String showPasswordHint(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         String userLoginId = request.getParameter("USERNAME");
         String errMsg = null;
@@ -173,7 +173,7 @@ public class LoginEvents {
     public static String emailPassword(HttpServletRequest request, HttpServletResponse response) {
         String defaultScreenLocation = "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail";
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
 

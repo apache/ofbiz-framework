@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -111,7 +111,7 @@ public class InvoiceServices {
 
     // service to create an invoice for a complete order by the system userid
     public static Map<String, Object> createInvoiceForOrderAllItems(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", (String) context.get("orderId")));
@@ -139,7 +139,7 @@ public class InvoiceServices {
 
     /* Service to create an invoice for an order */
     public static Map<String, Object> createInvoiceForOrder(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -804,7 +804,7 @@ public class InvoiceServices {
 
     // Service for creating commission invoices
     public static Map<String, Object> createCommissionInvoices(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -1051,7 +1051,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> createInvoicesFromShipment(DispatchContext dctx, Map<String, Object> context) {
-        //GenericDelegator delegator = dctx.getDelegator();
+        //Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
@@ -1071,7 +1071,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> setInvoicesToReadyFromShipment(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
@@ -1181,7 +1181,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<String> shipmentIds = UtilGenerics.checkList(context.get("shipmentIds"));
         Locale locale = (Locale) context.get("locale");
@@ -1671,7 +1671,7 @@ public class InvoiceServices {
         return response;
     }
 
-    private static String getInvoiceItemType(GenericDelegator delegator, String key1, String key2, String invoiceTypeId, String defaultValue) {
+    private static String getInvoiceItemType(Delegator delegator, String key1, String key2, String invoiceTypeId, String defaultValue) {
         GenericValue itemMap = null;
         try {
             if (UtilValidate.isNotEmpty(key1)) {
@@ -1692,7 +1692,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> createInvoicesFromReturnShipment(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -1794,7 +1794,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> createInvoiceFromReturn(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -2056,7 +2056,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> checkInvoicePaymentApplications(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -2149,7 +2149,7 @@ public class InvoiceServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static BigDecimal calcHeaderAdj(GenericDelegator delegator, GenericValue adj, String invoiceTypeId, String invoiceId, String invoiceItemSeqId,
+    private static BigDecimal calcHeaderAdj(Delegator delegator, GenericValue adj, String invoiceTypeId, String invoiceId, String invoiceItemSeqId,
             BigDecimal divisor, BigDecimal multiplier, BigDecimal baseAmount, int decimals, int rounding, GenericValue userLogin, LocalDispatcher dispatcher, Locale locale) {
         BigDecimal adjAmount = ZERO;
         if (adj.get("amount") != null) {
@@ -2275,7 +2275,7 @@ public class InvoiceServices {
     }
 
     /* Creates InvoiceTerm entries for a list of terms, which can be BillingAccountTerms, OrderTerms, etc. */
-    private static void createInvoiceTerms(GenericDelegator delegator, LocalDispatcher dispatcher, String invoiceId, List<GenericValue> terms, GenericValue userLogin, Locale locale) {
+    private static void createInvoiceTerms(Delegator delegator, LocalDispatcher dispatcher, String invoiceId, List<GenericValue> terms, GenericValue userLogin, Locale locale) {
         if (terms != null) {
             for (GenericValue term : terms) {
 
@@ -2344,7 +2344,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> updatePaymentApplicationDefBd(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3050,7 +3050,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> calculateInvoicedAdjustmentTotal(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         GenericValue orderAdjustment = (GenericValue) context.get("orderAdjustment");
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -3079,7 +3079,7 @@ public class InvoiceServices {
      * @param paymentApplication
      * @return map results
      */
-    private static Map<String, Object> storePaymentApplication(GenericDelegator delegator, GenericValue paymentApplication,Locale locale) {
+    private static Map<String, Object> storePaymentApplication(Delegator delegator, GenericValue paymentApplication,Locale locale) {
         Map<String, Object> results = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "AccountingSuccessFull",locale));
         boolean debug = true;
         if (debug) Debug.logInfo("Start updating the paymentApplication table ", module);
@@ -3169,7 +3169,7 @@ public class InvoiceServices {
     }
 
     public static Map<String, Object> checkPaymentInvoices(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 

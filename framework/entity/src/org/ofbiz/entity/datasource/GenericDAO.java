@@ -350,7 +350,7 @@ public class GenericDAO {
      *
      */
     private int singleUpdateView(GenericEntity entity, ModelViewEntity modelViewEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP) throws GenericEntityException {
-        GenericDelegator delegator = entity.getDelegator();
+        Delegator delegator = entity.getDelegator();
 
         int retVal = 0;
         ModelEntity memberModelEntity = null;
@@ -927,7 +927,7 @@ public class GenericDAO {
 
         // now execute the query
         List<GenericValue> retlist = FastList.newInstance();
-        GenericDelegator gd = value.getDelegator();
+        Delegator gd = value.getDelegator();
 
         try {
             sqlP.prepareStatement(sqlsb.toString());

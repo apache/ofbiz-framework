@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -101,7 +101,7 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-     public static String getNewFinAccountCode(int codeLength, GenericDelegator delegator) throws GenericEntityException {
+     public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
 
          // keep generating new account codes until a unique one is found
          Random r = new Random();
@@ -136,7 +136,7 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-     public static GenericValue getFinAccountFromCode(String finAccountCode, GenericDelegator delegator) throws GenericEntityException {
+     public static GenericValue getFinAccountFromCode(String finAccountCode, Delegator delegator) throws GenericEntityException {
          // regex magic to turn all letters in code to uppercase and then remove all non-alphanumeric letters
          if (finAccountCode == null) {
              return null;
@@ -178,7 +178,7 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-     public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
+     public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
         BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
@@ -221,7 +221,7 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-    public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
+    public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
         BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
@@ -252,7 +252,7 @@ public class FinAccountHelper {
      * @param pinNumber
      * @return true if the bin is valid
      */
-    public static boolean validatePin(GenericDelegator delegator, String finAccountId, String pinNumber) {
+    public static boolean validatePin(Delegator delegator, String finAccountId, String pinNumber) {
         GenericValue finAccount = null;
         try {
             finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
@@ -280,7 +280,7 @@ public class FinAccountHelper {
      * @return String generated number
      * @throws GenericEntityException
      */
-    public static String generateRandomFinNumber(GenericDelegator delegator, int length, boolean isId) throws GenericEntityException {
+    public static String generateRandomFinNumber(Delegator delegator, int length, boolean isId) throws GenericEntityException {
         if (length > 19) {
             length = 19;
         }
@@ -311,7 +311,7 @@ public class FinAccountHelper {
         return number;
     }
 
-    private static boolean checkIsNumberInDatabase(GenericDelegator delegator, String number) throws GenericEntityException {
+    private static boolean checkIsNumberInDatabase(Delegator delegator, String number) throws GenericEntityException {
         GenericValue finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", number));
         return finAccount == null;
     }

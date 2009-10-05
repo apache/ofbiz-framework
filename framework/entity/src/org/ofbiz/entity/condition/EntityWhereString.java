@@ -23,7 +23,7 @@ import java.util.Map;
 
 import javolution.context.ObjectFactory;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -82,7 +82,7 @@ public class EntityWhereString extends EntityCondition {
     }
 
     @Override
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
 
@@ -96,7 +96,7 @@ public class EntityWhereString extends EntityCondition {
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
+    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         // nothing to do here...
     }
 

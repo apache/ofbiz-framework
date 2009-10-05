@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -134,7 +134,7 @@ public class FedexServices {
     * Register a Fedex account for shipping by obtaining the meter number
     */
     public static Map<String, Object> fedexSubscriptionRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List<Object> errorList = FastList.newInstance();
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
@@ -370,7 +370,7 @@ public class FedexServices {
      * Send a FDXShipRequest via the Ship Manager Direct API
      */
     public static Map<String, Object> fedexShipRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         //Locale locale = (Locale) context.get("locale");

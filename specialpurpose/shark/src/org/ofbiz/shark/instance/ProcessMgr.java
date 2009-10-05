@@ -19,7 +19,7 @@
 package org.ofbiz.shark.instance;
 
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
@@ -37,7 +37,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
     protected GenericValue processMgr = null;
     protected boolean newValue = false;
 
-    protected ProcessMgr(EntityPersistentMgr mgr, GenericDelegator delegator, String name) throws PersistenceException {
+    protected ProcessMgr(EntityPersistentMgr mgr, Delegator delegator, String name) throws PersistenceException {
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
@@ -55,7 +55,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
         this.processMgr = processMgr;
     }
 
-    public ProcessMgr(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public ProcessMgr(EntityPersistentMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.processMgr = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcessMgr, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.currentState, new Long(0)));

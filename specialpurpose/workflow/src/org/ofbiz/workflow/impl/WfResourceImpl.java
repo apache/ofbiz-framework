@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.workflow.NotAssigned;
@@ -40,7 +40,7 @@ import org.ofbiz.workflow.WfResource;
  */
 public class WfResourceImpl implements WfResource {
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected String resourceKey = null;
     protected String resourceName = null;
     protected String description = null;
@@ -56,7 +56,7 @@ public class WfResourceImpl implements WfResource {
      * @param roleTypeId The roleTypeId of this resource
      * @param fromDate The fromDate of this resource
      */
-    public WfResourceImpl(GenericDelegator delegator, String resourceKey, String resourceName, String partyId, String roleTypeId) {
+    public WfResourceImpl(Delegator delegator, String resourceKey, String resourceName, String partyId, String roleTypeId) {
         this.delegator = delegator;
         this.resourceKey = resourceKey;
         this.resourceName = resourceName;

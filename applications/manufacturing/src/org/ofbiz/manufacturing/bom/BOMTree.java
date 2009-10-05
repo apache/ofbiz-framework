@@ -28,7 +28,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -48,7 +48,7 @@ public class BOMTree {
     public static final int IMPLOSION = 3;
 
     protected LocalDispatcher dispatcher = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
 
     BOMNode root;
     BigDecimal rootQuantity;
@@ -69,7 +69,7 @@ public class BOMTree {
      * @throws GenericEntityException If a db problem occurs.
      *
      */
-    public BOMTree(String productId, String bomTypeId, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public BOMTree(String productId, String bomTypeId, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         this(productId, bomTypeId, inDate, EXPLOSION, delegator, dispatcher, userLogin);
     }
 
@@ -90,7 +90,7 @@ public class BOMTree {
      * @throws GenericEntityException If a db problem occurs.
      *
      */
-    public BOMTree(String productId, String bomTypeId, Date inDate, int type, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public BOMTree(String productId, String bomTypeId, Date inDate, int type, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         // If the parameters are not valid, return.
         if (productId == null || bomTypeId == null || delegator == null || dispatcher == null) return;
         // If the date is null, set it to today.

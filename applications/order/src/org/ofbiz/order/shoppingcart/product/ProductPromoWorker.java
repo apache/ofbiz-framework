@@ -43,7 +43,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -76,7 +76,7 @@ public class ProductPromoWorker {
 
     public static final MathContext generalRounding = new MathContext(10);
 
-    public static List getStoreProductPromos(GenericDelegator delegator, LocalDispatcher dispatcher, ServletRequest request) {
+    public static List getStoreProductPromos(Delegator delegator, LocalDispatcher dispatcher, ServletRequest request) {
         List productPromos = FastList.newInstance();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -158,7 +158,7 @@ public class ProductPromoWorker {
     public static List getProductStorePromotions(ShoppingCart cart, Timestamp nowTimestamp, LocalDispatcher dispatcher) {
         List productPromoList = FastList.newInstance();
 
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
 
         String productStoreId = cart.getProductStoreId();
         GenericValue productStore = null;
@@ -201,7 +201,7 @@ public class ProductPromoWorker {
     public static List getAgreementPromotions(ShoppingCart cart, Timestamp nowTimestamp, LocalDispatcher dispatcher) {
         List productPromoList = FastList.newInstance();
 
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
 
         String agreementId = cart.getAgreementId();
         GenericValue agreement = null;
@@ -258,7 +258,7 @@ public class ProductPromoWorker {
         // limits sub total for promos to not use gift cards (products with a don't use in promo indicator), also exclude gift cards from all other promotion considerations including subTotals for discounts, etc
         // TODO: (not done, delay, still considering...) add code to check ProductPromoUse limits per promo (customer, promo), and per code (customer, code) to avoid use of promos or codes getting through due to multiple carts getting promos applied at the same time, possibly on totally different servers
 
-        GenericDelegator delegator = cart.getDelegator();
+        Delegator delegator = cart.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // start out by clearing all existing promotions, then we can just add all that apply
@@ -325,7 +325,7 @@ public class ProductPromoWorker {
         }
     }
 
-    protected static boolean hasOrderTotalCondition(GenericValue productPromo, GenericDelegator delegator) throws GenericEntityException {
+    protected static boolean hasOrderTotalCondition(GenericValue productPromo, Delegator delegator) throws GenericEntityException {
         boolean hasOtCond = false;
         List productPromoConds = delegator.findByAndCache("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"));
         Iterator productPromoCondIter = productPromoConds.iterator();
@@ -340,7 +340,7 @@ public class ProductPromoWorker {
         return hasOtCond;
     }
 
-    protected static void runProductPromos(List productPromoList, ShoppingCart cart, GenericDelegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp, boolean isolatedTestRun) throws GeneralException {
+    protected static void runProductPromos(List productPromoList, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp, boolean isolatedTestRun) throws GeneralException {
         String partyId = cart.getPartyId();
 
         // this is our safety net; we should never need to loop through the rules more than a certain number of times, this is that number and may have to be changed for insanely large promo sets...
@@ -439,7 +439,7 @@ public class ProductPromoWorker {
     }
 
     /** calculate low use limit for this promo for the current "order", check per order, customer, promo */
-    public static Long getProductPromoUseLimit(GenericValue productPromo, String partyId, GenericDelegator delegator) throws GenericEntityException {
+    public static Long getProductPromoUseLimit(GenericValue productPromo, String partyId, Delegator delegator) throws GenericEntityException {
         String productPromoId = productPromo.getString("productPromoId");
         Long candidateUseLimit = null;
 
@@ -493,7 +493,7 @@ public class ProductPromoWorker {
         return candidateUseLimit;
     }
 
-    public static Long getProductPromoCodeUseLimit(GenericValue productPromoCode, String partyId, GenericDelegator delegator) throws GenericEntityException {
+    public static Long getProductPromoCodeUseLimit(GenericValue productPromoCode, String partyId, Delegator delegator) throws GenericEntityException {
         String productPromoCodeId = productPromoCode.getString("productPromoCodeId");
         Long codeUseLimit = null;
 
@@ -533,7 +533,7 @@ public class ProductPromoWorker {
         return codeUseLimit;
     }
 
-    public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, GenericDelegator delegator) {
+    public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator) {
         try {
             GenericValue productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId));
             if (productPromoCode == null) {
@@ -594,7 +594,7 @@ public class ProductPromoWorker {
         }
     }
 
-    public static String makeAutoDescription(GenericValue productPromo, GenericDelegator delegator, Locale locale) throws GenericEntityException {
+    public static String makeAutoDescription(GenericValue productPromo, Delegator delegator, Locale locale) throws GenericEntityException {
         if (productPromo == null) {
             return "";
         }
@@ -688,7 +688,7 @@ public class ProductPromoWorker {
     }
 
     protected static boolean runProductPromoRules(ShoppingCart cart, boolean cartChanged, Long useLimit, boolean requireCode, String productPromoCodeId, Long codeUseLimit, long maxUseLimit,
-            GenericValue productPromo, List productPromoRules, LocalDispatcher dispatcher, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException, UseLimitException {
+            GenericValue productPromo, List productPromoRules, LocalDispatcher dispatcher, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException, UseLimitException {
         String productPromoId = productPromo.getString("productPromoId");
         while ((useLimit == null || useLimit.longValue() > cart.getProductPromoUseCount(productPromoId)) &&
                 (!requireCode || UtilValidate.isNotEmpty(productPromoCodeId)) &&
@@ -767,7 +767,7 @@ public class ProductPromoWorker {
         return cartChanged;
     }
 
-    protected static boolean checkCondition(GenericValue productPromoCond, ShoppingCart cart, GenericDelegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
+    protected static boolean checkCondition(GenericValue productPromoCond, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
         String condValue = productPromoCond.getString("condValue");
         String otherValue = productPromoCond.getString("otherValue");
         String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
@@ -1186,7 +1186,7 @@ public class ProductPromoWorker {
     }
 
     /** returns true if the cart was changed and rules need to be re-evaluted */
-    protected static ActionResultInfo performAction(GenericValue productPromoAction, ShoppingCart cart, GenericDelegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException, CartItemModifyException {
+    protected static ActionResultInfo performAction(GenericValue productPromoAction, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException, CartItemModifyException {
         ActionResultInfo actionResultInfo = new ActionResultInfo();
 
         String productPromoActionEnumId = productPromoAction.getString("productPromoActionEnumId");
@@ -1587,7 +1587,7 @@ public class ProductPromoWorker {
         return totalAmount;
     }
 
-    protected static void distributeDiscountAmount(BigDecimal discountAmountTotal, BigDecimal totalAmount, List cartItemsUsed, GenericValue productPromoAction, GenericDelegator delegator) {
+    protected static void distributeDiscountAmount(BigDecimal discountAmountTotal, BigDecimal totalAmount, List cartItemsUsed, GenericValue productPromoAction, Delegator delegator) {
         BigDecimal discountAmount = discountAmountTotal;
         // distribute the discount evenly weighted according to price over the order items that the individual quantities came from; avoids a number of issues with tax/shipping calc, inclusion in the sub-total for other promotions, etc
         Iterator cartItemsUsedIter = cartItemsUsed.iterator();
@@ -1632,7 +1632,7 @@ public class ProductPromoWorker {
         return null;
     }
 
-    public static void doOrderItemPromoAction(GenericValue productPromoAction, ShoppingCartItem cartItem, BigDecimal amount, String amountField, GenericDelegator delegator) {
+    public static void doOrderItemPromoAction(GenericValue productPromoAction, ShoppingCartItem cartItem, BigDecimal amount, String amountField, Delegator delegator) {
         // round the amount before setting to make sure we don't get funny numbers in there
         amount = amount.setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
@@ -1649,7 +1649,7 @@ public class ProductPromoWorker {
         cartItem.addAdjustment(orderAdjustment);
     }
 
-    public static void doOrderPromoAction(GenericValue productPromoAction, ShoppingCart cart, BigDecimal amount, String amountField, GenericDelegator delegator) {
+    public static void doOrderPromoAction(GenericValue productPromoAction, ShoppingCart cart, BigDecimal amount, String amountField, Delegator delegator) {
         // round the amount before setting to make sure we don't get funny numbers in there
         amount = amount.setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
@@ -1679,7 +1679,7 @@ public class ProductPromoWorker {
         return null;
     }
 
-    public static Set getPromoRuleCondProductIds(GenericValue productPromoCond, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    public static Set getPromoRuleCondProductIds(GenericValue productPromoCond, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         // get a cached list for the whole promo and filter it as needed, this for better efficiency in caching
         List productPromoCategoriesAll = delegator.findByAndCache("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoCond.get("productPromoId")));
         List productPromoCategories = EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoCondSeqId", "_NA_"));
@@ -1694,7 +1694,7 @@ public class ProductPromoWorker {
         return productIds;
     }
 
-    public static Set getPromoRuleActionProductIds(GenericValue productPromoAction, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    public static Set getPromoRuleActionProductIds(GenericValue productPromoAction, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         // get a cached list for the whole promo and filter it as needed, this for better efficiency in caching
         List productPromoCategoriesAll = delegator.findByAndCache("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoAction.get("productPromoId")));
         List productPromoCategories = EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoActionSeqId", "_NA_"));
@@ -1709,7 +1709,7 @@ public class ProductPromoWorker {
         return productIds;
     }
 
-    public static void makeProductPromoIdSet(Set productIds, List productPromoCategories, List productPromoProducts, GenericDelegator delegator, Timestamp nowTimestamp, boolean filterOldProducts) throws GenericEntityException {
+    public static void makeProductPromoIdSet(Set productIds, List productPromoCategories, List productPromoProducts, Delegator delegator, Timestamp nowTimestamp, boolean filterOldProducts) throws GenericEntityException {
         // do the includes
         handleProductPromoCategories(productIds, productPromoCategories, "PPPA_INCLUDE", delegator, nowTimestamp);
         handleProductPromoProducts(productIds, productPromoProducts, "PPPA_INCLUDE");
@@ -1723,11 +1723,11 @@ public class ProductPromoWorker {
         handleProductPromoProducts(productIds, productPromoProducts, "PPPA_ALWAYS");
     }
 
-    public static void makeProductPromoCondActionIdSets(String productPromoId, Set productIdsCond, Set productIdsAction, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    public static void makeProductPromoCondActionIdSets(String productPromoId, Set productIdsCond, Set productIdsAction, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         makeProductPromoCondActionIdSets(productPromoId, productIdsCond, productIdsAction, delegator, nowTimestamp, false);
     }
 
-    public static void makeProductPromoCondActionIdSets(String productPromoId, Set productIdsCond, Set productIdsAction, GenericDelegator delegator, Timestamp nowTimestamp, boolean filterOldProducts) throws GenericEntityException {
+    public static void makeProductPromoCondActionIdSets(String productPromoId, Set productIdsCond, Set productIdsAction, Delegator delegator, Timestamp nowTimestamp, boolean filterOldProducts) throws GenericEntityException {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
@@ -1784,7 +1784,7 @@ public class ProductPromoWorker {
         }
     }
 
-    protected static boolean isProductOld(String productId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    protected static boolean isProductOld(String productId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
         if (product != null) {
             Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
@@ -1795,7 +1795,7 @@ public class ProductPromoWorker {
         return false;
     }
 
-    protected static void handleProductPromoCategories(Set productIds, List productPromoCategories, String productPromoApplEnumId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+    protected static void handleProductPromoCategories(Set productIds, List productPromoCategories, String productPromoApplEnumId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         boolean include = !"PPPA_EXCLUDE".equals(productPromoApplEnumId);
         Set productCategoryIds = new HashSet();
         Map productCategoryGroupSetListMap = new HashMap();
@@ -1906,7 +1906,7 @@ public class ProductPromoWorker {
         }
     }
 
-    protected static void getAllProductIds(Set productCategoryIdSet, Set productIdSet, GenericDelegator delegator, Timestamp nowTimestamp, boolean include) throws GenericEntityException {
+    protected static void getAllProductIds(Set productCategoryIdSet, Set productIdSet, Delegator delegator, Timestamp nowTimestamp, boolean include) throws GenericEntityException {
         Iterator productCategoryIdIter = productCategoryIdSet.iterator();
         while (productCategoryIdIter.hasNext()) {
             String productCategoryId = (String) productCategoryIdIter.next();

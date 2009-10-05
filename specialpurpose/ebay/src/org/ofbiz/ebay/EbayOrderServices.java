@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -66,7 +66,7 @@ public class EbayOrderServices {
     private static List<String> orderImportFailureMessageList = FastList.newInstance();
     
     public static Map<String, Object> getEbayOrders(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         orderImportSuccessMessageList.clear();
@@ -113,7 +113,7 @@ public class EbayOrderServices {
     }
 
     public static Map<String, Object> importEbayOrders(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = FastMap.newInstance();
@@ -252,7 +252,7 @@ public class EbayOrderServices {
          return ServiceUtil.returnSuccess();
     }
     
-    private static Map<String, Object> checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String responseMsg) {
+    private static Map<String, Object> checkOrders(Delegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String responseMsg) {
         StringBuffer errorMessage = new StringBuffer();
         Map<String, Object> result = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -415,7 +415,7 @@ public class EbayOrderServices {
 //</GetOrdersResponse>
     
     
-    private static List<Map<String, Object>> readGetOrdersResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+    private static List<Map<String, Object>> readGetOrdersResponse(String responseMsg, Locale locale, String productStoreId, Delegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
         List<Map<String, Object>> fetchedOrders = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
@@ -624,7 +624,7 @@ public class EbayOrderServices {
         return fetchedOrders;
     }
     
-    private static List<Map<String, Object>> readGetSellerTransactionResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+    private static List<Map<String, Object>> readGetSellerTransactionResponse(String responseMsg, Locale locale, String productStoreId, Delegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
         List<Map<String, Object>> fetchedOrders = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
@@ -901,7 +901,7 @@ public class EbayOrderServices {
         return fetchedOrders;
     }
     
-    private static List<String> readGetMyeBaySellingResponse(String responseMsg, Locale locale, String productStoreId, GenericDelegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
+    private static List<String> readGetMyeBaySellingResponse(String responseMsg, Locale locale, String productStoreId, Delegator delegator, LocalDispatcher dispatcher, StringBuffer errorMessage, GenericValue userLogin) {
         List<String> fetchDeletedOrdersAndTransactions = FastList.newInstance();
         try {
             Document docResponse = UtilXml.readXmlDocument(responseMsg, true);
@@ -966,7 +966,7 @@ public class EbayOrderServices {
         return fetchDeletedOrdersAndTransactions;
     }
     
-    private static Map<String, Object> createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, boolean create) {
+    private static Map<String, Object> createShoppingCart(Delegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, boolean create) {
         try {
             String productStoreId = (String) context.get("productStoreId");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1215,7 +1215,7 @@ public class EbayOrderServices {
     }
     
     // Made some changes transactionId removed.
-    private static GenericValue externalOrderExists(GenericDelegator delegator, String externalId) throws GenericEntityException {
+    private static GenericValue externalOrderExists(Delegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
         GenericValue orderHeader = null;
         List<GenericValue> orderHeaderList = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
@@ -1225,7 +1225,7 @@ public class EbayOrderServices {
         return orderHeader;
     }
     
-    private static void addItem(ShoppingCart cart, Map<String, Object> orderItem, LocalDispatcher dispatcher, GenericDelegator delegator, int groupIdx) throws GeneralException {
+    private static void addItem(ShoppingCart cart, Map<String, Object> orderItem, LocalDispatcher dispatcher, Delegator delegator, int groupIdx) throws GeneralException {
         String productId = (String) orderItem.get("productId");
         GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         if (UtilValidate.isEmpty(product)) {

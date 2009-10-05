@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -63,7 +63,7 @@ public class WorldPayEvents {
     
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         // get the orderId from the request, stored by previous event(s)
         String orderId = (String) request.getAttribute("orderId");
         // get the order header
@@ -311,7 +311,7 @@ public class WorldPayEvents {
     /** WorldPay notification */
     public static String worldPayNotify(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
@@ -409,7 +409,7 @@ public class WorldPayEvents {
         return "success";
     }
     
-    private static boolean setPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
+    private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment preferences..", module);
         List<GenericValue> paymentPrefs = null;
         try {
@@ -457,7 +457,7 @@ public class WorldPayEvents {
             paymentPreference.set("statusId", "PAYMENT_NOT_RECEIVED");
         }
         toStore.add(paymentPreference);
-        GenericDelegator delegator = paymentPreference.getDelegator();
+        Delegator delegator = paymentPreference.getDelegator();
         // create the PaymentGatewayResponse
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
         GenericValue response = delegator.makeValue("PaymentGatewayResponse");
@@ -501,7 +501,7 @@ public class WorldPayEvents {
         return true;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
@@ -525,7 +525,7 @@ public class WorldPayEvents {
         return returnValue;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName, String defaultValue) {
         String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {

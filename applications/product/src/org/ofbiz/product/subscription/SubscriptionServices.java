@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -49,7 +49,7 @@ public class SubscriptionServices {
     public static final String module = SubscriptionServices.class.getName();
 
     public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -166,7 +166,7 @@ public class SubscriptionServices {
     }
 
     public static Map<String, Object> processExtendSubscriptionByProduct(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
@@ -219,7 +219,7 @@ public class SubscriptionServices {
     }
 
     public static Map<String, Object> processExtendSubscriptionByOrder(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         String orderId = (String) context.get("orderId");

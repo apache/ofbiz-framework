@@ -46,7 +46,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.LifoSet;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -403,7 +403,7 @@ public class PosTransaction implements Serializable {
     public boolean isAggregatedItem(String productId) {
         trace("is Aggregated Item", productId);
         try {
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             GenericValue product = null;
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             if ("AGGREGATED".equals(product.getString("productTypeId"))) {
@@ -424,7 +424,7 @@ public class PosTransaction implements Serializable {
         trace("get Product Config Wrapper", productId);
         ProductConfigWrapper pcw = null;
         try {
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             pcw = new ProductConfigWrapper(delegator, session.getDispatcher(),
                     productId, null, null, null, null, null, null);
         } catch (ItemNotFoundException e) {
@@ -450,7 +450,7 @@ public class PosTransaction implements Serializable {
          try {
             int index = Integer.parseInt(cartIndex);
             ShoppingCartItem product = cart.findCartItem(index);
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             pcw = product.getConfigWrapper();
         } catch (Exception e) {
             trace("general exception", e);
@@ -462,7 +462,7 @@ public class PosTransaction implements Serializable {
     public void addItem(String productId, BigDecimal quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             GenericValue product = null;
             ProductConfigWrapper pcw = null;
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
@@ -900,7 +900,7 @@ public class PosTransaction implements Serializable {
                 return null;
             }
 
-            GenericDelegator delegator = session.getDelegator();
+            Delegator delegator = session.getDelegator();
             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
             if (facilityContactMech != null) {
                 try {
@@ -1120,7 +1120,7 @@ public class PosTransaction implements Serializable {
     }
 
     public GenericValue getTerminalState() {
-        GenericDelegator delegator = session.getDelegator();
+        Delegator delegator = session.getDelegator();
         List states = null;
         try {
             states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", this.getTerminalId()));
@@ -1237,7 +1237,7 @@ public class PosTransaction implements Serializable {
          try {
             int index = Integer.parseInt(cartIndex);
             ShoppingCartItem product = cart.findCartItem(index);
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             ProductConfigWrapper pcw = null;
             pcw = product.getConfigWrapper();
             if (pcw != null) {
@@ -1255,7 +1255,7 @@ public class PosTransaction implements Serializable {
 
     public List createShoppingLists() {
         List shoppingLists = null;
-        GenericDelegator delegator = this.session.getDelegator();
+        Delegator delegator = this.session.getDelegator();
         try {
             shoppingLists = delegator.findList("ShoppingList", null, null, null, null, false);
         } catch (GenericEntityException e) {
@@ -1302,7 +1302,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean addListToCart(String shoppingListId, PosScreen pos, boolean append) {
-        GenericDelegator delegator = session.getDelegator();
+        Delegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         String includeChild = null; // Perhaps will be used later ...
         String prodCatalogId =  null;
@@ -1318,7 +1318,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean restoreOrder(String orderId, PosScreen pos, boolean append) {
-        GenericDelegator delegator = session.getDelegator();
+        Delegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
 
         Map svcCtx = FastMap.newInstance();
@@ -1362,7 +1362,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean clearList(String shoppingListId, PosScreen pos) {
-        GenericDelegator delegator = session.getDelegator();
+        Delegator delegator = session.getDelegator();
         try {
         ShoppingListEvents.clearListInfo(delegator, shoppingListId);
         } catch (GenericEntityException e) {
@@ -1384,7 +1384,7 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
         }
-        GenericDelegator delegator = this.session.getDelegator();
+        Delegator delegator = this.session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
         Locale locale = defaultLocale;
@@ -1413,7 +1413,7 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
         }
-        GenericDelegator delegator = this.session.getDelegator();
+        Delegator delegator = this.session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
         Locale locale = defaultLocale;

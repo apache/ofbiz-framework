@@ -27,7 +27,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -45,7 +45,7 @@ public class ProjectWorker {
     /** @deprecated */
     @Deprecated
     public static void getAssignedProjects(PageContext pageContext, String projectsAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
         Collection<GenericValue> validWorkEfforts = null;
@@ -74,7 +74,7 @@ public class ProjectWorker {
     /** @deprecated */
     @Deprecated
     public static void getAllAssignedProjects(PageContext pageContext, String projectsAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
         Collection validWorkEfforts = null;
@@ -100,7 +100,7 @@ public class ProjectWorker {
     /** @deprecated */
     @Deprecated
     public static void getAllProjectPhases(PageContext pageContext, String phasesAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
         String projectWorkEffortId = pageContext.getRequest().getParameter("projectWorkEffortId");
@@ -149,7 +149,7 @@ public class ProjectWorker {
     /** @deprecated */
     @Deprecated
     public static void getAllPhaseTasks(PageContext pageContext, String tasksAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
         String phaseWorkEffortId = pageContext.getRequest().getParameter("phaseWorkEffortId");
@@ -197,7 +197,7 @@ public class ProjectWorker {
     /** @deprecated */
     @Deprecated
     public static void getTaskNotes(PageContext pageContext, String notesAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
         String workEffortId = pageContext.getRequest().getParameter("workEffortId");

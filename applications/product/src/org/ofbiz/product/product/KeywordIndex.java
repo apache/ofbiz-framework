@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -73,7 +73,7 @@ public class KeywordIndex {
             }
         }
 
-        GenericDelegator delegator = product.getDelegator();
+        Delegator delegator = product.getDelegator();
         if (delegator == null) return;
         String productId = product.getString("productId");
 
@@ -206,7 +206,7 @@ public class KeywordIndex {
         }
     }
 
-    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, GenericDelegator delegator, GenericValue product) {
+    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue product) {
         Map<String, Object> drContext = UtilMisc.<String, Object>toMap("product", product);
         try {
             String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);

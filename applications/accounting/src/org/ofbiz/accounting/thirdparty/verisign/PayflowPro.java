@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -65,7 +65,7 @@ public class PayflowPro {
      * @return Response map, including RESPMSG, and RESULT keys.
      */
     public static Map<String, Object> ccProcessor(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
         String orderId = (String) context.get("orderId");
@@ -187,7 +187,7 @@ public class PayflowPro {
     }
 
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
         BigDecimal amount = (BigDecimal) context.get("captureAmount");
@@ -262,7 +262,7 @@ public class PayflowPro {
     }
 
     public static Map<String, Object> ccVoid(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");
         BigDecimal amount = (BigDecimal) context.get("releaseAmount");
@@ -338,7 +338,7 @@ public class PayflowPro {
     }
 
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         BigDecimal amount = (BigDecimal) context.get("refundAmount");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
@@ -414,7 +414,7 @@ public class PayflowPro {
     
     
     public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
         GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, cart.getProductStoreId(), "EXT_PAYPAL", null, true);
@@ -526,7 +526,7 @@ public class PayflowPro {
     
     public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
         GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, cart.getProductStoreId(), "EXT_PAYPAL", null, true);
@@ -594,7 +594,7 @@ public class PayflowPro {
 
     public static Map<String, Object> doExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         OrderReadHelper orh = new OrderReadHelper(delegator, paymentPref.getString("orderId"));
@@ -677,7 +677,7 @@ public class PayflowPro {
         }
         return parameters;
     }
-    private static void parseAuthResponse(GenericDelegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String resource, boolean isReAuth, boolean isPayPal) {
+    private static void parseAuthResponse(Delegator delegator, String paymentGatewayConfigId, String resp, Map<String, Object> result, String resource, boolean isReAuth, boolean isPayPal) {
         Map<String, String> parameters = parseResponse(resp);
 
         // txType
@@ -860,7 +860,7 @@ public class PayflowPro {
         return buf.toString();
     }
 
-    private static StringBuilder makeBaseParams(GenericDelegator delegator, String paymentGatewayConfigId, String resource) {
+    private static StringBuilder makeBaseParams(Delegator delegator, String paymentGatewayConfigId, String resource) {
         StringBuilder buf = new StringBuilder();
 
         try {
@@ -882,7 +882,7 @@ public class PayflowPro {
         return buf;
     }
 
-    private static PayflowAPI init(GenericDelegator delegator, String paymentGatewayConfigId, String resource, Map<String, ? extends Object> context) {
+    private static PayflowAPI init(Delegator delegator, String paymentGatewayConfigId, String resource, Map<String, ? extends Object> context) {
         // No more used
         // String certsPath = FlexibleStringExpander.expandString(getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "certsPath", resource, "payment.verisign.certsPath", "pfcerts"), context);
         String hostAddress = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostAddress", resource, "payment.verisign.hostAddress", "pilot-payflowpro.paypal.com");
@@ -906,7 +906,7 @@ public class PayflowPro {
         return pfp;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
@@ -930,7 +930,7 @@ public class PayflowPro {
         return returnValue;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName, String defaultValue) {
         String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
@@ -939,7 +939,7 @@ public class PayflowPro {
         return returnValue;
     }
     
-    private static boolean comparePaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static boolean comparePaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                         String resource, String parameterName, String compareValue) {
         boolean returnValue = false;
         

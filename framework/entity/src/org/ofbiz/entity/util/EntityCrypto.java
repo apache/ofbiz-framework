@@ -33,7 +33,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.entity.EntityCryptoException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -43,11 +43,11 @@ public class EntityCrypto {
 
     public static final String module = EntityCrypto.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected Map<String, SecretKey> keyMap = null;
 
     protected EntityCrypto() { }
-    public EntityCrypto(GenericDelegator delegator) {
+    public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
         this.keyMap = new HashMap<String, SecretKey>();
 

@@ -36,6 +36,7 @@ import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 
 import org.apache.catalina.Cluster;
@@ -139,7 +140,7 @@ public class CatalinaContainer implements Container {
         SSLUtil.loadJsseProperties();
     }
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected Embedded embedded = null;
     protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
     protected Map<String, Engine> engines = new HashMap<String, Engine>();

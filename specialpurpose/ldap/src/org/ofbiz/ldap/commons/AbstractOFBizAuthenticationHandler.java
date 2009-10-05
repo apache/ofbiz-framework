@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.common.login.LoginServices;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.ldap.LdapLoginWorker;
@@ -95,7 +95,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
         // get the visit id to pass to the userLogin for history
         String visitId = VisitHandler.getVisitId(session);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = dispatcher.getDelegator();
+        Delegator delegator = dispatcher.getDelegator();
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", username));
         userLoginToCreate.set("passwordHint", "");

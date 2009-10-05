@@ -34,7 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
@@ -73,7 +73,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     protected String processVersion = null;
     protected String activityId = null;
     protected String workEffortId = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected List history = null;
 
     public WfExecutionObjectImpl(GenericValue valueObject, String parentId) throws WfException {
@@ -90,7 +90,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         createRuntime(parentId);
     }
 
-    public WfExecutionObjectImpl(GenericDelegator delegator, String workEffortId) throws WfException {
+    public WfExecutionObjectImpl(Delegator delegator, String workEffortId) throws WfException {
         this.delegator = delegator;
         this.workEffortId = workEffortId;
         this.packageId = getRuntimeObject().getString("workflowPackageId");
@@ -507,7 +507,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#getDelegator()
      */
-    public GenericDelegator getDelegator() throws WfException {
+    public Delegator getDelegator() throws WfException {
         return delegator;
     }
 

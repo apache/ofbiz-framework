@@ -28,7 +28,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -97,7 +97,7 @@ public class Various {
         return startDate;
     }
 
-    public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
+    public static double calculateActualHours(Delegator delegator, String timesheetId) {
         List actuals = FastList.newInstance();
         double actualHours = 0.00;
         if (timesheetId != null) {

@@ -24,7 +24,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -51,7 +51,7 @@ public class PromoServices {
     public final static String module = PromoServices.class.getName();
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
-        //GenericDelegator delegator = dctx.getDelegator();
+        //Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Long quantity = (Long) context.get("quantity");
         //Long useLimitPerCode = (Long) context.get("useLimitPerCode");
@@ -79,7 +79,7 @@ public class PromoServices {
     }
 
     public static Map<String, Object> purgeOldStoreAutoPromos(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 

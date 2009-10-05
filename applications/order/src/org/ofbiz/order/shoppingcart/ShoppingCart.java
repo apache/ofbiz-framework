@@ -21,6 +21,8 @@ package org.ofbiz.order.shoppingcart;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -133,7 +135,7 @@ public class ShoppingCart implements Serializable {
     private Map desiredAlternateGiftByAction = new HashMap();
     private Timestamp cartCreatedTs = UtilDateTime.nowTimestamp();
 
-    private transient GenericDelegator delegator = null;
+    private transient Delegator delegator = null;
     private String delegatorName = null;
 
     protected String productStoreId = null;
@@ -230,7 +232,7 @@ public class ShoppingCart implements Serializable {
     }
 
     /** Creates new empty ShoppingCart object. */
-    public ShoppingCart(GenericDelegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom, String billToCustomerPartyId, String billFromVendorPartyId) {
+    public ShoppingCart(Delegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom, String billToCustomerPartyId, String billFromVendorPartyId) {
 
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
@@ -264,16 +266,16 @@ public class ShoppingCart implements Serializable {
 
 
     /** Creates new empty ShoppingCart object. */
-    public ShoppingCart(GenericDelegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom) {
+    public ShoppingCart(Delegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom) {
         this(delegator, productStoreId, webSiteId, locale, currencyUom, null, null);
     }
 
     /** Creates a new empty ShoppingCart object. */
-    public ShoppingCart(GenericDelegator delegator, String productStoreId, Locale locale, String currencyUom) {
+    public ShoppingCart(Delegator delegator, String productStoreId, Locale locale, String currencyUom) {
         this(delegator, productStoreId, null, locale, currencyUom);
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (delegator == null) {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
@@ -654,7 +656,7 @@ public class ShoppingCart implements Serializable {
     public List findAllCartItemsInCategory(String productCategoryId, String groupNumber) {
         if (productCategoryId == null) return this.items();
 
-        GenericDelegator delegator = this.getDelegator();
+        Delegator delegator = this.getDelegator();
         List itemsToReturn = FastList.newInstance();
         try {
             // Check for existing cart item
@@ -1634,7 +1636,7 @@ public class ShoppingCart implements Serializable {
     }
 
     /** remove declined payment methods for an order from cart.  The idea is to call this after an attempted order is rejected */
-    public void clearDeclinedPaymentMethods(GenericDelegator delegator) {
+    public void clearDeclinedPaymentMethods(Delegator delegator) {
         String orderId = this.getOrderId();
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
@@ -1825,7 +1827,7 @@ public class ShoppingCart implements Serializable {
      * @return
      * @throws GenericEntityException
      */
-    public GenericValue getGiftCertSettingFromStore(GenericDelegator delegator) throws GenericEntityException {
+    public GenericValue getGiftCertSettingFromStore(Delegator delegator) throws GenericEntityException {
         return delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", getProductStoreId(), "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
     }
 
@@ -1833,7 +1835,7 @@ public class ShoppingCart implements Serializable {
      * Determines whether pin numbers are required for gift cards, based on ProductStoreFinActSetting.  Default to true.
      * @return
      */
-    public boolean isPinRequiredForGC(GenericDelegator delegator) {
+    public boolean isPinRequiredForGC(Delegator delegator) {
         try {
             GenericValue giftCertSettings = getGiftCertSettingFromStore(delegator);
             if (giftCertSettings != null) {
@@ -1857,7 +1859,7 @@ public class ShoppingCart implements Serializable {
      * @param delegator
      * @return
      */
-    public boolean isValidateGCFinAccount(GenericDelegator delegator) {
+    public boolean isValidateGCFinAccount(Delegator delegator) {
         try {
             GenericValue giftCertSettings = getGiftCertSettingFromStore(delegator);
             if (giftCertSettings != null) {
@@ -4223,7 +4225,7 @@ public class ShoppingCart implements Serializable {
             return this.parentGroup;
         }
 
-        protected GenericValue makeOrderItemGroup(GenericDelegator delegator) {
+        protected GenericValue makeOrderItemGroup(Delegator delegator) {
             GenericValue orderItemGroup = delegator.makeValue("OrderItemGroup");
             orderItemGroup.set("orderItemGroupSeqId", this.getGroupNumber());
             orderItemGroup.set("groupName", this.getGroupName());
@@ -4308,7 +4310,7 @@ public class ShoppingCart implements Serializable {
             this.vendorPartyId = vendorPartyId;
         }
 
-        public List makeItemShipGroupAndAssoc(GenericDelegator delegator, ShoppingCart cart, long groupIndex) {
+        public List makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
             List values = new LinkedList();
 
@@ -4568,7 +4570,7 @@ public class ShoppingCart implements Serializable {
         public boolean isSwiped = false;
         public boolean overflow = false;
 
-        public GenericValue getValueObject(GenericDelegator delegator) {
+        public GenericValue getValueObject(Delegator delegator) {
             String entityName = null;
             Map lookupFields = null;
             if (paymentMethodId != null) {
@@ -4590,7 +4592,7 @@ public class ShoppingCart implements Serializable {
             return null;
         }
 
-        public GenericValue getBillingAddress(GenericDelegator delegator) {
+        public GenericValue getBillingAddress(Delegator delegator) {
             GenericValue valueObj = this.getValueObject(delegator);
             GenericValue postalAddress = null;
 
@@ -4626,7 +4628,7 @@ public class ShoppingCart implements Serializable {
             return postalAddress;
         }
 
-        public List makeOrderPaymentInfos(GenericDelegator delegator, ShoppingCart cart) {
+        public List makeOrderPaymentInfos(Delegator delegator, ShoppingCart cart) {
             BigDecimal maxAmount = ZERO;
             GenericValue valueObj = this.getValueObject(delegator);
             List values = new LinkedList();

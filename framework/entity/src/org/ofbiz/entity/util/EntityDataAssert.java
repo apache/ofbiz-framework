@@ -26,7 +26,7 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -40,7 +40,7 @@ public class EntityDataAssert {
 
     public static final String module = EntityDataAssert.class.getName();
 
-    public static int assertData(URL dataUrl, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
+    public static int assertData(URL dataUrl, Delegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;
 
         if (dataUrl == null) {
@@ -68,7 +68,7 @@ public class EntityDataAssert {
         return rowsChecked;
     }
 
-    public static void checkValueList(List valueList, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
+    public static void checkValueList(List valueList, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (valueList == null) return;
 
         Iterator valueIter = valueList.iterator();
@@ -78,7 +78,7 @@ public class EntityDataAssert {
         }
     }
 
-    public static void checkSingleValue(GenericValue checkValue, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
+    public static void checkSingleValue(GenericValue checkValue, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (checkValue == null) {
             errorMessages.add("Got a value to check was null");
             return;

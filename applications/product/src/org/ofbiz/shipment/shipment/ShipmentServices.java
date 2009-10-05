@@ -27,7 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.geo.GeoWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -56,7 +56,7 @@ public class ShipmentServices {
 
     public static Map<String, Object> createShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List<GenericValue> storeAll = FastList.newInstance();
 
         String productStoreShipMethId = (String)context.get("productStoreShipMethId");
@@ -127,7 +127,7 @@ public class ShipmentServices {
     }
 
     public static Map<String, Object> removeShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String shipmentCostEstimateId = (String) context.get("shipmentCostEstimateId");
 
         GenericValue estimate = null;
@@ -163,7 +163,7 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static boolean applyQuantityBreak(Map context, Map<String, Object> result, List<GenericValue> storeAll, GenericDelegator delegator,
+    private static boolean applyQuantityBreak(Map context, Map<String, Object> result, List<GenericValue> storeAll, Delegator delegator,
                                               GenericValue estimate, String prefix, String breakType, String breakTypeString) {
         BigDecimal min = (BigDecimal) context.get(prefix + "min");
         BigDecimal max = (BigDecimal) context.get(prefix + "max");
@@ -206,7 +206,7 @@ public class ShipmentServices {
 
     // ShippingEstimate Calc Service
     public static Map<String, Object> calcShipmentCostEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         // prepare the data
         String productStoreShipMethId = (String) context.get("productStoreShipMethId");
@@ -583,7 +583,7 @@ public class ShipmentServices {
     }
 
     public static Map<String, Object> fillShipmentStagingTables(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
 
         GenericValue shipment = null;
@@ -687,7 +687,7 @@ public class ShipmentServices {
 
     public static Map<String, Object> updateShipmentsFromStaging(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List<String> orderBy = UtilMisc.toList("shipmentId", "shipmentPackageSeqId", "voidIndicator");
@@ -848,7 +848,7 @@ public class ShipmentServices {
     }
 
     public static Map<String, Object> clearShipmentStagingInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
         try {
             delegator.removeByAnd("OdbcPackageIn", UtilMisc.toMap("shipmentId", shipmentId));
@@ -869,7 +869,7 @@ public class ShipmentServices {
      * products received (from ShipmentReceipt).
      */
     public static Map<String, Object> updatePurchaseShipmentFromReceipt(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -928,7 +928,7 @@ public class ShipmentServices {
     }
 
     public static Map<String, Object> duplicateShipmentRouteSegment(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -970,7 +970,7 @@ public class ShipmentServices {
      * Service to call a ShipmentRouteSegment.carrierPartyId's confirm shipment method asynchronously
      */
     public static Map<String, Object> quickScheduleShipmentRouteSegment(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -1017,7 +1017,7 @@ public class ShipmentServices {
      */
     public static Map<String, Object> getShipmentPackageValueFromOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
@@ -1091,7 +1091,7 @@ public class ShipmentServices {
 
     public static Map<String, Object> sendShipmentCompleteNotification(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String sendTo = (String) context.get("sendTo");

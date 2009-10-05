@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -41,7 +41,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
 
     protected EntityConditionSubSelect() { }
 
-    public EntityConditionSubSelect(String entityName, String keyFieldName, EntityCondition whereCond, boolean requireAll, GenericDelegator delegator) {
+    public EntityConditionSubSelect(String entityName, String keyFieldName, EntityCondition whereCond, boolean requireAll, Delegator delegator) {
         this(delegator.getModelEntity(entityName), keyFieldName, whereCond, requireAll);
     }
     public EntityConditionSubSelect(ModelEntity localModelEntity, String keyFieldName, EntityCondition whereCond, boolean requireAll) {
@@ -118,7 +118,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     }
 
     @Override
-    public Comparable getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public Comparable getValue(Delegator delegator, Map<String, ? extends Object> map) {
         // do nothing for now
         return null;
     }

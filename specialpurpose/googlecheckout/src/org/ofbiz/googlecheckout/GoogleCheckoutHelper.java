@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -73,10 +73,10 @@ public class GoogleCheckoutHelper {
     public static final int BILLING_ADDRESS = 50;
 
     protected LocalDispatcher dispatcher;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected GenericValue system;
 
-    public GoogleCheckoutHelper(LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public GoogleCheckoutHelper(LocalDispatcher dispatcher, Delegator delegator) {
         this.dispatcher = dispatcher;
         this.delegator = delegator;
         

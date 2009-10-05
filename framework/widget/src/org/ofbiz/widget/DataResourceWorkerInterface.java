@@ -23,15 +23,15 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 /**
  * ContentWorkerInterface
  */
 public interface DataResourceWorkerInterface {
-    public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map<String, Object> templateContext,
+    public String renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 
-    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
+    public void renderDataResourceAsTextExt(Delegator delegator, String dataResourceId, Appendable out, Map<String, Object> templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 }

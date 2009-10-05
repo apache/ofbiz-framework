@@ -50,6 +50,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
@@ -283,7 +284,7 @@ public class ContextFilter implements Filter {
     protected LocalDispatcher getDispatcher() {
         LocalDispatcher dispatcher = (LocalDispatcher) config.getServletContext().getAttribute("dispatcher");
         if (dispatcher == null) {
-            GenericDelegator delegator = getDelegator();
+            Delegator delegator = getDelegator();
 
             if (delegator == null) {
                 Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
@@ -320,8 +321,8 @@ public class ContextFilter implements Filter {
         return dispatcher;
     }
 
-    protected GenericDelegator getDelegator() {
-        GenericDelegator delegator = (GenericDelegator) config.getServletContext().getAttribute("delegator");
+    protected Delegator getDelegator() {
+        Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
         if (delegator == null) {
             String delegatorName = config.getServletContext().getInitParameter("entityDelegatorName");
 
@@ -341,7 +342,7 @@ public class ContextFilter implements Filter {
     protected Authorization getAuthz() {
         Authorization authz = (Authorization) config.getServletContext().getAttribute("authorization");        
         if (authz == null) {
-            GenericDelegator delegator = (GenericDelegator) config.getServletContext().getAttribute("delegator");
+            Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
 
             if (delegator != null) {
                 try {
@@ -362,7 +363,7 @@ public class ContextFilter implements Filter {
     protected Security getSecurity() {
         Security security = (Security) config.getServletContext().getAttribute("security");
         if (security == null) {
-            GenericDelegator delegator = (GenericDelegator) config.getServletContext().getAttribute("delegator");
+            Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
 
             if (delegator != null) {
                 try {

@@ -69,7 +69,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.ModelWidget;
@@ -1091,7 +1091,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 // because many times there will be embedded "subcontent" elements
                 // that use the syntax: <subcontent content-id="${contentId}"...
                 // and this is a step to make sure that it is there.
-                GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+                Delegator delegator = (Delegator) context.get("delegator");
                 GenericValue content = null;
                 String expandedDataResourceId = getDataResourceId(context);
                 String expandedContentId = getContentId(context);

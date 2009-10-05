@@ -33,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -56,32 +57,32 @@ public class ServerHitBin {
     public static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
 
     public static void countRequest(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         countHit(id, REQUEST, request, startTime, runningTime, userLogin, delegator);
     }
 
     public static void countEvent(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         countHit(id, EVENT, request, startTime, runningTime, userLogin, delegator);
     }
 
     public static void countView(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         countHit(id, VIEW, request, startTime, runningTime, userLogin, delegator);
     }
 
     public static void countEntity(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         countHit(id, ENTITY, request, startTime, runningTime, userLogin, delegator);
     }
 
     public static void countService(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         countHit(id, SERVICE, request, startTime, runningTime, userLogin, delegator);
     }
 
     public static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         // only count hits if enabled, if not specified defaults to false
         if (!"true".equals(UtilProperties.getPropertyValue("serverstats", "stats.enable." + typeIds[type]))) return;
         countHit(id, type, request, startTime, runningTime, userLogin, delegator, true);
@@ -110,7 +111,7 @@ public class ServerHitBin {
     }
 
     protected static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
-        GenericDelegator delegator, boolean isOriginal) {
+        Delegator delegator, boolean isOriginal) {
         if (delegator == null) {
             throw new IllegalArgumentException("The delegator passed to countHit cannot be null");
         }
@@ -224,7 +225,7 @@ public class ServerHitBin {
     }
 
     static void countHitSinceStart(String id, int type, long startTime, long runningTime, boolean isOriginal,
-        GenericDelegator delegator) {
+        Delegator delegator) {
         if (delegator == null) {
             throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
         }
@@ -325,7 +326,7 @@ public class ServerHitBin {
     public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
     public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
 
-    GenericDelegator delegator;
+    Delegator delegator;
     String delegatorName;
     String id;
     int type;
@@ -337,7 +338,7 @@ public class ServerHitBin {
     long minTime;
     long maxTime;
 
-    public ServerHitBin(String id, int type, boolean limitLength, GenericDelegator delegator) {
+    public ServerHitBin(String id, int type, boolean limitLength, Delegator delegator) {
         super();
         if (delegator == null) {
             throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
@@ -351,7 +352,7 @@ public class ServerHitBin {
         reset(getEvenStartingTime());
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (this.delegator == null) {
             this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         }

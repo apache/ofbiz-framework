@@ -25,7 +25,7 @@ import javolution.lang.Reusable;
 import javolution.util.FastList;
 
 import static org.ofbiz.base.util.UtilGenerics.cast;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -155,15 +155,15 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
         return eval(entity.getDelegator(), entity);
     }
 
-    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map) {
         return mapMatches(delegator, map) ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    abstract public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map);
+    abstract public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map);
 
     abstract public EntityCondition freeze();
 
-    abstract public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator);
+    abstract public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator);
 
     public void visit(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".visit not implemented");

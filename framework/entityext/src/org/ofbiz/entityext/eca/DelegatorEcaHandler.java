@@ -25,7 +25,7 @@ import java.util.TreeSet;
 
 import org.ofbiz.base.util.Debug;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.eca.EntityEcaHandler;
@@ -39,14 +39,14 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
     public static final String module = DelegatorEcaHandler.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected String delegatorName = null;
     protected String entityEcaReaderName = null;
     protected DispatchContext dctx = null;
 
     public DelegatorEcaHandler() { }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(delegator.getOriginalDelegatorName());

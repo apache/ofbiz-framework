@@ -23,7 +23,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityUtil;
@@ -47,7 +47,7 @@ public class FinAccountProductServices {
     public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue orderItem = (GenericValue) context.get("orderItem");
         GenericValue userLogin = (GenericValue) context.get("userLogin");

@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public interface Authorization {
 
@@ -64,7 +64,7 @@ public interface Authorization {
     /**
      * Method for injecting the delegator object
      * 
-     * @param delegator the GenericDelegator object to use for the Authorization implementation
+     * @param delegator the Delegator object to use for the Authorization implementation
      */
-    public void setDelegator(GenericDelegator delegator);
+    public void setDelegator(Delegator delegator);
 }

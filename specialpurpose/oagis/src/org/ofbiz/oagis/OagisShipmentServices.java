@@ -44,7 +44,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -94,7 +94,7 @@ public class OagisShipmentServices {
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List errorMapList = FastList.newInstance();
 
@@ -661,7 +661,7 @@ public class OagisShipmentServices {
 
     public static Map oagisSendProcessShipment(DispatchContext ctx, Map context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
 
         // Check if order is not on back order before processing shipment
@@ -1005,7 +1005,7 @@ public class OagisShipmentServices {
 
     public static Map oagisSendReceiveDelivery(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
 
         String sendToUrl = (String) context.get("sendToUrl");

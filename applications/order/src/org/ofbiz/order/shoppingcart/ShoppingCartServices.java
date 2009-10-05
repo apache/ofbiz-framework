@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -154,7 +154,7 @@ public class ShoppingCartServices {
 
     public static Map<String, Object>loadCartFromOrder(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -547,7 +547,7 @@ public class ShoppingCartServices {
 
     public static Map<String, Object> loadCartFromQuote(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String quoteId = (String) context.get("quoteId");
@@ -803,7 +803,7 @@ public class ShoppingCartServices {
 
     public static Map<String, Object>loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shoppingListId = (String) context.get("shoppingListId");
@@ -989,7 +989,7 @@ public class ShoppingCartServices {
 
     public static Map<String, Object>prepareVendorShipGroups(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         try {

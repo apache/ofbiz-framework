@@ -31,7 +31,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -52,7 +52,7 @@ public class FinAccountServices {
     public static final String module = FinAccountServices.class.getName();
 
     public static Map<String, Object> createAccountAndCredit(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String finAccountTypeId = (String) context.get("finAccountTypeId");
         String accountName = (String) context.get("accountName");
@@ -174,7 +174,7 @@ public class FinAccountServices {
     }
 
     public static Map<String, Object> createFinAccountForStore(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
@@ -233,7 +233,7 @@ public class FinAccountServices {
     }
 
     public static Map<String, Object> checkFinAccountBalance(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String finAccountId = (String) context.get("finAccountId");
         String finAccountCode = (String) context.get("finAccountCode");
 
@@ -278,7 +278,7 @@ public class FinAccountServices {
     }
 
     public static Map<String, Object> checkFinAccountStatus(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String finAccountId = (String) context.get("finAccountId");
 
         if (finAccountId == null) {
@@ -322,7 +322,7 @@ public class FinAccountServices {
 
     public static Map<String, Object> refundFinAccount(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String finAccountId = (String) context.get("finAccountId");

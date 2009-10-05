@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -39,7 +39,7 @@ public class WorkEffortPartyAssignmentServices {
 
     public static void updateWorkflowEngine(GenericValue wepa, GenericValue userLogin, LocalDispatcher dispatcher) {
         // if the WorkEffort is an ACTIVITY, check for accept or complete new status...
-        GenericDelegator delegator = wepa.getDelegator();
+        Delegator delegator = wepa.getDelegator();
         GenericValue workEffort = null;
 
         try {

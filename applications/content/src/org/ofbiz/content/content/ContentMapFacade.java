@@ -19,7 +19,7 @@
 
 package org.ofbiz.content.content;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityUtil;
@@ -62,7 +62,7 @@ public class ContentMapFacade implements Map {
     }
 
     protected final LocalDispatcher dispatcher;
-    protected final GenericDelegator delegator;
+    protected final Delegator delegator;
     protected final String contentId;
     protected final GenericValue value;
     protected final Map context;
@@ -95,7 +95,7 @@ public class ContentMapFacade implements Map {
         init();
     }
 
-    private ContentMapFacade(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Map context, Locale locale, String mimeTypeId, boolean cache) {
+    private ContentMapFacade(LocalDispatcher dispatcher, Delegator delegator, String contentId, Map context, Locale locale, String mimeTypeId, boolean cache) {
         this.dispatcher = dispatcher;
         this.delegator = delegator;
         this.contentId = contentId;

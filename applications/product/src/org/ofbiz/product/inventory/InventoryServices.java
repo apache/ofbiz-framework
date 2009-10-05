@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.CommonWorkers;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -60,7 +60,7 @@ public class InventoryServices {
     public static final MathContext generalRounding = new MathContext(10);
 
     public static Map<String, Object> prepareInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String inventoryItemId = (String) context.get("inventoryItemId");
         BigDecimal xferQty = (BigDecimal) context.get("xferQty");
         GenericValue inventoryItem = null;
@@ -190,7 +190,7 @@ public class InventoryServices {
     }
 
     public static Map<String, Object> completeInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String inventoryTransferId = (String) context.get("inventoryTransferId");
         GenericValue inventoryTransfer = null;
         GenericValue inventoryItem = null;
@@ -283,7 +283,7 @@ public class InventoryServices {
     }
 
     public static Map<String, Object> cancelInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String inventoryTransferId = (String) context.get("inventoryTransferId");
         GenericValue inventoryTransfer = null;
         GenericValue inventoryItem = null;
@@ -347,7 +347,7 @@ public class InventoryServices {
 
     /** In spite of the generic name this does the very specific task of checking availability of all back-ordered items and sends notices, etc */
     public static Map<String, Object> checkInventoryAvailability(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -702,7 +702,7 @@ public class InventoryServices {
 
 
     public static Map<String, Object> getProductInventorySummaryForItems(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
         String facilityId = (String) context.get("facilityId");
@@ -790,7 +790,7 @@ public class InventoryServices {
 
 
     public static Map<String, Object> getProductInventoryAndFacilitySummary(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp checkTime = (Timestamp)context.get("checkTime");
         String facilityId = (String)context.get("facilityId");

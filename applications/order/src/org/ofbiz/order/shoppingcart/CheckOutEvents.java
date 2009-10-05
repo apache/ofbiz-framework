@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.*;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -84,7 +84,7 @@ public class CheckOutEvents {
 
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         GenericValue userLogin = cart.getUserLogin();
         if (userLogin == null) userLogin = (GenericValue) session.getAttribute("userLogin");
@@ -273,7 +273,7 @@ public class CheckOutEvents {
     public static String checkPaymentMethods(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map resp = checkOutHelper.validatePaymentMethods();
         if (ServiceUtil.isError(resp)) {
@@ -324,7 +324,7 @@ public class CheckOutEvents {
     public static String setCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         // Set the payment options
         Map selectedPaymentMethods = getSelectedPaymentMethods(request);
@@ -417,7 +417,7 @@ public class CheckOutEvents {
         HttpSession session = request.getSession();
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map callResult;
@@ -470,7 +470,7 @@ public class CheckOutEvents {
     // Invoke the taxCalc
     private static void calcTax(HttpServletRequest request) throws GeneralException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
@@ -478,7 +478,7 @@ public class CheckOutEvents {
         checkOutHelper.calcAndAddTax();
     }
 
-    public static boolean explodeOrderItems(GenericDelegator delegator, ShoppingCart cart) {
+    public static boolean explodeOrderItems(Delegator delegator, ShoppingCart cart) {
         if (cart == null) return false;
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         if (productStore == null || productStore.get("explodeOrderItems") == null) {
@@ -488,7 +488,7 @@ public class CheckOutEvents {
     }
 
     public static String checkShipmentNeeded(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue productStore = null;
         try {
@@ -540,7 +540,7 @@ public class CheckOutEvents {
     private static boolean processPayment(HttpServletRequest request) throws GeneralException {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
@@ -575,7 +575,7 @@ public class CheckOutEvents {
     public static String checkOrderBlacklist(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(null, delegator, cart);
         String result;
@@ -597,7 +597,7 @@ public class CheckOutEvents {
     public static String failedBlacklistCheck(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String orderPartyId = cart.getOrderPartyId();
         GenericValue userLogin = PartyWorker.findPartyLatestUserLogin(orderPartyId, delegator);
@@ -630,7 +630,7 @@ public class CheckOutEvents {
     }
 
     public static String checkExternalCheckout(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         String paymentMethodTypeId = (String) request.getParameter("paymentMethodTypeId");
@@ -655,7 +655,7 @@ public class CheckOutEvents {
     public static String checkExternalPayment(HttpServletRequest request, HttpServletResponse response) {
         // warning there can only be ONE payment preference for this to work
         // you cannot accept multiple payment type when using an external gateway
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String result;
 
         String orderId = (String) request.getAttribute("orderId");
@@ -672,7 +672,7 @@ public class CheckOutEvents {
 
     public static String finalizeOrderEntry(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         Map paramMap = UtilHttp.getParameterMap(request);
@@ -1104,7 +1104,7 @@ public class CheckOutEvents {
     /** Create a replacement order from an existing order against a lost shipment etc. **/
     public static String createReplacementOrder(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");

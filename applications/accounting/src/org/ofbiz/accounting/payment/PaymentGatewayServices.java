@@ -43,7 +43,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -99,7 +99,7 @@ public class PaymentGatewayServices {
      * TODO: it might be nice to return the paymentGatewayResponseId
      */
     public static Map<String, Object> authOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -301,7 +301,7 @@ public class PaymentGatewayServices {
      * @return APPROVED|FAILED|ERROR for complete processing of ALL payment methods.
      */
     public static Map<String, Object> authOrderPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
         Map<String, Object> result = FastMap.newInstance();
@@ -589,7 +589,7 @@ public class PaymentGatewayServices {
     }
 
     private static GenericValue getPaymentSettings(GenericValue orderHeader, GenericValue paymentPreference, String paymentServiceType, boolean anyServiceType) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         GenericValue paymentSettings = null;
         String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
 
@@ -677,7 +677,7 @@ public class PaymentGatewayServices {
      * @return COMPLETE|FAILED|ERROR for complete processing of ALL payments.
      */
     public static Map<String, Object> releaseOrderPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
@@ -761,7 +761,7 @@ public class PaymentGatewayServices {
     }
     
     public static Map<String, Object> processCreditResult(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String currencyUomId = (String) context.get("currencyUomId");
@@ -844,7 +844,7 @@ public class PaymentGatewayServices {
      * @return SUCCESS|FAILED|ERROR for complete processing of payment.
      */
     public static Map<String, Object> releaseOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
@@ -952,7 +952,7 @@ public class PaymentGatewayServices {
     }
     
     public static Map<String, Object> processReleaseResult(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String currencyUomId = (String) context.get("currencyUomId");
@@ -1035,7 +1035,7 @@ public class PaymentGatewayServices {
      * @return COMPLETE|FAILED|ERROR for complete processing of ALL payment methods.
      */
     public static Map<String, Object> capturePaymentsByInvoice(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String invoiceId = (String) context.get("invoiceId");
@@ -1113,7 +1113,7 @@ public class PaymentGatewayServices {
      * @return COMPLETE|FAILED|ERROR for complete processing of ALL payment methods.
      */
     public static Map<String, Object> captureOrderPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -1360,7 +1360,7 @@ public class PaymentGatewayServices {
 
     public static Map<String, Object> processCaptureSplitPayment(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
@@ -1432,7 +1432,7 @@ public class PaymentGatewayServices {
 
     // Deprecated: use captureBillingAccountPayments instead of this.
     public static Map<String, Object> captureBillingAccountPayment(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String invoiceId = (String) context.get("invoiceId");
@@ -1515,7 +1515,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object> captureBillingAccountPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String invoiceId = (String) context.get("invoiceId");
         String billingAccountId = (String) context.get("billingAccountId");
         BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
@@ -1733,7 +1733,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object> storePaymentErrorMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String serviceType = (String) context.get("paymentServiceTypeEnumId");
         String transactionCode = (String) context.get("transCodeEnumId");
@@ -1809,7 +1809,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object> processAuthResult(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         Boolean authResult = (Boolean) context.get("authResult");
         String authType = (String) context.get("serviceTypeEnum");
@@ -1955,7 +1955,7 @@ public class PaymentGatewayServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static boolean needsNsfRetry(GenericValue orderPaymentPreference, Map<String, ? extends Object> processContext, GenericDelegator delegator) throws GenericEntityException {
+    private static boolean needsNsfRetry(GenericValue orderPaymentPreference, Map<String, ? extends Object> processContext, Delegator delegator) throws GenericEntityException {
         boolean needsNsfRetry = false;
         if (Boolean.TRUE.equals((Boolean) processContext.get("resultNsf"))) {
             // only track this for auto-orders, since we will only not fail and re-try on those
@@ -2109,7 +2109,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object> processCaptureResult(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         GenericValue paymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -2293,7 +2293,7 @@ public class PaymentGatewayServices {
     }
     
     public static Map<String, Object> refundOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
@@ -2428,7 +2428,7 @@ public class PaymentGatewayServices {
 
     public static Map<String, Object> processRefundResult(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
@@ -2530,7 +2530,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object>retryFailedOrderAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2594,7 +2594,7 @@ public class PaymentGatewayServices {
 
 
     public static Map<String, Object>retryFailedAuths(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -2639,7 +2639,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object>retryFailedAuthNsfs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -2810,7 +2810,7 @@ public class PaymentGatewayServices {
     private static void savePgr(DispatchContext dctx, GenericValue pgr) {
         Map<String, GenericValue> context = UtilMisc.<String, GenericValue>toMap("paymentGatewayResponse", pgr);
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         try {
             dispatcher.addRollbackService("savePaymentGatewayResponse", context, true);
@@ -2821,7 +2821,7 @@ public class PaymentGatewayServices {
     }
 
     public static Map<String, Object> savePaymentGatewayResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
         String message = pgr.getString("gatewayMessage");
         if (message.length() > 255) {
@@ -2841,7 +2841,7 @@ public class PaymentGatewayServices {
     public static Map<String, Object> processManualCcAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
         // security check
@@ -2966,7 +2966,7 @@ public class PaymentGatewayServices {
     public static Map<String, Object> processManualCcTx(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         // security check
         if (!security.hasEntityPermission("MANUAL", "_PAYMENT", userLogin)) {
@@ -3123,7 +3123,7 @@ public class PaymentGatewayServices {
     // Verify Credit Card (Manually) Service
     public static Map<String, Object>verifyCreditCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         String mode = (String) context.get("mode");
         String paymentMethodId = (String) context.get("paymentMethodId");
@@ -3518,7 +3518,7 @@ public class PaymentGatewayServices {
         return result;
     }
     
-    public static String getPaymentCustomMethod(GenericDelegator delegator, String customMethodId) {
+    public static String getPaymentCustomMethod(Delegator delegator, String customMethodId) {
         String serviceName = null;
         GenericValue customMethod = null;
         try {

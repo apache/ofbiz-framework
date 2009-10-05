@@ -46,7 +46,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -1741,8 +1741,8 @@ public class ModelForm extends ModelWidget {
         return dispatcher;
     }
 
-    public GenericDelegator getDelegator(Map<String, Object> context) {
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+    public Delegator getDelegator(Map<String, Object> context) {
+        Delegator delegator = (Delegator) context.get("delegator");
         return delegator;
     }
 

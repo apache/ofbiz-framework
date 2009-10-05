@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -67,7 +67,7 @@ public class ProductsExportToEbay {
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         productExportSuccessMessageList.clear();
         productExportFailureMessageList.clear();
         Map<String, Object> result = FastMap.newInstance();
@@ -180,7 +180,7 @@ public class ProductsExportToEbay {
     private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token, GenericValue prod) {
         Locale locale = (Locale)context.get("locale");
         try {
-            GenericDelegator delegator = dctx.getDelegator();
+            Delegator delegator = dctx.getDelegator();
             String webSiteUrl = (String)context.get("webSiteUrl");
             List selectResult = (List)context.get("selectResult");
 
@@ -458,7 +458,7 @@ public class ProductsExportToEbay {
         }
     }
 
-    private static void setMiscDetails(Document itemDocument, Element itemElem, Map context, GenericDelegator delegator) throws Exception {
+    private static void setMiscDetails(Document itemDocument, Element itemElem, Map context, Delegator delegator) throws Exception {
         String customXmlFromUI = (String) context.get("customXml");
         String customXml = "";
         if (UtilValidate.isNotEmpty(customXmlFromUI)) {
@@ -480,7 +480,7 @@ public class ProductsExportToEbay {
     }
     
     public static Map getEbayCategories(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String categoryCode = (String)context.get("categoryCode");
         Map result = null;

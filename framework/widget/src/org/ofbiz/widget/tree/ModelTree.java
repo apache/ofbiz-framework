@@ -46,7 +46,7 @@ import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.widget.screen.ScreenRenderException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -71,7 +71,7 @@ public class ModelTree extends ModelWidget {
     protected FlexibleStringExpander defaultWrapStyleExdr;
     protected List<ModelNode> nodeList = FastList.newInstance();
     protected Map<String, ModelNode> nodeMap = FastMap.newInstance();
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
     protected FlexibleStringExpander trailNameExdr;
@@ -87,7 +87,7 @@ public class ModelTree extends ModelWidget {
     /** XML Constructor */
     public ModelTree() {}
 
-    public ModelTree(Element treeElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public ModelTree(Element treeElement, Delegator delegator, LocalDispatcher dispatcher) {
         super(treeElement);
         this.rootNodeName = treeElement.getAttribute("root-node-name");
         this.defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
@@ -247,7 +247,7 @@ public class ModelTree extends ModelWidget {
         return this.dispatcher;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return this.delegator;
     }
 
@@ -470,7 +470,7 @@ public class ModelTree extends ModelWidget {
                 nodeCount = (Long) obj;
             }
             String entName = this.getEntityName();
-            GenericDelegator delegator = modelTree.getDelegator();
+            Delegator delegator = modelTree.getDelegator();
             ModelEntity modelEntity = delegator.getModelEntity(entName);
             ModelField modelField = null;
             if (modelEntity.isField(countFieldName)) {

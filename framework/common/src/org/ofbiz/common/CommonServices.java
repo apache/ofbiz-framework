@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilValidate;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -129,7 +129,7 @@ public class CommonServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> createNote(DispatchContext ctx, Map<String, ?> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp noteDate = (Timestamp) context.get("noteDate");
         String partyId = (String) context.get("partyId");
@@ -242,7 +242,7 @@ public class CommonServices {
 
     /** Cause a Referential Integrity Error */
     public static Map<String, Object> entityFailTest(DispatchContext dctx, Map<String, ?> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         // attempt to create a DataSource entity w/ an invalid dataSourceTypeId
         GenericValue newEntity = delegator.makeValue("DataSource");
@@ -269,7 +269,7 @@ public class CommonServices {
 
     /** Test entity sorting */
     public static Map<String, Object> entitySortTest(DispatchContext dctx, Map<String, ?> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Set<ModelEntity> set = new TreeSet<ModelEntity>();
 
         set.add(delegator.getModelEntity("Person"));
@@ -291,7 +291,7 @@ public class CommonServices {
     }
 
     public static Map<String, Object> makeALotOfVisits(DispatchContext dctx, Map<String, ?> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         int count = ((Integer) context.get("count")).intValue();
 
         for (int i = 0; i < count; i++) {
@@ -478,7 +478,7 @@ public class CommonServices {
     }
 
     public static Map<String, Object> ping(DispatchContext dctx, Map<String, ?> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String message = (String) context.get("message");
         if (message == null) {
             message = "PONG";

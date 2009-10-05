@@ -34,7 +34,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
@@ -54,7 +54,7 @@ public class ContentDocument {
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 
-    public static Document Document(String id, GenericDelegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
+    public static Document Document(String id, Delegator delegator, LocalDispatcher dispatcher) throws InterruptedException  {
 
         Document doc = null;
         GenericValue content;
@@ -96,7 +96,7 @@ public class ContentDocument {
         if (UtilValidate.isNotEmpty(description))
             doc.add(new Field("description", description, Store.YES, Index.ANALYZED, TermVector.NO));
         List ancestorList = FastList.newInstance();
-        GenericDelegator delegator = content.getDelegator();
+        Delegator delegator = content.getDelegator();
         ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
         String ancestorString = StringUtil.join(ancestorList, " ");
         //Debug.logInfo("in ContentDocument, ancestorString:" + ancestorString,
@@ -116,7 +116,7 @@ public class ContentDocument {
     }
 
     public static boolean indexDataResource(GenericValue content, Document doc, Map context, LocalDispatcher dispatcher) {
-        GenericDelegator delegator = content.getDelegator();
+        Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
         //Debug.logInfo("in ContentDocument, contentId:" + contentId,
         // module);

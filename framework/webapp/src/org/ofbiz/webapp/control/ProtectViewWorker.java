@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.ServiceUtil;
@@ -60,7 +60,7 @@ public class ProtectViewWorker {
         HttpSession session = request.getSession();
         String viewNameId = RequestHandler.getRequestUri(request.getPathInfo());
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String  returnValue = "success";
 
         if (userLogin != null) {

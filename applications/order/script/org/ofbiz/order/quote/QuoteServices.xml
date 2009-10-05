@@ -309,7 +309,7 @@ under the License.
                     </condition>
                     <then>
                         <call-class-method class-name="org.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
-                            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+                            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
                             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
                             <field field="parameters.configId" type="java.lang.String"/>
                             <field field="parameters.productId" type="java.lang.String"/>

@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -67,7 +67,7 @@ public class OagisInventoryServices {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         List errorMapList = FastList.newInstance();
@@ -364,7 +364,7 @@ public class OagisInventoryServices {
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
         Map comiCtx = FastMap.newInstance();
 
@@ -658,7 +658,7 @@ public class OagisInventoryServices {
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
 
         GenericValue userLogin = null;
@@ -1193,7 +1193,7 @@ public class OagisInventoryServices {
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         List errorMapList = FastList.newInstance();
 
         GenericValue userLogin = null;

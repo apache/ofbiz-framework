@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.cache.Cache;
@@ -43,7 +43,7 @@ public class EntityAuthorization extends AbstractAuthorization {
 
     private static final String module = EntityAuthorization.class.getName();
     
-    protected GenericDelegator delegator; 
+    protected Delegator delegator; 
     
     @Override
     public List<String> getAutoGrantPermissions(String userId, String permission, Map<String, ? extends Object> context) {
@@ -138,7 +138,7 @@ public class EntityAuthorization extends AbstractAuthorization {
         return false;
     }
     
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
     

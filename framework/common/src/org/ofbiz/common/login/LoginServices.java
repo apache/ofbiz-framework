@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -90,7 +90,7 @@ public class LoginServices {
         }
 
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
         // if isServiceAuth is not specified, default to not a service auth
@@ -432,7 +432,7 @@ public class LoginServices {
         return result;
     }
 
-    private static void createUserLoginPasswordHistory(GenericDelegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
+    private static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
         try {
             passwordChangeHistoryLimit = Integer.parseInt(UtilProperties.getPropertyValue("security.properties", "password.change.history.limit", "0"));
@@ -479,7 +479,7 @@ public class LoginServices {
      */
     public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         List<String> errorMessageList = FastList.newInstance();
@@ -573,7 +573,7 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updatePassword(DispatchContext ctx, Map<String, ?> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -706,7 +706,7 @@ public class LoginServices {
      */
     public static Map<String, Object> updateUserLoginId(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         List<String> errorMessageList = FastList.newInstance();
         Locale locale = (Locale) context.get("locale");
@@ -818,7 +818,7 @@ public class LoginServices {
      */
     public static Map<String, Object> updateUserLoginSecurity(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -950,7 +950,7 @@ public class LoginServices {
         Debug.logInfo(" userLogin is set to " + userLogin, module);
         if (passwordChangeHistoryLimit > 0 && userLogin != null) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
-            GenericDelegator delegator = userLogin.getDelegator();
+            Delegator delegator = userLogin.getDelegator();
             String newPasswordHash = newPassword;
             if (useEncryption) {
                 newPasswordHash = HashCrypt.getDigestHash(newPassword, getHashType());

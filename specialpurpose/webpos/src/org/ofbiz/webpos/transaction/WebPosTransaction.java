@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -67,7 +67,7 @@ public class WebPosTransaction {
     public WebPosTransaction(WebPosSession session) {
         this.webPosSession = session;
         this.partyId = "_NA_";
-        GenericDelegator delegator = session.getDelegator();
+        Delegator delegator = session.getDelegator();
         ShoppingCart cart = session.getCart();
         this.ch = new CheckOutHelper(session.getDispatcher(), delegator, cart);
         cart.setChannelType("POS_SALES_CHANNEL");
@@ -132,7 +132,7 @@ public class WebPosTransaction {
     }
 
     public GenericValue getTerminalState() {
-        GenericDelegator delegator = webPosSession.getDelegator();
+        Delegator delegator = webPosSession.getDelegator();
         List<GenericValue> states = null;
         try {
             states = delegator.findList("PosTerminalState", EntityCondition.makeCondition(UtilMisc.toMap("posTerminalId", webPosSession.getId(), "startingTxId", getTransactionId())), null, null, null, false);

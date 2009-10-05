@@ -43,6 +43,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
@@ -117,7 +118,7 @@ public class CoreEvents {
             return "error";
         }
 
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
+        Delegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
 
         if (delegator == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_delegator_name_defined", locale);
@@ -171,7 +172,7 @@ public class CoreEvents {
             return "error";
         }
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ServiceDispatcher sd = ServiceDispatcher.getInstance(dispatcherName, delegator);
 
         if (sd == null) {
@@ -202,7 +203,7 @@ public class CoreEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Authorization authz = (Authorization) request.getAttribute("authz");        
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        //GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        //Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
 

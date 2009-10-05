@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.CommonWorkers;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -89,7 +89,7 @@ public class ProductionRunServices {
      */
     public static Map cancelProductionRun(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -181,7 +181,7 @@ public class ProductionRunServices {
      */
     public static Map createProductionRun(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -451,7 +451,7 @@ public class ProductionRunServices {
      */
     public static Map updateProductionRun(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -517,7 +517,7 @@ public class ProductionRunServices {
 
     public static Map changeProductionRunStatus(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -694,7 +694,7 @@ public class ProductionRunServices {
 
     public static Map changeProductionRunTaskStatus(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -884,7 +884,7 @@ public class ProductionRunServices {
 
     public static Map getWorkEffortCosts(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String workEffortId = (String)context.get("workEffortId");
         try {
             GenericValue workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
@@ -918,7 +918,7 @@ public class ProductionRunServices {
 
     public static Map getProductionRunCost(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String workEffortId = (String)context.get("workEffortId");
@@ -940,7 +940,7 @@ public class ProductionRunServices {
     }
 
     public static Map createProductionRunTaskCosts(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -1099,7 +1099,7 @@ public class ProductionRunServices {
      */
     public static Map checkUpdatePrunRoutingTask(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1171,7 +1171,7 @@ public class ProductionRunServices {
 
     public static Map addProductionRunComponent(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
@@ -1242,7 +1242,7 @@ public class ProductionRunServices {
 
     public static Map updateProductionRunComponent(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1317,7 +1317,7 @@ public class ProductionRunServices {
 
     public static Map addProductionRunRoutingTask(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1455,7 +1455,7 @@ public class ProductionRunServices {
 
     public static Map productionRunProduce(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1661,7 +1661,7 @@ public class ProductionRunServices {
 
     public static Map productionRunDeclareAndProduce(DispatchContext ctx, Map context) {
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1726,7 +1726,7 @@ public class ProductionRunServices {
 
     public static Map productionRunTaskProduce(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1832,7 +1832,7 @@ public class ProductionRunServices {
     }
 
     public static Map productionRunTaskReturnMaterial(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         // Mandatory input fields
@@ -1895,7 +1895,7 @@ public class ProductionRunServices {
 
     public static Map updateProductionRunTask(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2069,7 +2069,7 @@ public class ProductionRunServices {
 
     public static Map approveRequirement(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2094,7 +2094,7 @@ public class ProductionRunServices {
 
     public static Map createProductionRunFromRequirement(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2154,7 +2154,7 @@ public class ProductionRunServices {
 
     public static Map createProductionRunFromConfiguration(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2320,7 +2320,7 @@ public class ProductionRunServices {
 
     public static Map createProductionRunForMktgPkg(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2425,7 +2425,7 @@ public class ProductionRunServices {
     public static Map createProductionRunsForOrder(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
@@ -2516,7 +2516,7 @@ public class ProductionRunServices {
 
     public static Map createProductionRunsForProductBom(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin =(GenericValue)context.get("userLogin");
 
@@ -2559,7 +2559,7 @@ public class ProductionRunServices {
      */
     public static Map quickRunProductionRunTask(DispatchContext ctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2603,7 +2603,7 @@ public class ProductionRunServices {
      */
     public static Map quickRunAllProductionRunTasks(DispatchContext ctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2638,7 +2638,7 @@ public class ProductionRunServices {
 
     public static Map quickStartAllProductionRunTasks(DispatchContext ctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2748,7 +2748,7 @@ public class ProductionRunServices {
      */
     public static Map getProductionRunTotResQty(DispatchContext ctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         String productId = (String) context.get("productId");
@@ -2790,7 +2790,7 @@ public class ProductionRunServices {
 
     public static Map checkDecomposeInventoryItem(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String inventoryItemId = (String)context.get("inventoryItemId");
@@ -2831,7 +2831,7 @@ public class ProductionRunServices {
 
     public static Map decomposeInventoryItem(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2938,7 +2938,7 @@ public class ProductionRunServices {
 
     public static Map setEstimatedDeliveryDates(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
 
         Map products = FastMap.newInstance();

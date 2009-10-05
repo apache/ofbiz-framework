@@ -35,7 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -62,7 +62,7 @@ public class MrpServices {
     public static final String resource = "ManufacturingUiLabels";
 
     public static Map initMrpEvents(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -505,10 +505,10 @@ public class MrpServices {
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
-    public static BigDecimal findProductMrpQoh(String mrpId, GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public static BigDecimal findProductMrpQoh(String mrpId, GenericValue product, String facilityId, LocalDispatcher dispatcher, Delegator delegator) {
         return findProductMrpQoh(mrpId, product.getString("productId"), facilityId, dispatcher, delegator);
     }
-    public static BigDecimal findProductMrpQoh(String mrpId, String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public static BigDecimal findProductMrpQoh(String mrpId, String productId, String facilityId, LocalDispatcher dispatcher, Delegator delegator) {
         Map resultMap = null;
         try {
             if (facilityId == null) {
@@ -524,10 +524,10 @@ public class MrpServices {
         return ((BigDecimal)resultMap.get("quantityOnHandTotal"));
     }
 
-    public static void logMrpError(String mrpId, String productId, String errorMessage, GenericDelegator delegator) {
+    public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
         logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
-    public static void logMrpError(String mrpId, String productId, Timestamp eventDate, String errorMessage, GenericDelegator delegator) {
+    public static void logMrpError(String mrpId, String productId, Timestamp eventDate, String errorMessage, Delegator delegator) {
         try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("MrpEvent", UtilMisc.toMap("productId", productId,
@@ -555,7 +555,7 @@ public class MrpServices {
 
     public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate, Map routingTaskStartDate, List listComponent) {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
-        GenericDelegator delegator = product.getDelegator();
+        Delegator delegator = product.getDelegator();
 
         if (UtilValidate.isNotEmpty(listComponent)) {
             Iterator listComponentIter = listComponent.iterator();
@@ -601,7 +601,7 @@ public class MrpServices {
     public static Map executeMrp(DispatchContext ctx, Map context) {
         Debug.logInfo("executeMrp called", module);
 
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();

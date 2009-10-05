@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -62,7 +62,7 @@ public class ProductSearchEvents {
      *@return String specifying the exit status of this event
      */
     public static String searchRemoveFromCategory(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("SE_SEARCH_CATEGORY_ID");
         String errMsg=null;
 
@@ -112,7 +112,7 @@ public class ProductSearchEvents {
     *@return String specifying the exit status of this event
     */
    public static String searchExpireFromCategory(HttpServletRequest request, HttpServletResponse response) {
-       GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+       Delegator delegator = (Delegator) request.getAttribute("delegator");
        String productCategoryId = request.getParameter("SE_SEARCH_CATEGORY_ID");
        String thruDateStr = request.getParameter("thruDate");
        String errMsg=null;
@@ -185,7 +185,7 @@ public class ProductSearchEvents {
     *@return String specifying the exit status of this event
     */
    public static String searchAddToCategory(HttpServletRequest request, HttpServletResponse response) {
-       GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+       Delegator delegator = (Delegator) request.getAttribute("delegator");
        String productCategoryId = request.getParameter("SE_SEARCH_CATEGORY_ID");
        String fromDateStr = request.getParameter("fromDate");
        Timestamp fromDate = null;
@@ -254,7 +254,7 @@ public class ProductSearchEvents {
      *@return String specifying the exit status of this event
      */
     public static String searchAddFeature(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
 
         String productFeatureId = request.getParameter("productFeatureId");
@@ -343,7 +343,7 @@ public class ProductSearchEvents {
      *@return String specifying the exit status of this event
      */
     public static String searchRemoveFeature(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
 
         String productFeatureId = request.getParameter("productFeatureId");
@@ -393,7 +393,7 @@ public class ProductSearchEvents {
      *@return String specifying the exit status of this event
      */
     public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String errMsg = null;
         List<Map<String, Object>> productExportList = FastList.newInstance();
 
@@ -450,7 +450,7 @@ public class ProductSearchEvents {
 
     public static EntityListIterator getProductSearchResults(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String visitId = VisitHandler.getVisitId(session);
 
         List<ProductSearch.ProductSearchConstraint> productSearchConstraintList = ProductSearchSession.ProductSearchOptions.getConstraintList(session);

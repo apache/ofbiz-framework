@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -91,7 +91,7 @@ public class CategoryWorker {
     }
 
     public static void getCategoriesWithNoParent(ServletRequest request, String attributeName) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Collection<GenericValue> results = FastList.newInstance();
 
         try {
@@ -166,7 +166,7 @@ public class CategoryWorker {
 
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, module);
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         List<GenericValue> rollups = null;
 
         try {
@@ -234,7 +234,7 @@ public class CategoryWorker {
 
     public static long categoryMemberCount(GenericValue category) {
         if (category == null) return 0;
-        GenericDelegator delegator = category.getDelegator();
+        Delegator delegator = category.getDelegator();
         long count = 0;
         try {
             count = delegator.findCountByCondition("ProductCategoryMember", buildCountCondition("productCategoryId", category.getString("productCategoryId")), null, null);
@@ -246,7 +246,7 @@ public class CategoryWorker {
 
     public static long categoryRollupCount(GenericValue category) {
         if (category == null) return 0;
-        GenericDelegator delegator = category.getDelegator();
+        Delegator delegator = category.getDelegator();
         long count = 0;
         try {
             count = delegator.findCountByCondition("ProductCategoryRollup", buildCountCondition("parentProductCategoryId", category.getString("productCategoryId")), null, null);
@@ -410,7 +410,7 @@ public class CategoryWorker {
         }
     }
 
-    public static boolean isProductInCategory(GenericDelegator delegator, String productId, String productCategoryId) throws GenericEntityException {
+    public static boolean isProductInCategory(Delegator delegator, String productId, String productCategoryId) throws GenericEntityException {
         if (productCategoryId == null) return false;
         if (productId == null || productId.length() == 0) return false;
 
@@ -435,11 +435,11 @@ public class CategoryWorker {
         }
     }
 
-    public static List<GenericValue> filterProductsInCategory(GenericDelegator delegator, List<GenericValue> valueObjects, String productCategoryId) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId) throws GenericEntityException {
         return filterProductsInCategory(delegator, valueObjects, productCategoryId, "productId");
     }
 
-    public static List<GenericValue> filterProductsInCategory(GenericDelegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
         List<GenericValue> newList = FastList.newInstance();
 
         if (productCategoryId == null) return newList;

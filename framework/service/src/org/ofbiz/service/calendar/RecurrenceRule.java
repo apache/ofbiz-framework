@@ -27,7 +27,7 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -742,17 +742,17 @@ public class RecurrenceRule {
         return rule.getString("recurrenceRuleId");
     }
 
-    public static RecurrenceRule makeRule(GenericDelegator delegator, int frequency, int interval, int count)
+    public static RecurrenceRule makeRule(Delegator delegator, int frequency, int interval, int count)
             throws RecurrenceRuleException {
         return makeRule(delegator, frequency, interval, count, 0);
     }
 
-    public static RecurrenceRule makeRule(GenericDelegator delegator, int frequency, int interval, long endTime)
+    public static RecurrenceRule makeRule(Delegator delegator, int frequency, int interval, long endTime)
             throws RecurrenceRuleException {
         return makeRule(delegator, frequency, interval, -1, endTime);
     }
 
-    public static RecurrenceRule makeRule(GenericDelegator delegator, int frequency, int interval, int count, long endTime)
+    public static RecurrenceRule makeRule(Delegator delegator, int frequency, int interval, int count, long endTime)
             throws RecurrenceRuleException {
         String freq[] = {"", "SECONDLY", "MINUTELY", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"};
 

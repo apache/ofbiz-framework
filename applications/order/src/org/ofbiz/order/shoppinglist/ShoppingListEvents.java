@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -68,7 +68,7 @@ public class ShoppingListEvents {
     public static final String PERSISTANT_LIST_NAME = "auto-save";
 
     public static String addBulkFromCart(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -90,7 +90,7 @@ public class ShoppingListEvents {
         return "success";
     }
 
-    public static String addBulkFromCart(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, GenericValue userLogin, String shoppingListId, String[] items, boolean allowPromo, boolean append) throws IllegalArgumentException {
+    public static String addBulkFromCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, GenericValue userLogin, String shoppingListId, String[] items, boolean allowPromo, boolean append) throws IllegalArgumentException {
         String errMsg = null;
 
         if (items == null || items.length == 0) {
@@ -175,7 +175,7 @@ public class ShoppingListEvents {
     }
 
     public static String addListToCart(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
 
@@ -198,7 +198,7 @@ public class ShoppingListEvents {
         return "success";
     }
 
-    public static String addListToCart(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId, String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append) throws java.lang.IllegalArgumentException {
+    public static String addListToCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId, String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append) throws java.lang.IllegalArgumentException {
         String errMsg = null;
 
         // no list; no add
@@ -361,7 +361,7 @@ public class ShoppingListEvents {
     /**
      * Finds or creates a specialized (auto-save) shopping list used to record shopping bag contents between user visits.
      */
-    public static String getAutoSaveListId(GenericDelegator delegator, LocalDispatcher dispatcher, String partyId, GenericValue userLogin, String productStoreId) throws GenericEntityException, GenericServiceException {
+    public static String getAutoSaveListId(Delegator delegator, LocalDispatcher dispatcher, String partyId, GenericValue userLogin, String productStoreId) throws GenericEntityException, GenericServiceException {
         if (partyId == null && userLogin != null) {
             partyId = userLogin.getString("partyId");
         }
@@ -397,7 +397,7 @@ public class ShoppingListEvents {
         if (cart != null && dispatcher != null) {
             GenericValue userLogin = ShoppingListEvents.getCartUserLogin(cart);
             if (userLogin == null) return; //only save carts when a user is logged in....
-            GenericDelegator delegator = cart.getDelegator();
+            Delegator delegator = cart.getDelegator();
             String autoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
 
             try {
@@ -431,7 +431,7 @@ public class ShoppingListEvents {
      * Restores the specialized (auto-save) shopping list back into the shopping cart
      */
     public static String restoreAutoSaveList(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
 
@@ -510,7 +510,7 @@ public class ShoppingListEvents {
     /**
      * Remove all items from the given list.
      */
-    public static int clearListInfo(GenericDelegator delegator, String shoppingListId) throws GenericEntityException {
+    public static int clearListInfo(Delegator delegator, String shoppingListId) throws GenericEntityException {
         // remove the survey responses first
         delegator.removeByAnd("ShoppingListItemSurvey", UtilMisc.toMap("shoppingListId", shoppingListId));
 
@@ -521,7 +521,7 @@ public class ShoppingListEvents {
     /**
      * Creates records for survey responses on survey items
      */
-    public static int makeListItemSurveyResp(GenericDelegator delegator, GenericValue item, List surveyResps) throws GenericEntityException {
+    public static int makeListItemSurveyResp(Delegator delegator, GenericValue item, List surveyResps) throws GenericEntityException {
         if (UtilValidate.isNotEmpty(surveyResps)) {
             Iterator i = surveyResps.iterator();
             int count = 0;

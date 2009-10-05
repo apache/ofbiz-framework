@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -42,7 +42,7 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
     protected GenericValue dataEventAudit = null;
     private boolean newValue = false;
 
-    public DataEventAudit(EntityAuditMgr mgr, GenericDelegator delegator, String eventAuditId) {
+    public DataEventAudit(EntityAuditMgr mgr, Delegator delegator, String eventAuditId) {
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
@@ -55,7 +55,7 @@ public class DataEventAudit extends EventAudit implements DataEventAuditPersiste
         }
     }
 
-    public DataEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
+    public DataEventAudit(EntityAuditMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.dataEventAudit = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfDataEventAudit, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.eventAuditId, this.eventAuditId));

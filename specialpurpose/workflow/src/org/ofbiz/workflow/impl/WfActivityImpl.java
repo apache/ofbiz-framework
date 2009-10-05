@@ -34,7 +34,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityTypeUtil;
@@ -79,7 +79,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         init();
     }
 
-    public WfActivityImpl(GenericDelegator delegator, String workEffortId) throws WfException {
+    public WfActivityImpl(Delegator delegator, String workEffortId) throws WfException {
         super(delegator, workEffortId);
         if (activityId == null || activityId.length() == 0)
             throw new WfException("Execution object is not of type WfActivity");

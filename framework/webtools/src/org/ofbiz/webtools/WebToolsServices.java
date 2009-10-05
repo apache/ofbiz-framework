@@ -62,6 +62,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -349,7 +350,7 @@ public class WebToolsServices {
         }
 
         String groupNameToUse = overrideGroup != null ? overrideGroup : "org.ofbiz";
-        GenericDelegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? GenericDelegator.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
+        Delegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? GenericDelegator.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
 
         String helperName = delegator.getGroupHelperName(groupNameToUse);
         if (helperName == null) {
@@ -430,7 +431,7 @@ public class WebToolsServices {
     }
 
     public static Map<String, Object> parseEntityXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         URL url = (URL) context.get("url");
         String xmltext = (String) context.get("xmltext");
@@ -468,7 +469,7 @@ public class WebToolsServices {
     }
 
     public static Map<String, Object> entityExportAll(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String outpath = (String)context.get("outpath"); // mandatory
         Integer txTimeout = (Integer)context.get("txTimeout");
@@ -607,7 +608,7 @@ public class WebToolsServices {
        </li></ul>
      * */
     public static Map<String, Object> getEntityRefData(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();

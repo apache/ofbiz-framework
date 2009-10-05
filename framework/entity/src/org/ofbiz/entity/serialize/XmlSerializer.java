@@ -48,7 +48,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.w3c.dom.Document;
@@ -74,7 +74,7 @@ public class XmlSerializer {
         return UtilXml.writeXmlDocument(document);
     }
 
-    public static Object deserialize(String content, GenericDelegator delegator)
+    public static Object deserialize(String content, Delegator delegator)
         throws SerializeException, SAXException, ParserConfigurationException, IOException {
         // readXmlDocument with false second parameter to disable validation
         Document document = UtilXml.readXmlDocument(content, false);
@@ -244,7 +244,7 @@ public class XmlSerializer {
         return element;
     }
 
-    public static Object deserializeSingle(Element element, GenericDelegator delegator) throws SerializeException {
+    public static Object deserializeSingle(Element element, Delegator delegator) throws SerializeException {
         String tagName = element.getTagName();
 
         if (tagName.equals("null")) return null;

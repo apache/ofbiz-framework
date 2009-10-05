@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -52,11 +52,11 @@ public class PaymentWorker {
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     // to be able to use in minilanguage where Boolean cannot be used
-    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId) {
+    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
         return(getPartyPaymentMethodValueMaps(delegator, partyId, false));
     }
 
-    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, Boolean showOld) {
+    public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {
         List<Map<String, GenericValue>> paymentMethodValueMaps = FastList.newInstance();
         try {
             List<GenericValue> paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
@@ -86,7 +86,7 @@ public class PaymentWorker {
     }
 
     public static Map<String, Object> getPaymentMethodAndRelated(ServletRequest request, String partyId) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> results = FastMap.newInstance();
 
         Boolean tryEntity = true;
@@ -155,7 +155,7 @@ public class PaymentWorker {
         return results;
     }
 
-    public static GenericValue getPaymentAddress(GenericDelegator delegator, String partyId) {
+    public static GenericValue getPaymentAddress(Delegator delegator, String partyId) {
         List<GenericValue> paymentAddresses = null;
         try {
             paymentAddresses = delegator.findByAnd("PartyContactMechPurpose",
@@ -204,11 +204,11 @@ public class PaymentWorker {
      * @param payment GenericValue object of the Payment
      * @return the applied total as BigDecimal
      */
-    public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId) {
+    public static BigDecimal getPaymentApplied(Delegator delegator, String paymentId) {
         return getPaymentApplied(delegator, paymentId, false);
     }
 
-    public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
+    public static BigDecimal getPaymentApplied(Delegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -231,7 +231,7 @@ public class PaymentWorker {
      * @param String paymentApplicationId
      * @return the applied amount as BigDecimal
      */
-    public static BigDecimal getPaymentAppliedAmount(GenericDelegator delegator, String paymentApplicationId) {
+    public static BigDecimal getPaymentAppliedAmount(Delegator delegator, String paymentApplicationId) {
         GenericValue paymentApplication = null;
         BigDecimal appliedAmount = BigDecimal.ZERO;
         try {
@@ -307,11 +307,11 @@ public class PaymentWorker {
            return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
 
-    public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
+    public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId) {
         return getPaymentNotApplied(delegator,paymentId, false);
     }
 
-    public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
+    public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }

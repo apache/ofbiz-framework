@@ -29,7 +29,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericResultSetClosedException;
 import org.ofbiz.entity.GenericValue;
@@ -57,7 +57,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     protected ModelFieldTypeReader modelFieldTypeReader;
     protected boolean closed = false;
     protected boolean haveMadeValue = false;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected GenericDAO genericDAO = null;
     protected EntityCondition whereCondition = null;
     protected EntityCondition havingCondition = null;
@@ -90,7 +90,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         this.modelFieldTypeReader = modelFieldTypeReader;
     }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
 

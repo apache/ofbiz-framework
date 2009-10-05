@@ -49,7 +49,7 @@ import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -292,7 +292,7 @@ public class ICalConverter {
             description = new Description(workEffort.getString("workEffortName"));
         }
         Summary summary = new Summary(UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", Locale.getDefault()));
-        GenericDelegator delegator = workEffort.getDelegator();
+        Delegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
         List<GenericValue> reminderList = delegator.findList("WorkEffortEventReminder", EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffort.get("workEffortId")), null, null, null, false);
         for (GenericValue reminder : reminderList) {
@@ -353,7 +353,7 @@ public class ICalConverter {
      * @throws GenericEntityException
      */
     public static ResponseProperties getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+        Delegator delegator = (Delegator) context.get("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
@@ -679,7 +679,7 @@ public class ICalConverter {
                     " on URL workEffortId " + context.get("workEffortId"), module);
             return ICalWorker.createForbiddenResponse(null);
         }
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+        Delegator delegator = (Delegator) context.get("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
@@ -773,7 +773,7 @@ public class ICalConverter {
             serviceMap.put("workEffortId", workEffortId);
             serviceMap.put("partyId", partyId);
             serviceMap.put("roleTypeId", fromRoleMap.get(property.getName()));
-            GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+            Delegator delegator = (Delegator) context.get("delegator");
             List<GenericValue> assignments = null;
             try {
                 assignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", serviceMap));
@@ -793,7 +793,7 @@ public class ICalConverter {
     protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
-        GenericDelegator delegator = (GenericDelegator) context.get("delegator");
+        Delegator delegator = (Delegator) context.get("delegator");
         GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         if (workEffort == null) {
             return ICalWorker.createNotFoundResponse(null);
@@ -810,7 +810,7 @@ public class ICalConverter {
 
     @SuppressWarnings("unchecked")
     protected static ResponseProperties toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
-        GenericDelegator delegator = workEffort.getDelegator();
+        Delegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
         String workEffortUid = workEffort.getString("universalId");
         String workEffortTypeId = workEffort.getString("workEffortTypeId");

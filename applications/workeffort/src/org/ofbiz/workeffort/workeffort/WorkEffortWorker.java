@@ -32,7 +32,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -53,7 +53,7 @@ public class WorkEffortWorker {
     @Deprecated
     public static void getWorkEffort(PageContext pageContext, String workEffortIdAttrName, String workEffortAttrName, String partyAssignsAttrName,
         String canViewAttrName, String tryEntityAttrName, String currentStatusAttrName) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         Security security = (Security) pageContext.getRequest().getAttribute("security");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
@@ -166,7 +166,7 @@ public class WorkEffortWorker {
         }
     }
 
-    public static List<GenericValue> getLowestLevelWorkEfforts(GenericDelegator delegator, String workEffortId, String workEffortAssocTypeId) {
+    public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId) {
         List<GenericValue> workEfforts = FastList.newInstance();
         try {
             EntityConditionList exprsLevelFirst = EntityCondition.makeCondition(UtilMisc.toList(

@@ -27,6 +27,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.EntityCryptoException;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -179,7 +180,7 @@ public class EntityExpr extends EntityCondition {
     }
 
     @Override
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
         return operator.mapMatches(delegator, map, lhs, rhs);
     }
 
@@ -208,7 +209,7 @@ public class EntityExpr extends EntityCondition {
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
+    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         if (this.lhs instanceof String) {
             ModelField modelField = modelEntity.getField((String) this.lhs);
             if (modelField != null && modelField.getEncrypt()) {
@@ -234,7 +235,7 @@ public class EntityExpr extends EntityCondition {
     }
 
     @SuppressWarnings("deprecation")
-    public void checkRhsType(ModelEntity modelEntity, GenericDelegator delegator) {
+    public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
         if (this.rhs == null || this.rhs == GenericEntity.NULL_FIELD || modelEntity == null) return;
 
         Object value = this.rhs;

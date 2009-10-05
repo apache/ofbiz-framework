@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -74,7 +74,7 @@ public class AIMPaymentServices {
     }
     
     public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
         Properties props = buildAIMProperties(context, delegator);
@@ -98,7 +98,7 @@ public class AIMPaymentServices {
     }
     
     public static Map<String, Object> ccCapture(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
@@ -143,7 +143,7 @@ public class AIMPaymentServices {
     }
     
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
         try {
@@ -224,7 +224,7 @@ public class AIMPaymentServices {
     }
     
     public static Map<String, Object> ccRelease(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -239,7 +239,7 @@ public class AIMPaymentServices {
         return results;
     }
     
-    private static Map<String, Object> voidTransaction(GenericValue authTransaction, Map<String, Object> context, GenericDelegator delegator) {
+    private static Map<String, Object> voidTransaction(GenericValue authTransaction, Map<String, Object> context, Delegator delegator) {
         context.put("authTransaction", authTransaction);
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
@@ -266,7 +266,7 @@ public class AIMPaymentServices {
     }
     
     public static Map<String, Object> ccAuthCapture(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
         Properties props = buildAIMProperties(context, delegator);
@@ -333,7 +333,7 @@ public class AIMPaymentServices {
         return "true".equalsIgnoreCase((String)AIMProperties.get("testReq"));
     }
     
-    private static Properties buildAIMProperties(Map<String, Object> context, GenericDelegator delegator) {
+    private static Properties buildAIMProperties(Map<String, Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configStr = (String) context.get("paymentConfig");
         if (configStr == null) {
@@ -639,7 +639,7 @@ public class AIMPaymentServices {
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {

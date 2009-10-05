@@ -35,7 +35,7 @@ import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -178,15 +178,15 @@ public class EntityDataLoader {
         return urlList;
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, -1);
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages, int txTimeout) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, false, false, false);
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
         int rowsChanged = 0;
 
         if (dataUrl == null) {
@@ -223,7 +223,7 @@ public class EntityDataLoader {
         return rowsChanged;
     }
 
-    public static int generateData(GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
+    public static int generateData(Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         int rowsChanged = 0;
         ModelReader reader = delegator.getModelReader();
         for (String entityName: reader.getEntityNames()) {

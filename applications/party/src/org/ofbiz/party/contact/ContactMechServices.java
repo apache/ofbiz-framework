@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -67,7 +67,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> createContactMech(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -132,7 +132,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> updateContactMech(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -267,7 +267,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> deleteContactMech(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -324,7 +324,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> createPostalAddress(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -397,7 +397,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> updatePostalAddress(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -564,7 +564,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> createTelecomNumber(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -619,7 +619,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> updateTelecomNumber(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -799,7 +799,7 @@ public class ContactMechServices {
     public static Map<String, Object> createPartyContactMechPurpose(DispatchContext ctx, Map<String, ? extends Object> context) {
         //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -858,7 +858,7 @@ public class ContactMechServices {
     public static Map<String, Object> deletePartyContactMechPurposeIfExists(DispatchContext ctx, Map<String, ? extends Object> context) {
         //Debug.logInfo(new Exception(), "In createPartyContactMechPurpose context: " + context, module);
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -915,7 +915,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> deletePartyContactMechPurpose(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -969,7 +969,7 @@ public class ContactMechServices {
      */
     public static Map<String, Object> getPartyContactMechValueMaps(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyId = (String)context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -991,7 +991,7 @@ public class ContactMechServices {
      * Copies all contact mechs from one party to another. Does not delete or overwrite any contact mechs.
      */
     public static Map<String, Object> copyPartyContactMechs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -1040,7 +1040,7 @@ public class ContactMechServices {
      * Creates an EmailAddressVerification
      */
     public static Map<String, Object> createEmailAddressVerification(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
+        Delegator delegator = (Delegator) dctx.getDelegator();
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;
 

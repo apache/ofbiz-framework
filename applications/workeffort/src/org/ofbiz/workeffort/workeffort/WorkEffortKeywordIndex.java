@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -46,7 +46,7 @@ public class WorkEffortKeywordIndex {
     public static void indexKeywords(GenericValue workEffort) throws GenericEntityException {
         if (workEffort == null) return;
 
-        GenericDelegator delegator = workEffort.getDelegator();
+        Delegator delegator = workEffort.getDelegator();
         if (delegator == null) return;
         String workEffortId = workEffort.getString("workEffortId");
         String separators = KeywordSearchUtil.getSeparators();
@@ -125,7 +125,7 @@ public class WorkEffortKeywordIndex {
 
     }
 
-    public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List<String> strings, GenericDelegator delegator, GenericValue workEffort) {
+    public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List<String> strings, Delegator delegator, GenericValue workEffort) {
         Map<String, Object> workEffortCtx = UtilMisc.<String, Object>toMap("workEffort", workEffort);
         try {
             String contentText = DataResourceWorker.renderDataResourceAsText(delegator, dataResource.getString("dataResourceId"), workEffortCtx, null, null, false);

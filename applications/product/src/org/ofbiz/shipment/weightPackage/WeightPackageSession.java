@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -62,7 +63,7 @@ public class WeightPackageSession implements Serializable {
     protected int weightPackageSeqId = 1;
     protected List<WeightPackageSessionLine> weightPackageLines = null;
 
-    private transient GenericDelegator _delegator = null;
+    private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
     private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
@@ -100,7 +101,7 @@ public class WeightPackageSession implements Serializable {
         return _dispatcher;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (_delegator == null) {
             _delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
@@ -348,7 +349,7 @@ public class WeightPackageSession implements Serializable {
     }
 
     protected BigDecimal upsShipmentConfirm() throws GeneralException {
-        GenericDelegator delegator = this.getDelegator();
+        Delegator delegator = this.getDelegator();
         BigDecimal actualCost = ZERO;
         List<GenericValue> shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId));
         if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {

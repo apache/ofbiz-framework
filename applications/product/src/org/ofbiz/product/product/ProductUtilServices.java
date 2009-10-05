@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -60,7 +60,7 @@ public class ProductUtilServices {
 
     /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
     public static Map<String, Object> discVirtualsWithDiscVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -129,7 +129,7 @@ public class ProductUtilServices {
 
     /** for all disc products, remove from category memberships */
     public static Map<String, Object> removeCategoryMembersOfDiscProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -169,7 +169,7 @@ public class ProductUtilServices {
     }
 
     public static Map<String, Object> removeDuplicateOpenEndedCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -218,7 +218,7 @@ public class ProductUtilServices {
     }
 
     public static Map<String, Object> makeStandAloneFromSingleVariantVirtuals(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -326,7 +326,7 @@ public class ProductUtilServices {
     }
 
     public static Map<String, Object> mergeVirtualWithSingleVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         String productId = (String) context.get("productId");
@@ -439,7 +439,7 @@ public class ProductUtilServices {
         return ServiceUtil.returnSuccess();
     }
 
-    protected static void duplicateRelated(GenericValue product, String title, String relatedEntityName, String productIdField, String variantProductId, Timestamp nowTimestamp, boolean removeOld, GenericDelegator delegator, boolean test) throws GenericEntityException {
+    protected static void duplicateRelated(GenericValue product, String title, String relatedEntityName, String productIdField, String variantProductId, Timestamp nowTimestamp, boolean removeOld, Delegator delegator, boolean test) throws GenericEntityException {
         List<GenericValue> relatedList = EntityUtil.filterByDate(product.getRelated(title + relatedEntityName), nowTimestamp);
         for (GenericValue relatedValue: relatedList) {
             GenericValue newRelatedValue = (GenericValue) relatedValue.clone();
@@ -484,7 +484,7 @@ public class ProductUtilServices {
      * NOTE: only works on fields of Product right now
      */
     public static Map<String, Object> setAllProductImageNames(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String pattern = (String) context.get("pattern");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -547,7 +547,7 @@ public class ProductUtilServices {
     }
 
     public static Map<String, Object> clearAllVirtualProductImageNames(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
@@ -602,7 +602,7 @@ while (allCatIter.hasNext()) {
 
 
     public static Map<String, Object> attachProductFeaturesToCategory(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productCategoryId = (String) context.get("productCategoryId");
         String doSubCategoriesStr = (String) context.get("doSubCategories");
         Locale locale = (Locale) context.get("locale");
@@ -643,7 +643,7 @@ while (allCatIter.hasNext()) {
     /** Get all features associated with products and associate them with a feature group attached to the category for each feature type;
      * includes products associated with this category only, but will also associate all feature groups of sub-categories with this category, optionally calls this method for all sub-categories too
      */
-    public static void attachProductFeaturesToCategory(String productCategoryId, Set<String> productFeatureTypeIdsToInclude, Set<String> productFeatureTypeIdsToExclude, GenericDelegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
+    public static void attachProductFeaturesToCategory(String productCategoryId, Set<String> productFeatureTypeIdsToInclude, Set<String> productFeatureTypeIdsToExclude, Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
@@ -756,7 +756,7 @@ while (allCatIter.hasNext()) {
         return ServiceUtil.returnSuccess();
     }
 
-    public static void getFeatureGroupsForCategory(String productCategoryId, Set<String> productFeatureGroupIdsToRemove, GenericDelegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
+    public static void getFeatureGroupsForCategory(String productCategoryId, Set<String> productFeatureGroupIdsToRemove, Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
 
     }
 }

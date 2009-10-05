@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -77,7 +77,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
                 //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl, ctx is NOT null(2)", "");
         }
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         if (delegator == null) {
                 //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl, delegator is null(5)", "");
         }
@@ -106,7 +106,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is NOT null(2)", "");
             this.request.setAttribute("servletContext", ctx);
         }
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (delegator == null) {
                 //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, delegator is null(6)", "");
         }

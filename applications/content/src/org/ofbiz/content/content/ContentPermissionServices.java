@@ -28,7 +28,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
@@ -93,7 +93,7 @@ public class ContentPermissionServices {
         Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", module);
 
         Security security = dctx.getSecurity();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String statusId = (String) context.get("statusId");
         String privilegeEnumId = (String) context.get("privilegeEnumId");
         GenericValue content = (GenericValue) context.get("currentContent");
@@ -261,7 +261,7 @@ public class ContentPermissionServices {
 
         Map results = FastMap.newInstance();
         Security security = dctx.getSecurity();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
         String contentIdFrom = (String) context.get("contentIdFrom");

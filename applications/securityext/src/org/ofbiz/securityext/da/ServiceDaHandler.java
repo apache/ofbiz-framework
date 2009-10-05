@@ -23,7 +23,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.authz.da.DynamicAccessHandler;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
@@ -34,7 +34,7 @@ public class ServiceDaHandler implements DynamicAccessHandler {
 
     private static final String module = ServiceDaHandler.class.getName();
     protected LocalDispatcher dispatcher;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     
     public String getPattern() {        
         return "^service:(.*)$";
@@ -67,7 +67,7 @@ public class ServiceDaHandler implements DynamicAccessHandler {
         }
     }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
         this.dispatcher = GenericDispatcher.getLocalDispatcher("SecurityDA", delegator);
     }

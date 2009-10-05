@@ -33,7 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -63,7 +63,7 @@ public class BOMServices {
     public static Map getMaxDepth(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
@@ -122,7 +122,7 @@ public class BOMServices {
      */
     public static Map updateLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productIdTo");
         Boolean alsoComponents = (Boolean) context.get("alsoComponents");
@@ -207,7 +207,7 @@ public class BOMServices {
      */
     public static Map initLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         try {
@@ -250,7 +250,7 @@ public class BOMServices {
      */
     public static Map searchDuplicatedAncestor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
@@ -284,7 +284,7 @@ public class BOMServices {
     public static Map getBOMTree(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -335,7 +335,7 @@ public class BOMServices {
     public static Map getManufacturingComponents(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 
@@ -421,7 +421,7 @@ public class BOMServices {
 
     public static Map getNotAssembledComponents(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
@@ -474,7 +474,7 @@ public class BOMServices {
     //
     public static Map createShipmentPackages(DispatchContext dctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -749,7 +749,7 @@ public class BOMServices {
     public static Map getProductsInPackages(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
 

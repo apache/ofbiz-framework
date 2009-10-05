@@ -27,7 +27,7 @@ import javax.imageio.spi.ServiceRegistry;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public class DynamicAccessFactory {
     
@@ -37,7 +37,7 @@ public class DynamicAccessFactory {
     private static UtilCache<String,DynamicAccessHandler> dynamicAccessHandlerCache = new UtilCache<String,DynamicAccessHandler>("security.DynamicAccessHandlerCache");
     private static final String module = DynamicAccessFactory.class.getName();
     
-    public static DynamicAccessHandler getDynamicAccessHandler(GenericDelegator delegator, String accessString) {
+    public static DynamicAccessHandler getDynamicAccessHandler(Delegator delegator, String accessString) {
         if (dynamicAccessHandlerCache.size() == 0) { // should always be at least 1
             loadAccessHandlers(delegator);
         }
@@ -58,7 +58,7 @@ public class DynamicAccessFactory {
         return dynamicAccessHandlerCache.get("*");
     }
     
-    private static void loadAccessHandlers(GenericDelegator delegator) {
+    private static void loadAccessHandlers(Delegator delegator) {
         Iterator<DynamicAccessHandler> it = ServiceRegistry.lookupProviders(DynamicAccessHandler.class, DynamicAccessFactory.class.getClassLoader());
         while (it.hasNext()) {
             DynamicAccessHandler handler = it.next();
@@ -68,7 +68,7 @@ public class DynamicAccessFactory {
     }
     
     @SuppressWarnings("unchecked")
-    public static DynamicAccess loadDynamicAccessObject(GenericDelegator delegator, String accessString) {
+    public static DynamicAccess loadDynamicAccessObject(Delegator delegator, String accessString) {
         DynamicAccess da = null;
         Class<DynamicAccess> clazz;
         try {

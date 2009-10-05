@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -70,7 +70,7 @@ public class ShoppingCartHelper {
     private ShoppingCart cart = null;
 
     // The entity engine delegator
-    private GenericDelegator delegator = null;
+    private Delegator delegator = null;
 
     // The service invoker
     private LocalDispatcher dispatcher = null;
@@ -81,7 +81,7 @@ public class ShoppingCartHelper {
      *
      * @param cart The cart to manipulate
      */
-    public ShoppingCartHelper(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart) {
+    public ShoppingCartHelper(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart) {
         this.dispatcher = dispatcher;
         this.delegator = delegator;
         this.cart = cart;

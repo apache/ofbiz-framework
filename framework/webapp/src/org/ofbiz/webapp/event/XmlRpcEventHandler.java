@@ -49,6 +49,7 @@ import org.apache.xmlrpc.server.XmlRpcNoSuchHandlerException;
 import org.apache.xmlrpc.util.HttpUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericDispatcher;
@@ -66,7 +67,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     public static final String module = XmlRpcEventHandler.class.getName();
     public static final String dispatcherName = "xmlrpc-dispatcher";
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
 
     private Boolean enabledForExtensions = null;

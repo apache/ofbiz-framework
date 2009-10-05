@@ -37,7 +37,7 @@ import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.config.ServiceConfigUtil;
@@ -240,10 +240,10 @@ public class DispatchContext implements Serializable {
     }
 
     /**
-     * Gets the GenericDelegator associated with this context/dispatcher
-     * @return GenericDelegator associated with this context
+     * Gets the Delegator associated with this context/dispatcher
+     * @return Delegator associated with this context
      */
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return dispatcher.getDelegator();
     }
 

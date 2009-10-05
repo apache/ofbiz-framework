@@ -41,7 +41,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -492,7 +492,7 @@ public class ModelServiceReader implements Serializable {
         boolean includeNonPk = "nonpk".equals(includeType) || "all".equals(includeType);
 
         // need a delegator for this
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         if (delegator == null) {
             Debug.logWarning("Cannot use auto-attribute fields with a null delegator", module);
         }

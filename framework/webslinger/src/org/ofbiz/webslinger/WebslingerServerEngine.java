@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
@@ -48,7 +48,7 @@ public class WebslingerServerEngine extends GenericAsyncEngine {
 
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        GenericDelegator delegator = dispatcher.getDelegator();
+        Delegator delegator = dispatcher.getDelegator();
         try {
             GenericValue found = EntityUtil.getFirst(delegator.findByAndCache("WebslingerLayout", UtilMisc.toMap("webslingerServerId", modelService.location)));
             if (found == null) throw new GenericServiceException("Couldn't find server mapping for(" + modelService.location + ")");

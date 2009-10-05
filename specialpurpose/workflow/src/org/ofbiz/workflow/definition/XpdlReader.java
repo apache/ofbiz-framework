@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -49,18 +50,18 @@ import org.xml.sax.SAXException;
  */
 public class XpdlReader {
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected List values = null;
 
     public static final String module = XpdlReader.class.getName();
 
-    public XpdlReader(GenericDelegator delegator) {
+    public XpdlReader(Delegator delegator) {
         this.delegator = delegator;
     }
 
     /** Imports an XPDL file at the given location and imports it into the
      * datasource through the given delegator */
-    public static void importXpdl(URL location, GenericDelegator delegator) throws DefinitionParserException {
+    public static void importXpdl(URL location, Delegator delegator) throws DefinitionParserException {
         List values = readXpdl(location, delegator);
 
         // attempt to start a transaction
@@ -88,7 +89,7 @@ public class XpdlReader {
     /** Gets an XML file from the specified location and reads it into
      * GenericValue objects from the given delegator and returns them in a
      * List; does not write to the database, just gets the entities. */
-    public static List readXpdl(URL location, GenericDelegator delegator) throws DefinitionParserException {
+    public static List readXpdl(URL location, Delegator delegator) throws DefinitionParserException {
         if (Debug.infoOn()) Debug.logInfo("Beginning XPDL File Parse: " + location.toString(), module);
 
         XpdlReader reader = new XpdlReader(delegator);
