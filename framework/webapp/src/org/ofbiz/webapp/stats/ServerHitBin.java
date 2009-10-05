@@ -32,9 +32,10 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -354,7 +355,11 @@ public class ServerHitBin {
 
     public Delegator getDelegator() {
         if (this.delegator == null) {
-            this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
+            try {
+                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
         // if still null, then we have a problem
         if (this.delegator == null) {

@@ -28,9 +28,11 @@ import net.xoetrope.swing.XApplet;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilProperties;
@@ -61,7 +63,12 @@ public abstract class XuiContainer implements Container {
 
         // get the delegator
         String delegatorName = ContainerConfig.getPropertyValue(cc, "delegator-name", "default");
-        Delegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
+        Delegator delegator = null;
+        try {
+            delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
 
         // get the dispatcher
         String dispatcherName = ContainerConfig.getPropertyValue(cc, "dispatcher-name", "xui-dispatcher");

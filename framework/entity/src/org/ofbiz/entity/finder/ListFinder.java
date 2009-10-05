@@ -28,14 +28,16 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.cache.AbstractCache;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil.GetAll;
 import org.ofbiz.entity.finder.EntityFinderUtil.LimitRange;
@@ -116,7 +118,6 @@ public abstract class ListFinder extends Finder {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void runFind(Map<String, Object> context, Delegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
         String useCacheStr = this.useCacheStrExdr.expandString(context);
@@ -138,7 +139,11 @@ public abstract class ListFinder extends Finder {
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
 
         if (delegatorName != null && delegatorName.length() > 0) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, AbstractCache.class.getName());
+            }
         }
 
         EntityCondition whereEntityCondition = getWhereEntityCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));

@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.shark.instance;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
@@ -40,7 +43,11 @@ public abstract class InstanceEntityObject {
 
     public Delegator getGenericDelegator() {
         if (this.delegator == null && delegatorName != null) {
-            this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
         return this.delegator;
     }

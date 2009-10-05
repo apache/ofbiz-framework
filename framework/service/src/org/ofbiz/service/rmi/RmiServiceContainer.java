@@ -29,8 +29,10 @@ import javax.naming.NamingException;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -121,7 +123,12 @@ public class RmiServiceContainer implements Container {
         }
 
         // get the delegator for this container
-        Delegator delegator = GenericDelegator.getGenericDelegator(delegatorProp.value);
+        Delegator delegator = null;
+        try {
+            delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorProp.value);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
 
         // create the LocalDispatcher
         LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(name, delegator);

@@ -31,10 +31,11 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.GenericServiceException;
@@ -69,7 +70,11 @@ public class ModelTestSuite {
         
         String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
 
-        this.delegator = GenericDelegator.getGenericDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
+        try {
+            this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
         this.dispatcher = GenericDispatcher.getLocalDispatcher(originalDispatcherName + uniqueSuffix, delegator);
 
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {

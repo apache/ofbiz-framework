@@ -33,10 +33,11 @@ import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -225,7 +226,12 @@ public class EntityDataLoadContainer implements Container {
 
         String delegatorNameToUse = overrideDelegator != null ? overrideDelegator : delegatorName;
         String groupNameToUse = overrideGroup != null ? overrideGroup : entityGroupName;
-        Delegator delegator = GenericDelegator.getGenericDelegator(delegatorNameToUse);
+        Delegator delegator = null;
+        try {
+            delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorNameToUse);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
         if (delegator == null) {
             throw new ContainerException("Invalid delegator name!");
         }

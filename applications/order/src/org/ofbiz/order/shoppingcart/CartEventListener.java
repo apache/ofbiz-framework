@@ -26,10 +26,11 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -59,7 +60,11 @@ public class CartEventListener implements HttpSessionListener {
         String delegatorName = (String) session.getAttribute("delegatorName");
         Delegator delegator = null;
         if (UtilValidate.isNotEmpty(delegatorName)) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
         if (delegator == null) {
             Debug.logError("Could not find delegator with delegatorName in session, not saving abandoned cart info.", module);

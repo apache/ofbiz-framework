@@ -37,7 +37,7 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Context;
@@ -169,7 +169,11 @@ public class CatalinaContainer implements Container {
         //int debug = ContainerConfig.getPropertyValue(cc, "debug", 0);
 
         // grab some global context settings
-        this.delegator = GenericDelegator.getGenericDelegator(ContainerConfig.getPropertyValue(cc, "delegator-name", "default"));
+        try {
+            this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, ContainerConfig.getPropertyValue(cc, "delegator-name", "default"));
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
         this.contextReloadable = ContainerConfig.getPropertyValue(cc, "apps-context-reloadable", false);
         this.crossContext = ContainerConfig.getPropertyValue(cc, "apps-cross-context", true);
         this.distribute = ContainerConfig.getPropertyValue(cc, "apps-distributable", true);
