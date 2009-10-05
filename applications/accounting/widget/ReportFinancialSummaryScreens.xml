@@ -1128,6 +1128,7 @@ under the License.
             <actions>
                 <set field="labelTitleProperty" value="AccountingInventoryValuation"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="InventoryValuation"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
