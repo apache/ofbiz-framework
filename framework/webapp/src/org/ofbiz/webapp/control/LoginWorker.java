@@ -49,7 +49,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.StringUtil.StringWrapper;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -151,7 +151,7 @@ public class LoginWorker {
         }
     }
 
-    public static void setLoggedOut(String userLoginId, GenericDelegator delegator) {
+    public static void setLoggedOut(String userLoginId, Delegator delegator) {
         if (UtilValidate.isEmpty(userLoginId)) {
             Debug.logWarning("Called setLogged out with empty userLoginId", module);
         }
@@ -484,7 +484,7 @@ public class LoginWorker {
     public static void doBasicLogout(GenericValue userLogin, HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
         if (security != null && userLogin != null) {
@@ -511,7 +511,7 @@ public class LoginWorker {
     }
 
     public static String autoLoginSet(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String domain = UtilProperties.getPropertyValue("url.properties", "cookie.domain");
@@ -547,13 +547,13 @@ public class LoginWorker {
     }
 
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
 
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
     }
 
-    private static String autoLoginCheck(GenericDelegator delegator, HttpSession session, String autoUserLoginId) {
+    private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
         if (autoUserLoginId != null) {
             Debug.logInfo("Running autoLogin check.", module);
             try {
@@ -625,7 +625,7 @@ public class LoginWorker {
      * @return Returns "success" if user could be logged in or "error" if there was a problem.
      */
     private static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
             if (userLogin != null) {
@@ -696,7 +696,7 @@ public class LoginWorker {
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         boolean doCheck = "true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "security.login.cert.allow", "true"));
         if (doCheck) {
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
             GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
             if (currentUserLogin != null) {
@@ -765,7 +765,7 @@ public class LoginWorker {
         return "success";
     }
 
-    protected static boolean checkValidIssuer(GenericDelegator delegator, Map<String, String> x500Map, BigInteger serialNumber) throws GeneralException {
+    protected static boolean checkValidIssuer(Delegator delegator, Map<String, String> x500Map, BigInteger serialNumber) throws GeneralException {
         List<EntityCondition> conds = FastList.newInstance();
         conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("commonName", x500Map.get("CN")),
                 EntityCondition.makeConditionMap("commonName", null),
@@ -877,7 +877,7 @@ public class LoginWorker {
     }
 
     public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {
-        GenericDelegator delegator = userLogin.getDelegator();
+        Delegator delegator = userLogin.getDelegator();
         GenericValue userLoginSession;
         Map<String, Object> userLoginSessionMap = null;
         try {

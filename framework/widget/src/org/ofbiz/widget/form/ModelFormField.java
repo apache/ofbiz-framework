@@ -48,7 +48,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -1520,7 +1520,7 @@ public class ModelFormField {
             }
         }
 
-        public List<OptionValue> getAllOptionValues(Map<String, Object> context, GenericDelegator delegator) {
+        public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
             List<OptionValue> optionValues = new LinkedList<OptionValue>();
             for (OptionSource optionSource: this.optionSources) {
                 optionSource.addOptionValues(optionValues, context, delegator);
@@ -1584,7 +1584,7 @@ public class ModelFormField {
     public static abstract class OptionSource {
         protected FieldInfo fieldInfo;
 
-        public abstract void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator);
+        public abstract void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator);
     }
 
     public static class SingleOption extends OptionSource {
@@ -1604,7 +1604,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
             optionValues.add(new OptionValue(key.expandString(context), description.expandString(context)));
         }
     }
@@ -1633,7 +1633,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
             List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
             if (dataList != null && dataList.size() != 0) {
                 for (Object data: dataList) {
@@ -1713,7 +1713,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
             // first expand any conditions that need expanding based on the current context
             EntityCondition findCondition = null;
             if (UtilValidate.isNotEmpty(this.constraintList)) {
@@ -2188,7 +2188,7 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(fieldKey)) {
                 fieldKey = this.modelFormField.fieldName;
             }
-            GenericDelegator delegator = this.modelFormField.modelForm.getDelegator(context);
+            Delegator delegator = this.modelFormField.modelForm.getDelegator(context);
             String fieldValue = modelFormField.getEntry(context);
             try {
                 value = delegator.findOne(this.entityName, this.cache, fieldKey, fieldValue);

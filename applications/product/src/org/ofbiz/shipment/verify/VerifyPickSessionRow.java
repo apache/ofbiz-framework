@@ -28,7 +28,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -150,7 +150,7 @@ public class VerifyPickSessionRow implements Serializable {
 
         if (picklistBinId != null) {
             // find the pick list item
-            GenericDelegator delegator = dispatcher.getDelegator();
+            Delegator delegator = dispatcher.getDelegator();
             Map<String, Object> picklistItemMap = FastMap.newInstance();
             picklistItemMap.put("picklistBinId", picklistBinId);
             picklistItemMap.put("orderId", this.getOrderId());

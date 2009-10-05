@@ -33,7 +33,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -53,7 +53,7 @@ public class OrderEvents {
     public static String downloadDigitalProduct(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ServletContext application = session.getServletContext();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String dataResourceId = request.getParameter("dataResourceId");
 
@@ -99,7 +99,7 @@ public class OrderEvents {
     
     public static String cancelSelectedOrderItems(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
     

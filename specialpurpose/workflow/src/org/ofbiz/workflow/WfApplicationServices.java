@@ -34,7 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
@@ -90,7 +90,7 @@ public class WfApplicationServices {
     }
 
     public static Map getApplicationContext(DispatchContext ctx, Map context) throws GenericServiceException {
-        final GenericDelegator delegator = ctx.getDelegator();
+        final Delegator delegator = ctx.getDelegator();
         final Map result = new HashMap();
         try {
             result.put("applicationContext",
@@ -105,7 +105,7 @@ public class WfApplicationServices {
     }
 
     public static Map completeApplication(DispatchContext ctx, Map context) throws GenericServiceException {
-        final GenericDelegator delegator = ctx.getDelegator();
+        final Delegator delegator = ctx.getDelegator();
         final String applicationId = (String) context.get("applicationId");
         final Map result = new HashMap();
 
@@ -175,7 +175,7 @@ public class WfApplicationServices {
         return result;
     }
 
-    private static String insertAppSandbox(GenericDelegator delegator, String workEffortId, String partyId,
+    private static String insertAppSandbox(Delegator delegator, String workEffortId, String partyId,
             String roleTypeId, Timestamp fromDate, Map context) throws GenericServiceException {
         String dataId = null;
         String applicationId = Long.toString((new Date().getTime()));
@@ -205,7 +205,7 @@ public class WfApplicationServices {
         return applicationId;
     }
 
-    private static GenericValue getApplicationSandbox(GenericDelegator delegator, String applicationId)
+    private static GenericValue getApplicationSandbox(Delegator delegator, String applicationId)
             throws GenericServiceException {
         try {
             GenericValue application =
@@ -216,7 +216,7 @@ public class WfApplicationServices {
         }
     }
 
-    private static Map getRunTimeContext(GenericDelegator delegator, GenericValue runTimeData)
+    private static Map getRunTimeContext(Delegator delegator, GenericValue runTimeData)
             throws GenericServiceException {
         try {
             return (Map) XmlSerializer.deserialize((String) runTimeData.get("runtimeInfo"), delegator);
@@ -244,7 +244,7 @@ public class WfApplicationServices {
         }
     }
 
-    private static GenericValue getRuntimeData(GenericDelegator delegator, String applicationId)
+    private static GenericValue getRuntimeData(Delegator delegator, String applicationId)
             throws GenericServiceException {
         try {
             GenericValue application =
@@ -255,7 +255,7 @@ public class WfApplicationServices {
         }
     }
 
-    private static void getApplicationSignatures(GenericDelegator delegator, GenericValue application,
+    private static void getApplicationSignatures(Delegator delegator, GenericValue application,
             Map contextSignature, Map resultSignature) throws GenericEntityException {
         Map expresions = null;
         // look for the 1st application.
@@ -305,7 +305,7 @@ public class WfApplicationServices {
         }
     }
 
-    private static GenericValue getWorkEffortPartyAssigment(GenericDelegator delegator, String workEffortId)
+    private static GenericValue getWorkEffortPartyAssigment(Delegator delegator, String workEffortId)
             throws GenericServiceException {
         Map expresions = new HashMap();
         expresions.putAll(UtilMisc.toMap("workEffortId", workEffortId));

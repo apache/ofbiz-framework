@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.common.geo.GeoWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -64,7 +64,7 @@ public class TaxAuthorityServices {
     public static int salestaxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     public static Map rateProductTaxCalcForDisplay(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         String billToPartyId = (String) context.get("billToPartyId");
         String productId = (String) context.get("productId");
@@ -136,7 +136,7 @@ public class TaxAuthorityServices {
     }
 
     public static Map rateProductTaxCalc(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         String payToPartyId = (String) context.get("payToPartyId");
         String billToPartyId = (String) context.get("billToPartyId");
@@ -217,7 +217,7 @@ public class TaxAuthorityServices {
         return result;
     }
 
-    private static void getTaxAuthorities(GenericDelegator delegator, GenericValue shippingAddress, Set taxAuthoritySet) throws GenericEntityException {
+    private static void getTaxAuthorities(Delegator delegator, GenericValue shippingAddress, Set taxAuthoritySet) throws GenericEntityException {
         Set geoIdSet = FastSet.newInstance();
         if (shippingAddress != null) {
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
@@ -247,7 +247,7 @@ public class TaxAuthorityServices {
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
-    private static List getTaxAdjustments(GenericDelegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
+    private static List getTaxAdjustments(Delegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List adjustments = FastList.newInstance();
 
@@ -407,7 +407,7 @@ public class TaxAuthorityServices {
         return adjustments;
     }
 
-    private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
+    private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, Delegator delegator) throws GenericEntityException {
         Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
         List ptiConditionList = UtilMisc.toList(
                 EntityCondition.makeCondition("partyId", EntityOperator.IN, billToPartyIdSet),

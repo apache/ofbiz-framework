@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.KeywordSearchUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
@@ -82,7 +82,7 @@ public class WorkEffortSearch {
     public static final String module = WorkEffortSearch.class.getName();
     public static final String resource = "WorkEffortUiLabels";
 
-    public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList, ResultSortOrder resultSortOrder, GenericDelegator delegator, String visitId) {
+    public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList, ResultSortOrder resultSortOrder, Delegator delegator, String visitId) {
         WorkEffortSearchContext workEffortSearchContext = new WorkEffortSearchContext(delegator, visitId);
 
         workEffortSearchContext.addWorkEffortSearchConstraints(workEffortSearchConstraintList);
@@ -92,7 +92,7 @@ public class WorkEffortSearch {
         return workEffortIds;
     }
 
-    public static void getAllSubWorkEffortIds(String workEffortId, Set<String> workEffortIdSet, GenericDelegator delegator, Timestamp nowTimestamp) {
+    public static void getAllSubWorkEffortIds(String workEffortId, Set<String> workEffortIdSet, Delegator delegator, Timestamp nowTimestamp) {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
@@ -151,17 +151,17 @@ public class WorkEffortSearch {
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
-        protected GenericDelegator delegator = null;
+        protected Delegator delegator = null;
         protected String visitId = null;
         protected Integer totalResults = null;
 
-        public WorkEffortSearchContext(GenericDelegator delegator, String visitId) {
+        public WorkEffortSearchContext(Delegator delegator, String visitId) {
             this.delegator = delegator;
             this.visitId = visitId;
             dynamicViewEntity.addMemberEntity("WEFF", "WorkEffort");
         }
 
-        public GenericDelegator getDelegator() {
+        public Delegator getDelegator() {
             return this.delegator;
         }
 
@@ -298,7 +298,7 @@ public class WorkEffortSearch {
             }
         }
 
-        public EntityListIterator doQuery(GenericDelegator delegator) {
+        public EntityListIterator doQuery(Delegator delegator) {
             // handle the now assembled or and and keyword fixed lists
             this.finishKeywordConstraints();
 
@@ -488,7 +488,7 @@ public class WorkEffortSearch {
 
         public abstract void addConstraint(WorkEffortSearchContext workEffortSearchContext);
         /** pretty print for log messages and even UI stuff */
-        public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale);
+        public abstract String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale);
     }
 
 
@@ -573,7 +573,7 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue workEffort = null;
             GenericValue workEffortAssocType = null;
             try {
@@ -666,7 +666,7 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
             ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
@@ -730,7 +730,7 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue partyNameView = null;
             GenericValue roleType = null;
             try {
@@ -844,7 +844,7 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder infoOut = new StringBuilder();
             try {
                 Iterator<String> productIdIter = this.productIdSet.iterator();
@@ -911,7 +911,7 @@ public class WorkEffortSearch {
             }
         }
 
-        public Set<String> makeFullKeywordSet(GenericDelegator delegator) {
+        public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
             Set<String> fullKeywordSet = new TreeSet<String>();
 
@@ -970,7 +970,7 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale)).append(": \"");
             ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
@@ -1057,7 +1057,7 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         @Override
-        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+        public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(": \"");
             ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(" ");

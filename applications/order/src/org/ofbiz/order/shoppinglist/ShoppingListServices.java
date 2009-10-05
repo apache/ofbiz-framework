@@ -37,7 +37,7 @@ import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityExpr;
@@ -67,7 +67,7 @@ public class ShoppingListServices {
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static Map setShoppingListRecurrence(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp startDate = (Timestamp) context.get("startDateTime");
         Timestamp endDate = (Timestamp) context.get("endDateTime");
         Integer frequency = (Integer) context.get("frequency");
@@ -118,7 +118,7 @@ public class ShoppingListServices {
 
     public static Map createListReorders(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -211,7 +211,7 @@ public class ShoppingListServices {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error creating shopping list auto-reorders", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
             }
 
             String errMsg = "Error while creating new shopping list based automatic reorder" + e.toString();
@@ -248,7 +248,7 @@ public class ShoppingListServices {
 
     public static Map makeListFromOrder(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String shoppingListTypeId = (String) context.get("shoppingListTypeId");
         String shoppingListId = (String) context.get("shoppingListId");
@@ -394,7 +394,7 @@ public class ShoppingListServices {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error making shopping list from order", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+                Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
             }
 
             String errMsg = "Error while creating new shopping list based on order" + e.toString();
@@ -429,7 +429,7 @@ public class ShoppingListServices {
      * @return
      */
     public static ShoppingCart makeShoppingListCart(ShoppingCart listCart, LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
-        GenericDelegator delegator = dispatcher.getDelegator();
+        Delegator delegator = dispatcher.getDelegator();
         if (shoppingList != null && shoppingList.get("productStoreId") != null) {
             String productStoreId = shoppingList.getString("productStoreId");
             String currencyUom = shoppingList.getString("currencyUom");
@@ -535,7 +535,7 @@ public class ShoppingListServices {
     }
 
     public static ShoppingCart makeShoppingListCart(LocalDispatcher dispatcher, String shoppingListId, Locale locale) {
-        GenericDelegator delegator = dispatcher.getDelegator();
+        Delegator delegator = dispatcher.getDelegator();
         GenericValue shoppingList = null;
         try {
             shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
@@ -557,7 +557,7 @@ public class ShoppingListServices {
      */
     public static Map updateShoppingListQuantitiesFromOrder(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         try {
             List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));

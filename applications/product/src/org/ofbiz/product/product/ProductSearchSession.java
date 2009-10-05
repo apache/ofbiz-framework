@@ -44,7 +44,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -266,7 +266,7 @@ public class ProductSearchSession {
             }
         }
 
-        public List<String> searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
+        public List<String> searchGetConstraintStrings(boolean detailed, Delegator delegator, Locale locale) {
             List<ProductSearchConstraint> productSearchConstraintList = this.getConstraintList();
             List<String> constraintStrings = FastList.newInstance();
             if (productSearchConstraintList == null) {
@@ -364,7 +364,7 @@ public class ProductSearchSession {
     /** A ControlServlet event method used to check to see if there is an override for any of the current keywords in the search */
     public static final String checkDoKeywordOverride(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
         ProductSearchSession.processSearchParameters(requestParams, request);
 
@@ -432,7 +432,7 @@ public class ProductSearchSession {
         return "success";
     }
 
-    public static ArrayList<String> searchDo(HttpSession session, GenericDelegator delegator, String prodCatalogId) {
+    public static ArrayList<String> searchDo(HttpSession session, Delegator delegator, String prodCatalogId) {
         String visitId = VisitHandler.getVisitId(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         List<ProductSearchConstraint> productSearchConstraintList = productSearchOptions.getConstraintList();
@@ -453,7 +453,7 @@ public class ProductSearchSession {
         ProductSearchOptions.clearSearchOptions(session);
     }
 
-    public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
+    public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, Delegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         return productSearchOptions.searchGetConstraintStrings(detailed, delegator, locale);
@@ -496,7 +496,7 @@ public class ProductSearchSession {
     }
 
     public static void processSearchParameters(Map<String, Object> parameters, HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
             // even if already run, check the VIEW_SIZE and VIEW_INDEX again, just for kicks
@@ -836,7 +836,7 @@ public class ProductSearchSession {
         productSearchOptions.setPaging((String) parameters.get("PAGING"));
     }
 
-    public static Map getProductSearchResult(HttpServletRequest request, GenericDelegator delegator, String prodCatalogId) {
+    public static Map getProductSearchResult(HttpServletRequest request, Delegator delegator, String prodCatalogId) {
 
         // ========== Create View Indexes
         int viewIndex = 0;

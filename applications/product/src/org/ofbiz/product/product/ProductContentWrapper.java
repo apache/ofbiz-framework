@@ -39,7 +39,7 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.content.ContentWrapper;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
@@ -96,7 +96,7 @@ public class ProductContentWrapper implements ContentWrapper {
         return getProductContentAsText(product, productContentTypeId, locale, null, null, null, null, dispatcher);
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher) {
         if (product == null) {
             return null;
         }
@@ -134,7 +134,7 @@ public class ProductContentWrapper implements ContentWrapper {
         }
     }
 
-    public static void getProductContentAsText(String productId, GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
+    public static void getProductContentAsText(String productId, GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (productId == null && product != null) {
             productId = product.getString("productId");
         }

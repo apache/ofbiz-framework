@@ -28,7 +28,7 @@ import java.io.BufferedOutputStream;
 import java.util.List;
 import java.util.Iterator;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.UtilMisc;
@@ -50,9 +50,9 @@ public class OfbizStore extends StoreBase implements Store {
     protected static String info = "OfbizStore/1.0";
     protected static String storeName = "OfbizStore";
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
 
-    public OfbizStore(GenericDelegator delegator) {
+    public OfbizStore(Delegator delegator) {
         this.delegator = delegator;
     }
 

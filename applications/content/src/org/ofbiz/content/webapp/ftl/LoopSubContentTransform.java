@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentServicesComplex;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.ftl.LoopWriter;
@@ -69,7 +69,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
-    public static boolean prepCtx(GenericDelegator delegator, Map ctx) {
+    public static boolean prepCtx(Delegator delegator, Map ctx) {
         List lst = (List) ctx.get("entityList");
         Integer idx = (Integer) ctx.get("entityIndex");
         if (idx == null) idx = Integer.valueOf(0);
@@ -140,7 +140,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final Map savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
 

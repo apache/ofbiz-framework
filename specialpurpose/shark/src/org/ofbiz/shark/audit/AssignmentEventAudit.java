@@ -20,7 +20,7 @@ package org.ofbiz.shark.audit;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -36,7 +36,7 @@ public class AssignmentEventAudit extends EventAudit implements AssignmentEventA
     protected GenericValue assignmentEventAudit = null;
     private boolean newValue = false;
 
-    public AssignmentEventAudit(EntityAuditMgr mgr, GenericDelegator delegator, String eventAuditId) {
+    public AssignmentEventAudit(EntityAuditMgr mgr, Delegator delegator, String eventAuditId) {
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
@@ -49,7 +49,7 @@ public class AssignmentEventAudit extends EventAudit implements AssignmentEventA
         }
     }
 
-    public AssignmentEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
+    public AssignmentEventAudit(EntityAuditMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.assignmentEventAudit = delegator.makeValue("WfAssignmentEventAudit", UtilMisc.toMap("eventAuditId", this.eventAuditId));

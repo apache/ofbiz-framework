@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.base.util.UtilMisc;
@@ -63,7 +63,7 @@ public class BOMHelper {
      * 3.for every parent the method is called recursively, the llc returned is incremented by one and the max of these number is saved as maxDepth
      * 4.the maxDepth value is returned
      */
-    public static int getMaxDepth(String productId, String bomType, Date inDate, GenericDelegator delegator) throws GenericEntityException {
+    public static int getMaxDepth(String productId, String bomType, Date inDate, Delegator delegator) throws GenericEntityException {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
         int maxDepth = 0;
@@ -101,11 +101,11 @@ public class BOMHelper {
      * @return the ProductAssoc generic value for a duplicate productIdKey
      * ancestor if present, null otherwise.
      */
-    public static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, String bomType, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, String bomType, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         return searchDuplicatedAncestor(productId, productIdKey, null, bomType, inDate, delegator, dispatcher, userLogin);
     }
 
-    private static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, ArrayList productIdKeys, String bomType, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    private static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, ArrayList productIdKeys, String bomType, Date inDate, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
         if (productIdKeys == null) {
@@ -136,7 +136,7 @@ public class BOMHelper {
     }
 
     public static String createProductionRunsForShipment(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
 

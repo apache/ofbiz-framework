@@ -34,7 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 
 /**
@@ -75,7 +75,7 @@ public class CatalogUrlServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GenericDelegator delegator = (GenericDelegator) getServletContext().getAttribute("delegator");
+        Delegator delegator = (Delegator) getServletContext().getAttribute("delegator");
 
         String pathInfo = request.getPathInfo();
         List<String> pathElements = StringUtil.split(pathInfo, "/");

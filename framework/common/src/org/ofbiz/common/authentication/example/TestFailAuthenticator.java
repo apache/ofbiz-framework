@@ -22,7 +22,7 @@ package org.ofbiz.common.authentication.example;
 import org.ofbiz.common.authentication.api.Authenticator;
 import org.ofbiz.common.authentication.api.AuthenticatorException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.base.util.Debug;
 
 /**
@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 public class TestFailAuthenticator implements Authenticator {
 
     private static final String module = TestFailAuthenticator.class.getName();
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
     protected float weight = 1;
 

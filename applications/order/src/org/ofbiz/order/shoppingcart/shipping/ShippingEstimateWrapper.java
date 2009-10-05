@@ -27,7 +27,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -38,7 +38,7 @@ public class ShippingEstimateWrapper {
 
     public static final String module = ShippingEstimateWrapper.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
 
     protected Map<GenericValue, BigDecimal> shippingEstimates = null;

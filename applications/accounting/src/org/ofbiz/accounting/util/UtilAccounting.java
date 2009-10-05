@@ -26,7 +26,7 @@ import java.util.List;
 import org.ofbiz.accounting.AccountingException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -50,7 +50,7 @@ public class UtilAccounting {
      * @throws  AccountingException        When the no accounts found or an entity exception occurs
      */
     public static String getProductOrgGlAccountId(String productId,
-            String glAccountTypeId, String organizationPartyId, GenericDelegator delegator)
+            String glAccountTypeId, String organizationPartyId, Delegator delegator)
         throws AccountingException {
 
         GenericValue account = null;
@@ -88,7 +88,7 @@ public class UtilAccounting {
      * @return  The default account ID (glAccountId) for this type
      * @throws  AccountingException     When the default is not configured
      */
-    public static String getDefaultAccountId(String glAccountTypeId, String organizationPartyId, GenericDelegator delegator) throws AccountingException {
+    public static String getDefaultAccountId(String glAccountTypeId, String organizationPartyId, Delegator delegator) throws AccountingException {
         return getProductOrgGlAccountId(null, glAccountTypeId, organizationPartyId, delegator);
     }
 

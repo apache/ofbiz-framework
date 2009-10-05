@@ -20,7 +20,7 @@ package org.ofbiz.shark.audit;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -35,7 +35,7 @@ public class CreateProcessEventAudit extends EventAudit implements CreateProcess
     protected GenericValue createProcessEventAudit = null;
     private boolean newValue = false;
 
-    public CreateProcessEventAudit(EntityAuditMgr mgr, GenericDelegator delegator, String eventAuditId) {
+    public CreateProcessEventAudit(EntityAuditMgr mgr, Delegator delegator, String eventAuditId) {
         super(mgr, delegator, eventAuditId);
         if (this.delegator != null) {
             try {
@@ -48,7 +48,7 @@ public class CreateProcessEventAudit extends EventAudit implements CreateProcess
         }
     }
 
-    public CreateProcessEventAudit(EntityAuditMgr mgr, GenericDelegator delegator) {
+    public CreateProcessEventAudit(EntityAuditMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
 

@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -51,7 +52,7 @@ public class VerifyPickSession implements Serializable {
     protected String facilityId = null;
     protected List<VerifyPickSessionRow> pickRows = null;
 
-    private transient GenericDelegator _delegator = null;
+    private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
     private static BigDecimal ZERO = BigDecimal.ZERO;
 
@@ -74,7 +75,7 @@ public class VerifyPickSession implements Serializable {
         return _dispatcher;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (_delegator == null) {
             _delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
@@ -384,7 +385,7 @@ public class VerifyPickSession implements Serializable {
     }
 
     protected String createShipment(VerifyPickSessionRow line) throws GeneralException {
-        GenericDelegator delegator = this.getDelegator();
+        Delegator delegator = this.getDelegator();
         String orderId = line.getOrderId();
         Map<String, Object> newShipment = FastMap.newInstance();
         newShipment.put("originFacilityId", facilityId);

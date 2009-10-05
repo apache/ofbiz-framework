@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.webtools.artifactinfo.*;
 import org.ofbiz.base.util.*;
 import javolution.util.FastList;

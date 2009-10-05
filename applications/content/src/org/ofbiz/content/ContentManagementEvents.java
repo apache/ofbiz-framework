@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
@@ -61,7 +61,7 @@ public class ContentManagementEvents {
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
         String webSiteId = (String) servletContext.getAttribute("webSiteId");
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Map paramMap = UtilHttp.getParameterMap(request);
                 //if (Debug.infoOn()) Debug.logInfo("in updateStaticValues, paramMap:" + paramMap , module);
@@ -162,7 +162,7 @@ public class ContentManagementEvents {
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
         String webSiteId = (String) servletContext.getAttribute("webSiteId");
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Map paramMap = UtilHttp.getParameterMap(request);
                 //if (Debug.infoOn()) Debug.logInfo("in updatePublishLinks, paramMap:" + paramMap , module);

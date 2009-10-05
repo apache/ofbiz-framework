@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -53,7 +53,7 @@ public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected LocalDispatcher dispatcher;
 
     protected String menuLocation;
@@ -109,7 +109,7 @@ public class ModelMenu extends ModelWidget {
     public ModelMenu() {}
 
     /** XML Constructor */
-    public ModelMenu(Element menuElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public ModelMenu(Element menuElement, Delegator delegator, LocalDispatcher dispatcher) {
         super(menuElement);
         this.delegator = delegator;
         this.dispatcher = dispatcher;
@@ -359,7 +359,7 @@ public class ModelMenu extends ModelWidget {
         return this.dispatcher;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return this.delegator;
     }
 

@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
@@ -52,7 +52,7 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-        public static Map indexTree(LocalDispatcher dispatcher, GenericDelegator delegator, String siteId, Map context, String path) throws Exception {
+        public static Map indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map context, String path) throws Exception {
 
             Map results = FastMap.newInstance();
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
@@ -93,12 +93,12 @@ public class SearchWorker {
             return results;
         }
 
-    public static void indexContentList(List idList, GenericDelegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
+    public static void indexContentList(List idList, Delegator delegator, LocalDispatcher dispatcher, Map context) throws Exception {
         String path = null;
         indexContentList(dispatcher, delegator, context, idList, path);
     }
 
-    public static void indexContentList(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, List idList, String path) throws Exception {
+    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map context, List idList, String path) throws Exception {
         String indexAllPath = getIndexPath(path);
         if (Debug.infoOn())
             Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
@@ -185,7 +185,7 @@ public class SearchWorker {
 
     }
 
-    public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, String path) throws Exception {
+    public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map context, GenericValue content, String path) throws Exception {
         String indexAllPath = getIndexPath(path);
         IndexWriter writer = null;
         try {
@@ -201,7 +201,7 @@ public class SearchWorker {
         writer.close();
     }
 
-    public static void indexContent(LocalDispatcher dispatcher, GenericDelegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
+    public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map context, GenericValue content, IndexWriter writer) throws Exception {
         Document doc = ContentDocument.Document(content, context, dispatcher);
         //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
             if (doc != null) {
@@ -220,12 +220,12 @@ public class SearchWorker {
 
     }
 
-    public static void indexDataResource(GenericDelegator delegator, Map context, String id) throws Exception {
+    public static void indexDataResource(Delegator delegator, Map context, String id) throws Exception {
         String path = null;
         indexDataResource(delegator, context, id, path);
     }
 
-    public static void indexDataResource(GenericDelegator delegator, Map context, String id, String path) throws Exception {
+    public static void indexDataResource(Delegator delegator, Map context, String id, String path) throws Exception {
         String indexAllPath = getIndexPath(path);
         IndexWriter writer = null;
         try {
@@ -239,7 +239,7 @@ public class SearchWorker {
 
     }
 
-    public static void indexDataResource(GenericDelegator delegator, Map context, String id, IndexWriter writer) throws Exception {
+    public static void indexDataResource(Delegator delegator, Map context, String id, IndexWriter writer) throws Exception {
         Document doc = DataResourceDocument.Document(id, delegator, context);
         writer.addDocument(doc);
     }

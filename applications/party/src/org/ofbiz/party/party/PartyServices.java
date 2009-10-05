@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -101,7 +101,7 @@ public class PartyServices {
      */
     public static Map<String, Object> createPerson(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
         List<GenericValue> toBeStored = FastList.newInstance();
         Locale locale = (Locale) context.get("locale");
@@ -199,7 +199,7 @@ public class PartyServices {
      * <b>security check</b>: the status change must be defined in StatusValidChange.
      */
     public static Map<String, Object> setPartyStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         String partyId = (String) context.get("partyId");
@@ -264,7 +264,7 @@ public class PartyServices {
      */
     public static Map<String, Object> updatePerson(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -330,7 +330,7 @@ public class PartyServices {
      */
     public static Map<String, Object> createPartyGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -436,7 +436,7 @@ public class PartyServices {
      */
     public static Map<String, Object> updatePartyGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -502,7 +502,7 @@ public class PartyServices {
      */
     public static Map<String, Object> createAffiliate(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
 
         Locale locale = (Locale) context.get("locale");
@@ -578,7 +578,7 @@ public class PartyServices {
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> updateAffiliate(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         String partyId = getPartyId(context);
@@ -623,7 +623,7 @@ public class PartyServices {
      */
     public static Map<String, Object> createPartyNote(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String noteString = (String) context.get("note");
@@ -696,7 +696,7 @@ public class PartyServices {
      */
     public static Map<String, Object> getPartyFromExactEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
@@ -732,7 +732,7 @@ public class PartyServices {
 
     public static Map<String, Object> getPartyFromEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
@@ -775,7 +775,7 @@ public class PartyServices {
     public static Map<String, Object> getPartyFromUserLogin(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logWarning("Running the getPartyFromUserLogin Service...", module);
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String userLoginId = (String) context.get("userLoginId");
         Locale locale = (Locale) context.get("locale");
@@ -815,7 +815,7 @@ public class PartyServices {
      */
     public static Map<String, Object> getPartyFromPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String firstName = (String) context.get("firstName");
         String lastName = (String) context.get("lastName");
@@ -865,7 +865,7 @@ public class PartyServices {
      */
     public static Map<String, Object> getPartyFromPartyGroup(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String groupName = (String) context.get("groupName");
         Locale locale = (Locale) context.get("locale");
@@ -899,7 +899,7 @@ public class PartyServices {
 
     public static Map<String, Object> getPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String partyId = (String) context.get("partyId");
         GenericValue person = null;
 
@@ -916,7 +916,7 @@ public class PartyServices {
 
     public static Map<String, Object> createRoleType(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue roleType = null;
 
         try {
@@ -935,7 +935,7 @@ public class PartyServices {
     }
 
     public static Map<String, Object> createPartyDataSource(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
 
         // input data
         String partyId = (String) context.get("partyId");
@@ -967,7 +967,7 @@ public class PartyServices {
 
     public static Map<String, Object> findParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String extInfo = (String) context.get("extInfo");
@@ -1447,8 +1447,8 @@ public class PartyServices {
      * @return
      */
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator _delegator = dctx.getDelegator();
-        GenericDelegator delegator = _delegator.cloneDelegator();
+        Delegator _delegator = dctx.getDelegator();
+        Delegator delegator = _delegator.cloneDelegator();
         delegator.setEntityEcaHandler(null);
 
         String partyIdTo = (String) context.get("partyIdTo");
@@ -1673,7 +1673,7 @@ public class PartyServices {
     }
 
     public static Map<String, Object> importAddressMatchMapCsv(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvFile = Charset.forName(encoding).decode(fileBytes).toString();
@@ -1745,7 +1745,7 @@ public class PartyServices {
      * @return a GenericValue with a partyId and a List of complementary partyId found
      */
     public static Map<String, Object> findPartyById(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String idToFind = (String) context.get("idToFind");
         String partyIdentificationTypeId = (String) context.get("partyIdentificationTypeId");
         String searchPartyFirstContext = (String) context.get("searchPartyFirst");

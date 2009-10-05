@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -42,13 +42,13 @@ public class EntityCacheServices implements DistributedCacheClear {
 
     public static final String module = EntityCacheServices.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected String userLoginId = null;
 
     public EntityCacheServices() {}
 
-    public void setDelegator(GenericDelegator delegator, String userLoginId) {
+    public void setDelegator(Delegator delegator, String userLoginId) {
         this.delegator = delegator;
         this.dispatcher = EntityServiceFactory.getLocalDispatcher(delegator);
         this.userLoginId = userLoginId;
@@ -170,7 +170,7 @@ public class EntityCacheServices implements DistributedCacheClear {
      *@return Map with the result of the service, the output parameters
      */
     public static Map clearAllEntityCaches(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
         if (distributeBool != null) distribute = distributeBool.booleanValue();
@@ -187,7 +187,7 @@ public class EntityCacheServices implements DistributedCacheClear {
      *@return Map with the result of the service, the output parameters
      */
     public static Map clearCacheLine(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
         if (distributeBool != null) distribute = distributeBool.booleanValue();

@@ -25,7 +25,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
@@ -48,7 +48,7 @@ public class PartyRelationshipServices {
      */
     public static Map<String, Object> createPartyRelationshipType(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 

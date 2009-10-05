@@ -26,7 +26,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -41,7 +41,7 @@ public class CommonWorkers {
 
     public final static String module = CommonWorkers.class.getName();
 
-    public static List<GenericValue> getCountryList(GenericDelegator delegator) {
+    public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = FastList.newInstance();
         String defaultCountry = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         GenericValue defaultGeo = null;
@@ -66,7 +66,7 @@ public class CommonWorkers {
         return geoList;
     }
 
-    public static List<GenericValue> getStateList(GenericDelegator delegator) {
+    public static List<GenericValue> getStateList(Delegator delegator) {
         List<GenericValue> geoList = FastList.newInstance();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
                 EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
@@ -83,7 +83,7 @@ public class CommonWorkers {
     /**
      * Returns a list of regional geo associations.
      */
-    public static List<GenericValue> getAssociatedStateList(GenericDelegator delegator, String country) {
+    public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country) {
         if (country == null || country.length() == 0) {
             // Load the system default country
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
@@ -110,7 +110,7 @@ public class CommonWorkers {
      * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
      * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
      * 
-     * @param delegator       The GenericDelegator object.
+     * @param delegator       The Delegator object.
      * @param entityName      Name of the Type entity on which check is performed.
      * @param primaryKey      Primary Key field of the Type entity.
      * @param childType       Type value for which the check is performed.
@@ -118,7 +118,7 @@ public class CommonWorkers {
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
      */
-    public static boolean hasParentType(GenericDelegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
+    public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
         GenericValue childTypeValue = null;
         try {
             childTypeValue = delegator.findOne(entityName, UtilMisc.toMap(primaryKey, childType), true);

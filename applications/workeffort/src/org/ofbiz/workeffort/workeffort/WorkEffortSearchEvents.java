@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchConstraint;
@@ -40,7 +40,7 @@ public class WorkEffortSearchEvents {
 
     public static final String module = WorkEffortSearchEvents.class.getName();
 
-    public static Map getWorkEffortSearchResult(HttpServletRequest request, GenericDelegator delegator) {
+    public static Map getWorkEffortSearchResult(HttpServletRequest request, Delegator delegator) {
 
         // ========== Create View Indexes
         int viewIndex = 0;

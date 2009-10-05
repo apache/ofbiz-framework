@@ -40,7 +40,7 @@ public interface EntityEcaHandler<T> {
     public static final String OP_FIND = "find";
 
 
-    public void setDelegator(GenericDelegator delegator);
+    public void setDelegator(Delegator delegator);
 
     public Map<String, List<T>> getEntityEventMap(String entityName);
 

@@ -38,7 +38,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.EntityEcaReaderInfo;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.w3c.dom.Element;
 
 /**
@@ -132,7 +132,7 @@ public class EntityEcaUtil {
         }
     }
 
-    public static Collection<EntityEcaRule> getEntityEcaRules(GenericDelegator delegator, String entityName, String event) {
+    public static Collection<EntityEcaRule> getEntityEcaRules(Delegator delegator, String entityName, String event) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorName()));
         Map<String, List<EntityEcaRule>> eventMap = ecaCache.get(entityName);
         if (eventMap != null) {

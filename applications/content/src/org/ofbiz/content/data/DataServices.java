@@ -39,7 +39,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -91,7 +91,7 @@ public class DataServices {
     public static Map<String, Object> createDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             String userLoginId = (String) userLogin.get("userLoginId");
             String createdByUserLogin = userLoginId;
@@ -149,7 +149,7 @@ public class DataServices {
 
     public static Map<String, Object> createElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
             String textData = (String) context.get("textData");
             if (textData != null && textData.length() > 0) {
@@ -284,7 +284,7 @@ public class DataServices {
     public static Map<String, Object> updateDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue dataResource = null;
         //Locale locale = (Locale) context.get("locale");
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -333,7 +333,7 @@ public class DataServices {
      */
     public static Map<String, Object> updateElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
@@ -456,7 +456,7 @@ public class DataServices {
 
     public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
         Map results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
         Map templateContext = (Map) context.get("templateContext");
@@ -499,7 +499,7 @@ public class DataServices {
 
     public static Map<String, Object> updateImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
             String dataResourceId = (String) context.get("dataResourceId");
             ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
@@ -533,7 +533,7 @@ public class DataServices {
 
     public static Map<String, Object> createImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
             ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
             if (byteBuffer != null) {

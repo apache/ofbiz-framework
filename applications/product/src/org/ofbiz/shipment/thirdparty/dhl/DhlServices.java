@@ -48,7 +48,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -151,7 +151,7 @@ public class DhlServices {
      * If this service returns a null shippingEstimateAmount, then the shipment has not been processed
      */
     public static Map<String, Object> dhlRateEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -499,7 +499,7 @@ public class DhlServices {
      */
 
     public static Map<String, Object> dhlShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 

@@ -32,7 +32,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -64,7 +64,7 @@ public class ContentServicesComplex {
     */
     public static Map<String, Object> getAssocAndContentAndDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List assocTypes = (List) context.get("assocTypes");
         List contentTypes = (List)context.get("contentTypes");
         Timestamp fromDate = (Timestamp)context.get("fromDate");
@@ -81,7 +81,7 @@ public class ContentServicesComplex {
         return results;
     }
 
-    public static Map getAssocAndContentAndDataResourceMethod(GenericDelegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List assocTypes, List contentTypes) {
+    public static Map getAssocAndContentAndDataResourceMethod(Delegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List assocTypes, List contentTypes) {
 
         List exprList = FastList.newInstance();
         EntityExpr joinExpr = null;
@@ -170,7 +170,7 @@ public class ContentServicesComplex {
     */
     public static Map<String, Object> getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List assocTypes = (List) context.get("assocTypes");
         String assocTypesString = (String)context.get("assocTypesString");
         if (UtilValidate.isNotEmpty(assocTypesString)) {
@@ -210,7 +210,7 @@ public class ContentServicesComplex {
     }
 
 
-    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction,
+    public static Map getAssocAndContentAndDataResourceCacheMethod(Delegator delegator, String contentId, String mapKey, String direction,
                           Timestamp fromDate, String fromDateStr, List assocTypes, List contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException, MiniLangException {
             Map results = getAssocAndContentAndDataResourceCacheMethod(delegator,
                           contentId, mapKey, direction, fromDate, fromDateStr, assocTypes,
@@ -218,7 +218,7 @@ public class ContentServicesComplex {
             return results;
     }
 
-    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction,
+    public static Map getAssocAndContentAndDataResourceCacheMethod(Delegator delegator, String contentId, String mapKey, String direction,
                           Timestamp fromDate, String fromDateStr, List assocTypes, List contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId, String orderBy) throws GenericEntityException, MiniLangException {
 
         //List exprList = FastList.newInstance();
@@ -340,7 +340,7 @@ public class ContentServicesComplex {
     }
 
 /*
-    public static Map getSubContentAndDataResource(GenericDelegator delegator, String contentId, String direction, Timestamp fromDate,  String assocType, String contentType, String orderBy) throws GenericEntityException {
+    public static Map getSubContentAndDataResource(Delegator delegator, String contentId, String direction, Timestamp fromDate,  String assocType, String contentType, String orderBy) throws GenericEntityException {
 
         List exprList = FastList.newInstance();
         EntityExpr joinExpr = null;

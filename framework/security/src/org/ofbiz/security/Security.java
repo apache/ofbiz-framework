@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 
 /**
@@ -31,9 +31,9 @@ import org.ofbiz.entity.GenericValue;
  */
 public interface Security {
 
-    public GenericDelegator getDelegator();
+    public Delegator getDelegator();
 
-    public void setDelegator(GenericDelegator delegator);
+    public void setDelegator(Delegator delegator);
 
     /**
      * Uses userLoginSecurityGroupByUserLoginId cache to speed up the finding of the userLogin's security group list.

@@ -44,6 +44,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -75,7 +76,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     protected String delegatorName = null;
 
     /** Reference to an instance of GenericDelegator used to do some basic operations on this entity value. If null various methods in this class will fail. This is automatically set by the GenericDelegator for all GenericValue objects instantiated through it. You may set this manually for objects you instantiate manually, but it is optional. */
-    protected transient GenericDelegator internalDelegator = null;
+    protected transient Delegator internalDelegator = null;
 
     /** Contains the fields for this entity. Note that this should always be a
      *  HashMap to allow for two things: non-synchronized reads (synchronized
@@ -283,10 +284,15 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      *@return GenericDelegator object
      */
     @SuppressWarnings("deprecation")
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         if (internalDelegator == null) {
             if (delegatorName == null) delegatorName = "default";
-            if (delegatorName != null) internalDelegator = GenericDelegator.getGenericDelegator(delegatorName);
+            if (delegatorName != null)
+                try {
+                    internalDelegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+                } catch (ClassNotFoundException e) {
+                    Debug.logError(e, module);
+                }
             if (internalDelegator == null) {
                 throw new IllegalStateException("[GenericEntity.getDelegator] could not find delegator with name " + delegatorName);
             }
@@ -295,7 +301,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     /** Set the GenericDelegator instance that created this value object and that is responsible for it. */
-    public void setDelegator(GenericDelegator internalDelegator) {
+    public void setDelegator(Delegator internalDelegator) {
         if (internalDelegator == null) return;
         this.delegatorName = internalDelegator.getDelegatorName();
         this.internalDelegator = internalDelegator;

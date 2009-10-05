@@ -25,12 +25,12 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public class GroovyDaHandler implements DynamicAccessHandler {
 
     private static final String module = GroovyDaHandler.class.getName();
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     
     public String getPattern() {
         return "(^.*\\.groovy$)";
@@ -75,7 +75,7 @@ public class GroovyDaHandler implements DynamicAccessHandler {
         return false;
     }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;        
     }       
 }

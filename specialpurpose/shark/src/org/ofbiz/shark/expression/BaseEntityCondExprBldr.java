@@ -30,7 +30,7 @@ import org.enhydra.shark.api.common.ExpressionBuilder;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -86,7 +86,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
     }
 
     public List runQuery() throws GenericEntityException {
-        GenericDelegator delegator = this.getDelegator();
+        Delegator delegator = this.getDelegator();
         DynamicViewEntity view = this.makeView();
         EntityListIterator eli = null;
         List result = null;
@@ -145,7 +145,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
         this.viewLinks.add(new ViewLink(entityAlias, relEntityAlias, opt, keyMap));
     }
 
-    protected GenericDelegator getDelegator() {
+    protected Delegator getDelegator() {
         return SharkContainer.getDelegator();
     }
 

@@ -40,7 +40,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -70,7 +70,7 @@ public class CompDocEvents {
 
     public static String persistRootCompDoc(HttpServletRequest request, HttpServletResponse response) {
         Map paramMap = UtilHttp.getParameterMap(request);
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         HttpSession session = request.getSession();

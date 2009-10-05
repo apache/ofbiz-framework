@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -57,7 +57,7 @@ public class ImportOrdersFromEbay {
     private static final String module = ImportOrdersFromEbay.class.getName();
 
     public static Map<String, Object> importOrdersSearchFromEbay(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = FastMap.newInstance();
@@ -81,7 +81,7 @@ public class ImportOrdersFromEbay {
     }
 
     public static Map<String, Object> importOrderFromEbay(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> order = FastMap.newInstance();
@@ -125,7 +125,7 @@ public class ImportOrdersFromEbay {
     }
 
     public static Map<String, Object> setEbayOrderToComplete(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String externalId = (String) context.get("externalId");
@@ -181,7 +181,7 @@ public class ImportOrdersFromEbay {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String, Object> checkOrders(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String response) {
+    private static Map<String, Object> checkOrders(Delegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> context, String response) {
         StringBuffer errorMessage = new StringBuffer();
         List<Map<String, Object>> orders = readResponseFromEbay(response, locale, (String)context.get("productStoreId"), delegator, errorMessage);
         if (orders == null) {
@@ -249,7 +249,7 @@ public class ImportOrdersFromEbay {
          return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> buildCompleteSaleRequest(GenericDelegator delegator, Locale locale, String itemId, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
+    public static Map<String, Object> buildCompleteSaleRequest(Delegator delegator, Locale locale, String itemId, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
         String paid = (String)context.get("paid");
         String shipped = (String)context.get("shipped");
 
@@ -323,7 +323,7 @@ public class ImportOrdersFromEbay {
         return ServiceUtil.returnSuccess();
     }
 
-    private static List<Map<String, Object>> readResponseFromEbay(String msg, Locale locale, String productStoreId, GenericDelegator delegator, StringBuffer errorMessage) {
+    private static List<Map<String, Object>> readResponseFromEbay(String msg, Locale locale, String productStoreId, Delegator delegator, StringBuffer errorMessage) {
         List<Map<String, Object>> orders = null;
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
@@ -571,7 +571,7 @@ public class ImportOrdersFromEbay {
         return orders;
     }
 
-    private static Map<String, Object> createShoppingCart(GenericDelegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> parameters, boolean create) {
+    private static Map<String, Object> createShoppingCart(Delegator delegator, LocalDispatcher dispatcher, Locale locale, Map<String, Object> parameters, boolean create) {
         try {
             String productStoreId = (String) parameters.get("productStoreId");
             GenericValue userLogin = (GenericValue) parameters.get("userLogin");
@@ -809,7 +809,7 @@ public class ImportOrdersFromEbay {
     }
 
 
-    private static GenericValue externalOrderExists(GenericDelegator delegator, String externalId, String transactionId) throws GenericEntityException {
+    private static GenericValue externalOrderExists(Delegator delegator, String externalId, String transactionId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId +" and transactionId: " + transactionId, module);
         GenericValue orderHeader = null;
         List<GenericValue> entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "transactionId", transactionId));

@@ -26,7 +26,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -38,7 +38,7 @@ public class StatusWorker {
     public static final String module = StatusWorker.class.getName();
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeId) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
 
         try {
             List<GenericValue> statusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
@@ -51,7 +51,7 @@ public class StatusWorker {
     }
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         List<GenericValue> statusItems = FastList.newInstance();
 
         try {
@@ -76,7 +76,7 @@ public class StatusWorker {
     }
 
     public static void getStatusValidChangeToDetails(PageContext pageContext, String attributeName, String statusId) {
-        GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
+        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         List<GenericValue> statusValidChangeToDetails = null;
 
         try {

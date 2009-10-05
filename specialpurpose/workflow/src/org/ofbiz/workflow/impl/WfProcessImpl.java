@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericResultWaiter;
@@ -75,9 +75,9 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
     }
 
     /**
-     * @see org.ofbiz.workflow.impl.WfExecutionObjectImpl#WfExecutionObjectImpl(org.ofbiz.entity.GenericDelegator, java.lang.String)
+     * @see org.ofbiz.workflow.impl.WfExecutionObjectImpl#WfExecutionObjectImpl(org.ofbiz.entity.Delegator, java.lang.String)
      */
-    public WfProcessImpl(GenericDelegator delegator, String workEffortId) throws WfException {
+    public WfProcessImpl(Delegator delegator, String workEffortId) throws WfException {
         super(delegator, workEffortId);
         if (activityId != null && activityId.length() > 0)
             throw new WfException("Execution object is not of type WfProcess.");

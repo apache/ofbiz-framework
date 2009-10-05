@@ -31,7 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -68,7 +68,7 @@ public class GenericWebEvent {
         }
 
         Security security = (Security) request.getAttribute("security");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         if (security == null) {
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource,"genericWebEvent.security_object_not_found", locale) + ".";

@@ -27,7 +27,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -48,7 +48,7 @@ public class MarketingServices {
 
     public static Map<String, Object> signUpForContactList(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         Timestamp fromDate = UtilDateTime.nowTimestamp();

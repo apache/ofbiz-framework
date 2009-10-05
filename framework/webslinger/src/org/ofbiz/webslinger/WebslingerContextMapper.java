@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -52,7 +53,7 @@ import org.webslinger.lang.ObjectUtil;
 
 public class WebslingerContextMapper extends AbstractMappingWebslingerServletContextFactory {
     protected ServletContext servletContext;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected final ArrayList<URL> globalReaderURLs = new ArrayList<URL>();
 
     public void init(ServletConfig config) throws ServletException, IOException {

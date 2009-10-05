@@ -39,7 +39,7 @@ import org.ofbiz.datafile.DataFileException;
 import org.ofbiz.datafile.ModelRecord;
 import org.ofbiz.datafile.ModelField;
 import org.ofbiz.datafile.Record;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 
 
@@ -290,7 +290,7 @@ public class TaxwareUTL {
         String itemStr = retBuffer.toString().substring(284);
 
         if (Debug.verboseOn()) Debug.logVerbose("Return Size: " + retBuffer.length(), module);
-        GenericDelegator delegator = shipToAddress.getDelegator();
+        Delegator delegator = shipToAddress.getDelegator();
 
         retHead.readDataFile(headStr);
         retItem.readDataFile(itemStr);

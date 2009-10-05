@@ -24,7 +24,7 @@ import java.util.Map;
 import javax.transaction.xa.XAException;
 
 import org.ofbiz.service.calendar.RecurrenceRule;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.jms.JmsListenerFactory;
@@ -180,7 +180,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#getDelegator()
      */
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return dispatcher.getDelegator();
     }
 

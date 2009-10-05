@@ -43,7 +43,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -132,7 +132,7 @@ public class ICalWorker {
 
     protected static Date getLastModifiedDate(HttpServletRequest request) throws GenericEntityException {
         String workEffortId = (String) request.getAttribute("workEffortId");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
         GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData");
         if (iCalData != null) {

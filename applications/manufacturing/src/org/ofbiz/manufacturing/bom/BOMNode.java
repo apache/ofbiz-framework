@@ -32,7 +32,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -48,7 +48,7 @@ public class BOMNode {
     public static final String module = BOMNode.class.getName();
 
     protected LocalDispatcher dispatcher = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected GenericValue userLogin = null;
 
     private BOMTree tree; // the tree to which this node belongs
@@ -84,7 +84,7 @@ public class BOMNode {
         quantity = BigDecimal.ZERO;
     }
 
-    public BOMNode(String productId, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
+    public BOMNode(String productId, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         this(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)), dispatcher, userLogin);
     }
 
@@ -95,7 +95,7 @@ public class BOMNode {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
         bomTypeId = partBomTypeId;
-//        GenericDelegator delegator = product.getDelegator();
+//        Delegator delegator = product.getDelegator();
         List rows = delegator.findByAnd("ProductAssoc",
                                             UtilMisc.toMap("productId", product.get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
@@ -321,7 +321,7 @@ public class BOMNode {
         if (inDate == null) inDate = new Date();
 
         bomTypeId = partBomTypeId;
-//        GenericDelegator delegator = product.getDelegator();
+//        Delegator delegator = product.getDelegator();
         List rows = delegator.findByAnd("ProductAssoc",
                                             UtilMisc.toMap("productIdTo", product.get("productId"),
                                                        "productAssocTypeId", partBomTypeId),

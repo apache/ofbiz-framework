@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -57,7 +57,7 @@ public class SupplierProductServices {
      */
     public static Map<String, Object> getSuppliersForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue product = null;
         String productId = (String) context.get("productId");

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -63,7 +63,7 @@ public class EntityApplicationMappingMgr implements ApplicationMappingManager {
     }
 
     public List getAllApplicationMappings(ApplicationMappingTransaction mappingTransaction) throws RootException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
             lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfApplicationMap, null, null, null, null, false);

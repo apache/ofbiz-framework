@@ -20,7 +20,7 @@
 package org.ofbiz.common.uom;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;

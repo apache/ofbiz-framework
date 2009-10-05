@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -126,22 +126,22 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return mapMatches(entity.getDelegator(), entity, conditionList);
     }
 
-    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         if (((EntityCondition) lhs).mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
         if (((EntityCondition) rhs).mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
         return !shortCircuitValue;
     }
 
-    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         return castBoolean(mapMatches(delegator, map, conditionList));
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             for (EntityCondition condition: conditionList) {
                 if (condition.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;

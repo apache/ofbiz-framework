@@ -39,7 +39,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
@@ -211,7 +211,7 @@ public class FindServices {
      * @param normalizedFields     list of field the user have populated
      * @return a arrayList usable to create an entityCondition
      */
-    public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, GenericDelegator delegator, Map<String, ?> context) {
+    public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
         Map<String, Map<String, Object>> subMap = null;
         Map<String, Object> subMap2 = null;
         EntityOperator fieldOp = null;
@@ -500,7 +500,7 @@ public class FindServices {
 
         // Now use only the values that correspond to entity fields to build
         //   an EntityConditionList
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue entityValue = delegator.makeValue(entityName, FastMap.newInstance());
 
@@ -565,7 +565,7 @@ public class FindServices {
         }
         Integer maxRows = (Integer) context.get("maxRows");
         maxRows = maxRows != null ? maxRows : -1;
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values
         EntityListIterator listIt = null;
         try {
@@ -601,7 +601,7 @@ public class FindServices {
         return retValue;
     }
 
-    public static Map<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, GenericDelegator delegator) {
+    public static Map<String, Object> buildReducedQueryString(Map<String, ?> inputFields, String entityName, Delegator delegator) {
         // Strip the "_suffix" off of the parameter name and
         // build a three-level map of values keyed by fieldRoot name,
         //    fld0 or fld1,  and, then, "op" or "value"

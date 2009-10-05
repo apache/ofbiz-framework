@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -1245,7 +1245,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.getEntityName().compareTo(otherModelEntity.getEntityName());
     }
 
-    public void convertFieldMapInPlace(Map<String, Object> inContext, GenericDelegator delegator) {
+    public void convertFieldMapInPlace(Map<String, Object> inContext, Delegator delegator) {
         convertFieldMapInPlace(inContext, delegator.getModelFieldTypeReader(this));
     }
     public void convertFieldMapInPlace(Map<String, Object> inContext, ModelFieldTypeReader modelFieldTypeReader) {
@@ -1260,7 +1260,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
     }
 
-    public Object convertFieldValue(String fieldName, Object value, GenericDelegator delegator) {
+    public Object convertFieldValue(String fieldName, Object value, Delegator delegator) {
         ModelField modelField = this.getField(fieldName);
         if (modelField == null) {
             String errMsg = "Could not convert field value: could not find an entity field for the name: [" + fieldName + "] on the [" + this.getEntityName() + "] entity.";
@@ -1269,7 +1269,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return convertFieldValue(modelField, value, delegator);
     }
 
-    public Object convertFieldValue(ModelField modelField, Object value, GenericDelegator delegator) {
+    public Object convertFieldValue(ModelField modelField, Object value, Delegator delegator) {
         if (value == null || value == GenericEntity.NULL_FIELD) {
             return null;
         }
@@ -1295,7 +1295,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * require them).
      * @return the converted value
      */
-    public Object convertFieldValue(ModelField modelField, Object value, GenericDelegator delegator, Map<String, ? extends Object> context) {
+    public Object convertFieldValue(ModelField modelField, Object value, Delegator delegator, Map<String, ? extends Object> context) {
         ModelFieldTypeReader modelFieldTypeReader = delegator.getModelFieldTypeReader(this);
         return this.convertFieldValue(modelField, value, modelFieldTypeReader, context);
     }

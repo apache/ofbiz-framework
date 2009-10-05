@@ -40,7 +40,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -79,7 +79,7 @@ public class ProductServices {
     public static Map<String, Object> prodFindSelectedVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Parent (virtual) product ID
         // * Map selectedFeatures  -- Selected features
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         Map selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
         List<GenericValue> products = FastList.newInstance();
@@ -133,7 +133,7 @@ public class ProductServices {
     public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Parent (virtual) product ID
         // * String feature        -- Distinct feature name
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
         String feature = (String) context.get("feature");
 
@@ -145,7 +145,7 @@ public class ProductServices {
      */
     public static Map<String, Object> prodFindFeatureTypes(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Product ID to look up feature types
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
         String productFeatureApplTypeId = (String) context.get("productFeatureApplTypeId");
         if (UtilValidate.isEmpty(productFeatureApplTypeId)) {
@@ -191,7 +191,7 @@ public class ProductServices {
         String productStoreId = (String) context.get("productStoreId");
         Locale locale = (Locale) context.get("locale");
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> result = FastMap.newInstance();
         List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkCollection(context.get("featureOrder")));
@@ -334,7 +334,7 @@ public class ProductServices {
         // * String productId      -- Product ID to find
         // * String type           -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
         // * String distinct       -- Distinct feature (SIZE, COLOR)
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         String distinct = (String) context.get("distinct");
@@ -366,7 +366,7 @@ public class ProductServices {
      */
     public static Map<String, Object> prodFindProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Product ID to find
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
@@ -416,7 +416,7 @@ public class ProductServices {
     public static Map<String, Object> prodFindAssociatedByType(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Current Product ID
         // * String type           -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT)
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         String productIdTo = (String) context.get("productIdTo");
@@ -520,7 +520,7 @@ public class ProductServices {
     }
 
     // Builds a product feature tree
-    private static Map<String, Object> makeGroup(GenericDelegator delegator, Map<String, List<String>> featureList, List<String> items, List<String> order, int index)
+    private static Map<String, Object> makeGroup(Delegator delegator, Map<String, List<String>> featureList, List<String> items, List<String> order, int index)
         throws IllegalArgumentException, IllegalStateException {
         //List featureKey = FastList.newInstance();
         Map<String, List<String>> tempGroup = FastMap.newInstance();
@@ -618,7 +618,7 @@ public class ProductServices {
     }
 
     // builds a variant sample (a single sku for a featureType)
-    private static Map<String, GenericValue> makeVariantSample(GenericDelegator delegator, Map<String, List<String>> featureList, List<String> items, String feature) {
+    private static Map<String, GenericValue> makeVariantSample(Delegator delegator, Map<String, List<String>> featureList, List<String> items, String feature) {
         Map<String, GenericValue> tempSample = FastMap.newInstance();
         Map<String, GenericValue> sample = new LinkedHashMap<String, GenericValue>();
         for (String productId: items) {
@@ -658,7 +658,7 @@ public class ProductServices {
     }
 
     public static Map<String, Object> quickAddVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
@@ -751,7 +751,7 @@ public class ProductServices {
      * It will not put the selectable features on the virtual or standard features on the variant.
      */
     public static Map<String, Object> quickCreateVirtualWithVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // get the various IN attributes
@@ -872,7 +872,7 @@ public class ProductServices {
     public static Map<String, Object> updateProductIfAvailableFromShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
         if ("Y".equals(UtilProperties.getPropertyValue("catalog.properties", "reactivate.product.from.receipt", "N"))) {
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            GenericDelegator delegator = dctx.getDelegator();
+            Delegator delegator = dctx.getDelegator();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             String inventoryItemId = (String) context.get("inventoryItemId");
 
@@ -937,7 +937,7 @@ public class ProductServices {
         throws IOException, JDOMException {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String productContentTypeId = (String) context.get("productContentTypeId");
@@ -1118,7 +1118,7 @@ public class ProductServices {
      * @return a GenericValue with a productId and a List of complementary productId found
      */
     public static Map<String, Object> findProductById(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String idToFind = (String) context.get("idToFind");
         String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
         String searchProductFirstContext = (String) context.get("searchProductFirst");

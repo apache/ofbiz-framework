@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
@@ -64,7 +64,7 @@ public class HtmlFormWrapper {
         this.response = response;
 
         try {
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             this.modelForm = FormFactory.getFormFromLocation(resourceName, formName, delegator.getModelReader(), dispatcher.getDispatchContext());
         } catch (IllegalArgumentException iae) {

@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
@@ -51,7 +51,7 @@ public class CommonEvents {
     public static UtilCache<String, Map<String, String>> appletSessions = new UtilCache<String, Map<String, String>>("AppletSessions", 0, 600000, true);
 
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String sessionId = request.getParameter("sessionId");
         String visitId = request.getParameter("visitId");
         sessionId = sessionId.trim();
@@ -85,7 +85,7 @@ public class CommonEvents {
     }
 
     public static String receiveAppletRequest(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String sessionId = request.getParameter("sessionId");
         String visitId = request.getParameter("visitId");
         sessionId = sessionId.trim();

@@ -29,7 +29,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.LoginWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
@@ -40,7 +40,7 @@ public class XuiSession {
 
     public static final String module = XuiSession.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected GenericValue userLogin = null;
     protected XuiContainer container = null;
@@ -49,7 +49,7 @@ public class XuiSession {
     protected final boolean IS_SAME_LOGIN = UtilProperties.propertyValueEqualsIgnoreCase("xui.properties", "isSameLogin", "true");
     private Locale locale = (Locale) Locale.getDefault();
 
-    public XuiSession(String id, GenericDelegator delegator, LocalDispatcher dispatcher, XuiContainer container) {
+    public XuiSession(String id, Delegator delegator, LocalDispatcher dispatcher, XuiContainer container) {
         this.id = id;
         this.delegator = delegator;
         this.dispatcher = dispatcher;
@@ -61,7 +61,7 @@ public class XuiSession {
         return this.container;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return this.delegator;
     }
 

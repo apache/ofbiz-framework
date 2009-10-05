@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -68,7 +68,7 @@ public class ProductsExportToGoogle {
 
     public static Map<String, Object> exportToGoogle(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         Map<String, Object> result = null;
@@ -245,7 +245,7 @@ public class ProductsExportToGoogle {
     }
 
     private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems,
-                                Locale locale, String testMode, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator) throws IOException {
+                                Locale locale, String testMode, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, Delegator delegator) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request To Google Base :\n" + dataItems.toString(), module);
         }
@@ -301,7 +301,7 @@ public class ProductsExportToGoogle {
         List<Object> newProductsInGoogle = FastList.newInstance();
         List<Object> productsRemovedFromGoogle = FastList.newInstance();
         try {
-            GenericDelegator delegator = dctx.getDelegator();
+            Delegator delegator = dctx.getDelegator();
             LocalDispatcher dispatcher = dctx.getDispatcher();
             List selectResult = (List)context.get("selectResult");
             String webSiteUrl = (String)context.get("webSiteUrl");
@@ -531,7 +531,7 @@ public class ProductsExportToGoogle {
         return priceString;
     }
 
-    private static Map<String, Object> readResponseFromGoogle(String msg, List<Object> newProductsInGoogle, List<Object> productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator, Locale locale) {
+    private static Map<String, Object> readResponseFromGoogle(String msg, List<Object> newProductsInGoogle, List<Object> productsRemovedFromGoogle, LocalDispatcher dispatcher, Delegator delegator, Locale locale) {
         List message = FastList.newInstance();
         // Debug.log("====get xml response from google: " + msg);
         try {
@@ -589,7 +589,7 @@ public class ProductsExportToGoogle {
         return ServiceUtil.returnSuccess();
     }
     
-    private static Map<String, Object> buildGoogleBaseConfig(Map<String, Object> context, GenericDelegator delegator) {
+    private static Map<String, Object> buildGoogleBaseConfig(Map<String, Object> context, Delegator delegator) {
         String productStoreId = (String) context.get("productStoreId");
         Map<String, Object> buildGoogleBaseConfigContext = FastMap.newInstance();
         

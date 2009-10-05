@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -66,7 +66,7 @@ public class BillingAccountWorker {
         if (decimals != -1) ZERO = ZERO.setScale(decimals);
     }
 
-    public static List makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException {
+    public static List makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List billingAccountList = FastList.newInstance();
 
         Map agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
@@ -133,14 +133,14 @@ public class BillingAccountWorker {
      * @return
      * @throws GenericEntityException
      */
-    public static BigDecimal getBillingAccountBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+    public static BigDecimal getBillingAccountBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
         GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
         return getBillingAccountBalance(billingAccount);
     }
 
     public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
 
-        GenericDelegator delegator = billingAccount.getDelegator();
+        Delegator delegator = billingAccount.getDelegator();
         String billingAccountId = billingAccount.getString("billingAccountId");
 
         BigDecimal balance = ZERO;
@@ -174,7 +174,7 @@ public class BillingAccountWorker {
         balance = balance.setScale(decimals, rounding);
         return balance;
         /*
-        GenericDelegator delegator = billingAccount.getDelegator();
+        Delegator delegator = billingAccount.getDelegator();
         String billingAccountId = billingAccount.getString("billingAccountId");
 
         // first get the net balance of invoices - payments
@@ -208,7 +208,7 @@ public class BillingAccountWorker {
     /**
      * Returns list of orders which are currently open against a billing account
      */
-    public static List getBillingAccountOpenOrders(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+    public static List getBillingAccountOpenOrders(Delegator delegator, String billingAccountId) throws GenericEntityException {
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
@@ -236,7 +236,7 @@ public class BillingAccountWorker {
         }
     }
 
-    public static BigDecimal getBillingAccountAvailableBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+    public static BigDecimal getBillingAccountAvailableBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
         GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
         return getBillingAccountAvailableBalance(billingAccount);
     }
@@ -249,7 +249,7 @@ public class BillingAccountWorker {
      * @return
      * @throws GenericEntityException
      */
-    public static BigDecimal getBillingAccountNetBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
+    public static BigDecimal getBillingAccountNetBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
@@ -286,7 +286,7 @@ public class BillingAccountWorker {
     }
 
     public static Map calcBillingAccountBalance(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String billingAccountId = (String) context.get("billingAccountId");
         Map result = ServiceUtil.returnSuccess();
 

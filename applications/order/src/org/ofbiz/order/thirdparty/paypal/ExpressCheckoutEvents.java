@@ -32,7 +32,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -146,7 +146,7 @@ public class ExpressCheckoutEvents {
         return "success";
     }
     
-    public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref, GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref, GenericValue userLogin, Delegator delegator, LocalDispatcher dispatcher) {
         CheckoutType checkoutType = determineCheckoutType(delegator, productStoreId);
         if (!checkoutType.equals(CheckoutType.NONE)) {
             String serviceName = null;
@@ -177,12 +177,12 @@ public class ExpressCheckoutEvents {
     }
 
     public static CheckoutType determineCheckoutType(HttpServletRequest request) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         return determineCheckoutType(delegator, cart.getProductStoreId());
     }
 
-    public static CheckoutType determineCheckoutType(GenericDelegator delegator, String productStoreId) {
+    public static CheckoutType determineCheckoutType(Delegator delegator, String productStoreId) {
         GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
         if (payPalPaymentSetting != null && payPalPaymentSetting.getString("paymentGatewayConfigId") != null) {
             try {

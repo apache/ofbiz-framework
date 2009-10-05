@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -66,7 +66,7 @@ public class WebPosEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         if (UtilValidate.isEmpty(webPosSession)) {

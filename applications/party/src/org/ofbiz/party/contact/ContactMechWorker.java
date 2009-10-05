@@ -32,7 +32,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -45,11 +45,11 @@ public class ContactMechWorker {
 
     public static final String module = ContactMechWorker.class.getName();
 
-    public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld) {
+    public static List<Map<String, Object>> getPartyContactMechValueMaps(Delegator delegator, String partyId, boolean showOld) {
        return getPartyContactMechValueMaps(delegator, partyId, showOld, null);
     }
 
-    public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld, String contactMechTypeId) {
+    public static List<Map<String, Object>> getPartyContactMechValueMaps(Delegator delegator, String partyId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> partyContactMechValueMaps = FastList.newInstance();
 
         List<GenericValue> allPartyContactMechs = null;
@@ -120,7 +120,7 @@ public class ContactMechWorker {
         return partyContactMechValueMaps;
     }
 
-    public static List<Map<String, Object>> getFacilityContactMechValueMaps(GenericDelegator delegator, String facilityId, boolean showOld, String contactMechTypeId) {
+    public static List<Map<String, Object>> getFacilityContactMechValueMaps(Delegator delegator, String facilityId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> facilityContactMechValueMaps = FastList.newInstance();
 
         List<GenericValue> allFacilityContactMechs = null;
@@ -192,7 +192,7 @@ public class ContactMechWorker {
     }
 
 
-    public static List<Map<String, GenericValue>> getOrderContactMechValueMaps(GenericDelegator delegator, String orderId) {
+    public static List<Map<String, GenericValue>> getOrderContactMechValueMaps(Delegator delegator, String orderId) {
         List<Map<String, GenericValue>> orderContactMechValueMaps = FastList.newInstance();
 
         List<GenericValue> allOrderContactMechs = null;
@@ -249,7 +249,7 @@ public class ContactMechWorker {
         return orderContactMechValueMaps;
     }
 
-    public static Collection<Map<String, GenericValue>> getWorkEffortContactMechValueMaps(GenericDelegator delegator, String workEffortId) {
+    public static Collection<Map<String, GenericValue>> getWorkEffortContactMechValueMaps(Delegator delegator, String workEffortId) {
         Collection<Map<String, GenericValue>> workEffortContactMechValueMaps = FastList.newInstance();
 
         List<GenericValue> allWorkEffortContactMechs = null;
@@ -299,7 +299,7 @@ public class ContactMechWorker {
     }
 
     public static void getContactMechAndRelated(ServletRequest request, String partyId, Map<String, Object> target) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         boolean tryEntity = true;
         if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
@@ -471,7 +471,7 @@ public class ContactMechWorker {
      * @param purposeTypes A List of ContactMechPurposeType ids which will be checked one at a time until a valid contact mech is found
      * @return
      */
-    public static GenericValue getFacilityContactMechByPurpose(GenericDelegator delegator, String facilityId, List<String> purposeTypes) {
+    public static GenericValue getFacilityContactMechByPurpose(Delegator delegator, String facilityId, List<String> purposeTypes) {
         if (UtilValidate.isEmpty(facilityId)) return null;
         if (UtilValidate.isEmpty(purposeTypes)) return null;
 
@@ -510,7 +510,7 @@ public class ContactMechWorker {
     }
 
     public static void getFacilityContactMechAndRelated(ServletRequest request, String facilityId, Map<String, Object> target) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         boolean tryEntity = true;
         if (request.getAttribute("_ERROR_MESSAGE") != null) tryEntity = false;
@@ -677,7 +677,7 @@ public class ContactMechWorker {
     }
 
     public static List<Map<String, Object>> getPartyPostalAddresses(ServletRequest request, String partyId, String curContactMechId) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         List<Map<String, Object>> postalAddressInfos = FastList.newInstance();
 
         List<GenericValue> allPartyContactMechs = null;
@@ -725,7 +725,7 @@ public class ContactMechWorker {
     }
 
     public static Map<String, Object> getCurrentPostalAddress(ServletRequest request, String partyId, String curContactMechId) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> results = FastMap.newInstance();
 
         if (curContactMechId != null) {
@@ -833,7 +833,7 @@ public class ContactMechWorker {
         }
 
         // get all company addresses
-        GenericDelegator delegator = postalAddress.getDelegator();
+        Delegator delegator = postalAddress.getDelegator();
         List<GenericValue> postalAddresses = FastList.newInstance();
         try {
             List<GenericValue> partyContactMechs = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", companyPartyId));
@@ -879,7 +879,7 @@ public class ContactMechWorker {
         return false;
     }
 
-    public static String getContactMechAttribute(GenericDelegator delegator, String contactMechId, String attrName) {
+    public static String getContactMechAttribute(Delegator delegator, String contactMechId, String attrName) {
         GenericValue attr = null;
         try {
             attr = delegator.findByPrimaryKey("ContactMechAttribute", UtilMisc.toMap("contactMechId", contactMechId, "attrName", attrName));
@@ -893,7 +893,7 @@ public class ContactMechWorker {
         }
     }
 
-    public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, GenericDelegator delegator) throws GenericEntityException {
+    public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, Delegator delegator) throws GenericEntityException {
         // if postalCodeGeoId not empty use that
         if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
             return postalAddress.getString("postalCodeGeoId");

@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.ContentManagementWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -61,7 +61,7 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
             Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
@@ -175,7 +175,7 @@ public class LayoutEvents {
     public static String updateLayoutImage(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         try {
-            GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
             HttpSession session = request.getSession();
             Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             Map context = (Map)uploadResults.get("formInput");
@@ -311,7 +311,7 @@ public class LayoutEvents {
 
     public static String cloneLayout(HttpServletRequest request, HttpServletResponse response) {
 
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
@@ -603,7 +603,7 @@ public class LayoutEvents {
     }
 
     public static String copyToClip(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
         Map paramMap = UtilHttp.getParameterMap(request);
         String entityName = (String)paramMap.get("entityName");
         Locale locale = UtilHttp.getLocale(request);

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -37,7 +37,7 @@ public class PartyUserGroupMgr implements UserGroupManager {
 
     public static final String module = PartyUserGroupMgr.class.getName();
     protected CallbackUtilities callBack = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
 
     public void configure(CallbackUtilities cb) throws RootException {
         this.delegator = SharkContainer.getDelegator();

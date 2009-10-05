@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -76,7 +76,7 @@ public class PdfSurveyServices {
      *
      */
     public static Map<String, Object> buildSurveyFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -247,7 +247,7 @@ public class PdfSurveyServices {
         String surveyResponseId = null;
         try {
 
-            GenericDelegator delegator = dctx.getDelegator();
+            Delegator delegator = dctx.getDelegator();
             String partyId = (String)context.get("partyId");
             String surveyId = (String)context.get("surveyId");
             //String contentId = (String)context.get("contentId");
@@ -323,7 +323,7 @@ public class PdfSurveyServices {
         Map acroFieldMap = FastMap.newInstance();
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            GenericDelegator delegator = dctx.getDelegator();
+            Delegator delegator = dctx.getDelegator();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
@@ -365,7 +365,7 @@ public class PdfSurveyServices {
     public static Map<String, Object> setAcroFields(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Map results = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         try {
             Map acroFieldMap = (Map)context.get("acroFieldMap");
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
@@ -433,7 +433,7 @@ public class PdfSurveyServices {
      */
     public static Map<String, Object> buildPdfFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
@@ -505,7 +505,7 @@ public class PdfSurveyServices {
      * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
      */
     public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
@@ -542,7 +542,7 @@ public class PdfSurveyServices {
     /**
      */
     public static Map<String, Object> setAcroFieldsFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
         Map acroFieldMap = FastMap.newInstance();
@@ -633,7 +633,7 @@ public class PdfSurveyServices {
     return results;
     }
 
-    public static ByteBuffer getInputByteBuffer(Map context, GenericDelegator delegator) throws GeneralException {
+    public static ByteBuffer getInputByteBuffer(Map context, Delegator delegator) throws GeneralException {
 
         ByteBuffer inputByteBuffer = (ByteBuffer)context.get("inputByteBuffer");
 

@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -49,7 +49,7 @@ public class RoutingServices {
      */
     public static Map getEstimatedTaskTime(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         // The mandatory IN parameters

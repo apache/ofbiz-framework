@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -60,7 +60,7 @@ public class IcsPaymentServices {
     }
     
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
@@ -93,7 +93,7 @@ public class IcsPaymentServices {
     }
     
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -130,7 +130,7 @@ public class IcsPaymentServices {
     }
     
     public static Map<String, Object> ccRelease(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -164,7 +164,7 @@ public class IcsPaymentServices {
     }
     
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -199,7 +199,7 @@ public class IcsPaymentServices {
     }
     
     public static Map<String, Object> ccCredit(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         // generate the request/properties
         Properties props = buildCsProperties(context, delegator);
         if (props == null) {
@@ -227,7 +227,7 @@ public class IcsPaymentServices {
         return result;
     }
     
-    private static Properties buildCsProperties(Map<String, ? extends Object> context, GenericDelegator delegator) {
+    private static Properties buildCsProperties(Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
@@ -268,7 +268,7 @@ public class IcsPaymentServices {
         return props;
     }
     
-    private static Map<String, Object> buildAuthRequest(Map<String, ? extends Object> context, GenericDelegator delegator) {
+    private static Map<String, Object> buildAuthRequest(Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
@@ -289,7 +289,7 @@ public class IcsPaymentServices {
         return request;
     }
     
-    private static Map<String, Object> buildCaptureRequest(Map<String, ? extends Object> context, GenericValue authTransaction, GenericDelegator delegator) {
+    private static Map<String, Object> buildCaptureRequest(Map<String, ? extends Object> context, GenericValue authTransaction, Delegator delegator) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
@@ -330,7 +330,7 @@ public class IcsPaymentServices {
         return request;
     }
     
-    private static Map<String, Object> buildRefundRequest(Map<String, ? extends Object> context, GenericValue authTransaction, GenericDelegator delegator) {
+    private static Map<String, Object> buildRefundRequest(Map<String, ? extends Object> context, GenericValue authTransaction, Delegator delegator) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
@@ -365,7 +365,7 @@ public class IcsPaymentServices {
         return request;
     }
     
-    private static void appendAvsRules(Map<String, Object> request, Map<String, ? extends Object> context, GenericDelegator delegator) {
+    private static void appendAvsRules(Map<String, Object> request, Map<String, ? extends Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
@@ -629,7 +629,7 @@ public class IcsPaymentServices {
         return decision;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
@@ -653,7 +653,7 @@ public class IcsPaymentServices {
         return returnValue;
     }
     
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName, String defaultValue) {
         String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {

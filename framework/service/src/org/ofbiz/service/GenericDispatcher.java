@@ -26,7 +26,7 @@ import java.util.Set;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 /**
  * Generic Services Local Dispatcher
@@ -38,15 +38,15 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     protected static boolean ecasDisabled = false;
     protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
 
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator) {
         return getLocalDispatcher(dispatcherName, delegator, null, null, null);
     }
 
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader) {
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader) {
         return getLocalDispatcher(dispatcherName, delegator, readerURLs, loader, null);
     }
 
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
             dispatcherName = "default";
             Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
@@ -90,11 +90,11 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     }
 
     /** special method to obtain a new 'unique' reference with a variation on parameters */
-    public static LocalDispatcher newInstance(String name, GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
+    public static LocalDispatcher newInstance(String name, Delegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
         return newInstance(name, delegator, null, enableJM, enableJMS, enableSvcs);
     }
 
-    public static LocalDispatcher newInstance(String name, GenericDelegator delegator, Collection<URL> readerURLs, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
+    public static LocalDispatcher newInstance(String name, Delegator delegator, Collection<URL> readerURLs, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
         ServiceDispatcher sd = new ServiceDispatcher(delegator, enableJM, enableJMS, enableSvcs);
         ClassLoader loader = null;
         try {
@@ -111,7 +111,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
     protected GenericDispatcher() {}
 
-    protected GenericDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+    protected GenericDispatcher(String name, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (serviceDispatcher != null) {
             this.dispatcher = serviceDispatcher;
         }
@@ -126,7 +126,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         init(name, delegator, dc);
     }
 
-    protected void init(String name, GenericDelegator delegator, DispatchContext ctx) {
+    protected void init(String name, Delegator delegator, DispatchContext ctx) {
         if (name == null || name.length() == 0)
             throw new IllegalArgumentException("The name of a LocalDispatcher cannot be a null or empty String");
 

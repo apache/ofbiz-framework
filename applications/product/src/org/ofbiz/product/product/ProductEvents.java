@@ -40,7 +40,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -72,7 +72,7 @@ public class ProductEvents {
      */
     public static String updateAllKeywords(HttpServletRequest request, HttpServletResponse response) {
         //String errMsg = "";
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -199,7 +199,7 @@ public class ProductEvents {
     public static String updateProductAssoc(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
         List<Object> errMsgList = FastList.newInstance();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Security security = (Security) request.getAttribute("security");
 
         String updateMode = request.getParameter("UPDATE_MODE");
@@ -415,7 +415,7 @@ public class ProductEvents {
     }
 
     public static String updateProductQuickAdminShipping(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String variantProductId = request.getParameter("productId0");
@@ -526,7 +526,7 @@ public class ProductEvents {
      * @return
      * @throws GenericEntityException
      */
-    private static void setOrCreateProdFeature(GenericDelegator delegator, String productId, List<GenericValue> currentProductFeatureAndAppls,
+    private static void setOrCreateProdFeature(Delegator delegator, String productId, List<GenericValue> currentProductFeatureAndAppls,
                                           String uomId, String productFeatureTypeId, BigDecimal numberSpecified) throws GenericEntityException {
 
         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId));
@@ -584,7 +584,7 @@ public class ProductEvents {
     }
 
     public static String updateProductQuickAdminSelFeat(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
@@ -657,7 +657,7 @@ public class ProductEvents {
 
     protected static void checkUpdateFeatureApplByDescription(String productId, GenericValue product, String description,
             String productFeatureTypeId, GenericValue productFeatureType, String productFeatureApplTypeId,
-            Timestamp nowTimestamp, GenericDelegator delegator, Set<String> descriptionsToRemove, Set<String> descriptionsRemoved) throws GenericEntityException {
+            Timestamp nowTimestamp, Delegator delegator, Set<String> descriptionsToRemove, Set<String> descriptionsRemoved) throws GenericEntityException {
         if (productFeatureType == null) {
             return;
         }
@@ -759,7 +759,7 @@ public class ProductEvents {
     }
 
     public static String removeFeatureApplsByFeatureTypeId(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
@@ -795,7 +795,7 @@ public class ProductEvents {
     }
 
     public static String removeProductFeatureAppl(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
@@ -818,7 +818,7 @@ public class ProductEvents {
     }
 
     public static String addProductToCategories(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String fromDate = request.getParameter("fromDate");
         if ((fromDate == null) || (fromDate.trim().length() == 0)) {
@@ -848,7 +848,7 @@ public class ProductEvents {
     }
 
     public static String updateProductCategoryMember(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productCategoryId = request.getParameter("productCategoryId");
         String thruDate = request.getParameter("thruDate");
@@ -875,7 +875,7 @@ public class ProductEvents {
     }
 
     public static String addProductFeatures(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
         String fromDate = request.getParameter("fromDate");
@@ -953,7 +953,7 @@ public class ProductEvents {
      */
     public static String checkStoreCustomerRole(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore != null && userLogin != null) {
@@ -983,7 +983,7 @@ public class ProductEvents {
     public static String tellAFriend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         String emailType = "PRDS_TELL_FRIEND";
         String defaultScreenLocation = "component://ecommerce/widget/EmailProductScreens.xml#TellFriend";
 
@@ -1071,7 +1071,7 @@ public class ProductEvents {
 
     public static String addProductToComparisonList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         
         String productId = request.getParameter("productId");
         GenericValue product = null;
@@ -1109,7 +1109,7 @@ public class ProductEvents {
 
     public static String removeProductFromComparisonList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         
         String productId = request.getParameter("productId");
         GenericValue product = null;

@@ -30,7 +30,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -47,7 +47,7 @@ public class OFBizSecurity implements Security {
 
     public static final String module = OFBizSecurity.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
 
     protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
@@ -56,15 +56,15 @@ public class OFBizSecurity implements Security {
 
     protected OFBizSecurity() {}
 
-    protected OFBizSecurity(GenericDelegator delegator) {
+    protected OFBizSecurity(Delegator delegator) {
         this.delegator = delegator;
     }
 
-    public GenericDelegator getDelegator() {
+    public Delegator getDelegator() {
         return this.delegator;
     }
 
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
 

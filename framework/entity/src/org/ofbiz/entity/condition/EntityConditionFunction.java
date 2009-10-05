@@ -22,7 +22,7 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -38,7 +38,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
     public static class NOT extends EntityConditionFunction {
         public NOT(EntityCondition nested) { super(ID_NOT, "NOT", nested); }
         @Override
-        public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
+        public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
             return !condition.mapMatches(delegator, map);
         }
         @Override
@@ -46,7 +46,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
             return new NOT(condition.freeze());
         }
         @Override
-        public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
+        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
             // nothing to do here...
         }
     };

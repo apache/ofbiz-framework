@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.shark.auth;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.shark.container.SharkContainer;
@@ -42,7 +42,7 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
     }
 
     public boolean validateUser(UserTransaction userTransaction, String userName, String password) throws RootException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         GenericValue sharkUser = null;
         try {
             sharkUser = delegator.findByPrimaryKey(org.ofbiz.shark.SharkConstants.SharkUser, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.userName, userName));

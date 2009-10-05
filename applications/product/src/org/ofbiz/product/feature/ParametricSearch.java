@@ -32,7 +32,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityListIterator;
@@ -55,11 +55,11 @@ public class ParametricSearch {
      * ProductCategory -> ProductFeatureCategoryAppl -> ProductFeatureCategory -> ProductFeature.
      * Returns a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
      */
-    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator) {
+    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator) {
         return makeCategoryFeatureLists(productCategoryId, delegator, DEFAULT_PER_TYPE_MAX_SIZE);
     }
 
-    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator, int perTypeMaxSize) {
+    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator, int perTypeMaxSize) {
         Map<String, Map<String, GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
             List<GenericValue> productFeatureCategoryAppls = delegator.findByAndCache("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
@@ -119,10 +119,10 @@ public class ParametricSearch {
         return productFeaturesByTypeMapSorted;
     }
 
-    public static Map<String, List<GenericValue>> getAllFeaturesByType(GenericDelegator delegator) {
+    public static Map<String, List<GenericValue>> getAllFeaturesByType(Delegator delegator) {
         return getAllFeaturesByType(delegator, DEFAULT_PER_TYPE_MAX_SIZE);
     }
-    public static Map<String, List<GenericValue>> getAllFeaturesByType(GenericDelegator delegator, int perTypeMaxSize) {
+    public static Map<String, List<GenericValue>> getAllFeaturesByType(Delegator delegator, int perTypeMaxSize) {
         Map<String, List<GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
             Set<String> typesWithOverflowMessages = FastSet.newInstance();

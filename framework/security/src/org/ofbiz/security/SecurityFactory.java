@@ -23,7 +23,7 @@ import org.ofbiz.base.config.SecurityConfigUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.w3c.dom.Element;
 
 /**
@@ -50,7 +50,7 @@ public class SecurityFactory {
      * @param delegator the generic delegator
      * @return instance of security implementation (default: OFBizSecurity)
      */
-    public static Security getInstance(GenericDelegator delegator) throws SecurityConfigurationException {
+    public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Security security = null;
 
         // Make securityName a singleton

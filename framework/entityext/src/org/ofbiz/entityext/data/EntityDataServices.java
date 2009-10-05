@@ -23,7 +23,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.security.Security;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
@@ -110,7 +110,7 @@ public class EntityDataServices {
     }
 
     public static Map<String, Object> importDelimitedFile(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
         // check permission
@@ -226,7 +226,7 @@ public class EntityDataServices {
         return header;
     }
 
-    private static int readEntityFile(File file, String delimiter, GenericDelegator delegator) throws IOException, GeneralException {
+    private static int readEntityFile(File file, String delimiter, Delegator delegator) throws IOException, GeneralException {
         String entityName = file.getName().substring(0, file.getName().lastIndexOf('.'));
         if (entityName == null) {
             throw new GeneralException("Entity name cannot be null : [" + file.getName() + "]");
@@ -270,7 +270,7 @@ public class EntityDataServices {
         return lineNumber;
     }
 
-    private static GenericValue makeGenericValue(GenericDelegator delegator, String entityName, String[] header, String[] line) {
+    private static GenericValue makeGenericValue(Delegator delegator, String entityName, String[] header, String[] line) {
         GenericValue newValue = delegator.makeValue(entityName);
         for (int i = 0; i < header.length; i++) {
             String name = header[i].trim();
@@ -305,7 +305,7 @@ public class EntityDataServices {
         return newValue;
     }
 
-    private String[] getEntityFieldNames(GenericDelegator delegator, String entityName) {
+    private String[] getEntityFieldNames(Delegator delegator, String entityName) {
         ModelEntity entity = delegator.getModelEntity(entityName);
         if (entity == null) {
             return null;
@@ -325,7 +325,7 @@ public class EntityDataServices {
     }
 
     public static Map<String, Object> rebuildAllIndexesAndKeys(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
         // check permission
@@ -422,7 +422,7 @@ public class EntityDataServices {
     }
 
     public static Map<String, Object> unwrapByteWrappers(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");
 

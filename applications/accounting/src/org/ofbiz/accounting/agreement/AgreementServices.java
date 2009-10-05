@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -77,7 +77,7 @@ public class AgreementServices {
      *              productId       String  Product Id
      */
     public static Map<String, Object> getCommissionForProduct(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
         List<Map<String, Object>> commissions = FastList.newInstance();

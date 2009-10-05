@@ -32,6 +32,7 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityFactory;
@@ -54,7 +55,7 @@ public class WebDavServlet extends GenericServlet {
     public static final String module = WebDavServlet.class.getName();
 
     protected Authorization authz = null;
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected RequestHandlerFactory handlerFactory = null;
     protected Security security = null;

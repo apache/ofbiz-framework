@@ -35,6 +35,7 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
@@ -47,7 +48,7 @@ public class JavaMailContainer implements Container {
     public static final String module = JavaMailContainer.class.getName();
     public static final String INBOX = "INBOX";
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected LocalDispatcher dispatcher = null;
     protected GenericValue userLogin = null;
     protected long timerDelay = 300000;

@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -167,7 +167,7 @@ public class ContentServices {
      * This is a generic service for traversing a Content tree, typical of a blog response tree. It calls the ContentWorker.traverse method.
      */
     public static Map<String, Object> traverseContent(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Map results = FastMap.newInstance();
 
         String contentId = (String) context.get("contentId");
@@ -257,7 +257,7 @@ public class ContentServices {
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         Map result = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String) context.get("contentId");
         //String contentTypeId = (String) context.get("contentTypeId");
@@ -352,7 +352,7 @@ public class ContentServices {
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
 
@@ -518,7 +518,7 @@ public class ContentServices {
      */
     public static Map<String, Object> updateContentMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
 
@@ -599,7 +599,7 @@ public class ContentServices {
      */
     public static Map<String, Object> updateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
 
@@ -712,7 +712,7 @@ public class ContentServices {
      */
     public static Map<String, Object> deactivateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
 
@@ -789,7 +789,7 @@ public class ContentServices {
      * Deactivates any active ContentAssoc (except the current one) that is associated with the passed in template/layout contentId and mapKey.
      */
     public static Map<String, Object> deactivateAssocs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String contentIdTo = (String) context.get("contentIdTo");
         String mapKey = (String) context.get("mapKey");
         String contentAssocTypeId = (String) context.get("contentAssocTypeId");
@@ -855,7 +855,7 @@ public class ContentServices {
      */
     public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         Map templateContext = (Map) context.get("templateContext");
@@ -917,7 +917,7 @@ public class ContentServices {
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Writer out = (Writer) context.get("outWriter");
 
         Map templateContext = (Map) context.get("templateContext");
@@ -961,7 +961,7 @@ public class ContentServices {
 
     public static Map<String, Object> linkContentToPubPt(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String contentId = (String) context.get("contentId");

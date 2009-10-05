@@ -25,7 +25,7 @@ import java.util.Map;
 import javolution.context.ObjectFactory;
 
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -73,7 +73,7 @@ public class EntityDateFilterCondition extends EntityCondition {
     }
 
     @Override
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
         EntityCondition condition = makeCondition();
         return condition.mapMatches(delegator, map);
     }
@@ -106,7 +106,7 @@ public class EntityDateFilterCondition extends EntityCondition {
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
+    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         // nothing to do here...
     }
 

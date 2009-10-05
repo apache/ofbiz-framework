@@ -30,7 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -47,7 +47,7 @@ public class QuoteServices {
 
     public static Map sendQuoteReportMail(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 

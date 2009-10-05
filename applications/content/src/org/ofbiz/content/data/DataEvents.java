@@ -36,7 +36,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -58,7 +58,7 @@ public class DataEvents {
 
     /** Streams any binary content data to the browser */
     public static String serveObjectData(HttpServletRequest request, HttpServletResponse response) {
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
 
@@ -229,7 +229,7 @@ public class DataEvents {
         HttpSession session = request.getSession();
         ServletContext application = session.getServletContext();
 
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map parameters = UtilHttp.getParameterMap(request);
 
         Debug.log("Img UserAgent - " + request.getHeader("User-Agent"), module);
@@ -309,7 +309,7 @@ public class DataEvents {
     public static String persistDataResource(HttpServletRequest request, HttpServletResponse response) {
         Map result = null;
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map paramMap = UtilHttp.getParameterMap(request);
         String dataResourceId = (String)paramMap.get("dataResourceId");

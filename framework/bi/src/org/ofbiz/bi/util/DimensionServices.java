@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityUtil;
 
 import org.ofbiz.entity.GenericEntityException;
@@ -54,7 +54,7 @@ public class DimensionServices {
 
     public static Map<String, Object> getDimensionIdFromNaturalKey(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String dimensionEntityName = (String) context.get("dimensionEntityName");
@@ -73,7 +73,7 @@ public class DimensionServices {
     }
 
     public static Map<String, Object> storeGenericDimension(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         GenericValue dimensionValue = (GenericValue) context.get("dimensionValue");

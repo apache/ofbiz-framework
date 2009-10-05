@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -116,7 +117,7 @@ public abstract class ListFinder extends Finder {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
+    public void runFind(Map<String, Object> context, Delegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
         String useCacheStr = this.useCacheStrExdr.expandString(context);
         String filterByDateStr = this.filterByDateStrExdr.expandString(context);

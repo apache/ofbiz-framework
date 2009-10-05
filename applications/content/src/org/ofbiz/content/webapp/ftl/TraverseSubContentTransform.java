@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.ftl.LoopWriter;
@@ -77,7 +77,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         //FreeMarkerWorker.convertContext(templateCtx);
         final Map savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
-        final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
 /*
         final String editTemplate = getArg(args, "editTemplate", ctx);
         final String wrapTemplateId = getArg(args, "wrapTemplateId", ctx);

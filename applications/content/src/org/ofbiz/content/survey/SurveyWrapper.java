@@ -40,7 +40,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -61,7 +61,7 @@ public class SurveyWrapper {
 
     public static final String module = SurveyWrapper.class.getName();
 
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected String responseId = null;
     protected String partyId = null;
     protected String surveyId = null;
@@ -72,7 +72,7 @@ public class SurveyWrapper {
 
     protected SurveyWrapper() {}
 
-    public SurveyWrapper(GenericDelegator delegator, String responseId, String partyId, String surveyId, Map passThru, Map defaultValues) {
+    public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map passThru, Map defaultValues) {
         this.delegator = delegator;
         this.responseId = responseId;
         this.partyId = partyId;
@@ -82,11 +82,11 @@ public class SurveyWrapper {
         this.checkParameters();
     }
 
-     public SurveyWrapper(GenericDelegator delegator, String responseId, String partyId, String surveyId, Map passThru) {
+     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map passThru) {
          this(delegator, responseId, partyId, surveyId, passThru, null);
      }
 
-    public SurveyWrapper(GenericDelegator delegator, String surveyId) {
+    public SurveyWrapper(Delegator delegator, String surveyId) {
         this(delegator, null, null, surveyId, null);
     }
 

@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -65,7 +65,7 @@ public class ProductConfigWorker {
              */
             String cacheKey = productId + SEPARATOR + productStoreId + SEPARATOR + catalogId + SEPARATOR + webSiteId + SEPARATOR + currencyUomId;
             if (!productConfigCache.containsKey(cacheKey)) {
-                configWrapper = new ProductConfigWrapper((GenericDelegator)request.getAttribute("delegator"),
+                configWrapper = new ProductConfigWrapper((Delegator)request.getAttribute("delegator"),
                                                          (LocalDispatcher)request.getAttribute("dispatcher"),
                                                          productId, productStoreId, catalogId, webSiteId,
                                                          currencyUomId, UtilHttp.getLocale(request),
@@ -135,8 +135,8 @@ public class ProductConfigWorker {
                                 } else {
 
                                     //  handle also feature tree virtual variant methods
-                                    if (ProductWorker.isVirtual((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId)) {
-                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId))) {
+                                    if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProdcutId)) {
+                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProdcutId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = FastList.newInstance();
                                             Enumeration paramNames = request.getParameterNames();
@@ -152,7 +152,7 @@ public class ProductConfigWorker {
                                                 Debug.logWarning("ERROR: No features selected for productId [" + selectedProdcutId+ "]", module);
                                             }
 
-                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProdcutId, selectedFeatures, (GenericDelegator)request.getAttribute("delegator"));
+                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProdcutId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
                                                 selectedProdcutId = variantProductId;
                                             } else {
@@ -181,7 +181,7 @@ public class ProductConfigWorker {
      * @param ProductConfigWrapper
      * @param delegator
      */
-    public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, GenericDelegator delegator) {
+    public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, Delegator delegator) {
         if (configWrapper == null || (!configWrapper.isCompleted()))  return;
         String configId = null;
         List<ConfigItem> questions = configWrapper.getQuestions();
@@ -384,7 +384,7 @@ public class ProductConfigWorker {
      * @param autoUserLogin
      * @return ProductConfigWrapper
      */
-    public static ProductConfigWrapper loadProductConfigWrapper(GenericDelegator delegator, LocalDispatcher dispatcher, String configId, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) {
+    public static ProductConfigWrapper loadProductConfigWrapper(Delegator delegator, LocalDispatcher dispatcher, String configId, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) {
         ProductConfigWrapper configWrapper = null;
         try {
              configWrapper = new ProductConfigWrapper(delegator, dispatcher, productId, productStoreId, catalogId, webSiteId, currencyUomId, locale, autoUserLogin);

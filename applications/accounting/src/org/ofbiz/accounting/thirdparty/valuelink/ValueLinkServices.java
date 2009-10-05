@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -57,7 +57,7 @@ public class ValueLinkServices {
 
     // generate/display new public/private/kek keys
     public static Map createKeys(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
         vl.reload();
@@ -77,7 +77,7 @@ public class ValueLinkServices {
 
     // test the KEK encryption
     public static Map testKekEncryption(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         Properties props = getProperties(context);
 
@@ -127,7 +127,7 @@ public class ValueLinkServices {
 
     // change working key service
     public static Map assignWorkingKey(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Properties props = getProperties(context);
 
@@ -192,7 +192,7 @@ public class ValueLinkServices {
     }
 
     public static Map activate(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String vlPromoCode = (String) context.get("vlPromoCode");
         String cardNumber = (String) context.get("cardNumber");
@@ -269,7 +269,7 @@ public class ValueLinkServices {
     }
 
     public static Map linkPhysicalCard(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String virtualCard = (String) context.get("virtualCard");
         String virtualPin = (String) context.get("virtualPin");
@@ -323,7 +323,7 @@ public class ValueLinkServices {
     }
 
     public static Map disablePin(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -379,7 +379,7 @@ public class ValueLinkServices {
     }
 
     public static Map redeem(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -446,7 +446,7 @@ public class ValueLinkServices {
     }
 
     public static Map reload(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -512,7 +512,7 @@ public class ValueLinkServices {
     }
 
     public static Map balanceInquire(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -568,7 +568,7 @@ public class ValueLinkServices {
     }
 
     public static Map transactionHistory(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -623,7 +623,7 @@ public class ValueLinkServices {
     }
 
     public static Map refund(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
         String pin = (String) context.get("pin");
@@ -975,7 +975,7 @@ public class ValueLinkServices {
     public static Map giftCardPurchase(DispatchContext dctx, Map context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue orderItem = (GenericValue) context.get("orderItem");
         Locale locale = (Locale) context.get("locale");
@@ -1252,7 +1252,7 @@ public class ValueLinkServices {
     public static Map giftCardReload(DispatchContext dctx, Map context) {
         // this service should always be called via FULFILLMENT_EXTSYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue orderItem = (GenericValue) context.get("orderItem");
         Locale locale = (Locale) context.get("locale");

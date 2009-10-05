@@ -27,7 +27,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -39,7 +39,7 @@ public class GeoWorker {
 
     public static final String module = GeoWorker.class.getName();
 
-    public static List<GenericValue> expandGeoGroup(String geoId, GenericDelegator delegator) {
+    public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
             geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
@@ -85,7 +85,7 @@ public class GeoWorker {
         return geoList;
     }
 
-    public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, GenericDelegator delegator) throws GenericEntityException {
+    public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, Delegator delegator) throws GenericEntityException {
         if (geoIdSet == null || geoIdSet.size() == 0) {
             return geoIdSet;
         }
@@ -103,7 +103,7 @@ public class GeoWorker {
         return geoIdSetNew;
     }
 
-    public static boolean containsGeo(List<GenericValue> geoList, String geoId, GenericDelegator delegator) {
+    public static boolean containsGeo(List<GenericValue> geoList, String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
             geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
@@ -121,7 +121,7 @@ public class GeoWorker {
         return geoList.contains(geo);
     }
 
-    public static GenericValue findLatestGeoPoint(GenericDelegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
+    public static GenericValue findLatestGeoPoint(Delegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
             try {

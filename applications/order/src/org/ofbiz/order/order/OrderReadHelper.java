@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.DataModelConstants;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -122,7 +122,7 @@ public class OrderReadHelper {
         this.orderItems = orderItems;
     }
 
-    public OrderReadHelper(GenericDelegator delegator, String orderId) {
+    public OrderReadHelper(Delegator delegator, String orderId) {
         try {
             this.orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
@@ -157,7 +157,7 @@ public class OrderReadHelper {
     public GenericValue getProductStore() {
         String productStoreId = orderHeader.getString("productStoreId");
         try {
-            GenericDelegator delegator = orderHeader.getDelegator();
+            Delegator delegator = orderHeader.getDelegator();
             GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
             return productStore;
         } catch (GenericEntityException ex) {
@@ -727,7 +727,7 @@ public class OrderReadHelper {
     }
 
     public GenericValue getPartyFromRole(String roleTypeId) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         GenericValue partyObject = null;
         try {
             GenericValue orderRole = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderRole", UtilMisc.toMap("roleTypeId", roleTypeId)));
@@ -1004,7 +1004,7 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getItemWeight(GenericValue item) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         BigDecimal itemWeight = ZERO;
 
         GenericValue product = null;
@@ -1123,7 +1123,7 @@ public class OrderReadHelper {
     }
 
     public BigDecimal getItemSize(GenericValue item) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         BigDecimal size = BigDecimal.ZERO;
 
         GenericValue product = null;
@@ -1172,7 +1172,7 @@ public class OrderReadHelper {
     }
 
     public long getItemPiecesIncluded(GenericValue item) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         long piecesIncluded = 1;
 
         GenericValue product = null;
@@ -1242,7 +1242,7 @@ public class OrderReadHelper {
     }
 
     public String getOrderEmailString() {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         // get the email addresses from the order contact mech(s)
         List orderContactMechs = null;
         try {
@@ -1281,7 +1281,7 @@ public class OrderReadHelper {
      * amounts received and refunded as payments for the settled ones.
      */
     public BigDecimal getOrderOpenAmount() throws GenericEntityException {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         BigDecimal total = getOrderGrandTotal();
         BigDecimal openAmount = BigDecimal.ZERO;
         List prefs = getPaymentPreferences();
@@ -1346,7 +1346,7 @@ public class OrderReadHelper {
     }
 
     public int hasSurvey() {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         List surveys = null;
         try {
             surveys = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("orderId", orderHeader.getString("orderId")));
@@ -1413,7 +1413,7 @@ public class OrderReadHelper {
         }
         return false;
     }*/
-    GenericDelegator delegator = orderHeader.getDelegator();
+    Delegator delegator = orderHeader.getDelegator();
         GenericValue orderDeliverySchedule = null;
         try {
             orderDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
@@ -1591,7 +1591,7 @@ public class OrderReadHelper {
     public String getCurrentOrderItemWorkEffort(GenericValue orderItem)    {
         String orderItemSeqId = orderItem.getString("orderItemSeqId");
         String orderId = orderItem.getString("orderId");
-        GenericDelegator delegator = orderItem.getDelegator();
+        Delegator delegator = orderItem.getDelegator();
         GenericValue workOrderItemFulFillment = null;
         GenericValue workEffort = null;
         try {
@@ -1627,7 +1627,7 @@ public class OrderReadHelper {
     public List getOrderItemPriceInfos(GenericValue orderItem) {
         if (orderItem == null) return null;
         if (this.orderItemPriceInfos == null) {
-            GenericDelegator delegator = orderHeader.getDelegator();
+            Delegator delegator = orderHeader.getDelegator();
 
             try {
                 orderItemPriceInfos = delegator.findByAnd("OrderItemPriceInfo", UtilMisc.toMap("orderId", orderHeader.get("orderId")));
@@ -1654,7 +1654,7 @@ public class OrderReadHelper {
     public List getOrderItemShipGrpInvResList(GenericValue orderItem) {
         if (orderItem == null) return null;
         if (this.orderItemShipGrpInvResList == null) {
-            GenericDelegator delegator = orderItem.getDelegator();
+            Delegator delegator = orderItem.getDelegator();
             try {
                 orderItemShipGrpInvResList = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderItem.get("orderId")));
             } catch (GenericEntityException e) {
@@ -1671,7 +1671,7 @@ public class OrderReadHelper {
     public List getOrderItemIssuances(GenericValue orderItem, String shipmentId) {
         if (orderItem == null) return null;
         if (this.orderItemIssuances == null) {
-            GenericDelegator delegator = orderItem.getDelegator();
+            Delegator delegator = orderItem.getDelegator();
 
             try {
                 orderItemIssuances = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderItem.get("orderId")));
@@ -1698,7 +1698,7 @@ public class OrderReadHelper {
     }
 
     public List getOrderReturnItems() {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         if (this.orderReturnItems == null) {
             try {
                 this.orderReturnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("orderId", orderHeader.getString("orderId")));
@@ -2221,7 +2221,7 @@ public class OrderReadHelper {
     // =================== Static Methods ===================
     // ======================================================
 
-    public static GenericValue getOrderHeader(GenericDelegator delegator, String orderId) {
+    public static GenericValue getOrderHeader(Delegator delegator, String orderId) {
         GenericValue orderHeader = null;
         if (orderId != null && delegator != null) {
             try {
@@ -2254,7 +2254,7 @@ public class OrderReadHelper {
         return orderQty.subtract(cancelQty);
     }
 
-    public static GenericValue getProductStoreFromOrder(GenericDelegator delegator, String orderId) {
+    public static GenericValue getProductStoreFromOrder(Delegator delegator, String orderId) {
         GenericValue orderHeader = getOrderHeader(delegator, orderId);
         if (orderHeader == null) {
             Debug.logWarning("Could not find OrderHeader for orderId [" + orderId + "] in getProductStoreFromOrder, returning null", module);
@@ -2266,7 +2266,7 @@ public class OrderReadHelper {
         if (orderHeader == null) {
             return null;
         }
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         GenericValue productStore = null;
         if (orderHeader != null && orderHeader.get("productStoreId") != null) {
             try {
@@ -2333,7 +2333,7 @@ public class OrderReadHelper {
     }
 
     public static List getOrderSurveyResponses(GenericValue orderHeader) {
-        GenericDelegator delegator = orderHeader.getDelegator();
+        Delegator delegator = orderHeader.getDelegator();
         String orderId = orderHeader.getString("orderId");
          List responses = null;
         try {
@@ -2349,7 +2349,7 @@ public class OrderReadHelper {
     }
 
     public static List getOrderItemSurveyResponse(GenericValue orderItem) {
-        GenericDelegator delegator = orderItem.getDelegator();
+        Delegator delegator = orderItem.getDelegator();
         String orderItemSeqId = orderItem.getString("orderItemSeqId");
         String orderId = orderItem.getString("orderId");
         List responses = null;
@@ -2682,7 +2682,7 @@ public class OrderReadHelper {
         return newOrderAdjustmentsList;
     }
 
-    public static BigDecimal getQuantityOnOrder(GenericDelegator delegator, String productId) {
+    public static BigDecimal getQuantityOnOrder(Delegator delegator, String productId) {
         BigDecimal quantity = BigDecimal.ZERO;
 
         // first find all open purchase orders
@@ -2779,7 +2779,7 @@ public class OrderReadHelper {
      * @param condition
      * @return
      */
-    public static BigDecimal getReturnAdjustmentTotal(GenericDelegator delegator, Map condition) {
+    public static BigDecimal getReturnAdjustmentTotal(Delegator delegator, Map condition) {
         BigDecimal total = ZERO;
         List adjustments;
         try {

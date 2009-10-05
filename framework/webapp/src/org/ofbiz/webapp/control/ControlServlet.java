@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -145,13 +146,13 @@ public class ControlServlet extends HttpServlet {
 
         // for convenience, and necessity with event handlers, make security and delegator available in the request:
         // try to get it from the session first so that we can have a delegator/dispatcher/security for a certain user if desired
-        GenericDelegator delegator = null;
+        Delegator delegator = null;
         String delegatorName = (String) session.getAttribute("delegatorName");
         if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
         if (delegator == null) {
-            delegator = (GenericDelegator) getServletContext().getAttribute("delegator");
+            delegator = (Delegator) getServletContext().getAttribute("delegator");
         }
         if (delegator == null) {
             Debug.logError("[ControlServlet] ERROR: delegator not found in ServletContext", module);

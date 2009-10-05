@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -84,7 +84,7 @@ public class PriceServices {
         // utilTimer.timerString("Starting price calc", module);
         // utilTimer.setLog(false);
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> result = FastMap.newInstance();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -711,7 +711,7 @@ public class PriceServices {
         return null;
     }
 
-    public static List<GenericValue> makeProducePriceRuleList(GenericDelegator delegator, boolean optimizeForLargeRuleSet, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, String webSiteId, String partyId, String currencyUomId) throws GenericEntityException {
+    public static List<GenericValue> makeProducePriceRuleList(Delegator delegator, boolean optimizeForLargeRuleSet, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, String webSiteId, String partyId, String currencyUomId) throws GenericEntityException {
         List<GenericValue> productPriceRules = null;
 
         // At this point we have two options: optimize for large ruleset, or optimize for small ruleset
@@ -863,7 +863,7 @@ public class PriceServices {
     public static Map<String, Object> calcPriceResultFromRules(List<GenericValue> productPriceRules, BigDecimal listPrice, BigDecimal defaultPrice, BigDecimal promoPrice,
         BigDecimal wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound,
         GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId,
-        String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+        String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
 
         Map<String, Object> calcResults = FastMap.newInstance();
 
@@ -1108,7 +1108,7 @@ public class PriceServices {
 
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String virtualProductId, String prodCatalogId,
             String productStoreGroupId, String webSiteId, String partyId, BigDecimal quantity, BigDecimal listPrice,
-            String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+            String currencyUomId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         if (Debug.verboseOn()) Debug.logVerbose("Checking price condition: " + productPriceCond, module);
         int compare = 0;
 
@@ -1284,7 +1284,7 @@ public class PriceServices {
      * Calculates the purchase price of a product
      */
     public static Map<String, Object> calculatePurchasePrice(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> result = FastMap.newInstance();
 

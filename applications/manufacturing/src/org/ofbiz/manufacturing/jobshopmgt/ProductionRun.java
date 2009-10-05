@@ -29,7 +29,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -71,7 +71,7 @@ public class ProductionRun {
      */
     private boolean quantityIsUpdated = false;
 
-    public ProductionRun(String productionRunId, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public ProductionRun(String productionRunId, Delegator delegator, LocalDispatcher dispatcher) {
         try {
             if (! UtilValidate.isEmpty(productionRunId)) {
                 this.dispatcher = dispatcher;

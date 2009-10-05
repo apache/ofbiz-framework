@@ -27,7 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -41,7 +41,7 @@ public class StatusServices {
     public static final String module = StatusServices.class.getName();
 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
         if (statusTypes == null || statusTypes.size() == 0) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
@@ -62,7 +62,7 @@ public class StatusServices {
     }
 
     public static Map<String, Object> getStatusValidChangeToDetails(DispatchContext ctx, Map<String, ?> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         List<GenericValue> statusValidChangeToDetails = null;
         String statusId = (String) context.get("statusId");
         try {

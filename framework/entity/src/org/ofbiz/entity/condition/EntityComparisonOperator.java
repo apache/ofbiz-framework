@@ -32,7 +32,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -131,13 +131,13 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
 
     public abstract boolean compare(L lhs, R rhs);
 
-    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         Object leftValue;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;

@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -102,7 +103,7 @@ public class VisitHandler {
                 synchronized (session) {
                     visit = (GenericValue) session.getAttribute("visit");
                     if (visit == null) {
-                        GenericDelegator delegator = null;
+                        Delegator delegator = null;
 
                         // first try the session attribute delegatorName
                         String delegatorName = (String) session.getAttribute("delegatorName");
@@ -112,7 +113,7 @@ public class VisitHandler {
 
                         // then try the ServletContext attribute delegator, should always be there...
                         if (delegator == null) {
-                            delegator = (GenericDelegator) session.getServletContext().getAttribute("delegator");
+                            delegator = (Delegator) session.getServletContext().getAttribute("delegator");
                         }
 
                         if (delegator == null) {
@@ -195,7 +196,7 @@ public class VisitHandler {
                 synchronized (session) {
                     visitor = (GenericValue) session.getAttribute("visitor");
                     if (visitor == null) {
-                        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+                        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (delegator == null && UtilValidate.isNotEmpty(delegatorName)) {

@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentServicesComplex;
 import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
@@ -81,7 +81,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-        final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map savedValuesUp = FastMap.newInstance();
@@ -226,7 +226,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 //}
             }
 
-            public boolean prepCtx(GenericDelegator delegator, Map ctx, Environment env, GenericValue view) throws GeneralException {
+            public boolean prepCtx(Delegator delegator, Map ctx, Environment env, GenericValue view) throws GeneralException {
 
                 String dataResourceId = (String) view.get("drDataResourceId");
                 String subContentIdSub = (String) view.get("contentId");
@@ -310,7 +310,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 return pickEntity;
             }
 
-            public boolean getNextMatchingEntity(Map templateRoot, GenericDelegator delegator, Environment env) throws IOException {
+            public boolean getNextMatchingEntity(Map templateRoot, Delegator delegator, Environment env) throws IOException {
                 boolean matchFound = false;
                 GenericValue pickEntity = getRandomEntity();
 

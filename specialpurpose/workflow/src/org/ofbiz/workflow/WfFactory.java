@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.workflow.client.WorkflowClient;
@@ -57,7 +57,7 @@ public class WfFactory {
         return new WfActivityImpl(value, process);
     }
 
-    public static WfActivity getWfActivity(GenericDelegator delegator, String workEffortId) throws WfException {
+    public static WfActivity getWfActivity(Delegator delegator, String workEffortId) throws WfException {
         if (delegator == null) throw new WfException("The delegator object cannot be null");
         if (workEffortId == null) throw new WfException("The WorkEffort key cannot be null");
         return new WfActivityImpl(delegator, workEffortId);
@@ -75,7 +75,7 @@ public class WfFactory {
         return new WfAssignmentImpl(activity, resource, fromDate, create);
     }
 
-    public static WfAssignment getWfAssignment(GenericDelegator delegator, String work, String party, String role, Timestamp from) throws WfException {
+    public static WfAssignment getWfAssignment(Delegator delegator, String work, String party, String role, Timestamp from) throws WfException {
         WfActivity act = getWfActivity(delegator, work);
         WfResource res = getWfResource(delegator, null, null, party, role);
         return getWfAssignment(act, res, from, false);
@@ -94,7 +94,7 @@ public class WfFactory {
         return new WfProcessImpl(value, mgr);
     }
 
-    public static WfProcess getWfProcess(GenericDelegator delegator, String workEffortId) throws WfException {
+    public static WfProcess getWfProcess(Delegator delegator, String workEffortId) throws WfException {
         if (delegator == null) throw new WfException("The delegator object cannot be null");
         if (workEffortId == null) throw new WfException("The WorkEffort key cannot be null");
         WfProcess process = null;
@@ -123,7 +123,7 @@ public class WfFactory {
 
     /**
      * Creates a new {@link WfProcessMgr} instance.
-     * @param delegator The GenericDelegator to use for this manager.
+     * @param delegator The Delegator to use for this manager.
      * @param pkg The Workflow Package ID.
      * @param pkver The Workflow Package Version.
      * @param pid The Workflow Process ID.
@@ -131,7 +131,7 @@ public class WfFactory {
      * @return An instance of the WfProcessMgr Interface.
      * @throws WfException
      */
-    public static WfProcessMgr getWfProcessMgr(GenericDelegator delegator, String pkg, String pkver, String pid, String pver) throws WfException {
+    public static WfProcessMgr getWfProcessMgr(Delegator delegator, String pkg, String pkver, String pid, String pver) throws WfException {
         if (delegator == null) throw new WfException("Delegator cannot be null");
         if (pkg == null) throw new WfException("Workflow package id cannot be null.");
         if (pid == null) throw new WfException("Workflow process id cannot be null");
@@ -169,7 +169,7 @@ public class WfFactory {
 
     /**
      * Creates a new {@link WfResource} instance.
-     * @param delegator The GenericDelegator for this instance
+     * @param delegator The Delegator for this instance
      * @param key The key for the resource
      * @param name The name of the resource
      * @param party The partyId of the resource
@@ -177,7 +177,7 @@ public class WfFactory {
      * @return An instance of the WfResource Interface.
      * @throws WfException
      */
-    public static WfResource getWfResource(GenericDelegator delegator, String key, String name, String party, String role) throws WfException {
+    public static WfResource getWfResource(Delegator delegator, String key, String name, String party, String role) throws WfException {
         if (delegator == null) throw new WfException("Delegator cannot be null");
         if (party == null) party = "_NA_";
         if (role == null) role = "_NA_";

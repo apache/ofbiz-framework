@@ -27,7 +27,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -46,7 +46,7 @@ public class RequirementServices {
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static Map getRequirementsForSupplier(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
@@ -201,7 +201,7 @@ public class RequirementServices {
 
     // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too complex
     public static Map createAutoRequirementsForOrder(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -241,7 +241,7 @@ public class RequirementServices {
 
     // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too complex
     public static Map createATPRequirementsForOrder(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 

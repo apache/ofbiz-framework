@@ -41,7 +41,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.eca.EntityEcaHandler;
@@ -71,7 +71,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     public static final int DEFAULT_TX_TIMEOUT = 7200;
 
     protected org.xml.sax.Locator locator;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected EntityEcaHandler ecaHandler = null;
     protected GenericValue currentValue = null;
     protected CharSequence currentFieldName = null;
@@ -99,13 +99,13 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     protected EntitySaxReader() {}
 
-    public EntitySaxReader(GenericDelegator delegator, int transactionTimeout) {
+    public EntitySaxReader(Delegator delegator, int transactionTimeout) {
         // clone the delegator right off so there is no chance of making change to the initial object
         this.delegator = delegator.cloneDelegator();
         this.transactionTimeout = transactionTimeout;
     }
 
-    public EntitySaxReader(GenericDelegator delegator) {
+    public EntitySaxReader(Delegator delegator) {
         this(delegator, DEFAULT_TX_TIMEOUT);
     }
 

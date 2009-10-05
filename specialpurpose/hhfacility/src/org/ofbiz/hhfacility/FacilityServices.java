@@ -29,7 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.product.product.ProductWorker;
@@ -43,7 +43,7 @@ public class FacilityServices {
     public static final String module = FacilityServices.class.getName();
 
     public static Map findProductsById(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String facilityId = (String) context.get("facilityId");
         String idValue = (String) context.get("idValue");
         GenericValue product = null;
@@ -65,7 +65,7 @@ public class FacilityServices {
     }
 
     public static Map fixProductNegativeQOH(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String facilityId = (String) context.get("facilityId");
@@ -109,7 +109,7 @@ public class FacilityServices {
     }
 
     public static Map updateProductStocktake(DispatchContext dctx, Map context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String facilityId = (String) context.get("facilityId");

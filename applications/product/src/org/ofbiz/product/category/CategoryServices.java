@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -53,7 +53,7 @@ public class CategoryServices {
     public static final String module = CategoryServices.class.getName();
 
     public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         GenericValue productCategory = null;
         List<GenericValue> members = null;
@@ -74,7 +74,7 @@ public class CategoryServices {
     }
 
     public static Map<String, Object> getPreviousNextProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         String productId = (String) context.get("productId");
         boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
@@ -140,7 +140,7 @@ public class CategoryServices {
         return result;
     }
 
-    private static String getCategoryFindEntityName(GenericDelegator delegator, List<String> orderByFields) {
+    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
         String entityName = "ProductCategoryMember";
         if (orderByFields == null) {
@@ -187,7 +187,7 @@ public class CategoryServices {
     }
 
     public static Map<String, Object> getProductCategoryAndLimitedMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String productCategoryId = (String) context.get("productCategoryId");
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();

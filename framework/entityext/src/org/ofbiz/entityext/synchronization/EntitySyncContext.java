@@ -35,6 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -79,7 +80,7 @@ public class EntitySyncContext {
     // default to 2 hours, 120m, 7200s
     public static final long defaultMaxRunningNoUpdateMillis = 7200000;
 
-    public GenericDelegator delegator;
+    public Delegator delegator;
     public LocalDispatcher dispatcher;
     public Map<String, ? extends Object> context;
 
@@ -842,7 +843,7 @@ public class EntitySyncContext {
         return entityModelToUseList;
     }
 
-    protected static Timestamp getCurrentRunStartTime(Timestamp lastSuccessfulSynchTime, List<ModelEntity> entityModelToUseList, GenericDelegator delegator) throws GenericEntityException {
+    protected static Timestamp getCurrentRunStartTime(Timestamp lastSuccessfulSynchTime, List<ModelEntity> entityModelToUseList, Delegator delegator) throws GenericEntityException {
         // if currentRunStartTime is null, what to do? I guess iterate through all entities and find earliest tx stamp
         if (lastSuccessfulSynchTime == null) {
             Timestamp currentRunStartTime = null;

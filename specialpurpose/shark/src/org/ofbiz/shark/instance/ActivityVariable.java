@@ -21,7 +21,7 @@ package org.ofbiz.shark.instance;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -40,7 +40,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
     protected GenericValue activityVariable = null;
     protected boolean newValue = false;
 
-    protected ActivityVariable(EntityPersistentMgr mgr, GenericDelegator delegator, String activityVariableId) throws PersistenceException {
+    protected ActivityVariable(EntityPersistentMgr mgr, Delegator delegator, String activityVariableId) throws PersistenceException {
         super(mgr, delegator);
         this.delegator = delegator;
         if (this.delegator != null) {
@@ -59,7 +59,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
         this.activityVariable = activityVariable;
     }
 
-    public ActivityVariable(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public ActivityVariable(EntityPersistentMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.activityVariable = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfActivityVariable)));

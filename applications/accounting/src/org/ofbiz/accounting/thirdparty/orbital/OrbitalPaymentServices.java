@@ -29,7 +29,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -63,7 +63,7 @@ public class OrbitalPaymentServices {
     public static RequestIF request = null;
     
     public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
         props.put("transType", "AUTH_ONLY");
@@ -90,7 +90,7 @@ public class OrbitalPaymentServices {
     }
     
     public static Map<String, Object> ccAuthCapture(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
         props.put("transType", "AUTH_CAPTURE");
@@ -117,7 +117,7 @@ public class OrbitalPaymentServices {
     }
 
     public static Map<String, Object> ccCapture(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
         
@@ -161,7 +161,7 @@ public class OrbitalPaymentServices {
     }
 
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -203,7 +203,7 @@ public class OrbitalPaymentServices {
     }
     
     public static Map<String, Object> ccRelease(DispatchContext ctx, Map<String, Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
         
@@ -245,7 +245,7 @@ public class OrbitalPaymentServices {
     }
     
     
-    private static Map<String, Object> buildOrbitalProperties(Map<String, Object> context, GenericDelegator delegator) {
+    private static Map<String, Object> buildOrbitalProperties(Map<String, Object> context, Delegator delegator) {
         //TODO: Will move this to property file and then will read it from there.
         String configFile = "/applications/accounting/config/linehandler.properties";
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
@@ -276,7 +276,7 @@ public class OrbitalPaymentServices {
         return buildConfiguratorContext;
     }
  
-    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId,
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId,
             String paymentGatewayConfigParameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
@@ -295,7 +295,7 @@ public class OrbitalPaymentServices {
         return returnValue;
     }
 
-    private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, GenericDelegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("processAmount");
         String amountValue = amount.setScale(decimals, rounding).movePointRight(2).toPlainString();
@@ -376,7 +376,7 @@ public class OrbitalPaymentServices {
         }
     }
  
-    private static void buildCaptureTransaction(Map<String, Object> params, GenericDelegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
@@ -447,7 +447,7 @@ public class OrbitalPaymentServices {
         }
     }
     
-    private static void buildReleaseTransaction(Map<String, Object> params, GenericDelegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildReleaseTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
         BigDecimal amount = (BigDecimal) params.get("releaseAmount");
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
@@ -617,7 +617,7 @@ public class OrbitalPaymentServices {
         return formatedDate;
     }
     
-    private static String getShippingRefForOrder(String orderId, GenericDelegator delegator) {
+    private static String getShippingRefForOrder(String orderId, Delegator delegator) {
         String shippingRef = "";
         try {
             GenericValue orderHeader = delegator.findOne("OrderHeader", false, UtilMisc.toMap("orderId", orderId));

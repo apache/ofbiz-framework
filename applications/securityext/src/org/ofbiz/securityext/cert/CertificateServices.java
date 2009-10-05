@@ -21,7 +21,7 @@ package org.ofbiz.securityext.cert;
 
 import org.ofbiz.base.util.KeyStoreUtil;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -41,7 +41,7 @@ public class CertificateServices {
     public static final String module = CertificateServices.class.getName();
 
     public static Map<String, Object> importIssuerCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String certString = (String) context.get("certString");
         String componentName = (String) context.get("componentName");
         String keystoreName = (String) context.get("keystoreName");

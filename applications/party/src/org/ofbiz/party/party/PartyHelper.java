@@ -26,7 +26,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -45,7 +45,7 @@ public class PartyHelper {
         return getPartyName(partyObject, false);
     }
 
-    public static String getPartyName(GenericDelegator delegator, String partyId, boolean lastNameFirst) {
+    public static String getPartyName(Delegator delegator, String partyId, boolean lastNameFirst) {
         GenericValue partyObject = null;
         try {
             partyObject = delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId));

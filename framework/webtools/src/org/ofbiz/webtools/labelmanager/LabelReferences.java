@@ -39,7 +39,7 @@ import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.service.DispatchContext;
@@ -59,13 +59,13 @@ public class LabelReferences {
     private static final String getMessage = "UtilProperties.getMessage(";
 
     protected Map<String, Map<String, Integer>> references = new TreeMap<String, Map<String, Integer>>();
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected DispatchContext dispatchContext;
     protected Map<String, LabelInfo> labels;
     protected Set<String> labelSet = FastSet.newInstance();
     protected Set<String> rootFolders = FastSet.newInstance();
 
-    public LabelReferences(GenericDelegator delegator, LabelManagerFactory factory) {
+    public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
         this.labels = factory.getLabels();
         this.dispatchContext = new DispatchContext("LabelManagerDispCtx:" + delegator.getDelegatorName(), null, this.getClass().getClassLoader(), null);

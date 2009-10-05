@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAliasAll;
@@ -32,7 +32,7 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelMemberEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelViewLink;
 /**
  * This class is used for declaring Dynamic View Entities, to be used and thrown away.
- * A special method exists on the GenericDelegator to accept a DynamicViewEntity instead
+ * A special method exists on the Delegator to accept a DynamicViewEntity instead
  * of an entity-name.
  *
  */
@@ -69,7 +69,7 @@ public class DynamicViewEntity {
     public DynamicViewEntity() {
     }
 
-    public ModelViewEntity makeModelViewEntity(GenericDelegator delegator) {
+    public ModelViewEntity makeModelViewEntity(Delegator delegator) {
         ModelViewEntity modelViewEntity = new ModelViewEntity(this, delegator.getModelReader());
         return modelViewEntity;
     }

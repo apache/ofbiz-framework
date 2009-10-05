@@ -26,7 +26,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -56,7 +56,7 @@ public class WorkflowServices {
     /** Cancel Workflow */
     public static Map cancelWorkflow(DispatchContext ctx, Map context) {
         Map result = new HashMap();
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
@@ -492,7 +492,7 @@ public class WorkflowServices {
     /**
      * Returns the owner of the workflow.
      */
-    public static GenericValue getOwner(GenericDelegator delegator, String workEffortId) {
+    public static GenericValue getOwner(Delegator delegator, String workEffortId) {
         try {
             GenericValue we = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
 

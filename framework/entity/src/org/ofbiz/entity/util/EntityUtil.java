@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -393,21 +393,21 @@ public class EntityUtil {
         return result;
     }
 
-    public static List<GenericValue> findDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
         return findDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static List<GenericValue> findDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
+    public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
         EntityCondition searchCondition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
         return delegator.findList(entityName, searchCondition, null, UtilMisc.toList("-fromDate"), null, false);
     }
 
-    public static GenericValue newDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
         return newDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static GenericValue newDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> find, Timestamp now) throws GenericEntityException {
+    public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> find, Timestamp now) throws GenericEntityException {
         Map<String, Object> search;
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, find, now);
         if (UtilValidate.isNotEmpty(entities)) {
@@ -444,11 +444,11 @@ public class EntityUtil {
         }
     }
 
-    public static void delDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
+    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
         delDatedInclusionEntity(delegator, entityName, search, UtilDateTime.nowTimestamp());
     }
 
-    public static void delDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
+    public static void delDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, search, now);
         for (GenericValue entity: entities) {
             entity.set("thruDate",now);

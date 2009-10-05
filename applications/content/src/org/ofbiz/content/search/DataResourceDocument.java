@@ -29,7 +29,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -47,7 +47,7 @@ public class DataResourceDocument {
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 
-    public static Document Document(String id, GenericDelegator delegator, Map context) throws InterruptedException  {
+    public static Document Document(String id, Delegator delegator, Map context) throws InterruptedException  {
 
         Document doc = null;
         GenericValue dataResource = null;

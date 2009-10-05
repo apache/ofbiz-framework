@@ -28,7 +28,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 
 /**
@@ -39,7 +39,7 @@ public class ModelEntityChecker {
 
     public static final String module = ModelEntityChecker.class.getName();
 
-    public static void checkEntities(GenericDelegator delegator, List<String> warningList) throws GenericEntityException {
+    public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
         TreeSet<String> reservedWords = new TreeSet<String>();

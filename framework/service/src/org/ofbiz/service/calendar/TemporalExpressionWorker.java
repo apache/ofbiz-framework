@@ -25,7 +25,7 @@ import java.util.TreeSet;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -54,7 +54,7 @@ public class TemporalExpressionWorker {
      * @return A <code>TemporalExpression</code> instance based on <code>tempExprId</code>
      * @throws GenericEntityException
      */
-    public static TemporalExpression getTemporalExpression(GenericDelegator delegator, String tempExprId) throws GenericEntityException {
+    public static TemporalExpression getTemporalExpression(Delegator delegator, String tempExprId) throws GenericEntityException {
         if (UtilValidate.isEmpty(tempExprId)) {
             throw new IllegalArgumentException("tempExprId argument cannot be empty");
         }
@@ -73,7 +73,7 @@ public class TemporalExpressionWorker {
      * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>
      * @throws GenericEntityException
      */
-    public static TemporalExpression makeTemporalExpression(GenericDelegator delegator, GenericValue exprValue) throws GenericEntityException {
+    public static TemporalExpression makeTemporalExpression(Delegator delegator, GenericValue exprValue) throws GenericEntityException {
         String tempExprId = exprValue.getString("tempExprId");
         String tempExprTypeId = exprValue.getString("tempExprTypeId");
         if (DateRange.equals(tempExprTypeId)) {
@@ -114,7 +114,7 @@ public class TemporalExpressionWorker {
         return TemporalExpressions.NullExpression;
     }
 
-    protected static Set<TemporalExpression> getChildExpressions(GenericDelegator delegator, String tempExprId) throws GenericEntityException {
+    protected static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
         List<GenericValue> valueList = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
         if (UtilValidate.isEmpty(valueList)) {
             throw new IllegalArgumentException("tempExprId argument invalid - no child expressions found");

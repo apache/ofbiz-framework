@@ -20,7 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
@@ -53,7 +53,7 @@ public class EntityOne extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         try {
-            GenericDelegator delegator = methodContext.getDelegator();
+            Delegator delegator = methodContext.getDelegator();
             this.finder.runFind(methodContext.getEnvMap(), delegator);
         } catch (GeneralException e) {
             Debug.logError(e, module);

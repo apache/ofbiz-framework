@@ -34,7 +34,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -54,7 +54,7 @@ public class ProductConfigWrapper implements Serializable {
     protected String catalogId;
     protected String webSiteId;
     protected String currencyUomId;
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected GenericValue product = null; // the aggregated product
     protected GenericValue autoUserLogin = null;
     protected BigDecimal listPrice = BigDecimal.ZERO;
@@ -67,7 +67,7 @@ public class ProductConfigWrapper implements Serializable {
     public ProductConfigWrapper() {
     }
 
-    public ProductConfigWrapper(GenericDelegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
+    public ProductConfigWrapper(Delegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
         init(delegator, dispatcher, productId, productStoreId, catalogId, webSiteId, currencyUomId, locale, autoUserLogin);
     }
 
@@ -89,7 +89,7 @@ public class ProductConfigWrapper implements Serializable {
         }
     }
 
-    private void init(GenericDelegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
+    private void init(Delegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
         product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
         if (product == null || !product.getString("productTypeId").equals("AGGREGATED")) {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
@@ -138,7 +138,7 @@ public class ProductConfigWrapper implements Serializable {
         }
     }
 
-    public void loadConfig(GenericDelegator delegator, String configId) throws Exception {
+    public void loadConfig(Delegator delegator, String configId) throws Exception {
         //configure ProductConfigWrapper according to ProductConfigConfig entity
         if (UtilValidate.isNotEmpty(configId)) {
             this.configId = configId;
@@ -534,7 +534,7 @@ public class ProductConfigWrapper implements Serializable {
         ConfigItem parentConfigItem = null;
         String comments = null;  //  comments for production run entered during ordering
 
-        public ConfigOption(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
+        public ConfigOption(Delegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
             configOption = option;
             parentConfigItem = configItem;
             componentList = option.getRelated("ConfigOptionProductConfigProduct");

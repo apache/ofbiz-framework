@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;

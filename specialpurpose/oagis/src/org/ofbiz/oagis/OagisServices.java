@@ -55,7 +55,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -102,7 +102,7 @@ public class OagisServices {
     }
 
     public static Map oagisSendConfirmBod(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String errorReferenceId = (String) context.get("referenceId");
@@ -238,7 +238,7 @@ public class OagisServices {
     }
 
     public static Map oagisReceiveConfirmBod(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Document doc = (Document) context.get("document");
         List errorMapList = FastList.newInstance();
@@ -439,7 +439,7 @@ public class OagisServices {
     }
 
     public static Map oagisReReceiveMessage(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String logicalId = (String) context.get("logicalId");
@@ -487,7 +487,7 @@ public class OagisServices {
     }
 
     public static Map oagisMessageHandler(DispatchContext ctx, Map context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
         List errorList = FastList.newInstance();

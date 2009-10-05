@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -77,7 +77,7 @@ public class UploadContentAndImage {
         try {
             Locale locale = UtilHttp.getLocale(request);
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
-            GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
@@ -427,7 +427,7 @@ public class UploadContentAndImage {
     public static String processContentUpload(Map passedParams, String suffix, HttpServletRequest request) throws GenericServiceException {
 
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
-            GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             Map ftlContext = FastMap.newInstance();

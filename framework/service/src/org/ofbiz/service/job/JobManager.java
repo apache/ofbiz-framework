@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -62,15 +62,15 @@ public class JobManager {
     public static final String dispatcherName = "JobDispatcher";
     public static Map<String, JobManager> registeredManagers = FastMap.newInstance();
 
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     protected JobPoller jp;
 
     /** Creates a new JobManager object. */
-    public JobManager(GenericDelegator delegator) {
+    public JobManager(Delegator delegator) {
         this(delegator, true);
     }
 
-    public JobManager(GenericDelegator delegator, boolean enabled) {
+    public JobManager(Delegator delegator, boolean enabled) {
         if (delegator == null) {
             throw new GeneralRuntimeException("ERROR: null delegator passed, cannot create JobManager");
         }
@@ -83,7 +83,7 @@ public class JobManager {
         JobManager.registeredManagers.put(delegator.getDelegatorName(), this);
     }
     
-    public static JobManager getInstance(GenericDelegator delegator, boolean enabled)
+    public static JobManager getInstance(Delegator delegator, boolean enabled)
     {
         JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
         if (jm == null) {
@@ -105,8 +105,8 @@ public class JobManager {
         return thisDispatcher;
     }
 
-    /** Returns the GenericDelegator. */
-    public GenericDelegator getDelegator() {
+    /** Returns the Delegator. */
+    public Delegator getDelegator() {
         return this.delegator;
     }
 
@@ -189,7 +189,7 @@ public class JobManager {
                         // only rollback the transaction if we started one...
                         TransactionUtil.rollback(beganTransaction, errMsg, t);
                     } catch (GenericEntityException e2) {
-                        Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+                        Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), module);
                     }
                 } finally {
                     try {

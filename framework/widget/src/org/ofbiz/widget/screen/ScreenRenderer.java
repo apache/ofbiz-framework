@@ -44,7 +44,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
@@ -144,11 +144,11 @@ public class ScreenRenderer {
         return this.screenStringRenderer;
     }
 
-    public void populateBasicContext(Map<String, Object> parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
+    public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
         populateBasicContext(context, this, parameters, delegator, dispatcher, authz, security, locale, userLogin);
     }
 
-    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
+    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher, Authorization authz, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -196,7 +196,7 @@ public class ScreenRenderer {
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-        populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
+        populateBasicContext(context, screens, parameterMap, (Delegator) request.getAttribute("delegator"),
                 (LocalDispatcher) request.getAttribute("dispatcher"), (Authorization) request.getAttribute("authz"),
                 (Security) request.getAttribute("security"), UtilHttp.getLocale(request), userLogin);
 

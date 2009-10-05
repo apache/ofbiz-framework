@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
@@ -167,7 +167,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     // process history
     private List getCreateProcessEvents(String processId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getCreateProcessEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List createProcessEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -190,7 +190,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
 
     private List getProcessStateEvents(String processId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getProcessStateEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List stateEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -213,7 +213,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
 
     private List getProcessDataEvents(String processId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getProcessDataEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List dataEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -237,7 +237,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     // activity history
     private List getAssignmentEvents(String processId, String activityId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getAssignmentEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List assignmentEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -260,7 +260,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
 
     private List getActivityStateEvents(String processId, String activityId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getActivityStateEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List stateEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -283,7 +283,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
 
     private List getActivityDataEvents(String processId, String activityId) throws EventAuditException {
         if (Debug.verboseOn()) Debug.log(":: getActivityDataEvents ::", module);
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         List dataEvents = new ArrayList();
         List lookupList = null;
         try {
@@ -305,7 +305,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     }
 
     public synchronized String getNextId(String string) throws EventAuditException {
-        GenericDelegator delegator = SharkContainer.getDelegator();
+        Delegator delegator = SharkContainer.getDelegator();
         return delegator.getNextSeqId("SharkAuditSeq").toString();
     }
 }

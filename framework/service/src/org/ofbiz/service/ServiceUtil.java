@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -367,7 +367,7 @@ public class ServiceUtil {
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
         String sendPool = ServiceConfigUtil.getSendPool();
         int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         Timestamp now = UtilDateTime.nowTimestamp();
         Calendar cal = Calendar.getInstance();
@@ -509,7 +509,7 @@ public class ServiceUtil {
     }
 
     public static Map<String, Object> cancelJob(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = getLocale(context);
@@ -548,7 +548,7 @@ public class ServiceUtil {
     }
 
     public static Map<String, Object> cancelJobRetries(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = getLocale(context);
@@ -598,7 +598,7 @@ public class ServiceUtil {
 
     public static GenericValue getUserLogin(DispatchContext dctx, Map<String, ? extends Object> context, String runAsUser) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         if (UtilValidate.isNotEmpty(runAsUser)) {
             try {
                 GenericValue runAs = delegator.findByPrimaryKeyCache("UserLogin", "userLoginId", runAsUser);
@@ -630,7 +630,7 @@ public class ServiceUtil {
     }
 
     public static Map<String, Object> resetJob(DispatchContext dctx, Map<String, Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = getLocale(context);

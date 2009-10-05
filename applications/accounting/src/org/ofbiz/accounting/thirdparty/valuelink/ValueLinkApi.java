@@ -64,7 +64,7 @@ import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -79,7 +79,7 @@ public class ValueLinkApi {
     private static Map objectCache = new HashMap();
 
     // instance variables
-    protected GenericDelegator delegator = null;
+    protected Delegator delegator = null;
     protected Properties props = null;
     protected SecretKey kek = null;
     protected SecretKey mwk = null;
@@ -89,7 +89,7 @@ public class ValueLinkApi {
     protected boolean debug = false;
 
     protected ValueLinkApi() {}
-    protected ValueLinkApi(GenericDelegator delegator, Properties props) {
+    protected ValueLinkApi(Delegator delegator, Properties props) {
         String mId = (String) props.get("payment.valuelink.merchantId");
         String tId = (String) props.get("payment.valuelink.terminalId");
         this.delegator = delegator;
@@ -109,12 +109,12 @@ public class ValueLinkApi {
 
     /**
      * Obtain an instance of the ValueLinkApi
-     * @param delegator GenericDelegator used to query the encryption keys
+     * @param delegator Delegator used to query the encryption keys
      * @param props Properties to use for the Api (usually payment.properties)
      * @param reload When true, will replace an existing instance in the cache and reload all properties
      * @return ValueLinkApi reference
      */
-    public static ValueLinkApi getInstance(GenericDelegator delegator, Properties props, boolean reload) {
+    public static ValueLinkApi getInstance(Delegator delegator, Properties props, boolean reload) {
         String merchantId = (String) props.get("payment.valuelink.merchantId");
         if (props == null) {
             throw new IllegalArgumentException("Properties cannot be null");
@@ -140,11 +140,11 @@ public class ValueLinkApi {
 
     /**
      * Obtain an instance of the ValueLinkApi; this method will always return an existing reference if one is available
-     * @param delegator GenericDelegator used to query the encryption keys
+     * @param delegator Delegator used to query the encryption keys
      * @param props Properties to use for the Api (usually payment.properties)
      * @return
      */
-    public static ValueLinkApi getInstance(GenericDelegator delegator, Properties props) {
+    public static ValueLinkApi getInstance(Delegator delegator, Properties props) {
         return getInstance(delegator, props, false);
     }
 

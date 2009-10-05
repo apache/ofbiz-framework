@@ -577,7 +577,7 @@ under the License.
     <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg">
         <!-- this method is meant to be called in-line and depends in a productId parameter -->
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
-            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="productId" type="java.lang.String"/>
         </call-class-method>
         <log level="info" message="Got new average customer rating ${averageCustomerRating}"/>

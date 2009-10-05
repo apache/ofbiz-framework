@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.content.PermissionRecorder;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.security.Security;
@@ -77,7 +77,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateCtx);
-        final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);

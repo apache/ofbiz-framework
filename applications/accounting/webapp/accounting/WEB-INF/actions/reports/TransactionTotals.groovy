@@ -22,7 +22,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityUtil;
 
 import javolution.util.FastList;

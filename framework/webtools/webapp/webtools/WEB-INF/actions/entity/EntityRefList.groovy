@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;

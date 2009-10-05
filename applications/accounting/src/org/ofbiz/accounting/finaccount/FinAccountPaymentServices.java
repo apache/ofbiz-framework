@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -60,7 +60,7 @@ public class FinAccountPaymentServices {
     // base payment integration services
     public static Map<String, Object> finAccountPreAuth(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
@@ -305,7 +305,7 @@ public class FinAccountPaymentServices {
 
     public static Map<String, Object> finAccountCapture(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -423,7 +423,7 @@ public class FinAccountPaymentServices {
 
     public static Map<String, Object> finAccountRefund(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -495,7 +495,7 @@ public class FinAccountPaymentServices {
     // base account transaction services
     public static Map<String, Object> finAccountWithdraw(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
@@ -584,7 +584,7 @@ public class FinAccountPaymentServices {
     // base deposit service
     public static Map<String, Object> finAccountDeposit(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
@@ -672,7 +672,7 @@ public class FinAccountPaymentServices {
     // auto-replenish service (deposit)
     public static Map<String, Object> finAccountReplenish(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
@@ -861,7 +861,7 @@ public class FinAccountPaymentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static String getLastProductStoreId(GenericDelegator delegator, String finAccountId) {
+    private static String getLastProductStoreId(Delegator delegator, String finAccountId) {
         EntityFindOptions opts = new EntityFindOptions();
         opts.setMaxRows(1);
         opts.setFetchSize(1);
@@ -898,7 +898,7 @@ public class FinAccountPaymentServices {
         return null;
     }
 
-    private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
+    private static String createFinAcctPaymentTransaction(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
             String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId, String reasonEnumId) throws GeneralException {
 
         final String coParty = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);

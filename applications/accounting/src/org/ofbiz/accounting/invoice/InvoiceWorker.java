@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -61,11 +61,11 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as BigDecimal
      */
-    public static BigDecimal getInvoiceTotal(GenericDelegator delegator, String invoiceId) {
+    public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId) {
         return getInvoiceTotal(delegator, invoiceId, Boolean.TRUE);
     }
 
-    public static BigDecimal getInvoiceTotal(GenericDelegator delegator, String invoiceId, Boolean actualCurrency) {
+    public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId, Boolean actualCurrency) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -98,7 +98,7 @@ public class InvoiceWorker {
     }
 
     /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
-    public static List getTaxableInvoiceItemTypeIds(GenericDelegator delegator) throws GenericEntityException {
+    public static List getTaxableInvoiceItemTypeIds(Delegator delegator) throws GenericEntityException {
         List typeIds = FastList.newInstance();
         List invoiceItemTaxTypes = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "TAXABLE_INV_ITM_TY"));
         for (Iterator iter = invoiceItemTaxTypes.iterator(); iter.hasNext();) {
@@ -116,7 +116,7 @@ public class InvoiceWorker {
            throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
         List invoiceTaxItems = null;
         try {
-            GenericDelegator delegator = invoice.getDelegator();
+            Delegator delegator = invoice.getDelegator();
             EntityConditionList condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
                     EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))),
@@ -291,7 +291,7 @@ public class InvoiceWorker {
     }
 
     public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId) {
-        GenericDelegator delegator = invoice.getDelegator();
+        Delegator delegator = invoice.getDelegator();
         List<GenericValue> locations = null;
         // first try InvoiceContactMech to see if we can find the address needed
         try {
@@ -384,10 +384,10 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as BigDecimal
      */
-    public static BigDecimal getInvoiceNotApplied(GenericDelegator delegator, String invoiceId, Boolean actualCurrency) {
+    public static BigDecimal getInvoiceNotApplied(Delegator delegator, String invoiceId, Boolean actualCurrency) {
         return InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency).subtract(getInvoiceApplied(delegator, invoiceId,  UtilDateTime.nowTimestamp(), actualCurrency));
     }
-    public static BigDecimal getInvoiceNotApplied(GenericDelegator delegator, String invoiceId) {
+    public static BigDecimal getInvoiceNotApplied(Delegator delegator, String invoiceId) {
         return InvoiceWorker.getInvoiceTotal(delegator, invoiceId).subtract(getInvoiceApplied(delegator, invoiceId));
     }
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice) {
@@ -413,7 +413,7 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as BigDecimal
      */
-    public static BigDecimal getInvoiceApplied(GenericDelegator delegator, String invoiceId) {
+    public static BigDecimal getInvoiceApplied(Delegator delegator, String invoiceId) {
         return getInvoiceApplied(delegator, invoiceId, UtilDateTime.nowTimestamp(), Boolean.TRUE);
     }
 
@@ -425,7 +425,7 @@ public class InvoiceWorker {
      * @param asOfDateTime - a Timestamp
      * @return
      */
-    public static BigDecimal getInvoiceApplied(GenericDelegator delegator, String invoiceId, Timestamp asOfDateTime, Boolean actualCurrency) {
+    public static BigDecimal getInvoiceApplied(Delegator delegator, String invoiceId, Timestamp asOfDateTime, Boolean actualCurrency) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -485,7 +485,7 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as BigDecimal
      */
-    public static BigDecimal getInvoiceItemApplied(GenericDelegator delegator, String invoiceId, String invoiceItemSeqId) {
+    public static BigDecimal getInvoiceItemApplied(Delegator delegator, String invoiceId, String invoiceItemSeqId) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -528,7 +528,7 @@ public class InvoiceWorker {
     }
     public static BigDecimal getInvoiceCurrencyConversionRate(GenericValue invoice) {
         BigDecimal conversionRate = null;
-        GenericDelegator delegator = invoice.getDelegator();
+        Delegator delegator = invoice.getDelegator();
         String otherCurrencyUomId = null;
         // find the organization party currencyUomId which different from the invoice currency
         try {
@@ -591,7 +591,7 @@ public class InvoiceWorker {
         return(conversionRate);
     }
 
-    public static BigDecimal getInvoiceCurrencyConversionRate(GenericDelegator delegator, String invoiceId) {
+    public static BigDecimal getInvoiceCurrencyConversionRate(Delegator delegator, String invoiceId) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }

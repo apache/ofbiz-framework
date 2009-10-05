@@ -52,7 +52,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.common.uom.UomWorker;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -90,7 +90,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
@@ -270,7 +270,7 @@ public class UspsServices {
      */
     public static Map<String, Object> uspsInternationalRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         // check for 0 weight
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
@@ -980,7 +980,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsUpdateShipmentRateInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String shipmentId = (String) context.get("shipmentId");
@@ -1256,7 +1256,7 @@ public class UspsServices {
 
     public static Map<String, Object> uspsDeliveryConfirmation(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -1448,7 +1448,7 @@ public class UspsServices {
     // testing utility service - remove this
     public static Map<String, Object> uspsDumpShipmentLabelImages(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
 
         try {
 
@@ -1486,7 +1486,7 @@ public class UspsServices {
     }
 
     public static Map<String, Object> uspsPriorityMailInternationalLabel(DispatchContext dctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         GenericValue shipmentRouteSegment = (GenericValue) context.get("shipmentRouteSegment");

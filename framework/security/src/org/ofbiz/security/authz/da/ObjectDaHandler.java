@@ -21,15 +21,15 @@ package org.ofbiz.security.authz.da;
 import java.util.Map;
 
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public class ObjectDaHandler implements DynamicAccessHandler {
 
     private static UtilCache<String,DynamicAccess> dynamicAccessCache = new UtilCache<String,DynamicAccess>("security.DynamicAccessCache");
     
-    protected GenericDelegator delegator;
+    protected Delegator delegator;
     
-    public void setDelegator(GenericDelegator delegator) {
+    public void setDelegator(Delegator delegator) {
         this.delegator = delegator;   
     }
     

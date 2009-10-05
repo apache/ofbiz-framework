@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -99,7 +99,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
         return operator.mapMatches(delegator, map, conditionList);
     }
 
@@ -109,7 +109,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
+    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         for (T cond: this.conditionList) {
             cond.encryptConditionFields(modelEntity, delegator);
         }

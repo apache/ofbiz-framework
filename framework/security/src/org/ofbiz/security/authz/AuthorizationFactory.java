@@ -23,7 +23,7 @@ import org.ofbiz.base.config.SecurityConfigUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.w3c.dom.Element;
 
@@ -52,7 +52,7 @@ public class AuthorizationFactory {
      * @return instance of security implementation (default: OFBizSecurity)
      */
     @SuppressWarnings("unchecked")
-    public static Authorization getInstance(GenericDelegator delegator) throws SecurityConfigurationException {
+    public static Authorization getInstance(Delegator delegator) throws SecurityConfigurationException {
         Authorization security = null;
 
         // Make securityName a singleton

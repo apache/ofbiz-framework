@@ -34,7 +34,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchConstraint;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.SortKeywordRelevancy;
@@ -129,7 +129,7 @@ public class WorkEffortSearchSession {
             this.viewSize = viewSize;
         }
 
-        public List<String> searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
+        public List<String> searchGetConstraintStrings(boolean detailed, Delegator delegator, Locale locale) {
             List<WorkEffortSearchConstraint> workEffortSearchConstraintList = this.getConstraintList();
             List<String> constraintStrings = FastList.newInstance();
             if (workEffortSearchConstraintList == null) {
@@ -297,7 +297,7 @@ public class WorkEffortSearchSession {
         return optionsHistoryList;
     }
 
-    public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
+    public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, Delegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
         return workEffortSearchOptions.searchGetConstraintStrings(detailed, delegator, locale);

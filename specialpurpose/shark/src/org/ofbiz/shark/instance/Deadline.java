@@ -25,7 +25,7 @@ import org.enhydra.shark.api.internal.instancepersistence.PersistenceException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -40,7 +40,7 @@ public class Deadline extends InstanceEntityObject implements DeadlinePersistenc
     protected GenericValue deadline = null;
     protected boolean newValue = false;
 
-    protected Deadline(EntityPersistentMgr mgr, GenericDelegator delegator, String deadlineId) throws PersistenceException {
+    protected Deadline(EntityPersistentMgr mgr, Delegator delegator, String deadlineId) throws PersistenceException {
         super(mgr, delegator);
         if (this.delegator != null) {
             try {
@@ -58,7 +58,7 @@ public class Deadline extends InstanceEntityObject implements DeadlinePersistenc
         this.deadline = deadline;
     }
 
-    public Deadline(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public Deadline(EntityPersistentMgr mgr, Delegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
         this.deadline = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfDeadline, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.deadlineId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfDeadline)));

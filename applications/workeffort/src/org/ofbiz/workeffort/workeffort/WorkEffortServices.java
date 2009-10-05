@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -67,7 +67,7 @@ public class WorkEffortServices {
     public static final String module = WorkEffortServices.class.getName();
 
     public static Map<String, Object> getWorkEffortAssignedEventsForRole(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String roleTypeId = (String) context.get("roleTypeId");
 
@@ -103,7 +103,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffortAssignedEventsForRoleOfAllParties(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String roleTypeId = (String) context.get("roleTypeId");
 
         List validWorkEfforts = null;
@@ -135,7 +135,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffortAssignedTasks(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List<GenericValue> validWorkEfforts = null;
@@ -174,7 +174,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffortAssignedActivities(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List<GenericValue> validWorkEfforts = null;
@@ -209,7 +209,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffortAssignedActivitiesByRole(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List<GenericValue> roleWorkEfforts = null;
@@ -246,7 +246,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffortAssignedActivitiesByGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         List<GenericValue> groupWorkEfforts = null;
@@ -283,7 +283,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getWorkEffort(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Security security = ctx.getSecurity();
         Map<String, Object> resultMap = FastMap.newInstance();
@@ -454,7 +454,7 @@ public class WorkEffortServices {
         if you select the proper fixed asset you should see the task.
 
          */
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -711,7 +711,7 @@ public class WorkEffortServices {
     }
 
     public static Map<String, Object> getProductManufacturingSummaryByFacility(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         String productId = (String) context.get("productId");
         String facilityId = (String) context.get("facilityId"); // optional
 
@@ -851,7 +851,7 @@ public class WorkEffortServices {
      * @return
      */
     public static Map<String, Object> processWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         Timestamp now = new Timestamp(System.currentTimeMillis());
         List<GenericValue> eventReminders = null;
         try {
@@ -998,14 +998,13 @@ public class WorkEffortServices {
      * @param context
      * @return
      */
-    @SuppressWarnings("deprecation")
     public static Map<String, Object> migrateWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
-        GenericDelegator delegator = ctx.getDelegator();
+        Delegator delegator = ctx.getDelegator();
         ModelEntity modelEntity = delegator.getModelEntity("WorkEffortEventReminder");
         if (modelEntity != null && modelEntity.getField("recurrenceOffset") != null) {
             List<GenericValue> eventReminders = null;
             try {
-                eventReminders = delegator.findAll("WorkEffortEventReminder");
+                eventReminders = delegator.findList("WorkEffortEventReminder", null, null, null, null, false);
                 for (GenericValue reminder : eventReminders) {
                     if (UtilValidate.isNotEmpty(reminder.get("recurrenceOffset"))) {
                         reminder.set("reminderOffset", reminder.get("recurrenceOffset"));

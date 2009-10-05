@@ -22,7 +22,7 @@ import junit.framework.TestResult;
 import junit.framework.AssertionFailedError;
 
 import org.w3c.dom.Element;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;

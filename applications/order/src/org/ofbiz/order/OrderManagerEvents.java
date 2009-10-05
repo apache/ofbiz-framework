@@ -38,7 +38,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -63,7 +63,7 @@ public class OrderManagerEvents {
     public static String processOfflinePayments(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
 
@@ -129,7 +129,7 @@ public class OrderManagerEvents {
     public static String receiveOfflinePayment(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
 

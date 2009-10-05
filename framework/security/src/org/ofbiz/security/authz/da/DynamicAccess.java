@@ -20,7 +20,7 @@ package org.ofbiz.security.authz.da;
 
 import java.util.Map;
 
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 
 public interface DynamicAccess {
 
@@ -43,7 +43,7 @@ public interface DynamicAccess {
     /**
      * Method for injecting the delegator object
      * 
-     * @param delegator the GenericDelegator object to use for the Authorization implementation
+     * @param delegator the Delegator object to use for the Authorization implementation
      */
-    public void setDelegator(GenericDelegator delegator);
+    public void setDelegator(Delegator delegator);
 }

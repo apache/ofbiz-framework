@@ -26,7 +26,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -61,7 +61,7 @@ public class ImportProductHelper {
 
     // check if product already exists in database
     public static boolean checkProductExists(String productId,
-            GenericDelegator delegator) {
+            Delegator delegator) {
         GenericValue tmpProductGV;
         boolean productExists = false;
         try {
