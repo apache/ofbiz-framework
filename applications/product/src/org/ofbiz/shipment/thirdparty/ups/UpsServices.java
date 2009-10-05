@@ -43,6 +43,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -97,6 +98,7 @@ public class UpsServices {
         Locale locale = (Locale) context.get("locale");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
+        String isSaturdayDelivery = (String) context.get("isSaturdayDelivery");
 
         boolean shipmentUpsSaveCertificationInfo = "true".equals(UtilProperties.getPropertyValue("shipment", "shipment.ups.save.certification.info"));
         String shipmentUpsSaveCertificationPath = UtilProperties.getPropertyValue("shipment", "shipment.ups.save.certification.path");
@@ -128,7 +130,6 @@ public class UpsServices {
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId")) && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError("ERROR: The Carrier Service Status for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is [" + shipmentRouteSegment.getString("carrierServiceStatusId") + "], but must be not-set or [SHRSCS_NOT_STARTED] to perform the UPS Shipment Confirm operation.");
             }
-
             // Get Origin Info
             GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
             if (originPostalAddress == null) {
@@ -428,11 +429,16 @@ public class UpsServices {
             Element serviceElement = UtilXml.addChildElement(shipmentElement, "Service", shipmentConfirmRequestDoc);
             String carrierServiceCode = carrierShipmentMethod.getString("carrierServiceCode");
             UtilXml.addChildElementValue(serviceElement, "Code", carrierServiceCode, shipmentConfirmRequestDoc);
+            
+            Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
+
+            if (UtilValidate.isNotEmpty(isSaturdayDelivery) && isSaturdayDelivery.equalsIgnoreCase("Y") && carrierServiceCode.equalsIgnoreCase("01")) {
+            Element saturdayDeliveryElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "SaturdayDelivery", shipmentConfirmRequestDoc);
+            }
 
             // Child of Shipment: ShipmentServiceOptions
             List internationalServiceCodes = UtilMisc.toList("07", "08", "54", "65");
             if (internationalServiceCodes.contains(carrierServiceCode)) {
-                Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
                 Element internationalFormsElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "InternationalForms", shipmentConfirmRequestDoc);
                 UtilXml.addChildElementValue(internationalFormsElement, "FormType", "01", shipmentConfirmRequestDoc);
                 List<GenericValue> shipmentItems = shipment.getRelated("ShipmentItem");
@@ -2193,8 +2199,8 @@ public class UpsServices {
         }
         return handleUpsRateInquireResponse(rateResponseDocument);
 
-
     }
+    
 
     public static Map<String, Object> upsAddressValidation(DispatchContext dctx, Map<String, ? extends Object> context) {
 
@@ -2691,6 +2697,207 @@ public class UpsServices {
         } 
         return ServiceUtil.returnSuccess(UtilProperties.getMessage("OrderUiLabels", "OrderReturnLabelEmailSuccessful", locale));
     }
+    
+    public static Map<String, Object> upsTimeInTransit(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        
+        // prepare the data
+        String productStoreId = (String) context.get("productStoreId");
+        String destinationPostalCode = (String) context.get("destinationPostalCode");
+        String destinationCountryCode = (String) context.get("destinationCountryCode");
+        List<Map<String, Object>> shippingDates = FastList.newInstance();
+        
+     // locate the ship-from address based on the product store's default facility
+        GenericValue shipFromAddress = null;
+        GenericValue originCountryGeo = null;
+        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+        if (productStore != null && productStore.get("inventoryFacilityId") != null) {
+            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+            if (facilityContactMech != null) {
+                try {
+                    shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                    originCountryGeo = shipFromAddress.getRelatedOne("CountryGeo");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        }
+        
+     // prepare the XML Document
+        Document timeInTransitRequestDoc = UtilXml.makeEmptyXmlDocument("TimeInTransitRequest");
+        Element timeInTransitRequestElement = timeInTransitRequestDoc.getDocumentElement();
+        timeInTransitRequestElement.setAttribute("xml:lang", "en-US");
+
+        // XML request header
+        Element requestElement = UtilXml.addChildElement(timeInTransitRequestElement, "Request", timeInTransitRequestDoc);
+        Element transactionReferenceElement = UtilXml.addChildElement(requestElement, "TransactionReference", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "CustomerContext", "TNT_D Origin Country Code", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(transactionReferenceElement, "XpciVersion", "1.0001", timeInTransitRequestDoc);
+
+        // RequestAction is always TimeInTransit
+        UtilXml.addChildElementValue(requestElement, "RequestAction", "TimeInTransit", timeInTransitRequestDoc);
+        
+        
+        Element transitFromElement = UtilXml.addChildElement(timeInTransitRequestElement, "TransitFrom", timeInTransitRequestDoc);
+        Element fromAddressArtifactFormatElement = UtilXml.addChildElement(transitFromElement, "AddressArtifactFormat", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(fromAddressArtifactFormatElement, "CountryCode", originCountryGeo.getString("geoCode"), timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(fromAddressArtifactFormatElement, "PostcodePrimaryLow", shipFromAddress.getString("postalCode"), timeInTransitRequestDoc);
+        
+        Element transitToElement = UtilXml.addChildElement(timeInTransitRequestElement, "TransitTo", timeInTransitRequestDoc);
+        Element toAddressArtifactFormatElement = UtilXml.addChildElement(transitToElement, "AddressArtifactFormat", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(toAddressArtifactFormatElement, "CountryCode", destinationCountryCode, timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(toAddressArtifactFormatElement, "PostcodePrimaryLow", destinationPostalCode, timeInTransitRequestDoc);
+        
+        
+        Element shipmentWeightElement = UtilXml.addChildElement(timeInTransitRequestElement, "ShipmentWeight", timeInTransitRequestDoc);
+        Element unitOfMeasurementElement = UtilXml.addChildElement(shipmentWeightElement, "UnitOfMeasurement", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "LBS", timeInTransitRequestDoc);
+        UtilXml.addChildElementValue(shipmentWeightElement, "Weight", UtilProperties.getPropertyValue("shipment", "shipment.default.weight.value"), timeInTransitRequestDoc);
+        
+        
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormatString);
+        String pickUpDate = formatter.format(UtilDateTime.nowTimestamp());
+        UtilXml.addChildElementValue(timeInTransitRequestElement, "PickupDate", pickUpDate, timeInTransitRequestDoc);
+        
+        String timeInTransitRequestString = null;
+        try {
+        	timeInTransitRequestString = UtilXml.writeXmlDocument(timeInTransitRequestDoc);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the TimeInTransitRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnFailure(ioeErrMsg);
+        }
+
+        // create AccessRequest XML doc
+        Document accessRequestDocument = createAccessRequestDocument("shipment.properties");
+        String accessRequestString = null;
+        try {
+            accessRequestString = UtilXml.writeXmlDocument(accessRequestDocument);
+        } catch (IOException e) {
+            String ioeErrMsg = "Error writing the AccessRequest XML Document to a String: " + e.toString();
+            Debug.logError(e, ioeErrMsg, module);
+            return ServiceUtil.returnFailure(ioeErrMsg);
+        }
+
+        // prepare the access/inquire request string
+        StringBuilder xmlString = new StringBuilder();
+        xmlString.append(accessRequestString);
+        xmlString.append(timeInTransitRequestString);
+        if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), module);
+        // send the request
+        String timeInTransitResponseString = null;
+        try {
+        	Debug.log("======request========"+xmlString.toString());
+        	timeInTransitResponseString = sendUpsRequest("TimeInTransit", xmlString.toString());
+        	
+        	Debug.log("======response==1======"+timeInTransitResponseString);
+        } catch (UpsConnectException e) {
+            String uceErrMsg = "Error sending UPS request for UPS Time In Transit: " + e.toString();
+            Debug.logError(e, uceErrMsg, module);
+            return ServiceUtil.returnFailure(uceErrMsg);
+        }
+        Debug.logVerbose(timeInTransitResponseString, module);
+        Document timeInTransitResponseDocument = null;
+        try {
+        	
+        	 timeInTransitResponseDocument = UtilXml.readXmlDocument(timeInTransitResponseString, false);
+        	 Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(timeInTransitResponseDocument), module);
+            //Debug.log("======timeInTransitResponseDocument======"+timeInTransitResponseDocument);
+        } catch (SAXException e2) {
+            String excErrMsg = "Error parsing the TimeInTransitResponse: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnFailure(excErrMsg);
+        } catch (ParserConfigurationException e2) {
+             String excErrMsg = "Error parsing the TimeInTransitResponse: " + e2.toString();
+             Debug.logError(e2, excErrMsg, module);
+             return ServiceUtil.returnFailure(excErrMsg);
+        } catch (IOException e2) {
+            String excErrMsg = "Error parsing the TimeInTransitResponse: " + e2.toString();
+            Debug.logError(e2, excErrMsg, module);
+            return ServiceUtil.returnFailure(excErrMsg);
+        }
+        
+        Map<String,Object> upsTimeInTransitResponse = handleUpsTimeInTransitResponse(timeInTransitResponseDocument);
+        Debug.log("======upsTimeInTransitResponse======"+upsTimeInTransitResponse);
+        Map<String,String> upsDateCodeMap = (Map) upsTimeInTransitResponse.get("upsDateCodeMap");
+        Debug.log("======upsDateCodeMap======"+upsDateCodeMap);
+        GenericValue carrierShipmentMethod = null;
+        // Filtering out dates of shipping methods which are not configured in ProductStoreShipmentMeth entity.
+        try {
+            List <GenericValue> productStoreShipmentMethods = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId));
+            for (GenericValue productStoreShipmentMethod :productStoreShipmentMethods) {
+                if ("UPS".equals(productStoreShipmentMethod.get("partyId"))) {
+                    Map<String,Object> thisUpsDateCodeMap = FastMap.newInstance();
+                    carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", false, UtilMisc.toMap("shipmentMethodTypeId",
+                            productStoreShipmentMethod.getString("shipmentMethodTypeId"), "partyId", productStoreShipmentMethod.getString("partyId"), "roleTypeId", productStoreShipmentMethod.getString("roleTypeId")));
+                    String serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
+                    for (String thisServiceCode : upsDateCodeMap.keySet()) {
+                        if (serviceCode.equals(thisServiceCode)) {
+                            String Date = upsDateCodeMap.get(serviceCode);
+                            thisUpsDateCodeMap.put(serviceCode,Date);
+                            shippingDates.add(thisUpsDateCodeMap);
+                        }
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        Debug.log("=======result=============="+shippingDates);
+        return UtilMisc.toMap(
+                "shippingDates", shippingDates,
+                ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+
+    }
+    
+    public static Map<String, Object> handleUpsTimeInTransitResponse(Document timeInTransitResponseDocument) {
+        // process TrackResponse, update data as needed
+        Element timeInTransitResponseElement = timeInTransitResponseDocument.getDocumentElement();
+        
+        Debug.log("======timeInTransitResponseElement=========="+timeInTransitResponseElement);
+
+        // handle Response element info
+        Element responseElement = UtilXml.firstChildElement(timeInTransitResponseElement, "Response");
+        //Element responseTransactionReferenceElement = UtilXml.firstChildElement(responseElement, "TransactionReference");
+        //String responseTransactionReferenceCustomerContext = UtilXml.childElementValue(responseTransactionReferenceElement, "CustomerContext");
+        //String responseTransactionReferenceXpciVersion = UtilXml.childElementValue(responseTransactionReferenceElement, "XpciVersion");
+
+        String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
+        //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
+        List<Object> errorList = FastList.newInstance();
+        UpsServices.handleErrors(responseElement, errorList);
+
+        if ("1".equals(responseStatusCode)) {
+            List<? extends Element> serviceSummaries = UtilXml.childElementList(timeInTransitResponseElement, "ServiceSummary");
+            Map<String, String> dateMap = FastMap.newInstance();
+            if (serviceSummaries == null || serviceSummaries.size() == 0) {
+                return ServiceUtil.returnError("No Dates available at this time");
+            } else {
+                for (Element element: serviceSummaries) {
+                    // get service
+                    Element service = UtilXml.firstChildElement(element, "Service");
+                    String serviceCode = UtilXml.childElementValue(service, "Code");
+
+                    // get Date
+                    Element EstimatedArrival = UtilXml.firstChildElement(element, "EstimatedArrival");
+                    String Date = UtilXml.childElementValue(EstimatedArrival, "Date");
+
+                    dateMap.put(serviceCode, Date);
+                }
+            }
+
+            Debug.log("UPS Rate Map : " + dateMap, module);
+
+            Map<String, Object> resp = ServiceUtil.returnSuccess();
+            resp.put("upsDateCodeMap", dateMap);
+            Debug.log("========resp=====2891====="+resp);
+            return resp;
+        } else {
+            errorList.add("Error status code : " + responseStatusCode);
+            return ServiceUtil.returnFailure(errorList);
+        }
+    }
+
     
     public static Map<String, Object> upsShipmentAlternateRatesInquiry(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
