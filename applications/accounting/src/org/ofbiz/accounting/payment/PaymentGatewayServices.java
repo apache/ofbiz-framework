@@ -2806,7 +2806,14 @@ public class PaymentGatewayServices {
         return true;
     }
 
-    // safe payment gateway store
+    // safe payment gateway response store
+    
+    /**
+     * Saves either a PaymentGatewayResponse or PaymentGatewayRespMsg value and ensures that the value
+     * is persisted even in the event of a rollback.
+     * @param dctx
+     * @param pgr Either a PaymentGatewayResponse or PaymentGatewayRespMsg GenericValue
+     */
     private static void savePgr(DispatchContext dctx, GenericValue pgr) {
         Map<String, GenericValue> context = UtilMisc.<String, GenericValue>toMap("paymentGatewayResponse", pgr);
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -2823,9 +2830,11 @@ public class PaymentGatewayServices {
     public static Map<String, Object> savePaymentGatewayResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
-        String message = pgr.getString("gatewayMessage");
-        if (message.length() > 255) {
-            pgr.set("gatewayMessage", message.substring(0, 255));
+        if ("PaymentGatewayResponse".equals(pgr.getEntityName())) {
+            String message = pgr.getString("gatewayMessage");
+            if (message.length() > 255) {
+                pgr.set("gatewayMessage", message.substring(0, 255));
+            }
         }
 
         try {
