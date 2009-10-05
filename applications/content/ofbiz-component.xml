@@ -34,7 +34,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MimeTypeTemplate.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/DataCategoryData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SeedBlogData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/HelpTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/TemplateData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentSecurityData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MiscData.xml"/>
@@ -51,7 +50,6 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/WebSitePublishPointData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CompDocData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ForumDemoData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DocBookDemoData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_content.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_contenttypes.xml"/>
