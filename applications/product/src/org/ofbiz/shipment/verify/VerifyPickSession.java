@@ -30,10 +30,11 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -77,7 +78,11 @@ public class VerifyPickSession implements Serializable {
 
     public Delegator getDelegator() {
         if (_delegator == null) {
-            _delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                _delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
         return _delegator;
     }

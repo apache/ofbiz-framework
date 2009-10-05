@@ -57,13 +57,14 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -350,7 +351,16 @@ public class WebToolsServices {
         }
 
         String groupNameToUse = overrideGroup != null ? overrideGroup : "org.ofbiz";
-        Delegator delegator = UtilValidate.isNotEmpty(overrideDelegator) ? GenericDelegator.getGenericDelegator(overrideDelegator) : dctx.getDelegator();
+        Delegator delegator = null;
+        if (UtilValidate.isNotEmpty(overrideDelegator)) {
+            try {
+                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, overrideDelegator);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
+        } else {
+            delegator = dctx.getDelegator();
+        }
 
         String helperName = delegator.getGroupHelperName(groupNameToUse);
         if (helperName == null) {

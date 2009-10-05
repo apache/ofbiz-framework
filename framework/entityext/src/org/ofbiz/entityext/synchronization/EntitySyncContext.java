@@ -34,9 +34,10 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -149,7 +150,11 @@ public class EntitySyncContext {
         // what to do with the delegatorName? this is the delegatorName to use in this service...
         String delegatorName = (String) context.get("delegatorName");
         if (UtilValidate.isNotEmpty(delegatorName)) {
-            this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
 
 

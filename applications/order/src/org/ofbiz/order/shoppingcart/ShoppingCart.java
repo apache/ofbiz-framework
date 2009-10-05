@@ -23,7 +23,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -277,7 +277,11 @@ public class ShoppingCart implements Serializable {
 
     public Delegator getDelegator() {
         if (delegator == null) {
-            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+            try {
+                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
+            }
         }
         return delegator;
     }

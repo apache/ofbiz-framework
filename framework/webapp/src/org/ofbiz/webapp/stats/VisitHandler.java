@@ -30,10 +30,11 @@ import javax.servlet.http.HttpSession;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -108,7 +109,11 @@ public class VisitHandler {
                         // first try the session attribute delegatorName
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (UtilValidate.isNotEmpty(delegatorName)) {
-                            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+                            try {
+                                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+                            } catch (ClassNotFoundException e) {
+                                Debug.logError(e, module);
+                            }
                         }
 
                         // then try the ServletContext attribute delegator, should always be there...
@@ -200,7 +205,11 @@ public class VisitHandler {
 
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (delegator == null && UtilValidate.isNotEmpty(delegatorName)) {
-                            delegator = GenericDelegator.getGenericDelegator(delegatorName);
+                            try {
+                                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+                            } catch (ClassNotFoundException e) {
+                                Debug.logError(e, module);
+                            }
                         }
 
                         if (delegator == null) {
