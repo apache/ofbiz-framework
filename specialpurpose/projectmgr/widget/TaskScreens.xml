@@ -349,6 +349,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProjectMgrTaskSummary"/>
                 <set field="tabButtonItem" value="taskView"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="Common${parameters.my}TaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -576,6 +577,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="EditWorkEffortSurveyAppls"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -594,7 +596,7 @@ under the License.
             <actions>
                 <set field="nowTimeStampString" default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
                 <entity-and entity-name="WorkEffortSurveyAppl" list="workEffortSurveyAppls">
-                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                     <order-by field-name="workEffortId"/>
                 </entity-and>
             </actions>
