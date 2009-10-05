@@ -73,6 +73,10 @@
                 <entity-one entity-name="SeleniumTestSuitePath"  value-field="testSuitePath">
                     <field-map field-name="testSuiteId" value="${parameters.testSuiteId}"/>
                 </entity-one>
+                <entity-condition entity-name="SeleniumTestSuitePath" list="listIt">
+                    <condition-expr field-name="testSuiteId" operator="not-equals" value="none"/>
+                    <!--order-by field-name="createdStamp DESC"/-->
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
