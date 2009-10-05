@@ -27,9 +27,10 @@ is ${ofbiz.home}/framework/webapp/lib/ -->
     <fo:layout-master-set>
         <#-- these margins are arbitrary, please redefine as you see fit -->
         <fo:simple-page-master master-name="main-page"
+            page-width="17in" page-height="11in"
             margin-top="1in" margin-bottom="1in"
             margin-left="1in" margin-right="1in">
-          <fo:region-body margin-top="3.5in" margin-bottom="1in"/>  <#-- main body -->
+          <fo:region-body margin-top="1in" margin-bottom="0.5in"/>  <#-- main body -->
         </fo:simple-page-master>
   </fo:layout-master-set>
 
