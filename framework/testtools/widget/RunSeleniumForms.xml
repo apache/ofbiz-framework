@@ -20,7 +20,7 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-
+    
     <form name="editSeleniumTestSuitePath" target="updateSeleniumTestSuitePath" type="single" title="Add new selenium test suite" default-map-name="testSuitePath"
         header-row-style="header-row" default-table-style="basic-table">
         
@@ -33,18 +33,9 @@
         <field name="description"><textarea rows="3"/></field>
         <field name="submitButton" title=""><submit button-type="button"/></field>
     </form>
-    <form name="seleniumTestSuitePathList"  paginate-target="editSeleniumTestSuitePath" type="list" title="path file of selenium test suite"  separate-columns="true" list-name="listIt"
-        view-size="15" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <actions>
-            <set field="parameters" default-value=""></set>
-            <set field="parameters.noConditionFind" default-value="Y"></set>
-            
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="SeleniumTestSuitePath"/>
-                <field-map field-name="orderBy" value="createdStamp"/>
-            </service>
-        </actions>
+    <form name="seleniumTestSuitePathList"  paginate-target="selenium" type="list" title="path file of selenium test suite"  separate-columns="true" list-name="listIt"
+        view-size="15" odd-row-style="alternate-row" paginate="true" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        
         <field name="testSuiteId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${testSuiteId}" target="editSeleniumTestSuitePath">
                 <parameter param-name="testSuiteId"/>

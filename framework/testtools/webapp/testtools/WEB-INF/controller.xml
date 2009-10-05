@@ -56,17 +56,17 @@
     <request-map uri="updateSeleniumTestSuitePath">
         <security https="true" auth="true"/>
         <event type="simple" path="component://testtools/script/org/ofbiz/selenium/SeleniumTestSuitePathEvents.xml" invoke="updateSeleniumTestSuitePath"/>
-        <response name="success" type="view" value="selenium"/>
+        <response name="success" type="request" value="selenium"/>
     </request-map>
     <request-map uri="removeSeleniumTestSuitePath">
         <security https="true" auth="true"/>
         <event type="simple" path="component://testtools/script/org/ofbiz/selenium/SeleniumTestSuitePathEvents.xml" invoke="removeSeleniumTestSuitePath"/>
-        <response name="success" type="view" value="selenium"/>
+        <response name="success" type="request" value="selenium"/>
     </request-map>
     
     <request-map uri="editSeleniumTestSuitePath">
-    <security https="true" auth="true"/>
-        <response name="success" type="view" value="selenium"/>
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="selenium"/>
     </request-map>
     
     <!--  selenium Test Case -->
