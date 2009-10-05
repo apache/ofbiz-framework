@@ -18,7 +18,20 @@
  */
 package org.ofbiz.entity;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.Factory;
+import org.ofbiz.base.util.UtilObject;
 
-/** <code>Delegator</code> factory interface. */
-public interface DelegatorFactory extends Factory<Delegator, String> {}
+/** <code>Delegator</code> factory abstract class. */
+public abstract class DelegatorFactory implements Factory<Delegator, String> {
+    public static final String module = DelegatorFactoryImpl.class.getName();
+
+    public static Delegator getDelegator(String delegatorName) {
+        try {
+            return UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        }
+        return null;
+    }
+}

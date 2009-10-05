@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -34,13 +32,7 @@ public abstract class AbstractCache<K, V> {
     }
 
     public Delegator getDelegator() {
-        Delegator delegator = null;
-        try {
-            delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, AbstractCache.class.getName());
-        }
-        return delegator;
+        return DelegatorFactory.getDelegator(this.delegatorName);
     }
 
     public void remove(String entityName) {
