@@ -75,6 +75,10 @@ public class EbayOrderServices {
         Map<String, Object> result = FastMap.newInstance();
         try {
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
+            if (UtilValidate.isEmpty(eBayConfigResult)) {
+                String eBayConfigErrorMsg = "Configuration settings are missing for connecting to eBay server.";
+                return ServiceUtil.returnError(eBayConfigErrorMsg);
+            }
             
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
             if (!ServiceUtil.isFailure(buildGetSellerTransactionsRequest(context, sellerTransactionsItemsXml, eBayConfigResult.get("token").toString()))) {
@@ -106,7 +110,7 @@ public class EbayOrderServices {
                 }
             }
         } catch (Exception e) {
-            String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay========" + e.getMessage(), locale);
+            String errMsg = UtilProperties.getMessage(resource, "buildEbayConfig.exceptionInGetOrdersFromEbay" + e.getMessage(), locale);
             return ServiceUtil.returnError(errMsg);
         }
         return result;
