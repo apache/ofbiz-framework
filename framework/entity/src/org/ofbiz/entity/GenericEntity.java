@@ -309,7 +309,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
 
     public Object get(String name) {
         if (getModelEntity().getField(name) == null) {
-            throw new IllegalArgumentException("[GenericEntity.get] \"" + name + "\" is not a field of " + entityName);
+            Debug.logWarning("The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
+            return null;
         }
         return fields.get(name);
     }
@@ -1343,16 +1344,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     public Object get(Object key) {
-        try {
-            return this.get((String) key);
-        } catch (IllegalArgumentException e) {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose(e, "The field name (or key) [" + key + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
-            } else {
-                Debug.logWarning("The field name (or key) [" + key + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
-            }
-            return null;
-        }
+        return this.get((String) key);
     }
 
     public java.util.Set<String> keySet() {
