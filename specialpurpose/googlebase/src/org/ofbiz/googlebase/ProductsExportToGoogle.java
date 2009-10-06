@@ -447,16 +447,19 @@ public class ProductsExportToGoogle {
                 while (productCategoryMembersIter.hasNext()) {
                     GenericValue productCategoryMember = (GenericValue) productCategoryMembersIter.next();
                     GenericValue productCategory = productCategoryMember.getRelatedOne("ProductCategory");
-                    String categoryDescription = "";
-                    if (UtilValidate.isNotEmpty(productCategory.getString("categoryName"))) {
-                        categoryDescription = productCategory.getString("categoryName");  
-                    } else if (UtilValidate.isNotEmpty(productCategory.getString("description"))) {
-                        categoryDescription = productCategory.getString("description");
-                    } else if (UtilValidate.isNotEmpty(productCategory.getString("longDescription"))) {
-                        categoryDescription = productCategory.getString("longDescription");
-                    }
-                    if (UtilValidate.isNotEmpty(productCategory)) {
-                        UtilXml.addChildElementNSValue(entryElem, "g:product_type", StringUtil.wrapString(categoryDescription).toString() , feedDocument, googleBaseNSUrl);
+                    String productCategoryTypeId = productCategory.getString("productCategoryTypeId");
+                    if (UtilValidate.isNotEmpty(productCategoryTypeId) && "GOOGLE_BASE_CATEGORY".equals(productCategoryTypeId)) {
+                        String categoryDescription = "";
+                        if (UtilValidate.isNotEmpty(productCategory.getString("categoryName"))) {
+                            categoryDescription = productCategory.getString("categoryName");  
+                        } else if (UtilValidate.isNotEmpty(productCategory.getString("description"))) {
+                            categoryDescription = productCategory.getString("description");
+                        } else if (UtilValidate.isNotEmpty(productCategory.getString("longDescription"))) {
+                            categoryDescription = productCategory.getString("longDescription");
+                        }
+                        if (UtilValidate.isNotEmpty(productCategory)) {
+                            UtilXml.addChildElementNSValue(entryElem, "g:product_type", StringUtil.wrapString(categoryDescription).toString() , feedDocument, googleBaseNSUrl);
+                        }
                     }
                 }
                 
