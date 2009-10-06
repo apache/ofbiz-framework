@@ -5137,14 +5137,26 @@ public class OrderServices {
             if (Debug.verboseOn()) Debug.logVerbose("[OrderServices.setOrderPaymentStatus] : Setting Order Payment Status to : " + statusId, module);
             // create a order payment status
             GenericValue orderStatus = delegator.makeValue("OrderStatus");
-            orderStatus.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
             orderStatus.put("statusId", statusId);
             orderStatus.put("orderId", orderId);
             orderStatus.put("orderPaymentPreferenceId", orderPaymentPreferenceId);
-            orderStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
             orderStatus.put("statusUserLogin", statusUserLogin);
             orderStatus.put("changeReason", changeReason);
 
+            // Check that the status has actually changed before creating a new record
+            List<GenericValue> previousStatusList = delegator.findByAnd("OrderStatus", UtilMisc.toMap("orderId", orderId, "orderPaymentPreferenceId", orderPaymentPreferenceId), UtilMisc.toList("-statusDatetime"));
+            GenericValue previousStatus = EntityUtil.getFirst(previousStatusList);
+            if (previousStatus != null) {
+                // Temporarily set some values on the new status so that we can do an equals() check
+                orderStatus.put("orderStatusId", previousStatus.get("orderStatusId"));
+                orderStatus.put("statusDatetime", previousStatus.get("statusDatetime"));
+                if (orderStatus.equals(previousStatus)) {
+                    // Status is the same, return without creating
+                    return ServiceUtil.returnSuccess();
+                }
+            }
+            orderStatus.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
+            orderStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
             orderStatus.create();
 
         } catch (GenericEntityException e) {
