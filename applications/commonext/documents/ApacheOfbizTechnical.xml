@@ -127,6 +127,7 @@
     <xi:include href="../../../framework/entity/documents/EntityEngine.xml" />
     <xi:include href="../../../framework/service/documents/ServiceEngine.xml" />
     <xi:include href="../../../framework/webtools/documents/Webtools.xml" />
+    <xi:include href="../../../framework/testtools/documents/TestTools.xml" />
 
     <appendix>
         <title>The Apache OFBiz documentation system</title>
