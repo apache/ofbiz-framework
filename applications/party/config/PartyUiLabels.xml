@@ -5178,6 +5178,10 @@
         <value xml:lang="th">จากที่อยู่อีเมล์</value>
         <value xml:lang="zh">来自电子邮件地址</value>
     </property>
+    <property key="PartyFullName">
+        <value xml:lang="en">Full Name</value>
+        <value xml:lang="it">Nome completo</value>
+    </property>
     <property key="PartyGender">
         <value xml:lang="cs">Pohlaví</value>
         <value xml:lang="de">Geschlecht</value>
@@ -8854,6 +8858,10 @@
         <value xml:lang="nl">Account transporteur</value>
         <value xml:lang="th">บัญชีการส่งของ</value>
         <value xml:lang="zh">承运人账户</value>
+    </property>
+    <property key="PartyShippingAddress">
+        <value xml:lang="en">Shipping Address</value>
+        <value xml:lang="it">Indirizzo di spedizione</value>
     </property>
     <property key="PartyShoppingListDetail">
         <value xml:lang="de">Einkaufsliste Details</value>
