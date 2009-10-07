@@ -341,12 +341,9 @@ under the License.
 
         <set field="dash" value="-"/>
         <set field="emptyString" value=""/>
-        <!--set field="inputTelno" value="${str:replaceAll(parameters.telno, dash, emptyString)}"/-->
-        <log level="always" message="parameters.telno====================${parameters.telno}"></log>
-        <log level="always" message="inputTelno====================${inputTelno}"></log>
+        <set field="inputTelno" value="${str:replaceAll(parameters.telno, dash, emptyString)}"/>
         <iterate entry="contactMech" list="contactMechs">
-            <set field="telno" from-field="contactMech.tnContactNumber"/>
-            <!--set field="telno" value="${str:replace(contactMech.tnContactNumber, dash, emptyString)}"/-->
+            <set field="telno" value="${str:replace(contactMech.tnContactNumber, dash, emptyString)}"/>
             <if-compare-field field="inputTelno" operator="equals" to-field="telno">
                 <set field="partyId" from-field="contactMech.partyId"/>
             </if-compare-field>
