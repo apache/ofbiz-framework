@@ -20,6 +20,37 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="CommonPaymentDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="payments"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ACCOUNTING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PaymentTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <container style="leftclear">
+                                    <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="FindPayments">
         <section>
             <actions>
@@ -113,7 +144,7 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPaymentDecorator" location="${parameters.paymentDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -194,7 +225,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPaymentDecorator" location="${parameters.paymentDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -336,7 +367,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPaymentDecorator" location="${parameters.paymentDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
