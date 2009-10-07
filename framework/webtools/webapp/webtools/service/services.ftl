@@ -21,28 +21,30 @@ under the License.
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.PageTitleServiceList}</h3>
   </div>
-  <table class="basic-table hover-bar" cellspacing="0">
-    <tr class="header-row">
-      <td>${uiLabelMap.WebtoolsServiceName}</td>
-      <td>${uiLabelMap.WebtoolsDispatcherName}</td>
-      <td>${uiLabelMap.WebtoolsMode}</td>
-      <td>${uiLabelMap.CommonStartDateTime}</td>
-      <td>${uiLabelMap.CommonEndDateTime}</td>
-    </tr>
-    <#assign alt_row = false>
-    <#list services as service>
-      <tr<#if alt_row> class="alternate-row"</#if>>
-        <td>${service.serviceName?if_exists}</td>
-        <td>${service.localName?if_exists}</td>
-        <td>${service.modeStr?default("[none]")}</td>
-        <td>${service.startTime?if_exists}</td>
-        <td>${service.endTime?default("[running]")}</td>
+  <div class="screenlet-body">
+    <table class="basic-table hover-bar" cellspacing="0">
+      <tr class="header-row">
+        <td>${uiLabelMap.WebtoolsServiceName}</td>
+        <td>${uiLabelMap.WebtoolsDispatcherName}</td>
+        <td>${uiLabelMap.WebtoolsMode}</td>
+        <td>${uiLabelMap.CommonStartDateTime}</td>
+        <td>${uiLabelMap.CommonEndDateTime}</td>
       </tr>
-      <#if alt_row>
-        <#assign alt_row = false>
-      <#else>
-        <#assign alt_row = true>
-      </#if>
-    </#list>
-  </table>
+      <#assign alt_row = false>
+      <#list services as service>
+        <tr<#if alt_row> class="alternate-row"</#if>>
+          <td>${service.serviceName?if_exists}</td>
+          <td>${service.localName?if_exists}</td>
+          <td>${service.modeStr?default("[none]")}</td>
+          <td>${service.startTime?if_exists}</td>
+          <td>${service.endTime?default("[running]")}</td>
+        </tr>
+        <#if alt_row>
+          <#assign alt_row = false>
+        <#else>
+          <#assign alt_row = true>
+        </#if>
+      </#list>
+    </table>
+  </div>
 </div>
