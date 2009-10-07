@@ -157,7 +157,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_customXml}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <textarea cols="60" rows="6" wrap="hard" name="customXml">${customXml?if_exists}</textarea>
+                    <textarea cols="60" rows="6" wrap="soft" name="customXml">${customXml?if_exists}</textarea>
                 </td>
             </tr>
             <tr>
