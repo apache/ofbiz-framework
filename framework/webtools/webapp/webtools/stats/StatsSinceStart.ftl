@@ -18,19 +18,22 @@ under the License.
 -->
 <div id="stats-bins-history" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsStatsMainPageTitle}</h3>
+      <div class="h3">${uiLabelMap.WebtoolsStatsMainPageTitle}</div>
     </div>
-    <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
-    <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
-    <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${nowTimestamp}</p>
+    <div class="screenlet-body">
+      <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
+      <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
+      <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${nowTimestamp}</p>
+    </div>
 </div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>
   <#-- Request Table -->
   <div id="request-statistics" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsStatsRequestStats}</h3>
+      <div class="h3">${uiLabelMap.WebtoolsStatsRequestStats}</div>
     </div>
     <#if requestList?has_content>
+    <div class="screenlet-body">
       <#if (requestList?size > 2)>
         <table class="basic-table light-grid hover-bar" cellspacing="0">
       <#else>
@@ -69,6 +72,7 @@ under the License.
           </#if>
         </#list>
       </table>
+    </div>  
     <#else>
       <div class="screenlet-body">${uiLabelMap.WebtoolsStatsNoRequests}</div>
     </#if>
@@ -77,9 +81,10 @@ under the License.
   <#-- Event Table -->
   <div id="event-statistics" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsStatsEventStats}</h3>
+      <div class="h3">${uiLabelMap.WebtoolsStatsEventStats}</div>
     </div>
     <#if eventList?has_content>
+    <div class="screenlet-body">
       <#if (eventList?size > 2)>
         <table class="basic-table light-grid hover-bar" cellspacing="0">
       <#else>
@@ -118,6 +123,7 @@ under the License.
           </#if>
         </#list>
       </table>
+    </div>
     <#else>
       <div class="screenlet-body">${uiLabelMap.WebtoolsStatsNoEvents}</div>
     </#if>
@@ -126,9 +132,10 @@ under the License.
   <#-- View Table -->
   <div id="view-statistics" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsStatsViewStats}</h3>
+      <div class="h3">${uiLabelMap.WebtoolsStatsViewStats}</div>
     </div>
     <#if viewList?has_content>
+    <div class="screenlet-body">
       <#if (viewList?size > 2)>
         <table class="basic-table light-grid hover-bar" cellspacing="0">
       <#else>
@@ -167,6 +174,7 @@ under the License.
           </#if>
         </#list>
       </table>
+    </div>
     <#else>
       <div class="screenlet-body">${uiLabelMap.WebtoolsStatsNoViews}</div>
     </#if>
