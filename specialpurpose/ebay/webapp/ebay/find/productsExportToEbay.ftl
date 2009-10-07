@@ -98,7 +98,7 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right" class="label">${uiLabelMap.FormFieldTitle_webSiteUrl}</td>
+                <td align="right" class="label">${uiLabelMap.CommonWebsite}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="webSiteUrl" size="100" value="${webSiteUrl?if_exists}"/>
