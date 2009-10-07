@@ -437,23 +437,17 @@ under the License.
                         <if-empty field="titleProperty"/>
                     </condition>
                     <widgets>
-                        <container style="h1">
-                            <label text="${title}"/>
-                        </container>
+                        <label style="h1" text="${title}"></label>
                     </widgets>
                     <fail-widgets>
-                        <container style="h1">
-                            <label text="${uiLabelMap[titleProperty]}"/>
-                        </container>
+                        <label  style="h1" text="${uiLabelMap[titleProperty]}"/>
                     </fail-widgets>
                 </section>
                 <decorator-section-include name="menu-bar"/>
                 <container style="clear"/>
                 <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
                     <container style="screenlet-body">
-                        <container style="h2">
-                            <label text="${uiLabelMap.CommonSearchOptions}"/>
-                        </container>
+                        <label style="h2" text="${uiLabelMap.CommonSearchOptions}"/>
                         <container id="search-options">
                             <decorator-section-include name="search-options"/>
                         </container>
@@ -461,9 +455,7 @@ under the License.
                 </screenlet>
                 <container style="screenlet">
                     <container style="screenlet-body">
-                        <container style="h2">
-                            <label text="${uiLabelMap.CommonSearchResults}"/>
-                        </container>
+                        <label style="h2" text="${uiLabelMap.CommonSearchResults}"/>
                     </container>
                     <container id="search-results">
                         <decorator-section-include name="search-results"/>
