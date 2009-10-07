@@ -56,48 +56,15 @@ under the License.
              <widgets>
                  <decorator-screen name="log-decorator">
                      <decorator-section name="body">
-                         <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsDebuggingLevelFormDescription}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <include-form name="LevelSwitch" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
-                                     </widgets>
-                                 </section>
-                             </container>
-                         </container>
-                         <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsAddLoggerFormDescription}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <include-form name="AddLogger" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
-                                     </widgets>
-                                 </section>
-                             </container>
-                         </container>
-                         <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsLoggerListFormDescription}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <include-form name="LoggerList" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
-                                     </widgets>
-                                 </section>
-                             </container>
-                         </container>
+                         <screenlet title="${uiLabelMap.WebtoolsDebuggingLevelFormDescription}">
+                             <include-form name="LevelSwitch" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
+                         </screenlet>
+                         <screenlet title="${uiLabelMap.WebtoolsAddLoggerFormDescription}">
+                             <include-form name="AddLogger" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
+                         </screenlet>
+                         <screenlet title="${uiLabelMap.WebtoolsLoggerListFormDescription}">
+                             <include-form name="LoggerList" location="component://webtools/webapp/webtools/log/LogForms.xml"/>
+                         </screenlet>
                      </decorator-section>
                  </decorator-screen>
                </widgets>
@@ -117,29 +84,18 @@ under the License.
              <widgets>
                  <decorator-screen name="log-decorator">
                      <decorator-section name="body">
-                         <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsViewLog}"/>
-                                 </container>
+                         <screenlet title="${uiLabelMap.WebtoolsViewLog}">
+                             <container style="button-bar">
+                                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
                              </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <container style="button-bar">
-                                             <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
-                                         </container>
-                                         <container style="button-bar">
-                                             <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>
-                                             <label>${logFileName}</label>
-                                         </container>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/log/logContent.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
+                             <container style="button-bar">
+                                 <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>
+                                 <label>${logFileName}</label>
                              </container>
-                         </container>
+                             <platform-specific>
+                                 <html><html-template location="component://webtools/webapp/webtools/log/logContent.ftl"/></html>
+                             </platform-specific>
+                         </screenlet>
                      </decorator-section>
                  </decorator-screen>
              </widgets>
