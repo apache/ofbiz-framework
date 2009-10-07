@@ -920,7 +920,7 @@
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): {0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura)</value>
-        <value xml:lang="fr">Ajout d'information personne impossible (échec écriture): {0}</value>
+        <value xml:lang="fr">Ajout d'information sur la personne impossible (échec écriture): {0}</value>
         <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): {0}</value>
         <value xml:lang="nl">Could not add person info (write failure): {0}</value>
