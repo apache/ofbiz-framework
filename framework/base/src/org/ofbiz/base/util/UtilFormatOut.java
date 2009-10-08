@@ -170,7 +170,7 @@ public class UtilFormatOut {
      */
     public static String formatPercentage(BigDecimal percentage) {
         if (percentage == null) return "";
-        return formatPercentage(percentage);
+        return percentageDecimalFormat.format(percentage);
     }
 
     /** Formats a double representing a percentage into a string
