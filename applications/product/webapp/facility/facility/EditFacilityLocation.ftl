@@ -114,14 +114,14 @@ under the License.
             <tr>
                 <td><#if product?exists>${(product.internalName)?if_exists}</#if>[${productFacilityLocation.productId}]</td>
                 <td>
-                    <form method="post" action="<@ofbizUrl>updateProductFacilityLocation</@ofbizUrl>" name="lineForm${productFacilityLocation_index}">
+                    <form method="post" action="<@ofbizUrl>updateProductFacilityLocation</@ofbizUrl>" id="lineForm${productFacilityLocation_index}">
                         <input type="hidden" name="productId" value="${(productFacilityLocation.productId)?if_exists}"/>
                         <input type="hidden" name="facilityId" value="${(productFacilityLocation.facilityId)?if_exists}"/>
                         <input type="hidden" name="locationSeqId" value="${(productFacilityLocation.locationSeqId)?if_exists}"/>
                         <input type="text" size="10" name="minimumStock" value="${(productFacilityLocation.minimumStock)?if_exists}"/>
                         <input type="text" size="10" name="moveQuantity" value="${(productFacilityLocation.moveQuantity)?if_exists}"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
-                        <a href="<@ofbizUrl>deleteProductFacilityLocation?productId=${(productFacilityLocation.productId)?if_exists}&facilityId=${(productFacilityLocation.facilityId)?if_exists}&locationSeqId=${(productFacilityLocation.locationSeqId)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                        <a href="javascript:$('lineForm${productFacilityLocation_index}').action='<@ofbizUrl>deleteProductFacilityLocation</@ofbizUrl>';$('lineForm${productFacilityLocation_index}').submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </form>
                 </td>
             </tr>
