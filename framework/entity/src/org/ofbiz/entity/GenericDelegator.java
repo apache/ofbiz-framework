@@ -43,7 +43,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.cache.CacheLine;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
