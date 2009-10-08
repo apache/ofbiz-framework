@@ -391,6 +391,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.groovy"/>
