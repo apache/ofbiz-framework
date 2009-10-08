@@ -365,26 +365,28 @@ under the License.
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default(uiLabelMap.CommonNA)} (${servicesFoundCount} ${uiLabelMap.CommonFound})</h3>
     </div>
-    <table class="basic-table hover-bar" cellspacing='0'>
-      <tr class="header-row">
-        <td>${uiLabelMap.WebtoolsServiceName}</td>
-        <td>${uiLabelMap.WebtoolsEngineName}</td>
-        <td>${uiLabelMap.WebtoolsDefaultEntityName}</td>
-        <td>${uiLabelMap.WebtoolsInvoke}</td>
-        <td>${uiLabelMap.WebtoolsLocation}</td>
-      </tr>
-      <#assign alt_row = false>
-      <#list servicesList as service>
-        <tr<#if alt_row> class="alternate-row"</#if>>
-          <td><a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>'>${service.serviceName}</a></td>
-          <td><a href='<@ofbizUrl>${url}?constraint=engine_name@${service.engineName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.engineName}</a></td>
-          <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${service.defaultEntityName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.defaultEntityName}</a></td>
-          <td>${service.invoke}</td>
-          <td><a href='<@ofbizUrl>${url}?constraint=location@${service.location?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.location}</a></td>
+    <div class="screenlet-body">
+      <table class="basic-table hover-bar" cellspacing='0'>
+        <tr class="header-row">
+          <td>${uiLabelMap.WebtoolsServiceName}</td>
+          <td>${uiLabelMap.WebtoolsEngineName}</td>
+          <td>${uiLabelMap.WebtoolsDefaultEntityName}</td>
+          <td>${uiLabelMap.WebtoolsInvoke}</td>
+          <td>${uiLabelMap.WebtoolsLocation}</td>
         </tr>
-        <#assign alt_row = !alt_row>
-      </#list>
-    </table>
+        <#assign alt_row = false>
+        <#list servicesList as service>
+          <tr<#if alt_row> class="alternate-row"</#if>>
+            <td><a href='<@ofbizUrl>${url}?sel_service_name=${service.serviceName}</@ofbizUrl>'>${service.serviceName}</a></td>
+            <td><a href='<@ofbizUrl>${url}?constraint=engine_name@${service.engineName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.engineName}</a></td>
+            <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${service.defaultEntityName?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.defaultEntityName}</a></td>
+            <td>${service.invoke}</td>
+            <td><a href='<@ofbizUrl>${url}?constraint=location@${service.location?default(uiLabelMap.CommonNA)}</@ofbizUrl>'>${service.location}</a></td>
+          </tr>
+          <#assign alt_row = !alt_row>
+        </#list>
+      </table>
+    </div>
   </div>
 <#else>
   ${uiLabelMap.WebtoolsNoServicesFound}.
