@@ -169,7 +169,7 @@ public class EntityCacheServices implements DistributedCacheClear {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map clearAllEntityCaches(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearAllEntityCaches(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
@@ -186,7 +186,7 @@ public class EntityCacheServices implements DistributedCacheClear {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map clearCacheLine(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearCacheLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
