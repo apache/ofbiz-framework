@@ -2824,7 +2824,7 @@
     </property>
     <property key="AccountingEditFinAccount">
         <value xml:lang="de">Finanzkonto bearbeiten</value>
-        <value xml:lang="en">Create/Update Financial Account ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="en">Edit Financial Account ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="fr">Créer/ mettre à jour un compte financier</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाता बनाएँ/सम्पादित करे</value>
         <value xml:lang="it">Crea/Aggiorna Conto Finanziario</value>
