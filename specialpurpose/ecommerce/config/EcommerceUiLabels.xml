@@ -1970,7 +1970,7 @@
         <value xml:lang="da">Check ud på enkelt side</value>
         <value xml:lang="de">Bezahlvorgang auf einer Seite</value>
         <value xml:lang="en">One Page Checkout</value>
-        <value xml:lang="fr">Paiement sur une seule page</value>
+        <value xml:lang="fr">Paiement sur une page</value>
         <value xml:lang="it">Acquisto su pagina singola</value>
         <value xml:lang="zh">一页结账</value>
     </property>
