@@ -22,7 +22,6 @@ import java.util.Iterator;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.cache.CacheLine;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -64,13 +63,10 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(entityName);
         if (entityCache == null) return;
-        Iterator<? extends CacheLine<GenericValue>> it = entityCache.getCacheLineValues().iterator();
-        while (it.hasNext()) {
-            CacheLine<GenericValue> line = it.next();
-            if (line.hasExpired()) continue;
-            GenericValue entity = line.getValue();
+        for (GenericPK pk: entityCache.getCacheLineKeys()) {
+            GenericValue entity = entityCache.get(pk);
             if (entity == null) continue;
-            if (condition.entityMatches(entity)) it.remove();
+            if (condition.entityMatches(entity)) entityCache.remove(pk);
         }
     }
 
