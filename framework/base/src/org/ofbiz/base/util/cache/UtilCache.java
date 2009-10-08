@@ -114,6 +114,7 @@ public class UtilCache<K, V> implements Serializable {
         name = cacheName + this.getNextDefaultIndex(cacheName);
 
         setPropertiesParams(cacheName);
+        createCache();
 
         utilCacheTable.put(name, this);
     }
@@ -143,6 +144,7 @@ public class UtilCache<K, V> implements Serializable {
         String name = "specified" + this.getNextDefaultIndex("specified");
 
         setPropertiesParams(name);
+        createCache();
 
         utilCacheTable.put(name, this);
     }
@@ -157,6 +159,7 @@ public class UtilCache<K, V> implements Serializable {
 
         setPropertiesParams("default");
         setPropertiesParams(cacheName);
+        createCache();
 
         utilCacheTable.put(name, this);
     }
@@ -265,7 +268,9 @@ public class UtilCache<K, V> implements Serializable {
                 Debug.logWarning(e, "Error getting cache.file.store value from cache.properties file for propNames: " + propNames, module);
             }
         }
+    }
 
+    private void createCache() {
         int maxMemSize = this.maxInMemory;
         if (maxMemSize == 0) maxMemSize = maxSize;
         this.cacheLineTable = new CacheLineTable<K, V>(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
