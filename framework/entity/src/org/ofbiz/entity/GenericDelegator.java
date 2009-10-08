@@ -2553,17 +2553,6 @@ public class GenericDelegator implements Delegator {
         }
     }
 
-    protected void clearCacheValues(UtilCache cache, String entityName, EntityCondition condition) {
-        Iterator iterator = cache.cacheLineTable.values().iterator();
-        while (iterator.hasNext()) {
-            CacheLine line = (CacheLine) iterator.next();
-            GenericValue value = (GenericValue) line.getValue();
-            if (value != null && value.getEntityName().equals(entityName) && condition.entityMatches(value)) {
-                iterator.remove();
-            }
-        }
-    }
-
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#clearCacheLineByCondition(java.lang.String, org.ofbiz.entity.condition.EntityCondition)
      */
