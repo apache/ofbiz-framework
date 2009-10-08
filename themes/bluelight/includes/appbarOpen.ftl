@@ -28,7 +28,7 @@ under the License.
   <div class="breadcrumbs">
     <div class="breadcrumbs-start">
       <div id="main-navigation">
-        <h2>${uiLabelMap.CommonHome}</h2>
+        <h2>${uiLabelMap.CommonApplications}</h2>
         <ul>
           <li>
             <ul>
