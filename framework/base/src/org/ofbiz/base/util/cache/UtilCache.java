@@ -173,6 +173,7 @@ public class UtilCache<K, V> implements Serializable {
 
         setPropertiesParams("default");
         setPropertiesParams(cacheName);
+        createCache();
 
         utilCacheTable.put(name, this);
     }
@@ -182,6 +183,7 @@ public class UtilCache<K, V> implements Serializable {
         setPropertiesParams("default");
 
         name = "default" + this.getNextDefaultIndex("default");
+        createCache();
         utilCacheTable.put(name, this);
     }
 
