@@ -1005,7 +1005,7 @@ public class ShoppingCart implements Serializable {
             Iterator promoCodeIter = this.productPromoCodes.iterator();
             while (promoCodeIter.hasNext()) {
                 String promoCode = (String) promoCodeIter.next();
-                String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator());
+                String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
                     Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderOnUserChangePromoCodeWasRemovedBecause", UtilMisc.toMap("checkResult",checkResult), locale), module);
@@ -3156,10 +3156,10 @@ public class ShoppingCart implements Serializable {
      */
     public String addProductPromoCode(String productPromoCodeId, LocalDispatcher dispatcher) {
         if (this.productPromoCodes.contains(productPromoCodeId)) {
-            return "The promotion code [" + productPromoCodeId + "] has already been entered.";
+            return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_already_been_entered", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);            
         }
         // if the promo code requires it make sure the code is valid
-        String checkResult = ProductPromoWorker.checkCanUsePromoCode(productPromoCodeId, this.getPartyId(), this.getDelegator());
+        String checkResult = ProductPromoWorker.checkCanUsePromoCode(productPromoCodeId, this.getPartyId(), this.getDelegator(), locale);
         if (checkResult == null) {
             this.productPromoCodes.add(productPromoCodeId);
             // new promo code, re-evaluate promos
