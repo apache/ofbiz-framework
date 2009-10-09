@@ -3705,6 +3705,35 @@
         <value xml:lang="zh">错误：订单没有明细</value>
         <value xml:lang="zh_CN">错误: 没有项目到订单</value>
     </property>
+    <property key="productpromoworker.promotion_code_already_been_entered">
+        <value xml:lang="en">The promotion code [${productPromoCodeId}] has already been entered.</value>
+        <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] a déjà été utilisé.</value>
+    </property>    
+    <property key="productpromoworker.promotion_code_is_expired_at">
+        <value xml:lang="en">The promotion code [${productPromoCodeId}] has expired at: ${thruDate}</value>
+        <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] s'est achevé le ${thruDate}</value>
+    </property>    
+    <property key="productpromoworker.promotion_code_error_lookup">
+        <value xml:lang="en">Error looking up promotion code [${productPromoCodeId}]: {errorMsg}</value>
+        <value xml:lang="fr">Erreur lors de la recherche du code de promotion [${productPromoCodeId}]: {errorMsg}</value>
+    </property>        
+    <property key="productpromoworker.promotion_code_maximum_limit">
+        <value xml:lang="en">This promotion code (${productPromoCodeId}) has reached it's maximum use limit for you and can no longer be used.</value>
+        <value xml:lang="fr">Ce code de promotion (${productPromoCodeId}) a atteint sa limite d'usage pour vous et ne plus être utilisé.</value>
+    </property>        
+    <property key="productpromoworker.promotion_code_no_account_or_email">
+        <value xml:lang="en">The promotion code [${productPromoCodeId}] requires you to be associated with it by account or email address and you are not associated with it.</value>
+        <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] nécessite que vous y soyez associé par un compte ou une adresse courriel ce qui n'est pas le cas</value>
+    </property>    
+    <property key="productpromoworker.promotion_code_not_valid">
+        <value xml:lang="en">The promotion code [${productPromoCodeId}] is not valid.</value>
+        <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] n'existe pas.</value>
+    </property>
+    
+    <property key="productpromoworker.promotion_code_will_be_activated_at">
+        <value xml:lang="en">The promotion code [${productPromoCodeId}] will be activated  at: {fromDate}</value>
+        <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] sera activé le ${fromDate}</value>
+    </property>        
     <property key="product.no_longer_for_sale">
         <value xml:lang="de">Sie haben versucht, das Produkt {0} (Produkt ID: {1}) zu bestellen. Dieses Produkt wird nicht mehr verkauft. Bitte entfernen Sie es aus dem Warenkorb.</value>
         <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>

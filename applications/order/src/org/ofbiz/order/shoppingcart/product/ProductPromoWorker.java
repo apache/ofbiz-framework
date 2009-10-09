@@ -533,21 +533,23 @@ public class ProductPromoWorker {
         return codeUseLimit;
     }
 
-    public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator) {
+    public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator, Locale locale) {
         try {
             GenericValue productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId));
             if (productPromoCode == null) {
-                return "The promotion code [" + productPromoCodeId + "] is not valid.";
+                return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-            if (productPromoCode.getTimestamp("thruDate") != null) {
-                if (nowTimestamp.after(productPromoCode.getTimestamp("thruDate"))) {
-                    return "The promotion code [" + productPromoCodeId + "] is expired in: " + productPromoCode.getTimestamp("thruDate");
+            Timestamp thruDate = productPromoCode.getTimestamp("thruDate");
+            if (thruDate != null) {
+                if (nowTimestamp.after(thruDate)) {
+                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_is_expired_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "thruDate", thruDate), locale);
                 }
             }
-            if (productPromoCode.getTimestamp("fromDate") != null) {
-                if (nowTimestamp.before(productPromoCode.getTimestamp("fromDate"))) {
-                    return "The promotion code [" + productPromoCodeId + "] will be activated in: " + productPromoCode.getTimestamp("fromDate");
+            Timestamp fromDate = productPromoCode.getTimestamp("fromDate");
+            if (fromDate != null) {
+                if (nowTimestamp.before(fromDate)) {
+                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_will_be_activated_at", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "fromDate", fromDate), locale);
                 }
             }
 
@@ -577,20 +579,20 @@ public class ProductPromoWorker {
                 }
 
                 if (!hasEmailOrParty) {
-                    return "This promotion code [" + productPromoCodeId + "] requires you to be associated with it by account or email address and you are not associated with it.";
+                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_no_account_or_email", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
                 }
             }
 
             // check per customer and per promotion code use limits
             Long useLimit = getProductPromoCodeUseLimit(productPromoCode, partyId, delegator);
             if (useLimit != null && useLimit.longValue() <= 0) {
-                return "This promotion code [" + productPromoCodeId + "] has reached it's maximum use limit for you and can no longer be used.";
+                return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_maximum_limit", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
 
             return null;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up ProductPromoCode", module);
-            return "Error looking up code [" + productPromoCodeId + "]:" + e.toString();
+            return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_error_lookup", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "errorMsg", e.toString()), locale);
         }
     }
 
