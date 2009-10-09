@@ -33,60 +33,6 @@ under the License.
         <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
     </simple-method>
 
-    <simple-method method-name="createCommunicationEventRoles" short-description="">
-        <entity-condition list="commEvents" entity-name="CommunicationEvent"/>
-        <set field="count" value="0" type="Integer"/>
-        <iterate entry="commEvent" list="commEvents">
-            <get-related value-field="commEvent" relation-name="CommunicationEventRole"
-                list="roles"/>
-            <if-empty field="roles">
-                <!--partyId To -->
-                <if-not-empty field="commEvent.partyIdTo">
-                    <entity-one entity-name="PartyRole" value-field="partyRole">
-                        <field-map field-name="partyId" value="${commEvent.partyIdTo}"/>
-                        <field-map field-name="roleTypeId" value="ADDRESSEE"/>
-                    </entity-one>
-                    <if-empty field="partyRole">
-                        <make-value entity-name="PartyRole" value-field="partyRole"/>
-                        <set field="partyRole.partyId" value="${commEvent.partyIdTo}"/>
-                        <set field="partyRole.roleTypeId" value="ADDRESSEE"/>
-                        <create-value value-field="partyRole"/>
-                    </if-empty>
-                    <make-value entity-name="CommunicationEventRole" value-field="commRole"/>
-                    <set field="commRole.communicationEventId"
-                        from-field="commEvent.communicationEventId"/>
-                    <set field="commRole.partyId" from-field="commEvent.partyIdTo"/>
-                    <set field="commRole.roleTypeId" value="ADDRESSEE"/>
-                    <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-                    <create-value value-field="commRole"/>
-                </if-not-empty>
-
-                <!-- partyIdFrom -->
-                <if-not-empty field="commEvent.partyIdFrom">
-                    <entity-one entity-name="PartyRole" value-field="partyRole">
-                        <field-map field-name="partyId" value="${commEvent.partyIdFrom}"/>
-                        <field-map field-name="roleTypeId" value="ORIGINATOR"/>
-                    </entity-one>
-                    <if-empty field="partyRole">
-                        <make-value entity-name="PartyRole" value-field="partyRole"/>
-                        <set field="partyRole.partyId" value="${commEvent.partyIdFrom}"/>
-                        <set field="partyRole.roleTypeId" value="ORIGINATOR"/>
-                        <create-value value-field="partyRole"/>
-                    </if-empty>
-                    <set field="commRole.communicationEventId"
-                        from-field="commEvent.communicationEventId"/>
-                    <set field="commRole.partyId" from-field="commEvent.partyIdFrom"/>
-                    <set field="commRole.roleTypeId" value="ORIGINATOR"/>
-                    <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-                    <create-value value-field="commRole"/>
-                </if-not-empty>
-                <calculate field="count">
-                    <number value="1"/>
-                    <calcop operator="add" field="count"/>
-                </calculate>
-            </if-empty>
-        </iterate>
-    </simple-method>
 
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
