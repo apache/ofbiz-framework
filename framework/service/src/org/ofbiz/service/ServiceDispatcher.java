@@ -30,7 +30,6 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -107,11 +106,7 @@ public class ServiceDispatcher {
         try {
             Delegator origDelegator = this.delegator;
             if (!this.delegator.getOriginalDelegatorName().equals(this.delegator.getDelegatorName())) {
-                try {
-                    origDelegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegator.getOriginalDelegatorName());
-                } catch (ClassNotFoundException e) {
-                    Debug.logError(e, module);
-                }
+                origDelegator = DelegatorFactory.getDelegator(this.delegator.getOriginalDelegatorName());
             }
             this.jm = JobManager.getInstance(origDelegator, enableJM);
         } catch (GeneralRuntimeException e) {

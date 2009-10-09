@@ -44,7 +44,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -288,11 +287,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (internalDelegator == null) {
             if (delegatorName == null) delegatorName = "default";
             if (delegatorName != null)
-                try {
-                    internalDelegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-                } catch (ClassNotFoundException e) {
-                    Debug.logError(e, module);
-                }
+                internalDelegator = DelegatorFactory.getDelegator(delegatorName);
             if (internalDelegator == null) {
                 throw new IllegalStateException("[GenericEntity.getDelegator] could not find delegator with name " + delegatorName);
             }

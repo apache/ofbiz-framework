@@ -277,11 +277,7 @@ public class ShoppingCart implements Serializable {
 
     public Delegator getDelegator() {
         if (delegator == null) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         return delegator;
     }

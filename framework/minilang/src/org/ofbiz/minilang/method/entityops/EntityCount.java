@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -103,11 +102,7 @@ public class EntityCount extends MethodOperation {
             String delegatorName = this.delegatorNameExdr.expandString(context);
 
             if (delegatorName != null && delegatorName.length() > 0) {
-                try {
-                    delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-                } catch (ClassNotFoundException e) {
-                    Debug.logError(e, module);
-                }
+                delegator = DelegatorFactory.getDelegator(delegatorName);
             }
 
             ModelEntity modelEntity = delegator.getModelEntity(entityName);

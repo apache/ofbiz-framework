@@ -150,7 +150,7 @@ public abstract class AbstractRequester implements WfRequester, Serializable {
     protected synchronized Delegator getDelegator() {
         if (this.delegator == null && this.delegatorName != null) {
             try {
-                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
+                this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
             } catch (ClassNotFoundException e) {
                 Debug.logError(e, module);
             }

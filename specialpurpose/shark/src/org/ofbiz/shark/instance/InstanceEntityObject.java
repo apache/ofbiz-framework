@@ -44,7 +44,7 @@ public abstract class InstanceEntityObject {
     public Delegator getGenericDelegator() {
         if (this.delegator == null && delegatorName != null) {
             try {
-                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
+                this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
             } catch (ClassNotFoundException e) {
                 Debug.logError(e, module);
             }

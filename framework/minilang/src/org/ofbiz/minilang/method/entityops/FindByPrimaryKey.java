@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -80,11 +79,7 @@ public class FindByPrimaryKey extends MethodOperation {
 
         Delegator delegator = methodContext.getDelegator();
         if (delegatorName != null && delegatorName.length() > 0) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
 
         Map<String, ? extends Object> inMap = mapAcsr.get(methodContext);
