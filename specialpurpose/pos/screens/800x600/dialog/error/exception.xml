@@ -19,8 +19,8 @@ under the License.
 -->
 <XPage>
     <Components>
-        <Panel name="errorPanel" x="0" y="0" w="400" h="300" style="errorpanel" border="0" alignment="Center">
-            <Button w="400" h="300" name="closeBtn" style="error" content="EXCEPTION" alignment="Center"/>
+        <Panel name="errorPanel" x="0" y="0" w="700" h="400" style="errorpanel" border="0" alignment="Center">
+            <Button w="700" h="400" name="closeBtn" style="error" content="EXCEPTION" alignment="Center"/>
         </Panel>
     </Components>
 </XPage>

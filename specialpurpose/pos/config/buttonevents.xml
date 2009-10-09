@@ -103,6 +103,7 @@ under the License.
 
     <!-- pos promo menu events -->
     <event button-name="promoCode" class-name="org.ofbiz.pos.event.PromoEvents" method-name="addPromoCode" disable-lock="false"/>
+    <event button-name="clientProfile" class-name="org.ofbiz.pos.event.PromoEvents" method-name="clientProfile" disable-lock="false"/>
 
     <!-- pos mgr menu events -->
     <event button-name="mgrOpenTerm" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="openTerminal" disable-lock="false"/>

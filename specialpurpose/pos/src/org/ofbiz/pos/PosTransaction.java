@@ -21,17 +21,16 @@ package org.ofbiz.pos;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.ArrayList;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
-//import javax.swing.SwingWorker;
-
 import net.xoetrope.xui.data.XModel;
 import net.xoetrope.xui.helper.SwingWorker;
 
@@ -49,6 +48,14 @@ import org.ofbiz.base.util.collections.LifoSet;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
@@ -62,6 +69,7 @@ import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.device.DeviceLoader;
 import org.ofbiz.pos.device.impl.Receipt;
+import org.ofbiz.pos.screen.ClientProfile;
 import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.SaveSale;
@@ -73,6 +81,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class PosTransaction implements Serializable {
 
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
@@ -87,7 +96,7 @@ public class PosTransaction implements Serializable {
 
     private static PrintWriter defaultPrintWriter = new Log4jLoggerWriter(Debug.getLogger(module));
     private static PosTransaction currentTx = null;
-    private static LifoSet savedTx = new LifoSet();
+    private static LifoSet<PosTransaction> savedTx = new LifoSet<PosTransaction>();
     private Locale defaultLocale = Locale.getDefault();
 
     protected XuiSession session = null;
@@ -108,7 +117,7 @@ public class PosTransaction implements Serializable {
     protected int drawerIdx = 0;
 
     private GenericValue shipAddress = null;
-    private Map skuDiscounts = FastMap.newInstance();
+    private Map<String, Integer> skuDiscounts = FastMap.newInstance();
     private int cartDiscount = -1;
 
 
@@ -159,7 +168,15 @@ public class PosTransaction implements Serializable {
     public String getUserId() {
         return session.getUserId();
     }
-
+    
+    public String getPartyId() {
+        return partyId;
+    }
+    
+    public void setPartyId(String partyId) {
+        this.partyId = partyId;
+    }
+    
     public int getDrawerNumber() {
         return drawerIdx + 1;
     }
@@ -200,7 +217,7 @@ public class PosTransaction implements Serializable {
         return (cart == null || cart.size() == 0);
     }
 
-    public List lookupItem(String sku) throws GeneralException {
+    public List<GenericValue> lookupItem(String sku) throws GeneralException {
         return ProductWorker.findProductsById(session.getDelegator(), sku, null);
     }
 
@@ -262,7 +279,7 @@ public class PosTransaction implements Serializable {
     }
 
     public List getItemConfigInfo(int index) {
-        List<Map> list = new ArrayList<Map>();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         // I think I need to initialize the list in a special way
         // to use foreach in receipt.java
 
@@ -566,7 +583,7 @@ public class PosTransaction implements Serializable {
         if (productId != null) {
             trace("add item adjustment");
             ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-            Integer itemAdj = (Integer) skuDiscounts.get(productId);
+            Integer itemAdj = skuDiscounts.get(productId);
             if (itemAdj != null) {
                 item.removeAdjustment(itemAdj.intValue());
             }
@@ -586,15 +603,11 @@ public class PosTransaction implements Serializable {
             cart.removeAdjustment(cartDiscount);
             cartDiscount = -1;
         }
-        if (skuDiscounts.size() > 0) {
-            Iterator i = skuDiscounts.keySet().iterator();
-            while (i.hasNext()) {
-                String productId = (String) i.next();
-                ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-                Integer itemAdj = (Integer) skuDiscounts.remove(productId);
-                if (itemAdj != null) {
-                    item.removeAdjustment(itemAdj.intValue());
-                }
+        for(String productId : skuDiscounts.keySet()) {
+            ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
+            Integer itemAdj = (Integer) skuDiscounts.remove(productId);
+            if (itemAdj != null) {
+                item.removeAdjustment(itemAdj.intValue());
             }
         }
     }
@@ -888,6 +901,7 @@ public class PosTransaction implements Serializable {
 
         // clear the tx
         currentTx = null;
+        partyId = "_NA_";
 
         return change;
     }
@@ -1173,6 +1187,7 @@ public class PosTransaction implements Serializable {
     }
 
     public void loadSale(PosScreen pos) {
+        trace("Load a sale");
         List shoppingLists = createShoppingLists();
         if (!shoppingLists.isEmpty()) {
             Hashtable salesMap = createSalesMap(shoppingLists);
@@ -1302,6 +1317,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean addListToCart(String shoppingListId, PosScreen pos, boolean append) {
+        trace("Add list to cart");
         Delegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         String includeChild = null; // Perhaps will be used later ...
@@ -1318,6 +1334,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean restoreOrder(String orderId, PosScreen pos, boolean append) {
+        trace("Restore an order");
         Delegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
 
@@ -1374,12 +1391,18 @@ public class PosTransaction implements Serializable {
     }
 
 
+    public void clientProfile(PosScreen pos) {
+        ClientProfile clientProfile = new ClientProfile(this, pos);
+        clientProfile.openDlg();
+    }
+
     public void saveSale(PosScreen pos) {
-        SaveSale SaveSale = new SaveSale(this, pos);
-        SaveSale.openDlg();
+        SaveSale saveSale = new SaveSale(this, pos);
+        saveSale.openDlg();
     }
 
     public void saveOrder(String shoppingListName, PosScreen pos) {
+        trace("Save an order");
         if (cart.size() == 0) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
@@ -1409,6 +1432,7 @@ public class PosTransaction implements Serializable {
     }
 
     public void saveSale(String  shoppingListName, PosScreen pos) {
+        trace("Save a sale");
         if (cart.size() == 0) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
             return;
@@ -1467,10 +1491,447 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public String addProductPromoCode(String code, PosScreen pos) {
+    public String addProductPromoCode(String code) {
+        trace("Add a promo code");
         LocalDispatcher dispatcher = session.getDispatcher();
         String result = cart.addProductPromoCode(code, dispatcher);
         calcTax();
+        return result;
+    }
+
+    // TODO, I really wonder if there is not a better way to do this (DynamicView excluded because of the contactMechId collisions between phone and email)!
+    private List<Map<String, String>> searchContactMechs(Delegator delegator, PosScreen pos, List<Map<String, String>> partyList, String valueToCompare, String contactMechType) {
+        ListIterator<Map<String, String>>  partyListIt = partyList.listIterator();
+        while(partyListIt.hasNext()) {
+            Map<String, String> party = (Map<String, String>) partyListIt.next();
+            String partyId = (String) party.get("partyId");
+            List<Map<String, Object>> partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, false, contactMechType);
+            Integer nb = 0;
+            for (Map<String, Object> partyContactMechValueMap : partyContactMechValueMaps) {
+                nb++;
+                String keyType = null;
+                String key = null;
+                if ("TELECOM_NUMBER".equals(contactMechType)) {
+                    keyType = "telecomNumber";
+                    key = "contactNumber";
+                } else if ("EMAIL_ADDRESS".equals(contactMechType)) {
+                    keyType = "contactMech";
+                    key = "infoString";
+                }
+                Map<String, Object> keyTypeMap = (Map<String, Object>) partyContactMechValueMap.get(keyType);
+                String keyTypeValue = ((String) keyTypeMap.get(key)).trim();
+                if (valueToCompare.equals(keyTypeValue) || UtilValidate.isEmpty(valueToCompare)) {
+                    if (nb == 1) {
+                        party.put(key, keyTypeValue);
+                        partyListIt.set(party);
+                    } else {
+                        Map partyClone = FastMap.newInstance();
+                        partyClone.putAll(party);
+                        partyClone.put(key, keyTypeValue);
+                        partyListIt.add(partyClone);
+                    }
+                }
+            }
+        }
+        return partyList;
+    }
+
+
+    public List<Map<String, String>> searchClientProfile(String name, String email, String  phone, String card, PosScreen pos) {
+        Delegator delegator = this.session.getDelegator();
+        LocalDispatcher dispatcher = session.getDispatcher();
+        GenericValue userLogin = session.getUserLogin();
+        Locale locale = defaultLocale;
+
+        List<GenericValue> partyList = null;
+        List<Map<String, String>> resultList = null;
+
+        // create the dynamic view entity
+        DynamicViewEntity dynamicView = new DynamicViewEntity();
+
+        // Person (name + card)
+        dynamicView.addMemberEntity("PT", "Party");
+        dynamicView.addAlias("PT", "partyId");
+        dynamicView.addAlias("PT", "statusId");
+        dynamicView.addAlias("PT", "partyTypeId");
+        dynamicView.addMemberEntity("PE", "Person");
+        dynamicView.addAlias("PE", "partyId");
+        dynamicView.addAlias("PE", "lastName");
+        dynamicView.addAlias("PE", "memberId");
+        dynamicView.addAlias("PE", "lastNameLocal");
+        dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+
+        Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
+        if (!onlyPhone) {
+            // ContactMech (email)
+            dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
+            dynamicView.addMemberEntity("CM", "ContactMech");
+            dynamicView.addAlias("PM", "contactMechId");
+            dynamicView.addAlias("PM", "contactMechPurposeTypeId");            
+            dynamicView.addAlias("PM", "thruDate");
+            dynamicView.addAlias("CM", "infoString");            
+            dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+            dynamicView.addViewLink("PM", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+        } else {
+            dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
+            dynamicView.addMemberEntity("TN", "TelecomNumber");
+            dynamicView.addAlias("PM", "contactMechId");
+            dynamicView.addAlias("PM", "thruDate");
+            dynamicView.addAlias("PM", "contactMechPurposeTypeId");            
+            dynamicView.addAlias("TN", "contactNumber");
+            dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+            dynamicView.addViewLink("PM", "TN", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+        }
+
+            // define the main condition & expression list
+            List<EntityCondition> andExprs = FastList.newInstance();
+            EntityCondition mainCond = null;
+
+            List<String> orderBy = FastList.newInstance();
+            List<String> fieldsToSelect = FastList.newInstance();
+            // fields we need to select; will be used to set distinct
+            fieldsToSelect.add("partyId");
+            fieldsToSelect.add("lastName");
+            fieldsToSelect.add("memberId");
+            if (!onlyPhone) {
+                fieldsToSelect.add("infoString");
+            } else {
+                fieldsToSelect.add("contactNumber");
+            }
+
+            // NOTE: _must_ explicitly allow null as it is not included in a not equal in many databases... odd but true
+            // This allows to get all clients when any informations has been entered
+            andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
+            andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
+            if (UtilValidate.isNotEmpty(name)) {
+                andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));
+            }
+            if (UtilValidate.isNotEmpty(card)) {
+                andExprs.add(EntityCondition.makeCondition("memberId", EntityOperator.EQUALS, card));
+            }
+            if (UtilValidate.isNotEmpty(email)) {
+                andExprs.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
+                andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
+                andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+            }
+            if (onlyPhone) {
+                andExprs.add(EntityCondition.makeCondition("contactNumber", EntityOperator.EQUALS, phone));
+                andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PHONE_HOME"));
+                andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+            } else if (UtilValidate.isEmpty(email)) {
+                andExprs.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, null));                
+                andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
+                andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+            }
+
+            mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
+            orderBy.add("lastName");
+
+            Debug.logInfo("In searchClientProfile mainCond=" + mainCond, module);
+
+            Integer maxRows = Integer.MAX_VALUE;
+            // attempt to start a transaction
+            boolean beganTransaction = false;
+            try {
+                beganTransaction = TransactionUtil.begin();
+
+                try {
+                    // set distinct on so we only get one row per person
+                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, true);
+                    // using list iterator
+                    EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
+
+                    // get the partial list for this page
+                    partyList = pli.getPartialList(1, maxRows);
+
+                    // close the list iterator
+                    pli.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                    }
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, module);
+                try {
+                    TransactionUtil.rollback(beganTransaction, e.getMessage(), e);
+                } catch (GenericTransactionException e2) {
+                    Debug.logError(e2, "Unable to rollback transaction", module);
+                    pos.showDialog("dialog/error/exception", e2.getMessage());
+                }
+                pos.showDialog("dialog/error/exception", e.getMessage());
+            } finally {
+                try {
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException e) {
+                    Debug.logError(e, "Unable to commit transaction", module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                }
+            }
+
+            if (partyList != null) {
+                resultList = FastList.newInstance();
+                for (GenericValue party : partyList) {
+                    Map partyMap = FastMap.newInstance();
+                    partyMap.put("partyId", party.getString("partyId"));
+                    partyMap.put("lastName", party.getString("lastName"));
+                    partyMap.put("memberId", party.getString("memberId"));
+                    if (!onlyPhone) {
+                        partyMap.put("infoString", party.getString("infoString"));
+                        partyMap.put("contactNumber", "");
+                    } else {
+                        partyMap.put("contactNumber", party.getString("contactNumber"));
+                        partyMap.put("infoString", "");
+                    }
+                    resultList.add(partyMap);
+                }
+                if (!onlyPhone) {
+                    resultList = searchContactMechs(delegator, pos, resultList, phone, "TELECOM_NUMBER");
+                } else {
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS"); //"" is more clear than email which is by definition here is empty
+                }
+            } else {
+            resultList = FastList.newInstance();
+        }
+        return resultList;
+    }
+
+    public String editClientProfile(String name, String email, String  phone, String card, PosScreen pos, String editType, String partyId) {
+        // We suppose here that a memberId (card number) can only belongs to one person (it's used as owned PromoCode)
+        // We use the 1st party's login (it may change and be multiple since it depends on email and card)
+        // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
+        // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
+        Delegator delegator = session.getDelegator();
+        LocalDispatcher dispatcher = session.getDispatcher();
+        GenericValue userLogin = session.getUserLogin();
+        String result = null;
+
+        Map<String, Object> svcCtx = FastMap.newInstance();
+        Map svcRes = null;
+
+        if ("create".equals(editType)) {
+            // Create
+            trace("Create a client profile");
+            svcCtx.put("memberId", card);
+            svcCtx.put("lastName", name);
+            svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
+            svcCtx.put("userLogin", userLogin);
+            svcCtx.put("userLoginId", email);
+            svcCtx.put("currentPassword", card);
+            svcCtx.put("currentPasswordVerify", card);
+            svcCtx.put("passwordHint", "Your card number is your password");            
+
+            // createPersonAndUserLogin
+            try {
+                svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+               return result;
+            }
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return result;
+            }
+            partyId = (String) svcRes.get("partyId");
+            GenericValue newUserLogin = (GenericValue) svcRes.get("newUserLogin");
+
+            // createPartyEmailAddress
+            svcCtx.clear();
+            svcCtx.put("userLogin", newUserLogin);
+            svcCtx.put("emailAddress", email);
+            svcCtx.put("partyId", partyId);
+            svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+            try {
+                svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return result;
+            }
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return result;
+            }
+
+            // createPartyTelecomNumber
+            svcCtx.clear();
+            svcCtx.put("userLogin", newUserLogin);
+            svcCtx.put("contactNumber", phone);
+            svcCtx.put("partyId", partyId);
+            svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+            try {
+                svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return result;
+            }
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return result;
+            }
+            result = partyId;
+        } else {
+            trace("Update a client profile");
+            List<GenericValue>  userLogins = null;
+            try {
+                userLogins = session.getDelegator().findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return result;
+            }
+            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login ...
+            GenericValue  person = null;
+            try {
+                person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return result;
+            }
+            
+            if (UtilValidate.isNotEmpty(name) && !person.getString("lastName").equals(name)
+                    || UtilValidate.isNotEmpty(card) && !person.getString("memberId").equals(card)) {
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("firstName", ""); // Needed by service updatePerson
+                svcCtx.put("userLogin", partyLogin);
+                if (UtilValidate.isNotEmpty(name)) {
+                    svcCtx.put("lastName", name);
+                }
+                if (UtilValidate.isNotEmpty(card)) {
+                    svcCtx.put("memberId", card);
+                    if (!person.getString("memberId").equals(card)) {
+                        // Update password
+                        UtilProperties.setPropertyValue("security.properties", "password.accept.encrypted.and.plain", "true");
+                        try {
+                            svcRes = dispatcher.runSync("updatePassword", 
+                                    UtilMisc.toMap("userLogin", partyLogin,
+                                    "userLoginId", partyLogin.getString("userLoginId"), 
+                                    "currentPassword", partyLogin.getString("currentPassword"), 
+                                    "newPassword", card, 
+                                    "newPasswordVerify", card,
+                                    "passwordHint", "Your card number is your password"));            
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Error calling updatePassword service", module);
+                            pos.showDialog("dialog/error/exception", e.getMessage());
+                            return result;
+                        }
+                        if (ServiceUtil.isError(svcRes)) {
+                            pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                            return result;
+                        }
+                        // This remove comments from the security.properties file. I did not find a way to keep them, so I put a word about that
+                        UtilProperties.setPropertyValue("security.properties", "password.accept.encrypted.and.plain", "false");
+                        partyLogin = (GenericValue) svcRes.get("updatedUserLogin");
+                        svcCtx.put("userLogin", partyLogin);
+                    }                    
+                }
+    
+                // Update name and card (memberId)
+                try {
+                    svcRes = dispatcher.runSync("updatePerson", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }                
+            }
+
+            // Update email            
+            if (UtilValidate.isNotEmpty(email) && !partyLogin.getString("userLoginId").equals(email)) {                
+                // create a new UserLogin (Update a UserLoginId by creating a new one and expiring the old one)
+                try {
+                    svcRes = dispatcher.runSync("updateUserLoginId", UtilMisc.toMap("userLoginId", email, "userLogin", partyLogin));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                   return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }
+                partyLogin = (GenericValue) svcRes.get("newUserLogin");
+                
+                svcCtx.clear();
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("contactMechTypeId", "EMAIL_ADDRESS");                
+                svcCtx.put("thruDate", null); // last one                
+                List<GenericValue>  PartyEmails = null;
+                try {
+                    PartyEmails = session.getDelegator().findByAnd("PartyAndContactMech", svcCtx);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+
+                svcCtx.clear();
+                svcCtx.put("userLogin", partyLogin);
+                svcCtx.put("emailAddress", email);
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+
+                if (UtilValidate.isNotEmpty(PartyEmails)) {
+                    svcCtx.put("contactMechId", PartyEmails.get(0).getString("contactMechId")); // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
+                }
+                try {
+                    svcRes = dispatcher.runSync("createUpdatePartyEmailAddress", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }
+            }
+
+            // Update phone
+            if (UtilValidate.isNotEmpty(phone)) {
+                svcCtx.clear();
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("thruDate", null); // last one
+                List<GenericValue>  PartyTelecomNumbers = null;
+                try {
+                    PartyTelecomNumbers = session.getDelegator().findByAnd("PartyAndTelecomNumber", svcCtx);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+                GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
+                String contactNumber = PartyTelecomNumber.getString("contactNumber");
+                if (!contactNumber.equals(phone)) {
+                    String newContactMechId = PartyTelecomNumber.getString("contactMechId");
+    
+                    svcCtx.put("userLogin", partyLogin);
+                    svcCtx.put("contactNumber", phone);
+                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                    if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {
+                        svcCtx.put("contactMechId", newContactMechId); 
+                    }
+                    
+                    try {
+                        svcRes = dispatcher.runSync("createUpdatePartyTelecomNumber", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return result;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return result;
+                    }
+                }
+            }
+        }
         return result;
     }
 }
