@@ -1607,7 +1607,6 @@ public class PosTransaction implements Serializable {
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
             andExprs.add(EntityCondition.makeCondition("userLoginId", EntityOperator.NOT_EQUAL, null)); // Should have a login
-            andExprs.add(EntityCondition.makeCondition("memberId", EntityOperator.NOT_EQUAL, null)); // Should have a card Id (we take into account only the person created here)
             if (UtilValidate.isNotEmpty(name)) {
                 andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));
             }
@@ -1786,7 +1785,7 @@ public class PosTransaction implements Serializable {
                 pos.showDialog("dialog/error/exception", e.getMessage());
                 return result;
             }
-            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login, we are sure there is one as we keep only users with at least one login
+            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login ...
             GenericValue  person = null;
             try {
                 person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
@@ -1911,8 +1910,9 @@ public class PosTransaction implements Serializable {
                     pos.showDialog("dialog/error/exception", e.getMessage());
                     return result;
                 }
-                GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
-                if (UtilValidate.isNotEmpty(PartyTelecomNumber)) { // Should not be needed but in case memberId has been used for another purpose avoid an NPE (we test memberId not null initially to keep  only POS created users)
+                
+                if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {                 
+                    GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
                     String contactNumber = PartyTelecomNumber.getString("contactNumber");
                     if (!phone.equals(contactNumber)) {
                         String newContactMechId = PartyTelecomNumber.getString("contactMechId");
@@ -1935,6 +1935,24 @@ public class PosTransaction implements Serializable {
                             pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
                             return result;
                         }
+                    }
+                } else {
+                    // createPartyTelecomNumber
+                    svcCtx.clear();
+                    svcCtx.put("userLogin", partyLogin);
+                    svcCtx.put("contactNumber", phone);
+                    svcCtx.put("partyId", partyId);
+                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                    try {
+                        svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return result;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return result;
                     }
                 }
             }

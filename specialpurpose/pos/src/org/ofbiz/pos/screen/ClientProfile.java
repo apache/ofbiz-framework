@@ -283,10 +283,14 @@ public class ClientProfile extends XPage implements ActionListener {
         String client = (String) clientListCombo.getSelectedItem();
         if (UtilValidate.isNotEmpty(client)) {
             String[] clientInfos = client.split(" \\| ");
-            if (clientInfos.length > 0) m_nameEdit.setText(clientInfos[0]);
-            if (clientInfos.length > 1) m_emailEdit.setText(clientInfos[1]);
-            if (clientInfos.length > 2) m_phoneEdit.setText(clientInfos[2]);
-            if (clientInfos.length > 3) m_cardEdit.setText(clientInfos[3]);
+            String name = clientInfos.length > 0 ? clientInfos[0] : "";
+            String email = clientInfos.length > 1 ? clientInfos[1] : "";
+            String phone = clientInfos.length > 2 ? clientInfos[2] : "";
+            String card = clientInfos.length > 3 ? clientInfos[3] : "";
+            m_nameEdit.setText(name);
+            m_emailEdit.setText(email);
+            m_phoneEdit.setText(phone);
+            m_cardEdit.setText(card);
             m_partyId = m_clientListBidingCombo.get(clientListCombo.getSelectedIndex());
         }
     }
