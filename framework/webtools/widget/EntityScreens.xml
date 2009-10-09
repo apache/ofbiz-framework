@@ -56,22 +56,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.PageTitleEntityExportAll}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityExportAll.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEntityExportAll}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityExportAll.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -89,22 +78,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.PageTitleEntityImportDir}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportDir.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEntityImportDir}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportDir.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,22 +100,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.PageTitleEntityImport}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImport.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEntityImport}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImport.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -155,22 +122,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.PageTitleEntityImportReaders}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEntityImportReaders}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -418,22 +374,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsCheckUpdateDatabase}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
+                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -468,24 +411,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsCheckUpdateDatabase}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html>
-                                                 <html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/>
-                                             </html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
+                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -501,24 +429,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsMinervaConnectionObjects}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <platform-specific>
-                                             <html>
-                                                 <html-template location="component://webtools/webapp/webtools/entity/minervaObjects.ftl"/>
-                                             </html>
-                                         </platform-specific>
-                                     </widgets>
-                                 </section>
-                             </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.WebtoolsMinervaConnectionObjects}">
+                            <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/minervaObjects.ftl"/></html></platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
