@@ -20,19 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="updateCustPreferences"
-        short-description="Update the customer preferences">
-        <if-compare operator="equals" value="Y" field="parameters.sendCustRequestEmail">
-            <set field="parameters.userPrefMap.sendCustRequestEmail" value="Y"/>
-            <else>
-                <set field="parameters.userPrefMap.sendCustRequestEmail" value="N"/>
-            </else>
-        </if-compare>
-        <set-service-fields service-name="setUserPreferenceGroup" map="parameters"
-            to-map="inMap"/>
-        <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
-    </simple-method>
-
 
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
