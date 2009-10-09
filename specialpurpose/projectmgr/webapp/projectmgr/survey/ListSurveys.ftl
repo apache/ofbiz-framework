@@ -39,8 +39,8 @@ under the License.
             <#list productStoreSurveyAppls as productStoreSurveyAppl>
               <#if productStoreSurveyAppl?has_content>
                 <#assign survey = productStoreSurveyAppl.getRelatedOne("Survey")>
-                <form method="post" action="<@ofbizUrl>updateWorkEffortSurveyAppl</@ofbizUrl>" name="editWorkEffortSurveyAppl_${workEffortSurveyAppl_index}">
                 <tr>
+                  <form method="post" action="<@ofbizUrl>updateWorkEffortSurveyAppl</@ofbizUrl>" name="editWorkEffortSurveyAppl_${workEffortSurveyAppl_index}">
                   <td><a href="/content/control/EditSurvey?surveyId=${workEffortSurveyAppl.surveyId?if_exists}" class="buttontext">${workEffortSurveyAppl.surveyId?if_exists} - ${survey.surveyName?if_exists}</a></td>
                   <td>${workEffortSurveyAppl.fromDate?if_exists}</td>
                   <td>
@@ -53,10 +53,17 @@ under the License.
                     <input type="hidden" name="workEffortId" value="${workEffortSurveyAppl.workEffortId?if_exists}"/>
                     <input type="hidden" name="fromDate" value="${workEffortSurveyAppl.fromDate?if_exists}"/>
                     <td><input type="submit" name="submitBtn" value='${uiLabelMap.CommonUpdate}'> </td>
-                    <td><a href="<@ofbizUrl>deleteWorkEffortSurveyAppl?surveyId=&workEffortId=${workEffortSurveyAppl.workEffortId?if_exists}&fromDate=${workEffortSurveyAppl.fromDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
+                  </form>
+                    <td>
+                      <form id="deleteWorkEffortSurveyAppl_${workEffortSurveyAppl_index}" method="post" action="<@ofbizUrl>deleteWorkEffortSurveyAppl</@ofbizUrl>">
+                        <input type="hidden" name="surveyId" value="${workEffortSurveyAppl.surveyId?if_exists}" />
+                        <input type="hidden" name="workEffortId" value="${workEffortSurveyAppl.workEffortId?if_exists}" />
+                        <input type="hidden" name="fromDate" value="${workEffortSurveyAppl.fromDate?if_exists}" />
+                        <a href="javascript:$('deleteWorkEffortSurveyAppl_${workEffortSurveyAppl_index}').submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      </form>
+                    </td>
                   </#if>
                 </tr>
-                </form>                
               </#if>
             </#list>
           </#if>
