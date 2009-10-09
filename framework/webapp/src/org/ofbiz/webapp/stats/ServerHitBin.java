@@ -355,11 +355,7 @@ public class ServerHitBin {
 
     public Delegator getDelegator() {
         if (this.delegator == null) {
-            try {
-                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, this.delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
         }
         // if still null, then we have a problem
         if (this.delegator == null) {

@@ -32,7 +32,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilValidate;
@@ -1314,7 +1313,7 @@ public class XpdlReader {
 
         if (args.length > 0)
             sampleFileName = args[0];
-        List values = readXpdl(UtilURL.fromFilename(sampleFileName), UtilObject.getObjectFromFactory(DelegatorFactory.class, "default"));
+        List values = readXpdl(UtilURL.fromFilename(sampleFileName), DelegatorFactory.getDelegator("default"));
         Iterator viter = values.iterator();
 
         while (viter.hasNext())

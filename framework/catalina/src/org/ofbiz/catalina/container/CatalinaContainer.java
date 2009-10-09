@@ -169,11 +169,7 @@ public class CatalinaContainer implements Container {
         //int debug = ContainerConfig.getPropertyValue(cc, "debug", 0);
 
         // grab some global context settings
-        try {
-            this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, ContainerConfig.getPropertyValue(cc, "delegator-name", "default"));
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
+        this.delegator = DelegatorFactory.getDelegator(ContainerConfig.getPropertyValue(cc, "delegator-name", "default"));
         this.contextReloadable = ContainerConfig.getPropertyValue(cc, "apps-context-reloadable", false);
         this.crossContext = ContainerConfig.getPropertyValue(cc, "apps-cross-context", true);
         this.distribute = ContainerConfig.getPropertyValue(cc, "apps-distributable", true);

@@ -57,7 +57,6 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
@@ -353,11 +352,7 @@ public class WebToolsServices {
         String groupNameToUse = overrideGroup != null ? overrideGroup : "org.ofbiz";
         Delegator delegator = null;
         if (UtilValidate.isNotEmpty(overrideDelegator)) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, overrideDelegator);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(overrideDelegator);
         } else {
             delegator = dctx.getDelegator();
         }

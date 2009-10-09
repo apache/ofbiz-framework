@@ -148,11 +148,7 @@ public class WebPosSession {
 
     public Delegator getDelegator() {
         if (UtilValidate.isEmpty(delegator)) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         return delegator;
     }

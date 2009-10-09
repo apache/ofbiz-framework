@@ -69,11 +69,7 @@ public class WebDavServlet extends GenericServlet {
             Thread.currentThread().setContextClassLoader(loader);
             ServletContext context = this.getServletContext();
             String delegatorName = context.getInitParameter("entityDelegatorName");
-            try {
-                this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            this.delegator = DelegatorFactory.getDelegator(delegatorName);
             String dispatcherName = context.getInitParameter("localDispatcherName");
             this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.delegator);
             this.security = SecurityFactory.getInstance(this.delegator);

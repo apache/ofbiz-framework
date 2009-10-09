@@ -54,11 +54,7 @@ public class ServiceStreamHandler implements EventHandler {
 
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
-        try {
-            this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
+        this.delegator = DelegatorFactory.getDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
     }
 

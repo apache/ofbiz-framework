@@ -33,7 +33,6 @@ import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
@@ -87,11 +86,7 @@ public class JavaMailContainer implements Container {
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
 
-        try {
-            this.delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
+        this.delegator = DelegatorFactory.getDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.timerDelay = (long) ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);
         this.maxSize = (long) ContainerConfig.getPropertyValue(cfg, "maxSize", 1000000); // maximum size in bytes

@@ -40,7 +40,6 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -122,18 +121,13 @@ public class GenericDelegator implements Delegator {
     
     private String originalDelegatorName = null;
 
-    /** @deprecated Use Delegator delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+    /** @deprecated Use Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
      * @param delegatorName
      * @return
      */
     @Deprecated
     public static GenericDelegator getGenericDelegator(String delegatorName) {
-        try {
-            return (GenericDelegator) UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
-        return null;
+        return (GenericDelegator) DelegatorFactory.getDelegator(delegatorName);
     }
 
     protected static List<Object> getUserIdentifierStack() {

@@ -38,7 +38,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilURL;
@@ -135,11 +134,7 @@ public class EntitySyncServices {
         Delegator delegator = dctx.getDelegator();
         String overrideDelegatorName = (String) context.get("delegatorName");
         if (UtilValidate.isNotEmpty(overrideDelegatorName)) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, overrideDelegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(overrideDelegatorName);
             if (delegator == null) {
                 return ServiceUtil.returnError("Could not find delegator with specified name " + overrideDelegatorName);
             }

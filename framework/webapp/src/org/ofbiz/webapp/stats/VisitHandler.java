@@ -109,11 +109,7 @@ public class VisitHandler {
                         // first try the session attribute delegatorName
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (UtilValidate.isNotEmpty(delegatorName)) {
-                            try {
-                                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-                            } catch (ClassNotFoundException e) {
-                                Debug.logError(e, module);
-                            }
+                            delegator = DelegatorFactory.getDelegator(delegatorName);
                         }
 
                         // then try the ServletContext attribute delegator, should always be there...
@@ -205,11 +201,7 @@ public class VisitHandler {
 
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (delegator == null && UtilValidate.isNotEmpty(delegatorName)) {
-                            try {
-                                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-                            } catch (ClassNotFoundException e) {
-                                Debug.logError(e, module);
-                            }
+                            delegator = DelegatorFactory.getDelegator(delegatorName);
                         }
 
                         if (delegator == null) {

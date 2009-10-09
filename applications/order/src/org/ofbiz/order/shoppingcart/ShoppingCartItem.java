@@ -39,7 +39,6 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -2408,11 +2407,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (UtilValidate.isEmpty(delegatorName)) {
                 throw new IllegalStateException("Bad delegator name");
             }
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         return delegator;
     }

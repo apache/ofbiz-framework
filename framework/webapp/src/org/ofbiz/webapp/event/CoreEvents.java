@@ -119,12 +119,7 @@ public class CoreEvents {
             return "error";
         }
 
-        Delegator delegator = null;
-        try {
-            delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
 
         if (delegator == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_delegator_name_defined", locale);

@@ -34,7 +34,6 @@ import org.apache.bsf.BSFManager;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -151,11 +150,7 @@ public class ControlServlet extends HttpServlet {
         Delegator delegator = null;
         String delegatorName = (String) session.getAttribute("delegatorName");
         if (UtilValidate.isNotEmpty(delegatorName)) {
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         if (delegator == null) {
             delegator = (Delegator) getServletContext().getAttribute("delegator");

@@ -330,11 +330,7 @@ public class ContextFilter implements Filter {
                 delegatorName = "default";
             }
             if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
-            try {
-                delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
             config.getServletContext().setAttribute("delegator", delegator);
             if (delegator == null) {
                 Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", module);
