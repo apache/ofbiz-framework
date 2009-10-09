@@ -99,6 +99,14 @@ under the License.
         <font_weight value="1"/>
         <font_italic value="0"/>
     </style>
+    <style name="tip">
+        <color_back value="ffffff"/>
+        <color_fore value="000000"/>
+        <font_face value="verdana"/>
+        <font_size value="10"/>
+        <font_weight value="1"/>
+        <font_italic value="1"/>
+    </style>
 
     <!-- dynamic button styles -->
     <style name="numButton">
