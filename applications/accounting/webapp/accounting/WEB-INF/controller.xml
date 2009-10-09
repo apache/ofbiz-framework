@@ -2642,7 +2642,7 @@ under the License.
     <view-map name="EditCreditCardTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditCreditCardTypeGlAccounts"/>
     <view-map name="EditOrganizationTaxAuthorityGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditOrganizationTaxAuthorityGlAccounts"/>
     <view-map name="ListGlAccountOrgPdf" type="screenfop" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="ListGlAccountOrgCsv" type="screencvs" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="ListGlAccountOrgCsv" type="screencsv" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgCsv" content-type="text/csv" encoding="none"/>
 
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
