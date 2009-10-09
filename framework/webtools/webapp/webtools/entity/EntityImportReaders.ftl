@@ -24,7 +24,7 @@ under the License.
   <h2>${uiLabelMap.WebtoolsImport}:</h2>
 
   <form method="post" action="<@ofbizUrl>entityImportReaders</@ofbizUrl>">
-    Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):</div>
+    Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):<br />
     <input type="text" size="60" name="readers" value="${readers?default("seed")}"/><br />
     <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsMostlyInserts}<br />
     <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
