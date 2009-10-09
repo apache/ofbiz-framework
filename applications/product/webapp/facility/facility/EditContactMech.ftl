@@ -90,11 +90,19 @@ under the License.
                       </#if>
                       (${uiLabelMap.CommonSince}: ${facilityContactMechPurpose.fromDate})
                       <#if facilityContactMechPurpose.thruDate?has_content>(${uiLabelMap.CommonExpires}: ${facilityContactMechPurpose.thruDate.toString()}</#if>
-                      &nbsp;<a href='<@ofbizUrl>deleteFacilityContactMechPurpose?facilityId=${facilityId}&contactMechId=${contactMechId}&contactMechPurposeTypeId=${facilityContactMechPurpose.contactMechPurposeTypeId}&fromDate=${facilityContactMechPurpose.fromDate.toString()}&DONE_PAGE=${donePage}&useValues=true</@ofbizUrl>' class='buttontext'>${uiLabelMap.CommonDelete}</a>
+                      <a href="javascript:$('deleteFacilityContactMechPurpose_${facilityContactMechPurpose_index}').submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                   </td>
                 </tr>
                 <#-- toggle the row color -->
                 <#assign alt_row = !alt_row>
+                <form id="deleteFacilityContactMechPurpose_${facilityContactMechPurpose_index}" method="post" action="<@ofbizUrl>deleteFacilityContactMechPurpose</@ofbizUrl>">
+                  <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+                  <input type="hidden" name="contactMechId" value="${contactMechId?if_exists}" />
+                  <input type="hidden" name="contactMechPurposeTypeId" value="${(facilityContactMechPurpose.contactMechPurposeTypeId)?if_exists}" />
+                  <input type="hidden" name="fromDate" value="${(facilityContactMechPurpose.fromDate)?if_exists}" />
+                  <input type="hidden" name="DONE_PAGE" value="${donePage?if_exists}" />
+                  <input type="hidden" name="useValues" value="true" />
+                </form>
               </#list>
               </#if>
               <tr>
