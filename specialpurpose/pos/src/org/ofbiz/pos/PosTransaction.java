@@ -1554,30 +1554,33 @@ public class PosTransaction implements Serializable {
         dynamicView.addAlias("PT", "partyId");
         dynamicView.addAlias("PT", "statusId");
         dynamicView.addAlias("PT", "partyTypeId");
+        dynamicView.addMemberEntity("PUL", "PartyAndUserLogin");
+        dynamicView.addAlias("PUL", "userLoginId");
         dynamicView.addMemberEntity("PE", "Person");
         dynamicView.addAlias("PE", "partyId");
         dynamicView.addAlias("PE", "lastName");
         dynamicView.addAlias("PE", "memberId");
         dynamicView.addAlias("PE", "lastNameLocal");
         dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+        dynamicView.addViewLink("PT", "PUL", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
         Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
         if (!onlyPhone) {
             // ContactMech (email)
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
-            dynamicView.addMemberEntity("CM", "ContactMech");
             dynamicView.addAlias("PM", "contactMechId");
             dynamicView.addAlias("PM", "contactMechPurposeTypeId");            
             dynamicView.addAlias("PM", "thruDate");
+            dynamicView.addMemberEntity("CM", "ContactMech");
             dynamicView.addAlias("CM", "infoString");            
             dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
             dynamicView.addViewLink("PM", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
         } else {
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
-            dynamicView.addMemberEntity("TN", "TelecomNumber");
             dynamicView.addAlias("PM", "contactMechId");
             dynamicView.addAlias("PM", "thruDate");
             dynamicView.addAlias("PM", "contactMechPurposeTypeId");            
+            dynamicView.addMemberEntity("TN", "TelecomNumber");
             dynamicView.addAlias("TN", "contactNumber");
             dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
             dynamicView.addViewLink("PM", "TN", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
@@ -1603,6 +1606,8 @@ public class PosTransaction implements Serializable {
             // This allows to get all clients when any informations has been entered
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
+            andExprs.add(EntityCondition.makeCondition("userLoginId", EntityOperator.NOT_EQUAL, null)); // Should have a login
+            andExprs.add(EntityCondition.makeCondition("memberId", EntityOperator.NOT_EQUAL, null)); // Should have a card Id (we take into account only the person created here)
             if (UtilValidate.isNotEmpty(name)) {
                 andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));
             }
@@ -1781,7 +1786,7 @@ public class PosTransaction implements Serializable {
                 pos.showDialog("dialog/error/exception", e.getMessage());
                 return result;
             }
-            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login ...
+            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login, we are sure there is one as we keep only users with at least one login
             GenericValue  person = null;
             try {
                 person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
@@ -1792,7 +1797,7 @@ public class PosTransaction implements Serializable {
             }
             
             if (UtilValidate.isNotEmpty(name) && !person.getString("lastName").equals(name)
-                    || UtilValidate.isNotEmpty(card) && !person.getString("memberId").equals(card)) {
+                    || UtilValidate.isNotEmpty(card) && !card.equals(person.getString("memberId"))) {
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("firstName", ""); // Needed by service updatePerson
                 svcCtx.put("userLogin", partyLogin);
@@ -1801,7 +1806,7 @@ public class PosTransaction implements Serializable {
                 }
                 if (UtilValidate.isNotEmpty(card)) {
                     svcCtx.put("memberId", card);
-                    if (!person.getString("memberId").equals(card)) {
+                    if (!card.equals(person.getString("memberId"))) {
                         // Update password
                         UtilProperties.setPropertyValue("security.properties", "password.accept.encrypted.and.plain", "true");
                         try {
@@ -1907,27 +1912,29 @@ public class PosTransaction implements Serializable {
                     return result;
                 }
                 GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
-                String contactNumber = PartyTelecomNumber.getString("contactNumber");
-                if (!contactNumber.equals(phone)) {
-                    String newContactMechId = PartyTelecomNumber.getString("contactMechId");
-    
-                    svcCtx.put("userLogin", partyLogin);
-                    svcCtx.put("contactNumber", phone);
-                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-                    if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {
-                        svcCtx.put("contactMechId", newContactMechId); 
-                    }
-                    
-                    try {
-                        svcRes = dispatcher.runSync("createUpdatePartyTelecomNumber", svcCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        pos.showDialog("dialog/error/exception", e.getMessage());
-                        return result;
-                    }
-                    if (ServiceUtil.isError(svcRes)) {
-                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                        return result;
+                if (UtilValidate.isNotEmpty(PartyTelecomNumber)) { // Should not be needed but in case memberId has been used for another purpose avoid an NPE (we test memberId not null initially to keep  only POS created users)
+                    String contactNumber = PartyTelecomNumber.getString("contactNumber");
+                    if (!phone.equals(contactNumber)) {
+                        String newContactMechId = PartyTelecomNumber.getString("contactMechId");
+        
+                        svcCtx.put("userLogin", partyLogin);
+                        svcCtx.put("contactNumber", phone);
+                        svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                        if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {
+                            svcCtx.put("contactMechId", newContactMechId); 
+                        }
+                        
+                        try {
+                            svcRes = dispatcher.runSync("createUpdatePartyTelecomNumber", svcCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            pos.showDialog("dialog/error/exception", e.getMessage());
+                            return result;
+                        }
+                        if (ServiceUtil.isError(svcRes)) {
+                            pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                            return result;
+                        }
                     }
                 }
             }
