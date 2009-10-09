@@ -21,21 +21,6 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
-        <field name="workEffortId">
-            <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
-                <parameter param-name="workEffortId"/>
-            </hyperlink>
-        </field>
-    </form>
-
-    <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/CustRequestForms.xml">
-        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}"><hidden value="${userLogin.partyId}"/></field>
-        <field name="custRequestDate"><ignored/></field>
-        <field name="childWorkEffortId"><ignored/></field>
-        <field name="partyId"><ignored/></field>
-    </form>
-
     <!--New Register Person-->
     <form name="RegisterPerson" type="single" target="createRegister" default-map-name="personInfo"
         focus-field-name="whyWouldYouLikeToRegister" header-row-style="header-row" default-table-style="basic-table">
@@ -56,18 +41,6 @@ under the License.
         <field name="captcha" title="${uiLabelMap.MyPortalVerifyCaptcha}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="23" maxlength="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" title-area-style="group-label"><submit button-type="button"/></field>
         <field name="captchaCode"><hidden value="${parameters.ID_KEY}"/></field>
-    </form>
-
-    <form name="ViewPartyPerson" type="single" default-map-name="lookupPerson" extends="ViewPartyPerson" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
-        <actions>
-            <entity-one entity-name="PartyAndPerson" value-field="lookupPerson">
-                <field-map field-name="partyId" from-field="parameters.partyId"/>
-            </entity-one>
-            <entity-one entity-name="ContactMech" value-field="contactMech">
-                <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
-            </entity-one>
-        </actions>
-        <field name="infoString" title="${uiLabelMap.CommonEmail}" field-name="contactMech.infoString"><display description="${contactMech.infoString}"/></field>
     </form>
 
 </forms>
