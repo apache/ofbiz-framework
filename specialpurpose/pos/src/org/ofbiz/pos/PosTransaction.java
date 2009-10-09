@@ -1785,7 +1785,7 @@ public class PosTransaction implements Serializable {
                 pos.showDialog("dialog/error/exception", e.getMessage());
                 return result;
             }
-            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login ...
+            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login, we are sure there is one as we keep only users with at least one login
             GenericValue  person = null;
             try {
                 person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
