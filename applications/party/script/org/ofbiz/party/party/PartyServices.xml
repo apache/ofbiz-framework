@@ -102,7 +102,7 @@ under the License.
         </if-empty>
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->
         <iterate entry="partyNameHistory" list="partyNameHistoryList">
-            <if-compare-field field="partyNameHistory.changeDate" to-field="parameters.compareDate" operator="greater">
+            <if-compare-field field="partyNameHistory.changeDate" to-field="parameters.compareDate" operator="greater" type="Timestamp">
                 <set field="partyNameHistoryCurrent" from-field="partyNameHistory"/>
             </if-compare-field>
         </iterate>
