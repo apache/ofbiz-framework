@@ -1408,17 +1408,9 @@
         <value xml:lang="fr">Vous confirmez ?</value>
     </property>
     <property key="CommonConfirmAdd">
-        <value xml:lang="en">Do you confirm the addition?</value>
-        <value xml:lang="fr">Confirmez-vous l'ajout ?</value>
-    </property>
-    <property key="CommonConfirmDelete">
-        <value xml:lang="en">Do you confirm the suppression?</value>
-        <value xml:lang="fr">Confirmez-vous la suppression ?</value>
-    </property>
-    <property key="CommonConfirmAdd">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
         <value xml:lang="de">BestÃ¤tigen</value>
-        <value xml:lang="en">Confirm adding ?</value>
+        <value xml:lang="en">Do you confirm the addition?</value>
         <value xml:lang="es">Confirmar</value>
         <value xml:lang="fr">Confirmez-vous l'ajout ?</value>
         <value xml:lang="hi_IN">à¤ªà¥à¤·à¥à¤Ÿà¤¿</value>
@@ -1432,7 +1424,7 @@
     <property key="CommonConfirmDelete">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
         <value xml:lang="de">BestÃ¤tigen</value>
-        <value xml:lang="en">Confirm Delete</value>
+        <value xml:lang="en">Do you confirm the suppression?</value>
         <value xml:lang="es">Confirmar</value>
         <value xml:lang="fr">Confirmez vous la suppression ?</value>
         <value xml:lang="hi_IN">à¤ªà¥à¤·à¥à¤Ÿà¤¿</value>
