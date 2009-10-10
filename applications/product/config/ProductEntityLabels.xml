@@ -1820,7 +1820,7 @@
     <property key="ProductMeterType.description.ODOMETER">
         <value xml:lang="en">Odometer</value>
         <value xml:lang="it">Odometro</value>
-        <value xml:lang="it">Odomètre</value>
+        <value xml:lang="fr">Odomètre</value>
         <value xml:lang="zh">里程表</value>
     </property>
     <property key="ProductMeterType.description.SPEEDOMETER">
