@@ -2359,7 +2359,7 @@
         <value xml:lang="zh">安全错误：要新建支付，你必须或者是支付方或接收方，或具有PAY_INFO_CREATE或PAY_INFO_ADMIN权限。</value>
     </property>
     <property key="AccountingCreditAmount">
-        <value xml:lang="en">Habenbetrag</value>
+        <value xml:lang="de">Habenbetrag</value>
         <value xml:lang="en">Credit Amount</value>
         <value xml:lang="hi_IN">जमा राशि</value>
     </property>
@@ -6416,7 +6416,7 @@
         <value xml:lang="zh">数字</value>
     </property>
     <property key="AccountingNumberOfOrders">
-        <value xml:lang="en">Anzahl der Aufträge</value>
+        <value xml:lang="de">Anzahl der Aufträge</value>
         <value xml:lang="en">Number of Orders</value>
         <value xml:lang="hi_IN">आदेशों की संख्या</value>
     </property>
