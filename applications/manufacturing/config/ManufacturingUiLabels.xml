@@ -1813,6 +1813,16 @@
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
         <value xml:lang="zh">管理费用组成计算记录</value>
     </property>
+    <property key="ManufacturingManager">
+        <value xml:lang="de">Produktionsverwaltung</value>
+        <value xml:lang="en">Manufacturing Manager</value>
+        <value xml:lang="es">Gestión de Producción</value>
+        <value xml:lang="fr">Application de gestion de production</value>
+        <value xml:lang="it">Gestione della produzione</value>
+        <value xml:lang="ro">Aplicatie Gestiune Productie</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
+        <value xml:lang="zh">生产管理应用</value>
+    </property>
     <property key="ManufacturingManagerApplication">
         <value xml:lang="de">Produktionsverwaltung</value>
         <value xml:lang="en">Manufacturing Manager Application</value>

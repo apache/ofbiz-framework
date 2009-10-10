@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="SfaAppBar" title="${uiLabelMap.SfaManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="SfaAppBar" title="${uiLabelMap.SfaManager}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
         <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target="FindLeads"/></menu-item>

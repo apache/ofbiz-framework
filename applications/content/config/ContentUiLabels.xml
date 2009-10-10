@@ -436,6 +436,17 @@
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">内容</value>
     </property>
+    <property key="ContentContentManager">
+        <value xml:lang="ar">تطبيق تسيير المحتوى</value>
+        <value xml:lang="de">Inhaltsverwaltung Anwendung</value>
+        <value xml:lang="en">Content Manager</value>
+        <value xml:lang="es">Aplicación de Administración de Contenidos</value>
+        <value xml:lang="fr">Application de gestion de contenu</value>
+        <value xml:lang="it">Gestione contenuti</value>
+        <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
+        <value xml:lang="th">หัวข้อการจัดการที่นำไปประยุกต์ใช้</value>
+        <value xml:lang="zh">内容管理应用程序</value>
+    </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
         <value xml:lang="de">Inhaltsverwaltung Anwendung</value>

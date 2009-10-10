@@ -6060,6 +6060,20 @@
     <property key="PartyMainRole">
         <value xml:lang="en">Main Role</value>
     </property>
+    <property key="PartyManager">
+        <value xml:lang="de">Akteur Manager Anwendung</value>
+        <value xml:lang="en">Party Manager</value>
+        <value xml:lang="es">Gestión de participantes</value>
+        <value xml:lang="fr">Application de gestion des acteurs</value>
+        <value xml:lang="hi_IN">पार्टी प्रबंधक अनुप्रयोग</value>
+        <value xml:lang="it">Gestione soggetti</value>
+        <value xml:lang="nl">Relatie Manager</value>
+        <value xml:lang="pt_PT">Função de Gerente de Secção</value>
+        <value xml:lang="ro">Aplicatie Gestiune Subiecti</value>
+        <value xml:lang="ru">Управление участниками</value>
+        <value xml:lang="th">โปรแกรมการจัดการกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员管理应用程序</value>
+    </property>
     <property key="PartyManagerApplication">
         <value xml:lang="de">Akteur Manager Anwendung</value>
         <value xml:lang="en">Party Manager Application</value>

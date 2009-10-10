@@ -564,6 +564,13 @@
         <value xml:lang="th">เพิ่มตารางเวลา</value>
         <value xml:lang="zh">增加时间条目</value>
     </property>
+    <property key="ProjectMgr">
+        <value xml:lang="en">Project Manager</value>
+        <value xml:lang="fr">Application de gestion de projet</value>
+        <value xml:lang="it">Gestione progetti</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการโปรเจค</value>
+        <value xml:lang="zh">项目管理应用程序</value>
+    </property>
     <property key="ProjectMgrApplication">
         <value xml:lang="en">Project Manager Application</value>
         <value xml:lang="fr">Application de gestion de projet</value>
