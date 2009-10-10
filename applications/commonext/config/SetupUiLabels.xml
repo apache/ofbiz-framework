@@ -82,9 +82,6 @@
     <property key="SetupResults">
         <value xml:lang="en">Results</value>
     </property>
-    <property key="SetupCreateNewOrganization">
-        <value xml:lang="en">Create Organization</value>
-    </property>
     <property key="SetupFirstCustomer">
         <value xml:lang="en">First Customer</value>
     </property>
