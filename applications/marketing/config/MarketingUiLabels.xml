@@ -1400,7 +1400,7 @@
     </property>
     <property key="PageTitleFindSalesForecast">
         <value xml:lang="en">Find Sales Forecast</value>
-        <value xml:lang="fr">Recherche de prévision des ventes</value>
+        <value xml:lang="fr">Recherche de prévision de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="zh">查找销售预测</value>
     </property>
@@ -1591,7 +1591,7 @@
     </property>
     <property key="PageTitleLookupSalesForecast">
         <value xml:lang="en">Lookup Sales Forecast</value>
-        <value xml:lang="fr">Consulter la prévision des ventes</value>
+        <value xml:lang="fr">Consulter la prévision de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="zh">查找销售预测</value>
     </property>
@@ -1655,7 +1655,7 @@
     </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="en">Add Sales Forcast Detail</value>
-        <value xml:lang="fr">Ajouter le détail de la prévision des ventes</value>
+        <value xml:lang="fr">Ajouter le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
         <value xml:lang="zh">添加销售预测细节</value>
     </property>
@@ -1876,7 +1876,7 @@
     </property>
     <property key="SfaListSalesForecastDetail">
         <value xml:lang="en">List Sales Forecast Details</value>
-        <value xml:lang="fr">Liste des détails de prévision des ventes</value>
+        <value xml:lang="fr">Liste des détails de prévision de ventes</value>
         <value xml:lang="it">Lista dettagli previsioni di vendita</value>
         <value xml:lang="zh">销售预测细节列表</value>
     </property>
@@ -1978,7 +1978,7 @@
     </property>
     <property key="SfaSalesForecast">
         <value xml:lang="en">Sales Forecast</value>
-        <value xml:lang="fr">Prévision des ventes</value>
+        <value xml:lang="fr">Prévision de ventes</value>
         <value xml:lang="it">Previsioni di vendita</value>
         <value xml:lang="zh">销售预测</value>
     </property>
