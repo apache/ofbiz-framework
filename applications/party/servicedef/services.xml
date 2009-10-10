@@ -1292,5 +1292,16 @@ under the License.
         <attribute name="description" type="String" mode="OUT" optional="true"/>
     </service>
 
-
+    <service name="sendContactUsInfoEmailToCompany" engine="simple"
+            location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendContactUsInfoEmailToCompany" auth="false">
+        <description>Create communication event and send mail to company</description>
+        <implements service="createCommunicationEventWithoutPermission"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="postalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="countryCode" type="String" mode="IN" optional="true"/>
+        <attribute name="emailType" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+    </service>
 </services>
