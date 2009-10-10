@@ -54,7 +54,7 @@ under the License.
                 <set field="results" from-field="parameters.results"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEntityExportAll}">
                             <platform-specific>
@@ -76,7 +76,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEntityImportDir}">
                             <platform-specific>
@@ -98,7 +98,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEntityImport}">
                             <platform-specific>
@@ -120,7 +120,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEntityImportReaders}">
                             <platform-specific>
@@ -354,7 +354,7 @@ under the License.
                 <set field="tabButtonItem" value="entityEoModelBundle"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
                     </decorator-section>
@@ -409,7 +409,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
+                <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>

@@ -46,25 +46,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ServiceLog">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleServiceList"/>
-                <set field="tabButtonItem" value="serviceLog"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Services.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/service/services.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="FindJob">
         <section>
             <actions>
