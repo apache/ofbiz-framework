@@ -756,12 +756,18 @@ width: 22em;
 margin-right: 1em;
 }
 
-#column-container .leftLarger {
+#column-container .left-larger {
 float: left;
 /* alt: position: absolute; top: 0px; left: 0px; */
 width: 25em;
 margin-right: 1em;
 }
+
+#column-container .leftonly-larger {
+margin-left: 26em;
+width: auto;
+}
+
 
 .left-border {
 float: left;
