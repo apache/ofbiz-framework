@@ -7856,7 +7856,7 @@
     <property key="AccountingPreference">
         <value xml:lang="ar">التخييرات المحاسبية للمؤسسة</value>
         <value xml:lang="de">Buchhaltungseinstellungen</value>
-        <value xml:lang="de">Accounting Preferences</value>
+        <value xml:lang="en">Accounting Preferences</value>
         <value xml:lang="es">Preferencias de Organización Contable</value>
         <value xml:lang="fr">Paramètres comptables de l'organisation</value>
         <value xml:lang="hi_IN">लेखांकन वरीयताएँ</value>
