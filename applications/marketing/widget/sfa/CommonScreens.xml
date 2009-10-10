@@ -73,7 +73,7 @@ under the License.
         <section>
             <condition><not><if-empty field="userLogin"/></not></condition>
             <widgets>
-                <container style="left">
+                <container style="leftLarger">
                     <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
                         <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                     </screenlet>
