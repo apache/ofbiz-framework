@@ -1400,7 +1400,7 @@
     </property>
     <property key="PageTitleFindSalesForecast">
         <value xml:lang="en">Find Sales Forecast</value>
-        <value xml:lang="fr">Rechercher la prévision des ventes</value>
+        <value xml:lang="fr">Recherche de prévision des ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="zh">查找销售预测</value>
     </property>
