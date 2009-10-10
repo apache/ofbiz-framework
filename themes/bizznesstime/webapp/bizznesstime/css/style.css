@@ -78,11 +78,11 @@ table {
 General Styles
 ***********************************************/
 body {
-	background:url(../images/bg.jpg) top left repeat-y; 
-	color: #000;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size:.75em;
-	line-height:1.5em;
+    background:url(../images/bg.jpg) top left repeat-y; 
+    color: #000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size:.75em;
+    line-height:1.5em;
 }
 
 img {display: inline-block; vertical-align: bottom;}
@@ -160,33 +160,33 @@ img.left {display: inline; float: left; margin: 0 1.5em .75em 0;}
 img.right {display: inline; float: right; margin: 0 0 .75em .75em;}
 
 .lefthalf {
-	float: left;
-	height: 1%;
-	left: 0;
-	margin: 0% 1% 1% 0%;
-	width: 49%;
+    float: left;
+    height: 1%;
+    left: 0;
+    margin: 0% 1% 1% 0%;
+    width: 49%;
 }
 
 .righthalf {
-	float: right;
-	height: 1%;
-	margin: 0 0 1% 1%;
-	right: 0;
-	width: 49%;
+    float: right;
+    height: 1%;
+    margin: 0 0 1% 1%;
+    right: 0;
+    width: 49%;
 }
 
 .leftclear {
-	clear: left;
-	height: 1%;
+    clear: left;
+    height: 1%;
 }
 
 .left-border {
-	float: left;
-	margin-right: 1em;
-	width: 22em;
-	border-right: 0.5px dotted #ccc;
-	background-color: #eee;
-	height: 100%;
+    float: left;
+    margin-right: 1em;
+    width: 22em;
+    border-right: 0.5px dotted #ccc;
+    background-color: #eee;
+    height: 100%;
 }
 
 .whitearea { background-color: #FFFFFF; }
@@ -210,9 +210,9 @@ body > #wrap {height: auto; min-height: 100%;}
 #wrap {
     background:url(../images/bg.jpg) top left repeat-y;
     min-width: 920px;
-	max-width: 1980px;
-	margin: 0;
-	width:expression(document.body.clientWidth < 922? "920px" : document.body.clientWidth > 1982? "1980px" : "auto");
+    max-width: 1980px;
+    margin: 0;
+    width:expression(document.body.clientWidth < 922? "920px" : document.body.clientWidth > 1982? "1980px" : "auto");
 }
 
 #header {
@@ -244,12 +244,12 @@ body > #wrap {height: auto; min-height: 100%;}
 #main {
     clear:both;
     padding:0 0 20px 0;
-	margin: 0px 0px 0px 220px;
+    margin: 0px 0px 0px 220px;
 }
 
 .contentarea {
     padding:0 0 20px 0;
-	margin: 0px 0px 0px 220px;
+    margin: 0px 0px 0px 220px;
 } 
 
 #footer {
@@ -259,26 +259,26 @@ body > #wrap {height: auto; min-height: 100%;}
     height: 20px;
     margin-top: -20px;
     min-width: 920px;
-	max-width: 1980px;
+    max-width: 1980px;
     position: relative;
     width:expression(document.body.clientWidth < 922? "920px" : document.body.clientWidth > 1982? "1980px" : "auto");
 }
 
 .poweredBy {
-	background:#f8f8f8;
-	border-top:1px dashed #ddd;
-	border-right:1px dashed #ddd;
-	border-left:1px dashed #ddd;
-	margin: 0px 20px 0px 220px;
-	font-size:10px;
+    background:#f8f8f8;
+    border-top:1px dashed #ddd;
+    border-right:1px dashed #ddd;
+    border-left:1px dashed #ddd;
+    margin: 0px 20px 0px 220px;
+    font-size:10px;
 }
 
 .poweredBy span {
-	margin:0 10px 0 10px;
+    margin:0 10px 0 10px;
 }
 
 .poweredBy span a{
-	color:#333;
+    color:#333;
 }
 
 
@@ -287,10 +287,10 @@ Clear Fix
 ***********************************************/
 .clearfix:after {
     content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 .clearfix {display: inline-block;}
@@ -300,9 +300,9 @@ html[xmlns] .clearfix { display: block; }
 
 /*NOTE .clear deprecated, clear floats automatically using .clearfix instead of using extra div */
 .clear {
-	clear: both;
-	height: 0;
-	visibility: hidden;
+    clear: both;
+    height: 0;
+    visibility: hidden;
 }
 
 /*********************************************** 
@@ -362,7 +362,7 @@ html[xmlns] .clearfix { display: block; }
     cursor:pointer;
 }
 .modal-overlay {
-	display:none;
+    display:none;
 }
 div.modal-overlay[class]{
     top: 0;
@@ -389,15 +389,15 @@ div.modal-overlay[class]{
     padding: 5px;
 }
 #modal-contents {
-	width:100%;
+    width:100%;
 }
 #modal-contents .screenlet {
-	width:100%;
-	margin:0;
-	padding:0;
+    width:100%;
+    margin:0;
+    padding:0;
 }
 #modal-contents .screenlet-title-bar {
-	width:100%;
+    width:100%;
 }
 span#modal-close-btn{
     color: red;
@@ -407,22 +407,22 @@ span#modal-close-btn{
 }
 
 .DEBUG {
-	color: #808080;
+    color: #808080;
 }
 
 .WARN {
-	color: #0000ff;
-	font-weight: bold;
+    color: #0000ff;
+    font-weight: bold;
 }
 
 .INFO {
-	color: #008000;
+    color: #008000;
 }
 
 .ERROR {
-	border: 0.2em solid #333;
-	color: #333;
-	font-weight: bold;
+    border: 0.2em solid #333;
+    color: #333;
+    font-weight: bold;
 }
 
 .alert {
@@ -516,7 +516,7 @@ Header
 }
 
 #controls span #preferences a:hover {
-	color:#bbb;
+    color:#bbb;
 }
 
 #main-nav {
@@ -570,9 +570,9 @@ Header
 }
 
 #header-nav h4 {
-	margin:0 0 0 8px;
-	color:#E4E612;
-	text-transform:uppercase;
+    margin:0 0 0 8px;
+    color:#E4E612;
+    text-transform:uppercase;
 }
 
 #header-nav ul {
@@ -726,104 +726,130 @@ Content Sections
     height:auto;
 }
 
+.left-larger {
+    float: left; 
+    overflow: hidden; 
+    margin: 0 0 0 0; 
+    padding: 0;
+    z-index: 1;
+    background:#fff;
+    color: #666666;
+    width: 30%; 
+    min-height:600px;
+    height:auto;
+}
+
+.leftonly-larger {
+    float: right; 
+    overflow: hidden; 
+    margin: 0; 
+    padding: 0;
+    z-index: 1;
+    background:#fff;
+    color: #666666;
+    width: 68%; 
+    min-height:600px;
+    height:auto;
+}
+
 /***********************************************
 Tab Bar Navigation
 ***********************************************/
 .tab-bar { 
-	margin:0px 0px 10px 0px; 
-	background:url(../images/wr.png) top right no-repeat; 
-	padding-right:18px;
-	float:left;
-	clear:both;
-	width:95%;
-	display:inline; 
+    margin:0px 0px 10px 0px; 
+    background:url(../images/wr.png) top right no-repeat; 
+    padding-right:18px;
+    float:left;
+    clear:both;
+    width:95%;
+    display:inline; 
 }
 
 .tab-bar ul {
-	margin:0px 0px -10px 0px;
-	padding-top:6px;
-	text-indent:18px;
-	display:block;  
-	color:#666666; 
-	width:100%; 
-	background:url(../images/wl.png) top left no-repeat;
-	float:left;
-	border:0;
-	margin:0;
-	list-style:none;
+    margin:0px 0px -10px 0px;
+    padding-top:6px;
+    text-indent:18px;
+    display:block;  
+    color:#666666; 
+    width:100%; 
+    background:url(../images/wl.png) top left no-repeat;
+    float:left;
+    border:0;
+    margin:0;
+    list-style:none;
 }
 
 .tab-bar ul li {
-	padding:4px 4px 10px 4px; 
-	display:inline; 
-	float:left; 
-	text-align:center;
-	border:0;
-	margin:0;
-	list-style:none;
+    padding:4px 4px 10px 4px; 
+    display:inline; 
+    float:left; 
+    text-align:center;
+    border:0;
+    margin:0;
+    list-style:none;
 }
 
 .tab-bar ul li ul {
-	background:none;
-	margin:0;
-	padding:0;
-	text-indent:0px;
-	border:0;
-	float:left;
+    background:none;
+    margin:0;
+    padding:0;
+    text-indent:0px;
+    border:0;
+    float:left;
 }
 
 .tab-bar ul li ul li{
-	padding:4px 4px 10px 4px; 
-	height:14px; 
-	display:inline; 
-	float:left; 
-	text-align:center;
+    padding:4px 4px 10px 4px; 
+    height:14px; 
+    display:inline; 
+    float:left; 
+    text-align:center;
 }
 
 .tab-bar a:link, .tab-bar a:visited{
-	color:#666666;
-	display:block;
-	font-weight:bold;
-	text-decoration:underline;
-	text-align:center;
-	margin:0;
-	padding:0;
-	text-transform:uppercase;
-	padding:4px;
+    color:#666666;
+    display:block;
+    font-weight:bold;
+    text-decoration:underline;
+    text-align:center;
+    margin:0;
+    padding:0;
+    text-transform:uppercase;
+    padding:4px;
 }
 
 .tab-bar ul li ul li.selected a {
-	color: #222;
-	background:#E4E612;
-	border: 2px solid #D6CE09;
-	display:block;
-	font-weight:bold;
-	text-decoration:none;
-	text-align:left;
-	padding:2px 6px 2px 6px;
-	
+    color: #222;
+    background:#E4E612;
+    border: 2px solid #D6CE09;
+    display:block;
+    font-weight:bold;
+    text-decoration:none;
+    text-align:left;
+    padding:2px 6px 2px 6px;
+    
 }
 
 .tab-bar a:hover{
-	display:block;
-	color: #1c334d;
+    display:block;
+    color: #1c334d;
 }
 
 .button-bar {
-	margin:0px 0px 10px 0px;  
-	padding-right:18px;
-	
-	clear:both;
-	width:95%;
-	display:block;
+    margin:0px 0px 10px 0px;  
+    padding-right:18px;
+    
+    clear:both;
+    width:95%;
+    display:block;
 }
 
 .button-bar:after {
     content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 /***********************************************
@@ -844,375 +870,375 @@ development note: the shear size of this section
 
 ***********************************************/
 .mediumSubmit,.largeSubmit,.loginButton {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border: 2px solid #ddd;
-	color: #333;
-	font-size: 1.4em;
-	font-weight: bold;
-	margin: 0.2em;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    color: #333;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0.2em;
 }
 
 .mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .smallAltSubmit,.mediumAltSubmit,.largeAltSubmit {
-	font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 a.lightbuttontext {
-	border: none;
-	color: #666;
+    border: none;
+    color: #666;
 }
 
 a.lightbuttontext:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 a.lightbuttontextsmall {
-	border: none;
-	color: #666;
-	font-size: 0.8em;
+    border: none;
+    color: #666;
+    font-size: 0.8em;
 }
 
 a.lightbuttontextsmall:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .lightbuttontextdisabled {
-	color: #ccc;
-	font-weight: bold;
+    color: #ccc;
+    font-weight: bold;
 }
 
 a.buttontextbig,.buttontextbigdisabled {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border: 2px solid #ddd;
-	font-size: 1.5em;
-	font-weight: bold;
-	margin: 0.2em;
-	padding: 0.1em 0.4em 0.1em 0.4em;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.2em;
+    padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
 a.buttontextbig {
-	color: #333;
+    color: #333;
 }
 
 .buttontextbigdisabled {
-	color: #ccc;
+    color: #ccc;
 }
 
 a.buttontextbig:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .button {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border: 2px solid #ddd;
-	padding-right: 0.5em;
-	padding-left: 0.5em;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
 }
 
 .browsecategorylist {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .browsecategorytext {
-	color: #333;
-	font-weight: bold;
-	padding-left: 10px;
-	background: url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
+    color: #333;
+    font-weight: bold;
+    padding-left: 10px;
+    background: url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
 }
 
 A.browsecategorybutton {
-	color: #333;
+    color: #333;
 }
 
 .browsecategorybuttondisabled {
-	color: #333333;
-	font-weight: bold;
+    color: #333333;
+    font-weight: bold;
 }
 
 a.buttontext,.buttontextdisabled {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border: 2px solid #ddd;
-	font-weight: bold;
-	line-height: 1.8em;
-	margin: 0.2em;
-	padding: 0.1em 0.4em 0.1em 0.4em;
-	/*white-space: nowrap;*/
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    font-weight: bold;
+    line-height: 1.8em;
+    margin: 0.2em;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    /*white-space: nowrap;*/
 }
 
 a.buttontext {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border:2px solid #ddd;
-	color:#444444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 5px 0px;
-	padding:2px 4px;
-	display:inline-block;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#444444;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 5px 0px;
+    padding:2px 4px;
+    display:inline-block;
 }
 
 a.buttontext:hover {
-	color:#1c334d;
+    color:#1c334d;
 }
 
 a.linktext {
-	color: #333;
+    color: #333;
 }
 
 a.linktext:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .buttontextdisabled {
-	color: #ccc;
+    color: #ccc;
 }
 
 a.headerbuttontext {
-	color: #333;
+    color: #333;
 }
 
 a.headerbuttontext:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 a.boxheadbutton {
-	color: #333;
-	font-size: 1.1em;
+    color: #333;
+    font-size: 1.1em;
 }
 
 a.boxheadbutton:hover {
-	color: #1c334d;
-	text-decoration: none;
+    color: #1c334d;
+    text-decoration: none;
 }
 
 .smallSubmit,.smallSubmit:visited {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border:2px solid #ddd;
-	color:#444444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 5px 0px;
-	padding:2px 4px;
-	text-transform:uppercase;
-	display:inline-block;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#444444;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 5px 0px;
+    padding:2px 4px;
+    text-transform:uppercase;
+    display:inline-block;
 }
 
 .smallSubmit:hover {
-	color: #1c334d;
-	text-decoration: none;
+    color: #1c334d;
+    text-decoration: none;
 }
 
 .smallSubmit:active {
-	color: #1c334d;
-	text-decoration: none;
+    color: #1c334d;
+    text-decoration: none;
 }
 
 .button-style-1 ul li,
 .tabContainer ul li {
-	background-color: #ffffff;
-	color: #333;
+    background-color: #ffffff;
+    color: #333;
 }
 
 .button-style-1 a,
 .button-style-1 ul a,
 a.button-style-1 {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border:2px solid #ddd;
-	color:#444444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 5px 0px;
-	padding:2px 4px;
-	text-transform:uppercase;
-	display:inline-block;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#444444;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 5px 0px;
+    padding:2px 4px;
+    text-transform:uppercase;
+    display:inline-block;
 }
 
 .button-style-1 .selected,
 .button-style-1 ul .selected,
 .button-style-1 ul .selected a {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	color: #1c334d;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    color: #1c334d;
 }
 
 .button-style-1 a:hover,
 .button-style-1 ul a:hover,
 a.button-style-1:hover {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	color: #1c334d;
-	text-decoration: none;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    color: #1c334d;
+    text-decoration: none;
 }
 
 .button-style-2 ul li {
-	background-color: #fff;
-	color: #333;
-	margin:0px;
-	padding:0px;
-	display:inline;
-	float:left;
+    background-color: #fff;
+    color: #333;
+    margin:0px;
+    padding:0px;
+    display:inline;
+    float:left;
 }
 
 .button-style-2 ul a,
 .button-style-2 a,
 a.button-style-2 {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border:2px solid #ddd;
-	color:#444444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 5px 0px;
-	padding:2px 4px;
-	text-transform:uppercase;
-	display:inline-block;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#444444;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 5px 0px;
+    padding:2px 4px;
+    text-transform:uppercase;
+    display:inline-block;
 }
 
 .button-style-2 ul .selected a {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	color: #444;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    color: #444;
 }
 
 .button-style-2 .selected {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	color: #1c334d;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    color: #1c334d;
 }
 
 
 .button-style-2 ul a:hover,
 .button-style-2 a:hover,
 a.button-style-2:hover {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	color: #1c334d;
-	text-decoration: none;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    color: #1c334d;
+    text-decoration: none;
 }
 
 /***********************************************
 Columns (legacy style)
 ***********************************************/
 div.row {
-	background-color: #B4B0AA;
-	margin: 0 auto 0 auto;
-	text-align: center;
+    background-color: #B4B0AA;
+    margin: 0 auto 0 auto;
+    text-align: center;
 }
 
 div.col {
-	border: none;
-	float: left;
-	width: auto;
+    border: none;
+    float: left;
+    width: auto;
 }
 
 div.col-fill {
-	background-color: #B4B0AA;
-	border: none;
-	color: #333;
-	font-weight: bold;
-	text-align: center;
-	width: 0;
+    background-color: #B4B0AA;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    width: 0;
 }
 
 div.col-right {
-	border: none;
-	float: right;
-	width: auto;
+    border: none;
+    float: right;
+    width: auto;
 }
 
 div.endcolumns { /* deprecated - use .clear */
-	clear: both;
+    clear: both;
 }
 
 #column-container {
-	margin:0 10px 0 0;
+    margin:0 10px 0 0;
 }
 
 #column-container h1,
 #column-container .h1,
 #column-container h2,
 #column-container .h2 {
-	margin-bottom: 0.5em;
-	margin:5px 0 10px 0;
-	clear:both;
-	display:inline-block;
+    margin-bottom: 0.5em;
+    margin:5px 0 10px 0;
+    clear:both;
+    display:inline-block;
 }
 
 #column-container h1,
 #column-container .h1 {
-	color: #333;
-	font-size:2em;
-	font-weight: 700;
-	
+    color: #333;
+    font-size:2em;
+    font-weight: 700;
+    
 }
 
 #column-container .right {
-	float: right;
-	margin-left: 1em;
-	width: 22em;
+    float: right;
+    margin-left: 1em;
+    width: 22em;
 }
 
 #column-container .rightonly {
-	margin-right: 23em;
-	width: auto;
+    margin-right: 23em;
+    width: auto;
 }
 
 #column-container .center {
-	margin-left: 23em;
-	margin-right: 23em;
-	width: auto;
+    margin-left: 23em;
+    margin-right: 23em;
+    width: auto;
 }
 
 #column-container .nocolumns {
-	width: auto;
+    width: auto;
 }
 
 div.column-left-wide {
-	background-color: #CCCCCC;
-	border: #000000 solid 0.2em;
-	float: left;
-	overflow: auto;
-	width: 30em;
+    background-color: #CCCCCC;
+    border: #000000 solid 0.2em;
+    float: left;
+    overflow: auto;
+    width: 30em;
 }
 
 div.widget-container {
-	margin-bottom: 2em;
+    margin-bottom: 2em;
 }
 
 div.simple-right-small {
-	float: right;
-	width: 2em;
-	text-align: right;
+    float: right;
+    width: 2em;
+    text-align: right;
 }
 
 div.simple-right-half {
-	float: right;
-	width: 50%;
-	text-align: right;
+    float: right;
+    width: 50%;
+    text-align: right;
 }
 
 /***********************************************
 Screens (legacy style)
 ***********************************************/
 div.screenlet {
-	background-color: #FFFFFF;
-	height: auto !important;
-	height: 1%;
-	margin-bottom: 1em;
-	margin-top: 1em;
-	clear:both;
+    background-color: #FFFFFF;
+    height: auto !important;
+    height: 1%;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    clear:both;
 }
 
 div.screenlet-body {
-	background-color: #FFFFFF;
-	height: auto !important;
-	height: 1%;
-	padding: 0.4em;
-	border: 2px solid #eee;
-	display:block;
+    background-color: #FFFFFF;
+    height: auto !important;
+    height: 1%;
+    padding: 0.4em;
+    border: 2px solid #eee;
+    display:block;
 }
 
 .screenlet-title-bar {
-	background-color: #1c334d;
-	color: #ffffff;
-	height: 1%; /* IE fix */
-	min-height: 1.5em;
+    background-color: #1c334d;
+    color: #ffffff;
+    height: 1%; /* IE fix */
+    min-height: 1.5em;
 }
 
 .screenlet-title-bar .h1,
@@ -1221,24 +1247,24 @@ div.screenlet-body {
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
-	background: none;
-	color: #ffffff;
-	font-weight: bold;
-	padding: 0.1em 0.5em 0.2em 0.5em;
+    background: none;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 .screenlet-title-bar ul {
-	display: inline; /* IE Fix */
+    display: inline; /* IE Fix */
 }
 
 .screenlet-title-bar ul li {
-	background: none;
-	color: #ffffff;
-	float: right;
-	font-size: 1em;
-	font-weight: bold;
-	padding: 0.8em 0.5em 0.2em 0.5em;
-	margin:0;
+    background: none;
+    color: #ffffff;
+    float: right;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0.8em 0.5em 0.2em 0.5em;
+    margin:0;
 }
 
 .screenlet-title-bar ul h1,
@@ -1247,9 +1273,9 @@ div.screenlet-body {
 .screenlet-title-bar ul .h1,
 .screenlet-title-bar ul .h2,
 .screenlet-title-bar ul .h3 {
-	border-left: none;
-	float: left;
-	padding: 0.8em 0.5em 0.2em 0.5em;
+    border-left: none;
+    float: left;
+    padding: 0.8em 0.5em 0.2em 0.5em;
 }
 
 .left .screenlet-title-bar ul h1,
@@ -1258,94 +1284,94 @@ div.screenlet-body {
 .left .screenlet-title-bar ul .h1,
 .left .screenlet-title-bar ul .h2,
 .left .screenlet-title-bar ul .h3 {
-	border-left: none;
-	float: left;
-	padding: 0.5em 0.5em 0.2em 0.5em;
+    border-left: none;
+    float: left;
+    padding: 0.5em 0.5em 0.2em 0.5em;
 }
 
 .screenlet-title-bar .h1 { font-size: 1.6em; }
 .screenlet-title-bar .h2 { font-size: 1.3em; }
 .screenlet-title-bar .h3,
 .screenlet-title-bar .head4 {
-	font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 .screenlet-title-bar .h3 a {
-	color: #fff;
-	display: inline;
+    color: #fff;
+    display: inline;
 }
 
 .screenlet-title-bar ul a {
-	color: #fff;
-	display: block;
+    color: #fff;
+    display: block;
 }
 
 .screenlet-title-bar ul a:visited {
-	color: #fff;
+    color: #fff;
 }
 
 .screenlet-title-bar ul a:hover {
-	color: #ffffff;
-	text-decoration: underline;
+    color: #ffffff;
+    text-decoration: underline;
 }
 
 .screenlet-title-bar ul .disabled {
-	color: #CCCCCC;
+    color: #CCCCCC;
 }
 
 .screenlet-title-bar ul .collapsed,
 .screenlet-title-bar ul .collapsed:hover {
-	background: url(/images/expand.gif) no-repeat center center;
-	min-height: 1.1em;
-	min-width: 1.1em;
+    background: url(/images/expand.gif) no-repeat center center;
+    min-height: 1.1em;
+    min-width: 1.1em;
 }
 
 .screenlet-title-bar ul .expanded,
 .screenlet-title-bar ul .expanded:hover {
-	background: url(/images/collapse.gif) no-repeat center center;
-	min-height: 1.1em;
-	min-width: 1.1em;
+    background: url(/images/collapse.gif) no-repeat center center;
+    min-height: 1.1em;
+    min-width: 1.1em;
 }
 
 .screenlet-title-bar ul .collapsed a,
 .screenlet-title-bar ul .expanded a { 
-	cursor: default;
+    cursor: default;
 }
 
 .login-screenlet {
-	min-width: 25em;
-	width: 25%;
+    min-width: 25em;
+    width: 25%;
 }
 
 .login-screenlet .screenlet-title-bar {
-	text-align: center;
+    text-align: center;
 }
 
 /***********************************************
 Webtools
 ***********************************************/
 .webToolList h3 {
-	margin:0.75em 0 0.09em 0;
-	text-transform:uppercase;
+    margin:0.75em 0 0.09em 0;
+    text-transform:uppercase;
 }
 
 /***********************************************
 Business Intelligence
 ***********************************************/
 .note {
-	display:block;
-	clear:both;
+    display:block;
+    clear:both;
 }
 
 /***********************************************
 Project Manager
 ***********************************************/
 .profile-left {
-	width:45%;
-	float:left;
-	margin:0 10px 0 0;
+    width:45%;
+    float:left;
+    margin:0 10px 0 0;
 }
 .profile-right {
-	width:45%;
-	float:left;
+    width:45%;
+    float:left;
 }

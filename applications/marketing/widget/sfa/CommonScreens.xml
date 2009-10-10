@@ -39,7 +39,7 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.SfaManagerApplication}" global="true"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://marketing/widget/sfa/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="MainColumnStyle" value="leftonly-larger"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -73,7 +73,7 @@ under the License.
         <section>
             <condition><not><if-empty field="userLogin"/></not></condition>
             <widgets>
-                <container style="leftLarger">
+                <container style="left-larger">
                     <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
                         <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                     </screenlet>
