@@ -50,4 +50,15 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ContactUsEmailNotification">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactUsEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

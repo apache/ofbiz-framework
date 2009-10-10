@@ -1279,11 +1279,21 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="contactus"/>
     </request-map>
+    <request-map uri="AnonContactus">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="AnonContactus"/>
+    </request-map>
     <request-map uri="contactsubmit">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEventWithoutPermission"/>
         <response name="success" type="view" value="contactus"/>
         <response name="error" type="view" value="contactus"/>
+    </request-map>
+    <request-map uri="submitAnonContact">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="sendContactUsInfoEmailToCompany"/>
+        <response name="success" type="view" value="AnonContactus"/>
+        <response name="error" type="view" value="AnonContactus"/>
     </request-map>
 
     <request-map uri="signUpForContactList">
@@ -1956,6 +1966,7 @@ under the License.
     <view-map name="digitalproductedit" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#digitalproductedit"/>
 
     <view-map name="contactus" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#contactus"/>
+    <view-map name="AnonContactus" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#AnonContactus"/>
     <view-map name="messagelist" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagelist"/>
     <view-map name="messagedetail" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagedetail"/>
     <view-map name="messagecreate" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagecreate"/>
