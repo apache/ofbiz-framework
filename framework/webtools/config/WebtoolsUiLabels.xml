@@ -41,7 +41,7 @@
         <value xml:lang="de">Entität Synch. ID</value>
         <value xml:lang="en">Entity Sync Id</value>
         <value xml:lang="fr">Réf. de synchro. d'entités</value>
-        <value xml:lang="it">Codice Entità Sincr.</value>
+        <value xml:lang="it">Codice entità Sincr.</value>
         <value xml:lang="ro">Cod Entitate Sincr.</value>
         <value xml:lang="th">รหัสสิ่งที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="zh">实体同步标识</value>
@@ -204,7 +204,7 @@
         <value xml:lang="en">Framework Web Tools</value>
         <value xml:lang="es">Framework Herramientas Web</value>
         <value xml:lang="fr">Outils web du Framework</value>
-        <value xml:lang="it">Applicazione strumenti web</value>
+        <value xml:lang="it">Strumenti del Framework</value>
         <value xml:lang="ro">Aplicatie Instrumente Web</value>
         <value xml:lang="th">โครงสร้างของเครื่องมือเว็บ</value>
         <value xml:lang="zh">Web工具</value>
@@ -216,6 +216,11 @@
         <value xml:lang="ro">Actualizeaza Cache</value>
         <value xml:lang="th">ซ่อนการแก้ไขข้อมูล</value>
         <value xml:lang="zh">编辑缓存</value>
+    </property>
+    <property key="PageTitleEntityEoModelBundle">
+        <value xml:lang="en">Entity Eo Model Bundle</value>
+        <value xml:lang="it">Entità Eo Model Bundle</value>
+        <value xml:lang="zh">实体EoModel绑定</value>
     </property>
     <property key="PageTitleEntityExport">
         <value xml:lang="en">XML Data Export</value>
@@ -255,11 +260,6 @@
         <value xml:lang="it">Importa i Dati da XML Readers</value>
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
         <value xml:lang="zh">XML数据导入读取程序</value>
-    </property>
-    <property key="PageTitleEntityEoModelBundle">
-        <value xml:lang="en">Entity Eo Model Bundle</value>
-        <value xml:lang="it">Entità Eo Model Bundle</value>
-        <value xml:lang="zh">实体EoModel绑定</value>
     </property>
     <property key="PageTitleEntitySQLProcessor">
         <value xml:lang="de">Entitäten SQL Prozessor</value>
@@ -368,15 +368,6 @@
         <value xml:lang="th">รายงานเหตุการณ์ที่เกิดขึ้นต่อเนื่องกัน</value>
         <value xml:lang="zh">线程列表</value>
     </property>
-    <property key="WebtoolsAbsoluteFileNameOrUrl">
-        <value xml:lang="de">Absoluter Dateiname oder URL</value>
-        <value xml:lang="en">Absolute Filename or URL</value>
-        <value xml:lang="fr">Nom de fichier absolu ou URL</value>
-        <value xml:lang="it">Nome file assoluto o URL</value>
-        <value xml:lang="ro">Nume file absolut sau URL</value>
-        <value xml:lang="th">ชื่อไฟล์ที่สมบูรณ์หรือ URL</value>
-        <value xml:lang="zh">绝对文件名或网址</value>
-    </property>
     <property key="WebtoolsAbsoluteFTLFilename">
         <value xml:lang="de">Absoluter Dateiname der FreeMarker Vorlagedatei für den Datenfilter (optional)</value>
         <value xml:lang="en">Absolute Filename of FreeMarker template file to filter data by (optional)</value>
@@ -385,6 +376,15 @@
         <value xml:lang="ro">Nume file absolut al unui file template FreeMarker pentru filtrarea datelor dupa (optional)</value>
         <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
         <value xml:lang="zh">用于过滤数据的FreeMarker模板文件的绝对文件名（可选）</value>
+    </property>
+    <property key="WebtoolsAbsoluteFileNameOrUrl">
+        <value xml:lang="de">Absoluter Dateiname oder URL</value>
+        <value xml:lang="en">Absolute Filename or URL</value>
+        <value xml:lang="fr">Nom de fichier absolu ou URL</value>
+        <value xml:lang="it">Nome file assoluto o URL</value>
+        <value xml:lang="ro">Nume file absolut sau URL</value>
+        <value xml:lang="th">ชื่อไฟล์ที่สมบูรณ์หรือ URL</value>
+        <value xml:lang="zh">绝对文件名或网址</value>
     </property>
     <property key="WebtoolsAbsolutePath">
         <value xml:lang="de">Absoluter Verzeichnispfad</value>
@@ -509,9 +509,9 @@
     </property>
     <property key="WebtoolsCacheDebugTools">
         <value xml:lang="de">Cache &amp; Debug Tools</value>
-        <value xml:lang="en">Cache &amp; Debug Tools</value>
+        <value xml:lang="en">Cache &amp; Debug</value>
         <value xml:lang="fr">Cache et outils de débogage</value>
-        <value xml:lang="it">Strumenti di Debug e Cache</value>
+        <value xml:lang="it">Cache e Debug</value>
         <value xml:lang="ro">Instrumente de Debug si Cache</value>
         <value xml:lang="th">Cache &amp; เครื่องมือตรวจสอบจุดบกพร่อง</value>
         <value xml:lang="zh">缓存和调试工具</value>
@@ -753,6 +753,10 @@
         <value xml:lang="ro">Conditii</value>
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="zh">条件</value>
+    </property>
+    <property key="WebtoolsConfiguration">
+        <value xml:lang="en">Configuration</value>
+        <value xml:lang="it">Configurazione</value>
     </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
@@ -1397,14 +1401,14 @@
         <value xml:lang="th">สำหรับ Entity</value>
         <value xml:lang="zh">实体</value>
     </property>
-    <property key="WebtoolsFormat">
-        <value xml:lang="de">Format</value>
-        <value xml:lang="en">Format</value>
-        <value xml:lang="fr">Format</value>
-        <value xml:lang="it">Formato</value>
-        <value xml:lang="ro">Format</value>
-        <value xml:lang="th">รูปแบบ</value>
-        <value xml:lang="zh">格式</value>
+    <property key="WebtoolsForSomethingInteresting">
+        <value xml:lang="de">Um etwas Interessantes zu sehen sollten Sie sich anmelden; versuchen Sie: admin, Passwort: ofbiz</value>
+        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
+        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, et le mot de passe : ofbiz</value>
+        <value xml:lang="it">Per accedere all'applicazione devi essere autenticato, prova con Nome utente:admin, Password:ofbiz</value>
+        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
+        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
+        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
     </property>
     <property key="WebtoolsForUseWithFrequency">
         <value xml:lang="de">mit der Frequenz nutzen</value>
@@ -1415,14 +1419,14 @@
         <value xml:lang="th">สำหรับใช้กับความบ่อย</value>
         <value xml:lang="zh">使用频率</value>
     </property>
-    <property key="WebtoolsForSomethingInteresting">
-        <value xml:lang="de">Um etwas Interessantes zu sehen sollten Sie sich anmelden; versuchen Sie: admin, Passwort: ofbiz</value>
-        <value xml:lang="en">For something interesting make sure you are logged in, try username: admin, password: ofbiz</value>
-        <value xml:lang="fr">Pour quelque chose d'intéressant assurez-vous que vous avez ouvert une session. Essayez avec l'identifiant de connexion : admin, et le mot de passe : ofbiz</value>
-        <value xml:lang="it">Per accedere all'applicazione devi essere autenticato, prova con Nome utente:admin, Password:ofbiz</value>
-        <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
-        <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
-        <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
+    <property key="WebtoolsFormat">
+        <value xml:lang="de">Format</value>
+        <value xml:lang="en">Format</value>
+        <value xml:lang="fr">Format</value>
+        <value xml:lang="it">Formato</value>
+        <value xml:lang="ro">Format</value>
+        <value xml:lang="th">รูปแบบ</value>
+        <value xml:lang="zh">格式</value>
     </property>
     <property key="WebtoolsFreeMemory">
         <value xml:lang="de">FREI</value>
@@ -1499,6 +1503,10 @@
         <value xml:lang="ro">Import</value>
         <value xml:lang="th">นำเข้า</value>
         <value xml:lang="zh">导入</value>
+    </property>
+    <property key="WebtoolsImportExport">
+        <value xml:lang="en">Import/Export</value>
+        <value xml:lang="it">Importazione/Esportazione</value>
     </property>
     <property key="WebtoolsImportFile">
         <value xml:lang="de">Datei importieren</value>
@@ -1652,6 +1660,13 @@
         <value xml:lang="th">ประเภทจาวา</value>
         <value xml:lang="zh">Java类型</value>
     </property>
+    <property key="WebtoolsJavaVersionIs5">
+        <value xml:lang="en">Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5 ?</value>
+        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: ${javaVer}; c'est Java 5 ?</value>
+        <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è ${javaVer}; è Java 5 ?</value>
+        <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่${javaVer};  Java 5 ?</value>
+        <value xml:lang="zh">注意：某些程序只能运行在Java 5下。Java版本是${javaVer}；是Java 5吗？</value>
+    </property>
     <property key="WebtoolsJob">
         <value xml:lang="en">Job</value>
         <value xml:lang="fr">Job</value>
@@ -1726,18 +1741,18 @@
         <value xml:lang="it">Tutte le lingue</value>
         <value xml:lang="zh">全部语言</value>
     </property>
+    <property key="WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels">
+        <value xml:lang="de">Cache nach der Korrektur der Label-Dubletten löschen</value>
+        <value xml:lang="en">Clear Cache After Fixing Duplicated Labels</value>
+        <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
+        <value xml:lang="zh">解决重复标签后清除缓存</value>
+    </property>
     <property key="WebtoolsLabelManagerComponentName">
         <value xml:lang="de">OFBiz Komponente</value>
         <value xml:lang="en">Component Name</value>
         <value xml:lang="fr">Nom de composant</value>
         <value xml:lang="it">Nome Componente</value>
         <value xml:lang="zh">组件名称</value>
-    </property>
-    <property key="WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels">
-        <value xml:lang="de">Cache nach der Korrektur der Label-Dubletten löschen</value>
-        <value xml:lang="en">Clear Cache After Fixing Duplicated Labels</value>
-        <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
-        <value xml:lang="zh">解决重复标签后清除缓存</value>
     </property>
     <property key="WebtoolsLabelManagerFileName">
         <value xml:lang="de">Label-Datei</value>
@@ -1800,17 +1815,17 @@
         <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
         <value xml:lang="zh">在文件${fileName}中已经存在标签${key}</value>
     </property>
-    <property key="WebtoolsLabelManagerOnlyNotUsedLabels">
-        <value xml:lang="de">Nur ungenutzte Labels</value>
-        <value xml:lang="en">Only Not Used Labels</value>
-        <value xml:lang="it">Solo traduzioni non usate</value>
-        <value xml:lang="zh">仅限没有使用过的标签</value>
-    </property>
     <property key="WebtoolsLabelManagerOnlyMissingTranslations">
         <value xml:lang="de">Nur fehlende Übersetzungen</value>
         <value xml:lang="en">Only Missing Translations</value>
         <value xml:lang="it">Solo traduzioni mancanti</value>
         <value xml:lang="zh">仅限缺少的翻译</value>
+    </property>
+    <property key="WebtoolsLabelManagerOnlyNotUsedLabels">
+        <value xml:lang="de">Nur ungenutzte Labels</value>
+        <value xml:lang="en">Only Not Used Labels</value>
+        <value xml:lang="it">Solo traduzioni non usate</value>
+        <value xml:lang="zh">仅限没有使用过的标签</value>
     </property>
     <property key="WebtoolsLabelManagerReferences">
         <value xml:lang="de">Referenzen</value>
@@ -2224,13 +2239,6 @@
         <value xml:lang="it">NOTA: Nell' operazione di Controlla/Aggiorna Database potrebbero essere create delle chiavi esterne se check-fks-on-start e altre opzioni sull'elemento datasource sono state configurate per fare questo.</value>
         <value xml:lang="th">หมายเหตุ: Foreign keys อาจจะสร้างเฉพาะในการ ตรวจสอบ/อัพเดท ฐานข้อมูล การดำเนินการถ้า check-fks-on-start และทางเลือกอื่นๆในแหล่งข้อมูลที่ติดตั้งในการทำ</value>
         <value xml:lang="zh">注意：如果设置了数据源元素的check-fks-on-start（启动时检查外键）和其它选项，可能会创建外键。</value>
-    </property>
-    <property key="WebtoolsJavaVersionIs5">
-        <value xml:lang="en">Note: certain things only work in Java 5. Java Version is ${javaVer}; is Java 5 ?</value>
-        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: ${javaVer}; c'est Java 5 ?</value>
-        <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è ${javaVer}; è Java 5 ?</value>
-        <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่${javaVer};  Java 5 ?</value>
-        <value xml:lang="zh">注意：某些程序只能运行在Java 5下。Java版本是${javaVer}；是Java 5吗？</value>
     </property>
     <property key="WebtoolsNotePerformanceResultsMayVary">
         <value xml:lang="en">NOTE: These performance results may vary a great deal for different databases, JDBC drivers, JTA implementations (transaction managers), connection pools, local vs. remote deployment configurations, and hardware (app server hardware, database server hardware, network connections).</value>
@@ -2788,9 +2796,9 @@
     </property>
     <property key="WebtoolsServiceEngineTools">
         <value xml:lang="de">"Dienste-Maschine"</value>
-        <value xml:lang="en">Service Engine Tools</value>
+        <value xml:lang="en">Service Engine</value>
         <value xml:lang="fr">Outils du moteur de services</value>
-        <value xml:lang="it">Strumenti per Engine Servizi</value>
+        <value xml:lang="it">Engine Servizi</value>
         <value xml:lang="ro">Instrumente pentru Engin Service</value>
         <value xml:lang="th">เครื่องมือ Service Engine </value>
         <value xml:lang="zh">服务引擎工具</value>
@@ -2933,6 +2941,10 @@
         <value xml:lang="it">Tipo SQL</value>
         <value xml:lang="th">ประเภทของ SQL</value>
         <value xml:lang="zh">SQL类型</value>
+    </property>
+    <property key="WebtoolsStatistics">
+        <value xml:lang="en">Statistics</value>
+        <value xml:lang="it">Statistiche</value>
     </property>
     <property key="WebtoolsStatsAvg">
         <value xml:lang="de">Mittelwert</value>

@@ -571,7 +571,7 @@ under the License.
 
     <view-map name="EntityPerformanceTest" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityPerformanceTest"/>
 
-    <view-map name="ServiceLog" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceLog"/>
+    <view-map name="ServiceLog" type="screen" page="component://webtools/widget/LogScreens.xml#ServiceLog"/>
     <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
     <view-map name="FindJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJob"/>
     <view-map name="serviceResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceResult"/>
