@@ -797,7 +797,7 @@
         <value xml:lang="de">Alle Fremdschlüssel-Indices erstellen/löschen</value>
         <value xml:lang="en">Create/Remove All Foreign Key Indices</value>
         <value xml:lang="fr">Créer/Enlever tous les indices de clés étrangères</value>
-        <value xml:lang="it">Creare/Rimuovere Tutti gli Indici di Chiave Esterna</value>
+        <value xml:lang="it">Creare/rimuovere tutti gli indici di chiave esterna</value>
         <value xml:lang="th">สร้าง/ลบ Foreign Key Indices ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部外键索引</value>
     </property>
@@ -805,7 +805,7 @@
         <value xml:lang="de">Alle Fremdschlüssel erstellen/löschen</value>
         <value xml:lang="en">Create/Remove All Foreign Keys</value>
         <value xml:lang="fr">Créer/Enlever toutes les clés étrangères</value>
-        <value xml:lang="it">Creare/Rimuovere Tutte le Chiavi Esterne</value>
+        <value xml:lang="it">Creare/rimuovere tutte le chiavi esterne</value>
         <value xml:lang="th">ล้าง/ลบ Foreign Key ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部外键</value>
     </property>
@@ -813,7 +813,7 @@
         <value xml:lang="de">Alle Primärschlüssel erstellen/löschen</value>
         <value xml:lang="en">Create/Remove All Primary Keys</value>
         <value xml:lang="fr">Créer/Enlever toutes clés primaires</value>
-        <value xml:lang="it">Creare/Rimuovere Tutte le Chiave Primarie</value>
+        <value xml:lang="it">Creare/rimuovere tutte le chiave primarie</value>
         <value xml:lang="th">ล้าง/ลบ Primary Keys ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部主键</value>
     </property>
@@ -821,7 +821,7 @@
         <value xml:lang="de">Primärschlüssel erstellen/löschen</value>
         <value xml:lang="en">Create/Remove Primary Key</value>
         <value xml:lang="fr">Créer/Enlever la clé primaire</value>
-        <value xml:lang="it">Creare/Rimuovere Chiave Primaria</value>
+        <value xml:lang="it">Creare/rimuovere chiave primaria</value>
         <value xml:lang="th">ล้าง/ลบ Primary Keys</value>
         <value xml:lang="zh">创建/删除主键</value>
     </property>
@@ -837,7 +837,7 @@
         <value xml:lang="de">Defintion: Dateiname oder URL</value>
         <value xml:lang="en">Definition Filename or URL</value>
         <value xml:lang="fr">Définition : nom de fichier ou URL</value>
-        <value xml:lang="it">Definizione Nome File o URL</value>
+        <value xml:lang="it">Definizione: nome file o URL</value>
         <value xml:lang="th">คำอธิบายความหมายของชื่อไฟล์หรือ URL</value>
         <value xml:lang="zh">定义文件名或网址</value>
     </property>
@@ -845,7 +845,7 @@
         <value xml:lang="de">Defintion des Datendatei-Namens</value>
         <value xml:lang="en">Data File Definition Name</value>
         <value xml:lang="fr">Définition du nom du fichier de données</value>
-        <value xml:lang="it">Definizione Nome File di Dati</value>
+        <value xml:lang="it">Definizione nome file di dati</value>
         <value xml:lang="th">กำหนดชื่อไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件定义名称</value>
     </property>
@@ -853,7 +853,7 @@
         <value xml:lang="de">Entitätendatei gespeichert als: </value>
         <value xml:lang="en">Entity File saved to: </value>
         <value xml:lang="fr">Fichier d'entité(s) sauvé sous : </value>
-        <value xml:lang="it">File Entità salvati in: </value>
+        <value xml:lang="it">File entità salvati in: </value>
         <value xml:lang="th">ไฟล์ที่บันทึก:</value>
         <value xml:lang="zh">实体文件保存到：</value>
     </property>
@@ -861,7 +861,7 @@
         <value xml:lang="de">Arbeiten mit Datendateien</value>
         <value xml:lang="en">Work With Data Files</value>
         <value xml:lang="fr">Travailler avec des fichiers de données</value>
-        <value xml:lang="it">Lavora Con Files di Dati</value>
+        <value xml:lang="it">Lavora con files di dati</value>
         <value xml:lang="th">ทำงานด้วยไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件</value>
     </property>
@@ -869,7 +869,7 @@
         <value xml:lang="de">Auf dieser Seite können Sie Daten aus Datendateien ansehen und exportieren, die mit der konfigurierbaren Dateianalyse bearbeitet wurden</value>
         <value xml:lang="en">This page is used to view and export data from data files parsed by the configurable data file parser </value>
         <value xml:lang="fr">Cette page est utilisée pour visualiser et exporter des données à partir des fichiers de données analysés par l'analyseur configurable de fichier de données</value>
-        <value xml:lang="it">Questa pagina è usata per visualizzare e esportare i dati da file di dati parser dal configurabile file parser data</value>
+        <value xml:lang="it">Questa pagina è usata per visualizzare ed esportare dati su file mediante il parser di dati configurabile</value>
         <value xml:lang="th">หน้านี้ใช้ตรวจสอบและส่งออกข้อมูลจากการวิเคราะห์ไฟล์ข้อมูลโดยวิเคราะห์โครงสร้างประโยคขององค์ประกอบของไฟล์</value>
         <value xml:lang="zh">这个页面是通过配置的数据文件解析程序从数据文件浏览和导出数据</value>
     </property>
@@ -877,7 +877,7 @@
         <value xml:lang="de">Dateiname oder URL</value>
         <value xml:lang="en">Data File Name or URL</value>
         <value xml:lang="fr">Nom de fichier de données ou URL</value>
-        <value xml:lang="it">Nome File di Dati o URL</value>
+        <value xml:lang="it">Nome file dati o URL</value>
         <value xml:lang="th">ไฟล์ข้อมูลชื่อหรือ URL</value>
         <value xml:lang="zh">数据文件名称或网址</value>
     </property>
@@ -885,7 +885,7 @@
         <value xml:lang="de">Datendatei gespeichert in:</value>
         <value xml:lang="en">Data File saved to: </value>
         <value xml:lang="fr">Fichier de données sauvé sous : </value>
-        <value xml:lang="it">File di Dati salvati in: </value>
+        <value xml:lang="it">File dati salvati in: </value>
         <value xml:lang="th">บันทึกไฟล์: </value>
         <value xml:lang="zh">数据文件保存到：</value>
     </property>
@@ -893,7 +893,7 @@
         <value xml:lang="de">Datendatei Tools</value>
         <value xml:lang="en">Data File Tools</value>
         <value xml:lang="fr">Outils de fichier de données</value>
-        <value xml:lang="it">Strumenti per File Dati</value>
+        <value xml:lang="it">Strumenti per file dati</value>
         <value xml:lang="ro">Instrumente pentru File Dati</value>
         <value xml:lang="th">เครื่องมือไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件工具</value>
@@ -902,7 +902,7 @@
         <value xml:lang="de">Ist URI/URL?</value>
         <value xml:lang="en">Is URL?</value>
         <value xml:lang="fr">Est une URL ? </value>
-        <value xml:lang="it">è URL?</value>
+        <value xml:lang="it">è una URL?</value>
         <value xml:lang="th">เป็น URL?</value>
         <value xml:lang="zh">是网址吗？</value>
     </property>
@@ -910,7 +910,7 @@
         <value xml:lang="de">Speichern in eine Datei</value>
         <value xml:lang="en">Save to File</value>
         <value xml:lang="fr">Sauver dans un fichier</value>
-        <value xml:lang="it">Salva su File</value>
+        <value xml:lang="it">Salva su file</value>
         <value xml:lang="th">บันทึกที่ไฟล์</value>
         <value xml:lang="zh">保存到文件</value>
     </property>
@@ -918,7 +918,7 @@
         <value xml:lang="de">Speichern in eine Entity-XML-Datei</value>
         <value xml:lang="en">Save to Entity XML File</value>
         <value xml:lang="fr">Sauver dans un  fichier XML d'entité(s)</value>
-        <value xml:lang="it">Salva su File XML Entità </value>
+        <value xml:lang="it">Salva su file entità XML</value>
         <value xml:lang="th">บันทึกที่ไฟล์ Entity XML</value>
         <value xml:lang="zh">保存到实体XML文件</value>
     </property>
@@ -943,7 +943,7 @@
         <value xml:lang="de">Standard Entitätsname</value>
         <value xml:lang="en">Default Entity Name</value>
         <value xml:lang="fr">Nom par défaut de l'entité</value>
-        <value xml:lang="it">Nome Entità Default</value>
+        <value xml:lang="it">Nome entità Default</value>
         <value xml:lang="ro">Nume Entitate Default</value>
         <value xml:lang="th">ชื่อเรื่มต้นของ Entity</value>
         <value xml:lang="zh">缺省实体名称</value>
@@ -952,7 +952,7 @@
         <value xml:lang="de">Dateien nachher löschen?</value>
         <value xml:lang="en">Delete Files Afterwards?</value>
         <value xml:lang="fr">Effacer les fichiers ensuite ?</value>
-        <value xml:lang="it">Cancellare i Files Successivamente?</value>
+        <value xml:lang="it">Cancellare i files successivamente?</value>
         <value xml:lang="ro">Stergere Files in Continuare?</value>
         <value xml:lang="th">คุณต้องการลบไฟล์ในครั้งต่อไป?</value>
         <value xml:lang="zh">删除后面的文件?</value>
@@ -961,7 +961,7 @@
         <value xml:lang="de">Diesen Wert löschen</value>
         <value xml:lang="en">Delete This Value</value>
         <value xml:lang="fr">Effacer cette valeur</value>
-        <value xml:lang="it">Cancella Questo Valore</value>
+        <value xml:lang="it">Cancella questo valore</value>
         <value xml:lang="ro">Sterge Aceasta Valore</value>
         <value xml:lang="th">ลบค่านี้</value>
         <value xml:lang="zh">删除这个值</value>
@@ -970,7 +970,7 @@
         <value xml:lang="de">Dispatcher-Name</value>
         <value xml:lang="en">Dispatcher Name</value>
         <value xml:lang="fr">Nom du répartiteur (dispatcher)</value>
-        <value xml:lang="it">Nome Dispatcher</value>
+        <value xml:lang="it">Nome dispatcher</value>
         <value xml:lang="ro">Nume Dispatcher</value>
         <value xml:lang="th">ชื่อ Dispatcher</value>
         <value xml:lang="zh">执行程序名称</value>
@@ -1003,7 +1003,7 @@
         <value xml:lang="de">Engine-Name</value>
         <value xml:lang="en">Engine Name</value>
         <value xml:lang="fr">Nom de moteur</value>
-        <value xml:lang="it">Nome Engine</value>
+        <value xml:lang="it">Nome engine</value>
         <value xml:lang="ro">Nume Engine</value>
         <value xml:lang="th">ชื่อ Engine</value>
         <value xml:lang="zh">引擎名称</value>
@@ -1020,7 +1020,7 @@
         <value xml:lang="de">Entitäten - alphabetisch</value>
         <value xml:lang="en">Entities - Alphabetical</value>
         <value xml:lang="fr">Entités - Alphabétique</value>
-        <value xml:lang="it">Entità - Ordine Alfabetico</value>
+        <value xml:lang="it">Entità - Ordine alfabetico</value>
         <value xml:lang="th">Entities - ที่เรียงตามลำดับอักษร</value>
         <value xml:lang="zh">实体 - 按字母顺序</value>
     </property>
@@ -1035,14 +1035,14 @@
     <property key="WebtoolsEntityCretePermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung, eine Entität zu erstellen</value>
         <value xml:lang="en">You do not have permission to create a entity</value>
-        <value xml:lang="it">Tu non hai il permesso di creare un'entità</value>
+        <value xml:lang="it">Non hai il permesso di creare un'entità</value>
         <value xml:lang="zh">你没有创建实体的权限</value>
     </property>
     <property key="WebtoolsEntityCurrentValue">
         <value xml:lang="de">Aktueller Wert der Entität</value>
         <value xml:lang="en">Entity Current Value</value>
         <value xml:lang="fr">Valeur courante d'entité</value>
-        <value xml:lang="it">Valori Attuali Entità</value>
+        <value xml:lang="it">Valore attuale entità</value>
         <value xml:lang="th">ค่า Entity ในปัจจุบัน </value>
         <value xml:lang="zh">实体当前值</value>
     </property>
@@ -1050,7 +1050,7 @@
         <value xml:lang="de">Entitäten Datenwartung</value>
         <value xml:lang="en">Entity Data Maintenance</value>
         <value xml:lang="fr">Maintenance des données d'entité</value>
-        <value xml:lang="it">Manutenzione Dati Entità</value>
+        <value xml:lang="it">Manutenzione dati entità</value>
         <value xml:lang="ro">Intretinere Date Entitate</value>
         <value xml:lang="th">การดูแลรักษาข้อมูล Entity</value>
         <value xml:lang="zh">实体数据维护</value>
@@ -1067,7 +1067,7 @@
         <value xml:lang="de">Wert ändern</value>
         <value xml:lang="en">Edit Value</value>
         <value xml:lang="fr">Modifier la valeur</value>
-        <value xml:lang="it">Aggiorna Valori</value>
+        <value xml:lang="it">Aggiorna valore</value>
         <value xml:lang="th">แก้ไขค่า </value>
         <value xml:lang="zh">编辑值</value>
     </property>
@@ -1075,7 +1075,7 @@
         <value xml:lang="de">"Daten-Maschine"</value>
         <value xml:lang="en">Entity Engine</value>
         <value xml:lang="fr">Moteur d'entité</value>
-        <value xml:lang="it">Engine Entità</value>
+        <value xml:lang="it">Engine entità</value>
         <value xml:lang="ro">Engine Entitate</value>
         <value xml:lang="th">Entity Engine</value>
         <value xml:lang="zh">实体引擎</value>
@@ -1084,7 +1084,7 @@
         <value xml:lang="de">Performancetests für die "Daten-Maschine"</value>
         <value xml:lang="en">Entity Engine Performance Tests</value>
         <value xml:lang="fr">Tests de performance du moteur d'entité</value>
-        <value xml:lang="it">Engine Entità Test Prestazioni</value>
+        <value xml:lang="it">Test prestazioni engine entità</value>
         <value xml:lang="th">ทดสอบการดำเนินการ Entity Engine </value>
         <value xml:lang="zh">实体引擎性能测试</value>
     </property>
@@ -1092,7 +1092,7 @@
         <value xml:lang="de">"Daten Maschine"</value>
         <value xml:lang="en">Entity Engine Tools</value>
         <value xml:lang="fr">Outils du moteur d'entité</value>
-        <value xml:lang="it">Strumenti per Engine Entità</value>
+        <value xml:lang="it">Strumenti per engine Entità</value>
         <value xml:lang="ro">Instrumente pentru Entitate Engine </value>
         <value xml:lang="th">เครื่องมือของ Entity Engine</value>
         <value xml:lang="zh">实体引擎工具</value>
@@ -1101,7 +1101,7 @@
         <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity Name</value>
         <value xml:lang="fr">Nom d'entité</value>
-        <value xml:lang="it">Nome Entità</value>
+        <value xml:lang="it">Nome entità</value>
         <value xml:lang="ro">Nume Entitate</value>
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="zh">实体名称</value>
@@ -1110,14 +1110,14 @@
         <value xml:lang="de">Entitäten</value>
         <value xml:lang="en">Entity Names</value>
         <value xml:lang="fr">Noms d'entité</value>
-        <value xml:lang="it">Nomi Entità</value>
+        <value xml:lang="it">Nomi entità</value>
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="zh">实体名称</value>
     </property>
     <property key="WebtoolsEntityPackages">
         <value xml:lang="en">Entity Packages</value>
         <value xml:lang="fr">Paquets d'entité</value>
-        <value xml:lang="it">Pacchetti Entità</value>
+        <value xml:lang="it">Pacchetti entità</value>
         <value xml:lang="th">Entity Packages</value>
         <value xml:lang="zh">实体包</value>
     </property>
@@ -1125,7 +1125,7 @@
         <value xml:lang="de">Entitätenreferenz</value>
         <value xml:lang="en">Entity Reference</value>
         <value xml:lang="fr">Liste des entités</value>
-        <value xml:lang="it">Riferimenti Entità</value>
+        <value xml:lang="it">Riferimenti entità</value>
         <value xml:lang="th">อ้างอิง Entity </value>
         <value xml:lang="zh">实体引用</value>
     </property>
@@ -1133,7 +1133,7 @@
         <value xml:lang="de">Diagramm Entitätenreferenz</value>
         <value xml:lang="en">Entity Reference Chart</value>
         <value xml:lang="fr">Diagramme de référence d'entité</value>
-        <value xml:lang="it">Tabella Riferimenti Entità</value>
+        <value xml:lang="it">Diagramma riferimenti entità</value>
         <value xml:lang="th">ตารางอ้างอิง Entity </value>
         <value xml:lang="zh">实体引用图表</value>
     </property>
@@ -1141,14 +1141,14 @@
         <value xml:lang="de">Interaktive Version</value>
         <value xml:lang="en">Interactive Version</value>
         <value xml:lang="fr">Version interactive</value>
-        <value xml:lang="it">Versione Interattiva</value>
+        <value xml:lang="it">Versione interattiva</value>
         <value xml:lang="zh">交互版本</value>
     </property>
     <property key="WebtoolsEntityReferenceMainPage">
         <value xml:lang="de">Entitätenreferenz Hauptseite</value>
         <value xml:lang="en">Entity Reference Main Page</value>
         <value xml:lang="fr">Page principale des références d'entité</value>
-        <value xml:lang="it">Pagina Principale Riferimenti Entità</value>
+        <value xml:lang="it">Pagina principale riferimenti entità</value>
         <value xml:lang="th">หน้าหลัก Entity Reference</value>
         <value xml:lang="zh">实体引用首页</value>
     </property>
@@ -1156,7 +1156,7 @@
         <value xml:lang="de">Entitätenreferenz - PDF</value>
         <value xml:lang="en">Entity Reference - PDF</value>
         <value xml:lang="fr">Liste des entité - PDF</value>
-        <value xml:lang="it">Riferimenti Entità - PDF</value>
+        <value xml:lang="it">Lista entità - PDF</value>
         <value xml:lang="th">Entity อ้างอิง - PDF</value>
         <value xml:lang="zh">实体引用 - PDF</value>
     </property>
@@ -1164,7 +1164,7 @@
         <value xml:lang="de">Statische Version</value>
         <value xml:lang="en">Static Version</value>
         <value xml:lang="fr">Version statique</value>
-        <value xml:lang="it">Versione Statica</value>
+        <value xml:lang="it">Versione statica</value>
         <value xml:lang="th">เวอร์ชั่นคงที่</value>
         <value xml:lang="zh">静态版本</value>
     </property>
@@ -1180,7 +1180,7 @@
         <value xml:lang="de">Status der Entitätensynchronisierung</value>
         <value xml:lang="en">Entity Sync Status</value>
         <value xml:lang="fr">Statut de synchro. des entités</value>
-        <value xml:lang="it">Stato Sincronizzazioni Entità</value>
+        <value xml:lang="it">Stato sincronizzazioni entità</value>
         <value xml:lang="ro">Stat Sincronizatii Entitate</value>
         <value xml:lang="th">สถานะของ Entity Sync </value>
         <value xml:lang="zh">实体同步状态</value>
@@ -1189,7 +1189,7 @@
         <value xml:lang="de">Entität ansehen</value>
         <value xml:lang="en">View Entity</value>
         <value xml:lang="fr">Vue d'entité</value>
-        <value xml:lang="it">Entità Vista</value>
+        <value xml:lang="it">Entità vista</value>
         <value xml:lang="ro">Entitate Vedere</value>
         <value xml:lang="th">แสดง Entity </value>
         <value xml:lang="zh">浏览实体 </value>
@@ -1198,7 +1198,7 @@
         <value xml:lang="de">Entität XML Tools</value>
         <value xml:lang="en">Entity XML Tools</value>
         <value xml:lang="fr">Outils XML d'entité</value>
-        <value xml:lang="it">Strumenti per Entità XML</value>
+        <value xml:lang="it">Strumenti XML per entità</value>
         <value xml:lang="ro">Instrumente pentru Entitatea XML</value>
         <value xml:lang="th">เครื่องมือ Entity XML </value>
         <value xml:lang="zh">实体XML工具</value>
@@ -1207,6 +1207,7 @@
         <value xml:lang="de">Umgebungsname</value>
         <value xml:lang="en">Env Name</value>
         <value xml:lang="fr">Nom de var. d'env.</value>
+        <value xml:lang="it">Nome var. amb.</value>
     </property>
     <property key="WebtoolsErrorLogLevel">
         <value xml:lang="de">Fehler</value>
@@ -1221,7 +1222,7 @@
         <value xml:lang="de">Im Level "Fehler" werden Fehlerereignisse geschrieben, wobei die Anwendung noch weiter laufen kann.</value>
         <value xml:lang="en">The Error level designates error events that might still allow the application to continue running.</value>
         <value xml:lang="fr">Le niveau "Error" désigne des événements d'erreur qui pourraient encore permettre à l'application de continuer de fonctionner.</value>
-        <value xml:lang="it">Il livello Errore designa eventi di errori che potrebbero ancora permettere all'applicazione di continuare l'esecuzione.</value>
+        <value xml:lang="it">Il livello "Errore" designa eventi di errori che potrebbero ancora permettere all'applicazione di continuare l'esecuzione.</value>
         <value xml:lang="ro">Niveul Eroare prezinta erori care ar putea  sa  permita aplictiei sa continuie executia.</value>
         <value xml:lang="th">เกิดข้อผิดพลาดในการระบุข้อมูลกรุณากดยอมรับเพื่อดำเนินการต่อไป</value>
         <value xml:lang="zh">错误级别会指出那些仍然允许应用程序继续执行的错误事件。</value>
@@ -1230,7 +1231,7 @@
         <value xml:lang="de">Ereignisname</value>
         <value xml:lang="en">Event name</value>
         <value xml:lang="fr">Nom d'évènement</value>
-        <value xml:lang="it">Nome Evento</value>
+        <value xml:lang="it">Nome evento</value>
         <value xml:lang="ro">Nume Eveniment</value>
         <value xml:lang="th">ชื่อเหตุการณ์</value>
         <value xml:lang="zh">事件名称</value>
@@ -1239,7 +1240,7 @@
         <value xml:lang="de">Ablaufzeitpunkt</value>
         <value xml:lang="en">Expire Time</value>
         <value xml:lang="fr">Temps expiré</value>
-        <value xml:lang="it">Tempo Scaduto</value>
+        <value xml:lang="it">Tempo scaduto</value>
         <value xml:lang="ro">Timp Expirat</value>
         <value xml:lang="th">เวลาที่หมดอายุ</value>
         <value xml:lang="zh">过期时间</value>
@@ -1265,7 +1266,7 @@
         <value xml:lang="de">XML Export aus der Datenquelle</value>
         <value xml:lang="en">XML Export from DataSource(s)</value>
         <value xml:lang="fr">Export XML depuis les sources de données</value>
-        <value xml:lang="it">Esporta con la Sorgente Dati da XML</value>
+        <value xml:lang="it">Esportazione XML da Datasource</value>
         <value xml:lang="ro">Exporta Sursa Date in XML</value>
         <value xml:lang="th">XML ที่มาจากแหล่งข้อมูล</value>
         <value xml:lang="zh">从数据源导出XML</value>
@@ -1282,7 +1283,7 @@
         <value xml:lang="de">FK Name</value>
         <value xml:lang="en">FK Name</value>
         <value xml:lang="fr">Nom de clé étrangère</value>
-        <value xml:lang="it">Nome Chiave Esterna</value>
+        <value xml:lang="it">Nome chiave esterna</value>
         <value xml:lang="ro">Nume Cheie Externa</value>
         <value xml:lang="th">ชื่อ FK</value>
         <value xml:lang="zh">外键名称</value>
@@ -1300,7 +1301,7 @@
         <value xml:lang="de">Der Level "Fatal" bezeichnet sehr ernste Fehlerereignisse, die zum Absturz der Anwendung führen.</value>
         <value xml:lang="en">The Fatal level designates very severe error events that will presumably lead the application to abort.</value>
         <value xml:lang="fr">Le niveau "Fatal" désigne des événements d'erreur très graves qui forceront vraisemblablement l'application à s'arrêter.</value>
-        <value xml:lang="it">Il livello Fatale designa molti eventi di errori che presubibilmente l'applicazione terminerà.</value>
+        <value xml:lang="it">Il livello "Fatale" designa molti eventi di errori che presubibilmente l'applicazione terminerà.</value>
         <value xml:lang="ro">Nivelul Fatal prezinta multe erori din care cauza   aplicatia va fi terminata.</value>
         <value xml:lang="th">ข้อผิดพลาดระดับร้ายแรงโดยผลที่เกิดขึ้นนั้นจะเป็นไปได้ที่จะก่อให้เกิดความล้มเหลว</value>
         <value xml:lang="zh">严重错误级别会指出那些可能导致应用程序异常中断的严重错误事件。</value>
@@ -1309,7 +1310,7 @@
         <value xml:lang="de">Feldname</value>
         <value xml:lang="en">Field Name</value>
         <value xml:lang="fr">Nom de champ</value>
-        <value xml:lang="it">Nome Campo</value>
+        <value xml:lang="it">Nome campo</value>
         <value xml:lang="ro">Nume Camp</value>
         <value xml:lang="th">ชื่อฟิลด์</value>
         <value xml:lang="zh">域名称</value>
@@ -1345,7 +1346,7 @@
         <value xml:lang="de">In allen Datensätzen suchen</value>
         <value xml:lang="en">Find All Records</value>
         <value xml:lang="fr">Rechercher tous les enregistrements</value>
-        <value xml:lang="it">Ricerca Tutti i Records</value>
+        <value xml:lang="it">Ricerca tutti i records</value>
         <value xml:lang="ro">Cauta Toate Recordurile</value>
         <value xml:lang="th">ค้นหาข้อความที่บันทึกไว้ทั้งหมด</value>
         <value xml:lang="zh">查找全部记录</value>
@@ -1354,7 +1355,7 @@
         <value xml:lang="de">Datensatz suchen</value>
         <value xml:lang="en">Find Record</value>
         <value xml:lang="fr">Rechercher le disque</value>
-        <value xml:lang="it">Ricerca Record</value>
+        <value xml:lang="it">Ricerca record</value>
         <value xml:lang="ro">Cauta Record</value>
         <value xml:lang="th">ค้นหาข้อมูลที่บันทึก</value>
         <value xml:lang="zh">查找记录</value>
@@ -1363,7 +1364,7 @@
         <value xml:lang="de">Werte suchen</value>
         <value xml:lang="en">Find Values</value>
         <value xml:lang="fr">Rechercher les valeurs</value>
-        <value xml:lang="it">Ricerca Valori</value>
+        <value xml:lang="it">Ricerca valori</value>
         <value xml:lang="ro">Cauta Valori</value>
         <value xml:lang="th">ค้นหาค่า</value>
         <value xml:lang="zh">查找值</value>
@@ -1372,7 +1373,7 @@
         <value xml:lang="de">Suchergebnisse aus Werten</value>
         <value xml:lang="en">Results of Search</value>
         <value xml:lang="fr">Résultats de recherche</value>
-        <value xml:lang="it">Risultati della Ricerca</value>
+        <value xml:lang="it">Risultati della ricerca</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
         <value xml:lang="zh">搜索结果</value>
     </property>
@@ -1380,7 +1381,7 @@
         <value xml:lang="de">Fremdschlüssel-Index</value>
         <value xml:lang="en">Fk-Idx</value>
         <value xml:lang="fr">Indice-Clè étrangère</value>
-        <value xml:lang="it">Indice-Chiave Esterna</value>
+        <value xml:lang="it">Indice-chiave esterna</value>
         <value xml:lang="th">Fk-Idx</value>
         <value xml:lang="zh">外键-索引</value>
     </property>
@@ -1388,7 +1389,7 @@
         <value xml:lang="de">Fremdschlüssel</value>
         <value xml:lang="en">Fks</value>
         <value xml:lang="fr">Clè étrangères</value>
-        <value xml:lang="it">Chiave Esterne</value>
+        <value xml:lang="it">Chiave esterne</value>
         <value xml:lang="th">Fks</value>
         <value xml:lang="zh">外键</value>
     </property>
@@ -1396,7 +1397,7 @@
         <value xml:lang="de">Für Entitäten</value>
         <value xml:lang="en">For Entity</value>
         <value xml:lang="fr">Pour l'entité</value>
-        <value xml:lang="it">Per Entità</value>
+        <value xml:lang="it">Per entità</value>
         <value xml:lang="ro">Pentru Entitati</value>
         <value xml:lang="th">สำหรับ Entity</value>
         <value xml:lang="zh">实体</value>
@@ -1457,7 +1458,7 @@
         <value xml:lang="de">Allgemeine Java Threads</value>
         <value xml:lang="en">General Java Threads</value>
         <value xml:lang="fr">Threads générale de Java</value>
-        <value xml:lang="it">Generale Threads Java</value>
+        <value xml:lang="it">Threads Java generali</value>
         <value xml:lang="th">General Java Threads</value>
         <value xml:lang="zh">通用Java线程</value>
     </property>
@@ -1473,7 +1474,7 @@
         <value xml:lang="de">Gruppenname</value>
         <value xml:lang="en">Group Name</value>
         <value xml:lang="fr">Nom de groupe</value>
-        <value xml:lang="it">Nome Gruppo</value>
+        <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="th">ชื่อกลุ่ม</value>
         <value xml:lang="zh">组名称</value>
     </property>
@@ -1490,7 +1491,7 @@
         <value xml:lang="de">Implementierte Dienste</value>
         <value xml:lang="en">Implemented Services</value>
         <value xml:lang="fr">Services Implementés</value>
-        <value xml:lang="it">Servizi Implementati</value>
+        <value xml:lang="it">Servizi implementati</value>
         <value xml:lang="ro">Servicii Implementate</value>
         <value xml:lang="th">เครื่องมือ Services</value>
         <value xml:lang="zh">已实现的服务</value>
@@ -1512,7 +1513,7 @@
         <value xml:lang="de">Datei importieren</value>
         <value xml:lang="en">Import File</value>
         <value xml:lang="fr">Importer le fichier</value>
-        <value xml:lang="it">Importa File</value>
+        <value xml:lang="it">Importa file</value>
         <value xml:lang="ro">Importa File</value>
         <value xml:lang="th">นำเข้าไฟล์</value>
         <value xml:lang="zh">导入文件</value>
@@ -1521,7 +1522,7 @@
         <value xml:lang="de">Text importieren</value>
         <value xml:lang="en">Import Text</value>
         <value xml:lang="fr">Importer le texte</value>
-        <value xml:lang="it">Importa Testo</value>
+        <value xml:lang="it">Importa testo</value>
         <value xml:lang="ro">Importa Text</value>
         <value xml:lang="th">นำเข้าข้อความ</value>
         <value xml:lang="zh">导入文本</value>
@@ -1530,7 +1531,7 @@
         <value xml:lang="de">XML-Import in DataSource(n)</value>
         <value xml:lang="en">XML Import to DataSource(s)</value>
         <value xml:lang="fr">Import XML vers la source de données</value>
-        <value xml:lang="it">Importa con la Sorgente Dati da XML</value>
+        <value xml:lang="it">Importazione XML in Datasource</value>
         <value xml:lang="ro">Importa Sursa de Date din XML</value>
         <value xml:lang="th">นำเข้า XML ไปยังแหล่งข้อมูล</value>
         <value xml:lang="zh">把XML导入到数据源</value>
@@ -1547,7 +1548,7 @@
     <property key="WebtoolsImportantLogLevelTooltip">
         <value xml:lang="en">The Important level designates informational messages that highlight the progress of the application at coarse-grained level.</value>
         <value xml:lang="fr">Le niveau "Important" désigne les messages d'information qui reflètent grosso-modo la progression de l'application.</value>
-        <value xml:lang="it">Il livello Importante designa messaggi informativi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
+        <value xml:lang="it">Il livello "Importante" designa messaggi informativi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
         <value xml:lang="ro">Nivelul Important desemneaza mesaje informative ce evidentiaza statul de executie a aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">重要级别会粗粒地指出那些突出应用程序进行情况的信息。 </value>
@@ -1555,7 +1556,7 @@
     <property key="WebtoolsInParameters">
         <value xml:lang="en">In parameters</value>
         <value xml:lang="fr">Paramètres en entrée</value>
-        <value xml:lang="it">Parametri in Ingresso</value>
+        <value xml:lang="it">Parametri in ingresso</value>
         <value xml:lang="ro">Parametri de Intrare</value>
         <value xml:lang="th">ค่าตัวแปร</value>
         <value xml:lang="zh">在参数中</value>
@@ -1577,7 +1578,7 @@
     <property key="WebtoolsInduceModelXMLFromDatabase">
         <value xml:lang="en">Induce Model XML from Database</value>
         <value xml:lang="fr">Induire le modèle XML depuis la base de données</value>
-        <value xml:lang="it">Induci Modello XML dal Database</value>
+        <value xml:lang="it">Induci modello XML dal Database</value>
         <value xml:lang="ro">Induce Modelul XML din Database</value>
         <value xml:lang="th">การดึง Model XML จากฐานข้อมูล</value>
         <value xml:lang="zh">从数据库引出模型XML</value>
@@ -1593,7 +1594,7 @@
     <property key="WebtoolsInfoLogLevelTooltip">
         <value xml:lang="en">The Info level designates informational messages that highlight the progress of the application at coarse-grained level.</value>
         <value xml:lang="fr">Le niveau "Info" désigne les messages qui montrentla progression de l'application à un niveau de détail assez grossier.</value>
-        <value xml:lang="it">Il livello Informativo designa messggi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
+        <value xml:lang="it">Il livello "Informativo" designa messggi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
         <value xml:lang="ro">Nivelul Informativ desemneaza mesaje ce evidentiaza statul de executie al aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">信息级别会粗粒地指出那些突出应用程序进行情况的信息。</value>
@@ -1678,7 +1679,7 @@
     <property key="WebtoolsJobList">
         <value xml:lang="en">Job List</value>
         <value xml:lang="fr">Liste des jobs</value>
-        <value xml:lang="it">Lista Lavori</value>
+        <value xml:lang="it">Lista lavori</value>
         <value xml:lang="ro">Lista Lucrari </value>
         <value xml:lang="th">รายชื่องาน</value>
         <value xml:lang="zh">任务列表</value>
