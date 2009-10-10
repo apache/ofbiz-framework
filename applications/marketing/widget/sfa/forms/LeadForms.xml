@@ -129,8 +129,8 @@ under the License.
     </form>
 
     <form name="QuickAddLead" type="single" target="quickAddLead">
-        <field name="firstName" title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
-        <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}*" widget-style="required"><text size="15"/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="groupName" title="${uiLabelMap.CommonGroup}"><text size="15"/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
