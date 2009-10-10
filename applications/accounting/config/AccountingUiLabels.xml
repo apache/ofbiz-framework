@@ -3814,7 +3814,7 @@
         <value xml:lang="ar">استعمله فقط إذا كان قابلا للتطبيق, يمكن استعمال نوع الصيانة بدلا منه</value>
         <value xml:lang="en">Only use if applicable, can use Maintenance Type instead</value>
         <value xml:lang="es">Solo usar si es aplicable, tambien puede usar Tipo de Mantenimiento</value>
-        <value xml:lang="fr">Si d'application, sinon utiliser le type de maintenance à la place</value>
+        <value xml:lang="fr">Si adéquat, sinon utiliser le type de maintenance à la place</value>
         <value xml:lang="hi_IN">यदि लागू हो तो ही उपयोग करें, रखरखाव प्रकार का उपयोग कर सकते हैं</value>
         <value xml:lang="it">Solamente usato se applicabile, può essere usato Tipo Manutenzione invece</value>
         <value xml:lang="nl">Alleen te gebruiken wanneer van toepassing. Gebruik anders 'Type onderhoud'.</value>
@@ -3826,7 +3826,7 @@
     <property key="AccountingFixedAssetMaintMessage3">
         <value xml:lang="ar">إذا حدد نموذج الصيانة مع صيانة السلعة, فإنه سيتم الوضع/إعادة الوضع آليا</value>
         <value xml:lang="en">If Maintenance Template is specified with Product Maintenance, this will be set/reset automatically</value>
-        <value xml:lang="fr">Si un schéma de maintenance est défini pour la maintenance du produit, ceci sera mis à jour automatiquement</value>
+        <value xml:lang="fr">Si un schéma de maintenance est défini pour le produit, ceci sera mis à jour automatiquement</value>
         <value xml:lang="hi_IN">यदि रखरखाव खाका उत्पाद रखरखाव के साथ निर्दिष्ट किया है, यह स्वतः स्थापित/पुनःस्थापित किया जाएगा</value>
         <value xml:lang="it">Se il Maintenance Template è specificato per la manutenzione prodotto, questo verrà impostato/azzerato automaticamente</value>
         <value xml:lang="nl">Als sjabloon onderhoud is gespecifieerd bij productonderhoud wordt dit automatisch gezet of herzet.</value>
