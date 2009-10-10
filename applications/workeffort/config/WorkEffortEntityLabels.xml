@@ -415,7 +415,7 @@
     </property>
     <property key="WorkEffortType.description.TASK_TEMPLATE">
         <value xml:lang="en">Project Task Template</value>
-        <value xml:lang="en">Modèle de tâche de projet</value>
+        <value xml:lang="fr">Modèle de tâche de projet</value>
         <value xml:lang="it">Compito progetto template</value>
         <value xml:lang="zh">项目任务模板</value>
     </property>
