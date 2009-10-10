@@ -1753,7 +1753,7 @@
     </property>
     <property key="SfaCreateContactFromVCard">
         <value xml:lang="en">Create from vCard</value>
-        <value xml:lang="fr">Créer depuis la vCard</value>
+        <value xml:lang="fr">Créer depuis une vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
         <value xml:lang="zh">从vCard创建</value>
     </property>
