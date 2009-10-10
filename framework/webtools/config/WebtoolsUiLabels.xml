@@ -91,7 +91,7 @@
     <property key="FormFieldTitle_keepRemoveInfoHours">
         <value xml:lang="en">Keep Remove Info Hours</value>
         <value xml:lang="fr">Maintenir le retrait des heures d'information</value>
-        <value xml:lang="it">Mantieni Orari Informazioni Rimosse</value>
+        <value xml:lang="it">Mantieni gli orari delle informazioni eliminate</value>
         <value xml:lang="ro">Mentine Orariul  Informatii Sterse </value>
         <value xml:lang="th">เก็บข้อมูลการลบชั่วโมง</value>
         <value xml:lang="zh">保持删除信息小时数</value>
@@ -100,7 +100,7 @@
         <value xml:lang="de">Letztes Startdatum Historie</value>
         <value xml:lang="en">Last History Start Date</value>
         <value xml:lang="fr">Dernier historique de date de départ</value>
-        <value xml:lang="it">Ultima Data Inizio Storia</value>
+        <value xml:lang="it">Ultima data inizio storia</value>
         <value xml:lang="ro">Ultima Data Inceput Istoric</value>
         <value xml:lang="th">เหตุการณ์สุดท้ายของวันที่เริ่มต้น</value>
         <value xml:lang="zh">上次历史记录启动日期</value>
@@ -109,7 +109,7 @@
         <value xml:lang="de">Letzte erfolgreiche Synchronisierung</value>
         <value xml:lang="en">Last Successful Synch Time</value>
         <value xml:lang="fr">Dernière réussite de temps synchro.</value>
-        <value xml:lang="it">Ultimo Orario Sincr. con Successo</value>
+        <value xml:lang="it">Ultimo orario sincr. con successo</value>
         <value xml:lang="ro">Ultimul Orariu Sincr. cu Succes</value>
         <value xml:lang="th">ผลสำเร็จสุดท้ายของเวลาที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="zh">上次成功同步时间</value>
@@ -118,7 +118,7 @@
         <value xml:lang="de">Maximale Zeit ohne Update</value>
         <value xml:lang="en">Max Running No Update Millis</value>
         <value xml:lang="fr">Fonctionnement maximum sans mise à jour millis.</value>
-        <value xml:lang="it">Massima Esecuzione con Nessun Aggiornamento Millis</value>
+        <value xml:lang="it">Massima esecuzione senza aggiornamento millis</value>
         <value xml:lang="ro">Maxima Executie cu Nici-o Actualizare Millis</value>
         <value xml:lang="th">การดำเนินการสูงสุดไม่มีการเปลี่ยนแปลงตามหนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">最大运行不更新毫秒数</value>
@@ -127,7 +127,7 @@
         <value xml:lang="de">Offline Synchronisationssplit [ms]</value>
         <value xml:lang="en">Offline Sync Split Millis</value>
         <value xml:lang="fr">Synch. divisée en différé millis.</value>
-        <value xml:lang="it">Sincr. Offline Split Millis</value>
+        <value xml:lang="it">Sincr. offline split millis</value>
         <value xml:lang="ro">Sincr. Offline Split Millis</value>
         <value xml:lang="th">ไม่สามารถติดต่อสิ่งที่เกิดขึ้นพร้อกันตามหนึ่งในพันของหนึ่งวินาทีได้</value>
         <value xml:lang="zh">离线同步分离毫秒数</value>
@@ -179,7 +179,7 @@
     <property key="FormFieldTitle_targetDelegatorName">
         <value xml:lang="en">Target Delegator Name</value>
         <value xml:lang="fr">Nom du délégateur cible</value>
-        <value xml:lang="it">Nome Delegator Destinazione</value>
+        <value xml:lang="it">Nome Delegator destinazione</value>
         <value xml:lang="ro">Nume Delegator Destinatie</value>
         <value xml:lang="th">ชื่อตัวแทนเป้าหมาย</value>
         <value xml:lang="zh">目标代表名称</value>
@@ -187,7 +187,7 @@
     <property key="FormFieldTitle_targetServiceName">
         <value xml:lang="en">Target Service Name</value>
         <value xml:lang="fr">Nom du service cible</value>
-        <value xml:lang="it">Nome Servizio Destinazione</value>
+        <value xml:lang="it">Nome servizio destinazione</value>
         <value xml:lang="ro">Nume Serviciu Destinatie</value>
         <value xml:lang="th">ชื่อบริการเป้าหมาย</value>
         <value xml:lang="zh">目标服务名称</value>
@@ -195,7 +195,7 @@
     <property key="FormFieldTitle_xmlFileName">
         <value xml:lang="en">Xml File Name</value>
         <value xml:lang="fr">Nom du dossier XML</value>
-        <value xml:lang="it">Nome File Xml</value>
+        <value xml:lang="it">Nome file XML</value>
         <value xml:lang="ro">Nume File Xml</value>
         <value xml:lang="th">ชื่อไฟล์ XML</value>
         <value xml:lang="zh">XML文件名</value>
@@ -212,7 +212,7 @@
     <property key="PageTitleEditUtilCache">
         <value xml:lang="en">Edit Util Cache</value>
         <value xml:lang="fr">Modifier le cache</value>
-        <value xml:lang="it">Aggiorna Cache</value>
+        <value xml:lang="it">Aggiorna cache</value>
         <value xml:lang="ro">Actualizeaza Cache</value>
         <value xml:lang="th">ซ่อนการแก้ไขข้อมูล</value>
         <value xml:lang="zh">编辑缓存</value>
@@ -225,7 +225,7 @@
     <property key="PageTitleEntityExport">
         <value xml:lang="en">XML Data Export</value>
         <value xml:lang="fr">Export de données XML</value>
-        <value xml:lang="it">Esporta i Dati in XML</value>
+        <value xml:lang="it">Esporta dati in XML</value>
         <value xml:lang="ro">Exporta Date in XML</value>
         <value xml:lang="th">ส่งออกข้อมูล xml</value>
         <value xml:lang="zh">XML数据导出</value>
@@ -233,7 +233,7 @@
     <property key="PageTitleEntityExportAll">
         <value xml:lang="en">XML Data Export All</value>
         <value xml:lang="fr">Exporter toutes les données XML</value>
-        <value xml:lang="it">Esporta Tutti i Dati in XML</value>
+        <value xml:lang="it">Esporta tutti i dati in XML</value>
         <value xml:lang="ro">Exporta Toate Datele in XML</value>
         <value xml:lang="th">ส่งออกข้อมูล xml ทั้งหมด</value>
         <value xml:lang="zh">XML数据导出全部</value>
@@ -241,7 +241,7 @@
     <property key="PageTitleEntityImport">
         <value xml:lang="en">XML Data Import</value>
         <value xml:lang="fr">Import de données XML</value>
-        <value xml:lang="it">Importa i Dati da XML</value>
+        <value xml:lang="it">Importa dati da XML</value>
         <value xml:lang="ro">Importa Datele din XML</value>
         <value xml:lang="th">นำเข้าข้อมูล xml</value>
         <value xml:lang="zh">XML数据导入</value>
@@ -249,7 +249,7 @@
     <property key="PageTitleEntityImportDir">
         <value xml:lang="en">XML Data Import Dir</value>
         <value xml:lang="fr">Import de données XML depuis un répertoire</value>
-        <value xml:lang="it">Importa i Dati da XML nella Directory</value>
+        <value xml:lang="it">Importa dati XML in directory</value>
         <value xml:lang="ro">Importa Datele din XML in Directory</value>
         <value xml:lang="th">นำเข้าข้อมูล xml ใน Directory</value>
         <value xml:lang="zh">XML数据导入目录 </value>
@@ -257,7 +257,7 @@
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="en">XML Data Import Readers</value>
         <value xml:lang="fr">Lecteurs d'import de données de XML</value>
-        <value xml:lang="it">Importa i Dati da XML Readers</value>
+        <value xml:lang="it">Importa dati XML mediante reader</value>
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
         <value xml:lang="zh">XML数据导入读取程序</value>
     </property>
@@ -265,7 +265,7 @@
         <value xml:lang="de">Entitäten SQL Prozessor</value>
         <value xml:lang="en">Entity SQL Processor</value>
         <value xml:lang="fr">Processeur d'entités SQL</value>
-        <value xml:lang="it">Processore SQL Entità</value>
+        <value xml:lang="it">Processore entità SQL</value>
         <value xml:lang="ro">Procesor Entitate SQL </value>
         <value xml:lang="th">ประมวลผลสิ่งที่มีใน SQL</value>
         <value xml:lang="zh">实体SQL处理程序</value>
@@ -275,7 +275,7 @@
         <value xml:lang="en">Entity Sync Status</value>
         <value xml:lang="es">Estado de la sincronización de las entidades</value>
         <value xml:lang="fr">Statut de la synchro. d'entité</value>
-        <value xml:lang="it">Stato Sincronizzazione Entità</value>
+        <value xml:lang="it">Stato sincronizzazione entità</value>
         <value xml:lang="ro">Stat Sincronizat Entitate</value>
         <value xml:lang="th">สถานะสิ่งที่มีอยู่</value>
         <value xml:lang="zh">实体同步状态</value>
@@ -284,7 +284,7 @@
         <value xml:lang="de">Job suchen</value>
         <value xml:lang="en">Find Job</value>
         <value xml:lang="fr">Rechercher un job</value>
-        <value xml:lang="it">Ricerca Lavori</value>
+        <value xml:lang="it">Ricerca lavori</value>
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="zh">查找任务</value>
     </property>
@@ -292,7 +292,7 @@
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
         <value xml:lang="fr">Page de maintenance des caches</value>
-        <value xml:lang="it">Pagina Manutenzione Cache</value>
+        <value xml:lang="it">Pagina manutenzione cache</value>
         <value xml:lang="ro">Pagina Intretinere Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษา</value>
         <value xml:lang="zh">缓存维护页面</value>
@@ -301,7 +301,7 @@
         <value xml:lang="de">Cache Elemente Wartungsseite</value>
         <value xml:lang="en">Cache Element Maintenance Page</value>
         <value xml:lang="fr">Page d'entretien d'éléments des caches</value>
-        <value xml:lang="it">Pagina Manutenzione Elementi Cache</value>
+        <value xml:lang="it">Pagina manutenzione elementi cache</value>
         <value xml:lang="ro">Pagina Intretinere Elemente Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษาอย่างละเอียด</value>
         <value xml:lang="zh">缓存元素维护页面</value>
@@ -310,7 +310,7 @@
         <value xml:lang="de">Job Liste</value>
         <value xml:lang="en">Job List</value>
         <value xml:lang="fr">Liste des jobs</value>
-        <value xml:lang="it">Lista Lavori</value>
+        <value xml:lang="it">Lista lavori</value>
         <value xml:lang="ro">Lista Lucrari</value>
         <value xml:lang="th">รายชื่องาน</value>
         <value xml:lang="zh">任务列表</value>
@@ -319,7 +319,7 @@
         <value xml:lang="de">Log Konfiguration</value>
         <value xml:lang="en">Log Configuration</value>
         <value xml:lang="fr">Configuration des logs</value>
-        <value xml:lang="it">Livello di Debugging</value>
+        <value xml:lang="it">Configurazione logs</value>
         <value xml:lang="ro">Nivel de Debugging</value>
         <value xml:lang="th">โครงร่างของบันทึกข้อมูล</value>
         <value xml:lang="zh">调试级别</value>
@@ -328,7 +328,7 @@
         <value xml:lang="de">Log ansehen</value>
         <value xml:lang="en">View Log</value>
         <value xml:lang="fr">Voir les logs</value>
-        <value xml:lang="it">Mostra Log</value>
+        <value xml:lang="it">Visualizza logs</value>
         <value xml:lang="ro">Afiseaza Log</value>
         <value xml:lang="th">ดูข้อมูลการบันทึก</value>
         <value xml:lang="zh">浏览日志</value>
@@ -337,7 +337,7 @@
         <value xml:lang="de">Dienst starten</value>
         <value xml:lang="en">Run Service</value>
         <value xml:lang="fr">Exécuter un service</value>
-        <value xml:lang="it">Esegui Servizio</value>
+        <value xml:lang="it">Esegui servizio</value>
         <value xml:lang="th">ดำเนินงานบริการ</value>
         <value xml:lang="zh">运行服务</value>
     </property>
@@ -345,7 +345,7 @@
         <value xml:lang="de">Job anlegen</value>
         <value xml:lang="en">Schedule Job</value>
         <value xml:lang="fr">Planifier un job</value>
-        <value xml:lang="it">Schedula Lavori</value>
+        <value xml:lang="it">Pianifica un lavoro</value>
         <value xml:lang="ro">Planificare Lucrari</value>
         <value xml:lang="th">ตารางเวลางาน</value>
         <value xml:lang="zh">任务计划</value>
@@ -354,7 +354,7 @@
         <value xml:lang="de">Dienst-Liste</value>
         <value xml:lang="en">Service List</value>
         <value xml:lang="fr">Liste des services</value>
-        <value xml:lang="it">Lista Servizi</value>
+        <value xml:lang="it">Lista dei servizi</value>
         <value xml:lang="ro">Lista Servicii</value>
         <value xml:lang="th">รายชื่อบริการ</value>
         <value xml:lang="zh">服务列表</value>
@@ -363,7 +363,7 @@
         <value xml:lang="de">Thread-Liste</value>
         <value xml:lang="en">Thread List</value>
         <value xml:lang="fr">Liste des threads</value>
-        <value xml:lang="it">Lista Thread</value>
+        <value xml:lang="it">Lista dei thread</value>
         <value xml:lang="ro">Lista Thread</value>
         <value xml:lang="th">รายงานเหตุการณ์ที่เกิดขึ้นต่อเนื่องกัน</value>
         <value xml:lang="zh">线程列表</value>
@@ -426,7 +426,7 @@
         <value xml:lang="de">Fehlende hinzufügen</value>
         <value xml:lang="en">Add Missing</value>
         <value xml:lang="fr">Ajouter ce qui manque</value>
-        <value xml:lang="it">Aggiungi Mancanti</value>
+        <value xml:lang="it">Aggiungi mancanti</value>
         <value xml:lang="th">การเพิ่มผิดพลาด</value>
         <value xml:lang="zh">添加错失</value>
     </property>
@@ -434,7 +434,7 @@
         <value xml:lang="de">Debugging-Levels anpassen</value>
         <value xml:lang="en">Adjust Debugging Levels</value>
         <value xml:lang="fr">Ajuster les niveaux de débogage</value>
-        <value xml:lang="it">Aggiustamento Livello di Debugging</value>
+        <value xml:lang="it">Aggiustamento livello di debugging</value>
         <value xml:lang="ro">Modificare Nivel de Debugging</value>
         <value xml:lang="th">ปรับระดับการแก้ไขจุดบกพร่อง</value>
         <value xml:lang="zh">调整调试级别</value>
@@ -443,7 +443,7 @@
         <value xml:lang="de">Administration</value>
         <value xml:lang="en">Administration</value>
         <value xml:lang="fr">Administration</value>
-        <value xml:lang="it">Amministra</value>
+        <value xml:lang="it">Amministrazione</value>
         <value xml:lang="ro">Administreaza</value>
         <value xml:lang="th">ผู้ดูแลระบบ</value>
         <value xml:lang="zh">管理</value>
@@ -460,7 +460,7 @@
         <value xml:lang="de">OFBiz Elemente-Info</value>
         <value xml:lang="en">Artifact Info</value>
         <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
-        <value xml:lang="it">Informazioni Artifatti</value>
+        <value xml:lang="it">Informazioni sugli artefatti</value>
         <value xml:lang="zh">人工程序信息</value>
     </property>
     <property key="WebtoolsAsync">
@@ -475,7 +475,7 @@
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
         <value xml:lang="en">Back to Cache Maintenance</value>
         <value xml:lang="fr">Revenir à la maintenance des caches</value>
-        <value xml:lang="it">Torna Indietro alla Pagina Manutenzione Cache</value>
+        <value xml:lang="it">Ritorna alla manutenzione cache</value>
         <value xml:lang="ro">Intoarcete inapoi la Pagina Intretinere Cache</value>
         <value xml:lang="th">ย้อนกลับไปที่ข้อมูลการดูแลรักษา</value>
         <value xml:lang="zh">返回缓存维护</value>
@@ -484,7 +484,7 @@
         <value xml:lang="de">Zurück zur Entitätenliste</value>
         <value xml:lang="en">Back To Entity List</value>
         <value xml:lang="fr">Revenir à la liste d'entités</value>
-        <value xml:lang="it">Torna Indietro alla Lista Entità</value>
+        <value xml:lang="it">Ritorna alla lista entità</value>
         <value xml:lang="ro">Intoarcete inapoi la Lista Entitate</value>
         <value xml:lang="th">ย้อนกลับดูรายชื่อเอนติตี้</value>
         <value xml:lang="zh">返回实体列表</value>
@@ -493,7 +493,7 @@
         <value xml:lang="de">Zurück zur Bildschirmsuche</value>
         <value xml:lang="en">Back To Find Screen</value>
         <value xml:lang="fr">Revenir à l'écran de recherche</value>
-        <value xml:lang="it">Torna Indietro alla Ricerca</value>
+        <value xml:lang="it">Ritorna alla ricerca</value>
         <value xml:lang="ro">Intoarcete inapoi la Cautare</value>
         <value xml:lang="th">ย้อนกลับไปหน้าจอค้นหา</value>
         <value xml:lang="zh">返回查找页面</value>
@@ -520,7 +520,7 @@
         <value xml:lang="de">Cache-Element Schlüssel</value>
         <value xml:lang="en">Cache Element Key</value>
         <value xml:lang="fr">Clé d'élément du cache </value>
-        <value xml:lang="it">Chiave Elemento Cache</value>
+        <value xml:lang="it">Chiave elemento di cache</value>
         <value xml:lang="ro">Cheie Element Cache</value>
         <value xml:lang="th">ซ่อนองค์ประกอบสำคัญ</value>
         <value xml:lang="zh">缓存元素键</value>
@@ -529,7 +529,7 @@
         <value xml:lang="de">Cache Wartung</value>
         <value xml:lang="en">Cache Maintenance</value>
         <value xml:lang="fr">Maintenance des caches</value>
-        <value xml:lang="it">Manutenzione Cache</value>
+        <value xml:lang="it">Manutenzione cache</value>
         <value xml:lang="ro">Intretinere Cache</value>
         <value xml:lang="th">การดูแลรักษา Cache</value>
         <value xml:lang="zh">缓存维护</value>
@@ -538,7 +538,7 @@
         <value xml:lang="de">Cache Name</value>
         <value xml:lang="en">Cache Name</value>
         <value xml:lang="fr">Nom du cache</value>
-        <value xml:lang="it">Nome Cache</value>
+        <value xml:lang="it">Nome cache</value>
         <value xml:lang="ro">Nume Cache</value>
         <value xml:lang="th">ชื่อ Cache</value>
         <value xml:lang="zh">缓存名称</value>
@@ -547,7 +547,7 @@
         <value xml:lang="de">Job abbrechen</value>
         <value xml:lang="en">Cancel Job</value>
         <value xml:lang="fr">Annuler le job</value>
-        <value xml:lang="it">Cancella Lavoro</value>
+        <value xml:lang="it">Annulla lavoro</value>
         <value xml:lang="ro">Sterge Lucru</value>
         <value xml:lang="th">ยกเลิกงาน</value>
         <value xml:lang="zh">取消任务</value>
@@ -579,7 +579,7 @@
         <value xml:lang="de">Die Anfrage kann nur Zertifikate erhalten, wenn sie über SSL gestellt wird</value>
         <value xml:lang="en">Request can only obtain certifications when called through SSL</value>
         <value xml:lang="fr">La demande peut seulement obtenir des certifications quand elle est appelée par le SSL</value>
-        <value xml:lang="it">Richiesta può essere ottenuta dal certificato quando viene chiamato attraverso SSL</value>
+        <value xml:lang="it">La richiesta può ottenere la certificazione solo quando viene effettuata attraverso SSL</value>
         <value xml:lang="th">คำร้องสามารถรับรองความสำเร็จได้เมื่อใช้วิธีการ SSL
         </value>
         <value xml:lang="zh">当通过SSL访问时，才能从请求中得到证书</value>
@@ -588,7 +588,7 @@
         <value xml:lang="de">Seriennummer</value>
         <value xml:lang="en">Serial Number</value>
         <value xml:lang="fr">Numéro de série</value>
-        <value xml:lang="it">Numero Seriale</value>
+        <value xml:lang="it">Numero di serie</value>
         <value xml:lang="th">หมายเลขลำดับที่ต่อเนื่องกัน</value>
         <value xml:lang="zh">序列号</value>
     </property>
@@ -604,7 +604,7 @@
         <value xml:lang="de">Alle auswählen</value>
         <value xml:lang="en">Check All</value>
         <value xml:lang="fr">Tout vérifier</value>
-        <value xml:lang="it">Seleziona Tutti</value>
+        <value xml:lang="it">Controlla tutti</value>
         <value xml:lang="th">ตรวจสอบทั้งหมด</value>
         <value xml:lang="zh">检查全部</value>
     </property>
@@ -612,7 +612,7 @@
         <value xml:lang="de">Nur Datencheck (keine Änderungen in der Datenbank)</value>
         <value xml:lang="en">Check Data Only (nothing changed in database)</value>
         <value xml:lang="fr">Vérifier seulement les données (rien ne sera changé dans la base de données)</value>
-        <value xml:lang="it">Controlla solo i dati (nessuna modifica al database)</value>
+        <value xml:lang="it">Controlla i dati (nessuna modifica al database)</value>
         <value xml:lang="th">ตรวจสอบเฉพาะข้อมูล (ไม่มีการเปลี่ยนแปลงในฐานข้อมูล)</value>
         <value xml:lang="zh">仅检查数据(不修改数据库)</value>
     </property>
@@ -620,7 +620,7 @@
         <value xml:lang="de">Datenbank checken/aktualisieren</value>
         <value xml:lang="en">Check/Update Database</value>
         <value xml:lang="fr">Vérifier/Mettre à jour la base de données</value>
-        <value xml:lang="it">Controlla/Aggiorna Database</value>
+        <value xml:lang="it">Controlla/aggiorna database</value>
         <value xml:lang="ro">Control/Actualizare Database</value>
         <value xml:lang="th">ตรวจสอบ/เปลี่ยนแปลง ฐานข้อมูล</value>
         <value xml:lang="zh">检查/更新数据库</value>
@@ -629,7 +629,7 @@
         <value xml:lang="de">Alle Caches leeren</value>
         <value xml:lang="en">Clear All Caches</value>
         <value xml:lang="fr">Vider tous les caches</value>
-        <value xml:lang="it">Pulisci Tutte le Caches</value>
+        <value xml:lang="it">Pulisci tutte le cache</value>
         <value xml:lang="ro">Curata Toate Cache</value>
         <value xml:lang="th">ลบค่า Caches ทั้งหมด</value>
         <value xml:lang="zh">清除全部缓存</value>
@@ -638,7 +638,7 @@
         <value xml:lang="de">Abgelaufene aus Allen löschen</value>
         <value xml:lang="en">Clear Expired From All</value>
         <value xml:lang="fr">Vider tout ce qui est périmé</value>
-        <value xml:lang="it">Pulisci quelle Scadute da Tutte</value>
+        <value xml:lang="it">Pulisci tutte quelle scadute</value>
         <value xml:lang="ro">Curata pe cele expirate de Toate</value>
         <value xml:lang="th">ล้างข้อมูลที่หมดอายุทั้งหมด</value>
         <value xml:lang="zh">清除全部过期缓存</value>
@@ -647,7 +647,7 @@
         <value xml:lang="de">Diesen Cache klären</value>
         <value xml:lang="en">Clear this Cache</value>
         <value xml:lang="fr">Vider ce cache</value>
-        <value xml:lang="it">Pulisci questa Cache</value>
+        <value xml:lang="it">Pulisci questa cache</value>
         <value xml:lang="ro">Curata aceasta Cache</value>
         <value xml:lang="th">ลบ Cache นี้</value>
         <value xml:lang="zh">清除这个缓存</value>
@@ -670,7 +670,7 @@
         <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
@@ -699,7 +699,7 @@
         <value xml:lang="de">Vollständiges XML dokument (root tag: entity-engine-xml)</value>
         <value xml:lang="en">Complete XML document (root tag: entity-engine-xml)</value>
         <value xml:lang="fr">Compléter le document XML (balise racine : entity-engine-xml)(</value>
-        <value xml:lang="it">Documento XML (includere il tag root: entity-engine-xml)</value>
+        <value xml:lang="it">Documento XML (includere il tag radice: entity-engine-xml)</value>
         <value xml:lang="ro">Completeaza documentul XML (root tag: entity-engine-xml)</value>
         <value xml:lang="th">เอกสาร XML เสร็จเรียบร้อยแล้ว (root tag: entity-engine-xml)</value>
         <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
@@ -724,7 +724,7 @@
         <value xml:lang="de">Pfad</value>
         <value xml:lang="en">Path</value>
         <value xml:lang="fr">Chemin</value>
-        <value xml:lang="it">Path</value>
+        <value xml:lang="it">Percorso</value>
         <value xml:lang="th">Path</value>
         <value xml:lang="zh">路径</value>
     </property>
@@ -732,7 +732,7 @@
         <value xml:lang="de">Web-Applikationen (Name, Mountpoint, Pfad)</value>
         <value xml:lang="en">WebApps (Name, Mount, Path)</value>
         <value xml:lang="fr">Applications web (nom, mount, chemin)</value>
-        <value xml:lang="it">Applicazione Web (Nome, Mount, Path)</value>
+        <value xml:lang="it">Applicazione web (nome, mount, percorso)</value>
         <value xml:lang="th">โปรแกรมประยุกต์ (ชื่อ, Mount, Path)</value>
         <value xml:lang="zh">Web应用程序(名称、装载、路径)</value>
     </property>
@@ -789,7 +789,7 @@
         <value xml:lang="de">Alle deklarierten Indices erstellen/löschen</value>
         <value xml:lang="en">Create/Remove All Declared Indices</value>
         <value xml:lang="fr">Créer/Enlever tous les indices déclarés</value>
-        <value xml:lang="it">Creare/Rimuovere Tutti gli Indici Dichiarati</value>
+        <value xml:lang="it">Creare/rimuovere tutti gli indici dichiarati</value>
         <value xml:lang="th">สร้าง/ลบ ดัชนีที่เปิดเผยทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部已声明的索引</value>
     </property>
