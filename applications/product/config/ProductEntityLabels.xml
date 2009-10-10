@@ -1820,13 +1820,14 @@
     <property key="ProductMeterType.description.ODOMETER">
         <value xml:lang="en">Odometer</value>
         <value xml:lang="it">Odometro</value>
+        <value xml:lang="it">Odomètre</value>
         <value xml:lang="zh">里程表</value>
     </property>
     <property key="ProductMeterType.description.SPEEDOMETER">
         <value xml:lang="de">Geschwindigkeitsmesser</value>
         <value xml:lang="en">Speedometer</value>
         <value xml:lang="es">Velocímetro</value>
-        <value xml:lang="fr">Compteur de vitesse</value>
+        <value xml:lang="fr">Indicateur de vitesse</value>
         <value xml:lang="it">Misuratore della velocità</value>
         <value xml:lang="ro">Masurator de Viteza</value>
         <value xml:lang="ru">Спидометр</value>
@@ -1837,7 +1838,7 @@
         <value xml:lang="de">Tachometer</value>
         <value xml:lang="en">Tachometer</value>
         <value xml:lang="es">Tacómetro</value>
-        <value xml:lang="fr">Tachymètre</value>
+        <value xml:lang="fr">Compte-tours</value>
         <value xml:lang="it">Tachimetro</value>
         <value xml:lang="ro">Tachimetru</value>
         <value xml:lang="ru">Тахометр</value>
