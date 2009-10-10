@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="MarketingAppBar" title="${uiLabelMap.MarketingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="MarketingAppBar" title="${uiLabelMap.MarketingManager}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="DataSource" title="${uiLabelMap.DataSource}"><link target="FindDataSource"/></menu-item>
         <menu-item name="Campaign" title="${uiLabelMap.MarketingCampaign}"><link target="FindMarketingCampaign"/></menu-item>
         <menu-item name="Tracking" title="${uiLabelMap.MarketingTracking}"><link target="FindTrackingCode"/></menu-item>

@@ -487,6 +487,15 @@
         <value xml:lang="th">หน้าหลัก</value>
         <value xml:lang="zh">首页</value>
     </property>
+    <property key="MarketingManager">
+        <value xml:lang="en">Marketing Manager</value>
+        <value xml:lang="es">Gestión de Marketing</value>
+        <value xml:lang="fr">Application de gestion marketing</value>
+        <value xml:lang="it">Gestione vendite</value>
+        <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
+        <value xml:lang="zh">市场管理应用程序</value>
+    </property>
     <property key="MarketingManagerApplication">
         <value xml:lang="en">Marketing Manager Application</value>
         <value xml:lang="es">Gestión de Marketing</value>
@@ -1870,6 +1879,12 @@
         <value xml:lang="fr">Liste des détails de prévision des ventes</value>
         <value xml:lang="it">Lista dettagli previsioni di vendita</value>
         <value xml:lang="zh">销售预测细节列表</value>
+    </property>
+    <property key="SfaManager">
+        <value xml:lang="en">SFA Manager</value>
+        <value xml:lang="fr">Application de gestion des ventes</value>
+        <value xml:lang="it">Gestione vendite</value>
+        <value xml:lang="zh">销售管理应用程序</value>
     </property>
     <property key="SfaManagerApplication">
         <value xml:lang="en">SFA Manager Application</value>

@@ -62,6 +62,14 @@
         <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
         <value xml:lang="zh">"${productId}的有效的库存级别是${quantity}"</value>
     </property>
+    <property key="AssetMaintManager">
+        <value xml:lang="de">Vermögensverwaltungsanwendung</value>
+        <value xml:lang="en">Asset Maintenance</value>
+        <value xml:lang="fr">Application de maintenance des biens</value>
+        <value xml:lang="it">Gestione cespiti</value>
+        <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
+        <value xml:lang="zh">资产维护应用程序</value>
+    </property>
     <property key="AssetMaintParentWorkEffort">
         <value xml:lang="en">Parent Work Effort</value>
         <value xml:lang="fr">"Tâche parente"</value>

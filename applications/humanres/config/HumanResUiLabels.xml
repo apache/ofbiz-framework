@@ -1177,6 +1177,14 @@
         <value xml:lang="it">Ricerca richiesta di disoccupazione</value>
         <value xml:lang="zh">解除雇佣关系声明编号查询</value>
     </property>
+    <property key="HumanResManager">
+        <value xml:lang="de">Personalverwaltung</value>
+        <value xml:lang="en">Human Resources</value>
+        <value xml:lang="fr">Application de gestion des ressources humaines</value>
+        <value xml:lang="it">Gestione risorse umane</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการบุคคล</value>
+        <value xml:lang="zh">人力资源管理系统</value>
+    </property>
     <property key="HumanResManagerApplication">
         <value xml:lang="de">Personalverwaltung</value>
         <value xml:lang="en">Human Resources Application</value>

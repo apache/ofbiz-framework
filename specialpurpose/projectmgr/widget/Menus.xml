@@ -20,7 +20,7 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="ProjectMgrAppBar" title="${uiLabelMap.ProjectMgrApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="ProjectMgrAppBar" title="${uiLabelMap.ProjectMgr}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
 
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheet"/></menu-item>

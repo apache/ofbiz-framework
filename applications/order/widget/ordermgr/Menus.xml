@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="OrderAppBar" title="${uiLabelMap.OrderOrderManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="OrderAppBar" title="${uiLabelMap.OrderManager}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="request" title="${uiLabelMap.OrderRequests}">
             <condition>
                 <or>

@@ -44,7 +44,7 @@
     <property key="FormFieldTitle_actualEndDate">
         <value xml:lang="en">Actual End Date</value>
         <value xml:lang="fr">Date d'achèvement réelle</value>
-        <value xml:lang="it">Data Fine Attuale</value>
+        <value xml:lang="it">Data fine attuale</value>
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
         <value xml:lang="zh">实际结束日期</value>
@@ -52,7 +52,7 @@
     <property key="FormFieldTitle_actualMilliSeconds">
         <value xml:lang="en">Actual Milli Seconds</value>
         <value xml:lang="fr">Millisecondes</value>
-        <value xml:lang="it">Millisecondi Attuali</value>
+        <value xml:lang="it">Millisecondi attuali</value>
         <value xml:lang="nl">Actual Milli Seconds</value>
         <value xml:lang="ro">Millisecunde Actuale</value>
         <value xml:lang="th">พันวินาทีตามความจริง</value>
@@ -378,7 +378,7 @@
     <property key="FormFieldTitle_serviceLoaderName">
         <value xml:lang="en">Service Loader Name </value>
         <value xml:lang="fr">Nom du service chargeur</value>
-        <value xml:lang="it">Nome Servizio Loader</value>
+        <value xml:lang="it">Nome servizio loader</value>
         <value xml:lang="nl">Service Loader Name</value>
         <value xml:lang="ro">Nume Serviciu Loader</value>
         <value xml:lang="th">ชื่อบริการโหลด</value>
@@ -580,7 +580,7 @@
         <value xml:lang="en">Add Timesheet</value>
         <value xml:lang="es">Crear hoja de tiempos</value>
         <value xml:lang="fr">Ajouter une feuille d'activité</value>
-        <value xml:lang="it">Aggiungi Timbratura</value>
+        <value xml:lang="it">Aggiungi timbratura</value>
         <value xml:lang="nl">Add Timesheet</value>
         <value xml:lang="ro">Adauga Pontaj</value>
         <value xml:lang="th">เพิ่มตารางการทำงาน</value>
@@ -1624,16 +1624,13 @@
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
-        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
-        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
@@ -1975,11 +1972,11 @@
     <property key="WorkEffortICalendarAdd">
         <value xml:lang="en">Add iCalendar</value>
     </property>
-    <property key="WorkEffortICalendarAddParty">
-        <value xml:lang="en">Add iCalendar Party</value>
-    </property>
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
+    </property>
+    <property key="WorkEffortICalendarAddParty">
+        <value xml:lang="en">Add iCalendar Party</value>
     </property>
     <property key="WorkEffortICalendarData">
         <value xml:lang="en">Data</value>
@@ -2161,6 +2158,28 @@
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">查找</value>
+    </property>
+    <property key="WorkEffortManager">
+        <value xml:lang="en">Work Effort Manager</value>
+        <value xml:lang="es">Aplicación de administración de tareas</value>
+        <value xml:lang="fr">Application de gestion de tâches</value>
+        <value xml:lang="it">Gestione impegni di lavoro</value>
+        <value xml:lang="nl">WorkEffort Manager Application</value>
+        <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
+        <value xml:lang="ru">WorkEffort: Управление приложением</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="zh">人工服务管理应用</value>
+    </property>
+    <property key="WorkEffortManagerApplication">
+        <value xml:lang="en">Work Effort Manager Application</value>
+        <value xml:lang="es">Aplicación de administración de tareas</value>
+        <value xml:lang="fr">Application de gestion de tâches</value>
+        <value xml:lang="it">Applicazione gestione impegni di lavoro</value>
+        <value xml:lang="nl">WorkEffort Manager Application</value>
+        <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
+        <value xml:lang="ru">WorkEffort: Управление приложением</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="zh">人工服务管理应用</value>
     </property>
     <property key="WorkEffortMaxAmount">
         <value xml:lang="en">Max Amount</value>
@@ -2715,12 +2734,33 @@
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
     </property>
+    <property key="WorkEffortPriorityEight">
+        <value xml:lang="en">8</value>
+        <value xml:lang="it">8</value>
+    </property>
+    <property key="WorkEffortPriorityFive">
+        <value xml:lang="en">5</value>
+        <value xml:lang="it">5</value>
+    </property>
     <property key="WorkEffortPriorityFormatNotCorrect">
         <value xml:lang="en">Priority format is incorrect</value>
         <value xml:lang="fr">Le format prioritaire est incorrect</value>
         <value xml:lang="it">Formato priorità non è corretto</value>
         <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
         <value xml:lang="zh">优先级格式不正确</value>
+    </property>
+    <property key="WorkEffortPriorityFour">
+        <value xml:lang="en">4</value>
+        <value xml:lang="it">4</value>
+    </property>
+    <property key="WorkEffortPriorityNine">
+        <value xml:lang="en">9 (Low)</value>
+        <value xml:lang="fr">9 (Basse)</value>
+        <value xml:lang="it">9 (Bassa)</value>
+        <value xml:lang="nl">9 (Low)</value>
+        <value xml:lang="ro">9 (Joasa)</value>
+        <value xml:lang="th">9 (ต่ำ)</value>
+        <value xml:lang="zh">9 (低)</value>
     </property>
     <property key="WorkEffortPriorityOne">
         <value xml:lang="en">1 (High)</value>
@@ -2731,42 +2771,21 @@
         <value xml:lang="th">1 (สูง)</value>
         <value xml:lang="zh">1 (高)</value>
     </property>
-    <property key="WorkEffortPriorityTwo">
-        <value xml:lang="en">2</value>
-        <value xml:lang="it">2</value>
-    </property>
-    <property key="WorkEffortPriorityThree">
-        <value xml:lang="en">3</value>
-        <value xml:lang="it">3</value>
-    </property>
-    <property key="WorkEffortPriorityFour">
-        <value xml:lang="en">4</value>
-        <value xml:lang="it">4</value>
-    </property>
-    <property key="WorkEffortPriorityFive">
-        <value xml:lang="en">5</value>
-        <value xml:lang="it">5</value>
+    <property key="WorkEffortPrioritySeventh">
+        <value xml:lang="en">7</value>
+        <value xml:lang="it">7</value>
     </property>
     <property key="WorkEffortPrioritySix">
         <value xml:lang="en">6</value>
         <value xml:lang="it">6</value>
     </property>
-    <property key="WorkEffortPrioritySeventh">
-        <value xml:lang="en">7</value>
-        <value xml:lang="it">7</value>
+    <property key="WorkEffortPriorityThree">
+        <value xml:lang="en">3</value>
+        <value xml:lang="it">3</value>
     </property>
-    <property key="WorkEffortPriorityEight">
-        <value xml:lang="en">8</value>
-        <value xml:lang="it">8</value>
-    </property>
-    <property key="WorkEffortPriorityNine">
-        <value xml:lang="en">9 (Low)</value>
-        <value xml:lang="fr">9 (Basse)</value>
-        <value xml:lang="it">9 (Bassa)</value>
-        <value xml:lang="nl">9 (Low)</value>
-        <value xml:lang="ro">9 (Joasa)</value>
-        <value xml:lang="th">9 (ต่ำ)</value>
-        <value xml:lang="zh">9 (低)</value>
+    <property key="WorkEffortPriorityTwo">
+        <value xml:lang="en">2</value>
+        <value xml:lang="it">2</value>
     </property>
     <property key="WorkEffortPrivatePublic">
         <value xml:lang="en">Private/Public</value>
@@ -2786,6 +2805,17 @@
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
     </property>
+    <property key="WorkEffortProductId">
+        <value xml:lang="en">ProductID</value>
+        <value xml:lang="es">Código de producto</value>
+        <value xml:lang="fr">Référence du produit</value>
+        <value xml:lang="it">Codice Prodotto</value>
+        <value xml:lang="nl">ProductID</value>
+        <value xml:lang="ro">Cod Produs</value>
+        <value xml:lang="ru">ID продукта</value>
+        <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="zh">产品标识</value>
+    </property>
     <property key="WorkEffortProductId1">
         <value xml:lang="en">ProductID 1</value>
         <value xml:lang="fr">Réf. 1 de l'article</value>
@@ -2799,17 +2829,6 @@
         <value xml:lang="it">Codice Prodotto 2</value>
         <value xml:lang="th">รหัสสินค้า 2</value>
         <value xml:lang="zh">产品标识2</value>
-    </property>
-    <property key="WorkEffortProductId">
-        <value xml:lang="en">ProductID</value>
-        <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Référence du produit</value>
-        <value xml:lang="it">Codice Prodotto</value>
-        <value xml:lang="nl">ProductID</value>
-        <value xml:lang="ro">Cod Produs</value>
-        <value xml:lang="ru">ID продукта</value>
-        <value xml:lang="th">รหัสสินค้า</value>
-        <value xml:lang="zh">产品标识</value>
     </property>
     <property key="WorkEffortProject">
         <value xml:lang="en">Project</value>
@@ -3595,17 +3614,6 @@
         <value xml:lang="ro">Numar Sarcina de lucru este gol</value>
         <value xml:lang="th">รหัสงานว่าง</value>
         <value xml:lang="zh">人工服务标识为空</value>
-    </property>
-    <property key="WorkEffortWorkEffortManagerApplication">
-        <value xml:lang="en">Work Effort Manager Application</value>
-        <value xml:lang="es">Aplicación de administración de tareas</value>
-        <value xml:lang="fr">Application de gestion de tâches</value>
-        <value xml:lang="it">Applicazione Gestione Impegni di Lavoro</value>
-        <value xml:lang="nl">WorkEffort Manager Application</value>
-        <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
-        <value xml:lang="ru">WorkEffort: Управление приложением</value>
-        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
-        <value xml:lang="zh">人工服务管理应用</value>
     </property>
     <property key="WorkEffortWorkEffortManagerMainPage">
         <value xml:lang="en">Work Effort Manager Main Page</value>

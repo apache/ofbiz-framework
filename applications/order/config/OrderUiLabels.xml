@@ -3814,6 +3814,19 @@
         <value xml:lang="th">กำลังทำการจอง</value>
         <value xml:lang="zh">预订</value>
     </property>
+    <property key="OrderManager">
+        <value xml:lang="de">Auftragsverwaltung Anwendung</value>
+        <value xml:lang="en">Order Manager</value>
+        <value xml:lang="es">Gestión de pedidos</value>
+        <value xml:lang="fr">Gestion de Commandes</value>
+        <value xml:lang="it">Gestione ordini</value>
+        <value xml:lang="nl">Bestel Manage Programma</value>
+        <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
+        <value xml:lang="ru">Управление заказами</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">订单管理应用程序</value>
+        <value xml:lang="zh_CN">订单管理</value>
+    </property>
     <property key="OrderManagerApplication">
         <value xml:lang="de">Auftragsverwaltung Anwendung</value>
         <value xml:lang="en">Order Manager Application</value>
@@ -4981,19 +4994,6 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单列表</value>
         <value xml:lang="zh_CN">订单列表</value>
-    </property>
-    <property key="OrderOrderManagerApplication">
-        <value xml:lang="de">Auftragsverwaltung Anwendung</value>
-        <value xml:lang="en">Order Manager Application</value>
-        <value xml:lang="es">Gestión de pedidos</value>
-        <value xml:lang="fr">Gestion de commandes</value>
-        <value xml:lang="it">Applicazione gestione ordini</value>
-        <value xml:lang="nl">Bestelling Manager Application</value>
-        <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
-        <value xml:lang="ru">Управление заказами</value>
-        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh">订单管理程序</value>
-        <value xml:lang="zh_CN">订单管理应用</value>
     </property>
     <property key="OrderOrderName">
         <value xml:lang="de">Auftragsname</value>

@@ -8217,6 +8217,17 @@
         <value xml:lang="th">หมวดหมู่ [รหัส]</value>
         <value xml:lang="zh">目录 [标识]</value>
     </property>
+    <property key="ProductCatalogManager">
+        <value xml:lang="de">Katalogverwaltung Anwendung</value>
+        <value xml:lang="en">Catalog Manager</value>
+        <value xml:lang="es">Adplicación de Administración de Catálogos</value>
+        <value xml:lang="fr">Application de gestion des articles</value>
+        <value xml:lang="it">Gestione cataloghi</value>
+        <value xml:lang="ro">Aplicatie Gestiune Catalog</value>
+        <value xml:lang="ru">Управление каталогом продуктов</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการหมวดหมู่</value>
+        <value xml:lang="zh">目录管理应用程序</value>
+    </property>
     <property key="ProductCatalogManagerApplication">
         <value xml:lang="de">Katalogverwaltung Anwendung</value>
         <value xml:lang="en">Catalog Manager Application</value>
@@ -10726,6 +10737,17 @@
         <value xml:lang="ru">Места расположения объектов</value>
         <value xml:lang="th">ที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">场所位置</value>
+    </property>
+    <property key="ProductFacilityManager">
+        <value xml:lang="de">Einrichtungsverwaltung Anwendung</value>
+        <value xml:lang="en">Facility Manager</value>
+        <value xml:lang="es">Aplicación de Administración del Almacén</value>
+        <value xml:lang="fr">Application de gestion de stock</value>
+        <value xml:lang="it">Gestione stabilimenti</value>
+        <value xml:lang="ro">Aplicatie Gestiune Compartimente</value>
+        <value xml:lang="ru">Управление объектами</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการคลังสินค้า</value>
+        <value xml:lang="zh">场所管理应用程序</value>
     </property>
     <property key="ProductFacilityManagerApplication">
         <value xml:lang="de">Einrichtungsverwaltung Anwendung</value>

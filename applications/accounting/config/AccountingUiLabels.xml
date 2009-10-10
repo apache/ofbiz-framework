@@ -799,6 +799,15 @@
         <value xml:lang="nl">OFBiz: Credit Manager</value>
         <value xml:lang="zh">OFBiz: 应付账户管理</value>
     </property>
+    <property key="AccountingApManager">
+        <value xml:lang="de">Kreditorenbuchhaltung</value>
+        <value xml:lang="en">Account Payable Manager</value>
+        <value xml:lang="fr">Application de gestion des comptes fourn.</value>
+        <value xml:lang="hi_IN">देय खाता प्रबंधक अनुप्रयोग</value>
+        <value xml:lang="it">Gestione conti debitori</value>
+        <value xml:lang="nl">Credit Manager applicatie</value>
+        <value xml:lang="zh">应付账户管理应用程序</value>
+    </property>
     <property key="AccountingApManagerApplication">
         <value xml:lang="de">Kreditorenbuchhaltung</value>
         <value xml:lang="en">Account Payable Manager Application</value>
@@ -1009,9 +1018,18 @@
         <value xml:lang="en">OFBiz: AR Manager</value>
         <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
         <value xml:lang="hi_IN">OFBiz: खाता प्राप्य प्रबंधक</value>
-        <value xml:lang="it">OFBiz: Gestione conto creditori</value>
+        <value xml:lang="it">OFBiz: Gestione conti creditori</value>
         <value xml:lang="nl">OFBiz: Debiteuren Manager</value>
         <value xml:lang="zh">OFBiz: 应收账户管理</value>
+    </property>
+    <property key="AccountingArManager">
+        <value xml:lang="de">Debitorenbuchhaltung</value>
+        <value xml:lang="en">Account Receivable Manager</value>
+        <value xml:lang="fr">Application de gestion des comptes clients</value>
+        <value xml:lang="hi_IN">प्राप्य खाता प्रबंधक अनुप्रयोग</value>
+        <value xml:lang="it">Gestione conti creditori</value>
+        <value xml:lang="nl">Debiteuren Manager toepassing</value>
+        <value xml:lang="zh">应收账户管理应用程序</value>
     </property>
     <property key="AccountingArManagerApplication">
         <value xml:lang="de">Debitorenbuchhaltung</value>
@@ -5622,6 +5640,22 @@
         <value xml:lang="ru">Добро пожаловать в Менеджер учета!</value>
         <value xml:lang="th">ยินดีต้อนรับเข้าสู่การจัดการบัญชี!</value>
         <value xml:lang="zh">欢迎使用财务管理！</value>
+    </property>
+    <property key="AccountingManager">
+        <value xml:lang="ar">تطبيق تسيير المحاسبة</value>
+        <value xml:lang="de">Buchhaltung</value>
+        <value xml:lang="en">Accounting Manager</value>
+        <value xml:lang="es">Aplicación Administrador Contable</value>
+        <value xml:lang="fr">Module de Gestion comptable</value>
+        <value xml:lang="hi_IN">लेखांकन प्रबंधक अनुप्रयोग</value>
+        <value xml:lang="it">Gestione contabilità</value>
+        <value xml:lang="nl">Boekhoud toepassing</value>
+        <value xml:lang="pt_BR">Aplicação de Gestão de Contas</value>
+        <value xml:lang="pt_PT">Aplicação de Gestão de Contas</value>
+        <value xml:lang="ro">Program Gestiune Contabila</value>
+        <value xml:lang="ru">Менеджер учета</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการบัญชี</value>
+        <value xml:lang="zh">财务管理软件</value>
     </property>
     <property key="AccountingManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحاسبة</value>
