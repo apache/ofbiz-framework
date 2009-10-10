@@ -54,7 +54,7 @@
     </property>
     <property key="FacilityEstimatedShippingCharges">
         <value xml:lang="en">Estimated shipping charges</value>
-        <value xml:lang="en">Frais d'expédition estimés</value>
+        <value xml:lang="fr">Frais d'expédition estimés</value>
     </property>
     <property key="FacilityFacility">
         <value xml:lang="de">Lager</value>
