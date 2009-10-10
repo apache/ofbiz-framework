@@ -1718,7 +1718,7 @@
         <value xml:lang="de">Neues Label hinzufügen</value>
         <value xml:lang="en">Add New Label</value>
         <value xml:lang="fr">Ajouter une nouvelle traduction</value>
-        <value xml:lang="it">Aggiungi Nuova Label</value>
+        <value xml:lang="it">Aggiungi nuova label</value>
         <value xml:lang="zh">添加新标签</value>
     </property>
     <property key="WebtoolsLabelManagerAllComponents">
@@ -1746,20 +1746,21 @@
         <value xml:lang="de">Cache nach der Korrektur der Label-Dubletten löschen</value>
         <value xml:lang="en">Clear Cache After Fixing Duplicated Labels</value>
         <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
+        <value xml:lang="it">Pulire le cache dopo l'eliminazione delle label duplicate</value>
         <value xml:lang="zh">解决重复标签后清除缓存</value>
     </property>
     <property key="WebtoolsLabelManagerComponentName">
         <value xml:lang="de">OFBiz Komponente</value>
         <value xml:lang="en">Component Name</value>
         <value xml:lang="fr">Nom de composant</value>
-        <value xml:lang="it">Nome Componente</value>
+        <value xml:lang="it">Nome componente</value>
         <value xml:lang="zh">组件名称</value>
     </property>
     <property key="WebtoolsLabelManagerFileName">
         <value xml:lang="de">Label-Datei</value>
         <value xml:lang="en">File Name</value>
         <value xml:lang="fr">Nom de fichier</value>
-        <value xml:lang="it">Nome File</value>
+        <value xml:lang="it">Nome file</value>
         <value xml:lang="zh">文件名</value>
     </property>
     <property key="WebtoolsLabelManagerFindLabels">
@@ -1799,14 +1800,14 @@
         <value xml:lang="de">Bitte fügen Sie mindestens ein übersetztes Label ein</value>
         <value xml:lang="en">Please insert at least one translated label</value>
         <value xml:lang="fr">SVP, insérez au moins une nouvelle traduction</value>
-        <value xml:lang="it">Perfavore inserire almeno una label tradotta</value>
+        <value xml:lang="it">Prego inserire almeno una label tradotta</value>
         <value xml:lang="zh">请插入至少一个翻译过的标签</value>
     </property>
     <property key="WebtoolsLabelManagerNewLabelEmptyKey">
         <value xml:lang="de">Bitte geben Sie einen Schlüssel an</value>
         <value xml:lang="en">Please insert a label key</value>
         <value xml:lang="fr">SVP, insérez une nouvelle clef</value>
-        <value xml:lang="it">Perfavore inserire una chiave della label</value>
+        <value xml:lang="it">Prego inserire una chiave per la label</value>
         <value xml:lang="zh">请插入一个标签键</value>
     </property>
     <property key="WebtoolsLabelManagerNewLabelExisting">
@@ -1851,21 +1852,21 @@
         <value xml:lang="de">Label-Info filtern nach</value>
         <value xml:lang="en">Filter Labels Info By</value>
         <value xml:lang="fr">Filtrer les traductions</value>
-        <value xml:lang="it">Ricerca Informazioni sulle Labels</value>
+        <value xml:lang="it">Ricerca informazioni sulle labels</value>
         <value xml:lang="zh">过滤标签信息</value>
     </property>
     <property key="WebtoolsLabelManagerSecuryError">
         <value xml:lang="de">Sie haben keine Berechtigung für den Label Manager (Sie benötigen LABEL_MANAGER_VIEW)</value>
         <value xml:lang="en">Cannot view Labels Info pages without LABEL_MANAGER_VIEW permission.</value>
         <value xml:lang="fr">Impossible d'accèder à la page de gestion des traductions sans l'autorisation LABEL_MANAGER_VIEW.</value>
-        <value xml:lang="it">Non e posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
+        <value xml:lang="it">Non è posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
         <value xml:lang="zh">没有LABEL_MANAGER_VIEW权限，不能浏览标签信息页面。</value>
     </property>
     <property key="WebtoolsLabelManagerUpdate">
         <value xml:lang="de">Label aktualisieren</value>
         <value xml:lang="en">Update Label</value>
         <value xml:lang="fr">Mettre à jour la traduction</value>
-        <value xml:lang="it">Aggiorna Label</value>
+        <value xml:lang="it">Aggiorna label</value>
         <value xml:lang="zh">更新标签</value>
     </property>
     <property key="WebtoolsLabelManagerUpdateAndSave">
@@ -1899,14 +1900,17 @@
     <property key="WebtoolsLabelStatsExist">
         <value xml:lang="de">Vorhandene Labels in Locale</value>
         <value xml:lang="en">Existing labels in locale</value>
+        <value xml:lang="it">Label definite per la lingua</value>
     </property>
     <property key="WebtoolsLabelStatsMissing">
         <value xml:lang="de">Fehlende Labels in Locale</value>
         <value xml:lang="en">Missing labels in locale</value>
+        <value xml:lang="it">Label mancanti per la lingua</value>
     </property>
     <property key="WebtoolsLabelStatsTotal">
         <value xml:lang="de">Gesamtzahl der Labels</value>
         <value xml:lang="en">Total labels count</value>
+        <value xml:lang="it">Numero totale label</value>
     </property>
     <property key="WebtoolsLeaveAllEntriesBlank">
         <value xml:lang="en">leave all entries blank</value>
@@ -1919,7 +1923,7 @@
     <property key="WebtoolsLimitRowsTo">
         <value xml:lang="en">Limit Rows To</value>
         <value xml:lang="fr">Limiter les lignes à</value>
-        <value xml:lang="it">Limita Righe A</value>
+        <value xml:lang="it">Limita righe a</value>
         <value xml:lang="ro">Limita Linie la</value>
         <value xml:lang="th">จำนวนแถวที่กำหนด</value>
         <value xml:lang="zh">把行数限制为</value>
@@ -1927,7 +1931,7 @@
     <property key="WebtoolsLoadOfflineData">
         <value xml:lang="en">Load Offline Data</value>
         <value xml:lang="fr">Chargement de données différées</value>
-        <value xml:lang="it">Carica Dati Offline</value>
+        <value xml:lang="it">Carica dati offline</value>
         <value xml:lang="ro">Incarca Date Oflin</value>
         <value xml:lang="th">โหลดข้อมูลออฟไลน์</value>
         <value xml:lang="zh">载入离线数据</value>
@@ -1943,7 +1947,7 @@
     <property key="WebtoolsLogFileName">
         <value xml:lang="en">Log File Name</value>
         <value xml:lang="fr">Nom de fichier de Log</value>
-        <value xml:lang="it">Nome File di Log</value>
+        <value xml:lang="it">Nome file di log</value>
         <value xml:lang="ro">Nume File de Log</value>
         <value xml:lang="th">ชื่อไฟล์ที่ใช้บันทึก</value>
         <value xml:lang="zh">日志文件名</value>
@@ -1967,7 +1971,7 @@
     <property key="WebtoolsLoggerListFormDescription">
         <value xml:lang="en">This form shows all enabled loggers.</value>
         <value xml:lang="fr">Cette page montre tous les enregistrements autorisés</value>
-        <value xml:lang="it">Questa form mostra tutti i logger abilitati.</value>
+        <value xml:lang="it">Questa pagina mostra tutti i logger abilitati.</value>
         <value xml:lang="ro">Acest form afiseaza toti log_erii abilitati.</value>
         <value xml:lang="th">รูปแบบนี้เป็นการแสดง loggers ทั้งหมดที่เป็นไปได้
             This form shows all enabled loggers.</value>
@@ -1992,7 +1996,7 @@
     <property key="WebtoolsMainPage">
         <value xml:lang="en">WebTools Main Page</value>
         <value xml:lang="fr">Page principale des outils web</value>
-        <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="it">Pagina principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก WebTools</value>
         <value xml:lang="zh">Web工具首页</value>
@@ -2000,7 +2004,7 @@
     <property key="WebtoolsMaintainTimestamps">
         <value xml:lang="en">Maintain Timestamps?</value>
         <value xml:lang="fr">Maintenir les estampilles temporelles ?</value>
-        <value xml:lang="it">Mantieni Timestamps?</value>
+        <value xml:lang="it">Mantenere Timestamps?</value>
         <value xml:lang="ro">Mentii Timestamps?</value>
         <value xml:lang="th">ดูแลรักษาตารางเวลา?</value>
         <value xml:lang="zh">维护时间戳？</value>
@@ -2016,14 +2020,14 @@
     <property key="WebtoolsMaxRecordsPerFile">
         <value xml:lang="en">Max Records Per File</value>
         <value xml:lang="fr">Nb. max d'enregistrements par fichier</value>
-        <value xml:lang="it">Massimo di Records per File</value>
+        <value xml:lang="it">Nr. max di records per file</value>
         <value xml:lang="th">จำนวนสูงสุดในการบันทึกต่อไฟล์</value>
         <value xml:lang="zh">每个文件的最大记录数</value>
     </property>
     <property key="WebtoolsMaxRetries">
         <value xml:lang="en">Max retries</value>
         <value xml:lang="fr">Nb. max de tentatives</value>
-        <value xml:lang="it">Tentativi Massimi</value>
+        <value xml:lang="it">Nr. max di tentativi</value>
         <value xml:lang="ro">Tentative Maxime</value>
         <value xml:lang="th">ค่าสูงสุดในการทดสอบใหม่</value>
         <value xml:lang="zh">最大重试</value>
@@ -2031,7 +2035,7 @@
     <property key="WebtoolsMaxRetry">
         <value xml:lang="en">Max Retry</value>
         <value xml:lang="fr">Tentative maxi</value>
-        <value xml:lang="it">Tentativi Massimo</value>
+        <value xml:lang="it">Tentativi massimo</value>
         <value xml:lang="ro">Tentativa Maxima</value>
         <value xml:lang="th">ค่าสูงสุดในการทดสอบใหม่</value>
         <value xml:lang="zh">最大重试</value>
@@ -2039,7 +2043,7 @@
     <property key="WebtoolsMaxSize">
         <value xml:lang="en">Max Size</value>
         <value xml:lang="fr">Taille max</value>
-        <value xml:lang="it">Ampiezza Massima</value>
+        <value xml:lang="it">Ampiezza massima</value>
         <value xml:lang="ro">Marime Maxima</value>
         <value xml:lang="th">ขนาดสูงสุด</value>
         <value xml:lang="zh">最大大小</value>
@@ -2060,7 +2064,7 @@
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="en">Misc. Setup Tools</value>
         <value xml:lang="fr">Divers outils de configuration</value>
-        <value xml:lang="it">Strumenti Vari di Configurazione</value>
+        <value xml:lang="it">Strumenti vari di configurazione</value>
         <value xml:lang="ro">Instrumente Varii de Configurare</value>
         <value xml:lang="th">Misc. เครื่องมือติดตั้ง</value>
         <value xml:lang="zh">其它安装工具</value>
@@ -2068,7 +2072,7 @@
     <property key="WebtoolsMisses">
         <value xml:lang="en">Misses/NF/EXP/SR</value>
         <value xml:lang="fr">Echecs/Non trouvés/Exp./Réf. symb.</value>
-        <value xml:lang="it">Perse Non Trovate Scadute Pulizia Riferimenti</value>
+        <value xml:lang="it">Perse/Non trovate/Scadute/Riferimento soft</value>
         <value xml:lang="ro">Pierdute, negasite, Expirate Curatirea Referinte </value>
         <value xml:lang="th">Misses/NF/EXP/SR</value>
         <value xml:lang="zh">错失/未找到/过期/软引用</value>
@@ -2084,7 +2088,7 @@
     <property key="WebtoolsMissesNotFound">
         <value xml:lang="en">Not Found</value>
         <value xml:lang="fr">Non trouvé</value>
-        <value xml:lang="it">Non Trovate</value>
+        <value xml:lang="it">Non trovate</value>
         <value xml:lang="ro">Ne Gasite</value>
         <value xml:lang="th">ไม่พบ</value>
         <value xml:lang="zh">未找到</value>
@@ -2092,7 +2096,7 @@
     <property key="WebtoolsMissesSoftReference">
         <value xml:lang="en">Soft Reference</value>
         <value xml:lang="fr">Référence symbolique</value>
-        <value xml:lang="it">Pulizia Riferimenti</value>
+        <value xml:lang="it">Riferimento soft</value>
         <value xml:lang="ro">Curatirea Referinte</value>
         <value xml:lang="th">Soft Reference</value>
         <value xml:lang="zh">软引用</value>
@@ -2116,7 +2120,7 @@
     <property key="WebtoolsMostlyInserts">
         <value xml:lang="en">Mostly Inserts?</value>
         <value xml:lang="fr">Surtout des insertions ?</value>
-        <value xml:lang="it">Maggiormente Inserts?</value>
+        <value xml:lang="it">Soprattutto Inserts?</value>
         <value xml:lang="ro">Principalele Intrari?</value>
         <value xml:lang="th">ส่วนใหญ่แทรก?</value>
         <value xml:lang="zh">大部分是插入？</value>
@@ -2124,14 +2128,14 @@
     <property key="WebtoolsMyCertificates">
         <value xml:lang="en">My Certificates</value>
         <value xml:lang="fr">Mes certificats</value>
-        <value xml:lang="it">Miei Certificati</value>
+        <value xml:lang="it">Miei certificati</value>
         <value xml:lang="th">หนังสือรับรอง</value>
         <value xml:lang="zh">我的证书</value>
     </property>
     <property key="WebtoolsNameOrRole">
         <value xml:lang="en">Name or Role</value>
         <value xml:lang="fr">Nom ou rôle</value>
-        <value xml:lang="it">Nome o Ruolo</value>
+        <value xml:lang="it">Nome o ruolo</value>
         <value xml:lang="ro">Noume sau Rol</value>
         <value xml:lang="th">ชื่อหรือหน้าที่</value>
         <value xml:lang="zh">名称或角色</value>
@@ -2146,7 +2150,7 @@
     <property key="WebtoolsNoFilenameSpecified">
         <value xml:lang="en">No filename specified or no entity names specified, doing nothing.</value>
         <value xml:lang="fr">Aucun nom de fichier ou d'entité spécifié, rien ne se passera</value>
-        <value xml:lang="it">Nessun nome di file specificato o nessuna nome di entità specificata, niente verrà fatto.</value>
+        <value xml:lang="it">Nessun nome di file o nome di entità specificato, non verrà fatto nulla.</value>
         <value xml:lang="th">ไม่มีชื่อไฟล์ที่ระบุหรือไม่มีชื่อเอนติตี้ที่ระบุหรือไม่มีอะไร</value>
         <value xml:lang="zh">没有指定文件名或实体名，什么也不做。</value>
     </property>
@@ -2161,7 +2165,7 @@
     <property key="WebtoolsNoRecordsFound">
         <value xml:lang="en">No Records found for Entity</value>
         <value xml:lang="fr">Aucun enregistrement trouvé pour l'entité</value>
-        <value xml:lang="it">Nessun Records trovato per l'Entità</value>
+        <value xml:lang="it">Nessun records trovato per l'entità</value>
         <value xml:lang="ro">Nici-un Record gasit pentru Entitatea WebtoolsNoUtilCacheFound=Nici-o instanta de Cache gasita</value>
         <value xml:lang="th">ไม่พบข้อมูลที่บันทึกสำหรับเอนติตี้</value>
         <value xml:lang="zh">没有找到实体记录</value>
@@ -2192,14 +2196,14 @@
     <property key="WebtoolsNoUtilCacheFound">
         <value xml:lang="en">No UtilCache instances found</value>
         <value xml:lang="fr">Aucune instance de UtilCache trouvé</value>
-        <value xml:lang="it">Nessuna istanza di Cache trovata</value>
+        <value xml:lang="it">Nessuna istanza di cache trovata</value>
         <value xml:lang="th">No UtilCache instances found</value>
         <value xml:lang="zh">没有找到缓存实例</value>
     </property>
     <property key="WebtoolsNoUtilCacheSpecified">
         <value xml:lang="en">No Cache Name Specified</value>
         <value xml:lang="fr">Aucun nom de cache spécifié</value>
-        <value xml:lang="it">Nessun Nome di Cache Specificato</value>
+        <value xml:lang="it">Nessun nome di cache specificato</value>
         <value xml:lang="ro">Nici-un Nume de Cache Specificat</value>
         <value xml:lang="th">No Cache Name Specified</value>
         <value xml:lang="zh">没有指定缓存名称</value>
@@ -2207,7 +2211,7 @@
     <property key="WebtoolsNoValueFoundFor">
         <value xml:lang="en">No value found for</value>
         <value xml:lang="fr">Aucune valeur trouvé pour</value>
-        <value xml:lang="it">No value found for</value>
+        <value xml:lang="it">Nessun valore trovato per</value>
         <value xml:lang="th">ไม่พบค่าสำหรับ</value>
         <value xml:lang="zh">没有找到值</value>
     </property>
@@ -2258,7 +2262,7 @@
     <property key="WebtoolsNumberOfJobRetry">
         <value xml:lang="en">number of time the job will retry on error; use -1 for no limit or leave empty for service default</value>
         <value xml:lang="fr">Nombre de fois où le job sera relancé en cas d'erreur; utilisez -1 pour ne définir aucune limite ou laissez vide pour utilisez la valeur par défaut du service</value>
-        <value xml:lang="it">numero di volte che il lavoro riproverà su errore; usare -1 per nessun limite; lasciare vuoto per usare il valore di default del servizio</value>
+        <value xml:lang="it">Numero di volte che il lavoro riproverà su errore; usare -1 per nessun limite; lasciare vuoto per usare il valore di default del servizio</value>
         <value xml:lang="ro">numar de ori ca lucrul va reincerca eroarea; folositi -1 fara nici-o limita sau lasati gol pentru serviciul de default</value>
         <value xml:lang="th">จำนวนของเวลางานจะทดสอบใหม่เมื่อเกิดข้อผิดพลาด; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัดหรือปล่อยให้เป็นค่าว่างสำหรับค่าเริ่มต้น</value>
         <value xml:lang="zh">任务出错时的重试次数；-1表示没有限制，或空白表示使用服务缺省设置</value>
@@ -2266,7 +2270,7 @@
     <property key="WebtoolsNumberOfTimeTheJobWillRun">
         <value xml:lang="en">number of time the job will run; use -1 for no limit i.e. forever</value>
         <value xml:lang="fr">Nombre de fois où le job s'exécutera; utiliser -1 pour aucune limite (i.e. perpétuel)</value>
-        <value xml:lang="it">numero di volte che il lavoro verrà eseguito; usare -1 per nessun limite (eseguire per sempre)</value>
+        <value xml:lang="it">Numero di volte che il lavoro verrà eseguito; usare -1 per nessun limite (eseguire per sempre)</value>
         <value xml:lang="ro">numar de ori lucrul va fi executat; folositi -1 fara nici-o  limita (in acest exemplu infinit)</value>
         <value xml:lang="th">จำนวนของเวลางานจะดำเนินงานเมื่อ; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัด i.e. ตลอดไป</value>
         <value xml:lang="zh">任务将执行的次数；-1表示没有限制即会一直执行下去</value>
@@ -2290,7 +2294,7 @@
     <property key="WebtoolsOutParameters">
         <value xml:lang="en">Out parameters</value>
         <value xml:lang="fr">Paramètres en sortie</value>
-        <value xml:lang="it">Parametri in Uscita</value>
+        <value xml:lang="it">Parametri in uscita</value>
         <value xml:lang="ro">Parametri Iesire</value>
         <value xml:lang="th">พารามิเตอร์ออก</value>
         <value xml:lang="zh">外传参数</value>
@@ -2298,14 +2302,14 @@
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="en">OR Out to Browser</value>
         <value xml:lang="fr">OU en dehors vers le navigateur</value>
-        <value xml:lang="it">O Output al Browser</value>
+        <value xml:lang="it">O output al browser</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
         <value xml:lang="zh">或者输出到浏览器</value>
     </property>
     <property key="WebtoolsOutputDirectory">
         <value xml:lang="en">Output Directory</value>
         <value xml:lang="fr">Répertoire de sortie</value>
-        <value xml:lang="it">Directory di Output</value>
+        <value xml:lang="it">Directory di output</value>
         <value xml:lang="ro">Directory de Iesire </value>
         <value xml:lang="th">Output Directory</value>
         <value xml:lang="zh">输出目录</value>
@@ -2314,12 +2318,13 @@
         <value xml:lang="de">Eigene Logdatei</value>
         <value xml:lang="en">Use seperate logfile</value>
         <value xml:lang="fr">Utiliser une fichier de log séparé</value>
+        <value xml:lang="it">Utilizzare un file di log separato</value>
         <value xml:lang="zh">使用单独的日志文件</value>
     </property>
     <property key="WebtoolsParameterName">
         <value xml:lang="en">Parameter Name</value>
         <value xml:lang="fr">Nom du paramètre</value>
-        <value xml:lang="it">Nome Parametro</value>
+        <value xml:lang="it">Nome parametro</value>
         <value xml:lang="ro">Nume Parametru</value>
         <value xml:lang="th">ชื่อตัวแปร</value>
         <value xml:lang="zh">参数名称</value>
@@ -2327,7 +2332,7 @@
     <property key="WebtoolsParameterValue">
         <value xml:lang="en">Parameter Value</value>
         <value xml:lang="fr">Valeur du paramètre</value>
-        <value xml:lang="it">Valore Parametro</value>
+        <value xml:lang="it">Valore parametro</value>
         <value xml:lang="th">ค่าตัวแปร</value>
         <value xml:lang="zh">参数值</value>
     </property>
@@ -2392,7 +2397,7 @@
     <property key="WebtoolsPerformanceTests">
         <value xml:lang="en">Performance Tests</value>
         <value xml:lang="fr">Tests de performance</value>
-        <value xml:lang="it">Test delle Prestazioni</value>
+        <value xml:lang="it">Test delle prestazioni</value>
         <value xml:lang="ro">Testul Prestarilor</value>
         <value xml:lang="th">การดำเนินการทดสอบ</value>
         <value xml:lang="zh">性能测试</value>
@@ -2400,7 +2405,7 @@
     <property key="WebtoolsPermissionError">
         <value xml:lang="en">Webtools Permission Error</value>
         <value xml:lang="fr">Erreur d'autorisation sur les outils web</value>
-        <value xml:lang="it">Errore Permesso Strumenti Web</value>
+        <value xml:lang="it">Errore di autorizzazione sugli strumenti del Framework</value>
         <value xml:lang="ro">Eroare Permisa Intrumente Web</value>
         <value xml:lang="th">ข้อผิดพลาดเกี่ยวกับการอนุญาตเข้าใช้งานในส่วนของ Webtools</value>
         <value xml:lang="zh">Web工具权限错误</value>
@@ -2408,14 +2413,14 @@
     <property key="WebtoolsPermissionMaint">
         <value xml:lang="en">You do not have permission to use this page (ENTITY_MAINT needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (ENTITY_MAINT est nécessaire)</value>
-        <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario ENTITY_MAINT)</value>
+        <value xml:lang="it">Non hai il l'autorizzazione per usare questa pagina (necessario ENTITY_MAINT)</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (ENTITY_MAINT ที่ต้องการ)</value>
         <value xml:lang="zh">你没有使用这个页面的权限(需要ENTITY_MAINT)</value>
     </property>
     <property key="WebtoolsPermissionType">
         <value xml:lang="en">Permission Type</value>
         <value xml:lang="fr">Type d'autorisation</value>
-        <value xml:lang="it">Tipo Permesso</value>
+        <value xml:lang="it">Tipo permesso</value>
         <value xml:lang="ro">Tip Permis</value>
         <value xml:lang="th">ประเภทของการอนุญาต</value>
         <value xml:lang="zh">权限类型</value>
@@ -2423,7 +2428,7 @@
     <property key="WebtoolsPk">
         <value xml:lang="en">Primary Key</value>
         <value xml:lang="fr">Clé primaire</value>
-        <value xml:lang="it">Chiave Primaria</value>
+        <value xml:lang="it">Chiave primaria</value>
         <value xml:lang="ro">Cheie Primarie</value>
         <value xml:lang="th">Primary Key</value>
         <value xml:lang="zh">主键</value>
@@ -2431,7 +2436,7 @@
     <property key="WebtoolsPks">
         <value xml:lang="en">Pks</value>
         <value xml:lang="fr">Clé primaires</value>
-        <value xml:lang="it">Chiavi Primarie</value>
+        <value xml:lang="it">Chiavi primarie</value>
         <value xml:lang="th">Pks</value>
         <value xml:lang="zh">主键</value>
     </property>
@@ -2446,21 +2451,21 @@
     <property key="WebtoolsPopupWebToolsMain">
         <value xml:lang="en">Pop up WebTools Main</value>
         <value xml:lang="fr">Page d'accueil des outils web</value>
-        <value xml:lang="it">Pop up pagina principale strumenti web</value>
+        <value xml:lang="it">Pop up pagina principale strumenti del Framework</value>
         <value xml:lang="th">Pop up หน้าหลักเครื่องมือพัฒนาเว็บ</value>
         <value xml:lang="zh">弹出Web工具首页</value>
     </property>
     <property key="WebtoolsPreConfiguredSet">
         <value xml:lang="en">Pre-configured set</value>
         <value xml:lang="fr">Ensemble pré-configuré</value>
-        <value xml:lang="it">Impostazioni Pre-configurate</value>
+        <value xml:lang="it">Impostazioni pre-configurate</value>
         <value xml:lang="th">ตั้งค่าก่อนการสร้าง</value>
         <value xml:lang="zh">预设的集合</value>
     </property>
     <property key="WebtoolsPreConfiguredSet1">
         <value xml:lang="en">Catalog Export</value>
         <value xml:lang="fr">Exporter le catalogue</value>
-        <value xml:lang="it">Esporta Catalogo</value>
+        <value xml:lang="it">Esporta catalogo</value>
         <value xml:lang="th">รายชื่อการส่งออก</value>
         <value xml:lang="zh">目录导出</value>
     </property>
@@ -2526,21 +2531,21 @@
     <property key="WebtoolsRecordsUpdatedBefore">
         <value xml:lang="en">Records Updated Before</value>
         <value xml:lang="fr">Enregistrements mis à jour avant</value>
-        <value xml:lang="it">Records Aggiornati Prima</value>
+        <value xml:lang="it">Records aggiornati prima</value>
         <value xml:lang="th">บันทึกข้อมูลก่อนทำการอัพเดท</value>
         <value xml:lang="zh">已更新的记录早于</value>
     </property>
     <property key="WebtoolsRecordsUpdatedSince">
         <value xml:lang="en">Records Updated Since</value>
         <value xml:lang="fr">Enregistrements mis à jour depuis</value>
-        <value xml:lang="it">Records Aggiornati Fino a</value>
+        <value xml:lang="it">Records aggiornati fino a</value>
         <value xml:lang="th">บันทึกข้อมูลตั้งแต่ทำการอัพเดท</value>
         <value xml:lang="zh">已更新的记录始自</value>
     </property>
     <property key="WebtoolsRelatedEntity">
         <value xml:lang="en">Related Entity</value>
         <value xml:lang="fr">Entité liée</value>
-        <value xml:lang="it">Entità  Relazionata</value>
+        <value xml:lang="it">Entità  relazionata</value>
         <value xml:lang="ro">Entitate Relationata</value>
         <value xml:lang="th">ความสัมพันธ์ของ Entity</value>
         <value xml:lang="zh">相关的实体</value>
@@ -2555,7 +2560,7 @@
     <property key="WebtoolsRelationType">
         <value xml:lang="en">Relation Type</value>
         <value xml:lang="fr">Type de relation</value>
-        <value xml:lang="it">Tipo Relazione</value>
+        <value xml:lang="it">Tipo relazione</value>
         <value xml:lang="ro">Tip Relatii</value>
         <value xml:lang="th">ประเภทของความสัมพันธ์</value>
         <value xml:lang="zh">关系类型</value>
@@ -2581,21 +2586,21 @@
         <value xml:lang="en">Reload Cache List</value>
         <value xml:lang="fr">Recharger la liste des caches</value>
         <value xml:lang="it">Ricarica Lista Cache</value>
-        <value xml:lang="ro">Incarcare Lista Cache</value>
+        <value xml:lang="ro">Incarcare lista cache</value>
         <value xml:lang="th">โหลด Cache อีกครั้ง</value>
         <value xml:lang="zh">重载缓存列表</value>
     </property>
     <property key="WebtoolsRemoveAllTables">
         <value xml:lang="en">Remove All Tables</value>
         <value xml:lang="fr">Enlever tous les tables</value>
-        <value xml:lang="it">Rimuovi Tutte le Tabelle</value>
+        <value xml:lang="it">Rimuovi tutte le tabelle</value>
         <value xml:lang="th">ลบตารางทั้งหมด</value>
         <value xml:lang="zh">删除全部数据库表</value>
     </property>
     <property key="WebtoolsRemoves">
         <value xml:lang="en">removes:H/M</value>
         <value xml:lang="fr">Enlevé: Visites/Echecs</value>
-        <value xml:lang="it">Rimossi: Colpi Persi</value>
+        <value xml:lang="it">Rimossi: Colpi/Persi</value>
         <value xml:lang="ro">Stergeri: Tentative Pierdute</value>
         <value xml:lang="th">ลบ:H/M</value>
         <value xml:lang="zh">删除：击中/错失</value>
@@ -2619,7 +2624,7 @@
     <property key="WebtoolsRepairColumnSizes">
         <value xml:lang="en">Repair Column Sizes</value>
         <value xml:lang="fr">Réparer les tailles de colonnes</value>
-        <value xml:lang="it">Ripara Ampiezza Colonna</value>
+        <value xml:lang="it">Ripara ampiezza colonna</value>
         <value xml:lang="th">แก้ไขขนาดของแถว</value>
         <value xml:lang="zh">修复列大小</value>
     </property>
@@ -2634,6 +2639,7 @@
     <property key="WebtoolsResetJob">
         <value xml:lang="en">Reset Job</value>
         <value xml:lang="fr">Réinitialiser le job</value>
+        <value xml:lang="it">Resettare il lavoro</value>
         <value xml:lang="th">เปลี่ยนงาน</value>
         <value xml:lang="zh">重置任务</value>
     </property>
@@ -2672,7 +2678,7 @@
     <property key="WebtoolsRunTime">
         <value xml:lang="en">Run Time</value>
         <value xml:lang="fr">Moment de l'exécution </value>
-        <value xml:lang="it">Tempo di Esecuzione</value>
+        <value xml:lang="it">Tempo di esecuzione</value>
         <value xml:lang="ro">Timp de Executie</value>
         <value xml:lang="th">เวลาดำเนินงาน</value>
         <value xml:lang="zh">运行时间</value>
@@ -2680,7 +2686,7 @@
     <property key="WebtoolsSchedule">
         <value xml:lang="en">Schedule</value>
         <value xml:lang="fr">Planifier</value>
-        <value xml:lang="it">Schedula</value>
+        <value xml:lang="it">Pianificare</value>
         <value xml:lang="ro">Planificare</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">日程安排</value>
@@ -2688,7 +2694,7 @@
     <property key="WebtoolsScheduleJob">
         <value xml:lang="en">Schedule Job</value>
         <value xml:lang="fr">Planifier un job</value>
-        <value xml:lang="it">Schedula Lavoro</value>
+        <value xml:lang="it">Pianifica lavoro</value>
         <value xml:lang="ro">Planificare Lucru</value>
         <value xml:lang="th">ตารางเวลางาน</value>
         <value xml:lang="zh">任务计划</value>
@@ -2703,14 +2709,14 @@
     <property key="WebtoolsSecasIgnoreFailure">
         <value xml:lang="en">Ignore Failure</value>
         <value xml:lang="fr">Ignorer en cas d'échec</value>
-        <value xml:lang="it">Ignore fallimento</value>
+        <value xml:lang="it">Ignora fallimento</value>
         <value xml:lang="th">ละเลยความล้มเหลว</value>
         <value xml:lang="zh">忽略失败</value>
     </property>
     <property key="WebtoolsSecasPersist">
         <value xml:lang="en">Persist</value>
         <value xml:lang="fr">Faire persister</value>
-        <value xml:lang="it">Persiste</value>
+        <value xml:lang="it">Rendere persistente</value>
         <value xml:lang="th">ยังคงอยู่</value>
         <value xml:lang="zh">持续</value>
     </property>
@@ -2753,7 +2759,7 @@
     <property key="WebtoolsServerHitStatisticsTools">
         <value xml:lang="en">Server Hit Statistics Tools</value>
         <value xml:lang="fr">Outils de statistiques des visites au serveur</value>
-        <value xml:lang="it">Strumenti per Statistiche Server Hit</value>
+        <value xml:lang="it">Strumenti per statistiche server hit</value>
         <value xml:lang="ro">Instrumente pentru Statistica Server Hit</value>
         <value xml:lang="th">เครื่องมือการให้บริการทางสถิติ</value>
         <value xml:lang="zh">服务器击中统计工具</value>
@@ -2791,7 +2797,7 @@
     <property key="WebtoolsServiceEngineThreads">
         <value xml:lang="en">Service Engine Threads</value>
         <value xml:lang="fr">Threads du Service Engine</value>
-        <value xml:lang="it">Engine Servizi Threads</value>
+        <value xml:lang="it">Threads dell' Engine Servizi</value>
         <value xml:lang="th">Service Engine Threads</value>
         <value xml:lang="zh">服务引擎线程</value>
     </property>
@@ -2799,7 +2805,7 @@
         <value xml:lang="de">"Dienste-Maschine"</value>
         <value xml:lang="en">Service Engine</value>
         <value xml:lang="fr">Outils du moteur de services</value>
-        <value xml:lang="it">Engine Servizi</value>
+        <value xml:lang="it">Strumenti per engine servizi</value>
         <value xml:lang="ro">Instrumente pentru Engin Service</value>
         <value xml:lang="th">เครื่องมือ Service Engine </value>
         <value xml:lang="zh">服务引擎工具</value>
@@ -2807,7 +2813,7 @@
     <property key="WebtoolsServiceList">
         <value xml:lang="en">Service List</value>
         <value xml:lang="fr">Liste des services</value>
-        <value xml:lang="it">Lista Servizi</value>
+        <value xml:lang="it">Lista servizi</value>
         <value xml:lang="ro">Lista Service</value>
         <value xml:lang="th">Service List</value>
         <value xml:lang="zh">服务列表</value>
@@ -2815,7 +2821,7 @@
     <property key="WebtoolsServiceLog">
         <value xml:lang="en">Service Log</value>
         <value xml:lang="fr">Log des services</value>
-        <value xml:lang="it">Log Servizio</value>
+        <value xml:lang="it">Log dei servizi</value>
         <value xml:lang="ro">Log Serviciu</value>
         <value xml:lang="th">Service Log</value>
         <value xml:lang="zh">服务日志</value>
@@ -2824,7 +2830,7 @@
         <value xml:lang="de">Dienstname</value>
         <value xml:lang="en">Service Name</value>
         <value xml:lang="fr">Nom de service</value>
-        <value xml:lang="it">Nome Servizio</value>
+        <value xml:lang="it">Nome servizio</value>
         <value xml:lang="ro">Nume Serviciu </value>
         <value xml:lang="th">ชื่อ Service</value>
         <value xml:lang="zh">服务名称</value>
@@ -2832,7 +2838,7 @@
     <property key="WebtoolsServiceReference">
         <value xml:lang="en">Service Reference</value>
         <value xml:lang="fr">Liste des services</value>
-        <value xml:lang="it">Riferimenti Servizi</value>
+        <value xml:lang="it">Riferimenti servizi</value>
         <value xml:lang="ro">Referinte Serviciu</value>
         <value xml:lang="th">อ้างอิง Service </value>
         <value xml:lang="zh">服务引用</value>
@@ -2840,14 +2846,14 @@
     <property key="WebtoolsServiceSaveValue">
         <value xml:lang="en">Save Value</value>
         <value xml:lang="fr">Sauver la valeur</value>
-        <value xml:lang="it">Salva Valore</value>
+        <value xml:lang="it">Salva valore</value>
         <value xml:lang="th">บันทึกค่า</value>
         <value xml:lang="zh">保存值</value>
     </property>
     <property key="WebtoolsServiceWSDL">
         <value xml:lang="en">WSDL Service definition</value>
         <value xml:lang="fr">Définition WSDL de service</value>
-        <value xml:lang="it">Definizione Servizio WSDL</value>
+        <value xml:lang="it">Definizione servizio WSDL</value>
         <value xml:lang="ro">Definitie Serviciu WSDL</value>
         <value xml:lang="th">รายละเอียด WSDL Service </value>
         <value xml:lang="zh">WSDL服务定义</value>
@@ -2855,6 +2861,7 @@
     <property key="WebtoolsServicesFound">
         <value xml:lang="en">Services Found</value>
         <value xml:lang="fr">Services trouvés</value>
+        <value xml:lang="it">Servizio trovato</value>
         <value xml:lang="th">พบ Services</value>
         <value xml:lang="zh">找到的服务</value>
     </property>
@@ -2869,11 +2876,12 @@
     <property key="WebtoolsSet">
         <value xml:lang="en">Set</value>
         <value xml:lang="fr">Affectation</value>
+        <value xml:lang="it">Set</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="en">Show wsdl</value>
         <value xml:lang="fr">Montrer WSDL</value>
-        <value xml:lang="it">Mostra wsdl</value>
+        <value xml:lang="it">Mostra WSDL</value>
         <value xml:lang="ro">Afiseaza wsdl</value>
         <value xml:lang="th">แสดง wsdl</value>
         <value xml:lang="zh">显示WSDL</value>
@@ -2896,7 +2904,7 @@
     <property key="WebtoolsSizeTotal">
         <value xml:lang="en">Size Total</value>
         <value xml:lang="fr">Taille totale</value>
-        <value xml:lang="it">Ampiezza Totale</value>
+        <value xml:lang="it">Ampiezza totale</value>
         <value xml:lang="ro">Marime Totala</value>
         <value xml:lang="th">ขนาดรวม</value>
         <value xml:lang="zh">大小总计</value>
@@ -2930,7 +2938,7 @@
         <value xml:lang="de">SQL Prozessor</value>
         <value xml:lang="en">SQL Processor</value>
         <value xml:lang="fr">Processeur SQL</value>
-        <value xml:lang="it">Esegui SQL</value>
+        <value xml:lang="it">Processore SQL</value>
         <value xml:lang="ro">Executa SQL</value>
         <value xml:lang="th">การประมวลผลของ SQL</value>
         <value xml:lang="zh">SQL处理程序</value>
@@ -2967,7 +2975,7 @@
         <value xml:lang="de">Serverstatistik Historie</value>
         <value xml:lang="en">Server Statistic Bins History Page</value>
         <value xml:lang="fr">Page historique des blocs de statistiques du serveur</value>
-        <value xml:lang="it">Pagina Storia Statistiche Server Bins</value>
+        <value xml:lang="it">Pagina storia statistiche server bins</value>
         <value xml:lang="th">หน้าข้อมูลสถิติขยะ</value>
         <value xml:lang="zh">服务器统计二进制历史记录页面</value>
     </property>
@@ -2975,7 +2983,7 @@
         <value xml:lang="de">Statistiken (seit Start) zurücksetzen</value>
         <value xml:lang="en">Clear Since Start Stats</value>
         <value xml:lang="fr">Effacer depuis le début des statistiques</value>
-        <value xml:lang="it">Pulisce Fino dall'avvio Statistiche</value>
+        <value xml:lang="it">Pulisce fino dall'avvio statistiche</value>
         <value xml:lang="th">ยกเลิกตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">清除启动以来的统计</value>
     </property>
@@ -2983,7 +2991,7 @@
         <value xml:lang="de">Aktuelle Zeit</value>
         <value xml:lang="en">Current Time</value>
         <value xml:lang="fr">Temps actuel</value>
-        <value xml:lang="it">Ora Attuale</value>
+        <value xml:lang="it">Ora attuale</value>
         <value xml:lang="th">ช่วงเวลา</value>
         <value xml:lang="zh">当前时间</value>
     </property>
@@ -2991,7 +2999,7 @@
         <value xml:lang="de">Ereignisstatistik</value>
         <value xml:lang="en">Event Statistics</value>
         <value xml:lang="fr">Statistiques d'évènement</value>
-        <value xml:lang="it">Evento Statistiche</value>
+        <value xml:lang="it">Evento statistiche</value>
         <value xml:lang="th">สถิติเหตุการณ์</value>
         <value xml:lang="zh">事件统计</value>
     </property>
@@ -3047,7 +3055,7 @@
         <value xml:lang="de">Es wurden keine Ereignisstatistiken gefunden.</value>
         <value xml:lang="en">No Event statistics found.</value>
         <value xml:lang="fr">Aucun évènement de statistiques trouvé</value>
-        <value xml:lang="it">Nessun Evento Statistiche trovata.</value>
+        <value xml:lang="it">Nessun evento statistiche trovato.</value>
         <value xml:lang="th">ไม่พบสถิติของเหตุการณ์</value>
         <value xml:lang="zh">没有找到事件统计。</value>
     </property>
@@ -3055,7 +3063,7 @@
         <value xml:lang="de">Es wurden keine Anfragestatistiken gefunden.</value>
         <value xml:lang="en">No Request statistics found.</value>
         <value xml:lang="fr">Aucune requêt de statistiques trouvée</value>
-        <value xml:lang="it">Nessuna Richiesta statistica trovata.</value>
+        <value xml:lang="it">Nessuna statistica delle request trovata.</value>
         <value xml:lang="th">ไม่พบการส่งข้อมูลสถิติ</value>
         <value xml:lang="zh">没有找到请求统计。</value>
     </property>
@@ -3063,7 +3071,7 @@
         <value xml:lang="de">Es wurden keine Besuchsstatistiken gefunden.</value>
         <value xml:lang="en">No View statistics found.</value>
         <value xml:lang="fr">Aucune vue statistiques trouvée</value>
-        <value xml:lang="it">Nessuna Mostra Statistiche trovata.</value>
+        <value xml:lang="it">Nessuna statistica delle view trovata.</value>
         <value xml:lang="th">ไม่พบสถิติการตรวจสอบ</value>
         <value xml:lang="zh">没有找到浏览统计。</value>
     </property>
@@ -3071,7 +3079,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung, diese Seite aufzurufen (Sie benötigen die SERVER_STATS_VIEW Berechtigung).</value>
         <value xml:lang="en">You do not have permission to view this page (SERVER_STATS_VIEW needed).</value>
         <value xml:lang="fr">Vous n'avez pas la permission de voir cette page (SERVER_STATS_VIEW est nécessaire)</value>
-        <value xml:lang="it">Tu non hai il permesso di vedere questa pagina (necessario permesso SERVER_STATS_VIEW).</value>
+        <value xml:lang="it">Non hai l'autorizzazione per vedere questa pagina (necessario permesso SERVER_STATS_VIEW).</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในส่วนนี้ (SERVER_STATS_VIEW ที่ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限(需要SERVER_STATS_VIEW)。</value>
     </property>
@@ -3079,7 +3087,7 @@
         <value xml:lang="de">Seite neu laden</value>
         <value xml:lang="en">Reload Page</value>
         <value xml:lang="fr">Recharger la page</value>
-        <value xml:lang="it">Rinfresca Pagina</value>
+        <value xml:lang="it">Ricarica la pagina</value>
         <value xml:lang="th">ใส่หน้าเพิ่ม</value>
         <value xml:lang="zh">刷新页面</value>
     </property>
@@ -3095,7 +3103,7 @@
         <value xml:lang="de">Anfragestatistik</value>
         <value xml:lang="en">Request Statistics</value>
         <value xml:lang="fr">Requête statistiques</value>
-        <value xml:lang="it">Richiesta Statistiche</value>
+        <value xml:lang="it">Statistica richieste</value>
         <value xml:lang="th">สถิติคำร้อง</value>
         <value xml:lang="zh">请求统计</value>
     </property>
@@ -3128,7 +3136,7 @@
         <value xml:lang="de">Blöcke ansehen</value>
         <value xml:lang="en">View Bins</value>
         <value xml:lang="fr">Voir les blocs</value>
-        <value xml:lang="it">Mostra Bins</value>
+        <value xml:lang="it">Mostra bins</value>
         <value xml:lang="th">ดูถังขยะ</value>
         <value xml:lang="zh">浏览二进制文件</value>
     </property>
@@ -3136,7 +3144,7 @@
         <value xml:lang="de">Statistiken ansehen</value>
         <value xml:lang="en">View Statistics</value>
         <value xml:lang="fr">Voir les statistiques</value>
-        <value xml:lang="it">Mostra Statistiche</value>
+        <value xml:lang="it">Mostra statistiche</value>
         <value xml:lang="th">แสดงสถิติ</value>
         <value xml:lang="zh">浏览统计</value>
     </property>
@@ -3144,7 +3152,7 @@
         <value xml:lang="de">Ungültiger Status</value>
         <value xml:lang="en">Invalid Status</value>
         <value xml:lang="fr">Statuts "Non valable"</value>
-        <value xml:lang="it">Stato Invalido</value>
+        <value xml:lang="it">Stato invalido</value>
         <value xml:lang="ro">Stat Invalid</value>
         <value xml:lang="th">สถานะไม่ถูกต้อง</value>
         <value xml:lang="zh">无效的状态</value>
@@ -3153,7 +3161,7 @@
         <value xml:lang="de">Eingeschaltet</value>
         <value xml:lang="en">Running</value>
         <value xml:lang="fr">En cours</value>
-        <value xml:lang="it">In Esecuzione</value>
+        <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="zh">正在运行</value>
@@ -3162,7 +3170,7 @@
         <value xml:lang="de">Im Herunterfahren</value>
         <value xml:lang="en">Shutting down</value>
         <value xml:lang="fr">Fermeture en cours</value>
-        <value xml:lang="it">In Chiusura</value>
+        <value xml:lang="it">In chiusura</value>
         <value xml:lang="ro">In Inchidere</value>
         <value xml:lang="th">ปิด</value>
         <value xml:lang="zh">正在关闭</value>
@@ -3207,7 +3215,7 @@
         <value xml:lang="de">Offline Synchronisierung erlauben</value>
         <value xml:lang="en">Accept Offline Sync</value>
         <value xml:lang="fr">Accepter la synchro. en différé</value>
-        <value xml:lang="it">Accetta Sincronizzazione Offline</value>
+        <value xml:lang="it">Accetta sincronizzazione offline</value>
         <value xml:lang="ro">Accepta Sincronizare Offline</value>
         <value xml:lang="th">ยอมรับการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">接受离线同步</value>
@@ -3216,7 +3224,7 @@
         <value xml:lang="de">Offline Synchroinisierung ablehen</value>
         <value xml:lang="en">Reject Offline Sync</value>
         <value xml:lang="fr">Rejeter la synchro. en différé</value>
-        <value xml:lang="it">Rifiuta Sincronizzazione Offline</value>
+        <value xml:lang="it">Rifiuta sincronizzazione offline</value>
         <value xml:lang="ro">Refuza Sincronizarea Offline</value>
         <value xml:lang="th">ปฏิเสธการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">拒绝离线同步</value>
@@ -3225,7 +3233,7 @@
         <value xml:lang="de">Laufstatus zurücksetzen</value>
         <value xml:lang="en">Reset Run Status</value>
         <value xml:lang="fr">Remettre à zéro le statut d'exécution</value>
-        <value xml:lang="it">Esegui Azzeramento Stato</value>
+        <value xml:lang="it">Esegui azzeramento stato</value>
         <value xml:lang="ro">Executa Azerarea Stat</value>
         <value xml:lang="th">เปลี่ยนสถานะการทำงาน</value>
         <value xml:lang="zh">重置运行状态</value>
@@ -3234,7 +3242,7 @@
         <value xml:lang="de">Offline Synchronisierung starten</value>
         <value xml:lang="en">Run Offline Sync</value>
         <value xml:lang="fr">Exécuter la synchro. en différé</value>
-        <value xml:lang="it">Esegui Sincronizzazione Offline</value>
+        <value xml:lang="it">Esegui sincronizzazione offline</value>
         <value xml:lang="ro">Executa Sincronizarea Offline</value>
         <value xml:lang="th">ดำเนินการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">运行离线同步</value>
@@ -3243,6 +3251,7 @@
         <value xml:lang="de">TTL</value>
         <value xml:lang="en">TTL</value>
         <value xml:lang="fr">Péremption</value>
+        <value xml:lang="it">TTL</value>
         <value xml:lang="th">TTL</value>
     </property>
     <property key="WebtoolsTable">
@@ -3257,14 +3266,14 @@
         <value xml:lang="de">Zeitausdrücke</value>
         <value xml:lang="en">Temporal Expression</value>
         <value xml:lang="fr">Expression temporelle</value>
-        <value xml:lang="it">Espressioni temporali</value>
+        <value xml:lang="it">Espressione temporale</value>
         <value xml:lang="zh">时间表达式</value>
     </property>
     <property key="WebtoolsTestResults">
         <value xml:lang="de">Testergebnisse</value>
         <value xml:lang="en">Test Results</value>
         <value xml:lang="fr">Résultats des tests</value>
-        <value xml:lang="it">Risultati Test</value>
+        <value xml:lang="it">Risultati test</value>
         <value xml:lang="th">ผลการทดสอบ</value>
         <value xml:lang="zh">测试结果</value>
     </property>
@@ -3272,7 +3281,7 @@
         <value xml:lang="de">Dieser Thread</value>
         <value xml:lang="en">This Thread</value>
         <value xml:lang="fr">Cette Thread</value>
-        <value xml:lang="it">Thread</value>
+        <value xml:lang="it">Questo thread</value>
         <value xml:lang="ro">Thread</value>
         <value xml:lang="th">Thread</value>
         <value xml:lang="zh">线程</value>
@@ -3298,7 +3307,7 @@
         <value xml:lang="de">Thread Liste</value>
         <value xml:lang="en">Thread List</value>
         <value xml:lang="fr">Liste des Threads</value>
-        <value xml:lang="it">Lista Thread</value>
+        <value xml:lang="it">Lista thread</value>
         <value xml:lang="ro">Lista Thread</value>
         <value xml:lang="th">รายชื่อ thread</value>
         <value xml:lang="zh">线程列表</value>
@@ -3325,7 +3334,7 @@
         <value xml:lang="de">Der Grad der Steuerung bestimmt die Granularität der Informationen in den Logdateien; dies ist sehr nützlich um Anwendungen zu debuggen.</value>
         <value xml:lang="en">The Timing Level designates fine-grained informational events that are most useful to debug an application.</value>
         <value xml:lang="fr">Le niveau "Timing" désigne les évènements informationnels de bas niveau qui sont le plus utile pour corriger une application</value>
-        <value xml:lang="it">Il livello Tempo designa eventi informativi che sono utili per il debug dell'applicazione.</value>
+        <value xml:lang="it">Il livello "Tempo" designa eventi informativi che sono utili per il debug dell'applicazione.</value>
         <value xml:lang="ro">Nivel Timp desemneaza evenimente informative care sunt utile pentru debug_ul aplicatiei.</value>
         <value xml:lang="th">การเลือกระดับในการกำหนดเวลาที่เหมาะสมที่สุดโดยข้อมูลจำนวนมากผลลัพธ์ที่ได้จะใช้แก้ไขข้อผิดพลาดของแอพพลิเคชั่น</value>
         <value xml:lang="zh">定时级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
@@ -3343,7 +3352,7 @@
         <value xml:lang="de">Um ALLES über die Entität zu finden</value>
         <value xml:lang="en">To find ALL of Entity</value>
         <value xml:lang="fr">Pour trouver TOUT sur l'entité </value>
-        <value xml:lang="it">Per ricercare TUTTO sull'Entità</value>
+        <value xml:lang="it">Per ricercare TUTTO sull'entità</value>
         <value xml:lang="ro">Pentru recautare TOTUL in entitatea </value>
         <value xml:lang="th">ทำการค้นหาเอนติตี้ทั้งหมด</value>
         <value xml:lang="zh">查找所有实体</value>
@@ -3352,7 +3361,7 @@
         <value xml:lang="de">Gesamtzahl Entitäten</value>
         <value xml:lang="en">Total Entities</value>
         <value xml:lang="fr">Entitées totales</value>
-        <value xml:lang="it">Totale Entità</value>
+        <value xml:lang="it">Totale entità</value>
         <value xml:lang="th">ผลรวมของเอนติตี้</value>
         <value xml:lang="zh">全部实体</value>
     </property>
@@ -3369,7 +3378,7 @@
         <value xml:lang="de">Keine auswählen</value>
         <value xml:lang="en">Un-Check All</value>
         <value xml:lang="fr">Tout désélectionner</value>
-        <value xml:lang="it">De-seleziona Tutto</value>
+        <value xml:lang="it">De-seleziona tutto</value>
         <value xml:lang="th">ยกเลิกการเช็คทั้งหมด</value>
         <value xml:lang="zh">全部不选</value>
     </property>
@@ -3393,7 +3402,7 @@
         <value xml:lang="de">Dateisystem benutzen?</value>
         <value xml:lang="en">Use File Store ?</value>
         <value xml:lang="fr">Utiliser le stockage sur fichier ?</value>
-        <value xml:lang="it">Usa File Memorizzato ?</value>
+        <value xml:lang="it">Usare la memorizzazzione su file?</value>
         <value xml:lang="ro">Foloseste File Memorizat ?</value>
         <value xml:lang="th">ใช้ไฟล์เก็บข้อมูล?</value>
         <value xml:lang="zh">使用文件存储吗？</value>
@@ -3401,7 +3410,7 @@
     <property key="WebtoolsUseSoftRef">
         <value xml:lang="en">Use Soft Ref ?</value>
         <value xml:lang="fr">Utilise des réf. symb. ?</value>
-        <value xml:lang="it">Usa Riferimento Soft ?</value>
+        <value xml:lang="it">Usare riferimento soft?</value>
         <value xml:lang="ro">Foloseste Referiment Soft ?</value>
         <value xml:lang="th">ใช้ในการอ้างอิง ?</value>
         <value xml:lang="zh">使用软引用吗？</value>
@@ -3437,7 +3446,7 @@
         <value xml:lang="de">Der Grad "Detailliert" legt fein-granulare Informationsereignisse fest, die sehr nützlich sind um eine Anwendung zu debuggen.</value>
         <value xml:lang="en">The Verbose Level designates fine-grained informational events that are most useful to debug an application.</value>
         <value xml:lang="fr">Le niveau "Verbose" indique les événements informationnels à grain fin qui sont les plus utiles pour corriger une application.</value>
-        <value xml:lang="it">Il livello Dettaglio designa eventi informativi che sono utili per il debug dell'applicazione.</value>
+        <value xml:lang="it">Il livello "Dettaglio" designa eventi informativi che sono utili per il debug dell'applicazione.</value>
         <value xml:lang="ro">Nivel Detaliu desemneaza evenimente informative care sunt utile pentru debug_ul aplicatiei.</value>
         <value xml:lang="th">มีการใช้ถ้อยคำละเอียดมากเกินไปในแอพลิเคชันนี้
         </value>
@@ -3447,7 +3456,7 @@
         <value xml:lang="de">Komponenten ansehen</value>
         <value xml:lang="en">View Components</value>
         <value xml:lang="fr">Voir les composants</value>
-        <value xml:lang="it">Mostra Componenti</value>
+        <value xml:lang="it">Mostra componenti</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">浏览组件</value>
     </property>
@@ -3455,7 +3464,7 @@
         <value xml:lang="de">Daten ansehen</value>
         <value xml:lang="en">View data</value>
         <value xml:lang="fr">Voir les données</value>
-        <value xml:lang="it">Mostra Dati</value>
+        <value xml:lang="it">Mostra dati</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">浏览数据</value>
     </property>
@@ -3463,7 +3472,7 @@
         <value xml:lang="de">Logdatei ansehen</value>
         <value xml:lang="en">View Log</value>
         <value xml:lang="fr">Voir la log (journal de bord)</value>
-        <value xml:lang="it">Mostra Log</value>
+        <value xml:lang="it">Mostra log</value>
         <value xml:lang="ro">Afiseaza Log</value>
         <value xml:lang="th">ดูข้อมูลการจดบันทึก</value>
         <value xml:lang="zh">浏览日志</value>
@@ -3482,7 +3491,7 @@
         <value xml:lang="de">Beziehungen ansehen</value>
         <value xml:lang="en">View Relations</value>
         <value xml:lang="fr">Voir les relations</value>
-        <value xml:lang="it">Mostra Relazioni</value>
+        <value xml:lang="it">Mostra relazioni</value>
         <value xml:lang="ro">Afiseaza Relatii</value>
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="zh">浏览关系</value>
@@ -3491,7 +3500,7 @@
         <value xml:lang="de">Wert ansehen</value>
         <value xml:lang="en">View Value</value>
         <value xml:lang="fr">Voir les valeurs</value>
-        <value xml:lang="it">Mostra Valore</value>
+        <value xml:lang="it">Mostra valore</value>
         <value xml:lang="ro">Afiseaza Valoare</value>
         <value xml:lang="th">แสดงค่า</value>
         <value xml:lang="zh">浏览值</value>
@@ -3509,7 +3518,7 @@
         <value xml:lang="de">Bei "Warnung" werden nur möglicherweise schädliche Eregnisse gelistet.</value>
         <value xml:lang="en">The Warning level designates potentially harmful situations.</value>
         <value xml:lang="fr">Le niveau "Warning" indique des situations potentiellement malsaines.</value>
-        <value xml:lang="it">Il livello Avvertimento designa potenziali situazioni anomale.</value>
+        <value xml:lang="it">Il livello "Avvertimento" designa potenziali situazioni anomale.</value>
         <value xml:lang="ro">Nivelul de Avertiment desemneaza potentiale  situatii anormale.</value>
         <value xml:lang="th">กำหนดคำเตือนระดับที่เป็นไปได้มีสถานภาพซึ่งเป็นอันตราย</value>
         <value xml:lang="zh">警告级别指出重要的有害情形。</value>
@@ -3518,7 +3527,7 @@
         <value xml:lang="de">Mit Primärschlüssel</value>
         <value xml:lang="en">With PK</value>
         <value xml:lang="fr">Avec cle primaire</value>
-        <value xml:lang="it">Con la Chiave Primaria</value>
+        <value xml:lang="it">Con la chiave primaria</value>
         <value xml:lang="ro">Cu Cheia Primara</value>
         <value xml:lang="th">กับ PK</value>
         <value xml:lang="zh">主键</value>
@@ -3527,7 +3536,7 @@
         <value xml:lang="de">Mit Datendateien arbeiten</value>
         <value xml:lang="en">Work With Data Files</value>
         <value xml:lang="fr">Travailler avec les fichiers de données</value>
-        <value xml:lang="it">Lavora Con i Files di Dati</value>
+        <value xml:lang="it">Lavorare con i files dati</value>
         <value xml:lang="ro">Lucreaza cu Fisierele de Date</value>
         <value xml:lang="th">ทำงานกับข้อมูลไฟล์</value>
         <value xml:lang="zh">数据文件</value>
