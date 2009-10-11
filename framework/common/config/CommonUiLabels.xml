@@ -76,7 +76,7 @@
         <value xml:lang="de">CMS Seite</value>
         <value xml:lang="en">CMS Site</value>
         <value xml:lang="es">Gestión de contenido</value>
-        <value xml:lang="fr">Site de gestion de contenu</value>
+        <value xml:lang="fr">Sites de gestion de contenu</value>
         <value xml:lang="hi_IN">सीऍमएस साईट</value>
         <value xml:lang="it">Sito CMS</value>
         <value xml:lang="th">CMS Site</value>
@@ -8429,7 +8429,7 @@
         <value xml:lang="de">Beispiel</value>
         <value xml:lang="en">Example</value>
         <value xml:lang="es">Ejemplo</value>
-        <value xml:lang="fr">Exemple</value>
+        <value xml:lang="fr">Exemples</value>
         <value xml:lang="hi_IN">उदाहरण</value>
         <value xml:lang="it">Esempi</value>
         <value xml:lang="pt">Exemplo</value>
@@ -8442,7 +8442,7 @@
         <value xml:lang="de">Erweitertes Beispiel</value>
         <value xml:lang="en">Example Ext</value>
         <value xml:lang="es">Ejemplo extendido</value>
-        <value xml:lang="fr">Exemple étendu</value>
+        <value xml:lang="fr">Exemples étendus</value>
         <value xml:lang="hi_IN">उदाहरण Ext</value>
         <value xml:lang="it">Esempi est.</value>
         <value xml:lang="th">ตัวอย่างพิเศษ</value>
