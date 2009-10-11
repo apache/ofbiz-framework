@@ -9325,7 +9325,7 @@
         <value xml:lang="de">Projekt</value>
         <value xml:lang="en">Project</value>
         <value xml:lang="es">Proyecto</value>
-        <value xml:lang="fr">Projet</value>
+        <value xml:lang="fr">Projets</value>
         <value xml:lang="hi_IN">परियोजना</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="th">โปรเจค</value>
@@ -9335,7 +9335,7 @@
         <value xml:lang="de">Vertrieb</value>
         <value xml:lang="en">SFA</value>
         <value xml:lang="es">Distribución</value>
-        <value xml:lang="fr">Vente</value>
+        <value xml:lang="fr">Ventes</value>
         <value xml:lang="hi_IN">एसऍफ़ए(SFA)</value>
         <value xml:lang="it">Forze di vendita</value>
         <value xml:lang="zh">销售管理</value>
@@ -9379,7 +9379,7 @@
         <value xml:lang="de">Aufgaben</value>
         <value xml:lang="en">WorkEffort</value>
         <value xml:lang="es">Adm. de tareas</value>
-        <value xml:lang="fr">Tâche</value>
+        <value xml:lang="fr">Tâches</value>
         <value xml:lang="hi_IN">कार्यप्रयास</value>
         <value xml:lang="it">Impegni di lavoro</value>
         <value xml:lang="nl">Activiteiten</value>
