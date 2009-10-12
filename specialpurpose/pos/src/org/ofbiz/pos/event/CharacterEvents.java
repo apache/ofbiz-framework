@@ -272,4 +272,8 @@ public class CharacterEvents {
             input.appendChar('z');
         }
     }
+    public static void triggerAt(PosScreen pos) {
+        Input input = pos.getInput();
+            input.appendChar('@');
+    }
 }

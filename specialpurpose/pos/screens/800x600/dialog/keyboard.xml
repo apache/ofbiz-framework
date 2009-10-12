@@ -59,7 +59,8 @@
                 <Button name="charJ" x="456" y="138" w="75" h="68" style="numButton" content="j" alignment="Center"/>
                 <Button name="charK" x="532" y="138" w="75" h="68" style="numButton" content="k" alignment="Center"/>
                 <Button name="charL" x="608" y="138" w="75" h="68" style="numButton" content="l" alignment="Center"/>
-
+                <Button name="charAt" x="684" y="138" w="75" h="68" style="numButton" content="@" alignment="Center"/><!-- @ -->
+                
                 <Button name="charZ" x="00" y="207" w="75" h="68" style="numButton" content="z" alignment="Center"/>
                 <Button name="charX" x="76" y="207" w="75" h="68" style="numButton" content="x" alignment="Center"/>
                 <Button name="charC" x="152" y="207" w="75" h="68" style="numButton" content="c" alignment="Center"/>

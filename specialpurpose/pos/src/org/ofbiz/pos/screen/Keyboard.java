@@ -85,7 +85,7 @@ public class Keyboard extends XPage {
 
     private void setupEvents() {
         String[] keys = {"A" ,"B" ,"C" ,"D" ,"E" ,"F" ,"G" ,"H" ,"I" ,"J" ,"K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" ,"T" ,"U" ,"V" ,"W" ,"X" ,"Y" ,"Z",
-                "1" ,"2" ,"3" ,"4" ,"5" ,"6" ,"7" ,"8" ,"9" ,"0" ,
+                "1" ,"2" ,"3" ,"4" ,"5" ,"6" ,"7" ,"8" ,"9" ,"0" , "At",
                 "Dot", "Dash", "Del", "Space", "Clear", "Enter", "Cancel", "Shift", "ShiftLock"};
         XButton button = null;
         for(String key : keys) {
@@ -268,6 +268,10 @@ public class Keyboard extends XPage {
 
     public void triggerSpace() {
         triggerAndAppend(" ");
+    }
+
+    public void triggerAt() {
+        triggerAndAppend("@");
     }
 
     public void triggerClear() {

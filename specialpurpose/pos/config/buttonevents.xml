@@ -64,7 +64,8 @@ under the License.
     <event button-name="charY" class-name="org.ofbiz.pos.event.CharacterEvents" method-name="triggerY" disable-lock="false"/>
     <event button-name="charZ" class-name="org.ofbiz.pos.event.CharacterEvents" method-name="triggerZ" disable-lock="false"/>
     <event button-name="charDel" class-name="org.ofbiz.pos.event.CharacterEvents" method-name="triggerDel" disable-lock="false"/>
-
+    <event button-name="char@" class-name="org.ofbiz.pos.event.CharacterEvents" method-name="triggerAt" disable-lock="false"/>
+    
     <!-- base menu events -->
     <event button-name="menuClear" class-name="org.ofbiz.pos.event.MenuEvents" method-name="triggerClear" disable-lock="true"/>
     <event button-name="menuQty" class-name="org.ofbiz.pos.event.MenuEvents" method-name="triggerQty" disable-lock="false"/>
