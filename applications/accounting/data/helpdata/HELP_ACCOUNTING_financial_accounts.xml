@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Accounting Financial Accounts.</title>
+    <para>A financial account is a tool (similar to bank account statement) that is used for monitoring monetary transactions. Normally they will be linked to a party and the various transactions details (eg payments or receipts) will be shown as entries.</para>
+    <para>The entries for a financial account can be displayed using the 'Financial Account' tab in Accounting or in Party Manager if you enter a party as the owner of the financial account.</para>
+    <para>Currently in OFBiz financial accounts can have the following types:</para>
+    <para>* Bank Account (by default this type will post to 213500 CUSTOMER DEPOSIT ACCOUNTS)</para>
+    <para>* Deposit Account (by default this type will post to 213500 CUSTOMER DEPOSIT ACCOUNTS)</para>
+    <para>* Gift Certificate (by default this type will post to 213200 GIFT CERTIFICATES UNREDEEMED)</para>
+    <para>* Investment Account (by default this type will post to 213500 CUSTOMER DEPOSIT ACCOUNTS)</para>
+      <para>* Replenish Account (no default posting account in demo data setup)</para>
+       <para>* Service Credit Account (no default posting account in demo data setup)</para>
+    <para>NOTE:</para>
+    <para>1.  In GL Account Defaults there is a specific tab 'FinAccount Type Gl Account' for specifying which type of Financial accounts are posted to which general ledger account.</para>
+      <para>2. In GL Account Defaults there is also a tab 'Payment Method Id / GL Account ID' for specifying the account  to post transactions to if 'Financial Account' is selected as the Payment Method instead of (Cash, Cheque, Credit Card, etc). By default the demo setup posts transactions to 111100 GENERAL CHECKING ACCOUNT.</para>
+    <para>You can also setup each financial account to post to a specific general ledger account for each party. This is done via a specific field during the creation or update of a financial account. This will override the default setting by type.</para>
+    <para>Financial Accounts can be used for the following</para>
+    <para>*  Managing and Tracking Customer Prepaid Accounts</para>
+    <para>* Managing and Tracking Customer Credit Limit (NOTE: Need to verify this)</para>
+    <para>* Managing Electronic Gift Certificates / Gift Vouchers/ Gift Card</para>
+    <para>* Reload of Electronic Gift Card</para>
+    <para>* Company Bank Account Transaction Tracking</para>
+    
+    <xi:include href="HELP_ACCOUNTING_FinAccountMain.xml" />
+    <xi:include href="HELP_ACCOUNTING_FindFinAccount.xml" />
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountRoles.xml" />
+    <xi:include href="HELP_ACCOUNTING_FindFinAccountTrans.xml" />
+    <xi:include href="HELP_ACCOUNTING_PaymentsDepositWithdraw.xml" />
+    <xi:include href="HELP_ACCOUNTING_FindDepositSlips.xml" />
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountReconciliations.xml" />
+    <xi:include href="HELP_ACCOUNTING_ViewGlReconciliationWithTransaction.xml" />
+    <xi:include href="HELP_ACCOUNTING_NewDepositPayment.xml" />
+    <xi:include href="HELP_ACCOUNTING_NewWithdrawalPayment.xml" />
+    <xi:include href="HELP_ACCOUNTING_NewDepositSlip.xml" />
+    <xi:include href="HELP_ACCOUNTING_EditDepositSlipAndMembers.xml" />
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountTrans.xml" />
+    <xi:include href="HELP_ACCOUNTING_BankReconciliation.xml" />
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountAuths.xml" />
+</section>
