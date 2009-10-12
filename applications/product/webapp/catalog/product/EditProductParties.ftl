@@ -51,7 +51,13 @@ under the License.
           </form>
         </td>
         <td align="center">
-          <a href="<@ofbizUrl>removePartyFromProduct?productId=${(productRole.productId)?if_exists}&partyId=${(productRole.partyId)?if_exists}&roleTypeId=${(productRole.roleTypeId)?if_exists}&fromDate=${productRole.getString("fromDate")}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+          <form action="<@ofbizUrl>removePartyFromProduct</@ofbizUrl>" method="post">
+             <input type="hidden" name="partyId" value="${(productRole.partyId)?if_exists}">
+             <input type="hidden" name="productId" value="${(productRole.productId)?if_exists}">
+             <input type="hidden" name="roleTypeId" value="${(productRole.roleTypeId)?if_exists}">
+             <input type="hidden" name="fromDate" value="${productRole.getString("fromDate")}">
+             <input type="submit" value="${uiLabelMap.CommonDelete}">
+          </form>
         </td>
       </tr>
       <#-- toggle the row color -->
