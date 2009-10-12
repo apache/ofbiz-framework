@@ -225,4 +225,97 @@ under the License.
     <Content contentId="ACCOUNTING_BillAcOr" contentTypeId="DOCUMENT" contentName="Billing Account Orders." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_BillAcOr" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="ACCOUNTING_BillinAcc" contentIdTo="ACCOUNTING_BillAcOr" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_BillingAccountOrders"/>
 
+	<!-- Financial Accounts -->
+
+	<DataResource dataResourceId="ACCOUNTING_FinAccoun" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_financial_accounts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Financial Accounts Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FinAccoun" contentTypeId="DOCUMENT" contentName="Financial Accounts." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FinAccoun" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_FinAccoun" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FinAccoun"/>
+
+	<DataResource dataResourceId="ACCOUNTING_FinAcmain" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FinAccountMain.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Financial Account Main Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FinAcmain" contentTypeId="DOCUMENT" contentName="Financial Account Main." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FinAcmain" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_FinAcmain" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FinAccountMain"/>
+
+	<DataResource dataResourceId="HELP_ListBkAcct" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+      objectInfo="applications/accounting/data/helpdata/HELP_PORTLET_ListBankAccount.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="List Bank Account help file" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_ListBkAcct" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ListBkAcct" statusId="CTNT_IN_PROGRESS" 
+        contentName="Help portlet List Bank Account" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="HELP_ListBkAcct" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="HELP_ListBankAccount"/>
+        
+	<DataResource dataResourceId="ACCOUNTING_FindFAcc" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindFinAccount.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Financial Accounts Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindFAcc" contentTypeId="DOCUMENT" contentName="Find Financial Accounts." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindFAcc" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_FindFAcc" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindFinAccount"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditFAcc" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditFinAccount.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Create / Edit Financial Account Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditFAcc" contentTypeId="DOCUMENT" contentName="Create / Edit Financial Account." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditFAcc" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_EditFAcc" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditFinAccount"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditFARol" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditFinAccountRoles.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Financial Account Roles Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditFARol" contentTypeId="DOCUMENT" contentName="Edit Financial Account Roles." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditFARol" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_EditFARol" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditFinAccountRoles"/>
+
+	<DataResource dataResourceId="ACCOUNTING_FindFATra" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindFinAccountTrans.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Financial Account Transactions Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindFATra" contentTypeId="DOCUMENT" contentName="Find Financial Account Transactions." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindFATra" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_FindFATra" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindFinAccountTrans"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditFATra" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditFinAccountTrans.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Financial Account Transactions Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditFATra" contentTypeId="DOCUMENT" contentName="Edit Financial Account Transactions." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditFATra" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FindFATra" contentIdTo="ACCOUNTING_EditFATra" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditFinAccountTrans"/>
+
+	<DataResource dataResourceId="ACCOUNTING_BankRec" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_BankReconciliation.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Bank Reconciliation Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_BankRec" contentTypeId="DOCUMENT" contentName="Bank Reconciliation." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_BankRec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FindFATra" contentIdTo="ACCOUNTING_BankRec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_BankReconciliation"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditFAaut" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditFinAccountAuths.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Financial Account Authorizations Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditFAaut" contentTypeId="DOCUMENT" contentName="Financial Account Authorizations." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditFAaut" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_EditFAaut" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditFinAccountAuths"/>
+
+	<DataResource dataResourceId="ACCOUNTING_PayDpWtd" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_PaymentsDepositWithdraw.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Financial Account Deposit / Withdraw Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_PayDpWtd" contentTypeId="DOCUMENT" contentName="Financial Account Deposit / Withdraw." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_PayDpWtd" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_PayDpWtd" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_PaymentsDepositWithdraw"/>
+
+	<DataResource dataResourceId="ACCOUNTING_NewDpPay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_NewDepositPayment.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting New Deposit Payment Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_NewDpPay" contentTypeId="DOCUMENT" contentName="New Deposit Payment." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_NewDpPay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_PayDpWtd" contentIdTo="ACCOUNTING_NewDpPay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_NewDepositPayment"/>
+
+	<DataResource dataResourceId="ACCOUNTING_NewWtdPay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_NewWithdrawalPayment.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting New Withdrawal Payment Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_NewWtdPay" contentTypeId="DOCUMENT" contentName="New Withdrawal Payment." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_NewWtdPay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_PayDpWtd" contentIdTo="ACCOUNTING_NewWtdPay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_NewWithdrawalPayment"/>
+
+	<DataResource dataResourceId="ACCOUNTING_FindDpSlp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindDepositSlips.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Deposit Slips Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindDpSlp" contentTypeId="DOCUMENT" contentName="Find Deposit Slips." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindDpSlp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_FindDpSlp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindDepositSlips"/>
+
+	<DataResource dataResourceId="ACCOUNTING_NewDpSlp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_NewDepositSlip.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting New Deposit Slip Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_NewDpSlp" contentTypeId="DOCUMENT" contentName="New Deposit Slip." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_NewDpSlp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FindDpSlp" contentIdTo="ACCOUNTING_NewDpSlp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_NewDepositSlip"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditDpSlp" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditDepositSlipAndMembers.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Deposit Slip Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditDpSlp" contentTypeId="DOCUMENT" contentName="Edit Deposit Slip." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditDpSlp" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FindDpSlp" contentIdTo="ACCOUNTING_EditDpSlp" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditDepositSlipAndMembers"/>
+
+	<DataResource dataResourceId="ACCOUNTING_EditFARec" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditFinAccountReconciliations.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Financial Account Reconciliations Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditFARec" contentTypeId="DOCUMENT" contentName="Edit Financial Account Reconciliations." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditFARec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_EditFARec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditFinAccountReconciliations"/>
+
+	<DataResource dataResourceId="ACCOUNTING_ViewGlRec" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ViewGlReconciliationWithTransaction.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting View GL Reconciliation Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ViewGlRec" contentTypeId="DOCUMENT" contentName="View GL Reconciliation." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ViewGlRec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_ViewGlRec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ViewGlReconciliationWithTransaction"/>
+		
 </entity-engine-xml>

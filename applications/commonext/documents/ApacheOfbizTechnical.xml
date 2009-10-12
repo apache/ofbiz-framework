@@ -59,64 +59,136 @@
         </section>
         
         <section>
-            <title>The quick setup of an Ubuntu/Debian Linux Apache OFBiz server</title>
+            <title>The quick setup of an Ubuntu/Debian Linux with Postgresql Apache OFBiz server</title>
+            <para>
+                Ubuntu/Debian is certainly not the only distribution which is suitable for OFBiz. In general all Linux distributions can be used.
+                The OFBiz system will also run on Windows, however this is not preferred and much less experience is available in the OFBiz communiy.
+                The preferred data base is Postgresql although most databases will do.
+            </para>
             <orderedlist>
             <listitem>
                 <para>Upgrade Linux to Ubuntu/Debian remotely using Grub menu</para>
                 <para>
-                    Although OFBiz will be run on most operating systems a lot of installations are done on either Debian or
-                    Ubuntu which is also based on Debian.
+                    If you have a version of Linux running already on your server which using the GRUB menu, it is possible to upgrade to Debian/Ubuntu
+                    without even touching the server physically. With the method below the Debian installer is loaded into a Ram disk from where it can
+                    reformat and re-partition the harddisk and install the system.
+                    Practice this first on a local server, because if after the reboot the server is unreachable you have to ask somebody at the datacenter to manually reboot the system.
                 </para>
                 <para>
-                    If you have a version if Linux running already on your server which using the GRUB menu, it is possible to upgrade to Debian/Ubuntu
-                    without even touching the server physically. With the method below the debian installer is loaded into a Ram disk from where it can
-                    reformat and repartition the harddisk and install the system.
-                    Practice this first on a local server, because if after the reboot the server is unreachable you have to ask somebody at the datacenter to manually reboot the system.
+                    If you have a proper Linux installed go to the Postgres installation.
                 </para>
                 <orderedlist>
                     <listitem>
                         <para>Get the OS kernel and the related initrd.gz</para>
                         <para>
                             Make sure you server can handle 64bit if you take that version, if not sure take the 32bit version.
+                            Example url for 64bit Ubuntu: http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux for the kernel and 
+                            http://us.archive.ubuntu.com/ubuntu/dists/jaunty/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz for the initrd.gz file
+                        </para>
+                        <para>
+                            If not sure take the 32bit version:
+                            Example url for 32bit Ubuntu: http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-i386/current/images/netboot/ubuntu-installer/amd64/linux for the kernel and 
+                            http://us.archive.ubuntu.com/ubuntu/dists/jaunty/main/installer-i386/current/images/netboot/ubuntu-installer/i386/initrd.gz for the initrd.gz file
                         </para>
                     </listitem>
                     <listitem>
-                        <para>Uncompress the initrd.gz</para>
+                        <para>Uncompress the initrd.gz: gzip -dc ../initrd.gz | cpio -id</para>
                     </listitem>
                     <listitem>
-                        <para>Edit the initrd.gz content</para>
+                        <para>Edit the preseed.cfg file inside the initrd.gz file</para>
+                        <para>
+                            The file I used had the following content:
+                            <programlisting>
+ d-i debconf/priority                   select critical
+ d-i debian-installer/locale            string en_US
+ d-i console-setup/ask_detect           boolean false
+ d-i console-setup/layoutcode           string us
+ d-i auto-install/enabled               boolean true
+ d-i netcfg/choose_interface            select eth0
+ d-i netcfg/disable_dhcp                boolean true
+ d-i netcfg/get_nameservers             string x.x.x.x          &lt;--- EDIT! (max 3)
+ d-i netcfg/get_ipaddress               string x.x.x.x          &lt;--- EDIT!
+ d-i netcfg/get_netmask                 string 255.255.255.0    &lt;--- EDIT!
+ d-i netcfg/get_gateway                 string x.x.x.x          &lt;--- EDIT!
+ d-i netcfg/confirm_static              boolean true
+ d-i netcfg/get_hostname                string servername       &lt;--- EDIT!
+ d-i netcfg/get_domain                  string yourdomain.com   &lt;--- EDIT!
+ d-i network-console/password           password password       &lt;--- EDIT!
+ d-i network-console/password-again     password password       &lt;--- EDIT!
+ d-i preseed/early_command              string anna-install network-console
+                            </programlisting>
+                                You can find the ip addresses in the current Linux normally in the /etc/network/interfaces file.
+                        </para>
                     </listitem>
                     <listitem>
-                        <para>Create the new Archive</para>
+                        <para>Create the new Archive:
+                            <programlisting>
+                            find ./ | cpio -H newc -o > initrd-preseed
+                            gzip initrd-preseed
+                            </programlisting> 
+                        </para>
                     </listitem>
                     <listitem>
                         <para>Copy the Kernel and the new initrd.gz to the server</para>
                         <para>
-                            Logon to your server and copy these to files to the /boot/grub directory.
+                            Copy these to files to the /boot/ directory on the server.
+                        </para>
+                        <para>If using LiLo</para>
+                        <para>
+                            You have to download the vmlinuz image and put that in the /boot directory under the name vmlinuzNew
                         </para>
                     </listitem>
                     <listitem>
-                        <para>Copy the Kernel and the new initrd.gz to the server</para>
-                    </listitem>
-                    <listitem>
-                        <para>Edit the /boot/grub/menu.lst file</para>
+                        <para>If Grub is used: Edit the /boot/grub/menu.lst file on the server:
+                            <programlisting>
+# menu entry before the first:(for root, look at the other menu items)
+title Ubuntu Install
+root xxxxx
+kernel /linux 
+initrd /initrd-preseed.gz
+savedefault 1
+                            </programlisting>
+                        </para>
+                        <para>If Lilo is used edit the /etc/lilo.conf file on the server:
+                            <programlisting>
+image=/boot/vmlinuzNew
+    label="newUbuntu"
+    initrd=/boot/init-preseed.gz
+                            </programlisting>
+                        </para>
                     </listitem>
                     <listitem>
                         <para>Reboot the server</para>
+                        <para>and hopfully after some time you can login with SSH and using the username &quot;installer&quot; and the password you specified in the preseed file</para>
+                        <para>From that point you can configure the server and repartition the harddisk</para>
                     </listitem>
                 </orderedlist>
             </listitem>            
             <listitem>
-                <para>Install Apache</para>
+                <para>Install Subversion</para>
+                <para>use the command (as root) apt-get install subversion</para>
             </listitem>            
             <listitem>
-                <para>Install PostGreSQl</para>
+                <para>Install Apache using proxy AJP to talk to OFBiz</para>
+                <para>Use the command (as root): apt-get install apache2</para>
+                <para>Make symbolic links from mods-available to mods-enabled for ssl.config, ssl.load, proxy.load, proxy_ajp.load and proxy.config. Modify proxy.config and replace &quot;Deny from all&quot; with &quot;Allow from all&quot;</para>
+            </listitem>            
+            <listitem>
+                <para>Install Java SDK</para>
+                <para>Use the command (as root): apt-get install sun-java6-jdk</para>
+            </listitem>            
+            <listitem>
+                <para>Install PostGresql</para>
+                <para>Use the command (as root): apt-get install postgresql</para>
+                <para>
+                    Then logon as root, and su to the user &quot;postgres&quot; and issue the command: createuser &quot;ofbiz&quot;
+                </para>
             </listitem>            
             <listitem>
                 <para>Install Ofbiz</para>
             </listitem>            
             <listitem>
-                <para>Install Ubuntu</para>
+                <para>Start ofbiz.....and look for he result in your browser.....</para>
             </listitem>
             </orderedlist>
         </section>
