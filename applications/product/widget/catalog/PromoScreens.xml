@@ -50,7 +50,9 @@ under the License.
                                     </widgets>
                                 </section>
 
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -77,47 +79,30 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductPromotionCode}">
+                            <container>
+                                <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <container>
-                                    <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
-                                </container>
-                                <container>
-                                    <label style="label">${uiLabelMap.CommonView}</label>
-                                    <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                                    <link target="FindProductPromo" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
-                                        <parameter param-name="userEntered" value="Y"/>
-                                    </link>
-                                    <link target="FindProductPromo" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
-                                        <parameter param-name="userEntered" value="N"/>
-                                    </link>
-                                </container>
-                                <section>
-                                    <widgets>
-                                        <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                                    </widgets>
-                                </section>
+                            <container>
+                                <label style="label">${uiLabelMap.CommonView}</label>
+                                <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                                <link target="FindProductPromo" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
+                                    <parameter param-name="userEntered" value="Y"/>
+                                </link>
+                                <link target="FindProductPromo" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
+                                    <parameter param-name="userEntered" value="N"/>
+                                </link>
                             </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductProductPromotionsList}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                           </container>
+                            <section>
+                                <widgets>
+                                    <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    
+                        <screenlet title="${uiLabelMap.ProductProductPromotionsList}">
+                            <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -137,20 +122,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProductPromos}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProductPromo" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                           </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductPromos}">
+                            <include-form name="EditProductPromo" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -348,20 +322,10 @@ under the License.
                         <container>
                             <link target="EditProductPromoCode" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                           </container>
+
+                        <screenlet title="${uiLabelMap.PageTitleEditProductPromotionCode}">
+                            <include-form name="EditProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        </screenlet>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoCode.ftl"/></html>
                         </platform-specific>
