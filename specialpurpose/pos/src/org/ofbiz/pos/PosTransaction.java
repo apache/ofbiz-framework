@@ -1833,8 +1833,10 @@ public class PosTransaction implements Serializable {
                 if (UtilValidate.isNotEmpty(card)) {
                     svcCtx.put("memberId", card);
                     if (!card.equals(person.getString("memberId"))) {
-                        // Update password
-                        UtilProperties.setPropertyValue("security.properties", "password.accept.encrypted.and.plain", "true");
+                        // Update password, we need to temporary set password.accept.encrypted.and.plain to "true"
+                        // This is done only for the properties loaded for the session in memory (we don't persist the value)
+                        String passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
+                        UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
                         try {
                             svcRes = dispatcher.runSync("updatePassword", 
                                     UtilMisc.toMap("userLogin", partyLogin,
@@ -1852,8 +1854,8 @@ public class PosTransaction implements Serializable {
                             pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
                             return result;
                         }
-                        // This remove comments from the security.properties file. I did not find a way to keep them, so I put a word about that
-                        UtilProperties.setPropertyValue("security.properties", "password.accept.encrypted.and.plain", "false");
+                        // Put back passwordAcceptEncryptedAndPlain value in memory
+                        UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
                         partyLogin = (GenericValue) svcRes.get("updatedUserLogin");
                         svcCtx.put("userLogin", partyLogin);
                     }                    
