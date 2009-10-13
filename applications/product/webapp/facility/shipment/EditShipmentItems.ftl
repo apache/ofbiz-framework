@@ -54,7 +54,7 @@ under the License.
             </tr>
             <form name="deleteShipmentItem${shipmentItemData_index}" method="post" action="<@ofbizUrl>deleteShipmentItem</@ofbizUrl>">
                 <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                <input type="hidden" name="shipmentItemSeqId" value=${shipmentItem.shipmentItemSeqId}"/>
+                <input type="hidden" name="shipmentItemSeqId" value="${shipmentItem.shipmentItemSeqId}"/>
             </form>
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -93,7 +93,7 @@ under the License.
                 </tr>
                 <form name="deleteShipmentItemPackageContent${shipmentItemData_index}${shipmentPackageContent_index}" method="post" action="<@ofbizUrl>deleteShipmentItemPackageContent</@ofbizUrl>">
                     <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-                    <input type="hidden" name="shipmentItemSeqId" value=${shipmentPackageContent.shipmentItemSeqId}"/>
+                    <input type="hidden" name="shipmentItemSeqId" value="${shipmentPackageContent.shipmentItemSeqId}"/>
                     <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackageContent.shipmentPackageSeqId}"/>
                 </form>
             </#list>
