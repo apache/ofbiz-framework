@@ -49,6 +49,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
@@ -1539,9 +1540,6 @@ public class PosTransaction implements Serializable {
 
     public List<Map<String, String>> searchClientProfile(String name, String email, String  phone, String card, PosScreen pos) {
         Delegator delegator = this.session.getDelegator();
-        LocalDispatcher dispatcher = session.getDispatcher();
-        GenericValue userLogin = session.getUserLogin();
-        Locale locale = defaultLocale;
 
         List<GenericValue> partyList = null;
         List<Map<String, String>> resultList = null;
@@ -1554,18 +1552,14 @@ public class PosTransaction implements Serializable {
         dynamicView.addAlias("PT", "partyId");
         dynamicView.addAlias("PT", "statusId");
         dynamicView.addAlias("PT", "partyTypeId");
-        dynamicView.addMemberEntity("PUL", "PartyAndUserLogin");
-        dynamicView.addAlias("PUL", "userLoginId");
         dynamicView.addMemberEntity("PE", "Person");
         dynamicView.addAlias("PE", "partyId");
         dynamicView.addAlias("PE", "lastName");
         dynamicView.addAlias("PE", "memberId");
-        dynamicView.addAlias("PE", "lastNameLocal");
         dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
-        dynamicView.addViewLink("PT", "PUL", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
         Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
-        if (!onlyPhone) {
+        if (UtilValidate.isNotEmpty(email)) {
             // ContactMech (email)
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
             dynamicView.addAlias("PM", "contactMechId");
@@ -1575,7 +1569,7 @@ public class PosTransaction implements Serializable {
             dynamicView.addAlias("CM", "infoString");            
             dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
             dynamicView.addViewLink("PM", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
-        } else {
+        } else if (onlyPhone) {
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
             dynamicView.addAlias("PM", "contactMechId");
             dynamicView.addAlias("PM", "thruDate");
@@ -1596,9 +1590,9 @@ public class PosTransaction implements Serializable {
             fieldsToSelect.add("partyId");
             fieldsToSelect.add("lastName");
             fieldsToSelect.add("memberId");
-            if (!onlyPhone) {
+            if (UtilValidate.isNotEmpty(email)) {
                 fieldsToSelect.add("infoString");
-            } else {
+            } else if (onlyPhone) {
                 fieldsToSelect.add("contactNumber");
             }
 
@@ -1606,9 +1600,11 @@ public class PosTransaction implements Serializable {
             // This allows to get all clients when any informations has been entered
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
-            andExprs.add(EntityCondition.makeCondition("userLoginId", EntityOperator.NOT_EQUAL, null)); // Should have a login
             if (UtilValidate.isNotEmpty(name)) {
-                andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));
+                // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name 
+                // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.LIKE, "%"+name+"%")); // Less restrictive
+                andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+name+"%"))); // Even less restrictive
+                
             }
             if (UtilValidate.isNotEmpty(card)) {
                 andExprs.add(EntityCondition.makeCondition("memberId", EntityOperator.EQUALS, card));
@@ -1622,12 +1618,8 @@ public class PosTransaction implements Serializable {
                 andExprs.add(EntityCondition.makeCondition("contactNumber", EntityOperator.EQUALS, phone));
                 andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PHONE_HOME"));
                 andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
-            } else if (UtilValidate.isEmpty(email)) {
-                andExprs.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, null));                
-                andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
-                andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
             }
-
+ 
             mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
             orderBy.add("lastName");
 
@@ -1679,19 +1671,27 @@ public class PosTransaction implements Serializable {
                     partyMap.put("partyId", party.getString("partyId"));
                     partyMap.put("lastName", party.getString("lastName"));
                     partyMap.put("memberId", party.getString("memberId"));
-                    if (!onlyPhone) {
+                    if (!onlyPhone && UtilValidate.isNotEmpty(email)) {
                         partyMap.put("infoString", party.getString("infoString"));
+                        partyMap.put("contactNumber", "");
+                    } else if (UtilValidate.isEmpty(email) && !onlyPhone) {
+                        partyMap.put("infoString", "");
                         partyMap.put("contactNumber", "");
                     } else {
                         partyMap.put("contactNumber", party.getString("contactNumber"));
                         partyMap.put("infoString", "");
+                        
                     }
                     resultList.add(partyMap);
                 }
-                if (!onlyPhone) {
+                
+                if (!onlyPhone && UtilValidate.isNotEmpty(email)) {
                     resultList = searchContactMechs(delegator, pos, resultList, phone, "TELECOM_NUMBER");
-                } else {
-                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS"); //"" is more clear than email which is by definition here is empty
+                } else if (UtilValidate.isEmpty(email) && !onlyPhone){
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "TELECOM_NUMBER"); // "" is more clear than phone which is by definition here is empty
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS"); // "" is more clear than email which is by definition here is empty
+                } else { // onlyPhone
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS");
                 }
             } else {
             resultList = FastList.newInstance();
@@ -1712,67 +1712,94 @@ public class PosTransaction implements Serializable {
         Map<String, Object> svcCtx = FastMap.newInstance();
         Map svcRes = null;
 
+        // Create
         if ("create".equals(editType)) {
-            // Create
             trace("Create a client profile");
-            svcCtx.put("memberId", card);
-            svcCtx.put("lastName", name);
-            svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
-            svcCtx.put("userLogin", userLogin);
-            svcCtx.put("userLoginId", email);
-            svcCtx.put("currentPassword", card);
-            svcCtx.put("currentPasswordVerify", card);
-            svcCtx.put("passwordHint", "Your card number is your password");            
+            if (UtilValidate.isNotEmpty(name)) {
+                // createPersonAndUserLogin
+                trace("createPersonAndUserLogin");
+                if (UtilValidate.isNotEmpty(card)) {
+                    svcCtx.put("memberId", card);
+                }
+                svcCtx.put("lastName", name);
+                svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
+                svcCtx.put("userLogin", userLogin);
+                if (UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(card)) {
+                    svcCtx.put("userLoginId", email);
+                    svcCtx.put("currentPassword", card);
+                    svcCtx.put("currentPasswordVerify", card);
+                    svcCtx.put("passwordHint", "Your card number is your password");
+                    try {
+                        svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                       return result;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return result;
+                    }
+                    
+                } else {
+                    // createPerson
+                    trace("createPerson");
+                    try {
+                        svcRes = dispatcher.runSync("createPerson", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                       return result;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return result;
+                    }                    
+                }
+    
+                partyId = (String) svcRes.get("partyId");
+            }
 
-            // createPersonAndUserLogin
-            try {
-                svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-               return result;
-            }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                return result;
-            }
-            partyId = (String) svcRes.get("partyId");
-            GenericValue newUserLogin = (GenericValue) svcRes.get("newUserLogin");
-
-            // createPartyEmailAddress
-            svcCtx.clear();
-            svcCtx.put("userLogin", newUserLogin);
-            svcCtx.put("emailAddress", email);
-            svcCtx.put("partyId", partyId);
-            svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
-            try {
-                svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-                return result;
-            }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                return result;
+            if (UtilValidate.isNotEmpty(email)) {
+                // createPartyEmailAddress
+                trace("createPartyEmailAddress");
+                svcCtx.clear();
+                svcCtx.put("userLogin", userLogin);
+                svcCtx.put("emailAddress", email);
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+                try {
+                    svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }
             }
 
-            // createPartyTelecomNumber
-            svcCtx.clear();
-            svcCtx.put("userLogin", newUserLogin);
-            svcCtx.put("contactNumber", phone);
-            svcCtx.put("partyId", partyId);
-            svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-            try {
-                svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-                return result;
-            }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                return result;
+            if (UtilValidate.isNotEmpty(phone)) {
+                // createPartyTelecomNumber
+                trace("createPartyTelecomNumber");
+                svcCtx.clear();
+                svcCtx.put("userLogin", userLogin);
+                svcCtx.put("contactNumber", phone);
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                try {
+                    svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }
             }
             result = partyId;
         } else {
@@ -1860,6 +1887,7 @@ public class PosTransaction implements Serializable {
                     pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
                     return result;
                 }
+                
                 partyLogin = (GenericValue) svcRes.get("newUserLogin");
                 
                 svcCtx.clear();

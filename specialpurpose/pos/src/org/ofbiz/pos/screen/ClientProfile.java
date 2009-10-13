@@ -233,14 +233,10 @@ public class ClientProfile extends XPage implements ActionListener {
             String email = m_emailEdit.getText().trim();
             String phone = m_phoneEdit.getText().trim();
             String card = m_cardEdit.getText().trim();
-            if (UtilValidate.isNotEmpty(name)
-                    && UtilValidate.isNotEmpty(email)
-                    && UtilValidate.isNotEmpty(phone)
-                    && UtilValidate.isNotEmpty(card)
-                    ) {
+            if (UtilValidate.isNotEmpty(name)) {
                 editClientProfile(name, email, phone, card, editType, m_partyId);
             } else {
-                m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosAllFieldsAreRequired", locale));
+                m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosNameFieldRequired", locale));
             }
         }
     }
