@@ -51,11 +51,11 @@ under the License.
         <span><label for="yes">${uiLabelMap.EcommercePostAnonymous}:</label></span>
         <span>
           <label for="yes">${uiLabelMap.CommonYes}</label>
-          <input type="radio" id="yes" name="postedAnonymous" value="true" />
+          <input type="radio" id="yes" name="postedAnonymous" value="Y" />
         </span>
         <span>
           <label for="no">${uiLabelMap.CommonNo}</label>
-          <input type="radio" id="no" name="postedAnonymous" value="false" checked="checked" />
+          <input type="radio" id="no" name="postedAnonymous" value="N" checked="checked" />
         </span>
       </div>
       <div>
