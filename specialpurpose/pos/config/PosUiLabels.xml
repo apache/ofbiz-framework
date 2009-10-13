@@ -27,9 +27,9 @@
         <value xml:lang="ro">(adjustment)</value>
         <value xml:lang="zh">(调整)</value>
     </property>
-    <property key="PosAllFieldsAreRequired">
-        <value xml:lang="en">All fields are required</value>
-        <value xml:lang="fr">Tous les champs doivent être renseignés</value>
+    <property key="PosNameFieldRequired">
+        <value xml:lang="en">The name is required</value>
+        <value xml:lang="fr">Le nom doit être renseigné</value>
     </property>
     <property key="PosAmt">
         <value xml:lang="en">AMT</value>
