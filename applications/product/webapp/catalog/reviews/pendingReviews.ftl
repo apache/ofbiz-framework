@@ -56,6 +56,7 @@ under the License.
                 <#assign rowCount = 0>
                 <#assign rowClass = "2">
                 <#list pendingReviews as review>
+                <#if review.userLoginId?has_content>
                 <#assign postedUserLogin = review.getRelatedOne("UserLogin")>
                 <#assign party = postedUserLogin.getRelatedOne("Party")>
                 <#assign partyTypeId = party.get("partyTypeId")>
@@ -64,15 +65,18 @@ under the License.
                 <#else>
                     <#assign postedPerson = postedUserLogin.getRelatedOne("PartyGroup")>
                 </#if>
+                </#if>
                   <tr id="review_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                       <td>
                           <input type="hidden" name="productReviewId_o_${rowCount}" value="${review.productReviewId}">
                           ${review.postedDateTime?if_exists}
                       </td>
+                      <#if postedPerson?has_content>
                       <#if postedPerson.firstName?has_content && postedPerson.lastName?has_content>
                           <td>${postedPerson.firstName} ${postedPerson.lastName}</td>
                       <#else>
                           <td>${postedPerson.groupName}</td>
+                      </#if>
                       </#if>
                       <td>
                           <select name='postedAnonymous_o_${rowCount}'>

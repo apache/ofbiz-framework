@@ -525,7 +525,7 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="createProductReview" short-description="Create a ProductReview">
+    <simple-method method-name="createProductReview" short-description="Create a ProductReview" login-required="false">
         <make-value value-field="newEntity" entity-name="ProductReview"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.userLoginId"/>
@@ -574,7 +574,7 @@ under the License.
         <set from-field="lookedUpValue.productId" field="productId"/>
         <call-simple-method method-name="updateProductWithReviewRatingAvg"/>
     </simple-method>
-    <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg">
+    <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg" login-required="false">
         <!-- this method is meant to be called in-line and depends in a productId parameter -->
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>

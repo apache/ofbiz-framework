@@ -188,12 +188,11 @@ under the License.
     <service name="createProductReview" engine="simple"
             location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductReview" auth="true">
         <description>Create a product review entity</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="postedAnonymous" type="Boolean" mode="IN" optional="true"/>
-        <attribute name="productRating" type="BigDecimal" mode="IN" optional="false"/>
-        <attribute name="productReview" type="String" mode="IN" optional="true"/>
+        <auto-attributes entity-name="ProductReview" mode="IN" include="nonpk" optional="true"/>
         <attribute name="productReviewId" type="String" mode="OUT" optional="false"/>
+        <override name="productStoreId" optional="false"/>
+        <override name="productId" optional="false"/>
+        <override name="productRating" optional="false"/>
     </service>
     <service name="updateProductReview" engine="simple" default-entity-name="ProductReview"
             location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateProductReview" auth="true">
