@@ -1291,7 +1291,7 @@ under the License.
     </request-map>
     <request-map uri="submitAnonContact">
         <security https="true" auth="false"/>
-        <event type="service" invoke="sendContactUsInfoEmailToCompany"/>
+        <event type="service" invoke="sendContactUsEmailToCompany"/>
         <response name="success" type="view" value="AnonContactus"/>
         <response name="error" type="view" value="AnonContactus"/>
     </request-map>

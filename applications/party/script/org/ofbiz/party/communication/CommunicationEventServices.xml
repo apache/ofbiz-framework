@@ -599,7 +599,7 @@ under the License.
         </if-compare-field>
     </simple-method>
     
-    <simple-method method-name="sendContactUsInfoEmailToCompany" short-description="Create communication event and send mail to company" login-required="false">
+    <simple-method method-name="sendContactUsEmailToCompany" short-description="Create communication event and send mail to company" login-required="false">
         <entity-one entity-name="UserLogin" value-field="systemUserLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
