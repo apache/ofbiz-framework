@@ -68,76 +68,21 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductEditFeature} : ${productFeature.description}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFeaturePrice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddFeaturePrice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductSupplierSpecificFeatureInformation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditSupplierProductFeatures" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductCreateInformationNewSupplier}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateSupplierProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductEditFeature} : ${productFeature.description}">
+                            <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
+                            <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
+                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductSupplierSpecificFeatureInformation}">
+                            <include-form name="EditSupplierProductFeatures" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductCreateInformationNewSupplier}">
+                            <include-form name="CreateSupplierProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,20 +130,9 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFeatureType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditFeatureType}">
+                            <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -249,20 +183,9 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddFeatureInterAction}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleAddFeatureInterAction}">
+                            <include-form name="EditFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -278,20 +201,9 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFeatureType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditFeatureType}">
+                            <include-form name="CreateProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -397,49 +309,16 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductEditFeatureGroupAppls}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductQuickApplyFeature}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductApplyFeaturesFromCategory}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                        <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductEditFeatureGroupAppls}">
+                            <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductQuickApplyFeature}">
+                            <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductApplyFeaturesFromCategory}">
+                            <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -476,34 +355,12 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFeaturePrice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddFeaturePrice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
+                            <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
+                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -514,16 +371,9 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductQuickApplyFeature}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductQuickApplyFeature}">
+                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -542,20 +392,9 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductEditFeature} : ${productFeature.description}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductEditFeature} : ${productFeature.description}">
+                            <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
