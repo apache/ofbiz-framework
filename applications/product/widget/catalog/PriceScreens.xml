@@ -36,7 +36,9 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -58,23 +60,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
-                        <screenlet>
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductGlobalPriceRules}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="FindProductPriceRules" location="component://product/webapp/catalog/price/PriceForms.xml"/>
-                            </container>
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductAddPriceRule}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form location="component://product/webapp/catalog/price/PriceForms.xml" name="AddPriceRules"/>
-                            </container>
+                        <screenlet title="${uiLabelMap.ProductGlobalPriceRules}">
+                            <include-form name="FindProductPriceRules" location="component://product/webapp/catalog/price/PriceForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductAddPriceRule}">
+                            <include-form location="component://product/webapp/catalog/price/PriceForms.xml" name="AddPriceRules"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
