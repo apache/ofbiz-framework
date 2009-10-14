@@ -330,7 +330,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
+        <field position="1" name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
         <field position="1" name="currencyUomId">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
