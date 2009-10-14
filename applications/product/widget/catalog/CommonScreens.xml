@@ -99,7 +99,9 @@ under the License.
                                     </widgets>
                                 </section>
 
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -139,7 +141,9 @@ under the License.
                                 </container>
 
                                 <!-- add Create Product and View Product (in ecommerce) links -->
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
