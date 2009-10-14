@@ -1707,6 +1707,7 @@ under the License.
         <field name="facilityId">
             <display-entity entity-name="Facility" description="${facilityName} [${facilityId}]" also-hidden="true"/>
         </field>
+        <field name="lastInventoryCount"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductFacility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
@@ -1725,6 +1726,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="lastInventoryCount"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
