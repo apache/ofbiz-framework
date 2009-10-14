@@ -367,7 +367,7 @@
     <property key="PosRefNum">
         <value xml:lang="en">Enter Reference Number:</value>
         <value xml:lang="es">Ingrese número  de referencia</value>
-        <value xml:lang="fr">Entrez la référence (nombre) :</value>
+        <value xml:lang="fr">Entrez le n° du chèque :</value>
         <value xml:lang="it">Inserire Numero Riferimento:</value>
         <value xml:lang="ro">Introduceti Numar de Referinta:</value>
         <value xml:lang="zh">输入流水号:</value>
