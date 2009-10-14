@@ -18,10 +18,10 @@ under the License.
 -->
 <a href="<@ofbizUrl>attachProductFeaturesToCategory?productCategoryId=${productCategoryId?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFeatureCategoryAttach}]</a>
 <#if productCategoryId?exists && productCategory?exists>
+  <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PageTitleEditCategoryFeatureCategories}</h3>
+      <h3>${uiLabelMap.PageTitleEditCategoryFeatureCategories}</h3>
     </div>
-    <div class="screenlet">
         <div class="screenlet-body">
             <#-- Feature Groups -->
             <table cellspacing="0" class="basic-table">
