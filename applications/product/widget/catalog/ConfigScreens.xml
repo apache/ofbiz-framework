@@ -50,7 +50,7 @@ under the License.
                                 </section>
                                 <container style="no-clear">
                                     <decorator-section-include name="body"/>
-                                  </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -96,20 +96,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditConfigItem}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditConfigItem}">
+                            <include-form name="EditProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
