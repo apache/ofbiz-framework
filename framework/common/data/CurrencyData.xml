@@ -38,14 +38,12 @@ under the License.
     <Uom abbreviation="BIF" description="Burundi Franc" uomId="BIF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BHD" description="Bahrain Dinar" uomId="BHD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BGN" description="Bulgarian Lev" uomId="BGN" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BEF" description="Belgian Franc" uomId="BEF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BDT" description="Bangladesh Taka" uomId="BDT" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BBD" description="Barbados Dollar" uomId="BBD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BAD" description="Bosnia-Herzogovinian Dinar" uomId="BAD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AZM" description="Azerbaijan Manat" uomId="AZM" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AWG" description="Aruban Guilder" uomId="AWG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AUD" description="Australian Dollar" uomId="AUD" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ATS" description="Austrian Schilling" uomId="ATS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ARS" description="Argentina Peso" uomId="ARS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ARA" description="Argentinian Austral" uomId="ARA" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="AOK" description="Angolan Kwanza" uomId="AOK" uomTypeId="CURRENCY_MEASURE"/>
@@ -59,30 +57,24 @@ under the License.
     <Uom abbreviation="CVE" description="Cape Verde Escudo" uomId="CVE" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CYP" description="Cyprus Pound" uomId="CYP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="CZK" description="Czech Krona" uomId="CZK" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="DEM" description="German Mark" uomId="DEM" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DJF" description="Djibouti Franc" uomId="DJF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DKK" description="Danish Krone" uomId="DKK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DOP" description="Dominican Peso" uomId="DOP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DRP" description="Dominican Republic Peso" uomId="DRP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="DZD" description="Algerian Dinar" uomId="DZD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ECS" description="Ecuador Sucre" uomId="ECS" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ECU" description="European Currency Unit" uomId="ECU" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="EEK" description="Estonian Krone" uomId="EEK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="EGP" description="Egyptian Pound" uomId="EGP" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ESP" description="Spanish Peseta" uomId="ESP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ETB" description="Ethiopian Birr" uomId="ETB" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="EUR" description="Euro" uomId="EUR" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="FIM" description="Finnish Mark" uomId="FIM" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="FJD" description="Fiji Dollar" uomId="FJD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="FKP" description="Falkland Pound" uomId="FKP" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="FRF" description="French Franc" uomId="FRF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GBP" description="British Pound" uomId="GBP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GEK" description="Georgian Kupon" uomId="GEK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GHC" description="Ghanian Cedi" uomId="GHC" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GIP" description="Gibraltar Pound" uomId="GIP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GMD" description="Gambian Dalasi" uomId="GMD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GNF" description="Guinea Franc" uomId="GNF" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="GRD" description="Greek Drachma" uomId="GRD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GTQ" description="Guatemalan Quedzal" uomId="GTQ" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GWP" description="Guinea Peso" uomId="GWP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="GYD" description="Guyanese Dollar" uomId="GYD" uomTypeId="CURRENCY_MEASURE"/>
@@ -92,13 +84,11 @@ under the License.
     <Uom abbreviation="HTG" description="Haitian Gourde" uomId="HTG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="HUF" description="Hungarian forint" uomId="HUF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IDR" description="Indeonesian Rupiah" uomId="IDR" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="IEP" description="Irish Pound" uomId="IEP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ILS" description="Israeli Scheckel" uomId="ILS" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="INR" description="Indian Rupee" uomId="INR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IQD" description="Iraqui Dinar" uomId="IQD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="IRR" description="Iranian Rial" uomId="IRR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="ISK" description="Iceland Krona" uomId="ISK" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="ITL" description="Italian Lira" uomId="ITL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="JMD" description="Jamaican Dollar" uomId="JMD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="JOD" description="Jordanian Dinar" uomId="JOD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="JPY" description="Japanese Yen" uomId="JPY" uomTypeId="CURRENCY_MEASURE"/>
@@ -117,13 +107,11 @@ under the License.
     <Uom abbreviation="LRD" description="Liberian Dollar" uomId="LRD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LSL" description="Lesotho Loti" uomId="LSL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LTL" description="Lithuanian Lita" uomId="LTL" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="LUF" description="Luxembourgian Franc" uomId="LUF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LVL" description="Latvian Lat" uomId="LVL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="LYD" description="Libyan Dinar" uomId="LYD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MAD" description="Moroccan Dirham" uomId="MAD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MDL" description="Moldavian Lei" uomId="MDL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MGF" description="Madagascan Franc" uomId="MGF" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="MNC" description="Monaco" uomId="MNC" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MNT" description="Mongolian Tugrik" uomId="MNT" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MOP" description="Macao Pataca" uomId="MOP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="MRO" description="Mauritanian Ouguiya" uomId="MRO" uomTypeId="CURRENCY_MEASURE"/>
@@ -139,7 +127,6 @@ under the License.
     <Uom abbreviation="NIC" description="Nicaragua" uomId="NIC" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NIO" description="Nicaraguan Cordoba" uomId="NIO" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NIS" description="New Israeli Shekel" uomId="NIS" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="NLG" description="Dutch Guilder" uomId="NLG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NOK" description="Norwegian Krone" uomId="NOK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NPR" description="Nepalese Rupee" uomId="NPR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="NZD" description="New Zealand Dollar" uomId="NZD" uomTypeId="CURRENCY_MEASURE"/>
@@ -153,7 +140,6 @@ under the License.
     <Uom abbreviation="PKR" description="Pakistan Rupee" uomId="PKR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PLN" description="Polish Zloty" uomId="PLN" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PLZ" description="Poland" uomId="PLZ" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="PTE" description="Portuguese Escudo" uomId="PTE" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PYG" description="Paraguayan Guarani" uomId="PYG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="QAR" description="Qatar Riyal" uomId="QAR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="RMB" description="Chinese Renminbi Yuan" uomId="RMB" uomTypeId="CURRENCY_MEASURE"/>
@@ -167,8 +153,6 @@ under the License.
     <Uom abbreviation="SEK" description="Swedish Krona" uomId="SEK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SGD" description="Singapore Dollar" uomId="SGD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SHP" description="St.Helena Pound" uomId="SHP" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SIT" description="Slovenian Tolar" uomId="SIT" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="SKK" description="Slovakian Krona" uomId="SKK" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SLL" description="Leone" uomId="SLL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SOL" description="Peru" uomId="SOL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="SOS" description="Somalian Shilling" uomId="SOS" uomTypeId="CURRENCY_MEASURE"/>
