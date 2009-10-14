@@ -92,6 +92,7 @@ under the License.
                                 </section>
                             </container>
                         </container>
+                        <container style="clear"/>
                         <container>
                             <label style="h1">${uiLabelMap.AccountingPaymentsMenu}</label>
                                 <container style="lefthalf">
@@ -126,6 +127,7 @@ under the License.
                                     </container>
                                 </container>
                         </container>
+                        <container style="clear"/>
                         <container>
                             <label style="h1">${uiLabelMap.AccountingInvoicesMenu}</label>
                                 <container style="lefthalf">
