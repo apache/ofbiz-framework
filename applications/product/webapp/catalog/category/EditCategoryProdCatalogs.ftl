@@ -18,10 +18,10 @@ under the License.
 -->
 
 <#if productCategoryId?exists && productCategory?exists>
+  <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PageTitleEditCategoryProductCatalogs}</h3>
+      <h3>${uiLabelMap.PageTitleEditCategoryProductCatalogs}</h3>
     </div>
-    <div class="screenlet">
         <div class="screenlet-body">
             <table cellspacing="0" class="basic-table">
             <tr class="header-row">
