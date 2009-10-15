@@ -77,7 +77,8 @@ public class ClientProfile extends XPage implements ActionListener {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
+    private static boolean showKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
+    private static boolean swipWithCard = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "N");    
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
 
@@ -160,7 +161,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editName() {
-        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+        if (wasMouseClicked() && showKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_nameEdit.getText());
@@ -174,7 +175,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editEmail() {
-        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+        if (wasMouseClicked() && showKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_emailEdit.getText());
@@ -188,7 +189,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editPhone() {
-        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+        if (wasMouseClicked() && showKeyboardInSaveSale) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);
@@ -203,7 +204,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editCard() {
-        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+        if (wasMouseClicked() && showKeyboardInSaveSale && !swipWithCard) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);

@@ -131,6 +131,7 @@ public abstract class XuiContainer implements Container {
         return xuiSession;
     }
 
+    @SuppressWarnings("serial")
     class XuiScreen extends XApplet {
         protected String startupProperties = "";
 

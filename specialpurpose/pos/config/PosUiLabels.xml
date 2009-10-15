@@ -98,7 +98,7 @@
     <property key="PosCredNo">
         <value xml:lang="en">Enter Card Number:</value>
         <value xml:lang="es">Ingrese número de tarjeta :</value>
-        <value xml:lang="fr">Entrez le n° de la carte :</value>
+        <value xml:lang="fr">Entrez le n° de carte :</value>
         <value xml:lang="it">Inserire Numero Carta:</value>
         <value xml:lang="ro">Introduceti Numarul Cartii:</value>
         <value xml:lang="zh">输入卡号:</value>
