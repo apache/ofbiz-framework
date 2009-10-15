@@ -292,7 +292,7 @@ under the License.
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
         <field name="responseRequiredDate"><date-time type="timestamp"/></field>
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
-            <lookup target-form-name="LookupPartyName"/>
+            <lookup target-form-name="LookupPartyName" default-value="${communicationEvent.partyIdFrom}"/>
         </field>
         <field name="fulfillContactMechId">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="fromPartyId"/>
