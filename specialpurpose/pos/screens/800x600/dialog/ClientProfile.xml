@@ -38,7 +38,7 @@ under the License.
             <Label name="clientListLabel" x="20" y="330" w="100" h="40" content="listClient" style="editAndList"/>
             <ComboBox name="clientListCombo" x="120" y="320" w="520" h="40" editable="false" style="editAndList"/>
 
-            <Label name="tipLoginPwdLabel" x="50" y="380" w="630" h="20" content="tipLoginPwd" style="tip"/>
+            <Label name="tipLoginPwdLabel" x="10" y="380" w="630" h="20" content="tipLoginPwd" style="tip"/>
 
         </Panel>
     </Components>
