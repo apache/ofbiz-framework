@@ -53,7 +53,7 @@ public class SaveSale extends XPage {
     //protected XButton m_saveAndPrint = null; //FIXME : button does not exist yet
     protected static PosTransaction m_trans = null;
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"PosDateTimeFormat",Locale.getDefault()));
-    private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
+    private static boolean showKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls).  For that in Eclipse use Source/Generate Getters and setters
 
@@ -128,7 +128,7 @@ public class SaveSale extends XPage {
     }
 
     public synchronized void editSaleName() {
-        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+        if (wasMouseClicked() && showKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_saleName.getText());
