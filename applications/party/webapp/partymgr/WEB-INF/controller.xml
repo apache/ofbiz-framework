@@ -582,6 +582,16 @@ under the License.
         <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="request-redirect" value="viewprofile"/>
     </request-map>
+    <request-map uri="newrequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRequest"/>
+    </request-map>
+    <request-map uri="createrequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequest"/>
+        <response name="success" type="view-home" value="RequestList"/>
+        <response name="error" type="view" value="EditRequest"/>
+    </request-map>
 
 
     <!-- ContactList request mappings -->
@@ -1306,6 +1316,7 @@ under the License.
     <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommContent"/>
     <view-map name="EditRequestFromCommEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditRequestFromCommEvent"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
+    <view-map name="EditRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#EditRequest"/>
 
     <view-map name="CreateNewParty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateNewParty"/>
     <view-map name="NewCustomer" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#NewCustomer"/>
