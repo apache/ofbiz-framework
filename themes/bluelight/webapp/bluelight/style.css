@@ -1116,6 +1116,8 @@ padding-bottom: 1em;
     background-color: #B8DFFC;
     z-index:9999;
     width:200px;
+    border-bottom: solid 5px #AFAFAF;
+    border-right: solid 5px #AFAFAF;
 }
 
 #main-navigation ul li ul li a,
