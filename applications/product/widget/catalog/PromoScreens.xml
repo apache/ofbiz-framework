@@ -284,20 +284,9 @@ under the License.
                                 </container>
                             </fail-widgets>
                         </section>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindProductPromotionCode}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                           </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}">
+                            <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        </screenlet>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
                         </platform-specific>
