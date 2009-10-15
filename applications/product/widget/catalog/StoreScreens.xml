@@ -252,44 +252,26 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreShipSetup}">
                             <include-form name="ListProductStoreShipmentMeths" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
                         </screenlet>
-                        <container style="screenlet">
-                               <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <section>
-                                        <condition>
-                                            <and>
-                                                <if-empty field="productStoreShipmentMeth"/>
-                                                <if-empty field="parameters.addCarrierShipMeth"/>
-                                            </and>
-                                        </condition>
-                                        <widgets>
-                                            <label text="${uiLabelMap.PageTitleAddProductStoreShipSetup}"/>
-                                        </widgets>
-                                        <fail-widgets>
-                                            <label text="${uiLabelMap.PageTitleAddProductStoreShipSetup}"/>
-                                        </fail-widgets>
-                                    </section>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <condition>
-                                        <and>
-                                            <if-empty field="productStoreShipmentMeth"/>
-                                            <if-empty field="parameters.addCarrierShipMeth"/>
-                                        </and>
-                                    </condition>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/store/EditProductStoreShipSetup.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <include-form name="EditProductStoreShipmentMeth" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
-                                    </fail-widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-empty field="productStoreShipmentMeth"/>
+                                    <if-empty field="parameters.addCarrierShipMeth"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleAddProductStoreShipSetup}">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/webapp/catalog/store/EditProductStoreShipSetup.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.PageTitleAddProductStoreShipSetup}">
+                                    <include-form name="EditProductStoreShipmentMeth" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -319,36 +301,21 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductStoreShipmentCostEstimates}">
                             <include-form name="ListShipmentCostEstimates" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
                         </screenlet>
-                        <container style="screenlet">
-                               <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <section>
-                                        <condition>
-                                            <if-empty field="estimate"/>
-                                        </condition>
-                                        <widgets>
-                                            <label text="${uiLabelMap.ProductNewShipmentEstimate}"/>
-                                        </widgets>
-                                        <fail-widgets>
-                                            <label text="${uiLabelMap.ProductViewEstimates}"/>
-                                        </fail-widgets>
-                                    </section>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <condition>
-                                        <if-empty field="estimate"/>
-                                    </condition>
-                                    <widgets>
-                                        <include-form name="AddShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <include-form name="ViewShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
-                                    </fail-widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <section>
+                            <condition>
+                                <if-empty field="estimate"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ProductNewShipmentEstimate}">
+                                    <include-form name="AddShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ProductViewEstimates}">
+                                    <include-form name="ViewShipmentCostEstimate" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
