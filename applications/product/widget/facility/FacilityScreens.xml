@@ -268,40 +268,22 @@ under the License.
                                 <parameter param-name="facilityId" from-field="facilityId"/>
                             </link>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryTransfersFor} ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}] ${uiLabelMap.CommonTo}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ToFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.CommonFrom}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <condition>
-                                        <if-compare field="parameters.completeRequested" operator="equals" value="true"/>
-                                    </condition>
-                                    <widgets>
-                                        <include-form name="FromFacilityTransfersComplete" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <include-form name="FromFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </fail-widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductInventoryTransfersFor} ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}] ${uiLabelMap.CommonTo}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]}">
+                            <include-form name="ToFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonFrom}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]">
+                            <section>
+                                <condition>
+                                    <if-compare field="parameters.completeRequested" operator="equals" value="true"/>
+                                </condition>
+                                <widgets>
+                                    <include-form name="FromFacilityTransfersComplete" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-form name="FromFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                </fail-widgets>
+                            </section>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -425,23 +407,12 @@ under the License.
                                 <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                             </link>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductSearchInventoryItemsByLabels}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/facility/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
-                                        </platform-specific>
-                                        <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductSearchInventoryItemsByLabels}">
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/facility/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
+                            </platform-specific>
+                            <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

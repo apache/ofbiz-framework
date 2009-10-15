@@ -30,23 +30,12 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindFacilityGroup}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindFacilityGroup}">
+                            <container>
+                                <link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="FindFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="FindFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -93,23 +82,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityGroupDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFacilityGroup}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditFacilityGroup}">
+                            <container>
+                                <link target="EditFacilityGroup" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditFacilityGroup" text="${uiLabelMap.CommonNew}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="EditFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="EditFacilityGroup" location="component://product/webapp/facility/group/FacilityGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
