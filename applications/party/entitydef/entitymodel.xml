@@ -2583,6 +2583,7 @@ under the License.
       <field name="yearsWithEmployer" type="numeric"></field>
       <field name="monthsWithEmployer" type="numeric"></field>
       <field name="existingCustomer" type="indicator"></field>
+      <field name="cardId" type="id-ne"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
