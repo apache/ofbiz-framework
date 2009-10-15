@@ -660,17 +660,6 @@ border: solid 3px #FF0000;
     background-color: #000000;
 }
 
-/*
-.apptitle {
-    background-color: #000099;
-    color: #FFFFFF;
-    display: block;
-    font-size: 1.3em;
-    font-weight: bold;
-    line-height: 2em;
-    width: 100%;
-} */
-
 DIV.row {
     background-color: #B4B0AA;
     margin: 0 auto 0 auto;
@@ -819,6 +808,10 @@ DIV.widget-container {
     margin-bottom: 2em;
 }
 
+#content-main-section .h1 {
+display: none;
+}
+
 /* ===== New Styles ===== */
 /* ================================ */
 /* ===== Used to clear floats ===== */
@@ -931,10 +924,10 @@ in contained elements. */
     float: left;
     height: 100%;
     background: url("/bluelight/separator.gif") no-repeat;
-    padding-top: 1em;
+    padding-top: 0.8em;
     margin-bottom: -1em;
-    padding-left: 40px;
-    font-size: 1.2em;
+    padding-left: 3.5em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
@@ -1128,7 +1121,6 @@ padding-bottom: 1em;
 #main-navigation ul li ul li a,
 #app-navigation ul li ul li a {
 display:block;
-mheight:1.3em;
 padding:4px 16px 4px 16px;
 border: solid 1px #AFAFAF;
 border-top: none;
