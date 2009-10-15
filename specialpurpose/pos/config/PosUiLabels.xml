@@ -27,10 +27,6 @@
         <value xml:lang="ro">(adjustment)</value>
         <value xml:lang="zh">(调整)</value>
     </property>
-    <property key="PosNameFieldRequired">
-        <value xml:lang="en">The name is required</value>
-        <value xml:lang="fr">Le nom doit être renseigné</value>
-    </property>
     <property key="PosAmt">
         <value xml:lang="en">AMT</value>
         <value xml:lang="es">Precio</value>
@@ -253,6 +249,10 @@
         <value xml:lang="ro">Valoare BRUTA-VANZARE</value>
         <value xml:lang="zh">毛销售额</value>
     </property>
+    <property key="PosFieldsRequired">
+        <value xml:lang="en">Name, email and phone are required</value>
+        <value xml:lang="fr">Le nom, le courriel et le n° de téléphone doivent être renseignés</value>
+    </property>
     <property key="PosInvalidSelection">
         <value xml:lang="en">Invalid Selection!</value>
         <value xml:lang="es">Selección inválida</value>
@@ -306,6 +306,10 @@
         <value xml:lang="ro">Poti folosi dublu click  pentru a rescrie vanzarea cruenta si pentru a o sterge.</value>
         <value xml:lang="zh">你可以双击鼠标来替换当前的销售并删除这个</value>
     </property>
+    <property key="PosNoClientProfile">
+        <value xml:lang="en">Any client profile to update</value>
+        <value xml:lang="fr">Aucun client à mettre à jour</value>
+    </property>    
     <property key="PosOpDrAm">
         <value xml:lang="en">Starting Drawer Amount:</value>
         <value xml:lang="es">Monto inicial de la caja:</value>
@@ -341,6 +345,10 @@
         <value xml:lang="it">Premere Fine Per Completare la Vendita</value>
         <value xml:lang="ro">Apasa Terminare(FINISH) Pentru a Completa Vanzarea</value>
         <value xml:lang="zh">按完成键结束销售</value>
+    </property>
+    <property key="PosPhoneField5Required">
+        <value xml:lang="en">The phone number must be at least 5 characters long (also used as password).</value>
+        <value xml:lang="fr">Le n° de téléphone doit être au moins de 5 caractèrs (sert aussi de mot de passe).</value>
     </property>
     <property key="PosPostalCode">
         <value xml:lang="en">Enter the billing postal code:</value>
