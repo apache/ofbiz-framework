@@ -33,29 +33,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="h1">
-                            <label text="${uiLabelMap.WebtoolsLabelManagerFindLabels}"/>
-                        </container>
-                        <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
-                            <container style="screenlet-body">
-                                <container style="h2">
-                                    <label text="${uiLabelMap.CommonSearchOptions}"/>
-                                </container>
-                                <container id="search-options">
-                                    <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/SearchLabels.ftl"/></html></platform-specific>
-                                </container>
-                            </container>
-                        </screenlet>
-                        <container style="screenlet">
-                            <container style="screenlet-body">
-                                <container style="h2">
-                                    <label text="${uiLabelMap.CommonSearchResults}"/>
-                                </container>
-                            </container>
-                            <container id="search-results">
-                                    <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
-                            </container>
-                        </container>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                               <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/SearchLabels.ftl"/></html></platform-specific>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewLabels.ftl"/></html></platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
                         <!--
                         <screenlet id="ViewHardcodedLabelsPanel" title="${uiLabelMap.WebtoolsLabelManagerHardcoded}" collapsible="false">
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/labelmanager/ViewHardcodedLabels.ftl"/></html></platform-specific>
