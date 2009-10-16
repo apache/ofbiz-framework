@@ -60,34 +60,12 @@ under the License.
                         <container style="button-bar">
                            <link target="EntitySyncStatus" style="smallSubmit" text="${uiLabelMap.CommonRefresh}"/>
                         </container>
-                        <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.PageTitleEntitySyncStatus}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
-                                     </widgets>
-                                 </section>
-                             </container>
-                         </container>
-                         <container style="screenlet">
-                             <container style="screenlet-title-bar">
-                                 <container style="h3">
-                                     <label text="${uiLabelMap.WebtoolsLoadOfflineData}"/>
-                                 </container>
-                             </container>
-                             <container style="screenlet-body">
-                                 <section>
-                                     <widgets>
-                                         <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
-                                     </widgets>
-                                 </section>
-                             </container>
-                         </container>
+                        <screenlet title="${uiLabelMap.PageTitleEntitySyncStatus}">
+                            <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.WebtoolsLoadOfflineData}">
+                            <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
