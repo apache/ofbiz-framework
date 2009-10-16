@@ -61,7 +61,9 @@ under the License.
                 <section>
                     <condition>
                         <and>
-                            <if-compare-field field="userLogin" operator="not-equals" to-field="nullValue"/>
+                            <not><if-empty field="userLogin"/></not>
+                            <not><if-empty field="userLogin.hasLoggedOut"/></not>
+                            <if-compare field="userLogin.hasLoggedOut" operator="equals" value="N"/>
                         </and>
                     </condition>
                     <actions>                
