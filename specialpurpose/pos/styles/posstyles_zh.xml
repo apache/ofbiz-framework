@@ -91,6 +91,22 @@ under the License.
         <font_weight value="0"/>
         <font_italic value="0"/>
     </style>
+    <style name="editAndList">
+        <color_back value="ffffff"/>
+        <color_fore value="000000"/>
+        <font_face value="华文中宋"/>
+        <font_size value="12"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
+    <style name="tip">
+        <color_back value="ffffff"/>
+        <color_fore value="000000"/>
+        <font_face value="华文中宋"/>
+        <font_size value="10"/>
+        <font_weight value="1"/>
+        <font_italic value="1"/>
+    </style>
 
     <!-- dynamic button styles -->
     <style name="numButton">
@@ -112,7 +128,7 @@ under the License.
     <style name="skuButtonGizmoPurple">
         <color_back value="CC66CC"/>
         <color_fore value="000000"/>
-        <font_face value="verdana"/>
+        <font_face value="华文中宋"/>
         <font_size value="14"/>
         <font_weight value="1"/>
         <font_italic value="0"/>
@@ -128,7 +144,7 @@ under the License.
     <style name="skuButtonGiftCard">
         <color_back value="339999"/>
         <color_fore value="000000"/>
-        <font_face value="verdana"/>
+        <font_face value="华文中宋"/>
         <font_size value="14"/>
         <font_weight value="1"/>
         <font_italic value="0"/>
@@ -136,6 +152,22 @@ under the License.
     <style name="altButton">
         <color_back value="678FB9"/>
         <color_fore value="990000"/>
+        <font_face value="华文中宋"/>
+        <font_size value="14"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
+    <style name="dialogButton">
+        <color_back value="cccccc"/>
+        <color_fore value="000000"/>
+        <font_face value="华文中宋"/>
+        <font_size value="12"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
+    <style name="skuButtonConfigurableItem">
+        <color_back value="daa520"/>
+        <color_fore value="000000"/>
         <font_face value="华文中宋"/>
         <font_size value="14"/>
         <font_weight value="1"/>
