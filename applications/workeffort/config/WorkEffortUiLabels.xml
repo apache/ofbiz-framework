@@ -92,7 +92,7 @@
     </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="en">Client Party Id</value>
-        <value xml:lang="fr">Réf. du client</value>
+        <value xml:lang="fr">Code client</value>
         <value xml:lang="it">Client Codice Soggetto</value>
         <value xml:lang="nl">Klant relatie Id</value>
         <value xml:lang="ro">Client Cod Subiect</value>
@@ -247,7 +247,7 @@
     <property key="FormFieldTitle_productProductId">
         <value xml:lang="de">Produkt ID</value>
         <value xml:lang="en">Product Id</value>
-        <value xml:lang="fr">Réf. d'article</value>
+        <value xml:lang="fr">Code article</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="nl">Produkt Id</value>
         <value xml:lang="ro">Cod Produs</value>
@@ -438,7 +438,7 @@
     </property>
     <property key="FormFieldTitle_timesheetId">
         <value xml:lang="en">Timesheet Id</value>
-        <value xml:lang="fr">Réf. de feuille d'activité</value>
+        <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Numero Timbratura</value>
         <value xml:lang="nl">Tijdschema Id</value>
         <value xml:lang="ro">Numar Pontaj</value>
@@ -474,7 +474,7 @@
     </property>
     <property key="FormFieldTitle_workEffortAssocTypeId">
         <value xml:lang="en">Work Effort Assoc Type Id</value>
-        <value xml:lang="fr">Réf. de type d'assoc. de la tâche</value>
+        <value xml:lang="fr">Type d'assoc. de la tâche</value>
         <value xml:lang="it">Tipo associazione impegno di lavoro</value>
         <value xml:lang="nl">Activiteit Assoc Type Id</value>
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
@@ -483,7 +483,7 @@
     </property>
     <property key="FormFieldTitle_workEffortContentTypeId">
         <value xml:lang="en">Work Effort Content Type Id</value>
-        <value xml:lang="fr">Réf. de type de contenu de la tâche</value>
+        <value xml:lang="fr">Type de contenu de la tâche</value>
         <value xml:lang="it">Tipo Contenuto Impegno di Lavoro</value>
         <value xml:lang="th">รหัสประเภทหัวข้องาน</value>
         <value xml:lang="zh">人工服务内容类型标识</value>
@@ -492,7 +492,7 @@
         <value xml:lang="de">Arbeitseinsatz ID</value>
         <value xml:lang="en">Work Effort Id</value>
         <value xml:lang="es">Código del esfuerzo de trabajo</value>
-        <value xml:lang="fr">Réf. de tâche</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
@@ -503,7 +503,7 @@
     <property key="FormFieldTitle_workEffortIdFrom">
         <value xml:lang="en">Work Effort Id From</value>
         <value xml:lang="es">Código del esfuerzo de trabajo desde</value>
-        <value xml:lang="fr">Réf. de tâche depuis</value>
+        <value xml:lang="fr">Tâche depuis</value>
         <value xml:lang="it">Impegno di Lavoro Da</value>
         <value xml:lang="nl">Actie Id van</value>
         <value xml:lang="ro">Sarcina de Lucru De la</value>
@@ -513,7 +513,7 @@
     <property key="FormFieldTitle_workEffortIdTo">
         <value xml:lang="en">Work Effort Id To</value>
         <value xml:lang="es">Código del esfuerzo de trabajo para</value>
-        <value xml:lang="fr">Réf. de tâche à</value>
+        <value xml:lang="fr">Tâche vers</value>
         <value xml:lang="it">Impegno di Lavoro A</value>
         <value xml:lang="nl">Activiteit Id To</value>
         <value xml:lang="ro">Sarcina de Lucru La</value>
@@ -533,7 +533,7 @@
     <property key="FormFieldTitle_workEffortParentId">
         <value xml:lang="en">Work Effort Parent Id</value>
         <value xml:lang="es">Código del esfuerzo de trabajo precursor</value>
-        <value xml:lang="fr">Réf. de tâche parente</value>
+        <value xml:lang="fr">Tâche parente</value>
         <value xml:lang="it">Codice Padre Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Parent Id</value>
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
@@ -542,7 +542,7 @@
     </property>
     <property key="FormFieldTitle_workEffortPurposeTypeId">
         <value xml:lang="en">Work Effort Purpose Type Id</value>
-        <value xml:lang="fr">Réf. de type de but de la tâche</value>
+        <value xml:lang="fr">Type de but de la tâche</value>
         <value xml:lang="it">Tipo Funzione Impegno di Lavoro</value>
         <value xml:lang="nl">Soort actie doel Id</value>
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
@@ -551,7 +551,7 @@
     </property>
     <property key="FormFieldTitle_workEffortTypeId">
         <value xml:lang="en">Work Effort Type Id</value>
-        <value xml:lang="fr">Réf. de type de tâche</value>
+        <value xml:lang="fr">Type de tâche</value>
         <value xml:lang="it">Tipo Impegno di Lavoro</value>
         <value xml:lang="nl">Actie type Id</value>
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
@@ -569,7 +569,7 @@
     </property>
     <property key="FormFieldTitle_workReqFulfTypeId">
         <value xml:lang="en">Work Req Fulf Type Id </value>
-        <value xml:lang="fr">Réf. de type d'éxécution de demande de travail </value>
+        <value xml:lang="fr">Type d'éxécution de demande de travail </value>
         <value xml:lang="it">Tipo Rifornimento Impegno di Lavoro Fabbisogno</value>
         <value xml:lang="nl">Work Req Fulf Type Id</value>
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
@@ -2611,7 +2611,7 @@
         <value xml:lang="de">Teilnehmer ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código del participante</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
+        <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
         <value xml:lang="nl">Party Id</value>
         <value xml:lang="ro">Cod Subiecti</value>
@@ -3050,7 +3050,7 @@
     <property key="WorkEffortRequirementId">
         <value xml:lang="en">Requirement ID</value>
         <value xml:lang="es">Código del requerimiento</value>
-        <value xml:lang="fr">Réf. de besoin</value>
+        <value xml:lang="fr">Code besoin</value>
         <value xml:lang="it">Codice Fabbisogno</value>
         <value xml:lang="nl">Requirement ID</value>
         <value xml:lang="ro">Cod Necesar</value>
@@ -3174,7 +3174,7 @@
     <property key="WorkEffortShopListId">
         <value xml:lang="en">Shopping List ID</value>
         <value xml:lang="es">Codigo de lista de compras</value>
-        <value xml:lang="fr">Réf. de liste d'achats</value>
+        <value xml:lang="fr">Liste d'achats</value>
         <value xml:lang="it">Codice Lista Acquisto</value>
         <value xml:lang="nl">Bestel lijst ID</value>
         <value xml:lang="ro">Cod Lista Cumparari</value>
@@ -3477,7 +3477,7 @@
     <property key="WorkEffortTimesheetTimesheetId">
         <value xml:lang="en">Timesheet ID</value>
         <value xml:lang="es">Código de hoja de tiempos</value>
-        <value xml:lang="fr">Réf. de feuille d'activité</value>
+        <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Numero timbratura</value>
         <value xml:lang="nl">Tijdschema ID</value>
         <value xml:lang="ro">Numar Pontaj</value>
@@ -3598,7 +3598,7 @@
     <property key="WorkEffortWorkEffortId">
         <value xml:lang="en">WorkEffort Id</value>
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
-        <value xml:lang="fr">Réf. de tâche</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Numero Impegno di Lavoro</value>
         <value xml:lang="nl">WorkEffort Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru</value>

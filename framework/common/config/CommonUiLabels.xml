@@ -6248,7 +6248,7 @@
     <property key="CommonSegmentGroupGeoId">
         <value xml:lang="en">Geo ID</value>
         <value xml:lang="es">Código ubicación</value>
-        <value xml:lang="fr">Réf. de zone géographique</value>
+        <value xml:lang="fr">Zone géographique</value>
         <value xml:lang="hi_IN">भू क्रमांक</value>
         <value xml:lang="it">Codice Geografia</value>
         <value xml:lang="ro">Cod Geografie</value>
@@ -6278,7 +6278,7 @@
     <property key="CommonSegmentGroupGeoTypeId">
         <value xml:lang="en">Geo Type ID</value>
         <value xml:lang="es">Tipo de ubicación</value>
-        <value xml:lang="fr">Réf. de type de zone géographique</value>
+        <value xml:lang="fr">Type de zone géographique</value>
         <value xml:lang="hi_IN">भू प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Geografia</value>
         <value xml:lang="ro">Tip Geografie</value>
@@ -7634,7 +7634,7 @@
         <value xml:lang="de">Messeinheit ID</value>
         <value xml:lang="en">UOM ID</value>
         <value xml:lang="es">Código de UDM</value>
-        <value xml:lang="fr">Réf. de l'unité de mesure</value>
+        <value xml:lang="fr">Unité de mesure</value>
         <value xml:lang="hi_IN">माप की इकाई क्रमांक</value>
         <value xml:lang="it">Codice UdM</value>
         <value xml:lang="nl">UOM ID</value>
@@ -8556,7 +8556,7 @@
         <value xml:lang="de">Kontaktmechanismus ID</value>
         <value xml:lang="en">Contact Mech Id</value>
         <value xml:lang="es">Código Mecanismo de contacto</value>
-        <value xml:lang="fr">Réf. des coordonnées</value>
+        <value xml:lang="fr">Coordonnées</value>
         <value xml:lang="hi_IN">संपर्क तंत्र क्रमांक(Contact Mech Id)</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="nl">Contact Mech Id</value>
@@ -8664,7 +8664,7 @@
         <value xml:lang="de">Aktuelle Status ID</value>
         <value xml:lang="en">Current Status Id</value>
         <value xml:lang="es">Código Estado actual</value>
-        <value xml:lang="fr">Réf. de status actuel</value>
+        <value xml:lang="fr">Statut actuel</value>
         <value xml:lang="hi_IN">वर्तमान स्थिति क्रमांक</value>
         <value xml:lang="it">Stato attuale</value>
         <value xml:lang="zh">当前状态标识</value>
@@ -8932,7 +8932,7 @@
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status ID</value>
         <value xml:lang="es">Código Estado</value>
-        <value xml:lang="fr">Réf. de statut</value>
+        <value xml:lang="fr">Statut</value>
         <value xml:lang="hi_IN">स्थिति क्रमांक</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="nl">Status</value>
