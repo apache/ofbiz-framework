@@ -259,6 +259,22 @@ under the License.
             <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
+        
+        <!-- if e-mail address already exists simply return -->
+        <entity-condition list="partyAndContactMechs" entity-name="PartyAndContactMech">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="infoString" from-field="parameters.emailAddress" ignore-case="true"/>
+            </condition-list>
+        </entity-condition>
+        <filter-list-by-date list="partyAndContactMechs"/>
+        <if-not-empty field="partyAndContactMechs">
+            <log level="info" message="E-mail address: ${parameters.emailAddress} already exists, did not add again.."/>
+            <first-from-list entry="existsPartyAndContactMech" list="partyAndContactMechs"/>
+            <field-to-result field="existsPartyAndContactMech.contactMechId" result-name="contactMechId"/>
+            <field-to-request field="existsPartyAndContactMech.contactMechId" request-name="contactMechId"/>
+            <return/>
+        </if-not-empty>
 
         <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="createPartyContactMechMap"/>
         <set field="createPartyContactMechMap.infoString" from-field="parameters.emailAddress"/>
