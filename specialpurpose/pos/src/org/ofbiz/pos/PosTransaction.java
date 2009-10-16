@@ -98,7 +98,6 @@ public class PosTransaction implements Serializable {
     private static PrintWriter defaultPrintWriter = new Log4jLoggerWriter(Debug.getLogger(module));
     private static PosTransaction currentTx = null;
     private static LifoSet<PosTransaction> savedTx = new LifoSet<PosTransaction>();
-    private Locale defaultLocale = Locale.getDefault();
 
     protected XuiSession session = null;
     protected ShoppingCart cart = null;
@@ -113,7 +112,7 @@ public class PosTransaction implements Serializable {
     protected String currency = null;
     protected String orderId = null;
     protected String partyId = null;
-    protected Locale locale = null;
+    protected Locale locale = Locale.getDefault();
     protected boolean isOpen = false;
     protected int drawerIdx = 0;
 
@@ -265,7 +264,7 @@ public class PosTransaction implements Serializable {
         itemInfo.put("adjustments", "");
         if (item.getOtherAdjustments().compareTo(BigDecimal.ZERO) != 0) {
             itemInfo.put("itemDiscount", UtilFormatOut.padString(
-                    UtilProperties.getMessage(PosTransaction.resource,"PosItemDiscount",defaultLocale), Receipt.pridLength[0] + 1, true, ' '));
+                    UtilProperties.getMessage(resource,"PosItemDiscount", locale), Receipt.pridLength[0] + 1, true, ' '));
             itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
         }
 
@@ -812,7 +811,7 @@ public class PosTransaction implements Serializable {
        // cart.setCarrierPartyId();
 
         // validate payment methods
-        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosValidating",defaultLocale));
+        output.print(UtilProperties.getMessage(resource, "PosValidating", locale));
         Map valRes = ch.validatePaymentMethods();
         if (valRes != null && ServiceUtil.isError(valRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(valRes));
@@ -820,7 +819,7 @@ public class PosTransaction implements Serializable {
 
         // store the "order"
          if (UtilValidate.isEmpty(this.orderId)) {  // if order does not exist
-             output.print(UtilProperties.getMessage(PosTransaction.resource,"PosSaving",defaultLocale));
+             output.print(UtilProperties.getMessage(resource, "PosSaving", locale));
              Map orderRes = ch.createOrder(session.getUserLogin());
              //Debug.log("Create Order Resp : " + orderRes, module);
 
@@ -839,7 +838,7 @@ public class PosTransaction implements Serializable {
              svcCtx.put("userLogin", session.getUserLogin());
              svcCtx.put("orderId", orderId);
              svcCtx.put("shoppingCart", cart);
-             svcCtx.put("locale", this.locale);
+             svcCtx.put("locale", locale);
              svcCtx.put("changeMap", changeMap);
 
              Map svcRes = null;
@@ -854,7 +853,7 @@ public class PosTransaction implements Serializable {
           }
 
         // process the payment(s)
-        output.print(UtilProperties.getMessage(PosTransaction.resource, "PosProcessing", defaultLocale));
+        output.print(UtilProperties.getMessage(resource, "PosProcessing", locale));
         Map payRes = null;
         try {
             payRes = ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
@@ -871,7 +870,7 @@ public class PosTransaction implements Serializable {
         BigDecimal change = grandTotal.subtract(paymentAmt);
 
         // notify the change due
-        output.print(UtilProperties.getMessage(PosTransaction.resource,"PosChange",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue().negate()));
+        output.print(UtilProperties.getMessage(resource,"PosChange",locale) + " " + UtilFormatOut.formatPrice(this.getTotalDue().negate()));
 
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
@@ -977,7 +976,7 @@ public class PosTransaction implements Serializable {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
                     Journal.appendNode(promo, "td", "sku", "");
-                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"PosItemDiscount",defaultLocale));
+                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage(resource, "PosItemDiscount", locale));
                     Journal.appendNode(promo, "td", "qty", "");
                     Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
                 }
@@ -1016,7 +1015,7 @@ public class PosTransaction implements Serializable {
                     XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc",
-                            UtilProperties.getMessage(PosTransaction.resource, "PosSalesDiscount",defaultLocale));
+                            UtilProperties.getMessage(resource, "PosSalesDiscount", locale));
                     if (UtilValidate.isNotEmpty(amount)) {
                         Journal.appendNode(adjustmentLine, "td", "qty", "");
                         Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount));
@@ -1033,14 +1032,14 @@ public class PosTransaction implements Serializable {
             XModel taxLine = Journal.appendNode(model, "tr", "tax", "");
             Journal.appendNode(taxLine, "td", "sku", "");
 
-            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"PosSalesTax",defaultLocale));
+            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage(resource, "PosSalesTax", locale));
             Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
             Journal.appendNode(taxLine, "td", "index", "-1");
 
             XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
-            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"PosGrandTotal",defaultLocale));
+            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(resource, "PosGrandTotal", locale));
             Journal.appendNode(totalLine, "td", "qty", "");
             Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
             Journal.appendNode(totalLine, "td", "index", "-1");
@@ -1067,7 +1066,7 @@ public class PosTransaction implements Serializable {
                     paymentMethodType = paymentInfoObj;
                 }
 
-                Object desc = paymentMethodType != null ? paymentMethodType.get("description",defaultLocale) : "??";
+                Object desc = paymentMethodType != null ? paymentMethodType.get("description",locale) : "??";
                 String descString = desc.toString();
                 BigDecimal amount = BigDecimal.ZERO;
                 if (inf.amount == null) {
@@ -1405,13 +1404,12 @@ public class PosTransaction implements Serializable {
     public void saveOrder(String shoppingListName, PosScreen pos) {
         trace("Save an order");
         if (cart.size() == 0) {
-            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
             return;
         }
         Delegator delegator = this.session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
-        Locale locale = defaultLocale;
         String shoppingListId = null;
 
         if (!UtilValidate.isEmpty(shoppingListName)) {
@@ -1435,13 +1433,12 @@ public class PosTransaction implements Serializable {
     public void saveSale(String  shoppingListName, PosScreen pos) {
         trace("Save a sale");
         if (cart.size() == 0) {
-            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
             return;
         }
         Delegator delegator = this.session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
-        Locale locale = defaultLocale;
         String shoppingListId = null;
 
         if (!UtilValidate.isEmpty(shoppingListName)) {
@@ -1456,7 +1453,7 @@ public class PosTransaction implements Serializable {
                 newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem while creating new ShoppingList", module);
-                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
                 return;
             }
 
@@ -1473,7 +1470,7 @@ public class PosTransaction implements Serializable {
                 shoppingListId = (String) newListResult.get("shoppingListId");
             } else {
                 Debug.logError("Problem while creating new ShoppingList", module);
-                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+                pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
                 return;
             }
         }
@@ -1488,7 +1485,7 @@ public class PosTransaction implements Serializable {
             ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
         } catch (IllegalArgumentException e) {
             Debug.logError(e, "Problem while creating new ShoppingList", module);
-            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
         }
     }
 
@@ -1552,11 +1549,14 @@ public class PosTransaction implements Serializable {
         dynamicView.addAlias("PT", "partyId");
         dynamicView.addAlias("PT", "statusId");
         dynamicView.addAlias("PT", "partyTypeId");
+        dynamicView.addMemberEntity("PUL", "PartyAndUserLogin");
+        dynamicView.addAlias("PUL", "userLoginId");
         dynamicView.addMemberEntity("PE", "Person");
         dynamicView.addAlias("PE", "partyId");
         dynamicView.addAlias("PE", "lastName");
-        dynamicView.addAlias("PE", "memberId");
+        dynamicView.addAlias("PE", "cardId");
         dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+        dynamicView.addViewLink("PT", "PUL", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
         Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
         if (UtilValidate.isNotEmpty(email)) {
@@ -1589,7 +1589,7 @@ public class PosTransaction implements Serializable {
             // fields we need to select; will be used to set distinct
             fieldsToSelect.add("partyId");
             fieldsToSelect.add("lastName");
-            fieldsToSelect.add("memberId");
+            fieldsToSelect.add("cardId");
             if (UtilValidate.isNotEmpty(email)) {
                 fieldsToSelect.add("infoString");
             } else if (onlyPhone) {
@@ -1600,6 +1600,7 @@ public class PosTransaction implements Serializable {
             // This allows to get all clients when any informations has been entered
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
+            andExprs.add(EntityCondition.makeCondition("userLoginId", EntityOperator.NOT_EQUAL, null)); // Should have a login (which implies an email and phone if created from the POS)
             if (UtilValidate.isNotEmpty(name)) {
                 // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name 
                 // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.LIKE, "%"+name+"%")); // Less restrictive
@@ -1607,7 +1608,7 @@ public class PosTransaction implements Serializable {
                 
             }
             if (UtilValidate.isNotEmpty(card)) {
-                andExprs.add(EntityCondition.makeCondition("memberId", EntityOperator.EQUALS, card));
+                andExprs.add(EntityCondition.makeCondition("cardId", EntityOperator.EQUALS, card));
             }
             if (UtilValidate.isNotEmpty(email)) {
                 andExprs.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
@@ -1670,7 +1671,7 @@ public class PosTransaction implements Serializable {
                     Map partyMap = FastMap.newInstance();
                     partyMap.put("partyId", party.getString("partyId"));
                     partyMap.put("lastName", party.getString("lastName"));
-                    partyMap.put("memberId", party.getString("memberId"));
+                    partyMap.put("cardId", party.getString("cardId"));
                     if (!onlyPhone && UtilValidate.isNotEmpty(email)) {
                         partyMap.put("infoString", party.getString("infoString"));
                         partyMap.put("contactNumber", "");
@@ -1700,13 +1701,14 @@ public class PosTransaction implements Serializable {
     }
 
     public String editClientProfile(String name, String email, String  phone, String card, PosScreen pos, String editType, String partyId) {
-        // We suppose here that a memberId (card number) can only belongs to one person (it's used as owned PromoCode)
+        // We suppose here that a cardId (card number) can only belongs to one person (it's used as owned PromoCode)
         // We use the 1st party's login (it may change and be multiple since it depends on email and card)
         // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
         // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
         Delegator delegator = session.getDelegator();
         LocalDispatcher dispatcher = session.getDispatcher();
         GenericValue userLogin = session.getUserLogin();
+        GenericValue partyUserLogin = null;        
         String result = null;
 
         Map<String, Object> svcCtx = FastMap.newInstance();
@@ -1715,183 +1717,178 @@ public class PosTransaction implements Serializable {
         // Create
         if ("create".equals(editType)) {
             trace("Create a client profile");
-            if (UtilValidate.isNotEmpty(name)) {
-                // createPersonAndUserLogin
-                trace("createPersonAndUserLogin");
-                if (UtilValidate.isNotEmpty(card)) {
-                    svcCtx.put("memberId", card);
-                }
-                svcCtx.put("lastName", name);
-                svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
-                svcCtx.put("userLogin", userLogin);
-                if (UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(card)) {
-                    svcCtx.put("userLoginId", email);
-                    svcCtx.put("currentPassword", card);
-                    svcCtx.put("currentPasswordVerify", card);
-                    svcCtx.put("passwordHint", "Your card number is your password");
-                    try {
-                        svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        pos.showDialog("dialog/error/exception", e.getMessage());
-                       return result;
-                    }
-                    if (ServiceUtil.isError(svcRes)) {
-                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                        return result;
-                    }
-                    
-                } else {
-                    // createPerson
-                    trace("createPerson");
-                    try {
-                        svcRes = dispatcher.runSync("createPerson", svcCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        pos.showDialog("dialog/error/exception", e.getMessage());
-                       return result;
-                    }
-                    if (ServiceUtil.isError(svcRes)) {
-                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                        return result;
-                    }                    
-                }
-    
-                partyId = (String) svcRes.get("partyId");
+            // createPersonAndUserLogin
+            trace("createPersonAndUserLogin");
+            if (UtilValidate.isNotEmpty(card)) {
+                svcCtx.put("cardId", card);
             }
-
-            if (UtilValidate.isNotEmpty(email)) {
-                // createPartyEmailAddress
-                trace("createPartyEmailAddress");
-                svcCtx.clear();
-                svcCtx.put("userLogin", userLogin);
-                svcCtx.put("emailAddress", email);
-                svcCtx.put("partyId", partyId);
-                svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
-                try {
-                    svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
-                }
-                if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return result;
-                }
-            }
-
-            if (UtilValidate.isNotEmpty(phone)) {
-                // createPartyTelecomNumber
-                trace("createPartyTelecomNumber");
-                svcCtx.clear();
-                svcCtx.put("userLogin", userLogin);
-                svcCtx.put("contactNumber", phone);
-                svcCtx.put("partyId", partyId);
-                svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-                try {
-                    svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
-                }
-                if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return result;
-                }
-            }
-            result = partyId;
-        } else {
-            trace("Update a client profile");
-            List<GenericValue>  userLogins = null;
+            svcCtx.put("userLogin", userLogin);
+            svcCtx.put("lastName", name);
+            svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
+            svcCtx.put("userLoginId", email);
+            svcCtx.put("currentPassword", phone);
+            svcCtx.put("currentPasswordVerify", phone);
             try {
-                userLogins = session.getDelegator().findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-            } catch (GenericEntityException e) {
+                svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
+            } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
-                return result;
+               return null;
             }
-            GenericValue partyLogin = userLogins.get(0); // We need at least a party's login, we are sure there is one as we keep only users with at least one login
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return null;
+            }
+            partyId = (String) svcRes.get("partyId");
+            partyUserLogin = (GenericValue) svcRes.get("newUserLogin");
+
+            // createPartyEmailAddress
+            trace("createPartyEmailAddress");
+            svcCtx.clear();
+            svcCtx.put("userLogin", partyUserLogin);
+            svcCtx.put("emailAddress", email);
+            svcCtx.put("partyId", partyId);
+            svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+            try {
+                svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return null;
+            }
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return null;
+            }
+
+            // createPartyTelecomNumber
+            trace("createPartyTelecomNumber");
+            svcCtx.clear();
+            svcCtx.put("userLogin", partyUserLogin);
+            svcCtx.put("contactNumber", phone);
+            svcCtx.put("partyId", partyId);
+            svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+            try {
+                svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return null;
+            }
+            if (ServiceUtil.isError(svcRes)) {
+                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                return null;
+            }
+            
+            result = partyId;
+            
+        // Update
+        } else if (UtilValidate.isNotEmpty(partyId)){
+            trace("Update a client profile");
             GenericValue  person = null;
+
             try {
                 person = session.getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
-                return result;
+                return null;
             }
             
-            if (UtilValidate.isNotEmpty(name) && !person.getString("lastName").equals(name)
-                    || UtilValidate.isNotEmpty(card) && !card.equals(person.getString("memberId"))) {
+            try {
+                List<GenericValue>  userLogins = session.getDelegator().findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+                partyUserLogin = userLogins.get(0); // We need a party's login, it can't be empty because we filter on PartyAndUserLogin in searchClientProfile 
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return null;
+            }
+
+            if (!person.getString("lastName").equals(name)
+                    || UtilValidate.isNotEmpty(card) && !card.equals(person.getString("cardId"))) {
+                // Update name and card (cardId)
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("firstName", ""); // Needed by service updatePerson
-                svcCtx.put("userLogin", partyLogin);
-                if (UtilValidate.isNotEmpty(name)) {
-                    svcCtx.put("lastName", name);
-                }
+                svcCtx.put("userLogin", partyUserLogin);
+                svcCtx.put("lastName", name);
                 if (UtilValidate.isNotEmpty(card)) {
-                    svcCtx.put("memberId", card);
-                    if (!card.equals(person.getString("memberId"))) {
-                        // Update password, we need to temporary set password.accept.encrypted.and.plain to "true"
-                        // This is done only for the properties loaded for the session in memory (we don't persist the value)
-                        String passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
-                        UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
-                        try {
-                            svcRes = dispatcher.runSync("updatePassword", 
-                                    UtilMisc.toMap("userLogin", partyLogin,
-                                    "userLoginId", partyLogin.getString("userLoginId"), 
-                                    "currentPassword", partyLogin.getString("currentPassword"), 
-                                    "newPassword", card, 
-                                    "newPasswordVerify", card,
-                                    "passwordHint", "Your card number is your password"));            
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, "Error calling updatePassword service", module);
-                            pos.showDialog("dialog/error/exception", e.getMessage());
-                            return result;
-                        }
-                        if (ServiceUtil.isError(svcRes)) {
-                            pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                            return result;
-                        }
-                        // Put back passwordAcceptEncryptedAndPlain value in memory
-                        UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
-                        partyLogin = (GenericValue) svcRes.get("updatedUserLogin");
-                        svcCtx.put("userLogin", partyLogin);
-                    }                    
-                }
-    
-                // Update name and card (memberId)
+                    svcCtx.put("cardId", card);
+                }                                  
                 try {
                     svcRes = dispatcher.runSync("updatePerson", svcCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
+                    return null;
                 }
                 if (ServiceUtil.isError(svcRes)) {
                     pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return result;
-                }                
+                    return null;
+                }
             }
 
-            // Update email            
-            if (UtilValidate.isNotEmpty(email) && !partyLogin.getString("userLoginId").equals(email)) {                
-                // create a new UserLogin (Update a UserLoginId by creating a new one and expiring the old one)
+            // Update phone
+            GenericValue PartyTelecomNumber = null;
+            String contactNumber = null;
+            String newContactMechId = null;
+            svcCtx.clear();
+            svcCtx.put("partyId", partyId);
+            svcCtx.put("thruDate", null); // last one            
+            try {
+                List<GenericValue>  PartyTelecomNumbers = session.getDelegator().findByAnd("PartyAndTelecomNumber", svcCtx);
+                PartyTelecomNumber = PartyTelecomNumbers.get(0); // There is  only one phone number (contactMechPurposeTypeId == "PHONE_HOME") and there is always one (used as password in UserLogin)
+                contactNumber = PartyTelecomNumber.getString("contactNumber");
+                newContactMechId = PartyTelecomNumber.getString("contactMechId");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
+                return null;
+            }                        
+            if (UtilValidate.isNotEmpty(contactNumber) && !phone.equals(contactNumber)) {
+                svcCtx.clear();
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("thruDate", null); // last one                
+                svcCtx.put("userLogin", partyUserLogin);
+                svcCtx.put("contactNumber", phone);
+                svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                svcCtx.put("contactMechId", newContactMechId);                 
                 try {
-                    svcRes = dispatcher.runSync("updateUserLoginId", UtilMisc.toMap("userLoginId", email, "userLogin", partyLogin));
+                    svcRes = dispatcher.runSync("updatePartyTelecomNumber", svcCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
-                   return result;
+                    return null;
                 }
                 if (ServiceUtil.isError(svcRes)) {
                     pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return result;
+                    return null;
                 }
-                
-                partyLogin = (GenericValue) svcRes.get("newUserLogin");
-                
+                // Update password, we need to temporary set password.accept.encrypted.and.plain to "true"
+                // This is done only for the properties loaded for the session in memory (we don't persist the value)
+                String passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
+                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
+                try {
+                    svcRes = dispatcher.runSync("updatePassword", 
+                            UtilMisc.toMap("userLogin", partyUserLogin,
+                            "userLoginId", partyUserLogin.getString("userLoginId"), 
+                            "currentPassword", partyUserLogin.getString("currentPassword"), 
+                            "newPassword", phone, 
+                            "newPasswordVerify", phone));            
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error calling updatePassword service", module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return null;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return null;
+                }
+                // Put back passwordAcceptEncryptedAndPlain value in memory
+                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
+            }
+
+            // Update email            
+            if (!partyUserLogin.getString("userLoginId").equals(email)) {                
                 svcCtx.clear();
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("contactMechTypeId", "EMAIL_ADDRESS");                
@@ -1902,91 +1899,45 @@ public class PosTransaction implements Serializable {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
+                    return null;
                 }
 
                 svcCtx.clear();
-                svcCtx.put("userLogin", partyLogin);
+                svcCtx.put("userLogin", userLogin);
                 svcCtx.put("emailAddress", email);
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
-
-                if (UtilValidate.isNotEmpty(PartyEmails)) {
-                    svcCtx.put("contactMechId", PartyEmails.get(0).getString("contactMechId")); // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
-                }
+                svcCtx.put("contactMechId", PartyEmails.get(0).getString("contactMechId")); // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
                 try {
                     svcRes = dispatcher.runSync("createUpdatePartyEmailAddress", svcCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
+                    return null;
                 }
                 if (ServiceUtil.isError(svcRes)) {
                     pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return result;
+                    return null;
                 }
-            }
 
-            // Update phone
-            if (UtilValidate.isNotEmpty(phone)) {
-                svcCtx.clear();
-                svcCtx.put("partyId", partyId);
-                svcCtx.put("thruDate", null); // last one
-                List<GenericValue>  PartyTelecomNumbers = null;
+                // create a new UserLogin (Update a UserLoginId by creating a new one and expiring the old one). Keep the same password possibly changed just above if phone has also changed.
                 try {
-                    PartyTelecomNumbers = session.getDelegator().findByAnd("PartyAndTelecomNumber", svcCtx);
-                } catch (GenericEntityException e) {
+                    svcRes = dispatcher.runSync("updateUserLoginId", UtilMisc.toMap("userLoginId", email, "userLogin", userLogin));
+                } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
-                    return result;
+                   return null;
                 }
-                
-                if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {                 
-                    GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
-                    String contactNumber = PartyTelecomNumber.getString("contactNumber");
-                    if (!phone.equals(contactNumber)) {
-                        String newContactMechId = PartyTelecomNumber.getString("contactMechId");
-        
-                        svcCtx.put("userLogin", partyLogin);
-                        svcCtx.put("contactNumber", phone);
-                        svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-                        if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {
-                            svcCtx.put("contactMechId", newContactMechId); 
-                        }
-                        
-                        try {
-                            svcRes = dispatcher.runSync("createUpdatePartyTelecomNumber", svcCtx);
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
-                            pos.showDialog("dialog/error/exception", e.getMessage());
-                            return result;
-                        }
-                        if (ServiceUtil.isError(svcRes)) {
-                            pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                            return result;
-                        }
-                    }
-                } else {
-                    // createPartyTelecomNumber
-                    svcCtx.clear();
-                    svcCtx.put("userLogin", partyLogin);
-                    svcCtx.put("contactNumber", phone);
-                    svcCtx.put("partyId", partyId);
-                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-                    try {
-                        svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        pos.showDialog("dialog/error/exception", e.getMessage());
-                        return result;
-                    }
-                    if (ServiceUtil.isError(svcRes)) {
-                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                        return result;
-                    }
-                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return null;
+                }                
             }
+
+        } else {
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage(resource, "PosNoClientProfile", locale));
+            return null;            
         }
-        return result;
+        return null;
     }
 }

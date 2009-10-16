@@ -142,7 +142,7 @@ public class ClientProfile extends XPage implements ActionListener {
                 Debug.logError(e, module);
             }   
             if (UtilValidate.isNotEmpty(person)) {
-                String promoCode = person.getString("memberId");
+                String promoCode = person.getString("cardId");
                 if (UtilValidate.isNotEmpty(promoCode)) {          
                     String result = m_trans.addProductPromoCode(promoCode);
                     if(UtilValidate.isNotEmpty(result)) {
@@ -234,10 +234,14 @@ public class ClientProfile extends XPage implements ActionListener {
             String email = m_emailEdit.getText().trim();
             String phone = m_phoneEdit.getText().trim();
             String card = m_cardEdit.getText().trim();
-            if (UtilValidate.isNotEmpty(name)) {
-                editClientProfile(name, email, phone, card, editType, m_partyId);
+            if (UtilValidate.isNotEmpty(name) && UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(phone) ) {
+                if (phone.length() > 4 ) {
+                    editClientProfile(name, email, phone, card, editType, m_partyId);
+                } else {
+                    m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosPhoneField5Required", locale));                    
+                }
             } else {
-                m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosNameFieldRequired", locale));
+                m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosFieldsRequired", locale));
             }
         }
     }
@@ -256,7 +260,7 @@ public class ClientProfile extends XPage implements ActionListener {
                 phone = (String) party.get("contactNumber");
                 String partyId = (String) party.get("partyId");
                 m_clientListBidingCombo.add(partyId);
-                card = (String) party.get("memberId");
+                card = (String) party.get("cardId");
                 name = name == null ? "" : name;
                 email = email == null ? "" : email;
                 phone = phone == null ? "" : phone;
