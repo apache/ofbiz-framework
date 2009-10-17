@@ -808,6 +808,7 @@ DIV.widget-container {
     margin-bottom: 2em;
 }
 
+#content-main-section h1,
 #content-main-section .h1 {
 display: none;
 }
