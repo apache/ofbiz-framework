@@ -101,39 +101,17 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericShipmentGatewayConfigDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfig}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfig}">
+                            <include-form name="EditShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <not><if-empty field="shipmentGatewayDhl"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigDhl}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditShipmentGatewayConfigDhl" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigDhl}">
+                                    <include-form name="EditShipmentGatewayConfigDhl" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -141,20 +119,9 @@ under the License.
                                 <not><if-empty field="shipmentGatewayFedex"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigFedex}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditShipmentGatewayConfigFedex" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigFedex}">
+                                    <include-form name="EditShipmentGatewayConfigFedex" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -162,20 +129,9 @@ under the License.
                                 <not><if-empty field="shipmentGatewayUps"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUps}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditShipmentGatewayConfigUps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUps}">
+                                    <include-form name="EditShipmentGatewayConfigUps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -183,20 +139,9 @@ under the License.
                                 <not><if-empty field="shipmentGatewayUsps"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUsps}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditShipmentGatewayConfigUsps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUsps}">
+                                    <include-form name="EditShipmentGatewayConfigUsps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -246,20 +191,9 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericShipmentGatewayConfigDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditShipmentGatewayConfigType" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigType}">
+                            <include-form name="EditShipmentGatewayConfigType" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
