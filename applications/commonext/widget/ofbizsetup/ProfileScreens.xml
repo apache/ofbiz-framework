@@ -62,20 +62,9 @@
                                         <include-screen name="Contact"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PartyCreateNewCustomer}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>
-                                                        <include-form name="NewCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>
+                                        <screenlet title="${uiLabelMap.PartyCreateNewCustomer}">
+                                            <include-form name="NewCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                        </screenlet>
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -278,20 +267,9 @@
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.SetupEditOrganizationInformation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.SetupEditOrganizationInformation}">
+                            <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -313,20 +291,9 @@
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPersonalInformation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditPersonalInformation}">
+                            <include-form name="EditCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
