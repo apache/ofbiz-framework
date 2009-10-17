@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <Content contentId="CONTENT_ERROR" contentTypeId="DOCUMENT" contentName="Generic CMS Error Pages"/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="CONTENT_ERROR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
+    <DataResource dataResourceId="CONTENT_ERROR_403" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CONTENT_ERROR_403">
+        <textData><![CDATA[<html><head><title>Access Forbidden</title></head><body>${statusCode?if_exists} Forbidden</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CONTENT_ERROR_403" contentTypeId="DOCUMENT" contentName="Generic CMS 403 Access Forbidden" dataResourceId="CONTENT_ERROR_403"/>
+    <DataResource dataResourceId="CONTENT_ERROR_404" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CONTENT_ERROR_404">
+        <textData><![CDATA[<html><head><title>Page not found</title></head><body>${statusCode?if_exists} Not Found</body></html>]]></textData>
+    </ElectronicText>
+    <ContentAssoc contentId="CONTENT_ERROR" contentIdTo="CONTENT_ERROR_403" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01"/>
+    <Content contentId="CONTENT_ERROR_404" contentTypeId="DOCUMENT" contentName="Generic CMS 404 Page Not Found" dataResourceId="CONTENT_ERROR_404"/>
+    <ContentAssoc contentId="CONTENT_ERROR" contentIdTo="CONTENT_ERROR_404" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01"/>
+    <DataResource dataResourceId="CONTENT_ERROR_404_FR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr_FR" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CONTENT_ERROR_404_FR">
+        <textData><![CDATA[<html><head><title>Page inconnue</title></head><body>${statusCode?if_exists} Page Inconnue</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CONTENT_ERROR_404_FR" contentTypeId="DOCUMENT" contentName="Page 404 inconnue générique" dataResourceId="CONTENT_ERROR_404_FR" localeString="fr_FR"/>
+    <ContentAssoc contentId="CONTENT_ERROR" contentIdTo="CONTENT_ERROR_404_FR" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01"/>
+    <ContentAssoc contentId="CONTENT_ERROR_404" contentIdTo="CONTENT_ERROR_404_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CONTENT_ERROR_410" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CONTENT_ERROR_410">
+        <textData><![CDATA[<html><head><title>Page is gone</title></head><body>${statusCode?if_exists} Page is gone</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CONTENT_ERROR_410" contentTypeId="DOCUMENT" contentName="Generic CMS 410 Page Is Gone" dataResourceId="CONTENT_ERROR_410"/>
+    <ContentAssoc contentId="CONTENT_ERROR" contentIdTo="CONTENT_ERROR_410" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01"/>
+</entity-engine-xml>
