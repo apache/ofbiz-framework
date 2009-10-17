@@ -100,7 +100,9 @@ under the License.
                                         <label style="h1" text="${uiLabelMap.PageTitleAddContent}"/>
                                     </fail-widgets>
                                 </section>
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
@@ -126,7 +128,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
@@ -166,7 +170,9 @@ under the License.
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
                                     </fail-widgets>
                                 </section>
-                                <decorator-section-include name="body"/>
+                                <container style="no-clear">
+                                    <decorator-section-include name="body"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
@@ -315,14 +321,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.ContentMain}"/>
-                            </container>
-                            <container style="screenlet-body">
-                                <container><label style="tabletext" text="${uiLabelMap.ContentWelcome}"/></container>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ContentMain}">
+                            <container><label style="tabletext" text="${uiLabelMap.ContentWelcome}"/></container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

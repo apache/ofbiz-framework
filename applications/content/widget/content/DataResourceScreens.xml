@@ -79,21 +79,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container id="cmsnav" style="left-border">
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleNavigateDataResources}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <section>
-                                                <widgets>
-                                                    <include-screen name="navigateMenu"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </container>
+                                <container id="cmsnav" style="left">
+                                    <screenlet title="${uiLabelMap.PageTitleNavigateDataResources}'">
+                                        <include-screen name="navigateMenu"/>
+                                    </screenlet>
                                 </container>
                                 <container id="content-main-section" style="leftonly">
                                     <container id="cmscontent">
@@ -134,16 +123,9 @@ under the License.
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.PageTitleNavigateDataResources}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
-                    </container>
-                </container>
+                <screenlet title="${uiLabelMap.PageTitleNavigateDataResources}">
+                    <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -183,40 +165,18 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ContentContentsAssociatedToDataResource}">
+                            <include-form name="EditDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <not><if-empty field="currentValue"/></not>
                             </condition>
                             <widgets>
                                 <include-screen name="DataResourceViewLink"/>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditDataResource}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListContentsAssociatedToDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditDataResource}">
+                                    <include-form name="ListContentsAssociatedToDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -391,20 +351,9 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditElectronicText}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditElectronicText" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditElectronicText}">
+                            <include-form name="EditElectronicText" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -494,20 +443,9 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditHtmlText}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditHtmlText" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditHtmlText}">
+                            <include-form name="EditHtmlText" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
