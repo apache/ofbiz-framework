@@ -2583,22 +2583,25 @@ under the License.
       <field name="yearsWithEmployer" type="numeric"></field>
       <field name="monthsWithEmployer" type="numeric"></field>
       <field name="existingCustomer" type="indicator"></field>
-      <field name="cardId" type="id-ne"></field>
+      <field name="cardId" type="id-long" ></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PERSON_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-        <relation type="one" fk-name="PERSON_EMPS_ENUM" title="EmploymentStatus" rel-entity-name="Enumeration">
-            <key-map field-name="employmentStatusEnumId" rel-field-name="enumId"/>
-        </relation>
-        <relation type="one" fk-name="PERSON_RESS_ENUM" title="ResidenceStatus" rel-entity-name="Enumeration">
-            <key-map field-name="residenceStatusEnumId" rel-field-name="enumId"/>
-        </relation>
+      <relation type="one" fk-name="PERSON_EMPS_ENUM" title="EmploymentStatus" rel-entity-name="Enumeration">
+        <key-map field-name="employmentStatusEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PERSON_RESS_ENUM" title="ResidenceStatus" rel-entity-name="Enumeration">
+        <key-map field-name="residenceStatusEnumId" rel-field-name="enumId"/>
+      </relation>
       <index name="FIRST_NAME_IDX">
         <index-field name="firstName"/>
       </index>
       <index name="LAST_NAME_IDX">
         <index-field name="lastName"/>
+      </index>
+      <index name="CARD_ID_IDX">
+        <index-field name="cardId"/>
       </index>
     </entity>
     <entity entity-name="PriorityType"
