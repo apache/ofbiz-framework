@@ -22,12 +22,7 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <!-- TODO: TO run one test case at a time comment to others -->
-
     <!--test-case case-name="inventoryAdjustment-test">
         <junit-test-suite class-name="org.ofbiz.product.test.PhysicalInventoryAdjustmentTest"/>
     </test-case-->
-    <test-case case-name="testReceiveShipment Direct Simple Method">
-        <simple-method-test location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" name="testCreateShipmentRouteSegment"/>
-    </test-case>
 </test-suite>

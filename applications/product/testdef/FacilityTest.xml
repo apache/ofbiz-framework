@@ -44,4 +44,8 @@ under the License.
     <test-case case-name="receiveInventoryItemNonSerialized-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/ShipmentTests.xml" name="testReceiveInventoryNonSerialized"/>
     </test-case>
+
+    <test-case case-name="testCreateShipmentRouteSegment-test">
+        <simple-method-test location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" name="testCreateShipmentRouteSegment"/>
+    </test-case>
 </test-suite>
