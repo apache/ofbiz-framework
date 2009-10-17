@@ -40,34 +40,12 @@
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListOrganizations" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.SetupCreateNewOrganization}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}">
+                                    <include-form name="ListOrganizations" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.SetupCreateNewOrganization}">
+                                    <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
@@ -151,20 +129,9 @@
                                         </container>
                                     </widgets>
                                 </section>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.SetupEditProductStore}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditProductStore" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.SetupEditProductStore}">
+                                    <include-form name="EditProductStore" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <section>
@@ -211,20 +178,9 @@
                                 </section>
                                 <section>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PageTitleEditWebSite}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>
-                                                        <include-form name="EditWebSite" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>
+                                        <screenlet title="${uiLabelMap.PageTitleEditWebSite}">
+                                            <include-form name="EditWebSite" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -266,20 +222,9 @@
                                     <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                                 </container>
                                 <container style="clear"/>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditProductCatalog}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditProdCatalog" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditProductCatalog}">
+                                    <include-form name="EditProdCatalog" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
