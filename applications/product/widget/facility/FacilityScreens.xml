@@ -564,39 +564,17 @@ under the License.
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="SearchInventoryItemsDetailsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}">
+                            <include-form name="SearchInventoryItemsDetailsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-compare field="parameters.reportType" operator="equals" value="BY_ITEM"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListFacilityInventoryItemsDetailsByItem" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}">
+                                    <include-form name="ListFacilityInventoryItemsDetailsByItem" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -604,20 +582,9 @@ under the License.
                                 <if-compare field="parameters.reportType" operator="equals" value="BY_PRODUCT"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListFacilityInventoryItemsDetailsByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}">
+                                    <include-form name="ListFacilityInventoryItemsDetailsByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -625,20 +592,9 @@ under the License.
                                 <if-compare field="parameters.reportType" operator="equals" value="BY_DATE"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListFacilityInventoryItemsDetailsByDate" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}">
+                                    <include-form name="ListFacilityInventoryItemsDetailsByDate" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -665,20 +621,9 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}">
+                            <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -701,16 +646,9 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${title}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                            </container>
-                        </container>                    
+                        <screenlet title="${title}">
+                            <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -759,16 +697,9 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryAverageCosts} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="ListInventoryAverageCosts" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductInventoryAverageCosts} ${uiLabelMap.CommonFor} ${facility.facilityName}">
+                            <include-form name="ListInventoryAverageCosts" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1025,34 +956,12 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListInventoryItemDetail" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductShipmentReceiptsFor} [${inventoryItemId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ViewInventoryItemShipmentReceipts" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]">
+                            <include-form name="ListInventoryItemDetail" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductShipmentReceiptsFor} [${inventoryItemId}]">
+                            <include-form name="ViewInventoryItemShipmentReceipts" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1101,34 +1010,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}">
+                            <include-form name="FindPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}">
+                            <include-form name="ListPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1467,20 +1354,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityScheduleDecorator">
                     <decorator-section name="schedule-body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitlePackageShipmentScheduling}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="SchedulingList" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitlePackageShipmentScheduling}">
+                            <include-form name="SchedulingList" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1508,23 +1384,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityScheduleDecorator">
                     <decorator-section name="schedule-body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLabelPrinting}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="Labels" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/facility/facility/batchPrintMarkAsAccepted.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleLabelPrinting}">
+                            <include-form name="Labels" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/facility/facility/batchPrintMarkAsAccepted.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
