@@ -163,7 +163,6 @@ function enableSubmitButton() {
       <#list invoices as invoice>
         <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
-        <#if invoicePaymentInfo.outstandingAmount != 0>
           <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
@@ -179,7 +178,6 @@ function enableSubmitButton() {
           </tr>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
-        </#if>
       </#list>
     </table>
   </form>
