@@ -766,10 +766,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartySkills"/>
     </request-map>
-    <request-map uri="EditPersonTrainings">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPersonTrainings"/>
-    </request-map>
     <request-map uri="EditPartyResumes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyResumes"/>
@@ -968,10 +964,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TrainingCalendar"/>
     </request-map>
-    <request-map uri="FindTrainings">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="FindTrainings"/>
-    </request-map>
     <request-map uri="createTrainingTypes">
         <security https="true" auth="true"/>
         <event type="service" invoke="createTrainingTypes"/>
@@ -1149,7 +1141,6 @@ under the License.
     
     <!-- ==================Trainings View Map===================== -->
     <view-map name="TrainingCalendar" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#TrainingCalendarWithDecorator"/>
-    <view-map name="FindTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#FindTrainings"/>
     <view-map name="FindTrainingStatus" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#FindTrainingStatus"/>
     <view-map name="FindTrainingApprovals" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#FindTrainingApprovals"/>
     <view-map name="EditTrainingApprovals" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditTrainingApprovals"/>
