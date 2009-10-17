@@ -46,6 +46,6 @@ under the License.
     </test-case>
 
     <test-case case-name="testCreateShipmentRouteSegment-test">
-        <simple-method-test location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" name="testCreateShipmentRouteSegment"/>
+        <simple-method-test location="component://product/script/org/ofbiz/shipment/shipment/ShipmentTests.xml" name="testCreateShipmentRouteSegment"/>
     </test-case>
 </test-suite>
