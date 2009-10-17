@@ -39,21 +39,12 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleListWebSite}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleListWebSite}">
+                                    <container>
+                                        <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container><link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/></container>
-                                                <include-form name="ListWebSites" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="ListWebSites" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
@@ -79,20 +70,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditWebSite}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditWebSite" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditWebSite}">
+                                    <include-form name="EditWebSite" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
