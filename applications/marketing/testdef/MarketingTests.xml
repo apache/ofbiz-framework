@@ -23,6 +23,6 @@
 
     <!-- Test case for create and update contact list -->
     <test-case case-name="createAndUpdateContactList-test">
-        <simple-method-test location="component://marketing/script/org/ofbiz/marketing/test/TestServices.xml" name="testCreateAndUpdateContactList"/>
+        <simple-method-test location="component://marketing/script/org/ofbiz/marketing/test/MarketingTests.xml" name="testCreateAndUpdateContactList"/>
     </test-case>
 </test-suite>
