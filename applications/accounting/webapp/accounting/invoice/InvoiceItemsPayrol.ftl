@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<form method="post" action="/accounting/control/createInvoiceItemPayrol">
+<form method="post" action="createInvoiceItemPayrol">
 <input type="hidden" name="invoiceId" value="${invoice.invoiceId}">
 <table class="basic-table hover-bar" cellspacing="0">
 
