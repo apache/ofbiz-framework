@@ -198,4 +198,26 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreateShipmentRouteSegment" short-description="Test to create Shipment Route Segment" login-required="false">
+        <log level="info" message="====================Create a Shipment Route Segment test case=========================================="/>
+        <set field="shipRouteSegMap.shipmentId" value="10000"/>
+
+        <entity-one entity-name="UserLogin" value-field="shipRouteSegMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createShipmentRouteSegment" in-map-name="shipRouteSegMap">
+            <result-to-field result-name="shipmentRouteSegmentId" field="routeSegMap.shipmentRouteSegmentId"/>
+        </call-service>
+        <entity-one entity-name="ShipmentRouteSegment" value-field="shipmentRouteSegment">
+            <field-map field-name="shipmentId" from-field="shipRouteSegMap.shipmentId"/>
+            <field-map field-name="shipmentRouteSegmentId" from-field="routeSegMap.shipmentRouteSegmentId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="shipmentRouteSegment"/></not>
+            <if-compare-field field="shipmentRouteSegment.shipmentId" to-field="shipRouteSegMap.shipmentId" operator="equals"/>
+            <if-compare-field field="shipmentRouteSegment.shipmentRouteSegmentId" to-field="routeSegMap.shipmentRouteSegmentId" operator="equals"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
