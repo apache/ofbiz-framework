@@ -97,23 +97,12 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyClassificationGroups}"/>
-                                </container>
-                            </container>
+                        <screenlet title="${uiLabelMap.PartyClassificationGroups}">
+                            <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"/></container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"/></container>
-                                        <container style="screenlet-body">
-                                            <include-form name="ListPartyClassificationGroups" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                        </container>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListPartyClassificationGroups" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                             </container>
-                        </container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -146,20 +135,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PartyClassificationGroup}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPartyClassificationGroup" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PartyClassificationGroup}">
+                                    <include-form name="EditPartyClassificationGroup" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

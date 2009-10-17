@@ -809,20 +809,9 @@ under the License.
                                         </entity-one>
                                     </actions>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PageTitleEditCommContent}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>
-                                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="editCommTextContent"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>
+                                        <screenlet title="${uiLabelMap.PageTitleEditCommContent}">
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="editCommTextContent"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                                 <section>
@@ -832,22 +821,11 @@ under the License.
                                         </not>
                                     </condition>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PartyViewImage}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>
-                                                        <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="uploadCommContent"/>
-                                                        <label text="${uiLabelMap.PartyViewImage}" style="h1"/>
-                                                        <content dataresource-id="${commEventContentDataResource.drDataResourceId}"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>
+                                        <screenlet title="${uiLabelMap.PartyViewImage}">
+                                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="uploadCommContent"/>
+                                            <label text="${uiLabelMap.PartyViewImage}" style="h1"/>
+                                            <content dataresource-id="${commEventContentDataResource.drDataResourceId}"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </widgets>
