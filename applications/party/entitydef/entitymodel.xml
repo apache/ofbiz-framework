@@ -2600,7 +2600,7 @@ under the License.
       <index name="LAST_NAME_IDX">
         <index-field name="lastName"/>
       </index>
-      <index name="CARD_ID_IDX">
+      <index name="CARD_ID_IDX" unique="true">
         <index-field name="cardId"/>
       </index>
     </entity>
