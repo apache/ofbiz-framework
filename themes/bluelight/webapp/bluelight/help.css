@@ -44,3 +44,8 @@ width:auto;
 div.screenlet-body {
 border: none;
 }
+
+#content-main-section h1,
+#content-main-section .h1 {
+display: block;
+}
