@@ -80,20 +80,9 @@
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmplPosition}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditEmplPosition" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.HumanResEditEmplPosition}">
+                            <include-form name="EditEmplPosition" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -171,23 +160,12 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListValidResponsibility}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.HumanResListValidResponsibility}">
+                            <container>
+                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListValidResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListValidResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -201,23 +179,12 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResAddValidResponsibility}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.HumanResAddValidResponsibility}">
+                            <container>
+                                <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                             <link target="EditValidResponsibility" text="${uiLabelMap.HumanResAddValidResponsibility}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="AddValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="AddValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -69,20 +69,9 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmployment}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.HumanResEditEmployment}">
+                            <include-form name="EditEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -117,11 +106,7 @@
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResListPayHistories}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPayHistories" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                </widgets>
-                            </section>
+                            <include-form name="ListPayHistories" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
