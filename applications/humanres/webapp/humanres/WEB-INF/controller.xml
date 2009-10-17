@@ -620,6 +620,10 @@ under the License.
         <response name="success" type="view" value="EditEmployeeQuals"/>
         <response name="error" type="view" value="EditEmployeeQuals"/>
     </request-map>
+    <request-map uri="EditEmployeeTrainings">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmployeeTrainings"/>
+    </request-map>
     <request-map uri="EditEmployeeResumes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmployeeResumes"/>
@@ -1075,6 +1079,7 @@ under the License.
     <view-map name="NewEmployee" type="screen" page="component://humanres/widget/EmployeeScreens.xml#NewEmployee"/>
     <view-map name="EmployeeProfile" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EmployeeProfile"/>
     <view-map name="EditEmployeeSkills" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EditEmployeeSkills"/>
+    <view-map name="EditEmployeeTrainings" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EditEmployeeTrainings"/>
     <view-map name="EditEmployeeQuals" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EditEmployeeQuals"/>
     <view-map name="EditEmployeeEmploymentApps" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EditEmployeeEmploymentApps"/>
     <view-map name="EditEmployeeResumes" type="screen" page="component://humanres/widget/EmployeeScreens.xml#EditEmployeeResumes"/>

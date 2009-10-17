@@ -1375,7 +1375,7 @@ under the License.
     <view-map name="PartyInvitationGroupAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsGroupAssocs"/>
     <view-map name="PartyInvitationRoleAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsRoleAssocs"/>
     <view-map name="EditPartySkills" type="screen" page="component://humanres/widget/PartySkillScreens.xml#EditPartySkills"/>
-    <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditPersonTrainings"/>
+    <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#ListTrainingStatus"/>
     <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
     <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
