@@ -37,45 +37,38 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingPartyAccountsSummary}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.AccountingPartyAccountsSummary}">
+                                    <container>
+                                        <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
+                                            <parameter param-name="organizationPartyId"/>
+                                            <parameter param-name="debitGlAccountClassId" value="CURRENT_ASSET"/>
+                                            <parameter param-name="creditGlAccountClassId" value="REVENUE"/>
+                                            <parameter param-name="acctgTransTypeId" value="SALES"/>
+                                        </link>
+                                        <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
+                                            <parameter param-name="organizationPartyId"/>
+                                        </link>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <container>
-                                            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="debitGlAccountClassId" value="CURRENT_ASSET"/>
-                                                <parameter param-name="creditGlAccountClassId" value="REVENUE"/>
-                                                <parameter param-name="acctgTransTypeId" value="SALES"/>
-                                            </link>
-                                            <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                        </container>
-                                        <container>
-                                            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="debitGlAccountClassId" value="CASH_EQUIVALENT"/>
-                                                <parameter param-name="creditGlAccountClassId" value="CURRENT_LIABILITY"/>
-                                                <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
-                                            </link>
-                                            <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                        </container>
-                                        <container>
-                                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                            <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                        </container>
+                                    <container>
+                                        <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
+                                            <parameter param-name="organizationPartyId"/>
+                                            <parameter param-name="debitGlAccountClassId" value="CASH_EQUIVALENT"/>
+                                            <parameter param-name="creditGlAccountClassId" value="CURRENT_LIABILITY"/>
+                                            <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
+                                        </link>
+                                        <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
+                                            <parameter param-name="organizationPartyId"/>
+                                        </link>
                                     </container>
-                                </container>
+                                    <container>
+                                        <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
+                                            <parameter param-name="organizationPartyId"/>
+                                        </link>
+                                        <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
+                                            <parameter param-name="organizationPartyId"/>
+                                        </link>
+                                    </container>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -95,72 +88,91 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAcctgTrans}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.AccountingAcctgTrans}">
+                            <container>
+                                <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans">
+                                    <parameter param-name="organizationPartyId"/>
+                                </link>
+                                <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries">
+                                    <parameter param-name="organizationPartyId"/>
+                                </link>
+                                <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
+                                    <parameter param-name="organizationPartyId"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                 <container>
-                                    <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans">
-                                        <parameter param-name="organizationPartyId"/>
-                                    </link>
-                                    <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries">
-                                        <parameter param-name="organizationPartyId"/>
-                                    </link>
-                                    <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
-                                        <parameter param-name="organizationPartyId"/>
-                                    </link>
-                                </container>
-                                <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                            </container>
-                        </container>
+                            <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctgTrans}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransSearchResultsCsv.csv">
-                                            <parameter param-name="organizationPartyId"/>
-                                            <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                            <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                            <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                            <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                            <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                            <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                            <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                            <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                            <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                        </link>
-                                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf">
-                                            <parameter param-name="organizationPartyId"/>
-                                            <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                            <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                            <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                            <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                            <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                            <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                            <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                            <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                            <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                        </link>
-                                        <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAcctgTrans}">
+                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransSearchResultsCsv.csv">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                    </link>
+                                    <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.AccountingAcctgTrans}">
+                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransSearchResultsCsv.csv">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                    </link>
+                                    <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -179,16 +191,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAcctgTransEntries}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingAcctgTransEntries}">
+                            <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <and>
@@ -197,50 +202,43 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByAccount}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                                <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                                <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                                <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                                <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
-                                                <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                                <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                                <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                                <parameter param-name="partyId" from-field="parameters.partyId"/>
-                                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            </link>
-                                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPdf.pdf">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                                <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                                <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                                <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                                <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
-                                                <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                                <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                                <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                                <parameter param-name="partyId" from-field="parameters.partyId"/>
-                                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            </link>
-                                        <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByAccount}">
+                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPdf.pdf">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                    </link>
+                                    <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -251,50 +249,43 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByDate}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                                <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                                <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                                <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                                <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
-                                                <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                                <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                                <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                                <parameter param-name="partyId" from-field="parameters.partyId"/>
-                                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            </link>
-                                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPDF.pdf">
-                                                <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="produtId" from-field="parameters.produtId"/>
-                                                <parameter param-name="isPosted" from-field="parameters.isPosted"/>
-                                                <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
-                                                <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
-                                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                                <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
-                                                <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
-                                                <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
-                                                <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
-                                                <parameter param-name="partyId" from-field="parameters.partyId"/>
-                                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                <parameter param-name="paymentId" from-field="parameters.paymentId"/>
-                                            </link>
-                                        <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByDate}">
+                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="buttontext" target="AcctgTransEntriesSearchResultsCsv.csv">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPDF.pdf">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                    </link>
+                                    <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -314,16 +305,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                 <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingCreateAcctgTransAndEntries}">
+                            <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

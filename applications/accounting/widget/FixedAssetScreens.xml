@@ -521,22 +521,11 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFixedAssetDepreciationReport}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <platform-specific>
-                                                    <html><html-template location="component://accounting/webapp/accounting/fixedasset/DepreciationReport.ftl"/></html>
-                                                </platform-specific>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
+                                    <platform-specific>
+                                        <html><html-template location="component://accounting/webapp/accounting/fixedasset/DepreciationReport.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
