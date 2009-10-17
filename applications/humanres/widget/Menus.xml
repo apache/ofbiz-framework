@@ -201,8 +201,8 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditTrainingCalendar" title="${uiLabelMap.HumanResTraining}">
-            <link target="TrainingCalendar">
+        <menu-item name="EditEmployeeTrainings" title="${uiLabelMap.HumanResTraining}">
+            <link target="EditEmployeeTrainings">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
@@ -280,7 +280,7 @@
             <link target="TrainingCalendar"/>
         </menu-item>
         <menu-item name="FindTrainingStatus" title="${uiLabelMap.HumanResTrainingStatus}">
-            <condition><not><if-has-permission permission="HUMANRES" action="_ADMIN"/></not></condition><!-- TODO: is not possible need to create a permission for this.-->
+            <condition><if-has-permission permission="EMPLOYEE" action="_VIEW"/></condition>
             <link target="FindTrainingStatus"/>
         </menu-item>
         <menu-item name="FindTrainingApprovals" title="${uiLabelMap.HumanResTrainingApprovals}">

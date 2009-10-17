@@ -264,4 +264,20 @@
                  </widgets>
          </section>
      </screen>
+     <screen name="ListTrainingStatus">
+         <section>
+             <actions>
+                 <set field="tabButtonItem" value="EditPersonTrainings"/>
+             </actions>
+                 <widgets>
+                     <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                         <decorator-section name="body">
+                             <screenlet id="TrainingStatus" title="${uiLabelMap.HumanResTrainingStatus}" collapsible="true">
+                                 <include-form name="ListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                             </screenlet>
+                         </decorator-section>
+                     </decorator-screen>
+                 </widgets>
+         </section>
+     </screen>
 </screens>

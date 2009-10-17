@@ -191,6 +191,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditEmployeeTrainings">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="EditEmployeeTrainings"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="TrainingStatus" title="${uiLabelMap.HumanResTrainingStatus}" collapsible="true">
+                            <include-form name="ListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditEmployeeEmploymentApps">
         <section>
             <actions>
