@@ -44,12 +44,20 @@ under the License.
         <font_italic value="0"/>
     </style>
     <style name="error">
-        <color_back value="cc0033"/>
-        <color_fore value="ffffff"/>
-        <font_face value="verdana"/>
-        <font_size value="22"/>
-        <font_weight value="1"/>
-        <font_italic value="0"/>
+      <color_back value="cc0033"/>
+      <color_fore value="ffffff"/>
+      <font_face value="verdana"/>
+      <font_size value="22"/>
+      <font_weight value="1"/>
+      <font_italic value="0"/>
+    </style>
+    <style name="errorSmallFont">
+      <color_back value="cc0033"/>
+      <color_fore value="ffffff"/>
+      <font_face value="verdana"/>
+      <font_size value="10"/>
+      <font_weight value="1"/>
+      <font_italic value="0"/>
     </style>
     <style name="blackpanel">
         <color_back value="000000"/>

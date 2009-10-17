@@ -20,7 +20,6 @@ package org.ofbiz.pos.screen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,7 +27,6 @@ import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 
 import javolution.util.FastList;
-
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XComboBox;
 import net.xoetrope.swing.XDialog;
