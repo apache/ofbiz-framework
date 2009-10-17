@@ -411,3 +411,29 @@
 <#if (!menus?has_content)>
     <a href="javascript:void(0);" class="buttontext">${uiLabelMap.ContentWebSiteAddMenu}</a>
 </#if>
+
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+
+<dl dojoType="TreeContextMenu" id="webErrorContextMenu" style="font-size: 1em; color: #ccc;">
+    <dt dojoType="TreeMenuItem" id="newErrorPage" caption="New Error Page"/>
+</dl>
+
+<div class="label">
+    ${uiLabelMap.ContentWebSiteErrors}
+</div>
+<div>
+    ${uiLabelMap.ContentWebSiteAddNewErrors}
+</div>
+<div>&nbsp;</div>
+
+<dojo:TreeSelector widgetId="webErrorTreeSelector" eventNames="select:webErrorNodeSelected"></dojo:TreeSelector>
+<div dojoType="Tree" menu="webErrorContextMenu" widgetId="webErrorTree" selector="webErrorTreeSelector" toggler="fade" toggleDuration="500">
+    <#if (errors?has_content)>
+        ${errors}
+        <@fillTree assocList = errors/>
+    </#if>
+</div>
+<#if (!errors?has_content)>
+    <a href="javascript:void(0);" class="buttontext">${uiLabelMap.ContentWebSiteAddError}</a>
+</#if>

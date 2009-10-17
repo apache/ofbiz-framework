@@ -44,7 +44,21 @@ if (webSiteMenu) {
     context.menu = menu;
     context.menuRoot = menuRoot;
 
-    // get all sub content for the publish point
+    // get all sub content for the menu root
     menus = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : menuRoot]), null, null, null, false);
     context.menus = menus;
+}
+
+erlookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'ERROR_ROOT'];
+webSiteErrors = delegator.findList("WebSiteContent", EntityCondition.makeCondition(erlookupMap), null, ['-fromDate'], null, false);
+webSiteError = EntityUtil.getFirst(webSiteErrors);
+if (webSiteError) {
+    error = webSiteError.getRelatedOne("Content");
+    errorRoot = error.contentId;
+    context.error = error;
+    context.errorRoot = errorRoot;
+
+    // get all sub content for the error root
+    errors = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : errorRoot]), null, null, null, false);
+    context.errors = errors;
 }

@@ -161,8 +161,21 @@ under the License.
                 <br/><br/>
         ]]></textData>
     </ElectronicText>
-
-
+    
+    <!-- Specific Error Pages -->
+    <DataResource dataResourceId="CMSS_ERROR_ROOT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_ERROR_ROOT">
+        <textData><![CDATA[<html><head><title>Status Code : ${statusCode?if_exists}</title></head><body>Error ${statusCode?if_exists}</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_ERROR_ROOT" contentTypeId="DOCUMENT"
+        contentName="CMS Site Error Page Container" dataResourceId="CMSS_ERROR_ROOT"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_ERROR_ROOT" webSiteContentTypeId="ERROR_ROOT" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CMSS_ERROR_404" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_ERROR_404">
+        <textData><![CDATA[<html><head><title>cmsSite : Page not found</title></head><body>cmsSite : ${statusCode?if_exists} Not Found</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_ERROR_404" contentTypeId="DOCUMENT" contentName="Specific CMS 404 Page Not Found For CmsSite" dataResourceId="CMSS_ERROR_404"/>
+    <ContentAssoc contentId="CMSS_ERROR_ROOT" contentIdTo="CMSS_ERROR_404" contentAssocTypeId="TREE_CHILD" fromDate="2001-01-01 00:00:00" mapKey="404"/>
 
     <!--
       CmsSite (WebSite)
