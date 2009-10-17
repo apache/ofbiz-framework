@@ -264,7 +264,7 @@ public class PosTransaction implements Serializable {
         itemInfo.put("adjustments", "");
         if (item.getOtherAdjustments().compareTo(BigDecimal.ZERO) != 0) {
             itemInfo.put("itemDiscount", UtilFormatOut.padString(
-                    UtilProperties.getMessage(resource,"PosItemDiscount", locale), Receipt.pridLength[0] + 1, true, ' '));
+                    UtilProperties.getMessage(resource, "PosItemDiscount", locale), Receipt.pridLength[0] + 1, true, ' '));
             itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
         }
 
@@ -870,7 +870,7 @@ public class PosTransaction implements Serializable {
         BigDecimal change = grandTotal.subtract(paymentAmt);
 
         // notify the change due
-        output.print(UtilProperties.getMessage(resource,"PosChange",locale) + " " + UtilFormatOut.formatPrice(this.getTotalDue().negate()));
+        output.print(UtilProperties.getMessage(resource, "PosChange",locale) + " " + UtilFormatOut.formatPrice(this.getTotalDue().negate()));
 
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
@@ -1234,7 +1234,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (svcRes == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         } else if (ServiceUtil.isError(svcRes)) {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
@@ -1279,7 +1279,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (shoppingLists == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         }
         return shoppingLists;
     }
@@ -1353,7 +1353,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (svcRes == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
+            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         } else if (ServiceUtil.isError(svcRes)) {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
@@ -1736,7 +1736,7 @@ public class PosTransaction implements Serializable {
                return null;
             }
             if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                pos.showDialog("dialog/error/exceptionLargeSmallFont", ServiceUtil.getErrorMessage(svcRes)); // exceptionLargeSmallFont used to show duplicate key error message for card
                 return null;
             }
             partyId = (String) svcRes.get("partyId");
@@ -1822,7 +1822,7 @@ public class PosTransaction implements Serializable {
                     return null;
                 }
                 if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    pos.showDialog("dialog/error/exceptionLargeSmallFont", ServiceUtil.getErrorMessage(svcRes));
                     return null;
                 }
             }

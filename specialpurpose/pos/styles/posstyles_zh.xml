@@ -51,6 +51,14 @@ under the License.
         <font_weight value="1"/>
         <font_italic value="0"/>
     </style>
+    <style name="errorSmallFont">
+      <color_back value="cc0033"/>
+      <color_fore value="ffffff"/>
+      <font_face value="华文中宋"/>
+      <font_size value="10"/>
+      <font_weight value="1"/>
+      <font_italic value="0"/>
+    </style>
     <style name="blackpanel">
         <color_back value="000000"/>
         <color_fore value="000000"/>

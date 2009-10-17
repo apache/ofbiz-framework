@@ -19,7 +19,6 @@
 package org.ofbiz.pos.component;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.io.StringWriter;
 import java.util.Locale;
 
