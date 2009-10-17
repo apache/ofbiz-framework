@@ -292,49 +292,44 @@
                         </and>
                     </condition>
                     <widgets>
-                        <container id="fin-account-summary" style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <label style="h3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
+                        <screenlet id="fin-account-summary" title="${uiLabelMap.PageTitleFinancialAccountSummary}">
+                            <iterate-section entry="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list="ownedFinAccountList">
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="-transactionDate"/>
+                                            <limit-range start="0" size="5"/>
+                                        </entity-condition>
+                                        <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="-authorizationDate"/>
+                                            <limit-range start="0" size="5"/>
+                                        </entity-condition>
+                                        <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                            <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
+                                        </entity-one>
+                                        <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
+                                            <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
+                                        </entity-one>
+                                        <entity-one entity-name="FinAccountType" value-field="ownedFinAccountType" auto-field-map="false" use-cache="true">
+                                            <field-map field-name="finAccountTypeId" from-field="ownedFinAccount.finAccountTypeId"/>
+                                        </entity-one>
+                                    </actions>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://party/webapp/partymgr/party/profileblocks/FinAccounts.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </iterate-section>
+                            <container id="apply-service-credit">
+                                <label style="h2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
+                                <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                             </container>
-                            <container style="screenlet-body">
-                                <iterate-section entry="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list="ownedFinAccountList">
-                                    <section>
-                                        <actions>
-                                            <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
-                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="-transactionDate"/>
-                                                <limit-range start="0" size="5"/>
-                                            </entity-condition>
-                                            <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
-                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="-authorizationDate"/>
-                                                <limit-range start="0" size="5"/>
-                                            </entity-condition>
-                                            <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
-                                                <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
-                                            </entity-one>
-                                            <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
-                                                <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
-                                            </entity-one>
-                                            <entity-one entity-name="FinAccountType" value-field="ownedFinAccountType" auto-field-map="false" use-cache="true">
-                                                <field-map field-name="finAccountTypeId" from-field="ownedFinAccount.finAccountTypeId"/>
-                                            </entity-one>
-                                        </actions>
-                                        <widgets>
-                                            <platform-specific>
-                                                <html>
-                                                    <html-template location="component://party/webapp/partymgr/party/profileblocks/FinAccounts.ftl"/>
-                                                </html>
-                                            </platform-specific>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                                <container id="apply-service-credit">
-                                    <label style="h2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
-                                    <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </container>
-                            </container>
-                        </container>
+                        </screenlet>
                     </widgets>
                 </section>
             </widgets>

@@ -39,24 +39,13 @@ under the License.
                                 <if-has-permission permission="SECURITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PartySecurityGroupsList}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PartySecurityGroupsList}">
+                                    <container style="button-bar">
+                                        <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
+                                        <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container style="button-bar">
-                                                    <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
-                                                </container>
-                                                <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartySecurityViewPermissionError}</label>
@@ -80,20 +69,9 @@ under the License.
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditSecurityGroup}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditSecurityGroup}">
+                            <include-form name="EditSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -112,48 +90,15 @@ under the License.
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditSecurityGroupPermissions}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListSecurityGroupPermissions" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyAddPermissionToSecurityGroup}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddSecurityGroupPermission" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyAddPermissionManuallyToSecurityGroup}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddSecurityGroupPermissionManual" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditSecurityGroupPermissions}">
+                            <include-form name="ListSecurityGroupPermissions" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddPermissionToSecurityGroup}">
+                            <include-form name="AddSecurityGroupPermission" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddPermissionManuallyToSecurityGroup}">
+                            <include-form name="AddSecurityGroupPermissionManual" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -222,40 +167,18 @@ under the License.
                                 <if-has-permission permission="SECURITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditIssuerProvisions}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditIssuerProvisions}">
+                                    <container style="button-bar">
+                                        <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
+                                        <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container style="button-bar">
-                                                    <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
-                                                </container>
-                                                <container>
-                                                    <include-form name="CertIssuerList" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                                </container>
-                                            </widgets>
-                                        </section>
+                                    <container>
+                                        <include-form name="CertIssuerList" location="component://party/widget/partymgr/SecurityForms.xml"/>
                                     </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddIssuerProvisions}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ViewCertificate" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleAddIssuerProvisions}">
+                                    <include-form name="ViewCertificate" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartySecurityViewPermissionError}</label>
