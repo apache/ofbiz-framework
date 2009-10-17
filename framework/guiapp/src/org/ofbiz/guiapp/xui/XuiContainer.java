@@ -158,6 +158,8 @@ public abstract class XuiContainer implements Container {
             }
             if (suffix.equals("zh")) { // TODO maybe needed for other languages using non Latin alphabet http://en.wikipedia.org/wiki/Alphabet#Types
                 UtilProperties.setPropertyValue(startupProperties, "StyleFile", "posstyles" + suffix + ".xml"); // For the moment only a Chinese StyleFile is provided 
+            } else {
+                UtilProperties.setPropertyValue(startupProperties, "StyleFile", "posstyles.xml"); // Languages using Latin alphabet                 
             }
             frame.setVisible(true);
             frame.getContentPane().add(this);
