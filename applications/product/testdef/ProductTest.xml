@@ -22,7 +22,10 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <!--test-case case-name="inventoryAdjustment-test">
-        <junit-test-suite class-name="org.ofbiz.product.test.PhysicalInventoryAdjustmentTest"/>
-    </test-case-->
+    <test-case case-name="inventoryItemTransfer-test">
+        <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
+    </test-case>
+    <test-case case-name="stockMoves-test">
+        <junit-test-suite class-name="org.ofbiz.product.test.StockMovesTest"/>
+    </test-case>
 </test-suite>
