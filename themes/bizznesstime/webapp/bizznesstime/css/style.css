@@ -1234,6 +1234,11 @@ div.screenlet-body {
     display:block;
 }
 
+div.no-padding {
+    padding: 0;
+    border: none;
+}
+
 .screenlet-title-bar {
     background-color: #1c334d;
     color: #ffffff;
