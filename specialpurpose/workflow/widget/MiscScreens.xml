@@ -30,24 +30,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.WebtoolsReadXPDLFile}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://webtools/webapp/webtools/workflow/readxpdl.ftl"/>
-                                            </html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.WebtoolsReadXPDLFile}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/workflow/readxpdl.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -64,24 +51,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.WebtoolsActiveWorkflowMonitor}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://webtools/webapp/webtools/workflow/workflowMonitor.ftl"/>
-                                            </html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.WebtoolsActiveWorkflowMonitor}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/workflow/workflowMonitor.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

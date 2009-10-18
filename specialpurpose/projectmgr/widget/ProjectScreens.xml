@@ -147,57 +147,28 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.${titleProperty}}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProjectTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.${titleProperty}}">
+                            <include-form name="EditProjectTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                         <container style="lefthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.PageTitleAddTask}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <condition>
-                                            <if-empty field="phases"/>
-                                        </condition>
-                                        <widgets>
-                                            <label style="h3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
-                                        </widgets>
-                                        <fail-widgets>
-                                            <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                        </fail-widgets>
-                                    </section>
-                                </container>
-                            </container>
+                            <screenlet title="${uiLabelMap.PageTitleAddTask}">
+                                <section>
+                                    <condition>
+                                        <if-empty field="phases"/>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </fail-widgets>
+                                </section>
+                            </screenlet>
                         </container>
                         <container style="righthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.PageTitleAddPhase}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="AddProjectPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
+                            <screenlet title="${uiLabelMap.PageTitleAddPhase}">
+                                <include-form name="AddProjectPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            </screenlet>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -466,20 +437,9 @@ under the License.
                 <set field="parameters.workEffortParentId" from-field="projectId"/>
             </actions>
             <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrSubProjects}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>
-                                <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>
+                <screenlet title="${uiLabelMap.ProjectMgrSubProjects}">
+                    <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -492,11 +452,11 @@ under the License.
                 <set field="phases" from-field="result.phaseList"/>
             </actions>
             <widgets>
-                <container style="screenlet">
+                <screenlet>
                     <screenlet title="${uiLabelMap.ProjectMgrPhases}">
                         <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </screenlet>
-                </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -1106,11 +1066,11 @@ under the License.
                                         <set field="phases" from-field="result.phaseList"/>
                                     </actions>
                                     <widgets>
-                                        <container style="screenlet">
+                                        <screenlet>
                                             <screenlet title="${uiLabelMap.ProjectMgrPhases}">
                                                 <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                             </screenlet>
-                                        </container>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </container>

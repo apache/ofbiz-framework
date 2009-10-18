@@ -100,19 +100,14 @@ under the License.
             <widgets>
                 <decorator-screen name="webPosMainDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.WebPosCart}"/>
-                                </container>
-                            </container>
+                        <screenlet title="${uiLabelMap.WebPosCart}">
                             <container id="SearchProducts">
                                 <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchProducts.ftl"/></html></platform-specific>
                             </container>
                             <container id="CartScreen">
                                 <include-screen name="ShowCart"/>
                             </container>
-                        </container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -156,16 +151,11 @@ under the License.
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
             </actions>
             <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.PageTitleMain}"/>
-                        </container>
-                    </container>
+                <screenlet title="${uiLabelMap.PageTitleMain}">
                     <container id="MicroCart">
                         <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/MicroCart.ftl"/></html></platform-specific>
                     </container>
-                </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>

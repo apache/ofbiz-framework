@@ -416,16 +416,9 @@ under the License.
                 <set field="taskParties" from-field="result.taskParties"/>
             </actions>
             <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrTaskTeam}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>
+                <screenlet title="${uiLabelMap.ProjectMgrTaskTeam}">
+                    <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -450,20 +443,9 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <container style="screenlet">
-                     <container style="screenlet-title-bar">
-                         <container style="h3">
-                             <label text="${uiLabelMap.PageTitleTasksBefore}"/>
-                         </container>
-                     </container>
-                     <container style="screenlet-body">
-                         <section>
-                             <widgets>
-                                 <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                             </widgets>
-                         </section>
-                     </container>
-                 </container>
+                <screenlet title="${uiLabelMap.PageTitleTasksBefore}">
+                    <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -476,20 +458,9 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <container style="screenlet">
-                     <container style="screenlet-title-bar">
-                         <container style="h3">
-                             <label text="${uiLabelMap.PageTitleTasksAfter}"/>
-                         </container>
-                     </container>
-                     <container style="screenlet-body">
-                         <section>
-                             <widgets>
-                                 <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                             </widgets>
-                         </section>
-                     </container>
-                 </container>
+                <screenlet title="${uiLabelMap.PageTitleTasksAfter}">
+                    <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

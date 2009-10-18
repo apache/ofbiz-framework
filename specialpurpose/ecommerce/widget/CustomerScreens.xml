@@ -418,36 +418,31 @@ under the License.
                 <section>
                     <condition><not><if-empty field="ownedFinAccountList"/></not></condition>
                     <widgets>
-                        <container id="fin-account-list" style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.EcommerceMyAccount}"/>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section entry="ownedFinAccount" list="ownedFinAccountList">
-                                    <section>
-                                        <actions>
-                                            <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
-                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="transactionDate"/>
-                                            </entity-condition>
-                                            <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
-                                                <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
-                                                <order-by field-name="authorizationDate"/>
-                                            </entity-condition>
-                                            <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
-                                                <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
-                                            </entity-one>
-                                            <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
-                                                <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
-                                            </entity-one>
-                                        </actions>
-                                        <widgets>
-                                            <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/FinAccountDetail.ftl"/></html></platform-specific>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
+                        <screenlet id="fin-account-list" title="${uiLabelMap.EcommerceMyAccount}">
+                            <iterate-section entry="ownedFinAccount" list="ownedFinAccountList">
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="transactionDate"/>
+                                        </entity-condition>
+                                        <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="authorizationDate"/>
+                                        </entity-condition>
+                                        <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
+                                            <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
+                                        </entity-one>
+                                        <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                            <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
+                                        </entity-one>
+                                    </actions>
+                                    <widgets>
+                                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/FinAccountDetail.ftl"/></html></platform-specific>
+                                    </widgets>
+                                </section>
+                            </iterate-section>
+                        </screenlet>
                     </widgets>
                 </section>
             </widgets>

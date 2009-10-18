@@ -77,20 +77,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleGoogleBaseProductsExportToGoogle}"></label>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ProductsExportToGoogle" location="component://googlebase/widget/GoogleBaseForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleGoogleBaseProductsExportToGoogle}">
+                            <include-form name="ProductsExportToGoogle" location="component://googlebase/widget/GoogleBaseForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -109,31 +98,13 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProduct}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditProduct}">
+                            <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </screenlet>
                         <!-- include the duplicate product form template -->
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductDuplicateProduct}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductDuplicateProduct}">
+                            <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
