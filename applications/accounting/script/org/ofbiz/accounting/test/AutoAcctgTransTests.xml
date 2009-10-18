@@ -52,9 +52,15 @@ under the License.
         <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
 
         <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx"/>
-        <entity-condition  entity-name="AcctgTransEntry" list="acctgTransEntries">
-            <condition-expr field-name="productId" from-field="productId"/>
-        </entity-condition>
+
+        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+            <field-map field-name="shipmentId"/>
+        </entity-and>
+        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
+        <set field="productFilter.productId" from-field="productId"/>
+        <filter-list-by-and list="acctgTransEntries" map="productFilter" to-list="acctgTransEntries"/>
+
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list="acctgTransEntries" entry="acctgTransEntry">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
