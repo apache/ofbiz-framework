@@ -736,6 +736,11 @@ padding: 0;
 border: none;
 }
 
+.no-padding h2,
+.no-padding .h2 {
+padding: 0.4em;
+}
+
 #column-container {
 margin: auto;
 padding: 1em;
