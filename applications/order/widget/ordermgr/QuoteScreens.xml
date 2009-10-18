@@ -32,24 +32,13 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OrderOrderQuotes}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.OrderOrderQuotes}">
+                            <container>
+                                <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="FindQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
-                                        <include-form name="ListQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="FindQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
