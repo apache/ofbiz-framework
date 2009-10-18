@@ -86,23 +86,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindCalendar}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindCalendar}">
+                            <container>
+                                <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
-                                        </container>
-                                        <include-form name="ListTechDataCalendars" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListTechDataCalendars" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,23 +111,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListCalendarWeek}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListCalendarWeek}">
+                            <container>
+                                <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
-                                        </container>
-                                        <include-form name="ListCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -156,23 +134,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditCalendarWeek}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditCalendarWeek}">
+                            <container>
+                                <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
-                                        </container>
-                                        <include-form name="UpdateCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="UpdateCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

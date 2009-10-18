@@ -122,20 +122,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingBomSimulation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="RunBomSimulation" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ManufacturingBomSimulation}">
+                            <include-form name="RunBomSimulation" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        </screenlet>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/bom/BomSimulation.ftl"/></html>
                         </platform-specific>
@@ -177,20 +166,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingCreateProductBom}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateProductBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ManufacturingCreateProductBom}">
+                            <include-form name="CreateProductBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
