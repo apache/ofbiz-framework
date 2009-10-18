@@ -98,34 +98,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingNewPaymentIncoming}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="NewPaymentIn" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingNewPaymentOutgoing}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="NewPaymentOut" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingNewPaymentIncoming}">
+                                    <include-form name="NewPaymentIn" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.AccountingNewPaymentOutgoing}">
+                                    <include-form name="NewPaymentOut" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -148,20 +126,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingInvoiceHeaderDetailedInformation}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPayment" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingInvoiceHeaderDetailedInformation}">
+                                    <include-form name="EditPayment" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -450,22 +417,11 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator" location="component://accounting/widget/TransactionScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingManualTransaction}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/accounting/payment/manualTx.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingManualTransaction}">
+                            <platform-specific>
+                                <html><html-template location="component://accounting/webapp/accounting/payment/manualTx.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -524,39 +480,17 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingFindSalesInvoicesByDueDate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindSalesInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingFindSalesInvoicesByDueDate}">
+                            <include-form name="FindSalesInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <not><if-empty field="invoicePaymentInfoList"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingFindSalesInvoicesByDueDate}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListInvoicesByDueDate"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingFindSalesInvoicesByDueDate}">
+                                    <include-form name="ListInvoicesByDueDate"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -577,39 +511,17 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindPurchaseInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}">
+                            <include-form name="FindPurchaseInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <not><if-empty field="invoicePaymentInfoList"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}">
+                                    <include-form name="ListInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

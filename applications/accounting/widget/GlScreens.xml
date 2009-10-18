@@ -407,33 +407,21 @@ under the License.
                                     </container>
                                 </container>
                                 <container>
-                                    <container style="screenlet">
-                                        <section>
-                                            <condition>
-                                                <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
-                                            </condition>
-                                            <widgets>
-                                                <container style="screenlet-title-bar">
-                                                    <container style="h3">
-                                                        <label text="${uiLabelMap.PageTitleViewTransactionEntries}"/>
-                                                    </container>
-                                                </container>
-                                                <container style="screenlet-body">
-                                                    <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                                </container>
-                                            </widgets>
-                                            <fail-widgets>
-                                                <container style="screenlet-title-bar">
-                                                    <container style="h3">
-                                                        <label text="${uiLabelMap.PageTitleEditTransactionEntries}"/>
-                                                    </container>
-                                                </container>
-                                                <container style="screenlet-body">
-                                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                                </container>
-                                            </fail-widgets>
-                                        </section>
-                                    </container>
+                                    <section>
+                                        <condition>
+                                            <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                        </condition>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.PageTitleViewTransactionEntries}">
+                                                <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
+                                                <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                            </screenlet>
+                                        </fail-widgets>
+                                    </section>
                                 </container>
                             </widgets>
                         </section>
@@ -443,16 +431,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleAddTransactionEntry}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
-                                        </container>
-                                    </container>
+                                    <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
+                                        <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                    </screenlet>
                                 </container>
                             </widgets>
                         </section>
@@ -479,16 +460,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUnpostedTransactions}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleUnpostedTransactions}">
+                            <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -525,16 +499,9 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
                         <widgets>
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.AccountingPrintChecks}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                     <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                </container>
-                            </container>
+                            <screenlet title="${uiLabelMap.AccountingPrintChecks}">
+                                <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            </screenlet>
                         </widgets>
                         <fail-widgets>
                             <label style="h3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
@@ -574,16 +541,9 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
                         <widgets>
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.AccountingSendChecks}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                     <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                </container>
-                            </container>
+                            <screenlet title="${uiLabelMap.AccountingSendChecks}">
+                                <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            </screenlet>
                         </widgets>
                         <fail-widgets>
                             <label style="h3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>
@@ -605,16 +565,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingCreateAnAccountingTransaction}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                 <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingCreateAnAccountingTransaction}">
+                            <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -633,39 +586,17 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAcctRecon}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingAcctRecon}">
+                            <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctRecon}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAcctRecon}">
+                                    <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -708,39 +639,17 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAcctRecons}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingAcctRecons}">
+                            <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctRecons}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingAcctRecons}">
+                                    <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -73,20 +73,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}">
+                            <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -148,48 +137,15 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingOpenTimePeriods}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingClosedTimePeriods}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.CommonNew}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingOpenTimePeriods}">
+                            <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingClosedTimePeriods}">
+                            <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonNew}">
+                            <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -215,16 +171,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingPreference}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.AccountingPreference}">
+                            <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
