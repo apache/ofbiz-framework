@@ -177,27 +177,20 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.MyPortalNewRegistration}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <actions>
-                                                <set field="fileName" from-field="parameters.fileName"/>
-                                                <set field="idKey" from-field="parameters.ID_KEY"/>
-                                            </actions>
-                                            <widgets>
-                                                <!--<include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>  -->
-                                                <platform-specific><html>
-                                                <html-template location="component://myportal/widget/RegisterPerson.ftl"/></html>
-                                                    </platform-specific> 
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.MyPortalNewRegistration}">
+                                    <section>
+                                        <actions>
+                                            <set field="fileName" from-field="parameters.fileName"/>
+                                            <set field="idKey" from-field="parameters.ID_KEY"/>
+                                        </actions>
+                                        <widgets>
+                                            <!--<include-form name="RegisterPerson" location="component://myportal/widget/MyPortalForms.xml"/>  -->
+                                            <platform-specific>
+                                                <html><html-template location="component://myportal/widget/RegisterPerson.ftl"/></html>
+                                            </platform-specific> 
+                                        </widgets>
+                                    </section>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
