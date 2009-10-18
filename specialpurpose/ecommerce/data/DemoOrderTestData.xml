@@ -80,7 +80,9 @@ under the License.
     <OrderContactMech orderId="DEMO10091" contactMechPurposeTypeId="SHIPPING_LOCATION" contactMechId="9200" lastUpdatedStamp="2008-06-10 13:27:07.294" lastUpdatedTxStamp="2008-06-10 13:27:07.022" createdStamp="2008-06-10 13:27:07.294" createdTxStamp="2008-06-10 13:27:07.022"/>
 
     <Shipment shipmentId="9999" shipmentTypeId="PURCHASE_SHIPMENT" statusId="PURCH_SHIP_CREATED" primaryOrderId="DEMO10091" primaryShipGroupSeqId="00001" lastUpdatedStamp="2008-06-10 12:59:26.852" lastUpdatedTxStamp="2008-06-10 12:59:26.8" createdStamp="2008-06-10 12:59:26.852" createdTxStamp="2008-06-10 12:59:26.8"/>
-    
+    <ShipmentItem shipmentId="9999" shipmentItemSeqId="00001" productId="GZ-2644" quantity="5"/>
+    <ItemIssuance itemIssuanceId="9003" orderId="DEMO10091" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9999" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="5"/>
+
     <!--Demo Purchase Order data for Accounting-->
     <OrderHeader orderId="Demo1001" orderTypeId="PURCHASE_ORDER" orderName="Demo Purchase Order " salesChannelEnumId="UNKNWN_SALES_CHANNEL" orderDate="2009-08-13 17:45:50.419" priority="2" entryDate="2009-08-13 17:45:50.419" statusId="ORDER_COMPLETED" currencyUom="USD" webSiteId="OrderEntry" remainingSubTotal="48.00" grandTotal="48.00"/>
     <OrderItem orderId="Demo1001" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.000000" selectedAmount="0.000000" unitPrice="24.00" unitListPrice="0.00" isModifiedPrice="N" itemDescription="GZ-2644-0 Round Gizmo" statusId="ITEM_COMPLETED" estimatedDeliveryDate="2009-08-13 17:43:53.0"/>
