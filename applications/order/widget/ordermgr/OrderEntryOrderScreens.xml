@@ -293,14 +293,12 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
+                                <screenlet>
                                     <platform-specific>
                                         <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
                                     </platform-specific>
-                                    <container style="screenlet-body">
-                                        <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="LookupBulkAddSupplierProductsInApprovedOrder"></include-form>
-                                    </container>
-                                </container>
+                                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="LookupBulkAddSupplierProductsInApprovedOrder"></include-form>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
