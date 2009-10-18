@@ -61,16 +61,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderHeaderDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditOrderHeader}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="EditOrderHeader" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditOrderHeader}">
+                            <include-form name="EditOrderHeader" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -90,16 +83,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderHeaderDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListOrderHeaders}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="ListOrderHeaders" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListOrderHeaders}">
+                            <include-form name="ListOrderHeaders" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

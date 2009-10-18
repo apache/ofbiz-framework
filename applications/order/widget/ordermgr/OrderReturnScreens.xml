@@ -49,24 +49,13 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindReturn}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindReturn}">
+                            <container>
+                                <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
-                                        </container>
-                                        <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
-                                        <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                            <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -82,24 +71,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindQuickReturn}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://order/webapp/ordermgr/return/quickReturn.ftl"/>
-                                            </html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindQuickReturn}">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/return/quickReturn.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,24 +114,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleReturnList}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://order/webapp/ordermgr/return/returnList.ftl"/>
-                                            </html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleReturnList}">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/return/returnList.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

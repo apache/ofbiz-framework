@@ -144,20 +144,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindApprovedProductRequirements}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindApprovedProductRequirements}">
+                            <include-form name="FindApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                         <section>
                             <actions>
                                 <set field="genericLinkName" value="print"/>
@@ -175,40 +164,18 @@ under the License.
                                 <not><if-empty field="parameters.partyId"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.OrderRequirementsList}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.OrderRequirementsList}">
+                                    <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                    <container style="screenlet">
+                                        <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                                <container style="screenlet">
-                                                    <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                                </container>
-                                                <include-form name="ApprovedProductRequirementsSubmit" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="ApprovedProductRequirementsSubmit" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFindApprovedProductRequirements}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleFindApprovedProductRequirements}">
+                                    <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -248,20 +215,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindApprovedRequirementsBySupplier}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ApprovedProductRequirementsByVendor" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindApprovedRequirementsBySupplier}">
+                            <include-form name="ApprovedProductRequirementsByVendor" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -300,20 +256,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditRequirement}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditRequirement" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditRequirement}">
+                            <include-form name="EditRequirement" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -336,20 +281,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListRequirementCustRequests}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListRequirementCustRequests" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListRequirementCustRequests}">
+                            <include-form name="ListRequirementCustRequests" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -373,20 +307,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListRequirementOrders}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListRequirementOrders" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListRequirementOrders}">
+                            <include-form name="ListRequirementOrders" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -410,29 +333,18 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListRequirementRoles}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListRequirementRoles}">
+                            <container>
+                                <link target="EditRequirementRole" text="${uiLabelMap.CommonNew}" style="buttontext">
+                                    <parameter param-name="requirementId"/>
+                                </link>
+                                <link target="autoAssignRequirementToSupplier" text="${uiLabelMap.OrderAutoAssign}" style="buttontext">
+                                    <parameter param-name="requirementId"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditRequirementRole" text="${uiLabelMap.CommonNew}" style="buttontext">
-                                                <parameter param-name="requirementId"/>
-                                            </link>
-                                            <link target="autoAssignRequirementToSupplier" text="${uiLabelMap.OrderAutoAssign}" style="buttontext">
-                                                <parameter param-name="requirementId"/>
-                                            </link>
-                                        </container>
-                                        <include-form name="ListRequirementRoles" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                    </decorator-section>
+                            <include-form name="ListRequirementRoles" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
+                   </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
@@ -450,20 +362,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditRequirementRole}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditRequirementRole" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditRequirementRole}">
+                            <include-form name="EditRequirementRole" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
