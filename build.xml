@@ -401,6 +401,13 @@ under the License.
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="test"/>
         </java>
+        <mkdir dir="runtime/logs/test-results/html"/>
+        <junitreport todir="runtime/logs/test-results">
+            <fileset dir="runtime/logs/test-results/">
+                <include name="*.xml"/>
+            </fileset>
+            <report format="frames" todir="runtime/logs/test-results/html"/>
+        </junitreport>
     </target>
     <target name="_save-runtime-data">
         <delete file="runtime/data.zip"/>
