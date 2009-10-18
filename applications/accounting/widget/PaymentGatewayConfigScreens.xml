@@ -107,39 +107,17 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfig}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfig}">
+                            <include-form name="EditPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <not><if-empty field="paymentGatewayAuthorizeNet"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigAuthorizeNet}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigAuthorizeNet" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigAuthorizeNet}">
+                                    <include-form name="EditPaymentGatewayConfigAuthorizeNet" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -147,20 +125,9 @@ under the License.
                                 <not><if-empty field="paymentGatewayCyberSource"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigCyberSource}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigCyberSource" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigCyberSource}">
+                                    <include-form name="EditPaymentGatewayConfigCyberSource" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -168,20 +135,9 @@ under the License.
                                 <not><if-empty field="paymentGatewayPayflowPro"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayflowPro}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigPayflowPro" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayflowPro}">
+                                    <include-form name="EditPaymentGatewayConfigPayflowPro" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -189,20 +145,9 @@ under the License.
                                 <not><if-empty field="paymentGatewayPayPal"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayPal}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigPayPal" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayPal}">
+                                    <include-form name="EditPaymentGatewayConfigPayPal" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -210,20 +155,9 @@ under the License.
                                 <not><if-empty field="paymentGatewayClearCommerce"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigClearCommerce}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigClearCommerce" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigClearCommerce}">
+                                    <include-form name="EditPaymentGatewayConfigClearCommerce" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                         <section>
@@ -231,20 +165,9 @@ under the License.
                                 <not><if-empty field="paymentGatewayWorldPay"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigWorldPay}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditPaymentGatewayConfigWorldPay" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigWorldPay}">
+                                    <include-form name="EditPaymentGatewayConfigWorldPay" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -294,20 +217,9 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditPaymentGatewayConfigType" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigType}">
+                            <include-form name="EditPaymentGatewayConfigType" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
