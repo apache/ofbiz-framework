@@ -429,22 +429,18 @@ under the License.
                 </section>
                 <decorator-section-include name="menu-bar"/>
                 <container style="clear"/>
-                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
-                    <container style="screenlet-body">
-                        <label style="h2" text="${uiLabelMap.CommonSearchOptions}"/>
-                        <container id="search-options">
-                            <decorator-section-include name="search-options"/>
-                        </container>
+                <screenlet id="searchOptions" name="findScreenlet" collapsible="true">
+                    <label style="h2" text="${uiLabelMap.CommonSearchOptions}"/>
+                    <container id="search-options">
+                        <decorator-section-include name="search-options"/>
                     </container>
                 </screenlet>
-                <container style="screenlet">
-                    <container style="screenlet-body">
-                        <label style="h2" text="${uiLabelMap.CommonSearchResults}"/>
-                    </container>
+                <screenlet padded="false">
+                    <label style="h2" text="${uiLabelMap.CommonSearchResults}"/>
                     <container id="search-results">
                         <decorator-section-include name="search-results"/>
                     </container>
-                </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>

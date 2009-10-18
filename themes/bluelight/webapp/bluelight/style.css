@@ -724,6 +724,11 @@ DIV.screenlet-body {
     border: 0.1em solid #5CA3D7;
 }
 
+DIV.no-padding {
+    padding: 0;
+    border: none;
+}
+
 #column-container {
     margin: auto;
     padding: 0 1em 1em 1em;
