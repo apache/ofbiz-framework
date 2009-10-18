@@ -166,9 +166,9 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.OrderRequirementsList}">
                                     <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    <container style="screenlet">
+                                    <screenlet>
                                         <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
-                                    </container>
+                                    </screenlet>
                                     <include-form name="ApprovedProductRequirementsSubmit" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                                 </screenlet>
                             </widgets>
