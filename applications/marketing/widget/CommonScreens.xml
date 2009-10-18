@@ -93,14 +93,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.MarketingManagerApplication}"/>
-                            </container>
-                            <container style="screenlet-body">
-                                <container><label style="label" text="${uiLabelMap.MarketingManagerWelcome}"/></container>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.MarketingManagerApplication}">
+                            <container><label style="label" text="${uiLabelMap.MarketingManagerWelcome}"/></container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

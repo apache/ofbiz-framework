@@ -74,41 +74,19 @@ under the License.
                                 <not><if-empty field="dataSource"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditDataSource}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditDataSource}">
+                                    <container>
+                                        <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container>
-                                                    <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
-                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                                    </link>
-                                                </container>
-                                                <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddDataSource}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleAddDataSource}">
+                                    <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -131,25 +109,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListDataSource}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListDataSource}">
+                            <container>
+                                <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
+                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
-                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                            </link>
-                                        </container>
-                                        <include-form name="ListDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -175,42 +142,20 @@ under the License.
                                 <not><if-empty field="dataSourceType"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditDataSourceType}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditDataSourceType}">
+                                    <container>
+                                        <link  text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container>
-                                                    <link  text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
-                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                                    </link>
-                                                </container>
-                                                <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddDataSourceType}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </fail-widgets>
+                                <screenlet title="${uiLabelMap.PageTitleAddDataSourceType}">
+                                    <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                </screenlet>
+                           </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -233,25 +178,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListDataSourceType}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListDataSourceType}">
+                            <container>
+                                <link text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
+                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
-                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                            </link>
-                                        </container>
-                                        <include-form name="ListDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

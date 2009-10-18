@@ -60,18 +60,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaContact}"/></container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="NewContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaContact}">
+                            <include-form name="NewContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -88,41 +79,29 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.SfaMergeContacts}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <label>&lt;br/&gt;</label>
-                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.SfaMergeContacts}"/></container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <condition>
-                                      <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="parameters.partyIdTo"/>
-                                    </condition>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/sfa/contact/mergeContacts.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label text="${uiLabelMap.SfaCanNotMergeSameContact}" style="h3"></label>
-                                    </fail-widgets>
-                                </section>
-                            </container>
-                        </container>
-                     </decorator-section>
-                 </decorator-screen>
-             </widgets>
-         </section>
+                        <screenlet title="${uiLabelMap.SfaMergeContacts}">
+                            <label>&lt;br/&gt;</label>
+                            <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.SfaMergeContacts}">
+                            <section>
+                                <condition>
+                                    <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="parameters.partyIdTo"/>
+                                </condition>
+                                <widgets>
+                                    <platform-specific>
+                                        <html><html-template location="component://marketing/webapp/sfa/contact/mergeContacts.ftl"/></html>
+                                    </platform-specific>
+                                </widgets>
+                                <fail-widgets>
+                                    <label text="${uiLabelMap.SfaCanNotMergeSameContact}" style="h3"></label>
+                                </fail-widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
 
     <screen name="NewContactFromVCard">
@@ -134,19 +113,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.PageTitleCreateContactFromVCard}"/></container>
-                            </container>
+                        <screenlet title="${uiLabelMap.PageTitleCreateContactFromVCard}">
                             <container><label style="h3" text="${uiLabelMap.SfaAutoCreateContactByImportingVCard}"/></container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form  name="NewContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form  name="NewContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

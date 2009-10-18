@@ -61,22 +61,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar boxhead">
-                                <section>
-                                    <widgets>
-                                        <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}">
+                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -92,22 +79,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar boxhead">
-                                <section>
-                                    <widgets>
-                                        <label text="${uiLabelMap.SfaConvertLead}"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ConvertLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.SfaConvertLead}">
+                            <include-form name="ConvertLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -124,22 +98,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar boxhead">
-                                <section>
-                                    <widgets>
-                                        <label text="${uiLabelMap.SfaCloneLead}"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.SfaCloneLead}">
+                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -155,15 +116,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.SfaMergeLeads}"/></container>
-                            </container>
-                            <container style="screenlet-body">
-                                <label>&lt;br/&gt;</label>
-                                <include-form name="MergeLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.SfaMergeLeads}">
+                            <label>&lt;br/&gt;</label>
+                            <include-form name="MergeLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-compare-field field="parameters.partyIdFrom" operator="not-equals" to-field="parameters.partyIdTo"/>
@@ -192,20 +148,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.PageTitleCreateLeadFromVCard}"/></container>
-                            </container>
+                        <screenlet title="${uiLabelMap.PageTitleCreateLeadFromVCard}">
                             <container><label style="h3" text="${uiLabelMap.SfaAutoCreateLeadByImportingVCard}"/></container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <label>&lt;br/&gt;</label>
-                                        <include-form  name="NewLeadFromVCard" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <label>&lt;br/&gt;</label>
+                            <include-form  name="NewLeadFromVCard" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
