@@ -57,20 +57,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingRunMrp}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="RunMrp" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ManufacturingRunMrp}">
+                            <include-form name="RunMrp" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -121,34 +110,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingMrpJobLastExecuted}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ManufacturingMrpJobLastExecuted}">
+                            <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}">
+                            <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        </screenlet>
                         <section>
                             <condition>
                                 <if-empty field="mrpRunningJobs"/>
