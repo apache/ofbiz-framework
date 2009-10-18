@@ -57,64 +57,20 @@ under the License.
                             <label text="${uiLabelMap.MarketingReports}"/>
                         </container>
                         <container style="lefthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="TrackingCodeReportOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.MarketingEmailStatusReport}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="EmailStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
+                            <screenlet title="${uiLabelMap.MarketingTrackingCodeReportTitle}">
+                                <include-form name="TrackingCodeReportOptions" location="component://marketing/widget/ReportForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.MarketingEmailStatusReport}">
+                                <include-form name="EmailStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
+                            </screenlet>
                         </container> 
                         <container style="righthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.MarketingCampaignReportTitle}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="MarketingCampaignOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.MarketingPartyStatusReport}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="PartyStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container> 
+                            <screenlet title="${uiLabelMap.MarketingCampaignReportTitle}">
+                                <include-form name="MarketingCampaignOptions" location="component://marketing/widget/ReportForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.MarketingPartyStatusReport}">
+                                <include-form name="PartyStatusOptions" location="component://marketing/widget/ReportForms.xml"/>
+                            </screenlet>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -135,20 +91,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingTrackingCodeReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="TrackingCodeReport" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.MarketingTrackingCodeReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}">
+                            <include-form name="TrackingCodeReport" location="component://marketing/widget/ReportForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -168,20 +113,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingCampaignReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="MarketCampaignReport" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.MarketingCampaignReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}">
+                            <include-form name="MarketCampaignReport" location="component://marketing/widget/ReportForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -202,20 +136,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar"> 
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingEmailStatusReport}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EmailStatusReport" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.MarketingEmailStatusReport}">
+                            <include-form name="EmailStatusReport" location="component://marketing/widget/ReportForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -235,20 +158,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingPartyStatusReport}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="PartyStatusReport" location="component://marketing/widget/ReportForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.MarketingPartyStatusReport}">
+                            <include-form name="PartyStatusReport" location="component://marketing/widget/ReportForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

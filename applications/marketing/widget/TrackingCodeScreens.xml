@@ -74,41 +74,19 @@ under the License.
                                 <not><if-empty field="trackingCode"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditTrackingCode}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditTrackingCode}">
+                                    <container>
+                                        <link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container>
-                                                    <link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
-                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                                    </link>
-                                                </container>
-                                                <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddTrackingCode}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleAddTrackingCode}">
+                                    <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -130,25 +108,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCode}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListTrackingCode}">
+                            <container>
+                                <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
+                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
-                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                            </link>
-                                        </container>
-                                        <include-form name="ListTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -163,20 +130,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindTrackingCode}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindTrackingCode}">
+                            <include-form name="FindTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -200,20 +156,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditTrackingCodeOrder}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditTrackingCodeOrder" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditTrackingCodeOrder}">
+                            <include-form name="EditTrackingCodeOrder" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -237,20 +182,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListTrackingCodeOrders" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}">
+                            <include-form name="ListTrackingCodeOrders" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -270,20 +204,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindTrackingCodeOrder}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindTrackingCodeOrders" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindTrackingCodeOrder}">
+                            <include-form name="FindTrackingCodeOrders" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -305,20 +228,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditTrackingCodeVisit}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditTrackingCodeVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditTrackingCodeVisit}">
+                            <include-form name="EditTrackingCodeVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -342,20 +254,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCodeFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListTrackingCodeVisits" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListTrackingCodeFor} ${uiLabelMap.MarketingTrackingCodeTrackingCodeId}=${trackingCodeId}">
+                            <include-form name="ListTrackingCodeVisits" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -374,20 +275,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindTrackingCodeVisit}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindTrackingCodeVisits" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindTrackingCodeVisit}">
+                            <include-form name="FindTrackingCodeVisits" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -455,41 +345,19 @@ under the License.
                                 <not><if-empty field="trackingCodeType"/></not>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditTrackingCodeType}"/>
-                                        </container>
+                                <screenlet title="${uiLabelMap.PageTitleEditTrackingCodeType}">
+                                    <container>
+                                        <link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
                                     </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <container>
-                                                    <link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
-                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                                    </link>
-                                                </container>
-                                                <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                    <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddTrackingCodeType}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleAddTrackingCodeType}">
+                                    <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -512,25 +380,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListTrackingCodeType}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.PageTitleListTrackingCodeType}">
+                            <container>
+                                <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                </link>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
-                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                            </link>
-                                        </container>
-                                        <include-form name="ListTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <include-form name="ListTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
