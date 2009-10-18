@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+  xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+  xmlns="http://docbook.org/ns/docbook">
+  <title>Simple Howto for the moment, work in progress...</title>
+  <para>Introduction: Trainings in HR module includes Training Calendar where we can create new
+    schedules from trainings available in an organization. Admin can assign trainings &amp;
+    employee can request for scheduled trainings. Employee can also check status of their training
+    requests &amp; assignments. </para>
+  <para/>
+  <para>Need of Trainings in HR: </para>
+  <para>
+    <itemizedlist>
+      <listitem>
+        <para>Training and development of professionals fills up the skill gaps and further improve
+          the levels of proficiency. </para>
+      </listitem>
+      <listitem>
+        <para>Training and development manages constantly changing business and industrial scenario
+          and therefore, matches with the requirements or demands of changes on the organizations.
+        </para>
+      </listitem>
+      <listitem>
+        <para>Creates a learning organization culture.</para>
+      </listitem>
+    </itemizedlist>
+  </para>
+  <para>Organizational development: </para>
+  <para>
+    <itemizedlist>
+      <listitem>
+        <para>Organization decides to use certain initiatives and wants to train and develop a good
+          number of people in the entire organization or the people in certain chosen departments or
+          projects on those initiatives. </para>
+      </listitem>
+      <listitem>
+        <para>Prepares the organization to meet the needs of legal/statutory requirements. Features
+          of Trainings: </para>
+      </listitem>
+      <listitem>
+        <para>New Trainings can be added/modified. </para>
+      </listitem>
+      <listitem>
+        <para>Trainings can be scheduled in the calendar. </para>
+      </listitem>
+      <listitem>
+        <para>Employees can apply to supervisor for available scheduled trainings but, cannot
+          request same training event again to same approver </para>
+      </listitem>
+      <listitem>
+        <para>Admin can assign trainings to Employees. </para>
+      </listitem>
+      <listitem>
+        <para>Admin can approve/reject the trainings requested to him but, once rejected cannot be
+          approved again. </para>
+      </listitem>
+      <listitem>
+        <para>Employees can check the status of their training requests and Trainings assigned to
+          them. </para>
+        <para/>
+      </listitem>
+    </itemizedlist>
+  </para>
+  <para>Road Ahead: Currently we have implemented Trainings under HR module. We are working on the
+    implementation of Training calendar in profile tab of Employee. We are also planning to
+    introduce trainer's information in training calendar.</para>
+  <para/>
+  <section>
+    <para>In "GlobalHRSetting" </para>
+    <orderedlist>
+      <listitem>
+        <para>Admin can create &amp; manage the trainings provided by the organization. </para>
+      </listitem>
+    </orderedlist>
+  </section>
+  <section>
+    <para>In "Training Calendar" </para>
+    <para>
+      <orderedlist>
+        <listitem>
+          <para>Admin can schedule a training through training calender. </para>
+        </listitem>
+        <listitem>
+          <para>Admin can assign training to an employee(right half of calendar screen). </para>
+        </listitem>
+        <listitem>
+          <para> Employee with his login can request for Training to admin from the calendar.
+          </para>
+        </listitem>
+        <listitem>
+          <para> Employee cannot request same training event again to same approver. </para>
+        </listitem>
+      </orderedlist>
+    </para>
+  </section>
+  <section>
+    <para>In "Training Approval" tab (in case of Employee login tab name would be "Training
+      Status")</para>
+    <para>
+      <orderedlist>
+        <listitem>
+          <para>Admin can approve/reject the training requested to him </para>
+        </listitem>
+        <listitem>
+          <para>Admin can not change the training status once it is rejected. </para>
+        </listitem>
+        <listitem>
+          <para>Employee can check status of requested and assigned trainings. </para>
+        </listitem>
+      </orderedlist>
+    </para>
+  </section>
+</section>
