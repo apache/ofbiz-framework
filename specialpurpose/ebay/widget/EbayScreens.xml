@@ -84,24 +84,11 @@ under the License.
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEbayProductsExportToEbay}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://ebay/webapp/ebay/find/productsExportToEbay.ftl"/>
-                                            </html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEbayProductsExportToEbay}">
+                            <platform-specific>
+                                <html><html-template location="component://ebay/webapp/ebay/find/productsExportToEbay.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -118,34 +105,12 @@ under the License.
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.EbayImportOrdersFromEbay}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}">
+                            <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayImportOrdersFromEbay}">
+                            <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -165,31 +130,13 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProduct}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditProduct}">
+                            <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </screenlet>
                         <!-- include the duplicate product form template -->
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductDuplicateProduct}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.ProductDuplicateProduct}">
+                            <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -29,38 +29,16 @@
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisListMessageInfo}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.OagisListMessageInfo}">
+                            <container>
+                                <link target="EditMessageInfo" text="${uiLabelMap.OagisNewMessageInfo}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditMessageInfo" text="${uiLabelMap.OagisNewMessageInfo}" style="buttontext"/>
-                                        </container>
-                                        <label>&lt;br/&gt;</label>
-                                        <include-form name="FindMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisListMessageInfo}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <label>&lt;br/&gt;</label>
+                            <include-form name="FindMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.OagisListMessageInfo}">
+                            <include-form name="ListMessageInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -81,20 +59,9 @@
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisEditMessageInfo}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditMessageInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OagisEditMessageInfo}">
+                            <include-form name="EditMessageInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -110,38 +77,16 @@
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisListMessageErrorInfo}"/>
-                                </container>
+                        <screenlet title="${uiLabelMap.OagisListMessageErrorInfo}">
+                            <container>
+                                <link target="EditMessageErrorInfo" text="${uiLabelMap.OagisNewMessageErrorInfo}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditMessageErrorInfo" text="${uiLabelMap.OagisNewMessageErrorInfo}" style="buttontext"/>
-                                        </container>
-                                        <label>&lt;br/&gt;</label>
-                                        <include-form name="FindMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisListMessageErrorInfo}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            <label>&lt;br/&gt;</label>
+                            <include-form name="FindMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.OagisListMessageErrorInfo}">
+                            <include-form name="ListMessageErrorInfos" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -163,20 +108,9 @@
             <widgets>
                 <decorator-screen name="CommonOagisMessageScreen" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OagisEditMessageErrorInfo}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditMessageErrorInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OagisEditMessageErrorInfo}">
+                            <include-form name="EditMessageErrorInfo" location="component://oagis/widget/forms/MessageInfoForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
