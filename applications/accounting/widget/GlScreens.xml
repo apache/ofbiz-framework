@@ -301,68 +301,31 @@ under the License.
                                 <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
-                                <container>
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <section>
-                                                    <condition>
-                                                        <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
-                                                    </condition>
-                                                    <widgets>
-                                                        <label text="${uiLabelMap.PageTitleViewTransaction}"/>
-                                                    </widgets>
-                                                    <fail-widgets>
-                                                        <label text="${uiLabelMap.PageTitleEditTransaction}"/>
-                                                    </fail-widgets>
-                                                </section>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                        <include-menu location="component://accounting/widget/Menus.xml" name="EditGlAcctgTransSubTabBar"/>
-                                            <section>
-                                                <condition>
-                                                    <if-compare field="acctgTrans.isPosted" operator="equals" value="Y"/>
-                                                </condition>
-                                                <widgets>
-                                                    <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                                                </widgets>
-                                                <fail-widgets>
-                                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                                                </fail-widgets>
-                                            </section>
-                                        </container>
-                                    </container>
-                                </container>
-                                <container>
-                                    <section>
-                                        <condition>
-                                            <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
-                                        </condition>
-                                        <widgets>
-                                            <screenlet title="${uiLabelMap.PageTitleViewTransactionEntries}">
-                                                <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                            </screenlet>
-                                        </widgets>
-                                        <fail-widgets>
-                                            <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
-                                                <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                            </screenlet>
-                                        </fail-widgets>
-                                    </section>
-                                </container>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                               <if-compare field="acctgTrans.isPosted" operator="not-equals" value="Y"/>
-                            </condition>
-                            <widgets>
-                                <container>
-                                    <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
-                                        <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
-                                    </screenlet>
-                                </container>
+                                <include-menu location="component://accounting/widget/Menus.xml" name="EditGlAcctgTransSubTabBar"/>
+                                <section>
+                                    <condition>
+                                        <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.PageTitleViewTransaction}">
+                                            <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.PageTitleViewTransactionEntries}">
+                                            <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.PageTitleEditTransaction}">
+                                            <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.PageTitleEditTransactionEntries}">
+                                            <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.PageTitleAddTransactionEntry}">
+                                            <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
                             </widgets>
                         </section>
                     </decorator-section>
