@@ -22,8 +22,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if layoutSettings.VT_NAME[0] == "FLAT_GREY">
-<#------------------------------------------->
 <#macro para para>
 <p>
   <#list para?children as child>
@@ -62,44 +60,3 @@ under the License.
   </div>
 </div>
 
-<#else><#-- other templates  -->          
-<#----------------------------->
-<#macro para para>
-<p>
-  <#list para?children as child>
-    <#if child?node_type = "text">
-  ${child}
-    <#elseif child?node_type = 'element' && child?node_name = "link">
-  <a href="${child["@xl:href"]}">${child}</a>
-    </#if>
-  </#list>
-  <br/>              
-</p>
-</#macro>
-
-<#macro section inSection first="no">
-  <#list inSection.* as subSection>
-    <#if subSection?node_name = "title">
-      <#if first = "yes"> 
-        <h1>${subSection}</h1>
-      <#else>
-        <h2>${subSection}</h2>
-      </#if>
-    <#elseif subSection?node_name = "para">
-        <@para para=subSection/>
-    <#elseif subSection?node_name = "section">
-        <@section inSection=subSection/>
-    </#if>
-  </#list>
-  <br/><br/>
-</#macro>
-
-<div class="contentarea">
-  <div id="column-container">
-    <div id="content-main-section">
-    <@section inSection=doc.section first="yes"/>
-    </div>
-  </div>
-</div>
-
-</#if>
