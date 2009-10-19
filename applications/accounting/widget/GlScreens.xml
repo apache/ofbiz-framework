@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="CommonPartyAccountsDecorator">
+    <screen name="CommonPartyGlDecorator">
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="PartyAccounts"/>
@@ -55,7 +55,7 @@ under the License.
                 </entity-condition -->
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -108,7 +108,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAcctgTrans}">
                             <container>
@@ -211,7 +211,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAcctgTransEntries}">
                             <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
@@ -325,7 +325,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingCreateAcctgTransAndEntries"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingCreateAcctgTransAndEntries}">
                             <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
@@ -356,7 +356,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -480,7 +480,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleUnpostedTransactions}">
                             <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
@@ -585,7 +585,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingCreateAnAccountingTransaction"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingCreateAnAccountingTransaction}">
                             <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
@@ -606,7 +606,7 @@ under the License.
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAcctRecon}">
                             <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
@@ -636,7 +636,7 @@ under the License.
                 <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingEditAcctRecon}">
                             <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
@@ -659,7 +659,7 @@ under the License.
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.partyGlDecoratorLocation}">
+                <decorator-screen name="CommonPartyGlDecorator" location="${parameters.partyGlDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAcctRecons}">
                             <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
