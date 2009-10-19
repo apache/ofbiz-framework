@@ -5085,7 +5085,7 @@
         <value xml:lang="de">Produktkatalog bearbeiten</value>
         <value xml:lang="en">Edit Product Catalog</value>
         <value xml:lang="es">Editar Catálogo de Productos</value>
-        <value xml:lang="fr">Modification des catalogues d'articles</value>
+        <value xml:lang="fr">Modification des catalogues</value>
         <value xml:lang="it">Aggiorna Catalogo Prodotto</value>
         <value xml:lang="ro">Actualizeaza Catalog Produs</value>
         <value xml:lang="ru">Редактировать каталог продуктов</value>
@@ -5161,7 +5161,7 @@
         <value xml:lang="de">Produktkonfigurationen bearbeiten</value>
         <value xml:lang="en">Edit Product Configs</value>
         <value xml:lang="es">Editar configuraciones de producto</value>
-        <value xml:lang="fr">Modification des configurations d'articles</value>
+        <value xml:lang="fr">Modification des configurations</value>
         <value xml:lang="it">Aggiorna Configurazioni Prodotto</value>
         <value xml:lang="ro">Actualizeaza Configuratii Produs</value>
         <value xml:lang="ru">Изменить конфигурации продуктов</value>
@@ -5183,7 +5183,7 @@
         <value xml:lang="de">Produktkosten bearbeiten</value>
         <value xml:lang="en">Edit Product Costs</value>
         <value xml:lang="es">Editar costes de producto</value>
-        <value xml:lang="fr">Modification des coûts d'articles</value>
+        <value xml:lang="fr">Modification des coûts</value>
         <value xml:lang="it">Aggiorna Costi Prodotto</value>
         <value xml:lang="ro">Actualizeaza Costuri Produs</value>
         <value xml:lang="ru">Изменить затраты продукта</value>
@@ -5194,7 +5194,7 @@
         <value xml:lang="de">Produkt Einrichtungen bearbeiten</value>
         <value xml:lang="en">Edit Product Facilities</value>
         <value xml:lang="es">Editar Almacenes de un Producto</value>
-        <value xml:lang="fr">Modification des stocks d'articles</value>
+        <value xml:lang="fr">Modification des stocks</value>
         <value xml:lang="it">Aggiorna Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Compartiment Produs</value>
         <value xml:lang="ru">Изменить объекты</value>
@@ -5205,7 +5205,7 @@
         <value xml:lang="de">Produkt Einrichtungsstandorte bearbeiten</value>
         <value xml:lang="en">Edit Product Facility Locations</value>
         <value xml:lang="es">Editar sitios de Almacén de un Producto</value>
-        <value xml:lang="fr">Modification des emplacements de stocks d'articles</value>
+        <value xml:lang="fr">Modification des emplacements de stocks</value>
         <value xml:lang="it">Aggiorna Posizioni Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Pozitii Compartiment Produs</value>
         <value xml:lang="ru">Изменить местонахождение объектов</value>
@@ -5289,7 +5289,7 @@
         <value xml:lang="de">Produkt Bestandspositionen bearbeiten</value>
         <value xml:lang="en">Edit Product Inventory Items</value>
         <value xml:lang="es">Editar Artículos de Inventario de un Producto</value>
-        <value xml:lang="fr">Modification des lignes de stock d'articles</value>
+        <value xml:lang="fr">Modification des lignes de stock</value>
         <value xml:lang="it">Aggiorna Righe Inventario Prodotto</value>
         <value xml:lang="ro">Actualizeaza Linii Inventar Produs</value>
         <value xml:lang="ru">Изменить позиции реестра ТМЦ</value>
@@ -5404,7 +5404,7 @@
         <value xml:lang="de">Produktaktionen bearbeiten</value>
         <value xml:lang="en">Edit Product Promos</value>
         <value xml:lang="es">Editar Promociones de Productos</value>
-        <value xml:lang="fr">Modification des promotions d'articles</value>
+        <value xml:lang="fr">Modification des promotions</value>
         <value xml:lang="it">Aggiorna Promozioni Prodotto</value>
         <value xml:lang="ro">Actualizeaza Promotii Produs</value>
         <value xml:lang="ru">Изменить акции продукта</value>
@@ -5415,7 +5415,7 @@
         <value xml:lang="de">Produkt Aktionscodes bearbeiten</value>
         <value xml:lang="en">Edit Product Promotion Code</value>
         <value xml:lang="es">Editar Cupones de una Promoción de Productos</value>
-        <value xml:lang="fr">Configuration des codes de promotion d'articles</value>
+        <value xml:lang="fr">Configuration des codes de promotion</value>
         <value xml:lang="it">Aggiorna Codice Promozione Prodotto</value>
         <value xml:lang="ro">Actualizeaza Cod Promotii Produs</value>
         <value xml:lang="ru">Изменить акционный код продукта</value>
@@ -5634,7 +5634,7 @@
         <value xml:lang="de">Lieferpositionen bearbeiten</value>
         <value xml:lang="en">Edit Shipment Items</value>
         <value xml:lang="es">Editar Artículos de Envío</value>
-        <value xml:lang="fr">Modifier les expéditions d'articles</value>
+        <value xml:lang="fr">Modifier les expéditions</value>
         <value xml:lang="it">Aggiorna Righe Spedizione</value>
         <value xml:lang="ro">Actualizeaza Linie Expediere</value>
         <value xml:lang="ru">Изменить позиции поставки</value>
@@ -7136,7 +7136,7 @@
         <value xml:lang="de">Zur Kategorie hinzufügen</value>
         <value xml:lang="en">Add to Category</value>
         <value xml:lang="es">Añadir a categoría</value>
-        <value xml:lang="fr">Ajouter à la catégorie d'articles</value>
+        <value xml:lang="fr">Ajouter à la catégorie</value>
         <value xml:lang="it">Aggiungi alla Categoria</value>
         <value xml:lang="ro">Adauga la Categoria</value>
         <value xml:lang="ru">Добавить в категорию</value>
@@ -9261,7 +9261,7 @@
         <value xml:lang="de">Neuen Produktkatalog erstellen</value>
         <value xml:lang="en">Create NewProd Catalog</value>
         <value xml:lang="es">Crear nuevo Catálogo de Productos</value>
-        <value xml:lang="fr">Création d'un nouveau catalogue d'articles</value>
+        <value xml:lang="fr">Création d'un nouveau catalogue</value>
         <value xml:lang="it">Creare Nuovo Prodotto Catalogo</value>
         <value xml:lang="ro">Creare Nou Produs Catalog</value>
         <value xml:lang="ru">Создать новый каталог</value>
@@ -9305,7 +9305,7 @@
         <value xml:lang="de">Neue Produktaktion erstellen</value>
         <value xml:lang="en">Create New ProductPromo</value>
         <value xml:lang="es">Crear Nueva Promoción de Productos</value>
-        <value xml:lang="fr">Création d'une promotion d'articles</value>
+        <value xml:lang="fr">Création d'une promotion</value>
         <value xml:lang="it">Creare Nuova Promozione Prodotto</value>
         <value xml:lang="ro">Creare Noua Promotie Produs</value>
         <value xml:lang="ru">Создать новое предложение</value>
@@ -13677,7 +13677,7 @@
         <value xml:lang="de">Neuen Produktkatalog</value>
         <value xml:lang="en">New Prod Catalog</value>
         <value xml:lang="es">Nuevo catálogo</value>
-        <value xml:lang="fr">Nouveau catalogue d'articles</value>
+        <value xml:lang="fr">Nouveau catalogue</value>
         <value xml:lang="it">Nuovo Catalogo Prodotti</value>
         <value xml:lang="ro">Nou Catalog Produse</value>
         <value xml:lang="ru">Новый каталог</value>
@@ -15858,7 +15858,7 @@
         <value xml:lang="de">Liste der Produktkataloge</value>
         <value xml:lang="en">Product Catalogs List</value>
         <value xml:lang="es">Lista de catálogos de productos</value>
-        <value xml:lang="fr">Liste des catalogues d'articles</value>
+        <value xml:lang="fr">Liste des catalogues</value>
         <value xml:lang="it">Lista Cataloghi Prodotto</value>
         <value xml:lang="ro">Lista Cataloage Produs</value>
         <value xml:lang="ru">Список продуктовых каталогов</value>
@@ -15869,7 +15869,7 @@
         <value xml:lang="de">Produktkategorie</value>
         <value xml:lang="en">Product Category</value>
         <value xml:lang="es">Categoría de Productos</value>
-        <value xml:lang="fr">Catégorie d'articles</value>
+        <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria Prodotto</value>
         <value xml:lang="ro">Categorie Produs</value>
         <value xml:lang="ru">Категория продуктов</value>
@@ -16572,7 +16572,7 @@
         <value xml:lang="de">Aktion Produkte</value>
         <value xml:lang="en">Promotion Products</value>
         <value xml:lang="es">Productos de promoción</value>
-        <value xml:lang="fr">Promotion d'articles</value>
+        <value xml:lang="fr">Promotion</value>
         <value xml:lang="it">Promozione Prodotti</value>
         <value xml:lang="ro">Promotie Produse </value>
         <value xml:lang="ru">Акционные продукты</value>
@@ -18830,7 +18830,7 @@
         <value xml:lang="de">Lieferplan --&gt; Auftragspositionen</value>
         <value xml:lang="en">Shipment Plan --&gt; Order Items</value>
         <value xml:lang="es">Plan de envío --&gt; Artículos de pedido</value>
-        <value xml:lang="fr">Plan d'expédition --&gt; Commande d'articles</value>
+        <value xml:lang="fr">Plan d'expédition --&gt; lignes d'article</value>
         <value xml:lang="it">Piano di Spedizione --&gt; Righe Ordine</value>
         <value xml:lang="ro">Plan de Expediere --&gt; Linii Comanda</value>
         <value xml:lang="ru">План поставок --&gt; Позиции заказа</value>
