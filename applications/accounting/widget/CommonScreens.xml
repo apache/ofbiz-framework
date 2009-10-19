@@ -176,28 +176,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonPartyAccountsDecorator">
-        <section>
-            <actions>
-                <set field="tabButtonItemTop" value="PartyAccounts"/>
-                <entity-one entity-name="PartyNameView" value-field="currentOrganization" auto-field-map="false">
-                    <field-map field-name="partyId" from-field="organizationPartyId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/Menus.xml"/>
-                        <container>
-                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
-                        </container>
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonOrganizationAccountingReportsDecorator">
         <section>
             <actions>
