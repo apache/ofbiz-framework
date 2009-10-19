@@ -3602,6 +3602,10 @@
         <value xml:lang="th">สุดท้าย</value>
         <value xml:lang="zh">最近的</value>
     </property>
+    <property key="CommonLastSytemNotes">
+        <value xml:lang="en">Last system notes</value>
+        <value xml:lang="fr">DerniÃ¨res tÃ¢ches affectÃ©es</value>
+    </property>
     <property key="CommonLastUpdated">
         <value xml:lang="ar">آخر تحديث</value>
         <value xml:lang="de">Letzte Aktualisierung</value>
