@@ -348,44 +348,12 @@ under the License.
                                             </container>
                                         </container>
                                         <container style="screenlet-body">
-                                            <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
-                                                <parameter param-name="revert" value="N"/>
-                                                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                            <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
-                                                <parameter param-name="revert" value="Y"/>
-                                                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
-                                                <parameter param-name="organizationPartyId"/>
-                                            </link>
-                                            <section>
-                                                <condition>
-                                                    <if-compare field="acctgTrans.isPosted" operator="equals" value="N"/>
-                                                </condition>
-                                                <widgets>
-                                                    <link text="${uiLabelMap.AccountingCompleteAcctgTransFields}" style="buttontext" target="completeAcctgTransEntries">
-                                                        <parameter param-name="acctgTransId"/>
-                                                        <parameter param-name="organizationPartyId"/>
-                                                    </link>
-                                                    <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans">
-                                                        <parameter param-name="acctgTransId"/>
-                                                        <parameter param-name="organizationPartyId"/>
-                                                        <parameter param-name="verifyOnly" value="Y"/>
-                                                    </link>
-                                                    <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans">
-                                                        <parameter param-name="acctgTransId"/>
-                                                        <parameter param-name="organizationPartyId"/>
-                                                    </link>
-                                                </widgets>
-                                            </section>
+                                        <include-menu location="component://accounting/widget/Menus.xml" name="EditGlAcctgTransSubTabBar"/>
                                             <section>
                                                 <condition>
                                                     <if-compare field="acctgTrans.isPosted" operator="equals" value="Y"/>
                                                 </condition>
                                                 <widgets>
-                                                    <link text="${uiLabelMap.AccountingInvoicePDF}" style="buttontext" target="acctgTransDetailReportPdf.pdf">
-                                                        <parameter param-name="acctgTransId"/>
-                                                    </link>
                                                     <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                                 </widgets>
                                                 <fail-widgets>
