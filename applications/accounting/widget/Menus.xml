@@ -682,7 +682,93 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    <menu name="PartyGlShortCuts">
+        <menu-item name="CreateSalesAcctgTrans">
+            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
+                <parameter param-name="organizationPartyId"/>
+                <parameter param-name="debitGlAccountClassId" value="CURRENT_ASSET"/>
+                <parameter param-name="creditGlAccountClassId" value="REVENUE"/>
+                <parameter param-name="acctgTransTypeId" value="SALES"/>
+            </link>
+        </menu-item>
+        <menu-item name="CreatePaymentAcctgTrans">
+            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
+                <parameter param-name="organizationPartyId"/>
+                <parameter param-name="debitGlAccountClassId" value="CASH_EQUIVALENT"/>
+                <parameter param-name="creditGlAccountClassId" value="CURRENT_LIABILITY"/>
+                <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
+            </link>
+        </menu-item>
+        <menu-item name="PartyGlUnpostedAcctgTrans">
+            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="PartyGlTrianBalance">
+            <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="PartyIncomeStatement">
+            <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="PartyBalanceSheet">
+            <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="EditGlAcctgTransSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="DuplicateAccountingTransaction">
+            <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
+                <parameter param-name="revert" value="N"/>
+                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="RevertAccountingTransaction">
+            <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
+                <parameter param-name="revert" value="Y"/>
+                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="acctgTransDetailReportPdf">
+            <link text="${uiLabelMap.CommonPdf}" style="buttontext" target="acctgTransDetailReportPdf.pdf">
+                <parameter param-name="acctgTransId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CompleteAcctgTransFields">
+            <condition>
+                <if-compare field="acctgTrans.isPosted" operator="equals" value="N"/>
+            </condition>
+            <link text="${uiLabelMap.AccountingCompleteAcctgTransFields}" style="buttontext" target="completeAcctgTransEntries">
+                <parameter param-name="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="VerifyTransaction">
+            <condition>
+                <if-compare field="acctgTrans.isPosted" operator="equals" value="N"/>
+            </condition>
+            <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans">
+                <parameter param-name="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+                <parameter param-name="verifyOnly" value="Y"/>
+            </link>
+        </menu-item>
+        <menu-item name="PostTransaction">
+            <condition>
+                <if-compare field="acctgTrans.isPosted" operator="equals" value="N"/>
+            </condition>
+            <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans">
+                <parameter param-name="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+    </menu>
     <menu name="PartyTopTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary">
         <menu-item name="Admin" title="${uiLabelMap.AccountingSetup}">
