@@ -172,9 +172,13 @@ under the License.
                 <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                 <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
                 <#-- <#assign billTo = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billToParty, true)?if_exists> -->
+            <#else>
+              <#assign billTo = ''/>
             </#if>
             <#if billFromParty?has_content>
               <#assign billFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billFromParty, true)?if_exists>
+            <#else>
+              <#assign billFrom = ''/>
             </#if>
             <tr>
               <td>${orderHeader.orderDate.toString()}</td>
