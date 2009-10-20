@@ -27,8 +27,6 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="agreements"/>
-                <set field="agreementId" from-field="parameters.agreementId"/>
-                <entity-one entity-name="Agreement" value-field="agreement"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -112,6 +110,9 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreement"/>
                 <set field="tabButtonItem" value="AgreementMain"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
+                
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -143,6 +144,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListAgreementItems"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-and entity-name="AgreementItem" list="agreementItems">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                 </entity-and>
@@ -170,6 +173,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementItem"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="EditAgreementItem"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
@@ -197,6 +202,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementTerm"/>
                 <set field="tabButtonItem" value="AgreementTerms"/>
                 <set field="buttonBarItem" value="EditAgreementTerms"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
@@ -217,6 +224,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementPromoAppls"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementPromoAppl" list="agreementPromoAppls">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
@@ -248,6 +257,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementPromoAppl"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
                 <entity-one entity-name="AgreementPromoAppl" value-field="agreementPromoAppl" auto-field-map="true"/>
@@ -276,6 +287,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListAgreementItemTerms"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="ListAgreementItemTerms"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementTerm" list="agreementTerms">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
