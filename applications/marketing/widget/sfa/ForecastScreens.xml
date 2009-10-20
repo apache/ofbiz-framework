@@ -62,7 +62,7 @@ under the License.
                                         <decorator-section name="menu-bar">
                                             <section>
                                                 <widgets>
-                                                    <container style="button-bar"><link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/></container>
+                                                    <container style="button-bar"><link target="EditSalesForecast" text="${uiLabelMap.SfaNewSalesForecast}" style="buttontext"/></container>
                                                 </widgets>
                                             </section>
                                         </decorator-section>
@@ -98,7 +98,7 @@ under the License.
                                 <condition><not><if-empty field="salesForecastId"/></not></condition>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/>
+                                            <link target="EditSalesForecast" text="${uiLabelMap.SfaNewSalesForecast}" style="buttontext"/>
                                         </container>
                                 </widgets>
                             </section>

@@ -29,7 +29,7 @@
     </property>
     <property key="FormFieldTitle_bestCaseAmount">
         <value xml:lang="en">Best Case Amount</value>
-        <value xml:lang="fr">Montant en cas le meilleur</value>
+        <value xml:lang="fr">Montant dans le meilleur cas </value>
         <value xml:lang="it">Importo migliore caso</value>
         <value xml:lang="zh">最佳案例金额</value>
     </property>
@@ -1922,6 +1922,12 @@
         <value xml:lang="it">Passo successivo</value>
         <value xml:lang="zh">下一步</value>
     </property>
+    <property key="SfaNewSalesForecast">
+        <value xml:lang="en">New Sales Forecast</value>
+        <value xml:lang="fr">Nouvelle prévision de vente</value>
+        <value xml:lang="it">Nuova Previsioni di vendita</value>
+        <value xml:lang="zh">新的销售展望</value><!-- JLR : not quite sure of the translation here (done with the help of Yahoo's babelfish), please check -->
+    </property>    
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
         <value xml:lang="fr">Aucun prospect sélectionné pour la fusion</value>
