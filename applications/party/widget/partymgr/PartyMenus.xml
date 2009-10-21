@@ -627,7 +627,7 @@
                 </and>
             </condition>
             <link target="EditCommunicationEvent">
-                <parameter param-name="originalCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="origCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="action" value="FORWARD"/>
             </link>
         </menu-item>
