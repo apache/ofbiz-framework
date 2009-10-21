@@ -317,5 +317,52 @@ under the License.
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ViewGlReconciliationWithTransaction.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting View GL Reconciliation Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_ViewGlRec" contentTypeId="DOCUMENT" contentName="View GL Reconciliation." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ViewGlRec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_ViewGlRec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ViewGlReconciliationWithTransaction"/>
-		
+	
+    <!-- Tax Authorities -->
+
+    <DataResource dataResourceId="ACCOUNTING_TaxAuths" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_tax_authorities.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Tax Authorities Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_TaxAuths" contentTypeId="DOCUMENT" contentName="Tax Authorities." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_TaxAuths" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_TaxAuths" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_TaxAuths"/>
+ 	
+    <DataResource dataResourceId="ACCOUNTING_FindTaxAu" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindTaxAuthority.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Tax Authority Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindTaxAu" contentTypeId="DOCUMENT" contentName="Find Tax Authority." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindTaxAu" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_FindTaxAu" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindTaxAuthority"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_EditTaxAu" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthority.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTaxAu" contentTypeId="DOCUMENT" contentName="Edit Tax Authority." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTaxAu" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTaxAu" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthority"/>
+
+    <DataResource dataResourceId="ACCOUNTING_EditTACat" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityCategories.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Categories Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTACat" contentTypeId="DOCUMENT" contentName="Tax Authority Categories." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTACat" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTACat" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityCategories"/>
+
+    <DataResource dataResourceId="ACCOUNTING_EditTAAss" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityAssocs.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Associations Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTAAss" contentTypeId="DOCUMENT" contentName="Edit Tax Authority Associations." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTAAss" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTAAss" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityAssocs"/>
+
+    <DataResource dataResourceId="ACCOUNTING_EditTAGL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityGlAccounts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority GL Accounts Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTAGL" contentTypeId="DOCUMENT" contentName="Edit Tax Authority GL Accounts." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTAGL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTAGL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityGlAccounts"/>
+
+    <DataResource dataResourceId="ACCOUNTING_EditTAPrd" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityRateProducts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Product Rates Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTAPrd" contentTypeId="DOCUMENT" contentName="Edit Tax Authority Product Rates" templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTAPrd" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTAPrd" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityRateProducts"/>
+
+    <DataResource dataResourceId="ACCOUNTING_ListTAPar" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListTaxAuthorityParties.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Tax Authority Parties Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListTAPar" contentTypeId="DOCUMENT" contentName="List Tax Authority Parties." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListTAPar" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_ListTAPar" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListTaxAuthorityParties"/>
+
+    <DataResource dataResourceId="ACCOUNTING_EditTPInf" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityPartyInfo.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Party Information Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditTPInf" contentTypeId="DOCUMENT" contentName="Edit Tax Authority Party Information." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTPInf" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTPInf" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityPartyInfo"/>
+
 </entity-engine-xml>

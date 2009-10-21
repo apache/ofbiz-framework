@@ -35,7 +35,7 @@ under the License.
         <para>Enter or use the lookup to select the 'To Party Id' (eg DemoSupplier)</para>
         <para>Enter the date of the withdrawal in the 'Effective Date' field</para>
         <para>Enter the amount in the 'Amount' field for the withdrawal</para>
-        <para>Make sure the 'Withdrawal Payment from:....' box is ticked</para>
+        <para>If required the tick the box next to 'Withdrawal Payment from:....' (NOTE: If this is ticked then the transaction will not be displayed but it can be found under the 'Transactions' tab for the bank account.)</para>
         <para>Press the 'Create' button</para>
         <para>The new transaction will be created.</para>
         <para>NOTE: The default status of the payment will be 'Sent'. A new payment transaction will be created and it will be linked to the specified bank account and will have a default status of 'Created'.</para>
@@ -45,6 +45,7 @@ under the License.
         <para>Go to the 'Transactions' submenu</para>
         <para>Press the 'Search' button</para>
         <para>The newly created transaction should be displayed in the search results at the bottom of the screen.</para>
+        <para>NOTE: If when the transaction was created the 'Withdrawal Payment from:....' was ticked then the transaction will not be displayed on this screen. It will still show up under the 'Transactions' tab and linked to the bank account</para>
         </section>     
         <section>
         <title></title>

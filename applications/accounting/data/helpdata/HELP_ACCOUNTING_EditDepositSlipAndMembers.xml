@@ -23,9 +23,17 @@ under the License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
        <title>The Financial Account Edit Deposit Slip screen.</title>
-        <para></para>
+        <para>This screen displays the details of a Payment Group and its transactions. The Deposit Slip for the Payment Group can be printed if required and the Payment Group itself can be updated.</para>
+        <para>Details that can be updated include the name of the Payment Group itself and the addition, removal or update of transactions.</para>      
+        <para>NOTE: Any changes to the Payment Group will be automatically updated to the Deposit Slip.</para>
         <section>
-        <title></title>
-        <para></para>
+        <title>How do I update a Deposit Slip?</title>
+        <para>Select the Payment Group required</para>
+        <para>Update the 'Payment Group Name' if required</para>
+        <para>Use the lookup for 'Payment Id' to add new transactions to the Payment Group if required</para>
+        <para>Use the 'Cancel' button next to a particular transaction to remove it from the Payment Group</para>
+        <para>Press the 'Update' or 'Add' buttons as required</para>
+        <para>Press the 'Print Deposit Slip' button</para>
+        <para>The Deposit Slip will be displayed with the latest details of the transactions for the Payment Group</para>
         </section>
 </section>
