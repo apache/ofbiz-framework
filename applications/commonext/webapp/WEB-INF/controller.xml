@@ -39,6 +39,12 @@ under the License.
         <response name="success" type="view-last"/>
     </request-map>
     
+    <request-map uri="createSystemInfoNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSystemInfoNote"/>
+        <response name="success" type="view-last"/>
+    </request-map>
+    
     <request-map uri="showHelp">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showHelp"/>

@@ -41,7 +41,7 @@ under the License.
         <description>Get system notes for the logged on party</description>
         <attribute name="systemInfoNotes" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="getLastSystemInfoNote" engine="simple" auth="true"
+    <service name="getLastSystemInfoNote" engine="simple" auth="false"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getLastSystemInfoNote">
         <description>Get last system note for the logged on party</description>
         <attribute name="lastSystemInfoNote1" type="GenericValue" mode="OUT" optional="true"/>
