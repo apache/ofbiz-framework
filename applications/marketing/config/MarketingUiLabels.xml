@@ -23,6 +23,7 @@
         <value xml:lang="en">Actual Cost</value>
         <value xml:lang="fr">Coût réel</value>
         <value xml:lang="it">Costo Attuale</value>
+        <value xml:lang="nl">Werkelijke kosten</value>
         <value xml:lang="ro">Cost Actual</value>
         <value xml:lang="th">ราคาจริง</value>
         <value xml:lang="zh">实际费用</value>
@@ -151,6 +152,7 @@
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagne marketing</value>
         <value xml:lang="it">Campagna Vendita</value>
+        <value xml:lang="nl">Marketing campagne</value>
         <value xml:lang="ro">Campania Vanzare</value>
         <value xml:lang="th">การวางแผนทางการตลาด</value>
         <value xml:lang="zh">市场攻势</value>
@@ -160,6 +162,7 @@
         <value xml:lang="es">Crear campaña de marketing</value>
         <value xml:lang="fr">Nouvelle campagne marketing</value>
         <value xml:lang="it">Creare Campagna Vendita</value>
+        <value xml:lang="nl">Nieuwe Marketing Campagne</value>
         <value xml:lang="ro">Creare Campanie Vanzare</value>
         <value xml:lang="th">สร้างการวางแผนทางการตลาด</value>
         <value xml:lang="zh">新建市场攻势</value>
@@ -169,6 +172,7 @@
         <value xml:lang="es">Campaña</value>
         <value xml:lang="fr">Réf. de campagne marketing</value>
         <value xml:lang="it">Codice Campagna Vendita</value>
+        <value xml:lang="nl">ID Campagne</value>
         <value xml:lang="ro">Cod Campanie Vanzare</value>
         <value xml:lang="th">รหัสการวางแผนทางการตลาด</value>
         <value xml:lang="zh">市场攻势标识</value>
@@ -177,6 +181,7 @@
         <value xml:lang="en">Invalid email address entered.</value>
         <value xml:lang="fr">Entrée d'adresse courriel invalide</value>
         <value xml:lang="it">Indirizzo email inserito invalido.</value>
+        <value xml:lang="nl">Fout emailadres opgegeven.</value>
         <value xml:lang="th">เข้าสู่ที่อยู่ของอีเมล์ไม่ได้</value>
         <value xml:lang="zh">输入的电子邮件地址无效。</value>
     </property>
@@ -185,6 +190,7 @@
         <value xml:lang="es">Nombre de la campaña</value>
         <value xml:lang="fr">Nom de la campagne</value>
         <value xml:lang="it">Nome Campagna</value>
+        <value xml:lang="nl">Naam Campagne</value>
         <value xml:lang="ro">Nume Campanie</value>
         <value xml:lang="th">ชื่อโครงการ</value>
         <value xml:lang="zh">攻势名称</value>
@@ -194,6 +200,7 @@
         <value xml:lang="es">Informe de campañas de marketing</value>
         <value xml:lang="fr">Rapport des campagnes de marketing</value>
         <value xml:lang="it">Stampe Campagne di Vendita</value>
+        <value xml:lang="nl">Campaigne Rapport</value>
         <value xml:lang="ro">Tiparire Campanie de Vanzare</value>
         <value xml:lang="th">รายงานการวางแผนทางการตลาด</value>
         <value xml:lang="zh">市场攻势报告</value>
@@ -203,6 +210,7 @@
         <value xml:lang="es">Crear rol de campaña de marketing</value>
         <value xml:lang="fr">Créer le rôle de la campagne marketing</value>
         <value xml:lang="it">Creare Ruolo Campagna Vendita</value>
+        <value xml:lang="nl">Nieuwe Campagne Rol</value>
         <value xml:lang="ro">Creare Rol Campanie Vanzare</value>
         <value xml:lang="th">สร้างสถานะการวางแผนทางการตลาด</value>
         <value xml:lang="zh">新建市场攻势角色</value>
@@ -212,6 +220,7 @@
         <value xml:lang="es">Descripción de la campaña</value>
         <value xml:lang="fr">Résumé de la campagne</value>
         <value xml:lang="it">Sommario Campagna</value>
+        <value xml:lang="nl">Samenvatting Campagne</value>
         <value xml:lang="ro">Sumar Campanie</value>
         <value xml:lang="th">สรุปโครงการ</value>
         <value xml:lang="zh">攻势摘要</value>
@@ -221,6 +230,7 @@
         <value xml:lang="es">OFBiz: Gestión de Marketing</value>
         <value xml:lang="fr">OFBiz: Gestion du Marketing</value>
         <value xml:lang="it">OFBiz: Gestione vendite</value>
+        <value xml:lang="nl">OFBiz: Marketing Manager</value>
         <value xml:lang="ro">OFBiz: Gestione Vendite</value>
         <value xml:lang="th">OFBiz: การจัดการทางการตลาด</value>
         <value xml:lang="zh">OFBiz: 市场宣传管理</value>
@@ -246,6 +256,7 @@
         <value xml:lang="es">Lista de contactos</value>
         <value xml:lang="fr">Liste de contacts</value>
         <value xml:lang="it">Lista Contatto</value>
+        <value xml:lang="nl">Contactenlijst</value>
         <value xml:lang="ro">Lista Contact</value>
         <value xml:lang="th">รายการติดต่อ</value>
         <value xml:lang="zh">联系列表</value>
@@ -255,6 +266,7 @@
         <value xml:lang="es">Crear evento de comunicación</value>
         <value xml:lang="fr">Nouvel évènement de communication de la liste de contact</value>
         <value xml:lang="it">Creare Nuova Lista Contatto Evento Comunicazione</value>
+        <value xml:lang="en">Nieuwe contactenlijst Comm Event</value>
         <value xml:lang="ro">Creare Noua Lista Contact Eveniment Comunicatie</value>
         <value xml:lang="th">สร้างรายการผลการติดต่อใหม่</value>
         <value xml:lang="zh">新建联系列表沟通事件</value>
@@ -264,6 +276,7 @@
         <value xml:lang="es">Código de evento</value>
         <value xml:lang="fr">Réf. d'évènement de communication</value>
         <value xml:lang="it">Codice Evento Comunicazione</value>
+        <value xml:lang="nl">ID Comm Event</value>
         <value xml:lang="ro">Cod Eveniment Comunicatie</value>
         <value xml:lang="th">รหัสผลการติดต่อ</value>
         <value xml:lang="zh">沟通事件标识</value>
@@ -286,6 +299,7 @@
         <value xml:lang="es">Código de lista</value>
         <value xml:lang="fr">Réf. de la liste de contact</value>
         <value xml:lang="it">Codice Lista Contatto</value>
+        <value xml:lang="nl">ID Contactenlijst</value>
         <value xml:lang="ro">Cod Lista Contact</value>
         <value xml:lang="th">รหัสรายการติดต่อ</value>
         <value xml:lang="zh">联系列表标识</value>
@@ -295,6 +309,7 @@
         <value xml:lang="es">Nombre de lista</value>
         <value xml:lang="fr">Nom de la liste de contact</value>
         <value xml:lang="it">Nome Lista Contatto</value>
+        <value xml:lang="nl">Naam Contactenlijst</value>
         <value xml:lang="ro">Nume Lista Contact</value>
         <value xml:lang="th">รายชื่อที่ติดต่อ</value>
         <value xml:lang="zh">联系列表名称</value>
@@ -304,6 +319,7 @@
         <value xml:lang="es">Tipo de lista</value>
         <value xml:lang="fr">Réf. du type de liste de contact</value>
         <value xml:lang="it">Tipo Lista Contatto</value>
+        <value xml:lang="nl">ID Soort Contactenlijst</value>
         <value xml:lang="ro">Tip Lista Contact</value>
         <value xml:lang="th">รหัสประเภทรายการติดต่อ</value>
         <value xml:lang="zh">联系列表类型标识</value>
@@ -313,6 +329,7 @@
         <value xml:lang="es">Mecanismo de contacto</value>
         <value xml:lang="fr">Type de mécanisme de contact </value>
         <value xml:lang="it">Tipo Contatto</value>
+        <value xml:lang="nl">ID Soort Contact Mechanism</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="th">รหัสประเภทวิธีการติดต่อ</value>
         <value xml:lang="zh">联系方式类型标识</value>
@@ -322,6 +339,7 @@
         <value xml:lang="es">Crear nueva lista de contactos</value>
         <value xml:lang="fr">Nouvelle liste de contact</value>
         <value xml:lang="it">Creare Nuova Lista Contatto</value>
+        <value xml:lang="nl">Nieuwe Contactenlijst</value>
         <value xml:lang="ro">Creare Noua Lista Contact</value>
         <value xml:lang="th">สร้างรายการติดต่อใหม่</value>
         <value xml:lang="zh">新建联系列表</value>
@@ -330,6 +348,7 @@
         <value xml:lang="en">Find Contact Lists</value>
         <value xml:lang="fr">Rechercher les listes de contact</value>
         <value xml:lang="it">Ricerca Liste Contatto</value>
+        <value xml:lang="nl">Zoek Contactenlijst</value>
         <value xml:lang="ro">Cauta Liste Contact</value>
         <value xml:lang="th">ค้นหารายการติดต่อ</value>
         <value xml:lang="zh">查找联系列表</value>
@@ -339,6 +358,7 @@
         <value xml:lang="es">Es pública ?</value>
         <value xml:lang="fr">Est publique ?</value>
         <value xml:lang="it">E' Pubblico ?</value>
+        <value xml:lang="nl">Openbaar?</value>
         <value xml:lang="ro">Este Public ?</value>
         <value xml:lang="th">เป็นสาธารณะ ?</value>
         <value xml:lang="zh">公开吗?</value>
@@ -347,6 +367,7 @@
         <value xml:lang="en">Is Single Use ?</value>
         <value xml:lang="fr">Est à usage unique ?</value>
         <value xml:lang="it">E' Uso Singolo ?</value>
+        <value xml:lang="nl">Single Use?</value>
         <value xml:lang="ro">Este pentru un unic utilizatir?</value>
         <value xml:lang="th">ใช้ได้ครั้งเดียว ?</value>
         <value xml:lang="zh">单一用途吗?</value>
@@ -355,6 +376,7 @@
         <value xml:lang="en">Could not find email list [${contactListId}].</value>
         <value xml:lang="fr">Aucune liste de courriel [${contactListId}] trouvée.</value>
         <value xml:lang="it">Non è possibile trovare la lista e-mail [${contactListId}].</value>
+        <value xml:lang="nl">Contactenlijst [${contactListId}] werd niet gevonden.</value>
         <value xml:lang="ro">Nu este posibila gasirea listei e-mail [${contactListId}].</value>
         <value xml:lang="th">ไม่สามารถค้นหารายการติดต่อ [${contactListId}]</value>
         <value xml:lang="zh">无法找到电子邮件列表 [${contactListId}]。</value>
@@ -364,6 +386,7 @@
         <value xml:lang="es">Código de verificación Opt-in</value>
         <value xml:lang="fr">Code de vérification d'inscription volontaire (Opt-in)</value>
         <value xml:lang="it">Codice Verifica Opt-In</value>
+        <value xml:lang="nl">Verificatie-code Opt-In</value>
         <value xml:lang="ro">Cod Verificare Opt-In</value>
         <value xml:lang="th">ทางเลือกในการตรวจสอบรหัส</value>
         <value xml:lang="zh">兴趣验证码</value>
@@ -373,6 +396,7 @@
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Réf. d'acteur propriétaire</value>
         <value xml:lang="it">Codice Soggetto Proprietario</value>
+        <value xml:lang="nl">ID Manager Contactenlijst</value>
         <value xml:lang="ro">Cod Subiect Proprietar</value>
         <value xml:lang="th">รหัสของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">拥有人会员标识</value>
@@ -382,6 +406,7 @@
         <value xml:lang="es">Participantes</value>
         <value xml:lang="fr">Abonné à la liste de contact</value>
         <value xml:lang="it">Lista Contatti Soggetti</value>
+        <value xml:lang="nl">Partij Contactlijst</value>
         <value xml:lang="ro">Lista Contacte Subiecti</value>
         <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
         <value xml:lang="zh">联系列表会员</value>
@@ -391,6 +416,7 @@
         <value xml:lang="es">Asociar participante</value>
         <value xml:lang="fr">Créer un nouvel abonné à  la liste de contact</value>
         <value xml:lang="it">Creare Nuova Lista Contatto Soggetto</value>
+        <value xml:lang="nl">Nieuwe Partij Contactenlijst</value>
         <value xml:lang="ro">Creare Noua Lista Contact Subiect</value>
         <value xml:lang="th">สร้างรายการติดต่อกลุ่มผู้ใช้ใหม่</value>
         <value xml:lang="zh">新建联系列表会员</value>
@@ -401,6 +427,7 @@
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
         <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="nl">ID Deelnemer</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
@@ -410,6 +437,7 @@
         <value xml:lang="es">Mecanismo de contacto</value>
         <value xml:lang="fr">Mécanisme de contact favori</value>
         <value xml:lang="it">Contatto Preferito</value>
+        <value xml:lang="nl">Voorkeur Contact Mechanism</value>
         <value xml:lang="ro">Contact Preferit</value>
         <value xml:lang="th">วิธีการติดติดต่อลำดับแรก</value>
         <value xml:lang="zh">优先使用的联系方式</value>
@@ -419,6 +447,7 @@
         <value xml:lang="es">E-mail de verificación</value>
         <value xml:lang="fr">Adresse courriel de vérification</value>
         <value xml:lang="it">Verifica Email Da</value>
+        <value xml:lang="nl">Verifieer email van</value>
         <value xml:lang="ro">Verifica Email De la</value>
         <value xml:lang="th">ตรวจสอบอีเมล์จาก</value>
         <value xml:lang="zh">验证电子邮件来自</value>
@@ -428,6 +457,7 @@
         <value xml:lang="es">Pantalla de verificación</value>
         <value xml:lang="fr">Ecran de vérification du courriel</value>
         <value xml:lang="it">Verifica Email Videata</value>
+        <value xml:lang="nl">Verificatiescherm email</value>
         <value xml:lang="ro">Verifica Email Videata</value>
         <value xml:lang="th">ตรวจสอบอีเมล์</value>
         <value xml:lang="zh">验证电子邮件屏幕</value>
@@ -437,6 +467,7 @@
         <value xml:lang="es">Título del mensaje</value>
         <value xml:lang="fr">Sujet du courriel de vérification</value>
         <value xml:lang="it">Verifica Email Soggetto</value>
+        <value xml:lang="nl">Verifieer onderwerp email</value>
         <value xml:lang="ro">Verifica Email Subiect</value>
         <value xml:lang="th">ตรวจสอบหัวข้ออีเมล์</value>
         <value xml:lang="zh">验证电子邮件主题</value>
@@ -446,6 +477,7 @@
         <value xml:lang="es">Sitio web de verificación</value>
         <value xml:lang="fr">Réf. du site Internet du courriel de vérification</value>
         <value xml:lang="it">Verifica Email Sito Web</value>
+        <value xml:lang="nl">Verifieer website email</value>
         <value xml:lang="ro">Verifica Email Sit Web</value>
         <value xml:lang="th">ตรวจสอบรหัสอีเมล์ในเว็บไซต์</value>
         <value xml:lang="zh">验证电子邮件站点标识</value>
@@ -455,6 +487,7 @@
         <value xml:lang="es">Factor de conversión</value>
         <value xml:lang="fr">Taux de conversion</value>
         <value xml:lang="it">Tasso di Conversione</value>
+        <value xml:lang="nl">Koers conversie</value>
         <value xml:lang="ro">Taxa de Conversie</value>
         <value xml:lang="th">อัตรการเปลี่ยนแปลง</value>
         <value xml:lang="zh">折算率</value>
@@ -464,6 +497,7 @@
         <value xml:lang="es">Rango de fechas</value>
         <value xml:lang="fr">Intervalle de date</value>
         <value xml:lang="it">Intervallo di Date</value>
+        <value xml:lang="nl">data-range</value>
         <value xml:lang="ro">Interval de Date</value>
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
@@ -483,6 +517,7 @@
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="nl">Startpagina</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก</value>
         <value xml:lang="zh">首页</value>
@@ -492,6 +527,7 @@
         <value xml:lang="es">Gestión de Marketing</value>
         <value xml:lang="fr">Application de gestion marketing</value>
         <value xml:lang="it">Gestione vendite</value>
+        <value xml:lang="nl">Marketing Manager</value>
         <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
         <value xml:lang="zh">市场管理应用程序</value>
@@ -501,6 +537,7 @@
         <value xml:lang="es">Gestión de Marketing</value>
         <value xml:lang="fr">Application de gestion marketing</value>
         <value xml:lang="it">Applicazione gestione vendite</value>
+        <value xml:lang="nl">Marketing Managment</value>
         <value xml:lang="ro">Aplicatie Gestiune Vanzare</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการทางการตลาด</value>
         <value xml:lang="zh">市场管理应用程序</value>
@@ -524,6 +561,7 @@
         <value xml:lang="es">Cantidad de órdenes</value>
         <value xml:lang="fr">Montant des commandes</value>
         <value xml:lang="it">Importo degli Ordini</value>
+        <value xml:lang="nl">Bedrag orders</value>
         <value xml:lang="ro">Valoare Comenzi</value>
         <value xml:lang="th">จำนวนการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单金额</value>
@@ -533,6 +571,7 @@
         <value xml:lang="es">Órdenes</value>
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
+        <value xml:lang="nl">Orders</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="th">การสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单</value>
@@ -555,6 +594,7 @@
         <value xml:lang="es">Informes</value>
         <value xml:lang="fr">Rapports</value>
         <value xml:lang="it">Stampe</value>
+        <value xml:lang="nl">Rapporten</value>
         <value xml:lang="ro">Tiparire</value>
         <value xml:lang="th">รายงาน</value>
         <value xml:lang="zh">报告</value>
@@ -573,6 +613,7 @@
         <value xml:lang="es">Nueva clasificación de segmento</value>
         <value xml:lang="fr">Créer une nouvelle classification de groupe de segment</value>
         <value xml:lang="it">Creare Nuova Classificazione Gruppo Segmento</value>
+        <value xml:lang="en">Nieuwe Classificatie Segmentgroep</value>
         <value xml:lang="ro">Creare Noua Clasificare Grup Segment</value>
         <value xml:lang="th">สร้างการจัดแบ่งประเภทของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组分类</value>
@@ -597,6 +638,7 @@
         <value xml:lang="es">Nuevo segmento</value>
         <value xml:lang="fr">Créer un nouveau groupe de segment</value>
         <value xml:lang="it">Creare Nuovo Gruppo Segmento</value>
+        <value xml:lang="nl">Nieuwe Segmentgroep</value>
         <value xml:lang="ro">Creare Nou Grup Segment</value>
         <value xml:lang="th">สร้างส่วนของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组</value>
@@ -617,6 +659,7 @@
         <value xml:lang="es">Descripción</value>
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
+        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">描述</value>
@@ -626,6 +669,7 @@
         <value xml:lang="es">Nueva ubicación</value>
         <value xml:lang="fr">Créer une nouvelle zone géographique de groupe de segment</value>
         <value xml:lang="it">Creare Nuovo Gruppo Segmento Geografia</value>
+        <value xml:lang="nl">Nieuwe GEO Segmentgroep</value>
         <value xml:lang="ro">Creare Nou Grup Segment Geografie</value>
         <value xml:lang="th">สร้างส่วนของโครงสร้างกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组地理</value>
@@ -655,6 +699,7 @@
         <value xml:lang="es">No se encontraron segmentos con el ID:</value>
         <value xml:lang="fr">Aucun groupe de segment trouvé pour la réf. : </value>
         <value xml:lang="it">Nessun Gruppo Segmento trovato con il codice:</value>
+        <value xml:lang="nl">Geen Segmentgroep gevonden met ID:</value>
         <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
         <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
         <value xml:lang="zh">没有找到分区组，标识：</value>
@@ -662,6 +707,7 @@
     <property key="MarketingSegmentGroupPartyClassificationGroupId">
         <value xml:lang="en">Segment GroupParty ClassificationGroup Id</value>
         <value xml:lang="it">Soggetto gruppo segmento classificazione</value>
+        <value xml:lang="nl">ID Classificatiegroep Segmentgroep</value>
         <value xml:lang="zh">分区组会员的分类组标识</value>
     </property>
     <property key="MarketingSegmentGroupProductStoreId">
@@ -679,6 +725,7 @@
         <value xml:lang="es">Nuevo rol de segmento</value>
         <value xml:lang="fr">Créer un nouveau rôle de groupe de segment</value>
         <value xml:lang="it">Creare Nuovo Ruolo Gruppo Segmento</value>
+        <value xml:lang="nl">Nieuwe rol Segmentgroep</value>
         <value xml:lang="ro">Creare Nou Rol Grup Segment</value>
         <value xml:lang="th">สร้างสถานะของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组角色</value>
@@ -703,6 +750,7 @@
         <value xml:lang="es">Segmentos</value>
         <value xml:lang="fr">Segment</value>
         <value xml:lang="it">Segmento</value>
+        <value xml:lang="nl">Segment</value>
         <value xml:lang="ro">Segment</value>
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="zh">分区</value>
@@ -722,6 +770,7 @@
         <value xml:lang="es">Ubicación</value>
         <value xml:lang="fr">Zone géographique</value>
         <value xml:lang="it">Geografia</value>
+        <value xml:lang="nl">GEO</value>
         <value xml:lang="ro">Geografie</value>
         <value xml:lang="th">โครงสร้าง</value>
         <value xml:lang="zh">地理</value>
@@ -731,6 +780,7 @@
         <value xml:lang="es">Código de segmento</value>
         <value xml:lang="fr">Réf. du groupe de segment</value>
         <value xml:lang="it">Codice Gruppo Segmento</value>
+        <value xml:lang="nl">ID Segmentgroep</value>
         <value xml:lang="ro">Cod Grup Segment</value>
         <value xml:lang="th">รหัสส่วนของกลุ่ม</value>
         <value xml:lang="zh">分区组标识</value>
@@ -740,6 +790,7 @@
         <value xml:lang="es">Buscar</value>
         <value xml:lang="fr">Rechercher</value>
         <value xml:lang="it">Ricerca</value>
+        <value xml:lang="nl">Vinden</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">查找</value>
@@ -750,6 +801,7 @@
         <value xml:lang="es">Rol</value>
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Ruolo</value>
+        <value xml:lang="nl">Rol</value>
         <value xml:lang="ro">Rol</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">角色</value>
@@ -760,6 +812,7 @@
         <value xml:lang="es">Tipo</value>
         <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
+        <value xml:lang="nl">Soort</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
@@ -769,6 +822,7 @@
         <value xml:lang="es">Tipo de segmento</value>
         <value xml:lang="fr">Réf. du type de groupe de segment</value>
         <value xml:lang="it">Tipo Gruppo Segmento</value>
+        <value xml:lang="nl">ID Type Segmentgroep</value>
         <value xml:lang="ro">Tip Grup Segment</value>
         <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
         <value xml:lang="zh">分区组类型标识</value>
@@ -808,6 +862,7 @@
         <value xml:lang="es">Tiempo de facturación</value>
         <value xml:lang="fr">Durée de vie facturable</value>
         <value xml:lang="it">Tempo di Vita Fatturabile</value>
+        <value xml:lang="nl">Declareerbare levensduur</value>
         <value xml:lang="ro">Timp de Viata Facturabila</value>
         <value xml:lang="th">ใบเสร็จรับเงินใช้ได้ตลอดเวลา</value>
         <value xml:lang="zh">可记账期限</value>
@@ -818,6 +873,7 @@
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
+        <value xml:lang="nl">Opmerkingen</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
@@ -827,6 +883,7 @@
         <value xml:lang="es">Crear seguimiento</value>
         <value xml:lang="fr">Nouveau code de suivi</value>
         <value xml:lang="it">Creare Codice Tracciatura</value>
+        <value xml:lang="nl">Nieuwe Tracking Code</value>
         <value xml:lang="ro">Creare Cod Traseu</value>
         <value xml:lang="th">สร้างรหัส Tracking</value>
         <value xml:lang="zh">新建跟踪码</value>
@@ -836,6 +893,7 @@
         <value xml:lang="es">Catálogo</value>
         <value xml:lang="fr">Réf. du catalogue produit par défault</value>
         <value xml:lang="it">Codice Catalogo Default</value>
+        <value xml:lang="nl">Standaard catalogus</value>
         <value xml:lang="ro">Cod Catalog Default</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้าทั่วไป</value>
         <value xml:lang="zh">缺省产品目录标识</value>
@@ -846,6 +904,7 @@
         <value xml:lang="es">Descripción</value>
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
+        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">描述</value>
@@ -855,6 +914,7 @@
         <value xml:lang="es">Grupo</value>
         <value xml:lang="fr">Réf. du groupe</value>
         <value xml:lang="it">Codice Gruppo</value>
+        <value xml:lang="nl">ID Groep</value>
         <value xml:lang="ro">Cod Grup</value>
         <value xml:lang="th">รหัสกลุ่ม</value>
         <value xml:lang="zh">组标识</value>
@@ -864,6 +924,7 @@
         <value xml:lang="es">Segundos</value>
         <value xml:lang="fr">Secondes</value>
         <value xml:lang="it">Secondi</value>
+        <value xml:lang="nl">Secondes</value>
         <value xml:lang="ro">Secunde</value>
         <value xml:lang="th">ลำดับที่สอง</value>
         <value xml:lang="zh">秒</value>
@@ -927,6 +988,7 @@
         <value xml:lang="es">Logo</value>
         <value xml:lang="fr">URL de l'image logo de remplacement</value>
         <value xml:lang="it">Sostituzione URL Logo</value>
+        <value xml:lang="nl">Logo</value>
         <value xml:lang="ro">Substitutie URL Logo</value>
         <value xml:lang="th">ยกเลิกโลโก้ URL</value>
         <value xml:lang="zh">替代徽标网址</value>
