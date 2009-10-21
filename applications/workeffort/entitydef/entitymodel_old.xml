@@ -49,5 +49,23 @@ under the License.
       <key-map field-name="partyId"/>
     </relation>
   </entity>
+  <entity entity-name="OldWorkEffortContactMech" table-name="WORK_EFFORT_CONTACT_MECH"
+          package-name="org.ofbiz.workeffort.workeffort"
+          title="Old WorkEffort Contact Mechanism Entity, now depreciated and replaced by the WorkEffortContactMech entity">
+    <field name="workEffortId" type="id-ne"></field>
+    <field name="contactMechId" type="id-ne"></field>
+    <field name="comments" type="comment"></field>
+    <prim-key field="workEffortId"/>
+    <prim-key field="contactMechId"/>
+    <relation type="one" fk-name="OLWKEF_CMECH_WKEFF" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" fk-name="OLWKEF_CMECH_CMECH" rel-entity-name="ContactMech">
+      <key-map field-name="contactMechId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="TelecomNumber">
+      <key-map field-name="contactMechId"/>
+    </relation>
+  </entity>
 
 </entitymodel>

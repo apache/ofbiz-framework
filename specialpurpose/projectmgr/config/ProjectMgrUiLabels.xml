@@ -129,6 +129,10 @@
         <value xml:lang="it">Template</value>
         <value xml:lang="zh">模板Id</value>
     </property>
+    <property key="FormFieldTitle_mailingListEmail">
+        <value xml:lang="en">Mailing List E-mail</value>
+        <value xml:lang="th">E-mail สำหรับ Mailing List</value>
+    </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="en">Add a new weekly Timesheet</value>
         <value xml:lang="fr">Ajouter une nouvelle feuille d'activité hebdomadaire</value>
@@ -334,6 +338,10 @@
         <value xml:lang="th">ค้นหาขั้นตอนการทำงาน</value>
         <value xml:lang="zh">查找项目阶段</value>
     </property>
+    <property key="PageTitleFindMailingList">
+        <value xml:lang="en">Find Mailing List</value>
+        <value xml:lang="th">ค้นหาจดหมาย</value>
+    </property>
     <property key="PageTitleFindProject">
         <value xml:lang="en">Find Project</value>
         <value xml:lang="fr">Recherche de projet(s)</value>
@@ -527,6 +535,10 @@
         <value xml:lang="it">Compito non assegnato</value>
         <value xml:lang="th">ไม่กำหนดงาน</value>
         <value xml:lang="zh">未分配任务</value>
+    </property>
+    <property key="PageTitleViewMailingList">
+        <value xml:lang="en">View Mailing List</value>
+        <value xml:lang="th">แสดงจดหมาย</value>
     </property>
     <property key="ProjectMgrCustomerRequestList">
         <value xml:lang="en">Project Customer Request list</value>
@@ -797,6 +809,10 @@
         <value xml:lang="it">Lista Ordini</value>
         <value xml:lang="zh">订单列表</value>
     </property>
+    <property key="ProjectMgrListMailingList">
+        <value xml:lang="en">List Mailing List</value>
+        <value xml:lang="th">รายการจดหมาย</value>
+    </property>
     <property key="ProjectMgrMon">
         <value xml:lang="en">Mon</value>
         <value xml:lang="fr">lun</value>
@@ -941,6 +957,10 @@
         <value xml:lang="it">Lista delle fasi e compiti</value>
         <value xml:lang="th">รายการของขั้นตอนการทำงานและงาน</value>
         <value xml:lang="zh">项目阶段和任务列表</value>
+    </property>
+    <property key="ProjectMgrMailingList">
+        <value xml:lang="en">Mailing List</value>
+        <value xml:lang="th">จดหมาย</value>
     </property>
     <property key="ProjectMgrPhases">
         <value xml:lang="en">Phases</value>

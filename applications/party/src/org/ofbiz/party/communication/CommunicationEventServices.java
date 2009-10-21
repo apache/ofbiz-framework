@@ -864,6 +864,16 @@ public class CommunicationEventServices {
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, toParties, "ADDRESSEE");
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, ccParties, "CC");
             createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, bccParties, "BCC");
+            
+            // get the related work effort info
+            List<Map<String, Object>> toWorkEffortInfos = buildListOfWorkEffortInfoFromEmailAddresses(addressesTo, userLogin, dispatcher);
+            List<Map<String, Object>> ccWorkEffortInfos = buildListOfWorkEffortInfoFromEmailAddresses(addressesCC, userLogin, dispatcher);
+            List<Map<String, Object>> bccWorkEffortInfos = buildListOfWorkEffortInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher);
+            
+            // For all WorkEffort addresses create a CommunicationEventWorkEffs
+            createCommunicationEventWorkEffs(userLogin, dispatcher, toWorkEffortInfos, communicationEventId);
+            createCommunicationEventWorkEffs(userLogin, dispatcher, ccWorkEffortInfos, communicationEventId);
+            createCommunicationEventWorkEffs(userLogin, dispatcher, bccWorkEffortInfos, communicationEventId);
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("communicationEventId", communicationEventId);
@@ -993,6 +1003,22 @@ public class CommunicationEventServices {
             Debug.logError(e, module);
         }
     }
+    
+    private static void createCommunicationEventWorkEffs(GenericValue userLogin, LocalDispatcher dispatcher, List<Map<String, Object>> workEffortInfos, String communicationEventId) {
+        // create relationship between communication event and work efforts
+        try {
+            Iterator<Map<String, Object>> it = workEffortInfos.iterator();
+            while (it.hasNext()) {
+                Map<String, Object> result = it.next();
+                String workEffortId = (String) result.get("workEffortId");
+                dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+    }
 
     /*
      * Helper method to retrieve the party information from the first email address of the Address[] specified.
@@ -1041,6 +1067,42 @@ public class CommunicationEventServices {
                                 UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
                         if (result.get("partyId") != null) {
                             tempResults.add(result);
+                        }
+                    }
+                }
+            }
+        }
+        return tempResults;
+    }
+    
+    /*
+     * Gets WorkEffort info from e-mail address and returns a List of the results for the array of addresses
+     */
+    private static List<Map<String, Object>> buildListOfWorkEffortInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
+        InternetAddress emailAddress = null;
+        Map<String, Object> result = null;
+        List<Map<String, Object>> tempResults = FastList.newInstance();
+        String caseInsensitiveEmail = org.ofbiz.base.util.UtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N");
+
+        if (addresses != null) {
+            for (Address addr: addresses) {
+                if (addr instanceof InternetAddress) {
+                    emailAddress = (InternetAddress)addr;
+
+                    if (!UtilValidate.isEmpty(emailAddress)) {
+                        Map<String, String> inputFields = FastMap.newInstance();
+                        inputFields.put("infoString", emailAddress.getAddress());
+                        inputFields.put("infoString_ic", caseInsensitiveEmail);
+                        result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName", "WorkEffortContactMechView"
+                                ,"inputFields", inputFields, "userLogin", userLogin));
+                        EntityListIterator listIt = (EntityListIterator) result.get("listIt");
+                        
+                        try {
+                        	List<GenericValue> list = listIt.getCompleteList();
+                            List<GenericValue> filteredList = EntityUtil.filterByDate(list);
+                            tempResults.addAll(filteredList);
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
                         }
                     }
                 }

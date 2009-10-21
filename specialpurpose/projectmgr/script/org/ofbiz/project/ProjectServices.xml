@@ -41,6 +41,24 @@
             <set field="updProjectRole.roleTypeId" value="CLIENT_BILLING"/>
             <call-simple-method method-name="updProjectRole"/>
         </if-not-empty>
+        <if-not-empty field="parameters.emailAddress">
+            <if-validate-method field="parameters.emailAddress" method="isEmail">
+                <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
+            </if-validate-method>
+            <check-errors/>
+            
+            <!-- create new work effort's e-mail address -->
+            <set field="emailAddressIn.emailAddress" from-field="parameters.emailAddress"/>
+            <set field="emailAddressIn.contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <call-service service-name="createEmailAddress" in-map-name="emailAddressIn">
+                <result-to-field result-name="contactMechId"/>
+            </call-service>
+            <set field="workEffortContactMechIn.workEffortId" from-field="parameters.workEffortId"/>
+            <set field="workEffortContactMechIn.contactMechId" from-field="contactMechId"/>
+            <set field="workEffortContactMechIn.contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <set field="workEffortContactMechIn.infoString" from-field="parameters.emailAddress"/>
+            <call-service service-name="createWorkEffortContactMech" in-map-name="workEffortContactMechIn"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="updateProject" short-description="Update a project">
@@ -55,6 +73,51 @@
             <set field="updProjectRole.newPartyId" from-field="parameters.clientBillingPartyId"/>
             <set field="updProjectRole.roleTypeId" value="CLIENT_BILLING"/>
             <call-simple-method method-name="updProjectRole"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.emailAddress">
+            <if-validate-method field="parameters.emailAddress" method="isEmail">
+                <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
+            </if-validate-method>
+            <check-errors/>
+            
+            <!-- find exist e-mail address. if have not exist then create new-->
+            <entity-condition list="existEmailAddresses" entity-name="WorkEffortContactMechView">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortId" from-field="parameters.workEffortId"/>
+                    <condition-expr field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                    <condition-expr field-name="infoString" from-field="parameters.emailAddress" ignore-case="true"/>
+                </condition-list>
+            </entity-condition>
+            <filter-list-by-date list="existEmailAddresses"/>
+            <if-empty field="existEmailAddresses">
+                <!-- expire old work effort's e-mail address -->
+                <entity-and list="oldEmailAddresses" entity-name="WorkEffortContactMechView">
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                    <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                </entity-and>
+                <filter-list-by-date list="oldEmailAddresses"/>
+                <iterate entry="oldEmailAddress" list="oldEmailAddresses">
+                    <entity-and list="oldWorkEffortContactMechs" entity-name="WorkEffortContactMech">
+                        <field-map field-name="workEffortId" from-field="oldEmailAddress.workEffortId"/>
+                        <field-map field-name="contactMechId" from-field="oldEmailAddress.contactMechId"/>
+                    </entity-and>
+                    <first-from-list entry="oldWorkEffortContactMech" list="oldWorkEffortContactMechs"/>
+                    <now-timestamp field="oldWorkEffortContactMech.thruDate"/>
+                    <store-value value-field="oldWorkEffortContactMech"/>
+                </iterate>
+                
+                <!-- create new work effort's e-mail address -->
+                <set field="emailAddressIn.emailAddress" from-field="parameters.emailAddress"/>
+                <set field="emailAddressIn.contactMechTypeId" value="EMAIL_ADDRESS"/>
+                <call-service service-name="createEmailAddress" in-map-name="emailAddressIn">
+                    <result-to-field result-name="contactMechId"/>
+                </call-service>
+                <set field="workEffortContactMechIn.workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortContactMechIn.contactMechId" from-field="contactMechId"/>
+                <set field="workEffortContactMechIn.contactMechTypeId" value="EMAIL_ADDRESS"/>
+                <set field="workEffortContactMechIn.infoString" from-field="parameters.emailAddress"/>
+                <call-service service-name="createWorkEffortContactMech" in-map-name="workEffortContactMechIn"/>
+            </if-empty>
         </if-not-empty>
     </simple-method>
 
@@ -625,6 +688,17 @@
                     </iterate>
                 </if-not-empty>
             </iterate>
+        </if-not-empty>
+        
+        <!-- get e-mail address -->
+        <entity-and list="emailAddresses" entity-name="WorkEffortContactMechView">
+            <field-map field-name="workEffortId" from-field="highInfo.projectId"/>
+            <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+        </entity-and>
+        <filter-list-by-date list="emailAddresses"/>
+        <if-not-empty field="emailAddresses">
+            <first-from-list entry="emailAddress" list="emailAddresses"/>
+            <set field="highInfo.emailAddress" from-field="emailAddress.infoString"/>
         </if-not-empty>
 
         <!-- translate squenceId back into statusId -->
