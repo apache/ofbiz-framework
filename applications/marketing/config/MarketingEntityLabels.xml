@@ -24,6 +24,7 @@
         <value xml:lang="es">Anuncio</value>
         <value xml:lang="fr">Annonce</value>
         <value xml:lang="it">Annunci</value>
+        <value xml:lang="nl">Aankondiging</value>
         <value xml:lang="ro">Anunturi</value>
         <value xml:lang="th">การประกาศ</value>
         <value xml:lang="zh">声明</value>
@@ -33,6 +34,7 @@
         <value xml:lang="es">Marketing</value>
         <value xml:lang="fr">Marketing</value>
         <value xml:lang="it">Vendite</value>
+        <value xml:lang="nl">Marketing</value>
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="th">การตลาด</value>
         <value xml:lang="zh">市场宣传</value>
@@ -42,6 +44,7 @@
         <value xml:lang="es">Carta de información</value>
         <value xml:lang="fr">Lettre d'information</value>
         <value xml:lang="it">Newsletter</value>
+        <value xml:lang="nl">Nieuwsbrief</value>
         <value xml:lang="ro">Noutati</value>
         <value xml:lang="th">จดหมายข่าว</value>
         <value xml:lang="zh">新闻</value>
@@ -51,6 +54,7 @@
         <value xml:lang="es">Segmento de marketing</value>
         <value xml:lang="fr">Segment de marché</value>
         <value xml:lang="it">Segmento di Mercato</value>
+        <value xml:lang="nl">Marktsegment</value>
         <value xml:lang="ro">Segment de Piata</value>
         <value xml:lang="th">ส่วนของการตลาด</value>
         <value xml:lang="zh">市场分区</value>
@@ -60,6 +64,7 @@
         <value xml:lang="es">Segmento de ventas</value>
         <value xml:lang="fr">Segment de vente</value>
         <value xml:lang="it">Segmento di Vendita</value>
+        <value xml:lang="nl">Salessegment</value>
         <value xml:lang="ro">Segment de Vanzare</value>
         <value xml:lang="th">ส่วนของการขาย</value>
         <value xml:lang="zh">销售分区</value>
@@ -74,6 +79,7 @@
         <value xml:lang="es">Externo</value>
         <value xml:lang="fr">Externe</value>
         <value xml:lang="it">Esterno</value>
+        <value xml:lang="nl">Extern</value>
         <value xml:lang="ro">Extern</value>
         <value xml:lang="th">ภายนอก</value>
         <value xml:lang="zh">外部</value>
@@ -83,6 +89,7 @@
         <value xml:lang="es">Interno</value>
         <value xml:lang="fr">Interne</value>
         <value xml:lang="it">Interno</value>
+        <value xml:lang="nl">Intern</value>
         <value xml:lang="ro">Intern</value>
         <value xml:lang="th">ภายใน</value>
         <value xml:lang="zh">内部</value>
@@ -92,6 +99,7 @@
         <value xml:lang="es">Partner</value>
         <value xml:lang="fr">Géré par un tiers</value>
         <value xml:lang="it">Gestito da un Partner</value>
+        <value xml:lang="nl">Partner</value>
         <value xml:lang="ro">Gestit de un Partener</value>
         <value xml:lang="th">หุ้นส่วนการควบคุม</value>
         <value xml:lang="zh">已管理的伙伴</value>
