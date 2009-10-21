@@ -212,7 +212,14 @@ public class ClientProfile extends XPage implements ActionListener {
                 Debug.logError(e, module);
             }
             m_dialog.repaint();
+        } else {
+            String card = m_cardEdit.getText();
+            if (SWIP_WITH_CARD && UtilValidate.isNotEmpty(m_cardEdit.getText())
+                    && (card.endsWith("&") && card.startsWith(";"))) {
+                m_cardEdit.setText(card.substring(1, card.length() - 1));                
+            }
         }
+        
         return;
     }
 
