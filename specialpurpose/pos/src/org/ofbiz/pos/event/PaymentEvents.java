@@ -350,17 +350,17 @@ public class PaymentEvents {
     }
 
     public static synchronized void processSale(PosScreen pos) {
-        pos.setWaitCursor();
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        PosScreen.currentScreen.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosProcessing",Locale.getDefault()));
-
         if (trans.isEmpty()) {
             PosScreen newPos = pos.showPage("pospanel");
             newPos.showDialog("dialog/error/noitems");
         } else if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
             pos.showDialog("dialog/error/notenoughfunds");
+            trans.clearPayment("CASH");
         } else {
             // manual locks (not secured; will be unlocked on clear)
+            pos.setWaitCursor();
+            PosScreen.currentScreen.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosProcessing",Locale.getDefault()));
             pos.getInput().setLock(true);
             pos.getButtons().setLock(true);
             pos.refresh(false);
