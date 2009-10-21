@@ -68,6 +68,9 @@ under the License.
                                 ${uiLabelMap.CommonNote}
                             </td>
                             <td>
+                                ${uiLabelMap.PartyParty} ${uiLabelMap.PartyName}
+                            </td>
+                            <td>
                                 ${uiLabelMap.CommonDate}
                             </td>
                         </tr>
@@ -78,6 +81,7 @@ under the License.
                                  <#else>
                                      <#assign row="alternate-row">
                             </#if>
+                            <#assign partyNameView = delegator.findOne("PartyNameView", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", custRequestItemNoteViewList.partyId), false)?if_exists/>
                             <tr class="${row}">
                                 <td>
                                 </td>
@@ -86,6 +90,9 @@ under the License.
                                 </td>
                                 <td >
                                    ${custRequestItemNoteViewList.noteInfo}
+                                </td>
+                                <td >
+                                   ${partyNameView.groupName?if_exists} ${partyNameView.firstName?if_exists} ${partyNameView.lastName?if_exists}
                                 </td>
                                 <td>
                                    ${custRequestItemNoteViewList.noteDateTime.toString().substring(0,10)}

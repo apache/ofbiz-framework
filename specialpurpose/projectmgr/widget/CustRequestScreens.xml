@@ -117,7 +117,7 @@ under the License.
                 </entity-and>
                 <entity-condition entity-name="CustRequestItemNoteView" list="custRequestItemNoteViews">
                     <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
-                    <order-by  field-name="-noteDateTime"/>
+                    <order-by  field-name="noteDateTime"/>
                 </entity-condition>
                 <entity-and entity-name="CustRequestContent" list="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
