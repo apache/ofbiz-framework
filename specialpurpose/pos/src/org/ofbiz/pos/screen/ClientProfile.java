@@ -215,7 +215,7 @@ public class ClientProfile extends XPage implements ActionListener {
         } else {
             String card = m_cardEdit.getText();
             if (SWIP_WITH_CARD && UtilValidate.isNotEmpty(m_cardEdit.getText())
-                    && (card.endsWith("&") && card.startsWith(";"))) {
+                    && (card.startsWith(";") && card.endsWith("&"))) {
                 m_cardEdit.setText(card.substring(1, card.length() - 1));                
             }
         }
