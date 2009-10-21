@@ -126,7 +126,7 @@
         <field name="payToPartyId"><hidden value="${partyId}"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="inventoryFacilityId"><hidden value="${parameters.facilityId}"/></field>
-        <field name="visualThemeId"><hidden value="FLAT_GREY"/></field>
+        <field name="visualThemeId"><hidden value="EC_DEFAULT"/></field>
         <field name="manualAuthIsCapture"><hidden value="N"/></field>
         <field name="prorateShipping"><hidden value="Y"/></field>
         <field name="prorateTaxes"><hidden value="Y"/></field>
@@ -196,8 +196,9 @@
 
     <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/webapp/content/website/WebSiteForms.xml">
         <actions><set field="webSiteId" from-field="webSite.webSiteId"/></actions>
-        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="WebStore"/></field>
         <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="visualThemeSetId"><hidden value="ECOMMERCE"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="httpHost"><hidden/></field>
         <field name="httpPort"><hidden/></field>
@@ -240,9 +241,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>  
     
-    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
+    <form name="EditProduct" type="single" target="createUpdateProduct" title="" default-map-name="product"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="product==null" target="createProduct"/>
         <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
         
         <field position="1" use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
@@ -251,6 +251,7 @@
         
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="productCategoryId"><hidden value="${productCategoryId}"/></field>
+        <field name="promoCat"><hidden value="${promoCat}"/></field>
         <field name="productTypeId"><hidden value="FINISHED_GOOD"/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="productName" title="${uiLabelMap.ProductProductName}" ><text size="30" maxlength="60"/></field>

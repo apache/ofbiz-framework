@@ -19,6 +19,7 @@
  import org.ofbiz.base.util.*
  import org.ofbiz.entity.util.EntityUtil;
  import javolution.util.FastList;
+ import org.ofbiz.product.catalog.*;
  
  prodCatalog = null;
  prodCatalogId = parameters.prodCatalogId;
@@ -68,13 +69,13 @@
          errMsgList.add("Product Catalog not set!");
          showErrorMsg = "Y";
      }
-
-     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId]));
      
+     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId, sequenceNum: new Long(1)]));
      if(prodCatalogCategory){
-         productCategory = prodCatalogCategory.getRelatedOne("ProductCategory");
-         productCategoryId = productCategory.productCategoryId;
-         
+         productCategory = EntityUtil.getFirst(delegator.findByAnd("ProductCategory", [primaryParentCategoryId : prodCatalogCategory.productCategoryId]));
+         if(productCategory){
+             productCategoryId = productCategory.productCategoryId;
+         }
      }
      context.productCategoryId = productCategoryId;
      context.productCategory = productCategory;
@@ -109,8 +110,11 @@
                  }
              }
          }
+         // get promotion category
+         promoCat = CatalogWorker.getCatalogPromotionsCategoryId(request, prodCatalogId);
          context.productId = productId;
          context.product = product;
+         context.promoCat = promoCat;
      }
      
      if (errMsgList) {

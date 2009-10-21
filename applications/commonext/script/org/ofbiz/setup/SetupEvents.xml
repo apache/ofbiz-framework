@@ -478,20 +478,64 @@
     </simple-method>
     
     <simple-method method-name="createProductCategoryAndAddToProdCatalog" short-description="addProductCategoryToProdCatalog">
-        <set-service-fields service-name="createProductCategory" map="parameters" to-map="createProductCategoryCtx"/>
-        <call-service service-name="createProductCategory" in-map-name="createProductCategoryCtx">
-            <result-to-field result-name="productCategoryId" field="addToProdCatalogCtx.productCategoryId"/>
-            <result-to-request result-name="productCategoryId" request-name="productCategoryId"/>
+        <!-- Create Parent ProductCategory -->
+        <set field="createPrimaryProductCategoryCtx.productCategoryId" value="${parameters.prodCatalogId}_ROOT"/>
+        <set field="createPrimaryProductCategoryCtx.categoryName" value="${parameters.prodCatalogId} Browse Root Category"/>
+        <set field="createPrimaryProductCategoryCtx.productCategoryTypeId" value="CATALOG_CATEGORY"/>
+        <call-service service-name="createProductCategory" in-map-name="createPrimaryProductCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="parameters.primaryParentCategoryId"/>
         </call-service>
-        
+
+        <set field="addToProdCatalogCtx.productCategoryId" from-field="parameters.primaryParentCategoryId"/>
         <set field="addToProdCatalogCtx.prodCatalogId" from-field="parameters.prodCatalogId"/>
         <set field="addToProdCatalogCtx.prodCatalogCategoryTypeId" value="PCCT_BROWSE_ROOT"/>
+        <set field="addToProdCatalogCtx.sequenceNum" value="1" type="Long"/>
         <call-service service-name="addProductCategoryToProdCatalog" in-map-name="addToProdCatalogCtx"/>
+
+        <!-- Create Promotion ProductCategory -->
+        <call-object-method obj-field="parameters.prodCatalogId" method-name="toUpperCase" ret-field="catalogUpperCase"/>
+        <set field="createPromotionCategoryCtx.productCategoryId" value="${catalogUpperCase}_PROMOTIONS"/>
+        <set field="createPromotionCategoryCtx.categoryName" value="${catalogUpperCase} Promotions"/>
+        <set field="createPromotionCategoryCtx.productCategoryTypeId" value="CATALOG_CATEGORY"/>
+        <set field="createPromotionCategoryCtx.detailScreen" value="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
+
+        <call-service service-name="createProductCategory" in-map-name="createPromotionCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="promotionCategoryId"/>
+        </call-service>
+        <set field="addPromoCatToProdCatalogCtx.productCategoryId" from-field="promotionCategoryId"/>
+        <set field="addPromoCatToProdCatalogCtx.prodCatalogId" from-field="parameters.prodCatalogId"/>
+        <set field="addPromoCatToProdCatalogCtx.prodCatalogCategoryTypeId" value="PCCT_PROMOTIONS"/>
+        <set field="addPromoCatToProdCatalogCtx.sequenceNum" value="2" type="Long"/>
+        <call-service service-name="addProductCategoryToProdCatalog" in-map-name="addPromoCatToProdCatalogCtx"/>
+        
+        <!-- Create ProductCategory & ProductCategoryRollup -->
+        <set-service-fields service-name="createProductCategory" map="parameters" to-map="createProductCategoryCtx"/>
+        <call-service service-name="createProductCategory" in-map-name="createProductCategoryCtx">
+            <result-to-field result-name="productCategoryId" field="productCategoryId"/>
+            <result-to-request result-name="productCategoryId" request-name="productCategoryId"/>
+        </call-service>
+
+        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
+        <set field="newEntity.parentProductCategoryId" from-field="parameters.primaryParentCategoryId"/>
+        <set field="newEntity.productCategoryId" from-field="productCategoryId"/>
+        <set field="newEntity.sequenceNum" value="1" type="Long"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="nowTimestamp"/>
+            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
-    <simple-method method-name="updateProductInCategory" short-description="Update a Product in a Category along with special information such as prices">
-        <set value="updateProductInCategory" field="callingMethodName"/>
-        <set field="checkAction" value="UPDATE"/>
+    <simple-method method-name="createUpdateProductInCategory" short-description="Create/Update a Product in a Category along with special information such as features">
+        <set value="createUpdateProductInCategory" field="callingMethodName"/>
+        <if-compare field="parameters.productId" operator="equals" value="${parameters.productCategoryId}">
+            <set field="parameters.productId" value="${parameters.productId}-001"/>
+        </if-compare>
+        <entity-one entity-name="Product" value-field="product"/>
+        <if-empty field="product">
+            <set field="checkAction" value="CREATE"/>
+            <else><set field="checkAction" value="UPDATE"/></else>
+        </if-empty>
         <call-simple-method method-name="checkCategoryRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/category/CategoryServices.xml"/>
         <check-errors/>
         
@@ -500,12 +544,57 @@
             <set field="parameters.currencyUomId" value="USD"/>
         </if-empty>
         
-        <!-- create Product -->
-        <set-service-fields service-name="updateProduct" map="parameters" to-map="callUpdateProductMap"/>
-        <call-service service-name="updateProduct" in-map-name="callUpdateProductMap"/>
+        <if-empty field="product">
+            <!-- create Product -->
+            <set-service-fields service-name="createProduct" map="parameters" to-map="callCreateProductMap"/>
+            <if-empty field="callCreateProductMap.productTypeId">
+                <set field="callCreateProductMap.productTypeId" value="FINISHED_GOOD"/>
+            </if-empty>
+            <call-service service-name="createProduct" in-map-name="callCreateProductMap">
+                <result-to-field result-name="productId"/>
+            </call-service>
+            
+            <!-- create ProductCategoryMember -->
+            <set field="callCreateProductCategoryMemberMap.productId" from-field="productId"/>
+            <set field="callCreateProductCategoryMemberMap.productCategoryId" from-field="parameters.productCategoryId"/>
+            <call-service service-name="addProductToCategory" in-map-name="callCreateProductCategoryMemberMap"/>
+            
+            <set field="callCreateProductCategoryMemberMap.productId" from-field="productId"/>
+            <set field="callCreateProductCategoryMemberMap.productCategoryId" from-field="parameters.promoCat"/>
+            <call-service service-name="addProductToCategory" in-map-name="callCreateProductCategoryMemberMap"/>
+            
+            <!-- create ProductFeatureAppl(s) -->
+            <set field="hasSelectableFeatures" value="N"/>
+            <iterate-map map="parameters.productFeatureIdByType" key="productFeatureTypeId" value="productFeatureId">
+                <log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
+                <set field="createPfaMap.productId" from-field="productId"/>
+                <set field="createPfaMap.productFeatureId" from-field="productFeatureId"/>
+                <if-compare field="parameters.productFeatureSelectableByType[productFeatureTypeId]" operator="equals" value="Y">
+                    <set field="createPfaMap.productFeatureApplTypeId" value="SELECTABLE_FEATURE"/>
+                    <set field="hasSelectableFeatures" value="Y"/>
+                    <else>
+                        <set field="createPfaMap.productFeatureApplTypeId" value="STANDARD_FEATURE"/>
+                    </else>
+                </if-compare>
+                <call-service service-name="applyFeatureToProduct" in-map-name="createPfaMap"/>
+                <clear-field field="createPfaMap"/>
+            </iterate-map>
+            
+            <!-- set isVirtual based on hasSelectableFeatures -->
+            <if-compare field="hasSelectableFeatures" operator="equals" value="Y">
+                <entity-one entity-name="Product" value-field="newProduct"/>
+                <set field="newProduct.isVirtual" value="Y"/>
+                <store-value value-field="newProduct"/>
+            </if-compare>
+            <else>
+                <!-- update Product -->
+                <set-service-fields service-name="updateProduct" map="parameters" to-map="callUpdateProductMap"/>
+                <call-service service-name="updateProduct" in-map-name="callUpdateProductMap"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </else>
+        </if-empty>
+        <field-to-result field="productId"/>
         
-        <set field="productId" from-field="parameters.productId"/>
-
         <!-- create/update defaultPrice and averageCost ProductPrice -->
         <if-not-empty field="parameters.defaultPrice">
             <entity-condition entity-name="ProductPrice" list="defaultPriceValues" filter-by-date="true">
@@ -567,7 +656,7 @@
                     <set field="updateAverageCostMap.price" from-field="parameters.averageCost" type="BigDecimal"/>
                     <call-service service-name="updateProductPrice" in-map-name="updateAverageCostMap"/>
                 </else>
-            </if-empty>            
+            </if-empty>
         </if-not-empty>
     </simple-method>
 
@@ -642,4 +731,10 @@
             }
         ]]></call-bsh>
     </simple-method>
+    
+    <simple-method method-name="createDefaultWebSite" short-description="Create a WebSite, default webSiteId is WebStore.">
+        <set field="parameters.webSiteId" value="WebStore"/>
+        <call-service service-name="createWebSite" in-map-name="parameters"/>
+    </simple-method>
+
 </simple-methods>
