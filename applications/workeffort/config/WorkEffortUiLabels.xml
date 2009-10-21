@@ -895,7 +895,7 @@
     </property>
     <property key="PageTitleEditWorkEffortContactMechs">
         <value xml:lang="en">Edit Work Effort Contact Mechs</value>
-        <value xml:lang="fr">Modifier les coordonnées de la tâche</value>
+        <value xml:lang="fr">Modifier les contacts de la tâche</value>
         <value xml:lang="it">Aggiorna Contatti Impegno di Lavoro</value>
         <value xml:lang="th">แก้ไขวิธีการติดต่องาน</value>
         <value xml:lang="zh">编辑人工服务联系方法</value>
@@ -1651,7 +1651,7 @@
     </property>
     <property key="WorkEffortContactMechs">
         <value xml:lang="en">Contact Mechs</value>
-        <value xml:lang="fr">Coordonnées</value>
+        <value xml:lang="fr">Contacts</value>
         <value xml:lang="it">Contatti</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="zh">联系方法</value>
@@ -3152,7 +3152,7 @@
     <property key="WorkEffortSelectContactMechanism">
         <value xml:lang="en">Select an existing contact mechanism</value>
         <value xml:lang="es">Seleccione un mecanismo de contacto existente</value>
-        <value xml:lang="fr">Sélection des coordonnées existantes</value>
+        <value xml:lang="fr">Sélection des contacts existants</value>
         <value xml:lang="it">Seleziona un contatto esistente</value>
         <value xml:lang="nl">Select an existing contact mechanism</value>
         <value xml:lang="ro">Selectioneaza un contact existent</value>
