@@ -22,14 +22,11 @@ under the License.
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>The Financial Account New Deposit Slip screen.</title>
-        <para>This screen allows the user to create an Payment Group and the transactions associated with the Payment Group will generate a deposit slip.</para>
+       <title>The Edit Tax Authority Party Info screen.</title>
+        <para>This screen is used to create or update details for a Tax Authority Party entry.</para>
+        <para>If a new entry is being created all fields are available to be entered. If an existing entry is being updated only limited fields are available to be amended.</para>
         <section>
-        <title>How do I create a New Deposit Slip?</title>
-        <para>Press the 'Find' button to list all the available transactions</para>
-        <para>Select the transactions to include in the Payment Group by using the 'Select All' or the check box that corresponds to the transactions required</para>
-        <para>Enter a 'Payment Group Name' if required (If none is entered then by default this will be 'Payment Group Name')</para>
-        <para>Press the 'Create Batch' button</para>
-        <para>A button to print the deposit slip will be displayed as well as the edit screen to make any further changes to the Payment Batch</para>
+        <title></title>
+        <para></para>
         </section>
 </section>

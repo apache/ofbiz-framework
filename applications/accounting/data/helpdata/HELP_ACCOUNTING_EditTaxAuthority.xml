@@ -22,14 +22,16 @@ under the License.
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>The Financial Account New Deposit Slip screen.</title>
-        <para>This screen allows the user to create an Payment Group and the transactions associated with the Payment Group will generate a deposit slip.</para>
+       <title>The Edit Tax Authority screen.</title>
+        <para>The 'Edit Tax Authority' sub menu is the first of six sub menus used in the creation or update of a Tax Authority. On the creation or update of a Tax Authority it is the default screen that is displayed.</para>
+        <para>It can be used for updating the basic details of a Tax Authority such as:</para>
+        <para>* Changing whether a tax id or code is required for an exemption</para> 
+        <para>* Modifying the tax id or code format</para>
+        <para>* Updating where or not to include the tax calculation as part of the product price</para>
+        <para>NOTE: An example of the Tax Id is as follows:</para>
+        <para>which translates to 99-9999999 or 999-99-9999</para>
         <section>
-        <title>How do I create a New Deposit Slip?</title>
-        <para>Press the 'Find' button to list all the available transactions</para>
-        <para>Select the transactions to include in the Payment Group by using the 'Select All' or the check box that corresponds to the transactions required</para>
-        <para>Enter a 'Payment Group Name' if required (If none is entered then by default this will be 'Payment Group Name')</para>
-        <para>Press the 'Create Batch' button</para>
-        <para>A button to print the deposit slip will be displayed as well as the edit screen to make any further changes to the Payment Batch</para>
+        <title></title>
+        <para></para>
         </section>
 </section>
