@@ -126,7 +126,7 @@
     <request-map uri="EditWebSite"><security https="true" auth="true"/><response name="success" type="view" value="EditWebSite"/></request-map>
     <request-map uri="createWebSite">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createWebSite"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createDefaultWebSite"/>
         <response name="success" type="view" value="EditWebSite"/>
         <response name="error" type="view" value="EditWebSite"/>
     </request-map>
@@ -175,15 +175,9 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProduct"/>
     </request-map>
-    <request-map uri="createProduct">
+    <request-map uri="createUpdateProduct">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createProductInCategory"/>
-        <response name="success" type="view" value="EditProduct"/>
-        <response name="error" type="view" value="EditProduct"/>
-    </request-map>
-    <request-map uri="updateProduct">
-        <security https="true" auth="true"/>
-        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="updateProductInCategory"/>
+        <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createUpdateProductInCategory"/>
         <response name="success" type="view" value="EditProduct"/>
         <response name="error" type="view" value="EditProduct"/>
     </request-map>
