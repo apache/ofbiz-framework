@@ -152,7 +152,7 @@ under the License.
         <field name="contactMechIdTo"><hidden value="${contactMechIdTo}"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
-        <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="origCommEventId != null"><hidden value="${parameters.origCommEventId}"/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="my"><hidden value="${my}"/></field>
         <field name="fromEmailAddr" parameter-name="contactMechIdFrom">
@@ -796,7 +796,7 @@ under the License.
         <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
         <field name="communicationEventTypeId"><hidden value="${communicationEvent.communicationEventTypeId}"/></field>
         <field name="parentCommEventId"><hidden value="${communicationEvent.parentCommEventId}"/></field>
-        <field name="originalCommEventId"><hidden value="${communicationEvent.originalCommEventId}"/></field>
+        <field name="origCommEventId"><hidden value="${communicationEvent.origCommEventId}"/></field>
         <field name="subject"><hidden/></field>
         <field name="content"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
