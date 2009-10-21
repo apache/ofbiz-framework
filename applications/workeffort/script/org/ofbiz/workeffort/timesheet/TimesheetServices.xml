@@ -132,6 +132,9 @@ under the License.
         <entity-one entity-name="Party" value-field="party">
             <field-map field-name="partyId" value="${invoice.partyId}"/>
         </entity-one>
+        <if-empty field="party.preferredCurrencyUomId">
+            <property-to-field resource="general" property="currency.uom.id.default" field="party.preferredCurrencyUomId"/>
+        </if-empty>
         <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
         <now-timestamp field="updateInvoiceMap.invoiceDate"/>
