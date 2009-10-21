@@ -24,21 +24,30 @@ under the License.
     <screen name="SystemInfoNotes">
         <section>
             <actions>
-                <service service-name="getSystemInfoNotes" result-map="resultMap"/>
+                <service service-name="getSystemInfoNotes"
+                    result-map="resultMap"/>
                 <set field="systemInfoNotes" from-field="resultMap.systemInfoNotes"/>
             </actions>
             <widgets>
+                <screenlet
+                    title="System Info notes for user: ${userLogin.partyId}"
+                    navigation-menu-name="SystemInfoNotes">
                 <section>
                     <condition>
-                        <not><if-empty field="systemInfoNotes"/></not>
+                        <not>
+                            <if-empty field="parameters.createPublicMsg"/>
+                        </not>
                     </condition>
                     <widgets>
-                        <screenlet title="System Info notes for user: ${userLogin.partyId}" navigation-menu-name="SystemInfoNotes">
-                            <include-menu name="SystemInfoNotes" location="component://commonext/widget/SystemInfoMenus.xml"/>
-                            <include-form name="SystemInfoNotes" location="component://commonext/widget/SystemInfoForms.xml"/>
-                        </screenlet>
+                        <include-form name="CreateSystemInfoNote"
+                            location="component://commonext/widget/SystemInfoForms.xml"/>
                     </widgets>
                 </section>
+                    <include-menu name="SystemInfoNotes"
+                        location="component://commonext/widget/SystemInfoMenus.xml"/>
+                    <include-form name="SystemInfoNotes"
+                        location="component://commonext/widget/SystemInfoForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

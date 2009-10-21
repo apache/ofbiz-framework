@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CommonExtCreatePublicMessage">
+        <value xml:lang="en">Create Public Message</value>
+    </property>
     <property key="CommonExtHelpDefinition">
         <value xml:lang="en">Definition, what is it?</value>
     </property>

@@ -24,6 +24,15 @@
         <menu-item name="deleteAll" title="${uiLabelMap.CommonDeleteAll}">
             <link target="deleteAllSystemNotes"/>
         </menu-item>
+        <menu-item name="createPublicMsg" title="${uiLabelMap.CommonExtCreatePublicMessage}">
+            <condition>
+                <if-has-permission permission="COMMONEXT_PUBLMSG"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+                <parameter param-name="createPublicMsg" value="true"/>
+            </link>
+        </menu-item>
     </menu>
     
 </menus>

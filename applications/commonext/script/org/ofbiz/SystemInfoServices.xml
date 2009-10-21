@@ -140,6 +140,30 @@ under the License.
                 <create-value value-field="noteData"/>
             </iterate>
         </if-compare>
+        
+        <!-- public message -->
+        <if-compare field="parameters.entityName" value="PublicMessage" operator="equals">
+            <if-has-permission permission="COMMONEXT_PUBLMSG">
+                <!-- get all recent visitors logged on the last 3 weeks -->
+                <set field="lastDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.ofbiz.base.util.UtilDateTime.nowTimestamp(), new Integer(&quot;-21&quot;))}" type="Timestamp"/>
+                <entity-condition list="parties" entity-name="PartyNameVisitView" distinct="true">
+                    <condition-expr field-name="fromDate" operator="greater" from-field="lastDate"/>
+                    <select-field field-name="partyId"/>
+                </entity-condition>
+                <iterate entry="party" list="parties">            
+                    <make-value value-field="noteData" entity-name="NoteData"/>
+                    <now-timestamp field="noteData.noteDateTime"/>
+                    <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                    <set field="noteData.noteParty" from-field="party.partyId"/>
+                    <set field="noteData.noteName" value="SYSTEMNOTE"/>
+                    <set field="noteData.noteInfo" from-field="parameters.noteInfo"/>
+                    <create-value value-field="noteData"/>
+                </iterate>
+                <set field="noteData.noteParty" value="_NA_"/><!-- message for not logged in users -->
+                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+                <create-value value-field="noteData"/>
+            </if-has-permission>
+        </if-compare>
     </simple-method>
 
     <simple-method method-name="getPortletAttributeMap" short-description="get the attributes of the SystemInfoNotes portlet for a userlogin">
@@ -225,13 +249,25 @@ under the License.
             <field-to-result field="systemInfoNotes"/>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="getLastSystemInfoNote" short-description="">
-        <entity-and entity-name="NoteData" list="systemInfoNotes">
-            <field-map field-name="noteParty" from-field="parameters.userLogin.partyId"/>
-            <field-map field-name="noteName" value="SYSTEMNOTE"/>
-            <order-by field-name="-noteDateTime"/>
-        </entity-and>
+
+    <simple-method method-name="getLastSystemInfoNote"
+        short-description="Get the last 3 system info notes"
+        login-required="false">
+        <if-not-empty field="parameters.userLogin">
+            <entity-and entity-name="NoteData" list="systemInfoNotes">
+                <field-map field-name="noteParty"
+                    from-field="parameters.userLogin.partyId"/>
+                <field-map field-name="noteName" value="SYSTEMNOTE"/>
+                <order-by field-name="-noteDateTime"/>
+            </entity-and>
+            <else>
+                <entity-and entity-name="NoteData" list="systemInfoNotes">
+                    <field-map field-name="noteParty" value="_NA_"/>
+                    <field-map field-name="noteName" value="SYSTEMNOTE"/>
+                    <order-by field-name="-noteDateTime"/>
+                </entity-and>
+            </else>
+        </if-not-empty>
         <if-not-empty field="systemInfoNotes">
             <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]"/>
             <field-to-result field="lastSystemInfoNote1"/>
