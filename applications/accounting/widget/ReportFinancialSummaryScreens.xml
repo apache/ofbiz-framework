@@ -468,9 +468,6 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingUnPostedTransactionTotals}">
                             <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.AccountingUnPostedTransactionTotals}">
-                            <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
                         <screenlet title="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}">
                             <include-form name="PostedAndUnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
                         </screenlet>
