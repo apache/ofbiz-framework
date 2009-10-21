@@ -255,7 +255,8 @@ public class ContactMechWorker {
         List<GenericValue> allWorkEffortContactMechs = null;
 
         try {
-            allWorkEffortContactMechs = delegator.findByAnd("WorkEffortContactMech", UtilMisc.toMap("workEffortId", workEffortId));
+            List<GenericValue> workEffortContactMechs = delegator.findByAnd("WorkEffortContactMech", UtilMisc.toMap("workEffortId", workEffortId));
+            allWorkEffortContactMechs = EntityUtil.filterByDate(workEffortContactMechs);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }

@@ -84,6 +84,7 @@
         <field use-when="projectId!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
         <field use-when="projectId!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
         <field use-when="projectId!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
+        <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_mailingListEmail}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="AddSubProject" type="single" target="AddSubProject"
@@ -243,6 +244,7 @@
         <field name="plannedHours"><display/></field>
         <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
+        <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_mailingListEmail}"><display/></field>
     </form>
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -927,4 +929,45 @@
         <field name="task"><display description="${workEffortName}"/></field>
     </form>
 
+    <form name="FindMailingList" type="single" target="FindMailingList" extends="findCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
+        <field name="projectId"><hidden/></field>
+        <field name="entryDate"><date-find/></field>
+        <field name="partyIdTo"><hidden/></field>
+        <field name="communicationEventTypeId"><hidden/></field>
+        <field name="partyId"><hidden/></field>
+        <field name="parentCommEventId"><hidden/></field>
+        <field name="statusId"><hidden/></field>
+        <sort-order>
+            <sort-field name="communicationEventId"/>
+            <sort-field name="partyIdFrom"/>
+            <sort-field name="subject"/>
+            <sort-field name="entryDate"/>
+            <sort-field name="noConditionFind"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+    <form name="ListMailingLists" type="list" list-name="listIt" title="Mailing List" paginate-target="FindMailingList"
+            extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-entryDate"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="WorkEffortCommunicationEventView"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="subject">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewMailingList">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="communicationEventId"/>
+            </hyperlink>
+        </field>
+        <field name="entryDate"><display type="date-time"/></field>
+        <field name="communicationEventTypeId"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
+        <field name="statusId"><hidden/></field>
+        <field name="datetimeStarted"><hidden/></field>
+    </form>
 </forms>

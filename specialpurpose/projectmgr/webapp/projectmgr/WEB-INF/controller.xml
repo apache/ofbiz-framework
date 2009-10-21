@@ -306,6 +306,14 @@
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
     </request-map>
+    <request-map uri="FindMailingList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindMailingList"/>
+    </request-map>
+    <request-map uri="ViewMailingList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewMailingList"/>
+    </request-map>
     <request-map uri="EditTaskSkills">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskSkills"/>
@@ -716,6 +724,8 @@
     <view-map name="EditTaskPartyAssigns" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskPartyAssigns"/>
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectParties"/>
     <view-map name="FindPhase" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindPhase"/>
+    <view-map name="FindMailingList" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindMailingList"/>
+    <view-map name="ViewMailingList" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ViewMailingList"/>
     <view-map name="EditTaskSkills" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskSkills"/>
     <view-map name="projectView" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ProjectView"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>

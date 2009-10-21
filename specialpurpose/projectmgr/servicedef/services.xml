@@ -105,6 +105,7 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="clientBillingPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
@@ -118,6 +119,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="clientBillingPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createProjectTask" engine="simple" default-entity-name="WorkEffort"

@@ -100,6 +100,14 @@
                 <parameter param-name="projectId"/>
             </link>
         </menu-item>
+        <menu-item name="mailing" title="${uiLabelMap.ProjectMgrMailingList}">
+            <condition>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
+            </condition>
+            <link target="FindMailingList">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}">
             <condition>
                 <and>

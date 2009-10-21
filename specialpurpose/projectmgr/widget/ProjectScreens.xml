@@ -1109,5 +1109,66 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="FindMailingList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindMailingList"/>
+                <set field="tabButtonItem" value="mailing"/>
+                <set field="labelTitleProperty" value="ProjectMgrListMailingList"/>
+                <set field="parameters.workEffortId" from-field="parameters.projectId"/>
+                <set field="initially-collapsed" value="true" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}" initially-collapsed="true">
+                                    <include-form location="component://projectmgr/widget/forms/ProjectForms.xml" name="FindMailingList"/>
+                                </screenlet>
+                                <screenlet padded="false" title="${uiLabelMap.CommonSearchResults}">
+                                    <include-form location="component://projectmgr/widget/forms/ProjectForms.xml" name="ListMailingLists"/>
+                                </screenlet>
+                            </widgets>
+                        </section>                                
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewMailingList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewMailingList"/>
+                <set field="tabButtonItem" value="mailing"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label  style="h1" text="${uiLabelMap[titleProperty]}"/>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <include-screen location="component://party/widget/partymgr/CommunicationEventScreens.xml" name="commOverview"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>

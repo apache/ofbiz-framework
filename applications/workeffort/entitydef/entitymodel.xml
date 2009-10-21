@@ -403,14 +403,17 @@ under the License.
         <key-map field-name="invoiceItemSeqId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortContactMech"
+    <entity entity-name="WorkEffortContactMech" table-name="WORK_EFFORT_CONTACT_MECH_NEW"
             package-name="org.ofbiz.workeffort.workeffort"
             title="WorkEffort Contact Mechanism Entity">
       <field name="workEffortId" type="id-ne"></field>
       <field name="contactMechId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="contactMechId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="WKEFF_CMECH_WKEFF" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>
       </relation>
