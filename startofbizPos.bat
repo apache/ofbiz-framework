@@ -51,7 +51,6 @@ rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=128m -Xdebug -Xnoag
 
 rem ### Simple easy to read line
 echo on
-copy framework\base\config\pos-containers.xml.bak framework\base\config\pos-containers.xml /y
 "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar -pos
 echo off
 rem ### If you would prefer the console output to be logged rather than displayed switch out the above line for this one
