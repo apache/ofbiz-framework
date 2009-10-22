@@ -97,6 +97,9 @@ under the License.
     <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
     <FinAccountType description="Replenish Account" finAccountTypeId="REPLENISH_ACCOUNT" hasTable="N" replenishEnumId="FARP_AUTOMATIC" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
     <FinAccountType description="Service Credit Account" finAccountTypeId="SVCCRED_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="N" parentTypeId=""/>
+    <FinAccountType description="Loan Account" finAccountTypeId="LOAN_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId=""/>
+    <FinAccountType description="Credit Card Account" finAccountTypeId="CREDIT_CARD_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
+    <FinAccountType description="Equity Line Account" finAccountTypeId="EQUITY_LINE_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
 
     <StatusType description="Financial Account Status" hasTable="N" parentTypeId="" statusTypeId="FINACCT_STATUS"/>
     <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="FNACT_ACTIVE" statusTypeId="FINACCT_STATUS"/>
