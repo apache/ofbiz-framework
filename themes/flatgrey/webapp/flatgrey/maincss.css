@@ -666,6 +666,13 @@ line-height: 2em;
 width: 100%;
 }
 
+.page-title {
+color:#000099;
+margin-bottom:0.5em;
+font-size:1.6em;
+font-weight:bold;
+}
+
 DIV.row {
 background-color: #B4B0AA;
 margin: 0 auto 0 auto;

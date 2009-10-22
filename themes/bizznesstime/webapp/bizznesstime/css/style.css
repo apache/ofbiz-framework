@@ -1213,6 +1213,15 @@ div.simple-right-half {
     text-align: right;
 }
 
+.page-title {
+    color:#333333;
+    font-size:2em;
+    font-weight:700;
+    clear:both;
+    display:inline-block;
+    margin:5px 0 10px;
+}
+
 /***********************************************
 Screens (legacy style)
 ***********************************************/
