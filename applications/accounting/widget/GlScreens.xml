@@ -32,7 +32,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <container>
                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         </container>
@@ -60,7 +60,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingPartyAccountsSummary}">
-                                <include-menu location="component://accounting/widget/Menus.xml" name="PartyGlShortCuts"/>
+                                <include-menu location="component://accounting/widget/AccountingMenus.xml" name="PartyGlShortCuts"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -301,7 +301,7 @@ under the License.
                                 <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu location="component://accounting/widget/Menus.xml" name="EditGlAcctgTransSubTabBar"/>
+                                <include-menu location="component://accounting/widget/AccountingMenus.xml" name="EditGlAcctgTransSubTabBar"/>
                                 <section>
                                     <condition>
                                         <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>

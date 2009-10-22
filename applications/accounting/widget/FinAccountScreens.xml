@@ -40,10 +40,10 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="finAccountId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="FinAccountTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <include-menu name="FinAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-menu name="FinAccountMainTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <include-menu name="FinAccountMainTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -75,7 +75,7 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
-                                            <include-menu name="FinAccountSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                            <include-menu name="FinAccountSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">

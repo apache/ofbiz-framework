@@ -86,7 +86,7 @@ under the License.
                                 <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="FixedAssetTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="FixedAssetTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="pre-body"/>
@@ -328,7 +328,7 @@ under the License.
                         <section>
                             <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
-                                <include-menu name="FixedAssetMaintTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="FixedAssetMaintTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
