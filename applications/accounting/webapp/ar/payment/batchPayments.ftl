@@ -64,14 +64,36 @@ function getPaymentRunningTotal() {
         $('showPaymentRunningTotal').update("");
     }
 }
+function setServiceName(selection) {
+    $('paymentBatchForm').action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
+    showCreatePaymentBatch(selection);
+    $('submitButton').disabled = true;
+}
+function showCreatePaymentBatch(selection) {
+    if (selection.value == 'createPaymentBatch') {
+        Effect.BlindDown('createPaymentBatch',{duration: 0.0});
+    } else {
+        Effect.BlindUp('createPaymentBatch',{duration: 0.0});
+    }
+}
+
 // -->
 
 </script>
 <div class="screenlet">
     <div class="screenlet-body">
-        <form id="paymentBatchForm" name="paymentBatchForm" method="post" action="<@ofbizUrl>createPaymentBatch</@ofbizUrl>">
+        <form id="paymentBatchForm" name="paymentBatchForm" method="post" action="">
             <#if paymentList?has_content>
                 <div>
+                    <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
+                    <span class="label" id="showPaymentRunningTotal"></span>
+                </div>
+                <div align="right">
+                    <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
+                        <option value="">${uiLabelMap.AccountingSelectAction}</options>
+                        <option value="createPaymentBatch">${uiLabelMap.AccountingCreateBatch}</option>
+                    </select>
+                    <input id="submitButton" type="button"  onclick="javascript:$('paymentBatchForm').submit();" value="${uiLabelMap.OrderRunAction}" disabled/>
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
                     <input type="hidden" name="groupInOneTransaction" value="Y"/>
@@ -83,10 +105,6 @@ function getPaymentRunningTotal() {
                     <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}">
                     <input type="hidden" name='fromDate' value="${fromDate?if_exists}">
                     <input type="hidden" name='thruDate' value="${thruDate?if_exists}">
-                </div>
-                <div>
-                    <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
-                    <span class="label" id="showPaymentRunningTotal"></span>
                 </div>
                 <table class="basic-table">
                     <tr class="header-row">
@@ -117,7 +135,7 @@ function getPaymentRunningTotal() {
                             </td>
                         </tr>
                     </#list>
-                    <div align="right">
+                    <div id="createPaymentBatch" style="display: none;" align="right">
                         <span class="label">${uiLabelMap.AccountingPaymentGroupName}</span>
                         <input type="text" size='25' id="paymentGroupName" name='paymentGroupName'>
                         <#if finAccounts?has_content>
@@ -128,7 +146,6 @@ function getPaymentRunningTotal() {
                                 </#list>
                             </select>
                         </#if>
-                        <input id="submitButton" type="submit" value="${uiLabelMap.AccountingCreateBatch}"/>
                     <div>
                 </table>
             <#else>
