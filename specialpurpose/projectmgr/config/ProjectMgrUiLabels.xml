@@ -1387,6 +1387,10 @@
         <value xml:lang="th">ค้นหางานแสดงขอบเขต</value>
         <value xml:lang="zh">查找任务的范围</value>
     </property>
+    <property key="ProjectMgrTotals">
+        <value xml:lang="en">Totals</value>
+        <value xml:lang="fr">Totaux</value>
+    </property>
     <property key="ProjectMgrTreeDetails">
         <value xml:lang="en">Tree Details</value>
         <value xml:lang="fr">Détails de l'arborescence</value>

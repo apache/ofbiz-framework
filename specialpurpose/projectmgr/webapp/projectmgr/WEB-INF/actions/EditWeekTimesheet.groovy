@@ -29,6 +29,8 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import java.sql.Timestamp;
 
+uiLabelMap = UtilProperties.getResourceBundleMap("ProjectMgrUiLabels", locale);
+
 partyId = parameters.partyId;
 if (!partyId) {
     partyId = parameters.userLogin.partyId;
@@ -180,7 +182,7 @@ if (timeEntry) {
     entry.d4 = day4Total;
     entry.d5 = day5Total;
     entry.d6 = day6Total;
-    entry.phaseName = "Totals";
+    entry.phaseName = uiLabelMap.ProjectMgrTotals;
     entry.workEffortId = "Totals";
     entry.total = day0Total + day1Total + day2Total + day3Total + day4Total + day5Total + day6Total;
     entries.add(entry);
