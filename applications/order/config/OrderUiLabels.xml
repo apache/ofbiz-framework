@@ -60,6 +60,7 @@
     </property>
     <property key="FormFieldTitle_cancelBackOrderDate">
         <value xml:lang="en">Cancel Back Order Date</value>
+        <value xml:lang="it">Cancella data back order</value>
         <value xml:lang="zh">取消返回订单日期</value>
     </property>
     <property key="FormFieldTitle_carrierRoleTypeId">
@@ -1252,9 +1253,6 @@
         <value xml:lang="it">all'ordine</value>
         <value xml:lang="zh">到订单</value>
     </property>
-    <property key="OrderNewShippingAddress">
-        <value xml:lang="en">New Shipping Address</value>
-    </property>
     <property key="OrderAddToCart">
         <value xml:lang="cs">přidat do košíku</value>
         <value xml:lang="de">In den Warenkorb legen</value>
@@ -1323,6 +1321,7 @@
     </property>
     <property key="OrderAddressVerification">
         <value xml:lang="en">Address Verification (AVS)</value>
+        <value xml:lang="it">Verifica indirizzo (AVS)</value>
     </property>
     <property key="OrderAdjustment">
         <value xml:lang="de">Anpassung</value>
@@ -1569,9 +1568,6 @@
         <value xml:lang="th">AVS</value>
         <value xml:lang="zh">地址验证服务</value>
     </property>
-    <property key="OrderBackToOrder">
-        <value xml:lang="en">Back to order</value>
-    </property>
     <property key="OrderBackOrdered">
         <value xml:lang="de">Auftrag im Rückstand</value>
         <value xml:lang="en">Backordered</value>
@@ -1595,6 +1591,10 @@
         <value xml:lang="ru">Задолженные заказы</value>
         <value xml:lang="th">กลับรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">缺货通知单</value>
+    </property>
+    <property key="OrderBackToOrder">
+        <value xml:lang="en">Back to order</value>
+        <value xml:lang="it">Torna indietro all'ordine</value>
     </property>
     <property key="OrderBacktoShoppingCart">
         <value xml:lang="cs">zpět do košíku</value>
@@ -1724,9 +1724,6 @@
         <value xml:lang="zh">取消全部明细</value>
         <value xml:lang="zh_CN">取消所有项目</value>
     </property>
-    <property key="OrderCancelledMyCustomerRequests">
-        <value xml:lang="en">My Cancelled Customer Requests</value>
-    </property>
     <property key="OrderCancelOrder">
         <value xml:lang="de">Auftrag annullieren</value>
         <value xml:lang="en">Cancel Order</value>
@@ -1736,6 +1733,14 @@
         <value xml:lang="it">Annulla ordine</value>
         <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
         <value xml:lang="zh">取消订单</value>
+    </property>
+    <property key="OrderCancelRemainingPOItems">
+        <value xml:lang="en">Cancel Remaining PO Items</value>
+        <value xml:lang="it">Cancella righe rimaste ordine acquisto</value>
+    </property>
+    <property key="OrderCancelSelectedItems">
+        <value xml:lang="en">Cancel Selected Items</value>
+        <value xml:lang="it">Cancella righe selezionate</value>
     </property>
     <property key="OrderCancelled">
         <value xml:lang="de">Annulliert</value>
@@ -1750,11 +1755,9 @@
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_CN">已取消</value>
     </property>
-    <property key="OrderCancelRemainingPOItems">
-        <value xml:lang="en">Cancel Remaining PO Items</value>
-    </property>
-    <property key="OrderCancelSelectedItems">
-        <value xml:lang="en">Cancel Selected Items</value>
+    <property key="OrderCancelledMyCustomerRequests">
+        <value xml:lang="en">My Cancelled Customer Requests</value>
+        <value xml:lang="it">Proprie richieste cliente cancellate</value>
     </property>
     <property key="OrderCannotBeChanged">
         <value xml:lang="de">(kann nicht geändert werden, ohne den Auftrag zu löschen)</value>
@@ -1771,6 +1774,7 @@
     </property>
     <property key="OrderCannotCancelRequestAlreadyWorkedOn">
         <value xml:lang="en">You cannot cancel this customer request, work has already started on it.</value>
+        <value xml:lang="it">Tu non puoi cancellare questo cliente, lavoro già iniziato.</value>
         <value xml:lang="zh">你不能取消这个客户请求，对它已经开始展开工作了。</value>
     </property>
     <property key="OrderCannotChangeQuantityInPromotion">
@@ -2072,6 +2076,7 @@
     </property>
     <property key="OrderCompletedMyCustomerRequests">
         <value xml:lang="en">My Completed customer requests</value>
+        <value xml:lang="it">Proprie richieste cliente completate</value>
     </property>
     <property key="OrderConfigure">
         <value xml:lang="de">Konfigurieren</value>
@@ -2200,6 +2205,7 @@
     </property>
     <property key="OrderCreateExchangeOrder">
         <value xml:lang="en">Create Exchange Order</value>
+        <value xml:lang="it">Creare ordine di cambio</value>
     </property>
     <property key="OrderCreateNewReturn">
         <value xml:lang="de">Neue Retoure erstellen</value>
@@ -2364,6 +2370,10 @@
         <value xml:lang="th">สร้างงานคำร้องใหม่</value>
         <value xml:lang="zh">新建询价人工服务</value>
     </property>
+    <property key="OrderCreateReplacementOrder">
+        <value xml:lang="en">Create Replacement Order</value>
+        <value xml:lang="it">Creare ordine per sostituzione</value>
+    </property>
     <property key="OrderCreateReturn">
         <value xml:lang="de">Retoure erstellen</value>
         <value xml:lang="en">Create Return</value>
@@ -2419,6 +2429,25 @@
         <value xml:lang="zh">当前状态</value>
         <value xml:lang="zh_CN">当前状态</value>
     </property>
+    <property key="OrderCustRequestNotificationMailCompleted">
+        <value xml:lang="en">Customer Request Completed Notification Mai</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
+        <value xml:lang="zh">完成客户请求的通知邮件</value>
+    </property>
+    <property key="OrderCustRequestNotificationMailCreation">
+        <value xml:lang="en">Customer Request Creation Notification Mail</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
+        <value xml:lang="zh">创建客户请求的通知邮件</value>
+    </property>
+    <property key="OrderCustRequestNotificationMailNoteAdded">
+        <value xml:lang="en">Customer Request Note added Notification</value>
+        <value xml:lang="it">Notifica nota richiesta cliente aggiunta</value>
+    </property>
+    <property key="OrderCustRequestStatusList">
+        <value xml:lang="en">Customer Request Status List</value>
+        <value xml:lang="it">Lista stato richiesta cliente</value>
+        <value xml:lang="zh">客户请求状态列表</value>
+    </property>
     <property key="OrderCustomer">
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
@@ -2471,23 +2500,6 @@
         <value xml:lang="ru">Налоговый номер пользователя</value>
         <value xml:lang="th">หมายเลขผู้เสียภาษี</value>
         <value xml:lang="zh">客户税务标识</value>
-    </property>
-    <property key="OrderCustRequestNotificationMailCompleted">
-        <value xml:lang="en">Customer Request Completed Notification Mai</value>
-        <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
-        <value xml:lang="zh">完成客户请求的通知邮件</value>
-    </property>
-    <property key="OrderCustRequestNotificationMailNoteAdded">
-        <value xml:lang="en">Customer Request Note added Notification</value>
-    </property>
-    <property key="OrderCustRequestNotificationMailCreation">
-        <value xml:lang="en">Customer Request Creation Notification Mail</value>
-        <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
-        <value xml:lang="zh">创建客户请求的通知邮件</value>
-    </property>
-    <property key="OrderCustRequestStatusList">
-        <value xml:lang="en">Customer Request Status List</value>
-        <value xml:lang="zh">客户请求状态列表</value>
     </property>
     <property key="OrderDate">
         <value xml:lang="de">Auftragsdatum</value>
@@ -2601,6 +2613,7 @@
     </property>
     <property key="OrderDoNotInclude">
         <value xml:lang="en">Do Not Include</value>
+        <value xml:lang="it">Non includere</value>
     </property>
     <property key="OrderDoPromotions">
         <value xml:lang="de">Aktionen anwenden</value>
@@ -3272,6 +3285,7 @@
     </property>
     <property key="OrderHistoryNotAvailable">
         <value xml:lang="en">History not available</value>
+        <value xml:lang="it">Storia non disponibile</value>
     </property>
     <property key="OrderHold">
         <value xml:lang="de">Auftrag anhalten</value>
@@ -3759,14 +3773,17 @@
     <property key="OrderLimitPerCustomer">
         <value xml:lang="en">Limit ${limit} per customer. </value>
         <value xml:lang="fr">Limiter à ${limit} par client. </value>
-    </property>
-    <property key="OrderLimitPerPromotion">
-        <value xml:lang="en">Limit ${limit} per promotion. </value>
-        <value xml:lang="fr">Limiter à ${limit} par promotion. </value>
+        <value xml:lang="it">Limite ${limit} per cliente. </value>
     </property>
     <property key="OrderLimitPerOrder">
         <value xml:lang="en">Limit ${limit} per order. </value>
         <value xml:lang="fr">Limiter à ${limit} par commande. </value>
+        <value xml:lang="it">Limite ${limit} per ordine. </value>
+    </property>
+    <property key="OrderLimitPerPromotion">
+        <value xml:lang="en">Limit ${limit} per promotion. </value>
+        <value xml:lang="fr">Limiter à ${limit} par promotion. </value>
+        <value xml:lang="it">Limite ${limit} per promozione. </value>
     </property>
     <property key="OrderLinkedFromOrderItem">
         <value xml:lang="de">Verlinkt von Auftragselement</value>
@@ -3925,6 +3942,7 @@
     </property>
     <property key="OrderMarkViewed">
         <value xml:lang="en">Mark Viewed</value>
+        <value xml:lang="it">Marca come visionato</value>
     </property>
     <property key="OrderMethod">
         <value xml:lang="cs">Způsob</value>
@@ -4196,6 +4214,10 @@
         <value xml:lang="th">การขนส่งสินค้าใหม่สำหรับกลุ่มการขนส่ง</value>
         <value xml:lang="zh">为运输组新建货运</value>
         <value xml:lang="zh_CN">新建货运组发货记录</value>
+    </property>
+    <property key="OrderNewShippingAddress">
+        <value xml:lang="en">New Shipping Address</value>
+        <value xml:lang="it">Nuovo indirizzo di spedizione</value>
     </property>
     <property key="OrderNewShoppingList">
         <value xml:lang="cs">Nový nákupní seznam</value>
@@ -4738,12 +4760,6 @@
         <value xml:lang="th">ภายในวันศุกร์</value>
         <value xml:lang="zh">星期五</value>
     </property>
-    <property key="OrderOnlineUPSShippingEstimates">
-        <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
-    </property>
-    <property key="OrderOnlyInclude">
-        <value xml:lang="en">Only Include</value>
-    </property>
     <property key="OrderOnOrder">
         <value xml:lang="de">Auf Auftrag</value>
         <value xml:lang="en">On Order</value>
@@ -4772,8 +4788,22 @@
         <value xml:lang="th">ขาย</value>
         <value xml:lang="zh">销售中</value>
     </property>
+    <property key="OrderOnlineUPSShippingEstimates">
+        <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
+        <value xml:lang="it">Stima spedizione online UPS basata su peso e dimensione dei pacchi</value>
+    </property>
+    <property key="OrderOnlyInclude">
+        <value xml:lang="en">Only Include</value>
+        <value xml:lang="it">Includi solo</value>
+    </property>
     <property key="OrderOpenCollequeCustomerRequests">
         <value xml:lang="en">Open Customer requests from my Colleques</value>
+        <value xml:lang="it">Richieste cliente aperte dai miei colleghi</value>
+    </property>
+    <property key="OrderOpenCompanyCustomerRequests">
+        <value xml:lang="en">Other Customer Requests from the same company</value>
+        <value xml:lang="it">Altre richieste cliente per la stessa azienda</value>
+        <value xml:lang="zh">来自同一个公司的其它客户请求</value>
     </property>
     <property key="OrderOpenMyCustomerRequests">
         <value xml:lang="en">My Open Customer Requests</value>
@@ -4782,9 +4812,10 @@
         <value xml:lang="th">ความต้องการของลูกค้า</value>
         <value xml:lang="zh">我打开的客户请求</value>
     </property>
-    <property key="OrderOpenCompanyCustomerRequests">
-        <value xml:lang="en">Other Customer Requests from the same company</value>
-        <value xml:lang="zh">来自同一个公司的其它客户请求</value>
+    <property key="OrderOpportunities">
+        <value xml:lang="en">Opportunities</value>
+        <value xml:lang="fr">Opportunités</value>
+        <value xml:lang="it">Opportunità</value>
     </property>
     <property key="OrderOptions">
         <value xml:lang="de">Bestelloptionen</value>
@@ -4799,11 +4830,6 @@
         <value xml:lang="ru">Параметры заказа</value>
         <value xml:lang="th">ลักษณะการสั่งซื้อ</value>
         <value xml:lang="zh">订单选项</value>
-    </property>
-    <property key="OrderOpportunities">
-        <value xml:lang="en">Opportunities</value>
-        <value xml:lang="fr">Opportunités</value>
-        <value xml:lang="it">Opportunità</value>
     </property>
     <property key="OrderOrder">
         <value xml:lang="cs">Objednávka</value>
@@ -5006,6 +5032,7 @@
     </property>
     <property key="OrderOrderHistory">
         <value xml:lang="en">Order History</value>
+        <value xml:lang="it">Storia ordine</value>
     </property>
     <property key="OrderOrderId">
         <value xml:lang="de">Auftrag ID</value>
@@ -5749,6 +5776,19 @@
         <value xml:lang="zh">询价单价</value>
         <value xml:lang="zh_CN">报价单价</value>
     </property>
+    <property key="OrderOrderQuoteUomId">
+        <value xml:lang="de">Offerte Einheit ID</value>
+        <value xml:lang="en">Quote Uom Id</value>
+        <value xml:lang="es">Unidad de medida</value>
+        <value xml:lang="fr">Unité de mesure</value>
+        <value xml:lang="it">UdM Preventivo</value>
+        <value xml:lang="nl">Offerte Uom Id</value>
+        <value xml:lang="ro">UdM Oferta</value>
+        <value xml:lang="ru">Код валюты предложения</value>
+        <value xml:lang="th">รหัสหน่วยวัดคำร้อง</value>
+        <value xml:lang="zh">询价币种标识</value>
+        <value xml:lang="zh_CN">报价单位标识</value>
+    </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="de">Offertgewinn anzeigen</value>
         <value xml:lang="en">View Quote Profit</value>
@@ -5812,7 +5852,7 @@
         <value xml:lang="zh">询价</value>
         <value xml:lang="zh_CN">报价</value>
     </property>
-    <property key="OrderOrderQuoteUomId">
+  <property key="OrderOrderQuoteUomId">
         <value xml:lang="de">Offerte Einheit ID</value>
         <value xml:lang="en">Quote Uom Id</value>
         <value xml:lang="es">Unidad de medida</value>
@@ -5827,6 +5867,7 @@
     </property>
     <property key="OrderOrderReceivedOn">
         <value xml:lang="en">Order Received On</value>
+        <value xml:lang="it">Ordine ricevuto il</value>
     </property>
     <property key="OrderOrderReturn">
         <value xml:lang="de">Retoure</value>
@@ -6386,6 +6427,7 @@
     </property>
     <property key="OrderPickedBy">
         <value xml:lang="en">Picked By</value>
+        <value xml:lang="it">Prelevato da</value>
     </property>
     <property key="OrderPieces">
         <value xml:lang="cs">ks</value>
@@ -6890,6 +6932,7 @@
     </property>
     <property key="OrderQuantityHistory">
         <value xml:lang="en">Item Quantity History</value>
+        <value xml:lang="it">Storia quantità riga</value>
     </property>
     <property key="OrderQuantityInShipGroup">
         <value xml:lang="de">In Gruppe</value>
@@ -7111,9 +7154,6 @@
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">评级</value>
     </property>
-    <property key="OrderCreateReplacementOrder">
-        <value xml:lang="en">Create Replacement Order</value>
-    </property>
     <property key="OrderReAuthService">
         <value xml:lang="en">Re Auth Service</value>
         <value xml:lang="es">Servicio de reautentificación</value>
@@ -7205,6 +7245,7 @@
     </property>
     <property key="OrderReceivedQtyHistory">
         <value xml:lang="en">Received Quantity History</value>
+        <value xml:lang="it">Storia quantità ricevuta</value>
     </property>
     <property key="OrderReference">
         <value xml:lang="de">Referenz</value>
@@ -7401,11 +7442,6 @@
         <value xml:lang="th">การร้องขอ</value>
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_CN">请求</value>
-    </property>
-    <property key="OrderRequiresCodeToUse">
-        <value xml:lang="en">Requires code to use. </value>
-        <value xml:lang="fr">Nécessite un code. </value>
-        <value xml:lang="zh">要求使用促销代码。</value>
     </property>
     <property key="OrderRequestContent">
         <value xml:lang="de">Inhalt</value>
@@ -7768,6 +7804,12 @@
         <value xml:lang="th">รายการสิ่งที่ต้องการ</value>
         <value xml:lang="zh">需求列表</value>
     </property>
+    <property key="OrderRequiresCodeToUse">
+        <value xml:lang="en">Requires code to use. </value>
+        <value xml:lang="fr">Nécessite un code. </value>
+        <value xml:lang="it">Richiesto codice da usare. </value>
+        <value xml:lang="zh">要求使用促销代码。</value>
+    </property>
     <property key="OrderReturnAccept">
         <value xml:lang="de">Retoure annehmen</value>
         <value xml:lang="en">Accept Return</value>
@@ -7891,6 +7933,7 @@
     </property>
     <property key="OrderReturnHistory">
         <value xml:lang="en">Return History</value>
+        <value xml:lang="it">Storia resi</value>
     </property>
     <property key="OrderReturnId">
         <value xml:lang="de">Retoure ID</value>
@@ -7952,6 +7995,7 @@
     </property>
     <property key="OrderReturnLabelEmailSuccessful">
         <value xml:lang="en">Return shipping label email successfully sent</value>
+        <value xml:lang="it">Email etichetta reso spedizione inviata con successo</value>
     </property>
     <property key="OrderReturnLoadItems">
         <value xml:lang="de">Elemente ab Auftrag für Retoure verwenden</value>
@@ -8020,6 +8064,7 @@
     </property>
     <property key="OrderReturnPriceHistory">
         <value xml:lang="en">Return Price History</value>
+        <value xml:lang="it">Storia prezzi reso</value>
     </property>
     <property key="OrderReturnPriceNotIncludeTax">
         <value xml:lang="de">Preis enthält keine Steueranpassungen</value>
@@ -8047,6 +8092,7 @@
     </property>
     <property key="OrderReturnQtyHistory">
         <value xml:lang="en">Return Quantity History</value>
+        <value xml:lang="it">Storia quantità resa</value>
     </property>
     <property key="OrderReturnReason">
         <value xml:lang="de">Grund</value>
@@ -8062,6 +8108,7 @@
     </property>
     <property key="OrderReturnReasonHistory">
         <value xml:lang="en">Return Reason History</value>
+        <value xml:lang="it">Storia motivazione reso</value>
     </property>
     <property key="OrderReturnReceive">
         <value xml:lang="de">Retoure entgegennehmen</value>
@@ -8179,6 +8226,7 @@
     </property>
     <property key="OrderReturnTypeHistory">
         <value xml:lang="en">Return Type History</value>
+        <value xml:lang="it">Storia tipo reso</value>
     </property>
     <property key="OrderReturned">
         <value xml:lang="de">Zurückgesendet</value>
@@ -8297,6 +8345,7 @@
         <value xml:lang="en">Of which Sales Tax included</value>
         <value xml:lang="en_GB">Of which VAT included</value>
         <value xml:lang="fr">Dont TVA incluse </value>
+        <value xml:lang="it">Tasse di vendita incluse</value>
         <value xml:lang="ja">Of which Sales Tax included</value>
     </property>
     <property key="OrderSave">
@@ -8490,6 +8539,7 @@
     </property>
     <property key="OrderSelectSupplier">
         <value xml:lang="en">Select Supplier</value>
+        <value xml:lang="it">Seleziona fornitore</value>
         <value xml:lang="zh">选择供货商</value>
     </property>
     <property key="OrderSelectVariant">
@@ -8789,9 +8839,6 @@
         <value xml:lang="th">ส่งของมาเมื่อมีสินค้า</value>
         <value xml:lang="zh">有货时送货的货运明细</value>
     </property>
-    <property key="OrderShippingNotes">
-        <value xml:lang="en">Shipping Notes</value>
-    </property>
     <property key="OrderShipRequest">
         <value xml:lang="de">Versandanfrage</value>
         <value xml:lang="en">Ship Request</value>
@@ -8833,6 +8880,7 @@
     </property>
     <property key="OrderShipToCountry">
         <value xml:lang="en">Ship to Country</value>
+        <value xml:lang="it">Spedisci al paese</value>
     </property>
     <property key="OrderShipToParty">
         <value xml:lang="de">Versand an Akteur</value>
@@ -8872,6 +8920,7 @@
     </property>
     <property key="OrderShipmentMethodHistory">
         <value xml:lang="en">Shipment Method History</value>
+        <value xml:lang="it">Storia metodi di spedizione</value>
     </property>
     <property key="OrderShipmentReceived">
         <value xml:lang="de">Lieferung erhalten</value>
@@ -8940,6 +8989,10 @@
         <value xml:lang="ru">Информация по доставке</value>
         <value xml:lang="th">ข้อมูลการขนส่ง</value>
         <value xml:lang="zh">送货信息</value>
+    </property>
+    <property key="OrderShippingNotes">
+        <value xml:lang="en">Shipping Notes</value>
+        <value xml:lang="it">Note di spedizione</value>
     </property>
     <property key="OrderShippmentDateHope">
         <value xml:lang="de">Erhofftes Versanddatum</value>
@@ -9022,15 +9075,17 @@
         <value xml:lang="zh">显示这个明细的便笺</value>
         <value xml:lang="zh_CN">显示此条款注释</value>
     </property>
-    <property key="OrderSizeAvailableSingle">
-        <value xml:lang="de">Größe</value>
-        <value xml:lang="en">Size</value>
-        <value xml:lang="fr">Taille</value>
-    </property>
     <property key="OrderSizeAvailableMultiple">
         <value xml:lang="de">Verfügbare Größen</value>
         <value xml:lang="en">Sizes Available</value>
         <value xml:lang="fr">Tailles Disponibles</value>
+        <value xml:lang="it">Taglie disponibili</value>
+    </property>
+    <property key="OrderSizeAvailableSingle">
+        <value xml:lang="de">Größe</value>
+        <value xml:lang="en">Size</value>
+        <value xml:lang="fr">Taille</value>
+        <value xml:lang="it">Taglia</value>
     </property>
     <property key="OrderSkidsPallets">
         <value xml:lang="de">Pallette</value>
@@ -9311,6 +9366,7 @@
     </property>
     <property key="OrderThisOrderDoesNotHaveShippingInstructions">
         <value xml:lang="en">This order does not have shipping instructions</value>
+        <value xml:lang="it">Quest'ordine non ha istruzioni di spedizione</value>
     </property>
     <property key="OrderThisOrderGift">
         <value xml:lang="de">Dieser Auftrag ist ein GESCHENK</value>
@@ -9409,6 +9465,10 @@
         <value xml:lang="zh">应付款合计</value>
         <value xml:lang="zh_CN">应付总计</value>
     </property>
+    <property key="OrderTotalNoOfItems">
+        <value xml:lang="en">Total No. of Items</value>
+        <value xml:lang="it">Totale numeri di righe</value>
+    </property>
     <property key="OrderTotalOtherOrderAdjustments">
         <value xml:lang="de">Gesamtsumme anderer Auftragsanpassungen</value>
         <value xml:lang="en">Total Other Order Adjustments</value>
@@ -9421,9 +9481,6 @@
         <value xml:lang="th">ผลรวมการปรับเปลี่ยนรายการสั่งซื้อสินค้าอื่น ๆ </value>
         <value xml:lang="zh">其它订单调整合计</value>
         <value xml:lang="zh_CN">其他调整总计</value>
-    </property>
-    <property key="OrderTotalNoOfItems">
-        <value xml:lang="en">Total No. of Items</value>
     </property>
     <property key="OrderTotalQty">
         <value xml:lang="de">Total Menge</value>
@@ -9595,9 +9652,6 @@
         <value xml:lang="zh">单价</value>
         <value xml:lang="zh_CN">单价</value>
     </property>
-    <property key="OrderUnitPriceHistory">
-        <value xml:lang="en">Item Unit Price History</value>
-    </property>
     <property key="OrderUnitPriceHT">
         <value xml:lang="de">Stückpreis ohne Steuern</value>
         <value xml:lang="en">Unit  Price  HT</value>
@@ -9607,11 +9661,15 @@
         <value xml:lang="th">ราคาต่อหน่วย HT</value>
         <value xml:lang="zh">含税单价</value>
     </property>
+    <property key="OrderUnitPriceHistory">
+        <value xml:lang="en">Item Unit Price History</value>
+        <value xml:lang="it">Storia prezzo unitario riga</value>
+    </property>
     <property key="OrderUnitsPieces">
         <value xml:lang="de">Stückpreise</value>
         <value xml:lang="en">Units  Pieces</value>
-        <value xml:lang="fr">Pièces à l'unité</value>
         <value xml:lang="es">Unidades Piezas</value>
+        <value xml:lang="fr">Pièces à l'unité</value>
         <value xml:lang="it">Pezzi unità</value>
         <value xml:lang="th">ราคาต่อชิ้น</value>
         <value xml:lang="zh">单位数量</value>
@@ -9800,9 +9858,6 @@
         <value xml:lang="zh">浏览/编辑交货计划信息</value>
         <value xml:lang="zh_CN">查看编辑发货计划</value>
     </property>
-    <property key="OrderViewed">
-        <value xml:lang="en">Viewed</value>
-    </property>
     <property key="OrderViewImage">
         <value xml:lang="de">Bild anzeigen</value>
         <value xml:lang="en">View Image</value>
@@ -9831,6 +9886,7 @@
     </property>
     <property key="OrderViewOrderHistory">
         <value xml:lang="en">View Order History</value>
+        <value xml:lang="it">Mostra storia ordine</value>
     </property>
     <property key="OrderViewPermissionError">
         <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
@@ -9883,6 +9939,10 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_CN">查看请求</value>
+    </property>
+    <property key="OrderViewed">
+        <value xml:lang="en">Viewed</value>
+        <value xml:lang="it">Visionato</value>
     </property>
     <property key="OrderWTD">
         <value xml:lang="de">Total Woche</value>
