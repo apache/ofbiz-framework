@@ -660,6 +660,10 @@ border: solid 3px #FF0000;
     background-color: #000000;
 }
 
+.page-title {
+display: none;
+}
+
 DIV.row {
     background-color: #B4B0AA;
     margin: 0 auto 0 auto;
@@ -811,11 +815,6 @@ DIV.column-left-wide {
 
 DIV.widget-container {
     margin-bottom: 2em;
-}
-
-#content-main-section h1,
-#content-main-section .h1 {
-display: none;
 }
 
 /* ===== New Styles ===== */
