@@ -59,7 +59,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="cms" location="component://content/webapp/content/cms/CMSMenus.xml"/>
+                                <include-menu name="cms" location="component://content/widget/cms/CMSMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -214,7 +214,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="contentsetup" location="component://content/webapp/content/contentsetup/ContentSetupMenus.xml"/>
+                                <include-menu name="contentsetup" location="component://content/widget/contentsetup/ContentSetupMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -240,7 +240,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="dataresourcesetup" location="component://content/webapp/content/datasetup/DataResourceSetupMenus.xml"/>
+                                <include-menu name="dataresourcesetup" location="component://content/widget/datasetup/component://content/widget/layout/LayoutMenus.xml.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -303,7 +303,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="layout" location="component://content/webapp/content/layout/LayoutMenus.xml"/>
+                                <include-menu name="layout" location="component://content/widget/layout/LayoutMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
