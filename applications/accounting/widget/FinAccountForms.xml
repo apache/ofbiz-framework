@@ -353,7 +353,7 @@ under the License.
         </field>
     </form>
     <form name="EditDepositPayment" extends="EditPayment" 
-            extends-resource="component://accounting/webapp/accounting/payment/PaymentForms.xml" target="createDepositPayment">
+            extends-resource="component://accounting/widget/PaymentForms.xml" target="createDepositPayment">
         <actions>
             <entity-one entity-name="FinAccount" value-field="finAccount"/>
             <set field="finAccountTypeId" from-field="finAccount.finAccountTypeId"/>

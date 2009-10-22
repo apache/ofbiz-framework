@@ -88,10 +88,10 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                        <include-form name="FindAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                        <include-form name="ListAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -128,7 +128,7 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreement}">
-                            <include-form name="EditAgreement" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreement" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/agreement/CopyAgreement.ftl"/></html>
@@ -159,7 +159,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItems}">
-                            <include-form name="ListAgreementItems" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItems" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -188,7 +188,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementItem}">
-                            <include-form name="EditAgreementItem" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementItem" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -209,9 +209,9 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AgreementTermPanel" title="${uiLabelMap.PageTitleEditAgreementTerm}" collapsible="true">
-                            <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="AddAgreementTerm" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementTerms" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -243,7 +243,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementPromoAppls}">
-                            <include-form name="ListAgreementPromoAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementPromoAppls" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -273,7 +273,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementPromoAppl}">
-                            <include-form name="EditAgreementPromoAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementPromoAppl" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -305,7 +305,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemTerms}">
-                            <include-form name="ListAgreementItemTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemTerms" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -336,7 +336,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementItemTerm}">
-                            <include-form name="EditAgreementItemTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementItemTerm" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -371,7 +371,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemProducts}">
-                            <include-form name="ListAgreementItemProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemProducts" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -397,13 +397,13 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAgreement}">
-                            <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ViewAgreementInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItem}">
-                            <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItemProductsForReport}">
-                            <include-form name="ListAgreementItemProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -435,7 +435,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementItemProduct}">
-                            <include-form name="EditAgreementItemProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementItemProduct" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -470,7 +470,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemProducts}">
-                            <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -496,13 +496,13 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAgreement}">
-                            <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ViewAgreementInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItem}">
-                            <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItemSupplierProductsForReport}">
-                            <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -541,7 +541,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementItemProduct}">
-                            <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -583,7 +583,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemParties}">
-                            <include-form name="ListAgreementItemParties" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemParties" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -614,7 +614,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementItemParty}">
-                            <include-form name="EditAgreementItemParty" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementItemParty" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -645,7 +645,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementGeographicalApplic}">
-                            <include-form name="ListAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="ListAgreementGeographicalApplic" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -676,7 +676,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleEditAgreementGeographicalApplic}">
-                            <include-form name="EditAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="EditAgreementGeographicalApplic" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -696,9 +696,9 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AgreementWorkEffortApplsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}" collapsible="true">
-                            <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -718,11 +718,11 @@ under the License.
                         <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
                             <section>
                                 <widgets>
-                                    <include-form name="AddAgreementRole" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    <include-form name="AddAgreementRole" location="component://accounting/widget/AgreementForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
-                        <include-form name="ListAgreementRoles" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <include-form name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

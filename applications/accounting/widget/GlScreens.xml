@@ -391,7 +391,7 @@ under the License.
                         <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
                         <widgets>
                             <screenlet title="${uiLabelMap.AccountingPrintChecks}">
-                                <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <include-form name="ListChecksToPrint" location="component://accounting/widget/PaymentForms.xml"/>
                             </screenlet>
                         </widgets>
                         <fail-widgets>
@@ -433,7 +433,7 @@ under the License.
                         <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
                         <widgets>
                             <screenlet title="${uiLabelMap.AccountingSendChecks}">
-                                <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                <include-form name="ListChecksToSend" location="component://accounting/widget/PaymentForms.xml"/>
                             </screenlet>
                         </widgets>
                         <fail-widgets>

@@ -485,7 +485,7 @@ under the License.
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
 
-    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/webapp/accounting/invoice/InvoiceForms.xml">
+    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/widget/InvoiceForms.xml">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
     </form>
