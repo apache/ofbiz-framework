@@ -699,7 +699,7 @@ under the License.
     </service>
     <service name="updateProductToCategory" default-entity-name="ProductCategoryMember" engine="simple"
                 location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="updateProductToCategory" auth="true">
-        <description>Add Product To Category</description>
+        <description>Update a ProductCategoryMember</description>
         <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
