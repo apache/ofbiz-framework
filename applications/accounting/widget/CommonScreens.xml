@@ -105,53 +105,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonTaxAuthorityDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="TaxAuthorities"/>
-
-                <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
-                <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
-                <entity-one entity-name="TaxAuthority" value-field="taxAuthority"/>
-                <entity-one entity-name="PartyNameView" value-field="taxAuthPartyName" auto-field-map="false">
-                    <field-map field-name="partyId" from-field="taxAuthority.taxAuthPartyId"/>
-                </entity-one>
-                <get-related-one value-field="taxAuthority" relation-name="TaxAuthGeo" to-value-field="taxAuthGeo" use-cache="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <and>
-                                            <not><if-empty field="taxAuthPartyId"/></not>
-                                            <not><if-empty field="taxAuthGeoId"/></not>
-                                        </and>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="TaxAuthorityTabBar" location="component://accounting/widget/TaxAuthorityMenus.xml"/>
-                                        <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
-                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${uiLabelMap.AccountingTaxAuthorityParty} &quot;${taxAuthPartyName.firstName} ${taxAuthPartyName.lastName} ${taxAuthPartyName.groupName}&quot; [${uiLabelMap.CommonId}:${taxAuthPartyId}], ${uiLabelMap.CommonGeo} &quot;${taxAuthGeo.geoName}&quot; [${uiLabelMap.CommonId}:${taxAuthGeoId}] ${${extraFunctionName}}"/>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
