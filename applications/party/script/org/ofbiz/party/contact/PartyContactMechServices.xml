@@ -607,7 +607,9 @@ under the License.
     <simple-method method-name="createUpdatePartyEmailAddress" short-description="Create and update email address" login-required="false">
         <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createPartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
-            <set field="emailAddressContext.partyId" from-field="userLogin.partyId"/>
+            <if-empty field="parameters.partyId">
+                <set field="emailAddressContext.partyId" from-field="userLogin.partyId"/>
+            </if-empty>
             <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
                 <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service>

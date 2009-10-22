@@ -250,8 +250,8 @@
         <value xml:lang="zh">毛销售额</value>
     </property>
     <property key="PosFieldsRequired">
-        <value xml:lang="en">Name, email and phone are required</value>
-        <value xml:lang="fr">Le nom, le courriel et le n° de téléphone doivent être renseignés</value>
+        <value xml:lang="en">Name is required</value>
+        <value xml:lang="fr">Le nom doit être renseignés</value>
     </property>
     <property key="PosInvalidSelection">
         <value xml:lang="en">Invalid Selection!</value>

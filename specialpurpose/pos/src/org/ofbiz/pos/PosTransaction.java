@@ -1549,14 +1549,11 @@ public class PosTransaction implements Serializable {
         dynamicView.addAlias("PT", "partyId");
         dynamicView.addAlias("PT", "statusId");
         dynamicView.addAlias("PT", "partyTypeId");
-        dynamicView.addMemberEntity("PUL", "PartyAndUserLogin");
-        dynamicView.addAlias("PUL", "userLoginId");
         dynamicView.addMemberEntity("PE", "Person");
         dynamicView.addAlias("PE", "partyId");
         dynamicView.addAlias("PE", "lastName");
         dynamicView.addAlias("PE", "cardId");
         dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
-        dynamicView.addViewLink("PT", "PUL", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
         Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
         if (UtilValidate.isNotEmpty(email)) {
@@ -1569,7 +1566,7 @@ public class PosTransaction implements Serializable {
             dynamicView.addAlias("CM", "infoString");            
             dynamicView.addViewLink("PT", "PM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
             dynamicView.addViewLink("PM", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
-        } else if (onlyPhone) {
+        } else if (UtilValidate.isNotEmpty(phone)) {
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
             dynamicView.addAlias("PM", "contactMechId");
             dynamicView.addAlias("PM", "thruDate");
@@ -1592,7 +1589,7 @@ public class PosTransaction implements Serializable {
             fieldsToSelect.add("cardId");
             if (UtilValidate.isNotEmpty(email)) {
                 fieldsToSelect.add("infoString");
-            } else if (onlyPhone) {
+            } else if (UtilValidate.isNotEmpty(phone)) {
                 fieldsToSelect.add("contactNumber");
             }
 
@@ -1600,11 +1597,10 @@ public class PosTransaction implements Serializable {
             // This allows to get all clients when any informations has been entered
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
-            andExprs.add(EntityCondition.makeCondition("userLoginId", EntityOperator.NOT_EQUAL, null)); // Should have a login (which implies an email and phone if created from the POS)
             if (UtilValidate.isNotEmpty(name)) {
-                // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name 
+                andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name 
                 // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.LIKE, "%"+name+"%")); // Less restrictive
-                andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+name+"%"))); // Even less restrictive
+                // andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+name+"%"))); // Even less restrictive
                 
             }
             if (UtilValidate.isNotEmpty(card)) {
@@ -1614,8 +1610,7 @@ public class PosTransaction implements Serializable {
                 andExprs.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
                 andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
                 andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
-            }
-            if (onlyPhone) {
+            } else if (UtilValidate.isNotEmpty(phone)) {
                 andExprs.add(EntityCondition.makeCondition("contactNumber", EntityOperator.EQUALS, phone));
                 andExprs.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PHONE_HOME"));
                 andExprs.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
@@ -1725,59 +1720,85 @@ public class PosTransaction implements Serializable {
             svcCtx.put("userLogin", userLogin);
             svcCtx.put("lastName", name);
             svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
-            svcCtx.put("userLoginId", email);
-            svcCtx.put("currentPassword", phone);
-            svcCtx.put("currentPasswordVerify", phone);
-            try {
-                svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-               return null;
+            if (UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(card)) {
+                svcCtx.put("userLoginId", email);
+                svcCtx.put("currentPassword", phone);
+                svcCtx.put("currentPasswordVerify", phone);
+                try {
+                    svcRes = dispatcher.runSync("createPersonAndUserLogin", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                   return null;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exceptionLargeSmallFont", ServiceUtil.getErrorMessage(svcRes)); // exceptionLargeSmallFont used to show duplicate key error message for card
+                    return null;
+                }
+                partyId = (String) svcRes.get("partyId");
+                partyUserLogin = (GenericValue) svcRes.get("newUserLogin");
+            } else {
+                // createPerson
+                trace("createPerson");
+                try {
+                    svcRes = dispatcher.runSync("createPerson", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                   return result;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return result;
+                }                    
+                partyId = (String) svcRes.get("partyId");
+                partyUserLogin = userLogin;
             }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exceptionLargeSmallFont", ServiceUtil.getErrorMessage(svcRes)); // exceptionLargeSmallFont used to show duplicate key error message for card
-                return null;
-            }
-            partyId = (String) svcRes.get("partyId");
-            partyUserLogin = (GenericValue) svcRes.get("newUserLogin");
 
-            // createPartyEmailAddress
-            trace("createPartyEmailAddress");
-            svcCtx.clear();
-            svcCtx.put("userLogin", partyUserLogin);
-            svcCtx.put("emailAddress", email);
-            svcCtx.put("partyId", partyId);
-            svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
-            try {
-                svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-                return null;
-            }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                return null;
+            if (UtilValidate.isNotEmpty(email)) {            
+                // createPartyEmailAddress
+                trace("createPartyEmailAddress");
+                svcCtx.clear();
+                svcCtx.put("userLogin", partyUserLogin);
+                svcCtx.put("emailAddress", email);
+                svcCtx.put("partyId", partyId);
+                svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
+                try {
+                    svcRes = dispatcher.runSync("createPartyEmailAddress", svcCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());
+                    return null;
+                }
+                if (ServiceUtil.isError(svcRes)) {
+                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                    return null;
+                }
             }
 
-            // createPartyTelecomNumber
-            trace("createPartyTelecomNumber");
-            svcCtx.clear();
-            svcCtx.put("userLogin", partyUserLogin);
-            svcCtx.put("contactNumber", phone);
-            svcCtx.put("partyId", partyId);
-            svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-            try {
-                svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-                return null;
-            }
-            if (ServiceUtil.isError(svcRes)) {
-                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                return null;
+            if (UtilValidate.isNotEmpty(phone)) {
+                if (phone.length() < 5 ) {
+                    pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosPhoneField5Required", locale));                    
+                } else {
+                    // createPartyTelecomNumber
+                    trace("createPartyTelecomNumber");
+                    svcCtx.clear();
+                    svcCtx.put("userLogin", partyUserLogin);
+                    svcCtx.put("contactNumber", phone);
+                    svcCtx.put("partyId", partyId);
+                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                    try {
+                        svcRes = dispatcher.runSync("createPartyTelecomNumber", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return null;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return null;
+                    }
+                }
             }
             
             result = partyId;
@@ -1795,9 +1816,13 @@ public class PosTransaction implements Serializable {
                 return null;
             }
             
+            Boolean newLogin = true;
             try {
                 List<GenericValue>  userLogins = session.getDelegator().findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-                partyUserLogin = userLogins.get(0); // We need a party's login, it can't be empty because we filter on PartyAndUserLogin in searchClientProfile 
+                if (UtilValidate.isNotEmpty(userLogins)) {
+                    userLogin = userLogins.get(0);
+                    newLogin = false;
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
@@ -1806,15 +1831,17 @@ public class PosTransaction implements Serializable {
 
             if (!person.getString("lastName").equals(name)
                     || UtilValidate.isNotEmpty(card) && !card.equals(person.getString("cardId"))) {
-                // Update name and card (cardId)
+                // Update name and possibly card (cardId)
+                svcCtx.put("userLogin", userLogin);
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("firstName", ""); // Needed by service updatePerson
-                svcCtx.put("userLogin", partyUserLogin);
                 svcCtx.put("lastName", name);
                 if (UtilValidate.isNotEmpty(card)) {
                     svcCtx.put("cardId", card);
                 }                                  
                 try {
+                    // updatePerson
+                    trace("updatePerson");
                     svcRes = dispatcher.runSync("updatePerson", svcCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
@@ -1827,87 +1854,116 @@ public class PosTransaction implements Serializable {
                 }
             }
 
-            // Update phone
-            GenericValue PartyTelecomNumber = null;
-            String contactNumber = null;
-            String newContactMechId = null;
-            svcCtx.clear();
-            svcCtx.put("partyId", partyId);
-            svcCtx.put("thruDate", null); // last one            
-            try {
-                List<GenericValue>  PartyTelecomNumbers = session.getDelegator().findByAnd("PartyAndTelecomNumber", svcCtx);
-                PartyTelecomNumber = PartyTelecomNumbers.get(0); // There is  only one phone number (contactMechPurposeTypeId == "PHONE_HOME") and there is always one (used as password in UserLogin)
-                contactNumber = PartyTelecomNumber.getString("contactNumber");
-                newContactMechId = PartyTelecomNumber.getString("contactMechId");
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                pos.showDialog("dialog/error/exception", e.getMessage());
-                return null;
-            }                        
-            if (UtilValidate.isNotEmpty(contactNumber) && !phone.equals(contactNumber)) {
-                svcCtx.clear();
-                svcCtx.put("partyId", partyId);
-                svcCtx.put("thruDate", null); // last one                
-                svcCtx.put("userLogin", partyUserLogin);
-                svcCtx.put("contactNumber", phone);
-                svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
-                svcCtx.put("contactMechId", newContactMechId);                 
-                try {
-                    svcRes = dispatcher.runSync("updatePartyTelecomNumber", svcCtx);
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());
-                    return null;
+            
+            if (UtilValidate.isNotEmpty(phone)) {
+                // Create or update phone
+                if (phone.length() < 5 ) {
+                    pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosPhoneField5Required", locale));
+                } else {
+                    String contactNumber = null;
+                    String contactMechId = null;
+                    svcCtx.clear();
+                    svcCtx.put("partyId", partyId);
+                    svcCtx.put("thruDate", null); // last one            
+                    try {
+                        List<GenericValue>  PartyTelecomNumbers = session.getDelegator().findByAnd("PartyAndTelecomNumber", svcCtx);
+                        if (UtilValidate.isNotEmpty(PartyTelecomNumbers)) {
+                            GenericValue PartyTelecomNumber = PartyTelecomNumbers.get(0); // There is  only one phone number (contactMechPurposeTypeId == "PHONE_HOME")                
+                            contactNumber = PartyTelecomNumber.getString("contactNumber");
+                            contactMechId = PartyTelecomNumber.getString("contactMechId");
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return null;
+                    }                        
+
+                    // Create or update phone
+                    trace("createUpdatePartyTelecomNumber");
+                    svcCtx.remove("thruDate");
+                    svcCtx.put("userLogin", userLogin);
+                    svcCtx.put("contactNumber", phone);
+                    svcCtx.put("contactMechPurposeTypeId", "PHONE_HOME");
+                    if (UtilValidate.isNotEmpty(contactMechId)) {
+                        svcCtx.put("contactMechId", contactMechId);
+                    }
+                    try {
+                        svcRes = dispatcher.runSync("createUpdatePartyTelecomNumber", svcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return null;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return null;
+                    }
+                    
+                    // Handle login aspect where phone is taken as pwd
+                    if (UtilValidate.isNotEmpty(contactNumber) && !phone.equals(contactNumber)) {
+                        if (!newLogin) { // to create a new login we need also an email address
+                            // Update password, we need to temporary set password.accept.encrypted.and.plain to "true"
+                            // This is done only for the properties loaded for the session in memory (we don't persist the value)
+                            trace("updatePassword");
+                            String passwordAcceptEncryptedAndPlain = null;
+                            try {
+                                passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
+                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
+                                svcRes = dispatcher.runSync("updatePassword", 
+                                        UtilMisc.toMap("userLogin", partyUserLogin,
+                                        "userLoginId", partyUserLogin.getString("userLoginId"), 
+                                        "currentPassword", partyUserLogin.getString("currentPassword"), 
+                                        "newPassword", phone, 
+                                        "newPasswordVerify", phone));            
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, "Error calling updatePassword service", module);
+                                pos.showDialog("dialog/error/exception", e.getMessage());
+                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);                                
+                                return null;
+                            } finally {
+                                // Put back passwordAcceptEncryptedAndPlain value in memory
+                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);                                
+                            }                            
+                            if (ServiceUtil.isError(svcRes)) {
+                                pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                                return null;
+                            }
+                        }                        
+                    }
                 }
-                if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return null;
-                }
-                // Update password, we need to temporary set password.accept.encrypted.and.plain to "true"
-                // This is done only for the properties loaded for the session in memory (we don't persist the value)
-                String passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
-                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
-                try {
-                    svcRes = dispatcher.runSync("updatePassword", 
-                            UtilMisc.toMap("userLogin", partyUserLogin,
-                            "userLoginId", partyUserLogin.getString("userLoginId"), 
-                            "currentPassword", partyUserLogin.getString("currentPassword"), 
-                            "newPassword", phone, 
-                            "newPasswordVerify", phone));            
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, "Error calling updatePassword service", module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());
-                    return null;
-                }
-                if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return null;
-                }
-                // Put back passwordAcceptEncryptedAndPlain value in memory
-                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
             }
 
-            // Update email            
-            if (!partyUserLogin.getString("userLoginId").equals(email)) {                
+            if (UtilValidate.isNotEmpty(email)) {
+            // Update email                 
                 svcCtx.clear();
                 svcCtx.put("partyId", partyId);
-                svcCtx.put("contactMechTypeId", "EMAIL_ADDRESS");                
-                svcCtx.put("thruDate", null); // last one                
-                List<GenericValue>  PartyEmails = null;
+                svcCtx.put("thruDate", null); // last one            
+                svcCtx.put("contactMechTypeId", "EMAIL_ADDRESS");            
+                String infoString = null;
+                String contactMechId = null;
                 try {
-                    PartyEmails = session.getDelegator().findByAnd("PartyAndContactMech", svcCtx);
+                    List<GenericValue>  PartyEmails = session.getDelegator().findByAnd("PartyAndContactMech", svcCtx);
+                    if (UtilValidate.isNotEmpty(PartyEmails)) {
+                        GenericValue PartyEmail = PartyEmails.get(0); // There is  only one email address (contactMechPurposeTypeId == "PRIMARY_EMAIL")                
+                        infoString = PartyEmail.getString("infoString");
+                        contactMechId = PartyEmail.getString("contactMechId");
+                    }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/exception", e.getMessage());
                     return null;
                 }
 
-                svcCtx.clear();
+                svcCtx.remove("thruDate");
+                svcCtx.remove("contactMechTypeId");                            
                 svcCtx.put("userLogin", userLogin);
                 svcCtx.put("emailAddress", email);
-                svcCtx.put("partyId", partyId);
                 svcCtx.put("contactMechPurposeTypeId", "PRIMARY_EMAIL");
-                svcCtx.put("contactMechId", PartyEmails.get(0).getString("contactMechId")); // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
+                if (UtilValidate.isNotEmpty(contactMechId)) {
+                    svcCtx.put("contactMechId", contactMechId);
+                }
+                // Create or update email 
+                trace("createUpdatePartyEmailAddress");
                 try {
                     svcRes = dispatcher.runSync("createUpdatePartyEmailAddress", svcCtx);
                 } catch (GenericServiceException e) {
@@ -1920,20 +1976,42 @@ public class PosTransaction implements Serializable {
                     return null;
                 }
 
-                // create a new UserLogin (Update a UserLoginId by creating a new one and expiring the old one). Keep the same password possibly changed just above if phone has also changed.
-                try {
-                    svcRes = dispatcher.runSync("updateUserLoginId", UtilMisc.toMap("userLoginId", email, "userLogin", userLogin));
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());
-                   return null;
-                }
-                if (ServiceUtil.isError(svcRes)) {
-                    pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
-                    return null;
-                }                
-            }
 
+                if (!newLogin) {
+                    // create a new UserLogin (Update a UserLoginId by creating a new one and expiring the old one). Keep the same password possibly changed just above if phone has also changed.
+                    trace("updateUserLoginId");
+                    try {
+                        svcRes = dispatcher.runSync("updateUserLoginId", UtilMisc.toMap("userLoginId", email, "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                       return null;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return null;
+                    }
+                } else if (newLogin && UtilValidate.isNotEmpty(phone)) {
+                    // createUserLogin
+                    trace("createUserLogin");                        
+                    try {
+                        svcRes = dispatcher.runSync("createUserLogin", 
+                                UtilMisc.toMap("userLogin", userLogin,
+                                        "userLoginId", email, 
+                                        "currentPassword", phone, 
+                                        "currentPasswordVerify", phone,
+                                        "partyId", partyId));            
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "Error calling updatePassword service", module);
+                        pos.showDialog("dialog/error/exception", e.getMessage());
+                        return null;
+                    }
+                    if (ServiceUtil.isError(svcRes)) {
+                        pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
+                        return null;
+                    }
+                }
+            }
         } else {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage(resource, "PosNoClientProfile", locale));
             return null;            
