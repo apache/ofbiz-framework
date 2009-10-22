@@ -65,7 +65,7 @@ public class PaidInOut extends XPage {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static boolean SHOW_KEYBOARD_IN_SAVE_SALE = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SHOW_KEYBOARD_IN_SAVE_SALE", "Y");
+    private static boolean SHOW_KEYBOARD_IN_SAVE_SALE = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 

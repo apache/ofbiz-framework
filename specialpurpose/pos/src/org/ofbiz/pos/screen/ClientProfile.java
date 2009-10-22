@@ -78,7 +78,7 @@ public class ClientProfile extends XPage implements ActionListener {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static boolean SHOW_KEYBOARD_IN_SAVE_SALE= UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SHOW_KEYBOARD_IN_SAVE_SALE", "Y");
+    private static boolean SHOW_KEYBOARD_IN_SAVE_SALE= UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
     private static boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "N");    
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
