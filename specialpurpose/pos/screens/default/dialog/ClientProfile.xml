@@ -20,8 +20,11 @@ under the License.
 <XPage class="net.xoetrope.swing.XDialog" resource="">
     <Components>
         <Panel name="ClientPanel" x="0" y="0" w="680" h="400" style="menu">
-            <Label name="nameLabel" x="20" y="30" w="100" h="40" content="nameClient" style="editAndList"/>
+            <Label name="nameLabel" x="37" y="5" w="100" h="40" content="nameClient" style="editAndList"/>
             <Edit name="nameEdit"  x="120" y="20" w="300" h="40" style="editAndList"/>
+            <RadioButton name="NameRadioEquals" x="20" y="20" w="100" h="20" style="dialogButton" content="nameEquals" selected="true" alignment="left" image="xui_icon.png" tooltip="tipNameRadioEquals"/>
+            <RadioButton name="NameRadioContain" x="20" y="40" w="100" h="20" style="dialogButton" content="nameContains" selected="false" alignment="left" image="xui_icon.png" tooltip="tipNameRadioContain"/>
+            
             <Label name="emailLabel" x="20" y="90" w="100" h="40" content="emailClient" style="editAndList"/>
             <Edit name="emailEdit"  x="120" y="80" w="300" h="40" style="editAndList"/>
             <Label name="phoneLabel" x="20" y="150" w="100" h="40" content="phoneClient" style="editAndList"/>
