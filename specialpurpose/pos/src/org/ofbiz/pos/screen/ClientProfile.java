@@ -32,6 +32,7 @@ import net.xoetrope.swing.XComboBox;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XEdit;
 import net.xoetrope.swing.XLabel;
+import net.xoetrope.swing.XRadioButton;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 
@@ -56,6 +57,8 @@ public class ClientProfile extends XPage implements ActionListener {
     protected XDialog m_dialog = null;
     protected XLabel m_nameLabel = null;
     protected XEdit m_nameEdit = null;
+    protected XRadioButton m_nameRadioEquals = null;
+    protected XRadioButton m_nameRadioContains = null;
     protected XLabel m_emailLabel = null;
     protected XEdit m_emailEdit = null;
     protected XLabel m_phoneLabel = null;
@@ -93,6 +96,11 @@ public class ClientProfile extends XPage implements ActionListener {
 
         m_nameEdit = (XEdit) m_dialog.findComponent("nameEdit"); // 1st for focus (still does not work)
         m_nameLabel = (XLabel) m_dialog.findComponent("nameLabel");
+        m_nameRadioEquals = (XRadioButton) m_dialog.findComponent("NameRadioEquals");
+        m_nameRadioEquals.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosTipNameRadioEquals", locale));
+        m_nameRadioContains = (XRadioButton) m_dialog.findComponent("NameRadioContain");
+        m_nameRadioContains.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosTipNameRadioContains", locale));
+        
         m_emailLabel = (XLabel) m_dialog.findComponent("emailLabel");
         m_emailEdit = (XEdit) m_dialog.findComponent("emailEdit");
         m_phoneLabel = (XLabel) m_dialog.findComponent("phoneLabel");
@@ -250,7 +258,8 @@ public class ClientProfile extends XPage implements ActionListener {
     private void searchClientProfile(String name, String email, String  phone, String card) {
         final ClassLoader cl = this.getClassLoader(m_pos);
         Thread.currentThread().setContextClassLoader(cl);
-        List<Map<String, String>> partyList = m_trans.searchClientProfile(name, email, phone, card, m_pos);
+        Boolean equalsName = m_nameRadioEquals.isSelected();
+        List<Map<String, String>> partyList = m_trans.searchClientProfile(name, email, phone, card, m_pos, equalsName);
         boolean first = true;
         m_clientListCombo.removeAll();
         m_clientListBidingCombo.clear();

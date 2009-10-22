@@ -457,6 +457,14 @@
         <value xml:lang="ro">Term:</value>
         <value xml:lang="zh">终端:</value>
     </property>
+    <property key="PosTipNameRadioContains">
+        <value xml:lang="en">To look for names which contain the name entered</value>
+        <value xml:lang="fr">Pour rechercher des noms contenant celui entré</value>
+    </property>    
+    <property key="PosTipNameRadioEquals">
+        <value xml:lang="en">To look for names strictly equals to the name entered</value>
+        <value xml:lang="fr">Pour rechercher des noms exactement égaux à celui entré</value>
+    </property>    
     <property key="PosTotal">
         <value xml:lang="en">TOTAL</value>
         <value xml:lang="es">Total</value>

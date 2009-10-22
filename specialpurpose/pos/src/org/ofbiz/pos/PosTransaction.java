@@ -1535,7 +1535,7 @@ public class PosTransaction implements Serializable {
     }
 
 
-    public List<Map<String, String>> searchClientProfile(String name, String email, String  phone, String card, PosScreen pos) {
+    public List<Map<String, String>> searchClientProfile(String name, String email, String  phone, String card, PosScreen pos, Boolean equalsName) {
         Delegator delegator = this.session.getDelegator();
 
         List<GenericValue> partyList = null;
@@ -1597,10 +1597,12 @@ public class PosTransaction implements Serializable {
             andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
             andExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, "PERSON")); // Only persons for now...
             if (UtilValidate.isNotEmpty(name)) {
-                andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name 
-                // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.LIKE, "%"+name+"%")); // Less restrictive
-                // andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+name+"%"))); // Even less restrictive
-                
+                if (equalsName) {
+                    andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.EQUALS, name));  // Plain name
+                } else {
+                    // andExprs.add(EntityCondition.makeCondition("lastName", EntityOperator.LIKE, "%"+name+"%")); // Less restrictive
+                     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+name+"%"))); // Even less restrictive
+                }                
             }
             if (UtilValidate.isNotEmpty(card)) {
                 andExprs.add(EntityCondition.makeCondition("cardId", EntityOperator.EQUALS, card));
@@ -1921,7 +1923,7 @@ public class PosTransaction implements Serializable {
                                 return null;
                             } finally {
                                 // Put back passwordAcceptEncryptedAndPlain value in memory
-                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);                                
+                                UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", passwordAcceptEncryptedAndPlain);
                             }                            
                             if (ServiceUtil.isError(svcRes)) {
                                 pos.showDialog("dialog/error/exception", ServiceUtil.getErrorMessage(svcRes));
