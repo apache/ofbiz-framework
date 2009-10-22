@@ -27,4 +27,8 @@ under the License.
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111100" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="9001" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
 
+    <FinAccount finAccountId="AMEX-01" finAccountTypeId="CREDIT_CARD_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="Corporate AMEX " finAccountCode="357898787678934" finAccountPin="9876" currencyUomId="USD" 
+            organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="231000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
+    <FinAccountStatus finAccountId="AMEX-01" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
+
 </entity-engine-xml>

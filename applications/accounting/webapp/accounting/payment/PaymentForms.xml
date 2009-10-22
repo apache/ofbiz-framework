@@ -130,7 +130,6 @@ under the License.
         <field name="finAccountId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FinAccount" description="${finAccountName} [${finAccountId}]" filter-by-date="true">
-                    <entity-constraint name="finAccountTypeId" value="BANK_ACCOUNT"/>
                 </entity-options>
             </drop-down>
         </field>
