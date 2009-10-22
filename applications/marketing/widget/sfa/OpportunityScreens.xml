@@ -70,9 +70,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.SfaEditOpportunity}">
-                            <include-form name="EditSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
-                        </screenlet>
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.SfaEditOpportunity}">
+                                <include-form name="EditSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -100,9 +102,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.SfaOpportunityInfo}">
-                            <include-form name="ViewSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
-                        </screenlet>
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.SfaOpportunityInfo}">
+                                <include-form name="ViewSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

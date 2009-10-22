@@ -29,7 +29,6 @@
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>
-    <include location="component://marketing/webapp/sfa/WEB-INF/controller.xml"/>
     
     <description>Show personal information in the system</description>
 
