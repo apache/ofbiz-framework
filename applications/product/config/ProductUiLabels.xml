@@ -7904,6 +7904,7 @@
     </property>
     <property key="ProductBestSellingProductsOf">
         <value xml:lang="en">Best Selling Products of</value>
+        <value xml:lang="it">Miglior prodotti venduti il</value>
     </property>
     <property key="ProductBillingWeightUom">
         <value xml:lang="de">Verrechnung Gewicht Einheit</value>

@@ -1916,9 +1916,9 @@ under the License.
         <row-actions>
             <entity-one entity-name="Product" value-field="product"/>
         </row-actions>
-        <field name="productName"><display description="${product.productName}"/></field>
+        <field name="productName" title="${uiLabelMap.ProductName}"><display description="${product.productName}"/></field>
         <field name="amount"><display/></field>
-        <field name="qtyOrdered"><display/></field>
+        <field name="qtyOrdered" title="${uiLabelMap.OrderQtyOrdered}"><display/></field>
     </form>
 
     <form name="ListCommEvents" list-name="communicationEvents" type="list" header-row-style="header-row" default-table-style="basic-table">
