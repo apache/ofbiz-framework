@@ -42,7 +42,7 @@ under the License.
                                         <include-form name="FindArPayments" location="component://accounting/widget/ar/forms/ArPaymentForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListPayments"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        <include-form name="ListPayments"  location="component://accounting/widget/PaymentForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -102,7 +102,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingNewPaymentIncoming}">
-                                    <include-form name="NewPaymentIn" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                    <include-form name="NewPaymentIn" location="component://accounting/widget/PaymentForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>

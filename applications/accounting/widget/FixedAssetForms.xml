@@ -50,7 +50,7 @@ under the License.
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
     </form>
 
-    <form name="FindFixedAssetOptions" extends="lookupFixedAsset" extends-resource="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"
+    <form name="FindFixedAssetOptions" extends="lookupFixedAsset" extends-resource="component://accounting/widget/FieldLookupForms.xml"
         target="ListFixedAssets">
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

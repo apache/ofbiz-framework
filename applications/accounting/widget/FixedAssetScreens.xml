@@ -44,7 +44,7 @@ under the License.
                                 </section>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <include-form name="FindFixedAssetOptions" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                                <include-form name="FindFixedAssetOptions" location="component://accounting/widget/FixedAssetForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
                                 <include-screen name="FixedAssetSearchResults"/>
@@ -66,7 +66,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListFixedAssets" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                <include-form name="ListFixedAssets" location="component://accounting/widget/FixedAssetForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -140,7 +140,7 @@ under the License.
                                 <container style="button-bar"><link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext"/></container>
                             </widgets>
                         </section>
-                        <include-form name="EditFixedAsset" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="EditFixedAsset" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -168,9 +168,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-fixedasset-product" title="${uiLabelMap.AccountingFixedAssetProductAdd}" collapsible="true">
-                            <include-form name="AddFixedAssetProduct" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddFixedAssetProduct" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetProducts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetProducts" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -188,7 +188,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="WorkEffortSummary" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="WorkEffortSummary" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -210,9 +210,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-fixed-asset-std-cost" title="${uiLabelMap.AccountingAddFixedAssetStdCost}" collapsible="true">
-                            <include-form name="EditFixedAssetStdCost" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="EditFixedAssetStdCost" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetStdCosts" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -234,9 +234,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="edit-fixed-asset-idents" title="${uiLabelMap.AccountingAddFixedAssetIdent}" collapsible="true">
-                            <include-form name="AddFixedAssetIdent" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddFixedAssetIdent" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetIdents" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetIdents" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -308,9 +308,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-fixed-asset-registration" title="${uiLabelMap.AccountingAddFixedAssetRegistration}" collapsible="true">
-                            <include-form name="AddFixedAssetRegistration" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddFixedAssetRegistration" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetRegistrations" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetRegistrations" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -357,7 +357,7 @@ under the License.
                                 <parameter param-name="fixedAssetId"/>
                             </link>
                         </container>
-                        <include-form name="ListFixedAssetMaints" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetMaints" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -398,7 +398,7 @@ under the License.
                                 </container>
                             </widgets>
                         </section>
-                        <include-form name="EditFixedAssetMaint" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="EditFixedAssetMaint" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -421,9 +421,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-fixedasset-meter" title="${uiLabelMap.AccountingAddFixedAssetMeter}" collapsible="true">
-                            <include-form name="AddFixedAssetMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddFixedAssetMeter" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetMeters" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -471,9 +471,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-fixedasset-maint-order" title="${uiLabelMap.AccountingAddFixedAssetMaintOrder}" collapsible="true">
-                            <include-form name="AddFixedAssetMaintOrder" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddFixedAssetMaintOrder" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetMaintOrders" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetMaintOrders" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -497,9 +497,9 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="add-party-fixedasset-assignments" title="${uiLabelMap.AccountingAddFixedAssetPartyAssignment}" collapsible="true">
-                            <include-form name="AddPartyFixedAssetAssignment" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            <include-form name="AddPartyFixedAssetAssignment" location="component://accounting/widget/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListPartyFixedAssetAssignments" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListPartyFixedAssetAssignments" location="component://accounting/widget/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

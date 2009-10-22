@@ -66,7 +66,7 @@ under the License.
                                         <include-form name="FindApInvoices" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                        <include-form name="ListInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -139,7 +139,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingCreateNewPurchaseInvoice}">
-                                    <include-form name="NewPurchaseInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    <include-form name="NewPurchaseInvoice" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
