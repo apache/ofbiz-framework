@@ -20,9 +20,6 @@ package org.ofbiz.service.engine;
 
 import java.util.Map;
 
-import javolution.util.FastMap;
-
-import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
@@ -30,9 +27,11 @@ import org.ofbiz.service.ServiceDispatcher;
 /**
  * RouteEngine.java
  */
-public class RouteEngine implements GenericEngine {
+public class RouteEngine extends GenericAsyncEngine {
 
-    public RouteEngine(ServiceDispatcher dispatcher) { }
+    public RouteEngine(ServiceDispatcher dispatcher) {
+        super(dispatcher);
+    }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
@@ -45,20 +44,6 @@ public class RouteEngine implements GenericEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        return;
-    }
-
-    /**
-     * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
-     */
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
-        requester.receiveResult(FastMap.<String, Object>newInstance());
-    }
-
-    /**
-     * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
-     */
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         return;
     }
 
