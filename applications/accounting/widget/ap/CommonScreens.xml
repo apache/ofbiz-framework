@@ -28,7 +28,7 @@ under the License.
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AccountingApCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://accounting/widget/ap/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://accounting/widget/ap/ApMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.AccountingApManagerApplication}" global="true"/>
                 <set field="invoiceMenuLocation" value="component://accounting/widget/ap/ApInvoiceMenus.xml" global="true"/>
             </actions>
@@ -69,7 +69,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.AccountingAgreements}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainAgreementMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                        <include-menu name="ApMainAgreementMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -77,7 +77,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainVendorMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                        <include-menu name="ApMainVendorMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -87,7 +87,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.AccountingReports}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainReportMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                        <include-menu name="ApMainReportMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -100,7 +100,7 @@ under the License.
                                         <iterate-section list="paymentTypes" entry="paymentType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                                    <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                                 </widgets>
                                              </section>
                                         </iterate-section>
@@ -109,7 +109,7 @@ under the License.
                                         <iterate-section list="paymentMethodTypes" entry="paymentMethodType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                                    <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -120,7 +120,7 @@ under the License.
                                         <iterate-section list="paymentStatus" entry="paymentsStatus">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                                    <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -135,7 +135,7 @@ under the License.
                                         <iterate-section list="invoiceTypes" entry="invoiceType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                                    <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                                 </widgets>
                                              </section>
                                         </iterate-section>
@@ -144,7 +144,7 @@ under the License.
                                         <iterate-section list="invoiceStatus" entry="invoicesStatus">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/Menus.xml"/>
+                                                    <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -222,7 +222,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu location="component://accounting/widget/ap/Menus.xml" name="ApInvoiceTabBar"/>
+                                <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
                                 <container style="clear"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -247,8 +247,8 @@ under the License.
                                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="PaymentTabBar" location="component://accounting/widget/Menus.xml"/>
-                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                 <label style="h2" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -277,7 +277,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <widgets>
-                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -289,7 +289,7 @@ under the License.
                                         <not><if-empty field="paymentGroup"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         <container style="h1"><label>${uiLabelMap.AccountingPaymentGroupOverviewFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label></container>
                                     </widgets>
                                     <fail-widgets>
@@ -334,7 +334,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/Menus.xml"/>
+                                <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
                                 <container style="clear"/>
                                 <decorator-section-include name="body"/>
                             </widgets>

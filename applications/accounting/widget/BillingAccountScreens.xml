@@ -38,7 +38,7 @@ under the License.
                                         <not><if-empty field="billingAccount"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="BillingAccountTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <include-menu name="BillingAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

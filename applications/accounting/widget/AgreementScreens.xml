@@ -41,13 +41,13 @@ under the License.
                                         <not><if-empty field="agreement"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="AgreementTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <include-menu name="AgreementTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         <section>
                                             <condition>
                                                 <not><if-empty field="agreementItem"/></not>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="AgreementItemTabBar" location="component://accounting/widget/Menus.xml"/>
+                                                <include-menu name="AgreementItemTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                             </widgets>
                                         </section>
                                         <container>
