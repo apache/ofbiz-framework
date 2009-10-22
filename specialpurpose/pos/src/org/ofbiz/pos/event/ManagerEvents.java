@@ -376,6 +376,22 @@ public class ManagerEvents {
             pos.refresh();
         }
     }
+    
+    public static synchronized void SwapKeyboard(PosScreen pos) {
+        if (!mgrLoggedIn) {
+            pos.showDialog("dialog/error/mgrnotloggedin");
+        } else {
+            String showKeyboardInSaveSale = null;
+            showKeyboardInSaveSale = UtilProperties.getPropertyValue("parameters.properties", "ShowKeyboardInSaveSale");
+            if ("N".equalsIgnoreCase(showKeyboardInSaveSale)) {
+                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "Y");
+            } else {
+                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "N");                
+            }
+        }
+    }
+    
+    
 
     public static synchronized void shutdown(PosScreen pos) {
         if (!mgrLoggedIn) {

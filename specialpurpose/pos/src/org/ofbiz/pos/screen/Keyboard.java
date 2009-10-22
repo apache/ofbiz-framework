@@ -21,6 +21,8 @@ package org.ofbiz.pos.screen;
 import java.awt.Color;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.pos.PosTransaction;
 
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
@@ -29,6 +31,7 @@ import net.xoetrope.xui.PageSupport;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 import java.awt.Panel;
+import java.util.Locale;
 
 public class Keyboard extends XPage {
     public static final String module = Keyboard.class.getName();
@@ -48,6 +51,7 @@ public class Keyboard extends XPage {
         m_dialog = (XDialog) m_pageSupport;
         m_edit = (XEdit) m_pageSupport.findComponent("keyboard_input");
         m_edit.setText("");
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosVirtualKeyboardTitle", Locale.getDefault()));
     }
 
     public String openDlg() {

@@ -78,11 +78,9 @@ public class ClientProfile extends XPage implements ActionListener {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static boolean SHOW_KEYBOARD_IN_SAVE_SALE= UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
     private static boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "N");    
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
-
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
@@ -135,7 +133,6 @@ public class ClientProfile extends XPage implements ActionListener {
         m_clientListCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosSelectClientToEdit", locale));
         m_clientListCombo.addActionListener(this);
 
-
         m_dialog.pack();
         m_nameEdit.requestFocusInWindow();
         m_dialog.showDialog(this);
@@ -167,7 +164,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editName() {
-        if (wasMouseClicked() && SHOW_KEYBOARD_IN_SAVE_SALE) {
+        if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y")) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_nameEdit.getText());
@@ -181,7 +178,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editEmail() {
-        if (wasMouseClicked() && SHOW_KEYBOARD_IN_SAVE_SALE) {
+        if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y")) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_emailEdit.getText());
@@ -195,7 +192,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editPhone() {
-        if (wasMouseClicked() && SHOW_KEYBOARD_IN_SAVE_SALE) {
+        if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y")) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);
@@ -210,7 +207,7 @@ public class ClientProfile extends XPage implements ActionListener {
     }
 
     public synchronized void editCard() {
-        if (wasMouseClicked() && SHOW_KEYBOARD_IN_SAVE_SALE && !SWIP_WITH_CARD) {
+        if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y") && !SWIP_WITH_CARD) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);
