@@ -1178,9 +1178,6 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="depositWithdraw" title="${uiLabelMap.AccountingDepositWithdraw}">
-            <condition>
-                <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
-            </condition>
             <link target="FindPaymentsForDepositOrWithdraw">
                 <parameter param-name="finAccountId"/>
                 <parameter param-name="organizationPartyId" from-field="finAccount.ownerPartyId"/>
