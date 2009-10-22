@@ -29,14 +29,14 @@ under the License.
 
         <!-- line 2 -->
         <Button name="mgrPriceChg" x="0" y="49" w="78" h="47" style="posButton" content="CHANGE_PRICE" alignment="Center"/>
-        <Button name="mgrReprintTx" x="80" y="49" w="78" h="47" style="posButton" content="REPRINT" alignment="Center"/>
+        <Button name="" x="80" y="49" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="160" y="49" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="240" y="49" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="320" y="49" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="mgrOpenTerm" x="400" y="49" w="78" h="47" style="posButton" content="OPEN" alignment="Center"/>
 
         <!-- line 3 -->
-        <Button name="" x="0" y="98" w="78" h="47" style="posButton" content="" alignment="Center"/>
+        <Button name="mgrVoidSale" x="0" y="98" w="78" h="47" style="posButton" content="VOID_SALE" alignment="Center"/>
         <Button name="" x="80" y="98" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="mgrPaidOut" x="160" y="98" w="78" h="47" style="posButton" content="PAID_OUT" alignment="Center"/>
         <Button name="mgrPaidIn" x="240" y="98" w="78" h="47" style="posButton" content="PAID_IN" alignment="Center"/>
@@ -49,13 +49,13 @@ under the License.
         <Button name="" x="160" y="147" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="240" y="147" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="320" y="147" w="78" h="47" style="posButton" content="" alignment="Center"/>
-        <Button name="mgrVoidSale" x="400" y="147" w="78" h="47" style="posButton" content="VOID_SALE" alignment="Center"/>
+        <Button name="" x="400" y="147" w="78" h="47" style="posButton" content="" alignment="Center"/>
 
         <!-- line 5 -->
-        <Button name="mgrCacheClear" x="0" y="196" w="78" h="47" style="posButton" content="CLEAR_CACHE" alignment="Center"/>
-        <Button name="mgrResetXui" x="80" y="196" w="78" h="47" style="posButton" content="RESET_XUI" alignment="Center"/>
+        <Button name="mgrSwapKeyboard" x="0" y="196" w="78" h="47" style="posButton" content="SWAP_KEYBOARD" alignment="Center"/>
+        <Button name="mgrReprintTx" x="80" y="196" w="78" h="47" style="posButton" content="REPRINT" alignment="Center"/>
         <Button name="" x="160" y="196" w="78" h="47" style="posButton" content="" alignment="Center"/>
-        <Button name="" x="240" y="196" w="78" h="47" style="posButton" content="" alignment="Center"/>
+        <Button name="mgrCacheClear" x="240" y="196" w="78" h="47" style="posButton" content="CLEAR_CACHE" alignment="Center"/>
         <Button name="" x="320" y="196" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="" x="400" y="196" w="78" h="47" style="posButton" content="" alignment="Center"/>
 
@@ -63,7 +63,7 @@ under the License.
         <Button name="mgrPopDrwr" x="0" y="245" w="78" h="47" style="posButton" content="OPEN_DRAWER" alignment="Center"/>
         <Button name="mgrTotals" x="80" y="245" w="78" h="47" style="posButton" content="TOTALS" alignment="Center"/>
         <Button name="" x="160" y="245" w="78" h="47" style="posButton" content="" alignment="Center"/>
-        <Button name="" x="240" y="245" w="78" h="47" style="posButton" content="" alignment="Center"/>
+        <Button name="mgrResetXui" x="240" y="245" w="78" h="47" style="posButton" content="RESET_XUI" alignment="Center"/>
         <Button name="" x="320" y="245" w="78" h="47" style="posButton" content="" alignment="Center"/>
         <Button name="mgrShutDown" x="400" y="245" w="78" h="47" style="posButton" content="EXIT" alignment="Center"/>
     </Components>

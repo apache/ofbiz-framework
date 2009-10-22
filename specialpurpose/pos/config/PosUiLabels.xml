@@ -529,10 +529,18 @@
         <value xml:lang="ro">Validare...</value>
         <value xml:lang="zh">确认...</value>
     </property>
+    <property key="PosVirtualKeyboardTitle">
+        <value xml:lang="en">To inactivate the virtual keyboard: 1. Permanently, parameters.properties file. 2. Temporarily, button VIRTUAL on Admin Panel.</value>
+        <value xml:lang="fr">Pour désactiver le clavier virtuel : 1. En permanence, fichier parameters.properties. 2. Temporairement, bouton Clavier virtuel du panneau Gestion.</value>
+    </property>        
+    <property key="PosVirtualNumPadTitle">
+        <value xml:lang="en">To inactivate: see virtual keyboard.</value>
+        <value xml:lang="fr">Pour désactiver voir le clavier virtuel.</value>
+    </property>        
     <property key="PosVoid">
         <value xml:lang="en">Enter Order Number To Void:</value>
         <value xml:lang="es">Ingrese número de orden a anular</value>
-        <value xml:lang="fr">Entrez le n° d'ordre à annuler :</value>
+        <value xml:lang="fr">Entrez le n° de commande à annuler :</value>
         <value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value>
         <value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value>
         <value xml:lang="zh">输入要作废的订单号:</value>

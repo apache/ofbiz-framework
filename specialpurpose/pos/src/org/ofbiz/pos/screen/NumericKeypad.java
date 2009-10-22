@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.pos.screen;
 
+import java.util.Locale;
+
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.pos.PosTransaction;
+
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XEdit;
@@ -39,13 +44,12 @@ public class NumericKeypad extends XPage
 
     public NumericKeypad(PosScreen pos) {
         m_pos = pos;
-        return;
     }
 
     public String openDlg() {
-
-        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numeric");
+        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numerickeypad");
         m_dialog = (XDialog)m_pageSupport;
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosVirtualNumPadTitle", Locale.getDefault()));
 
         m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
         m_edit.setText("");
