@@ -21,10 +21,13 @@ package org.ofbiz.service;
 import java.util.Date;
 import java.util.Map;
 
+import javax.transaction.Transaction;
 import javax.transaction.xa.XAException;
 
 import org.ofbiz.service.calendar.RecurrenceRule;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.jms.JmsListenerFactory;
@@ -60,21 +63,53 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
     public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
+        Transaction suspendedTransaction = null;
         try {
-            getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
+            boolean beganTransaction = false;
+            suspendedTransaction = TransactionUtil.suspend();
+            try {
+                beganTransaction = TransactionUtil.begin();
+                try {
+                    getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
 
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
-                Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Frequency    : " + frequency, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Interval     : " + interval, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
+                        Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
+                    }
+
+                } catch (JobManagerException jme) {
+                    throw new GenericServiceException(jme.getMessage(), jme);
+                }
+            } catch (Exception e) {
+                String errMsg = "General error while scheduling job";
+                Debug.logError(e, errMsg, module);
+                try {
+                    TransactionUtil.rollback(beganTransaction, errMsg, e);
+                } catch (GenericTransactionException gte1) {
+                    Debug.logError(gte1, "Unable to rollback transaction", module);
+                }
+            } finally {
+                try {
+                    TransactionUtil.commit(beganTransaction);
+                } catch (GenericTransactionException gte2) {
+                    Debug.logError(gte2, "Unable to commit scheduled job", module);
+                }
             }
-
-        } catch (JobManagerException e) {
-            throw new GenericServiceException(e.getMessage(), e);
+        } catch (GenericTransactionException gte) {
+            Debug.logError(gte, "Error suspending transaction while scheduling job", module);
+        } finally {
+            if (suspendedTransaction != null) {
+                try {
+                    TransactionUtil.resume(suspendedTransaction);
+                } catch (GenericTransactionException gte3) {
+                    Debug.logError(gte3, "Error resuming suspended transaction after scheduling job", module);
+                }
+            }
         }
     }
 
