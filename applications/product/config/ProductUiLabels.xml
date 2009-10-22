@@ -2840,9 +2840,11 @@
     </property>
     <property key="FormFieldTitle_printPickSheet">
         <value xml:lang="en">Print Pick Sheet</value>
+        <value xml:lang="it">Stampa lista di prelievo</value>
     </property>
     <property key="FormFieldTitle_printPickSheetFirst">
         <value xml:lang="en">Print First</value>
+        <value xml:lang="it">Prima stampa</value>
     </property>
     <property key="FormFieldTitle_prodCatContentTypeId">
         <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>
