@@ -23,7 +23,7 @@
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ORDERMGR_NOTE"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ORDERMGR_UPDATE"/>
-    <SecurityGroupPermission groupId="POSCLERK" permissionId="ORDERMGR_CREATE"/>    
+    <SecurityGroupPermission groupId="POSCLERK" permissionId="ORDERMGR_CREATE"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="PARTYMGR_PCM_CREATE"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="PARTYMGR_VIEW"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="PARTYMGR_CREATE"/>

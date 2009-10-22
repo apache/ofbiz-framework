@@ -1555,7 +1555,6 @@ public class PosTransaction implements Serializable {
         dynamicView.addAlias("PE", "cardId");
         dynamicView.addViewLink("PT", "PE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
-        Boolean onlyPhone = UtilValidate.isEmpty(name) && UtilValidate.isEmpty(email) && UtilValidate.isNotEmpty(phone) && UtilValidate.isEmpty(card);
         if (UtilValidate.isNotEmpty(email)) {
             // ContactMech (email)
             dynamicView.addMemberEntity("PM", "PartyContactMechPurpose");            
@@ -1667,27 +1666,27 @@ public class PosTransaction implements Serializable {
                     partyMap.put("partyId", party.getString("partyId"));
                     partyMap.put("lastName", party.getString("lastName"));
                     partyMap.put("cardId", party.getString("cardId"));
-                    if (!onlyPhone && UtilValidate.isNotEmpty(email)) {
+                    if (UtilValidate.isNotEmpty(email)) {
                         partyMap.put("infoString", party.getString("infoString"));
                         partyMap.put("contactNumber", "");
-                    } else if (UtilValidate.isEmpty(email) && !onlyPhone) {
+                    } else if (UtilValidate.isNotEmpty(phone)) {
+                        partyMap.put("infoString", "");
+                        partyMap.put("contactNumber", party.getString("contactNumber"));
+                    } else { // both empty
                         partyMap.put("infoString", "");
                         partyMap.put("contactNumber", "");
-                    } else {
-                        partyMap.put("contactNumber", party.getString("contactNumber"));
-                        partyMap.put("infoString", "");
                         
                     }
                     resultList.add(partyMap);
                 }
                 
-                if (!onlyPhone && UtilValidate.isNotEmpty(email)) {
+                if (UtilValidate.isNotEmpty(email)) {
                     resultList = searchContactMechs(delegator, pos, resultList, phone, "TELECOM_NUMBER");
-                } else if (UtilValidate.isEmpty(email) && !onlyPhone){
-                    resultList = searchContactMechs(delegator, pos, resultList, "", "TELECOM_NUMBER"); // "" is more clear than phone which is by definition here is empty
+                } else if (UtilValidate.isNotEmpty(phone)) {
                     resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS"); // "" is more clear than email which is by definition here is empty
-                } else { // onlyPhone
-                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS");
+                } else { // both empty
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "TELECOM_NUMBER"); // "" is more clear than phone which is by definition here is empty
+                    resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS"); 
                 }
             } else {
             resultList = FastList.newInstance();
