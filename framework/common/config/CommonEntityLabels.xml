@@ -8447,16 +8447,19 @@
     </property>
     <property key="StatusItem.description.TIMESHEET_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_IN_PROCESS">
         <value xml:lang="en">In-Process</value>
+        <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="zh">处理中</value>
     </property>
