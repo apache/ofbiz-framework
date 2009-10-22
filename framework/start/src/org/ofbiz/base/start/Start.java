@@ -386,8 +386,10 @@ public class Start implements Runnable {
         if (firstArg.equals("-help") || firstArg.equals("-?")) {
             System.out.println("");
             System.out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
+            System.out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
             System.out.println("-help, -? ----> This screen");
             System.out.println("-install -----> Run install (create tables/load data)");
+            System.out.println("-pos     -----> Run the POS (Point of Sales) application");
             System.out.println("-setup -------> Run external application server setup");
             System.out.println("-start -------> Start the server");
             System.out.println("-status ------> Status of the server");
