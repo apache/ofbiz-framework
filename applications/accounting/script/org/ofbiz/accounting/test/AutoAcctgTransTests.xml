@@ -34,7 +34,7 @@ under the License.
 
         <!-- set few variables so that they can be changed easily to test with different values -->
         <set field="orderId" value="DEMO10091"/>
-        <set field="productId" value="WG-1111"/>
+        <set field="productId" value="GZ-2644"/>
         <set field="orderItemSeqId" value="00001"/>
         <set field="shipmentId" value="9999"/>
 
@@ -45,7 +45,7 @@ under the License.
         <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
         <set field="serviceCtx.productId" from-field="productId"/>
         <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
-        <set field="serviceCtx.quantityAccepted" value="10" type="BigDecimal"/>
+        <set field="serviceCtx.quantityAccepted" value="5" type="BigDecimal"/>
         <set field="serviceCtx.quantityRejected" value="0" type="BigDecimal"/>
         <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
         <set field="serviceCtx.orderId" from-field="orderId"/>
@@ -95,16 +95,20 @@ under the License.
             * Debit; in account 516100 - "PURCHASE ORDER ADJUSTMENTS"; amount: 5$
         -->
 
-        <set field="invoiceId" value="10000"/>
+        <set field="orderId" value="DEMO10091"/>
+        <entity-and list="orderItemBillings" entity-name="OrderItemBilling">
+            <field-map field-name="orderId"/>
+        </entity-and>
+        <first-from-list entry="orderItemBilling" list="orderItemBillings"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
         <set field="serviceCtx.statusId" value="INVOICE_READY"/>
-        <set field="serviceCtx.invoiceId" from-field="invoiceId"/>
+        <set field="serviceCtx.invoiceId" from-field="orderItemBilling.invoiceId"/>
         <call-service service-name="setInvoiceStatus" in-map-name="serviceCtx"/>
         <entity-one entity-name="Invoice" value-field="invoice">
-            <field-map field-name="invoiceId" from-field="invoiceId"/>
+            <field-map field-name="invoiceId" from-field="orderItemBilling.invoiceId"/>
         </entity-one>
         <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList"/>
         <first-from-list list="acctgTransList" entry="acctgTrans"/>
@@ -133,7 +137,7 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field="debitTotal" operator="equals" value="creditTotal"/>
+            <if-compare-field field="debitTotal" operator="equals" to-field="creditTotal" type="BigDecimal"/>
         </assert>
         <check-errors/>
     </simple-method>
