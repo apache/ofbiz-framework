@@ -41,20 +41,21 @@ public class NumericKeypad extends XPage
 
     boolean m_minus = false;
     boolean m_percent = false;
+    String originalText;
 
     public NumericKeypad(PosScreen pos) {
-        m_pos = pos;
+        m_pos = pos;       
+        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numerickeypad");
+        m_dialog = (XDialog) m_pageSupport;
+        m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
+        m_edit.setText("");
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosVirtualNumPadTitle", Locale.getDefault()));
+        
     }
 
     public String openDlg() {
-        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numerickeypad");
-        m_dialog = (XDialog)m_pageSupport;
-        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosVirtualNumPadTitle", Locale.getDefault()));
-
-        m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
-        m_edit.setText("");
-
         setupEvents();
+        originalText = getText();
 
         m_dialog.pack();
         m_dialog.showDialog(this);
@@ -62,6 +63,16 @@ public class NumericKeypad extends XPage
         return m_edit.getText();
     }
 
+    // call before openDlg
+    public void setText(String text) {
+        clear();
+        m_edit.setText(text);
+    }
+
+    public String getText() {
+        return m_edit.getText();
+    }
+    
     //call before openDlg
     public void setMinus(boolean minus) {
         m_minus = minus;
@@ -73,6 +84,9 @@ public class NumericKeypad extends XPage
 
     //call before openDlg
     public void setPercent(boolean percent) {
+        if (percent) {
+            disableButton("menuCancel");
+        }
         m_percent = percent;
     }
 
@@ -117,6 +131,8 @@ public class NumericKeypad extends XPage
         XEventHelper.addMouseHandler(this, button, "triggerClear");
         button = (XButton) m_dialog.findComponent("menuEnter");
         XEventHelper.addMouseHandler(this, button, "triggerEnter");
+        button = (XButton) m_dialog.findComponent("menuCancel");
+        XEventHelper.addMouseHandler(this, button, "triggerCancel");
 
         if (getMinus()) {
             button = (XButton) m_dialog.findComponent("numMinus");
@@ -199,6 +215,11 @@ public class NumericKeypad extends XPage
         close();
     }
 
+    public void triggerCancel()
+    {
+        cancel();
+    }
+    
     public void triggerMinus()
     {
         prependUnique('-');
@@ -284,6 +305,14 @@ public class NumericKeypad extends XPage
         }
     }
 
+    private synchronized void cancel() {
+        if (wasMouseClicked()) {
+            this.setText(originalText);
+            m_dialog.closeDlg();
+            return;
+        }
+    }
+    
     private synchronized void append(String c) {
         if (wasMouseClicked()) {
             String text = "";

@@ -20,7 +20,7 @@ under the License.
 <XPage class="net.xoetrope.swing.XDialog">
     <Components>
         <Panel x="0" y="0" w="306" h="50" style="numButton">
-            <Edit name="numeric_input" x="2" y="2" w="300" h="42" style="input" border="0" alignment="Left"/>
+            <Edit name="numeric_input" x="2" y="2" w="300" h="42" style="editAndList" border="0" alignment="Left"/>
         </Panel>
         <Panel x="0" y="50" w="306" h="282" style="numButton">
             <Button name="numSeven" x="0" y="0" w="75" h="68" style="numButton" content="7" alignment="Center"/>
@@ -30,7 +30,7 @@ under the License.
             <Button name="numFour" x="0" y="69" w="75" h="68" style="numButton" content="4" alignment="Center"/>
             <Button name="numFive" x="76" y="69" w="75" h="68" style="numButton" content="5" alignment="Center"/>
             <Button name="numSix" x="152" y="69" w="75" h="68" style="numButton" content="6" alignment="Center"/>
-            <Button name="numMinus" x="228" y="69" w="75" h="68" style="numButton" content="-" alignment="Center"/>
+            <Button name="numMinus" x="228" y="0" w="75" h="68" style="numButton" content="-" alignment="Center"/>
             <Button name="numOne" x="0" y="138" w="75" h="68" style="numButton" content="1" alignment="Center"/>
             <Button name="numTwo" x="76" y="138" w="75" h="68" style="numButton" content="2" alignment="Center"/>
             <Button name="numThree" x="152" y="138" w="75" h="68" style="numButton" content="3" alignment="Center"/>
@@ -38,6 +38,9 @@ under the License.
             <Button name="menuClear" x="0" y="207" w="75" h="68" style="posButton" content="CLR" alignment="Center"/>
             <Button name="numZero" x="76" y="207" w="75" h="68" style="numButton" content="0" alignment="Center"/>
             <Button name="numDZero" x="152" y="207" w="75" h="68" style="numButton" content="00" alignment="Center"/>
+
+            <Button name="menuCancel" x="228" y="0" w="75" h="68" style="numButton" content="Cancel" alignment="Center"/><!-- same place than %, cancel does not appear when % is shown -->            
+            
         </Panel>
     </Components>
 </XPage>
