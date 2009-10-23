@@ -34,7 +34,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="requirement"/></not></condition>
                                     <widgets>
-                                        <include-menu name="RequirementTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
+                                        <include-menu name="RequirementTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <container>
@@ -64,7 +64,7 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
+                                <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                 <container>
                                     <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
                                 </container>
