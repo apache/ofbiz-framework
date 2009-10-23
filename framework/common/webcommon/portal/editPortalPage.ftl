@@ -126,5 +126,5 @@ under the License.
 </table>
 
 <#else/>
-<h2>No portal page data found. You may not have the necessary seed or other data for it.</h2>
+<h2>${uiLabelMap.CommonNoPortalPageDataFound}</h2>
 </#if>

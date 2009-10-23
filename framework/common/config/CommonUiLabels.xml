@@ -829,6 +829,10 @@
         <value xml:lang="zh">可用</value>
         <value xml:lang="zh_CN">可用的</value>
     </property>
+    <property key="CommonAvailablePortlets">
+        <value xml:lang="en">Available Portlets</value>
+        <value xml:lang="it">Portlet disponibili</value>
+    </property>
     <property key="CommonAverage">
         <value xml:lang="ar">متوسط</value>
         <value xml:lang="de">Durchschnitt</value>
@@ -1002,7 +1006,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="hi_IN">रद्द करें</value>
-        <value xml:lang="it">Cancella</value>
+        <value xml:lang="it">Annulla</value>
         <value xml:lang="nl">Annuleer</value>
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
@@ -2053,6 +2057,7 @@
         <value xml:lang="es">Terminar</value>
         <value xml:lang="fr">Terminer</value>
         <value xml:lang="hi_IN">हो गया</value>
+        <value xml:lang="it">Fatto</value>
         <value xml:lang="nl">Klaar</value>
         <value xml:lang="pt">Feito</value>
         <value xml:lang="ro">Executa</value>
@@ -4564,6 +4569,14 @@
         <value xml:lang="zh">没有上一级</value>
         <value xml:lang="zh_CN">没有父结点</value>
     </property>
+    <property key="CommonNoPortalPageDataFound">
+        <value xml:lang="en">No portal page data found. You may not have the necessary seed or other data for it.</value>
+        <value xml:lang="it">Dati portal page non trovati.</value>
+    </property>
+    <property key="CommonNoPortletsInCategory">
+        <value xml:lang="en">Please, choose new category again, No portlet in this category.</value>
+        <value xml:lang="it">Nessun portlet in questa categoria.</value>
+    </property>
     <property key="CommonNoPostalAddress">
         <value xml:lang="ar">لا عنوان بريدي</value>
         <value xml:lang="de">Keine Postadresse erfasst</value>
@@ -5301,7 +5314,7 @@
         <value xml:lang="en">Portal pages for application</value>
         <value xml:lang="fr">Pages portail pour application</value>
         <value xml:lang="hi_IN">आवेदन के लिए पोर्टल पृष्ठ</value>
-        <value xml:lang="it">Pagine porale per applicazione</value>
+        <value xml:lang="it">Pagine portale per applicazione</value>
         <value xml:lang="zh">应用程序门户页面</value>
     </property>
     <property key="CommonPostedBy">

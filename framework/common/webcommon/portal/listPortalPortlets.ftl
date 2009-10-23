@@ -17,19 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<style type="text/css">
-.screenlet {
-margin: 1em;
-}
-</style>
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">Available portlets</li>
+      <li class="h3">${uiLabelMap.CommonAvailablePortlets}</li>
       <li><a href="<@ofbizUrl>ManagePortalPages?portalPageId=${parameters.portalPageId}&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>
   </div>
+  <div class="screenlet-body">
   <#if portalPortlets?has_content>
     <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("portalPortletId")/>
 
@@ -70,6 +66,7 @@ margin: 1em;
       </#list>
     </table>
     <#else/>
-    <h2>Please, choose new category again, No portlet in this category.</h2>
+    <h2>${uiLabelMap.CommonNoPortletsInCategory}</h2>
   </#if>
+  </div>
 </div>
