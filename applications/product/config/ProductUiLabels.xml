@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FacilityActualShippingCharges">
         <value xml:lang="en">Actual shipping charges</value>
+        <value xml:lang="it">Ricarico di spedizione attuale</value>
     </property>
     <property key="FacilityBillingAddressSameShipping">
         <value xml:lang="de">Rechnungsadresse und Lieferadresse stimmen überein</value>
@@ -55,6 +56,7 @@
     <property key="FacilityEstimatedShippingCharges">
         <value xml:lang="en">Estimated shipping charges</value>
         <value xml:lang="fr">Frais d'expédition estimés</value>
+        <value xml:lang="it">Ricarico di spedizione stimato</value>
     </property>
     <property key="FacilityFacility">
         <value xml:lang="de">Lager</value>
@@ -71,21 +73,26 @@
     </property>
     <property key="FacilityGroupByNoOfOrderItems">
         <value xml:lang="en">Group by number of order items</value>
+        <value xml:lang="it">Raggruppa per numero di righe ordine</value>
     </property>
     <property key="FacilityGroupByShippingMethod">
         <value xml:lang="en">Group by shipping method</value>
+        <value xml:lang="it">Raggruppa per metodo di spedizione</value>
         <value xml:lang="zh">按运输方式分组</value>
     </property>
     <property key="FacilityGroupByWarehouseArea">
         <value xml:lang="en">Group by warehouse area</value>
+        <value xml:lang="it">Raggruppa per area di magazzino</value>
         <value xml:lang="zh">按库房区域分组</value>
     </property>
     <property key="FacilityGroupName">
         <value xml:lang="en">Group Name</value>
+        <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="zh">组名称</value>
     </property>
     <property key="FacilityHoldShipment">
         <value xml:lang="en">Hold Shipment</value>
+        <value xml:lang="it">Congela spedizione</value>
     </property>
     <property key="FacilityInventory">
         <value xml:lang="de">Inventar</value>
@@ -102,6 +109,7 @@
     </property>
     <property key="FacilityMultipleLocations">
         <value xml:lang="en">Multiple Locations</value>
+        <value xml:lang="it">Posizioni multiple</value>
     </property>
     <property key="FacilityNoFacility">
         <value xml:lang="de">Kein Lager</value>
@@ -118,6 +126,7 @@
     </property>
     <property key="FacilityNoGrouping">
         <value xml:lang="en">No Grouping</value>
+        <value xml:lang="it">Nessun raggruppamento</value>
     </property>
     <property key="FacilityNoOtherShippingMethods">
         <value xml:lang="de">Benutze Voreinstellung: Keine anderen Liefermethoden verfügbar</value>
@@ -134,14 +143,17 @@
     </property>
     <property key="FacilityNumberOfItemsLessThanThree">
         <value xml:lang="en">Items less than 3</value>
+        <value xml:lang="it">Meno di 3 righe</value>
         <value xml:lang="zh">明细小于3</value>
     </property>
     <property key="FacilityNumberOfItemsThreeOrMore">
         <value xml:lang="en">Items 3 or more</value>
+        <value xml:lang="it">3 righe o più</value>
         <value xml:lang="zh">明细大于等于3</value>
     </property>
     <property key="FacilitySelectOptionsToGroupBy">
         <value xml:lang="en">Select Options To Group</value>
+        <value xml:lang="it">Selezione opzioni da raggruppare</value>
     </property>
     <property key="FacilitySelection">
         <value xml:lang="en">Facility Selection</value>
@@ -150,6 +162,7 @@
     </property>
     <property key="FacilityShip">
         <value xml:lang="en">Ship</value>
+        <value xml:lang="it">Spedisci</value>
     </property>
     <property key="FacilityShipAvailable">
         <value xml:lang="de">Bitte liefern Sie meine bestellten Artikel sobald sie verfügbar sind (Sie dürfen zusätzliche Lieferungskosten  erheben).</value>
@@ -183,6 +196,7 @@
     </property>
     <property key="FacilityShipmentCreatedAndMarkedAsPacked">
         <value xml:lang="en">Shipment #${shipmentId} created and marked as packed</value>
+        <value xml:lang="it">Spedizione #${shipmentId} creata e marcata come imballata</value>
     </property>
     <property key="FacilityShipmentCustomMethod">
         <value xml:lang="en">Shipment Custom Method</value>
@@ -590,6 +604,7 @@
     </property>
     <property key="FacilityThereIsProblemOccuredInPaymentCapture">
         <value xml:lang="en">There is problem occured in payment capture, shipment is still in PICKED status</value>
+        <value xml:lang="it">C'è un problema successo nella cattura del pagamento, spedizione è ancora in stato PRELEVATA</value>
     </property>
     <property key="FacilityWaitEntireOrderReady">
         <value xml:lang="de">Bitte warten Sie mit der Auslieferung bis die Bestellung vollständig vorliegt.</value>
@@ -606,6 +621,7 @@
     </property>
     <property key="FacilityWarningMessageThereIsMuchDifferenceInShippingCharges">
         <value xml:lang="en">There is much difference in shipping charges</value>
+        <value xml:lang="it">C'è molta differenza nei ricarichi di spedizione</value>
     </property>
     <property key="FormFieldTitle_abbrev">
         <value xml:lang="de">Abkürzung</value>
@@ -1280,6 +1296,7 @@
     <property key="FormFieldTitle_contentType">
         <value xml:lang="en">content Type</value>
         <value xml:lang="fr">Type de contenu</value>
+        <value xml:lang="it">Tipo contenuto</value>
     </property>
     <property key="FormFieldTitle_correspondingProductId">
         <value xml:lang="de">Dazugehörige Produkt ID</value>
@@ -2606,6 +2623,7 @@
     </property>
     <property key="FormFieldTitle_orderPickSheetPrintedDate">
         <value xml:lang="en">Pick Sheet Printed Date</value>
+        <value xml:lang="it">Data di stampa lista di prelievo</value>
     </property>
     <property key="FormFieldTitle_orderPricePercent">
         <value xml:lang="de">Auftragspreis Prozent</value>
@@ -3602,6 +3620,7 @@
     </property>
     <property key="FormFieldTitle_reviewOrdersNotPickedOrPacked">
         <value xml:lang="en">Review Orders Not Picked-Packed</value>
+        <value xml:lang="it">Ordini revisionati non prelievati-imballati</value>
     </property>
     <property key="FormFieldTitle_scrapFactor">
         <value xml:lang="de">Altmaterial Faktor</value>
@@ -5761,6 +5780,7 @@
     <property key="PageTitleFacilityLocationGeoLocation">
         <value xml:lang="en">Facility Location GeoLocation</value>
         <value xml:lang="fr">Géolocalisation de l'emplacement de stokage</value>
+        <value xml:lang="it">Posizione Stabilimento GeoLocation</value>
         <value xml:lang="zh">场所的地理位置</value>
     </property>
     <property key="PageTitleFindConfigItems">
@@ -6164,6 +6184,7 @@
     <property key="PageTitleLookupSupplierProduct">
         <value xml:lang="en">Lookup Product for supplier:</value>
         <value xml:lang="fr">Recherche de produit pour le fournisseur : </value>
+        <value xml:lang="it">Ricerca prodotto per fornitore:</value>
         <value xml:lang="zh">查找产品，供货商是</value>
     </property>
     <property key="PageTitleNewFacilityContactMech">
@@ -6384,6 +6405,7 @@
     </property>
     <property key="PageTitleViewProductOrders">
         <value xml:lang="en">View Product Orders</value>
+        <value xml:lang="it">Mostra prodotto ordini</value>
     </property>
     <property key="PageTitleViewProductStoreSegments">
         <value xml:lang="de">Läden Segmente anzeigen</value>
@@ -6393,8 +6415,7 @@
         <value xml:lang="it">Mostra Segmenti Negozio</value>
         <value xml:lang="ro">Afiseaza Segmente Magazin</value>
         <value xml:lang="ru">Просмотреть сегменты торг. точки</value>
-        <value xml:lang="th">แสดงกลุ่มคลังสินค้า
-        </value>
+        <value xml:lang="th">แสดงกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">浏览产品店铺分区</value>
     </property>
     <property key="PageTitleViewShipment">
@@ -6671,6 +6692,7 @@
     </property>
     <property key="ProductAddCommunicationEvent">
         <value xml:lang="en">Add Communication Event</value>
+        <value xml:lang="it">Aggiungi evento comunicazione</value>
     </property>
     <property key="ProductAddContentCategory">
         <value xml:lang="de">Inhalt zu Kategorie hinzufügen</value>
@@ -7149,18 +7171,20 @@
         <value xml:lang="de">Vergleichen</value>
         <value xml:lang="en">Add To Compare</value>
         <value xml:lang="fr">Comparer</value>
+        <value xml:lang="it">Confronta</value>
     </property>
     <property key="ProductAddToCompareListSuccess">
         <value xml:lang="de">${name} wurde erfolgreich zum Produktvergleich hinzugefügt</value>
         <value xml:lang="en">Product ${name} successfully added to compare list</value>
         <value xml:lang="fr">${name} à été ajouté à la liste de produits à comparer</value>
+        <value xml:lang="it">Prodotto ${name} aggiunto con successo alla lista di confronto</value>
     </property>
     <property key="ProductAddToPackage">
         <value xml:lang="de">Zu Paket hinzufügen</value>
         <value xml:lang="en">Add to Package</value>
         <value xml:lang="es">Añadir a Paquete</value>
         <value xml:lang="fr">Ajouter au paquet</value>
-        <value xml:lang="it">Aggiungi al Pacchetto</value>
+        <value xml:lang="it">Aggiungi al pacco</value>
         <value xml:lang="ro">Adauga la Pachet</value>
         <value xml:lang="ru">Добавить в пакет</value>
         <value xml:lang="th">เพิ่มไปยังกลุ่ม</value>
@@ -7338,6 +7362,7 @@
     </property>
     <property key="ProductAlsoBought">
         <value xml:lang="en">Customers who bought this item also bought:</value>
+        <value xml:lang="it">Clienti che hanno comprato questo prodotto hanno comprato anche:</value>
     </property>
     <property key="ProductAlternate">
         <value xml:lang="de">Alternative</value>
@@ -7821,6 +7846,7 @@
     </property>
     <property key="ProductAvailableToPromise">
         <value xml:lang="en">Available To Promise</value>
+        <value xml:lang="it">Disponibilità promessa</value>
     </property>
     <property key="ProductAverageCost">
         <value xml:lang="de">Durchschnittliche Kosten</value>
@@ -8358,6 +8384,7 @@
     <property key="ProductCategoryDescription">
         <value xml:lang="en">Category Description</value>
         <value xml:lang="fr">Description de la catégorie</value>
+        <value xml:lang="it">Descrizione categoria</value>
     </property>
     <property key="ProductCategoryId">
         <value xml:lang="de">Kategorie ID</value>
@@ -8692,6 +8719,7 @@
     </property>
     <property key="ProductClearCompareListSuccess">
         <value xml:lang="en">Compare list successfully cleared</value>
+        <value xml:lang="it">Lista di confronto pulito con successo</value>
     </property>
     <property key="ProductComments">
         <value xml:lang="de">Kommentare</value>
@@ -8755,6 +8783,7 @@
     </property>
     <property key="ProductCompareProducts">
         <value xml:lang="en">Compare Products</value>
+        <value xml:lang="it">Confronta prodotti</value>
     </property>
     <property key="ProductComplete">
         <value xml:lang="de">Abschliessen</value>
@@ -9168,6 +9197,7 @@
     </property>
     <property key="ProductCountryOfOrigin">
         <value xml:lang="en">Country of Origin</value>
+        <value xml:lang="it">Paese di origine</value>
     </property>
     <property key="ProductCreateAProductFeatureCategory">
         <value xml:lang="de">Produktmerkmal Kategorie erstellen</value>
@@ -9531,6 +9561,7 @@
     <property key="ProductCurrentPackageSequence">
         <value xml:lang="en">Current package sequence</value>
         <value xml:lang="fr">Séquence d'empaquetage actuelle</value>
+        <value xml:lang="it">Attuale sequenza pacco</value>
         <value xml:lang="zh">当前包装顺序</value>
     </property>
     <property key="ProductCustomMethod">
@@ -9826,12 +9857,14 @@
         <value xml:lang="it">esempio: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
         <value xml:lang="zh">样例: component://ecommerce/widget/CatalogScreens.xml#categorydetail</value>
     </property>
-    <product key="ProductDiameterUomId">
+    <property key="ProductDiameterUomId">
         <value xml:lang="en">Diameter Uom Id</value>
-    </product>
+        <value xml:lang="it">Udm diametero</value>
+    </property>
     <property key="ProductDifferentCurrencies">
         <value xml:lang="en">Items with different currencies</value>
         <value xml:lang="fr">Articles utilisant différentes devises</value>
+        <value xml:lang="it">Righe con valute diverse</value>
         <value xml:lang="zh">具有不同币种的明细</value>
     </property>
     <property key="ProductDiscount">
@@ -10093,6 +10126,7 @@
     </property>
     <property key="ProductEmailReturnShippingLabelUPS">
         <value xml:lang="en">Email Return Shipping Label (UPS)</value>
+        <value xml:lang="it">Email per etichetta reso spedizione (UPS)</value>
     </property>
     <property key="ProductEntireCatalog">
         <value xml:lang="cs">Celý katalog</value>
@@ -11985,6 +12019,7 @@
     <property key="ProductInventoryAverageCosts">
         <value xml:lang="en">Inventory Average Costs</value>
         <value xml:lang="fr">Coûts moyens de stokage</value>
+        <value xml:lang="it">Costi medi di inventario</value>
         <value xml:lang="zh">库存平均成本</value>
     </property>
     <property key="ProductInventoryByProduct">
@@ -12754,6 +12789,7 @@
     </property>
     <property key="ProductListFacilityLocation">
         <value xml:lang="en">List Facility Location</value>
+        <value xml:lang="it">Lista posizioni stabilimento</value>
         <value xml:lang="zh">场所位置列表</value>
     </property>
     <property key="ProductListFeatureInteractions">
@@ -13868,6 +13904,7 @@
     <property key="ProductNextPackage">
         <value xml:lang="en">Next Package</value>
         <value xml:lang="fr">Paquet suivant</value>
+        <value xml:lang="it">Prossimo pacco</value>
         <value xml:lang="zh">下一个包装</value>
     </property>
     <property key="ProductNextShipment">
@@ -14130,6 +14167,7 @@
     </property>
     <property key="ProductNoProductFound">
         <value xml:lang="en">No Product Found</value>
+        <value xml:lang="it">Nessun prodotto trovato</value>
     </property>
     <property key="ProductNoProductsInCategory">
         <value xml:lang="de">Keine Produkte in der Kategorie</value>
@@ -14159,6 +14197,7 @@
     </property>
     <property key="ProductNoProductsToCompare">
         <value xml:lang="en">You have no products to compare.</value>
+        <value xml:lang="it">Non c'è nessun prodotto da confrontare.</value>
     </property>
     <property key="ProductNoResultsFound">
         <value xml:lang="cs">Nenalezeny žádné výsledky</value>
@@ -14598,6 +14637,7 @@
     </property>
     <property key="ProductNumberOfOrderItems">
         <value xml:lang="en">Number of Order Items</value>
+        <value xml:lang="it">Numero di righe ordine</value>
     </property>
     <property key="ProductNumberQuantity">
         <value xml:lang="de">Nummer / Menge</value>
@@ -14806,6 +14846,7 @@
     </property>
     <property key="ProductOrderNotReadyForPickNeedStockMove">
         <value xml:lang="en">Order not ready for picking, needs stock move</value>
+        <value xml:lang="it">Ordine non pronto per il prelievo, necessario il trasferimento dallo stock</value>
     </property>
     <property key="ProductOrderNumber">
         <value xml:lang="de">Auftragsnummer</value>
@@ -14964,16 +15005,19 @@
     <property key="ProductOriginal">
         <value xml:lang="en">Original</value>
         <value xml:lang="fr">Original</value>
+        <value xml:lang="it">Originale</value>
         <value xml:lang="zh">原有的</value>
     </property>
     <property key="ProductOriginalImage">
         <value xml:lang="en">Original Image</value>
         <value xml:lang="fr">Image originale</value>
+        <value xml:lang="it">Immagine originale</value>
         <value xml:lang="zh">原图</value>
     </property>
     <property key="ProductOriginalImageMessage">
         <value xml:lang="en">Automatic scale of the original image, related to the configuration</value>
         <value xml:lang="fr">Redimensionne automatiquement l'original de l'image, suivant la configuration</value>
+        <value xml:lang="it">Scala automaticamente l'immagine originale, relativo alla configurazione</value>
         <value xml:lang="zh">自动缩放原图，相关配置</value>
     </property>
     <property key="ProductOutgoingProductionRuns">
@@ -15122,13 +15166,14 @@
     </property>
     <property key="ProductPackageInputBox">
         <value xml:lang="en">Package input box</value>
+        <value xml:lang="it">Pacco</value>
     </property>
     <property key="ProductPackageQty">
         <value xml:lang="de">Anzahl Pakete</value>
         <value xml:lang="en">Package Qty</value>
         <value xml:lang="es">Cantidad paquete</value>
         <value xml:lang="fr">Quantité de paquets</value>
-        <value xml:lang="it">Quantità Pacco</value>
+        <value xml:lang="it">Quantità pacco</value>
         <value xml:lang="ro">Cantitate Pachet</value>
         <value xml:lang="ru">Кол мест</value>
         <value xml:lang="th">จำนวนแพคเกจ</value>
@@ -15150,7 +15195,7 @@
         <value xml:lang="en">Packed Qty</value>
         <value xml:lang="es">Cantidad empaquetada</value>
         <value xml:lang="fr">Quantité emballée</value>
-        <value xml:lang="it">Quantità Imballata</value>
+        <value xml:lang="it">Quantità imballata</value>
         <value xml:lang="ro">Cantitate Ambalata</value>
         <value xml:lang="ru">Кол упаковано</value>
         <value xml:lang="th">บรรจุจำนวน</value>
@@ -15161,7 +15206,7 @@
         <value xml:lang="en">Packed Weight</value>
         <value xml:lang="es">Peso empaquetado</value>
         <value xml:lang="fr">Poids emballé</value>
-        <value xml:lang="it">Peso Imballo</value>
+        <value xml:lang="it">Peso imballo</value>
         <value xml:lang="ru">Упакованный вес</value>
         <value xml:lang="th">บรรจุน้ำหนัก</value>
         <value xml:lang="zh">已包装重量</value>
@@ -15182,7 +15227,7 @@
         <value xml:lang="en">Packing Slip</value>
         <value xml:lang="es">Albarán de embalaje</value>
         <value xml:lang="fr">Bon d'expédition</value>
-        <value xml:lang="it">Lista d'Imballo</value>
+        <value xml:lang="it">Lista d'imballo</value>
         <value xml:lang="ro">Lista de Ambalare</value>
         <value xml:lang="ru">Упаковочный лист</value>
         <value xml:lang="th">ความผิดพลาดการบรรจุ</value>
@@ -15962,6 +16007,7 @@
     </property>
     <property key="ProductProductDiameter">
         <value xml:lang="en">Product Diameter</value>
+        <value xml:lang="it">Diametro prodotto</value>
     </property>
     <property key="ProductProductFeatureCategories">
         <value xml:lang="de">Produktmerkmale Kategorien</value>
@@ -16143,6 +16189,7 @@
     <property key="ProductProductNumber">
         <value xml:lang="en">Product #</value>
         <value xml:lang="fr">N° d'article</value>
+        <value xml:lang="it">Prodotto #</value>
         <value xml:lang="zh">产品序号</value>
     </property>
     <property key="ProductProductPage">
@@ -16337,6 +16384,7 @@
     </property>
     <property key="ProductProductWeight">
         <value xml:lang="en">Product Weight</value>
+        <value xml:lang="it">Peso prodotto</value>
     </property>
     <property key="ProductProductWidth">
         <value xml:lang="de">Produkt Breite</value>
@@ -16916,6 +16964,7 @@
     </property>
     <property key="ProductQuantityOnHand">
         <value xml:lang="en">Quantity On Hand</value>
+        <value xml:lang="it">Quantità disponibile</value>
     </property>
     <property key="ProductQuantityRejected">
         <value xml:lang="de">Menge abgelehnt</value>
@@ -17084,6 +17133,7 @@
     </property>
     <property key="ProductQuickStockMove">
         <value xml:lang="en">Quick Stock Move</value>
+        <value xml:lang="it">Trasferimento velov stock</value>
         <value xml:lang="zh">快速存货移动</value>
     </property>
     <property key="ProductRating">
@@ -17455,6 +17505,7 @@
     </property>
     <property key="ProductRemoveFromCompareListSuccess">
         <value xml:lang="en">Product ${name} successfully removed from compare list</value>
+        <value xml:lang="it">Prodotto ${name} rimosso con successo dalla lista di confronto</value>
     </property>
     <property key="ProductRemoveFromSite">
         <value xml:lang="de">Von Seite löschen</value>
@@ -18947,6 +18998,7 @@
     </property>
     <property key="ProductShipmentUomAbbreviation_LEN_in">
         <value xml:lang="en">in</value>
+        <value xml:lang="it">in</value>
     </property>
     <property key="ProductShipmentUomAbbreviation_WT_kg">
         <value xml:lang="de">kg</value>
@@ -20780,14 +20832,17 @@
     </property>
     <property key="ProductVerified">
         <value xml:lang="en">Verified</value>
+        <value xml:lang="it">Verificato</value>
         <value xml:lang="zh">已验证</value>
     </property>
     <property key="ProductVerify">
         <value xml:lang="en">Verify</value>
+        <value xml:lang="it">Verifica</value>
         <value xml:lang="zh">验证</value>
     </property>
     <property key="ProductVerifyPick">
         <value xml:lang="en">Verify Pick</value>
+        <value xml:lang="it">Verifica prelievo</value>
         <value xml:lang="zh">验证分拣</value>
     </property>
     <property key="ProductViewEstimates">
@@ -20868,6 +20923,7 @@
     </property>
     <property key="ProductWarehouseArea">
         <value xml:lang="en">Warehouse Area</value>
+        <value xml:lang="it">Area di magazzino</value>
     </property>
     <property key="ProductWarningOrderStatus">
         <value xml:lang="de">ACHTUNG: Auftragsstatus ist</value>
@@ -20946,6 +21002,7 @@
     </property>
     <property key="ProductWeighPackageOnly">
         <value xml:lang="en">Weigh Packages Only</value>
+        <value xml:lang="it">Pesa solo pacco</value>
     </property>
     <property key="ProductWeight">
         <value xml:lang="de">Gewicht</value>
