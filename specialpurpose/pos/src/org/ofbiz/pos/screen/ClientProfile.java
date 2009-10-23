@@ -195,8 +195,9 @@ public class ClientProfile extends XPage implements ActionListener {
         if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y")) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
-                numericKeypad.setMinus(true);
+                numericKeypad.setMinus(false); // this order must be respected
                 numericKeypad.setPercent(false);
+                numericKeypad.setText(m_phoneEdit.getText());
                 m_phoneEdit.setText(numericKeypad.openDlg());
             } catch (Exception e) {
                 Debug.logError(e, module);
@@ -205,13 +206,16 @@ public class ClientProfile extends XPage implements ActionListener {
         }
         return;
     }
+    
+
 
     public synchronized void editCard() {
         if (wasMouseClicked() && UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y") && !SWIP_WITH_CARD) {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
-                numericKeypad.setMinus(true);
+                numericKeypad.setMinus(false); // this order must be respected
                 numericKeypad.setPercent(false);
+                numericKeypad.setText(m_cardEdit.getText());
                 m_cardEdit.setText(numericKeypad.openDlg());
             } catch (Exception e) {
                 Debug.logError(e, module);
