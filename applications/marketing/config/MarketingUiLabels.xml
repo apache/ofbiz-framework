@@ -266,7 +266,7 @@
         <value xml:lang="es">Crear evento de comunicación</value>
         <value xml:lang="fr">Nouvel évènement de communication de la liste de contact</value>
         <value xml:lang="it">Creare Nuova Lista Contatto Evento Comunicazione</value>
-        <value xml:lang="en">Nieuwe contactenlijst Comm Event</value>
+        <value xml:lang="nl">Nieuwe contactenlijst Comm Event</value>
         <value xml:lang="ro">Creare Noua Lista Contact Eveniment Comunicatie</value>
         <value xml:lang="th">สร้างรายการผลการติดต่อใหม่</value>
         <value xml:lang="zh">新建联系列表沟通事件</value>
@@ -613,7 +613,7 @@
         <value xml:lang="es">Nueva clasificación de segmento</value>
         <value xml:lang="fr">Créer une nouvelle classification de groupe de segment</value>
         <value xml:lang="it">Creare Nuova Classificazione Gruppo Segmento</value>
-        <value xml:lang="en">Nieuwe Classificatie Segmentgroep</value>
+        <value xml:lang="nl">Nieuwe Classificatie Segmentgroep</value>
         <value xml:lang="ro">Creare Noua Clasificare Grup Segment</value>
         <value xml:lang="th">สร้างการจัดแบ่งประเภทของกลุ่มใหม่</value>
         <value xml:lang="zh">新建分区组分类</value>
