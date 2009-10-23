@@ -117,7 +117,7 @@ under the License.
             </drop-down>
         </field>
         <field name="paymentMethodTypeId" position="2">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -160,7 +160,7 @@ under the License.
             </drop-down>
         </field>
         <field position="2" name="paymentMethodTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="PaymentMethodType"  description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
