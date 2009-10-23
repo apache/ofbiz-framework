@@ -43,7 +43,7 @@ under the License.
                                         <not><if-empty field="routing"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
+                                        <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <container>
@@ -80,7 +80,7 @@ under the License.
                                         <not><if-empty field="routingTask"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
+                                        <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <container>

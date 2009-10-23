@@ -40,7 +40,7 @@ under the License.
                                         <not><if-empty field="productionRun"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProductionRunTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
+                                        <include-menu name="ProductionRunTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <container>
