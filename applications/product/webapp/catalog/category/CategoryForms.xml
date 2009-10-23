@@ -43,7 +43,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductCategoryContent"/>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
-        <field name="contentId">
+        <field name="contentId" title="${uiLabelMap.ProductContentId}">
             <lookup target-form-name="LookupContent"/>
         </field>
         <field name="prodCatContentTypeId">

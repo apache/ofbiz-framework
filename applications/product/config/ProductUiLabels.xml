@@ -2820,7 +2820,7 @@
         <value xml:lang="de">Primäre Produktkategorie ID</value>
         <value xml:lang="en">Primary Product Category Id</value>
         <value xml:lang="es">Código Categoría de producto primaria</value>
-        <value xml:lang="fr">Réf. de première catégorie d'article</value>
+        <value xml:lang="fr">Réf. de première catégorie</value>
         <value xml:lang="it">Codice Categoria Primaria Prodotto</value>
         <value xml:lang="ro">Cod Categorie Primara Produs</value>
         <value xml:lang="ru">Код основной категории продуктов</value>
@@ -4790,7 +4790,7 @@
         <value xml:lang="de">Kategorie Produktkataloge bearbeiten</value>
         <value xml:lang="en">Edit Category Product Catalogs</value>
         <value xml:lang="es">Editar Catálogos de Productos de una Categoría</value>
-        <value xml:lang="fr">Modification des liens catégories d'article - catalogue</value>
+        <value xml:lang="fr">Modification des liens catégories - catalogue</value>
         <value xml:lang="it">Aggiorna Categoria Prodotto Cataloghi</value>
         <value xml:lang="ru">Изменить категорию продукта каталогов</value>
         <value xml:lang="th">เพิ่มหมวดหมู่สินค้า</value>
@@ -4800,7 +4800,7 @@
         <value xml:lang="de">Kategorie Produkte bearbeiten</value>
         <value xml:lang="en">Edit Category Products</value>
         <value xml:lang="es">Editar Productos de una Categoría</value>
-        <value xml:lang="fr">Modification des catégories d'article</value>
+        <value xml:lang="fr">Modification des catégories</value>
         <value xml:lang="it">Aggiorna Categoria Prodotti</value>
         <value xml:lang="ro">Actualizeaza Categoria Produs</value>
         <value xml:lang="ru">Изменить категорию продуктов</value>
@@ -8354,6 +8354,10 @@
         <value xml:lang="ru">Контент</value>
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">内容</value>
+    </property>
+    <property key="ProductCategoryDescription">
+        <value xml:lang="en">Category Description</value>
+        <value xml:lang="fr">Description de la catégorie</value>
     </property>
     <property key="ProductCategoryId">
         <value xml:lang="de">Kategorie ID</value>
@@ -15905,7 +15909,7 @@
         <value xml:lang="de">Produktkategorie Typ</value>
         <value xml:lang="en">Product Category Type</value>
         <value xml:lang="es">Tipo de Categoría de productos</value>
-        <value xml:lang="fr">Type de catégorie d'article</value>
+        <value xml:lang="fr">Type de catégorie</value>
         <value xml:lang="it">Tipo Categoria Prodotto</value>
         <value xml:lang="ro">Tip Categorie Produs</value>
         <value xml:lang="ru">Тип категории</value>
@@ -15927,7 +15931,7 @@
         <value xml:lang="de">Produkt Inhalttyp ID</value>
         <value xml:lang="en">Product Content Type Id</value>
         <value xml:lang="es">Código de tipo de configuración de producto</value>
-        <value xml:lang="fr">Type de contenu d'article</value>
+        <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto Prodotto</value>
         <value xml:lang="ro">Tip Continut Produs</value>
         <value xml:lang="ru">Тип контента</value>
@@ -15949,7 +15953,7 @@
         <value xml:lang="de">Produktbeschreibung</value>
         <value xml:lang="en">Product Description</value>
         <value xml:lang="es">Descripción del producto</value>
-        <value xml:lang="fr">Description article</value>
+        <value xml:lang="fr">Description de l'article</value>
         <value xml:lang="it">Descrizione Prodotto</value>
         <value xml:lang="ro">Descriere Produs</value>
         <value xml:lang="ru">Описание продукта</value>

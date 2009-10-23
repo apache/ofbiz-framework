@@ -41,7 +41,7 @@ under the License.
                     <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
-                    <td width="26%" align="right" class="label">${uiLabelMap.ProductProductDescription}</td>
+                    <td width="26%" align="right" class="label">${uiLabelMap.ProductCategoryDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%" colspan="4" valign="top">
                         <textarea name="description" cols="60" rows="2">${(productCategory.description)?if_exists}</textarea>
