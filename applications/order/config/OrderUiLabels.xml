@@ -1341,7 +1341,7 @@
         <value xml:lang="en">Adjustment Type</value>
         <value xml:lang="es">Tipo de ajuste</value>
         <value xml:lang="fr">Type d'ajustement</value>
-        <value xml:lang="nl">Soort correctie</value>
+        <!--value xml:lang="nl">Soort correctie</value--> <!-- to be checked... -->
         <value xml:lang="it">Aggiustamento</value>
         <value xml:lang="nl">Soort instelling</value>
         <value xml:lang="ru">Тип настройки</value>
@@ -1974,7 +1974,6 @@
         <value xml:lang="th">เคลียร์รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">清除订单</value>
         <value xml:lang="zh_CN">清空订单</value>
-        <value xml:lang="zh">清除订单</value>
     </property>
     <property key="OrderClearSearchHistory">
         <value xml:lang="de">Suchverlauf löschen</value>
@@ -2693,7 +2692,7 @@
         <value xml:lang="en">Edit Shipment Info</value>
         <value xml:lang="es">Editar información de envío</value>
         <value xml:lang="fr">Modifier l'info d'expédition</value>
-        <value xml:lang="en">Verzendinfo wijzigen</value>
+        <value xml:lang="nl">Verzendinfo wijzigen</value>
         <value xml:lang="it">Aggiorna informazioni spedizione</value>
         <value xml:lang="ru">Изменить информацию о поставке</value>
         <value xml:lang="th">แก้ไขข้อมูลการส่งสินค้า</value>
@@ -2861,7 +2860,7 @@
         <value xml:lang="en">Error : Select  Customer</value>
         <value xml:lang="es">Por favor, seleccione un cliente</value>
         <value xml:lang="fr">SVP : sélectionnez un client</value>
-        <value xml:lang="de">Fout: geen klant geselecteerd</value>
+        <value xml:lang="nl">Fout: geen klant geselecteerd</value>
         <value xml:lang="it">Errore : selezione cliente</value>
         <value xml:lang="th">Error : ผิดพลาด ! การเลือกลูกค้า</value>
     </property>
@@ -3629,7 +3628,7 @@
         <value xml:lang="it">Riga #</value>
         <value xml:lang="nl">Element #</value>
         <value xml:lang="ja">Item #</value>
-        <value xml:lang="nl">Item #</value>
+        <!--value xml:lang="nl">Item #</value--> <!--  to be checked -->
         <value xml:lang="ro">Linie #</value>
         <value xml:lang="ru">№ позиции</value>
         <value xml:lang="th">รายการ #</value>
@@ -4077,7 +4076,6 @@
         <value xml:lang="es">Nuevo pedido</value>
         <value xml:lang="fr">Nouvelle commande</value>
         <value xml:lang="it">Nuovo ordine</value>
-        <value xml:lang="nl">Nieuwe order</value>
         <value xml:lang="nl">Nieuwe order</value>
         <value xml:lang="pt_PT">Nova Encomenda</value>
         <value xml:lang="ro">Noua Comanda</value>
@@ -5783,6 +5781,7 @@
         <value xml:lang="fr">Unité de mesure</value>
         <value xml:lang="it">UdM Preventivo</value>
         <value xml:lang="nl">Offerte Uom Id</value>
+        <!--value xml:lang="nl">UoM offerte</value--><!-- to be checked -->
         <value xml:lang="ro">UdM Oferta</value>
         <value xml:lang="ru">Код валюты предложения</value>
         <value xml:lang="th">รหัสหน่วยวัดคำร้อง</value>
@@ -5851,19 +5850,6 @@
         <value xml:lang="th">คำร้อง</value>
         <value xml:lang="zh">询价</value>
         <value xml:lang="zh_CN">报价</value>
-    </property>
-  <property key="OrderOrderQuoteUomId">
-        <value xml:lang="de">Offerte Einheit ID</value>
-        <value xml:lang="en">Quote Uom Id</value>
-        <value xml:lang="es">Unidad de medida</value>
-        <value xml:lang="fr">Unité de mesure</value>
-        <value xml:lang="it">UdM Preventivo</value>
-        <value xml:lang="nl">UoM offerte</value>
-        <value xml:lang="ro">UdM Oferta</value>
-        <value xml:lang="ru">Код валюты предложения</value>
-        <value xml:lang="th">รหัสหน่วยวัดคำร้อง</value>
-        <value xml:lang="zh">询价币种标识</value>
-        <value xml:lang="zh_CN">报价单位标识</value>
     </property>
     <property key="OrderOrderReceivedOn">
         <value xml:lang="en">Order Received On</value>
