@@ -40,7 +40,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="applicationMenuName" value="HumanResAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://humanres/widget/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://humanres/widget/HumanresMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.HumanResManagerApplication}" global="true"/>
             </actions>
             <widgets>
@@ -119,7 +119,7 @@ under the License.
                                         <not><if-empty field="emplPosition"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="EmplPostionBar" location="component://humanres/widget/Menus.xml"/>
+                                        <include-menu name="EmplPostionBar" location="component://humanres/widget/HumanresMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -170,7 +170,7 @@ under the License.
                                                 <not><if-empty field="parameters.fromDate"/></not>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="EmploymentBar" location="component://humanres/widget/Menus.xml"/>
+                                                <include-menu name="EmploymentBar" location="component://humanres/widget/HumanresMenus.xml"/>
                                                 <container style="button-bar">
                                                     <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
                                                 </container>
@@ -211,7 +211,7 @@ under the License.
                                         <not><if-empty field="perfReviewId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="PartyBar" location="component://humanres/widget/Menus.xml"/>
+                                        <include-menu name="PartyBar" location="component://humanres/widget/HumanresMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -246,7 +246,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/Menus.xml"/>
+                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -303,7 +303,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/Menus.xml"/>
+                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -357,7 +357,7 @@ under the License.
                         <section>
                             <widgets>
                                 <container>
-                                    <include-menu name="GlobalHRSettingMenus" location="component://humanres/widget/Menus.xml"/>
+                                    <include-menu name="GlobalHRSettingMenus" location="component://humanres/widget/HumanresMenus.xml"/>
                                 </container>
                             </widgets>
                         </section>
@@ -380,7 +380,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <widgets>
-                                        <include-menu name="RecruitmentTypeMenu" location="component://humanres/widget/Menus.xml"/>
+                                        <include-menu name="RecruitmentTypeMenu" location="component://humanres/widget/HumanresMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -404,7 +404,7 @@ under the License.
                         <section>
                             <widgets>
                                 <container>
-                                    <include-menu name="TrainingTypeMenu" location="component://humanres/widget/Menus.xml"/>
+                                    <include-menu name="TrainingTypeMenu" location="component://humanres/widget/HumanresMenus.xml"/>
                                 </container>
                             </widgets>
                         </section>

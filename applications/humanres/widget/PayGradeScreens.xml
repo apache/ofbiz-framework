@@ -71,7 +71,7 @@
                                 <not><if-empty field="parameters.payGradeId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
+                                <include-menu name="SalaryBar" location="component://humanres/widget/HumanresMenus.xml"/>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.HumanResEditPayGrade} [${payGradeId}]">
@@ -103,7 +103,7 @@
                                 <not><if-empty field="parameters.payGradeId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="SalaryBar" location="component://humanres/widget/Menus.xml"/>
+                                <include-menu name="SalaryBar" location="component://humanres/widget/HumanresMenus.xml"/>
                             </widgets>
                         </section>
                         <screenlet id="AddSalaryStepPanel" title="${uiLabelMap.HumanResAddSalaryStep} [${payGradeId}]" collapsible="true">
