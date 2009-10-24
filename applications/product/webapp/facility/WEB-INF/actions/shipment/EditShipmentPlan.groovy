@@ -186,7 +186,7 @@ if (shipmentPlans) {
         rows.add(oneRow);
     }
 }
-HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "listShipmentPlan", request, response);
+HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "listShipmentPlan", request, response);
 listShipmentPlanForm.putInContext("shipmentPlan", rows);
 
 // **************************************
@@ -277,10 +277,10 @@ if (orderItemShipGroupAssocs) {
     }
 }
 // Add form
-HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "addToShipmentPlan", request, response);
+HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "addToShipmentPlan", request, response);
 addToShipmentPlanForm.putInContext("shipmentPlan", addRows);
 
-HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "findOrderItems", request, response);
+HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "findOrderItems", request, response);
 findOrderItemsForm.putInContext("shipmentId", shipmentId);
 if (shipment && shipment.primaryOrderId) {
     findOrderItemsForm.putInContext("orderId", shipment.primaryOrderId);
@@ -289,7 +289,7 @@ if (shipment && shipment.primaryOrderId) {
     }
 }
 
-HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
+HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
 shipmentPlanToOrderItemsForm.putInContext("shipmentId", shipmentId);
 
 context.findOrderItemsForm = findOrderItemsForm; // Form for Order search: find By orderId

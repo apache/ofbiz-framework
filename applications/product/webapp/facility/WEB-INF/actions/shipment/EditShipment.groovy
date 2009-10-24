@@ -34,7 +34,7 @@ if (!shipment) {
 }
 orderHeader = delegator.findOne("OrderHeader", [orderId : primaryOrderId], false);
 
-HtmlFormWrapper editShipmentWrapper = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "EditShipment", request, response);
+HtmlFormWrapper editShipmentWrapper = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "EditShipment", request, response);
 editShipmentWrapper.putInContext("shipmentId", shipmentId);
 editShipmentWrapper.putInContext("shipment", shipment);
 editShipmentWrapper.putInContext("productStoreId", null); // seems to be needed not exist != null
