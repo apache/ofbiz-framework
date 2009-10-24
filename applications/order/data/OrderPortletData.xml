@@ -53,7 +53,7 @@
         screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
         description="List Orders placed by customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
         editFormName="EditOrderByCustomer"
-        editFormLocation="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+        editFormLocation="component://order/widget/ordermgr/OrderForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustomerOrders" portletCategoryId="ORDERMGR"/>
     
     <!-- List Todays Order -->

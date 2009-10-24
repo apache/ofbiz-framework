@@ -45,7 +45,7 @@ under the License.
         </field>
     </form>
     <form name="AddWorkEffortRequirement" default-map-name="workRequirementFulfillment" target="createWorkEffortRequirement" title="" type="single" extends="EditRequirement"
-        extends-resource="component://order/webapp/ordermgr/requirement/RequirementForms.xml" header-row-style="header-row" default-table-style="basic-table">
+        extends-resource="component://order/widget/ordermgr/RequirementForms.xml" header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="requirementId"><lookup target-form-name="/ordermgr/control/LookupRequirement"/></field>
         <field name="workReqFulfTypeId">

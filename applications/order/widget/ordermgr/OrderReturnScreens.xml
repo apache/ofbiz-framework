@@ -53,8 +53,8 @@ under the License.
                             <container>
                                 <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                             </container>
-                            <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
-                            <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                            <include-form name="FindReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
+                            <include-form name="ListReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -96,7 +96,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-form name="EditReturn" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                                <include-form name="EditReturn" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -190,7 +190,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReturnStatusHistoryPanel" title="${uiLabelMap.OrderOrderReturn} ${uiLabelMap.CommonStatusHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnStatusHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnStatusHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -218,7 +218,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReturnTypeHistoryPanel" title="${uiLabelMap.OrderReturnTypeHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnTypeHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnTypeHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -246,7 +246,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReturnReasonHistoryPanel" title="${uiLabelMap.OrderReturnReasonHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnReasonHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnReasonHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -274,7 +274,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReturnQuantityHistoryPanel" title="${uiLabelMap.OrderReturnQtyHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -302,7 +302,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReceivedQuantityHistoryPanel" title="${uiLabelMap.OrderReceivedQtyHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnAndReceivedQuantityHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -330,7 +330,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet id="ReturnPriceHistoryPanel" title="${uiLabelMap.OrderReturnPriceHistory}" collapsible="true">
-                            <include-form location="component://order/webapp/ordermgr/return/ReturnForms.xml" name="ReturnPriceHistory"/>
+                            <include-form location="component://order/widget/ordermgr/ReturnForms.xml" name="ReturnPriceHistory"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>

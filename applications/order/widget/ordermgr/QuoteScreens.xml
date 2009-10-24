@@ -36,8 +36,8 @@ under the License.
                             <container>
                                 <link target="EditQuote" text="${uiLabelMap.OrderCreateOrderQuote}" style="buttontext"/>
                             </container>
-                            <include-form name="FindQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
-                            <include-form name="ListQuotes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="FindQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                            <include-form name="ListQuotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -206,7 +206,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEdit}">
-                            <include-form name="EditQuote" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -235,7 +235,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="ListQuoteRoles" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuoteRoles" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -264,7 +264,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="EditQuoteRole" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteRole" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -296,7 +296,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="ListQuoteItems" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuoteItems" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -325,7 +325,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="EditQuoteItem" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteItem" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -353,7 +353,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="ListQuoteAttributes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuoteAttributes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -382,7 +382,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="EditQuoteAttribute" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteAttribute" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -410,7 +410,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="ListQuoteCoefficients" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuoteCoefficients" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -439,7 +439,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="EditQuoteCoefficient" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteCoefficient" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -478,7 +478,7 @@ under the License.
                             </platform-specific>
                         </screenlet>
                         <screenlet title="${uiLabelMap.OrderOrderQuotePrices}">
-                            <include-form name="ManageQuotePrices" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ManageQuotePrices" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/quote/ManageQuotePricesTotals.ftl"/></html>
                             </platform-specific>
@@ -515,7 +515,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="ListQuoteAdjustments" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ListQuoteAdjustments" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -544,7 +544,7 @@ under the License.
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
                             </container>
-                            <include-form name="EditQuoteAdjustment" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteAdjustment" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -581,7 +581,7 @@ under the License.
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/quote/ViewQuoteProfit.ftl"/></html>
                             </platform-specific>
-                            <include-form name="ViewQuoteProfit" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="ViewQuoteProfit" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -604,7 +604,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEditReportMail}">
-                            <include-form name="EditQuoteReportMail" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
+                            <include-form name="EditQuoteReportMail" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
