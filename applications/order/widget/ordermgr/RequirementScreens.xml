@@ -93,10 +93,10 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
-                                <include-form name="FindRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <include-form name="FindRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <include-form name="ListRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -119,10 +119,10 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
-                                <include-form name="FindNotApprovedRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <include-form name="FindNotApprovedRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ApproveRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                <include-form name="ApproveRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -145,7 +145,7 @@ under the License.
                 <decorator-screen name="CommonRequirementsDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindApprovedProductRequirements}">
-                            <include-form name="FindApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="FindApprovedProductRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                         <section>
                             <actions>
@@ -165,16 +165,16 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.OrderRequirementsList}">
-                                    <include-form name="ApprovedProductRequirements" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                    <include-form name="ApprovedProductRequirements" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                                     <screenlet>
-                                        <include-form name="ApprovedProductRequirementsSummary" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                        <include-form name="ApprovedProductRequirementsSummary" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                                     </screenlet>
-                                    <include-form name="ApprovedProductRequirementsSubmit" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                    <include-form name="ApprovedProductRequirementsSubmit" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleFindApprovedProductRequirements}">
-                                    <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                                    <include-form name="ApprovedProductRequirementsList" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -196,7 +196,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        <include-form name="ApprovedProductRequirementsList" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -216,7 +216,7 @@ under the License.
                 <decorator-screen name="CommonRequirementsDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindApprovedRequirementsBySupplier}">
-                            <include-form name="ApprovedProductRequirementsByVendor" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="ApprovedProductRequirementsByVendor" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -236,7 +236,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ApprovedProductRequirementsByVendor" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        <include-form name="ApprovedProductRequirementsByVendor" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -257,7 +257,7 @@ under the License.
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditRequirement}">
-                            <include-form name="EditRequirement" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="EditRequirement" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -282,7 +282,7 @@ under the License.
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListRequirementCustRequests}">
-                            <include-form name="ListRequirementCustRequests" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="ListRequirementCustRequests" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -308,7 +308,7 @@ under the License.
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListRequirementOrders}">
-                            <include-form name="ListRequirementOrders" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="ListRequirementOrders" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -342,7 +342,7 @@ under the License.
                                     <parameter param-name="requirementId"/>
                                 </link>
                             </container>
-                            <include-form name="ListRequirementRoles" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="ListRequirementRoles" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                    </decorator-section>
                 </decorator-screen>
@@ -363,7 +363,7 @@ under the License.
                 <decorator-screen name="CommonRequirementDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditRequirementRole}">
-                            <include-form name="EditRequirementRole" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                            <include-form name="EditRequirementRole" location="component://order/widget/ordermgr/RequirementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

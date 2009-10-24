@@ -375,9 +375,9 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <screenlet id="AddOrderTermPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.OrderOrderTerms}" collapsible="true">
-                            <include-form name="AddOrderTerm" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                            <include-form name="AddOrderTerm" location="component://order/widget/ordermgr/OrderForms.xml"/>
                         </screenlet>
-                        <include-form name="ListOrderTerms" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                        <include-form name="ListOrderTerms" location="component://order/widget/ordermgr/OrderForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -416,7 +416,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderShipmentMethodHistory}">
-                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderShipmentMethodHistory"/>
+                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderShipmentMethodHistory"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -436,7 +436,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderUnitPriceHistory}">
-                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderUnitPriceHistory"/>
+                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderUnitPriceHistory"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -456,7 +456,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderQuantityHistory}">
-                    <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="OrderQuantityHistory"/>
+                    <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="OrderQuantityHistory"/>
                 </screenlet>
             </widgets>
             <fail-widgets>
@@ -480,7 +480,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${screenletTitle} ${partyId} ${statusId}" navigation-form-name="ListCustomerOrders" >
-                   <include-form name="ListCustomerOrders" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                   <include-form name="ListCustomerOrders" location="component://order/widget/ordermgr/OrderForms.xml"/>
                 </screenlet>
             </widgets>
         </section> 
