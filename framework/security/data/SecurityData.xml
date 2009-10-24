@@ -55,4 +55,6 @@ under the License.
     <!-- System UserLogin Account - see additional data in SecurityExtData -->
     <UserLogin userLoginId="system" enabled="N" isSystem="Y"/>
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="system" fromDate="2001-01-01 12:00:00.0"/>
+    <!-- Anonymous UserLogin is referenced by services in various components -->
+    <UserLogin userLoginId="anonymous" enabled="N"/>
 </entity-engine-xml>
