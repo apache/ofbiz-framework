@@ -178,5 +178,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonPartyDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="companies"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="organizationPartyId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PartyTopTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
