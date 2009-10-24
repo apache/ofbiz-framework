@@ -61,10 +61,10 @@ under the License.
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductGlobalPriceRules}">
-                            <include-form name="FindProductPriceRules" location="component://product/webapp/catalog/price/PriceForms.xml"/>
+                            <include-form name="FindProductPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddPriceRule}">
-                            <include-form location="component://product/webapp/catalog/price/PriceForms.xml" name="AddPriceRules"/>
+                            <include-form location="component://product/widget/catalog/PriceForms.xml" name="AddPriceRules"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

@@ -179,7 +179,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
-                            <include-form name="ViewPartyRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -187,7 +187,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyAddToRole}">
-                                    <include-form name="AddPartyRole" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="AddPartyRole" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -203,7 +203,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyNewRoleType}">
-                                    <include-form name="AddRoleType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="AddRoleType" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -270,7 +270,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyRelationships}" navigation-form-name="ListPartyRelationships">
-                            <include-form name="ListPartyRelationships" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ListPartyRelationships" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <container style="lefthalf">
                         <section>
@@ -279,14 +279,14 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyNewRelationshipType}">
-                                    <include-form name="AddPartyRelationshipType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="AddPartyRelationshipType" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
                         </container>
                         <container style="righthalf">
                         <screenlet title="${uiLabelMap.PartyAddOtherRelationship}">
-                            <include-form name="AddOtherPartyRelationship" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddOtherPartyRelationship" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         </container>
                         <container style="clear"/>
@@ -313,7 +313,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyVendorInformation}">
-                            <include-form name="EditVendor" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="EditVendor" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -339,7 +339,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyAttribute}">
-                            <include-form name="EditPartyAttribute" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="EditPartyAttribute" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -368,9 +368,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddPartyTaxAuthInfospanel" title="${uiLabelMap.PageTitleAddPartyTaxAuthInfos}" collapsible="true">
-                            <include-form name="AddPartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddPartyTaxAuthInfo" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdatePartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="UpdatePartyTaxAuthInfo" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -460,7 +460,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditPersonalInformation}">
-                            <include-form name="EditPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="EditPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -483,7 +483,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditGroupInformation}">
-                            <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="EditPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -506,10 +506,10 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyUserLoginChangePassword}">
-                            <include-form name="updatePassword" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="updatePassword" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}">
-                            <include-form name="updateUserLoginSecurity" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="updateUserLoginSecurity" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -530,7 +530,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCreateUserLogin}">
-                            <include-form name="AddUserLogin" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -575,7 +575,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleNewPartyNote}">
-                            <include-form name="AddPartyNote" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddPartyNote" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -597,9 +597,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddPartyRatesPanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
-                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddPartyRate" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="ListPartyRates" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -622,9 +622,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddSegmentRolePanel" title="${uiLabelMap.PageTitleAddPartySegmentRoles}" collapsible="true">
-                            <include-form name="AddSegmentRole" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddSegmentRole" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSegmentRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="ListSegmentRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -679,7 +679,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyCreateNewCustomer}">
-                                    <include-form name="NewUser" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -711,7 +711,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyCreateNewProspect}">
-                                    <include-form name="NewUser" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -743,7 +743,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyCreateNewEmployee}">
-                                    <include-form name="NewUser" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -817,10 +817,10 @@ under the License.
                                     <parameter param-name="partyId"/>
                                 </link>
                             </container>
-                            <include-form name="ListPartyContents" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ListPartyContents" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddPartyContent}">
-                            <include-form name="AddPartyContent" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddPartyContent" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -836,7 +836,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyShipperAccount}">
-                            <include-form name="EditCarrierAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="EditCarrierAccount" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -910,7 +910,7 @@ under the License.
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingInvoicesApplPayments}" navigation-form-name="Invoices">
-                                            <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ListInvoicesApplPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                             <section>
                                                 <condition>
                                                     <and>
@@ -924,7 +924,7 @@ under the License.
                                                 </actions>
                                                 <widgets>
                                                     <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                                    <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                                    <include-form name="ListInvoicesApplPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </screenlet>
@@ -939,7 +939,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyInvoicesNotApplied}" navigation-form-name="partyFinancialHistoryInvoicesN">
-                                    <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ListUnAppliedInvoices" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <and>
@@ -953,7 +953,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ListUnAppliedInvoices" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -966,7 +966,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPaymentsNotApplied}" navigation-form-name="partyFinancialHistoryPaymentsN">
-                                    <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ListUnAppliedPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <and>
@@ -980,7 +980,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ListUnAppliedPayments" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -993,7 +993,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyFinancialSummary}${defaultOrganizationPartyId}" navigation-form-name="partyFinancialSummary">
-                                    <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="partyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <and>
@@ -1007,7 +1007,7 @@ under the License.
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
-                                            <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="partyFinancialSummary" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -1019,7 +1019,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingBillingAccount}">
-                                    <include-form name="PartyBillingAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="PartyBillingAccount" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -1029,7 +1029,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.OrderOrderReturns}">
-                                    <include-form name="PartyReturns" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="PartyReturns" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -1053,7 +1053,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonPreferences}" >
-                            <include-form name="ListPreference" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ListPreference" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -1106,11 +1106,11 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyPartyIdentificationList}">
-                             <include-form name="listPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                             <include-form name="listPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyPartyIdentification}" navigation-menu-name="newPartyIdentification" id="PartyIdentificationCreationPanel">
                              <include-menu name="newPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                             <include-form name="editPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                             <include-form name="editPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                          </screenlet>
                     </decorator-section>
                 </decorator-screen>

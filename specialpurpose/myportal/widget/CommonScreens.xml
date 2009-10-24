@@ -173,7 +173,7 @@ under the License.
                             <widgets>
                                 <label style="h2" text="${uiLabelMap.MyPortalRegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"/>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}">
-                                    <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>

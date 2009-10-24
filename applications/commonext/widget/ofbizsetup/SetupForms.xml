@@ -68,7 +68,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
     
-    <form name="NewCustomer" extends="NewUser" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+    <form name="NewCustomer" extends="NewUser" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="customerPartyId"><hidden value="CUST${partyId}"/></field>
         <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}"><text size="30" maxlength="250"/></field>
@@ -212,7 +212,7 @@
         <field name="allowProductStoreChange"><hidden/></field>
     </form>
     
-    <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/webapp/catalog/catalog/ProdCatalogForms.xml">
+    <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/widget/catalog/ProdCatalogForms.xml">
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
         <field name="catalogName" title="${uiLabelMap.ProductCatalogName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
@@ -293,7 +293,7 @@
         </field>
     </form>
     
-    <form name="EditCustomer" extends="EditPerson" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+    <form name="EditCustomer" extends="EditPerson" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>

@@ -79,7 +79,7 @@
         </field>
         <field name="addButton" ><submit/></field>
     </form>
-    <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+    <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="roleTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="RoleType" description="${description}">

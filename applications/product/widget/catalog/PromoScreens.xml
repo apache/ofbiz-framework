@@ -95,13 +95,13 @@ under the License.
                             </container>
                             <section>
                                 <widgets>
-                                    <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    <include-form name="GoToProductPromoCode" location="component://product/widget/catalog/PromoForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                     
                         <screenlet title="${uiLabelMap.ProductProductPromotionsList}">
-                            <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                            <include-form name="ListProductPromos" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -123,7 +123,7 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductPromos}">
-                            <include-form name="EditProductPromo" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                            <include-form name="EditProductPromo" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -285,7 +285,7 @@ under the License.
                             </fail-widgets>
                         </section>
                         <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}">
-                            <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                            <include-form name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
@@ -313,7 +313,7 @@ under the License.
                         </container>
 
                         <screenlet title="${uiLabelMap.PageTitleEditProductPromotionCode}">
-                            <include-form name="EditProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                            <include-form name="EditProductPromoCode" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoCode.ftl"/></html>

@@ -131,11 +131,11 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProduct}">
-                            <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            <include-form name="EditProduct" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <!-- include the duplicate product form template -->
                         <screenlet title="${uiLabelMap.ProductDuplicateProduct}">
-                            <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            <include-form name="EditProductDup" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

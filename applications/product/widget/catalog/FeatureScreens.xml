@@ -69,19 +69,19 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductEditFeature} : ${productFeature.description}">
-                            <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="EditProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
-                            <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
-                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductSupplierSpecificFeatureInformation}">
-                            <include-form name="EditSupplierProductFeatures" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="EditSupplierProductFeatures" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductCreateInformationNewSupplier}">
-                            <include-form name="CreateSupplierProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="CreateSupplierProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -105,10 +105,10 @@
                                         <container><link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="FindFeatureType" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFeatureTypes" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="ListFeatureTypes" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -131,7 +131,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditFeatureType}">
-                            <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="EditFeatureType" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -155,10 +155,10 @@
                                         <container><link target="EditFeatureInterAction" text="${uiLabelMap.PageTitleAddFeatureInterAction}" style="buttontext"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="FindFeatureInterAction" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFeatureInterActions" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="ListFeatureInterActions" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -184,7 +184,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleAddFeatureInterAction}">
-                            <include-form name="EditFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="EditFeatureInterAction" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -202,7 +202,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditFeatureType}">
-                            <include-form name="CreateProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="CreateProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -230,10 +230,10 @@
                                         <container><link target="CreateProductFeature" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="FindProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="ListProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -310,14 +310,14 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductEditFeatureGroupAppls}">
-                            <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="ListFeatureGroupAppls" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductQuickApplyFeature}">
-                            <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="QuickApplyFeatureToGroup" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductApplyFeaturesFromCategory}">
-                            <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                            <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="ApplyFeatureCategoryToGroup" location="component://product/widget/catalog/FeatureForms.xml"/>
+                            <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -356,10 +356,10 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
-                            <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
-                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -372,7 +372,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductQuickApplyFeature}">
-                            <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -393,7 +393,7 @@
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductEditFeature} : ${productFeature.description}">
-                            <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            <include-form name="EditProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

@@ -43,7 +43,7 @@
                         <include-form name="lookupPerson" location="component://assetmaint/widget/forms/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPerson" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                        <include-form name="listLookupPerson" location="component://party/widget/partymgr/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

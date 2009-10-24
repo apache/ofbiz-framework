@@ -33,10 +33,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -55,10 +55,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupVirtualProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupVirtualProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -103,10 +103,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupProductAndPrice" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupProductAndPrice" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -125,10 +125,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupProductCategory" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupProductCategory" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,10 +147,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupProductFeature" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupProductFeature" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -172,10 +172,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="LookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="LookupProductStore" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupProductStore" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -196,10 +196,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupSupplierProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupSupplierProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupSupplierProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupSupplierProduct" location="component://product/widget/catalog/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

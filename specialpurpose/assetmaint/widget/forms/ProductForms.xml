@@ -114,7 +114,7 @@
         </field>
     </form>
 
-    <form name="AddProductMaint" extends="AddProductMaint" extends-resource="component://product/webapp/catalog/product/ProductForms.xml">
+    <form name="AddProductMaint" extends="AddProductMaint" extends-resource="component://product/widget/catalog/ProductForms.xml">
         <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>
     </form>
 

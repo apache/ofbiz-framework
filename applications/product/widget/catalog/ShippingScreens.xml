@@ -42,10 +42,10 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListQuantityBreaks}">
-                            <include-form name="ListQuantityBreaks" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="ListQuantityBreaks" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditQuantityBreaks}">
-                            <include-form name="EditQuantityBreak" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="EditQuantityBreak" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -73,10 +73,10 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListShipmentMethodTypes}">
-                            <include-form name="ListShipmentMethodTypes" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="ListShipmentMethodTypes" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditShipmentMethodTypes}">
-                            <include-form name="EditShipmentMethodType" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="EditShipmentMethodType" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -104,10 +104,10 @@ under the License.
                 <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListCarrierShipmentMethods}">
-                            <include-form name="ListCarrierShipmentMethods" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="ListCarrierShipmentMethods" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditCarrierShipmentMethods}">
-                            <include-form name="EditCarrierShipmentMethod" location="component://product/webapp/catalog/shipping/ShippingForms.xml"/>
+                            <include-form name="EditCarrierShipmentMethod" location="component://product/widget/catalog/ShippingForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
