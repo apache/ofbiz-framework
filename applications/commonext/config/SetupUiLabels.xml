@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="SetupCompanyName">
         <value xml:lang="en">OFBiz: Setup Component </value>
+        <value xml:lang="it">OFBiz: componente di configurazione</value>
     </property>
     <property key="SetupCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
@@ -48,77 +49,102 @@
     </property>
     <property key="SetupApp">
         <value xml:lang="en">Setup Application</value>
+        <value xml:lang="it">Applicazione di configurazione</value>
     </property>
     <property key="SetupNewComponent">
         <value xml:lang="en">Setup New Component</value>
+        <value xml:lang="it">Configura nuovo componente</value>
     </property>
     <property key="SetupOrganization">
         <value xml:lang="en">Organization</value>
+        <value xml:lang="it">Organizzazione</value>
     </property>
     <property key="SetupProductStore">
         <value xml:lang="en">Product Store</value>
+        <value xml:lang="it">Negozio prodotti</value>
     </property>
     <property key="SetupWebSite">
         <value xml:lang="en">Web Site</value>
+        <value xml:lang="it">Sito web</value>
     </property>
     <property key="SetupFacility">
         <value xml:lang="en">Facility</value>
+        <value xml:lang="it">Stabilimento</value>
     </property>
     <property key="SetupOrganizationPartyId">
         <value xml:lang="en">Organization Party Id</value>
+        <value xml:lang="it">Soggetto organizzazione</value>
     </property>
     <property key="SetupOrganizationName">
         <value xml:lang="en">Organization name</value>
+        <value xml:lang="it">Nome organizzazione</value>
     </property>
     <property key="SetupOrganizationInformation">
         <value xml:lang="en">Organization Information</value>
+        <value xml:lang="it">Informazioni organizzazione</value>
     </property>
     <property key="SetupEditOrganizationInformation">
         <value xml:lang="en">Edit Organization Information</value>
+        <value xml:lang="it">Aggiorna informazioni organizzazione</value>
     </property>
     <property key="SetupProductStoreName">
         <value xml:lang="en">Product Store name</value>
+        <value xml:lang="it">Nome negozio prodotti</value>
     </property>
     <property key="SetupResults">
         <value xml:lang="en">Results</value>
+        <value xml:lang="it">Risultati</value>
     </property>
     <property key="SetupFirstCustomer">
         <value xml:lang="en">First Customer</value>
+        <value xml:lang="it">Primo cliente</value>
     </property>
     <property key="SetupFirstProduct">
         <value xml:lang="en">First Product</value>
+        <value xml:lang="it">Primo prodotto</value>
     </property>
     <property key="SetupFacilityDescription">
         <value xml:lang="en">Description</value>
+        <value xml:lang="it">Descrizione stabilimento</value>
     </property>
     <property key="SetupEditProductStore">
         <value xml:lang="en">Edit Product Store</value>
+        <value xml:lang="it">Aggiorna negozio prodotti</value>
     </property>
     <property key="SetupCreateNewOrganization">
         <value xml:lang="en">Create New Organization</value>
+        <value xml:lang="it">Creare nuova organizzazione</value>
     </property>
     <property key="SetupTheFirstCustomerOf">
         <value xml:lang="en">The First Customer of</value>
+        <value xml:lang="it">Il primo cliente di</value>
     </property>
     <property key="SetupProductCatalog">
         <value xml:lang="en">Product Catalog</value>
+        <value xml:lang="it">Catalogo prodotti</value>
     </property>
     <property key="SetupPageError">
         <value xml:lang="en">You do not have sufficient data to access this page.</value>
+        <value xml:lang="it">Tu non hai sufficienti diritti per accedere a questa pagina.</value>
     </property>
     <property key="PageTitleProductInfomation">
         <value xml:lang="en">Product Infomation</value>
+        <value xml:lang="it">Informazione prodotti</value>
     </property>
     <property key="PageTitleEditProductCategory">
         <value xml:lang="en">Edit Product Category</value>
+        <value xml:lang="it">Aggiorna categoria prodotti</value>
     </property>
     <property key="SetupSetToComplete">
         <value xml:lang="en">Set to complete</value>
+        <value xml:lang="it">Imposta a completato</value>
     </property>
     <property key="SetupInitialSetup">
         <value xml:lang="en">Initial Setup</value>
+        <value xml:lang="it">Configurazione iniziale</value>
     </property>
     <property key="SetupEventMessage">
         <value xml:lang="en">Setup only works if there are no organizations defined yet</value>
+        <value xml:lang="it">Configura solo i lavori se non c'è ancora nessuna organizzazione definita</value>
     </property>
 </resource>
