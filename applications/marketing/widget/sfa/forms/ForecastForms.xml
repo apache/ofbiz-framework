@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindSalesForecast" type="single" target="FindSalesForecast" extends="LookupSalesForecast"
-            extends-resource="component://marketing/webapp/marketing/lookup/LookupForms.xml"
+            extends-resource="component://marketing/widget/LookupForms.xml"
             header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
