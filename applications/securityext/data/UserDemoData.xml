@@ -71,7 +71,6 @@ under the License.
     <PartyRole partyId="bizadmin" roleTypeId="_NA_"/>
     <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
-    <UserLogin userLoginId="anonymous" partyId=""/>
     <UserLogin userLoginId="system" partyId="system"/>
     <UserLogin userLoginId="admin" partyId="admin"/>
     <UserLogin userLoginId="flexadmin" partyId="admin"/>
