@@ -20,7 +20,8 @@
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
- 
+import org.ofbiz.product.product.ProductContentWrapper;
+
 bestSellingProducts = [];
 exprList = [];
 exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)));
@@ -57,6 +58,9 @@ orderHeaderList.each { orderHeader ->
         
         if (inListFlag == false) {
             orderItemDetail.productId = orderItem.productId;
+            product = delegator.findOne("Product", [productId : orderItem.productId], false);
+            contentWrapper = new ProductContentWrapper(product, request);
+            orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME");
             orderItemDetail.amount = amount;
             orderItemDetail.qtyOrdered = qtyOrdered;
             bestSellingProducts.add(orderItemDetail);
