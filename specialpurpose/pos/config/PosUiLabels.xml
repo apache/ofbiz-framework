@@ -76,7 +76,7 @@
         <value xml:lang="zh">收银员:</value>
     </property>
     <property key="PosClientProfile">
-        <value xml:lang="en">Client informations, selection add the card# as a promo code</value>
+        <value xml:lang="en">Client informations, selection adds the card# as a promo code</value>
         <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code promo</value>
     </property>
     <property key="PosConfigureItem">
