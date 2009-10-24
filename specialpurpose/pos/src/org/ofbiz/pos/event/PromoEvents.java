@@ -48,13 +48,14 @@ public class PromoEvents {
         } else if ("PROMOCODE".equals(lastFunc[0])) {
             String promoCode = input.value();
             if (UtilValidate.isNotEmpty(promoCode)) {
+                StatusBar statusbar = new StatusBar(pos);
+                statusbar.clearPromoCode();
                 String result = trans.addProductPromoCode(promoCode);
                 if (result != null) {
                     pos.showDialog("dialog/error/exception", result);
                     input.clearFunction("PROMOCODE");
                 } else {
                     input.clearFunction("PROMOCODE");
-                    StatusBar statusbar = new StatusBar(pos);
                     statusbar.printPromoCode(promoCode);
                     NavagationEvents.showPosScreen(pos);
                     pos.refresh();
