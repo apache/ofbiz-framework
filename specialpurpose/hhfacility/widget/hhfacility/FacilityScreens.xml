@@ -107,7 +107,7 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.ProductReceiptPurchaseOrder}</label>
                         </container>
-                        <include-form name="POEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="POEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -139,7 +139,7 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.ProductReceipt}</label>
                         </container>
-                        <include-form name="ProductEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="ProductEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/setFocusOnField.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -157,7 +157,7 @@ under the License.
             <widgets>
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
-                        <include-form name="ProductQtyEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="ProductQtyEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/setFocusOnField.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -219,7 +219,7 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.PageTitleFindProductStocktake}</label>
                         </container>
-                        <include-form name="FindProductStock" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="FindProductStock" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/stocktake.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -240,8 +240,8 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.PageTitleProductStocktake}</label>
                         </container>
-                        <include-form name="ProductStocktake" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
-                        <include-form name="UpdateProductStocktake" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="ProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <include-form name="UpdateProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                         <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/productstocktake.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -260,7 +260,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListFacilities" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
+                        <include-form name="ListFacilities" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

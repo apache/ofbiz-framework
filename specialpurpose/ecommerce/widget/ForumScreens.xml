@@ -167,7 +167,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleAddContent"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddContent"/>
                 <set field="subMenu" value="/admin/admin_menu.ftl"/>
                 <set field="entityName" value="Content"/>
@@ -214,7 +214,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleEditContent"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddContent"/>
                 <set field="subMenu" value="/admin/admin_menu.ftl"/>
                 <set field="entityName" value="Content"/>
@@ -262,7 +262,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleForumResponse"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="ViewComboResponse"/>
                 <set field="addFormName" value="ViewComboResponse"/>
                 <set field="editFormName" value="ViewComboResponse"/>
@@ -307,7 +307,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleAddResponse"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="AddResponse"/>
                 <set field="addFormName" value="EditResponse"/>
                 <set field="editFormName" value="EditResponse"/>
@@ -357,7 +357,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleEditForumContentInfo"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditContentInfo"/>
                 <set field="entityName" value="Content"/>
                 <set field="permission" value="CONTENTMGR"/>
@@ -399,7 +399,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleEditAddContent"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditAddContent"/>
                 <set field="subMenu" value="/admin/admin_menu.ftl"/>
                 <set field="entityName" value="Content"/>
@@ -452,7 +452,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleEditAddImage"/>
                 <set field="headerItem" value="Forum"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/forum/ForumForms.xml"/>
+                <set field="formDefFile" value="component://content/widget/forum/ForumForms.xml"/>
                 <set field="singleFormName" value="EditAddImage"/>
                 <set field="subMenu" value="/admin/admin_menu.ftl"/>
                 <set field="entityName" value="Content"/>

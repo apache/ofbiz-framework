@@ -116,7 +116,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="ContentMenu"/>
-                <set field="formDefFile" value="component://ecommerce/webapp/ecommerce/content/ContentForms.xml"/>
+                <set field="formDefFile" value="component://ecommerce/widget/ContentForms.xml"/>
                 <set field="entityName" value=""/>
                 <set field="permission" value="CONTENTMGR"/>
                 <set field="permissionType" value="simple"/>
