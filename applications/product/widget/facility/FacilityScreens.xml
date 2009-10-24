@@ -937,6 +937,7 @@ under the License.
     <screen name="ViewInventoryItemDetail">
         <section>
             <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditInventoryItem"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
