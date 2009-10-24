@@ -58,7 +58,7 @@ under the License.
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingRunMrp}">
-                            <include-form name="RunMrp" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                            <include-form name="RunMrp" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -111,10 +111,10 @@ under the License.
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingMrpJobLastExecuted}">
-                            <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                            <include-form name="ListFinishedMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}">
-                            <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                            <include-form name="ListRunningMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
