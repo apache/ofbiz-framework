@@ -45,8 +45,10 @@ import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Operator;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.component.PosButton;
+import org.ofbiz.pos.component.StatusBar;
 import org.ofbiz.pos.device.DeviceLoader;
 
+@SuppressWarnings("serial")
 public class PosScreen extends XPage implements Runnable, DialogCallback, FocusListener {
 
 
@@ -73,6 +75,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     protected String scrLocation = null;
     protected boolean isLocked = false;
     protected boolean inDialog = false;
+    protected StatusBar statusBar = null;
 
     private Locale defaultLocale = Locale.getDefault();
 
@@ -92,10 +95,11 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
 
         // setup the shared components
         this.session = XuiContainer.getSession();
-        this.output = new Output(this);
+        this.output = new Output(this);        
         this.input = new InputWithPassword(this);
         this.journal = new Journal(this);
         this.operator = new Operator(this);
+        this.statusBar = new StatusBar(this);
         this.setLastActivity(System.currentTimeMillis());
 
         if (!firstInit) {

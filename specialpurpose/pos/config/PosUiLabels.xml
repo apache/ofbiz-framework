@@ -76,7 +76,7 @@
         <value xml:lang="zh">收银员:</value>
     </property>
     <property key="PosClientProfile">
-        <value xml:lang="en">Client informations, selection adds the card# as a promo code</value>
+        <value xml:lang="en">Client informations, selection adds the card number as a promo code</value>
         <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code promo</value>
     </property>
     <property key="PosConfigureItem">
@@ -130,6 +130,10 @@
         <value xml:lang="it">CARTA CREDITO</value>
         <value xml:lang="ro">CARTE DE CREDIT</value>
         <value xml:lang="zh">信用卡</value>
+    </property>
+    <property key="PosCustomer">
+        <value xml:lang="en">Customer:</value>
+        <value xml:lang="fr">Client :</value>
     </property>
     <property key="PosDate">
         <value xml:lang="en">DATE</value>
@@ -364,6 +368,10 @@
         <value xml:lang="ro">Executie plati...</value>
         <value xml:lang="zh">处理支付...</value>
     </property>
+    <property key="PosPromoCode">
+        <value xml:lang="en">Promo code:</value>
+        <value xml:lang="fr">Code de promotion :</value>
+    </property>    
     <property key="PosQty">
         <value xml:lang="en">QTY</value>
         <value xml:lang="es">Cantidad</value>
