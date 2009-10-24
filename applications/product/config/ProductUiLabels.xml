@@ -16942,6 +16942,14 @@
         <value xml:lang="th">จำนวนรวม</value>
         <value xml:lang="zh">已包含的数量</value>
     </property>
+    <property key="ProductQuantityOfPackage">
+        <value xml:lang="en">Quantity in this package</value>
+        <value xml:lang="it">Quantità in questo pacco</value>
+    </property>
+    <property key="ProductQuantityShippedOfPackage">
+        <value xml:lang="en">Quantity in this Shipment</value>
+        <value xml:lang="it">Quantità in questo spedizione</value>
+    </property>
     <property key="ProductQuantityNotAvailable">
         <value xml:lang="de">Menge nicht verfügbar</value>
         <value xml:lang="en">Quantity Not Available</value>
@@ -16982,7 +16990,7 @@
         <value xml:lang="en">Quantity Requested</value>
         <value xml:lang="es">Cantidad solicitada</value>
         <value xml:lang="fr">Quantité demandée</value>
-        <value xml:lang="it">Quantità Richiesta</value>
+        <value xml:lang="it">Quantità richiesta</value>
         <value xml:lang="ro">Cantitate Ceruta</value>
         <value xml:lang="ru">Запрошенное количество</value>
         <value xml:lang="th">จำนวนที่เรียกร้อง</value>
