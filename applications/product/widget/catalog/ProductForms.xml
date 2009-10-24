@@ -1913,10 +1913,7 @@ under the License.
     
     <form name="ListBestProduct" type="list" paginate="false" list-name="bestSellingProducts" view-size="5"
             header-row-style="header-row" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="Product" value-field="product"/>
-        </row-actions>
-        <field name="productName" title="${uiLabelMap.ProductName}"><display description="${product.productName}"/></field>
+        <field name="productName" title="${uiLabelMap.ProductName}"><display description="${productName}"/></field>
         <field name="amount"><display/></field>
         <field name="qtyOrdered" title="${uiLabelMap.OrderQtyOrdered}"><display/></field>
     </form>
