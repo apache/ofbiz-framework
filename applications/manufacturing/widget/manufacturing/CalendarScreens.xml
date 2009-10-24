@@ -90,7 +90,7 @@ under the License.
                             <container>
                                 <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
                             </container>
-                            <include-form name="ListTechDataCalendars" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                            <include-form name="ListTechDataCalendars" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -115,7 +115,7 @@ under the License.
                             <container>
                                 <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
-                            <include-form name="ListCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                            <include-form name="ListCalendarWeek" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -138,7 +138,7 @@ under the License.
                             <container>
                                 <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
-                            <include-form name="UpdateCalendarWeek" location="component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml"/>
+                            <include-form name="UpdateCalendarWeek" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

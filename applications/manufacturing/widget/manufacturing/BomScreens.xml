@@ -88,9 +88,9 @@ under the License.
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
                         <screenlet id="EditProductManufacturingRulePanel" title="${uiLabelMap.PageTitleEditProductManufacturingRules}" collapsible="true">
-                            <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                            <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
-                        <include-form name="ListProductManufacturingRules" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        <include-form name="ListProductManufacturingRules" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -123,7 +123,7 @@ under the License.
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingBomSimulation}">
-                            <include-form name="RunBomSimulation" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                            <include-form name="RunBomSimulation" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/bom/BomSimulation.ftl"/></html>
@@ -147,10 +147,10 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindBom}">
                             <link target="CreateProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/>
-                            <include-form name="findBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                            <include-form name="findBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleFindBom}">
-                            <include-form name="ListBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                            <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -167,7 +167,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingCreateProductBom}">
-                            <include-form name="CreateProductBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                            <include-form name="CreateProductBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
