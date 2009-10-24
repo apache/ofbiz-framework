@@ -51,26 +51,26 @@
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
                                            <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                    <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ViewPartyPersonHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
                                             </widgets>
                                     </section>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}" id="PartyPersonalInformationPanel">
-                                    <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ViewPartyPersonHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -90,26 +90,26 @@
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate" id="PartyGroupInformationPanel">
                                     <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                    <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ViewPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ViewPartyGroupHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" id="PartyGroupInformationPanel">
-                                    <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ViewPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
                                             <not><if-empty field="partyNameHistoryList"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <include-form name="ViewPartyGroupHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
                                         </widgets>
                                     </section>
                                 </screenlet>
@@ -146,7 +146,7 @@
             <widgets>
                 <screenlet title="${uiLabelMap.PartyPartyIdentifications}" navigation-menu-name="newPartyIdentification" id="PartyIdentificationPanel">
                     <include-menu name="newPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>                
-                    <include-form name="listPartyIdentification" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    <include-form name="listPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -327,7 +327,7 @@
                             </iterate-section>
                             <container id="apply-service-credit">
                                 <label style="h2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
-                                <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                <include-form name="ApplyServiceCredit" location="component://party/widget/partymgr/PartyForms.xml"/>
                             </container>
                         </screenlet>
                     </widgets>
@@ -390,7 +390,7 @@
                     </condition>
                     <widgets>
                         <screenlet id="subscription-summary" title="${uiLabelMap.ProductSubscriptions}" collapsible="true">
-                            <include-form name="ListSubscriptions" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ListSubscriptions" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
@@ -470,7 +470,7 @@
             <widgets>
                 <screenlet title="${uiLabelMap.PartyShipperAccount}" navigation-menu-name="addShipper">
                     <include-menu name="addShipper" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                    <include-form name="ListCarrierAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    <include-form name="ListCarrierAccounts" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -509,10 +509,10 @@
                                     <not><if-empty field="parameters.editPartyRel"/></not>
                                 </condition>
                                 <widgets>
-                                    <include-form name="AddContact" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="AddContact" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </widgets>
                             </section>
-                            <include-form name="ListRelatedContacts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ListRelatedContacts" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                     </widgets>
                 </section>
@@ -543,10 +543,10 @@
                                     <not><if-empty field="parameters.editPartyRel"/></not>
                                 </condition>
                                 <widgets>
-                                    <include-form name="AddAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="AddAccount" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </widgets>
                             </section>
-                            <include-form name="ListRelatedAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>                                                 
+                            <include-form name="ListRelatedAccounts" location="component://party/widget/partymgr/PartyForms.xml"/>                                                 
                         </screenlet>
                     </widgets>
                 </section>
@@ -582,7 +582,7 @@
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderOpportunities}" >
-                    <include-form name="PartySalesOpportunities" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    <include-form name="PartySalesOpportunities" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
         </section>

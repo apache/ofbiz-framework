@@ -648,7 +648,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="EditPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -669,7 +669,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PageTitleNewPartyNote}" style="h2"/></container>
-                        <include-form name="AddPartyNote" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="AddPartyNote" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -826,7 +826,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PartyCreateUserLogin}" style="h2"/></container>
-                        <include-form name="AddUserLogin" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="AddUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -912,9 +912,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="h2"/></container>
-                        <include-form name="updatePassword" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="updatePassword" location="component://party/widget/partymgr/PartyForms.xml"/>
                         <container><label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}" style="h2"/></container>
-                        <include-form name="updateUserLoginSecurity" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="updateUserLoginSecurity" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -960,7 +960,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="EditPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -35,10 +35,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupFacility" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupFacility" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupFacility" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupFacility" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -59,10 +59,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupFacilityLocation" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupFacilityLocation" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupFacilityLocation" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listLookupFacilityLocation" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -82,10 +82,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupShipment" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="lookupShipment" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listShipment" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                        <include-form name="listShipment" location="component://product/widget/facility/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -133,7 +133,7 @@ under the License.
                     <widgets>
                         <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-results">
-                                <include-form name="ListProductInventoryLocation" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                                <include-form name="ListProductInventoryLocation" location="component://product/widget/facility/FieldLookupForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>

@@ -105,7 +105,7 @@ under the License.
                                     <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                     <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                     <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
-                                        <include-form name="ViewPartyRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        <include-form name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     </screenlet>
                                 </container>
                                 <container style="righthalf">
@@ -136,9 +136,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddPartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
-                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="AddPartyRate" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
-                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <include-form name="ListPartyRates" location="component://party/widget/partymgr/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -164,7 +164,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
-                            <include-form name="ViewPartyRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <include-form name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyAddToRole}">
                             <include-form name="AddPartyRole" location="component://projectmgr/widget/forms/ResourceForms.xml"/>

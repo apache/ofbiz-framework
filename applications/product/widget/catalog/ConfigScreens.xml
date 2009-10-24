@@ -72,10 +72,10 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindConfigItems}">
                             <link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
-                            <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItemsFrom"/>
+                            <include-form location="component://product/widget/catalog/ConfigForms.xml" name="FindProductConfigItemsFrom"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleFindConfigItems}">
-                            <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItems"/>
+                            <include-form location="component://product/widget/catalog/ConfigForms.xml" name="FindProductConfigItems"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -97,7 +97,7 @@ under the License.
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditConfigItem}">
-                            <include-form name="EditProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="EditProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -146,7 +146,7 @@ under the License.
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.ProductConfigOptionList}">
-                    <include-form name="ProductConfigOptionList" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                    <include-form name="ProductConfigOptionList" location="component://product/widget/catalog/ConfigForms.xml"/>
                 </screenlet>
                 <section>
                     <condition><not><if-empty field="configOptionId"/></not></condition>
@@ -155,13 +155,13 @@ under the License.
                             <link style="buttontext" text="${uiLabelMap.ProductCreateNewConfigOptions}" target="EditProductConfigOptions">
                                 <parameter param-name="configItemId"/>
                             </link>
-                            <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="CreateConfigOption" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
 
                         <screenlet title="${uiLabelMap.ProductCreateNewConfigOptions}">
-                            <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="CreateConfigOption" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </fail-widgets>
                 </section>
@@ -177,7 +177,7 @@ under the License.
             </condition>
             <widgets>
                 <screenlet title="${uiLabelMap.ProductComponents} - ${uiLabelMap.CommonId}: ${configOption.configOptionId} - ${configOption.description}">
-                    <include-form name="ProductConfigList" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                    <include-form name="ProductConfigList" location="component://product/widget/catalog/ConfigForms.xml"/>
                 </screenlet>
                 <section>
                     <condition>
@@ -189,7 +189,7 @@ under the License.
                                 <parameter param-name="configItemId"/>
                                 <parameter param-name="configOptionId"/>
                             </link>
-                            <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="CreateProductConfigProduct" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
@@ -198,7 +198,7 @@ under the License.
                                 <parameter param-name="configItemId"/>
                                 <parameter param-name="configOptionId"/>
                             </link>
-                            <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="CreateProductConfigProduct" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </fail-widgets>
                 </section>
@@ -270,7 +270,7 @@ under the License.
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductConfigItemContent}">
-                            <include-form name="ListProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                            <include-form name="ListProductConfigItem" location="component://product/widget/catalog/ConfigForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

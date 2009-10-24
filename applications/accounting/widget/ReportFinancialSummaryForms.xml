@@ -524,7 +524,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="InventoryValuationList" extends="ListInventoryAverageCosts" extends-resource="component://product/webapp/facility/facility/FacilityForms.xml"
+    <form name="InventoryValuationList" extends="ListInventoryAverageCosts" extends-resource="component://product/widget/facility/FacilityForms.xml"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" list-name="inventoryValuationList" paginate-target="InventoryValuation">
         <field name="productAverageCost" use-when="currencyUomId!=null"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="productAverageCost" use-when="currencyUomId==null" title="${uiLabelMap.FormFieldTitle_unitCost}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>

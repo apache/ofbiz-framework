@@ -63,8 +63,8 @@
                             <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>
 
-                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="FindFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
