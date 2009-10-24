@@ -37,7 +37,7 @@ under the License.
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <set field="applicationMenuName" value="AssetMaintAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://assetmaint/widget/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://assetmaint/widget/AssetmaintMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.AssetMaintApplication}"/>
             </actions>
             <widgets>
@@ -56,7 +56,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/AssetmaintMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -104,7 +104,7 @@ under the License.
                                 <not><if-empty field="fixedAssetId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                                <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/AssetmaintMenus.xml"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="pre-body"/>

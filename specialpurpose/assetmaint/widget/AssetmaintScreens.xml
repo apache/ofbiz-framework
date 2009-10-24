@@ -33,7 +33,7 @@
                         <section>
                             <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
-                                <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                                <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/AssetmaintMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

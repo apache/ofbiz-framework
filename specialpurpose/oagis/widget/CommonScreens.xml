@@ -33,7 +33,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OagisCompanySubtitle" global="true"/>
                 <set field="activeApp" value="oagis" global="true"/>
                 <set field="applicationMenuName" value="OagisAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://oagis/widget/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://oagis/widget/OagisMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.OagisApplication}" global="true"/>
             </actions>
             <widgets>

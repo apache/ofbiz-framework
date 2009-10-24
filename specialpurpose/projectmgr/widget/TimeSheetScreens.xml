@@ -219,7 +219,7 @@ under the License.
                         <fail-widgets>
                             <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
                                 navigation-menu-name="TimesheetBar">
-                                <include-menu name="TimesheetBar" location="component://projectmgr/widget/Menus.xml"/>
+                                <include-menu name="TimesheetBar" location="component://projectmgr/widget/ProjectMenus.xml"/>
                                 <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                             </screenlet>
                         </fail-widgets>

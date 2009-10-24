@@ -65,7 +65,7 @@ under the License.
                 </section>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                        <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/ProjectMenus.xml"/>
                         <container style="clear"/>
                         <screenlet name="findProject" collapsible="true" title="${uiLabelMap.PageTitleFindProject}">
                             <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
