@@ -40,7 +40,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="facilitymgr" global="true"/>
                 <set field="applicationMenuName" value="FacilityAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://product/widget/facility/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="component://product/widget/facility/FacilityMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.ProductFacilityManagerApplication}" global="true"/>
             </actions>
             <widgets>
@@ -72,7 +72,7 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                        <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
@@ -99,7 +99,7 @@ under the License.
                                 <if-has-permission permission="FACILITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -130,8 +130,8 @@ under the License.
                                         <not><if-empty field="inventoryItemLabel"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/Menus.xml"/>
-                                        <include-menu name="InventoryItemLabelTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                        <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="InventoryItemLabelTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                         <label style="h1">${uiLabelMap.ProductInventoryItemLabel} [${inventoryItemLabelId}]</label>
                                         <decorator-section-include name="body"/>
                                     </widgets>
