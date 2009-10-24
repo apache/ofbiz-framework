@@ -202,10 +202,11 @@ public class VCard {
             address.setStreet(postalAddress.getString("address1"));
             address.setCity(postalAddress.getString("city"));
 
-            address.setPostalCode(postalAddress.getString("postalCode"));
-            String state = postalAddress.getRelatedOne("StateProvinceGeo").getString("geoName");
-            address.setRegion(state);
-
+            address.setPostalCode(postalAddress.getString("postalCode"));            
+            GenericValue state = postalAddress.getRelatedOne("StateProvinceGeo");
+            if (UtilValidate.isNotEmpty(state)) {
+                address.setRegion(state.getString("geoName"));
+            }
             String country = postalAddress.getRelatedOne("CountryGeo").getString("geoName");
             address.setCountry(country);
             address.setWork(true); // this can be better set by checking contactMechPurposeTypeId

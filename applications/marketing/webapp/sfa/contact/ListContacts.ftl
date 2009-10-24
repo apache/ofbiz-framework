@@ -61,8 +61,12 @@ under the License.
                   </#if>
                 </#if>
               </td>
-              <td><a href="<@ofbizUrl>createVCardFromContact?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.SfaVCard}<a></td>
+              <td><a href="javascript:document.createVCardFromContact.submit();" class="buttontext">${uiLabelMap.SfaVCard}</a></td>
+              </td>
             </tr>
+            <form name="createVCardFromContact" method="post" action="<@ofbizUrl>createVCardFromContact</@ofbizUrl>">
+              <input type="hidden" name="partyId" value="${partyRow.partyId}"/>
+            </form>
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
           </#list>
