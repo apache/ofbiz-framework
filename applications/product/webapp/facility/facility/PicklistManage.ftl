@@ -40,7 +40,7 @@ under the License.
                             <option value="${picklistInfo.statusItem.statusId}" selected>${picklistInfo.statusItem.get("description",locale)}</option>
                             <option value="${picklistInfo.statusItem.statusId}">---</option>
                             <#list picklistInfo.statusValidChangeToDetailList as statusValidChangeToDetail>
-                                <option value="${statusValidChangeToDetail.statusIdTo}">${statusValidChangeToDetail.description} (${statusValidChangeToDetail.transitionName})</option>
+                                <option value="${statusValidChangeToDetail.get("statusIdTo", locale)}">${statusValidChangeToDetail.get("description", locale)} (${statusValidChangeToDetail.get("transitionName", locale)})</option>
                             </#list>
                         </select>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>

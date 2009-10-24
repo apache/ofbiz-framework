@@ -9453,7 +9453,7 @@
     </property>
     <property key="OrderTotalNoOfItems">
         <value xml:lang="en">Total No. of Items</value>
-        <value xml:lang="it">Totale numeri di righe</value>
+        <value xml:lang="it">Totale numero di righe</value>
     </property>
     <property key="OrderTotalOtherOrderAdjustments">
         <value xml:lang="de">Gesamtsumme anderer Auftragsanpassungen</value>

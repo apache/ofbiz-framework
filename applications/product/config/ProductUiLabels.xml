@@ -17141,7 +17141,7 @@
     </property>
     <property key="ProductQuickStockMove">
         <value xml:lang="en">Quick Stock Move</value>
-        <value xml:lang="it">Trasferimento velov stock</value>
+        <value xml:lang="it">Trasferimento veloce stock</value>
         <value xml:lang="zh">快速存货移动</value>
     </property>
     <property key="ProductRating">
