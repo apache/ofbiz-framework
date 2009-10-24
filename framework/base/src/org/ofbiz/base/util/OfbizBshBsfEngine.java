@@ -133,7 +133,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
 
     /**
      * This is an implementation of the BSF apply() method.
-     * It exectutes the funcBody text in an "anonymous" method call with
+     * It executes the funcBody text in an "anonymous" method call with
      * arguments.
      */
     @Override
