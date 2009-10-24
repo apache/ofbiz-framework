@@ -50,7 +50,7 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleFindSegmentGroup}">
                                     <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
-                                    <include-form name="FindSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                    <include-form name="FindSegmentGroup" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -84,7 +84,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="segmentGroupId"/></not></condition>
                                     <widgets>
-                                        <include-menu location="component://marketing/webapp/marketing/segment/SegmentMenus.xml" name="SegmentGroupTabBar"/>
+                                        <include-menu location="component://marketing/widget/SegmentMenus.xml" name="SegmentGroupTabBar"/>
                                         <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
                                     </widgets>
                                 </section>
@@ -118,7 +118,7 @@ under the License.
                 <decorator-screen name="CommonSegmentGroupDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditSegmentGroup}">
-                            <include-form name="EditSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                            <include-form name="EditSegmentGroup" location="component://marketing/widget/SegmentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -155,9 +155,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="AddSegmentGroupClassPanel" title="${uiLabelMap.MarketingSegmentGroupClassCreate}" collapsible="true">
-                                    <include-form name="AddSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                    <include-form name="AddSegmentGroupClass" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <include-form name="listSegmentGroupClass" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
@@ -197,9 +197,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="AddSegmentGroupGeoPanel" title="${uiLabelMap.PageTitleEditSegmentGroupGeo}" collapsible="true">
-                                    <include-form name="AddSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                    <include-form name="AddSegmentGroupGeo" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <include-form name="listSegmentGroupGeo" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>
@@ -239,9 +239,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet id="AddSegmentGroupRolePanel" title="${uiLabelMap.PageTitleEditSegmentGroupRole}" collapsible="true">
-                                    <include-form name="AddSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                    <include-form name="AddSegmentGroupRole" location="component://marketing/widget/SegmentForms.xml"/>
                                 </screenlet>
-                                <include-form name="listSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <include-form name="listSegmentGroupRole" location="component://marketing/widget/SegmentForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.MarketingSegmentGroupMgrViewPermissionError}</label>

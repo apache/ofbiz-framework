@@ -334,7 +334,7 @@ under the License.
                         </widgets>
                         <fail-widgets>
                             <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
-                                <include-form name="ListContactListCommStatuses" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                                <include-form name="ListContactListCommStatuses" location="component://marketing/widget/ContactListForms.xml"/>
                             </screenlet>                        
                         </fail-widgets>
                     </section>

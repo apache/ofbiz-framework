@@ -40,7 +40,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="marketingCampaignId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="MarketingCampaignTabBar" location="component://marketing/webapp/marketing/campaign/MarketingCampaignMenus.xml"/>
+                                        <include-menu name="MarketingCampaignTabBar" location="component://marketing/widget/MarketingCampaignMenus.xml"/>
                                     </widgets>
                                 </section>
 
@@ -82,12 +82,12 @@ under the License.
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
-                                    <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                    <include-form name="EditMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddMarketingCampaign}">
-                                    <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                    <include-form name="EditMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -116,7 +116,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                            <include-form name="ListMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -147,7 +147,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="EditMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                            <include-form name="EditMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml"/>
                             <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
                         </screenlet>
                     </decorator-section>
@@ -175,7 +175,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                            <include-form name="ListMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

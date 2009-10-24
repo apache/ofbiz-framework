@@ -40,7 +40,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <widgets>
-                                        <include-menu name="DataSourceTabBar" location="component://marketing/webapp/marketing/datasource/DataSourceMenus.xml"/>
+                                        <include-menu name="DataSourceTabBar" location="component://marketing/widget/DataSourceMenus.xml"/>
                                     </widgets>
                                 </section>
 
@@ -80,12 +80,12 @@ under the License.
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
-                                    <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                    <include-form name="EditDataSource" location="component://marketing/widget/DataSourceForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddDataSource}">
-                                    <include-form name="EditDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                    <include-form name="EditDataSource" location="component://marketing/widget/DataSourceForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -115,7 +115,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListDataSource" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            <include-form name="ListDataSource" location="component://marketing/widget/DataSourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -148,12 +148,12 @@ under the License.
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
-                                    <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                    <include-form name="EditDataSourceType" location="component://marketing/widget/DataSourceForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddDataSourceType}">
-                                    <include-form name="EditDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                                    <include-form name="EditDataSourceType" location="component://marketing/widget/DataSourceForms.xml"/>
                                 </screenlet>
                            </fail-widgets>
                         </section>
@@ -184,7 +184,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListDataSourceType" location="component://marketing/webapp/marketing/datasource/DataSourceForms.xml"/>
+                            <include-form name="ListDataSourceType" location="component://marketing/widget/DataSourceForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

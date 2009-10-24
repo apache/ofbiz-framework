@@ -40,10 +40,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="LookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                        <include-form name="LookupSegmentGroup" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                        <include-form name="listLookupSegmentGroup" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -66,10 +66,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="LookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                        <include-form name="LookupSalesForecast" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                        <include-form name="ListLookupSalesForecast" location="component://marketing/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -38,7 +38,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="FindContactLists" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="FindContactLists" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                    </decorator-section>
                </decorator-screen>
@@ -71,12 +71,12 @@ under the License.
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
-                                    <include-form name="EditContactList" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                                    <include-form name="EditContactList" location="component://marketing/widget/ContactListForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleAddContactList}">
-                                    <include-form name="EditContactList" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                                    <include-form name="EditContactList" location="component://marketing/widget/ContactListForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -110,7 +110,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListContactLists" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="ListContactLists" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -149,7 +149,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="EditContactListParty" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="EditContactListParty" location="component://marketing/widget/ContactListForms.xml"/>
                             <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
                             <iterate-section entry="contactListPartyStatus" list="contactListPartyStatusList">
                                 <section>
@@ -189,7 +189,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListContactListParties" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="ListContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -216,7 +216,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="FindContactListParties" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="FindContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                    </decorator-section>
                 </decorator-screen>
@@ -251,14 +251,14 @@ under the License.
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContactList}">
-                            <include-menu location="component://marketing/webapp/marketing/contact/ContactListMenus.xml" name="ContactListCommBar"/>
+                            <include-menu location="component://marketing/widget/ContactListMenus.xml" name="ContactListCommBar"/>
                             <container>
                                 <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent">
                                     <parameter param-name="contactListId"/>
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="EditContactListCommEvent" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="EditContactListCommEvent" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -289,7 +289,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="ListContactListCommEvents" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="ListContactListCommEvents" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                    </decorator-section>
                 </decorator-screen>
@@ -316,7 +316,7 @@ under the License.
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
-                            <include-form name="FindContactListCommEvents" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                            <include-form name="FindContactListCommEvents" location="component://marketing/widget/ContactListForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -336,10 +336,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="LookupContactList" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                        <include-form name="LookupContactList" location="component://marketing/widget/ContactListForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="ListLookupContactList" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                        <include-form name="ListLookupContactList" location="component://marketing/widget/ContactListForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -361,7 +361,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <include-form name="ListPreferredContactMech" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                        <include-form name="ListPreferredContactMech" location="component://marketing/widget/ContactListForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
