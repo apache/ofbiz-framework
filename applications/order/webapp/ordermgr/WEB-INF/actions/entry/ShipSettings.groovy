@@ -28,6 +28,7 @@ import javolution.util.FastList;
 
 cart = session.getAttribute("shoppingCart");
 
+if (cart) {
 createNewShipGroup = request.getParameter("createNewShipGroup");
 if ("Y".equals(createNewShipGroup)) {
     cart.addShipInfo();
@@ -91,4 +92,5 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         }
         context.facilityMaps = facilityMaps;
     }
+}
 }
