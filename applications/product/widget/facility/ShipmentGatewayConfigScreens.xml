@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="ShipmentGatewayConfigTabBar" location="component://product/widget/facility/Menus.xml"/>
+                                <include-menu name="ShipmentGatewayConfigTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
