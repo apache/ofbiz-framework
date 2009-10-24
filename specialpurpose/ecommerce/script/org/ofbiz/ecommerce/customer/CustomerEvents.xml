@@ -411,21 +411,18 @@ under the License.
             <set value="PRDS_CUST_REGISTER" field="storeEmailLookup.emailType"/>
             <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
             <if-not-empty field="storeEmail.bodyScreenLocation">
-                <!-- prepare the email context -->
-                <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="personObj"/>
-                <set from-field="createdUserLogin" field="emailCtx.userLogin"/>
-                <set from-field="personObj" field="emailCtx.person"/>
-                <!-- prepare the notification service context -->
-                <set from-field="emailContext.emailAddress" field="notifyCtx.sendTo"/>
-                <set from-field="storeEmail.subject" field="notifyCtx.subject"/>
-                <set from-field="storeEmail.fromAddress" field="notifyCtx.sendFrom"/>
-                <set from-field="storeEmail.ccAddress" field="notifyCtx.sendCc"/>
-                <set from-field="storeEmail.bccAddress" field="notifyCtx.sendBcc"/>
-                <set from-field="storeEmail.contentType" field="notifyCtx.contentType"/>
-                <set from-field="storeEmail.bodyScreenLocation" field="notifyCtx.templateName"/>
-                <set from-field="emailCtx" field="notifyCtx.templateData"/>
-                <!-- call the service async -->
-                <call-service-asynch service-name="sendGenericNotificationEmail" in-map-name="notifyCtx" include-user-login="true"/>
+                <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
+                <set field="bodyParameters.person" from-field="person"/>
+                <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+                <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
+                <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+                <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                <set field="emailParams.emailType" from-field="storeEmailLookup.emailType"/>
+                <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams" include-user-login="true"/>
             </if-not-empty>
         </if-not-empty>
 
