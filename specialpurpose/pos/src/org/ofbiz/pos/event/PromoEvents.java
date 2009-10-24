@@ -25,6 +25,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Output;
+import org.ofbiz.pos.component.StatusBar;
 import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoEvents {
@@ -53,6 +54,8 @@ public class PromoEvents {
                     input.clearFunction("PROMOCODE");
                 } else {
                     input.clearFunction("PROMOCODE");
+                    StatusBar statusbar = new StatusBar(pos);
+                    statusbar.printPromoCode(promoCode);
                     NavagationEvents.showPosScreen(pos);
                     pos.refresh();
                 }

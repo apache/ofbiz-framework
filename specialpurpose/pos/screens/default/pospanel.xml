@@ -32,6 +32,9 @@ under the License.
             <Panel name="numericPanel" x="412" y="455" w="612" h="290" style="menu">
                 <Include file="default/includes/numeric"/>
             </Panel>
+            <Panel name="statusPanel" x="0" y="744" w="1024" h="20" style="operTitle" border="0">
+                <Include file="default/includes/statusbar"/>
+            </Panel>
         </Panel>
     </Components>
 </XPage>
