@@ -332,19 +332,19 @@
         <value xml:lang="it">Albero messaggi</value>
         <value xml:lang="zh">消息树</value>
     </property>
-    <property key="EcommerceBlogPostedOn">
-        <value xml:lang="da">Sendt til</value>
-        <value xml:lang="en">Posted on</value>
-        <value xml:lang="fr">Envoyé le </value>
-        <value xml:lang="it">Inviato il</value>
-        <value xml:lang="zh">提交</value>
-    </property>
     <property key="EcommerceBlogPostComments">
         <value xml:lang="da">De skal være logget på samt vise en publiceret meddelelse for at kunne tilføje kommentarer.</value>
         <value xml:lang="en">You must be logged in and viewing a published record in order to post comments.</value>
         <value xml:lang="fr">Vous devez être connecté(e) et entrain de visualiser un commentaire afinf de pouvoir envoyer les votres</value>
         <value xml:lang="it">Devi essere autenticato e visualizzare un record pubblicato per poter inviare un commento.</value>
         <value xml:lang="zh">为了提交评论，你必须登录，并浏览一条已发布的记录。</value>
+    </property>
+    <property key="EcommerceBlogPostedOn">
+        <value xml:lang="da">Sendt til</value>
+        <value xml:lang="en">Posted on</value>
+        <value xml:lang="fr">Envoyé le </value>
+        <value xml:lang="it">Inviato il</value>
+        <value xml:lang="zh">提交</value>
     </property>
     <property key="EcommerceBlogPreview">
         <value xml:lang="da">Vis</value>
@@ -408,6 +408,7 @@
     </property>
     <property key="EcommerceCartToGoogleCheckout">
         <value xml:lang="en">Google Checkout</value>
+        <value xml:lang="it">Checkout con Google Checkout</value>
     </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
@@ -1004,6 +1005,7 @@
         <value xml:lang="da">Generel beskrivelse:</value>
         <value xml:lang="en">Generated Description:</value>
         <value xml:lang="fr">Description générée : </value>
+        <value xml:lang="it">Descrizione generata:</value>
         <value xml:lang="zh">生成的描述：</value>
     </property>
     <property key="EcommerceGiftAmount">
@@ -1438,8 +1440,8 @@
         <value xml:lang="zh">购物清单明细</value>
     </property>
     <property key="EcommerceListItemsTotalPrice">
-        <value xml:lang="de">Gesamtpreis dieser Artikelliste</value>
         <value xml:lang="da">Vis total pris for varer</value>
+        <value xml:lang="de">Gesamtpreis dieser Artikelliste</value>
         <value xml:lang="en">List Items Total Price</value>
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Prix total de la liste d'articles</value>
@@ -3027,8 +3029,8 @@
         <value xml:lang="zh">单价</value>
     </property>
     <property key="EcommerceUnsubscribe">
-        <value xml:lang="de">Abonnement beenden</value>
         <value xml:lang="da">Anuller abonnement</value>
+        <value xml:lang="de">Abonnement beenden</value>
         <value xml:lang="en">Unsubscribe</value>
         <value xml:lang="es">des-Subscribir</value>
         <value xml:lang="fr">Se désinscrire</value>
@@ -3199,13 +3201,6 @@
         <value xml:lang="th">ดูที่ส่ง</value>
         <value xml:lang="zh">浏览已发送和已接收</value>
     </property>
-    <property key="EcommerceYourGiftCardReloaded">
-        <value xml:lang="da">Deres genindlæste gavekort har</value>
-        <value xml:lang="en">Your Gift Card Reloaded Have</value>
-        <value xml:lang="fr">Votre carte cadeau est rechargée</value>
-        <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
-        <value xml:lang="zh">你充值的礼品卡有</value>
-    </property>
     <property key="EcommerceYouHave">
         <value xml:lang="da">De har</value>
         <value xml:lang="de">Sie haben</value>
@@ -3308,6 +3303,13 @@
         <value xml:lang="ru">Ваша дисконтная карта :</value>
         <value xml:lang="th">บัตรของขวัญของคุณ</value>
         <value xml:lang="zh">你的礼品卡：</value>
+    </property>
+    <property key="EcommerceYourGiftCardReloaded">
+        <value xml:lang="da">Deres genindlæste gavekort har</value>
+        <value xml:lang="en">Your Gift Card Reloaded Have</value>
+        <value xml:lang="fr">Votre carte cadeau est rechargée</value>
+        <value xml:lang="it">La tua carta regalo è stata ricaricata</value>
+        <value xml:lang="zh">你充值的礼品卡有</value>
     </property>
     <property key="EcommerceYourPinNumber">
         <value xml:lang="da">Deres PIN kode</value>
@@ -4016,8 +4018,8 @@
         <value xml:lang="zh">送货选项</value>
     </property>
     <property key="PageTitleShoppingCart">
-        <value xml:lang="da">Indkøbskurv</value>
         <value xml:lang="cs">Nákupní košík</value>
+        <value xml:lang="da">Indkøbskurv</value>
         <value xml:lang="de">Warenkorb</value>
         <value xml:lang="en">Shopping Cart</value>
         <value xml:lang="en_GB">Shopping basket</value>
