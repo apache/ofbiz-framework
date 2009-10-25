@@ -522,15 +522,10 @@
         <value xml:lang="th">ความต้องการงาน</value>
         <value xml:lang="zh">作业需求</value>
     </property>
-    <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
-        <value xml:lang="en">Return Promotion</value>
-        <value xml:lang="it">Promozione reso</value>
-        <value xml:lang="zh">退货的促销</value>
-    </property>
-    <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
-        <value xml:lang="en">Return Replacement</value>
-        <value xml:lang="it">Reso in sostituzione</value>
-        <value xml:lang="zh">退货的替代</value>
+    <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
+        <value xml:lang="en">Return Additional Feature</value>
+        <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
+        <value xml:lang="zh">退货的附加特征</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
         <value xml:lang="en">Return Discount</value>
@@ -542,10 +537,30 @@
         <value xml:lang="it">Commissioni sul reso</value>
         <value xml:lang="zh">退货的费用</value>
     </property>
+    <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
+        <value xml:lang="en">Return Manual Adjustment</value>
+        <value xml:lang="it">Aggiustamento manuale sul reso</value>
+        <value xml:lang="zh">退货的手册调整</value>
+    </property>
     <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
         <value xml:lang="zh">退货的杂费</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
+        <value xml:lang="en">Return Marketing Package Adjustment</value>
+        <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
+        <value xml:lang="zh">退货的行销包装调整</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
+        <value xml:lang="en">Return Promotion</value>
+        <value xml:lang="it">Promozione reso</value>
+        <value xml:lang="zh">退货的促销</value>
+    </property>
+    <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
+        <value xml:lang="en">Return Replacement</value>
+        <value xml:lang="it">Reso in sostituzione</value>
+        <value xml:lang="zh">退货的替代</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
@@ -562,25 +577,10 @@
         <value xml:lang="it">Spese supplementari sul reso</value>
         <value xml:lang="zh">退货的附加费</value>
     </property>
-    <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
-        <value xml:lang="en">Return Additional Feature</value>
-        <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
-        <value xml:lang="zh">退货的附加特征</value>
-    </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="it">Garanzia sul reso</value>
         <value xml:lang="zh">退货的保证条款</value>
-    </property>
-    <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
-        <value xml:lang="en">Return Marketing Package Adjustment</value>
-        <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
-        <value xml:lang="zh">退货的行销包装调整</value>
-    </property>
-    <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
-        <value xml:lang="en">Return Manual Adjustment</value>
-        <value xml:lang="it">Aggiustamento manuale sul reso</value>
-        <value xml:lang="zh">退货的手册调整</value>
     </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
         <value xml:lang="de">Vereinbarte Zahlung bei Lieferung abgeleht</value>
@@ -638,6 +638,7 @@
     </property>
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
         <value xml:lang="en">Size Exchange</value>
+        <value xml:lang="it">Cambio taglia</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
