@@ -19,23 +19,28 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
     <property key="GoogleCheckoutAddGoogleCheckoutConfiguration">
         <value xml:lang="en">Add Google Checkout Configuration</value>
+        <value xml:lang="it">Aggiungi Configurazione Google Checkout</value>
     </property>
     <property key="GoogleCheckoutAddGoogleCheckoutShippingMethod">
         <value xml:lang="en">Add Google Checkout Shipping Method</value>
+        <value xml:lang="it">Aggiungi metodo di spedizione Google Checkout</value>
     </property>
     <property key="GoogleCheckoutApplication">
         <value xml:lang="en">Google Checkout Application</value>
+        <value xml:lang="it">Applicazione Google Checkout</value>
     </property>
     <property key="GoogleCheckoutCompanyName">
         <value xml:lang="en">OFBiz: Google Checkout</value>
+        <value xml:lang="it">OFBiz: Google Checkout</value>
     </property>
     <property key="GoogleCheckoutGoogleCheckoutConfiguration">
         <value xml:lang="en">Google Checkout Configuration</value>
+        <value xml:lang="it">Configurazione di Google Checkout</value>
     </property>
     <property key="GoogleCheckoutShippingMethods">
         <value xml:lang="en">Shipping Methods Configuration</value>
+        <value xml:lang="it">Configurazione metodi di spedizioni</value>
     </property>
 </resource>
