@@ -55,9 +55,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.SfaManagerApplication}">
-                            <container><label style="label" text="${uiLabelMap.SfaManagerWelcome}"/></container>
-                        </screenlet>
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.SfaManagerApplication}">
+                                <container><label style="label" text="${uiLabelMap.SfaManagerWelcome}"/></container>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
