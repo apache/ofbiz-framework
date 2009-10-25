@@ -1137,47 +1137,47 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 }
 
                 if (UtilValidate.isNotEmpty(mimeTypeId)
-                		&& ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
-                	
-/*                	
- 					// this code is not yet working, will update it the next few weeks...(Hans)
-                	if (mimeTypeId.equals("application/pdf")) {
-                		TransformerFactory tfactory = TransformerFactory.newInstance();
-                		try {
-                			
-                			//
-                			//  this part is not working. If somebody can help to make it work?
-                			//  currently using only real temp files for debugging purposes.
-                			//
-                			//  most of the code should be replaced by functions in xslTransform.java and other files.
-                			//  for debugging here mostly code using the code outside of ofbiz.
-                			//
-                			SAXParserFactory pfactory= SAXParserFactory.newInstance();
-                			pfactory.setNamespaceAware(true);
-                			pfactory.setValidating(true);
-                			pfactory.setXIncludeAware(true);
-                			XMLReader reader = null;
-                			try {
-                				reader = pfactory.newSAXParser().getXMLReader();
-                			} catch (Exception e) {
-                				throw new TransformerException("Error creating SAX parser/reader", e);
-                			}
+                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
+                    
+/*                    
+                     // this code is not yet working, will update it the next few weeks...(Hans)
+                    if (mimeTypeId.equals("application/pdf")) {
+                        TransformerFactory tfactory = TransformerFactory.newInstance();
+                        try {
+                            
+                            //
+                            //  this part is not working. If somebody can help to make it work?
+                            //  currently using only real temp files for debugging purposes.
+                            //
+                            //  most of the code should be replaced by functions in xslTransform.java and other files.
+                            //  for debugging here mostly code using the code outside of ofbiz.
+                            //
+                            SAXParserFactory pfactory= SAXParserFactory.newInstance();
+                            pfactory.setNamespaceAware(true);
+                            pfactory.setValidating(true);
+                            pfactory.setXIncludeAware(true);
+                            XMLReader reader = null;
+                            try {
+                                reader = pfactory.newSAXParser().getXMLReader();
+                            } catch (Exception e) {
+                                throw new TransformerException("Error creating SAX parser/reader", e);
+                            }
 
-                			// do the actual preprocessing fr includes
-                			String fileName = "/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml";
-                			SAXSource source = new SAXSource(reader, new InputSource(fileName));
-                			// compile the xsl template
-                			Transformer transformer1 = tfactory.newTransformer(new StreamSource("/home/hans/ofbiz/svn/applications/content/template/docbook/fo/docbook.xsl"));
-                			// and apply the xsl template to the source document and save in a result string
-                			StringWriter sw = new StringWriter();
-                			StreamResult sr = new StreamResult(sw);
-                			transformer1.transform(source, sr);
-                			// store into a file for debugging
-//                			java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
-//                			fw.write(sw.toString());
-//                			fw.close();
+                            // do the actual preprocessing fr includes
+                            String fileName = "/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml";
+                            SAXSource source = new SAXSource(reader, new InputSource(fileName));
+                            // compile the xsl template
+                            Transformer transformer1 = tfactory.newTransformer(new StreamSource("/home/hans/ofbiz/svn/applications/content/template/docbook/fo/docbook.xsl"));
+                            // and apply the xsl template to the source document and save in a result string
+                            StringWriter sw = new StringWriter();
+                            StreamResult sr = new StreamResult(sw);
+                            transformer1.transform(source, sr);
+                            // store into a file for debugging
+//                            java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
+//                            fw.write(sw.toString());
+//                            fw.close();
 
-                			
+                            
                             FopFactory fopFactory = FopFactory.newInstance();                            
                             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
                             // configure foUserAgent as desired
@@ -1207,19 +1207,19 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                             out.close();
                             // to a file for debugging
                            FileOutputStream fw = new FileOutputStream("/tmp/file.pdf");
-                			fw.write(out.toByteArray());
-                			fw.close();
+                            fw.write(out.toByteArray());
+                            fw.close();
                             HttpServletResponse response = (HttpServletResponse) context.get("response");
                             response.setContentType("application/pdf");
                             response.setContentLength(out.size());
                             response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-                			writer.append(new String(out.toByteArray()));
-                		} catch(Exception e) {
-                			Debug.logError("Exception converting from FO to PDF: " + e, module);
-                		}
-                	} else {
+                            writer.append(new String(out.toByteArray()));
+                        } catch(Exception e) {
+                            Debug.logError("Exception converting from FO to PDF: " + e, module);
+                        }
+                    } else {
 */                        screenStringRenderer.renderContentFrame(writer, context, this);
-//                	}
+//                    }
                 } else {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
@@ -1365,23 +1365,15 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
             // if there was no menuStringRenderer put in place, now try finding the request/response in the context and creating a new one
             if (menuStringRenderer == null) {
-                // try finding the menuStringRenderer by name in the context in
-                // case one was prepared and put there
-                menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
-                // if there was no menuStringRenderer put in place, now try
-                // finding the request/response in the context and creating a
-                // new one
-                if (menuStringRenderer == null) {
-                    HttpServletRequest request = (HttpServletRequest) context.get("request");
-                    HttpServletResponse response = (HttpServletResponse) context.get("response");
-                    if (request != null && response != null) {
-                        menuStringRenderer = new HtmlMenuRenderer(request, response);
-                    }
+                HttpServletRequest request = (HttpServletRequest) context.get("request");
+                HttpServletResponse response = (HttpServletResponse) context.get("response");
+                if (request != null && response != null) {
+                    menuStringRenderer = new HtmlMenuRenderer(request, response);
                 }
-                // still null, throw an error
-                if (menuStringRenderer == null) {
-                    throw new IllegalArgumentException("Could not find a menuStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
-                }
+            }
+            // still null, throw an error
+            if (menuStringRenderer == null) {
+                throw new IllegalArgumentException("Could not find a menuStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
             }
 
             ModelMenu modelMenu = getModelMenu(context);
