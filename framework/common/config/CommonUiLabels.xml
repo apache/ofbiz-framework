@@ -339,6 +339,7 @@
         <value xml:lang="en">Advanced Features</value>
         <value xml:lang="fr">Caractéristiques avancées</value>
         <value xml:lang="hi_IN">उन्नत सुविधाएँ</value>
+        <value xml:lang="it">Caratteristiche avanzate</value>
         <value xml:lang="zh">高级特征</value>
     </property>
     <property key="CommonAdvancedSearch">
@@ -1266,6 +1267,7 @@
         <value xml:lang="en">Click here For Field Lookup</value>
         <value xml:lang="fr">Cliquez ici pour une recherche sur ce champ</value>
         <value xml:lang="hi_IN">फील्ड लुकअप के लिए यहाँ क्लिक करें</value>
+        <value xml:lang="it">Clicca qui per la ricerca sul campo</value>
         <value xml:lang="zh">点击这里查找数据项</value>
     </property>
     <property key="CommonClose">
@@ -1410,6 +1412,7 @@
     <property key="CommonConfirm">
         <value xml:lang="en">Do you confirm ?</value>
         <value xml:lang="fr">Vous confirmez ?</value>
+        <value xml:lang="it">Confermi ?</value>
     </property>
     <property key="CommonConfirmAdd">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
@@ -1556,6 +1559,7 @@
         <value xml:lang="en">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
         <value xml:lang="hi_IN">कॉपीराइट</value>
+        <value xml:lang="it">Copyright</value>
         <value xml:lang="zh">版权所有</value>
     </property>
     <property key="CommonCouldBeUsedAs">
@@ -2012,6 +2016,7 @@
         <value xml:lang="en">Dimension</value>
         <value xml:lang="fr">Dimension</value>
         <value xml:lang="hi_IN">आयाम</value>
+        <value xml:lang="it">Dimensione</value>
     </property>
     <property key="CommonDisabled">
         <value xml:lang="ar">غير شغال</value>
@@ -2123,8 +2128,9 @@
     </property>
     <property key="CommonElevation">
         <value xml:lang="en">Elevation: </value>
-        <value xml:lang="fr">Altitude/Hauteur : </value>
+        <value xml:lang="fr">Altitude/Hauteur :</value>
         <value xml:lang="hi_IN">ऊंचाई: </value>
+        <value xml:lang="it">Altitudine: </value>
         <value xml:lang="zh">高度：</value>
     </property>
     <property key="CommonEmail">
@@ -3015,6 +3021,7 @@
         <value xml:lang="en">Geo Location</value>
         <value xml:lang="fr">Géolocalisation</value>
         <value xml:lang="hi_IN">भू स्थान</value>
+        <value xml:lang="it">Localizzazione geografica</value>
         <value xml:lang="zh">地理位置</value>
     </property>
     <property key="CommonGeos">
@@ -3180,6 +3187,7 @@
     <property key="CommonHelpNotFound">
         <value xml:lang="en">Help file or URL not found</value>
         <value xml:lang="hi_IN">सहायता फ़ाइल या URL नहीं मिला</value>
+        <value xml:lang="it">File di aiuto o URL non trovato</value>
     </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
@@ -3201,12 +3209,14 @@
         <value xml:lang="en">High</value>
         <value xml:lang="fr">Haut</value>
         <value xml:lang="hi_IN">ऊँचा</value>
+        <value xml:lang="it">Alta</value>
         <value xml:lang="zh">高</value>
     </property>
     <property key="CommonHome">
         <value xml:lang="en">Home</value>
         <value xml:lang="fr">Point de départ</value>
         <value xml:lang="hi_IN">घर</value>
+        <value xml:lang="it">Principale</value>
         <value xml:lang="zh">首页</value>
     </property>
     <property key="CommonHour">
@@ -3610,6 +3620,7 @@
     <property key="CommonLastSytemNotes">
         <value xml:lang="en">Last system notes</value>
         <value xml:lang="fr">DerniÃ¨res tÃ¢ches affectÃ©es</value>
+        <value xml:lang="it">Ultime note di sistema</value>
     </property>
     <property key="CommonLastUpdated">
         <value xml:lang="ar">آخر تحديث</value>
@@ -3631,12 +3642,14 @@
         <value xml:lang="en">Latitude: </value>
         <value xml:lang="fr">Latitude : </value>
         <value xml:lang="hi_IN">अक्षांश：</value>
+        <value xml:lang="it">Latitudine: </value>
         <value xml:lang="zh">纬度：</value>
     </property>
     <property key="CommonLength">
         <value xml:lang="en">Length</value>
         <value xml:lang="fr">Longueur</value>
         <value xml:lang="hi_IN">लंबाई</value>
+        <value xml:lang="it">Lunghezza</value>
     </property>
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
@@ -3717,6 +3730,7 @@
         <value xml:lang="en">Loading...</value>
         <value xml:lang="fr">Chargement...</value>
         <value xml:lang="hi_IN">लोड हो रहा है...</value>
+        <value xml:lang="it">Attendere...</value>
         <value xml:lang="zh">正在加载...</value>
     </property>
     <property key="CommonLocalisation">
@@ -3785,6 +3799,7 @@
         <value xml:lang="en">Longitude: </value>
         <value xml:lang="fr">Longitude : </value>
         <value xml:lang="hi_IN">देशांतर ：</value>
+        <value xml:lang="it">Longitudine: </value>
         <value xml:lang="zh">经度：</value>
     </property>
     <property key="CommonLookup">
@@ -3831,16 +3846,19 @@
         <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
         <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
+        <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a</value>
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
         <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
+        <value xml:lang="it">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
         <value xml:lang="en">Low</value>
         <value xml:lang="fr">Bas</value>
         <value xml:lang="hi_IN">नीचा</value>
+        <value xml:lang="it">Bassa</value>
         <value xml:lang="zh">低</value>
     </property>
     <property key="CommonMain">
@@ -3948,6 +3966,11 @@
         <value xml:lang="zh">匹配</value>
         <value xml:lang="zh_CN">匹配的</value>
     </property>
+    <property key="CommonMax250Chars">
+        <value xml:lang="en">250 Chars Maximum</value>
+        <value xml:lang="hi_IN">अधिकतम 250 वर्ण</value>
+        <value xml:lang="it">250 caratteri al massimo</value>
+    </property>
     <property key="CommonMay">
         <value xml:lang="ar">ماي</value>
         <value xml:lang="de">Mai</value>
@@ -4005,10 +4028,6 @@
         <value xml:lang="hi_IN">नाप</value>
         <value xml:lang="it">Misure</value>
         <value xml:lang="zh">度量</value>
-    </property>
-    <property key="CommonMax250Chars">
-        <value xml:lang="en">250 Chars Maximum</value>
-        <value xml:lang="hi_IN">अधिकतम 250 वर्ण</value>
     </property>
     <property key="CommonMedium">
         <value xml:lang="ar">وسيط</value>
@@ -4459,9 +4478,9 @@
     </property>
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
-        <value xml:lang="hi_IN">इस फंक्शन पर पहुँच उपलब्ध नहीं है, अगर आप को यह एक त्रुटि महसूस हो रही है तो अपने सिस्टम व्यवस्थापक से संपर्क करें</value>
         <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
         <value xml:lang="fr">L'accès à cette fonction ne vous est pas autorisé, contactez votre administrateur système si vous pensez que c'est une erreur.</value>
+        <value xml:lang="hi_IN">इस फंक्शन पर पहुँच उपलब्ध नहीं है, अगर आप को यह एक त्रुटि महसूस हो रही है तो अपने सिस्टम व्यवस्थापक से संपर्क करें</value>
         <value xml:lang="it">Nessun accesso a questa funzione, contattare l'amministratore di sistema se pensi che sia un'errore</value>
         <value xml:lang="zh">无法访问到这个功能，如果你觉得这是错误，请与系统管理员联系</value>
     </property>
@@ -4530,6 +4549,7 @@
     <property key="CommonNoDetailImageAvailableToDisplay">
         <value xml:lang="en">No detail image available to display.</value>
         <value xml:lang="fr">Aucune image détaillée à afficher.</value>
+        <value xml:lang="it">Nessuna immagine digitale disponibile da visualizzare.</value>
     </property>
     <property key="CommonNoElementFound">
         <value xml:lang="ar">لا عنصر موجود</value>
@@ -4549,8 +4569,9 @@
     </property>
     <property key="CommonNoGeolocationAvailable">
         <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
-        <value xml:lang="hi_IN">भू स्थान उपलब्ध नहीं है (एक डेमो के लिए आप DemoCustomer पार्टी प्रोफ़ाइल का उपयोग करने का प्रयास कर सकते हैं)</value>
         <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
+        <value xml:lang="hi_IN">भू स्थान उपलब्ध नहीं है (एक डेमो के लिए आप DemoCustomer पार्टी प्रोफ़ाइल का उपयोग करने का प्रयास कर सकते हैं)</value>
+        <value xml:lang="it">Nessuna locazione geografica disponibile (per un dimostrazione tu puoi usare il soggetto DemoCustomer)</value>
         <value xml:lang="zh">没有可用的地理位置(作为演示，你可以使用演示客户会员资料)</value>
     </property>
     <property key="CommonNoParent">
@@ -4641,6 +4662,7 @@
         <value xml:lang="en">Normal</value>
         <value xml:lang="fr">Normal</value>
         <value xml:lang="hi_IN">सामान्य</value>
+        <value xml:lang="it">Normale</value>
         <value xml:lang="zh">正常</value>
     </property>
     <property key="CommonNot">
@@ -5349,6 +5371,7 @@
         <value xml:lang="en">Powered by</value>
         <value xml:lang="fr">Fonctionne grâce à </value>
         <value xml:lang="hi_IN">द्वारा संचालित</value>
+        <value xml:lang="it">Potenziato da</value>
         <value xml:lang="zh">运行平台</value>
     </property>
     <property key="CommonPreferences">
@@ -6240,6 +6263,7 @@
         <value xml:lang="en">Security Groups</value>
         <value xml:lang="fr">Groupes de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह</value>
+        <value xml:lang="it">Gruppo di sicurezza</value>
         <value xml:lang="zh">安全组</value>
     </property>
     <property key="CommonSegmentGroupGeoAbbr">
@@ -7144,7 +7168,6 @@
         <value xml:lang="hi_IN">इस</value>
         <value xml:lang="it">Il</value>
         <value xml:lang="th">ที่</value>
-        <value xml:lang="zh"></value>
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
         <value xml:lang="de">Die folgenden benötigten Felder sind leer</value>
@@ -8777,7 +8800,6 @@
         <value xml:lang="ru">Есть таблица?</value>
         <value xml:lang="th">มีตาราง</value>
         <value xml:lang="zh">有数据库表</value>
-        <!--<value xml:lang="zh">有库表</value>-->
     </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
@@ -8876,6 +8898,7 @@
         <value xml:lang="en">Reject</value>
         <value xml:lang="fr">Refuser</value>
         <value xml:lang="hi_IN">अस्वीकार</value>
+        <value xml:lang="it">Rifiuta</value>
         <value xml:lang="zh">拒绝</value>
     </property>
     <property key="FormFieldTitle_removeButton">
@@ -8897,6 +8920,7 @@
         <value xml:lang="en">Save</value>
         <value xml:lang="fr">Conserver</value>
         <value xml:lang="hi_IN">सुरक्षित करे</value>
+        <value xml:lang="it">Salva</value>
         <value xml:lang="zh">保存</value>
     </property>
     <property key="FormFieldTitle_searchButton">
@@ -9141,6 +9165,7 @@
         <value xml:lang="en">OFBiz Site</value>
         <value xml:lang="fr">Site officiel d'OFBiz</value>
         <value xml:lang="hi_IN">OFBiz साइट</value>
+        <value xml:lang="it">Sito di OFBiz</value>
         <value xml:lang="zh">OFBiz站点</value>
     </property>
     <property key="Oagis">
@@ -9204,6 +9229,7 @@
         <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
         <value xml:lang="hi_IN">अनुरोधित एलेमेन्ट का भू स्थान</value>
+        <value xml:lang="it">Localizzation geografica dell'elemento richiesto</value>
         <value xml:lang="zh">请求的元素的地理位置</value>
     </property>
     <property key="PageTitleEditDataSource">
@@ -9330,12 +9356,14 @@
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
         <value xml:lang="fr">Impossible de trouver la page : (${parameters.portalPageId}) !</value>
         <value xml:lang="hi_IN">यह पृष्ठ (${parameters.portalPageId}) नहीं मिला !</value>
+        <value xml:lang="it">Questa pagina (${parameters.portalPageId}) non può essere trovata!</value>
         <value xml:lang="zh">无法找到这个页面(${parameters.portalPageId})！</value>
     </property>
     <property key="PortalPageNotOwned">
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
         <value xml:lang="fr">La page : '${portalPage.portalPageName}' [${portalPage.portalPageId}] ne vous appartient pas, vous ne pouvez la changer !</value>
         <value xml:lang="hi_IN">यह पृष्ठ '${portalPage.portalPageName}' [${portalPage.portalPageId}] नहीं मिला,आपके द्वारा नहीं है, तो बदला नहीं जा सकता!</value>
+        <value xml:lang="it">La pagina '${portalPage.portalPageName}' [${portalPage.portalPageId}] non ti appartiene, così non può essere cambiata!</value>
         <value xml:lang="zh">你不拥有页面'${portalPage.portalPageName}' [${portalPage.portalPageId}]，所以你不能修改它！</value>
     </property>
     <property key="Project">
@@ -9439,8 +9467,8 @@
         <value xml:lang="en">Czeck</value>
         <value xml:lang="es">Checo</value>
         <value xml:lang="fr">Tchèque</value>
-        <value xml:lang="it">Ceco</value>
         <value xml:lang="hi_IN">चेक</value>
+        <value xml:lang="it">Ceco</value>
         <value xml:lang="nl">Czeck</value>
         <value xml:lang="pt">Czeck</value>
         <value xml:lang="ro">Ceha</value>

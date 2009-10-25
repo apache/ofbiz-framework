@@ -4346,7 +4346,7 @@
         <value xml:lang="en">Lao People's Democratic Republic</value>
         <value xml:lang="es">Laos</value>
         <value xml:lang="fr">Laos (République démocratique populaire Lao)</value>
-        <value xml:lang="it">Repubblica Democratica Popolare del Laos</value>
+        <value xml:lang="it">Repubblica Democratica Pop. Laos</value>
         <value xml:lang="pt">Lao People's Democratic Republic</value>
         <value xml:lang="ro">Lao Republica Democratica Populara</value>
         <value xml:lang="ru">Лаос</value>
@@ -5081,7 +5081,7 @@
         <value xml:lang="en">Korea, Democratic People's Republic Of</value>
         <value xml:lang="es">Corea del Norte</value>
         <value xml:lang="fr">Corée du Nord</value>
-        <value xml:lang="it">Repubblica Democratica Popolare della Korea</value>
+        <value xml:lang="it">Repubblica Democratica Pop. Korea</value>
         <value xml:lang="pt">Korea, Democratic People's Republic Of</value>
         <value xml:lang="ro">Korea, Republica Democratica Populara</value>
         <value xml:lang="ru">Корея, демократическая народная республика</value>
@@ -10800,6 +10800,10 @@
         <value xml:lang="th">เลือก</value>
         <value xml:lang="zh">分拣</value>
     </property>
+    <property key="StatusValidChange.transitionName.PICKLIST_ASSIGNED.PICKLIST_PRINTED">
+        <value xml:lang="en">Printed</value>
+        <value xml:lang="it">Stampa</value>
+    </property>
     <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_ASSIGNED">
         <value xml:lang="de">Zuweisen</value>
         <value xml:lang="en">Assign</value>
@@ -10835,6 +10839,18 @@
         <value xml:lang="ru">Сортировать</value>
         <value xml:lang="th">เลือก</value>
         <value xml:lang="zh">分拣</value>
+    </property>
+    <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_PRINTED">
+        <value xml:lang="en">Print</value>
+        <value xml:lang="it">Stampa</value>
+    </property>
+    <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_PICKED">
+        <value xml:lang="en">Pick</value>
+        <value xml:lang="it">Preleva</value>
+    </property>
+    <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_CANCELLED">
+        <value xml:lang="en">Cancel</value>
+        <value xml:lang="it">Cancella</value>
     </property>
     <property key="StatusValidChange.transitionName.PMNT_NOT_PAID.PMNT_CANCELLED">
         <value xml:lang="de">Zahlung annullieren</value>
