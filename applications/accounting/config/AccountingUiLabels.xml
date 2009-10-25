@@ -5565,7 +5565,7 @@
         <value xml:lang="de">Rechnungen suchen</value>
         <value xml:lang="en">Lookup Invoices</value>
         <value xml:lang="es">Buscar Facturas</value>
-        <value xml:lang="fr">Rechercher des factures</value>
+        <value xml:lang="fr">Consultation des factures</value>
         <value xml:lang="hi_IN">चालान लुकअप</value>
         <value xml:lang="it">Ricerca Fatture</value>
         <value xml:lang="nl">Vind facturen</value>
@@ -5581,7 +5581,7 @@
         <value xml:lang="de">Zahlung suchen</value>
         <value xml:lang="en">Lookup Payment</value>
         <value xml:lang="es">Buscar Pago</value>
-        <value xml:lang="fr">Rechercher un paiement</value>
+        <value xml:lang="fr">Consultation des paiements</value>
         <value xml:lang="hi_IN">भुगतान लुकअप</value>
         <value xml:lang="it">Ricerca Pagamento</value>
         <value xml:lang="nl">Vind betalingen</value>
@@ -13462,7 +13462,7 @@
     <property key="PageTitleLookupBillingAccount">
         <value xml:lang="en">Lookup Billing Account by Name</value>
         <value xml:lang="es">Buscar Cuenta de Facturación por Nombre</value>
-        <value xml:lang="fr">Recherche de comptes de facturation par leur nom</value>
+        <value xml:lang="fr">Consultation de comptes de facturation par leur nom</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग) खाता नाम से लुकअप</value>
         <value xml:lang="it">Ricerca Conto Fatturazione per Nome</value>
         <value xml:lang="nl">Factuurrekening op naam opzoeken</value>
@@ -13474,7 +13474,7 @@
     <property key="PageTitleLookupFixedAsset">
         <value xml:lang="en">Lookup Fixed Asset</value>
         <value xml:lang="es">Buscar Activo Fijo</value>
-        <value xml:lang="fr">Recherche d'immobilisations</value>
+        <value xml:lang="fr">Consultation d'immobilisations</value>
         <value xml:lang="hi_IN">अचल संपत्ति लुकअप</value>
         <value xml:lang="it">Ricerca Cespite</value>
         <value xml:lang="nl">Vaste activa zoeken</value>
@@ -13486,7 +13486,7 @@
     <property key="PageTitleLookupGlAccount">
         <value xml:lang="en">Lookup GL Account</value>
         <value xml:lang="es">Buscar Cuenta de LM</value>
-        <value xml:lang="fr">Recherche de comptes</value>
+        <value xml:lang="fr">Consultation de compte</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता लुकअप</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale</value>
         <value xml:lang="nl">Gb-rekening zoeken</value>

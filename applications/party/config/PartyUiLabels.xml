@@ -5908,7 +5908,7 @@
     </property>
     <property key="PartyLookupAccount">
         <value xml:lang="en">Lookup Party with the role Account</value>
-        <value xml:lang="fr">Rechercher l'acteur ayant le role "compte"</value>
+        <value xml:lang="fr">Consultation de l'acteur ayant le role "compte"</value>
         <value xml:lang="hi_IN">खाता भूमिका के साथ पार्टी लुकअप</value>
         <value xml:lang="it">Ricerca soggetti con ruolo contabile</value>
         <value xml:lang="nl">Relaties met rol 'Account' zoeken</value>
@@ -5916,7 +5916,7 @@
     </property>
     <property key="PartyLookupContact">
         <value xml:lang="en">Lookup Party with the role Contact</value>
-        <value xml:lang="fr">Rechercher l'acteur ayant le rôle "contact"</value>
+        <value xml:lang="fr">Consultation de l'acteur ayant le rôle "contact"</value>
         <value xml:lang="hi_IN">संपर्क भूमिका के साथ पार्टी लुकअप</value>
         <value xml:lang="it">Ricerca soggetti con ruolo contatto</value>
         <value xml:lang="nl">Relaties met rol 'Contact' zoeken</value>
@@ -5947,7 +5947,7 @@
         <value xml:lang="de">Akteur suchen</value>
         <value xml:lang="en">Lookup Party</value>
         <value xml:lang="es">Buscar participante</value>
-        <value xml:lang="fr">Lancer la recherche d'acteur(s)</value>
+        <value xml:lang="fr">Consultation d'acteur(s)</value>
         <value xml:lang="hi_IN">पार्टी लुकअप</value>
         <value xml:lang="it">Ricerca soggetto</value>
         <value xml:lang="nl">Relatie zoeken</value>
@@ -5973,7 +5973,7 @@
         <value xml:lang="de">Akteur mit Name suchen</value>
         <value xml:lang="en">Lookup Party by Name</value>
         <value xml:lang="es">Buscar participante por nombre</value>
-        <value xml:lang="fr">Rechercher l'acteur par son nom</value>
+        <value xml:lang="fr">Consultation de l'acteur par son nom</value>
         <value xml:lang="hi_IN">पार्टी के नाम से लुकअप</value>
         <value xml:lang="it">Ricerca Soggetti per Nome</value>
         <value xml:lang="nl">Relatie op naam zoeken</value>

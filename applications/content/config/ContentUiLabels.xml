@@ -4046,7 +4046,7 @@
         <value xml:lang="ar">البحث عن المحتوى</value>
         <value xml:lang="de">Inhalt suchen</value>
         <value xml:lang="en">Lookup Content</value>
-        <value xml:lang="fr">Recherche de contenu</value>
+        <value xml:lang="fr">Consultation de contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
         <value xml:lang="ro">Cauta Continut</value>
         <value xml:lang="th">ค้นหาหัวข้อ</value>
@@ -4056,7 +4056,7 @@
         <value xml:lang="ar">البحث عن مورد المعلومات</value>
         <value xml:lang="de">Datenressource suchen</value>
         <value xml:lang="en">Lookup Data Resource</value>
-        <value xml:lang="fr">Recherche de ressource de données</value>
+        <value xml:lang="fr">Consultation de ressource de données</value>
         <value xml:lang="it">Ricerca Risorse Dati</value>
         <value xml:lang="ro">Cauta Resurse Date</value>
         <value xml:lang="th">ค้นหาแหล่งที่มาของข้อมูล</value>
@@ -4065,14 +4065,14 @@
     <property key="PageTitleLookupListLayout">
         <value xml:lang="de">Liste Layout suchen</value>
         <value xml:lang="en">Lookup List Layout</value>
-        <value xml:lang="fr">Recherche de mise en page</value>
+        <value xml:lang="fr">Consultation de mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
         <value xml:lang="zh">查找列表版式</value>
     </property>
     <property key="PageTitleLookupSubContent">
         <value xml:lang="de">Untergeordneten Inhalt suchen</value>
         <value xml:lang="en">Lookup Sub Content</value>
-        <value xml:lang="fr">Recherche de sous-contenu</value>
+        <value xml:lang="fr">Consultation de sous-contenu</value>
         <value xml:lang="it">Ricerca Sotto-Contenuto</value>
         <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
         <value xml:lang="zh">查找子内容</value>
@@ -4081,7 +4081,7 @@
         <value xml:lang="ar">البحث عن التصويت</value>
         <value xml:lang="de">Befragung suchen</value>
         <value xml:lang="en">Lookup Survey</value>
-        <value xml:lang="fr">Recherche de sondage</value>
+        <value xml:lang="fr">Consultation de sondage</value>
         <value xml:lang="it">Ricerca Sondaggio</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
@@ -4091,7 +4091,7 @@
         <value xml:lang="ar">البحث عن جواب التصويت</value>
         <value xml:lang="de">Befragung Antwort suchen</value>
         <value xml:lang="en">Lookup Survey Response</value>
-        <value xml:lang="fr">Recherche de réponse de sondage</value>
+        <value xml:lang="fr">Consultation de réponse de sondage</value>
         <value xml:lang="it">Ricerca Risposta Sondaggio</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>

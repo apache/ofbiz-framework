@@ -99,13 +99,13 @@
     </property>
     <property key="PageTitleLookupComputerHardware">
         <value xml:lang="en">Lookup Computer Hardware</value>
-        <value xml:lang="fr">Recherche de matériel informatique</value>
+        <value xml:lang="fr">Consulter le matériel informatique</value>
         <value xml:lang="it">Ricerca hardware per computer</value>
         <value xml:lang="zh">查找计算机硬件</value>
     </property>
     <property key="PageTitleLookupComputerSoftware">
         <value xml:lang="en">Lookup Computer Software</value>
-        <value xml:lang="fr">Recherche de logiciel</value>
+        <value xml:lang="fr">Consultation de logiciel(s)</value>
         <value xml:lang="it">Ricerca software per computer</value>
         <value xml:lang="zh">查找计算机软件</value>
     </property>
