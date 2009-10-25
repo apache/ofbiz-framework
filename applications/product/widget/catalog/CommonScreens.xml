@@ -179,9 +179,24 @@ under the License.
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
                                         </container>
-                                        <container>
-                                            <link target="EditProductStore" text="${uiLabelMap.ProductNewProductStore}" style="buttontext"/>
-                                        </container>
+                                        <section>
+                                            <widgets>
+                                                <container>
+                                                    <link target="EditProductStore" text="${uiLabelMap.ProductNewProductStore}" style="buttontext"/>
+                                                </container>                                                
+                                            </widgets>
+                                        </section>
+                                        <section>
+                                            <condition>
+                                                <if-compare field="titleProperty" operator="equals" value="PageTitleEditProductStore"/>                                                
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                    <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext" url-mode="plain"/>
+                                                    <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext" url-mode="plain"/>
+                                                </container>                                                
+                                            </widgets>
+                                        </section>
                                     </widgets>
                                 </section>
 
