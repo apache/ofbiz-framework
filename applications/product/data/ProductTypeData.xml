@@ -357,7 +357,14 @@ under the License.
     <ProductMeterType description="Motor Time Meter" productMeterTypeId="MOTOR_TIME"/>
     <ProductMeterType description="Use Count Meter" productMeterTypeId="USE_COUNT"/>
     <ProductMeterType description="Copy Count Meter" productMeterTypeId="COPY_COUNT"/>
-
+    <ProductMeterType description="Trip meter" productMeterTypeId="TRIP_METER"/>
+    <ProductMeterType description="Tachograph" productMeterTypeId="TACHOGRAPH"/>
+    <ProductMeterType description="Taximeter" productMeterTypeId="TAXIMETER"/>
+    <ProductMeterType description="Event Data Recorder" productMeterTypeId="EVENT_DATA_RECORDER"/>
+    
+    
+    
+    
     <ProductMaintType description="Vehicle Maintenance" productMaintTypeId="VEHICLE_MAINT" parentTypeId=""/>
     <ProductMaintType description="Oil Change" productMaintTypeId="OIL_CHANGE" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Serpentine Belt Replacement" productMaintTypeId="SERP_BELT" parentTypeId="VEHICLE_MAINT"/>
