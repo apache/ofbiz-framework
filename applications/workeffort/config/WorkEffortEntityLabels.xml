@@ -428,6 +428,7 @@
     <property key="WorkEffortType.description.TRAINING">
         <value xml:lang="en">Training</value>
         <value xml:lang="fr">Formation</value>
+        <value xml:lang="it">Formazione</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
