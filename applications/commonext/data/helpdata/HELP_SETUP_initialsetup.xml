@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Main OFBiz Setup Overview</title>
-    <para>The main page on OFBiz Setup component including 2 sections, following this:</para>
+    <para>The main page on OFBiz Setup application including 2 sections, following this:</para>
     <section>
         <title>1. Available Internal Organizations Section</title>
         <para>

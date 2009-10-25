@@ -20,9 +20,9 @@ under the License.
 <entity-engine-xml>
 
     <Content contentId="HELP_MYPORTAL"/><!--  portlets are in most components -->
-    <Content contentId="HELP_ROOT"/><!-- should be in the first component loaded -->
+    <Content contentId="HELP_ROOT"/><!-- should be in the first application loaded -->
     <PortletCategory portletCategoryId="REPORT" description="Reports"/>
-    <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content component -->
+    <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content application -->
 
     <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
     <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>

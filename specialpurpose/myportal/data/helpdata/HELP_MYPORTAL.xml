@@ -24,9 +24,9 @@
     xmlns="http://docbook.org/ns/docbook">
 
     
-    <title>The My portal Component introduction.</title>
+    <title>The My portal application introduction.</title>
     <para>                
-        Within the 'my portal' component it is possible to create a collection of screens for a specific type of user of the system. 
+        Within the 'my portal' application it is possible to create a collection of screens for a specific type of user of the system. 
         Examples are a general employee, an account manager, a customer, a supplier etc... 
         The system makes use of special portlets which can be arranged and selected/hidden by the logged on user.
     </para>
