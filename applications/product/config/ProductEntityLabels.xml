@@ -1819,8 +1819,8 @@
     </property>
     <property key="ProductMeterType.description.ODOMETER">
         <value xml:lang="en">Odometer</value>
-        <value xml:lang="it">Odometro</value>
         <value xml:lang="fr">Odomètre</value>
+        <value xml:lang="it">Odometro</value>
         <value xml:lang="zh">里程表</value>
     </property>
     <property key="ProductMeterType.description.SPEEDOMETER">
@@ -2207,6 +2207,7 @@
     </property>
     <property key="ProductType.description.MARKETING_PKG">
         <value xml:lang="en">Marketing Package</value>
+        <value xml:lang="it">Pacco di vendita</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket</value>
