@@ -63,6 +63,7 @@
     </property>
     <property key="GoogleBaseAddGoogleBaseConfiguration">
         <value xml:lang="en">Add Google Base Configuration</value>
+        <value xml:lang="it">Aggiungi configurazione a Google Base</value>
     </property>
     <property key="GoogleBaseApplication">
         <value xml:lang="en">Google Base Integration</value>
@@ -79,6 +80,7 @@
     </property>
     <property key="GoogleBaseConfiguration">
         <value xml:lang="en">Google Base Configurations</value>
+        <value xml:lang="it">Configurazioni Google Base</value>
     </property>
     <property key="GoogleBaseExportCountryCode">
         <value xml:lang="en">Select your country destination</value>
