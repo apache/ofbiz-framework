@@ -30,6 +30,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.wimpi.pim.Pim;
+import net.wimpi.pim.contact.basicimpl.AddressImpl;
+import net.wimpi.pim.contact.basicimpl.EmailAddressImpl;
+import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
+import net.wimpi.pim.contact.io.ContactMarshaller;
+import net.wimpi.pim.contact.io.ContactUnmarshaller;
+import net.wimpi.pim.contact.model.Address;
+import net.wimpi.pim.contact.model.Communications;
+import net.wimpi.pim.contact.model.Contact;
+import net.wimpi.pim.contact.model.EmailAddress;
+import net.wimpi.pim.contact.model.PersonalIdentity;
+import net.wimpi.pim.contact.model.PhoneNumber;
+import net.wimpi.pim.factory.ContactIOFactory;
+import net.wimpi.pim.factory.ContactModelFactory;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilMisc;
@@ -39,32 +54,14 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.party.PartyHelper;
+import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
-import org.ofbiz.party.party.PartyHelper;
-import org.ofbiz.party.party.PartyWorker;
-
-import net.wimpi.pim.Pim;
-import net.wimpi.pim.contact.io.ContactMarshaller;
-import net.wimpi.pim.contact.io.ContactUnmarshaller;
-import net.wimpi.pim.factory.ContactIOFactory;
-import net.wimpi.pim.factory.ContactModelFactory;
-import net.wimpi.pim.contact.model.Contact;
-import net.wimpi.pim.contact.model.Address;
-import net.wimpi.pim.contact.model.Communications;
-import net.wimpi.pim.contact.model.EmailAddress;
-import net.wimpi.pim.contact.model.PersonalIdentity;
-import net.wimpi.pim.contact.model.PhoneNumber;
-import net.wimpi.pim.contact.basicimpl.AddressImpl;
-import net.wimpi.pim.contact.basicimpl.EmailAddressImpl;
-import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
 
 public class VCard {
     public static final String module = VCard.class.getName();
