@@ -35,7 +35,7 @@
         <value xml:lang="de">Dispatch Kontext ist leer</value>
         <value xml:lang="en">Dispatch context is null</value>
         <value xml:lang="es">Nombre del Context es nulo</value>
-        <value xml:lang="fr">Le contexte du dispatch est invalide</value>
+        <value xml:lang="fr">Le contexte du dispatch est irrecevable</value>
         <value xml:lang="it">Contesto Dispatch è nullo</value>
         <value xml:lang="ro">Continut Dispecer este nul</value>
         <value xml:lang="ru">Контекст диспетчера не имеет значения</value>
@@ -47,7 +47,7 @@
         <value xml:lang="de">Dispatcher Name ist leer</value>
         <value xml:lang="en">Dispatcher name is null</value>
         <value xml:lang="es">Nombre del Dispatcher es nulo</value>
-        <value xml:lang="fr">Le nom du dispatcher est invalide</value>
+        <value xml:lang="fr">Le nom du dispatcher est irrecevable</value>
         <value xml:lang="it">Nome Dispatcher è nullo</value>
         <value xml:lang="ro">Nume Dispecer este nul</value>
         <value xml:lang="ru">Имя диспетчера не имеет значения</value>
@@ -81,7 +81,7 @@
         <value xml:lang="de">Falsches Format für SERVICE_COUNT</value>
         <value xml:lang="en">Invalid format for SERVICE_COUNT</value>
         <value xml:lang="es">Formato invalido de cantidad de sevicio</value>
-        <value xml:lang="fr">Format invalide pour SERVICE_COUNT</value>
+        <value xml:lang="fr">Format irrecevable pour SERVICE_COUNT</value>
         <value xml:lang="it">Formato invalido per SERVICE_COUNT</value>
         <value xml:lang="ro">Format invalid pentru SERVICE_COUNT</value>
         <value xml:lang="ru">Неверный формат SERVICE_COUNT</value>
@@ -92,7 +92,7 @@
         <value xml:lang="de">Falsches Format für SERVICE_FREQUENCY</value>
         <value xml:lang="en">Invalid format for SERVICE_FREQUENCY</value>
         <value xml:lang="es">Formato invalido de frecuencia de sevicio</value>
-        <value xml:lang="fr">Format invalide pour SERIVCE_FREQUENCY</value>
+        <value xml:lang="fr">Format irrecevable pour SERIVCE_FREQUENCY</value>
         <value xml:lang="it">Formato invalido per SERIVCE_FREQUENCY</value>
         <value xml:lang="ro">Format invalid pentru SERIVCE_FREQUENCY</value>
         <value xml:lang="ru">Неверный формат SERVICE_FREQUENCY</value>
@@ -103,7 +103,7 @@
         <value xml:lang="de">Falsches Format für SERVICE_INTERVAL</value>
         <value xml:lang="en">Invalid format for SERVICE_INTERVAL</value>
         <value xml:lang="es">Formato invalido de intervalo de sevicio</value>
-        <value xml:lang="fr">Format invalide pour SERVICE_INTERVAL</value>
+        <value xml:lang="fr">Format irrecevable pour SERVICE_INTERVAL</value>
         <value xml:lang="it">Formato invalido per SERVICE_INTERVAL</value>
         <value xml:lang="ro">Format Invalid pentru SERVICE_INTERVAL</value>
         <value xml:lang="ru">Неверный формат SERVICE_INTERVAL</value>
@@ -114,7 +114,7 @@
         <value xml:lang="de">Falsches Format für SERVICE_TIME</value>
         <value xml:lang="en">Invalid format for SERVICE_TIME</value>
         <value xml:lang="es">Formato invalido de tiempo de sevicio</value>
-        <value xml:lang="fr">Format invalide pour SERVICE_TIME</value>
+        <value xml:lang="fr">Format irrecevable pour SERVICE_TIME</value>
         <value xml:lang="it">Formato invalido per SERVICE_TIME</value>
         <value xml:lang="ro">Format invalid pentru SERVICE_TIME</value>
         <value xml:lang="ru">Неверный формат SERVICE_TIME</value>

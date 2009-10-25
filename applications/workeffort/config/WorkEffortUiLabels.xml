@@ -1713,7 +1713,7 @@
     </property>
     <property key="WorkEffortDelegateReason">
         <value xml:lang="en">Delegate Reason</value>
-        <value xml:lang="fr">Raison de délégué</value>
+        <value xml:lang="fr">Motif de déléguation</value>
         <value xml:lang="it">Motivazione delega</value>
         <value xml:lang="zh">委托原因</value>
     </property>

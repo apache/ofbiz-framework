@@ -2885,7 +2885,7 @@
         <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
         <value xml:lang="en">Estimated Ready Date</value>
         <value xml:lang="es">Fecha estimada de disponibilidad</value>
-        <value xml:lang="fr">Date prête estimée</value>
+        <value xml:lang="fr">Date de préparation estimée</value>
         <value xml:lang="nl">Verwachte leverdatum</value>
         <value xml:lang="it">Data stimata disponibilità</value>
         <value xml:lang="th">อ่านประมาณวันที่</value>
@@ -10200,6 +10200,7 @@
     </property>
     <property key="PageTitleEditRequirementRole">
         <value xml:lang="en">Edit Requirement Role</value>
+        <value xml:lang="fr">Modifier le rôle du besoin</value>
         <value xml:lang="it">Aggiorna ruolo fabbisogno</value>
         <value xml:lang="zh">编辑需求角色</value>
     </property>
@@ -10287,7 +10288,7 @@
         <value xml:lang="de">Liste Rollen Bedarf</value>
         <value xml:lang="en">List Requirement Roles</value>
         <value xml:lang="es">Listar roles de requisitos</value>
-        <value xml:lang="fr">Voir les besoins de rôles</value>
+        <value xml:lang="fr">Voir les rôles de besoin</value>
         <value xml:lang="it">Lista Fabbisogni Ruoli</value>
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>

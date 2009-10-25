@@ -3333,7 +3333,7 @@
         <value xml:lang="de">Grund Aufzählung ID</value>
         <value xml:lang="en">Reason Enum Id</value>
         <value xml:lang="es">Código de razón</value>
-        <value xml:lang="fr">Réf. raison énum.</value>
+        <value xml:lang="fr">Réf. motif énum.</value>
         <value xml:lang="it">Motivazione</value>
         <value xml:lang="th">รหัสระบุเหตุผล</value>
         <value xml:lang="zh">原因枚举标识</value>
@@ -3528,7 +3528,7 @@
         <value xml:lang="de">Bedarf Methode Aufzählung ID</value>
         <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Tipo de método de requisito</value>
-        <value xml:lang="fr">Méthode retenue pour le rechargement de stock</value>
+        <value xml:lang="fr">Méthode retenue pour le réapprovisionnement</value>
         <value xml:lang="it">Richiesta Scelta Tipo Metodo Fabbisogno</value>
         <value xml:lang="ro">Cerere Alegere Tip Metoda Necesar</value>
         <value xml:lang="ru">Способ создание требования</value>
@@ -4250,7 +4250,7 @@
         <value xml:lang="de">Varianz Grund ID</value>
         <value xml:lang="en">Variance Reason Id</value>
         <value xml:lang="es">Código razón de variación</value>
-        <value xml:lang="fr">Raison de la variation</value>
+        <value xml:lang="fr">Motif de la variation</value>
         <value xml:lang="it">Motivazione Varianza</value>
         <value xml:lang="ro">Motivare Varianta</value>
         <value xml:lang="ru">Код причины разногласий</value>
@@ -17438,7 +17438,7 @@
         <value xml:lang="de">Ablehnungsgrund</value>
         <value xml:lang="en">Rejected Reason</value>
         <value xml:lang="es">Razón rechazada</value>
-        <value xml:lang="fr">Raison rejetée</value>
+        <value xml:lang="fr">Motif rejetée</value>
         <value xml:lang="it">Motivo Scarto</value>
         <value xml:lang="ro">Motiv Rebutat</value>
         <value xml:lang="ru">Причина отказа</value>
@@ -17449,7 +17449,7 @@
         <value xml:lang="de">Grund zur Ablehnung</value>
         <value xml:lang="en">Rejection Reason</value>
         <value xml:lang="es">Razón de rechazo</value>
-        <value xml:lang="fr">Raison du rejet</value>
+        <value xml:lang="fr">Motif du rejet</value>
         <value xml:lang="it">Motivo Scartamento</value>
         <value xml:lang="ro">Motiv Rebutare</value>
         <value xml:lang="ru">Причина отказа</value>
