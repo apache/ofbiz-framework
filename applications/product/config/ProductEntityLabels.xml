@@ -1856,6 +1856,22 @@
         <value xml:lang="th">เครื่องงนับการใช้</value>
         <value xml:lang="zh">使用计数表</value>
     </property>
+    <property key="ProductMeterType.description.TRIP_METER">
+        <value xml:lang="en">Use Trip Meter</value>
+        <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
+    </property>
+    <property key="ProductMeterType.description.TACHOGRAPH">
+        <value xml:lang="en">Use Tacograph</value>
+        <value xml:lang="fr">Utiliser le tacographe</value>
+    </property>
+    <property key="ProductMeterType.description.TAXIMETER">
+        <value xml:lang="en">Use Taximeter</value>
+        <value xml:lang="fr">Utiliser le taximètre</value>
+    </property>
+    <property key="ProductMeterType.description.EVENT_DATA_RECORDER">
+        <value xml:lang="en">Use Event Data Recorder</value>
+        <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
+    </property>
     <property key="ProductPriceActionType.description.PRICE_FLAT">
         <value xml:lang="de">Pauschalbetrag übersteuern</value>
         <value xml:lang="en">Flat Amount Override</value>
