@@ -1862,6 +1862,10 @@
         <value xml:lang="it">Non è posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
         <value xml:lang="zh">没有LABEL_MANAGER_VIEW权限，不能浏览标签信息页面。</value>
     </property>
+    <property key="WebtoolsLabelManagerTemporarySearchTitle">
+        <value xml:lang="en">For the moment, to begin you need to choose one file, after all options are opened. Without button put the cursor in a field and validate.</value>
+        <value xml:lang="fr">Pour le moment, pour commencer vous devez choisir un fichier, ensuite tout est ouvert. Si aucun bouton n'apparaît, postionnez le curseur dans un champ et validez.</value>
+    </property>    
     <property key="WebtoolsLabelManagerUpdate">
         <value xml:lang="de">Label aktualisieren</value>
         <value xml:lang="en">Update Label</value>
