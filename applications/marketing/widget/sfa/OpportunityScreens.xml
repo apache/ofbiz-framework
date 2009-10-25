@@ -30,13 +30,15 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.SfaFindOpportunities}">
-                            <container><link target="EditSalesOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                            <include-form name="FindSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.SfaFindResults}">
-                            <include-form name="ListSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
-                        </screenlet>
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.SfaFindOpportunities}">
+                                <container><link target="EditSalesOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                <include-form name="FindSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.SfaFindResults}">
+                                <include-form name="ListSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
