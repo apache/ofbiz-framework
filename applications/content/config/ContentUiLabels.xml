@@ -499,6 +499,7 @@
     <property key="ContentCreateNewRootCompDocTemplate">
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer une nouvelle racine de modèle de document composite</value>
+        <value xml:lang="it">Creare un nuovo template CompDoc Root</value>
         <value xml:lang="zh">新建根合成文档模板</value>
     </property>
     <property key="ContentDataBaseText">
@@ -587,6 +588,7 @@
     <property key="ContentDataResourceUpload">
         <value xml:lang="en">Upload</value>
         <value xml:lang="fr">Télécharger vers le serveur</value>
+        <value xml:lang="it">Carica</value>
     </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
@@ -629,6 +631,7 @@
     <property key="ContentDownload">
         <value xml:lang="en">Download</value>
         <value xml:lang="fr">Télécharger</value>
+        <value xml:lang="it">Scarica</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
@@ -1815,6 +1818,10 @@
         <value xml:lang="th">รหัสหัวข้อ</value>
         <value xml:lang="zh">内容标识到</value>
     </property>
+    <property key="FormFieldTitle_caCratedDate">
+        <value xml:lang="en">ca Created Date</value>
+        <value xml:lang="it">Data creazione</value>
+    </property>
     <property key="FormFieldTitle_caFromDate">
         <value xml:lang="de">Von Datum und Zeit</value>
         <value xml:lang="en">From Date &amp; Time</value>
@@ -2023,6 +2030,10 @@
         <value xml:lang="ro">Numar Secventa Reviziune Continut</value>
         <value xml:lang="th">รหัสหัวข้อที่ปรับปรุง</value>
         <value xml:lang="zh">内容修改序号</value>
+    </property>
+    <property key="FormFieldTitle_contentStatusId">
+        <value xml:lang="en">Status Id</value>
+        <value xml:lang="it">Stato</value>
     </property>
     <property key="FormFieldTitle_contentType">
         <value xml:lang="ar">نوع المحتوى</value>
@@ -2301,6 +2312,10 @@
         <value xml:lang="fr">Type d'énumération</value>
         <value xml:lang="it">Tipo enumerazione</value>
         <value xml:lang="zh">枚举类型标识</value>
+    </property>
+    <property key="FormFieldTitle_existContentId">
+        <value xml:lang="en">Existing Content Id</value>
+        <value xml:lang="it">Codice contenuto esitente</value>
     </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
@@ -4097,6 +4112,10 @@
         <value xml:lang="th">หาแหล่งที่มาของข้อมูลที่ใช้ในหมวดหมู่ของข้อมูล</value>
         <value xml:lang="zh">用数据分类导航数据资源</value>
     </property>
+    <property key="PageTitlePleaseSelectData">
+        <value xml:lang="en">Please select data</value>
+        <value xml:lang="it">Perfacore seleziona i dati</value>
+    </property>
     <property key="PageTitleSearchContent">
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Recherche de contenu</value>
@@ -4122,11 +4141,13 @@
     <property key="PageTitleViewCompDocContentBinary">
         <value xml:lang="en">View CompDoc Content Binary</value>
         <value xml:lang="fr">Voir le contenu du document composite au format binaire</value>
+        <value xml:lang="it">Mostra contenuto binario CompDoc</value>
         <value xml:lang="zh">浏览合成文档二进制内容</value>
     </property>
     <property key="PageTitleViewCompDocContentHtml">
         <value xml:lang="en">View CompDoc Content Html</value>
         <value xml:lang="fr">Voir le contenu du document composite au format HTML</value>
+        <value xml:lang="it">Mostra contenuto html CompDoc</value>
         <value xml:lang="zh">浏览合成文档网页内容</value>
     </property>
     <property key="PageTitleViewCompDocTemplateTree">
@@ -4175,17 +4196,5 @@
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
         <value xml:lang="zh">网站内容</value>
-    </property>
-    <property key="FormFieldTitle_contentStatusId">
-        <value xml:lang="en">Status Id</value>
-    </property>
-    <property key="FormFieldTitle_caCratedDate">
-        <value xml:lang="en">ca Created Date</value>
-    </property>
-    <property key="FormFieldTitle_existContentId">
-        <value xml:lang="en">Existing Content Id</value>
-    </property>
-    <property key="PageTitlePleaseSelectData">
-        <value xml:lang="en">Please select data</value>
     </property>
 </resource>
