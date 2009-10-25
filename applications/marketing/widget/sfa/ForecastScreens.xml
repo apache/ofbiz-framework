@@ -39,7 +39,9 @@ under the License.
                                 </section>
                             </widgets>
                         </section>
-                        <decorator-section-include name="body"/>
+                        <container style="no-clear">
+                            <decorator-section-include name="body"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
