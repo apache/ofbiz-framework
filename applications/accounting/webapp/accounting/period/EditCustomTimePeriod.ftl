@@ -233,7 +233,7 @@ under the License.
       <h3>${uiLabelMap.AccountingAddCustomTimePeriod}</h3>
     </div>
     <div class="screenlet-body">
-      <form method="POST" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
+      <form method="post" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
         <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
         <input type="hidden" name="useValues" value="true">

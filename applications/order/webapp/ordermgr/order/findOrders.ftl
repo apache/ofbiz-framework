@@ -76,7 +76,7 @@ function toggleOrderIdList() {
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
 <#if parameters.hideFields?has_content>
-<form name='lookupandhidefields${requestParameters.hideFields}' method="POST" action="<@ofbizUrl>searchorders</@ofbizUrl>">
+<form name='lookupandhidefields${requestParameters.hideFields}' method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
   <#if parameters.hideFields?default("N")=='Y'>
     <input type="hidden" name="hideFields" value="N"/>
   <#else>
