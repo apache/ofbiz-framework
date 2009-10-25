@@ -20,7 +20,7 @@
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="SetupCompanyName">
-        <value xml:lang="en">OFBiz: Setup Component </value>
+        <value xml:lang="en">OFBiz: Setup Application </value>
         <value xml:lang="it">OFBiz: componente di configurazione</value>
     </property>
     <property key="SetupCompanySubtitle">
