@@ -1849,7 +1849,7 @@
         <value xml:lang="de">Verwendungszähler</value>
         <value xml:lang="en">Use Count Meter</value>
         <value xml:lang="es">Contador de usos</value>
-        <value xml:lang="fr">Utiliser le compteur de distance</value>
+        <value xml:lang="fr">Utiliser le compteur</value>
         <value xml:lang="it">Usa conta metri</value>
         <value xml:lang="ro">Foloseste Conta Metri</value>
         <value xml:lang="ru">Количество использования</value>
@@ -1871,6 +1871,10 @@
     <property key="ProductMeterType.description.EVENT_DATA_RECORDER">
         <value xml:lang="en">Use Event Data Recorder</value>
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
+    </property>
+    <property key="ProductMeterType.description.PODOMETER">
+        <value xml:lang="en">Use Podometer</value>
+        <value xml:lang="fr">Utiliser le podomètre</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FLAT">
         <value xml:lang="de">Pauschalbetrag übersteuern</value>
