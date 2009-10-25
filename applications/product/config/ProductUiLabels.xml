@@ -6183,7 +6183,7 @@
     </property>
     <property key="PageTitleLookupSupplierProduct">
         <value xml:lang="en">Lookup Product for supplier:</value>
-        <value xml:lang="fr">Recherche de produit pour le fournisseur : </value>
+        <value xml:lang="fr">Consulter un produit pour le fournisseur : </value>
         <value xml:lang="it">Ricerca prodotto per fornitore:</value>
         <value xml:lang="zh">查找产品，供货商是</value>
     </property>
@@ -12937,7 +12937,7 @@
         <value xml:lang="de">Lieferung(en) suchen</value>
         <value xml:lang="en">Lookup Shipment(s)</value>
         <value xml:lang="es">Buscar envío(s)</value>
-        <value xml:lang="fr">Rechercher l'expédition(s)</value>
+        <value xml:lang="fr">Consulter l'expédition(s)</value>
         <value xml:lang="it">Ricerca Spedizione(i)</value>
         <value xml:lang="ro">Cauta Expediere(i)</value>
         <value xml:lang="ru">Искать поставку(и)</value>

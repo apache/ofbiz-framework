@@ -283,7 +283,7 @@
     <property key="PageTitleFindJob">
         <value xml:lang="de">Job suchen</value>
         <value xml:lang="en">Find Job</value>
-        <value xml:lang="fr">Rechercher un job</value>
+        <value xml:lang="fr">Rechercher un job (traitement différé)</value>
         <value xml:lang="it">Ricerca lavori</value>
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="zh">查找任务</value>

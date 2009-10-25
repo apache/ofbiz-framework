@@ -1058,13 +1058,13 @@
     </property>
     <property key="HumanResLookupAgreementId">
         <value xml:lang="en">Lookup AgreementId</value>
-        <value xml:lang="fr">Réf. de consultation d'accord</value>
+        <value xml:lang="fr">Consultation d'accord</value>
         <value xml:lang="it">Ricerca contratto</value>
         <value xml:lang="zh">合同编号查询</value>
     </property>
     <property key="HumanResLookupAgreementItemSeqId">
         <value xml:lang="en">Lookup AgreementItemSeqId</value>
-        <value xml:lang="fr">Réf. de consultation de ligne séq. d'accord</value>
+        <value xml:lang="fr">Consultation de ligne séq. d'accord</value>
         <value xml:lang="it">Ricerca riga contratto</value>
         <value xml:lang="zh">合同项序号查询</value>
     </property>
@@ -1153,7 +1153,7 @@
     </property>
     <property key="HumanResLookupSalaryStepSeqId">
         <value xml:lang="en">Lookup Salary StepSeq Id</value>
-        <value xml:lang="fr">Réf. de consultation des augmentations de salaire</value>
+        <value xml:lang="fr">Consultation des augmentations de salaire</value>
         <value xml:lang="it">Ricerca Sequenza Passo Salario</value>
         <value xml:lang="th">ค้นหารหัสรายการขั้นเงินเดือน</value>
         <value xml:lang="zh">薪水浮动编号查询</value>
@@ -1173,7 +1173,7 @@
     </property>
     <property key="HumanResLookupUnemploymentClaimId">
         <value xml:lang="en">Lookup UnemploymentClaimId</value>
-        <value xml:lang="fr">Réf. de consultation de demande du chômage</value>
+        <value xml:lang="fr">Consultation de demande de chômage</value>
         <value xml:lang="it">Ricerca richiesta di disoccupazione</value>
         <value xml:lang="zh">解除雇佣关系声明编号查询</value>
     </property>

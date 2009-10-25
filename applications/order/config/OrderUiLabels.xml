@@ -3851,7 +3851,7 @@
         <value xml:lang="de">Aufträge ansehen</value>
         <value xml:lang="en">Lookup Order(s)</value>
         <value xml:lang="es">Buscar pedido(s)</value>
-        <value xml:lang="fr">Recherche de commande(s)</value>
+        <value xml:lang="fr">Consultation de commande(s)</value>
         <value xml:lang="it">Ricerca ordine(i)</value>
         <value xml:lang="nl">Opvragen order(s)</value>
         <value xml:lang="ro">Cauta Comanda(enzi)</value>
@@ -3864,7 +3864,7 @@
         <value xml:lang="de">Retouren ansehen</value>
         <value xml:lang="en">Lookup Return(s)</value>
         <value xml:lang="es">Buscar devoluciones</value>
-        <value xml:lang="fr">Recherche de retour(s)</value>
+        <value xml:lang="fr">Consultation de retour(s)</value>
         <value xml:lang="it">Ricerca Reso(i)</value>
         <value xml:lang="nl">Opvragen retour(en)</value>
         <value xml:lang="ro">Cauta Returnare(i)</value>
