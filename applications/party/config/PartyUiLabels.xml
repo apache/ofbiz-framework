@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -38,10 +39,6 @@
         <value xml:lang="ru">Дата рождения</value>
         <value xml:lang="th">วันเกิด</value>
         <value xml:lang="zh">生日</value>
-    </property>
-    <property key="FormFieldTitle_deceasedDate">
-        <value xml:lang="en">Deceased Date</value>
-        <value xml:lang="fr">Date de décès</value>
     </property>
     <property key="FormFieldTitle_certProvisionId">
         <value xml:lang="de">Zertifikatsaussteller ID</value>
@@ -248,6 +245,11 @@
         <value xml:lang="ru">Действующий пароль повторно</value>
         <value xml:lang="th">ยืนยันรหัสผ่าน</value>
         <value xml:lang="zh">当前密码验证</value>
+    </property>
+    <property key="FormFieldTitle_deceasedDate">
+        <value xml:lang="en">Deceased Date</value>
+        <value xml:lang="fr">Date de décès</value>
+        <value xml:lang="it">Data decesso</value>
     </property>
     <property key="FormFieldTitle_defaultRate">
         <value xml:lang="de">Standard Ansatz</value>
@@ -901,14 +903,6 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
-    <property key="FormFieldTitle_partyIdentTypeDesc">
-        <value xml:lang="en">Identification Type</value>
-        <value xml:lang="fr">Type de numéro</value>
-    </property>
-    <property key="FormFieldTitle_partyIdentificationTypeId">
-        <value xml:lang="en">Identification Type</value>
-        <value xml:lang="fr">Type de numéro</value>
-    </property>
     <property key="FormFieldTitle_partyIdFrom">
         <value xml:lang="de">Akteur ID von</value>
         <value xml:lang="en">From Party ID</value>
@@ -934,6 +928,16 @@
         <value xml:lang="ru">На участника</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">到会员标识</value>
+    </property>
+    <property key="FormFieldTitle_partyIdentTypeDesc">
+        <value xml:lang="en">Identification Type</value>
+        <value xml:lang="fr">Type de numéro</value>
+        <value xml:lang="it">Descrizione tipo identificazione</value>
+    </property>
+    <property key="FormFieldTitle_partyIdentificationTypeId">
+        <value xml:lang="en">Identification Type</value>
+        <value xml:lang="fr">Type de numéro</value>
+        <value xml:lang="it">Tipo identificazione</value>
     </property>
     <property key="FormFieldTitle_partyInvitationId">
         <value xml:lang="de">Akteur Einladung ID</value>
@@ -1959,10 +1963,12 @@
     </property>
     <property key="PageTitleListCommunicationsRelatedParties">
         <value xml:lang="en">List Communications of related parties</value>
+        <value xml:lang="it">Lista comunicazioni dei soggetti relazionati</value>
     </property>
     <property key="PageTitleListPartyIdentifications">
         <value xml:lang="en">List Identification Number</value>
         <value xml:lang="fr">Liste des numéros d'identification</value>
+        <value xml:lang="it">Lista numero identificazione</value>
     </property>
     <property key="PageTitleListUnknownPartyComms">
         <value xml:lang="de">Kommunikation von unbekannter Herkunft</value>
@@ -2002,6 +2008,7 @@
         <value xml:lang="en">Party GeoLocation</value>
         <value xml:lang="fr">Géolocalisation de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी भू स्थान</value>
+        <value xml:lang="it">Localizzazione geografica soggetto</value>
         <value xml:lang="zh">会员的地理位置</value>
     </property>
     <property key="PageTitlePartyInvitation">
@@ -2260,10 +2267,12 @@
     <property key="PartyAddCommEventOrder">
         <value xml:lang="en">Add Communication Event Order</value>
         <value xml:lang="hi_IN">संचार घटना आदेश जोड़ें</value>
+        <value xml:lang="it">Aggiungi evento comunicazione ordine</value>
     </property>
     <property key="PartyAddCommEventProduct">
         <value xml:lang="en">Add Communication Event Product</value>
         <value xml:lang="hi_IN">संचार घटना उत्पाद जोड़ें</value>
+        <value xml:lang="it">Aggiungi evento comunicazione prodotto</value>
     </property>
     <property key="PartyAddListToCart">
         <value xml:lang="de">Liste zum Einkaufswagen hinzufügen</value>
@@ -2761,6 +2770,7 @@
     <property key="PartyAnyRole">
         <value xml:lang="en">(Any Role)</value>
         <value xml:lang="hi_IN">(कोई भूमिका)</value>
+        <value xml:lang="it">(Qualsiasi ruolo)</value>
         <value xml:lang="zh">(任一角色)</value>
     </property>
     <property key="PartyAppliedPayments">
@@ -2959,10 +2969,6 @@
         <value xml:lang="th">วันเกิด</value>
         <value xml:lang="zh">生日</value>
     </property>
-    <property key="PartyDeceasedDate">
-        <value xml:lang="en">Deceased Date</value>
-        <value xml:lang="fr">Date de décès</value>
-    </property>
     <property key="PartyBirthDateMissingError">
         <value xml:lang="cs">Datum narození není ve správném formátu, musí odpovídat následujícímu formátu: rrrr-mm-dd, např. 2004-12-31</value>
         <value xml:lang="de">Geburtsdatum ist nicht im richtigen Format, es muss dem folgenden Muster entsprechen: yyyy-mm-dd, z.B. 1982-07-21</value>
@@ -2979,10 +2985,6 @@
         <value xml:lang="ru">Дата рождения в неверном формате: нужно вводит как гггг-мм-дд, например 1982-07-21</value>
         <value xml:lang="th">รูปแบบของวันเกิดไม่ถูกต้อง: ต้องเป็น yyyy-mm-dd, คล้ายกับ 1982-07-21</value>
         <value xml:lang="zh">生日格式错误：必须是yyyy-mm-dd，如1982-07-21</value>
-    </property>
-    <property key="PartyDeceasedDateMissingError">
-        <value xml:lang="en">Deceaseddate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
-        <value xml:lang="fr">Format de la date de décès non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
     </property>
     <property key="PartyBusinessPhone">
         <value xml:lang="cs">Telefon do zaměstnání</value>
@@ -3357,13 +3359,19 @@
         <value xml:lang="th">ผลการติดต่อ</value>
         <value xml:lang="zh">沟通事件</value>
     </property>
+    <property key="PartyCommEventCreateOpportunity">
+        <value xml:lang="en">Create Opportunity</value>
+        <value xml:lang="it">Creare opportunità</value>
+    </property>
     <property key="PartyCommEventOrders">
         <value xml:lang="en">Communication Event Orders</value>
         <value xml:lang="hi_IN">संचार घटना के आदेश</value>
+        <value xml:lang="it">Evento comunicazione ordini</value>
     </property>
     <property key="PartyCommEventProducts">
         <value xml:lang="en">Communication Event Products</value>
         <value xml:lang="hi_IN">संचार घटना के उत्पाद</value>
+        <value xml:lang="it">Evento comunicazione prodotti</value>
     </property>
     <property key="PartyCommEventPurposes">
         <value xml:lang="de">Kommunikationsereignis Zweck</value>
@@ -3533,16 +3541,13 @@
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value-->
-        <!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</value-->
-        <!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
         <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
@@ -4481,6 +4486,16 @@
         <value xml:lang="th">ที่มาของ AVS </value>
         <value xml:lang="zh">Cybersource公司地址验证服务替代</value>
     </property>
+    <property key="PartyDeceasedDate">
+        <value xml:lang="en">Deceased Date</value>
+        <value xml:lang="fr">Date de décès</value>
+        <value xml:lang="it">Data decesso</value>
+    </property>
+    <property key="PartyDeceasedDateMissingError">
+        <value xml:lang="en">Deceaseddate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
+        <value xml:lang="fr">Format de la date de décès non correct : doit être aaaa-mm-jj, du type 1982-07-21</value>
+        <value xml:lang="it">Data decesso non è formattata correttamente: deve essere yyyy-mm-dd, come 1982-07-21</value>
+    </property>
     <property key="PartyDeleteEmail">
         <value xml:lang="de">E-Mail löschen</value>
         <value xml:lang="en">Delete Email</value>
@@ -4737,14 +4752,6 @@
         <value xml:lang="th">ที่อยู่อีเมล</value>
         <value xml:lang="zh">电子邮件地址</value>
     </property>
-    <property key="PartyEmailsFromUnknownOrigin">
-        <value xml:lang="en">Emails from UN-known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
-        <value xml:lang="hi_IN">अज्ञात मूल से ईमेल</value>
-        <value xml:lang="it">Emails da origini conosciuta</value>
-        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
-        <value xml:lang="zh">来自未知来源的电子邮件</value>
-    </property>
     <property key="PartyEmailAddressMissing">
         <value xml:lang="de">E-Mail Adresse fehlt</value>
         <value xml:lang="en">Email Address is missing</value>
@@ -4875,6 +4882,14 @@
         <value xml:lang="hi_IN">ईमेल करे</value>
         <value xml:lang="it">Email a</value>
         <value xml:lang="zh">电子邮件至</value>
+    </property>
+    <property key="PartyEmailsFromUnknownOrigin">
+        <value xml:lang="en">Emails from UN-known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+        <value xml:lang="hi_IN">अज्ञात मूल से ईमेल</value>
+        <value xml:lang="it">Emails da origini conosciuta</value>
+        <value xml:lang="th">อีเมล์ที่ไม่ระบุ</value>
+        <value xml:lang="zh">来自未知来源的电子邮件</value>
     </property>
     <property key="PartyEnabled">
         <value xml:lang="de">Eingeschaltet</value>
@@ -5133,6 +5148,12 @@
         <value xml:lang="th">ตามการประชุม</value>
         <value xml:lang="zh">跟踪会话</value>
     </property>
+    <property key="PartyForward">
+        <value xml:lang="en">Forward</value>
+        <value xml:lang="hi_IN">आगे</value>
+        <value xml:lang="it">Inoltra</value>
+        <value xml:lang="zh">转发</value>
+    </property>
     <property key="PartyFoundCommunicationEvents">
         <value xml:lang="de">Kommunikationsereignisse gefunden</value>
         <value xml:lang="en">Found Communication Events</value>
@@ -5145,12 +5166,6 @@
         <value xml:lang="ru">Найденные коммуникационные события</value>
         <value xml:lang="th">ผลการค้นหาการติดต่อ</value>
         <value xml:lang="zh">找到的沟通事件</value>
-    </property>
-    <property key="PartyForward">
-        <value xml:lang="en">Forward</value>
-        <value xml:lang="hi_IN">आगे</value>
-        <value xml:lang="it">Inoltra</value>
-        <value xml:lang="zh">转发</value>
     </property>
     <property key="PartyFromContactMech">
         <value xml:lang="de">Von Kontaktmechanismus</value>
@@ -5417,6 +5432,11 @@
         <value xml:lang="th">ไม่ได้ใส่หมายเลขติดต่อที่เป็นเบอร์โทรศัพท์บ้าน</value>
         <value xml:lang="zh">找不到家庭电话号码。</value>
     </property>
+    <property key="PartyInProgresstEmails">
+        <value xml:lang="en">Emails scheduled to be sent</value>
+        <value xml:lang="hi_IN">ईमेल भेजने के लिए शिड्यूल है</value>
+        <value xml:lang="it">Email schedulate da inviare</value>
+    </property>
     <property key="PartyInformationNotBelongToYou">
         <value xml:lang="cs">Uvedené kontaktní informace nejsou Vaše, proto je nemůžete prohlížet ani editovat</value>
         <value xml:lang="de">Die angegebenen Kontaktinformationen gehören Ihnen nicht, daher dürfen Sie diese nicht ansehen oder bearbeiten</value>
@@ -5502,10 +5522,6 @@
         <value xml:lang="ru">Начальный агент пользователя</value>
         <value xml:lang="th">ตัวแทนผู้ใช้แรก</value>
         <value xml:lang="zh">初始用户代理人</value>
-    </property>
-    <property key="PartyInProgresstEmails">
-        <value xml:lang="en">Emails scheduled to be sent</value>
-        <value xml:lang="hi_IN">ईमेल भेजने के लिए शिड्यूल है</value>
     </property>
     <property key="PartyInvitation">
         <value xml:lang="de">Einladung</value>
@@ -5921,9 +5937,11 @@
     <property key="PartyLookupInternalOrganization">
         <value xml:lang="en">Lookup Internal Organization</value>
         <value xml:lang="hi_IN">आंतरिक संगठन लुकअप</value>
+        <value xml:lang="it">Ricerca organizzazione interna</value>
     </property>
     <property key="PartyLookupLead">
         <value xml:lang="en">Lookup Party with the role Lead</value>
+        <value xml:lang="it">Ricerca soggetto con il ruolo di leader</value>
     </property>
     <property key="PartyLookupParty">
         <value xml:lang="de">Akteur suchen</value>
@@ -6059,6 +6077,7 @@
     </property>
     <property key="PartyMainRole">
         <value xml:lang="en">Main Role</value>
+        <value xml:lang="it">Ruolo principale</value>
     </property>
     <property key="PartyManager">
         <value xml:lang="de">Akteur Manager Anwendung</value>
@@ -6404,6 +6423,7 @@
     <property key="PartyMyCommunications">
         <value xml:lang="en">My Communications</value>
         <value xml:lang="hi_IN">मेरा संचार</value>
+        <value xml:lang="it">Proprie comunicazioni</value>
         <value xml:lang="zh">我的沟通</value>
     </property>
     <property key="PartyName">
@@ -7039,24 +7059,6 @@
         <value xml:lang="th">ไม่มีผู้จัดหาสิ่งของให้</value>
         <value xml:lang="zh">没有供货商</value>
     </property>
-    <property key="PartyNotificationMailChange">
-        <value xml:lang="en">Change Personal Info Notification Mail</value>
-        <value xml:lang="hi_IN">व्यक्तिगत जानकारी अधिसूचना मेल बदलें</value>
-        <value xml:lang="it">Mail di notifica per cambio informazioni personali</value>
-        <value xml:lang="zh">修改个人信息通知邮件</value>
-    </property>
-    <property key="PartyNotificationMailCreate">
-        <value xml:lang="en">Party Account Creation Notification Mail</value>
-        <value xml:lang="hi_IN">पार्टी खाता निर्माण अधिसूचना मेल</value>
-        <value xml:lang="it">Mail di notifica creazione utenza</value>
-        <value xml:lang="zh">创建会员账户通知邮件</value>
-    </property>
-    <property key="PartyNotificationMailVerification">
-        <value xml:lang="en">Email Address Verification</value>
-        <value xml:lang="hi_IN">ईमेल पता सत्यापन</value>
-        <value xml:lang="it">Verifica indirizzo Email</value>
-        <value xml:lang="zh">电子邮件地址验证</value>
-    </property>
     <property key="PartyNoUserLogin">
         <value xml:lang="de">Keine Benutzeranmeldung gefunden für diesen Akteur.</value>
         <value xml:lang="en">No UserLogin(s) found for this party.</value>
@@ -7098,6 +7100,24 @@
         <value xml:lang="ru">Это не может быть изменено без повторного создания группы безопасности.</value>
         <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงได้หากปราศจากการสร้างกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">如果不重新创建安全组的话，不能修改这个。</value>
+    </property>
+    <property key="PartyNotificationMailChange">
+        <value xml:lang="en">Change Personal Info Notification Mail</value>
+        <value xml:lang="hi_IN">व्यक्तिगत जानकारी अधिसूचना मेल बदलें</value>
+        <value xml:lang="it">Mail di notifica per cambio informazioni personali</value>
+        <value xml:lang="zh">修改个人信息通知邮件</value>
+    </property>
+    <property key="PartyNotificationMailCreate">
+        <value xml:lang="en">Party Account Creation Notification Mail</value>
+        <value xml:lang="hi_IN">पार्टी खाता निर्माण अधिसूचना मेल</value>
+        <value xml:lang="it">Mail di notifica creazione utenza</value>
+        <value xml:lang="zh">创建会员账户通知邮件</value>
+    </property>
+    <property key="PartyNotificationMailVerification">
+        <value xml:lang="en">Email Address Verification</value>
+        <value xml:lang="hi_IN">ईमेल पता सत्यापन</value>
+        <value xml:lang="it">Verifica indirizzo Email</value>
+        <value xml:lang="zh">电子邮件地址验证</value>
     </property>
     <property key="PartyOfParty">
         <value xml:lang="en">of Party</value>
@@ -7145,6 +7165,7 @@
     <property key="PartyOrderAdd">
         <value xml:lang="en">Order Add</value>
         <value xml:lang="hi_IN">आदेश जोड़ें</value>
+        <value xml:lang="it">Aggiungi ordine</value>
     </property>
     <property key="PartyOrderInLast">
         <value xml:lang="de">Aufträge in den letzten</value>
@@ -7388,18 +7409,6 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
-    <property key="PartyPartyIdentification">
-        <value xml:lang="en">Identification Number</value>
-        <value xml:lang="fr">N° d'identification</value>
-    </property>
-    <property key="PartyPartyIdentificationList">
-        <value xml:lang="en">List Identification Number</value>
-        <value xml:lang="fr">Liste des numéros d'identification</value>
-    </property>
-    <property key="PartyPartyIdentifications">
-        <value xml:lang="en">Identification Numbers</value>
-        <value xml:lang="fr">Numéros d'identification</value>
-    </property>
     <property key="PartyPartyIdMissing">
         <value xml:lang="de">Akteur ID fehlt</value>
         <value xml:lang="en">Party ID missing</value>
@@ -7410,6 +7419,21 @@
         <value xml:lang="nl">Relatie-ID ontbreekt</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">找不到会员标识</value>
+    </property>
+    <property key="PartyPartyIdentification">
+        <value xml:lang="en">Identification Number</value>
+        <value xml:lang="fr">N° d'identification</value>
+        <value xml:lang="it">Numero identificativo</value>
+    </property>
+    <property key="PartyPartyIdentificationList">
+        <value xml:lang="en">List Identification Number</value>
+        <value xml:lang="fr">Liste des numéros d'identification</value>
+        <value xml:lang="it">Lista numero identificativo</value>
+    </property>
+    <property key="PartyPartyIdentifications">
+        <value xml:lang="en">Identification Numbers</value>
+        <value xml:lang="fr">Numéros d'identification</value>
+        <value xml:lang="it">Numeri identificativi</value>
     </property>
     <property key="PartyPartyInTheRoleOf">
         <value xml:lang="de">in der Rolle als</value>
@@ -8022,6 +8046,7 @@
     <property key="PartyProductAdd">
         <value xml:lang="en">Product Add</value>
         <value xml:lang="hi_IN">उत्पाद जोड़ें</value>
+        <value xml:lang="it">Aggiungi prodotto</value>
     </property>
     <property key="PartyProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -8229,6 +8254,10 @@
         <value xml:lang="th">คุณจะได้รับรหัสผ่านทางอีเมล์เมื่อบัญชีผู้ใช้ใหม่ของคุณถูกอนุญาตให้ใช้</value>
         <value xml:lang="zh">当你的新账户被批准时，你会收到密码的电子邮件</value>
     </property>
+    <property key="PartyRelatedCompany">
+        <value xml:lang="en">Related Company</value>
+        <value xml:lang="it">Azienda relativa</value>
+    </property>
     <property key="PartyRelationSecurity">
         <value xml:lang="de">Akteur Beziehung Sicherheit</value>
         <value xml:lang="en">Party Relationship Security</value>
@@ -8338,9 +8367,9 @@
     <property key="PartyRemovePartyClassificationPermissionError">
         <value xml:lang="de">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
-        <value xml:lang="hi_IN">सुरक्षा त्रुटि: deletePartyClassification चलाने के लिए आप को PARTYMGR_DELETE या PARTYMGR_ADMIN की अनुमति होना चाहिए</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une classification d'acteur il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="hi_IN">सुरक्षा त्रुटि: deletePartyClassification चलाने के लिए आप को PARTYMGR_DELETE या PARTYMGR_ADMIN की अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire deletePartyClassification tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Toegangfout: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa deletePartyClassification trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -8420,6 +8449,7 @@
     <property key="PartyReplyAll">
         <value xml:lang="en">Reply All</value>
         <value xml:lang="hi_IN">सभी को जवाब दे</value>
+        <value xml:lang="it">Rispondi a tutti</value>
     </property>
     <property key="PartyReplyPrefix">
         <value xml:lang="de">AW:</value>
@@ -8866,8 +8896,8 @@
         <value xml:lang="de">Versandkonto</value>
         <value xml:lang="en">Shipper Account</value>
         <value xml:lang="es">Cuenta de envío</value>
-        <value xml:lang="hi_IN">Shipper का खाता</value>
         <value xml:lang="fr">Compte d'expéditeur</value>
+        <value xml:lang="hi_IN">Shipper का खाता</value>
         <value xml:lang="it">Conto Corriere </value>
         <value xml:lang="nl">Account transporteur</value>
         <value xml:lang="th">บัญชีการส่งของ</value>
@@ -9394,10 +9424,10 @@
         <value xml:lang="zh">到购物车</value>
     </property>
     <property key="PartyToComplete">
-        <value xml:lang="en">->Closed</value>
-        <value xml:lang="fr">->Fermé(e)</value>
-        <value xml:lang="hi_IN">->बंद है</value>
-        <value xml:lang="it">->Chiuso</value>
+        <value xml:lang="en">-&gt;Closed</value>
+        <value xml:lang="fr">-&gt;Fermé(e)</value>
+        <value xml:lang="hi_IN">-&gt;बंद है</value>
+        <value xml:lang="it">-&gt;Chiuso</value>
         <value xml:lang="th">เสร็จสิ้น</value>
         <value xml:lang="zh">已关闭的</value>
     </property>
@@ -9516,8 +9546,8 @@
         <value xml:lang="de">URI</value>
         <value xml:lang="en">URI</value>
         <value xml:lang="es">URI</value>
-        <value xml:lang="hi_IN">यूआरआइ(URI)</value>
         <value xml:lang="fr">URI</value>
+        <value xml:lang="hi_IN">यूआरआइ(URI)</value>
         <value xml:lang="it">URI</value>
         <value xml:lang="nl">URI</value>
         <value xml:lang="pt_PT">URI</value>
@@ -9835,11 +9865,12 @@
     <property key="PartyViewCommOrders">
         <value xml:lang="en">View Communication Orders</value>
         <value xml:lang="hi_IN">संचार के आदेश देखें</value>
+        <value xml:lang="it">Mostra comunicazione ordini</value>
     </property>
     <property key="PartyViewCommProducts">
         <value xml:lang="en">View Communication Products</value>
         <value xml:lang="hi_IN">संचार के उत्पाद देखें</value>
-
+        <value xml:lang="it">Mostra comunicazione prodotti</value>
     </property>
     <property key="PartyViewCommunicationEvent">
         <value xml:lang="de">Kommunikationsereignis anzeigen</value>
@@ -10107,11 +10138,5 @@
         <value xml:lang="ru">Отсутствует почтовый индекс</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสไปรษณีย์/รหัสพื้นที่</value>
         <value xml:lang="zh">找不到邮政编码</value>
-    </property>
-    <property key="PartyRelatedCompany">
-        <value xml:lang="en">Related Company</value>
-    </property>
-    <property key="CommEventCreateOpportunity">
-        <value xml:lang="en">Create Opportunity</value>
     </property>
 </resource>
