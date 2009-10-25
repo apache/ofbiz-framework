@@ -179,7 +179,7 @@
     </property>
     <property key="MarketingCampaignInvalidEmailInput">
         <value xml:lang="en">Invalid email address entered.</value>
-        <value xml:lang="fr">Entrée d'adresse courriel invalide</value>
+        <value xml:lang="fr">Entrée d'adresse courriel irrecevable</value>
         <value xml:lang="it">Indirizzo email inserito invalido.</value>
         <value xml:lang="nl">Fout emailadres opgegeven.</value>
         <value xml:lang="th">เข้าสู่ที่อยู่ของอีเมล์ไม่ได้</value>

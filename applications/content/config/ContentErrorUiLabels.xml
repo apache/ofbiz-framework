@@ -63,7 +63,7 @@
         <value xml:lang="de">image({b}) oder Typ(${imageType}) ist null oder leer</value>
         <value xml:lang="en">image({b}) or type(${imageType}) is null or empty</value>
         <value xml:lang="es">imagen({b}) o tipo(${imageType}) son nulos o están vacios</value>
-        <value xml:lang="fr">image ({b}) ou type (${imageType}) invalide ou vide</value>
+        <value xml:lang="fr">image ({b}) ou type (${imageType}) irrecevable ou vide</value>
         <value xml:lang="it">immagine({b}) o tipo (${imageType}) è nullo o vuoto</value>
         <value xml:lang="ro">imagine({b}) sau tip (${imageType}) este zero sau o lipseste</value>
         <value xml:lang="th">รูปภาพ ({b}) หรือ ประภท (${imageType}) ไม่มีค่าหรือเป็นค่าว่าง</value>
@@ -73,7 +73,7 @@
         <value xml:lang="de">imageFi(${imageFi}) oder idFieldValue(${idFieldValue}) ist null</value>
         <value xml:lang="en">imageFi(${imageFi}) or idFieldValue(${idFieldValue}) is null</value>
         <value xml:lang="es">Imagen(${imageFi}) or Campo(${idFieldValue}) son nulos</value>
-        <value xml:lang="fr">imageFi (${imageFi}) ou idFieldValue (${idFieldValue}) est invalide</value>
+        <value xml:lang="fr">imageFi (${imageFi}) ou idFieldValue (${idFieldValue}) est irrecevable</value>
         <value xml:lang="it">imageFi(${imageFi}) o idFieldValue(${idFieldValue}) è nullo</value>
         <value xml:lang="ro">imageFi(${imageFi}) sau idFieldValue(${idFieldValue}) este zero</value>
         <value xml:lang="th">ช่องรูปภาพ (${imageFi}) หรือรหัสค่า (${idFieldValue}) ไม่มีค่า</value>
@@ -113,7 +113,7 @@
         <value xml:lang="de">Inhalt ID zu ist leer</value>
         <value xml:lang="en">contentIdTo is null</value>
         <value xml:lang="es">El id del contenido es nulo</value>
-        <value xml:lang="fr">contentIdTo est invalide</value>
+        <value xml:lang="fr">contentIdTo est irrecevable</value>
         <value xml:lang="it">contentIdTo è nullo</value>
         <value xml:lang="ro">contentIdTo este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสหัวข้อ</value>
@@ -123,7 +123,7 @@
         <value xml:lang="de">Datenressource ID ist null</value>
         <value xml:lang="en">DataRessourceId is null</value>
         <value xml:lang="es">El id del recurso de datos está vacío</value>
-        <value xml:lang="fr">DataRessourceId est invalide</value>
+        <value xml:lang="fr">DataRessourceId est irrecevable</value>
         <value xml:lang="it">DataRessourceId è nullo</value>
         <value xml:lang="ro">DataRessourceId este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสแหล่งที่มา</value>
@@ -173,7 +173,7 @@
         <value xml:lang="de">ImageFi(${imageFi}) ist null</value>
         <value xml:lang="en">imageFi(${imageFi}) is null</value>
         <value xml:lang="es">Imagen(${imageFi}) eestá vacía</value>
-        <value xml:lang="fr">imageFi(${imageFi}) est invalide</value>
+        <value xml:lang="fr">imageFi(${imageFi}) est irrecevable</value>
         <value xml:lang="it">imageFi(${imageFi}) è nullo</value>
         <value xml:lang="ro">imageFi(${imageFi}) este zero</value>
         <value xml:lang="th">ไม่มีค่าในช่องรูปภาพ (${imageFi}) </value>

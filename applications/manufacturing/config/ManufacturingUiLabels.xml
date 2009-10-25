@@ -1281,7 +1281,7 @@
         <value xml:lang="de">Berechnetes Fertigstellungsdatum</value>
         <value xml:lang="en">Calculated Completion Date</value>
         <value xml:lang="es">Fecha de fin estimada</value>
-        <value xml:lang="fr">Date d'achèvement</value>
+        <value xml:lang="fr">Date d'achèvement estimé</value>
         <value xml:lang="it">Data Completamento Calcolata</value>
         <value xml:lang="ro">Data Completarii Calculata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
@@ -2733,16 +2733,19 @@
     </property>
     <property key="ManufacturingRequirementNotDeleted">
         <value xml:lang="en">Requirement Non Deleted</value>
+        <value xml:lang="fr">Besoin de fabrication non supprimé</value>
         <value xml:lang="it">Fabbisogno non cancellato</value>
         <value xml:lang="zh">没有需求被删除</value>
     </property>
     <property key="ManufacturingRequirementNotExists">
         <value xml:lang="en">Requirement Non Exists</value>
         <value xml:lang="it">Fabbisogno non esistente</value>
+        <value xml:lang="fr">Besoin de fabrication inexistant</value>
         <value xml:lang="zh">不存在需求</value>
     </property>
     <property key="ManufacturingRequirementNotUpdated">
         <value xml:lang="en">Requirement Non Updated</value>
+        <value xml:lang="fr">Besoin de fabrication non mis à jour</value>
         <value xml:lang="it">Fabbisogno non aggiornato</value>
         <value xml:lang="zh">没有需求被更新</value>
     </property>
@@ -3115,7 +3118,7 @@
         <value xml:lang="de">Geschätzte Ausführungszeit</value>
         <value xml:lang="en">Estimated Total Run Time</value>
         <value xml:lang="es">Tiempo total estimado</value>
-        <value xml:lang="fr">Temps d'exécution totale estimé</value>
+        <value xml:lang="fr">Temps d'exécution total estimé</value>
         <value xml:lang="it">Totale Tempo Stimato Esecuazione</value>
         <value xml:lang="th">ประมาณเวลาทั้งหมด</value>
         <value xml:lang="zh">预计全部运行时间</value>

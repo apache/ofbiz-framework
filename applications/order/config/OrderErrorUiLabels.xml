@@ -637,7 +637,7 @@
     <property key="OrderErrorInvalidOrderTypeWithID">
         <value xml:lang="en">ERROR : Invalid OrderType with ID : ${orderTypeId}</value>
         <value xml:lang="es">ERROR: Es inválido el tipo de pedido con el código:</value>
-        <value xml:lang="fr">Erreur : Le type de commande est invalide avec l'identifiant : ${orderTypeId}</value>
+        <value xml:lang="fr">Erreur : Le type de commande est irrecevable avec l'identifiant : ${orderTypeId}</value>
         <value xml:lang="it">ERRORE : OrderType invalido con Codice : ${orderTypeId}</value>
         <value xml:lang="ro">EROARE : OrderType invalid cu Codul : ${orderTypeId}</value>
         <value xml:lang="ru">ОШИБКА: неверный OrderType с кодом: ${orderTypeId}</value>
@@ -1006,7 +1006,7 @@
     <property key="OrderInvalidAmountSetForBillingAccount">
         <value xml:lang="en">Invalid amount set for Billing Account # ${billingAccountId}</value>
         <value xml:lang="es">Monto inválido para cuenta de facturación # ${billingAccountId}</value>
-        <value xml:lang="fr">Montant invalide pour facturer le compte ${billingAccountId}</value>
+        <value xml:lang="fr">Montant irrecevable pour facturer le compte ${billingAccountId}</value>
         <value xml:lang="it">Importo Invalido impostato per # Conto Fatturazione ${billingAccountId}</value>
         <value xml:lang="ro">Valoare Invalid impostat pentru # Cont Facturare ${billingAccountId}</value>
         <value xml:lang="ru">Неверное количество установле для кредитного счета №${billingAccountId}</value>
@@ -1016,7 +1016,7 @@
     <property key="OrderInvalidCancelQuantityCannotCancel">
         <value xml:lang="en">Invalid cancel quantity; cannot cancel ${thisCancelQty}</value>
         <value xml:lang="es">Cantidad cancelada inválida; no se puede cancelar ${thisCancelQty}</value>
-        <value xml:lang="fr">Quantité annulée invalide; impossible d'annuler ${thisCancelQty}</value>
+        <value xml:lang="fr">Quantité annulée irrecevable; impossible d'annuler ${thisCancelQty}</value>
         <value xml:lang="it">Quantità annullata Invalida; non è possibile annullare ${thisCancelQty}</value>
         <value xml:lang="ro">Cantitate stearsa Invalida; nu este posibila stergerea ${thisCancelQty}</value>
         <value xml:lang="ru">Отменяется неверное количество; не могу отменить ${thisCancelQty}</value>
@@ -1026,7 +1026,7 @@
     <property key="OrderInvalidDateFormatForFromDate">
         <value xml:lang="en">Invalid date format for fromDate</value>
         <value xml:lang="es">Formato de fecha inválido para fecha de creación o inicio</value>
-        <value xml:lang="fr">Format de la date pour invalide</value>
+        <value xml:lang="fr">Format de date de début irrecevable</value>
         <value xml:lang="it">Formato Data Invalida per fromDate</value>
         <value xml:lang="ro">Format Data Invalida pentru fromDate</value>
         <value xml:lang="ru">Неверный формат даты для fromDate</value>
@@ -1036,7 +1036,7 @@
     <property key="OrderInvalidDesiredDeliveryDateSyntaxError">
         <value xml:lang="en">Invalid Desired Delivery Date : Syntax Error</value>
         <value xml:lang="es">Fecha deseada de entrega inválida : Error de sintaxis</value>
-        <value xml:lang="fr">Date d'expédition souhaitée invalide : Erreur de syntaxe</value>
+        <value xml:lang="fr">Date d'expédition souhaitée irrecevable : Erreur de syntaxe</value>
         <value xml:lang="it">Data Consegna Desiderata Invalida : Errore Sintassi</value>
         <value xml:lang="ro">Data Livrarii Dorita Invalida : Eroare de Sintaxa</value>
         <value xml:lang="ru">Неверная желаемая дата доставки: синтаксическая ошибка</value>
@@ -1046,7 +1046,7 @@
     <property key="OrderInvalidFrequencyForShoppingListRecurrence">
         <value xml:lang="en">Invalid frequency for shopping list recurrence</value>
         <value xml:lang="es">Frecuencia inválida para la repetición de la lista de compra</value>
-        <value xml:lang="fr">Fréquence invalide pour la répétition de la liste d'achat</value>
+        <value xml:lang="fr">Fréquence irrecevable pour la répétition de la liste d'achat</value>
         <value xml:lang="it">Frequenza per lista acquisto ricorrente Invalida</value>
         <value xml:lang="ro">Frecventa pentru lista comparare recurenta Invalida</value>
         <value xml:lang="ru">Неверная частота повторов для списка покупок</value>
@@ -3298,7 +3298,7 @@
         <value xml:lang="de">Es wurde ein ungültiger Betrag für den Gutschein eingegeben.</value>
         <value xml:lang="en">Invalid amount for gift card entered.</value>
         <value xml:lang="es">El importe indicado no es válido para el certificado de regalo.</value>
-        <value xml:lang="fr">Montant entré invalide pour la carte de cadeau.</value>
+        <value xml:lang="fr">Montant entré irrecevable pour la carte de cadeau.</value>
         <value xml:lang="it">Importo Invalido per la carta omaggio inserita.</value>
         <value xml:lang="nl">Invalid amount for gift card entered.</value>
         <value xml:lang="ro">Valoare Invalida pentru cartea de omagiu inserita.</value>

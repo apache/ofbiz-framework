@@ -427,7 +427,7 @@
     </property>
     <property key="FormFieldTitle_terminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
-        <value xml:lang="fr">Réf. de raison de la fin de contrat</value>
+        <value xml:lang="fr">Réf. de motif de la fin de contrat</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止原因编号</value>
@@ -566,7 +566,7 @@
     </property>
     <property key="HumanResAddTerminationReason">
         <value xml:lang="en">Add Termination Reason</value>
-        <value xml:lang="fr">Ajouter la raison de la fin de contrat</value>
+        <value xml:lang="fr">Ajouter le motif de la fin de contrat</value>
         <value xml:lang="it">Aggiungi motivazione licenziamento</value>
         <value xml:lang="zh">新建雇佣关系终止原因</value>
     </property>
@@ -1160,7 +1160,7 @@
     </property>
     <property key="HumanResLookupTerminationReason">
         <value xml:lang="en">Lookup Termination Reason</value>
-        <value xml:lang="fr">Consultation de raison de fin de contrat</value>
+        <value xml:lang="fr">Consultation de motif de fin de contrat</value>
         <value xml:lang="it">Ricerca Motivazioni Licenziamento</value>
         <value xml:lang="th">ค้นหาขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止原因查询</value>
@@ -1360,7 +1360,7 @@
     </property>
     <property key="HumanResNewTerminationReason">
         <value xml:lang="en">New Termination Reason</value>
-        <value xml:lang="fr">Nouvelle raison de fin de contrat</value>
+        <value xml:lang="fr">Nouveau motif de fin de contrat</value>
         <value xml:lang="it">Nuova Motivazione Licenziamento</value>
         <value xml:lang="th">ขอบเขตเหตุผลใหม่</value>
         <value xml:lang="zh">新建雇佣关系终止原因</value>
