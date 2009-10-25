@@ -1043,21 +1043,25 @@
     <property key="PartyContentType.description.INTERNAL">
         <value xml:lang="en">Internal Content</value>
         <value xml:lang="fr">Contenu à usage interne</value>
+        <value xml:lang="it">Contenuto interno</value>
         <value xml:lang="pt_BR">Conteúdo interno</value>
     </property>
     <property key="PartyContentType.description.LGOIMGURL">
         <value xml:lang="en">Logo Image URL</value>
         <value xml:lang="fr">URL vers un logo</value>
+        <value xml:lang="it">URL immagine logo</value>
         <value xml:lang="pt_BR">URL do logotipo</value>
     </property>
     <property key="PartyContentType.description.USERDEF">
         <value xml:lang="en">User Defined Content</value>
         <value xml:lang="fr">Contenu concernant l'utilisateur</value>
+        <value xml:lang="it">Contenuto definito dell'utente</value>
         <value xml:lang="pt_BR">Conteúdo definido por usuário</value>
     </property>
     <property key="PartyContentType.description.VNDSHPINF">
         <value xml:lang="en">Vendor Shipping Info</value>
         <value xml:lang="fr">Informations transporteur</value>
+        <value xml:lang="it">Informazioni spedizione fornitore</value>
         <value xml:lang="pt_BR">Informação do transportador</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
@@ -2126,6 +2130,7 @@
     <property key="RoleType.description.ICAL_MEMBER">
         <value xml:lang="en">Calendar Member</value>
         <value xml:lang="fr">Membre iCalendar</value>
+        <value xml:lang="it">Membro calendario</value>
         <value xml:lang="pt_BR">Membro de agenda</value>
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
