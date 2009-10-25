@@ -62,7 +62,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ProductProductStoreList}">
+                        <screenlet title="${uiLabelMap.ProductProductStore}">
                             <include-form name="EditProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
