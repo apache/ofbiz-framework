@@ -5509,9 +5509,9 @@
     </property>
     <property key="PageTitleEditProductStoreList">
         <value xml:lang="de">Ladenliste bearbeiten</value>
-        <value xml:lang="en">Edit Product Store List</value>
+        <value xml:lang="en">Edit Product Store</value>
         <value xml:lang="es">Editar Lista de Tiendas de Productos</value>
-        <value xml:lang="fr">Liste des centres de profit</value>
+        <value xml:lang="fr">Modifier le centre de profit</value>
         <value xml:lang="it">Lista Negozi</value>
         <value xml:lang="ro">Actualizeaza Lista Magazin</value>
         <value xml:lang="ru">Измнить список торг. точки</value>
