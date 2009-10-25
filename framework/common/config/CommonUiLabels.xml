@@ -6169,9 +6169,9 @@
     </property>
     <property key="CommonSearchOptions">
         <value xml:lang="de">Suchoptionen</value>
-        <value xml:lang="en">Search Options (for the moment to begin you need to choose one file, after all options are opened. Without button put the cursor in a field and validate)</value>
+        <value xml:lang="en">Search Options</value>
         <value xml:lang="es">Opciones de búsqueda</value>
-        <value xml:lang="fr">Options de la recherche (pour le moment pour commencer vous devez choisir un fichier, ensuite tout est ouvert. Si aucun bouton n'apparaît, postionnez le curseur dans un champ et validez)</value>
+        <value xml:lang="fr">Options de la recherche</value>
         <value xml:lang="hi_IN">खोजने के लिए विकल्प</value>
         <value xml:lang="it">Opzioni di ricerca</value>
         <value xml:lang="zh">搜索选项</value>
