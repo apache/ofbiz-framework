@@ -30,6 +30,6 @@ License.
     <para>
         The &quot;Main Roletype&quot; need a little more explanation. In here the role is listed which is a child of the &quot;Main role"&quot;
         roletype. It is currently set to &quot;Organisation&amp; and &quot;SFA Role&quot;. The later to be prepared to use he party in he SFA component.
-        See the marketing component for more information
+        See the marketing application for more information
     </para>
 </section>

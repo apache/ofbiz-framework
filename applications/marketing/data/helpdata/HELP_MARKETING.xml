@@ -24,20 +24,20 @@
     xmlns="http://docbook.org/ns/docbook">
         <title>Marketing overview</title>
         <para>
-            The overall purpose of the Marketing component is the support to select
+            The overall purpose of the Marketing application is the support to select
             leads from parties obtained from a certain source or marketing
             segment
             to convert to opportunities by contacting these parties via a
             contact-list related to a marketing campaign.
         </para>
         <para>
-            The first option of the marketing component is the definition of a
+            The first option of the marketing application is the definition of a
             datasource [DataSource], and connecting or loading party information
-            to it [PartyDataSource]. In the party component a data source Id can
+            to it [PartyDataSource]. In the party application a data source Id can
             be added to the party.
         </para>
         <para>
-            A second input to the marketing component is the Segment group and
+            A second input to the marketing application is the Segment group and
             classification which again can be allocated to parties in the party
             component.
         </para>

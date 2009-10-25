@@ -22,9 +22,9 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The OFBiz Setup Component Overview</title>
+    <title>The OFBiz Setup application Overview</title>
     <para> 
-        The OFBiz Setup Component is supporting for immediate setup your organization. For example, Product Store, WebSite , Facility , product catalog, category 
+        The OFBiz Setup application is supporting for immediate setup your organization. For example, Product Store, WebSite , Facility , product catalog, category 
         , product, and etc. and then be able to create orders from data that is created.
     </para>
     <section>
