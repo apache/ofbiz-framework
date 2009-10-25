@@ -65,9 +65,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleCreateAccount}">
-                            <include-form name="NewAccount" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
-                        </screenlet>
+                        <container style="no-clear">
+                            <screenlet title="${uiLabelMap.PageTitleCreateAccount}">
+                                <include-form name="NewAccount" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
+                            </screenlet>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
