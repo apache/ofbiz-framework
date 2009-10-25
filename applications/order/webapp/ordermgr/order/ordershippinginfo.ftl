@@ -67,7 +67,7 @@ under the License.
             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
               <#if !allShipments?has_content>
-                <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="POST">
+                <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
                   <input type="hidden" name="initialSelected" value="Y"/>
                   <input type="hidden" name="orderId" value="${orderId}"/>
                   <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
@@ -96,7 +96,7 @@ under the License.
                   </li>
                 </form>
               <#else>
-                <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="POST">
+                <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
                   <input type="hidden" name="initialSelected" value="Y"/>
                   <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
                   <li>
@@ -123,7 +123,7 @@ under the License.
                 </form>
               </#if>
               <#if orderHeader.statusId != "ORDER_COMPLETED">
-                <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="POST">
+                <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="post">
                   <input type="hidden" name="orderId" value="${orderId}"/>
                   <li>
                     <select name="facilityId">
