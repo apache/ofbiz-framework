@@ -1006,7 +1006,7 @@
     <property key="SecurityPermission.description.ORDERMGR_CRQ_CREATE">
         <value xml:lang="en">Create Customer Requests in the Order Manager.</value>
         <value xml:lang="es">Crear Solicitudes de Clientes en el Administrador de Órdenes.</value>
-        <value xml:lang="fr">Créer les requêtes de client en gestion de commandes</value>
+        <value xml:lang="fr">Créer les demandes de client en gestion de commandes</value>
         <value xml:lang="it">Creazioni richieste clienti nella gestione ordini.</value>
         <value xml:lang="ru">Создание пользовательских запросов в приложении Управление заказами.</value>
         <value xml:lang="th">สร้างคำร้องขอของลูกค้าในการจัดการรายการสั่งซื้อสินค้า</value>
