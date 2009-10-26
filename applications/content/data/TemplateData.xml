@@ -36,19 +36,19 @@ under the License.
     <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper"/>
     <DataResource dataResourceId="WRAP_STD_001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
     <DataResource dataResourceId="WRAP_VIEW" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
-    <DataResource dataResourceId="10250" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
-    <DataResource dataResourceId="10261" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
-    <DataResource dataResourceId="10263" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="IMAGE_CENTERED" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_TEXT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
 
     <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl"/>
 
     <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
     <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner"/>
-    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="10250" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html"/>
-    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="10261" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html"/>
+    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="IMAGE_CENTERED" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="IMAGE_LEFT" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html"/>
     <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master"/>
-    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="10263" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="TEMPLATE_TEXT" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html"/>
 
     <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap"/>
     <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE"/>
@@ -405,7 +405,7 @@ ${txt}
 <br/>
             ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10250">
+    <ElectronicText dataResourceId="IMAGE_CENTERED">
         <textData><![CDATA[<table>
   <tr>
     <td>
@@ -428,7 +428,7 @@ ${txt}
   </tr>
 </table>]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10261">
+    <ElectronicText dataResourceId="IMAGE_LEFT">
         <textData><![CDATA[<@editRenderSubContent mapKey="IMAGE">
   <@renderSubContent/>
 </@editRenderSubContent>
@@ -437,7 +437,7 @@ ${txt}
 </@editRenderSubContent>
  ]]></textData>
     </ElectronicText>
-    <ElectronicText dataResourceId="10263">
+    <ElectronicText dataResourceId="TEMPLATE_TEXT">
         <textData><![CDATA[<@editRenderSubContent mapKey="ARTICLE">
   <@renderSubContent/>
 </@editRenderSubContent>
