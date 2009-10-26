@@ -32,12 +32,12 @@ function lookupShipments() {
 <div id="findOrders" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="h3">${uiLabelMap.ProductFindShipment}</li>
+            <li class="h3">${uiLabelMap.ProductFindShipmentTitle}</li>
             <#if requestParameters.facilityId?has_content>
                 <li><a href="<@ofbizUrl>quickShipOrder?facilityId=${requestParameters.facilityId}</@ofbizUrl>">${uiLabelMap.ProductQuickShipOrder}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>EditShipment</@ofbizUrl>">${uiLabelMap.ProductNewShipment}</a></li>
-            <li><a href="javascript:lookupShipments();">${uiLabelMap.ProductLookupShipment}</a></li>
+            <li><a href="javascript:lookupShipments();">${uiLabelMap.ProductFindShipment}</a></li>
         </ul>
         <br class="clear"/>
     </div>

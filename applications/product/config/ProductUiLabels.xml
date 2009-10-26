@@ -11225,6 +11225,17 @@
         <value xml:lang="th">ค้นหาการขนส่ง</value>
         <value xml:lang="zh">查找运输</value>
     </property>
+    <property key="ProductFindShipmentTitle">
+        <value xml:lang="de">Lieferung suchen</value>
+        <value xml:lang="en">Find Shipment(s)</value>
+        <value xml:lang="es">Buscar Envío(s)</value>
+        <value xml:lang="fr">Recherche d'expédition(s)</value>
+        <value xml:lang="it">Ricerca Spedizione(i)</value>
+        <value xml:lang="ro">Cauta Expediere(i)</value>
+        <value xml:lang="ru">Найти поставку(и)</value>
+        <value xml:lang="th">ค้นหาการขนส่ง</value>
+        <value xml:lang="zh">查找运输</value>
+    </property>
     <property key="ProductFlOz">
         <value xml:lang="de">Unzen Fl.</value>
         <value xml:lang="en">Fl. Oz.</value>
@@ -11933,7 +11944,7 @@
         <value xml:lang="de">Eingehende Lieferungen</value>
         <value xml:lang="en">Incoming Shipments</value>
         <value xml:lang="es">Envíos entrantes</value>
-        <value xml:lang="fr">Expéditions estimées</value>
+        <value xml:lang="fr">Expéditions entrantes</value>
         <value xml:lang="it">Spedizioni in Arrivo</value>
         <value xml:lang="ro">Expediere in Sosire </value>
         <value xml:lang="ru">Входящие поставки</value>
@@ -15035,7 +15046,7 @@
         <value xml:lang="de">Ausgehende Lieferungen</value>
         <value xml:lang="en">Outgoing Shipments</value>
         <value xml:lang="es">Envíos salientes</value>
-        <value xml:lang="fr">Expéditions au départ</value>
+        <value xml:lang="fr">Expéditions sortantes</value>
         <value xml:lang="it">Spedizioni in Partenza</value>
         <value xml:lang="ro">Expedieri in Plecare</value>
         <value xml:lang="ru">Исходящие поставки</value>
