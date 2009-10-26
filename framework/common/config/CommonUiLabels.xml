@@ -5815,6 +5815,20 @@
         <value xml:lang="zh">提炼</value>
         <value xml:lang="zh_CN">精炼</value>
     </property>
+    <property key="CommonRefineSearch">
+        <value xml:lang="cs">Detailní hledání</value>
+        <value xml:lang="de">Verfeinerte Suche</value>
+        <value xml:lang="en">Refine Search</value>
+        <value xml:lang="es">Afinar búsqueda</value>
+        <value xml:lang="fr">Affiner la recherche</value>
+        <value xml:lang="it">Raffina la ricerca</value>
+        <value xml:lang="ja">Refine Search</value>
+        <value xml:lang="nl">Zoeken verfijnen</value>
+        <value xml:lang="ro">Rafineaza Cautarea</value>
+        <value xml:lang="ru">Уточнить поиск</value>
+        <value xml:lang="th">ปรับปรุงการค้นหา</value>
+        <value xml:lang="zh">提炼搜索</value>
+    </property>    
     <property key="CommonRefresh">
         <value xml:lang="ar">تحديث</value>
         <value xml:lang="de">Aktualisieren</value>
