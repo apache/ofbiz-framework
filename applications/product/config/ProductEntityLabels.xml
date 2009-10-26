@@ -1872,8 +1872,8 @@
         <value xml:lang="en">Use Event Data Recorder</value>
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
     </property>
-    <property key="ProductMeterType.description.PODOMETER">
-        <value xml:lang="en">Use Podometer</value>
+    <property key="ProductMeterType.description.PEDOMETER">
+        <value xml:lang="en">Use Pedometer</value>
         <value xml:lang="fr">Utiliser le podomètre</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FLAT">

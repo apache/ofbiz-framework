@@ -361,7 +361,7 @@ under the License.
     <ProductMeterType description="Tachograph" productMeterTypeId="TACHOGRAPH"/>
     <ProductMeterType description="Taximeter" productMeterTypeId="TAXIMETER"/>
     <ProductMeterType description="Event Data Recorder" productMeterTypeId="EVENT_DATA_RECORDER"/>
-    <ProductMeterType description="Podometer" productMeterTypeId="PODOMETER"/>
+    <ProductMeterType description="Pedometer" productMeterTypeId="PEDOMETER"/>
     
     <ProductMaintType description="Vehicle Maintenance" productMaintTypeId="VEHICLE_MAINT" parentTypeId=""/>
     <ProductMaintType description="Oil Change" productMaintTypeId="OIL_CHANGE" parentTypeId="VEHICLE_MAINT"/>
