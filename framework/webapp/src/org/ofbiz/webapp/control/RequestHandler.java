@@ -579,7 +579,24 @@ public class RequestHandler {
                     }
                 }
                 renderView(viewName, requestMap.securityExternalView, request, response, null);
-            } else if ("view-home".equals(nextRequestResponse.type)) {
+            } else if ("view-last-noparam".equals(nextRequestResponse.type)) {
+            	 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
+
+                 // check for an override view, only used if "success" = eventReturn
+                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
+
+                 // as a further override, look for the _SAVED and then _HOME and then _LAST session attributes
+                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
+                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
+                 } else if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
+                     viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
+                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
+                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
+                 } else if (UtilValidate.isNotEmpty(nextRequestResponse.value)) {
+                     viewName = nextRequestResponse.value;
+                 }
+                 renderView(viewName, requestMap.securityExternalView, request, response, null);
+			} else if ("view-home".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
 
                 // check for an override view, only used if "success" = eventReturn
