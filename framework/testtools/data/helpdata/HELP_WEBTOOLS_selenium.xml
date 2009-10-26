@@ -20,7 +20,7 @@
 <section xmlns="http://docbook.org/ns/docbook"
     xmlns:xl="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd">
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd">
     
     <title>OFBiz SeleniumXml</title>
     <para>
