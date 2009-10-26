@@ -485,6 +485,7 @@ under the License.
         <alias entity-alias="PCR" name="parentProductCategoryId"/>
         <alias entity-alias="PCR" name="fromDate"/>
         <alias entity-alias="PCR" name="thruDate"/>
+        <alias entity-alias="PCR" name="sequenceNum"/>
         <view-link entity-alias="PCR" rel-entity-alias="CPC">
             <key-map field-name="productCategoryId"/>
         </view-link>
