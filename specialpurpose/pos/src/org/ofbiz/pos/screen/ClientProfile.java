@@ -79,10 +79,12 @@ public class ClientProfile extends XPage implements ActionListener {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "N");    
+    private static final Boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "Y");    
+    private static final String START_SENTINEL = UtilProperties.getPropertyValue("parameters", "StartSentinel", ";");    
+    private static final String END_SENTINEL = UtilProperties.getPropertyValue("parameters", "EndSentinel", "?");    
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
-    protected StatusBar statusbar = null;
+    protected StatusBar statusbar = null;    
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
@@ -230,7 +232,7 @@ public class ClientProfile extends XPage implements ActionListener {
         } else {
             String card = m_cardEdit.getText();
             if (SWIP_WITH_CARD && UtilValidate.isNotEmpty(m_cardEdit.getText())
-                    && (card.startsWith(";") && card.endsWith("&"))) {
+                    && (card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL))) {
                 m_cardEdit.setText(card.substring(1, card.length() - 1));                
             }
         }
