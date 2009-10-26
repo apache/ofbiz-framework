@@ -3619,7 +3619,7 @@
     </property>
     <property key="CommonLastSytemNotes">
         <value xml:lang="en">Last system notes</value>
-        <value xml:lang="fr">DerniÃ¨res tÃ¢ches affectÃ©es</value>
+        <value xml:lang="fr">Dernières tâches affectées</value>
         <value xml:lang="it">Ultime note di sistema</value>
     </property>
     <property key="CommonLastUpdated">
