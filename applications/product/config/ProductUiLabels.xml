@@ -17403,20 +17403,6 @@
         <value xml:lang="th">(คุณต้องสร้างกลุ่มถึงการเปลี่ยนแปลงนี้อีกครั้ง)</value>
         <value xml:lang="zh">(要修改这个，你必须重新创建关联。)</value>
     </property>
-    <property key="ProductRefineSearch">
-        <value xml:lang="cs">Detailní hledání</value>
-        <value xml:lang="de">Verfeinerte Suche</value>
-        <value xml:lang="en">Refine Search</value>
-        <value xml:lang="es">Afinar búsqueda</value>
-        <value xml:lang="fr">Affiner la recherche</value>
-        <value xml:lang="it">Raffina la ricerca</value>
-        <value xml:lang="ja">Refine Search</value>
-        <value xml:lang="nl">Zoeken verfijnen</value>
-        <value xml:lang="ro">Rafineaza Cautarea</value>
-        <value xml:lang="ru">Уточнить поиск</value>
-        <value xml:lang="th">ปรับปรุงการค้นหา</value>
-        <value xml:lang="zh">提炼搜索</value>
-    </property>
     <property key="ProductRegularPrice">
         <value xml:lang="cs">Obvyklá cena</value>
         <value xml:lang="de">Regulärer Preis</value>

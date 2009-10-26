@@ -300,7 +300,7 @@ under the License.
                 <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
                 <div>
                   ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/>
-                  ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N"/>
+                  ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N"/>
                 </div>
             </td>
           </tr>

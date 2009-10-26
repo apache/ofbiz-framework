@@ -79,7 +79,7 @@ under the License.
             <div class="tabletext">${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
               ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked>
-              ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N">
+              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N">
             </div>
         </td>
       </tr>
