@@ -142,6 +142,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container>
+                            <link target="/accounting/control/EditAgreement" url-mode="inter-app" text="${uiLabelMap.PageTitleEditAgreement}" style="buttontext">
+                                <parameter param-name="productId"/>
+                            </link>
+                        </container>
                         <screenlet title="${uiLabelMap.ProductPurchases}">
                             <include-form name="ListSupplierProductAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
