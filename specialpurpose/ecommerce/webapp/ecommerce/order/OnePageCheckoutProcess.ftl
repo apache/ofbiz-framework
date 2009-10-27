@@ -170,7 +170,7 @@ under the License.
                           </#if>
                           <td headers="editItemTotal" id="displayItem_${cartLine_index}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency() /></td>
                           <#if !cartLine.getIsPromo()>
-                            <td><a href="javascript:void(0);"><img id="remove_${cartLine_index}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" alt="Remove Item Image" /></a></td>
+                            <td><a id="removeItemLink_${cartLine_index}" href="javascript:void(0);"><img id="remove_${cartLine_index}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" alt="Remove Item Image" /></a></td>
                           </#if>
                         </tr>
                       </#list>
