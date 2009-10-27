@@ -580,7 +580,7 @@ public class RequestHandler {
                 }
                 renderView(viewName, requestMap.securityExternalView, request, response, null);
             } else if ("view-last-noparam".equals(nextRequestResponse.type)) {
-            	 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
+                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
 
                  // check for an override view, only used if "success" = eventReturn
                  String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
@@ -596,7 +596,7 @@ public class RequestHandler {
                      viewName = nextRequestResponse.value;
                  }
                  renderView(viewName, requestMap.securityExternalView, request, response, null);
-			} else if ("view-home".equals(nextRequestResponse.type)) {
+            } else if ("view-home".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
 
                 // check for an override view, only used if "success" = eventReturn
@@ -1112,6 +1112,9 @@ public class RequestHandler {
     public boolean trackStats(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
+            if (uriString == null) {
+                uriString="";
+            }
             ConfigXMLReader.RequestMap requestMap = getControllerConfig().requestMapMap.get(uriString);
             if (requestMap == null) return false;
             return requestMap.trackServerHit;
@@ -1123,6 +1126,9 @@ public class RequestHandler {
     public boolean trackVisit(HttpServletRequest request) {
         if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
+            if (uriString == null) {
+                uriString="";
+            }
             ConfigXMLReader.RequestMap requestMap = getControllerConfig().requestMapMap.get(uriString);
             if (requestMap == null) return false;
             return requestMap.trackVisit;
