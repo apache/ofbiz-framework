@@ -100,9 +100,13 @@ under the License.
                 <set field="productExportList" from-field="parameters.productExportList"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://product/webapp/catalog/find/exportproducts.ftl"/></html>
-                </platform-specific>
+                <decorator-screen name="CommonFindDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/find/exportproducts.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>                
             </widgets>
         </section>
     </screen>
