@@ -15,6 +15,11 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
---><#list productExportList as productExportMap><#assign productCategoryCount=0/><#assign productFeatureCount=0/>
-${productExportMap.productId}    <#if productExportMap.productFeatureCustom?has_content>${productExportMap.productFeatureCustom.description?if_exists}</#if>    <#list     productExportMap.productCategories as productCategoryAndMember><#if productCategoryAndMember.categoryName?has_content><#if productCategoryCount &gt; 0>,</#if>${productCategoryAndMember.categoryName}<#assign productCategoryCount=productCategoryCount + 1/></#if></#list>    <#list     productExportMap.productFeatures as productFeatureAndAppl><#if productFeatureAndAppl.description?has_content><#if productFeatureCount &gt; 0>,</#if>${productFeatureAndAppl.description}<#assign productFeatureCount=productFeatureCount + 1/></#if></#list>
-</#list>
+-->
+<#if productExportList?has_content>
+  <#list productExportList as productExportMap><#assign productCategoryCount=0/><#assign productFeatureCount=0/>
+    ${productExportMap.productId}    <#if productExportMap.productFeatureCustom?has_content>${productExportMap.productFeatureCustom.description?if_exists}</#if>    <#list     productExportMap.productCategories as productCategoryAndMember><#if productCategoryAndMember.categoryName?has_content><#if productCategoryCount &gt; 0>,</#if>${productCategoryAndMember.categoryName}<#assign productCategoryCount=productCategoryCount + 1/></#if></#list>    <#list     productExportMap.productFeatures as productFeatureAndAppl><#if productFeatureAndAppl.description?has_content><#if productFeatureCount &gt; 0>,</#if>${productFeatureAndAppl.description}<#assign productFeatureCount=productFeatureCount + 1/></#if></#list>
+  </#list>
+<#else>
+    ${uiLabelMap.ProductErrorNothingToExport}
+</#if>  
