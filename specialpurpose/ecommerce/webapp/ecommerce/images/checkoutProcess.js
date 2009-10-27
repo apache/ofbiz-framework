@@ -391,7 +391,10 @@ function initCartProcessObservers() {
     var removeLinks = cartForm.getElementsByTagName('a');
     var links = $A(removeLinks);
     links.each( function(e) {
-        Event.observe(e, 'click', removeItem);
+        var removeLink = e.id;
+        if (removeLink.startsWith('removeItemLink_')) {
+            Event.observe(e, 'click', removeItem);
+        }
     });
     if ($('initializedCompletedCartDiscount') != undefined && $('initializedCompletedCartDiscount').value == 0) {
         $('completedCartDiscountRow').hide();
