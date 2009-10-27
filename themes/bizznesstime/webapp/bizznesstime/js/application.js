@@ -120,8 +120,9 @@ var humanMsg = {
 	  var msgElement = $(humanMsg.msgID);;
 	  msgElement.down('div').update(msg);
 	  msgElement.appear({ duration: 0.2 });
-	  humanMsg.t1 = setTimeout("humanMsg.bindEvents()", 700)
-	  humanMsg.t2 = setTimeout("humanMsg.removeMsg()", 5000)
+	  //humanMsg.t1 = setTimeout("humanMsg.bindEvents()", 700)
+	  //humanMsg.t2 = setTimeout("humanMsg.removeMsg()", 5000)
+	  msgElement.observe('click', humanMsg.removeMsg);
 	},
 	// Remove message if mouse is moved or key is pressed
 	bindEvents: function() {
@@ -134,7 +135,7 @@ var humanMsg = {
 	  document.stopObserving('mousemove', humanMsg.removeMsg)
 	          .stopObserving('click', humanMsg.removeMsg)
 	          .stopObserving('keypress', humanMsg.removeMsg);
-	  $(humanMsg.msgID).fade({ duration: 0.5, delay:2.0 });
+	  $(humanMsg.msgID).fade({ duration: 0.5, delay:0.5 });
 	}
 };
 
