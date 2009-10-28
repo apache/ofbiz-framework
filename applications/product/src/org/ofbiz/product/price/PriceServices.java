@@ -557,6 +557,7 @@ public class PriceServices {
         } else {
             try {
                 List<GenericValue> allProductPriceRules = makeProducePriceRuleList(delegator, optimizeForLargeRuleSet, productId, virtualProductId, prodCatalogId, productStoreGroupId, webSiteId, partyId, currencyUomId);
+                allProductPriceRules = EntityUtil.filterByDate(allProductPriceRules, true);
 
                 List<GenericValue> quantityProductPriceRules = null;
                 List<GenericValue> nonQuantityProductPriceRules = null;
