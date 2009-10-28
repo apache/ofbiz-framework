@@ -1044,6 +1044,14 @@ ul#preferences-menu a:hover {
     color: #5CA3D7;
 }
 
+ul#preferences-menu li a.help-link {
+display:block;
+height: 12px;
+width:10px;
+background: url(/bluelight/help.png) no-repeat;
+text-indent:2000px;
+}
+
 /* ========================================= */
 /* ===== Footer Styles ===================== */
 /* ========================================= */
