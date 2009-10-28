@@ -310,7 +310,7 @@ public class ClientProfile extends XPage implements ActionListener {
             String email = clientInfos.length > 1 ? clientInfos[1] : "";
             String phone = clientInfos.length > 2 ? clientInfos[2] : "";
             String card = clientInfos.length > 3 ? clientInfos[3] : "";
-            if (SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
+            if (UtilValidate.isNotEmpty(card) && SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
                 card = card.substring(1, card.length() - 1);
             }                    
             m_nameEdit.setText(name);
