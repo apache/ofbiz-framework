@@ -487,7 +487,7 @@
         <value xml:lang="de">Beliebig</value>
         <value xml:lang="en">Any</value>
         <value xml:lang="es">Cualquier</value>
-        <value xml:lang="fr">Tous</value>
+        <value xml:lang="fr">Dont</value>
         <value xml:lang="hi_IN">कोई</value>
         <value xml:lang="it">Qualsiasi</value>
         <value xml:lang="nl">Een</value>
@@ -4521,7 +4521,7 @@
         <value xml:lang="de">Enthält nicht</value>
         <value xml:lang="en">No Contains</value>
         <value xml:lang="es">No contiene</value>
-        <value xml:lang="fr">Ne contient pas</value>
+        <value xml:lang="fr">N'incluant pas</value>
         <value xml:lang="hi_IN">शामिल नहीं है</value>
         <value xml:lang="it">Non contiene</value>
         <value xml:lang="nl">Geen inhoud.</value>
