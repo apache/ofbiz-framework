@@ -238,7 +238,7 @@ under the License.
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field>
+        <field name="custRequestName" encode-output="false"><text default-value="${communicationEvent.subject}"/></field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -538,7 +538,7 @@ under the License.
                 <parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
             </hyperlink>
         </field>
-        <field name="custRequestName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="custRequestName" title="${uiLabelMap.CommonName}" encode-output="false"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName}"/></field>
         <field name="internalComment" title="${uiLabelMap.CommonInternalComment}"><display/></field>
@@ -646,7 +646,7 @@ under the License.
             </service>
         </row-actions>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName">
+        <field name="custRequestName" encode-output="false">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
@@ -672,7 +672,7 @@ under the License.
             </service>
         </row-actions>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName">
+        <field name="custRequestName" encode-output="false">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
