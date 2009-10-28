@@ -23,13 +23,13 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form name="keywordsearchform" id="keywordsearchbox_keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
-      <fieldset>
-        <input type="hidden" name="VIEW_SIZE" value="10"/>
-        <input type="hidden" name="PAGING" value="Y"/>
+      <fieldset class="inline">
+        <input type="hidden" name="VIEW_SIZE" value="10" />
+        <input type="hidden" name="PAGING" value="Y" />
         <div>
-          <input type="text" name="SEARCH_STRING" size="14" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
+          <input type="text" name="SEARCH_STRING" size="14" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}" />
         </div>
-        <#if 0 < otherSearchProdCatalogCategories?size>
+        <#if 0 &lt; otherSearchProdCatalogCategories?size>
           <div>
             <select name="SEARCH_CATEGORY_ID" size="1">
               <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
@@ -42,21 +42,20 @@ under the License.
             </select>
           </div>
         <#else>
-          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
+          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}" />
         </#if>
         <div>
-          <input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>${uiLabelMap.CommonAny}
-          <input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>${uiLabelMap.CommonAll}
-          <input type="submit" value="${uiLabelMap.CommonFind}" class="button"/>
+          <input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_OR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> /><label for="SEARCH_OPERATOR_OR">${uiLabelMap.CommonAny}</label>
+          <input type="radio" name="SEARCH_OPERATOR" id="SEARCH_OPERATOR_AND" value="AND" <#if searchOperator == "AND">checked="checked"</#if> /><label for="SEARCH_OPERATOR_AND">${uiLabelMap.CommonAll}</label>
+          <input type="submit" value="${uiLabelMap.CommonFind}" class="button" />
         </div>
       </fieldset>
     </form>
     <form name="advancedsearchform" id="keywordsearchbox_advancedsearchform" method="post" action="<@ofbizUrl>advancedsearch</@ofbizUrl>">
       <fieldset>
-        <#if 0 < otherSearchProdCatalogCategories?size>
-          <div>
-            <label>${uiLabelMap.ProductAdvancedSearchIn}: </label>
-            <select name="SEARCH_CATEGORY_ID" size="1">
+        <#if 0 &lt; otherSearchProdCatalogCategories?size>
+            <label for="SEARCH_CATEGORY_ID">${uiLabelMap.ProductAdvancedSearchIn}: </label>
+            <select name="SEARCH_CATEGORY_ID" id="SEARCH_CATEGORY_ID" size="1">
               <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
               <#list otherSearchProdCatalogCategories as otherSearchProdCatalogCategory>
                 <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOneCache("ProductCategory")>
@@ -65,13 +64,10 @@ under the License.
                 </#if>
               </#list>
             </select>
-          </div>
         <#else>
-          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
+          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}" />
         </#if>
-        <div>
-          <input type="submit" value="${uiLabelMap.ProductAdvancedSearch}" class="button"/>
-        </div>
+          <input type="submit" value="${uiLabelMap.ProductAdvancedSearch}" class="button" />
       </fieldset>
     </form>
   </div>
