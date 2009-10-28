@@ -149,13 +149,13 @@ public class ClientProfile extends XPage implements ActionListener {
                 Debug.logError(e, module);
             }   
             if (UtilValidate.isNotEmpty(person)) {
-                String promoCode = person.getString("cardId");
-                if (UtilValidate.isNotEmpty(promoCode)) {
-                    String result = m_trans.addProductPromoCode(promoCode);
+                String cardId = person.getString("cardId");
+                if (UtilValidate.isNotEmpty(cardId)) {
+                    String result = m_trans.addProductPromoCode(cardId);
                     statusbar = new StatusBar(m_pos);
                     if (UtilValidate.isEmpty(result)) {
                         statusbar.printClient(person.getString("lastName"));
-                        statusbar.printPromoCode(promoCode);
+                        statusbar.printPromoCode(cardId);
                     } else {
                         m_pos.showDialog("dialog/error/exception", result);
                     }
@@ -257,6 +257,9 @@ public class ClientProfile extends XPage implements ActionListener {
             String phone = m_phoneEdit.getText().trim();
             String card = m_cardEdit.getText().trim();
             if (UtilValidate.isNotEmpty(name)) {
+                if (UtilValidate.isNotEmpty(card) && SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
+                    card = card.substring(1, card.length() - 1);
+                }                    
                 editClientProfile(name, email, phone, card, editType, m_partyId);
             } else {
                 m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosFieldsRequired", locale));
@@ -307,6 +310,9 @@ public class ClientProfile extends XPage implements ActionListener {
             String email = clientInfos.length > 1 ? clientInfos[1] : "";
             String phone = clientInfos.length > 2 ? clientInfos[2] : "";
             String card = clientInfos.length > 3 ? clientInfos[3] : "";
+            if (SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
+                card = card.substring(1, card.length() - 1);
+            }                    
             m_nameEdit.setText(name);
             m_emailEdit.setText(email);
             m_phoneEdit.setText(phone);
