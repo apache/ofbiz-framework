@@ -20,10 +20,11 @@ under the License.
 
 <entity-engine-xml>
     <!-- Google Base component security -->
+    <SecurityPermission description="All operations in the Google Base." permissionId="GOOGLEBASE_ADMIN"/>
     <SecurityPermission description="View operations in the Google Base application." permissionId="GOOGLEBASE_VIEW"/>
 
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="GOOGLEBASE_VIEW"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="GOOGLEBASE_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="GOOGLEBASE_ADMIN"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="GOOGLEBASE_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="GOOGLEBASE_VIEW"/>
 

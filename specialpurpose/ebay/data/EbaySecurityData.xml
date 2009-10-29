@@ -20,10 +20,11 @@ under the License.
 
 <entity-engine-xml>
     <!-- eBay component security -->
+    <SecurityPermission description="All operations in the eBay application." permissionId="EBAY_ADMIN"/>
     <SecurityPermission description="View operations in the eBay application." permissionId="EBAY_VIEW"/>
 
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBAY_VIEW"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="EBAY_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="EBAY_ADMIN"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="EBAY_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="EBAY_VIEW"/>
 
