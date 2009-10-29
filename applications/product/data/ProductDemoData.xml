@@ -22,4 +22,16 @@ under the License.
     <!-- Limited user demo -->
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
+    
+    
+    <!-- example product attributes -->
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Pictures Taken?"/> 
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Pictures Uploaded?"/> 
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Qual. Assurance"/> 
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Descriptions ok?"/> 
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Pricing Complete?"/> 
+    <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Listing Approved?"/> 
+    
+    
+    
 </entity-engine-xml>
