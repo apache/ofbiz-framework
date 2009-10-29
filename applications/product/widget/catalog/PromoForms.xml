@@ -28,7 +28,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="promoName"><display/></field>
-        <field name="promoText"><display/></field>
+        <field name="promoText" encode-output="false"><display/></field>
         <field name="requireCode"><display/></field>
         <field name="createdDate"><display/></field>
     </form>
