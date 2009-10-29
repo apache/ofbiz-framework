@@ -388,6 +388,37 @@ under the License.
             <set from-field="totalCostAmount" field="callSvcMap.cost"/>
             <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
         </iterate-map>
+
+        <!-- Now compute the costs derived from CostComponentCalc records associated with the product -->
+        <entity-condition entity-name="ProductCostComponentCalc" list="productCostComponentCalcs" filter-by-date="true">
+            <condition-expr field-name="productId" from-field="parameters.productId"/>
+            <order-by field-name="sequenceNum"/>
+        </entity-condition>
+        <iterate entry="productCostComponentCalc" list="productCostComponentCalcs">
+            <get-related-one relation-name="CostComponentCalc" to-value-field="costComponentCalc" value-field="productCostComponentCalc"/>
+            <get-related-one relation-name="CustomMethod" to-value-field="customMethod" value-field="costComponentCalc"/>
+            <if-empty field="customMethod">
+                <!-- TODO: not supported for CostComponentCalc entries directly associated to a product -->
+            <else>
+                <clear-field field="customMethodParameters"/>
+                <set field="customMethodParameters.productCostComponentCalc" from-field="productCostComponentCalc"/>
+                <set field="customMethodParameters.costComponentCalc" from-field="costComponentCalc"/>
+                <set from-field="parameters.currencyUomId" field="customMethodParameters.currencyUomId"/>
+                <set from-field="parameters.costComponentTypePrefix" field="customMethodParameters.costComponentTypePrefix"/>
+                <set from-field="totalCost" field="customMethodParameters.baseCost"/>
+                <call-service service-name="${customMethod.customMethodName}" in-map-name="customMethodParameters">
+                    <result-to-field result-name="productCostAdjustment"/>
+                </call-service>
+                <clear-field field="callSvcMap"/>
+                <set value="${parameters.costComponentTypePrefix}_${productCostComponentCalc.costComponentTypeId}" field="callSvcMap.costComponentTypeId"/>
+                <set from-field="productCostComponentCalc.productId" field="callSvcMap.productId"/>
+                <set from-field="parameters.currencyUomId" field="callSvcMap.costUomId"/>
+                <set from-field="productCostAdjustment" field="callSvcMap.cost"/>
+                <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
+                <set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/>
+            </else>
+            </if-empty>
+        </iterate>
         
         <field-to-result field="totalCost"/>
     </simple-method>
@@ -566,5 +597,18 @@ under the License.
         </else>
         </if-not-empty>
         <field-to-result field="unitCost"/>
+    </simple-method>
+
+    <simple-method method-name="productCostPercentageFormula" short-description="Formula that creates a cost component equal to a percentage of total product cost">
+        <set field="productCostComponentCalc" from-field="parameters.productCostComponentCalc"/>
+        <set field="costComponentCalc" from-field="parameters.costComponentCalc"/>
+        <set field="inputMap.productId" from-field="productCostComponentCalc.productId"/>
+        <set field="inputMap.currencyUomId" from-field="parameters.currencyUomId"/>
+        <set field="inputMap.costComponentTypePrefix" from-field="parameters.costComponentTypePrefix"/>
+        <call-service service-name="getProductCost" in-map-name="inputMap">
+            <result-to-field result-name="productCost"/>
+        </call-service>
+        <set field="productCostAdjustment" value="${parameters.baseCost * costComponentCalc.fixedCost}" type="BigDecimal"/>
+        <field-to-result field="productCostAdjustment"/>
     </simple-method>
 </simple-methods>

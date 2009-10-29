@@ -841,6 +841,24 @@ under the License.
         <response name="success" type="view" value="EditProductCosts"/>
         <response name="error" type="view" value="EditProductCosts"/>
     </request-map>
+    <request-map uri="createProductCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductCostComponentCalc"/>
+        <response name="success" type="view" value="EditProductCosts"/>
+        <response name="error" type="view" value="EditProductCosts"/>
+    </request-map>
+    <request-map uri="updateProductCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductCostComponentCalc"/>
+        <response name="success" type="view" value="EditProductCosts"/>
+        <response name="error" type="view" value="EditProductCosts"/>
+    </request-map>
+    <request-map uri="deleteProductCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductCostComponentCalc"/>
+        <response name="success" type="view" value="EditProductCosts"/>
+        <response name="error" type="view" value="EditProductCosts"/>
+    </request-map>
     <request-map uri="calculateProductCosts">
         <security https="true" auth="true"/>
         <event type="service" invoke="calculateProductCosts"/>

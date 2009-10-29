@@ -44,7 +44,6 @@ under the License.
     <WorkEffortAssoc workEffortIdFrom="DEFAULT_ROUTING" workEffortIdTo="DEFAULT_TASK" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2004-09-24 15:09:38.736"/>
 
     <!-- Formulae -->
-    <CustomMethodType customMethodTypeId="COST_FORMULA" description="Formula for calculating costs for tasks"/>
     <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
     <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
     <CustomMethodType customMethodTypeId="DEPRECIATION_FORMULA" description="Formula for calculating depreciatiion for fixed asset"/>
@@ -52,7 +51,7 @@ under the License.
     <!--Depreciation Formulae-->
     <CustomMethod customMethodId="STR_LINE_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="straightLineDepreciation" description="Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)"/>
     <CustomMethod customMethodId="DBL_DECL_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="doubleDecliningBalanceDepreciation" description="Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)"/>
-
+    
     <WebSite webSiteId="MANUFACTURING" siteName="Manufacturing Manager" visualThemeSetId="BACKOFFICE"/>
 
 </entity-engine-xml>

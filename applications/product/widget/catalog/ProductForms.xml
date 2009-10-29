@@ -1171,6 +1171,49 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <form name="ListProductCostComponentCalcs" type="list" title="" list-name="productCostComponentCalcs"
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductCosts">
+        <field name="productId"><hidden/></field>
+        <field name="costComponentTypeId">
+            <display-entity entity-name="CostComponentType"/>
+        </field>
+        <field name="costComponentCalcId" widget-style="buttontext">
+            <hyperlink target="/manufacturing/control/EditCostCalcs" also-hidden="false" target-type="inter-app" description="${costComponentCalcId}">
+                <parameter param-name="costComponentCalcId"/>
+            </hyperlink>
+        </field>
+        <field name="costComponentCalc" entry-name="costComponentCalcId">
+            <display-entity entity-name="CostComponentCalc" key-field-name="costComponentCalcId"/>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="deleteProductCostComponentCalc" entry-name="productId" widget-style="buttontext">
+            <hyperlink target="deleteProductCostComponentCalc" also-hidden="false" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productId"/>
+                <parameter param-name="costComponentTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="AddProductCostComponentCalc" type="single" target="createProductCostComponentCalc" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createProductCostComponentCalc"/>
+        <field name="productId"><hidden value="${product.productId}"/></field>
+        <field name="costComponentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="CostComponentType" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" env-name="nullField"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="costComponentCalcId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="CostComponentCalc" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
     <form name="EditCostComponent" type="single" target="createCostComponent" title="" default-map-name="costComponent"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="costComponent!=null" target="updateCostComponent"/>
