@@ -991,6 +991,14 @@ a.linktext:hover {
     color: #1c334d;
 }
 
+.basic-table td a {
+    text-decoration: underline;
+}
+
+.basic-table td a.buttontext  {
+    text-decoration: none;
+}
+
 .buttontextdisabled {
     color: #ccc;
 }
