@@ -112,7 +112,7 @@ public class PosTransaction implements Serializable {
     protected String currency = null;
     protected String orderId = null;
     protected String partyId = null;
-    protected Locale locale = Locale.getDefault();
+    protected Locale locale = null;
     protected boolean isOpen = false;
     protected int drawerIdx = 0;
 
@@ -130,7 +130,8 @@ public class PosTransaction implements Serializable {
         this.productStoreId = (String) session.getAttribute("productStoreId");
         this.facilityId = (String) session.getAttribute("facilityId");
         this.currency = (String) session.getAttribute("currency");
-        this.locale = (Locale) session.getAttribute("locale");
+//        this.locale = (Locale) session.getAttribute("locale"); This is legacy code and may come (demo) from ProductStore.defaultLocaleString defined in demoRetail and is incompatible with how localisation is handled in the POS 
+        this.locale = Locale.getDefault(); 
 
         this.cart = new ShoppingCart(session.getDelegator(), productStoreId, locale, currency);
         this.ch = new CheckOutHelper(session.getDispatcher(), session.getDelegator(), cart);
@@ -251,9 +252,9 @@ public class PosTransaction implements Serializable {
         return cart.size();
     }
 
-    public Map getItemInfo(int index) {
+    public Map<String, Object> getItemInfo(int index) {
         ShoppingCartItem item = cart.findCartItem(index);
-        Map itemInfo = FastMap.newInstance();
+        Map<String, Object> itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getProductId());
         itemInfo.put("description", item.getDescription());
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
@@ -278,7 +279,7 @@ public class PosTransaction implements Serializable {
         return itemInfo;
     }
 
-    public List getItemConfigInfo(int index) {
+    public List<Map<String, Object>> getItemConfigInfo(int index) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         // I think I need to initialize the list in a special way
         // to use foreach in receipt.java
@@ -287,15 +288,13 @@ public class PosTransaction implements Serializable {
         if (this.isAggregatedItem(item.getProductId())) {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
-            List selected = pcw.getSelectedOptions();
-            Iterator iter = selected.iterator();
-            while (iter.hasNext()) {
-                ConfigOption configoption = (ConfigOption)iter.next();
-                Map itemInfo = FastMap.newInstance();
+            List<ConfigOption> selected = pcw.getSelectedOptions();
+            for(ConfigOption configoption : selected) {
+                Map<String, Object> itemInfo = FastMap.newInstance();
                 if (configoption.isSelected() && !configoption.isDefault()) {
                     itemInfo.put("productId", "");
                     itemInfo.put("sku", "");
-                    itemInfo.put("configDescription", configoption.getDescription());
+                    itemInfo.put("configDescription", configoption.getDescription(locale));
                     itemInfo.put("configQuantity", UtilFormatOut.formatQuantity(item.getQuantity()));
                     itemInfo.put("configBasePrice", UtilFormatOut.formatPrice(configoption.getOffsetPrice()));
                     //itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
@@ -306,12 +305,12 @@ public class PosTransaction implements Serializable {
         return list;
     }
 
-    public Map getPaymentInfo(int index) {
+    public Map<String, Object> getPaymentInfo(int index) {
         ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(index);
         GenericValue infValue = inf.getValueObject(session.getDelegator());
         GenericValue paymentPref = null;
         try {
-            Map fields = FastMap.newInstance();
+            Map<String, Object> fields = FastMap.newInstance();
             fields.put("paymentMethodTypeId", inf.paymentMethodTypeId);
             if (inf.paymentMethodId != null) {
                 fields.put("paymentMethodId", inf.paymentMethodId);
@@ -319,7 +318,7 @@ public class PosTransaction implements Serializable {
             fields.put("maxAmount", inf.amount);
             fields.put("orderId", this.getOrderId());
 
-            List paymentPrefs = session.getDelegator().findByAnd("OrderPaymentPreference", fields);
+            List<GenericValue> paymentPrefs = session.getDelegator().findByAnd("OrderPaymentPreference", fields);
             if (UtilValidate.isNotEmpty(paymentPrefs)) {
                 //Debug.log("Found some prefs - " + paymentPrefs.size(), module);
                 if (paymentPrefs.size() > 1) {
@@ -336,7 +335,7 @@ public class PosTransaction implements Serializable {
         }
         //Debug.log("PaymentPref - " + paymentPref, module);
 
-        Map payInfo = FastMap.newInstance();
+        Map<String, Object> payInfo = FastMap.newInstance();
 
         // locate the auth info
         GenericValue authTrans = null;
@@ -357,8 +356,8 @@ public class PosTransaction implements Serializable {
         //Debug.log("AuthTrans - " + authTrans, module);
 
         if ("PaymentMethodType".equals(infValue.getEntityName())) {
-            payInfo.put("description", infValue.getString("description"));
-            payInfo.put("payInfo", infValue.getString("description"));
+            payInfo.put("description", (String) infValue.get("description", locale));
+            payInfo.put("payInfo", (String) infValue.get("description", locale));
             payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
         } else {
             String paymentMethodTypeId = infValue.getString("paymentMethodTypeId");
@@ -369,7 +368,7 @@ public class PosTransaction implements Serializable {
                 Debug.logError(e, module);
             }
             if (pmt != null) {
-                payInfo.put("description", pmt.getString("description"));
+                payInfo.put("description", (String) pmt.get("description", locale));
                 payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
             }
 
@@ -394,9 +393,10 @@ public class PosTransaction implements Serializable {
                 payInfo.put("cardNumber", cardStr);  // masked cardNumber
 
             } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-                GenericValue gc = null;
+                 @SuppressWarnings("unused") 
+                GenericValue gc = null; 
                 try {
-                    gc = infValue.getRelatedOne("GiftCard");
+                    gc = infValue.getRelatedOne("GiftCard"); //FIXME is this really useful ? (Maybe later...)
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -467,7 +467,6 @@ public class PosTransaction implements Serializable {
          try {
             int index = Integer.parseInt(cartIndex);
             ShoppingCartItem product = cart.findCartItem(index);
-            Delegator delegator = cart.getDelegator();
             pcw = product.getConfigWrapper();
         } catch (Exception e) {
             trace("general exception", e);
@@ -686,8 +685,8 @@ public class PosTransaction implements Serializable {
     }
 
     public int checkPaymentMethodType(String paymentMethodTypeId) {
-        Map fields = UtilMisc.toMap("paymentMethodTypeId", paymentMethodTypeId, "productStoreId", productStoreId);
-        List values = null;
+        Map<String, String> fields = UtilMisc.toMap("paymentMethodTypeId", paymentMethodTypeId, "productStoreId", productStoreId);
+        List<GenericValue> values = null;
         try {
             values = session.getDelegator().findByAndCache("ProductStorePaymentSetting", fields);
         } catch (GenericEntityException e) {
@@ -699,7 +698,7 @@ public class PosTransaction implements Serializable {
             return NO_PAYMENT;
         } else {
             boolean isExternal = true;
-            Iterator i = values.iterator();
+            Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
                 GenericValue v = (GenericValue) i.next();
                 //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
