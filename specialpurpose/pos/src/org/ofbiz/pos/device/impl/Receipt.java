@@ -394,7 +394,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             }
 
             if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
-                List<Map> maps = trans.getItemConfigInfo(i);
+                List<Map<String, Object>> maps = trans.getItemConfigInfo(i);
                 for (Map map: maps) {
                     expandMap = this.makeCodeExpandMap(trans, type);
                     expandMap.putAll(map);
