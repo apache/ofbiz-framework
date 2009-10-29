@@ -893,6 +893,28 @@ under the License.
             <key-map field-name="costCustomMethodId" rel-field-name="customMethodId"/>
         </relation>
     </entity>
+    <entity entity-name="ProductCostComponentCalc"
+            package-name="org.ofbiz.product.cost"
+            title="Product Cost Calculation Entity">
+        <field name="productId" type="id-ne"></field>
+        <field name="costComponentTypeId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="productId"/>
+        <prim-key field="costComponentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PR_COS_COMPCALC" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="PR_COS_CCT" rel-entity-name="CostComponentType">
+            <key-map field-name="costComponentTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PR_COS_CCC" rel-entity-name="CostComponentCalc">
+            <key-map field-name="costComponentCalcId"/>
+        </relation>
+    </entity>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.facility -->

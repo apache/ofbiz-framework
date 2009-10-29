@@ -56,6 +56,20 @@ under the License.
         <attribute mode="IN" name="costUomId" optional="true" type="String"/>
         <attribute mode="IN" name="costComponentTypeId" optional="true" type="String"/>
     </service>
+    <service name="createProductCostComponentCalc" default-entity-name="ProductCostComponentCalc" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductCostComponentCalc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductCostComponentCalc" default-entity-name="ProductCostComponentCalc" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductCostComponentCalc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductCostComponentCalc" default-entity-name="ProductCostComponentCalc" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Example</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="getProductCost" engine="simple" auth="true"
                 location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="getProductCost">
         <description>Gets the product's costs from CostComponent entries</description>
@@ -98,5 +112,20 @@ under the License.
         <attribute name="totalInventoryCost" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="productAverageCost" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="productCostCalcInterface" engine="interface">
+        <description>Interface to describe base parameters for Product Cost Calculation Services</description>
+        <attribute name="productCostComponentCalc" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="costComponentCalc" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="costComponentTypePrefix" type="String" mode="IN" optional="false"/>
+        <attribute name="baseCost" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="productCostAdjustment" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    <service name="productCostPercentageFormula" engine="simple"
+                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="productCostPercentageFormula" auth="true">
+        <description>Formula that creates a cost component equal to a percentage of total product cost</description>
+        <implements service="productCostCalcInterface"/>
     </service>
 </services>

@@ -369,6 +369,10 @@ under the License.
                     <field-map field-name="productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
+                <entity-and entity-name="ProductCostComponentCalc" list="productCostComponentCalcs">
+                    <field-map field-name="productId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
@@ -378,6 +382,12 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddCostComponent}">
                             <include-form name="EditCostComponent" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductCostComponentCalcs}">
+                            <include-form name="ListProductCostComponentCalcs" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AddProductCostComponentCalc}">
+                            <include-form name="AddProductCostComponentCalc" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAutoCreateCosts}">
                             <include-form name="CalculateProductCosts" location="component://product/widget/catalog/ProductForms.xml"/>
