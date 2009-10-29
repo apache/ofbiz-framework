@@ -339,7 +339,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     if (!UtilValidate.isEmpty(result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
                         List<String> newSuccessMessages = UtilGenerics.<String>checkList(result.get(ModelService.SUCCESS_MESSAGE_LIST));
                         for (int j = 0; j < newSuccessMessages.size(); j++) {
-                            String newSuccessMessage = (String)newSuccessMessages.get(j);
+                            String newSuccessMessage = newSuccessMessages.get(j);
                             if (!successMessages.contains(newSuccessMessage)) {
                                 successMessages.add(newSuccessMessage);
                             }
@@ -355,7 +355,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&
                                 !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey) &&
                                 !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
-                            request.setAttribute(resultKey, resultValue);
+                            request.setAttribute(resultKey + curSuffix, resultValue);
                         }
                     }
                 }
