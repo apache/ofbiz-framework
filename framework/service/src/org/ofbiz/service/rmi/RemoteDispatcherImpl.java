@@ -24,6 +24,7 @@ import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.GenericResultWaiter;
 import org.ofbiz.service.GenericServiceException;
@@ -36,13 +37,14 @@ import org.ofbiz.service.ModelService;
 public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteDispatcher {
 
     public static final String module = RemoteDispatcherImpl.class.getName();
-    private static final boolean exportAll = false;
+    private static boolean exportAll = false;
 
     protected LocalDispatcher dispatcher = null;
 
     public RemoteDispatcherImpl(LocalDispatcher dispatcher, RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
         super(0, csf, ssf);
         this.dispatcher = dispatcher;
+        exportAll = "true".equals(UtilProperties.getPropertyValue("service", "remotedispatcher.exportall", "false"));
     }
 
     // RemoteDispatcher methods
