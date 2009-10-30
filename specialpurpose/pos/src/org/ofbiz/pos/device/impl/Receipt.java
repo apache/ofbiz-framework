@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -394,7 +395,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             }
 
             if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
-                List<Map<String, Object>> maps = trans.getItemConfigInfo(i);
+                List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
                 for (Map map: maps) {
                     expandMap = this.makeCodeExpandMap(trans, type);
                     expandMap.putAll(map);
