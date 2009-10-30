@@ -224,7 +224,7 @@
     </property>
     <property key="FormFieldTitle_leaveTypeId">
         <value xml:lang="en">Leave Type Id</value>
-        <value xml:lang="fr">Réf. de type de congé</value>
+        <value xml:lang="fr">Type de congé</value>
         <value xml:lang="it">Tipo di licenziamento</value>
         <value xml:lang="zh">请假类型编号</value>
     </property>
@@ -1873,4 +1873,31 @@
     <property key="PageTitleFindTrainingApprovals"> 
         <value xml:lang="en">Find Training Approvals</value>
     </property>
+    <property key="HumanResEmplReasonType"> 
+        <value xml:lang="en">EmplLeave Reason Type</value>
+    </property>
+    <property key="HumanResAddEmplLeaveReasonType"> 
+        <value xml:lang="en">Add Employee Leave Reason</value>
+    </property>
+    <property key="HumanResLeaveApproval"> 
+        <value xml:lang="en">Leave Approval</value>
+    </property>
+    <property key="HumanResEditLeaveApprovalStatus"> 
+        <value xml:lang="en">Edit Leave Approval Status</value>
+    </property>
+    <property key="HumanResLeaveStatus"> 
+        <value xml:lang="en">Leave</value>
+    </property>
+    <property key="HumanResEmployeeLeave"> 
+        <value xml:lang="en">Employee Leave</value>
+    </property>
+    <property key="HumanResEmployeeLeaveType"> 
+        <value xml:lang="en">Leave Type</value>
+    </property>
+    <property key="HumanResEmployeeType"> 
+        <value xml:lang="en">Reason Type</value>
+    </property>
+    <property key="PartyApproverId"> 
+        <value xml:lang="en">Approver Party Id</value>
+    </property>    
 </resource>

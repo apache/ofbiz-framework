@@ -274,8 +274,7 @@ under the License.
                 <set field="titleProperty" value="HumanResEditEmplLeave"/>
                 <set field="tabButtonItem" value="EditEmployeeLeaves"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="emplLeaveCtx.partyId" from-field="parameters.partyId"/>
-                <set field="parameters.insideEmployee" value="true"/>
+                <entity-one entity-name="EmplLeave" value-field="leaveApp"/>
             </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">

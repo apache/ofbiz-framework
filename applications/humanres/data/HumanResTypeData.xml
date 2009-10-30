@@ -53,6 +53,10 @@ under the License.
     <StatusItem statusId="TRAINING_APPROVED" statusTypeId="TRAINING_STATUS"  description="Approved"/>
     <StatusItem statusId="TRAINING_REJECTED" statusTypeId="TRAINING_STATUS"  description="Rejected"/>
 
+    <StatusType statusTypeId="LEAVE_STATUS" description="Employee Leave Status"/>
+    <StatusItem statusId="LEAVE_APPROVED" statusTypeId="LEAVE_STATUS"  description="Approved"/>
+    <StatusItem statusId="LEAVE_REJECTED" statusTypeId="LEAVE_STATUS"  description="Rejected"/>
+
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
@@ -101,8 +105,10 @@ under the License.
     <TerminationType description="Fired" hasTable="N" parentTypeId="" terminationTypeId="FIRE"/>
     <TerminationType description="Retirement" hasTable="N" parentTypeId="" terminationTypeId="RETIRE"/>
 
-    <EmplLeaveType description="Medical" hasTable="N" parentTypeId="" leaveTypeId="MEDICAL"/>
-    <EmplLeaveType description="Casual" hasTable="N" parentTypeId="" leaveTypeId="CASUAL"/>
+    <EmplLeaveType description="Inland Earned Leave" hasTable="N" parentTypeId="" leaveTypeId="INLAND_EARNED"/>
+    <EmplLeaveType description="Inland Loss of Pay" hasTable="N" parentTypeId="" leaveTypeId="LOSS_OF_PAY"/>
+    <EmplLeaveType description="Inland Restricted Holiday" hasTable="N" parentTypeId="" leaveTypeId="RESTRICTED_HOLIDAY"/>
+    <EmplLeaveType description="Inland Special Day Off" hasTable="N" parentTypeId="" leaveTypeId="SPECIAL_DAY_OFF"/>
 
     <WebSite webSiteId="HR" siteName="Human Resource Manager" visualThemeSetId="BACKOFFICE"/>
         
@@ -142,5 +148,8 @@ under the License.
     <Enumeration description="Written Aptitude Exam" enumCode="WRITTEN_APT" enumId="EXAM_WRITTEN_APT" sequenceId="01" enumTypeId="EXAM_TYPE"/>
     <Enumeration description="Technical Exam" enumCode="TECHNICAL" enumId="EXAM_TECHNICAL" sequenceId="02" enumTypeId="EXAM_TYPE"/>
     <Enumeration description="Group Discussion" enumCode="GROUP_DISCN" enumId="EXAM_GROUP_DISCN" sequenceId="03" enumTypeId="EXAM_TYPE"/>
+    
+    <EmplLeaveReasonType description="Medical" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Fever"/>
+    <EmplLeaveReasonType description="Casual" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Personal Work"/>
 
 </entity-engine-xml>

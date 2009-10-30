@@ -432,8 +432,11 @@ under the License.
             title="Employee Leave Entity">
         <field name="partyId" type="id-ne"/>
         <field name="leaveTypeId" type="id-ne"/>
+        <field name="emplLeaveReasonTypeId" type="id-ne"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
+        <field name="approverPartyId" type="id-ne"/>
+      	<field name="leaveStatus" type="short-varchar"/>
         <field name="description" type="description"/>
         <prim-key field="partyId"/>
         <prim-key field="leaveTypeId"/>
@@ -444,6 +447,12 @@ under the License.
         <relation type="one" fk-name="EMPL_LEAVE_ELETP" rel-entity-name="EmplLeaveType">
             <key-map field-name="leaveTypeId"/>
         </relation>
+        <relation type="one" fk-name="EMPL_LEAVE_REASON_ELETP" rel-entity-name="EmplLeaveReasonType">
+            <key-map field-name="emplLeaveReasonTypeId"/>
+        </relation>
+        <relation type="one" fk-name="EMPL_LEAVE_APPR" title="Approver" rel-entity-name="Party">
+            <key-map field-name="approverPartyId" rel-field-name="partyId"/>
+	    </relation>
     </entity>
     <entity entity-name="EmplLeaveType"
             package-name="org.ofbiz.humanres.employment"
@@ -934,4 +943,16 @@ under the License.
         <field name="trainingRequestId" type="id-ne"></field>
         <prim-key field="trainingRequestId"/>
     </entity>
+    <entity entity-name="EmplLeaveReasonType"
+            package-name="org.ofbiz.humanres.employment"
+            title="Leave Reason Type Entity">
+        <field name="emplLeaveReasonTypeId" type="id-ne"/>
+        <field name="parentTypeId" type="id-ne"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="emplLeaveReasonTypeId"/>
+        <relation type="one" fk-name="EMPL_REASON_TPAR" title="Parent" rel-entity-name="EmplLeaveReasonType">
+            <key-map field-name="parentTypeId" rel-field-name="emplLeaveReasonTypeId"/>
+        </relation>
+     </entity>
 </entitymodel>

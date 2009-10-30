@@ -289,4 +289,27 @@
         </menu-item>
     </menu>
     
+	<menu name="EmplLeaveReasonTypeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        default-menu-item-name="Employee Leave Reason Type" type="simple" menu-container-style="button-bar tab-bar" 
+        default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EmplLeaveType" title="${uiLabelMap.HumanResEmployeeLeaveType}">
+            <link target="EditEmplLeaveTypes"/>
+        </menu-item>
+        <menu-item name="EmplLeaveReasonType" title="${uiLabelMap.HumanResEmployeeType}">
+            <link target="EditEmplLeaveReasonTypes"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="EmplLeaveTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        default-menu-item-name="Employee Leave" type="simple" menu-container-style="button-bar tab-bar" 
+        default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="Employee Leave" title="${uiLabelMap.HumanResEmployeeLeave}">
+            <link target="FindEmplLeaves"/>
+        </menu-item>
+        <menu-item name="Approval" title="${uiLabelMap.HumanResLeaveApproval}">
+            <condition><if-has-permission permission="HUMANRES" action="_APPROVE"/></condition>
+            <link target="FindLeaveApprovals"/>
+        </menu-item>
+    </menu>
+
 </menus>
