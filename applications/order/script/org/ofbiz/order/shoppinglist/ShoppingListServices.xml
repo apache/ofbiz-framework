@@ -112,30 +112,48 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShoppingListItem" short-description="Create a ShoppingList Item">
-        <set field="parentMethodName" value="createShoppingListItem"/>
-        <set field="permissionAction" value="CREATE"/>
-        <call-simple-method method-name="checkShoppingListItemSecurity"/>
-        <check-errors/>
-
-        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
-        <entity-one entity-name="Product" value-field="product"/>
-        <if-empty field="product">
-            <add-error> <fail-property property="ProductErrorProductNotFound" resource="ProductUiLabels"/> </add-error>
+        <entity-and list="shoppingListItems" entity-name="ShoppingListItem">
+            <field-map field-name="productId" from-field="parameters.productId"></field-map>
+            <field-map field-name="shoppingListId" from-field="parameters.shoppingListId"></field-map>
+        </entity-and>
+        <if-empty field="shoppingListItems">
+            <set field="parentMethodName" value="createShoppingListItem"/>
+            <set field="permissionAction" value="CREATE"/>
+            <call-simple-method method-name="checkShoppingListItemSecurity"/>
             <check-errors/>
+
+            <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
+            <entity-one entity-name="Product" value-field="product"/>
+            <if-empty field="product">
+                <add-error> <fail-property property="ProductErrorProductNotFound" resource="ProductUiLabels"/> </add-error>
+                <check-errors/>
+            </if-empty>
+            <make-value value-field="newEntity" entity-name="ShoppingListItem"/>
+            <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
+            <make-next-seq-id value-field="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
+
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
+            <field-to-result field="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
+            <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
+            <create-value value-field="newEntity"/>
+
+            <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
+                <now-timestamp field="shoppingList.lastAdminModified"/>
+                <store-value value-field="shoppingList"/>
+            </if-compare-field>
+        <else>
+            <first-from-list entry="shoppingListItem" list="shoppingListItems"/>
+            <calculate field="totalquantity" >
+                <calcop operator="add" field="shoppingListItem.quantity">
+                    <calcop operator="get" field="parameters.quantity"/>
+                </calcop>
+            </calculate>
+            <field-to-result field="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
+            <set-service-fields service-name="updateShoppingListItem" map="shoppingListItem" to-map="shoppingListItemParameters"/>
+            <set field="shoppingListItemParameters.quantity" from-field="totalquantity"/>
+            <call-service service-name="updateShoppingListItem" in-map-name="shoppingListItemParameters"/>
+        </else>
         </if-empty>
-        <make-value value-field="newEntity" entity-name="ShoppingListItem"/>
-        <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
-
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <field-to-result field="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
-        <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
-        <create-value value-field="newEntity"/>
-
-        <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp field="shoppingList.lastAdminModified"/>
-            <store-value value-field="shoppingList"/>
-        </if-compare-field>
     </simple-method>
 
     <simple-method method-name="updateShoppingListItem" short-description="Update a ShoppingListItem">
