@@ -184,14 +184,16 @@ public class ModelTree extends ModelWidget {
         Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
         if (UtilValidate.isNotEmpty(paramMap)) {
             Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
-            requestParameters.remove(this.getTrailName(context));           
-            String queryString = UtilHttp.urlEncodeArgs(requestParameters, false);
-            if (expColReq.indexOf("?") < 0) {
-                expColReq += "?";
-            } else {
-                expColReq += "&";
-            }
-            expColReq += queryString;        
+            requestParameters.remove(this.getTrailName(context));  
+            if (UtilValidate.isNotEmpty(requestParameters)) {
+                String queryString = UtilHttp.urlEncodeArgs(requestParameters, false);
+                if (expColReq.indexOf("?") < 0) {
+                    expColReq += "?";
+                } else {
+                    expColReq += "&amp;";
+                }
+                expColReq += queryString;   
+            }     
         }
         
         return expColReq;
