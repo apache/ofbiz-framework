@@ -226,4 +226,48 @@
             </widgets>            
         </section>
     </screen>
+    <screen name="EditEmplLeaveTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditEmplLeaveType"/>
+                <set field="headerItem" value="GlobalHRSettings"/>
+                <set field="tabButtonItem" value="EmplLeaveType"/>
+                <set field="leaveTypeId" from-field="parameters.leaveTypeId"/>
+                <entity-one entity-name="EmplLeaveType" value-field="emplLeaveType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    	<include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <screenlet id="AddEmplLeaveTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveType}" collapsible="true">
+                            <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/GlobalHrSettingForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListEmplLeaveTypes" location="component://humanres/widget/forms/GlobalHrSettingForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmplLeaveReasonTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditEmplReasonype"/>
+                <set field="headerItem" value="GlobalHRSettings"/>
+                <set field="tabButtonItem" value="EmplLeaveReasonType"/>
+                <set field="emplLeaveReasonTypeId" from-field="parameters.emplLeaveReasonTypeId"/>
+                <entity-one entity-name="EmplLeaveReasonType" value-field="emplreasonType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <screenlet id="AddEmplReasonTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveReasonType}" collapsible="true">
+                            <include-form name="AddEmplLeaveReasonType" location="component://humanres/widget/forms/GlobalHrSettingForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListEmplLeaveReasonTypes" location="component://humanres/widget/forms/GlobalHrSettingForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

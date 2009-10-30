@@ -396,9 +396,15 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewEmplLeave"/>
     </request-map>
-    <request-map uri="EditEmplLeaves">
+    <request-map uri="EditEmplLeave">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditEmplLeaves"/>
+        <response name="success" type="view" value="EditEmplLeave"/>
+    </request-map>
+    <request-map uri="deleteEmplLeave">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEmplLeave"/>
+        <response name="success" type="view" value="FindEmplLeaves"/>
+        <response name="error" type="view" value="FindEmplLeaves"/>
     </request-map>
     <request-map uri="EditEmplLeaveTypes">
         <security https="true" auth="true"/>
@@ -821,14 +827,14 @@ under the License.
     <request-map uri="createEmplLeaveExt">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmplLeave"/>
-        <response name="success" type="view" value="EditEmplLeaves"/>
-        <response name="error" type="view" value="EditEmplLeaves"/>
+        <response name="success" type="view" value="EditEmplLeave"/>
+        <response name="error" type="view" value="EditEmplLeave"/>
     </request-map>
     <request-map uri="updateEmplLeaveExt">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateEmplLeave"/>
-        <response name="success" type="view" value="EditEmplLeaves"/>
-        <response name="error" type="view" value="EditEmplLeaves"/>
+        <event type="service" invoke="updateEmplLeave"/>
+        <response name="success" type="view" value="EditEmplLeave"/>
+        <response name="error" type="view" value="EditEmplLeave"/>
     </request-map>
 
     <!--====================Recruitment Requests===================================-->
@@ -1020,6 +1026,42 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupTraining"/>
     </request-map>
+    <request-map uri="EditEmplLeaveReasonTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplLeaveReasonTypes"/>
+    </request-map>
+    <request-map uri="createEmplLeaveReasonType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmplLeaveReasonType"/>
+        <response name="success" type="view" value="EditEmplLeaveReasonTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveReasonTypes"/>
+    </request-map>
+    <request-map uri="updateEmplLeaveReasonType">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEmplLeaveReasonType"/>
+        <response name="success" type="view" value="EditEmplLeaveReasonTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveReasonTypes"/>
+    </request-map>
+    <request-map uri="deleteEmplLeaveReasonType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEmplLeaveReasonType"/>
+        <response name="success" type="view" value="EditEmplLeaveReasonTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveReasonTypes"/>
+    </request-map>
+    <request-map uri="FindLeaveApprovals">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindLeaveApprovals"/>
+    </request-map>
+    <request-map uri="EditEmplLeaveStatus">
+       <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplLeaveStatus"/>
+    </request-map>
+    <request-map uri="updateEmplLeaveStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEmplLeaveStatus"/>
+        <response name="success" type="view" value="EditEmplLeaveStatus"/>
+        <response name="error" type="view" value="EditEmplLeaveStatus"/>
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>
@@ -1124,8 +1166,11 @@ under the License.
 
     <view-map name="FindEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#FindEmplLeaves"/>
     <view-map name="NewEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#NewEmplLeave"/>
-    <view-map name="EditEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaves"/>
-    <view-map name="EditEmplLeaveTypes" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaveTypes"/>
+    <view-map name="EditEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeave"/>
+    <view-map name="EditEmplLeaveTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditEmplLeaveTypes"/>
+    <view-map name="EditEmplLeaveReasonTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditEmplLeaveReasonTypes"/>
+    <view-map name="FindLeaveApprovals" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#FindLeaveApprovals"/>
+    <view-map name="EditEmplLeaveStatus" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaveStatus"/>
     
     <!-- ==================Recruitment View Map===================== -->
     <view-map name="FindJobRequisitions" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindJobRequisitions"/>

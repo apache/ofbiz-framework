@@ -664,12 +664,15 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
     <service name="createEmplLeave" engine="simple" default-entity-name="EmplLeave"
              location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeave" auth="true">
         <description>Create Employee Leave</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="approverPartyId" optional="false"/>
+        <override name="thruDate" optional="false"/>
     </service>
 
     <service name="updateEmplLeave" engine="simple" default-entity-name="EmplLeave"
@@ -678,8 +681,17 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="approverPartyId" optional="false"/>
+        <override name="thruDate" optional="false"/>
     </service>
 
+    <service name="deleteEmplLeave" engine="simple" default-entity-name="EmplLeave"
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplLeave" auth="true">
+        <description>Delete AgreementEmploymentAppl</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
     <service name="createEmplLeaveType" engine="simple" default-entity-name="EmplLeaveType"
              location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeaveType" auth="true">
         <description>Create Valid LeaveType</description>
@@ -893,4 +905,37 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <service name="createEmplLeaveReasonType" engine="simple" default-entity-name="EmplLeaveReasonType"
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeaveReasonType" auth="true">
+        <description>Create Valid Leave Reason Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    
+    <service name="updateEmplLeaveReasonType" engine="simple" default-entity-name="EmplLeaveReasonType"
+             location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplLeaveReasonType" auth="true">
+        <description>Update Valid Leave Reason Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    
+    <service name="deleteEmplLeaveReasonType" engine="simple" default-entity-name="EmplLeaveReasonType"
+        location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplLeaveReasonType" auth="true">
+        <description>Delete Valid Leave Reason Type</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
+    <service name="updateEmplLeaveStatus" engine="simple" default-entity-name="EmplLeave"
+            location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplLeaveStatus" auth="true">
+        <description>Update Leave Approval Status</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
 </services>

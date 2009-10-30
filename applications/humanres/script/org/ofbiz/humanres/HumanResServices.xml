@@ -648,7 +648,8 @@
         <entity-one entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
         <remove-value value-field="agreementEmploymentAppl"/>
     </simple-method>
-        <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
+    
+    <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
@@ -660,6 +661,11 @@
         <entity-one entity-name="EmplLeave" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="deleteEmplLeave" short-description="Delete Employee Leave">
+        <entity-one entity-name="EmplLeave" value-field="emplLeave"/>
+        <remove-value value-field="emplLeave"/>
     </simple-method>
 
     <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
@@ -861,6 +867,34 @@
     <simple-method method-name="deleteTrainingTypes" short-description="Delete Training Types">
         <entity-one entity-name="TrainingClassType" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createEmplLeaveReasonType" short-description="Create a Leave Reason Type">
+        <make-value entity-name="EmplLeaveReasonType" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.emplLeaveReasonTypeId">
+            <sequenced-id sequence-name="EmplLeaveReasonType" field="newEntity.emplLeaveReasonTypeId"/>
+        </if-empty>
+        <field-to-result field="newEntity.emplLeaveReasonTypeId" result-name="emplLeaveReasonTypeId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateEmplLeaveReasonType" short-description="Update leave Reason Type">
+        <entity-one entity-name="EmplLeaveReasonType" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteEmplLeaveReasonType" short-description="Delete leave Reason Type">
+        <entity-one entity-name="EmplLeaveReasonType" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="updateEmplLeaveStatus" short-description="Update Leave Approval Status">
+        <entity-one entity-name="EmplLeave" value-field="lookedUpValue"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
 </simple-methods>

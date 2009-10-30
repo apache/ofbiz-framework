@@ -260,4 +260,50 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
+    <form name="AddEmplLeaveType" type="single" target="createEmplLeaveType" default-map-name="emplLeaveType"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createEmplLeaveType" default-field-type="hidden"/>
+        <field name="leaveTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListEmplLeaveTypes" type="multi" title="" target="updateEmplLeaveType"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplLeaveType"><order-by field-name="leaveTypeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplLeaveType" default-field-type="hidden"/>
+        <field name="leaveTypeId"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplLeaveType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="leaveTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddEmplLeaveReasonType" type="single" target="createEmplLeaveReasonType" default-map-name="emplLeaveReasonType"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createEmplLeaveReasonType" default-field-type="hidden"/>
+        <field name="emplLeaveReasonTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListEmplLeaveReasonTypes" type="multi" title="" target="updateEmplLeaveReasonType"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplLeaveReasonType"><order-by field-name="emplLeaveReasonTypeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplLeaveReasonType" default-field-type="hidden"/>
+        <field name="emplLeaveReasonTypeId"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplLeaveReasonType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="emplLeaveReasonTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
 </forms>
