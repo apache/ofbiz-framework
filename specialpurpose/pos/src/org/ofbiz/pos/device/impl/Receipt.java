@@ -25,12 +25,11 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
+import javolution.util.FastMap;
 import jpos.JposException;
 import jpos.POSPrinter;
 import jpos.POSPrinterConst;
@@ -65,7 +64,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
     protected SimpleDateFormat[] dateFormat = null;
     protected String[] storeReceiptTmpl = null;
     protected String[] custReceiptTmpl = null;
-    protected Map reportTmpl = new HashMap();
+    protected Map<String, Object> reportTmpl = FastMap.newInstance();
 
     protected static final String[] dateFmtStr = { "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z" };
     protected static final int[] priceLength = { 7, 7, 7 };
@@ -112,7 +111,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
     }
 
-    public synchronized void printReport(PosTransaction trans, String resource, Map context) {
+    public synchronized void printReport(PosTransaction trans, String resource, Map<String, Object> context) {
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
         } catch (Exception e) {
@@ -164,7 +163,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             String[] storeReceipt = this.readStoreTemplate();
             int payments = trans.getNumberOfPayments();
             for (int i = 0; i < payments; i++) {
-                Map info = trans.getPaymentInfo(i);
+                Map<String, Object> info = trans.getPaymentInfo(i);
                 if (info.containsKey("cardNumber")) {
                     this.printReceipt(trans, storeReceipt, 1, info);
                 }
@@ -180,7 +179,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         this.printReceipt(trans, custReceipt, 0, null);
     }
 
-    private void printReceipt(PosTransaction trans, String[] template, int type, Map payInfo) {
+    private void printReceipt(PosTransaction trans, String[] template, int type, Map<String, Object> payInfo) {
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
         } catch (Exception e) {
@@ -344,8 +343,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         return dateFormat[type];
     }
 
-    private void printInfo(String template, Map context, PosTransaction trans, int type) {
-        Map expandMap = this.makeCodeExpandMap(trans, type);
+    private void printInfo(String template, Map<String, Object> context, PosTransaction trans, int type) {
+        Map<String, Object> expandMap = this.makeCodeExpandMap(trans, type);
         if (context != null) {
             expandMap.putAll(context); // context overrides
         }
@@ -356,7 +355,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         this.printInfo(template, null, trans, type);
     }
 
-    private void printInfo(String template, Map context) {
+    private void printInfo(String template, Map<String, Object> context) {
         String toPrint = FlexibleStringExpander.expandString(template, context);
         if (toPrint.indexOf("\n") > -1) {
             String[] lines = toPrint.split("\\n");
@@ -372,7 +371,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         String loopStr = loop.substring(7);
         int size = trans.size();
         for (int i = 0; i < size; i++) {
-            Map expandMap = this.makeCodeExpandMap(trans, type);
+            Map<String, Object> expandMap = this.makeCodeExpandMap(trans, type);
             expandMap.putAll(trans.getItemInfo(i));
             // adjust the padding
             expandMap.put("description", UtilFormatOut.padString((String) expandMap.get("description"), descLength[type], true, ' '));
@@ -395,8 +394,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
             }
 
             if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
-                List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
-                for (Map map: maps) {
+                List<Map<String, Object>> maps = trans.getItemConfigInfo(i);
+                for (Map<String, Object> map: maps) {
                     expandMap = this.makeCodeExpandMap(trans, type);
                     expandMap.putAll(map);
                     // adjust the padding
@@ -426,13 +425,13 @@ public class Receipt extends GenericDevice implements DialogCallback {
         String loopStr = loop.substring(7);
         int size = trans.getNumberOfPayments();
         for (int i = 0; i < size; i++) {
-            Map payInfoMap = trans.getPaymentInfo(i);
+            Map<String, Object> payInfoMap = trans.getPaymentInfo(i);
             this.printPayInfo(loopStr, trans, type, payInfoMap);
         }
     }
 
-    private void printPayInfo(String template, PosTransaction trans, int type, Map payInfo) {
-        Map expandMap = this.makeCodeExpandMap(trans, type);
+    private void printPayInfo(String template, PosTransaction trans, int type, Map<String, Object> payInfo) {
+        Map<String, Object> expandMap = this.makeCodeExpandMap(trans, type);
         expandMap.putAll(payInfo);
         // adjust the padding
         expandMap.put("authInfoString", UtilFormatOut.padString((String) expandMap.get("authInfoString"), infoLength[type], false, ' '));
@@ -451,8 +450,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
     }
 
-    private Map makeCodeExpandMap(PosTransaction trans, int type) {
-        Map expandMap = new HashMap();
+    private Map<String, Object> makeCodeExpandMap(PosTransaction trans, int type) {
+        Map<String, Object> expandMap = FastMap.newInstance();
         SimpleDateFormat fmt = this.getDateFormat(type);
         String dateString = fmt.format(new Date());
 
