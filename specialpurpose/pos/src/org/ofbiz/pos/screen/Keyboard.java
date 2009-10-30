@@ -36,18 +36,24 @@ import java.util.Locale;
 public class Keyboard extends XPage {
     public static final String module = Keyboard.class.getName();
 
-    XEdit m_edit = null;
-    XDialog m_dialog = null;
-    PosScreen m_pos = null;
-    PageSupport m_pageSupport = null;
+    protected XEdit m_edit = null;
+    protected XDialog m_dialog = null;
+    protected PosScreen m_pos = null;
+    protected PageSupport m_pageSupport = null;
 
-    String originalText;
-    boolean m_shift = false;
-    boolean m_shiftLock = false;
+    private String originalText;
+    private boolean m_shift = false;
+    private boolean m_shiftLock = false;
+    private static Locale locale = Locale.getDefault();
+
 
     public Keyboard(PosScreen pos) {
         m_pos = pos;
-        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/keyboard");
+        if (locale.toString().contains("fr")) {
+            m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/keyboard_fr");
+        } else {
+            m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/keyboard");
+        }
         m_dialog = (XDialog) m_pageSupport;
         m_edit = (XEdit) m_pageSupport.findComponent("keyboard_input");
         m_edit.setText("");
