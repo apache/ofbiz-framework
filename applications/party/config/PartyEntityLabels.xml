@@ -331,6 +331,7 @@
         <value xml:lang="fr">Télécopie</value>
         <value xml:lang="hi_IN">फैक्स</value>
         <value xml:lang="it">Fax</value>
+        <value xml:lang="nl">Fax</value>
         <value xml:lang="pt_BR">Fax</value>
         <value xml:lang="ro">Fax</value>
         <value xml:lang="ru">Факс</value>
@@ -357,6 +358,7 @@
         <value xml:lang="fr">Téléphone</value>
         <value xml:lang="hi_IN">फोन</value>
         <value xml:lang="it">Telefono</value>
+        <value xml:lang="nl">Telefoon</value>
         <value xml:lang="pt_BR">Telefone</value>
         <value xml:lang="ro">Telefon</value>
         <value xml:lang="ru">Телефон</value>
@@ -370,6 +372,7 @@
         <value xml:lang="fr">Site Web</value>
         <value xml:lang="hi_IN">वेब साइट</value>
         <value xml:lang="it">Sito Web</value>
+        <value xml:lang="nl">Website</value>
         <value xml:lang="pt_BR">Página Web</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="ru">Web сайт</value>
@@ -383,6 +386,7 @@
         <value xml:lang="fr">Courriel de facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) ईमेल</value>
         <value xml:lang="it">Email Fatturazione (AP)</value>
+        <value xml:lang="nl">Factuur e-mailadres</value>
         <value xml:lang="pt_BR">E-mail para cobrança</value>
         <value xml:lang="ru">Эл. почта по вопросам оплаты (AP)</value>
         <value xml:lang="th">อีเมล์ใบเสร็จ (AP)</value>
@@ -395,6 +399,7 @@
         <value xml:lang="fr">Adresse de facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) पता</value>
         <value xml:lang="it">Indirizzo Fatturazione (AP)</value>
+        <value xml:lang="nl">Factuuradres</value>
         <value xml:lang="pt_BR">Endereço para cobrança</value>
         <value xml:lang="ro">Adresa Facturare (AP)</value>
         <value xml:lang="ru">Адрес для совершения оплаты (AP)</value>
@@ -408,6 +413,7 @@
         <value xml:lang="fr">Numéro de télécopie principal</value>
         <value xml:lang="hi_IN">मुख्य फैक्स नंबर</value>
         <value xml:lang="it">Numero Fax Principale</value>
+        <value xml:lang="nl">Faxnummer</value>
         <value xml:lang="pt_BR">Número de fax principal</value>
         <value xml:lang="ro">Numar Fax Principal</value>
         <value xml:lang="ru">Основной номер факса</value>
@@ -421,6 +427,7 @@
         <value xml:lang="fr">Numéro de télécopie secondaire</value>
         <value xml:lang="hi_IN">दूसरा फैक्स नंबर</value>
         <value xml:lang="it">Numero Fax Secondario</value>
+        <value xml:lang="nl">Secundair Faxnummer</value>
         <value xml:lang="pt_BR">Número de fax alternativo</value>
         <value xml:lang="ro">Numar Fax Secundar</value>
         <value xml:lang="ru">Вспомогательный номер факса</value>
@@ -434,6 +441,7 @@
         <value xml:lang="fr">Adresse principale</value>
         <value xml:lang="hi_IN">सामान्य पत्राचार का पता</value>
         <value xml:lang="it">Indirizzo Generale Corrispondenza</value>
+        <value xml:lang="nl">Algemeen Correspondentieadres</value>
         <value xml:lang="pt_BR">Endereço para correspondência</value>
         <value xml:lang="ro">Adresa Generala Corespondenta</value>
         <value xml:lang="ru">Адрес для корреспонденции</value>
@@ -447,6 +455,7 @@
         <value xml:lang="fr">Adresse courriel pour les commandes</value>
         <value xml:lang="hi_IN">आदेश अधिसूचना ईमेल का पता</value>
         <value xml:lang="it">Indirizzo Email Notifica Ordine</value>
+        <value xml:lang="nl">Bestel notificatie emailadres</value>
         <value xml:lang="pt_BR">E-mail para notificação de pedidos</value>
         <value xml:lang="ro">Adresa Email Notificare Comenzi</value>
         <value xml:lang="ru">Адрес эл.почты для уведомлений по заказам</value>
@@ -460,6 +469,7 @@
         <value xml:lang="fr">Adresse courriel autre</value>
         <value xml:lang="hi_IN">अन्य ईमेल पता</value>
         <value xml:lang="it">Altro Indirizzo Email</value>
+        <value xml:lang="nl">Alternatief emailadres</value>
         <value xml:lang="pt_BR">E-mail secundário</value>
         <value xml:lang="ro">Alta Adresa Email</value>
         <value xml:lang="ru">Другой адрес эл.почты</value>
@@ -473,6 +483,7 @@
         <value xml:lang="fr">Courriel de paiement</value>
         <value xml:lang="hi_IN">भुगतान (एआर) ईमेल</value>
         <value xml:lang="it">Email Pagamento (AR) </value>
+        <value xml:lang="nl">Betaal emailadres</value>
         <value xml:lang="pt_BR">E-mail para pagamento</value>
         <value xml:lang="ru">Эл. почта по вопросам получения оплаты (AR)</value>
         <value xml:lang="th">การชำระเงินทางอีเมล์ (AR) </value>
@@ -485,6 +496,7 @@
         <value xml:lang="fr">Adresse du service comptabilité (paiments)</value>
         <value xml:lang="hi_IN">भुगतान (एआर) का पता</value>
         <value xml:lang="it">Indirizzo Pagamento (AR)</value>
+        <value xml:lang="nl">Betaaladres</value>
         <value xml:lang="pt_BR">Endereço para pagamento</value>
         <value xml:lang="ro">Adresa Plata (AR)</value>
         <value xml:lang="ru">Адрес получения оплаты (AR)</value>
@@ -498,6 +510,7 @@
         <value xml:lang="fr">Numéro de téléphone de l'assistance</value>
         <value xml:lang="hi_IN">सहायक का फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Assistente</value>
+        <value xml:lang="nl">Telefoonnummer Assistent</value>
         <value xml:lang="pt_BR">Telefone de assistente</value>
         <value xml:lang="ro">Numar Telefon Asistent</value>
         <value xml:lang="ru">Телефонный номер помощника</value>
@@ -531,6 +544,7 @@
         <value xml:lang="fr">Numéro de téléphone du domicile</value>
         <value xml:lang="hi_IN">मुख्य घर का फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Casa Principale</value>
+        <value xml:lang="nl">Prive telefoonnummer</value>
         <value xml:lang="pt_BR">Telefone particular principal</value>
         <value xml:lang="ro">Numar Telefon Casa Principala</value>
         <value xml:lang="ru">Основной домашний телефонный номер</value>
@@ -544,6 +558,7 @@
         <value xml:lang="fr">Numéro de téléphone portable</value>
         <value xml:lang="hi_IN">मुख्य मोबाइल फोन नंबर</value>
         <value xml:lang="it">Numero Telefono Mobile Principale</value>
+        <value xml:lang="nl">Telefoon mobiel</value>
         <value xml:lang="pt_BR">Celular principal</value>
         <value xml:lang="ro">Numar Telefon Mobil Principal</value>
         <value xml:lang="ru">Основной мобильный телефонный номер</value>
@@ -603,6 +618,7 @@
         <value xml:lang="fr">Numéro de téléphone au bureau</value>
         <value xml:lang="hi_IN">मुख्य कार्य फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Lavoro Principale</value>
+        <value xml:lang="nl">Zakelijk telefoonnummer</value>
         <value xml:lang="pt_BR">Telefone comercial</value>
         <value xml:lang="ro">Numar Telefon Serviciu Principal</value>
         <value xml:lang="ru">Основной рабочий телефонный номер</value>
@@ -629,6 +645,7 @@
         <value xml:lang="fr">Adresse précédente</value>
         <value xml:lang="hi_IN">पिछला पता</value>
         <value xml:lang="it">Indirizzo Precedente</value>
+        <value xml:lang="nl">Vorig adres</value>
         <value xml:lang="pt_BR">Endereço anterior</value>
         <value xml:lang="ru">Предыдущий адрес</value>
         <value xml:lang="th">ที่อยู่ก่อนหน้า</value>
@@ -641,7 +658,8 @@
         <value xml:lang="fr">Adresse courriel principale</value>
         <value xml:lang="hi_IN">प्राथमिक ईमेल पता</value>
         <value xml:lang="it">Indirizzo Primario Email</value>
-        <value xml:lang="pt_BR">E-mail principal</value>
+        <value xml:lang="nl">Primair emailadres</value>
+        <value xml:lang="pt_BR">E-mail principal</value>        
         <value xml:lang="ro">Adresa Primara Email</value>
         <value xml:lang="ru">Основной адрес эл.почты</value>
         <value xml:lang="th">ที่อยู่อีเมล์ที่สำคัญ</value>
@@ -654,6 +672,7 @@
         <value xml:lang="fr">Adresse principale</value>
         <value xml:lang="hi_IN">प्राथमिक पता</value>
         <value xml:lang="it">Indirizzo Primario</value>
+        <value xml:lang="nl">Adres</value>
         <value xml:lang="pt_BR">Endereço primário</value>
         <value xml:lang="ro">Adresa Primara</value>
         <value xml:lang="ru">Юридический адрес</value>
@@ -667,6 +686,7 @@
         <value xml:lang="fr">Numéro de téléphone principal</value>
         <value xml:lang="hi_IN">प्राथमिक फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono Principale</value>
+        <value xml:lang="nl">Algemeen telefoonnummer</value>
         <value xml:lang="pt_BR">Telefone principal</value>
         <value xml:lang="ro">Numero Telefon Principal</value>
         <value xml:lang="ru">Основной телефонный номер</value>
@@ -680,6 +700,7 @@
         <value xml:lang="fr">URL princpale du site Web</value>
         <value xml:lang="hi_IN">प्राथमिक वेबसाइट यूआरएल(URL)</value>
         <value xml:lang="it">URL Primario Sito Web</value>
+        <value xml:lang="nl">Website URL</value>
         <value xml:lang="pt_BR">Página web principal</value>
         <value xml:lang="ro">URL Primar Sit Web</value>
         <value xml:lang="ru">URL основного Web сайта</value>
@@ -693,6 +714,7 @@
         <value xml:lang="fr">Adresse de retour des achats</value>
         <value xml:lang="hi_IN">क्रय वापसी का पता</value>
         <value xml:lang="it">Indirizzo restituzione acquisto</value>
+        <value xml:lang="nl">Aankoop retouradres</value>
         <value xml:lang="pt_BR">Endereço para devolução de compra</value>
         <value xml:lang="ro">Adresa Returnare Cumparare</value>
         <value xml:lang="ru">Адрес возврата закупок</value>
@@ -706,6 +728,7 @@
         <value xml:lang="fr">Adresse de livraison</value>
         <value xml:lang="hi_IN">शिपिंग का गंतव्य पता</value>
         <value xml:lang="it">Indirizzo destinazione spedizione</value>
+        <value xml:lang="nl">Verzendadres</value>
         <value xml:lang="pt_BR">Endereço de destino</value>
         <value xml:lang="ro">Adresa Destinatie Expediere</value>
         <value xml:lang="ru">Адрес доставки грузополучателя</value>
@@ -719,6 +742,7 @@
         <value xml:lang="fr">Adresse d'expédition</value>
         <value xml:lang="hi_IN">शिपिंग का मूल पता</value>
         <value xml:lang="it">Indirizzo origine spedizione</value>
+        <value xml:lang="nl">Adres afzender</value>
         <value xml:lang="pt_BR">Endereço do remetente</value>
         <value xml:lang="ro">Adresa Origine Expediere</value>
         <value xml:lang="ru">Отгрузочный адрес отправителя</value>
@@ -732,6 +756,7 @@
         <value xml:lang="fr">Nom de domaine internet</value>
         <value xml:lang="hi_IN">इंटरनेट डोमेन का नाम</value>
         <value xml:lang="it">Nome Dominio Internet</value>
+        <value xml:lang="nl">Internet domeinnaam</value>
         <value xml:lang="pt_BR">Domínio na internet</value>
         <value xml:lang="ro">Nume Domeniu Internet</value>
         <value xml:lang="ru">Доменное имя в Интернет</value>
@@ -745,6 +770,7 @@
         <value xml:lang="fr">(Adresse électronique)</value>
         <value xml:lang="hi_IN">इलेक्ट्रॉनिक पता</value>
         <value xml:lang="it">Indirizzo Elettronico</value>
+        <value xml:lang="nl">Electronisch adres</value>
         <value xml:lang="pt_BR">Endereço eletrônico</value>
         <value xml:lang="ro">Adresa Electronica</value>
         <value xml:lang="ru">Электронный адрес</value>
@@ -758,6 +784,7 @@
         <value xml:lang="fr">Adresse courriel</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzo Email</value>
+        <value xml:lang="nl">Emailadres</value>
         <value xml:lang="pt_BR">Endereço de e-mail</value>
         <value xml:lang="ro">Adresa Email</value>
         <value xml:lang="ru">Адрес эл.почты</value>
@@ -771,6 +798,7 @@
         <value xml:lang="fr">Adresse IP</value>
         <value xml:lang="hi_IN">इंटरनेट आईपी(IP) पता</value>
         <value xml:lang="it">Indirizzo Internet IP</value>
+        <value xml:lang="nl">Internet IP adres</value>
         <value xml:lang="pt_BR">Endereço de IP</value>
         <value xml:lang="ro">Adresa Internet IP</value>
         <value xml:lang="ru">Интернет IP адрес</value>
@@ -784,6 +812,7 @@
         <value xml:lang="fr">Adresse postale </value>
         <value xml:lang="hi_IN">डाक का पता</value>
         <value xml:lang="it">Indirizzo Postale</value>
+        <value xml:lang="nl">Postadres</value>
         <value xml:lang="pt_BR">Endereço postal</value>
         <value xml:lang="ro">Adresa Postala</value>
         <value xml:lang="ru">Почтовый адрес</value>
@@ -797,6 +826,7 @@
         <value xml:lang="fr">Numéro de téléphone</value>
         <value xml:lang="hi_IN">फ़ोन नंबर</value>
         <value xml:lang="it">Numero Telefono</value>
+        <value xml:lang="nl">Telefoonnummer</value>
         <value xml:lang="pt_BR">Número de telefone</value>
         <value xml:lang="ro">Numar de Telefon</value>
         <value xml:lang="ru">Телефонный номер</value>
@@ -810,6 +840,7 @@
         <value xml:lang="fr">Adresse Web (URL)</value>
         <value xml:lang="hi_IN">वेब यूआरएल(URL)/पता</value>
         <value xml:lang="it">URL Web/Indirizzo</value>
+        <value xml:lang="nl">Webadres / URL</value>
         <value xml:lang="pt_BR">Endereço na internet (URL)</value>
         <value xml:lang="ro">URL Web/Adresa</value>
         <value xml:lang="ru">Web URL/адрес</value>
