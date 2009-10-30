@@ -111,7 +111,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
     }
 
-    public synchronized void printReport(PosTransaction trans, String resource, Map<String, Object> context) {
+    public synchronized void printReport(PosTransaction trans, String resource, Map<String, String> context) {
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
         } catch (Exception e) {
@@ -343,7 +343,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         return dateFormat[type];
     }
 
-    private void printInfo(String template, Map<String, Object> context, PosTransaction trans, int type) {
+    private void printInfo(String template, Map<String, String> context, PosTransaction trans, int type) {
         Map<String, Object> expandMap = this.makeCodeExpandMap(trans, type);
         if (context != null) {
             expandMap.putAll(context); // context overrides
