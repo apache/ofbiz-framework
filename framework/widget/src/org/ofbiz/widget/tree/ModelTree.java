@@ -20,6 +20,7 @@ package org.ofbiz.widget.tree;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -36,6 +37,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -177,6 +179,21 @@ public class ModelTree extends ModelWidget {
             else
                 expColReq = s1;
         }
+        
+        //append also the request parameters 
+        Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+        if (UtilValidate.isNotEmpty(paramMap)) {
+            Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
+            requestParameters.remove(this.getTrailName(context));           
+            String queryString = UtilHttp.urlEncodeArgs(requestParameters, false);
+            if (expColReq.indexOf("?") < 0) {
+                expColReq += "?";
+            } else {
+                expColReq += "&";
+            }
+            expColReq += queryString;        
+        }
+        
         return expColReq;
     }
 
