@@ -992,11 +992,12 @@ a.linktext:hover {
 }
 
 .basic-table td a {
-    text-decoration: underline;
+    font-weight: bold;
+    color:#A80000;
 }
 
 .basic-table td a.buttontext  {
-    text-decoration: none;
+    color:#333;
 }
 
 .buttontextdisabled {
