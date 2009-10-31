@@ -34,6 +34,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
  *
  */
+@SuppressWarnings("serial")
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
     protected MapStack<String> rbmwStack;
@@ -261,7 +262,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         /* (non-Javadoc)
          * @see java.util.Map#putAll(java.util.Map)
          */
-        public void putAll(Map arg0) {
+        public void putAll(Map<? extends String, ? extends Object> arg0) {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
 

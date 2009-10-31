@@ -25,6 +25,7 @@ import java.io.*;
  * Loads resources from a URL
  *
  */
+@SuppressWarnings("serial")
 public class UrlLoader extends ResourceLoader implements java.io.Serializable {
 
     @Override

@@ -472,7 +472,7 @@ public class UtilProperties implements java.io.Serializable {
      * @param arguments A List of Objects to insert into the message argument place holders
      * @return The value of the property in the properties file
      */
-    public static String getMessage(String resource, String name, List arguments, Locale locale) {
+    public static <E> String getMessage(String resource, String name, List<E> arguments, Locale locale) {
         String value = getMessage(resource, name, locale);
 
         if (value == null || value.length() == 0) {
@@ -944,12 +944,12 @@ public class UtilProperties implements java.io.Serializable {
         @Override
         public Enumeration<String> getKeys() {
             return new Enumeration<String>() {
-                Iterator i = properties.keySet().iterator();
+                Iterator<String> i = UtilGenerics.cast(properties.keySet().iterator());
                 public boolean hasMoreElements() {
                     return (i.hasNext());
                 }
                 public String nextElement() {
-                    return (String) i.next();
+                    return i.next();
                 }
             };
         }

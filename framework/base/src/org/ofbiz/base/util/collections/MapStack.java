@@ -46,7 +46,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
     protected static final ObjectFactory<MapStack<?>> mapStackFactory = new ObjectFactory<MapStack<?>>() {
         @Override
         protected MapStack<?> create() {
-            return new MapStack();
+            return new MapStack<Object>();
         }
     };
 
@@ -236,7 +236,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
             // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
             if (curMap.containsKey(name)) {
                 if (curMap instanceof LocalizedMap) {
-                    LocalizedMap lmap = (LocalizedMap) curMap;
+                    LocalizedMap<Object> lmap = UtilGenerics.cast(curMap);
                     return lmap.get(name, locale);
                 } else {
                     return curMap.get(name);
@@ -284,8 +284,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
      */
     public void clear() {
         // all write operations are local: only clear the Map on the top of the stack
-        Map currentMap = (Map) this.stackList.get(0);
-        currentMap.clear();
+        this.stackList.get(0).clear();
     }
 
     /* (non-Javadoc)

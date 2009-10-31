@@ -26,6 +26,7 @@ import java.util.List;
  * Base OFBiz Exception, provides nested exceptions, etc
  *
  */
+@SuppressWarnings("serial")
 public class GeneralException extends Exception {
 
     public static <T> T checkException(Throwable t) throws GeneralException {

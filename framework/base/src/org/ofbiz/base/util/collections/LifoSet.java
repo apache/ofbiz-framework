@@ -28,6 +28,7 @@ import java.util.EmptyStackException;
  * LifoSet - Set interface wrapper around a LinkedList
  *
  */
+@SuppressWarnings("serial")
 public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     // This set's back LinkedList

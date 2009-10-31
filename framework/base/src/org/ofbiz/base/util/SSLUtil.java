@@ -208,7 +208,7 @@ public class SSLUtil {
                         }
                         for (javax.security.cert.X509Certificate peerCert: peerCerts) {
                             Principal x500s = peerCert.getSubjectDN();
-                            Map subjectMap = KeyStoreUtil.getX500Map(x500s);
+                            Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
 
                             if (Debug.infoOn())
                                 Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);

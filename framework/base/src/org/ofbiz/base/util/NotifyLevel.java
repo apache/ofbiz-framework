@@ -25,6 +25,7 @@ import org.apache.log4j.net.SyslogAppender;
 /**
  * NotifyLevel
  */
+@SuppressWarnings("serial")
 public class NotifyLevel extends Level {
 
     public static final int NOTIFY_INT = FATAL_INT + 10000;

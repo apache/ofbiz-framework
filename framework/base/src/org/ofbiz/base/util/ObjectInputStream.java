@@ -40,7 +40,7 @@ public class ObjectInputStream extends java.io.ObjectInputStream {
      * @see java.io.ObjectInputStream#resolveClass(java.io.ObjectStreamClass)
      */
     @Override
-    protected Class resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
+    protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         return ObjectType.loadClass(classDesc.getName(), classloader);
     }
 
@@ -48,8 +48,8 @@ public class ObjectInputStream extends java.io.ObjectInputStream {
      * @see java.io.ObjectInputStream#resolveProxyClass(java.lang.String[])
      */
     @Override
-    protected Class resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
-        Class[] cinterfaces = new Class[interfaces.length];
+    protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
+        Class<?>[] cinterfaces = new Class[interfaces.length];
         for (int i = 0; i < interfaces.length; i++)
             cinterfaces[i] = classloader.loadClass(interfaces[i]);
 

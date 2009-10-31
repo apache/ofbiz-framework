@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
+@SuppressWarnings("serial")
 public final class HardRefCacheLine<V> extends CacheLine<V> {
     public final V value;
 

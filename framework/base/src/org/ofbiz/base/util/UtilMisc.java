@@ -57,18 +57,6 @@ public class UtilMisc {
         return throwable;
     }
 
-    public static <T> int compare(T obj1, T obj2) {
-        if (obj1 == null) {
-            if (obj2 == null) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } else {
-            return ((Comparable<T>) obj1).compareTo(obj2);
-        }
-    }
-    
     public static <T> int compare(Comparable<T> obj1, T obj2) {
         if (obj1 == null) {
             if (obj2 == null) {
@@ -79,6 +67,19 @@ public class UtilMisc {
         } else {
             return obj1.compareTo(obj2);
         }
+    }
+    
+    public static <E> int compare(List<E> obj1, List<E> obj2) {
+        if (obj1 == obj2) {
+            return 0;
+        }
+        try {
+            if (obj1.size() == obj2.size() && obj1.containsAll(obj2) && obj2.containsAll(obj1)) {
+                return 0;
+            }
+            
+        } catch (Exception e) {}
+        return 1;
     }
     
     /**

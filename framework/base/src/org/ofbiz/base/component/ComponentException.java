@@ -24,6 +24,7 @@ import org.ofbiz.base.config.*;
  * ComponentException
  *
  */
+@SuppressWarnings("serial")
 public class ComponentException extends GenericConfigException {
 
     public ComponentException() {

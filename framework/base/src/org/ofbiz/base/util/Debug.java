@@ -97,9 +97,9 @@ public final class Debug {
                 levelOnCache[x] = true;
             }
             LoggerRepository repo = root.getLoggerRepository();
-            Enumeration en = repo.getCurrentLoggers();
+            Enumeration<Logger> en = UtilGenerics.cast(repo.getCurrentLoggers());
             while (en.hasMoreElements()) {
-                Logger thisLogger = (Logger) en.nextElement();
+                Logger thisLogger = en.nextElement();
                 thisLogger.setLevel(Level.DEBUG);
             }
         }
@@ -384,9 +384,9 @@ public final class Debug {
 
         Appender foundAppender = logger.getAppender(name);
         if (foundAppender == null) {
-            Enumeration currentLoggerEnum = Logger.getRootLogger().getLoggerRepository().getCurrentLoggers();
+            Enumeration<Logger> currentLoggerEnum = UtilGenerics.cast(Logger.getRootLogger().getLoggerRepository().getCurrentLoggers());
             while (currentLoggerEnum.hasMoreElements() && foundAppender == null) {
-                Logger log = (Logger) currentLoggerEnum.nextElement();
+                Logger log = currentLoggerEnum.nextElement();
                 foundAppender = log.getAppender(name);
             }
         } else {

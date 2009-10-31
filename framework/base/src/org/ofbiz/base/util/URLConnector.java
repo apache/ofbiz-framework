@@ -18,16 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.Base64;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.GeneralSecurityException;
 
-import javax.net.ssl.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * URLConnector.java

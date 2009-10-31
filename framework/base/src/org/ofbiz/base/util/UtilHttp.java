@@ -292,7 +292,7 @@ public class UtilHttp {
         Map<String, Object> attributeMap = FastMap.newInstance();
 
         // look at all request attributes
-        Enumeration requestAttrNames = request.getAttributeNames();
+        Enumeration<String> requestAttrNames = UtilGenerics.cast(request.getAttributeNames());
         while (requestAttrNames.hasMoreElements()) {
             String attrName = (String) requestAttrNames.nextElement();
             if (namesToSkip != null && namesToSkip.contains(attrName))
@@ -327,9 +327,9 @@ public class UtilHttp {
         HttpSession session = request.getSession();
 
         // look at all the session attributes
-        Enumeration sessionAttrNames = session.getAttributeNames();
+        Enumeration<String> sessionAttrNames = UtilGenerics.cast(session.getAttributeNames());
         while (sessionAttrNames.hasMoreElements()) {
-            String attrName = (String) sessionAttrNames.nextElement();
+            String attrName = sessionAttrNames.nextElement();
             if (namesToSkip != null && namesToSkip.contains(attrName))
                 continue;
 
@@ -362,9 +362,9 @@ public class UtilHttp {
 
         // look at all servlet context attributes
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
-        Enumeration applicationAttrNames = servletContext.getAttributeNames();
+        Enumeration<String> applicationAttrNames = UtilGenerics.cast(servletContext.getAttributeNames());
         while (applicationAttrNames.hasMoreElements()) {
-            String attrName = (String) applicationAttrNames.nextElement();
+            String attrName = applicationAttrNames.nextElement();
             if (namesToSkip != null && namesToSkip.contains(attrName))
                 continue;
 
@@ -485,9 +485,9 @@ public class UtilHttp {
 
     public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String suffix, String prefix) {
         List<Object> paramList = new ArrayList<Object>();
-        Enumeration parameterNames = request.getParameterNames();
+        Enumeration<String> parameterNames = UtilGenerics.cast(request.getParameterNames());
         while (parameterNames.hasMoreElements()) {
-            String parameterName = (String) parameterNames.nextElement();
+            String parameterName = parameterNames.nextElement();
             if (parameterName.endsWith(suffix)) {
                 if (prefix != null && prefix.length() > 0) {
                     if (parameterName.startsWith(prefix)) {
@@ -556,9 +556,9 @@ public class UtilHttp {
      * @param request
      */
     public static void parametersToAttributes(HttpServletRequest request) {
-        java.util.Enumeration e = request.getParameterNames();
+        java.util.Enumeration<String> e = UtilGenerics.cast(request.getParameterNames());
         while (e.hasMoreElements()) {
-            String name = (String) e.nextElement();
+            String name = e.nextElement();
             request.setAttribute(name, request.getParameter(name));
         }
     }
@@ -587,9 +587,9 @@ public class UtilHttp {
 
         // next see if the userLogin has a value
         if (localeObject == null) {
-            Map userLogin = (Map) session.getAttribute("userLogin");
+            Map<?, ?> userLogin = (Map<?, ?>) session.getAttribute("userLogin");
             if (userLogin == null) {
-                userLogin = (Map) session.getAttribute("autoUserLogin");
+                userLogin = (Map<?,?>) session.getAttribute("autoUserLogin");
             }
 
             if (userLogin != null) {
@@ -658,9 +658,9 @@ public class UtilHttp {
         TimeZone timeZone = (TimeZone) session.getAttribute("timeZone");
         if (timeZone == null) {
             String tzId = null;
-            Map userLogin = (Map) session.getAttribute("userLogin");
+            Map<String, String> userLogin = UtilGenerics.cast(session.getAttribute("userLogin"));
             if (userLogin != null) {
-                tzId = (String) userLogin.get("lastTimeZone");
+                tzId = userLogin.get("lastTimeZone");
             }
             timeZone = UtilDateTime.toTimeZone(tzId);
             session.setAttribute("timeZone", timeZone);
@@ -679,9 +679,9 @@ public class UtilHttp {
 
         // check userLogin next, ie if nothing to override in the session
         if (iso == null) {
-            Map userLogin = (Map) session.getAttribute("userLogin");
+            Map<String, ?> userLogin = UtilGenerics.cast(session.getAttribute("userLogin"));
             if (userLogin == null) {
-                userLogin = (Map) session.getAttribute("autoUserLogin");
+                userLogin = UtilGenerics.cast(session.getAttribute("autoUserLogin"));
             }
 
             if (userLogin != null) {
@@ -1179,8 +1179,8 @@ public class UtilHttp {
 
         // collect the composite fields into a map
         Map<String, String> data = FastMap.newInstance();
-        for (Enumeration names = request.getParameterNames(); names.hasMoreElements();) {
-            String name = (String) names.nextElement();
+        for (Enumeration<String> names = UtilGenerics.cast(request.getParameterNames()); names.hasMoreElements();) {
+            String name = names.nextElement();
             if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) continue;
 
             // extract the suffix of the composite name
@@ -1288,8 +1288,6 @@ public class UtilHttp {
     /** Returns the number or rows submitted by a multi form.
      */
     public static int getMultiFormRowCount(HttpServletRequest request) {
-        // The number of multi form rows is computed selecting the maximum index
-        int rowCount = 0;
         return UtilHttp.getMultiFormRowCount(UtilHttp.getParameterMap(request));
     }
     /** Returns the number or rows submitted by a multi form.

@@ -34,6 +34,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
  * list elements. See individual Map operations for more information.
  *
  */
+@SuppressWarnings("serial")
 public class FlexibleServletAccessor<T> implements Serializable {
 
     protected String name;
@@ -170,7 +171,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FlexibleServletAccessor) {
-            FlexibleServletAccessor flexibleServletAccessor = (FlexibleServletAccessor) obj;
+            FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
             if (this.name == null) {
                 return flexibleServletAccessor.name == null;
             }
@@ -248,7 +249,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         public T get(ServletRequest request) {
             Object theValue = null;
             if (isListReference) {
-                List lst = (List) request.getAttribute(attributeName);
+                List<T> lst = UtilGenerics.cast(request.getAttribute(attributeName));
                 theValue = lst.get(listIndex);
             } else {
                 theValue = request.getAttribute(attributeName);
@@ -264,7 +265,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         public T get(HttpSession session) {
             Object theValue = null;
             if (isListReference) {
-                List lst = (List) session.getAttribute(attributeName);
+                List<T> lst = UtilGenerics.cast(session.getAttribute(attributeName));
                 theValue = lst.get(listIndex);
             } else {
                 theValue = session.getAttribute(attributeName);

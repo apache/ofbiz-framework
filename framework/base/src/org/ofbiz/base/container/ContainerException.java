@@ -23,6 +23,7 @@ import org.ofbiz.base.config.*;
 /**
  * ContainerException
  */
+@SuppressWarnings("serial")
 public class ContainerException extends GenericConfigException {
 
     public ContainerException() {

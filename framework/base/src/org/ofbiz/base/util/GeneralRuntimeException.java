@@ -25,6 +25,7 @@ import java.io.PrintWriter;
  * Base OFBiz Runtime Exception, provides nested exceptions, etc
  *
  */
+@SuppressWarnings("serial")
 public class GeneralRuntimeException extends RuntimeException {
 
     Throwable nested = null;

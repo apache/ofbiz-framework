@@ -54,7 +54,7 @@ public class JunitContainer implements Container {
         TestSuite suite = new TestSuite();
         while (ti.hasNext()) {
             ContainerConfig.Container.Property prop = ti.next();
-            Class clz = null;
+            Class<?> clz = null;
             try {
                 clz = ObjectType.loadClass(prop.value);
                 suite.addTestSuite(clz);
@@ -74,7 +74,7 @@ public class JunitContainer implements Container {
                 results.failureCount() + " # Errors: " + results.errorCount(), module);
         if (Debug.infoOn()) {
             Debug.log("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
-            Enumeration err = results.errors();
+            Enumeration<?> err = results.errors();
             if (!err.hasMoreElements()) {
                 Debug.log("None");
             } else {
@@ -84,7 +84,7 @@ public class JunitContainer implements Container {
             }
             Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
             Debug.log("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
-            Enumeration fail = results.failures();
+            Enumeration<?> fail = results.failures();
             if (!fail.hasMoreElements()) {
                 Debug.log("None");
             } else {

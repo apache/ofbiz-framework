@@ -21,7 +21,6 @@ package org.ofbiz.base.container;
 import org.ofbiz.base.component.AlreadyLoadedException;
 import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.

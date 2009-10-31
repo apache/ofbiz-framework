@@ -388,9 +388,9 @@ public class FreeMarkerWorker {
                 Debug.logInfo(e.getMessage(), module);
                 return returnObj;
             }
-            Map ctx = null;
+            Map<String, ?> ctx = null;
             if (ctxObj instanceof BeanModel) {
-                ctx = (Map)((BeanModel)ctxObj).getWrappedObject();
+                ctx = UtilGenerics.cast(((BeanModel)ctxObj).getWrappedObject());
             returnObj = ctx.get(key);
             }
             /*

@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
  * Contains resource information and provides for loading data
  *
  */
+@SuppressWarnings("serial")
 public class ComponentResourceHandler implements ResourceHandler {
 
     public static final String module = ComponentResourceHandler.class.getName();

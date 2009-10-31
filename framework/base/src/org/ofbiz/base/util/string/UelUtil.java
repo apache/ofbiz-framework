@@ -371,7 +371,6 @@ public class UelUtil {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     public static Object resolveVariable(String variable, Map<String, Object> variables, Locale locale) {
         Object obj = null;
         String createObjectType = null;

@@ -725,7 +725,7 @@ public class StringUtil {
         protected static final ObjectFactory<HtmlEncodingMapWrapper<?>> mapStackFactory = new ObjectFactory<HtmlEncodingMapWrapper<?>>() {
             @Override
             protected HtmlEncodingMapWrapper<?> create() {
-                return new HtmlEncodingMapWrapper();
+                return new HtmlEncodingMapWrapper<Object>();
             }
         };
         public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {

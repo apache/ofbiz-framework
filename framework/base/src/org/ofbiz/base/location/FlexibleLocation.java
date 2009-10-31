@@ -96,7 +96,7 @@ public class FlexibleLocation {
 
                     // now create a new instance of the class...
                     try {
-                        Class lClass = null;
+                        Class<?> lClass = null;
 
                         try {
                             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
