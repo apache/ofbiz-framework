@@ -1919,12 +1919,12 @@ public class PosTransaction implements Serializable {
 
             if (UtilValidate.isNotEmpty(email)) {
             // Update email             
-                String infoString = null;
                 svcCtx.clear();
                 svcCtx.put("partyId", partyId);
                 svcCtx.put("thruDate", null); // last one            
                 svcCtx.put("contactMechTypeId", "EMAIL_ADDRESS");            
                 String contactMechId = null;
+                String infoString = null;
                 try {
                     List<GenericValue>  PartyEmails = session.getDelegator().findByAnd("PartyAndContactMech", svcCtx);
                     if (UtilValidate.isNotEmpty(PartyEmails)) {

@@ -76,8 +76,8 @@
         <value xml:lang="zh">收银员:</value>
     </property>
     <property key="PosClientProfile">
-        <value xml:lang="en">Client informations, selection adds the card number as a promo code</value>
-        <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code promo</value>
+        <value xml:lang="en">Customer informations, selection adds the card number as a promo code</value>
+        <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code de promotion.</value>
     </property>
     <property key="PosConfigureItem">
         <value xml:lang="en">Item Configuration</value>
@@ -311,7 +311,7 @@
         <value xml:lang="zh">你可以双击鼠标来替换当前的销售并删除这个</value>
     </property>
     <property key="PosNoClientProfile">
-        <value xml:lang="en">Any client profile to update</value>
+        <value xml:lang="en">Any customer profile to update</value>
         <value xml:lang="fr">Aucun client à mettre à jour</value>
     </property>    
     <property key="PosOpDrAm">
@@ -432,7 +432,7 @@
         <value xml:lang="zh">选择一个产品</value>
     </property>
     <property key="PosSelectClientToEdit">
-        <value xml:lang="en">Select a client to edit or select</value>
+        <value xml:lang="en">Select a customer to edit or select</value>
         <value xml:lang="fr">Choisissez le client à modifier ou à sélectionner</value>
     </property>
     <property key="PosSelectProductListDblClickTip">
