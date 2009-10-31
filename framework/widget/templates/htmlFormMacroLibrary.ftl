@@ -123,7 +123,7 @@ ${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if
 <#if ajaxEnabled>
 _description"<#if id?has_content> id="${id}_description"</#if><#if currentValue?has_content> value="${explicitDescription}"</#if>/><#rt/>
 <input type="hidden" name="${name}"<#if id?has_content> id="${id}"</#if><#if currentValue?has_content> value="${currentValue}"</#if>/><#rt/>
-<script language="JavaScript" type="text/javascript">var data = {${ajaxOptions}};ajaxAutoCompleteDropDown('<#if id?has_content>${id}_description</#if>','${id}',data,{autoSelect:${autoSelect},frequency:${frequency},minChars:${minChars},choices:${choices},partialSearch:${partialSearch},partialChars:${partialChars},ignoreCase:${ignoreCase},fullSearch:${fullSearch});</script>
+<script language="JavaScript" type="text/javascript">var data = {${ajaxOptions}};ajaxAutoCompleteDropDown('<#if id?has_content>${id}_description</#if>','${id}',data,{autoSelect:${autoSelect},frequency:${frequency},minChars:${minChars},choices:${choices},partialSearch:${partialSearch},partialChars:${partialChars},ignoreCase:${ignoreCase},fullSearch:${fullSearch}});</script>
 <#else>
 " <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if>>
 <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
