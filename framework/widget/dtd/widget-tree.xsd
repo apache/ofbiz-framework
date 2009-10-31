@@ -143,6 +143,7 @@ under the License.
     <xs:element name="link">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
                 <xs:element minOccurs="0" ref="image"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.link"/>
@@ -192,6 +193,16 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="parameter">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.parameter"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.parameter">
+        <xs:attribute type="xs:string" name="param-name" use="required"/>
+        <xs:attribute type="xs:string" name="from-field"/>
+        <xs:attribute type="xs:string" name="value"/>
+    </xs:attributeGroup>    
     <xs:element name="image">
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.image"/>
