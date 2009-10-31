@@ -22,7 +22,6 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -604,7 +603,7 @@ public class PosTransaction implements Serializable {
         }
         for(String productId : skuDiscounts.keySet()) {
             ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
-            Integer itemAdj = (Integer) skuDiscounts.remove(productId);
+            Integer itemAdj = skuDiscounts.remove(productId);
             if (itemAdj != null) {
                 item.removeAdjustment(itemAdj.intValue());
             }
@@ -700,7 +699,7 @@ public class PosTransaction implements Serializable {
             boolean isExternal = true;
             Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
-                GenericValue v = (GenericValue) i.next();
+                GenericValue v = i.next();
                 //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;
@@ -828,7 +827,7 @@ public class PosTransaction implements Serializable {
                  this.orderId = (String) orderRes.get("orderId");
              }
          } else { // if the order has already been created
-             Map changeMap = UtilMisc.toMap("itemReasonMap",
+             Map<?, ?> changeMap = UtilMisc.toMap("itemReasonMap",
                      UtilMisc.toMap("reasonEnumId", "EnumIdHere"), // TODO: where does this come from?
                      "itemCommentMap", UtilMisc.toMap("changeComments", "change Comments here")); //TODO
 
@@ -934,7 +933,7 @@ public class PosTransaction implements Serializable {
 
     public void appendItemDataModel(XModel model) {
         if (cart != null) {
-            Iterator i = cart.iterator();
+            Iterator<?> i = cart.iterator();
             while (i.hasNext()) {
                 ShoppingCartItem item = (ShoppingCartItem) i.next();
                 BigDecimal quantity = item.getQuantity();
@@ -987,7 +986,7 @@ public class PosTransaction implements Serializable {
             List<GenericValue> adjustments = cart.getAdjustments();
             BigDecimal itemsAdjustmentsAmount = BigDecimal.ZERO;
             
-            Iterator i = cart.iterator();
+            Iterator<?> i = cart.iterator();
             while (i.hasNext()) {
                 ShoppingCartItem item = (ShoppingCartItem) i.next();
                 BigDecimal adjustment = item.getOtherAdjustments();
@@ -1485,8 +1484,8 @@ public class PosTransaction implements Serializable {
     private List<Map<String, String>> searchContactMechs(Delegator delegator, PosScreen pos, List<Map<String, String>> partyList, String valueToCompare, String contactMechType) {
         ListIterator<Map<String, String>>  partyListIt = partyList.listIterator();
         while(partyListIt.hasNext()) {
-            Map<String, String> party = (Map<String, String>) partyListIt.next();
-            String partyId = (String) party.get("partyId");
+            Map<String, String> party = partyListIt.next();
+            String partyId = party.get("partyId");
             List<Map<String, Object>> partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, false, contactMechType);
             Integer nb = 0;
             for (Map<String, Object> partyContactMechValueMap : partyContactMechValueMaps) {
