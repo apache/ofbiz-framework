@@ -17,16 +17,24 @@
  * under the License.
  */
 
-import org.ofbiz.webapp.website.WebSiteWorker;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
-webSite = WebSiteWorker.getWebSite(request);
-if (webSite) {
-    productStoreId = webSite.productStoreId;
-    context.productStoreId = productStoreId;
-    if (productStoreId) {
-        googleBaseConfig = delegator.findOne("GoogleBaseConfig", [productStoreId : productStoreId], false);
-        if (googleBaseConfig) {
-            context.webSiteUrl = googleBaseConfig.webSiteUrl;
-        }
+webSiteList = [];
+webSite = null;
+if (parameters.productStoreId) {
+    productStoreId = parameters.productStoreId;
+    webSiteList = delegator.findList("WebSite", EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId), null, null, null, false);
+    if (parameters.webSiteId) {
+        webSite = delegator.findOne("WebSite", ["webSiteId" : parameters.webSiteId], true);
+        context.webSiteId = parameters.webSiteId;
+    } else if (webSiteList) {
+        webSite = EntityUtil.getFirst(webSiteList);
+        context.webSiteId = webSite.webSiteId;
     }
+    context.productStoreId = productStoreId;
+    context.webSiteList = webSiteList;
+    context.webSiteUrl = webSite.standardContentPrefix;
+    parameters.webSiteUrl = webSite.standardContentPrefix;;
 }

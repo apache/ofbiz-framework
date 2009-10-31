@@ -49,16 +49,13 @@ under the License.
         <field name="accountEmail" type="name"><description>Gmail Account for logging into Google Base</description></field>
         <field name="accountPassword" type="name" encrypt="true"></field>
         <field name="postItemsUrl" type="value"><description>All the items should be posted to this url</description></field>
-        <field name="webSiteUrl" type="value">
-            <description>
-                This will be the URL where products will be present. In short we can say Merchant Website. 
-                This URL will be same as that of the "Website URL" present in basic settings inside Google Base account.
-                Please refer this page after logging with your user credentails: http://www.google.com/base/basicsettings
-            </description>
-        </field>
+        <field name="webSiteId" type="id-ne"></field>
         <prim-key field="productStoreId"/>      
         <relation type="one" fk-name="GBS_PROD_STORE" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="GBS_WEBSITE" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
         </relation>
     </entity>
 </entitymodel>    

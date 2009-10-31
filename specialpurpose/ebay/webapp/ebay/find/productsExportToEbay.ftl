@@ -22,6 +22,12 @@ under the License.
          document.forms["ProductsExportToEbay"].submit();
      }
 
+    function changeWebSite(Id) {
+        var formId = Id ;
+        formId.action="<@ofbizUrl>ProductsExportToEbay</@ofbizUrl>";
+        formId.submit();
+    }
+
      function activateSubmitButton() {
          categ = document.forms["ProductsExportToEbay"].ebayCategory.value;
          if (categ != null && (categ.substring(0, 1) == 'Y' || categ == '')) {
@@ -33,7 +39,7 @@ under the License.
     }
 </script>
 <div>
-    <form method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
+    <form id="ProductsExportToEbay" method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
         <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}">
         <table border="0" cellpadding="2" cellspacing="0">
              <tr>
@@ -99,6 +105,21 @@ under the License.
             </tr>
             <tr>
                 <td align="right" class="label">${uiLabelMap.CommonWebsite}</td>
+                <td>&nbsp;</td>
+                <td>
+                  <select name="webSiteId" onchange="javascript:changeWebSite($('ProductsExportToEbay'));">
+                    <#list webSiteList as webSite>
+                      <#assign displayDesc = webSite.siteName?default("${uiLabelMap.ProductNoDescription}")>
+                      <#if (18 < displayDesc?length)>
+                        <#assign displayDesc = displayDesc[0..15] + "...">
+                      </#if>
+                      <option value="${webSite.webSiteId}" <#if selectedWebSiteId?if_exists == webSite.webSiteId> selected="selected"</#if>>${displayDesc} [${webSite.webSiteId}]</option>
+                    </#list>
+                  </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_webSiteUrl}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="webSiteUrl" size="100" value="${webSiteUrl?if_exists}"/>

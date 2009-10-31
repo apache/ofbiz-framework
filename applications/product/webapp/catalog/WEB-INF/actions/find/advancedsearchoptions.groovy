@@ -18,13 +18,23 @@
  */
 
 import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.*
+import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.feature.*
 import org.ofbiz.product.product.*
 import org.ofbiz.product.store.ProductStoreWorker;
 
+categoryIds = [];
+prodCatalogList = [];
+categoryList = [];
+
 searchCategoryId = parameters.SEARCH_CATEGORY_ID;
-productStoreId = ProductStoreWorker.getProductStoreId(request);
+if (parameters.productStoreId) {
+    productStoreId = parameters.productStoreId;
+} else {
+    productStoreId = ProductStoreWorker.getProductStoreId(request);
+}
 if ((!searchCategoryId || searchCategoryId.length() == 0) && !productStoreId) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
@@ -52,6 +62,39 @@ supplerPartyRoleAndPartyDetails = delegator.findList("PartyRoleAndPartyDetail", 
 // get the GoodIdentification types
 goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, ['description'], null, false);
 
+//get all productStoreIds used in EbayConfig
+ebayConfigList = delegator.findList("EbayConfig", null, null, null, null, false);
+
+//get all productStoreIds used in GoogleBaseConfig
+googleBaseConfigList = delegator.findList("GoogleBaseConfig", null, null, null, null, false);
+
+if (productStoreId) {
+    productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
+    if (productStoreCatalogs) {
+        productStoreCatalogs.each { productStoreCatalog ->
+            prodCatalog = delegator.findOne("ProdCatalog", [prodCatalogId : productStoreCatalog.prodCatalogId], true);
+            prodCatalogList.add(prodCatalog);
+        }
+    }
+}
+if (parameters.SEARCH_CATALOG_ID) {
+    CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, parameters.SEARCH_CATALOG_ID), true);
+    if (request.getAttribute("topLevelList")) {
+       categoryList = request.getAttribute("topLevelList");
+    }
+    context.searchCatalogId = parameters.SEARCH_CATALOG_ID;
+} else if (prodCatalogList) {
+    catalog = EntityUtil.getFirst(prodCatalogList);
+    context.searchCatalogId = catalog.prodCatalogId;
+    CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, catalog.prodCatalogId), true);
+    if (request.getAttribute("topLevelList")) {
+       categoryList = request.getAttribute("topLevelList");
+    }
+}
+if (categoryList) {
+    categoryIds = EntityUtil.getFieldListFromEntityList(categoryList, "productCategoryId", true);
+}
+
 context.searchCategoryId = searchCategoryId;
 context.searchCategory = searchCategory;
 context.productFeaturesByTypeMap = productFeaturesByTypeMap;
@@ -61,3 +104,8 @@ context.searchConstraintStrings = searchConstraintStrings;
 context.searchSortOrderString = searchSortOrderString;
 context.supplerPartyRoleAndPartyDetails = supplerPartyRoleAndPartyDetails;
 context.goodIdentificationTypes = goodIdentificationTypes;
+context.ebayConfigList = ebayConfigList;
+context.googleBaseConfigList = googleBaseConfigList;
+context.categoryIds = categoryIds;
+context.productStoreId = productStoreId;
+context.prodCatalogList = prodCatalogList;

@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle"
+    <form id="productsExportToGoogle" name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
         <field name="selectResult"><hidden/></field>
@@ -30,6 +30,11 @@ under the License.
                 <option key="GB" description="${uiLabelMap.GoogleBaseExportCountryCodeGB}"/>
                 <option key="DE" description="${uiLabelMap.GoogleBaseExportCountryCodeDE}"/>
                 <option key="IT" description="${uiLabelMap.GoogleBaseExportCountryCodeIT}"/>
+            </drop-down>
+        </field>
+        <field name="webSiteId" event="onChange" action="javascript:$('productsExportToGoogle').action='${persistAction}';$('productsExportToGoogle').submit();">
+            <drop-down current="selected">
+                <list-options list-name="webSiteList" key-name="webSiteId" description="${siteName}"/>
             </drop-down>
         </field>
         <field name="webSiteUrl"><text size="50" maxlength="250" default-value="${webSiteUrl}"/></field>
