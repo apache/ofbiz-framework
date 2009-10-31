@@ -36,7 +36,7 @@ under the License.
         <Button name="mgrOpenTerm" x="510" y="62" w="100" h="60" style="posButton" content="OPEN" alignment="Center"/>
 
         <!-- line 3 -->
-        <Button name="mgrVoidSale" x="0" y="124" w="100" h="60" style="posButton" content="VOID_SALE" alignment="Center"/>
+        <Button name="mgrVoidSale" x="0" y="124" w="100" h="60" style="posButton" content="VOID_A_SALE" alignment="Center"/>
         <Button name="" x="102" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="mgrPaidOut" x="204" y="124" w="100" h="60" style="posButton" content="PAID_OUT" alignment="Center"/>
         <Button name="mgrPaidIn" x="306" y="124" w="100" h="60" style="posButton" content="PAID_IN" alignment="Center"/>
