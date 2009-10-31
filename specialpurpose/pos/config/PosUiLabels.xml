@@ -78,6 +78,7 @@
     <property key="PosClientProfile">
         <value xml:lang="en">Customer informations, selection adds the card number as a promo code</value>
         <value xml:lang="fr">Informations sur le client, sa sélection entraîne celle de son n° de carte comme code de promotion.</value>
+        <value xml:lang="zh">客户资料,选择添加卡号作为优惠券代码</value>
     </property>
     <property key="PosConfigureItem">
         <value xml:lang="en">Item Configuration</value>
@@ -134,6 +135,7 @@
     <property key="PosCustomer">
         <value xml:lang="en">Customer:</value>
         <value xml:lang="fr">Client :</value>
+        <value xml:lang="zh">客户:</value>
     </property>
     <property key="PosDate">
         <value xml:lang="en">DATE</value>
@@ -313,6 +315,7 @@
     <property key="PosNoClientProfile">
         <value xml:lang="en">Any customer profile to update</value>
         <value xml:lang="fr">Aucun client à mettre à jour</value>
+        <value xml:lang="zh">更新客户资料</value>
     </property>    
     <property key="PosOpDrAm">
         <value xml:lang="en">Starting Drawer Amount:</value>
@@ -353,6 +356,7 @@
     <property key="PosPhoneField5Required">
         <value xml:lang="en">The phone number must be at least 5 characters long (also used as password).</value>
         <value xml:lang="fr">Le n° de téléphone doit être au moins de 5 caractèrs (sert aussi de mot de passe).</value>
+        <value xml:lang="zh">电话号码必须有五位数字以上(也作为密码用途)</value>
     </property>
     <property key="PosPostalCode">
         <value xml:lang="en">Enter the billing postal code:</value>
@@ -371,6 +375,7 @@
     <property key="PosPromoCode">
         <value xml:lang="en">Promo code:</value>
         <value xml:lang="fr">Code de promotion :</value>
+        <value xml:lang="zh">优惠券代码:</value>
     </property>    
     <property key="PosQty">
         <value xml:lang="en">QTY</value>
@@ -434,6 +439,7 @@
     <property key="PosSelectClientToEdit">
         <value xml:lang="en">Select a customer to edit or select</value>
         <value xml:lang="fr">Choisissez le client à modifier ou à sélectionner</value>
+        <value xml:lang="zh">选择编辑客户资料</value>
     </property>
     <property key="PosSelectProductListDblClickTip">
         <value xml:lang="en">You may use a double click to select the current product</value>
@@ -468,10 +474,12 @@
     <property key="PosTipNameRadioContains">
         <value xml:lang="en">To look for names which contain the name entered</value>
         <value xml:lang="fr">Pour rechercher des noms contenant celui entré</value>
+        <value xml:lang="zh">用部分名字去查找全名</value>
     </property>    
     <property key="PosTipNameRadioEquals">
         <value xml:lang="en">To look for names strictly equals to the name entered</value>
         <value xml:lang="fr">Pour rechercher des noms exactement égaux à celui entré</value>
+        <value xml:lang="zh">查找的名字需要与资料一致</value>
     </property>    
     <property key="PosTotal">
         <value xml:lang="en">TOTAL</value>
@@ -540,10 +548,12 @@
     <property key="PosVirtualKeyboardTitle">
         <value xml:lang="en">To inactivate the virtual keyboard: 1. Permanently, parameters.properties file. 2. Temporarily, button VIRTUAL on Admin Panel.</value>
         <value xml:lang="fr">Pour désactiver le clavier virtuel : 1. En permanence, fichier parameters.properties. 2. Temporairement, bouton Clavier virtuel du panneau Gestion.</value>
+        <value xml:lang="zh">关闭虚拟键盘: 1.永远的,parameters.properties 文件. 2.临时的,控制页面的[虚拟键盘]按钮</value>
     </property>        
     <property key="PosVirtualNumPadTitle">
         <value xml:lang="en">To inactivate: see virtual keyboard.</value>
         <value xml:lang="fr">Pour désactiver voir le clavier virtuel.</value>
+        <value xml:lang="zh">要关闭: 看虚拟键盘</value>
     </property>        
     <property key="PosVoid">
         <value xml:lang="en">Enter Order Number To Void:</value>
