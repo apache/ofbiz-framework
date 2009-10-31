@@ -27,6 +27,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+@SuppressWarnings("serial")
 public final class SplashScreen extends Frame {
 
     private final String fImageId;

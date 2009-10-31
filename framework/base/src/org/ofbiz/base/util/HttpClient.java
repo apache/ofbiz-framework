@@ -28,6 +28,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -477,7 +478,7 @@ public class HttpClient {
             }
 
             if (Debug.verboseOn() || debug) {
-                Map headerFields = con.getHeaderFields();
+                Map<String, List<String>> headerFields = con.getHeaderFields();
                 Debug.log("Header Fields : " + headerFields, module);
             }
 

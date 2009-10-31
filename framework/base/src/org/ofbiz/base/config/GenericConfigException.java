@@ -24,6 +24,7 @@ import org.ofbiz.base.util.*;
  * GenericConfigException
  *
  */
+@SuppressWarnings("serial")
 public class GenericConfigException extends GeneralException {
 
     public GenericConfigException() {

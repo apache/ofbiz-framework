@@ -27,6 +27,7 @@ import org.ofbiz.base.util.UtilObject;
  * (needed do to the fact that we do dynamic class loading)
  *
  */
+@SuppressWarnings("serial")
 public class JdbmSerializer implements jdbm.helper.Serializer {
 
     public byte[] serialize(Object o) throws IOException {

@@ -197,7 +197,7 @@ public class UtilValidate {
     }
 
     /** Check whether collection c is empty. */
-    public static boolean isEmpty(Collection c) {
+    public static <E> boolean isEmpty(Collection<E> c) {
         return ((c == null) || (c.size() == 0));
     }
 
@@ -207,7 +207,7 @@ public class UtilValidate {
     }
 
     /** Check whether collection c is NOT empty. */
-    public static boolean isNotEmpty(Collection c) {
+    public static <E> boolean isNotEmpty(Collection<E> c) {
         return ((c != null) && (c.size() > 0));
     }
 

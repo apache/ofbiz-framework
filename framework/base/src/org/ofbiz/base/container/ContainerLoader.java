@@ -18,16 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.container;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
-import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Debug;
 
 /**
@@ -143,7 +142,6 @@ public class ContainerLoader implements StartupLoader {
                 ThreadGroup g = t.getThreadGroup();
                 out.println("Thread: " + t.getName() + " [" + t.getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + t.getPriority() + " [" + t.getState().name() + "]");
                 out.println("--- Alive: " + t.isAlive() + " Daemon: " + t.isDaemon());
-                StackTraceElement[] stacks = t.getStackTrace();
                 for (StackTraceElement stack: t.getStackTrace()) {
                     out.println("### " + stack.toString());
                 }
@@ -159,7 +157,7 @@ public class ContainerLoader implements StartupLoader {
             Debug.logWarning("Unable to get context classloader; using system", module);
             loader = ClassLoader.getSystemClassLoader();
         }
-        Class containerClass = null;
+        Class<?> containerClass = null;
         try {
             containerClass = loader.loadClass(containerCfg.className);
         } catch (ClassNotFoundException e) {

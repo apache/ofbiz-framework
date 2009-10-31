@@ -100,7 +100,7 @@ public class UtilJavaParse {
         int nextOpen = javaFile.indexOf("{", blockStart+1);
         int nextClose = javaFile.indexOf("}", blockStart+1);
         if (nextOpen > 0 && nextClose > 0 && nextClose > nextOpen) {
-            String javaFragment = javaFile.substring(nextOpen, nextClose);
+            javaFile.substring(nextOpen, nextClose);
         }
         // if no close, end with couldn't find
         if (nextClose < 0) return -1;

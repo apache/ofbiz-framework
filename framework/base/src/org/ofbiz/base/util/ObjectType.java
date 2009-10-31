@@ -90,7 +90,7 @@ public class ObjectType {
                }
                className = "[" + prefix;
             } else {
-                Class arrayClass = loadClass(className.replace("[]", ""), loader);
+                Class<?> arrayClass = loadClass(className.replace("[]", ""), loader);
                 className = "[L" + arrayClass.getName().replace("[]", "") + ";";
             }
         }
@@ -182,7 +182,7 @@ public class ObjectType {
             sig[i] = parameters[i].getClass();
         }
         Class<?> c = loadClass(className);
-        Constructor con = c.getConstructor(sig);
+        Constructor<?> con = c.getConstructor(sig);
         Object o = con.newInstance(parameters);
 
         if (Debug.verboseOn()) Debug.logVerbose("Instantiated object: " + o.toString(), module);
@@ -958,17 +958,17 @@ public class ObjectType {
             }
         } else if (obj instanceof java.util.Map) {
             fromType = "Map";
-            Map map = (Map) obj;
+            Map<?,?> map = (Map<?,?>) obj;
             if ("Map".equals(type) || "java.util.Map".equals(type)) {
                 return map;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return map.toString();
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List<Map> tempList = FastList.newInstance();
+                List<Map<?,?>> tempList = FastList.newInstance();
                 tempList.add(map);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set<Map> tempSet = FastSet.newInstance();
+                Set<Map<?,?>> tempSet = FastSet.newInstance();
                 tempSet.add(map);
                 return tempSet;
             } else {
@@ -976,7 +976,7 @@ public class ObjectType {
             }
         } else if (obj instanceof java.util.List) {
             fromType = "List";
-            List list = (List) obj;
+            List<?> list = (List<?>) obj;
             if ("List".equals(type) || "java.util.List".equals(type)) {
                 return list;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
@@ -1067,7 +1067,7 @@ public class ObjectType {
 
         // have converted value 2, now before converting value 1 see if it is a Collection and we are doing a contains comparison
         if ("contains".equals(operator) && value1 instanceof Collection) {
-            Collection col1 = (Collection) value1;
+            Collection<?> col1 = (Collection<?>) value1;
             return col1.contains(convertedValue2) ? Boolean.TRUE : Boolean.FALSE;
         }
 
@@ -1115,9 +1115,9 @@ public class ObjectType {
                 return Boolean.TRUE;
             if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0)
                 return Boolean.TRUE;
-            if (convertedValue1 instanceof List && ((List) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof List && ((List<?>) convertedValue1).size() == 0)
                 return Boolean.TRUE;
-            if (convertedValue1 instanceof Map && ((Map) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof Map && ((Map<?, ?>) convertedValue1).size() == 0)
                 return Boolean.TRUE;
             return Boolean.FALSE;
         } else if ("is-not-empty".equals(operator)) {
@@ -1125,9 +1125,9 @@ public class ObjectType {
                 return Boolean.FALSE;
             if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0)
                 return Boolean.FALSE;
-            if (convertedValue1 instanceof List && ((List) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof List && ((List<?>) convertedValue1).size() == 0)
                 return Boolean.FALSE;
-            if (convertedValue1 instanceof Map && ((Map) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof Map && ((Map<?, ?>) convertedValue1).size() == 0)
                 return Boolean.FALSE;
             return Boolean.TRUE;
         }
@@ -1236,11 +1236,11 @@ public class ObjectType {
                 return true;
             }
         } else if (value instanceof Collection) {
-            if (((Collection) value).size() == 0) {
+            if (((Collection<?>) value).size() == 0) {
                 return true;
             }
         } else if (value instanceof Map) {
-            if (((Map) value).size() == 0) {
+            if (((Map<?,?>) value).size() == 0) {
                 return true;
             }
         }

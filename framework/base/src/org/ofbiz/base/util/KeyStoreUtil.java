@@ -153,7 +153,7 @@ public class KeyStoreUtil {
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         ByteArrayInputStream bais = new ByteArrayInputStream(certChain);
 
-        Collection certCol = cf.generateCertificates(bais);
+        Collection<? extends Certificate> certCol = cf.generateCertificates(bais);
         Certificate[] certs = new Certificate[certCol.toArray().length];
         if (certCol.size() == 1) {
             Debug.log("Single certificate; no chain", module);

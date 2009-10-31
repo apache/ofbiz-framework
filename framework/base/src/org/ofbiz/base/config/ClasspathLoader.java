@@ -26,6 +26,7 @@ import org.ofbiz.base.util.*;
  * Loads resources from the classpath
  *
  */
+@SuppressWarnings("serial")
 public class ClasspathLoader extends ResourceLoader implements java.io.Serializable {
 
     @Override

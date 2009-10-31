@@ -26,6 +26,7 @@ import org.ofbiz.base.util.*;
  * Loads resources from the file system
  *
  */
+@SuppressWarnings("serial")
 public class FileLoader extends ResourceLoader implements java.io.Serializable {
 
     @Override

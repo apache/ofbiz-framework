@@ -24,6 +24,7 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.Debug;
 
+@SuppressWarnings("serial")
 public class CacheSoftReference<V> extends SoftReference<V> implements Serializable {
 
     public static final String module = CacheSoftReference.class.getName();

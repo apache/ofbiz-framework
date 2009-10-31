@@ -22,6 +22,7 @@ package org.ofbiz.base.component;
  * Component Already Loaded Exception
  *
  */
+@SuppressWarnings("serial")
 public class AlreadyLoadedException extends ComponentException {
 
     public AlreadyLoadedException() {

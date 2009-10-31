@@ -19,7 +19,6 @@
 package org.ofbiz.base.util.collections;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

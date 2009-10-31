@@ -134,7 +134,7 @@ public abstract class ResourceLoader {
         ResourceLoader loader = null;
 
         try {
-            Class lClass = null;
+            Class<?> lClass = null;
 
             if (className != null && className.length() > 0) {
                 try {

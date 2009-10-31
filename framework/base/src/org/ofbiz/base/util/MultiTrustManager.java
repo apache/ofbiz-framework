@@ -19,17 +19,17 @@
 
 package org.ofbiz.base.util;
 
-import javolution.util.FastList;
-
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.Certificate;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.util.List;
-import java.util.Iterator;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+import java.util.List;
+
+import javax.net.ssl.X509TrustManager;
+
+import javolution.util.FastList;
 
 /**
  * MultiTrustManager

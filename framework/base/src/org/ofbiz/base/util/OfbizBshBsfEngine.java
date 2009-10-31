@@ -63,6 +63,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
 
     public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshBsfParsedCache", 0, 0, false);
 
+    @SuppressWarnings("unchecked")
     @Override
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
@@ -136,6 +137,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
      * It executes the funcBody text in an "anonymous" method call with
      * arguments.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector namesVec, Vector argsVec) throws BSFException {
         if (namesVec.size() != argsVec.size()) throw new BSFException("number of params/names mismatch");
