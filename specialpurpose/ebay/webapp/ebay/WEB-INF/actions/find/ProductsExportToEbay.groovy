@@ -16,36 +16,50 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.webapp.website.WebSiteWorker;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
-webSite = WebSiteWorker.getWebSite(request);
-productStoreId = null; 
-if (webSite) {
-    productStoreId = webSite.productStoreId;
+webSiteList = [];
+webSite = null;
+if (parameters.productStoreId) {
+    productStoreId = parameters.productStoreId;
+    webSiteList = delegator.findList("WebSite", EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId), null, null, null, false);
+    if (parameters.webSiteId) {
+        webSite = delegator.findOne("WebSite", ["webSiteId" : parameters.webSiteId], true);
+        context.selectedWebSiteId = parameters.webSiteId;
+    } else if (webSiteList) {
+        webSite = EntityUtil.getFirst(webSiteList);
+        context.selectedWebSiteId = webSite.webSiteId;
+    }
     context.productStoreId = productStoreId;
-    eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
-    context.customXml = eBayConfig.customXml;
-    context.webSiteUrl = webSite.getString("standardContentPrefix");
-    
-    categoryCode = parameters.categoryCode;
-    context.categoryCode = categoryCode; 
-    userLogin = parameters.userLogin;
-    
-    if (productStoreId) {
-        results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
-    }
-    
-    if (results.categories) {
-        context.categories = results.categories;
-    }
-    
-    if (categoryCode) {
-        if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
-            context.hideExportOptions = "Y";
+    context.webSiteList = webSiteList;
+
+    if (webSite) {
+        eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
+        context.customXml = eBayConfig.customXml;
+        context.webSiteUrl = webSite.getString("standardContentPrefix");
+        
+        categoryCode = parameters.categoryCode;
+        context.categoryCode = categoryCode; 
+        userLogin = parameters.userLogin;
+        
+        if (productStoreId) {
+            results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
+        }
+        
+        if (results.categories) {
+            context.categories = results.categories;
+        }
+        
+        if (categoryCode) {
+            if (!"Y".equals(categoryCode.substring(0, 1)) && !"".equals(categoryCode)) {
+                context.hideExportOptions = "Y";
+            } else {
+                context.hideExportOptions = "N";
+            }
         } else {
             context.hideExportOptions = "N";
-        }
-    } else {
-        context.hideExportOptions = "N";
-    }    
+        }    
+    }
 }

@@ -29,16 +29,13 @@ under the License.
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
-                    <order-by field-name="catalogName"/>
-                </entity-condition>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/find/advancedsearch.ftl"/></html>
+                            <html><html-template location="component://googlebase/webapp/googlebase/find/GoogleBaseAdvancedSearch.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

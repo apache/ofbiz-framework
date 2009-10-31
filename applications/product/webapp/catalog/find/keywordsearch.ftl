@@ -93,6 +93,7 @@ under the License.
     </table>
 
     <form method="post" name="products">
+      <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
       <table cellspacing="0" class="basic-table">
         <#assign listIndex = lowIndex>
         <#assign rowClass = "2">
