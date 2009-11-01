@@ -22,7 +22,7 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
-	<property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
+  <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
 
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
@@ -39,22 +39,26 @@ under the License.
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
 
-    <target name="refresh">
+    <target name="refresh"
+      description="Clean all and rebuild">
         <antcall target="clean-all"/>
         <antcall target="build"/>
     </target>
 
-    <target name="clean-all">
+    <target name="clean-all"
+      description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
         <antcall target="clean-output"/>
         <antcall target="clean-xtra"/>
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
+        <antcall target="clean-tempfiles"/>
         <antcall target="clean"/>
     </target>
 
-    <target name="clean-data">
+    <target name="clean-data"
+      description="Clean all DB data (Derby and HSQL) under runtime/data">
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -62,43 +66,55 @@ under the License.
         <delete file="runtime/test-list-build.xml"/>
     </target>
 
-    <target name="clean-logs">
+    <target name="clean-logs"
+      description="Clean all logs in runtime/logs">
         <subant target="clean-logs">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
-    <target name="clean-output">
+    <target name="clean-output"
+      description="Clean runtime/output directory">
         <subant target="clean-output">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
-    <target name="clean-xtra">
+    <target name="clean-xtra"
+      description="Clean all other files like .rej, .orig, etc.">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
     </target>
 
-    <target name="clean-catalina">
+    <target name="clean-catalina"
+      description="Clean Catalina data in runtime/catalina/work">
         <subant target="clean-catalina">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
-    <target name="download-selenium" description="Download the selenium files">
-        <subant target="install-seleniumxml">
-            <filelist dir="." files="framework/testtools/build.xml"/>
-        </subant>
-    </target>
-
-    <target name="clean-cache"
-        description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
+   <target name="clean-cache"
+     description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
         <property file="framework/base/config/cache.properties"/>
         <echo message="NOTICE: deleting ${cache.file.store}.db"/>
         <delete file="${cache.file.store}.db" verbose="true"/>
     </target>
 
+    <target name="clean-tempfiles"
+      description="Remove files located in runtime/tempfiles (captcha, etc...)">
+        <subant target="clean-tempfiles">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="download-selenium" 
+      description="Download the selenium files">
+        <subant target="install-seleniumxml">
+            <filelist dir="." files="framework/testtools/build.xml"/>
+        </subant>
+    </target>
+  
     <target name="tests">
         <subant target="tests">
             <filelist dir="." files="framework/build.xml"/>
@@ -112,10 +128,12 @@ under the License.
             </fileset>
         </subant>
 
-        <subant target="clean"  failonerror="${specialpurpose.present}" description="Use failonerror=false in case the specialpurpose directory is not there">
+        <subant target="clean"  failonerror="${specialpurpose.present}" 
+          description="Use failonerror=false in case the specialpurpose directory is not there">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant target="clean" failonerror="${applications.present}" description="Use failonerror=false in case the applications directory is not there">
+        <subant target="clean" failonerror="${applications.present}" 
+          description="Use failonerror=false in case the applications directory is not there">
             <filelist dir="." files="applications/build.xml"/>
         </subant>
         <subant target="clean">
@@ -285,14 +303,16 @@ under the License.
     <!-- Start OFBiz                                                        -->
     <!-- ================================================================== -->
 
-    <target name="run" description="This will start OFBiz">
+    <target name="run" 
+      description="This will start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-        	<jvmarg value="${memory.maxpermsize.param}"/>
+          <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
-    <target name="run-pos" description="Start the POS (Point of sale) system">
+    <target name="run-pos" 
+      description="Start the POS (Point of sale) system">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -378,12 +398,13 @@ under the License.
         <delete file="runtime/tmp/tmpUserLogin.xml"/>
     </target>
     <target name="create-admin-user-login"
-        description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password.">
+      description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'. After a succesful login the user will be prompted for a new password.">
         <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
         <antcall target="load-admin-user-login"/>
     </target>
 
-    <target name="run-debug" depends="build" description="Starts OFBiz in debugging mode">
+    <target name="run-debug" depends="build" 
+      description="Starts OFBiz in debugging mode">
         <java jar="ofbiz.jar"  fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -394,7 +415,8 @@ under the License.
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
         </java>
     </target>
-    <target name="run-tests" depends="build" description="Run OFBiz default tests">
+    <target name="run-tests" depends="build" 
+      description="Run OFBiz default tests">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -439,7 +461,8 @@ under the License.
             <arg value="-ant"/>
         </java>
     </target>
-    <target name="run-single-test" description="Run a single test">
+    <target name="run-single-test" 
+      description="Run a single test">
         <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -455,7 +478,8 @@ under the License.
             <fileset dir="runtime/logs/test-results" includes="*.xml"/>
         </move>
     </target>
-    <target name="run-single-test-suite" description="Run a single test suite">
+    <target name="run-single-test-suite" 
+      description="Run a single test suite">
         <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -466,7 +490,8 @@ under the License.
             <arg value="-suitename=${test.suiteName}"/>
         </java>
     </target>
-    <target name="run-test-list" depends="_setup-separated-test-run" description="Run all configured tests, stopping/starting ofbiz between each test">
+    <target name="run-test-list" depends="_setup-separated-test-run" 
+      description="Run all configured tests, stopping/starting ofbiz between each test">
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
