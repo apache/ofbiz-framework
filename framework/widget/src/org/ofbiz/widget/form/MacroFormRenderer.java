@@ -1967,9 +1967,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         int highIndex = modelForm.getHighIndex(context);
         int actualPageSize = modelForm.getActualPageSize(context);
 
-        // if this is all there seems to be (if listSize < 0, then size is unknown)
-        if (actualPageSize >= listSize && listSize >= 0) return;
-
         // needed for the "Page" and "rows" labels
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         String pageLabel = "";
@@ -2005,6 +2002,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         // add viewIndex/viewSize parameters to request parameter String
         String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
         String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
+        String prepLinkSizeText;
+
         if (prepLinkText == null) {
             prepLinkText = "";
         }
@@ -2016,6 +2015,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
             prepLinkText += queryString + "&amp;";
         }
+        prepLinkSizeText = prepLinkText + viewSizeParam + "='+this.value+'" + "&amp;" + viewIndexParam + "=0";
         prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
         if (ajaxEnabled) {
             // Prepare params for prototype.js
@@ -2034,6 +2034,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String ajaxPreviousUrl = "";
         String selectUrl = "";
         String ajaxSelectUrl = "";
+        String paginateViewSizeLabel = modelForm.getPaginateViewSizeLabel(context);
+        String selectSizeUrl = "";
+        String ajaxSelectSizeUrl = "";
         String paginateNextStyle = modelForm.getPaginateNextStyle();
         String paginateNextLabel = modelForm.getPaginateNextLabel(context);
         String nextUrl = "";
@@ -2092,6 +2095,19 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
 
+        // Page size select dropdown
+        if (listSize > 0 && this.javaScriptEnabled) {
+            if (ajaxEnabled) {
+                ajaxSelectSizeUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkSizeText + anchor, context);
+            } else {
+                linkText = prepLinkSizeText;
+                if (linkText.startsWith("/")) {
+                    linkText = linkText.substring(1);
+                }
+                selectSizeUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
+            }
+        }
+        
         StringWriter sr = new StringWriter();
         sr.append("<@renderNextPrev ");
         sr.append(" paginateStyle=\"");
@@ -2134,6 +2150,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(ajaxSelectUrl);
         sr.append("\" selectUrl=\"");
         sr.append(selectUrl);
+        sr.append("\" ajaxSelectSizeUrl=\"");
+        sr.append(ajaxSelectSizeUrl);
+        sr.append("\" selectSizeUrl=\"");
+        sr.append(selectSizeUrl);
         sr.append("\" commonDisplaying=\"");
         sr.append(commonDisplaying);
         sr.append("\" paginateNextStyle=\"");
@@ -2152,6 +2172,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(lastUrl);
         sr.append("\" paginateLastLabel=\"");
         sr.append(paginateLastLabel);
+        sr.append("\" paginateViewSizeLabel=\"");
+        sr.append(paginateViewSizeLabel);
         sr.append("\" />");
         executeMacro(sr.toString());
     }

@@ -108,6 +108,7 @@ public class ModelForm extends ModelWidget {
     protected FlexibleStringExpander paginatePreviousLabel;
     protected FlexibleStringExpander paginateNextLabel;
     protected FlexibleStringExpander paginateLastLabel;
+    protected FlexibleStringExpander paginateViewSizeLabel;
     protected String paginateTargetAnchor;
     protected String paginateStyle;
     protected boolean separateColumns = false;
@@ -434,6 +435,9 @@ public class ModelForm extends ModelWidget {
         }
         if (this.paginateLastLabel == null || formElement.hasAttribute("paginate-last-label")) {
             this.paginateLastLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-last-label"));
+        }
+        if (this.paginateViewSizeLabel == null || formElement.hasAttribute("paginate-viewsize-label")) {
+            this.paginateViewSizeLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-viewsize-label"));
         }
         if (this.paginateStyle == null || formElement.hasAttribute("paginate-style")) {
             setPaginateStyle(formElement.getAttribute("paginate-style"));
@@ -2274,6 +2278,15 @@ public class ModelForm extends ModelWidget {
         String field = this.paginateLastLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
             field = UtilProperties.getMessage("CommonUiLabels", "CommonLast", locale);
+        }
+        return field;
+    }
+
+    public String getPaginateViewSizeLabel(Map<String, Object> context) {
+        Locale locale = (Locale)context.get("locale");
+        String field = this.paginateViewSizeLabel.expandString(context);
+        if (UtilValidate.isEmpty(field)) {
+            field = UtilProperties.getMessage("CommonUiLabels", "CommonItemsPerPage", locale);
         }
         return field;
     }
