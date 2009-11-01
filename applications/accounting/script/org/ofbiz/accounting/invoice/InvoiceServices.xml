@@ -674,4 +674,13 @@ under the License.
             <log level="info" message="Removed invoiceItemAssoc: ${invoiceItemAssoc}"/>
         </iterate>
     </simple-method>
+
+    <simple-method method-name="massChangeInvoiceStatus" short-description="Service set status of Invoices in bulk.">
+        <iterate list="parameters.invoiceIds" entry="invoiceId">
+            <set field="setInvoiceStatusMap.invoiceId" from-field="invoiceId"/>
+            <set field="setInvoiceStatusMap.statusId" from-field="parameters.statusId"/>
+            <call-service service-name="setInvoiceStatus" in-map-name="setInvoiceStatusMap"/>
+            <clear-field field="setInvoiceStatusMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

@@ -99,6 +99,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindApPaymentGroups"/>
     </request-map>
+    <request-map uri="massChangeInvoiceStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="massChangeInvoiceStatus"/>
+        <response name="success" type="view" value="FindPurchaseInvoices"/>
+    </request-map>
 
     <!-- ================ Vendor requests ================ -->
     <request-map uri="findVendors">
