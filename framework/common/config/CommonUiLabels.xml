@@ -3525,6 +3525,10 @@
         <value xml:lang="zh">明细</value>
         <value xml:lang="zh_CN">东西</value>
     </property>
+    <property key="CommonItemsPerPage">
+        <value xml:lang="en">Items per page</value>
+        <value xml:lang="it">Righe per pagina</value>
+    </property>
     <property key="CommonJanuary">
         <value xml:lang="ar">جانفي</value>
         <value xml:lang="de">Januar</value>
