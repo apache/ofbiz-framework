@@ -891,12 +891,17 @@ under the License.
     </simple-method>
     <simple-method method-name="createPaymentAndFinAccountTrans" short-description="create new payment and associate with respective financial account in FinAccountTrans Entity.">
         <set-service-fields service-name="createPayment" map="parameters" to-map="createPaymentMap"/>
+        <if-not-empty field="parameters.paymentMethodId">
+            <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
+            <set field="createPaymentMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+        </if-not-empty>
         <call-service service-name="createPayment" in-map-name="createPaymentMap">
             <result-to-field result-name="paymentId"/>
         </call-service>
-        <if-not-empty field="parameters.finAccountId">
+        <if-not-empty field="paymentMethod.finAccountId">
             <if-compare field="parameters.isDepositWithDrawPayment" operator="equals" value="Y">
                 <set-service-fields service-name="createFinAccountTrans" map="parameters" to-map="createFinAccountTransMap"/>
+                <set field="createFinAccountTransMap.finAccountId" from-field="paymentMethod.finAccountId"/>
                 <set field="createFinAccountTransMap.paymentId" from-field="paymentId"/>
                 <set field="createFinAccountTransMap.statusId" value="FINACT_TRNS_CREATED"/>
                 <set field="createFinAccountTransMap.partyId" from-field="parameters.partyIdFrom"/>

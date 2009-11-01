@@ -100,39 +100,39 @@ under the License.
                 </condition-list>
                 <order-by field-name="description"/>
             </entity-condition>
+            <entity-one entity-name="PartyGroup" use-cache="true" value-field="partyGroup">
+                <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
+            </entity-one>
+            <set field="partyGroupName" from-field="partyGroup.groupName"/>
+            <set field="paymentPartyId" from-field="parameters.partyIdFrom" default-value="${defaultOrganizationPartyId}"/>
         </actions>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
-        <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
+        <field position="1" name="organizationPartyId" parameter-name="partyIdFrom" event="onFocus" action="javascript:(document.NewPaymentOut.action = 'newPayment'),(document.NewPaymentOut.submit())">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
+                <option key="${parameters.partryIdFrom}" description="${partyGroupName}"/>
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
                     <entity-order-by field-name="groupName"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
+        <field name="paymentMethodId" id-name="paymentMethodId" position="2">
             <drop-down allow-empty="false">
-                <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
+                <entity-options entity-name="PaymentMethod" description="${description}" filter-by-date="by-name">
+                     <entity-constraint name="partyId" operator="equals" value="${paymentPartyId}"/>
+                </entity-options>
             </drop-down>
         </field>
-        <field name="paymentMethodTypeId" position="2">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentMethodType" description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+        <field name="partyIdTo" position="1"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="2">
+            <drop-down allow-empty="false">
+                <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
             </drop-down>
         </field>
         <field name="paymentRefNum" position="1"><text/></field>
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
         <field name="amount" position="1"><text/></field>
         <field name="comments" position="2"><text size="70"/></field>
-        <field name="finAccountId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="FinAccount" description="${finAccountName} [${finAccountId}]" filter-by-date="true">
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="isDepositWithDrawPayment"><hidden value="Y"/></field>
         <field name="finAccountTransTypeId"><hidden value="WITHDRAWAL"/></field>
         <field position="1" name="createButton" widget-style="smallSubmit">
