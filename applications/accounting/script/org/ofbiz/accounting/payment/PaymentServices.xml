@@ -493,6 +493,9 @@ under the License.
         <clear-field field="invoices"/>
         <iterate-map map="partyInvoices" key="partyId" value="invoices">
             <set-service-fields service-name="createPaymentAndApplicationForParty" map="parameters" to-map="createPaymentAndApplicationForPartyMap"/>
+            <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
+            <set field="createPaymentAndApplicationForPartyMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+            <set field="createPaymentAndApplicationForPartyMap.finAccountId" from-field="paymentMethod.finAccountId"/>
             <set field="createPaymentAndApplicationForPartyMap.partyId" from-field="partyId"/>
             <set field="createPaymentAndApplicationForPartyMap.invoices" from-field="invoices"/>
             <if-not-empty field="parameters.checkStartNumber">
@@ -546,6 +549,7 @@ under the License.
             <set field="createPaymentMap.statusId" value="PMNT_SENT"/>
             <set field="createPaymentMap.amount" type="BigDecimal" from-field="paymentAmount"/>
             <set field="createPaymentMap.paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
+            <set field="createPaymentMap.paymentMethodId" from-field="parameters.paymentMethodId"/>
             <set field="createPaymentMap.paymentRefNum" type="String" from-field="parameters.checkStartNumber"/>
             <call-service service-name="createPayment" in-map-name="createPaymentMap">
                 <result-to-field result-name="paymentId"/>
