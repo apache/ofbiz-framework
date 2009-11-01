@@ -373,8 +373,8 @@
         <value xml:lang="zh">处理支付...</value>
     </property>
     <property key="PosPromoCode">
-        <value xml:lang="en">Promo code:</value>
-        <value xml:lang="fr">Code de promotion :</value>
+        <value xml:lang="en">Promo code(s):</value>
+        <value xml:lang="fr">Code(s) de promotion :</value>
         <value xml:lang="zh">优惠券代码:</value>
     </property>    
     <property key="PosQty">

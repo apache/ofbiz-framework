@@ -23,40 +23,59 @@ import java.util.Locale;
 import net.xoetrope.swing.XEdit;
 
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
 
-public class StatusBar {
-
+public class PromoStatusBar {
+    protected static PosScreen m_pos = null;
     protected XEdit statusbarPromoCode = null;
     protected XEdit statusbarClient = null;
     private String customer = (UtilProperties.getMessage(PosTransaction.resource, "PosCustomer", Locale.getDefault()));
     private String promoCode = (UtilProperties.getMessage(PosTransaction.resource, "PosPromoCode", Locale.getDefault()));
 
 
-    public StatusBar(PosScreen page) {
+    public PromoStatusBar(PosScreen page) {
+        m_pos = page;
         statusbarClient = (XEdit) page.findComponent("statusbarClient");
         statusbarClient.setFocusable(false);
         statusbarPromoCode = (XEdit) page.findComponent("statusbarPromoCode");
         statusbarPromoCode.setFocusable(false);
-        clearClient();
-        clearPromoCode();
     }
 
-    public void printPromoCode(String message) {
-        statusbarPromoCode.setText(promoCode + " " + message);
+    public void addPromoCode(String message) {
+        String promoCodes = statusbarPromoCode.getText();
+        if (UtilValidate.isNotEmpty(promoCodes)) {
+            statusbarPromoCode.setText(promoCodes + ", " + message);
+        } else {
+            statusbarPromoCode.setText(promoCode + " " + message);
+        }
     }
 
-    public void printClient(String message) {
-        statusbarClient.setText(customer + " " + 
-                message);
+    public void displayClient(String message) {
+        statusbarClient.setText(customer + " " + message);
     }
 
-    public void clearPromoCode() {
-        statusbarPromoCode.setText("");
+    public void clear() {
+        if (UtilValidate.isEmpty(statusbarPromoCode.getText())) { // to handle when on another screen
+            PosScreen newPos = m_pos.showPage("promopanel");
+            PromoStatusBar promoStatusBar = newPos.getPromoStatusBar();
+            XEdit statusbarPromoCode = promoStatusBar.getStatusbarPromoCode();
+            statusbarPromoCode.setText("");
+            XEdit statusbarClient = promoStatusBar.getStatusbarClient();
+            statusbarClient.setText("");
+        } else {
+            statusbarPromoCode.setText("");
+            statusbarClient.setText("");
+        }
     }
-
-    public void clearClient() {
-        statusbarClient.setText("");
+    
+    private XEdit getStatusbarPromoCode() {
+        return statusbarPromoCode;
+    }
+    
+    private XEdit getStatusbarClient() {
+        return statusbarClient;
     }
 }
+ 

@@ -631,7 +631,7 @@ public class PosTransaction implements Serializable {
         }
     }
 
-    public void voidSale() {
+    public void voidSale(PosScreen pos) {
         trace("void sale");
         txLog.set("statusId", "POSTX_VOIDED");
         txLog.set("itemCount", new Long(cart.size()));
@@ -642,6 +642,7 @@ public class PosTransaction implements Serializable {
             Debug.logError(e, "Unable to store TX log - not fatal", module);
         }
         cart.clear();
+        pos.getPromoStatusBar().clear();
         currentTx = null;
     }
 
