@@ -116,6 +116,12 @@ under the License.
         <delete dir="../runtime/catalina/work"/>
     </target>
 
+    <target name="clean-tempfiles">
+        <delete verbose="on">
+            <fileset dir="../runtime/tempfiles" includes="**/*"/>
+        </delete>
+    </target>
+
     <target name="tests">
         <subant target="tests">
             <filelist refid="test-builds"/>
