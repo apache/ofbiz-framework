@@ -51,8 +51,6 @@ function getInvoiceRunningTotal() {
         $('checkAllInvoices').checked = false;
     }
     if (!isSingle) {
-        if ($('paymentMethodTypeId').value != "")
-            $('submitButton').disabled = false;
         new Ajax.Request('getInvoiceRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
@@ -60,6 +58,7 @@ function getInvoiceRunningTotal() {
                 $('showInvoiceRunningTotal').update(data.invoiceRunningTotal);
             }, parameters: $('listPurchaseInvoices').serialize(), requestHeaders: {Accept: 'application/json'}
         });
+        $('submitButton').disabled = false;
     } else {
         $('submitButton').disabled = true;
         $('showInvoiceRunningTotal').update("");
@@ -70,7 +69,7 @@ function setServiceName(selection) {
     document.listPurchaseInvoices.action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
     showIssueChecks(selection);
     $('submitButton').disabled = true;
-    $('paymentMethodTypeId').value = ""
+    getInvoiceRunningTotal();
 }
 
 function runAction() {
@@ -92,14 +91,6 @@ function showIssueChecks(selection) {
         Effect.BlindUp('issueChecks',{duration: 0.0});
     }
 }
-function enableSubmitButton() {
-    if ($('paymentMethodTypeId').value == "") {
-        $('submitButton').disabled = true;
-    } else {
-        $('submitButton').disabled = false;
-    }
-    getInvoiceRunningTotal();
-}
 -->
 </script>
 
@@ -115,7 +106,7 @@ function enableSubmitButton() {
         <option value="">${uiLabelMap.AccountingSelectAction}</options>
         <option value="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
       </select>
-      <input id="submitButton" type="button"  onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
+      <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
     </div>
     <input type="hidden" name="organizationPartyId" value="${organizationPartyId}"/>
     <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
@@ -126,18 +117,10 @@ function enableSubmitButton() {
     <input type="hidden" name="thruDueDate" value="${parameters.thruDueDate?if_exists}"/>
     <div id="issueChecks" style="display: none;" align="right">
       <span class="label">${uiLabelMap.AccountingVendorPaymentMethod}</span>
-      <select name="paymentMethodTypeId" id="paymentMethodTypeId" onchange="javascript:enableSubmitButton();">
-        <option value=""></option>
-        <#if paymentMethodType?has_content>
-          <option value="${paymentMethodType.paymentMethodTypeId}">${paymentMethodType.description}</option>
-        </#if>
-      </select>
-      <span class="label">${uiLabelMap.AccountingBankAccount}</span>
-      <select name="finAccountId">
-        <option value=""></option>
-        <#if finAccounts?has_content>
-          <#list finAccounts as finAccount>
-            <option value="${finAccount.get("finAccountId")}">${finAccount.get("finAccountName")} [${finAccount.get("finAccountId")}]</option>
+      <select name="paymentMethodId">
+        <#if paymentMethods?has_content>
+          <#list paymentMethods as paymentMethod>
+            <option value="${paymentMethod.get("paymentMethodId")}"><#if paymentMethod.get("description")?has_content>${paymentMethod.get("description")}</#if>[${paymentMethod.get("paymentMethodId")}]</option>
           </#list>
         </#if>
       </select>
