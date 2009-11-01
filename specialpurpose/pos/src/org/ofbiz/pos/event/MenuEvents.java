@@ -168,16 +168,16 @@ public class MenuEvents {
             // locate the product ID
             String productId = null;
             try {
-                List items = trans.lookupItem(value);
+                List<GenericValue> items = trans.lookupItem(value);
                 if (items != null) {
-                    ListIterator it = items.listIterator();
+                    ListIterator<GenericValue> it = items.listIterator();
                     if (it.hasNext()) {
-                        GenericValue product = (GenericValue) it.next();
+                        GenericValue product = it.next();
                         productId = product.getString("productId");
-                        Hashtable productsMap = new Hashtable();
+                        Hashtable<String, Object> productsMap = new Hashtable<String, Object>();
                         productsMap.put(product.getString("productId"), product.get("internalName"));
                         while (it.hasNext()) {
-                            product = (GenericValue) it.next();
+                            product = it.next();
                             if (!productId.equals(product.getString("productId"))) {
                                 productsMap.put(product.getString("productId"), product.get("internalName"));
                             }
@@ -404,7 +404,7 @@ public class MenuEvents {
 
     public static synchronized void voidAll(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
-        trans.voidSale();
+        trans.voidSale(pos);
         NavagationEvents.showPosScreen(pos);
         pos.refresh();
     }

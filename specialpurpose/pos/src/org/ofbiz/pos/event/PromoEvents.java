@@ -25,7 +25,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Output;
-import org.ofbiz.pos.component.StatusBar;
 import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoEvents {
@@ -48,15 +47,13 @@ public class PromoEvents {
         } else if ("PROMOCODE".equals(lastFunc[0])) {
             String promoCode = input.value();
             if (UtilValidate.isNotEmpty(promoCode)) {
-                StatusBar statusbar = new StatusBar(pos);
-                statusbar.clearPromoCode();
                 String result = trans.addProductPromoCode(promoCode);
                 if (result != null) {
                     pos.showDialog("dialog/error/exception", result);
                     input.clearFunction("PROMOCODE");
                 } else {
                     input.clearFunction("PROMOCODE");
-                    statusbar.printPromoCode(promoCode);
+                    pos.getPromoStatusBar().addPromoCode(promoCode);
                     NavagationEvents.showPosScreen(pos);
                     pos.refresh();
                 }

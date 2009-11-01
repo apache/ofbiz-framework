@@ -106,7 +106,7 @@ public class SaveSale extends XPage {
             String sale = m_saleName.getText();
             if (null != sale) {
                 saveSale(sale);
-                m_trans.voidSale();
+                m_trans.voidSale(m_pos);
                 m_pos.refresh();
             }
         }
@@ -120,7 +120,7 @@ public class SaveSale extends XPage {
                 saveSale(sale);
                 //DO PRINT HERE
                 DeviceLoader.receipt.printReceipt(m_trans, true);
-                m_trans.voidSale();
+                m_trans.voidSale(m_pos);
                 m_pos.refresh();
             }
         }

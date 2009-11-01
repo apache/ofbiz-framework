@@ -43,7 +43,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.pos.PosTransaction;
-import org.ofbiz.pos.component.StatusBar;
 
 
 @SuppressWarnings("serial")
@@ -84,7 +83,6 @@ public class ClientProfile extends XPage implements ActionListener {
     private static final String END_SENTINEL = UtilProperties.getPropertyValue("parameters", "EndSentinel", "?");    
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
-    protected StatusBar statusbar = null;    
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
@@ -152,10 +150,9 @@ public class ClientProfile extends XPage implements ActionListener {
                 String cardId = person.getString("cardId");
                 if (UtilValidate.isNotEmpty(cardId)) {
                     String result = m_trans.addProductPromoCode(cardId);
-                    statusbar = new StatusBar(m_pos);
                     if (UtilValidate.isEmpty(result)) {
-                        statusbar.printClient(person.getString("lastName"));
-                        statusbar.printPromoCode(cardId);
+                        m_pos.getPromoStatusBar().displayClient(person.getString("lastName"));
+                        m_pos.getPromoStatusBar().addPromoCode(cardId);
                     } else {
                         m_pos.showDialog("dialog/error/exception", result);
                     }

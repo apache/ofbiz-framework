@@ -38,11 +38,12 @@ import org.ofbiz.pos.screen.PosScreen;
 
 import org.w3c.dom.Element;
 
+@SuppressWarnings("serial")
 public class ButtonEventConfig implements java.io.Serializable {
 
     public static final String module = ButtonEventConfig.class.getName();
     public static final String BUTTON_EVENT_CONFIG = "buttonevents.xml";
-    private static transient UtilCache buttonConfig = new UtilCache("pos.ButtonEvent", 0, 0, 0, false, true);
+    private static transient UtilCache<String, ButtonEventConfig> buttonConfig = new UtilCache<String, ButtonEventConfig>("pos.ButtonEvent", 0, 0, 0, false, true);
 
     protected String buttonName = null;
     protected String className = null;
@@ -52,9 +53,9 @@ public class ButtonEventConfig implements java.io.Serializable {
 
     public static void loadButtonConfig() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ButtonEventConfig.BUTTON_EVENT_CONFIG);
-        List buttonEvents = UtilXml.childElementList(root, "event");
+        List<?> buttonEvents = UtilXml.childElementList(root, "event");
         if (!UtilValidate.isEmpty(buttonEvents)) {
-            Iterator i = buttonEvents.iterator();
+            Iterator<?> i = buttonEvents.iterator();
             while (i.hasNext()) {
                 Element e = (Element) i.next();
                 ButtonEventConfig bef = new ButtonEventConfig(e);
@@ -64,16 +65,16 @@ public class ButtonEventConfig implements java.io.Serializable {
     }
 
     public static boolean isLockable(String buttonName) {
-        ButtonEventConfig bef = (ButtonEventConfig) buttonConfig.get(buttonName);
+        ButtonEventConfig bef = buttonConfig.get(buttonName);
         if (bef == null) {
             return true;
         }
         return bef.isLockable();
     }
 
-    public static void invokeButtonEvents(List buttonNames, PosScreen pos) throws ButtonEventNotFound, ButtonEventException {
+    public static void invokeButtonEvents(List<?> buttonNames, PosScreen pos) throws ButtonEventNotFound, ButtonEventException {
         if (buttonNames != null) {
-            Iterator i = buttonNames.iterator();
+            Iterator<?> i = buttonNames.iterator();
             while (i.hasNext()) {
                 invokeButtonEvent(((String) i.next()), pos, null);
             }
@@ -98,18 +99,18 @@ public class ButtonEventConfig implements java.io.Serializable {
         }
 
         // invoke the button event
-        ButtonEventConfig bef = (ButtonEventConfig) buttonConfig.get(buttonName);
+        ButtonEventConfig bef = buttonConfig.get(buttonName);
         if (bef == null) {
             throw new ButtonEventNotFound("No button definition found for button - " + buttonName);
         }
         bef.invoke(pos, event);
     }
 
-    public static List findButtonKeyAssign(int keyCode) {
-        List buttonAssignments = new ArrayList();
-        Iterator i = buttonConfig.values().iterator();
+    public static List<String> findButtonKeyAssign(int keyCode) {
+        List<String> buttonAssignments = new ArrayList<String>();
+        Iterator<ButtonEventConfig> i = buttonConfig.values().iterator();
         while (i.hasNext()) {
-            ButtonEventConfig bef = (ButtonEventConfig) i.next();
+            ButtonEventConfig bef = i.next();
             if (bef.getKeyCode() == keyCode) {
                 buttonAssignments.add(bef.getName());
             }
@@ -175,7 +176,7 @@ public class ButtonEventConfig implements java.io.Serializable {
         Object[] params2 = new Object[] { pos };
 
         // load the class
-        Class buttonClass = null;
+        Class<?> buttonClass = null;
         try {
             buttonClass = cl.loadClass(this.className);
         } catch (ClassNotFoundException e) {
