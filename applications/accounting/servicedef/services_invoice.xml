@@ -342,4 +342,13 @@ under the License.
         <description>Remove invoiceItemAssoc record on cancel invoice</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
+
+    <service name="massChangeInvoiceStatus" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="massChangeInvoiceStatus" auth="true">
+        <description>Set status of invoices in bulk.</description>
+        <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
+    </service>
+    
 </services>

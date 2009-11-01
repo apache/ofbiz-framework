@@ -19,46 +19,34 @@ under the License.
 <script language="JavaScript" type="text/javascript">
 <!--
 function toggleInvoiceId(master) {
-    var form = document.listPurchaseInvoices;
-    var invoices = form.elements.length;
-    for (var i = 0; i < invoices; i++) {
-        var element = form.elements[i];
-        if (element.name == "invoiceIds") {
-            element.checked = master.checked;
-        }
-    }
+    var invoices = $('listPurchaseInvoices').getInputs('checkbox','invoiceIds');
+    invoices.each(function(invoice){
+        invoice.checked = master.checked;
+    });
     getInvoiceRunningTotal();
 }
 
 function getInvoiceRunningTotal() {
-    var form = document.listPurchaseInvoices;
-    var invoices = form.elements.length;
-    var isSingle = true;
-    var isAllSelected = true;
-    for (var i = 0; i < invoices; i++) {
-        var element = form.elements[i];
-        if (element.name == "invoiceIds") {
-            if (element.checked) {
-                isSingle = false;
-            } else {
-                isAllSelected = false;
-            }
-        }
-    }
-    if (isAllSelected) {
+    var invoices = $('listPurchaseInvoices').getInputs('checkbox','invoiceIds');
+    if(invoices.pluck('checked').all()) {
         $('checkAllInvoices').checked = true;
     } else {
         $('checkAllInvoices').checked = false;
     }
-    if (!isSingle) {
+    if(invoices.pluck('checked').any()) {
         new Ajax.Request('getInvoiceRunningTotal', {
             asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
                 $('showInvoiceRunningTotal').update(data.invoiceRunningTotal);
-            }, parameters: $('listPurchaseInvoices').serialize(), requestHeaders: {Accept: 'application/json'}
+            }, 
+            parameters: $('listPurchaseInvoices').serialize(), 
+            requestHeaders: {Accept: 'application/json'}
         });
-        $('submitButton').disabled = false;
+        if($F('serviceName') != "") {
+            $('submitButton').disabled = false;
+        }
+        
     } else {
         $('submitButton').disabled = true;
         $('showInvoiceRunningTotal').update("");
@@ -66,31 +54,40 @@ function getInvoiceRunningTotal() {
 }
 
 function setServiceName(selection) {
-    document.listPurchaseInvoices.action = '<@ofbizUrl>'+selection.value+'</@ofbizUrl>';
-    showIssueChecks(selection);
-    $('submitButton').disabled = true;
-    getInvoiceRunningTotal();
+    if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToReceive' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
+        document.listPurchaseInvoices.action = $('invoiceStatusChange').value;
+    }
+    else {
+        document.listPurchaseInvoices.action = selection.value;
+    }
+    if (selection.value == 'massInvoicesToApprove') {
+        $('statusId').value = "INVOICE_APPROVED";
+    } else if (selection.value == 'massInvoicesToReceive') {
+        $('statusId').value = "INVOICE_RECEIVED";
+    }else if (selection.value == 'massInvoicesToReady') {
+        $('statusId').value = "INVOICE_READY";
+    }else if (selection.value == 'massInvoicesToPaid') {
+        $('statusId').value = "INVOICE_PAID";
+    }else if (selection.value == 'massInvoicesToWriteoff') {
+        $('statusId').value = "INVOICE_WRITEOFF";
+    }else if (selection.value == 'massInvoicesToCancel') {
+        $('statusId').value = "INVOICE_CANCELLED";
+    }
+    if ($('processMassCheckRun').selected) {
+        Effect.BlindDown('issueChecks');
+    } else {
+        Effect.BlindUp('issueChecks');
+    }
+    if($('listPurchaseInvoices').getInputs('checkbox','invoiceIds').pluck('checked').any() && ($F('serviceName') != "")) {
+            $('submitButton').disabled = false;
+    }
+
 }
 
 function runAction() {
-    var form = document.listPurchaseInvoices;
-    var invoices = form.elements.length;
-    for (var i = 0; i < invoices; i++) {
-        var element = form.elements[i];
-        if (element.name == "invoiceIds") {
-            element.disabled = false;
-        }
-    }
-    form.submit();
+    $('listPurchaseInvoices').submit();
 }
 
-function showIssueChecks(selection) {
-    if (selection.value == 'processMassCheckRun') {
-        Effect.BlindDown('issueChecks',{duration: 0.0});
-    } else {
-        Effect.BlindUp('issueChecks',{duration: 0.0});
-    }
-}
 -->
 </script>
 
@@ -103,14 +100,21 @@ function showIssueChecks(selection) {
     <div align="right">
       <!-- May add some more options in future like cancel selected invoices-->
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
-        <option value="">${uiLabelMap.AccountingSelectAction}</options>
-        <option value="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
+        <option value="">${uiLabelMap.AccountingSelectAction}</option>
+        <option value="<@ofbizUrl>processMassCheckRun</@ofbizUrl>" id="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
+        <option value="massInvoicesToApprove">${uiLabelMap.AccountingInvoiceStatusToApproved}</option>
+        <option value="massInvoicesToReceive">${uiLabelMap.AccountingInvoiceStatusToReceived}</option>
+        <option value="massInvoicesToReady">${uiLabelMap.AccountingInvoiceStatusToReady}</option>
+        <option value="massInvoicesToPaid">${uiLabelMap.AccountingInvoiceStatusToPaid}</option>
+        <option value="massInvoicesToWriteoff">${uiLabelMap.AccountingInvoiceStatusToWriteoff}</option>
+        <option value="massInvoicesToCancel">${uiLabelMap.AccountingInvoiceStatusToCancelled}</option>
       </select>
       <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
     </div>
+    <input type="hidden" name="invoiceStatusChange" id="invoiceStatusChange" value="<@ofbizUrl>massChangeInvoiceStatus</@ofbizUrl>"/>
     <input type="hidden" name="organizationPartyId" value="${organizationPartyId}"/>
     <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
-    <input type="hidden" name="statusId" value="${parameters.statusId?if_exists}"/>
+    <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId?if_exists}"/>
     <input type="hidden" name="fromInvoiceDate" value="${parameters.fromInvoiceDate?if_exists}"/>
     <input type="hidden" name="thruInvoiceDate" value="${parameters.thruInvoiceDate?if_exists}"/>
     <input type="hidden" name="fromDueDate" value="${parameters.fromDueDate?if_exists}"/>
@@ -165,5 +169,5 @@ function showIssueChecks(selection) {
     </table>
   </form>
 <#else>
-  <td colspan='4'><h3>${uiLabelMap.AccountingNoInvoicesFound}</h3></td>
+  <h3>${uiLabelMap.AccountingNoInvoicesFound}</h3>
 </#if>
