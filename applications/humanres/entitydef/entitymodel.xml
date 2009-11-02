@@ -447,7 +447,7 @@ under the License.
         <relation type="one" fk-name="EMPL_LEAVE_ELETP" rel-entity-name="EmplLeaveType">
             <key-map field-name="leaveTypeId"/>
         </relation>
-        <relation type="one" fk-name="EMPL_LEAVE_REASON_ELETP" rel-entity-name="EmplLeaveReasonType">
+        <relation type="one" fk-name="EMP_LEAV_REAS_ELTP" rel-entity-name="EmplLeaveReasonType">
             <key-map field-name="emplLeaveReasonTypeId"/>
         </relation>
         <relation type="one" fk-name="EMPL_LEAVE_APPR" title="Approver" rel-entity-name="Party">
