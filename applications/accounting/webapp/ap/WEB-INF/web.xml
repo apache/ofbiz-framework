@@ -45,6 +45,11 @@ under the License.
         <param-value>component://accounting/widget/ap/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
+    <context-param>
+        <param-name>partyDecoratorLocation</param-name>
+        <param-value>component://accounting/widget/CommonScreens.xml</param-value>
+        <description>The location of the CommonPartyDecorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+    </context-param>
 
     <filter>
         <filter-name>ContextFilter</filter-name>
