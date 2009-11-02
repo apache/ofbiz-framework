@@ -45,5 +45,6 @@ under the License.
     <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
     <input type="submit" name="submitButton" value="Please click here to verify your newsletter subscription." />
   </fieldset>
+</form>
 </body>
 </html>
