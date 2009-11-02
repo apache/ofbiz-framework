@@ -32,7 +32,6 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -254,7 +253,7 @@ public class Start implements Runnable {
         // initialize the loaders
         for (String loaderClassName: config.loaders) {
             try {
-                Class loaderClass = classloader.loadClass(loaderClassName);
+                Class<?> loaderClass = classloader.loadClass(loaderClassName);
                 StartupLoader loader = (StartupLoader) loaderClass.newInstance();
                 loader.load(config, loaderArgs);
                 loaders.add(loader);
