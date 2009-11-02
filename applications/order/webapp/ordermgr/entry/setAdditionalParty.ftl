@@ -114,7 +114,7 @@ under the License.
         <tr>
           <td>&nbsp;</td>
           <td>
-            <select name="additionalRoleTypeId" size="5" multiple>
+            <select name="additionalRoleTypeId" size="5" multiple="multiple">
               <#list roles as role>
               <option value="${role.roleTypeId}">${role.get("description",locale)}</option>
               </#list>
