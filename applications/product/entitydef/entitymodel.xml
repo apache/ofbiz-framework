@@ -162,6 +162,7 @@ under the License.
         <alias-all entity-alias="PCM">
             <exclude field="comments"/>
         </alias-all>
+        <alias name="memberComments" entity-alias="PCM" field="comments"/>
         <view-link entity-alias="PROD" rel-entity-alias="PCM">
             <key-map field-name="productId"/>
         </view-link>
