@@ -21,12 +21,11 @@ package org.ofbiz.pos.event;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastMap;
 import net.xoetrope.xui.XProjectManager;
 
 import org.ofbiz.base.util.Debug;
@@ -432,7 +431,7 @@ public class ManagerEvents {
         }
 
         PaidInOut PaidInOut = new PaidInOut(trans, pos, type);
-        Map mapInOut = PaidInOut.openDlg();
+        Map<String, String> mapInOut = PaidInOut.openDlg();
         if (null != mapInOut.get("amount")) {
             String amount = (String) mapInOut.get("amount");
             BigDecimal amt = ZERO;
@@ -526,7 +525,7 @@ public class ManagerEvents {
             }
         }
 
-        Map<String, String> reportMap = new HashMap<String, String>();
+        Map<String, String> reportMap = FastMap.newInstance();
         String reportTemplate = "totals.txt";
 
         // miscellaneous
