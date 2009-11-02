@@ -377,7 +377,7 @@ function doPublish() {
                 <table cellspacing="0" class="basic-table">
                     <tr>
                         <td>
-                            <select multiple="true" name="categoryId">
+                            <select multiple="multiple" name="categoryId">
                                 <#list allCategories as category>
                                     <option value="${category.productCategoryId?if_exists}">${category.description?if_exists} ${category.productCategoryId}</option>
                                 </#list>
