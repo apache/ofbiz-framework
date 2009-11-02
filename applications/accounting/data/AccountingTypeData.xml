@@ -714,7 +714,7 @@ under the License.
 
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="ORBITAL" hasTable="N" description="Orbital Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="ORBITAL_CONFIG" paymentGatewayConfigTypeId="ORBITAL" description="Orbital Config"/>
-    <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" password="ofbizpwd" merchantId="785240009879" class="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
+    <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" connectionPassword="ofbizpwd" merchantId="785240009879" engineClass="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
 
     <!--  Credit Card methods by type -->
     <CustomMethodType customMethodTypeId="CC_AUTH" parentTypeId="" hasTable="N" description="Credit Card authorize methods"/>

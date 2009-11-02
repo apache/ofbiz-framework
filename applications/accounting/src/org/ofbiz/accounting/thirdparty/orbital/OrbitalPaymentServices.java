@@ -252,9 +252,9 @@ public class OrbitalPaymentServices {
         Map<String, Object> buildConfiguratorContext = FastMap.newInstance();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
-            buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "password"));
+            buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
             buildConfiguratorContext.put("merchantId", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantId"));
-            buildConfiguratorContext.put("engine.class", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "class"));
+            buildConfiguratorContext.put("engine.class", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "engineClass"));
             buildConfiguratorContext.put("engine.hostname", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostName"));
             buildConfiguratorContext.put("engine.port", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "port"));
             buildConfiguratorContext.put("engine.hostname.failover", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostNameFailover"));
