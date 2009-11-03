@@ -658,6 +658,19 @@ public class ObjectType {
             } else if (("Map".equals(type) || "java.util.Map".equals(type)) &&
                     (str.startsWith("{") && str.endsWith("}"))) {
                 return StringUtil.toMap(str);
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                if (!str.contains(":")) {
+                    // Encoded duration
+                    try {
+                        NumberFormat nf = NumberFormat.getNumberInstance(locale);
+                        nf.setMaximumFractionDigits(0);
+                        Number number = nf.parse(str);
+                        return TimeDuration.fromNumber(number);
+                    } catch (ParseException e) {
+                        throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
+                    }
+                }
+                return TimeDuration.parseDuration(str);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -686,6 +699,8 @@ public class ObjectType {
                 Set<Double> tempSet = FastSet.newInstance();
                 tempSet.add(dbl);
                 return tempSet;
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                return TimeDuration.fromNumber(dbl);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -714,6 +729,8 @@ public class ObjectType {
                 Set<Float> tempSet = FastSet.newInstance();
                 tempSet.add(flt);
                 return tempSet;
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                return TimeDuration.fromNumber(flt);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -746,6 +763,8 @@ public class ObjectType {
                 return new Date(lng.longValue());
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return new java.sql.Timestamp(lng.longValue());
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                return TimeDuration.fromNumber(lng);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -773,6 +792,8 @@ public class ObjectType {
                 Set<Integer> tempSet = FastSet.newInstance();
                 tempSet.add(intgr);
                 return tempSet;
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                return TimeDuration.fromNumber(intgr);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -800,6 +821,8 @@ public class ObjectType {
                 Set<BigDecimal> tempSet = FastSet.newInstance();
                 tempSet.add(bigDec);
                 return tempSet;
+            } else if ("TimeDuration".equals(type) || "org.ofbiz.base.util.TimeDuration".equals(type)) {
+                return TimeDuration.fromNumber(bigDec);
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -999,6 +1022,31 @@ public class ObjectType {
                 return nodeValue;
             } else {
                 return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
+            }
+        } else if (obj instanceof TimeDuration) {
+            TimeDuration duration = (TimeDuration) obj;
+            if ("String".equals(type) || "java.lang.String".equals(type)) {
+                return obj.toString();
+            }
+            long durationLong = TimeDuration.toLong(duration);
+            if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
+                return BigDecimal.valueOf(durationLong);
+            } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
+                return Double.valueOf(durationLong);
+            } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
+                return Float.valueOf(durationLong);
+            } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
+                return Long.valueOf(durationLong);
+            } else if ("List".equals(type) || "java.util.List".equals(type)) {
+                List<TimeDuration> tempList = FastList.newInstance();
+                tempList.add(duration);
+                return tempList;
+            } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
+                Set<TimeDuration> tempSet = FastSet.newInstance();
+                tempSet.add(duration);
+                return tempSet;
+            } else {
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else {
             // we can pretty much always do a conversion to a String, so do that here

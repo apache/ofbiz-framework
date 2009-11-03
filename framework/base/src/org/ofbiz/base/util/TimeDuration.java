@@ -21,9 +21,9 @@ package org.ofbiz.base.util;
 import java.io.Serializable;
 import com.ibm.icu.util.Calendar;
 
-/** A representation of a period of time. */
+/** An immutable representation of a period of time. */
 @SuppressWarnings("serial")
-public class TimeDuration implements Serializable {
+public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
@@ -34,6 +34,7 @@ public class TimeDuration implements Serializable {
     protected int days = 0;
     protected int months = 0;
     protected int years = 0;
+    protected boolean isNegative = false;
     protected TimeDuration() {}
 
     /**
@@ -81,9 +82,40 @@ public class TimeDuration implements Serializable {
         return false;
     }
 
+    /** Returns a <code>String</code> formatted as 
+     * years:months:days:hours:minutes:seconds:millseconds.
+     */
     @Override
     public String toString() {
         return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.millis;
+    }
+
+    public int compareTo(TimeDuration arg0) {
+        if (this == arg0) {
+            return 0;
+        }
+        Long thisLong = toLong(this);
+        Long thatLong = toLong(arg0);
+        return thisLong.compareTo(thatLong);
+    }
+
+    /** Returns <code>true</code> if this duration is negative.
+     * 
+     * @return <code>true</code> if this duration is negative
+     */
+    public boolean isNegative() {
+        return this.isNegative;
+    }
+
+    /** Returns <code>true</code> if this duration is zero.
+     * 
+     * @return <code>true</code> if this duration is zero
+     */
+    public boolean isZero() {
+        return this == ZeroTimeDuration || (this.millis == 0 && this.seconds == 0 &&
+                this.minutes == 0 && this.hours == 0 && this.days == 0 &&
+                this.months == 0 && this.years == 0);
+        
     }
 
     /** Returns the milliseconds in this time duration. */
@@ -217,6 +249,7 @@ public class TimeDuration implements Serializable {
         this.days = Math.min(this.days, -this.days);
         this.months = Math.min(this.months, -this.months);
         this.years = Math.min(this.years, -this.years);
+        this.isNegative = true;
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>long</code>
@@ -230,10 +263,10 @@ public class TimeDuration implements Serializable {
      * @return A <code>TimeDuration</code> instance
      */
     public static TimeDuration fromLong(long millis) {
-        TimeDuration duration = new TimeDuration();
         if (millis == 0) {
-            return duration;
+            return ZeroTimeDuration;
         }
+        TimeDuration duration = new TimeDuration();
         boolean isNegative = false;
         if (millis < 0) {
             isNegative = true;
@@ -264,12 +297,50 @@ public class TimeDuration implements Serializable {
         return duration;
     }
 
+    /** Returns a <code>TimeDuration</code> instance derived from a <code>Number</code>
+     * instance. If <code>number</code> is <code>null</code>,
+     * returns a zero <code>TimeDuration</code>. <p>The years and months portions of the
+     * returned object are based on a Gregorian calendar. <b>Note:</b> this
+     * method should not be used to calculate elapsed time - use the elapsed
+     * time constructor instead.</p>
+     *
+     * @param number A <code>Number</code> instance, can be <code>null</code>
+     * @return A <code>TimeDuration</code> instance
+     */
+    public static TimeDuration fromNumber(Number number) {
+        return number == null ? ZeroTimeDuration : fromLong(number.longValue());
+    }
+
+    public static TimeDuration parseDuration(String duration) {
+        if (UtilValidate.isEmpty(duration)) {
+            return ZeroTimeDuration;
+        }
+        boolean isZero = true;
+        int[] intArray = {0, 0, 0, 0, 0, 0, 0};
+        int i = intArray.length - 1;
+        String[] strArray = duration.split(":");
+        for (int s = strArray.length - 1; s >= 0; s--) {
+            if (UtilValidate.isNotEmpty(strArray[s])) {
+                intArray[i] = Integer.parseInt(strArray[s].trim());
+                if (intArray[i] != 0) {
+                    isZero = false;
+                }
+            }
+            i--;
+        }
+        if (isZero) {
+            return ZeroTimeDuration;
+        }
+        return new TimeDuration(intArray[0], intArray[1], intArray[2],
+                intArray[3], intArray[4], intArray[5], intArray[6]);
+    }
+
     /** Returns a <code>long</code> value derived from a <code>TimeDuration</code>
      * instance. This method is intended to be used in tandem with the
      * <code>fromLong</code> method.
      *
      * @param duration
-     * @return the number number of milliseconds in the duration
+     * @return the duration encoded as a <code>long</code> value
      */
     public static long toLong(TimeDuration duration) {
         return
@@ -287,6 +358,10 @@ public class TimeDuration implements Serializable {
         @Override
         public Calendar addToCalendar(Calendar cal) {
             return cal;
+        }
+        @Override
+        public boolean isZero() {
+            return true;
         }
     }
 }
