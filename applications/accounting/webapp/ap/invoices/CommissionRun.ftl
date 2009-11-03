@@ -84,7 +84,7 @@ function enableSubmitButton() {
         <option value="">${uiLabelMap.AccountingSelectAction}</options>
         <option value="processCommissionRun">${uiLabelMap.AccountingCommissionRun}</option>
       </select>
-      <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.OrderRunAction}" disabled/>
+      <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.CommonRun}" disabled/>
     </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
