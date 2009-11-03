@@ -107,7 +107,7 @@ function showCreatePaymentBatch(selection) {
                     <input type="hidden" name='thruDate' value="${thruDate?if_exists}">
                 </div>
                 <table class="basic-table">
-                    <tr class="header-row">
+                    <tr class="header-row-2">
                         <td>${uiLabelMap.FormFieldTitle_paymentId}</td>
                         <td>${uiLabelMap.Party}</td>
                         <td>${uiLabelMap.CommonAmount}</td>
@@ -117,16 +117,12 @@ function showCreatePaymentBatch(selection) {
                             <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
                         </td>
                     </tr>
+                    <#assign alt_row = false>
                     <#list paymentList as payment>
-                        <tr>
+                        <tr <#if alt_row> class="alternate-row"</#if>>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
                             <td>
-                                <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdFrom}, false))!>
-                                <#if partyName.partyTypeId == "PERSON">
-                                    <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(partyName.firstName)!} ${(partyName.lastName)!}[${(payment.partyIdFrom)!}]</a>
-                                <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
-                                    <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(partyName.groupName)!}[${(payment.partyIdFrom)!}]</a>
-                                </#if>
+                                    <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}[${(payment.partyIdFrom)!}]</a>
                             </td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
@@ -134,6 +130,7 @@ function showCreatePaymentBatch(selection) {
                                 <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal('paymentId_${payment_index}');"/>
                             </td>
                         </tr>
+                        <#assign alt_row = !alt_row>
                     </#list>
                     <div id="createPaymentBatch" style="display: none;" align="right">
                         <span class="label">${uiLabelMap.AccountingPaymentGroupName}</span>
