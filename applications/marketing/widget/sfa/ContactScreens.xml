@@ -98,7 +98,6 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.SfaMergeContacts}">
-                            <label>&lt;br/&gt;</label>
                             <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.SfaMergeContacts}">
