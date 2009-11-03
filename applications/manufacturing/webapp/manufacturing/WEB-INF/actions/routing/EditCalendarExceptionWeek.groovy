@@ -42,10 +42,10 @@ calendarExceptionWeeks.each { calendarExceptionWeek ->
     calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek]);
 }
 
-HtmlFormWrapper listCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarExceptionWeek", request, response);
+HtmlFormWrapper listCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "ListCalendarExceptionWeek", request, response);
 listCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeeksDatas", calendarExceptionWeeksDatas);
 
-HtmlFormWrapper addCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "AddCalendarExceptionWeek", request, response);
+HtmlFormWrapper addCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "AddCalendarExceptionWeek", request, response);
 addCalendarExceptionWeekWrapper.putInContext("techDatacalendar", techDataCalendar);
 
 context.techDataCalendar = techDataCalendar;
@@ -58,7 +58,7 @@ exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "Timestamp
 if (exceptionDateStart) {
     calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", [calendarId : calendarId , exceptionDateStart : exceptionDateStart]);
     if (calendarExceptionWeek) {
-        HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
+        HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
         updateCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeek", calendarExceptionWeek);
         context.calendarExceptionWeek = calendarExceptionWeek;
         context.updateCalendarExceptionWeekWrapper = updateCalendarExceptionWeekWrapper;

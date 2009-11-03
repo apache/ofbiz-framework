@@ -38,10 +38,10 @@ if (calendarId) {
 if (techDataCalendar) {
     calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay");
 }
-HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
+HtmlFormWrapper listCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "ListCalendarExceptionDay", request, response);
 listCalendarExceptionDayWrapper.putInContext("calendarExceptionDays", calendarExceptionDays);
 
-HtmlFormWrapper addCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "AddCalendarExceptionDay", request, response);
+HtmlFormWrapper addCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "AddCalendarExceptionDay", request, response);
 addCalendarExceptionDayWrapper.putInContext("techDataCalendar", techDataCalendar);
 
 context.techDataCalendar = techDataCalendar;
@@ -54,7 +54,7 @@ exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "T
 if (exceptionDateStartTime) {
     calendarExceptionDay = delegator.findByPrimaryKey("TechDataCalendarExcDay", [calendarId : calendarId , exceptionDateStartTime : exceptionDateStartTime]);
     if (calendarExceptionDay) {
-        HtmlFormWrapper updateCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "UpdateCalendarExceptionDay", request, response);
+        HtmlFormWrapper updateCalendarExceptionDayWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "UpdateCalendarExceptionDay", request, response);
         updateCalendarExceptionDayWrapper.putInContext("calendarExceptionDay", calendarExceptionDay);
         context.calendarExceptionDay = calendarExceptionDay;
         context.updateCalendarExceptionDayWrapper =  updateCalendarExceptionDayWrapper;
