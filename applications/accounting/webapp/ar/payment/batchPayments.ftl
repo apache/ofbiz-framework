@@ -93,7 +93,7 @@ function showCreatePaymentBatch(selection) {
                         <option value="">${uiLabelMap.AccountingSelectAction}</options>
                         <option value="createPaymentBatch">${uiLabelMap.AccountingCreateBatch}</option>
                     </select>
-                    <input id="submitButton" type="button"  onclick="javascript:$('paymentBatchForm').submit();" value="${uiLabelMap.OrderRunAction}" disabled/>
+                    <input id="submitButton" type="button"  onclick="javascript:$('paymentBatchForm').submit();" value="${uiLabelMap.CommonRun}" disabled/>
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
                     <input type="hidden" name="groupInOneTransaction" value="Y"/>
