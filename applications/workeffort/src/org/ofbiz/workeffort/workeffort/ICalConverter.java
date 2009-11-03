@@ -96,7 +96,7 @@ public class ICalConverter {
         if (reminderStamp != null) {
             alarm = new VAlarm(new DateTime(reminderStamp));
         } else {
-            TimeDuration duration = workEffortEventReminder.getDuration("reminderOffset");
+            TimeDuration duration = TimeDuration.fromNumber(workEffortEventReminder.getLong("reminderOffset"));
             alarm = new VAlarm(new Dur(duration.days(), duration.hours(), duration.minutes(), duration.seconds()));
         }
         return alarm;
