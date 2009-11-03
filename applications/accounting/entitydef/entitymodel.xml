@@ -2764,6 +2764,12 @@ under the License.
       <view-link entity-alias="PY" rel-entity-alias="SI">
         <key-map field-name="statusId"/>
       </view-link>
+      <relation type="one" fk-name="PAYMENT_PMTYP" rel-entity-name="PaymentType">
+        <key-map field-name="paymentTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PAYMENT_PMETH_TP" rel-entity-name="PaymentMethodType">
+        <key-map field-name="paymentMethodTypeId"/>
+      </relation>
     </view-entity>
     <view-entity entity-name="PaymentAndType"
       package-name="org.ofbiz.accounting.payment"
