@@ -637,9 +637,8 @@ public class WorkEffortServices {
                             for (DateRange periodRange : periodRanges) {
                                 if (periodRange.includesDate(occurrence)) {
                                     GenericValue cloneWorkEffort = (GenericValue) workEffort.clone();
-                                    Double durationMillis = workEffort.getDouble("estimatedMilliSeconds");
-                                    if (durationMillis != null) {
-                                        TimeDuration duration = TimeDuration.fromLong(durationMillis.longValue());
+                                    TimeDuration duration = workEffort.getDuration("estimatedMilliSeconds");
+                                    if (!duration.isZero()) {
                                         Calendar endCal = UtilDateTime.toCalendar(occurrence, timeZone, locale);
                                         Date endDate = duration.addToCalendar(endCal).getTime();
                                         cloneWorkEffort.set("estimatedStartDate", new Timestamp(occurrence.getTime()));
@@ -952,12 +951,11 @@ public class WorkEffortServices {
                     try {
                         parameters.put("eventDateTime", eventDateTime);
                         processEventReminder(ctx, reminder, parameters);
-                        long repeatInterval = reminder.get("repeatInterval") == null ? 0 : reminder.getLong("repeatInterval").longValue();
-                        if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || repeatInterval == 0) {
+                        TimeDuration duration = reminder.getDuration("repeatInterval");
+                        if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || duration.isZero()) {
                             reminder.remove();
                         } else {
                             cal.setTime(now);
-                            TimeDuration duration = TimeDuration.fromLong(repeatInterval);
                             duration.addToCalendar(cal);
                             reminderDateTime = cal.getTime();
                             reminder.set("currentCount", Long.valueOf(currentCount + 1));

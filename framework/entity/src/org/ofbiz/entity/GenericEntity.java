@@ -41,7 +41,9 @@ import javolution.util.FastMap;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
@@ -407,6 +409,11 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 }
             } else if (value != null && !(value instanceof NULL)) {
                 // make sure the type matches the field Java type
+                if (value instanceof TimeDuration) {
+                    try {
+                        value = ObjectType.simpleTypeConvert(value, type.getJavaType(), null, null);
+                    } catch (GeneralException e) {}
+                }
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
                     // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
@@ -578,6 +585,30 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         } else {
             throw new IllegalArgumentException("getBoolean could not map the object '" + obj.toString() + "' to Boolean type, unknown object type: " + obj.getClass().getName());
         }
+    }
+
+    /** Returns the specified field as a <code>TimeDuration</code> instance.
+     * The field's Java data type can be either <code>String</code> or
+     * <code>Number</code>. Invalid Java data types will throw
+     * <code>IllegalArgumentException</code>.
+     * 
+     * @param name The name of the desired field
+     * @return A <code>TimeDuration</code> instance or <code>null</code>
+     */
+    public TimeDuration getDuration(String name) {
+        Object obj = get(name);
+        if (obj == null) {
+            return null;
+        }
+        try {
+            Number number = (Number) obj; 
+            return TimeDuration.fromNumber(number);
+        } catch (Exception e) {}
+        try {
+            String duration = (String) obj; 
+            return TimeDuration.parseDuration(duration);
+        } catch (Exception e) {}
+        throw new IllegalArgumentException("getDuration could not map the object '" + obj.toString() + "' to TimeDuration type, incompatible object type: " + obj.getClass().getName());
     }
 
     public String getString(String name) {

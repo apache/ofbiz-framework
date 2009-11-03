@@ -96,8 +96,7 @@ public class ICalConverter {
         if (reminderStamp != null) {
             alarm = new VAlarm(new DateTime(reminderStamp));
         } else {
-            long reminderOffset = workEffortEventReminder.get("reminderOffset") == null ? 0 : workEffortEventReminder.getLong("reminderOffset").longValue();
-            TimeDuration duration = TimeDuration.fromLong(reminderOffset);
+            TimeDuration duration = workEffortEventReminder.getDuration("reminderOffset");
             alarm = new VAlarm(new Dur(duration.days(), duration.hours(), duration.minutes(), duration.seconds()));
         }
         return alarm;
@@ -949,7 +948,7 @@ public class ICalConverter {
         if (javaObj == null) {
             return null;
         }
-        TimeDuration duration = TimeDuration.fromLong(javaObj.longValue());
+        TimeDuration duration = TimeDuration.fromNumber(javaObj);
         return new Duration(new Dur(duration.days(), duration.hours(), duration.minutes(), duration.seconds()));
     }
 
