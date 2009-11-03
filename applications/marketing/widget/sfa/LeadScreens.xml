@@ -168,7 +168,6 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleCreateLeadFromVCard}">
                             <container><label style="h3" text="${uiLabelMap.SfaAutoCreateLeadByImportingVCard}"/></container>
-                            <label>&lt;br/&gt;</label>
                             <include-form  name="NewLeadFromVCard" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                         </screenlet>
                     </decorator-section>
