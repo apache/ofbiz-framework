@@ -337,6 +337,14 @@ under the License.
         <override name="roleTypeIdFrom" optional="true"/>
         <override name="roleTypeIdTo" optional="true"/>
     </service>
+    
+    <service name="createPartyRelationshipAndRole" engine="group" auth="true">
+        <description>Create party's role and party's relationship</description>
+        <group>
+            <invoke name="createPartyRole" result-to-context="true"/>
+            <invoke name="createPartyRelationship" result-to-context="true"/>
+        </group>
+    </service>
 
     <service name="createPartyRelationshipType" engine="java" default-entity-name="PartyRelationshipType"
             location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createPartyRelationshipType" auth="true">

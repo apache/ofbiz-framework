@@ -90,6 +90,7 @@ public interface FormStringRenderer {
     public void renderPasswordField(Appendable writer, Map<String, Object> context, ModelFormField.PasswordField textField) throws IOException;
     public void renderImageField(Appendable writer, Map<String, Object> context, ModelFormField.ImageField textField) throws IOException;
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException;
+    public void renderContainerFindField(Appendable writer, Map<String, Object> context, ModelFormField.ContainerField containerField) throws IOException;
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException;
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException;
 }

@@ -75,5 +75,132 @@ under the License.
         <field name="partyId" parameter-name="partyIdTo"><lookup target-form-name="LookupAccount"/></field>
         <field name="assign"><submit/></field>
     </form>
+    
+    <form name="FindAccounts" id="FindAccounts" target="FindAccounts" title="" type="single" default-map-name="parameters"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="all"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
+        <field name="groupName" title="${uiLabelMap.PartyPartyGroupName}"><text-find/></field>
+        <field name="contactMechTypeId" event="onchange" action="javascript:ajaxUpdateAreas('contactMechContainer,ContactMechTypeOnly,contactMechTypeId=' + this.value);">
+            <drop-down>
+                <option key="" description="${uiLabelMap.CommonNone}"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="contactMechContainer" id-name="contactMechContainer" title=" "><container/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListAccounts" type="list" paginate-target="FindAccounts" list-name="listIt"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
+        <actions>
+            <set field="roleTypeIdFrom" value="OWNER"/>
+            <set field="roleTypeIdTo" value="ACCOUNT"/>
+            <set field="partyRelationshipTypeId" value="ACCOUNT"/>
+            <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
+            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRoleAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="Party" value-field="party">
+                <field-map field-name="partyId"/>
+            </entity-one>
+            <set field="partyType" default-value="${groovy:party.getRelatedOne(&quot;PartyType&quot;).get(&quot;description&quot;, locale)}"/>
+            <set field="partyName" value="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(party, true)}"/>
+            <set field="partyStatusId" from-field="party.statusId"/>
+            <entity-and entity-name="PartyRelationship" list="existRelationships" filter-by-date="true">
+                <field-map field-name="roleTypeIdTo"/>
+                <field-map field-name="partyRelationshipTypeId"/>
+                <field-map field-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <field-map field-name="partyIdTo" from-field="partyId"/>
+            </entity-and>
+            <set field="existRelationship" from-field="existRelationships[0]"/>
+        </row-actions>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <hyperlink target="viewprofile" description="${partyId}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="partyName" title="${uiLabelMap.PartyName}">
+            <hyperlink target="viewprofile" description="${partyName}">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="partyType" title="${uiLabelMap.PartyType}">
+            <display description="${partyType}"/>
+        </field>
+        <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
+                title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
+            <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyRelationshipTypeId"/>
+                <parameter param-name="partyIdTo" from-field="partyId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ListMyAccounts" extends="ListAccounts">
+        <actions>
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <set field="parameters.roleTypeIdFrom" value="OWNER"/>
+            <set field="parameters.roleTypeIdTo" value="ACCOUNT"/>
+            <set field="parameters.partyRelationshipTypeId" value="ACCOUNT"/>
+            <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="assignToMe"><hidden/></field>
+    </form>
 
+    <form name="FindPostalAddress" type="single">
+        <field name="paToName" title="${uiLabelMap.PartyAddrToName}"><text-find/></field>
+        <field name="paAttnName" title="${uiLabelMap.PartyAddrAttnName}"><text-find/></field>
+        <field name="paAddress1" title="${uiLabelMap.FormFieldTitle_paAddress1}"><text-find/></field>
+        <field name="paAddress2" title="${uiLabelMap.FormFieldTitle_paAddress2}"><text-find/></field>
+        <field name="paCity" title="${uiLabelMap.PartyCity}"><text-find/></field>
+        <field name="paStateProvinceGeoId" title="${uiLabelMap.FormFieldTitle_stateProvince}">
+            <drop-down allow-empty="true">
+                <list-options key-name="geoId" description="${geoName}" list-name="states"/>
+            </drop-down>
+        </field>
+        <field name="paPostalCode"><text-find/></field>
+        <field name="paCountryGeoId" title="${uiLabelMap.PartyCountry}">
+            <drop-down allow-empty="true">
+                <list-options key-name="geoId" description="${geoName}" list-name="countries"/>
+            </drop-down>
+        </field>
+    </form>
+    <form name="FindTelecomNumber" type="single">
+        <field name="tnCountryCode" title="${uiLabelMap.PartyCountryCode}"><text-find/></field>
+        <field name="tnAreaCode" title="${uiLabelMap.PartyAreaCode}"><text-find/></field>
+        <field name="tnContactNumber" title="${uiLabelMap.PartyContactNumber}"><text-find/></field>
+        <field name="tnExtension" title="${uiLabelMap.PartyExtension}"><text-find/></field>
+    </form>
+    <form name="FindInfoStringContactMech" type="single">
+        <actions>
+            <entity-one entity-name="ContactMechType" value-field="contactMechType">
+                <field-map field-name="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
+            </entity-one>
+        </actions>
+        <field name="infoString" title="${contactMechType.description}"><text-find/></field>
+    </form>
 </forms>

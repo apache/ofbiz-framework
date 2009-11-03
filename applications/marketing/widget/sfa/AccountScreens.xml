@@ -24,7 +24,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="MarketingFindAccounts"/>
-                <set field="partyRelationshipTypeId" value="ACCOUNT"/>
                 <set field="currentUrl" value="FindAccounts"/>
                 <set field="headerItem" value="Accounts"/>
             </actions>
@@ -32,19 +31,38 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <actions>
-                                <service service-name="findParty" auto-field-map="true"/>
-                            </actions>
                             <widgets>
                                 <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <section>
                                     <widgets>
-                                        <platform-specific>
-                                            <html>
-                                                <html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/>
-                                                <html-template location="component://marketing/webapp/sfa/account/ListAccounts.ftl"/>
-                                            </html>
-                                        </platform-specific>
+                                        <container style="no-clear">
+                                            <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                                <decorator-section name="search-options">
+                                                    <include-menu name="AccountFindTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                                    <include-form name="FindAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
+                                                </decorator-section>
+                                                <decorator-section name="search-results">
+                                                    <section>
+                                                        <condition>
+                                                            <or>
+                                                                <if-empty field="parameters.all"/>
+                                                                <if-compare field="parameters.all" operator="equals" value="true"/>
+                                                            </or>
+                                                        </condition>
+                                                        <widgets>
+                                                            <!-- list all accounts -->
+                                                            <label style="h1" text="${uiLabelMap.SfaAllAccounts}"/>
+                                                            <include-form name="ListAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
+                                                        </widgets>
+                                                        <fail-widgets>
+                                                            <!-- list my accounts -->
+                                                            <label style="h1" text="${uiLabelMap.SfaMyAccounts}"/>
+                                                            <include-form name="ListMyAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
+                                                        </fail-widgets>
+                                                    </section>
+                                                </decorator-section>
+                                            </decorator-screen>
+                                        </container>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -96,6 +114,107 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ContactMechTypeOnly">
+        <section>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="POSTAL_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <section>
+                            <actions>
+                                <entity-condition list="states" entity-name="Geo">
+                                    <condition-list combine="or">
+                                        <condition-expr field-name="geoTypeId" value="STATE"/>
+                                        <condition-expr field-name="geoTypeId" value="PROVINCE"/>
+                                        <condition-expr field-name="geoTypeId" value="TERRITORY"/>
+                                    </condition-list>
+                                    <order-by field-name="geoName"/>
+                                </entity-condition>
+                                <entity-condition list="countries" entity-name="Geo">
+                                    <condition-list combine="or">
+                                        <condition-expr field-name="geoTypeId" value="COUNTRY"/>
+                                    </condition-list>
+                                    <order-by field-name="geoName"/>
+                                </entity-condition>
+                            </actions>
+                            <widgets>
+                                <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindPostalAddress"/>
+                            </widgets>
+                        </section>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="TELECOM_NUMBER"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindTelecomNumber"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="IP_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="DOMAIN_NAME"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="WEB_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="INTERNAL_PARTYID"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="parameters.contactMechTypeId" operator="equals" value="LDAP_ADDRESS"/>
+                    </condition>
+                    <widgets>
+                        <include-form location="component://marketing/widget/sfa/forms/AccountForms.xml" name="FindInfoStringContactMech"/>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>

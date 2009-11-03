@@ -31,6 +31,7 @@ import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
+import org.ofbiz.widget.form.ModelFormField.ContainerField;
 import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
@@ -294,5 +295,8 @@ public class TextFormRenderer implements FormStringRenderer {
     }
 
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) {
+    }
+    
+    public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
     }
 }

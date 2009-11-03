@@ -456,6 +456,7 @@ ${item.description}</div>
 <#if rightText?has_content><td align="right"><#if rightStyle?has_content><div class="${rightStyle}"></#if>${rightText}<#if rightStyle?has_content></div></#if></td><#rt/></#if>
 </tr> </table>
 </#macro>
+<#macro renderContainerField id><div id="${id?if_exists}"/></#macro>
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip>
 <#if style?has_content || id?has_content || title?has_content>
  <div class="fieldgroup<#if style?has_content> ${style}</#if>"<#if id?has_content> id="${id}"</#if>><div class="fieldgroup-title-bar"><table><tr><td class="collapse"><#rt/>

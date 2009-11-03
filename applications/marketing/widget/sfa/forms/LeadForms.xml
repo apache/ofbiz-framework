@@ -164,4 +164,64 @@ under the License.
         
     </form>
     
+    <form name="FindLeads" target="FindLeads" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
+        <sort-order>
+            <sort-field name="partyId"/>
+            <sort-field name="firstName"/>
+            <sort-field name="lastName"/>
+            <sort-field name="groupName"/>
+            <sort-field name="contactMechTypeId"/>
+            <sort-field name="contactMechContainer"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+    <form name="ListLeads" paginate-target="FindLeads"
+            extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <actions>
+            <set field="roleTypeIdFrom" value="OWNER"/>
+            <set field="roleTypeIdTo" value="LEAD"/>
+            <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
+            <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
+            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRoleAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="partyType"><hidden/></field>
+        <field name="partyStatusId" field-name="statusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem"/>
+        </field>
+        <sort-order>
+            <sort-field name="partyId"/>
+            <sort-field name="partyName"/>
+            <sort-field name="partyStatusId"/>
+            <sort-field name="assignToMe"/>
+        </sort-order>
+    </form>
+    <form name="ListMyLeads" extends="ListLeads">
+        <actions>
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <set field="parameters.roleTypeIdTo" value="LEAD"/>
+            <set field="parameters.partyRelationshipTypeId" value="LEAD_OWNER"/>
+            <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="assignToMe"><hidden/></field>
+    </form>
 </forms>

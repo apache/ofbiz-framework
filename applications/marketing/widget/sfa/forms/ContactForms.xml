@@ -21,31 +21,67 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListContacts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindContact"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
-        <row-actions>
-            <entity-one entity-name="Person" value-field="person">
-                <field-map field-name="partyId" from-field="partyRow.partyId"/>
-            </entity-one>
-            <entity-one entity-name="PartyType" value-field="partyType">
-                <field-map field-name="partyTypeId" from-field="partyRow.partyTypeId"/>
-            </entity-one>
-        </row-actions>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyRow.partyId}">
-                <parameter param-name="partyId" from-field="partyRow.partyId"/>
-            </hyperlink>
-        </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}">
-            <hyperlink target="viewprofile" description="${person.lastName}, ${person.firstName}">
-                <parameter param-name="partyId" from-field="partyRow.partyId"/>
-            </hyperlink>
-        </field>
+    <form name="FindContacts" target="FindContacts" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <field name="groupName"><hidden/></field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
+        <sort-order>
+            <sort-field name="partyId"/>
+            <sort-field name="firstName"/>
+            <sort-field name="lastName"/>
+            <sort-field name="contactMechTypeId"/>
+            <sort-field name="contactMechContainer"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+    <form name="ListContacts" paginate-target="FindContacts"
+            extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <actions>
+            <set field="roleTypeIdFrom" value="ACCOUNT"/>
+            <set field="roleTypeIdTo" value="CONTACT"/>
+            <set field="partyRelationshipTypeId" value="EMPLOYMENT"/>
+            <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
+            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRoleAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="partyType"><hidden/></field>
         <field name="export" title="${uiLabelMap.SfaVCard}">
             <hyperlink target="createVCardFromContact" description="${uiLabelMap.SfaVCard}">
-                <parameter param-name="partyId" from-field="partyRow.partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
+        <sort-order>
+            <sort-field name="partyId"/>
+            <sort-field name="partyName"/>
+            <sort-field name="export"/>
+            <sort-field name="assignToMe"/>
+        </sort-order>
+    </form>
+    <form name="ListMyContacts" extends="ListContacts">
+        <actions>
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <set field="parameters.roleTypeIdTo" value="CONTACT"/>
+            <set field="parameters.partyRelationshipTypeId" value="EMPLOYMENT"/>
+            <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="assignToMe"><hidden/></field>
     </form>
     <form name="NewContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>

@@ -59,7 +59,7 @@ under the License.
     <!-- Account Entry Requests -->
     <request-map uri="FindAccounts">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindAccounts"/>
+        <response name="success" type="view" value="FindAccounts" save-home-view="true"/>
     </request-map>
     <request-map uri="NewAccount">
         <security https="true" auth="true"/>
@@ -75,11 +75,15 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AssignAccountToMe"/>
     </request-map>
+    <request-map uri="ContactMechTypeOnly">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ContactMechTypeOnly"/>
+    </request-map>
 
     <!-- Lead Requests -->
     <request-map uri="FindLeads">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindLeads"/>
+        <response name="success" type="view" value="FindLeads" save-home-view="true"/>
     </request-map>
     <request-map uri="NewLead">
         <security https="true" auth="true"/>
@@ -144,7 +148,7 @@ under the License.
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindContacts"/>
+        <response name="success" type="view" value="FindContacts" save-home-view="true"/>
     </request-map>
     <request-map uri="NewContact">
         <security https="true" auth="true"/>
@@ -252,6 +256,7 @@ under the License.
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccount"/>
     <view-map name="AssignAccountToMe" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#AssignAccountToMe"/>
+    <view-map name="ContactMechTypeOnly" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#ContactMechTypeOnly"/>
 
     <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
     <view-map name="NewLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#NewLead"/>

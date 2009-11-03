@@ -510,6 +510,15 @@
         <value xml:lang="fr">Rechercher les comptes de ventes</value>
         <value xml:lang="it">Ricerca utenze SFA</value>
         <value xml:lang="zh">查找销售管理账户</value>
+        <value xml:lang="th">ค้นหา Account</value>
+    </property>
+    <property key="MarketingFindContacts">
+        <value xml:lang="en">Find SFA Contacts</value>
+        <value xml:lang="th">ค้นหา Contact</value>
+    </property>
+    <property key="MarketingFindLeads">
+        <value xml:lang="en">Find SFA Leads</value>
+        <value xml:lang="th">ค้นหา Lead</value>
     </property>
     <property key="MarketingMainPage">
         <value xml:lang="de">Haupt</value>
@@ -1701,6 +1710,10 @@
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="zh">优先使用的联系方式</value>
     </property>
+    <property key="SfaAssignToMe">
+        <value xml:lang="en">Assign To Me</value>
+        <value xml:lang="th">กำหนดให้ฉัน</value>
+    </property>
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
         <value xml:lang="fr">Comptes</value>
@@ -1714,6 +1727,14 @@
         <value xml:lang="fr">Nom de compte</value>
         <value xml:lang="it">Nome utente</value>
         <value xml:lang="zh">账户名称</value>
+    </property>
+    <property key="SfaAllAccounts">
+        <value xml:lang="en">All Accounts</value>
+        <value xml:lang="th">Account ทั้งหมด</value>
+    </property>
+    <property key="SfaMyAccounts">
+        <value xml:lang="en">My Accounts</value>
+        <value xml:lang="th">Account ของฉัน</value>
     </property>
     <property key="SfaAddSalesForecastDetail">
         <value xml:lang="en">Add Sales Forcast Detail</value>
@@ -1792,6 +1813,14 @@
         <value xml:lang="fr">Contacts</value>
         <value xml:lang="it">Contatti</value>
         <value xml:lang="zh">联系</value>
+    </property>
+    <property key="SfaAllContacts">
+        <value xml:lang="en">All Contacts</value>
+        <value xml:lang="th">Contact ทั้งหมด</value>
+    </property>
+    <property key="SfaMyContacts">
+        <value xml:lang="en">My Contacts</value>
+        <value xml:lang="th">Contact ของฉัน</value>
     </property>
     <property key="SfaConvertLead">
         <value xml:lang="en">Convert Lead</value>
@@ -1935,6 +1964,14 @@
         <value xml:lang="fr">Prospects</value>
         <value xml:lang="it">Leads</value>
         <value xml:lang="zh">线索</value>
+    </property>
+    <property key="SfaAllLeads">
+        <value xml:lang="en">All Leads</value>
+        <value xml:lang="th">Lead ทั้งหมด</value>
+    </property>
+    <property key="SfaMyLeads">
+        <value xml:lang="en">My Leads</value>
+        <value xml:lang="th">Lead ของฉัน</value>
     </property>
     <property key="SfaListSalesForecastDetail">
         <value xml:lang="en">List Sales Forecast Details</value>

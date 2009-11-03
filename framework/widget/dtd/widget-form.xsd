@@ -557,6 +557,10 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="container" substitutionGroup="AllFields">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="date-find" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.date-find"/>
@@ -1083,7 +1087,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="default-option" default="like">
+        <xs:attribute name="default-option">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="equals"/>
