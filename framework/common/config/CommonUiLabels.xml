@@ -9494,8 +9494,16 @@
         <value xml:lang="zh">捷克语</value>
         <value xml:lang="zh_CN">捷克斯洛伐克语</value>
     </property>
+    <property key="da">
+        <value xml:lang="da">Dansk</value>
+        <value xml:lang="de">Dänisch</value>
+        <value xml:lang="en">Danish</value>
+        <value xml:lang="fr">Danois</value>
+        <value xml:lang="fy">Danysk</value>
+    </property>
     <property key="de">
         <value xml:lang="ar">ألمانية</value>
+        <value xml:lang="da">Tysk</value>
         <value xml:lang="de">Deutsch</value>
         <value xml:lang="en">German</value>
         <value xml:lang="es">Alemán</value>
@@ -9516,6 +9524,7 @@
         <value xml:lang="en">English</value>
         <value xml:lang="es">Inglés</value>
         <value xml:lang="fr">Anglais</value>
+        <value xml:lang="fy">Frisian</value>
         <value xml:lang="hi_IN">अंग्रेजी</value>
         <value xml:lang="it">Inglese</value>
         <value xml:lang="nl">Engels</value>
@@ -9573,6 +9582,13 @@
         <value xml:lang="th">ฝรั่งเศส</value>
         <value xml:lang="zh">法语</value>
         <value xml:lang="zh_CN">法语</value>
+    </property>
+    <property key="fy">
+        <value xml:lang="da">Frisisk</value>
+        <value xml:lang="de">Friesisch</value>
+        <value xml:lang="en">Frisian</value>
+        <value xml:lang="fr">Fris</value>
+        <value xml:lang="fy">Frysk</value>
     </property>
     <property key="gr">
         <value xml:lang="ar">يونانية</value>
