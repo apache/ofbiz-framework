@@ -91,30 +91,18 @@ function getPaymentRunningTotal() {
                         <td>${uiLabelMap.AccountingToParty}</td>
                         <td>${uiLabelMap.CommonAmount}</td>
                         <td>${uiLabelMap.CommonDate}</td>
-                        <td align="right">
-                            ${uiLabelMap.CommonSelectAll}&nbsp;
-                            <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
-                        </td>
+                        <td align="right">${uiLabelMap.CommonSelectAll}<input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/></td>
                     </tr>
                     <#assign alt_row = false>
                     <#list paymentList as payment>
                         <tr <#if alt_row> class="alternate-row"</#if>>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
-                            <td>
-                                ${payment.paymentTypeDesc?if_exists}
-                            </td>
-                            <td>
-                                ${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}
-                            </td>
-                            <td> 
-                                ${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}
-                            </td>
+                            <td>${payment.paymentTypeDesc?if_exists}</td>
+                            <td>${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}</td>
+                            <td>${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}</td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
-                            <td align="right">
-                                ${uiLabelMap.AccountingDeposit}&nbsp;
-                                <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/>
-                            </td>
+                            <td align="right">${uiLabelMap.AccountingDeposit}<input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/></td>
                         </tr>
                         <#assign alt_row = !alt_row>
                     </#list>
