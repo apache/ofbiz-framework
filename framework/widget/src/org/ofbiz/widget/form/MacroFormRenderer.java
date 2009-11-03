@@ -1853,11 +1853,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String size = Integer.toString(lookupField.getSize());
         Integer maxlength = lookupField.getMaxlength();
-
         String id = modelFormField.getIdName();
-        if (id == null) {
-            id = "";
-        }
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
@@ -1905,6 +1901,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(size);
         sr.append("\" maxlength=\"");
         sr.append((maxlength != null? Integer.toString(maxlength): ""));
+        sr.append("\" id=\"");
+        sr.append(id);
         sr.append("\" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" descriptionFieldName=\"");
@@ -1917,9 +1915,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(targetParameterIter.toString());
         sr.append(" imgSrc=\"");
         sr.append(imgSrc.toString());
-        sr.append("\" />");
+        sr.append("\" ajaxUrl=\"");
+        sr.append(ajaxUrl);
+        sr.append("\" ajaxEnabled=");
+        sr.append(Boolean.toString(ajaxEnabled));
+        sr.append(" />");
         executeMacro(sr.toString());
-
+        
         this.addAsterisks(writer, context, modelFormField);
 
         this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
