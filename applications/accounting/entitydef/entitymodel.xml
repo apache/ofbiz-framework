@@ -2730,6 +2730,41 @@ under the License.
         <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PaymentAndTypePartyNameView"
+      package-name="org.ofbiz.accounting.payment"
+      title="Payment PaymentType PaymentMethodType StatusItem and Party Name View Entity">
+      <member-entity entity-alias="PY" entity-name="Payment"/>
+      <member-entity entity-alias="FPNV" entity-name="PartyNameView"/>
+      <member-entity entity-alias="TPNV" entity-name="PartyNameView"/>
+      <member-entity entity-alias="TY" entity-name="PaymentType"/>
+      <member-entity entity-alias="PMT" entity-name="PaymentMethodType"/>
+      <member-entity entity-alias="SI" entity-name="StatusItem"/>
+      <alias-all entity-alias="PY"/>
+      <alias name="partyFromFirstName" entity-alias="FPNV" field="firstName"/>
+      <alias name="partyFromLastName" entity-alias="FPNV" field="lastName"/>
+      <alias name="partyFromGroupName" entity-alias="FPNV" field="groupName"/>
+      <alias name="partyToFirstName" entity-alias="TPNV" field="firstName"/>
+      <alias name="partyToLastName" entity-alias="TPNV" field="lastName"/>
+      <alias name="partyToGroupName" entity-alias="TPNV" field="groupName"/>
+      <alias name="paymentTypeDesc" entity-alias="TY" field="description"/>
+      <alias name="statusDesc" entity-alias="SI" field="description"/>
+      <alias name="paymentMethodTypeDesc" entity-alias="PMT" field="description"/>
+      <view-link entity-alias="PY" rel-entity-alias="FPNV">
+        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PY" rel-entity-alias="TPNV">
+        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </view-link>
+      <view-link entity-alias="PY" rel-entity-alias="TY">
+        <key-map field-name="paymentTypeId"/>
+      </view-link>
+      <view-link entity-alias="PY" rel-entity-alias="PMT">
+        <key-map field-name="paymentMethodTypeId"/>
+      </view-link>
+      <view-link entity-alias="PY" rel-entity-alias="SI">
+        <key-map field-name="statusId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="PaymentAndType"
       package-name="org.ofbiz.accounting.payment"
       never-cache="true"
