@@ -1149,8 +1149,35 @@ under the License.
         </field>
     </form>
 
-    <form name="ListCostComponents" type="list" title="" list-name="costs"
+    <form name="FilterCostComponents" type="single" target="EditProductCosts" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="costComponentTypePrefix">
+            <drop-down allow-empty="false">
+                <option key="EST_STD" description="${uiLabelMap.ProductEstimatedCosts}"/>
+            </drop-down>
+        </field>
+        <field name="costUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCostComponents" type="list" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductCosts">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" value="CostComponent"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="orderBy" value="-fromDate"/>
+            </service>
+        </actions>
         <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
         <field name="cost">
             <display/>

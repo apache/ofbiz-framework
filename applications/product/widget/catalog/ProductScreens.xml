@@ -377,6 +377,27 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.FilterProductCosts}">
+                            <include-form name="FilterCostComponents" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="parameters.costUomId"/></not>
+                                    <not><if-empty field="parameters.costComponentTypePrefix"/></not>
+                                </and>
+                            </condition>
+                            <actions>
+                                <service service-name="getProductCost" result-map="totalCostMap">
+                                    <field-map field-name="productId"/>
+                                    <field-map field-name="currencyUomId" from-field="parameters.costUomId"/>
+                                    <field-map field-name="costComponentTypePrefix" from-field="parameters.costComponentTypePrefix"/>
+                                </service>
+                            </actions>
+                            <widgets>
+                                <label style="h2">${uiLabelMap.CommonTotal}: ${totalCostMap.productCost}</label>
+                            </widgets>
+                        </section>
                         <screenlet title="${uiLabelMap.ProductCosts}">
                             <include-form name="ListCostComponents" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
