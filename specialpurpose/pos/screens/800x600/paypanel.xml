@@ -33,7 +33,7 @@ under the License.
                 <Include file="800x600/includes/numeric"/>
             </Panel>
             <Panel name="statusPanel" x="0" y="580" w="800" h="20" style="operTitle" border="0">
-                <Include file="800x600/includes/statusbar"/>
+                <Include file="800x600/includes/promostatusbar"/>
             </Panel>
         </Panel>
     </Components>

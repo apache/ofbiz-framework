@@ -25,6 +25,7 @@ import net.xoetrope.swing.XEdit;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
+import org.ofbiz.pos.event.NavagationEvents;
 import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoStatusBar {
@@ -64,6 +65,7 @@ public class PromoStatusBar {
             statusbarPromoCode.setText("");
             XEdit statusbarClient = promoStatusBar.getStatusbarClient();
             statusbarClient.setText("");
+            m_pos.showPage("paypanel");
         } else {
             statusbarPromoCode.setText("");
             statusbarClient.setText("");
