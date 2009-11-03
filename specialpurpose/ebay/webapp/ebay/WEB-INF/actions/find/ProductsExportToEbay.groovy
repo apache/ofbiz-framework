@@ -34,7 +34,13 @@ if (parameters.productStoreId) {
     }
     context.productStoreId = productStoreId;
     context.webSiteList = webSiteList;
-
+    countryCode = null;
+    if (parameters.country) {
+        countryCode = parameters.country;
+    } else {
+        countryCode = "US";
+    }
+    context.countryCode = countryCode;
     if (webSite) {
         eBayConfig = delegator.findOne("EbayConfig", [productStoreId : productStoreId], false);
         context.customXml = eBayConfig.customXml;
