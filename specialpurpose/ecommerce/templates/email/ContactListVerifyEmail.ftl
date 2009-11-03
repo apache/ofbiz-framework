@@ -39,7 +39,7 @@ under the License.
 <form method="post" id="updateContactListParty" action="${verifyUrl}">
   <fieldset>
     <input type="hidden" name="contactListId" value="${contactListParty.contactListId}" />
-    <input type="hidden" name="partyId" value="${contactListParty.partyId} />
+    <input type="hidden" name="partyId" value="${contactListParty.partyId}" />
     <input type="hidden" name="fromDate" value="${contactListParty.fromDate}" />
     <input type="hidden" name="statusId" value="CLPT_ACCEPTED" />
     <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
