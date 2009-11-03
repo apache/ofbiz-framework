@@ -407,8 +407,8 @@ ${item.description}</div>
 </#if>
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc>
-<input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
+<#macro renderLookupField className alert name value size maxlength id autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled>
+<input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
 <#if descriptionFieldName?has_content>
  <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},'${descriptionFieldName}',<#rt/>
  <#else>
@@ -421,6 +421,9 @@ ${item.description}</div>
 </#if>
 );"><#rt>
 <img src="${imgSrc}"width="15" height="14" border="0" alt="Lookup"/></a><#rt>
+<#if ajaxEnabled?has_content && ajaxEnabled>
+    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script><#t/>
+</#if>
 </#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel>
 <#if listSize gt 20>
