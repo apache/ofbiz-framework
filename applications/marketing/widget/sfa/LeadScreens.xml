@@ -23,11 +23,9 @@ under the License.
      <screen name="FindLeads">
         <section>
             <actions>
-                <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
-                <set field="partyTypeId" value="ANY"/>
+                <set field="titleProperty" value="MarketingFindLeads"/>
                 <set field="currentUrl" value="FindLeads"/>
                 <set field="headerItem" value="Leads"/>
-                <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -36,12 +34,32 @@ under the License.
                             <widgets>
                                 <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <container style="no-clear">
-                                    <platform-specific>
-                                        <html>
-                                            <html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/>
-                                            <html-template location="component://marketing/webapp/sfa/lead/ListLeads.ftl"/>
-                                        </html>
-                                    </platform-specific>
+                                    <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                        <decorator-section name="search-options">
+                                            <include-menu name="LeadFindTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            <include-form name="FindLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                        </decorator-section>
+                                        <decorator-section name="search-results">
+                                            <section>
+                                                <condition>
+                                                    <or>
+                                                        <if-empty field="parameters.all"/>
+                                                        <if-compare field="parameters.all" operator="equals" value="true"/>
+                                                    </or>
+                                                </condition>
+                                                <widgets>
+                                                    <!-- list all leads -->
+                                                    <label style="h1" text="${uiLabelMap.SfaAllLeads}"/>
+                                                    <include-form name="ListLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <!-- list my leads -->
+                                                    <label style="h1" text="${uiLabelMap.SfaMyLeads}"/>
+                                                    <include-form name="ListMyLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                                </fail-widgets>
+                                            </section>
+                                        </decorator-section>
+                                    </decorator-screen>
                                 </container>
                             </widgets>
                         </section>

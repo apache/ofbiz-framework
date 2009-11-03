@@ -50,6 +50,7 @@ import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
+import org.ofbiz.widget.form.ModelFormField.ContainerField;
 import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
@@ -2881,6 +2882,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         } else {
              writer.append(titleText);
         }
+    }
+    
+    public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
+        String id = "";
+        if (UtilValidate.isNotEmpty(containerField.getId())) {
+            id = containerField.getId();
+        }
+        writer.append("<div id=\"" + id + "\"/>");
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See

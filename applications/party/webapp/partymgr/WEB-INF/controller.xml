@@ -694,6 +694,12 @@ under the License.
         <response name="success" type="view-last" value="EditPartyRelationships"/>
         <response name="error" type="view" value="EditPartyRelationships"/>
     </request-map>
+    <request-map uri="createPartyRelationshipAndRole">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyRelationshipAndRole"/>
+        <response name="success" type="request-redirect-noparam" value="backHome"/>
+        <response name="error" type="request-redirect-noparam" value="backHome"/>
+    </request-map>
     <request-map uri="createPartyRelationshipContactAccount">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyRelationshipContactAccount"/>

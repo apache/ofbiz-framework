@@ -220,6 +220,8 @@ public class ModelFormField {
                 this.fieldInfo = new PasswordField(subElement, this);
             } else if ("image".equals(subElementName)) {
                 this.fieldInfo = new ImageField(subElement, this);
+            } else if ("container".equals(subElementName)) {
+                this.fieldInfo = new ContainerField(subElement, this);
             } else if ("on-field-event-update-area".equals(subElementName)) {
                 addOnEventUpdateArea(new UpdateArea(subElement));
             } else {
@@ -1438,6 +1440,7 @@ public class ModelFormField {
             fieldTypeByName.put("password", Integer.valueOf(18));
             fieldTypeByName.put("image", Integer.valueOf(19));
             fieldTypeByName.put("display-entity", Integer.valueOf(20));
+            fieldTypeByName.put("container", Integer.valueOf(21));
         }
 
         protected int fieldType;
@@ -3363,7 +3366,11 @@ public class ModelFormField {
             this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
             this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options")) ||
                 "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
-            this.defaultOption = element.getAttribute("default-option");
+            if(element.hasAttribute("default-option")) {
+                this.defaultOption = element.getAttribute("default-option");
+            } else {
+            	this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "like");
+            }
             this.hideOptions = "true".equals(element.getAttribute("hide-options")) ||
                 "options".equals(element.getAttribute("hide-options")) ? true : false;
         }
@@ -3655,5 +3662,42 @@ public class ModelFormField {
             this.value = FlexibleStringExpander.getInstance(string);
         }
 
+    }
+    
+    public static class ContainerField extends FieldInfo {
+        protected String id;
+
+        public ContainerField() {
+            super();
+            // TODO Auto-generated constructor stub
+        }
+
+        public ContainerField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            // TODO Auto-generated constructor stub
+            this.setId(modelFormField.getIdName());
+        }
+
+        public ContainerField(int fieldSource, int fieldType,
+                ModelFormField modelFormField) {
+            super(fieldSource, fieldType, modelFormField);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer,
+                Map<String, Object> context,
+                FormStringRenderer formStringRenderer) throws IOException {
+            // TODO Auto-generated method stub
+            formStringRenderer.renderContainerFindField(writer, context, this);
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
     }
 }

@@ -53,6 +53,7 @@ import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
+import org.ofbiz.widget.form.ModelFormField.ContainerField;
 import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
@@ -951,8 +952,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (items.length() >1) {
                 items.append(",");
             }
-            items.append("{'value':'");
+            items.append("{'key':'");
             items.append(optionValue.getKey());
+            items.append("', 'description':'" + optionValue.getDescription());
             items.append("'}");
         }
         items.append("]");
@@ -965,9 +967,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
-        sr.append(" currentValue=\"");
+        sr.append("\" currentValue=\"");
         sr.append(currentValue);
-        sr.append("\" noCurrentSelectedKey=");
+        sr.append("\" noCurrentSelectedKey=\"");
         sr.append(noCurrentSelectedKey);
         sr.append("\" name=\"");
         sr.append(name);
@@ -1569,7 +1571,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
         boolean ignCase = textFindField.getIgnoreCase();
         boolean hideIgnoreCase = textFindField.getHideIgnoreCase();
-
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextFindField ");
         sr.append(" name=\"");
@@ -2839,6 +2840,23 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(parameters.toString());
         sr.append(" targetWindow=\"");
         sr.append(targetWindow);
+        sr.append("\" />");
+        executeMacro(sr.toString());
+    }
+    
+    @Override
+    public void renderContainerFindField(Appendable writer,
+            Map<String, Object> context, ContainerField containerField)
+            throws IOException {
+        // TODO Auto-generated method stub
+        String id = "";
+        if (UtilValidate.isNotEmpty(containerField.getId())) {
+            id = containerField.getId();
+        }
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderContainerField ");
+        sr.append("id=\"");
+        sr.append(id);
         sr.append("\" />");
         executeMacro(sr.toString());
     }

@@ -72,9 +72,6 @@ under the License.
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
             <link target="NewAccount"/>
         </menu-item>
-        <menu-item name="AssignAccountToMe" title="${uiLabelMap.PageTitleAssignAccountFromExisting}">
-            <link target="AssignAccountToMe"/>
-        </menu-item>
         <menu-item name="ViewSfaCommEvent" title="${uiLabelMap.PartyCommunications}">
             <condition>
                 <not><if-empty field="partyId"/></not>
@@ -82,6 +79,27 @@ under the License.
             <link target="ListPartyCommEvents">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="headerItem" value="Accounts"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="AccountFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="all" title="${uiLabelMap.SfaAllAccounts}">
+            <condition>
+                <if-compare field="parameters.all" operator="equals" value="false"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="my" title="${uiLabelMap.SfaMyAccounts}">
+            <condition>
+                <or>
+                    <if-compare field="parameters.all" operator="equals" value="true"/>
+                    <if-empty field="parameters.all"/>
+                </or>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="false"/>
             </link>
         </menu-item>
     </menu>
@@ -121,9 +139,6 @@ under the License.
         <menu-item name="NewLeadFromVCard" title="${uiLabelMap.PageTitleCreateLeadFromVCard}">
             <link target="NewLeadFromVCard"/>
         </menu-item>
-        <menu-item name="AssignLeadToMe" title="${uiLabelMap.PageTitleAssignLeadFromExisting}">
-            <link target="AssignLeadToMe"/>
-        </menu-item>
         <menu-item name="ViewSfaCommEvent" title="${uiLabelMap.PartyCommunications}">
             <condition>
                 <not><if-empty field="partyId"/></not>
@@ -131,6 +146,28 @@ under the License.
             <link target="ListPartyCommEvents">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="headerItem" value="Leads"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="LeadFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="all" title="${uiLabelMap.SfaAllLeads}">
+            <condition>
+                <if-compare field="parameters.all" operator="equals" value="false"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="my" title="${uiLabelMap.SfaMyLeads}">
+            <condition>
+                <or>
+                    <if-compare field="parameters.all" operator="equals" value="true"/>
+                    <if-empty field="parameters.all"/>
+                </or>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="false"/>
             </link>
         </menu-item>
     </menu>
@@ -160,6 +197,27 @@ under the License.
             <link target="ListPartyCommEvents">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="headerItem" value="Contacts"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ContactFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="all" title="${uiLabelMap.SfaAllContacts}">
+            <condition>
+                <if-compare field="parameters.all" operator="equals" value="false"/>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="my" title="${uiLabelMap.SfaMyContacts}">
+            <condition>
+                <or>
+                    <if-compare field="parameters.all" operator="equals" value="true"/>
+                    <if-empty field="parameters.all"/>
+                </or>
+            </condition>
+            <link target="${parameters._LAST_VIEW_NAME_}">
+                <parameter param-name="all" value="false"/>
             </link>
         </menu-item>
     </menu>
