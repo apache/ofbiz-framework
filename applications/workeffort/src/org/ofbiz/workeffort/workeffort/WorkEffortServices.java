@@ -637,7 +637,7 @@ public class WorkEffortServices {
                             for (DateRange periodRange : periodRanges) {
                                 if (periodRange.includesDate(occurrence)) {
                                     GenericValue cloneWorkEffort = (GenericValue) workEffort.clone();
-                                    TimeDuration duration = workEffort.getDuration("estimatedMilliSeconds");
+                                    TimeDuration duration = TimeDuration.fromNumber(workEffort.getLong("estimatedMilliSeconds"));
                                     if (!duration.isZero()) {
                                         Calendar endCal = UtilDateTime.toCalendar(occurrence, timeZone, locale);
                                         Date endDate = duration.addToCalendar(endCal).getTime();
@@ -951,7 +951,7 @@ public class WorkEffortServices {
                     try {
                         parameters.put("eventDateTime", eventDateTime);
                         processEventReminder(ctx, reminder, parameters);
-                        TimeDuration duration = reminder.getDuration("repeatInterval");
+                        TimeDuration duration = TimeDuration.fromNumber(reminder.getLong("repeatInterval"));
                         if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || duration.isZero()) {
                             reminder.remove();
                         } else {
