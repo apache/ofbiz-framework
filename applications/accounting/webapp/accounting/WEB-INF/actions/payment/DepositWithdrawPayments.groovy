@@ -50,7 +50,7 @@ if ("Y".equals(parameters.noConditionFind)) {
     exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
     paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND);
     combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND);
-    payments = delegator.findList("Payment", combinedPaymentCond, null, null, null, false);
+    payments = delegator.findList("PaymentAndTypePartyNameView", combinedPaymentCond, null, null, null, false);
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
     payments.each { payment ->

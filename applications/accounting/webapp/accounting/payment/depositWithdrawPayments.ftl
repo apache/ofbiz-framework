@@ -84,7 +84,7 @@ function getPaymentRunningTotal() {
                     <span class="label" id="showPaymentRunningTotal"></span>
                 </div>
                 <table class="basic-table">
-                    <tr class="header-row">
+                    <tr class="header-row-2">
                         <td>${uiLabelMap.FormFieldTitle_paymentId}</td>
                         <td>${uiLabelMap.AccountingPaymentType}</td>
                         <td>${uiLabelMap.AccountingFromParty}</td>
@@ -96,22 +96,18 @@ function getPaymentRunningTotal() {
                             <input type="checkbox" id="checkAllPayments" name="checkAllPayments" onchange="javascript:togglePaymentId(this);"/>
                         </td>
                     </tr>
+                    <#assign alt_row = false>
                     <#list paymentList as payment>
-                        <#if payment.paymentTypeId?has_content>
-                            <#assign paymentType = delegator.findOne("PaymentType", {"paymentTypeId" : payment.paymentTypeId}, false)/>
-                        </#if>
-                        <tr>
+                        <tr <#if alt_row> class="alternate-row"</#if>>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
                             <td>
-                                ${paymentType.description?if_exists}
+                                ${payment.paymentTypeDesc?if_exists}
                             </td>
                             <td>
-                                <#assign partyNameFrom = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdFrom}, true))!>
-                                ${(partyNameFrom.firstName)!} ${(partyNameFrom.lastName)!} ${(partyNameFrom.groupName)!}
+                                ${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}
                             </td>
                             <td> 
-                                <#assign partyNameTo = (delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true))!>
-                                ${(partyNameTo.firstName)!} ${(partyNameTo.lastName)!} ${(partyNameTo.groupName)!}
+                                ${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}
                             </td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
                             <td>${payment.effectiveDate?if_exists}</td>
@@ -120,6 +116,7 @@ function getPaymentRunningTotal() {
                                 <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/>
                             </td>
                         </tr>
+                        <#assign alt_row = !alt_row>
                     </#list>
                     <div align="right">
                         <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
