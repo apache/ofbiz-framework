@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EcommerceAboutUs">
+        <value xml:lang="en">About Us</value>
+    </property>
     <property key="EcommerceANew">
         <value xml:lang="da">en ny</value>
         <value xml:lang="de">Ein neues</value>
