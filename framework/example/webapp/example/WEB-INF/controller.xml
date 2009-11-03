@@ -231,6 +231,6 @@ under the License.
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
     <view-map name="CreateExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#CreateExampleFormOnly"/>
     <view-map name="printExampleFOPFonts" type="screenfop" page="component://example/widget/example/FormWidgetExampleScreens.xml#printExampleFOPFonts" content-type="application/pdf"  encoding="none"/>
-    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
+    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
     <!-- end of view mappings -->
 </site-conf>
