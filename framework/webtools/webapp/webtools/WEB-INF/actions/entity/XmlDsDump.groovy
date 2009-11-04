@@ -35,8 +35,6 @@ filename = parameters.filename;
 maxRecStr = parameters.maxrecords;
 entitySyncId = parameters.entitySyncId;
 passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet;
-entityFrom = parameters.entityFrom;
-entityThru = parameters.entityThru;
 
 // get the max records per file setting and convert to a int
 maxRecordsPerFile = 0;

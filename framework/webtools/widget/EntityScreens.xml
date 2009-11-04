@@ -406,6 +406,8 @@ under the License.
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEntityExport"/>
                 <set field="tabButtonItem" value="xmlDsDump"/>
+                <set field="entityFrom" from-field="parameters.entityFrom" type="Timestamp"/>
+                <set field="entityThru" from-field="parameters.entityThru" type="Timestamp"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
