@@ -137,20 +137,94 @@ public class GoogleCheckoutHelper {
     }
     
     public void processAuthNotification(AuthorizationAmountNotification info) throws GeneralException {
-        // TODO implement me (if desired)
-        return; // the notification will be accepted                        
+        String externalId = info.getGoogleOrderNumber();
+        List<GenericValue> orders = null;
+        GenericValue orderPaymentPreference = null;
+        try {
+            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (UtilValidate.isNotEmpty(orders)) {
+            GenericValue order = EntityUtil.getFirst(orders);
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
+                orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
+                BigDecimal maxAmount = new BigDecimal(info.getAuthorizationAmount());
+                //Update orderPaymentPreference
+                Map<String, Object> paymentPrefMap = UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), "maxAmount", maxAmount, "statusId", "PAYMENT_AUTHORIZED", "paymentMethodTypeId", "EXT_GOOGLE_CHECKOUT");
+                updatePaymentPreference(paymentPrefMap);
+                //Create PaymentGatewayResponse
+                Map<String, Object> newGatewayMap = UtilMisc.toMap("amount", maxAmount, "transCodeEnumId", "PGT_AUTHORIZE", "referenceNum", externalId, "gatewayAvsResult", info.getAvsResponse(), "currencyUomId", info.getCurrencyCode());
+                newGatewayMap.put("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
+                newGatewayMap.put("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
+                newGatewayMap.put("transactionDate", order.getTimestamp("orderDate"));
+                createPaymentGatewayResponse(newGatewayMap);
+            }
+        }
+        return;
     }
-    
+
     public void processChargeNotification(ChargeAmountNotification info) throws GeneralException {
-        // TODO: implement me (if desired)
-        return; // the notification will be accepted
+        String externalId = info.getGoogleOrderNumber();
+        List<GenericValue> orders = null;
+        GenericValue orderPaymentPreference = null;
+        try {
+            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (UtilValidate.isNotEmpty(orders)) {
+            GenericValue order = EntityUtil.getFirst(orders);
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
+                orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
+                BigDecimal maxAmount = new BigDecimal(info.getTotalChargeAmount());
+                //Update orderPaymentPreference
+                Map<String, Object> paymentPrefMap = UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), "maxAmount", maxAmount, "statusId", "PAYMENT_SETTLED", "paymentMethodTypeId", "EXT_GOOGLE_CHECKOUT");
+                updatePaymentPreference(paymentPrefMap);
+                //Create PaymentGatewayResponse
+                maxAmount = new BigDecimal(info.getLatestChargeAmount());
+                Map<String, Object> newGatewayMap = UtilMisc.toMap("amount", maxAmount, "transCodeEnumId", "PGT_CAPTURE", "referenceNum", externalId, "currencyUomId", info.getCurrencyCode());
+                newGatewayMap.put("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
+                newGatewayMap.put("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
+                newGatewayMap.put("transactionDate", order.getTimestamp("orderDate"));
+                createPaymentGatewayResponse(newGatewayMap);
+            }
+        }
+        return;
     }
-    
+
     public void processRefundNotification(RefundAmountNotification info) throws GeneralException {
-        // TODO: implement me (if desired)
-        return; // the notification will be accepted
+        String externalId = info.getGoogleOrderNumber();
+        List<GenericValue> orders = null;
+        GenericValue orderPaymentPreference = null;
+        try {
+            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (UtilValidate.isNotEmpty(orders)) {
+            GenericValue order = EntityUtil.getFirst(orders);
+            List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference");
+            if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
+                orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
+                BigDecimal maxAmount = new BigDecimal(info.getTotalRefundAmount());
+                //Update orderPaymentPreference
+                Map<String, Object> paymentPrefMap = UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), "maxAmount", maxAmount, "statusId", "PAYMENT_REFUNDED", "paymentMethodTypeId", "EXT_GOOGLE_CHECKOUT");
+                updatePaymentPreference(paymentPrefMap);
+                //Create PaymentGatewayResponse
+                maxAmount = new BigDecimal(info.getLatestRefundAmount());
+                Map<String, Object> newGatewayMap = UtilMisc.toMap("amount", maxAmount, "transCodeEnumId", "PGT_REFUND", "referenceNum", externalId, "currencyUomId", info.getCurrencyCode());
+                newGatewayMap.put("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
+                newGatewayMap.put("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
+                newGatewayMap.put("transactionDate", order.getTimestamp("orderDate"));
+                createPaymentGatewayResponse(newGatewayMap);
+            }
+        }
+        return;
     }
-    
+
     public void processChargeBackNotification(ChargebackAmountNotification info) throws GeneralException {
         // TODO: implement me (if desired)
         return; // the notification will be accepted
@@ -606,4 +680,29 @@ public class GoogleCheckoutHelper {
         }
         return UtilValidate.isNotEmpty(holdOrderNotes);
     }
+
+    protected void updatePaymentPreference(Map<String, Object> paymentPrefMap) {
+        GenericValue newPref = delegator.makeValue("OrderPaymentPreference");
+        newPref.set("orderPaymentPreferenceId", paymentPrefMap.get("orderPaymentPreferenceId"));
+        newPref.set("createdByUserLogin", system.getString("userLoginId"));
+        newPref.setNonPKFields(paymentPrefMap);
+        try {
+            delegator.store(newPref);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+    }
+
+    protected void createPaymentGatewayResponse(Map<String, Object> newGatewayMap) {
+        try {
+            String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse");
+            response.set("paymentGatewayResponseId", responseId);
+            response.setNonPKFields(newGatewayMap);
+            delegator.create(response);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+    }
+
 }
