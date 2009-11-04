@@ -94,7 +94,7 @@ public class ConfigureItem extends XPage {
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
         m_reset = (XButton) m_dialog.findComponent("BtnReset");
 
-        XEventHelper.addMouseHandler(this, m_ok, "OK");
+        XEventHelper.addMouseHandler(this, m_ok, "ok");
         XEventHelper.addMouseHandler(this, m_reset, "reset");
 
         getButtons();
