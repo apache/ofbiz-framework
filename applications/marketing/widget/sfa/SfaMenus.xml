@@ -58,6 +58,24 @@ under the License.
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
         </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
+                <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="action" value="REPLY"/>
+            </link>
+        </menu-item>
+        <menu-item name="replyAll" title="${uiLabelMap.PartyReplyAll}">
+            <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
+                <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="action" value="REPLYALL"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

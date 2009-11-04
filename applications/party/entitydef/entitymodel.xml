@@ -2370,6 +2370,7 @@ under the License.
         <member-entity entity-alias="PTYCM" entity-name="PartyAndContactMech"/>
         <alias-all entity-alias="PTYREL"/>
         <alias-all entity-alias="PTYCM"/>
+        <alias entity-alias="PTYCM" field="statusId" name="partyStatusId"/>
         <view-link entity-alias="PTYREL" rel-entity-alias="PTYCM" rel-optional="true">
             <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         </view-link>

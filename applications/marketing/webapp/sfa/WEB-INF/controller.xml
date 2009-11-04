@@ -71,10 +71,6 @@ under the License.
         <response name="success" type="view" value="FindAccounts"/>
         <response name="error" type="view" value="NewAccount"/>
     </request-map>
-    <request-map uri="AssignAccountToMe">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AssignAccountToMe"/>
-    </request-map>
     <request-map uri="ContactMechTypeOnly">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ContactMechTypeOnly"/>
@@ -124,10 +120,6 @@ under the License.
     <request-map uri="NewLeadFromVCard">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewLeadFromVCard"/>
-    </request-map>
-    <request-map uri="AssignLeadToMe">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AssignLeadToMe"/>
     </request-map>
     <request-map uri="createLeadFromVCard">
         <security https="true" auth="true"/>
@@ -255,7 +247,6 @@ under the License.
 
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccount"/>
-    <view-map name="AssignAccountToMe" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#AssignAccountToMe"/>
     <view-map name="ContactMechTypeOnly" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#ContactMechTypeOnly"/>
 
     <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
@@ -264,7 +255,6 @@ under the License.
     <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
     <view-map name="MergeLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#MergeLeads"/>
     <view-map name="NewLeadFromVCard" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#NewLeadFromVCard"/>
-    <view-map name="AssignLeadToMe" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#AssignLeadToMe"/>
 
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="NewContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#NewContact"/>
