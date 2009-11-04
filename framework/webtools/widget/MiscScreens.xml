@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
+                <set field="tabButtonItem" value="viewents"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="component://webtools/widget/CommonScreens.xml">
