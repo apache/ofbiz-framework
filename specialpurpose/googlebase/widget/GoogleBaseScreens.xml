@@ -30,6 +30,7 @@ under the License.
                     <order-by field-name="description"/>
                 </entity-condition>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
+                <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/GoogleBaseAdvancedSearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator" location="${parameters.mainDecoratorLocation}">
