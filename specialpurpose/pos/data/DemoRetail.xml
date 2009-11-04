@@ -36,8 +36,8 @@
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2004-07-26 16:50:05.459"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="SHIP_ORIG_LOCATION" fromDate="2004-07-26 16:50:09.65"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2004-07-26 16:50:13.755"/>
-    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
-    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9201" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2001-05-13 12:00:00.0"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_PAYMENT" fromDate="2004-07-26 16:48:47.311"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2004-07-26 16:48:51.652"/>
     <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2004-07-26 16:49:04.176"/>
@@ -54,10 +54,6 @@
         authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
         authErrorMessage="Problem connecting to payment processor."
         visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
-
-<!-- Note: 20092102 BB - Introducing the visualThemeId we have actually missed this styleSheet setting
-styleSheet=""
--->
 
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor" paymentCustomMethodId="CC_AUTH_CAPTURE_ALWA"/>
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
