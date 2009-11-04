@@ -34,7 +34,7 @@ under the License.
         </field>
         <field name="webSiteId" event="onChange" action="javascript:$('productsExportToGoogle').action='${persistAction}';$('productsExportToGoogle').submit();">
             <drop-down current="selected">
-                <list-options list-name="webSiteList" key-name="webSiteId" description="${siteName}"/>
+                <list-options list-name="webSiteList" key-name="webSiteId" description="${siteName}[${webSiteId}]"/>
             </drop-down>
         </field>
         <field name="webSiteUrl"><text size="50" maxlength="250" default-value="${webSiteUrl}"/></field>

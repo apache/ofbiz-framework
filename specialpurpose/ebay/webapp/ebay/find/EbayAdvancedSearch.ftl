@@ -19,8 +19,22 @@ under the License.
 
 <script type="text/javascript">
 //<![CDATA[
-    function selectChange(id) {
-        var formId = id ;
+    function selectChange(formId, elementId) {
+        if (elementId.id == 'searchProductStoreId') {
+           $('searchCatalogId')[$('searchCatalogId').selectedIndex].value = "";
+           if ($('searchCategoryId').selectedIndex) {
+               $('searchCategoryId')[$('searchCategoryId').selectedIndex].value = "";
+           } else {
+               $('searchCategoryId').value = "";
+           }
+        }
+        if (elementId.id == 'searchCatalogId') {
+            if ($('searchCategoryId').selectedIndex) {
+               $('searchCategoryId')[$('searchCategoryId').selectedIndex].value = "";
+           } else {
+               $('searchCategoryId').value = "";
+           }
+        }
         formId.action="<@ofbizUrl>main</@ofbizUrl>";
         formId.submit();
     }
@@ -70,7 +84,7 @@ under the License.
                 ${uiLabelMap.ProductProductStore}:
               </td>
               <td valign="middle">
-                <select name="productStoreId" id="searchProductStoreId" onchange="javascript:selectChange($('advToKeywordSearchform'));">
+                <select name="productStoreId" id="searchProductStoreId" onchange="javascript:selectChange($('advToKeywordSearchform'), $('searchProductStoreId'));">
                   <#if ebayConfigList?has_content>
                     <#list ebayConfigList as ebayConfig>
                       <#assign productStore = delegator.findOne("ProductStore", {"productStoreId" : ebayConfig.productStoreId}, true) />
@@ -91,7 +105,7 @@ under the License.
               </td>
               <td valign="middle">
                 <div>
-                  <select name="SEARCH_CATALOG_ID" id="searchCatalogId" onchange="javascript:selectChange($('advToKeywordSearchform'));" class="required">
+                  <select name="SEARCH_CATALOG_ID" id="searchCatalogId" onchange="javascript:selectChange($('advToKeywordSearchform'), $('searchCatalogId'));" class="required">
                     <#list prodCatalogList as prodCatalog>
                       <#assign displayDesc = prodCatalog.catalogName?default("${uiLabelMap.ProductNoDescription}") />
                       <#if (18 < displayDesc?length)>
@@ -111,7 +125,7 @@ under the License.
               <td valign="middle">
                 <div>
                   <#if categoryIds?has_content>
-                    <select name="SEARCH_CATEGORY_ID">
+                    <select name="SEARCH_CATEGORY_ID" id="searchCategoryId">
                       <option value="">- ${uiLabelMap.ProductAnyCategory} -</option>
                       <#list categoryIds as categoryId>
                         <#assign productCategory = delegator.findOne("ProductCategory", {"productCategoryId" : categoryId}, true) />
@@ -123,8 +137,8 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <input type="text" id="SEARCH_CATEGORY_ID" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" />
-                    <a href="javascript:call_fieldlookup2($('SEARCH_CATEGORY_ID'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+                    <input type="text" id="searchCategoryId" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" />
+                    <a href="javascript:call_fieldlookup2($('searchCategoryId'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
                   </#if>
                   ${uiLabelMap.ProductIncludeSubCategories}?
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked" />

@@ -384,4 +384,18 @@ public class CatalogWorker {
 
         return categoryIds;
     }
+
+    public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {
+        if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
+
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_EBAY_ROOT");
+
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
+            GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
+
+            return prodCatalogCategory.getString("productCategoryId");
+        } else {
+            return null;
+        }
+    }
 }
