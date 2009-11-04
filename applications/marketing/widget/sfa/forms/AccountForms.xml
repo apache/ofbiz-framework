@@ -66,17 +66,8 @@ under the License.
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <form name="AssignAccountToMe" type="single" target="createPartyRelationship">
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
-        <field name="roleTypeIdFrom"><hidden value="OWNER"/></field>
-        <field name="roleTypeIdTo"><hidden value="ACCOUNT"/></field>
-        <field name="partyRelationshipTypeId"><hidden value="ACCOUNT"/></field>
-        <field name="partyId" parameter-name="partyIdTo"><lookup target-form-name="LookupAccount"/></field>
-        <field name="assign"><submit/></field>
-    </form>
     
-    <form name="FindAccounts" id="FindAccounts" target="FindAccounts" title="" type="single" default-map-name="parameters"
+    <form name="FindAccounts" id="FindAccounts" target="${currentUrl}" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="all"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -93,11 +84,13 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListAccounts" type="list" paginate-target="FindAccounts" list-name="listIt"
+    <form name="listAccounts" paginate-target="${currentUrl}" type="list" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="roleTypeIdFrom" value="OWNER"/>
             <set field="roleTypeIdTo" value="ACCOUNT"/>
+            <set field="parameters.statusId" value="PARTY_DISABLED"/>
+            <set field="parameters.statusId_op" value="notEqual"/>
             <set field="partyRelationshipTypeId" value="ACCOUNT"/>
             <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
             <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
@@ -115,30 +108,56 @@ under the License.
             <entity-one entity-name="Party" value-field="party">
                 <field-map field-name="partyId"/>
             </entity-one>
-            <set field="partyType" default-value="${groovy:party.getRelatedOne(&quot;PartyType&quot;).get(&quot;description&quot;, locale)}"/>
             <set field="partyName" value="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(party, true)}"/>
-            <set field="partyStatusId" from-field="party.statusId"/>
+            <entity-and entity-name="PartyAndContactMech" list="emailAddresses" filter-by-date="true">
+                <field-map field-name="partyId"/>
+                <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+            </entity-and>
+            <entity-and entity-name="PartyAndContactMech" list="telecomNumbers" filter-by-date="true">
+                <field-map field-name="partyId"/>
+                <field-map field-name="contactMechTypeId" value="TELECOM_NUMBER"/>
+            </entity-and>
+            <set field="telecomNumber" from-field="telecomNumbers[0]" type="Object"/>
+            <entity-and entity-name="PartyAndContactMech" list="postalAddresses" filter-by-date="true">
+                <field-map field-name="partyId"/>
+                <field-map field-name="contactMechTypeId" value="POSTAL_ADDRESS"/>
+            </entity-and>
+            <set field="postalAddress" from-field="postalAddresses[0]" type="Object"/>
             <entity-and entity-name="PartyRelationship" list="existRelationships" filter-by-date="true">
                 <field-map field-name="roleTypeIdTo"/>
                 <field-map field-name="partyRelationshipTypeId"/>
                 <field-map field-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <field-map field-name="partyIdTo" from-field="partyId"/>
             </entity-and>
+            <set field="countryGeoId" from-field="postalAddress.paCountryGeoId"/>
+            <entity-and entity-name="PartyRelationship" list="relatedCompanies" filter-by-date="true">
+                <field-map field-name="partyIdTo" from-field="partyId"/>
+                <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+            </entity-and>
+            <set field="relatedCompanyPartyId" from-field="relatedCompanies[0].partyIdFrom" type="Object"/>
             <set field="existRelationship" from-field="existRelationships[0]"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile" description="${partyId}">
+            <hyperlink target="viewprofile" description="${partyName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}">
-            <hyperlink target="viewprofile" description="${partyName}">
-                <parameter param-name="partyId"/>
+        <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_emailAddress}"><display description="${emailAddresses[0].infoString}"/></field>
+        <field name="telecomNumber">
+            <display description="${telecomNumber.tnCountryCode}-${telecomNumber.tnAreaCode}-${telecomNumber.tnContactNumber} ${uiLabelMap.PartyContactExt} ${telecomNumber.tnExtension}"/>
+        </field>
+        <field name="city" title="${uiLabelMap.FormFieldTitle_city}"><display description="${postalAddress.paCity}"/></field>
+        <field name="countryGeoId" title="${uiLabelMap.FormFieldTitle_country}">
+            <display-entity entity-name="Geo" description="${geoName}" key-field-name="geoId"/>
+        </field>
+        <field name="relatedCompany" use-when="relatedCompanyPartyId!=null" title="${uiLabelMap.PartyRelatedCompany}">
+            <hyperlink target="viewprofile" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator,relatedCompanyPartyId,true);} [${relatedCompanyPartyId}]">
+                <parameter param-name="partyId" from-field="relatedCompanyPartyId"/>
             </hyperlink>
         </field>
-        <field name="partyType" title="${uiLabelMap.PartyType}">
-            <display description="${partyType}"/>
-        </field>
+    </form>
+    <form name="ListAccounts" extends="listAccounts">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
             <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
@@ -150,12 +169,15 @@ under the License.
                 <parameter param-name="partyIdTo" from-field="partyId"/>
             </hyperlink>
         </field>
+        <field name="relatedCompany"><hidden/></field>
     </form>
     <form name="ListMyAccounts" extends="ListAccounts">
         <actions>
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="parameters.roleTypeIdFrom" value="OWNER"/>
             <set field="parameters.roleTypeIdTo" value="ACCOUNT"/>
+            <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
+            <set field="parameters.partyStatusId_op" value="notEqual"/>
             <set field="parameters.partyRelationshipTypeId" value="ACCOUNT"/>
             <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">

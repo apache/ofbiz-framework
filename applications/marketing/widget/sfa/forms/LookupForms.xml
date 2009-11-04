@@ -21,18 +21,16 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="listLookupParty" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="${currentUrl}"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="PartyNameView" value-field="partyName">
-                <field-map field-name="partyId" from-field="partyRow.partyId"/>
-            </entity-one>
-        </row-actions>
-        <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyRow.partyId}" target="javascript:set_value('${partyRow.partyId}')"/>
+    <form name="listLookupAccount" extends="listAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <field name="partyId">
+            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${partyName.lastName}${partyName.groupName} ${partyName.firstName}"/></field>
+        <field name="relatedCompany"><hidden/></field>
     </form>
-
+    <form name="listLookupLead" extends="listLeads" extends-resource="component://marketing/widget/sfa/forms/LeadForms.xml">
+        <field name="partyId">
+            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
+        </field>
+        <field name="relatedCompany"><hidden/></field>
+    </form>
 </forms>

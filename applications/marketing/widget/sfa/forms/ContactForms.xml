@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="FindContacts" target="FindContacts" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+    <form name="FindContacts" target="${currentUrl}" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <field name="groupName"><hidden/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
@@ -34,13 +34,15 @@ under the License.
             <sort-field name="submitButton"/>
         </sort-order>
     </form>
-    <form name="ListContacts" paginate-target="FindContacts"
-            extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+    <form name="ListContacts" paginate-target="${currentUrl}"
+            extends="listAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <actions>
             <set field="roleTypeIdFrom" value="ACCOUNT"/>
             <set field="roleTypeIdTo" value="CONTACT"/>
             <set field="partyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
+            <set field="parameters.statusId" value="PARTY_DISABLED"/>
+            <set field="parameters.statusId_op" value="notEqual"/>
             <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -52,7 +54,6 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="partyType"><hidden/></field>
         <field name="export" title="${uiLabelMap.SfaVCard}">
             <hyperlink target="createVCardFromContact" description="${uiLabelMap.SfaVCard}">
                 <parameter param-name="partyId"/>
@@ -60,7 +61,11 @@ under the License.
         </field>
         <sort-order>
             <sort-field name="partyId"/>
-            <sort-field name="partyName"/>
+            <sort-field name="emailAddress"/>
+            <sort-field name="telecomNumber"/>
+            <sort-field name="city"/>
+            <sort-field name="countryGeoId"/>
+            <sort-field name="relatedCompany"/>
             <sort-field name="export"/>
             <sort-field name="assignToMe"/>
         </sort-order>
@@ -69,6 +74,8 @@ under the License.
         <actions>
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="parameters.roleTypeIdTo" value="CONTACT"/>
+            <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
+            <set field="parameters.partyStatusId_op" value="notEqual"/>
             <set field="parameters.partyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">

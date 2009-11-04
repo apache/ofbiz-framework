@@ -27,6 +27,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
                 <set field="title" value="${uiLabelMap.SfaFindLeads}"/>
                 <set field="partyTypeId" value="PERSON"/>
@@ -36,12 +37,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <platform-specific>
-                             <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="FindLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupParty" location="component://marketing/widget/sfa/forms/LookupForms.xml"/>
+                        <include-form name="listLookupLead" location="component://marketing/widget/sfa/forms/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -53,6 +52,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyRelationshipTypeId" value="ACCOUNT"/>
                 <set field="title" value="${uiLabelMap.SfaFindAccounts}"/>
                 <set field="partyTypeId" value="PARTY_GROUP"/>
@@ -62,12 +62,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <platform-specific>
-                             <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="FindAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupParty" location="component://marketing/widget/sfa/forms/LookupForms.xml"/>
+                        <include-form name="listLookupAccount" location="component://marketing/widget/sfa/forms/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

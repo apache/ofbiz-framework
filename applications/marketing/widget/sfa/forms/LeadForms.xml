@@ -119,15 +119,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AssignLeadToMe" type="single" target="createPartyRelationship">
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
-        <field name="roleTypeIdFrom"><hidden value="OWNER"/></field>
-        <field name="roleTypeIdTo"><hidden value="LEAD"/></field>
-        <field name="partyRelationshipTypeId"><hidden value="LEAD_OWNER"/></field>
-        <field name="partyId" parameter-name="partyIdTo"><lookup target-form-name="LookupLead"/></field>
-        <field name="assign"><submit/></field>
-    </form>
-
     <form name="QuickAddLead" type="single" target="quickAddLead">
         <field name="firstName" title="${uiLabelMap.PartyFirstName}*" widget-style="required"><text size="15"/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}*" widget-style="required"><text size="15"/></field>
@@ -164,7 +155,7 @@ under the License.
         
     </form>
     
-    <form name="FindLeads" target="FindLeads" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+    <form name="FindLeads" target="${currentUrl}" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <sort-order>
@@ -177,11 +168,13 @@ under the License.
             <sort-field name="submitButton"/>
         </sort-order>
     </form>
-    <form name="ListLeads" paginate-target="FindLeads"
-            extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+    <form name="listLeads" paginate-target="${currentUrl}"
+            extends="listAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <actions>
             <set field="roleTypeIdFrom" value="OWNER"/>
             <set field="roleTypeIdTo" value="LEAD"/>
+            <set field="parameters.statusId" value="PARTY_DISABLED"/>
+            <set field="parameters.statusId_op" value="notEqual"/>
             <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
             <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
             <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
@@ -195,14 +188,26 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="partyType"><hidden/></field>
-        <field name="partyStatusId" field-name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem"/>
+    </form>
+    <form name="ListLeads" extends="listLeads">
+        <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
+                title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
+            <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyRelationshipTypeId"/>
+                <parameter param-name="partyIdTo" from-field="partyId"/>
+            </hyperlink>
         </field>
         <sort-order>
             <sort-field name="partyId"/>
-            <sort-field name="partyName"/>
-            <sort-field name="partyStatusId"/>
+            <sort-field name="emailAddress"/>
+            <sort-field name="telecomNumber"/>
+            <sort-field name="city"/>
+            <sort-field name="countryGeoId"/>
+            <sort-field name="relatedCompany"/>
             <sort-field name="assignToMe"/>
         </sort-order>
     </form>
@@ -210,6 +215,8 @@ under the License.
         <actions>
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="parameters.roleTypeIdTo" value="LEAD"/>
+            <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
+            <set field="parameters.partyStatusId_op" value="notEqual"/>
             <set field="parameters.partyRelationshipTypeId" value="LEAD_OWNER"/>
             <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
