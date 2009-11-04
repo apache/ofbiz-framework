@@ -298,7 +298,8 @@ public class GoogleRequestServices {
         // sort by order
         Map<String, BigDecimal> toRefund = FastMap.newInstance();
         Map<String, List<String>> toReturn = FastMap.newInstance();
-        
+        BigDecimal refundTotal = new BigDecimal(0.0);
+
         List<GenericValue> returnItems = null;
         try {
             returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
@@ -313,7 +314,7 @@ public class GoogleRequestServices {
                 GenericValue order = findGoogleOrder(delegator, orderId);
 
                 if (order != null) {
-                    BigDecimal refundTotal = toRefund.get(orderId);
+                    refundTotal = toRefund.get(orderId);
                     if (refundTotal == null) {
                         refundTotal = new BigDecimal(0.0);
                     }
@@ -323,7 +324,8 @@ public class GoogleRequestServices {
                     }
 
                     // get the values from the return item
-                    BigDecimal returnPrice = returnItem.getBigDecimal("returnPrice");                            
+                    BigDecimal returnQty = returnItem.getBigDecimal("returnQuantity");
+                    BigDecimal returnPrice = returnItem.getBigDecimal("returnPrice").multiply(returnQty);
                     String productId = returnItem.getString("productId");
 
                     // only look at refund returns to calculate the refund amount
