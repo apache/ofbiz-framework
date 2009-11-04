@@ -19,10 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="CommEventCreateOpportunity">
-        <value xml:lang="en">Create Opportunity</value>
-        <value xml:lang="pt_BR">Criar oportunidade</value>
-    </property>
     <property key="FormFieldTitle_annualRevenue">
         <value xml:lang="en">Annual revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
