@@ -25,7 +25,6 @@ import net.xoetrope.swing.XEdit;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
-import org.ofbiz.pos.event.NavagationEvents;
 import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoStatusBar {
