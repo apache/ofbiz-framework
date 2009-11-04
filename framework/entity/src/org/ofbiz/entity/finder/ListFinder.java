@@ -171,7 +171,7 @@ public abstract class ListFinder extends Finder {
 
         try {
             // if filterByDate, do a date filter on the results based on the now-timestamp
-            if (filterByDate) {
+            if (filterByDate && !useCache) {
                 EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
                 if (whereEntityCondition != null) {
                     whereEntityCondition = EntityCondition.makeCondition(UtilMisc.toList(whereEntityCondition, filterByDateCondition));
@@ -182,6 +182,9 @@ public abstract class ListFinder extends Finder {
 
             if (useCache) {
                 List<GenericValue> results = delegator.findList(entityName, whereEntityCondition, fieldsToSelect, orderByFields, null, true);
+                if (filterByDate) {
+                    results = EntityUtil.filterByDate(results);
+                }
                 this.outputHandler.handleOutput(results, context, listAcsr);
             } else {
                 boolean useTransaction = true;
