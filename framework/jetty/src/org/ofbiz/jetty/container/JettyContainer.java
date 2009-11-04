@@ -22,14 +22,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
-
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerConfig;
-import org.ofbiz.base.container.ContainerException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.SSLUtil;
 
 import org.mortbay.jetty.AbstractConnector;
 import org.mortbay.jetty.NCSARequestLog;
@@ -44,6 +36,12 @@ import org.mortbay.jetty.servlet.HashSessionManager;
 import org.mortbay.jetty.servlet.SessionHandler;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.mortbay.thread.BoundedThreadPool;
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.container.Container;
+import org.ofbiz.base.container.ContainerConfig;
+import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.SSLUtil;
 
 
 /**
@@ -78,7 +76,7 @@ public class JettyContainer implements Container {
         }
 
         // load the applications
-        Collection componentConfigs = ComponentConfig.getAllComponents();
+        Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         if (componentConfigs != null) {
 
             for (Object componentConfig : componentConfigs) {
@@ -87,8 +85,8 @@ public class JettyContainer implements Container {
 
                 for (ComponentConfig.WebappInfo webappInfo : component.getWebappInfos()) {
 
-                    List virtualHosts = webappInfo.getVirtualHosts();
-                    Map initParameters = webappInfo.getInitParameters();
+                    List<String> virtualHosts = webappInfo.getVirtualHosts();
+                    Map<String, String> initParameters = webappInfo.getInitParameters();
 
                     Server server = servers.get(webappInfo.server);
 
