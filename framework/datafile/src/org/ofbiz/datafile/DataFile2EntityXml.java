@@ -19,10 +19,16 @@
 
 package org.ofbiz.datafile;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
-import org.ofbiz.base.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilURL;
 
 public class DataFile2EntityXml {
 
