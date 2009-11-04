@@ -67,6 +67,12 @@ under the License.
     </screen>
     <screen name="findContentSearchResults">
         <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
             </widgets>
