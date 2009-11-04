@@ -86,6 +86,7 @@
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
     <!-- Status Valid Change   -->
     <StatusValidChange statusId="PARTY_ENABLED" statusIdTo="LEAD_CONVERTED" transitionName="Convert Lead To Contact"/>
+    <StatusValidChange statusId="LEAD_CONVERTED" statusIdTo="PARTY_DISABLED" transitionName="Disabled"/>
 
     <Party partyId="DemoLead" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoLead" firstName="Demo" lastName="Lead"/>
