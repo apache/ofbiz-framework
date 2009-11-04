@@ -18,8 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Map;
+
 import javolution.util.FastMap;
-import junit.framework.*;
+import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestFailure;
+import junit.framework.TestListener;
+import junit.framework.TestResult;
+import junit.framework.TestSuite;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
 import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
@@ -27,12 +40,6 @@ import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.Delegator;
-
-import java.io.*;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
@@ -146,7 +153,7 @@ public class TestRunContainer implements Container {
                     results.failureCount() + " # Errors: " + results.errorCount(), module);
             if (Debug.importantOn()) {
                 Debug.log("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
-                Enumeration err = results.errors();
+                Enumeration<?> err = results.errors();
                 if (!err.hasMoreElements()) {
                     Debug.log("None");
                 } else {
@@ -160,7 +167,7 @@ public class TestRunContainer implements Container {
                 }
                 Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
                 Debug.log("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
-                Enumeration fail = results.failures();
+                Enumeration<?> fail = results.failures();
                 if (!fail.hasMoreElements()) {
                     Debug.log("None");
                 } else {

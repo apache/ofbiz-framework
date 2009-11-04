@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,7 +30,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
@@ -63,7 +61,7 @@ public class SimpleMethodTest extends OFBizTestCase {
 
         try {
 
-            Map serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
+            Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
                     UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault()));
 
             // do something with the errorMessage

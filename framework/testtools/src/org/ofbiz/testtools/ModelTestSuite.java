@@ -19,7 +19,6 @@
 package org.ofbiz.testtools;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -37,7 +36,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
@@ -95,10 +93,10 @@ public class ModelTestSuite {
             String className = testElement.getAttribute("class-name");
 
             try {
-                Class clz = ObjectType.loadClass(className);
+                Class<?> clz = ObjectType.loadClass(className);
                 TestSuite suite = new TestSuite();
                 suite.addTestSuite(clz);
-                Enumeration testEnum = suite.tests();
+                Enumeration<?> testEnum = suite.tests();
                 int testsAdded = 0;
                 int casesAdded = 0;
                 while (testEnum.hasMoreElements()) {
