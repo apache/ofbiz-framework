@@ -27,7 +27,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsArtifactInfo"/>
-                <set field="headerItem" value="ArtifactInfo"/>
+                <set field="tabButtonItem" value="artifactInfo"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ArtifactInfo.groovy"/>
             </actions>
             <widgets>

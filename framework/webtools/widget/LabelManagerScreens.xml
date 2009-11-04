@@ -28,6 +28,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerFindLabels"/>
+                <set field="tabButtonItem" value="labels"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/labelmanager/LabelManager.groovy"/>
             </actions>
             <widgets>
