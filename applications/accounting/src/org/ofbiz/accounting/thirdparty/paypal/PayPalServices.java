@@ -832,7 +832,7 @@ public class PayPalServices {
         } else {
             result.put("captureResult", true);
             result.put("captureAmount", new BigDecimal(decoder.get("AMT")));
-            result.put("captureRefNum", decoder.get("AUTHORIZATIONID"));
+            result.put("captureRefNum", decoder.get("TRANSACTIONID"));
         }
         //TODO: Look into possible PAYMENTSTATUS and PENDINGREASON return codes, it is unclear what should be checked for this type of transaction
         return result;
@@ -888,12 +888,13 @@ public class PayPalServices {
             return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
         }
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
-        GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
+        GenericValue captureTrans = PaymentGatewayServices.getCaptureTransaction(orderPaymentPreference);
         BigDecimal refundAmount = (BigDecimal) context.get("refundAmount");
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "RefundTransaction");
-        encoder.add("TRANSACTIONID", authTrans.getString("referenceNum"));
+        encoder.add("TRANSACTIONID", captureTrans.getString("referenceNum"));
         encoder.add("REFUNDTYPE", "Partial");
+        encoder.add("CURRENCYCODE", captureTrans.getString("currencyUomId"));
         encoder.add("AMT", refundAmount.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         encoder.add("NOTE", "Order #" + orderPaymentPreference.getString("orderId"));
         NVPDecoder decoder = null;
@@ -912,7 +913,7 @@ public class PayPalServices {
         Map<String, String> errors = getErrorMessageMap(decoder);
         if (UtilValidate.isNotEmpty(errors)) {
             result.put("refundResult", false);
-            result.put("refundRefNum", authTrans.getString("referenceNum"));
+            result.put("refundRefNum", captureTrans.getString("referenceNum"));
             result.put("refundAmount", BigDecimal.ZERO);
             if (errors.size() == 1) {
                 result.put("responseMessage", errors.get(0));
@@ -922,7 +923,7 @@ public class PayPalServices {
             }
         } else {
             result.put("refundResult", true);
-            result.put("refundAmount", new BigDecimal(decoder.get("NETREFUNDAMT")));
+            result.put("refundAmount", new BigDecimal(decoder.get("GROSSREFUNDAMT")));
             result.put("refundRefNum", decoder.get("REFUNDTRANSACTIONID"));
         }        
         return result;
