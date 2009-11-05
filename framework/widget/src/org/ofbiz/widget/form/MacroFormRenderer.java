@@ -2502,7 +2502,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 targetType="plain";
             }
             StringWriter sr = new StringWriter();
-            WidgetWorker.makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, null, modelFormField, this.request, this.response, null, null);
+            makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, null, modelFormField, this.request, this.response, null, null);
             String title = sr.toString().replace("\"", "\'");            
             sr = new StringWriter();
             sr.append("<@renderHyperlinkTitle ");
@@ -2675,7 +2675,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
-            WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
+            makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
                     subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
                     this.request, this.response, context);
         }
@@ -2724,7 +2724,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation , modelFormField, request, response, context);
             }
         } else {
-            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, confirmation , modelFormField, request, response, context, targetWindow);
+            makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, confirmation , modelFormField, request, response, context, targetWindow);
         }
 
     }
