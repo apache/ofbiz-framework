@@ -819,6 +819,12 @@ public class RequestHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("The ContentType for the " + view + " view is: " + contentType, module);
 
+        boolean viewNoCache = viewMap.noCache;
+        if (viewNoCache) {
+           UtilHttp.setResponseBrowserProxyNoCache(resp);
+           if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
+        }        
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
