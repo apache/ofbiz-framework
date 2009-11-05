@@ -37,11 +37,6 @@ import org.ofbiz.securityext.login.*;
 import org.ofbiz.common.*;
 import org.ofbiz.entity.model.*;
 import org.ofbiz.content.ContentManagementWorker;
-import org.ofbiz.widget.html.HtmlMenuWrapper;
-import org.ofbiz.widget.WidgetWorker;
-
-import freemarker.template.SimpleHash;
-import freemarker.template.SimpleSequence;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

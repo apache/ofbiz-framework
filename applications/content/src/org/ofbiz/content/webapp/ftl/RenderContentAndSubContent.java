@@ -41,7 +41,6 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
