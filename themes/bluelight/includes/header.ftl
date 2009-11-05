@@ -152,7 +152,7 @@ under the License.
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />
               <#if helpContent?has_content ||  helpTopic == "navigateHelp" || (parameters.portalPageId?exists && helpTopic == "MYPORTAL_showPortalP")>
-                <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
+                <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title=${uiLabelMap.CommonHelp}></a></li>
               <#else>
                 <li><a href="${helpUrlPrefix}${helpUrlTopic}${helpUrlSuffix}" target="_blank">${uiLabelMap.CommonHelp}</a></li>
               </#if>
