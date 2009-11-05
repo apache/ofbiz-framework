@@ -1900,6 +1900,7 @@ under the License.
     <!-- Cart Views -->
     <view-map name="editShoppingList" type="screen" page="component://ecommerce/widget/ShoppingListScreens.xml#editShoppingList"/>
     <view-map name="showcart" type="screen" page="component://ecommerce/widget/CartScreens.xml#showcart"/>
+    <!--view-map name="showcart" type="screen" page="component://ecommerce/widget/CartScreens.xml#showcart" no-cache="true"/--><!-- to be used to avoid "conflicts" when someone use the same machine with different user logins -->
     <view-map name="showAllPromotions" type="screen" page="component://ecommerce/widget/CartScreens.xml#showAllPromotions"/>
     <view-map name="showPromotionDetails" type="screen" page="component://ecommerce/widget/CartScreens.xml#showPromotionDetails"/>
 

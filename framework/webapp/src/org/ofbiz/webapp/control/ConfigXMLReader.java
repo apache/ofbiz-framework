@@ -471,6 +471,7 @@ public class ConfigXMLReader {
         public String contentType;
         public String encoding;
         public String description;
+        public boolean noCache = false;
 
         public ViewMap(Element viewMapElement) {
             this.name = viewMapElement.getAttribute("name");
@@ -478,6 +479,7 @@ public class ConfigXMLReader {
             this.type = viewMapElement.getAttribute("type");
             this.info = viewMapElement.getAttribute("info");
             this.contentType = viewMapElement.getAttribute("content-type");
+            this.noCache = "true".equals(viewMapElement.getAttribute("no-cache"));
             this.encoding = viewMapElement.getAttribute("encoding");
             this.description = UtilXml.childElementValue(viewMapElement, "description");
             if (UtilValidate.isEmpty(this.page)) {
