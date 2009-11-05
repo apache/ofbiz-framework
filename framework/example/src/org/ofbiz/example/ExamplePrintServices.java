@@ -18,23 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.example;
 
-import javolution.util.FastMap;
-
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.MimeConstants;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.xml.sax.SAXException;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -53,6 +38,20 @@ import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.Sides;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
+
+import javolution.util.FastMap;
+
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.view.ApacheFopWorker;
+import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.screen.ScreenRenderer;
+import org.xml.sax.SAXException;
 
 public class ExamplePrintServices {
     public static final String module = ExamplePrintServices.class.getName();
