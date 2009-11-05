@@ -133,17 +133,20 @@ function runAction() {
     </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <#-- Header Begins -->
-      <tr class="header-row">
-        <td width="10%">${uiLabelMap.FormFieldTitle_invoiceId}</td>
-        <td width="15%">${uiLabelMap.AccountingVendorParty}</td>
-        <td width="10%">${uiLabelMap.CommonStatus}</td>
-        <td width="10%">${uiLabelMap.AccountingReferenceNumber}</td>
-        <td width="10%">${uiLabelMap.AccountingInvoiceDate}</td>
-        <td width="10%">${uiLabelMap.AccountingDueDate}</td>
-        <td width="9%">${uiLabelMap.AccountingAmount}</td>
-        <td width="9%">${uiLabelMap.FormFieldTitle_paidAmount}</td>
-        <td width="9%">${uiLabelMap.FormFieldTitle_outstandingAmount}</td>
-        <td width="8%" align="right">${uiLabelMap.CommonSelectAll} <input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/></td>
+      <tr class="header-row-2">
+        <td>${uiLabelMap.FormFieldTitle_invoiceId}</td>
+        <td>${uiLabelMap.FormFieldTitle_invoiceTypeId}</td>
+        <td>${uiLabelMap.AccountingInvoiceDate}</td>
+        <td>${uiLabelMap.AccountingDueDate}</td>
+        <td>${uiLabelMap.CommonStatus}</td>
+        <td>${uiLabelMap.AccountingReferenceNumber}</td>
+        <td>${uiLabelMap.CommonDescription}</td>
+        <td>${uiLabelMap.AccountingVendorParty}</td>
+        <td>${uiLabelMap.AccountingToParty}</td>
+        <td>${uiLabelMap.AccountingAmount}</td>
+        <td>${uiLabelMap.FormFieldTitle_paidAmount}</td>
+        <td>${uiLabelMap.FormFieldTitle_outstandingAmount}</td> 
+        <td>${uiLabelMap.CommonSelectAll} <input type="checkbox" id="checkAllInvoices" name="checkAllInvoices" onchange="javascript:toggleInvoiceId(this);"/></td>
       </tr>
       <#-- Header Ends-->
       <#assign alt_row = false>
@@ -151,13 +154,18 @@ function runAction() {
         <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
           <#assign statusItem = invoice.getRelatedOneCache("StatusItem")>
+          <#assign invoiceType = invoice.getRelatedOne("InvoiceType") />
+          <#assign statusItem = invoice.getRelatedOne("StatusItem") />
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-            <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</a></td>
-            <td>${statusItem.get("description")?if_exists}</td>
+            <td>${invoiceType.description?default(invoice.invoiceTypeId)}</td>
+            <td><#if invoice.get("invoiceDate")?has_content>${invoice.get("invoiceDate")?date}</td></#if>
+            <td><#if invoice.get("dueDate")?has_content>${invoice.get("dueDate")?date}</td></#if>
+            <td>${statusItem.description?default(invoice.statusId)}</td>
             <td>${invoice.get("referenceNumber")?if_exists}</td>
-            <td>${invoice.get("invoiceDate")?if_exists}</td>
-            <td>${invoice.get("dueDate")?if_exists}</td>
+            <td>${(invoice.description)?if_exists}</td>
+            <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists} [${(invoice.partyIdFrom)?if_exists}] </a></td>
+            <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyId, false)?if_exists} [${(invoice.partyId)?if_exists}]</a></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
