@@ -65,7 +65,7 @@ public class CreateObject extends MethodOperation {
         if (parameterElements.size() > 0) {
             parameters = FastList.newInstance();
             for (Element parameterElement: parameterElements) {
-                MethodObject methodObject = null;
+                MethodObject<?> methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
                     methodObject = new StringObject(parameterElement, simpleMethod);
                 } else if ("field".equals(parameterElement.getNodeName())) {
@@ -103,7 +103,7 @@ public class CreateObject extends MethodOperation {
             parameterTypes = new Class<?>[parameters.size()];
 
             int i = 0;
-            for (MethodObject methodObjectDef: parameters) {
+            for (MethodObject<?> methodObjectDef: parameters) {
                 args[i] = methodObjectDef.getObject(methodContext);
 
                 Class<?> typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
@@ -120,7 +120,7 @@ public class CreateObject extends MethodOperation {
         }
 
         try {
-            Constructor constructor = methodClass.getConstructor(parameterTypes);
+            Constructor<?> constructor = methodClass.getConstructor(parameterTypes);
             try {
                 Object newObject = constructor.newInstance(args);
 

@@ -45,6 +45,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
 
     protected Map<String, Object> context = FastMap.newInstance();
 
+    @SuppressWarnings("unchecked")
     @Override
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
@@ -78,6 +79,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
      * It exectutes the funcBody text in an "anonymous" method call with
      * arguments.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector namesVec, Vector argsVec) throws BSFException {
         //if (namesVec.size() != argsVec.size()) throw new BSFException("number of params/names mismatch");
@@ -139,8 +141,4 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
 
     @Override
     public void terminate() { }
-
-    private String sourceInfo(String source, int lineNo, int columnNo) {
-        return "SimpleMethod: " + source + " at line: " + lineNo +" column: " + columnNo;
-    }
 }

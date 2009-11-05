@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,8 +62,8 @@ public class RegexpCondition implements Conditional {
     static PatternMatcher matcher = new Perl5Matcher();
     static PatternCompiler compiler = new Perl5Compiler();
 
-    List subOps = FastList.newInstance();
-    List elseSubOps = null;
+    List<?> subOps = FastList.newInstance();
+    List<?> elseSubOps = null;
 
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;

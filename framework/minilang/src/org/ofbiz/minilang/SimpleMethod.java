@@ -849,7 +849,7 @@ public class SimpleMethod {
                 String nodeName = curOperElem.getNodeName();
                 MethodOperation methodOp = null;
 
-                MethodOperation.Factory factory = methodOperationFactories.get(nodeName);
+                MethodOperation.Factory<MethodOperation> factory = methodOperationFactories.get(nodeName);
                 if (factory != null) {
                     methodOp = factory.createMethodOperation(curOperElem, simpleMethod);
                 } else if ("else".equals(nodeName)) {

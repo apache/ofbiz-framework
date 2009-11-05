@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.Locale;
-import java.util.TimeZone;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
