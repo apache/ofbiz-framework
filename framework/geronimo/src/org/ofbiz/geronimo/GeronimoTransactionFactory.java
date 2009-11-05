@@ -20,7 +20,6 @@ package org.ofbiz.geronimo;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
@@ -47,7 +46,6 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
 
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;
-    private static Collection resourceManagers = null;
     private static GeronimoTransactionManager geronimoTransactionManager;
 
     static {
