@@ -618,7 +618,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/geoAutoCompleter.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/geoAutoCompleter.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowCart.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
