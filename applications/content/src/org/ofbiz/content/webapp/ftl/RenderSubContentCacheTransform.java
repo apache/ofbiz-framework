@@ -43,7 +43,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.widget.WidgetWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;

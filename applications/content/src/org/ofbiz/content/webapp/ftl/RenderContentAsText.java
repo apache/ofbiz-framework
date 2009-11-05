@@ -42,7 +42,6 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.widget.WidgetWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
