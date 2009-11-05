@@ -72,7 +72,7 @@ public class CallObjectMethod extends MethodOperation {
             parameters = FastList.newInstance();
 
             for (Element parameterElement: parameterElements) {
-                MethodObject methodObject = null;
+                MethodObject<?> methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
                     methodObject = new StringObject(parameterElement, simpleMethod);
                 } else if ("field".equals(parameterElement.getNodeName())) {

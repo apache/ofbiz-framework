@@ -41,7 +41,7 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
      */
     @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        Map<String, Object> result = runSync(localName, modelService, context);
+        runSync(localName, modelService, context);
     }
 
     /** Run the service synchronously and return the result

@@ -18,17 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
-import org.ofbiz.base.util.Debug;
 import org.w3c.dom.Element;
 
 /**

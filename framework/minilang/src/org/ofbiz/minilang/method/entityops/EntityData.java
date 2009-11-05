@@ -128,7 +128,7 @@ public class EntityData extends MethodOperation {
                 } else {
                     reader = new EntitySaxReader(delegator);
                 }
-                long rowsChanged = reader.parse(dataUrl);
+                reader.parse(dataUrl);
             } catch (Exception e) {
                 String xmlError = "Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
                 messages.add(xmlError);
