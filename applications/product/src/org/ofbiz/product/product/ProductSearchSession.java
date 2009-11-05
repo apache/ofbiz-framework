@@ -580,7 +580,11 @@ public class ProductSearchSession {
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
             if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
-                List<GenericValue> categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true, false, true);
+                String topCategory = CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId);
+                if (UtilValidate.isEmpty(topCategory)) {
+                    topCategory = CatalogWorker.getCatalogTopEbayCategoryId(request, searchCatalogId);
+                }
+                List<GenericValue> categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", topCategory, true, false, true);
                 searchAddConstraint(new ProductSearch.CatalogConstraint(searchCatalogId, categories), session);
                 constraintsChanged = true;
             }
