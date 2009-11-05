@@ -19,19 +19,17 @@
 
 package org.ofbiz.catalina.container;
 
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.tomcat.util.net.ServerSocketFactory;
 import org.apache.tomcat.util.net.jsse.JSSEFactory;
 import org.apache.tomcat.util.net.jsse.JSSEImplementation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
-import org.ofbiz.base.config.GenericConfigException;
-
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import java.security.cert.X509Certificate;
-import java.security.cert.CertificateException;
-import java.security.GeneralSecurityException;
-import java.io.IOException;
 
 /**
  * SSLImpl
