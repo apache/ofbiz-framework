@@ -173,6 +173,7 @@ public class XuiSession {
         return true;
     }
 
+    @SuppressWarnings("serial")
     public class UserLoginFailure extends GeneralException {
         public UserLoginFailure() {
             super();
