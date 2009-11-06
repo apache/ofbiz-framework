@@ -48,9 +48,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.stats.ServerHitBin;
 import org.ofbiz.webapp.stats.VisitHandler;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.servlet.ServletContextHashModel;
-
 /**
  * ControlServlet.java - Master servlet for the web application.
  */
@@ -194,9 +191,6 @@ public class ControlServlet extends HttpServlet {
         request.setAttribute("security", security);
 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
-        
-        ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, BeansWrapper.getDefaultInstance());
-        request.setAttribute("ftlServletContext", ftlServletContext);
 
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
