@@ -197,4 +197,20 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AddGiftCertificate">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderAddGiftCertificate"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific><html>
+                            <html-template location="component://order/webapp/ordermgr/order/GiftCertificates.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

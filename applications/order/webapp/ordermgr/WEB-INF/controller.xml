@@ -521,7 +521,16 @@ under the License.
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
-
+    <request-map uri="AddGiftCertificate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddGiftCertificate"/>
+    </request-map>
+    <request-map uri="addGiftCertificateSurvey">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="createSurveyResponse"/>
+        <response name="success" type="request" value="additem"/>
+        <response name="error" type="view" value="AddGiftCertificate"/>
+    </request-map>
     <!-- Create a replacement order from an existing order against a lost shipment etc. -->
     <request-map uri="loadCartForReplacementOrder">
         <security https="true" auth="true"/>
@@ -1719,6 +1728,7 @@ under the License.
     <view-map name="product" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#product"/>
     <view-map name="compareProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#compareProducts"/>
     <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd"/>
+    <view-map name="AddGiftCertificate" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#AddGiftCertificate"/>
 
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
     <view-map name="shipsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ShipSettings"/>
