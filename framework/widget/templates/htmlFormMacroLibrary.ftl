@@ -428,8 +428,8 @@ ${item.description}</div>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel>
 <#if listSize gt 20>
 <div class="${paginateStyle}">&nbsp; <ul>
-<li class="${paginateFirstStyle}<#if viewIndex gt 0>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxFirstUrl}')<#else>${firstUrl}</#if>">${paginateFirstLabel}</a><#else>-disabled">${paginateFirstLabel}</#if></li>
-<li class="${paginatePreviousStyle}<#if viewIndex gt 0>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxPreviousUrl}')<#else>${previousUrl}</#if>">${paginatePreviousLabel}</a><#else>-disabled">${paginatePreviousLabel}</#if></li>
+<li class="${paginateFirstStyle}<#if viewIndex gt 0>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxFirstUrl}')<#else>${firstUrl}</#if>">${paginateFirstLabel}</a><#else>-disabled"><span>${paginateFirstLabel}</span></#if></li>
+<li class="${paginatePreviousStyle}<#if viewIndex gt 0>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxPreviousUrl}')<#else>${previousUrl}</#if>">${paginatePreviousLabel}</a><#else>-disabled"><span>${paginatePreviousLabel}</span></#if></li>
 <#if listSize gt 0 && javaScriptEnabled><li>${pageLabel}<select name="page" size="1" onchange="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxSelectUrl}')<#else>location.href='${selectUrl}'+this.value;</#if>"><#rt/>
 <#assign x=listSize/viewSize?floor>
 <#if listSize gt (viewIndex*viewSize)><#assign x=x+1></#if>
@@ -437,15 +437,15 @@ ${item.description}</div>
 <#if i == (viewIndex+1)><option selected="selected" value="<#else><option value="</#if>${i-1}">${i}</option>
 </#list>
 </select></li></#if>
-<li>${commonDisplaying}</li>
-<li class="${paginateNextStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxNextUrl}')<#else>${nextUrl}</#if>">${paginateNextLabel}</a><#else>-disabled">${paginateNextLabel}</#if></li>
-<li class="${paginateLastStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxLastUrl}')<#else>${lastUrl}</#if>">${paginateLastLabel}</a><#else>-disabled">${paginateLastLabel}</#if></li>
+<li class="${paginateNextStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxNextUrl}')<#else>${nextUrl}</#if>">${paginateNextLabel}</a><#else>-disabled"><span>${paginateNextLabel}</span></#if></li>
+<li class="${paginateLastStyle}<#if highIndex lt listSize>"><a href="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxLastUrl}')<#else>${lastUrl}</#if>">${paginateLastLabel}</a><#else>-disabled"><span>${paginateLastLabel}</span></#if></li>
 <#if javaScriptEnabled><li class="nav-pagesize"><select name="pageSize" size="1" onchange="<#if ajaxEnabled>javascript:ajaxUpdateAreas('${ajaxSelectSizeUrl}')<#else>location.href='${selectSizeUrl}';</#if>"><#rt/>
 <#assign availPageSizes = [20, 30, 50, 100, 200]>
 <#list availPageSizes as ps>
   <option <#if viewSize == ps>selected="selected" </#if> value="${ps}">${ps}</option>
 </#list>
 </select> ${paginateViewSizeLabel}</li></#if>
+<li>${commonDisplaying}</li>
 </ul></div><br/>
 </#if>
 </#macro>

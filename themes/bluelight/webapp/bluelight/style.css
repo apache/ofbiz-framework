@@ -1802,24 +1802,47 @@ render borders around empty <td> elements */
 }
 
 .nav-pager ul li a {
-    display: block;
+display: block;
+height: 16px;
+width: 16px;
+text-indent:-3000px;
 }
 
-.nav-pager ul .nav-first,.nav-pager ul .nav-previous,.nav-pager ul .nav-next,.nav-pager ul .nav-last
-    {
-    border: #999999 solid 0.1em;
-    padding: 0 1em 0 1em;
+.nav-pager ul li span {
+display:none;
+visibility:hidden;
+display: block;
+height: 16px;
+width: 16px;
 }
 
-.nav-pager ul .nav-first-disabled,.nav-pager ul .nav-previous-disabled,.nav-pager ul .nav-next-disabled,.nav-pager ul .nav-last-disabled
-    {
-    border: #999999 solid 0.1em;
-    color: #333333;
-    padding: 0 0.5em 0 0.5em;
-}
 
-.nav-pager select {
-    margin: 0;
+.nav-pager ul .nav-first a {
+background: url(/bluelight/images/resultset_first.png) no-repeat;
+}
+.nav-pager ul .nav-previous a {
+background: url(/bluelight/images/resultset_previous.png) no-repeat;
+}
+.nav-pager ul .nav-next a {
+background: url(/bluelight/images/resultset_next.png) no-repeat;
+}
+.nav-pager ul .nav-last a {
+background: url(/bluelight/images/resultset_last.png) no-repeat;
+}
+.nav-pager ul .nav-first-disabled {
+background: url(/bluelight/images/resultset_first_disabled.png) no-repeat;
+}
+.nav-pager ul .nav-previous-disabled {
+background: url(/bluelight/images/resultset_previous_disabled.png) no-repeat;
+}
+.nav-pager ul .nav-next-disabled {
+background: url(/bluelight/images/resultset_next_disabled.png) no-repeat;
+}
+.nav-pager ul .nav-last-disabled {
+background: url(/bluelight/images/resultset_last_disabled.png) no-repeat;
+}
+.nav-pager ul .nav-pagesize {
+padding: 0 30px 0 30px;
 }
 
 /* ================================= */
