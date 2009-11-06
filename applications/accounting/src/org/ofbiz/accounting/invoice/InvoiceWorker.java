@@ -39,10 +39,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.LocalDispatcher;
 
 /**
  * InvoiceWorker - Worker methods of invoices
@@ -57,14 +55,24 @@ public class InvoiceWorker {
     private static int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     /**
-     * Method to return the total amount of an invoice
-     * @param invoice GenericValue object of the Invoice
-     * @return the invoice total as BigDecimal
+     * Return the total amount of the invoice (including tax) using the the invoiceId as input.
+     * @param delegator
+     * @param invoiceId
+     * @return
      */
     public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId) {
         return getInvoiceTotal(delegator, invoiceId, Boolean.TRUE);
     }
 
+    /**
+     * Return the total amount of the invoice (including tax) using the the invoiceId as input.
+     * with the ability to specify if the actual currency is required.
+     * @param delegator
+     * @param invoiceId
+     * @param actualCurrency true: provide the actual currency of the invoice (could be different from the system currency)
+     *                       false: if required convert the actual currency into the system currency.
+     * @return
+     */
     public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId, Boolean actualCurrency) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
@@ -103,7 +111,7 @@ public class InvoiceWorker {
         List invoiceItemTaxTypes = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "TAXABLE_INV_ITM_TY"));
         for (Iterator iter = invoiceItemTaxTypes.iterator(); iter.hasNext();) {
             GenericValue invoiceItemTaxType = (GenericValue) iter.next();
-            typeIds.add(invoiceItemTaxType.get("enumId"));
+            typeIds.add(invoiceItemTaxType.getString("enumId"));
         }
         return typeIds;
     }
@@ -118,7 +126,7 @@ public class InvoiceWorker {
         try {
             Delegator delegator = invoice.getDelegator();
             EntityConditionList condition = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
+                    EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
                     EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))),
                     EntityOperator.AND);
             invoiceTaxItems = delegator.findList("InvoiceItem", condition, null, null, null, false);
@@ -155,7 +163,16 @@ public class InvoiceWorker {
         return getInvoiceTotal(invoice, Boolean.TRUE);
     }
 
-    public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
+     /**
+      * 
+      * Return the total amount of the invoice (including tax) using the the invoice GenericValue as input.
+      * with the ability to specify if the actual currency is required.
+      * @param invoice
+      * @param actualCurrency true: provide the actual currency of the invoice (could be different from the system currency)
+      *                       false: if required convert the actual currency into the system currency.
+      * @return
+      */
+     public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
         BigDecimal invoiceTotal = ZERO;
         BigDecimal invoiceTaxTotal = ZERO;
         Map invoiceTaxByTaxAuthGeoAndPartyResult = getInvoiceTaxByTaxAuthGeoAndParty(invoice);
@@ -165,8 +182,19 @@ public class InvoiceWorker {
         List invoiceItems = null;
         try {
             invoiceItems = invoice.getRelated("InvoiceItem");
-            invoiceItems = EntityUtil.filterByAnd(invoiceItems, UtilMisc.toList(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PINV_SALES_TAX"), EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PITM_SALES_TAX"),
-                    EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "ITM_SALES_TAX"), EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "INV_SALES_TAX")));
+            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
+                invoiceItems = EntityUtil.filterByAnd(
+                        invoiceItems, UtilMisc.toList(
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "INV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "ITM_SALES_TAX")));
+            } else if (("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))) {
+                invoiceItems = EntityUtil.filterByAnd(
+                        invoiceItems, UtilMisc.toList(
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PINV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PITM_SALES_TAX")));
+            } else {
+                invoiceItems = null;
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);
         }
@@ -610,7 +638,11 @@ public class InvoiceWorker {
         return getInvoiceCurrencyConversionRate(invoice);
     }
 
-
+    /**
+     * Return a list of taxes separated by Geo and party and return the tax grandtotal
+     * @param invoice Generic Value
+     * @return  Map: taxByTaxAuthGeoAndPartyList(List) and taxGrandTotal(BigDecimal)
+     */
     public static Map<String, Object> getInvoiceTaxByTaxAuthGeoAndParty(GenericValue invoice) {
         BigDecimal taxGrandTotal = ZERO;
         List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
@@ -621,10 +653,16 @@ public class InvoiceWorker {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting InvoiceItem list", module);
             }
-            if ("SALES_INVOICE".equals(invoice.get("invoiceTypeId"))) {
-                invoiceItems = EntityUtil.filterByOr(invoiceItems, UtilMisc.toList(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "INV_SALES_TAX"), EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "ITM_SALES_TAX")));
-            } else if (("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")))) {
-                invoiceItems = EntityUtil.filterByOr(invoiceItems, UtilMisc.toList(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PINV_SALES_TAX"), EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PITM_SALES_TAX")));
+            if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
+                invoiceItems = EntityUtil.filterByOr(
+                        invoiceItems, UtilMisc.toList(
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "INV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "ITM_SALES_TAX")));
+            } else if (("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))) {
+                invoiceItems = EntityUtil.filterByOr(
+                        invoiceItems, UtilMisc.toList(
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PINV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PITM_SALES_TAX")));
             } else {
                 invoiceItems = null;
             }
