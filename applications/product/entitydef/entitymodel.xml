@@ -1026,7 +1026,7 @@ under the License.
         <relation type="many" rel-entity-name="FacilityTypeAttr">
             <key-map field-name="facilityTypeId"/>
         </relation>
-        <relation type="many" fk-name="FACILITY_GEOPT" title="Point" rel-entity-name="GeoPoint"> <!-- because of the elevation field in GeoPoint we may face a many relationship in future -->
+        <relation type="one" fk-name="FACILITY_GEOPT" rel-entity-name="GeoPoint">
           <key-map field-name="geoPointId"/>
         </relation>
     </entity>
