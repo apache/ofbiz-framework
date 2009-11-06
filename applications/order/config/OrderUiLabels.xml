@@ -1323,6 +1323,9 @@
         <value xml:lang="en">Address Verification (AVS)</value>
         <value xml:lang="it">Verifica indirizzo (AVS)</value>
     </property>
+    <property key="OrderAddGiftCertificate">
+        <value xml:lang="en">Add Gift Certificate</value>
+    </property>
     <property key="OrderAdjustment">
         <value xml:lang="de">Anpassung</value>
         <value xml:lang="en">Adjustment</value>
@@ -7233,6 +7236,12 @@
         <value xml:lang="en">Received Quantity History</value>
         <value xml:lang="it">Storia quantità ricevuta</value>
     </property>
+    <property key="OrderRecipientName">
+        <value xml:lang="en">Recipient's Name:</value>
+    </property>
+    <property key="OrderRecipientEmailAdd">
+        <value xml:lang="en">Recipient's Email:</value>
+    </property>
     <property key="OrderReference">
         <value xml:lang="de">Referenz</value>
         <value xml:lang="en">Reference</value>
@@ -8381,6 +8390,9 @@
         <value xml:lang="it">Importo selezionato</value>
         <value xml:lang="zh">选择数量</value>
     </property>
+    <property key="OrderSelectGiftAmount">
+        <value xml:lang="en">Select The Gift Amount</value>
+    </property>
     <property key="OrderSelectAShippingAddress">
         <value xml:lang="de">Wählen Sie eine Lieferadresse</value>
         <value xml:lang="en">Select A Shipping Address</value>
@@ -8657,6 +8669,9 @@
         <value xml:lang="th">ส่งอีเมล</value>
         <value xml:lang="zh">发送电子邮件</value>
         <value xml:lang="zh_CN">发送电子邮件</value>
+    </property>
+    <property key="OrderSenderName">
+        <value xml:lang="en">Sender's Name:</value>
     </property>
     <property key="OrderSendMeThisEveryMonth">
         <value xml:lang="de">Senden Sie mir dies jeden Monat</value>

@@ -305,6 +305,34 @@ public class ShoppingCartServices {
                 // get the next item sequence id
                 String orderItemSeqId = item.getString("orderItemSeqId");
                 orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
+                // get product Id
+                String productId = item.getString("productId");
+                GenericValue product = null;
+                // creates survey responses for Gift cards same as last Order created 
+                Map surveyResponseResult = null;
+                try {
+                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
+                        Map<String, Object> surveyResponseMap = FastMap.newInstance();
+                        Map<String, Object> answers = FastMap.newInstance();
+                        List<GenericValue> surveyResponseAndAnswers = delegator.findByAnd("SurveyResponseAndAnswer", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                        if (UtilValidate.isNotEmpty(surveyResponseAndAnswers)) {
+                            String surveyId = EntityUtil.getFirst(surveyResponseAndAnswers).getString("surveyId");
+                            for (GenericValue surveyResponseAndAnswer : surveyResponseAndAnswers) {
+                                answers.put((surveyResponseAndAnswer.get("surveyQuestionId").toString()), surveyResponseAndAnswer.get("textResponse"));
+                            }
+                            surveyResponseMap.put("answers", answers);
+                            surveyResponseMap.put("surveyId", surveyId);
+                            surveyResponseResult = dispatcher.runSync("createSurveyResponse", surveyResponseMap);
+                        }
+                    }    
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                } catch (GenericServiceException e) {
+                    Debug.logError(e.toString(), module);
+                    return ServiceUtil.returnError(e.toString());
+                }
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -350,7 +378,6 @@ public class ShoppingCartServices {
                 } else {
                     // product item
                     String prodCatalogId = item.getString("prodCatalogId");
-                    String productId = item.getString("productId");
 
                     //prepare the rental data
                     Timestamp reservStart = null;
@@ -381,7 +408,7 @@ public class ShoppingCartServices {
                     ProductConfigWrapper configWrapper = null;
                     String configId = null;
                     try {
-                        GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                        product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
                         if ("AGGREGATED_CONF".equals(product.getString("productTypeId"))) {
                             List<GenericValue>productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")));
                             productAssocs = EntityUtil.filterByDate(productAssocs);
@@ -411,7 +438,11 @@ public class ShoppingCartServices {
                 // flag the item w/ the orderItemSeqId so we can reference it
                 ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
                 cartItem.setOrderItemSeqId(item.getString("orderItemSeqId"));
-
+                
+                // attach surveyResponseId for each item
+                if (UtilValidate.isNotEmpty(surveyResponseResult)){
+                    cartItem.setAttribute("surveyResponseId",surveyResponseResult.get("surveyResponseId"));
+                }
                 // attach addition item information
                 cartItem.setStatusId(item.getString("statusId"));
                 cartItem.setItemType(item.getString("orderItemTypeId"));

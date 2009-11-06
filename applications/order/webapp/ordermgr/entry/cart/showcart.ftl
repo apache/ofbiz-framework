@@ -22,6 +22,9 @@ under the License.
         document.qohAtpForm.productId.value = document.quickaddform.add_product_id.value;
         document.qohAtpForm.submit();
     }
+    function quicklookupGiftCertificate() {
+        window.location='AddGiftCertificate';
+    }
 </script>
 <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
   <#assign target="productAvailabalityByFacility">
@@ -81,6 +84,7 @@ under the License.
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'<@ofbizUrl><#if orderType=="PURCHASE_ORDER">LookupSupplierProduct?partyId=${partyId?if_exists}<#else>LookupProduct</#if></@ofbizUrl>');">
                         <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                       </a>
+                      <a href="javascript:quicklookupGiftCertificate()" class="buttontext">${uiLabelMap.OrderAddGiftCertificate}</a>
                       <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
                         <a href="javascript:showQohAtp()" class="buttontext">${uiLabelMap.ProductAtpQoh}</a>
                       </#if>

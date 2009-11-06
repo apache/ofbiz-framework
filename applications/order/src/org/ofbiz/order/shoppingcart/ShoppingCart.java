@@ -3711,21 +3711,29 @@ public class ShoppingCart implements Serializable {
         while (itemIter.hasNext()) {
             ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
             List responses = (List) item.getAttribute("surveyResponses");
+            GenericValue response = null;
             if (responses != null) {
                 Iterator ri = responses.iterator();
                 while (ri.hasNext()) {
                     String responseId = (String) ri.next();
-                    GenericValue response = null;
                     try {
                         response = this.getDelegator().findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", responseId));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to obtain SurveyResponse record for ID : " + responseId, module);
                     }
-                    if (response != null) {
-                        response.set("orderItemSeqId", item.getOrderItemSeqId());
-                        allInfos.add(response);
-                    }
                 }
+             // this case is executed when user selects "Create as new Order" for Gift cards
+             } else {
+                 String surveyResponseId = (String) item.getAttribute("surveyResponseId");
+                 try {
+                     response = this.getDelegator().findOne("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId), false);
+                 } catch (GenericEntityException e) {
+                     Debug.logError(e, "Unable to obtain SurveyResponse record for ID : " + surveyResponseId, module);
+                 }
+            }
+            if (response != null) {
+                response.set("orderItemSeqId", item.getOrderItemSeqId());
+                allInfos.add(response);
             }
         }
         return allInfos;
