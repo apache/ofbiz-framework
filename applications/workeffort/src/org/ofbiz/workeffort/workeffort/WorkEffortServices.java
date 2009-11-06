@@ -637,7 +637,7 @@ public class WorkEffortServices {
                             for (DateRange periodRange : periodRanges) {
                                 if (periodRange.includesDate(occurrence)) {
                                     GenericValue cloneWorkEffort = (GenericValue) workEffort.clone();
-                                    TimeDuration duration = TimeDuration.fromNumber(workEffort.getLong("estimatedMilliSeconds"));
+                                    TimeDuration duration = TimeDuration.fromNumber(workEffort.getDouble("estimatedMilliSeconds").longValue());
                                     if (!duration.isZero()) {
                                         Calendar endCal = UtilDateTime.toCalendar(occurrence, timeZone, locale);
                                         Date endDate = duration.addToCalendar(endCal).getTime();
