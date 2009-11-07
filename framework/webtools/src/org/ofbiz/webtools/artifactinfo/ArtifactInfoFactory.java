@@ -171,15 +171,13 @@ public class ArtifactInfoFactory {
                     screenFilePath = screenFilePath.replace('\\', '/');
                     String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
                     String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
-                    Map modelScreenMap = null;
+                    Map<String, ModelScreen> modelScreenMap = null;
                     try {
                         modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
                     } catch (Exception exc) {
                         throw new GeneralException(exc.getMessage());
                     }
-                    Iterator screenNames = modelScreenMap.keySet().iterator();
-                    while (screenNames.hasNext()) {
-                        String screenName = (String)screenNames.next();
+                    for (String screenName : modelScreenMap.keySet()) {
                         this.getScreenWidgetArtifactInfo(screenName, screenLocation);
                     }
                 }
@@ -190,15 +188,13 @@ public class ArtifactInfoFactory {
                     formFilePath = formFilePath.replace('\\', '/');
                     String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
                     String formLocation = "component://" + componentName + "/" + formFileRelativePath;
-                    Map modelFormMap = null;
+                    Map<String, ModelForm> modelFormMap = null;
                     try {
                         modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
                     } catch (Exception exc) {
                         throw new GeneralException(exc.getMessage());
                     }
-                    Iterator formNames = modelFormMap.keySet().iterator();
-                    while (formNames.hasNext()) {
-                        String formName = (String)formNames.next();
+                    for (String formName : modelFormMap.keySet()) {
                         this.getFormWidgetArtifactInfo(formName, formLocation);
                     }
                 }
