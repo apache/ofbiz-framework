@@ -83,7 +83,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindArPaymentGroups"/>
     </request-map>
-
+    <request-map uri="massChangePaymentStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="massChangePaymentStatus"/>
+        <response name="success" type="view" value="BatchPayments"/>
+        <response name="error" type="view" value="BatchPayments"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
