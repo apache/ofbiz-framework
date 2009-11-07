@@ -21,8 +21,6 @@ package org.ofbiz.service.engine;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -41,8 +39,8 @@ import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.job.GenericServiceJob;
 import org.ofbiz.service.job.Job;
-import org.ofbiz.service.job.JobManagerException;
 import org.ofbiz.service.job.JobManager;
+import org.ofbiz.service.job.JobManagerException;
 
 /**
  * Generic Asynchronous Engine

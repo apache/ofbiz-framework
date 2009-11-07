@@ -21,11 +21,10 @@ package org.ofbiz.service;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import javax.wsdl.WSDLException;
 
 import javolution.util.FastMap;
@@ -42,7 +41,6 @@ import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.eca.ServiceEcaUtil;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

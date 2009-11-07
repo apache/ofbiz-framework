@@ -29,12 +29,12 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+
 import javax.net.ssl.SSLServerSocket;
 
+import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * RMI SSL Server Socket Factory

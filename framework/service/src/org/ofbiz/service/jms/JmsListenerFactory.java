@@ -19,19 +19,17 @@
 package org.ofbiz.service.jms;
 
 import java.lang.reflect.Constructor;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -144,9 +142,9 @@ public class JmsListenerFactory implements Runnable {
 
                     try {
                         Class<?> c = cl.loadClass(className);
-                        Constructor cn = c.getConstructor(ServiceDispatcher.class, String.class, String.class, String.class, String.class, String.class);
+                        Constructor<GenericMessageListener> cn = UtilGenerics.cast(c.getConstructor(ServiceDispatcher.class, String.class, String.class, String.class, String.class, String.class));
 
-                        listener = (GenericMessageListener) cn.newInstance(dispatcher, serverName, jndiName, queueName, userName, password);
+                        listener = cn.newInstance(dispatcher, serverName, jndiName, queueName, userName, password);
                     } catch (Exception e) {
                         throw new GenericServiceException(e.getMessage(), e);
                     }

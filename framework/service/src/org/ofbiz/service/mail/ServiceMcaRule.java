@@ -18,17 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.service.mail;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericValue;
-
 import org.w3c.dom.Element;
 
 public class ServiceMcaRule implements java.io.Serializable {

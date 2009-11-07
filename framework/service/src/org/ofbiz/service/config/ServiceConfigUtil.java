@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.service.config;
 
-import java.util.Iterator;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.io.Serializable;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
