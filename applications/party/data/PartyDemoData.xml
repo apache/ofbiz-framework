@@ -36,11 +36,8 @@
     <!-- Party Identification numbers-->
     <Party partyId="DemoSupplier"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
-    <PartyIdentificationType partyIdentificationTypeId="EURO_TAX" description="euro vat number tax identification"/>
     <PartyIdentificationType partyIdentificationTypeId="SIRET" description="french company identification number"/>
-    <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="EURO_TAX" idValue="FR1234 5678 90123"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
-
 
     <!-- email from an unknown party -->
     <CommunicationEvent communicationEventId="9000" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@yahoo.com; Delivered-To: ofbiztest@yahoo.com; " fromString="mailinglist@antwebsystems.com" toString="ofbiztest@yahoo.com"/>
