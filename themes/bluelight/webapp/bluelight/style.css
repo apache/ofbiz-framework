@@ -1251,16 +1251,14 @@ color:#999999;
 
 .screenlet-title-bar ul .collapsed,
 .screenlet-title-bar ul .collapsed:hover {
-    background: url(/images/expand.gif) no-repeat center center;
-    min-height: 1.1em;
-    min-width: 1.1em;
+background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat right;
+width:16px;
 }
 
 .screenlet-title-bar ul .expanded,
 .screenlet-title-bar ul .expanded:hover {
-    background: url(/images/collapse.gif) no-repeat center center;
-    min-height: 1.1em;
-    min-width: 1.1em;
+background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat right;
+width:16px;
 }
 
 .screenlet-title-bar ul .collapsed a,
