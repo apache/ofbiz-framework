@@ -47,7 +47,13 @@ under the License.
                     <td>&nbsp;</td>
                   <#else>
                     <td align="center">
-                      <a href="<@ofbizUrl>storeRemoveRole?productStoreId=${productStoreId}&partyId=${role.partyId}&roleTypeId=${role.roleTypeId}&fromDate=${role.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      <a href="javascript:document.storeRemoveRole_${role_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      <form name="storeRemoveRole_${role_index}" method="post" action="<@ofbizUrl>storeRemoveRole</@ofbizUrl>">
+                          <input type="hidden" name="productStoreId" value="${productStoreId}"/>
+                          <input type="hidden" name="partyId" value="${role.partyId}"/>
+                          <input type="hidden" name="roleTypeId" value="${role.roleTypeId}"/>
+                          <input type="hidden" name="fromDate" value="${role.fromDate}"/>
+                      </form>                      
                     </td>
                   </#if>
                 </tr>
