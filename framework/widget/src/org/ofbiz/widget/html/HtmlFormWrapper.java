@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
@@ -95,7 +96,7 @@ public class HtmlFormWrapper {
             context.put("isError", Boolean.TRUE);
         }
 
-        Map uiLabelMap = (Map) request.getAttribute("uiLabelMap");
+        Map<String, String> uiLabelMap = UtilGenerics.cast(request.getAttribute("uiLabelMap"));
         if (uiLabelMap != null && uiLabelMap.size() > 0 && context.get("uiLabelMap") == null) {
             Debug.logInfo("Got uiLabelMap: " + uiLabelMap, module);
             context.put("uiLabelMap", uiLabelMap);

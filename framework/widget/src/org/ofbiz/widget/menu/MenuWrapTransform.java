@@ -71,6 +71,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
         final StringBuilder buf = new StringBuilder();

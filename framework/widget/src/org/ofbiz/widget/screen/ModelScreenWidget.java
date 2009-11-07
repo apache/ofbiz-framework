@@ -18,52 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.io.FileOutputStream;
-import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastList;
 
-import org.apache.fop.apps.FOUserAgent;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -74,7 +46,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -87,22 +58,8 @@ import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.tree.ModelTree;
 import org.ofbiz.widget.tree.TreeFactory;
 import org.ofbiz.widget.tree.TreeStringRenderer;
-import org.ofbiz.widget.xml.XmlFormRenderer;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.control.RequestHandlerException;
-import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.webapp.view.FopRenderer;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-
-import org.apache.fop.apps.FOUserAgent;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.FormattingResults;
-import org.apache.fop.apps.MimeConstants;
-import org.apache.fop.apps.PageSequenceResults;
 
 
 /**
@@ -550,7 +507,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                     context = MapStack.create(context);
                 }
 
-                ((MapStack) context).push();
+                UtilGenerics.<MapStack<String>>cast(context).push();
 
                 // build the widgetpath
                 List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
@@ -605,7 +562,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             modelScreen.renderScreenString(writer, context, screenStringRenderer);
 
             if (protectScope) {
-                ((MapStack) context).pop();
+                UtilGenerics.<MapStack<String>>cast(context).pop();
             }
         }
 
@@ -846,7 +803,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 if (!(context instanceof MapStack)) {
                     context = MapStack.create(context);
                 }
-                ((MapStack) context).push();
+                UtilGenerics.<MapStack<String>>cast(context).push();
             }
 
             // try finding the formStringRenderer by name in the context in case one was prepared and put there
@@ -875,7 +832,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
 
             if (protectScope) {
-                ((MapStack) context).pop();
+                UtilGenerics.<MapStack<String>>cast(context).pop();
             }
         }
 
@@ -933,7 +890,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 if (!(context instanceof MapStack)) {
                     context = MapStack.create(context);
                 }
-                ((MapStack) context).push();
+                UtilGenerics.<MapStack<String>>cast(context).push();
             }
 
             String name = this.getName(context);
@@ -984,7 +941,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
 
             if (protectScope) {
-                ((MapStack) context).pop();
+                UtilGenerics.<MapStack<String>>cast(context).pop();
             }
         }
 
@@ -1102,7 +1059,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 // This is an important step to make sure that the current contentId is in the context
                 // as templates that contain "subcontent" elements will expect to find the master
                 // contentId in the context as "contentId".
-                ((MapStack) context).push();
+                UtilGenerics.<MapStack<String>>cast(context).push();
                 context.put("contentId", expandedContentId);
 
                 if (UtilValidate.isEmpty(expandedDataResourceId)) {
@@ -1225,7 +1182,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                     screenStringRenderer.renderContentBody(writer, context, this);
                     screenStringRenderer.renderContentEnd(writer, context, this);
                 }
-                ((MapStack) context).pop();
+                UtilGenerics.<MapStack<String>>cast(context).pop();
             } catch (IOException e) {
                 String errMsg = "Error rendering content with contentId [" + getContentId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);

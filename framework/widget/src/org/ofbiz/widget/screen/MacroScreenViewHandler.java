@@ -21,7 +21,6 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -33,23 +32,13 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilJ2eeCompat;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
-import org.xml.sax.SAXException;
-
-import org.ofbiz.widget.menu.MenuStringRenderer;
-// TODO: uncomment these lines when the renderers are implemented
-//import org.ofbiz.widget.menu.MacroMenuRenderer;
-//import org.ofbiz.widget.tree.MacroTreeRenderer;
-import org.ofbiz.widget.tree.TreeStringRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.MacroFormRenderer;
-import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.widget.screen.MacroScreenRenderer;
+import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
 import freemarker.template.utility.StandardCompress;

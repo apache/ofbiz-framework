@@ -18,16 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.widget.cache;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
-
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 
 public class WidgetContextCacheKey {
 

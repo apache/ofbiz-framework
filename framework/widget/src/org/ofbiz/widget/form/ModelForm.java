@@ -1283,7 +1283,7 @@ public class ModelForm extends ModelWidget {
         return maxNumOfColumns;
     }
 
-    protected Object safeNext(Iterator iterator) {
+    protected <X> X safeNext(Iterator<X> iterator) {
         try {
             return iterator.next();
         } catch (NoSuchElementException e) {
@@ -1305,12 +1305,12 @@ public class ModelForm extends ModelWidget {
             return;
         }
         // if list is empty, do not render rows
-        Iterator iter = null;
+        Iterator<?> iter = null;
         if (obj instanceof Iterator) {
-            iter = (Iterator) obj;
+            iter = (Iterator<?>) obj;
             setPaginate(true);
         } else if (obj instanceof List) {
-            iter = ((List) obj).listIterator();
+            iter = ((List<?>) obj).listIterator();
             setPaginate(true);
         }
 
@@ -1370,12 +1370,12 @@ public class ModelForm extends ModelWidget {
             return;
         }
         // if list is empty, do not render rows
-        Iterator iter = null;
+        Iterator<?> iter = null;
         if (obj instanceof Iterator) {
-            iter = (Iterator) obj;
+            iter = (Iterator<?>) obj;
             setPaginate(true);
         } else if (obj instanceof List) {
-            iter = ((List) obj).listIterator();
+            iter = ((List<?>) obj).listIterator();
             setPaginate(true);
         }
 
@@ -2152,7 +2152,7 @@ public class ModelForm extends ModelWidget {
     public String getPaginateTarget(Map<String, Object> context) {
         String targ = this.paginateTarget.expandString(context);
         if (UtilValidate.isEmpty(targ)) {
-            Map parameters = (Map) context.get("parameters");
+            Map<String, ?> parameters = UtilGenerics.cast(context.get("parameters"));
             if (parameters != null && parameters.containsKey("targetRequestUri")) {
                 targ = (String) parameters.get("targetRequestUri");
             }
@@ -2183,7 +2183,7 @@ public class ModelForm extends ModelWidget {
 
             if (value == null) {
             // try parameters.VIEW_INDEX as that is an old OFBiz convention
-            Map parameters = (Map) context.get("parameters");
+            Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
             if (parameters != null) {
                 value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
 
@@ -2224,7 +2224,7 @@ public class ModelForm extends ModelWidget {
 
             if (value == null) {
                 // try parameters.VIEW_SIZE as that is an old OFBiz convention
-                Map parameters = (Map) context.get("parameters");
+                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
                     value = parameters.get("VIEW_SIZE" + "_" + getPaginatorNumber(context));
 
@@ -2456,7 +2456,7 @@ public class ModelForm extends ModelWidget {
                 listSize = 0;
             }
         } else if (entryList instanceof List) {
-            List items = (List) entryList;
+            List<?> items = (List<?>) entryList;
             listSize = items.size();
         }
 
@@ -2542,9 +2542,9 @@ public class ModelForm extends ModelWidget {
         try {
             value = (String)context.get(field);
             if (value == null) {
-                Map parameters = (Map) context.get("parameters");
+                Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
-                    value = (String)parameters.get(field);
+                    value = parameters.get(field);
                 }
             }
         } catch (Exception e) {

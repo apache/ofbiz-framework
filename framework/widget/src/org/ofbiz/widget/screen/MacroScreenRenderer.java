@@ -736,7 +736,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (actualPageSize >= listSize && listSize >= 0) return;
 
         // needed for the "Page" and "rows" labels
-        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         String ofLabel = "";
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
