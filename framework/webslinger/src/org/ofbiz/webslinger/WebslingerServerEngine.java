@@ -18,10 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.webslinger;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Collections;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilGenerics;
@@ -33,7 +29,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.engine.GenericAsyncEngine;
-
 import org.webslinger.WebslingerServletContext;
 
 public class WebslingerServerEngine extends GenericAsyncEngine {

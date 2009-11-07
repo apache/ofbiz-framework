@@ -30,7 +30,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.webslinger.commons.vfs.VFSUtil;
 
 public class OfbizComponentProvider extends AbstractFileProvider {
-    public Collection getCapabilities() {
+    public Collection<?> getCapabilities() {
         return DefaultLocalFileProvider.capabilities;
     }
 
