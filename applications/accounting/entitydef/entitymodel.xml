@@ -2747,6 +2747,7 @@ under the License.
       <alias name="partyToLastName" entity-alias="TPNV" field="lastName"/>
       <alias name="partyToGroupName" entity-alias="TPNV" field="groupName"/>
       <alias name="paymentTypeDesc" entity-alias="TY" field="description"/>
+      <alias name="parentPaymentTypeId" entity-alias="TY" field="parentTypeId"/>
       <alias name="statusDesc" entity-alias="SI" field="description"/>
       <alias name="paymentMethodTypeDesc" entity-alias="PMT" field="description"/>
       <view-link entity-alias="PY" rel-entity-alias="FPNV">
