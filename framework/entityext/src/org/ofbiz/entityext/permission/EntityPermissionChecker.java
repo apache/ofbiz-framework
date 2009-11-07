@@ -319,7 +319,7 @@ public class EntityPermissionChecker {
         // check permission for each id in passed list until success.
         // Note that "quickCheck" id come first in the list
         // Check with no roles or purposes on the chance that the permission fields contain _NA_ s.
-        List alreadyCheckedIds = FastList.newInstance();
+        List<String> alreadyCheckedIds = FastList.newInstance();
         Map<String, List<String>> purposes = FastMap.newInstance();
         Map<String, List<String>> roles = FastMap.newInstance();
         //List purposeList = null;
@@ -532,7 +532,7 @@ public class EntityPermissionChecker {
             //if (Debug.infoOn()) Debug.logInfo(entityIdString, module);
         }
 
-        List alreadyCheckedIds = FastList.newInstance();
+        List<String> alreadyCheckedIds = FastList.newInstance();
         Map<String, GenericValue> entities = FastMap.newInstance();
         //List purposeList = null;
         //List roleList = null;
@@ -1330,7 +1330,7 @@ public class EntityPermissionChecker {
 
         EntityExpr expr = EntityCondition.makeCondition(entityIdFieldName, EntityOperator.IN, idList);
         EntityExpr expr2 = EntityCondition.makeCondition(partyIdFieldName, partyId);
-        EntityConditionList condList = EntityCondition.makeCondition(UtilMisc.toList(expr, expr2));
+        EntityConditionList<EntityExpr> condList = EntityCondition.makeCondition(UtilMisc.toList(expr, expr2));
         List<GenericValue> roleList = delegator.findList(entityName, condList, null, null, null, true);
         List<GenericValue> roleListFiltered = EntityUtil.filterByDate(roleList);
         Set<String> distinctSet = FastSet.newInstance();

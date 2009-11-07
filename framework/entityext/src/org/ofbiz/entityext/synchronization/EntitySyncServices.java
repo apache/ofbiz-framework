@@ -18,50 +18,51 @@
  *******************************************************************************/
 package org.ofbiz.entityext.synchronization;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.io.IOException;
-import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import static org.ofbiz.base.util.UtilGenerics.checkList;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.serialize.XmlSerializer;
-import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.serialize.SerializeException;
+import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entityext.synchronization.EntitySyncContext.SyncAbortException;
 import org.ofbiz.entityext.synchronization.EntitySyncContext.SyncErrorException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Entity Engine Sync Services
@@ -130,7 +131,7 @@ public class EntitySyncServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map storeEntitySyncData(DispatchContext dctx, Map context) {
+    public static Map<String, Object> storeEntitySyncData(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         String overrideDelegatorName = (String) context.get("delegatorName");
         if (UtilValidate.isNotEmpty(overrideDelegatorName)) {
@@ -143,9 +144,9 @@ public class EntitySyncServices {
 
         String entitySyncId = (String) context.get("entitySyncId");
         // incoming lists will already be sorted by lastUpdatedStamp (or lastCreatedStamp)
-        List valuesToCreate = (List) context.get("valuesToCreate");
-        List valuesToStore = (List) context.get("valuesToStore");
-        List keysToRemove = (List) context.get("keysToRemove");
+        List<GenericValue> valuesToCreate = UtilGenerics.cast(context.get("valuesToCreate"));
+        List<GenericValue> valuesToStore = UtilGenerics.cast(context.get("valuesToStore"));
+        List<GenericEntity> keysToRemove = UtilGenerics.cast(context.get("keysToRemove"));
 
         if (Debug.infoOn()) Debug.logInfo("Running storeEntitySyncData (" + entitySyncId + ") - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove.", module);
         try {
@@ -159,9 +160,7 @@ public class EntitySyncServices {
             long toRemoveAlreadyDeleted = 0;
 
             // create all values in the valuesToCreate List; if the value already exists update it, or if exists and was updated more recently than this one dont update it
-            Iterator valueToCreateIter = valuesToCreate.iterator();
-            while (valueToCreateIter.hasNext()) {
-                GenericValue valueToCreate = (GenericValue) valueToCreateIter.next();
+            for (GenericValue valueToCreate : valuesToCreate) {
                 // to Create check if exists (find by pk), if not insert; if exists check lastUpdatedStamp: if null or before the candidate value insert, otherwise don't insert
                 // NOTE: use the delegator from this DispatchContext rather than the one named in the GenericValue
 
@@ -187,9 +186,7 @@ public class EntitySyncServices {
             }
 
             // iterate through to store list and store each
-            Iterator valueToStoreIter = valuesToStore.iterator();
-            while (valueToStoreIter.hasNext()) {
-                GenericValue valueToStore = (GenericValue) valueToStoreIter.next();
+            for (GenericValue valueToStore  : valuesToStore) {
                 // to store check if exists (find by pk), if not insert; if exists check lastUpdatedStamp: if null or before the candidate value insert, otherwise don't insert
 
                 // maintain the original timestamps when doing storage of synced data, by default with will update the timestamps to now
@@ -214,10 +211,7 @@ public class EntitySyncServices {
             }
 
             // iterate through to remove list and remove each
-            Iterator keyToRemoveIter = keysToRemove.iterator();
-            while (keyToRemoveIter.hasNext()) {
-                GenericEntity pkToRemove = (GenericEntity) keyToRemoveIter.next();
-
+            for (GenericEntity pkToRemove : keysToRemove) {
                 // check to see if it exists, if so remove and count, if not just count already removed
                 // always do a removeByAnd, if it was a removeByAnd great, if it was a removeByPrimaryKey, this will also work and save us a query
                 pkToRemove.setIsFromEntitySync(true);
@@ -264,7 +258,7 @@ public class EntitySyncServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map runPullEntitySync(DispatchContext dctx, Map context) {
+    public static Map<String, Object> runPullEntitySync(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String entitySyncId = (String) context.get("entitySyncId");
@@ -317,9 +311,9 @@ public class EntitySyncServices {
                     // store data returned, get results (just call storeEntitySyncData locally, get the numbers back and boom shakalaka)
 
                     // anything to store locally?
-                    if (startDate != null && (!UtilValidate.isEmpty((Collection) result.get("valuesToCreate")) ||
-                            !UtilValidate.isEmpty((Collection) result.get("valuesToStore")) ||
-                            !UtilValidate.isEmpty((Collection) result.get("keysToRemove")))) {
+                    if (startDate != null && (!UtilValidate.isEmpty((Collection<?>) result.get("valuesToCreate")) ||
+                            !UtilValidate.isEmpty((Collection<?>) result.get("valuesToStore")) ||
+                            !UtilValidate.isEmpty((Collection<?>) result.get("keysToRemove")))) {
 
                         // yep, we got more data
                         gotMoreData = true;
@@ -587,7 +581,7 @@ public class EntitySyncServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map updateOfflineEntitySync(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateOfflineEntitySync(DispatchContext dctx, Map<String, Object> context) {
         return ServiceUtil.returnError("Service not yet implemented.");
     }
 
