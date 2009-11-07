@@ -19,15 +19,11 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
@@ -70,6 +66,8 @@ import org.ofbiz.widget.form.ModelFormField.SubmitField;
 import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Widget Library - HTML Form Renderer implementation

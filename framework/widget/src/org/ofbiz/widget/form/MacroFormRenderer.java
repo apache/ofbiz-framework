@@ -23,7 +23,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -74,6 +72,8 @@ import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
 import org.ofbiz.widget.screen.ModelScreenWidget;
+
+import com.ibm.icu.util.Calendar;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -766,7 +766,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         // http://www.cs.tut.fi/~jkorpela/forms/combo.html
         if (otherFieldSize > 0) {
             fieldName = modelFormField.getParameterName(context);
-            Map dataMap = modelFormField.getMap(context);
+            Map<String, ? extends Object> dataMap = modelFormField.getMap(context);
             if (dataMap == null) {
                 dataMap = context;
             }

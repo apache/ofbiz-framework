@@ -383,8 +383,7 @@ public class ModelTree extends ModelWidget {
                 String pkName = getPkName();
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
-                    Map map = (Map)context.get(this.entryName);
-                    id = (String)map.get(pkName);
+                    id = UtilGenerics.<Map<String, String>>cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
                 }
@@ -475,7 +474,7 @@ public class ModelTree extends ModelWidget {
             String countFieldName = "childBranchCount";
             Object obj = null;
             if (UtilValidate.isNotEmpty(this.entryName)) {
-                Map map = (Map) context.get(this.entryName);
+                Map<String, Object> map = UtilGenerics.cast(context.get(this.entryName));
                 if (map instanceof GenericValue) {
                     ModelEntity modelEntity = ((GenericValue) map).getModelEntity();
                     if (modelEntity.isField(countFieldName)) {
@@ -516,8 +515,7 @@ public class ModelTree extends ModelWidget {
                 String pkName = this.getPkName();
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
-                    Map map = (Map) context.get(this.entryName);
-                    id = (String) map.get(pkName);
+                    id = UtilGenerics.<Map<String,String>>cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
                 }
@@ -559,8 +557,8 @@ public class ModelTree extends ModelWidget {
                  Iterator<? extends Map<String, ? extends Object>> dataIter =  subNode.getListIterator();
                  if (dataIter instanceof EntityListIterator) {
                      EntityListIterator eli = (EntityListIterator) dataIter;
-                     Map val = null;
-                     while ((val = (Map) eli.next()) != null) {
+                     Map<String, Object> val = null;
+                     while ((val = eli.next()) != null) {
                          Object [] arr = {node, val};
                          this.subNodeValues.add(arr);
                      }
@@ -572,7 +570,7 @@ public class ModelTree extends ModelWidget {
                      }
                  } else if (dataIter != null) {
                      while (dataIter.hasNext()) {
-                         Map val = (Map) dataIter.next();
+                         Map<String, ? extends Object> val = dataIter.next();
                          Object [] arr = {node, val};
                          this.subNodeValues.add(arr);
                      }
@@ -620,7 +618,7 @@ public class ModelTree extends ModelWidget {
 
         public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
-            List trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
+            List<?> trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
             int openDepth = modelTree.getOpenDepth();
             int postTrailOpenDepth = modelTree.getPostTrailOpenDepth();
             if (trail != null) trailSize = trail.size();

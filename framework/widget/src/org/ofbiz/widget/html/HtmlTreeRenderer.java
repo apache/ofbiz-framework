@@ -63,8 +63,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         String entityId = null;
         String entryName = node.getEntryName();
         if (UtilValidate.isNotEmpty(entryName)) {
-            Map map = (Map)context.get(entryName);
-            entityId = (String)map.get(pkName);
+            entityId = UtilGenerics.<Map<String, String>>cast(context.get(entryName)).get(pkName);
         } else {
             entityId = (String) context.get(pkName);
         }
@@ -218,9 +217,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append(" href=\"");
             String urlMode = link.getUrlMode();
             String prefix = link.getPrefix(context);
-            boolean fullPath = link.getFullPath();
-            boolean secure = link.getSecure();
-            boolean encode = link.getEncode();
             HttpServletResponse res = (HttpServletResponse) context.get("response");
             HttpServletRequest req = (HttpServletRequest) context.get("request");
             if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {

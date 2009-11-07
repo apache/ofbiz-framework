@@ -66,10 +66,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         //if (Debug.infoOn()) Debug.logInfo("in init, delegator:" + delegator, module);
         try {
-            List menuItemList = modelMenu.getMenuItemList();
-            Iterator iter = menuItemList.iterator();
-            while (iter.hasNext()) {
-               ModelMenuItem menuItem = (ModelMenuItem)iter.next();
+            for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
                String contentId = menuItem.getAssociatedContentId(dummyMap);
                //if (Debug.infoOn()) Debug.logInfo("in init, contentId:" + contentId, module);
                GenericValue webSitePublishPoint = delegator.findByPrimaryKeyCache("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));

@@ -75,7 +75,7 @@ public class HtmlMenuWrapper {
         this.renderer = getMenuRenderer();
 
         this.context = new HashMap<String, Object>();
-        Map parameterMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
 
         HttpSession session = request.getSession();
@@ -212,7 +212,7 @@ public class HtmlMenuWrapper {
 
         if (menuWrapper == null) {
             try {
-                Class cls = Class.forName("org.ofbiz.widget.html." + menuWrapperClassName);
+                Class<?> cls = Class.forName("org.ofbiz.widget.html." + menuWrapperClassName);
                 menuWrapper = (HtmlMenuWrapper)cls.newInstance();
                 menuWrapper.init(menuDefFile, menuName, request, response);
             } catch (InstantiationException e) {
@@ -231,7 +231,7 @@ public class HtmlMenuWrapper {
         } else {
             menuWrapper.setRequest(request);
             menuWrapper.setResponse(response);
-            Map parameterMap = UtilHttp.getParameterMap(request);
+            Map<String, Object> parameterMap = UtilHttp.getParameterMap(request);
             menuWrapper.setParameters(parameterMap);
 
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
@@ -245,7 +245,7 @@ public class HtmlMenuWrapper {
         return menuWrapper;
     }
 
-    public void setParameters(Map paramMap) {
+    public void setParameters(Map<String, Object> paramMap) {
         context.put("parameters", paramMap);
     }
 

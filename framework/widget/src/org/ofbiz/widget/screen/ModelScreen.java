@@ -28,6 +28,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -351,11 +352,11 @@ public class ModelScreen extends ModelWidget implements Serializable {
         setWidgetBoundaryComments(context);
 
         // wrap the whole screen rendering in a transaction, should improve performance in querying and such
-        Map parameters = (Map) context.get("parameters");
+        Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
         boolean beganTransaction = false;
         int transactionTimeout = -1;
         if (parameters != null) {
-            String transactionTimeoutPar = (String) parameters.get("TRANSACTION_TIMEOUT");
+            String transactionTimeoutPar = parameters.get("TRANSACTION_TIMEOUT");
             if (transactionTimeoutPar != null) {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutPar);

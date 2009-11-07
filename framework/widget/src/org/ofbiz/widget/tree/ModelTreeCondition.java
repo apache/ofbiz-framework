@@ -265,7 +265,7 @@ public class ModelTreeCondition {
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
 
-            Class[] paramTypes = new Class[] {String.class};
+            Class<?>[] paramTypes = new Class[] {String.class};
             Object[] params = new Object[] {fieldString};
 
             Class<?> valClass;
