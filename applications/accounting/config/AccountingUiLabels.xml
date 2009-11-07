@@ -7695,6 +7695,10 @@
         <value xml:lang="en">Payment status must be received or sent</value>
         <value xml:lang="hi_IN">भुगतान की स्थिति 'प्राप्त' या 'भेजा दिया' होना चाहिए</value>
     </property>
+    <property key="AccountingPaymentStatusToNotPaid">
+        <value xml:lang="en">Status to "Not Paid"</value>
+        <value xml:lang="hi_IN">भुगतान नहीं दिया</value>
+    </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>
         <value xml:lang="de">Sie haben keine Berechtigung für diese Funktion.</value>

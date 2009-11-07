@@ -694,4 +694,13 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="massChangePaymentStatus" short-description="Service set status of Payments in bulk.">
+        <iterate list="parameters.paymentIds" entry="paymentId">
+            <set field="setPaymentStatusMap.paymentId" from-field="paymentId"/>
+            <set field="setPaymentStatusMap.statusId" from-field="parameters.statusId"/>
+            <call-service service-name="setPaymentStatus" in-map-name="setPaymentStatusMap"/>
+            <clear-field field="setPaymentStatusMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

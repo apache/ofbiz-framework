@@ -225,4 +225,12 @@ under the License.
         <description>Check the valid(unbatched) payment and create batch for same</description>
         <implements service="createPaymentGroupAndMember"/>
     </service>
+    
+    <service name="massChangePaymentStatus" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="massChangePaymentStatus" auth="true">
+        <description>Set status of Payments in bulk.</description>
+        <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
+    </service>
 </services>
