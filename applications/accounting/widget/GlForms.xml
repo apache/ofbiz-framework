@@ -24,24 +24,24 @@ under the License.
     <form name="FindAcctgTrans" target="FindAcctgTrans" type="single" title="" default-map-name="journal"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
-        <field name="acctgTransId" title="${uiLabelMap.FormFieldTitle_acctgTransId}" entity-name="AcctgTrans">
+        <field name="acctgTransId" title="${uiLabelMap.FormFieldTitle_acctgTransId}" entity-name="AcctgTrans" position="1">
             <text size="20"/>
         </field>
-        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="1">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glJournalId">
+        <field name="glJournalId"  position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlJournal" description="${glJournalName} [${glJournalId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
@@ -49,21 +49,21 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="isPosted">
+        <field name="isPosted"  position="1">
             <drop-down allow-empty="true">
                 <option description="${uiLabelMap.CommonNo}" key="N"/>
                 <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
         </field>
-        <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
-        <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="productId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
-        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
-        <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
-        <field name="fromDate"><date-time/></field>
-        <field name="thruDate"><date-time/></field>
-        <field name="performSearch"><hidden value="Y"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="invoiceId" position="2"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
+        <field name="paymentId" position="1"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
+        <field name="productId" position="2"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="workEffortId" position="1"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
+        <field name="shipmentId" position="2"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
+        <field name="fromDate" position="1"><date-time/></field>
+        <field name="thruDate" position="2"><date-time/></field>
+        <field name="performSearch" position="1"><hidden value="Y"/></field>
+        <field name="searchButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
     <form name="ListAcctgTrans" type="list" title="List Accounting Transactions" list-name="acctgTransList"
