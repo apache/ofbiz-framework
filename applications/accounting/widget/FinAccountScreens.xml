@@ -357,7 +357,6 @@ under the License.
                             <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
-                            <include-form name="AddDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                             <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>

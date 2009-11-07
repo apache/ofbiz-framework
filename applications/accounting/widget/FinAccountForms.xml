@@ -255,7 +255,8 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
     </form>
-    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="paymentGroupId" widget-style="buttontext">
             <hyperlink description="${paymentGroupId}" target="EditDepositSlipAndMembers">
                 <parameter param-name="paymentGroupId"/>
@@ -276,7 +277,8 @@ under the License.
     <form name="AddDepositSlipMember" type="single" target="addDepositSlipMember" extends="AddPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
-    <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml">
+    <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row">
         <actions>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
                 <field-map field-name="paymentGroupId"/>
