@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.start.Classpath;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -110,7 +109,6 @@ public class GenerateGeronimoDeployment {
                     }
                     String newCompleteJarName= targetDirectory + newJarName;
 
-                    File newJarFile = new File(newCompleteJarName);
                     // copy the jar to the target directory
                     try {
                         // Create channel on the source
@@ -164,6 +162,14 @@ public class GenerateGeronimoDeployment {
         } catch (FileNotFoundException e) {
             Debug.logFatal("Unable to create - " + webAppGeronimoWebXmlFileName, module);
             return;
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Debug.logError("Trouble closing - " + webAppGeronimoWebXmlFileName, module);
+                }
+            }
         }
 
         // write the template to the target directory
