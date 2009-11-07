@@ -467,21 +467,24 @@ margin: 0 7px 0 7px;
 padding-bottom: 1em;
 }
 
+/* ===== System messages rendering ===== */
 .eventMessage,
 .errorMessage {
 background-color: #B8DFFC;
 font-size: 1.3em;
 font-weight: bold;
 margin: 0 1em 0 1em;
-padding: 0 1em 0 1em;
+padding: 0 1em 0 50px;
 }
 
 .eventMessage {
+background: #FFFFFF url(/bluelight/images/information.png) no-repeat 10px 50%;
 color: #000099;
 border: solid 3px #000099;
 }
 
 .errorMessage {
+background: #FFFFFF url(/bluelight/images/exclamation.png) no-repeat 10px 50%;
 color: #FF0000;
 border: solid 3px #FF0000;
 }
@@ -1018,14 +1021,20 @@ text-decoration: none;
 ul#preferences-menu li.expanded,
 ul#preferences-menu li.collapsed {
 padding: 0 0 0 5px;
+width:32px;
 }
 
 ul#preferences-menu li.expanded {
-background: url(/images/collapse.gif) no-repeat right;
+background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat right;
 }
 
 ul#preferences-menu li.collapsed {
-background: url(/images/expand.gif) no-repeat right;
+background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat right;
+}
+
+ul#preferences-menu li.collapsed a,
+ul#preferences-menu li.expanded a {
+padding-left: 16px;
 }
 
 ul#preferences-menu li a {
@@ -1034,9 +1043,7 @@ ul#preferences-menu li a {
 }
 
 ul#preferences-menu a:hover {
-    background-color: #5CA3D7;
-    color: #FFFFFF;
-    text-decoration: none;
+text-decoration: none;
 }
 
 .control-area a {
