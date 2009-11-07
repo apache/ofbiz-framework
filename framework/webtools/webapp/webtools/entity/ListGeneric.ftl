@@ -20,15 +20,21 @@ under the License.
             <div class="nav-pager">
                 <ul>
                     <#if (viewIndex > 0)>
-                        <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonFirst}</a></li>
-                        <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-previous">${uiLabelMap.CommonPrevious}</a></li>
+                        <li class="nav-first"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonFirst}</a></li>
+                        <li class="nav-previous"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonPrevious}</a></li>
+                    <#else>
+                        <li class="nav-first-disabled"><span>${uiLabelMap.CommonFirst}<span></li>
+                        <li class="nav-previous-disabled"><span>${uiLabelMap.CommonPrevious}<span></li>
                     </#if>
                     <#if (arraySize > 0)>
                         <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${arraySize}</li>
                     </#if>
                     <#if (arraySize > highIndex)>
-                        <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonNext}</a></li>
-                        <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonLast}</a></li>
+                        <li class="nav-next"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonNext}</a></li>
+                        <li class="nav-last"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonLast}</a></li>
+                    <#else>
+                        <li class="nav-next-disabled"><span>${uiLabelMap.CommonNext}<span></li>
+                        <li class="nav-last-disabled"><span>${uiLabelMap.CommonLast}<span></li>
                     </#if>
                 </ul>
                 <br class="clear"/>
