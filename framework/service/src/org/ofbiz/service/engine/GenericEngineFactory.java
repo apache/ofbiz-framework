@@ -27,6 +27,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
@@ -73,8 +74,8 @@ public class GenericEngineFactory {
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();
                         Class<?> c = loader.loadClass(className);
-                        Constructor cn = c.getConstructor(ServiceDispatcher.class);
-                        engine = (GenericEngine) cn.newInstance(dispatcher);
+                        Constructor<GenericEngine> cn = UtilGenerics.cast(c.getConstructor(ServiceDispatcher.class));
+                        engine = cn.newInstance(dispatcher);
                     } catch (Exception e) {
                         throw new GenericServiceException(e.getMessage(), e);
                     }

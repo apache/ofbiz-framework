@@ -98,7 +98,7 @@ public class HttpEngine extends GenericAsyncEngine {
      */
     @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        Map<String, Object> result = runSync(localName, modelService, context);
+        runSync(localName, modelService, context);
     }
 
     /**

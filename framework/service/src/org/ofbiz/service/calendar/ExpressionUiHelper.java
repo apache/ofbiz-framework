@@ -44,7 +44,7 @@ public class ExpressionUiHelper {
     /** Returns a List of valid DayInMonth occurrence int values.
      * @return
      */
-    public static List getOccurrenceList() {
+    public static List<?> getOccurrenceList() {
         return Arrays.asList(Occurrence);
     }
 
@@ -53,13 +53,13 @@ public class ExpressionUiHelper {
      * @return List of Maps. Each Map has a
      * <code>description</code> entry and a <code>value</code> entry.
      */
-    public static List<Map> getDayValueList(Locale locale) {
+    public static List<Map<String, Object>> getDayValueList(Locale locale) {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
-        List<Map> result = new ArrayList<Map>(7);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(7);
         for (int i = 0; i < 7; i++) {
-            result.add(UtilMisc.toMap("description", dateFormat.format(tempCal.getTime()), "value", new Integer(tempCal.get(Calendar.DAY_OF_WEEK))));
+            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", new Integer(tempCal.get(Calendar.DAY_OF_WEEK))));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
         }
         return result;
@@ -90,13 +90,13 @@ public class ExpressionUiHelper {
      * @return List of Maps. Each Map has a
      * <code>description</code> entry and a <code>value</code> entry.
      */
-    public static List<Map> getMonthValueList(Locale locale) {
+    public static List<Map<String, Object>> getMonthValueList(Locale locale) {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.MONTH, Calendar.JANUARY);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
-        List<Map> result = new ArrayList<Map>(13);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(13);
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            result.add(UtilMisc.toMap("description", dateFormat.format(tempCal.getTime()), "value", new Integer(i)));
+            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", new Integer(i)));
             tempCal.roll(Calendar.MONTH, 1);
         }
         return result;
@@ -107,8 +107,8 @@ public class ExpressionUiHelper {
      * @return List of Maps. Each Map has a
      * <code>description</code> entry and a <code>value</code> entry.
      */
-    public static List<Map> getFrequencyValueList(Map<String, Object> uiLabelMap) {
-        List<Map> result = new ArrayList<Map>(6);
+    public static List<Map<String, Object>> getFrequencyValueList(Map<String, Object> uiLabelMap) {
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(6);
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonSecond"), "value", new Integer(Calendar.SECOND)));
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMinute"), "value", new Integer(Calendar.MINUTE)));
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonHour"), "value", new Integer(Calendar.HOUR_OF_DAY)));
@@ -123,9 +123,9 @@ public class ExpressionUiHelper {
      * @return List of Maps. Each Map has a
      * <code>description</code> entry and a <code>value</code> entry.
      */
-    public static List<Map> getExpressionTypeList(Map<String, Object> uiLabelMap) {
+    public static List<Map<String, Object>> getExpressionTypeList(Map<String, Object> uiLabelMap) {
         int listSize = TemporalExpressionWorker.ExpressionTypeList.length;
-        List<Map> result = new ArrayList<Map>(listSize);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(listSize);
         for (int i = 0; i < listSize; i++) {
             String exprType = TemporalExpressionWorker.ExpressionTypeList[i];
             result.add(UtilMisc.toMap("description", uiLabelMap.get("TemporalExpression_" + exprType), "value", exprType));

@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service Permission Group Model Class

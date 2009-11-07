@@ -163,7 +163,7 @@ public class ServiceUtil {
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the success response code */
     public static Map<String, Object> returnSuccess(List<String> successMessageList) {
-        Map result = returnMessage(ModelService.RESPOND_SUCCESS, null);
+        Map<String, Object> result = returnMessage(ModelService.RESPOND_SUCCESS, null);
         result.put(ModelService.SUCCESS_MESSAGE_LIST, successMessageList);
         return result;
     }

@@ -151,17 +151,14 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         Map<String, Object> mRet = FastMap.newInstance();
         try {
             SOAPEnvelope resEnv = respMessage.getSOAPEnvelope();
-            List bodies = resEnv.getBodyElements();
-            Iterator i = bodies.iterator();
+            Iterator<?> i = resEnv.getBodyElements().iterator();
             while (i.hasNext()) {
                 Object o = i.next();
 
                 if (o instanceof RPCElement) {
                     RPCElement body = (RPCElement) o;
-                    List params = null;
-                    params = body.getParams();
-
-                    Iterator p = params.iterator();
+ 
+                    Iterator<?> p = body.getParams().iterator();
                     while (p.hasNext()) {
                         RPCParam param = (RPCParam) p.next();
                         mRet.put(param.getName(), param.getValue());

@@ -181,16 +181,19 @@ public class StringUtil {
      * @return a list of Strings
      */
     public static List<String> split(String str, String delim) {
-        List<String> splitList = null;
+        List<String> splitList = FastList.newInstance();
         StringTokenizer st = null;
 
-        if (str == null)
+        if (str == null) {
             return splitList;
+        }
 
-        if (delim != null)
+        if (delim != null) {
             st = new StringTokenizer(str, delim);
-        else
+        }
+        else {
             st = new StringTokenizer(str);
+        }
 
         if (st != null && st.hasMoreTokens()) {
             splitList = FastList.newInstance();

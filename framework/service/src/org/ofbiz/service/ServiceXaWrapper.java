@@ -140,7 +140,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The context used when running the rollback() service
      */
-    public Map getRollbackContext() {
+    public Map<String, ? extends Object> getRollbackContext() {
         return this.rollbackContext;
     }
 
