@@ -42,8 +42,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
@@ -55,7 +53,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
@@ -647,11 +644,9 @@ public class WebToolsServices {
 
         String search = (String) context.get("search");
         List<Map<String, Object>> packagesList = FastList.newInstance();
-        Iterator piter = packageNames.iterator();
         try {
-            while (piter.hasNext()) {
+            for (String pName : packageNames) {
                 Map<String, Object> packageMap = FastMap.newInstance();
-                String pName = (String) piter.next();
                 TreeSet<String> entities = entitiesByPackage.get(pName);
                 List<Map<String, Object>> entitiesList = FastList.newInstance();
                 for (String entityName: entities) {
