@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="CommonAdminDecorator">
+    <screen name="CommonGlSetupDecorator">
         <section>
             <actions>
                 <set field="tabButtonItemTop" value="Admin"/>
@@ -50,7 +50,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListCompanies">
         <section>
             <actions>
@@ -81,7 +80,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListGlAccountOrganization">
         <section>
             <actions>
@@ -91,7 +89,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="GlAccountOrganizationPanel" title="${uiLabelMap.AccountingChartOfAcctsMenu}" collapsible="true">
                             <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -108,7 +106,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="TimePeriods">
         <section>
             <actions>
@@ -135,7 +132,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingOpenTimePeriods}">
                             <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -151,7 +148,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="PartyAcctgPreference">
         <section>
             <actions>
@@ -169,7 +165,7 @@ under the License.
                 <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingPreference}">
                             <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -190,7 +186,7 @@ under the License.
                 <entity-one entity-name="GlJournal" value-field="glJournal"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="GlJournalPanel" title="${uiLabelMap.AccountingGlJournals}" collapsible="true">
                             <include-form name="EditGlJournal" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -201,7 +197,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="GlAccountTypeDefaults">
         <section>
             <actions>
@@ -213,7 +208,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="GlAccountTypeDefaultPanel" title="${uiLabelMap.CommonAdd}" collapsible="true">
                             <include-form name="EditGlAccountTypeDefault" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -235,7 +230,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="SalInvoiceItemTypeGlAsigmtPanel" title="${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}" collapsible="true">
                             <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -246,7 +241,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="GlAccountPurInvoice">
         <section>
             <actions>
@@ -257,7 +251,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="PurInvoiceItemTypeGlAsigmtPanel" title="${uiLabelMap.AccountingAssignPurchaseInvoiceToRevenue}" collapsible="true">
                             <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -278,7 +272,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="PaymentTypeGlAsigmtPanel" title="${uiLabelMap.AccountingPaymentTypeAssignAccountType}" collapsible="true">
                             <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -299,7 +293,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="PaymentMethodTypeGlAsigmtPanel" title="${uiLabelMap.AccountingPaymentMethodAssignAccountType}" collapsible="true">
                             <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -326,7 +320,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="ProductGlAccountPanel" title="${uiLabelMap.ProductAddGlAccount}" collapsible="true">
                             <include-form name="AddProductGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -337,7 +331,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditFinAccountTypeGlAccounts">
         <section>
             <actions>
@@ -357,7 +350,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="FinAccountTypeGlAccountPanel" title="${uiLabelMap.AccountingAddFinAccountTypeGlAccount}" collapsible="true">
                             <include-form name="AddFinAccountTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -368,7 +361,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditProductCategoryGlAccounts">
         <section>
             <actions>
@@ -386,7 +378,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="ProductCategoryGlAccountPanel" title="${uiLabelMap.ProductAddCategoryGlAccount}" collapsible="true">
                             <include-form name="AddProductCategoryGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -397,7 +389,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditVarianceReasonGlAccounts">
         <section>
             <actions>
@@ -414,7 +405,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="VarianceReasonGlAccountPanel" title="${uiLabelMap.AccountingVarianceReasonGlAccounts}" collapsible="true">
                             <include-form name="AddVarianceReasonGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -425,7 +416,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditCreditCardTypeGlAccounts">
         <section>
             <actions>
@@ -440,7 +430,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="CreditCardTypeGlAccountPanel" title="${uiLabelMap.AccountingCreditCardTypeGlAccount}" collapsible="true">
                             <include-form name="AddCreditCardTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -451,7 +441,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditOrganizationTaxAuthorityGlAccounts">
         <section>
             <actions>
@@ -469,7 +458,7 @@ under the License.
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="OrgTaxAuthorityGlAccountPanel" title="${uiLabelMap.AccountingAddTaxAuthorityGlAccount}" collapsible="true">
                             <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -480,7 +469,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditPartyGlAccount">
         <section>
             <actions>
@@ -496,7 +484,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator">
+                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="PartyGlAccountPanel" title="${uiLabelMap.AccountingAddPartyGlAccount}" collapsible="true">
                             <include-form name="AddPartyGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -507,7 +495,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="ListGlAccountOrgPdf">
         <section>
             <actions>
@@ -528,7 +515,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListGlAccountOrgCsv">
         <section>
             <actions>
@@ -541,7 +527,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="FindGlAccountCategory">
         <section>
             <actions>
@@ -579,7 +564,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditGlAccountCategory">
         <section>
             <actions>
@@ -611,7 +595,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditGlAccountCategoryMember">
         <section>
             <actions>
