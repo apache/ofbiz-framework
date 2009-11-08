@@ -34,7 +34,7 @@ under the License.
 
 <fo:table-row>
   <fo:table-cell><fo:block>${uiLabelMap.AccountingCustNr}:</fo:block></fo:table-cell>
-  <fo:table-cell><fo:block><#if invoice?has_content>${billingParty.partyId}</#if></fo:block></fo:table-cell>
+  <fo:table-cell><fo:block><#if billingParty?has_content>${billingParty.partyId}</#if></fo:block></fo:table-cell>
 </fo:table-row>
 
 <#if billingPartyTaxId?has_content>
@@ -48,10 +48,12 @@ under the License.
   <fo:table-cell><fo:block>${uiLabelMap.AccountingInvNr}:</fo:block></fo:table-cell>
   <fo:table-cell><fo:block><#if invoice?has_content>${invoice.invoiceId}</#if></fo:block></fo:table-cell>
 </fo:table-row>
-<fo:table-row>
-  <fo:table-cell><fo:block>${uiLabelMap.AccountingDescr}:</fo:block></fo:table-cell>
-  <fo:table-cell><fo:block><#if invoice?has_content>${invoice.description?if_exists}</#if></fo:block></fo:table-cell>
-</fo:table-row>
+<#if invoice?has_content && invoice.description?has_content>
+  <fo:table-row>
+    <fo:table-cell><fo:block>${uiLabelMap.AccountingDescr}:</fo:block></fo:table-cell>
+    <fo:table-cell><fo:block>${invoice.description}</fo:block></fo:table-cell>
+  </fo:table-row>
+</#if>
 
 <!--fo:table-row>
   <fo:table-cell><fo:block>${uiLabelMap.CommonStatus}</fo:block></fo:table-cell>
