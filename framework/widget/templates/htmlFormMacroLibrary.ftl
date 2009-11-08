@@ -460,11 +460,16 @@ ${item.description}</div>
 </tr> </table>
 </#macro>
 <#macro renderContainerField id><div id="${id?if_exists}"/></#macro>
+
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip>
-<#if style?has_content || id?has_content || title?has_content>
- <div class="fieldgroup<#if style?has_content> ${style}</#if>"<#if id?has_content> id="${id}"</#if>><div class="fieldgroup-title-bar"><table><tr><td class="collapse"><#rt/>
- <#if collapsible><ul><li class="<#if collapsed>collapsed"><a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');"<#else>expanded"><a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');"</#if>>&nbsp&nbsp&nbsp</a></li></ul></#if></td><td><#rt/>
- <#if title?has_content><div class="title">${title}</div></#if></td></tr></table></div><div id="${collapsibleAreaId}" class="fieldgroup-body" <#if collapsed && collapsible> style="display: none;"</#if>>
+<#if style?has_content || id?has_content || title?has_content><div class="fieldgroup<#if style?has_content> ${style}</#if>"<#if id?has_content> id="${id}"</#if>>
+<div class="fieldgroup-title-bar">
+ <#if collapsible><ul><li class="<#if collapsed>collapsed"><a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');">
+   <#else>expanded"><a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');"></#if>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<#if title?has_content>${title}</#if></a></li></ul>
+ <#else><#if title?has_content>${title}</#if></#if><#rt/>
+</div>
+<div id="${collapsibleAreaId}" class="fieldgroup-body" <#if collapsed && collapsible> style="display: none;"</#if>>
 </#if>
 </#macro>
 <#macro renderFieldGroupClose style id title><#if style?has_content || id?has_content || title?has_content></div></div></#if></#macro>

@@ -2065,21 +2065,23 @@ padding: 0.1em 0.5em 0.2em 0.5em;
 
 .fieldgroup-title-bar ul .collapsed,
 .fieldgroup-title-bar ul .collapsed:hover {
-background: url(/images/expand.gif) no-repeat center center;
+background: url(/images/expand.gif) no-repeat left center;
 min-height: 1.1em;
 min-width: 1.1em;
 }
 
 .fieldgroup-title-bar ul .expanded,
 .fieldgroup-title-bar ul .expanded:hover {
-background: url(/images/collapse.gif) no-repeat center center;
+background: url(/images/collapse.gif) no-repeat left center;
 min-height: 1.1em;
 min-width: 1.1em;
 }
 
-.fieldgroup-title-bar td.collapse {
-width: 1.1em;
-cursor: default;
+.fieldgroup-title-bar a {
+cursor:pointer;
+text-decoration:none;
+padding-left: 10px;
+color: #000000;
 }
 
 /* == Portlet configuration screenlet == */
