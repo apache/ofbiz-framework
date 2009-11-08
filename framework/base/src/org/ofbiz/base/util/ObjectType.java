@@ -455,7 +455,7 @@ public class ObjectType {
      * @return true if objectClass is a class or sub-class of, or implements typeClass
      */
     public static boolean instanceOf(Class<?> objectClass, Class<?> typeClass) {
-        if (typeClass.isInterface()) {
+        if (typeClass.isInterface() && !objectClass.isInterface()) {
             return interfaceOf(objectClass, typeClass);
         } else {
             return isOrSubOf(objectClass, typeClass);

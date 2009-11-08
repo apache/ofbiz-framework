@@ -24,7 +24,7 @@ public class BooleanConverters {
     public static class BooleanToInteger extends AbstractConverter<Boolean, Integer> {
 
         public Integer convert(Boolean obj) throws ConversionException {
-             return obj.booleanValue() ? Integer.valueOf(1) : Integer.valueOf(0);
+             return obj.booleanValue() ? 1 : 0;
         }
 
         public Class<Boolean> getSourceClass() {
@@ -56,7 +56,7 @@ public class BooleanConverters {
     public static class IntegerToBoolean extends AbstractConverter<Integer, Boolean> {
 
         public Boolean convert(Integer obj) throws ConversionException {
-             return obj.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+             return obj.intValue() == 0 ? false : true;
         }
 
         public Class<Integer> getSourceClass() {
