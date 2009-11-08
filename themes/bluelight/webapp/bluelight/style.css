@@ -1850,43 +1850,20 @@ background: url(/bluelight/images/resultset_last_disabled.png) no-repeat;
 padding: 0 30px 0 30px;
 }
 
-/* ================================= */
-    /* ===== Visual Embellishments ===== */
-    /* ================================= */
 .view-calendar {
     background: url(/images/cal.gif) no-repeat;
 }
 
-.field-lookup {
-    background: url(/images/fieldlookup.gif) no-repeat;
+.field-lookup ul li {
+float: left;
 }
 
-.nav-first { /*
-background: url(/images/prev-year.gif) no-repeat left center;
-padding-left: 1.8em;
-*/
-
-}
-
-.nav-last { /*
-background: url(/images/next-year.gif) no-repeat right center;
-padding-right: 1.8em;
-*/
-
-}
-
-.nav-next { /*
-background: url(/images/next.gif) no-repeat right center;
-padding-right: 1.8em;
-*/
-
-}
-
-.nav-previous { /*
-background: url(/images/prev.gif) no-repeat left center;
-padding-left: 1.8em;
-*/
-
+.field-lookup ul li a{
+background: url(/bluelight/images/application_view_list.png) no-repeat 0 0;
+display: block;
+margin: 3px 10px 0px 4px;
+width:16px;
+height:16px;
 }
 
 /* ================================= */
