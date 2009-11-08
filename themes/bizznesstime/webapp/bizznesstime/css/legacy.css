@@ -487,8 +487,16 @@ form .basic-table,
 /***********************************************
 Calendar
 ***********************************************/
-.field-lookup {
-	background: url(/images/fieldlookup.gif) no-repeat;
+.field-lookup ul li {
+float: left;
+}
+
+.field-lookup ul li a{
+background: url(/images/fieldlookup.gif) no-repeat 0 0;
+display: block;
+margin: 3px 10px 0px 4px;
+width:16px;
+height:16px;
 }
 
 .view-calendar {
