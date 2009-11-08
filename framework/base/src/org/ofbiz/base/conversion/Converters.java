@@ -30,8 +30,9 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.conversion.BooleanConverters.*;
-import org.ofbiz.base.conversion.NumberConverters.*;
+import org.ofbiz.base.conversion.CollectionConverters.*;
 import org.ofbiz.base.conversion.DateTimeConverters.*;
+import org.ofbiz.base.conversion.NumberConverters.*;
 import org.ofbiz.base.conversion.MiscConverters.*;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -48,8 +49,10 @@ public class Converters {
     protected static final Set<String> noConversions = FastSet.newInstance();
     protected static final Converter<Object, Object> nullConverter = new NullConverter();
 
-    public static final Converter<BigDecimal, Double> BigDecimalToDouble = new BigDecimalToDouble();
-    public static final Converter<BigDecimal, Float> BigDecimalToFloat = new BigDecimalToFloat();
+    // If Arrays aren't converted when using RMI, then comment out the next line
+    public static final Converter<Object[], List<?>> ArrayToList = new ArrayToList();
+    public static final Converter<BigDecimal, Double> BigDecimalToDouble = new BigDecimalToDouble(); 
+    public static final Converter<BigDecimal, Float> BigDecimalToFloat = new BigDecimalToFloat(); 
     public static final Converter<BigDecimal, Integer> BigDecimalToInteger = new BigDecimalToInteger(); 
     public static final Converter<BigDecimal, List<BigDecimal>> BigDecimalToList = new BigDecimalToList(); 
     public static final Converter<BigDecimal, Long> BigDecimalToLong = new BigDecimalToLong(); 
@@ -84,6 +87,7 @@ public class Converters {
     public static final Converter<Integer, Long> IntegerToLong = new IntegerToLong(); 
     public static final Converter<Integer, Set<Integer>> IntegerToSet = new IntegerToSet(); 
     public static final LocalizedConverter<Integer, String> IntegerToString = new IntegerToString(); 
+    public static final Converter<List<?>, String> ListToString = new ListToString(); 
     public static final Converter<Locale, String> LocaleToString = new LocaleToString(); 
     public static final Converter<Long, BigDecimal> LongToBigDecimal = new LongToBigDecimal(); 
     public static final Converter<Long, Calendar> LongToCalendar = new LongToCalendar(); 
@@ -93,28 +97,36 @@ public class Converters {
     public static final Converter<Long, List<Long>> LongToList = new LongToList(); 
     public static final Converter<Long, Set<Long>> LongToSet = new LongToSet(); 
     public static final LocalizedConverter<Long, String> LongToString = new LongToString(); 
+    public static final Converter<Map<?, ?>, List<Map<?,?>>> MapToList = new MapToList(); 
+    public static final Converter<Map<?, ?>, Set<Map<?,?>>> MapToSet = new MapToSet(); 
+    public static final Converter<Map<?, ?>, String> MapToString = new MapToString(); 
     public static final Converter<Number, java.util.Date> NumberToDate = new NumberToDate(); 
     public static final Converter<Number, TimeDuration> NumberToDuration = new NumberToDuration(); 
     public static final Converter<Number, java.sql.Date> NumberToSqlDate = new NumberToSqlDate(); 
     public static final Converter<Number, java.sql.Time> NumberToSqlTime = new NumberToSqlTime(); 
     public static final Converter<Number, java.sql.Timestamp> NumberToTimestamp = new NumberToTimestamp(); 
     public static final LocalizedConverter<java.sql.Date, String> SqlDateToString = new SqlDateToString(); 
-    public static final LocalizedConverter<java.sql.Time, String> SqlTimeToString = new SqlTimeToString(); 
-    public static final LocalizedConverter<String, BigDecimal> StringToBigDecimal = new StringToBigDecimal(); 
-    public static final Converter<String, Boolean> StringToBoolean = new StringToBoolean(); 
-    public static final LocalizedConverter<String, Calendar> StringToCalendar = new StringToCalendar(); 
-    public static final LocalizedConverter<String, java.util.Date> StringToDate = new StringToDate(); 
-    public static final LocalizedConverter<String, Double> StringToDouble = new StringToDouble(); 
+    public static final LocalizedConverter<java.sql.Time, String> SqlTimeToString = new SqlTimeToString();
+    public static final LocalizedConverter<String, BigDecimal> StringToBigDecimal = new StringToBigDecimal();
+    public static final Converter<String, Boolean> StringToBoolean = new StringToBoolean();
+    public static final LocalizedConverter<String, Calendar> StringToCalendar = new StringToCalendar();
+    public static final LocalizedConverter<String, java.util.Date> StringToDate = new StringToDate();
+    public static final LocalizedConverter<String, Double> StringToDouble = new StringToDouble();
     public static final Converter<String, TimeDuration> StringToDuration = new StringToDuration();
     public static final LocalizedConverter<String, Float> StringToFloat = new StringToFloat();
     public static final LocalizedConverter<String, Integer> StringToInteger = new StringToInteger();
+    public static final Converter<String, List<?>> StringToList = new StringToList();
     public static final Converter<String, Locale> StringToLocale = new StringToLocale();
     public static final LocalizedConverter<String, Long> StringToLong = new StringToLong();
+    public static final Converter<String, Map<?, ?>> StringToMap = new StringToMap();
+    public static final Converter<String, Set<?>> StringToSet = new StringToSet();
     public static final LocalizedConverter<String, java.sql.Date> StringToSqlDate = new StringToSqlDate();
     public static final LocalizedConverter<String, java.sql.Time> StringToSqlTime = new StringToSqlTime();
     public static final LocalizedConverter<String, java.sql.Timestamp> StringToTimestamp = new StringToTimestamp();
     public static final Converter<String, TimeZone> StringToTimeZone = new StringToTimeZone();
     public static final Converter<TimeZone, String> TimeZoneToString = new TimeZoneToString();
+
+    private Converters() {}
 
     /** Returns an appropriate <code>Converter</code> instance for
      * <code>sourceClass</code> and <code>targetClass</code>. If no matching
@@ -149,7 +161,7 @@ public class Converters {
                     Debug.logWarning("*** No converter found, converting from " +
                             sourceClass.getName() + " to " + targetClass.getName() +
                             ". Please report this message to the developer community so " +
-                            "a suitable converter can be developed. ***", module);
+                            "a suitable converter can be created. ***", module);
                 }
             }
             throw new ClassNotFoundException("No converter found for " + key);
@@ -207,27 +219,28 @@ public class Converters {
         return "Map size = " + converterMap.size();
     }
 
+    @SuppressWarnings("unchecked")
     public static String runPerformanceTest() {
-        @SuppressWarnings("unused")
-        Object obj = null;
+        Object[] intArray = {1,2,3,4};
+        List obj = null;
         try {
-            Converter<BigDecimal, Integer> converter = Converters.getConverter(BigDecimal.class, Integer.class);
-            obj = converter.convert(BigDecimal.ONE);
+            Converter<Object[],  List> converter = Converters.getConverter(Object[].class, List.class);
+            obj = converter.convert(intArray);
         } catch (Exception e) {}
         System.gc();
         long newStart = System.currentTimeMillis();
         try {
             for (int i = 0; i < 1000000; i++) {
-                Converter<BigDecimal, Integer> converter = Converters.getConverter(BigDecimal.class, Integer.class);
-                obj = converter.convert(BigDecimal.ONE);
+                Converter<Object[],  List> converter = Converters.getConverter(Object[].class, List.class);
+                obj = converter.convert(intArray);
             }
         } catch (Exception e) {
             Debug.logError(e, module);
         }
         long newStop = System.currentTimeMillis();
-        Debug.logInfo("Elasped time = " + (newStop - newStart), module);
-        return "Elasped time = " + (newStop - newStart);
+        Debug.logInfo("Elapsed time = " + (newStop - newStart), module);
+        return "Elapsed time = " + (newStop - newStart) + ", List size = " + obj.size();
     }
-
 */
+
 }
