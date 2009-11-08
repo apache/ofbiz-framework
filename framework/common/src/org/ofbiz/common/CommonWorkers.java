@@ -127,12 +127,12 @@ public class CommonWorkers {
         }
         if (childTypeValue != null) {
             if (parentType.equals(childTypeValue.getString(primaryKey))) return true;
-            
+
             if (childTypeValue.getString(parentTypeField) != null) {
                 if (parentType.equals(childTypeValue.getString(parentTypeField))) {
                     return true;
                 } else {
-                    hasParentType(delegator, entityName, primaryKey, childTypeValue.getString(parentTypeField), parentTypeField, parentType);
+                    return hasParentType(delegator, entityName, primaryKey, childTypeValue.getString(parentTypeField), parentTypeField, parentType);
                 }
             }
         }
