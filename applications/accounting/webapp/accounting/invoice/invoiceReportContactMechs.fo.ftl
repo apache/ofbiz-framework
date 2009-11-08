@@ -37,9 +37,6 @@ under the License.
     <#else>
         <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound}${billingParty.partyId}</fo:block>
     </#if>
-    <#if billingPartyTaxId?has_content>
-        <fo:block>Tax ID: ${billingPartyTaxId}</fo:block>
-    </#if>
         </fo:table-cell>
     </fo:table-row>
   </fo:table-body>
