@@ -21,6 +21,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="basetests">
-        <junit-test-suite class-name="org.ofbiz.accounting.test.BaseUnitTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.test.BaseUnitTests"/>
     </test-case>
 </test-suite>
