@@ -28,7 +28,7 @@ import org.ofbiz.entity.util.EntityUtil;
 facilityId = context.get("facilityId");
 
 EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId);
-inventoryItems = delegator.findByCondition("InventoryItem", whereConditions, null, UtilMisc.toList("productId"), null, null);
+inventoryItems = delegator.findList("InventoryItem", whereConditions, UtilMisc.toSet("productId"), UtilMisc.toList("productId"), null, false);
 inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "productId", true);
 
 inventoryAverageCosts = FastList.newInstance();
