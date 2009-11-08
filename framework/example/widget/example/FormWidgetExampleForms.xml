@@ -246,6 +246,11 @@ under the License.
         <field name="field8" title="${uiLabelMap.ExampleField} 8"><text/></field>
         <field name="field9" title="${uiLabelMap.ExampleField} 9"><text/></field>
         <field name="field10" title="${uiLabelMap.ExampleField} 10"><text/></field>
+        <field name="field11" title="${uiLabelMap.ExampleField} 11"><text/></field>
+        <field name="field12" title="${uiLabelMap.ExampleField} 12"><text/></field>
+        <field name="field13" title="${uiLabelMap.ExampleField} 13"><text/></field>
+        <field name="field14" title="${uiLabelMap.ExampleField} 14"><text/></field>
+        <field name="field14" title="${uiLabelMap.ExampleField} 15"><text/></field>
 
         <sort-order>
             <field-group title="${uiLabelMap.ExampleGroupField} 1" collapsible="true" initially-collapsed="true">
@@ -262,6 +267,14 @@ under the License.
                 <sort-field name="field8"/>
                 <sort-field name="field9"/>
                 <sort-field name="field10"/>
+            </field-group>
+
+            <field-group title="${uiLabelMap.ExampleGroupField} 3">
+                <sort-field name="field11"/>
+                <sort-field name="field12"/>
+                <sort-field name="field13"/>
+                <sort-field name="field14"/>
+                <sort-field name="field15"/>
             </field-group>
         </sort-order>
 
