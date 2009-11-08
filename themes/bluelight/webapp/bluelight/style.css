@@ -1025,11 +1025,11 @@ width:32px;
 }
 
 ul#preferences-menu li.expanded {
-background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat right;
+background: url(/bluelight/images/bullet_arrow_up.png) no-repeat right;
 }
 
 ul#preferences-menu li.collapsed {
-background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat right;
+background: url(/bluelight/images/bullet_arrow_down.png) no-repeat right;
 }
 
 ul#preferences-menu li.collapsed a,
@@ -1251,13 +1251,13 @@ color:#999999;
 
 .screenlet-title-bar ul .collapsed,
 .screenlet-title-bar ul .collapsed:hover {
-background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat right;
+background: url(/bluelight/images/bullet_arrow_down.png) no-repeat right;
 width:16px;
 }
 
 .screenlet-title-bar ul .expanded,
 .screenlet-title-bar ul .expanded:hover {
-background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat right;
+background: url(/bluelight/images/bullet_arrow_up.png) no-repeat right;
 width:16px;
 }
 
