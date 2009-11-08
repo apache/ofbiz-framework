@@ -18,21 +18,31 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.nio.Buffer;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.*;
-import java.nio.*;
-
-import org.w3c.dom.Node;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.Converters;
+import org.ofbiz.base.conversion.LocalizedConverter;
+import org.w3c.dom.Node;
 
 /**
  * Utilities for analyzing and converting Object types in Java
@@ -469,6 +479,7 @@ public class ObjectType {
      * @return the converted value
      * @throws GeneralException
      */
+    @SuppressWarnings("unchecked")
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null) {
             return null;
@@ -478,6 +489,39 @@ public class ObjectType {
         if (genericsStart != -1) {
             type = type.substring(0, genericsStart);
         }
+
+        // ----- Try out new conversion code -----
+
+        Class<?> sourceClass = obj.getClass();
+        Class<?> targetClass = null;
+        try {
+            targetClass = loadClass(type);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+            return obj;
+        }
+
+        Converter<Object,Object> converter = null;
+        try {
+            converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
+        } catch (ClassNotFoundException e) {}
+        if (converter != null) {
+            try {
+                LocalizedConverter<Object, Object> localizedConverter = (LocalizedConverter) converter;
+                if (timeZone == null) {
+                    timeZone = TimeZone.getDefault();
+                }
+                if (locale == null) {
+                    locale = Locale.getDefault();
+                }
+                return localizedConverter.convert(obj, locale, timeZone, format);
+            } catch (Exception e) {}
+            try {
+                return converter.convert(obj);
+            } catch (ConversionException e) {}
+        }
+
+        // ---------------------------------------
 
         if (obj.getClass().getName().equals(type)) {
             return obj;
