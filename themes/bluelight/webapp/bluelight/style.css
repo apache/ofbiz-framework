@@ -2035,32 +2035,30 @@ iframe.ie6_blocker {
     border: 2px solid #FF0000;
 }
 
-/* ============================= */ /* ===== FieldGroup Styles ===== */
-    /* ============================= */
+/* ============================= */
+/* ===== FieldGroup Styles ===== */
+/* ============================= */
 .fieldgroup-title-bar {
-    border-top: 0.1em solid #DADADA;
-    font-size: 1em;
-    font-weight: bold;
-    padding: 0.1em 0.5em 0.2em 0.5em;
+font-size: 1.2em;
+font-weight: bold;
+padding: 5px 0 5px 10px;
 }
 
 .fieldgroup-title-bar ul .collapsed,.fieldgroup-title-bar ul .collapsed:hover
-    {
-    background: url(/images/expand.gif) no-repeat center center;
-    min-height: 1.1em;
-    min-width: 1.1em;
+{
+background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat left center;
 }
 
 .fieldgroup-title-bar ul .expanded,.fieldgroup-title-bar ul .expanded:hover
-    {
-    background: url(/images/collapse.gif) no-repeat center center;
-    min-height: 1.1em;
-    min-width: 1.1em;
+{
+background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat left center;
 }
 
-.fieldgroup-title-bar td.collapse {
-    width: 1.1em;
-    cursor: default;
+.fieldgroup-title-bar a {
+cursor:pointer;
+text-decoration:none;
+padding-left: 10px;
+color: #000000;
 }
 
 /* == Portlet configuration screenlet == */
