@@ -51,6 +51,17 @@ under the License.
             <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
             <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
         </if-not-empty>
+        <if-not-empty field="parameters.paymentPreferenceId">
+            <entity-one value-field="orderPaymentPreference" entity-name="OrderPaymentPreference">
+                <field-map field-name="orderPaymentPreferenceId" from-field="parameters.paymentPreferenceId"/>
+            </entity-one>
+            <if-empty field="parameters.paymentMethodId">
+                <set field="parameters.paymentMethodId" from-field="orderPaymentPreference.paymentMethodId"/>
+            </if-empty>
+            <if-empty field="parameters.paymentMethodTypeId">
+                <set field="parameters.paymentMethodTypeId" from-field="orderPaymentPreference.paymentMethodTypeId"/>
+            </if-empty>
+        </if-not-empty>
         <if-empty field="parameters.paymentMethodTypeId">
             <add-error>
                 <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
