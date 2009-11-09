@@ -1259,9 +1259,11 @@
     </property>
     <property key="PageTitleAssignLeadFromExisting">
         <value xml:lang="en">Assign Existing Lead</value>
+        <value xml:lang="th">กำหนด Lead ที่มีอยู่</value>
     </property>
     <property key="PageTitleAssignAccountFromExisting">
         <value xml:lang="en">Assign Existing Account</value>
+        <value xml:lang="th">กำหนด Account ที่มีอยู่</value>
     </property>
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
@@ -1896,6 +1898,14 @@
         <value xml:lang="fr">Recherchers les prospects</value>
         <value xml:lang="it">Ricerca leads</value>
         <value xml:lang="zh">查找线索</value>
+    </property>
+    <property key="SfaFindAccounts">
+        <value xml:lang="en">Find Accounts</value>
+        <value xml:lang="th">ค้นหา Accounts</value>
+    </property>
+    <property key="SfaFindAccountLeads">
+        <value xml:lang="en">Find Account Leads</value>
+        <value xml:lang="th">ค้นหา Account Leads</value>
     </property>
     <property key="SfaFindOpportunities">
         <value xml:lang="en">Find Opportunities</value>

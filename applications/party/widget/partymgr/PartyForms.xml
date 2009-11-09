@@ -1025,12 +1025,11 @@ under the License.
         <field name="toPartyId"><display/></field>
     </form>
     <form name="PartySalesOpportunities" type="list" list-name="salesOpportunities" default-table-style="basic-table hover-bar">
-        <field name="salesOpportunityId">
-            <hyperlink target="ViewSalesOpportunity" description="${salesOpportunityId}">
+        <field name="opportunityName">
+            <hyperlink target="ViewSalesOpportunity" description="${opportunityName} [${salesOpportunityId}]">
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
-        <field name="opportunityName"><display/></field>
         <field name="estimatedAmount"><display/></field>
         <field name="partyId"><display/></field>
     </form>
