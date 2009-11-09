@@ -2792,6 +2792,18 @@ under the License.
         <key-map field-name="paymentId" rel-field-name="toPaymentId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="PaymentAndTypeAndCreditCard"
+            package-name="org.ofbiz.financials.payment"
+            never-cache="true"
+            title="Payment, Payment type and CreadiCard View Entity">
+        <member-entity entity-alias="PAT" entity-name="PaymentAndType"/>
+        <member-entity entity-alias="CC" entity-name="CreditCard"/>
+        <alias-all entity-alias="PAT"/>
+        <alias-all entity-alias="CC"/>
+        <view-link entity-alias="PAT" rel-entity-alias="CC" rel-optional="true">
+            <key-map field-name="paymentMethodId" rel-field-name="paymentMethodId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="PaymentAndApplication"
             package-name="org.ofbiz.accounting.payment"
             never-cache="true"
