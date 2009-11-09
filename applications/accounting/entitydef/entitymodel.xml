@@ -1542,15 +1542,16 @@ under the License.
     <member-entity entity-alias="INV" entity-name="Invoice"/>
     <member-entity entity-alias="IVT" entity-name="InvoiceType"/>
     <alias-all entity-alias="INV"/>
-    <alias-all entity-alias="IVT">
-      <exclude field="invoiceTypeId"/>
-      <exclude field="description"/>
-    </alias-all>
+    <alias name="parentTypeId" entity-alias="IVT"></alias>
+    <alias name="invoiceTypeDesc" entity-alias="IVT" field="description"></alias>
     <view-link entity-alias="INV" rel-entity-alias="IVT">
       <key-map field-name="invoiceTypeId"/>
     </view-link>
     <relation type="many" rel-entity-name="InvoiceItem">
       <key-map field-name="invoiceId"/>
+    </relation>
+    <relation type="one" fk-name="INVOICE_STTSITM" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
     </relation>
     <relation type="many" rel-entity-name="PaymentApplication">
       <key-map field-name="invoiceId"/>
