@@ -139,7 +139,6 @@ public class ClientProfile extends XPage implements ActionListener {
         m_nameEdit.requestFocusInWindow();
         m_dialog.showDialog(this);
         if (!cancelled) {
-            m_trans.setPartyId(m_partyId);
             GenericValue  person = null;
             try {
                 person = m_trans.getSession().getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", m_partyId));
@@ -153,6 +152,7 @@ public class ClientProfile extends XPage implements ActionListener {
                     if (UtilValidate.isEmpty(result)) {
                         m_pos.getPromoStatusBar().displayClient(person.getString("lastName"));
                         m_pos.getPromoStatusBar().addPromoCode(cardId);
+                        m_trans.setPartyId(m_partyId);
                     } else {
                         m_pos.showDialog("dialog/error/exception", result);
                     }
