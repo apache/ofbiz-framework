@@ -261,7 +261,10 @@ public class PosTransaction implements Serializable {
         ShoppingCartItem item = cart.findCartItem(index);
         Map<String, Object> itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getProductId());
-        itemInfo.put("description", item.getName());
+        String description = item.getDescription();
+        if (UtilValidate.isEmpty(description)) {
+            itemInfo.put("description", item.getName());
+        }
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
