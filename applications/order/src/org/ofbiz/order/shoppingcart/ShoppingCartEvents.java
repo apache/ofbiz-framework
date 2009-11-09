@@ -400,7 +400,7 @@ public class ShoppingCartEvents {
         }
 
         // get the selected amount
-        String selectedAmountStr = "0.00";
+        String selectedAmountStr = null;
         if (paramMap.containsKey("ADD_AMOUNT")) {
             selectedAmountStr = (String) paramMap.remove("ADD_AMOUNT");
         } else if (paramMap.containsKey("add_amount")) {
@@ -409,13 +409,15 @@ public class ShoppingCartEvents {
 
         // parse the amount
         BigDecimal amount = null;
-        if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(selectedAmountStr)) {
             try {
                 amount = new BigDecimal(nf.parse(selectedAmountStr).doubleValue());
             } catch (Exception e) {
                 Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                 amount = null;
             }
+        } else {
+            amount = BigDecimal.ZERO;
         }
 
         // check for required amount
