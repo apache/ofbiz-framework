@@ -85,7 +85,12 @@ under the License.
         </entity-condition>
         <set field="productCost" value="0" type="BigDecimal"/>
         <iterate entry="costComponent" list="costComponents">
-            <set field="productCost" value="${costComponent.cost + productCost}" type="BigDecimal"/>
+            <calculate field="productCost" decimal-scale="6">
+                <calcop field="costComponent.cost" operator="add">
+                    <calcop field="productCost" operator="get"/>
+                </calcop>
+            </calculate>
+            <!--set field="productCost" value="${costComponent.cost + productCost}" type="BigDecimal"/-->
         </iterate>
         <!-- if the cost is zero, and the product is a variant, get the cost of the virtual -->
         <if-compare field="productCost" operator="equals" value="0" type="BigDecimal">
@@ -330,6 +335,11 @@ under the License.
                     <set field="totalCostsByType.${costType}" from-field="costAmount"/>
                 </else>
                 </if-not-empty>
+                <calculate field="totalTaskCost" decimal-scale="6">
+                    <calcop field="totalTaskCost" operator="add">
+                        <calcop field="costAmount" operator="get"/>
+                    </calcop>
+                </calculate>
             </iterate-map>
         </iterate>
 
@@ -395,7 +405,12 @@ under the License.
                 <set from-field="parameters.currencyUomId" field="callSvcMap.costUomId"/>
                 <set from-field="productCostAdjustment" field="callSvcMap.cost"/>
                 <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
-                <set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/>
+                <!--set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/-->
+                <calculate field="totalCost" decimal-scale="6">
+                    <calcop field="totalCost" operator="add">
+                        <calcop field="productCostAdjustment" operator="get"/>
+                    </calcop>
+                </calculate>
             </else>
             </if-empty>
         </iterate>
@@ -588,7 +603,12 @@ under the License.
         <call-service service-name="getProductCost" in-map-name="inputMap">
             <result-to-field result-name="productCost"/>
         </call-service>
-        <set field="productCostAdjustment" value="${parameters.baseCost * costComponentCalc.fixedCost}" type="BigDecimal"/>
+        <!--set field="productCostAdjustment" value="${parameters.baseCost * costComponentCalc.fixedCost}" type="BigDecimal"/-->
+        <calculate field="productCostAdjustment" type="BigDecimal" decimal-scale="6">
+            <calcop operator="multiply" field="costComponentCalc.fixedCost">
+                <calcop operator="get" field="parameters.baseCost"/>
+            </calcop>
+        </calculate>
         <field-to-result field="productCostAdjustment"/>
     </simple-method>
 </simple-methods>
