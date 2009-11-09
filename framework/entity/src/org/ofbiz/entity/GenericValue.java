@@ -23,11 +23,13 @@ package org.ofbiz.entity;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -36,6 +38,7 @@ import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
+import org.ofbiz.entity.util.Converters.*;
 import org.ofbiz.entity.util.EntityUtil;
 
 
@@ -47,6 +50,10 @@ import org.ofbiz.entity.util.EntityUtil;
 public class GenericValue extends GenericEntity implements Reusable {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();
+
+    public static final Converter<GenericValue, List<GenericValue>> GenericValueToList = new GenericValueToList();
+    public static final Converter<GenericValue, Set<GenericValue>> GenericValueToSet = new GenericValueToSet();
+    public static final Converter<GenericValue, String> GenericValueToString = new GenericValueToString();
 
     protected static final ObjectFactory<GenericValue> genericValueFactory = new ObjectFactory<GenericValue>() {
         @Override
