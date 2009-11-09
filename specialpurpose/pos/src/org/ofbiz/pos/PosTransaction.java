@@ -264,6 +264,8 @@ public class PosTransaction implements Serializable {
         String description = item.getDescription();
         if (UtilValidate.isEmpty(description)) {
             itemInfo.put("description", item.getName());
+        } else {
+            itemInfo.put("description", description);
         }
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
