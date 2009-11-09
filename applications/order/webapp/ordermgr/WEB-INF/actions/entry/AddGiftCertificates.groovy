@@ -51,6 +51,6 @@ context.giftCardProductList = giftCardProductList;
 
 // Get Survey Id for Gift Certificates
 
-ProductStoreFinActSetting = delegator.findOne("ProductStoreFinActSetting", [productStoreId : productStoreId, finAccountTypeId : "GIFTCERT_ACCOUNT"], false);
-context.surveyId = ProductStoreFinActSetting.purchaseSurveyId;
+productStoreFinActSetting = delegator.findOne("ProductStoreFinActSetting", [productStoreId : productStoreId, finAccountTypeId : "GIFTCERT_ACCOUNT"], false);
+context.surveyId = productStoreFinActSetting.purchaseSurveyId;
 
