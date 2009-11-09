@@ -53,7 +53,7 @@ under the License.
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="PaymentAndType"/>
+                <field-map field-name="entityName" value="PaymentAndTypeAndCreditCard"/>
                 <field-map field-name="orderBy" value="effectiveDate DESC"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
