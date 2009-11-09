@@ -137,6 +137,10 @@ under the License.
         <event type="service" invoke="createPartyDataSource"/>
         <response name="success" type="request" value="viewprofile"/>
     </request-map>
+    <request-map uri="AddRelatedCompany">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddRelatedCompany"/>
+    </request-map>
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
@@ -235,6 +239,7 @@ under the License.
     <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
     <request-map uri="LookupLeads"><security auth="true" https="true"/><response name="success" type="view" value="LookupLeads"/></request-map>
     <request-map uri="LookupAccounts"><security auth="true" https="true"/><response name="success" type="view" value="LookupAccounts"/></request-map>
+    <request-map uri="LookupAccountLeads"><security auth="true" https="true"/><response name="success" type="view" value="LookupAccountLeads"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -255,6 +260,7 @@ under the License.
     <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
     <view-map name="MergeLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#MergeLeads"/>
     <view-map name="NewLeadFromVCard" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#NewLeadFromVCard"/>
+    <view-map name="AddRelatedCompany" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#AddRelatedCompany"/>
 
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="NewContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#NewContact"/>
@@ -270,6 +276,7 @@ under the License.
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupLeads" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupLeads"/>
     <view-map name="LookupAccounts" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupAccounts"/>
+    <view-map name="LookupAccountLeads" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupAccountLeads"/>
 
     <!-- end of view mappings -->
 </site-conf>

@@ -52,13 +52,18 @@ under the License.
         <menu-item name="NewCommEvent" title="${uiLabelMap.PartyNewEmail}">
             <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
-                <parameter param-name="partyIdTo" from-field="leadPartyResult.partyId"/>
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="my" value="My"/>
                 <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                </and>
+            </condition>
             <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="my" value="My"/>
@@ -68,6 +73,12 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="replyAll" title="${uiLabelMap.PartyReplyAll}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                </and>
+            </condition>
             <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="my" value="My"/>
@@ -76,10 +87,41 @@ under the License.
                 <parameter param-name="action" value="REPLYALL"/>
             </link>
         </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
+            <condition>
+                <not><if-empty field="communicationEvent"/></not>
+            </condition>
+            <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
+                <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
+                <parameter param-name="origCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.partyId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+                <parameter param-name="action" value="FORWARD"/>
+            </link>
+        </menu-item>
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="/partymgr/control/NewDraftCommunicationEvent" url-mode="inter-app" link-type="hidden-form">
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="partyIdFrom" from-field="parameters.userLogin.partyId"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}"><link target="FindAccounts"/></menu-item>
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
             </link>
@@ -123,28 +165,41 @@ under the License.
     </menu>
 
     <menu name="LeadTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}"><link target="FindLeads"/></menu-item>
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
-                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+                <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
             </link>
         </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="ConvertLead">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
-                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+                <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
             </link>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="CloneLead">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
-                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+                <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
             </link>
         </menu-item>
         <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="MergeLeads">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
-                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+                <parameter param-name="partyGroupId" value="${parameters.partyGroupId}"/>
             </link>
         </menu-item>
     </menu>
@@ -162,6 +217,18 @@ under the License.
                 <not><if-empty field="partyId"/></not>
             </condition>
             <link target="ListPartyCommEvents">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="headerItem" value="Leads"/>
+            </link>
+        </menu-item>
+        <menu-item name="AddRelatedCompany" title="${uiLabelMap.PageTitleAddRelatedCompany}">
+            <condition>
+                <and>
+                    <not><if-empty field="partyId"/></not>
+                    <if-empty field="relatedCompanies"/>
+                </and>
+            </condition>
+            <link target="AddRelatedCompany">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="headerItem" value="Leads"/>
             </link>
@@ -191,13 +258,22 @@ under the License.
     </menu>
 
     <menu name="ContactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}"><link target="FindContacts"/></menu-item>
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
             </link>
         </menu-item>
         <menu-item name="MergeContacts" title="${uiLabelMap.SfaMergeContacts}">
-            <link target="MergeContacts"/>
+            <condition>
+                <not><if-empty field="parameters.partyId"/></not>
+            </condition>
+            <link target="MergeContacts">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="ContactSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

@@ -412,7 +412,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditContactMech.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>

@@ -26,6 +26,9 @@ under the License.
                 <set field="titleProperty" value="MarketingFindContacts"/>
                 <set field="currentUrl" value="FindContacts"/>
                 <set field="headerItem" value="Contacts"/>
+                <set field="setContactDescription" value="${groovy:session.setAttribute(&quot;contactDescription&quot;,headerItem)}"/>
+                <set field="removeAccountDescription" value="${groovy:session.removeAttribute(&quot;accountDescription&quot;)}"/>
+                <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;leadDescription&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -76,7 +79,7 @@ under the License.
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonContactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaContact}">
                             <include-form name="NewContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
@@ -95,7 +98,7 @@ under the License.
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/MergeContacts.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonContactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.SfaMergeContacts}">
                             <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
@@ -128,7 +131,7 @@ under the License.
                 <set field="headerItem" value="Contacts"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonContactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleCreateContactFromVCard}">
                             <container><label style="h3" text="${uiLabelMap.SfaAutoCreateContactByImportingVCard}"/></container>

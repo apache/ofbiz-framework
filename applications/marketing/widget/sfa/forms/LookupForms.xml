@@ -33,4 +33,10 @@ under the License.
         </field>
         <field name="relatedCompany"><hidden/></field>
     </form>
+    <form name="listLookupAccountLead" extends="listAccountLeads" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
+        <field name="partyId">
+            <hyperlink also-hidden="false" target-type="plain" description="${partyName} [${partyId}]" target="javascript:set_value('${partyId}')"/>
+        </field>
+        <field name="relatedCompany"><hidden/></field>
+    </form>
 </forms>

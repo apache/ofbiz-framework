@@ -401,6 +401,7 @@ under the License.
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyIdFrom" from-field="partyId"/>
                 <parameter param-name="roleTypeId"/>
+                <parameter param-name="headerItem" from-field="parameters.headerItem"/>
             </hyperlink>
         </field>
         <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>

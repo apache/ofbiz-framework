@@ -173,6 +173,9 @@ under the License.
         <actions>
             <set field="roleTypeIdFrom" value="OWNER"/>
             <set field="roleTypeIdTo" value="LEAD"/>
+            <set field="relatedCompanyRoleTypeIdTo" value="LEAD"/>
+            <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT_LEAD"/>
+            <set field="relatedCompanyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="parameters.statusId" value="PARTY_DISABLED"/>
             <set field="parameters.statusId_op" value="notEqual"/>
             <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
@@ -213,6 +216,9 @@ under the License.
     </form>
     <form name="ListMyLeads" extends="ListLeads">
         <actions>
+            <set field="relatedCompanyRoleTypeIdTo" value="LEAD"/>
+            <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT_LEAD"/>
+            <set field="relatedCompanyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="parameters.roleTypeIdTo" value="LEAD"/>
             <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
@@ -230,5 +236,13 @@ under the License.
             </service>
         </actions>
         <field name="assignToMe"><hidden/></field>
+    </form>
+    <form name="AddRelatedCompany" type="single" target="createPartyRelationship">
+        <field name="roleTypeIdTo"><hidden value="LEAD"/></field>
+        <field name="roleTypeIdFrom"><hidden value="ACCOUNT_LEAD"/></field>
+        <field name="partyRelationshipTypeId"><hidden value="EMPLOYMENT"/></field>
+        <field name="partyIdTo"><hidden value="${parameters.partyId}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyRelatedCompany}"><lookup target-form-name="LookupAccountLeads"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 </forms>

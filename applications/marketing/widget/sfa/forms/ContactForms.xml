@@ -40,6 +40,9 @@ under the License.
             <set field="roleTypeIdFrom" value="ACCOUNT"/>
             <set field="roleTypeIdTo" value="CONTACT"/>
             <set field="partyRelationshipTypeId" value="EMPLOYMENT"/>
+            <set field="relatedCompanyRoleTypeIdTo" value="CONTACT"/>
+            <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT"/>
+            <set field="relatedCompanyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
             <set field="parameters.statusId" value="PARTY_DISABLED"/>
             <set field="parameters.statusId_op" value="notEqual"/>
@@ -59,6 +62,17 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
+        <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
+                title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
+            <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyRelationshipTypeId"/>
+                <parameter param-name="partyIdTo" from-field="partyId"/>
+            </hyperlink>
+        </field>
         <sort-order>
             <sort-field name="partyId"/>
             <sort-field name="emailAddress"/>
@@ -72,6 +86,9 @@ under the License.
     </form>
     <form name="ListMyContacts" extends="ListContacts">
         <actions>
+            <set field="relatedCompanyRoleTypeIdTo" value="CONTACT"/>
+            <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT"/>
+            <set field="relatedCompanyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="parameters.roleTypeIdTo" value="CONTACT"/>
             <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>

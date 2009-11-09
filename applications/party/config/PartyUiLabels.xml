@@ -1647,6 +1647,10 @@
         <value xml:lang="th">ที่อยู่ที่เหมือนกัน</value>
         <value xml:lang="zh">地址匹配</value>
     </property>
+    <property key="PageTitleAddRelatedCompany">
+        <value xml:lang="en">Add Related Company</value>
+        <value xml:lang="th">เพิ่มบริษัทที่เกี่ยวข้อง</value>
+    </property>
     <property key="PageTitleCommEvents">
         <value xml:lang="de">Kommunikationsereignis</value>
         <value xml:lang="en">Communication Events</value>

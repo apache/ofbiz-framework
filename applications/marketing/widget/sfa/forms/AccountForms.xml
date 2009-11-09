@@ -89,6 +89,8 @@ under the License.
         <actions>
             <set field="roleTypeIdFrom" value="OWNER"/>
             <set field="roleTypeIdTo" value="ACCOUNT"/>
+            <set field="relatedCompanyRoleTypeIdTo" value="ACCOUNT"/>
+            <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT"/>
             <set field="parameters.statusId" value="PARTY_DISABLED"/>
             <set field="parameters.statusId_op" value="notEqual"/>
             <set field="partyRelationshipTypeId" value="ACCOUNT"/>
@@ -132,8 +134,9 @@ under the License.
             <set field="countryGeoId" from-field="postalAddress.paCountryGeoId"/>
             <entity-and entity-name="PartyRelationship" list="relatedCompanies" filter-by-date="true">
                 <field-map field-name="partyIdTo" from-field="partyId"/>
-                <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
-                <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                <field-map field-name="roleTypeIdFrom" from-field="relatedCompanyRoleTypeIdFrom"/>
+                <field-map field-name="roleTypeIdTo" from-field="relatedCompanyRoleTypeIdTo"/>
+                <field-map field-name="partyRelationshipTypeId" from-field="relatedCompanyRelationshipTypeId"/>
             </entity-and>
             <set field="relatedCompanyPartyId" from-field="relatedCompanies[0].partyIdFrom" type="Object"/>
             <set field="existRelationship" from-field="existRelationships[0]"/>
@@ -145,7 +148,7 @@ under the License.
         </field>
         <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_emailAddress}"><display description="${emailAddresses[0].infoString}"/></field>
         <field name="telecomNumber">
-            <display description="${telecomNumber.tnCountryCode}-${telecomNumber.tnAreaCode}-${telecomNumber.tnContactNumber} ${uiLabelMap.PartyContactExt} ${telecomNumber.tnExtension}"/>
+            <display description="${telecomNumber.tnContryCode} ${telecomNumber.tnAreaCode} ${telecomNumber.tnContactNumber} ${telecomNumber.tnAskForName}"/>
         </field>
         <field name="city" title="${uiLabelMap.FormFieldTitle_city}"><display description="${postalAddress.paCity}"/></field>
         <field name="countryGeoId" title="${uiLabelMap.FormFieldTitle_country}">
@@ -156,6 +159,7 @@ under the License.
                 <parameter param-name="partyId" from-field="relatedCompanyPartyId"/>
             </hyperlink>
         </field>
+        <field name="relatedCompany" use-when="relatedCompanyPartyId==null"><display/></field>
     </form>
     <form name="ListAccounts" extends="listAccounts">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
@@ -170,6 +174,15 @@ under the License.
             </hyperlink>
         </field>
         <field name="relatedCompany"><hidden/></field>
+        <sort-order>
+            <sort-field name="partyId"/>
+            <sort-field name="emailAddress"/>
+            <sort-field name="telecomNumber"/>
+            <sort-field name="city"/>
+            <sort-field name="countryGeoId"/>
+            <sort-field name="assignToMe"/>
+            <sort-field name="relatedCompany"/>
+        </sort-order>
     </form>
     <form name="ListMyAccounts" extends="ListAccounts">
         <actions>
@@ -224,5 +237,25 @@ under the License.
             </entity-one>
         </actions>
         <field name="infoString" title="${contactMechType.description}"><text-find/></field>
+    </form>
+    
+    <form name="listAccountLeads" extends="listAccounts">
+        <actions>
+            <set field="roleTypeIdTo" value="ACCOUNT_LEAD"/>
+            <set field="parameters.statusId" value="PARTY_DISABLED"/>
+            <set field="parameters.statusId_op" value="notEqual"/>
+            <set field="partyRelationshipTypeId" value="ACCOUNT"/>
+            <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
+            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PartyRoleAndContactMechDetail"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="distinct" value="Y"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
     </form>
 </forms>
