@@ -803,6 +803,7 @@ under the License.
     <ProductCategory productCategoryId="GC-100" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory productCategoryId="GC-101" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory productCategoryId="GC-102" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="GC-103" productCategoryTypeId="GIFT_CARD_CATEGORY"/>
 
     <Product productId="GC-002" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-102" internalName="Gift Card Reload" productName="Gift Card Reload" description="Add more money to your card!" requireAmount="Y" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="GC-001" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="GC-101" internalName="Gift Card Activation" productName="Gift Card Activation" description="Give the perfect gift!" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="Y" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
@@ -851,6 +852,10 @@ under the License.
     <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H25" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-H50" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="GC-101" productId="GC-001-HO" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C10" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C25" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C50" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="GC-103" productId="GC-001-C100" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="GC-002" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="GC-001" fromDate="2001-05-13 12:00:00.0"/>

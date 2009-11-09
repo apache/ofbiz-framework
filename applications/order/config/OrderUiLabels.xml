@@ -4272,6 +4272,9 @@
         <value xml:lang="zh">无渠道</value>
         <value xml:lang="zh_CN">无渠道</value>
     </property>
+    <property key="OrderNoGiftCertificatesFound">
+        <value xml:lang="en">No Gift Certificates Found</value>
+    </property>
     <property key="OrderNoGiftWrap">
         <value xml:lang="de">Keine Geschenkverpackung</value>
         <value xml:lang="en">No Gift Wrap</value>
@@ -4374,6 +4377,9 @@
         <value xml:lang="ru">Платежных предпочтений ассоциированных с этим заказом нет.</value>
         <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">没有与这个订单关联的支付优先方式。</value>
+    </property>
+    <property key="OrderNoProductStoreFinAccountSettingsFound">
+        <value xml:lang="en">No Product Store FinAcccount Settings found</value>
     </property>
     <property key="OrderNoPurchaseOrderSpecified">
         <value xml:lang="de">Kein Beschaffungsauftrag angegeben.</value>
