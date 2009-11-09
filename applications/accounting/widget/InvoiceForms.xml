@@ -643,9 +643,9 @@ under the License.
             <display-entity entity-name="TermType" description="${description}"/>
         </field>
         <field name="dueDate"><display/></field>
-        <field name="amount"><display/></field>
-        <field name="paidAmount"><display/></field>
-        <field name="outstandingAmount"><display/></field>
+        <field name="amount"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+        <field name="paidAmount"><display type="currency" currency="${invoice.currencyUomId}"/></field>
+        <field name="outstandingAmount"><display type="currency" currency="${invoice.currencyUomId}"/></field>
     </form>
 
     <form name="ListCustomerInvoices" extends="ListInvoices" list-name="invoices"

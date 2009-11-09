@@ -154,6 +154,7 @@ under the License.
     <screen name="invoiceOverview">
         <section>
             <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleInvoiceOverview"/>
                 <set field="tabButtonItem" value="invoiceOverview"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
