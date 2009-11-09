@@ -57,12 +57,14 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet>
+                                <container style="screenlet">
                                     <platform-specific>
                                         <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
                                     </platform-specific>
-                                    <decorator-section-include name="body"/>
-                                </screenlet>
+                                    <container style="screenlet-body">
+                                        <decorator-section-include name="body"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
