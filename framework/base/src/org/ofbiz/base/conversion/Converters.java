@@ -19,6 +19,7 @@
 package org.ofbiz.base.conversion;
 
 import java.math.BigDecimal;
+import java.sql.Clob;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -62,6 +63,7 @@ public class Converters {
     public static final Converter<Boolean, String> BooleanToString = new BooleanToString(); 
     public static final Converter<Calendar, Long> CalendarToLong = new CalendarToLong(); 
     public static final Converter<Calendar, String> CalendarToString = new CalendarToString(); 
+    public static final Converter<Clob, String> ClobToString = new ClobToString(); 
     public static final Converter<java.util.Date, Long> DateToLong = new DateToLong(); 
     public static final LocalizedConverter<java.util.Date, String> DateToString = new DateToString(); 
     public static final Converter<Double, BigDecimal> DoubleToBigDecimal = new DoubleToBigDecimal(); 
