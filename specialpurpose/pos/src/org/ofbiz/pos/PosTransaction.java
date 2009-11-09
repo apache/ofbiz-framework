@@ -175,6 +175,12 @@ public class PosTransaction implements Serializable {
     
     public void setPartyId(String partyId) {
         this.partyId = partyId;
+        this.cart.setPlacingCustomerPartyId(partyId);
+        try {
+            this.cart.setUserLogin(session.getUserLogin(), session.getDispatcher());
+        } catch (CartItemModifyException e) {
+            Debug.logError(e, module);
+        }
     }
     
     public int getDrawerNumber() {
@@ -255,7 +261,7 @@ public class PosTransaction implements Serializable {
         ShoppingCartItem item = cart.findCartItem(index);
         Map<String, Object> itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getProductId());
-        itemInfo.put("description", item.getDescription());
+        itemInfo.put("description", item.getName());
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
