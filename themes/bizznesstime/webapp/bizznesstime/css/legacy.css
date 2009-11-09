@@ -487,8 +487,12 @@ form .basic-table,
 /***********************************************
 Calendar
 ***********************************************/
+.field-lookup ul {
+margin:0;
+}
 .field-lookup ul li {
 float: left;
+margin:0;
 }
 
 .field-lookup ul li a{
