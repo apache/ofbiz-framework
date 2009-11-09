@@ -29,7 +29,7 @@
     <property key="genericWebEvent.already_exists_pk">
         <value xml:lang="en">already exists with primary key: "${primaryKey}; please change</value>
         <value xml:lang="es">Ya existe esta llave primaria: "${primaryKey}; cambiarla.</value>
-        <value xml:lang="fr">Existe déjà avec une clé primaire "${primaryKey}"</value>
+        <value xml:lang="fr">Existe déjà avec la clé primaire "${primaryKey}"</value>
         <value xml:lang="it">già esistente con chiave primaria: "${primaryKey}; perfavore cambiarla</value>
         <value xml:lang="ro">deja exista cu cheia primara: "${primaryKey}; Va rugam schimbati-o</value>
         <value xml:lang="th">ยังคงมีอยู่แล้วด้วยคีย์หลัก: "${primaryKey}; กรุณาเปลี่ยน</value>
@@ -216,7 +216,7 @@
     </property>
     <property key="utilCache.couldNotClearCache">
         <value xml:lang="en">Could not clear cache, no name specified</value>
-        <value xml:lang="fr">Impossible de vider le cache</value>
+        <value xml:lang="fr">Impossible de vider le cache, aucun nom fourni</value>
         <value xml:lang="it">Non è possibile pulire la cache, nessun nome specificato</value>
         <value xml:lang="ro">Nu este posibila curatarea cach-ului, nici-un nume  specificat</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่ระบุชื่อ</value>
@@ -240,7 +240,7 @@
     </property>
     <property key="utilCache.couldNotRemoveElementNumber">
         <value xml:lang="en">Could not remove cache element, element not found with cache name: ${name} , element number: ${numString}</value>
-        <value xml:lang="fr">Impossible de supprimer l'élément du cache, aucun élément trouvé ayant comme nom de cahce ${name} et n° d'élément:  ${numString}</value>
+        <value xml:lang="fr">Impossible de supprimer l'élément du cache, aucun élément trouvé ayant comme nom de cache ${name} et n° d'élément:  ${numString}</value>
         <value xml:lang="it">Non è possibile rimuovere l'elemento della cache, elemento non trovato con nome cache: ${name} , elemento numero: ${numString}</value>
         <value xml:lang="ro">Nu este possibila stergerea elementului din chesh-ul, nu gaseste elementul cu numele cache: ${name} , element numar: ${numString}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบองค์ประกอบด้วยชื่อหน่วยความจำ: ${name} , หมายเลของค์ประกอบ: ${numString}</value>
