@@ -361,24 +361,11 @@ under the License.
         </if-compare>
 
         <make-value value-field="newEntity" entity-name="ReturnItem"/>
-        <!-- do a lookup to find the existing returnItems on this return, order by returnItemSeqId DESC, then get the first one
-             and add 1 to returnItemSeqId to get the new returnItemSeqId -->
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
-        <set from-field="parameters.returnId" field="lookupMap.returnId"/>
-        <string-to-list string="-returnItemSeqId" list="orderBy"/>
-        <find-by-and entity-name="ReturnItem" list="currentItems" map="lookupMap" order-by-list="orderBy"></find-by-and>
-        <if-empty field="currentItems">
-            <set field="newEntity.returnItemSeqId" value="1"/>
-        <else>
-            <first-from-list entry="newestItem" list="currentItems"/>
-            <set field="newEntity.returnItemSeqId" value="${newestItem.returnItemSeqId + 1}" type="Integer"/>
-        </else>
-        </if-empty>
-        <to-string field="newEntity.returnItemSeqId" numeric-padding="5"/>
+        <make-next-seq-id seq-field-name="returnItemSeqId" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusId" value="RETURN_REQUESTED"/>  <!-- default status for new return items -->
         <field-to-result field="newEntity.returnItemSeqId" result-name="returnItemSeqId"/>
-        <log level="info" message="Return Item Seq ID: ${newEntity.returnItemSeqId}"/>
         <create-value value-field="newEntity"/>
         <refresh-value value-field="newEntity"/>
 
