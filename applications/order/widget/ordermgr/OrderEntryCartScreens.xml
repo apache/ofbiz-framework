@@ -201,6 +201,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderAddGiftCertificate"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/AddGiftCertificates.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
