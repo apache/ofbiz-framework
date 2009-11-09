@@ -419,7 +419,6 @@ under the License.
         <field name="debitCreditFlag"><display/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-
     <form name="CreateAcctgTransAndEntries" type="single" target="quickCreateAcctgTransAndEntries" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -427,34 +426,35 @@ under the License.
             <set field="creditGlAccountClassId" from-field="parameters.creditGlAccountClassId"/>
         </actions>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}">
+        <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="1">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" position="1">
             <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
-        <field name="roleTypeId" parameter-name="roleTypeId">
+        <field name="roleTypeId" parameter-name="roleTypeId" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
-        <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
-        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
+        <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
+        <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
+        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="workEffortId" position="2"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
+        <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="debitGlAccountId" use-when="debitGlAccountClassId!=null">
             <drop-down>
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
@@ -678,21 +678,29 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createAcctgTrans"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}">
+        <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="1">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}">
+        <field name="glJournalId" position="1">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlJournal" description="${glJournalName} [${glJournalId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="glJournalName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
@@ -700,33 +708,83 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fixedAssetId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
-                    <entity-order-by field-name="fixedAssetId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="paymentId">
-            <lookup target-form-name="LookupPayment" size="20" maxlength="20"/>
-        </field>
-        <field name="invoiceId">
-            <lookup target-form-name="LookupInvoice" size="20" maxlength="20"/>
-        </field>
-        <field name="partyId">
+        <field name="finAccountTransId" position="1"></field>
+        <field name="partyId" position="1">
             <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
-        <field name="roleTypeId">
+        <field name="roleTypeId" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortId">
-            <lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/>
+        <field name="transactionDate"  position="1"></field>
+        <field name="scheduledPostingDate"  position="2"></field>
+        <field name="isPosted"  position="1">
+            <drop-down allow-empty="true">
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
+            </drop-down>
         </field>
+        <field name="postedDate" position="2"><date-time/></field>
+        <field name="receiptId"  position="1"></field>
+        <field name="theirAcctgTransId"  position="2"></field>
+        <field name="voucherRef" position="1"></field>
+        <field name="voucherDate" position="2"></field>
+        <field name="inventoryItemId" position="1"></field>
+        <field name="physicalInventoryId" position="2"></field>
+        <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
+        <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
+        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="workEffortId" position="2"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
+        <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
+        <field name="fixedAssetId" position="2">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
+                    <entity-order-by field-name="fixedAssetId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="description"><textarea/></field>
         <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <sort-order>
+            <field-group>
+                <sort-field name="acctgTransTypeId"/>
+                <sort-field name="glFiscalTypeId"/>
+                <sort-field name="glJournalId"/>
+                <sort-field name="groupStatusId"/>
+                <sort-field name="finAccountTransId"/>
+                <sort-field name="partyId"/>
+                <sort-field name="roleTypeId"/>
+            </field-group>
+            <field-group>
+                <sort-field name="transactionDate"/>
+                <sort-field name="scheduledPostingDate"/>
+                <sort-field name="isPosted"/>
+                <sort-field name="postedDate"/>
+            </field-group>
+            <field-group>
+                <sort-field name="inventoryItemId"/>
+                <sort-field name="physicalInventoryId"/>
+                <sort-field name="invoiceId"/>
+                <sort-field name="paymentId"/>
+                <sort-field name="produtId"/>
+                <sort-field name="workEffortId"/>
+                <sort-field name="shipmentId"/>
+                <sort-field name="fixedAssetId"/>
+            </field-group>
+            <field-group>
+                <sort-field name="receiptId"/>
+                <sort-field name="theirAcctgTransId"/>
+                <sort-field name="voucherRef"/>
+                <sort-field name="voucherDate"/>
+            </field-group>
+            <field-group>
+                <sort-field name="description"/>
+                <sort-field name="createButton"/>
+            </field-group>
+        </sort-order>
     </form>
     <form name="FindGlAccountReconciliation" type="single" title="" target="findGlAccountReconciliation"
         header-row-style="header-row" default-table-style="basic-table">
