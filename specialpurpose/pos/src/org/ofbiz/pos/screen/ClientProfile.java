@@ -148,12 +148,14 @@ public class ClientProfile extends XPage implements ActionListener {
             if (UtilValidate.isNotEmpty(person)) {
                 String cardId = person.getString("cardId");
                 if (UtilValidate.isNotEmpty(cardId)) {
+                    String partyId = m_trans.getPartyId();
+                    m_trans.setPartyId(m_partyId);
                     String result = m_trans.addProductPromoCode(cardId);
                     if (UtilValidate.isEmpty(result)) {
                         m_pos.getPromoStatusBar().displayClient(person.getString("lastName"));
                         m_pos.getPromoStatusBar().addPromoCode(cardId);
-                        m_trans.setPartyId(m_partyId);
                     } else {
+                        m_trans.setPartyId(partyId);
                         m_pos.showDialog("dialog/error/exception", result);
                     }
                 }
