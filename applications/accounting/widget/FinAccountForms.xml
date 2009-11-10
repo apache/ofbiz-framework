@@ -278,7 +278,7 @@ under the License.
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
     </form>
     <form name="ListDepositSlipMember" type="list" target="updateDepositSlipMember" extends="ListPaymentGroupMember" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row">
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
                 <field-map field-name="paymentGroupId"/>
