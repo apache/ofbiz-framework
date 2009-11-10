@@ -453,13 +453,11 @@ function cartItemQtyChanged(event) {
     var elementId = qtyElement.id;
     var productIdElementId = elementId.sub('qty_', 'cartLineProductId_');
     var productId = $(productIdElementId).value;
-    if (qtyElement.value >= 0 && !isNaN(qtyElement.value)) {
+    if (qtyElement.value && qtyElement.value >= 0 && !isNaN(qtyElement.value)) {
         var itemIndex = getProductLineItemIndex(event, productId);
         qtyParam = "update_" + itemIndex +"="+qtyElement.value;
         var formValues = $('cartForm').serialize() + '&' + qtyParam;
         updateCartData(elementId, formValues, qtyElement.value, itemIndex);
-    } else {
-        qtyElement.value = "";
     }
 }
 
