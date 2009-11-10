@@ -34,15 +34,16 @@ under the License.
     </para>
     
   </section>
-   
-    <!--xi:include href="../data/helpdata/HELP_HUMANRES.xml" />
-    <xi:include href="../data/helpdata/HELP_HUMANRES_main.xml" />
-    <xi:include href="../data/helpdata/HELP_HUMANRES_employees.xml" />
+  
+   <xi:include href="../data/helpdata/HELP_HR.xml" />
+   <xi:include href="../data/helpdata/HELP_HR_main.xml" />
+   <xi:include href="../data/helpdata/HELP_HR_training.xml" />
+     
+    <!-- xi:include href="../data/helpdata/HELP_HUMANRES_employees.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_employees_positions.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_performance_review.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_skills.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_recruitment.xml" /-->
-    <xi:include href="../data/helpdata/HELP_HUMANRES_training.xml" />
     <!--xi:include href="../data/helpdata/HELP_HUMANRES_employment_applications.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_resumes.xml" />
     <xi:include href="../data/helpdata/HELP_HUMANRES_leave.xml" />
