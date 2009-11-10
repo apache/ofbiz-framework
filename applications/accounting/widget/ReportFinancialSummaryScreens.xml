@@ -33,7 +33,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="h1" text="${uiLabelMap.PageTitleFinancialSummaryReportOptions}"/></container>
+                        <label style="h1" text="${uiLabelMap.PageTitleFinancialSummaryReportOptions}"/>
                         <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}">
                             <include-form name="SalesInvoiceByProductCategorySummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>

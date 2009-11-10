@@ -127,7 +127,7 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                    <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"></label>
+                                <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"></label>
                                 <screenlet id="CreateFinAccountPanel" collapsible="true">
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>

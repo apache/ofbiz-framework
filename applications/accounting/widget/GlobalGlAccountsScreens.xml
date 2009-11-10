@@ -36,10 +36,8 @@ under the License.
                             <widgets>
                                 <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
 
-                                <container>
                                     <!-- label style="h1">List Accounts</label -->
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
-                                </container>
 
                                 <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
@@ -72,11 +70,7 @@ under the License.
                             </condition -->
                             <widgets>
                                 <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-
-                                <container>
-                                    <label style="h1">${uiLabelMap[labelTitleProperty]} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
-                                </container>
-
+                                <label style="h1">${uiLabelMap[labelTitleProperty]} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <!--
