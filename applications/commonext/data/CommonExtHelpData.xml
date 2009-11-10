@@ -21,7 +21,7 @@ under the License.
 
     <!-- setup application help -->
     <DataResource dataResourceId="HELP_SETUP" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_SETUP" contentTypeId="DOCUMENT" localeString="en" contentName="Setup Overview" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SETUP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <Content contentId="HELP_SETUP" contentTypeId="DOCUMENT" localeString="en" contentName="OFBiz Setup" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SETUP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_SETUP" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="000"/>
     
     <DataResource dataResourceId="SETUP_initialsetup" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_initialsetup.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Setup Main Help" mimeTypeId="text/xml" isPublic="Y" />

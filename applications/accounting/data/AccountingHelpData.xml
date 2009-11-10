@@ -21,7 +21,7 @@ under the License.
     <DataResource dataResourceId="HELP_ACCOUNTING" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Accounting Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ACCOUNTING" contentTypeId="DOCUMENT" contentName="Accounting Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_ACCOUNTING" contentTypeId="DOCUMENT" contentName="Accounting" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_ACCOUNTING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ACCOUNTING" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
@@ -364,5 +364,12 @@ under the License.
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditTaxAuthorityPartyInfo.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Tax Authority Party Information Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="ACCOUNTING_EditTPInf" contentTypeId="DOCUMENT" contentName="Edit Tax Authority Party Information." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTPInf" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTPInf" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityPartyInfo"/>
+
+
+    <!--  features -->
+    <DataResource dataResourceId="ACCOUNTING_Features" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_Features.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Features" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_Features" contentTypeId="DOCUMENT" contentName="Accounting features." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_Features" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_Features" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
 </entity-engine-xml>

@@ -21,7 +21,7 @@ under the License.
     <DataResource dataResourceId="HELP_HR" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/humanres/data/helpdata/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Human Resources Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_HR" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000"/>
 

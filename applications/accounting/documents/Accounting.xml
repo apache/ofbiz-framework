@@ -32,4 +32,5 @@ under the License.
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_billing_accounts.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_financial_accounts.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_tax_authorities.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_Features" />
 </chapter>

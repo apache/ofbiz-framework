@@ -20,8 +20,8 @@
 <entity-engine-xml>
     <DataResource dataResourceId="HELP_EXAMPLE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="framework/example/data/helpdata/HELP_EXAMPLE.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
-        dataResourceName="Example Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_EXAMPLE" contentTypeId="DOCUMENT" contentName="Example Overview" templateDataResourceId="HELP_TEMPL" 
+        dataResourceName="Framework Example" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EXAMPLE" contentTypeId="DOCUMENT" contentName="Framework Example" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_EXAMPLE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_EXAMPLE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 

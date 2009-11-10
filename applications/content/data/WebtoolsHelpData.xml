@@ -25,7 +25,7 @@
     <DataResource dataResourceId="HELP_WEBTOOLS" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="framework/webtools/data/helpdata/HELP_WEBTOOLS.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Webtools Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_WEBTOOLS" contentTypeId="DOCUMENT" contentName="Webtools Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_WEBTOOLS" contentTypeId="DOCUMENT" contentName="Framework Webtools" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_WEBTOOLS" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_WEBTOOLS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
     
