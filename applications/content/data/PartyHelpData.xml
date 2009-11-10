@@ -21,7 +21,7 @@ under the License.
     <DataResource dataResourceId="HELP_PARTY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/party/data/helpdata/HELP_PARTY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Party Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_PARTY" contentTypeId="DOCUMENT" contentName="Party Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_PARTY" contentTypeId="DOCUMENT" contentName="Party Manager" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_PARTY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PARTY" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
     

@@ -49,8 +49,8 @@ under the License.
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_IT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
 
     <!-- Content specific -->
-    <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_CONTENT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="050"/>
 
     <DataResource dataResourceId="HELP_CONTENT_IT" localeString="it" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT_IT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Guida sul gestore di contentui (CMS)" mimeTypeId="text/xml" isPublic="Y" />

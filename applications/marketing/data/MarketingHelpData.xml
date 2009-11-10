@@ -22,7 +22,7 @@ under the License.
     <DataResource dataResourceId="HELP_MARKETING" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/marketing/data/helpdata/HELP_MARKETING.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Marketing Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_MARKETING" contentTypeId="DOCUMENT" contentName="Marketing Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_MARKETING" contentTypeId="DOCUMENT" contentName="Marketing" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_MARKETING" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MARKETING" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
@@ -52,7 +52,7 @@ under the License.
     <DataResource dataResourceId="HELP_SFA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/marketing/data/helpdata/HELP_SFA.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="SFA Overview" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_SFA" contentTypeId="DOCUMENT" contentName="SFA Overview" templateDataResourceId="HELP_TEMPL" 
+    <Content contentId="HELP_SFA" contentTypeId="DOCUMENT" contentName="SFA(Sales force Autm.)" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="HELP_SFA" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_SFA" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
     
