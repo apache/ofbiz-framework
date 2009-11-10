@@ -32,7 +32,7 @@ under the License.
     <FinAccount finAccountId="AMEX_01" finAccountTypeId="CREDIT_CARD_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="Corporate AMEX " finAccountCode="378282246310005" finAccountPin="9876" currencyUomId="USD" 
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="231000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="AMEX_01" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
-    <PaymentMethod paymentMethodId="AMEX_01" paymentMethodTypeId="CREDIT_CARD" partyId="Company" glAccountId="231000" finAccountId="AMEX_01" fromDate="2009-04-01 00:00:00.000"/>
+    <PaymentMethod paymentMethodId="AMEX_01" paymentMethodTypeId="CREDIT_CARD" partyId="Company" description="AmEx 0005" glAccountId="231000" finAccountId="AMEX_01" fromDate="2009-04-01 00:00:00.000"/>
     <CreditCard paymentMethodId="AMEX_01" cardType="AmericanExpress" cardNumber="378282246310005" expireDate="02/2020" companyNameOnCard="Your Company Name"
         titleOnCard="" firstNameOnCard="Smart" middleNameOnCard="" lastNameOnCard="Guy" suffixOnCard="" contactMechId="9000"/>
 
