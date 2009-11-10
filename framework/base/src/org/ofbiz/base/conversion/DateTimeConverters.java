@@ -291,6 +291,9 @@ public class DateTimeConverters {
         }
 
         public Calendar convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
@@ -318,6 +321,9 @@ public class DateTimeConverters {
     public static class StringToDate extends GenericLocalizedConverter<String, java.util.Date> {
 
         public java.util.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
@@ -360,6 +366,9 @@ public class DateTimeConverters {
     public static class StringToSqlDate extends GenericLocalizedConverter<String, java.sql.Date> {
 
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
                 df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
@@ -386,6 +395,9 @@ public class DateTimeConverters {
     public static class StringToSqlTime extends GenericLocalizedConverter<String, java.sql.Time> {
 
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
                 df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
@@ -412,6 +424,9 @@ public class DateTimeConverters {
     public static class StringToTimestamp extends GenericLocalizedConverter<String, java.sql.Timestamp> {
 
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
