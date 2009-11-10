@@ -50,9 +50,7 @@ under the License.
                                                 <include-menu name="AgreementItemTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                             </widgets>
                                         </section>
-                                        <container>
-                                            <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
-                                        </container>
+                                        <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

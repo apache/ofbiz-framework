@@ -421,10 +421,10 @@ under the License.
                         <if-empty field="titleProperty"/>
                     </condition>
                     <widgets>
-                        <container style="page-title"><label text="${title}"></label></container>
+                        <label style="h1" text="${title}"></label>
                     </widgets>
                     <fail-widgets>
-                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"/></container>
+                        <label style="h1" text="${uiLabelMap[titleProperty]}"/>
                     </fail-widgets>
                 </section>
                 <decorator-section-include name="menu-bar"/>
@@ -455,8 +455,8 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator">
                     <decorator-section name="body">
-                        <container style="h1"><label>${uiLabelMap.PageTitleHelp}</label></container>
-                        <container style="h3"><label>${helpText}</label></container>
+                        <label style="h1">${uiLabelMap.PageTitleHelp}</label>
+                        <label style="h3">${helpText}</label>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

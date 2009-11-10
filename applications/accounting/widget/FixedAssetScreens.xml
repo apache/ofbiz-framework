@@ -102,10 +102,10 @@ under the License.
                                         <not><if-empty field="fixedAssetId"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="h1"><label text="${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>
+                                        <label style="h1" text="${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="h1"><label text="${uiLabelMap[titleProperty]}"/></container>
+                                        <label style="h1" text="${uiLabelMap[titleProperty]}"/>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

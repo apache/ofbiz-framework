@@ -290,10 +290,10 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                        <container style="h1"><label>${uiLabelMap.AccountingPaymentGroupOverviewFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label></container>
+                                        <label style="h1">${uiLabelMap.AccountingPaymentGroupOverviewFor} ${paymenGroup.paymentGroupName} [${paymentGroupId}]</label>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="h1"><label>${uiLabelMap.AccountingNewPaymentGroup}</label></container>
+                                        <label style="h1">${uiLabelMap.AccountingNewPaymentGroup}</label>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
