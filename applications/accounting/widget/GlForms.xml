@@ -555,22 +555,20 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
         <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><hidden/></field>
         <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
-        <field name="description"><text size="30"/></field>
-        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}" position="1">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountType" description="${description}">
                     <entity-order-by field-name="glAccountTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountId">
+        <field name="glAccountId" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
@@ -578,8 +576,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="origAmount"><text size="30"/></field>
-        <field name="origCurrencyUomId">
+        <field name="debitCreditFlag" position="1">
+            <drop-down current="selected">
+                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
+                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
+            </drop-down>
+        </field>
+        <field name="partyId" position="2"><text size="30"/></field>
+        <field name="origAmount" position="1"><text size="30"/></field>
+        <field name="origCurrencyUomId" position="2">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -587,7 +592,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}">
+        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}" position="1">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
@@ -595,18 +600,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="voucherRef"><text size="30"/></field>
-        <field name="partyId"><text size="30"/></field>
-        <field name="productId"><text size="20"/></field>
-        <field name="debitCreditFlag">
-            <drop-down current="selected">
-                <option description="${uiLabelMap.FormFieldTitle_credit}" key="C"/>
-                <option description="${uiLabelMap.FormFieldTitle_debit}" key="D"/>
-            </drop-down>
-        </field>
-        <field name="reconcileStatusId"><text size="30"/></field>
-        <field name="settlementTermId"><text size="20"/></field>
-        <field name="isSummary"><text size="10"/></field>
+        <field name="voucherRef" position="2"><text size="30"/></field>
+        <field name="productId" position="1"><text size="20"/></field>
+        <field name="reconcileStatusId" position="2"><text size="30"/></field>
+        <field name="settlementTermId" position="1"><text size="20"/></field>
+        <field name="isSummary" position="2"><text size="10"/></field>
+        <field name="description" position="1"><text size="30"/></field>
         <field use-when="acctgTransEntry!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
         <field use-when="acctgTransEntry==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
