@@ -1513,6 +1513,9 @@
         <value xml:lang="th">ปรับปรุงคำร้องสินค้า</value>
         <value xml:lang="zh">已批准的产品需求</value>
     </property>
+    <property key="OrderAssociatedProducts">
+        <value xml:lang="en">Associated Products</value>
+    </property>
     <property key="OrderAuthService">
         <value xml:lang="en">Auth Service</value>
         <value xml:lang="es">Servicio de autentificación</value>
@@ -3945,6 +3948,9 @@
     <property key="OrderMarkViewed">
         <value xml:lang="en">Mark Viewed</value>
         <value xml:lang="it">Marca come visionato</value>
+    </property>
+    <property key="OrderMarketingPackageComposedBy">
+        <value xml:lang="en">Marketing Package Composed by:</value>
     </property>
     <property key="OrderMethod">
         <value xml:lang="cs">Způsob</value>

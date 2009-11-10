@@ -261,6 +261,39 @@ under the License.
                   <input type="hidden" name="prd_${rowKey}" value="${(orderItem.productId)?if_exists}"/>
                   <input type="hidden" name="ite_${rowKey}" value="${(orderItem.orderItemSeqId)?if_exists}"/>
                 </tr>
+                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")/>
+                <#if workOrderItemFulfillments?has_content>
+                  <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
+                  <#if workOrderItemFulfillment?has_content>
+                    <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
+                    <#if workEffort?has_content>
+                      <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId)))/>
+                      <#if workEffortTask?has_content>
+                        <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
+                        <#if workEffortInventoryAssigns?has_content>
+                          <tr>
+                            <th colspan="8">
+                              ${uiLabelMap.OrderMarketingPackageComposedBy}
+                            </th>
+                          </tr>
+                          <tr><td colspan="8"><hr /></td></tr>
+                          <#list workEffortInventoryAssigns as workEffortInventoryAssign>
+                            <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem")/>
+                            <#assign product = inventoryItem.getRelatedOne("Product")/>
+                            <tr>
+                              <td colspan="2"></td>
+                              <td>${product.productId?default("N/A")}</td>
+                              <td>${product.internalName?if_exists}</td>
+                              <td></td>
+                              <td align="right">${workEffortInventoryAssign.quantity?if_exists}</td>
+                            </tr>
+                          </#list>
+                          <tr><td colspan="8"><hr /></td></tr>
+                        </#if>
+                      </#if>
+                    </#if>
+                  </#if>
+                </#if>
                 <#assign rowKey = rowKey + 1>
               </#list>
             </#if>
