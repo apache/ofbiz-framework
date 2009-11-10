@@ -377,30 +377,39 @@ under the License.
 
     <GlAccountCategoryType glAccountCategoryTypeId="COST_CENTER" description="Cost Center Category"/>
 
-    <!-- invoice item types for sales (AR) invoices -->
+    <!-- invoice item types tree for adjustments -->
     <InvoiceItemType description="Invoice Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Invoice Promotion" hasTable="N" invoiceItemTypeId="INV_PROMOTION_ADJ" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Discount" hasTable="N" invoiceItemTypeId="INV_DISCOUNT_ADJ" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Fee" hasTable="N" invoiceItemTypeId="FEE" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Miscellaneous Charges" hasTable="N" invoiceItemTypeId="INV_MISC_CHARGE" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Sales Tax" hasTable="N" invoiceItemTypeId="INV_SALES_TAX" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Shipping and Handling" hasTable="N" invoiceItemTypeId="INV_SHIPPING_CHARGES" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Surcharge" hasTable="N" invoiceItemTypeId="INV_SURCHARGE_ADJ" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Additional Feature" hasTable="N" invoiceItemTypeId="INV_ADD_FEATURE" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Warranty" hasTable="N" invoiceItemTypeId="INV_WARRANTY_ADJ" parentTypeId="INVOICE_ADJ"/>
-    <InvoiceItemType description="Invoice Interest Charge" hasTable="N" invoiceItemTypeId="INV_INTRST_CHRG" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_HEAD_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ITM_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Sales Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="SINVOICE_HEAD_ADJ" parentTypeId="INVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Sales Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="SINVOICE_ITM_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Purchase Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ADJ" parentTypeId="INVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Purchase Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ITM_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Customer Return Adjustment" hasTable="N" invoiceItemTypeId="CRETURN_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Supplier Return Adjustment" hasTable="N" invoiceItemTypeId="SRETURN_ADJ" parentTypeId="INVOICE_ADJ"/>
 
-    <InvoiceItemType description="Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ITM_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Invoice Item Promotion" hasTable="N" invoiceItemTypeId="ITM_PROMOTION_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Replacement" hasTable="N" invoiceItemTypeId="ITM_REPLACE_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Discount" hasTable="N" invoiceItemTypeId="ITM_DISCOUNT_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Fee" hasTable="N" invoiceItemTypeId="ITM_FEE" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Miscellaneous Charges" hasTable="N" invoiceItemTypeId="ITM_MISC_CHARGE" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Sales Tax" hasTable="N" invoiceItemTypeId="ITM_SALES_TAX" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Shipping and Handling" hasTable="N" invoiceItemTypeId="ITM_SHIPPING_CHARGES" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Surcharge" hasTable="N" invoiceItemTypeId="ITM_SURCHARGE_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Additional Feature" hasTable="N" invoiceItemTypeId="ITM_ADD_FEATURE" parentTypeId="INVOICE_ITM_ADJ"/>
-    <InvoiceItemType description="Invoice Item Warranty" hasTable="N" invoiceItemTypeId="ITM_WARRANTY_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
+    <!-- invoice item types for sales (AR) invoices -->
+    <InvoiceItemType description="Invoice Promotion" hasTable="N" invoiceItemTypeId="INV_PROMOTION_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Discount" hasTable="N" invoiceItemTypeId="INV_DISCOUNT_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Fee" hasTable="N" invoiceItemTypeId="FEE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Miscellaneous Charges" hasTable="N" invoiceItemTypeId="INV_MISC_CHARGE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Sales Tax" hasTable="N" invoiceItemTypeId="INV_SALES_TAX" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Shipping and Handling" hasTable="N" invoiceItemTypeId="INV_SHIPPING_CHARGES" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Surcharge" hasTable="N" invoiceItemTypeId="INV_SURCHARGE_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Additional Feature" hasTable="N" invoiceItemTypeId="INV_ADD_FEATURE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Warranty" hasTable="N" invoiceItemTypeId="INV_WARRANTY_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Interest Charge" hasTable="N" invoiceItemTypeId="INV_INTRST_CHRG" parentTypeId="SINVOICE_HEAD_ADJ"/>
+
+    <InvoiceItemType description="Invoice Item Promotion" hasTable="N" invoiceItemTypeId="ITM_PROMOTION_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Replacement" hasTable="N" invoiceItemTypeId="ITM_REPLACE_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Discount" hasTable="N" invoiceItemTypeId="ITM_DISCOUNT_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Fee" hasTable="N" invoiceItemTypeId="ITM_FEE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Miscellaneous Charges" hasTable="N" invoiceItemTypeId="ITM_MISC_CHARGE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Sales Tax" hasTable="N" invoiceItemTypeId="ITM_SALES_TAX" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Shipping and Handling" hasTable="N" invoiceItemTypeId="ITM_SHIPPING_CHARGES" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Surcharge" hasTable="N" invoiceItemTypeId="ITM_SURCHARGE_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Additional Feature" hasTable="N" invoiceItemTypeId="ITM_ADD_FEATURE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Warranty" hasTable="N" invoiceItemTypeId="ITM_WARRANTY_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
 
     <InvoiceItemType description="Invoice Product Item" hasTable="N" invoiceItemTypeId="INV_PROD_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Invoice Finished Good Item" hasTable="N" invoiceItemTypeId="INV_FPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
@@ -413,7 +422,6 @@ under the License.
     <InvoiceItemType description="Invoice Time-Entry Item" hasTable="N" invoiceItemTypeId="INV_TE_ITEM" parentTypeId=""/>
 
     <!-- invoice item types for purchase (AP) invoices -->
-    <InvoiceItemType description="Invoice Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Invoice Promotion" hasTable="N" invoiceItemTypeId="PINV_PROMOTION_ADJ" parentTypeId="PINVOICE_ADJ"/>
     <InvoiceItemType description="Invoice Discount" hasTable="N" invoiceItemTypeId="PINV_DISCOUNT_ADJ" parentTypeId="PINVOICE_ADJ"/>
     <InvoiceItemType description="Invoice Fee" hasTable="N" invoiceItemTypeId="P_FEE" parentTypeId="PINVOICE_ADJ"/>
@@ -424,7 +432,6 @@ under the License.
     <InvoiceItemType description="Invoice Additional Feature" hasTable="N" invoiceItemTypeId="PINV_ADD_FEATURE" parentTypeId="PINVOICE_ADJ"/>
     <InvoiceItemType description="Invoice Warranty" hasTable="N" invoiceItemTypeId="PINV_WARRANTY_ADJ" parentTypeId="PINVOICE_ADJ"/>
 
-    <InvoiceItemType description="Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ITM_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Invoice Item Promotion" hasTable="N" invoiceItemTypeId="PITM_PROMOTION_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
     <InvoiceItemType description="Invoice Item Replacement" hasTable="N" invoiceItemTypeId="PITM_REPLACE_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
     <InvoiceItemType description="Invoice Item Discount" hasTable="N" invoiceItemTypeId="PITM_DISCOUNT_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
@@ -461,18 +468,18 @@ under the License.
     <InvoiceItemType description="Return Work-Effort Item" hasTable="N" invoiceItemTypeId="CRT_WE_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Return Time-Entry Item" hasTable="N" invoiceItemTypeId="CRT_TE_ITEM" parentTypeId=""/>
 
-    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="CRT_PROMOTION_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="CRT_REPLACE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="CRT_DISCOUNT_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="CRT_FEE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="CRT_MISC_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="CRT_SALES_TAX_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="CRT_SHIPPING_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="CRT_SURCHARGE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="CRT_WARRANTY_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="CRT_MKTG_PKG_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="CRT_MAN_ADJ" parentTypeId=""/>
+    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="CRT_PROMOTION_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="CRT_REPLACE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="CRT_DISCOUNT_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="CRT_FEE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="CRT_MISC_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="CRT_SALES_TAX_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="CRT_SHIPPING_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="CRT_SURCHARGE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="CRT_WARRANTY_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="CRT_MKTG_PKG_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="CRT_MAN_ADJ" parentTypeId="CRETURN_ADJ"/>
 
     <!-- invoice items for returns to suppliers -->
     <InvoiceItemType description="Return Product Item" hasTable="N" invoiceItemTypeId="SRT_PROD_ITEM" parentTypeId=""/>
@@ -485,22 +492,22 @@ under the License.
     <InvoiceItemType description="Return Work-Effort Item" hasTable="N" invoiceItemTypeId="SRT_WE_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Return Time-Entry Item" hasTable="N" invoiceItemTypeId="SRT_TE_ITEM" parentTypeId=""/>
 
-    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="SRT_PROMOTION_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="SRT_REPLACE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="SRT_DISCOUNT_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="SRT_FEE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="SRT_MISC_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="SRT_SALES_TAX_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="SRT_SHIPPING_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="SRT_SURCHARGE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="SRT_WARRANTY_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="SRT_MKTG_PKG_ADJ" parentTypeId=""/>
-    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="SRT_MAN_ADJ" parentTypeId=""/>
+    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="SRT_PROMOTION_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="SRT_REPLACE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="SRT_DISCOUNT_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="SRT_FEE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="SRT_MISC_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="SRT_SALES_TAX_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="SRT_SHIPPING_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="SRT_SURCHARGE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="SRT_WARRANTY_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="SRT_MKTG_PKG_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="SRT_MAN_ADJ" parentTypeId="SRETURN_ADJ"/>
 
     <!-- invoice item types for commission invoices -->
     <InvoiceItemType description="Commission Invoice Line Item" hasTable="N" invoiceItemTypeId="COMM_INV_ITEM" parentTypeId=""/>
-    <InvoiceItemType description="Commission Invoice Adjustment" hasTable="N" invoiceItemTypeId="COMM_INV_ADJ" parentTypeId=""/>
+    <InvoiceItemType description="Commission Invoice Adjustment" hasTable="N" invoiceItemTypeId="COMM_INV_ADJ" parentTypeId="INVOICE_ADJ"/>
 
     <InvoiceType description="Purchase Invoice" hasTable="N" invoiceTypeId="PURCHASE_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
     <InvoiceType description="Sales Invoice" hasTable="N" invoiceTypeId="SALES_INVOICE" parentTypeId="SALES_INVOICE"/>
@@ -962,6 +969,7 @@ under the License.
     <TaxAuthorityRateType taxAuthorityRateTypeId="INCOME_TAX" description="Income Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="EXPORT_TAX" description="Export Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="IMPORT_TAX" description="Import Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="VAT_TAX" description="Value Added Tax"/>
 
     <!-- Rate Types -->
     <RateType rateTypeId="STANDARD" description="Standard Rate"/>
