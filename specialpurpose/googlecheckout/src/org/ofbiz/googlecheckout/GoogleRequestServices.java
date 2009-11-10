@@ -513,20 +513,21 @@ public class GoogleRequestServices {
         List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId));
         if (UtilValidate.isNotEmpty(issued)) {
             try {
+                GenericValue googleOrder = null;
                 ShipItemsRequest isr = null;
                 for (GenericValue issue : issued) {
                     GenericValue orderItem = issue.getRelatedOne("OrderItem");
                     String shipmentItemSeqId = issue.getString("shipmentItemSeqId"); 
                     String productId = orderItem.getString("productId");
                     String orderId = issue.getString("orderId");
-                    GenericValue order = findGoogleOrder(delegator, orderId);
-                    if (UtilValidate.isNotEmpty(order)) {
-                        MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
+                    googleOrder = findGoogleOrder(delegator, orderId);
+                    if (UtilValidate.isNotEmpty(googleOrder)) {
+                        MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(googleOrder));
                         if (UtilValidate.isEmpty(mInfo)) {
                             Debug.logInfo("Cannot find Google MerchantInfo for Order #" + orderId, module);
                             continue;
                         }
-                        String externalId = order.getString("externalId");
+                        String externalId = googleOrder.getString("externalId");
                         if (UtilValidate.isEmpty(isr)) {
                             isr = new ShipItemsRequest(mInfo, externalId);
                         }
@@ -561,7 +562,9 @@ public class GoogleRequestServices {
                     }
                 }
             }
-            isr.send();
+            if (UtilValidate.isNotEmpty(googleOrder)) {
+                isr.send();
+            }
             } catch (CheckoutException e) {
                 Debug.logError(e, module);
                 throw new GeneralException(e);
