@@ -155,11 +155,12 @@ under the License.
                                      <fo:table-cell><fo:block>${uiLabelMap.OrderUnitPrice}</fo:block></fo:table-cell>
                                 </fo:table-row >
                                 <#assign totalQty = 0>
+                                <#assign rowColor = "#D4D0C8"/>
                                 <#list itemInfoList as itemInfo>
                                     <#if itemInfo.get("${orderId}")?exists >
                                         <#assign infoItems = itemInfo.get("${orderId}")>
                                         <#list infoItems as infoItem>
-                                            <fo:table-row>
+                                            <fo:table-row background-color="${rowColor}">
                                                 <#assign orderItemShipGrpInvRes = infoItem.orderItemShipGrpInvRes>
                                                 <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem")>
                                                 <#assign product = orderItem.getRelatedOne("Product")>
@@ -167,9 +168,9 @@ under the License.
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                                 <#if infoItem.facilityLocation?has_content>
                                                     <#assign facilityLocation = infoItem.facilityLocation>
-                                                    <fo:table-cell><fo:block font-size="10pt">${facilityLocation.locationSeqId?if_exists}</fo:block></fo:table-cell>
+                                                    <fo:table-cell><fo:block font-size="10pt">${facilityLocation.locationSeqId?default("_NA_")}</fo:block></fo:table-cell>
                                                 <#else>
-                                                    <fo:table-cell><fo:block>  </fo:block></fo:table-cell>
+                                                    <fo:table-cell><fo:block font-size="10pt">_NA_</fo:block></fo:table-cell>
                                                 </#if>
                                                 <fo:table-cell><fo:block font-size="10pt">${product.productId} </fo:block></fo:table-cell>
                                                 <fo:table-cell><fo:block font-size="10pt">${product.internalName?if_exists} </fo:block></fo:table-cell>
@@ -183,12 +184,76 @@ under the License.
                                                 <fo:table-cell><fo:block font-size="10pt">${orderItemShipGrpInvRes.quantity?if_exists} </fo:block></fo:table-cell>
                                                 <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
-                                         </#list>
-                                     </#if>
-                                 </#list>
-                             </fo:table-body>
-                         </fo:table>
-                     </fo:block>
+                                            <#if product.productTypeId == "MARKETING_PKG_AUTO">
+                                                <fo:table-row background-color="${rowColor}">
+                                                    <fo:table-cell  number-columns-spanned="6">
+                                                        <fo:block text-align="left" font-weight="bold">
+                                                            ${uiLabelMap.OrderMarketingPackageComposedBy}
+                                                        </fo:block>
+                                                    </fo:table-cell>
+                                                </fo:table-row>
+                                                <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")>
+                                                <#if workOrderItemFulfillments?has_content>
+                                                    <#assign workOrderItemFulfillment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
+                                                    <#if workOrderItemFulfillment?has_content>
+                                                        <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort")/>
+                                                        <#if workEffort?has_content>
+                                                            <#assign workEffortTask = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}))/>
+                                                            <#if workEffortTask?has_content>
+                                                                <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign")/>
+                                                                <#if workEffortInventoryAssigns?has_content>
+                                                                    <#list workEffortInventoryAssigns as workEffortInventoryAssign>
+                                                                        <#assign inventoryItem = workEffortInventoryAssign.getRelatedOne("InventoryItem")/>
+                                                                        <#assign product = inventoryItem.getRelatedOne("Product")/>
+                                                                        <fo:table-row background-color="${rowColor}">
+                                                                            <#-- bin location -->
+                                                                            <fo:table-cell ><fo:block font-size="10pt"><#if inventoryItem?exists>${inventoryItem.locationSeqId?default("_NA_")}</#if></fo:block></fo:table-cell>
+
+                                                                            <#-- product ID -->
+                                                                            <#if product?has_content>
+                                                                                <fo:table-cell ><fo:block font-size="10pt">${product.productId}</fo:block></fo:table-cell>
+                                                                            <#else>
+                                                                                <fo:table-cell ><fo:block font-size="10pt">[N/A]</fo:block></fo:table-cell>
+                                                                            </#if>
+
+                                                                            <#-- product name -->
+                                                                            <#if product?has_content>
+                                                                                <fo:table-cell ><fo:block font-size="10pt">${product.productName?default(product.internalName?default("[Not Internal Name Set!]"))?xml}</fo:block></fo:table-cell>
+                                                                            <#else>
+                                                                                <fo:table-cell ><fo:block font-size="10pt">[N/A]</fo:block></fo:table-cell>
+                                                                            </#if>
+
+                                                                            <#-- supplier -->
+                                                                            <#if vendor?has_content > 
+                                                                                <fo:table-cell><fo:block font-size="10pt">${vendor.supplierProductId?if_exists}</fo:block></fo:table-cell> 
+                                                                            <#else>
+                                                                                <fo:table-cell><fo:block font-size="10pt"> </fo:block></fo:table-cell>
+                                                                            </#if>
+
+                                                                            <#-- quantity -->
+                                                                            <fo:table-cell><fo:block font-size="10pt">${workEffortInventoryAssign.quantity?if_exists}</fo:block></fo:table-cell>
+
+                                                                            <#-- unit price -->
+                                                                            <fo:table-cell ><fo:block></fo:block></fo:table-cell>
+                                                                        </fo:table-row>
+                                                                    </#list>
+                                                                </#if>
+                                                            </#if>
+                                                        </#if>
+                                                    </#if>
+                                                </#if>
+                                            </#if>
+                                            <#if rowColor == "#D4D0C8">
+                                                 <#assign rowColor = "white"/>
+                                            <#else>
+                                                <#assign rowColor = "#D4D0C8"/>  
+                                            </#if>
+                                        </#list>
+                                    </#if>
+                                </#list>
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
 
                      <fo:block text-align="right">
                          <fo:table>

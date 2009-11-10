@@ -18,7 +18,14 @@ under the License.
 -->
 
 <#-- Continuation of showcart.ftl:  List of order items and forms to modify them. -->
-
+<#macro showAssoc productAssoc>
+  <#assign productAssocType = (delegator.findOne("ProductAssocType", {"productAssocTypeId" : productAssoc.productAssocTypeId}, false))/>
+  <#assign assocProduct = (delegator.findOne("Product", {"productId" : productAssoc.productIdTo}, false))/>
+  <#if assocProduct?has_content>
+    <td><a href="<@ofbizUrl>/product?product_id=${productAssoc.productIdTo}</@ofbizUrl>"class="buttontext">${productAssoc.productIdTo}</a></td>
+    <td>- ${(assocProduct.productName)?if_exists}<i>(${(productAssocType.description)?default("Unknown")})</i></td>
+  </#if>
+</#macro>
 <div class="screenlet">
     <div class="screenlet-title-bar">    
         <div class='h3'>${uiLabelMap.OrderOrderItems}</div>
@@ -144,12 +151,16 @@ under the License.
                     ${uiLabelMap.ProductAtp} = ${availableToPromiseMap.get(productId)}, ${uiLabelMap.ProductQoh} = ${quantityOnHandMap.get(productId)}
                     <#if Static["org.ofbiz.common.CommonWorkers"].hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")>
                     ${uiLabelMap.ProductMarketingPackageATP} = ${mktgPkgATPMap.get(productId)}, ${uiLabelMap.ProductMarketingPackageQOH} = ${mktgPkgQOHMap.get(productId)}
+                    <#if ( mktgPkgATPMap.get(cartLine.getProductId()) < cartLine.getQuantity()) && (shoppingCart.getOrderType() == 'SALES_ORDER')>
+                      <#assign backOrdered = cartLine.getQuantity() - mktgPkgATPMap.get(cartLine.getProductId())/>
+                      <span style="color: red; font-size: 15px;">[${backOrdered?if_exists}&nbsp;${uiLabelMap.OrderBackOrdered}]</span>
                     </#if>
-                    <#if (availableToPromiseMap.get(cartLine.getProductId()) <= 0) && (shoppingCart.getOrderType() == "SALES_ORDER" && product.productTypeId != "DIGITAL_GOOD")>
+                    </#if>
+                    <#if (availableToPromiseMap.get(cartLine.getProductId()) <= 0) && (shoppingCart.getOrderType() == 'SALES_ORDER') && product.productTypeId != "DIGITAL_GOOD" && product.productTypeId != "MARKETING_PKG_AUTO" && product.productTypeId != "MARKETING_PKG_PICK">
                       <span style="color: red;">[${cartLine.getQuantity()}&nbsp;${uiLabelMap.OrderBackOrdered}]</span>
                     <#else>
-                      <#if (availableToPromiseMap.get(cartLine.getProductId()) < cartLine.getQuantity()) && (shoppingCart.getOrderType() == "SALES_ORDER" && product.productTypeId != "DIGITAL_GOOD")>
-                        <#assign backOrdered = cartLine.getQuantity() - availableToPromiseMap.get(cartLine.getProductId())>
+                      <#if (availableToPromiseMap.get(cartLine.getProductId()) < cartLine.getQuantity()) && (shoppingCart.getOrderType() == 'SALES_ORDER') && product.productTypeId != "DIGITAL_GOOD" && product.productTypeId != "MARKETING_PKG_AUTO" && product.productTypeId != "MARKETING_PKG_PICK">
+                        <#assign backOrdered = cartLine.getQuantity() - availableToPromiseMap.get(cartLine.getProductId())/>
                         <span style="color: red;">[${backOrdered?if_exists}&nbsp;${uiLabelMap.OrderBackOrdered}]</span>
                       </#if>
                     </#if>
@@ -202,6 +213,27 @@ under the License.
                </table>
               </td>
             </tr>
+            
+            <#-- Show Associated Products (not for Variants) -->
+            <#assign itemProductAssocList = cartLine.getProduct().getRelated("MainProductAssoc",
+                Static["org.ofbiz.base.util.UtilMisc"].toList("productAssocTypeId", "sequenceNum"))?if_exists/>
+            <#if itemProductAssocList?exists && itemProductAssocList?has_content>
+              <tr><td colspan="8"><hr /></td></tr>
+              <tr>
+                <td>${uiLabelMap.AssociatedProducts}</td>
+                <td><a href="<@ofbizUrl>LookupAssociatedProducts?productId=${cartLine.getProductId()?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickLookup}</a></td>
+              </tr>
+              <#assign relatedProdCount = 0/>
+              <#list itemProductAssocList?if_exists as itemProductAssoc>
+                <tr>
+                  <#if "PRODUCT_VARIANT" != itemProductAssoc.productAssocTypeId>
+                    <#assign relatedProdCount = relatedProdCount + 1/>
+                    <#if (relatedProdCount > 3)><#break></#if>
+                    <@showAssoc productAssoc=itemProductAssoc />
+                  </#if>
+                </tr>
+              </#list>
+            </#if>
           </table>
 
                 <#if (cartLine.getIsPromo() && cartLine.getAlternativeOptionProductIds()?has_content)>

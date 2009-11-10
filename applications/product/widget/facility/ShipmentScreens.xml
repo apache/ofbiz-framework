@@ -269,6 +269,7 @@ under the License.
     <screen name="VerifyPick">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ProductVerifyPick"/>
                 <set field="headerItem" value="shipment"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/VerifyPick.groovy"/>

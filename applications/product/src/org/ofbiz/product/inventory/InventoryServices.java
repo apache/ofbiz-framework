@@ -673,8 +673,8 @@ public class InventoryServices {
                // Figure out what the QOH and ATP inventory would be with this associated product
                BigDecimal currentQuantityOnHandTotal = (BigDecimal) resultOutput.get("quantityOnHandTotal");
                BigDecimal currentAvailableToPromiseTotal = (BigDecimal) resultOutput.get("availableToPromiseTotal");
-               BigDecimal tmpQuantityOnHandTotal = currentQuantityOnHandTotal.divide(assocQuantity, generalRounding);
-               BigDecimal tmpAvailableToPromiseTotal = currentAvailableToPromiseTotal.divide(assocQuantity, generalRounding);
+               BigDecimal tmpQuantityOnHandTotal = currentQuantityOnHandTotal.divideToIntegralValue(assocQuantity, generalRounding);
+               BigDecimal tmpAvailableToPromiseTotal = currentAvailableToPromiseTotal.divideToIntegralValue(assocQuantity, generalRounding);
 
                // reset the minimum QOH and ATP quantities if those quantities for this product are less
                if (minQuantityOnHandTotal == null || tmpQuantityOnHandTotal.compareTo(minQuantityOnHandTotal) < 0) {
