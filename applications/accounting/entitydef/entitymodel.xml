@@ -1550,7 +1550,7 @@ under the License.
     <relation type="many" rel-entity-name="InvoiceItem">
       <key-map field-name="invoiceId"/>
     </relation>
-    <relation type="one" fk-name="INVOICE_STTSITM" rel-entity-name="StatusItem">
+    <relation type="one-nofk" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
     </relation>
     <relation type="many" rel-entity-name="PaymentApplication">
@@ -2766,10 +2766,10 @@ under the License.
       <view-link entity-alias="PY" rel-entity-alias="SI">
         <key-map field-name="statusId"/>
       </view-link>
-      <relation type="one" fk-name="PAYMENT_PMTYP" rel-entity-name="PaymentType">
+      <relation type="one-nofk" rel-entity-name="PaymentType">
         <key-map field-name="paymentTypeId"/>
       </relation>
-      <relation type="one" fk-name="PAYMENT_PMETH_TP" rel-entity-name="PaymentMethodType">
+      <relation type="one-nofk" rel-entity-name="PaymentMethodType">
         <key-map field-name="paymentMethodTypeId"/>
       </relation>
     </view-entity>
