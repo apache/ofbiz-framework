@@ -25,9 +25,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <!--auto-fields-entity entity-name="Content" default-field-type="find" /-->
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="contentId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="contentName"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="contentId"><text-find ignore-case="true"/></field>
+        <field name="contentName"><text-find ignore-case="true"/></field>
+        <field name="description"><text-find ignore-case="true"/></field>
         <field name="contentTypeId" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId">

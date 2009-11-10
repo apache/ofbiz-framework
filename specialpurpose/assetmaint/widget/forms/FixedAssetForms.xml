@@ -23,8 +23,8 @@
     <form name="FindFixedAssets" type="single" target="findFixedAssets" title="${uiLabelMap.AccountingFindFixedAssets}"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="hideSearch"><hidden value="Y"/></field>
-        <field name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="instanceOfProductId" title="${uiLabelMap.AccountingInstanceOfProductId}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><text-find ignore-case="true"/></field>
+        <field name="instanceOfProductId" title="${uiLabelMap.AccountingInstanceOfProductId}"><text-find ignore-case="true"/></field>
         <field name="classEnumId" title="${uiLabelMap.AccountingFixedAssetClassEnumId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -40,8 +40,8 @@
     <!-- Maintences Search Options form -->
     <form name="FindFixedAssetMaint" default-map-name="timesheet" target="findFixedAssetMaints" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="fixedAssetId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="maintHistSeqId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="fixedAssetId"><text-find ignore-case="true"/></field>
+        <field name="maintHistSeqId"><text-find ignore-case="true"/></field>
         <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductMaintType">

@@ -92,8 +92,8 @@
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="timesheetId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="timesheetId"><text-find ignore-case="true"/></field>
+        <field name="comments"><text-find ignore-case="true"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">

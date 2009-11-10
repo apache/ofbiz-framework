@@ -83,9 +83,9 @@
     <form name="lookupProduct" target="${submitTarget}" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
-        <field name="productId" title="${uiLabelMap.CommonId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="productId" title="${uiLabelMap.CommonId}"><text-find ignore-case="true"/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find ignore-case="true"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
        <!-- <field name="isVariant"><hidden value="N"/></field>  -->
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>

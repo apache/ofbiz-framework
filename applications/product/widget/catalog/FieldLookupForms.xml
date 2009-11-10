@@ -25,7 +25,7 @@ under the License.
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductType" description="${description}">
@@ -71,7 +71,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductType" description="${description}">

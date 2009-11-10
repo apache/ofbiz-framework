@@ -315,8 +315,8 @@ under the License.
     </form>
     <form name="LookupJobRequisition" type="single" target="LookupJobRequisition">
         <field name="jobRequisitionId"><text-find/></field>
-        <field name="qualification"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="location"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="qualification"><text-find ignore-case="true"/></field>
+        <field name="location"><text-find ignore-case="true"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SkillType">
@@ -353,9 +353,9 @@ under the License.
         <field name="location"><display/></field>
     </form>
     <form name="LookupTraining" type="single" target="LookupTraining" header-row-style="header-row" default-table-style="basic-table">
-        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find default-option="contains" ignore-case="true"/></field>               
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><text-find ignore-case="true"/></field>
+        <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><text-find ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find ignore-case="true"/></field>               
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -24,8 +24,8 @@ under the License.
     <form name="FindPayments" type="single" target="findPayments"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="paymentId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="paymentId"><text-find ignore-case="true"/></field>
+        <field name="comments"><text-find ignore-case="true"/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="PaymentType">
@@ -44,7 +44,7 @@ under the License.
         <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="amount"><text/></field>
-        <field name="paymentRefNum"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="paymentRefNum"><text-find ignore-case="true"/></field>
         <field name="paymentGatewayResponseId"><text/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
