@@ -159,10 +159,6 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
-                <service service-name="getPartyAccountingPreferences" result-map="result">
-                    <field-map field-name="organizationPartyId"/>
-                </service>
-                <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
