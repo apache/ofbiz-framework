@@ -749,31 +749,31 @@ under the License.
         <field name="description"><textarea/></field>
         <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
-                <sort-field name="acctgTransTypeId"/>
-                <sort-field name="glFiscalTypeId"/>
-                <sort-field name="glJournalId"/>
-                <sort-field name="groupStatusId"/>
-                <sort-field name="finAccountTransId"/>
-                <sort-field name="partyId"/>
-                <sort-field name="roleTypeId"/>
-                <sort-field name="transactionDate"/>
-                <sort-field name="scheduledPostingDate"/>
-                <sort-field name="isPosted"/>
-                <sort-field name="postedDate"/>
-                <sort-field name="inventoryItemId"/>
-                <sort-field name="physicalInventoryId"/>
-                <sort-field name="invoiceId"/>
-                <sort-field name="paymentId"/>
-                <sort-field name="produtId"/>
-                <sort-field name="workEffortId"/>
-                <sort-field name="shipmentId"/>
-                <sort-field name="fixedAssetId"/>
-                <sort-field name="receiptId"/>
-                <sort-field name="theirAcctgTransId"/>
-                <sort-field name="voucherRef"/>
-                <sort-field name="voucherDate"/>
-                <sort-field name="description"/>
-                <sort-field name="createButton"/>
+            <sort-field name="acctgTransTypeId"/>
+            <sort-field name="glFiscalTypeId"/>
+            <sort-field name="glJournalId"/>
+            <sort-field name="groupStatusId"/>
+            <sort-field name="finAccountTransId"/>
+            <sort-field name="partyId"/>
+            <sort-field name="roleTypeId"/>
+            <sort-field name="transactionDate"/>
+            <sort-field name="scheduledPostingDate"/>
+            <sort-field name="isPosted"/>
+            <sort-field name="postedDate"/>
+            <sort-field name="inventoryItemId"/>
+            <sort-field name="physicalInventoryId"/>
+            <sort-field name="invoiceId"/>
+            <sort-field name="paymentId"/>
+            <sort-field name="produtId"/>
+            <sort-field name="workEffortId"/>
+            <sort-field name="shipmentId"/>
+            <sort-field name="fixedAssetId"/>
+            <sort-field name="receiptId"/>
+            <sort-field name="theirAcctgTransId"/>
+            <sort-field name="voucherRef"/>
+            <sort-field name="voucherDate"/>
+            <sort-field name="description"/>
+            <sort-field name="createButton"/>
         </sort-order>
     </form>
     <form name="FindGlAccountReconciliation" type="single" title="" target="findGlAccountReconciliation"
