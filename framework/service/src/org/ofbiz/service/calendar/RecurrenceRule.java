@@ -19,7 +19,9 @@
 package org.ofbiz.service.calendar;
 
 import java.util.Arrays;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
@@ -28,8 +30,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-
-import com.ibm.icu.util.Calendar;
 
 /**
  * Recurrence Rule Object
@@ -501,148 +501,169 @@ public class RecurrenceRule {
             if (!byHourList.contains(String.valueOf(cal.get(Calendar.HOUR_OF_DAY))))
                 return false;
         }
-        boolean foundDay = false;
-        for (String dayRule : byDayList) {
-            String dayString = getDailyString(dayRule);
+        if (UtilValidate.isNotEmpty(byDayList)) {
+            Iterator<String> iter = byDayList.iterator();
+            boolean foundDay = false;
 
-            if (cal.get(Calendar.DAY_OF_WEEK) == getCalendarDay(dayString)) {
-                if ((hasNumber(dayRule)) && (getFrequency() == MONTHLY || getFrequency() == YEARLY)) {
-                    int modifier = getDailyNumber(dayRule);
+            while (iter.hasNext() && !foundDay) {
+                String dayRule = iter.next();
+                String dayString = getDailyString(dayRule);
 
-                    if (modifier == 0)
+                if (cal.get(Calendar.DAY_OF_WEEK) == getCalendarDay(dayString)) {
+                    if ((hasNumber(dayRule)) && (getFrequency() == MONTHLY || getFrequency() == YEARLY)) {
+                        int modifier = getDailyNumber(dayRule);
+
+                        if (modifier == 0)
+                            foundDay = true;
+
+                        if (getFrequency() == MONTHLY) {
+                            // figure if we are the nth xDAY if this month
+                            int currentPos = cal.get(Calendar.WEEK_OF_MONTH);
+                            int dayPosCalc = cal.get(Calendar.DAY_OF_MONTH) - ((currentPos - 1) * 7);
+
+                            if (dayPosCalc < 1)
+                                currentPos--;
+                            if (modifier > 0) {
+                                if (currentPos == modifier) {
+                                    foundDay = true;
+                                }
+                            } else if (modifier < 0) {
+                                int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                                int firstDay = dayPosCalc > 0 ? dayPosCalc : dayPosCalc + 7;
+                                int totalDay = ((maxDay - firstDay) / 7) + 1;
+                                int thisDiff = (currentPos - totalDay) - 1;
+
+                                if (thisDiff == modifier) {
+                                    foundDay = true;
+                                }
+                            }
+                        } else if (getFrequency() == YEARLY) {
+                            // figure if we are the nth xDAY if this year
+                            int currentPos = cal.get(Calendar.WEEK_OF_YEAR);
+                            int dayPosCalc = cal.get(Calendar.DAY_OF_YEAR) - ((currentPos - 1) * 7);
+
+                            if (dayPosCalc < 1) {
+                                currentPos--;
+                            }
+                            if (modifier > 0) {
+                                if (currentPos == modifier) {
+                                    foundDay = true;
+                                }
+                            } else if (modifier < 0) {
+                                int maxDay = cal.getActualMaximum(Calendar.DAY_OF_YEAR);
+                                int firstDay = dayPosCalc > 0 ? dayPosCalc : dayPosCalc + 7;
+                                int totalDay = ((maxDay - firstDay) / 7) + 1;
+                                int thisDiff = (currentPos - totalDay) - 1;
+
+                                if (thisDiff == modifier) {
+                                    foundDay = true;
+                                }
+                            }
+                        }
+                    } else {
+                        // we are a DOW only rule
                         foundDay = true;
-
-                    if (getFrequency() == MONTHLY) {
-                        // figure if we are the nth xDAY if this month
-                        int currentPos = cal.get(Calendar.WEEK_OF_MONTH);
-                        int dayPosCalc = cal.get(Calendar.DAY_OF_MONTH) - ((currentPos - 1) * 7);
-
-                        if (dayPosCalc < 1)
-                            currentPos--;
-                        if (modifier > 0) {
-                            if (currentPos == modifier) {
-                                foundDay = true;
-                            }
-                        } else if (modifier < 0) {
-                            int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-                            int firstDay = dayPosCalc > 0 ? dayPosCalc : dayPosCalc + 7;
-                            int totalDay = ((maxDay - firstDay) / 7) + 1;
-                            int thisDiff = (currentPos - totalDay) - 1;
-
-                            if (thisDiff == modifier) {
-                                foundDay = true;
-                            }
-                        }
-                    } else if (getFrequency() == YEARLY) {
-                        // figure if we are the nth xDAY if this year
-                        int currentPos = cal.get(Calendar.WEEK_OF_YEAR);
-                        int dayPosCalc = cal.get(Calendar.DAY_OF_YEAR) - ((currentPos - 1) * 7);
-
-                        if (dayPosCalc < 1) {
-                            currentPos--;
-                        }
-                        if (modifier > 0) {
-                            if (currentPos == modifier) {
-                                foundDay = true;
-                            }
-                        } else if (modifier < 0) {
-                            int maxDay = cal.getActualMaximum(Calendar.DAY_OF_YEAR);
-                            int firstDay = dayPosCalc > 0 ? dayPosCalc : dayPosCalc + 7;
-                            int totalDay = ((maxDay - firstDay) / 7) + 1;
-                            int thisDiff = (currentPos - totalDay) - 1;
-
-                            if (thisDiff == modifier) {
-                                foundDay = true;
-                            }
-                        }
                     }
-                } else {
-                    // we are a DOW only rule
+                }
+            }
+            if (!foundDay) {
+                return false;
+            }
+        }
+        if (UtilValidate.isNotEmpty(byMonthDayList)) {
+            Iterator<String> iter = byMonthDayList.iterator();
+            boolean foundDay = false;
+
+            while (iter.hasNext() && !foundDay) {
+                int day = 0;
+                String dayStr = iter.next();
+
+                try {
+                    day = Integer.parseInt(dayStr);
+                } catch (NumberFormatException nfe) {
+                    Debug.logError(nfe, "Error parsing day string " + dayStr + ": " + nfe.toString(), module);
+                }
+                int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+                if (day > 0 && day == currentDay) {
+                    foundDay = true;
+                }
+                if (day < 0 && day == ((currentDay - maxDay) - 1)) {
                     foundDay = true;
                 }
             }
-        }
-        if (!foundDay) {
-            return false;
-        }
-        
-        foundDay = false;
-        for (String dayStr : byMonthDayList) {
-            int day = 0;
-            try {
-                day = Integer.parseInt(dayStr);
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error parsing day string " + dayStr + ": " + nfe.toString(), module);
+            if (!foundDay) {
+                return false;
             }
-            int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-            int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        }
+        if (UtilValidate.isNotEmpty(byYearDayList)) {
+            Iterator<String> iter = byYearDayList.iterator();
+            boolean foundDay = false;
 
-            if (day > 0 && day == currentDay) {
-                foundDay = true;
-            }
-            if (day < 0 && day == ((currentDay - maxDay) - 1)) {
-                foundDay = true;
-            }
-        }
-        if (!foundDay) {
-            return false;
-        }
+            while (iter.hasNext() && !foundDay) {
+                int day = 0;
+                String dayStr = iter.next();
 
-        foundDay = false;
-        for(String dayStr : byYearDayList) {
-            int day = 0;
-            try {
-                day = Integer.parseInt(dayStr);
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error parsing day string " + dayStr + ": " + nfe.toString(), module);
-            }
-            int maxDay = cal.getActualMaximum(Calendar.DAY_OF_YEAR);
-            int currentDay = cal.get(Calendar.DAY_OF_YEAR);
+                try {
+                    day = Integer.parseInt(dayStr);
+                } catch (NumberFormatException nfe) {
+                    Debug.logError(nfe, "Error parsing day string " + dayStr + ": " + nfe.toString(), module);
+                }
+                int maxDay = cal.getActualMaximum(Calendar.DAY_OF_YEAR);
+                int currentDay = cal.get(Calendar.DAY_OF_YEAR);
 
-            if (day > 0 && day == currentDay)
-                foundDay = true;
-            if (day < 0 && day == ((currentDay - maxDay) - 1))
-                foundDay = true;
-        }
-        if (!foundDay) {
-            return false;
-        }
-        
-        boolean foundWeek = false;
-
-        for (String weekStr : byWeekNoList) {
-            int week = 0;
-            try {
-                week = Integer.parseInt(weekStr);
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error parsing week string " + weekStr + ": " + nfe.toString(), module);
+                if (day > 0 && day == currentDay)
+                    foundDay = true;
+                if (day < 0 && day == ((currentDay - maxDay) - 1))
+                    foundDay = true;
             }
-            int maxWeek = cal.getActualMaximum(Calendar.WEEK_OF_YEAR);
-            int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
+            if (!foundDay)
+                return false;
+        }
+        if (UtilValidate.isNotEmpty(byWeekNoList)) {
+            Iterator<String> iter = byWeekNoList.iterator();
+            boolean foundWeek = false;
 
-            if (week > 0 && week == currentWeek)
-                foundWeek = true;
-            if (week < 0 && week == ((currentWeek - maxWeek) - 1))
-                foundWeek = true;
-        }
-        if (!foundWeek) {
-            return false;
-        }
+            while (iter.hasNext() && !foundWeek) {
+                int week = 0;
+                String weekStr = iter.next();
 
-        boolean foundMonth = false;
-        for (String monthStr : byMonthList) {
-            int month = 0;
-            try {
-                month = Integer.parseInt(monthStr);
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Error parsing month string " + monthStr + ": " + nfe.toString(), module);
+                try {
+                    week = Integer.parseInt(weekStr);
+                } catch (NumberFormatException nfe) {
+                    Debug.logError(nfe, "Error parsing week string " + weekStr + ": " + nfe.toString(), module);
+                }
+                int maxWeek = cal.getActualMaximum(Calendar.WEEK_OF_YEAR);
+                int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
+
+                if (week > 0 && week == currentWeek)
+                    foundWeek = true;
+                if (week < 0 && week == ((currentWeek - maxWeek) - 1))
+                    foundWeek = true;
             }
-            if (month == cal.get(Calendar.MONTH)) {
-                foundMonth = true;
-            }
+            if (!foundWeek)
+                return false;
         }
-        if (!foundMonth) {
-            return false;                
+        if (UtilValidate.isNotEmpty(byMonthList)) {
+            Iterator<String> iter = byMonthList.iterator();
+            boolean foundMonth = false;
+
+            while (iter.hasNext() && !foundMonth) {
+                int month = 0;
+                String monthStr = iter.next();
+
+                try {
+                    month = Integer.parseInt(monthStr);
+                } catch (NumberFormatException nfe) {
+                    Debug.logError(nfe, "Error parsing month string " + monthStr + ": " + nfe.toString(), module);
+                }
+                if (month == cal.get(Calendar.MONTH)) {
+                    foundMonth = true;
+                }
+            }
+            if (!foundMonth)
+                return false;
         }
 
         return true;
