@@ -3885,4 +3885,23 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="glAccountCategoryTypeId"/>
   </entity>
+
+  <view-entity entity-name="PmtGrpMembrPaymentAndFinAcctTrans" package-name="org.ofbiz.accounting.finaccount" title="Payment Group Member, Payment and FinAccountTrans view entity">
+      <member-entity entity-alias="PGM" entity-name="PaymentGroupMember"/>
+      <member-entity entity-alias="PY" entity-name="Payment"/>
+      <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
+      <alias-all entity-alias="PGM"/>
+      <alias-all entity-alias="PY"/>
+      <alias name="finAccountId" entity-alias="FAT"/>
+      <alias name="partyId" entity-alias="FAT"/>
+      <alias name="finAccountTransStatusId" entity-alias="FAT" field="statusId"/>
+      <alias name="finAccountTransAmount" entity-alias="FAT" field="amount"/>
+      <alias name="glReconciliationId" entity-alias="FAT"/>
+      <view-link entity-alias="PGM" rel-entity-alias="PY">
+        <key-map field-name="paymentId"/>
+      </view-link>
+      <view-link entity-alias="PY" rel-entity-alias="FAT">
+        <key-map field-name="finAccountTransId"/>
+      </view-link>
+    </view-entity>  
 </entitymodel>
