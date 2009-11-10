@@ -148,6 +148,9 @@ public class Converters {
     @SuppressWarnings("unchecked")
     public static <S, T> Converter<S, T> getConverter(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
         String key = sourceClass.getName().concat(DELIMITER).concat(targetClass.getName());
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Getting converter: " + key, module);
+        }
         Converter<?, ?> result = converterMap.get(key);
         if (result == null) {
             if (!noConversions.contains(key)) {
@@ -215,34 +218,5 @@ public class Converters {
         }
         
     }
-
-/*
-    public static String mapSize() {
-        return "Map size = " + converterMap.size();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static String runPerformanceTest() {
-        Object[] intArray = {1,2,3,4};
-        List obj = null;
-        try {
-            Converter<Object[],  List> converter = Converters.getConverter(Object[].class, List.class);
-            obj = converter.convert(intArray);
-        } catch (Exception e) {}
-        System.gc();
-        long newStart = System.currentTimeMillis();
-        try {
-            for (int i = 0; i < 1000000; i++) {
-                Converter<Object[],  List> converter = Converters.getConverter(Object[].class, List.class);
-                obj = converter.convert(intArray);
-            }
-        } catch (Exception e) {
-            Debug.logError(e, module);
-        }
-        long newStop = System.currentTimeMillis();
-        Debug.logInfo("Elapsed time = " + (newStop - newStart), module);
-        return "Elapsed time = " + (newStop - newStart) + ", List size = " + obj.size();
-    }
-*/
 
 }

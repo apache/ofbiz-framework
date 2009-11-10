@@ -710,6 +710,9 @@ public class NumberConverters {
     public static class StringToLong extends AbstractToNumberConverter<String, Long> {
 
         public Long convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            if (obj.length() == 0) {
+                return null;
+            }
             return this.fromString(obj, locale).longValue();
         }
 

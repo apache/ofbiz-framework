@@ -30,6 +30,41 @@ public class MiscConverters {
 
     public static final int CHAR_BUFFER_SIZE = 4096;
 
+    public static class ClobToString extends AbstractConverter<Clob, String> {
+
+        public String convert(Clob obj) throws ConversionException {
+            StringBuilder strBuf = new StringBuilder();
+            char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
+            int charsRead = 0;
+            Reader clobReader = null;
+            try {
+                clobReader =  obj.getCharacterStream();
+                while ((charsRead = clobReader.read(inCharBuffer, 0, CHAR_BUFFER_SIZE)) > 0) {
+                    strBuf.append(inCharBuffer, 0, charsRead);
+                }
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+            finally {
+                if (clobReader != null) {
+                    try {
+                        clobReader.close();
+                    } catch (IOException e) {}
+                }
+            }
+            return strBuf.toString();
+        }
+
+        public Class<Clob> getSourceClass() {
+            return Clob.class;
+        }
+
+        public Class<String> getTargetClass() {
+            return String.class;
+        }
+
+    }
+
     public static class LocaleToString extends AbstractConverter<Locale, String> {
 
         public String convert(Locale obj) throws ConversionException {
@@ -63,41 +98,6 @@ public class MiscConverters {
 
         public Class<Locale> getTargetClass() {
             return Locale.class;
-        }
-
-    }
-
-    public static class ClobToString extends AbstractConverter<Clob, String> {
-
-        public String convert(Clob obj) throws ConversionException {
-            StringBuilder strBuf = new StringBuilder();
-            char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
-            int charsRead = 0;
-            Reader clobReader = null;
-            try {
-                clobReader =  obj.getCharacterStream();
-                while ((charsRead = clobReader.read(inCharBuffer, 0, CHAR_BUFFER_SIZE)) > 0) {
-                    strBuf.append(inCharBuffer, 0, charsRead);
-                }
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-            finally {
-                if (clobReader != null) {
-                    try {
-                        clobReader.close();
-                    } catch (IOException e) {}
-                }
-            }
-            return strBuf.toString();
-        }
-
-        public Class<Clob> getSourceClass() {
-            return Clob.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
 
     }
