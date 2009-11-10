@@ -61,11 +61,11 @@ under the License.
     </form>
     <form name="FindVendors" type="single" target="findVendors" title="Find and List Vendors"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="partyId" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonId}" parameter-name="partyId"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="manifestCompanyName" title="${uiLabelMap.PartyManifestCompanyName}" parameter-name="manifestCompanyName"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}" parameter-name="manifestCompanyTitle"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}" parameter-name="manifestLogoUrl"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}" parameter-name="manifestPolicies"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="partyId" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonId}" parameter-name="partyId"><text-find size="25"></text-find></field>
+        <field name="manifestCompanyName" title="${uiLabelMap.PartyManifestCompanyName}" parameter-name="manifestCompanyName"><text-find size="25"></text-find></field>
+        <field name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}" parameter-name="manifestCompanyTitle"><text-find size="25"></text-find></field>
+        <field name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}" parameter-name="manifestLogoUrl"><text-find size="25"></text-find></field>
+        <field name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}" parameter-name="manifestPolicies"><text-find size="25"></text-find></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>

@@ -144,8 +144,8 @@
     <form name="FindTask" type="single" target="FindTask">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
-        <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find ignore-case="true"/></field>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find ignore-case="true"/></field>
         <field name="currentStatusId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
@@ -167,7 +167,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find ignore-case="true"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>

@@ -24,7 +24,7 @@ under the License.
     <form name="FindFinAccounts" type="single" target="FindFinAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FinAccount" default-field-type="find"/>
-        <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="finAccountId"><text-find ignore-case="true"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FinAccountType">
@@ -32,7 +32,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="finAccountCode"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="finAccountCode"><text-find ignore-case="true"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -296,7 +296,7 @@ under the License.
     </form>
     <form name="QuickFindFinAccounts" type="single" target="FindFinAccount"
             header-row-style="header-row" default-table-style="basic-table">
-        <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="finAccountId"><text-find ignore-case="true"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FinAccountType">
@@ -304,7 +304,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="finAccountName"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="finAccountName"><text-find ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

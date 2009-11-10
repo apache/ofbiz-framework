@@ -21,8 +21,8 @@ under the License.
     
     <!-- form whose input filters the FindPaymentGatewayConfig -->
     <form name="FindShipmentGatewayConfig" type="single" target="FindShipmentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
-        <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}"><text-find ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
         <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ShipmentGatewayConfigType" description="${description}" key-field-name="shipmentGatewayConfTypeId">
@@ -291,8 +291,8 @@ under the License.
     </form>
     
     <form name="FindShipmentGatewayConfigTypes" type="single" target="FindShipmentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
-        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}"><text-find ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
         <field name="performSearch"><hidden value="Y"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">

@@ -384,9 +384,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field-->
-        <field map-name="subjectMap" name="subject"><text-find default-option="like"/></field>
-
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field map-name="subjectMap" name="subject"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 

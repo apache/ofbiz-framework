@@ -22,11 +22,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindPartyInvitations" type="single" default-map-name="partyInvitations" target="partyInvitation"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="partyInvitationId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="partyInvitationId"><text-find ignore-case="true"/></field>
         <field position="1" name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="emailAddress"><text-find default-option="contains" ignore-case="true"/></field>
-        <field position="2" name="toName"><text-find default-option="contains" ignore-case="true"/></field>
+        <field position="1" name="emailAddress"><text-find ignore-case="true"/></field>
+        <field position="2" name="toName"><text-find ignore-case="true"/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">

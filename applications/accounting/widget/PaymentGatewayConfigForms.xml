@@ -21,8 +21,8 @@ under the License.
     
     <!-- form whose input filters the FindPaymentGatewayConfig -->
     <form name="FindPaymentGatewayConfig" type="single" target="FindPaymentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
-        <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}"><text-find ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PaymentGatewayConfigType" description="${description}" key-field-name="paymentGatewayConfigTypeId">
@@ -313,8 +313,8 @@ under the License.
     </form>
     
     <form name="FindPaymentGatewayConfigTypes" type="single" target="FindPaymentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
-        <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}"><text-find ignore-case="true"/></field>
+        <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
         <field name="performSearch"><hidden value="Y"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit">

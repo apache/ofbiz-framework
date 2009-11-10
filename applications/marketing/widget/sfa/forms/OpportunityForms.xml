@@ -24,7 +24,7 @@ under the License.
     <form name="FindSalesOpportunity" type="single" target="FindSalesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
-        <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25"></text-find></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SalesOpportunityStage">

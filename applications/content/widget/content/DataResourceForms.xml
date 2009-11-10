@@ -24,8 +24,8 @@ under the License.
     <form name="FindDataResource" target="findDataResource" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="dataResourceId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="dataResourceName"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="dataResourceId"><text-find ignore-case="true"/></field>
+        <field name="dataResourceName"><text-find ignore-case="true"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId">

@@ -110,8 +110,8 @@
     </form>
     <form name="FindFeatureType" type="single" target="EditFeatureTypes"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productFeatureTypeId"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="description"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="productFeatureTypeId"><text-find size="25"></text-find></field>
+        <field name="description"><text-find size="25"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
     <form name="ListFeatureTypes" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureTypes"
@@ -163,8 +163,8 @@
     </form>
     <form name="FindFeatureInterAction" type="single" target="EditFeatureInterActions"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productFeatureId"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="productFeatureIdTo"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="productFeatureId"><text-find size="25"></text-find></field>
+        <field name="productFeatureIdTo"><text-find size="25"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
         </form>
     <form name="ListFeatureInterActions" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureInterAction"
@@ -292,8 +292,8 @@
 
     <form name="FindProductFeature" type="single" target="EditFeatureCategories"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25"></text-find></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
 

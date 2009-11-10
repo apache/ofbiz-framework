@@ -25,8 +25,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="hideSearch"><hidden value="Y"/></field>
-        <field name="invoiceId"><text-find default-option="contains" ignore-case="true"/></field>
-        <field name="description"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="invoiceId"><text-find ignore-case="true"/></field>
+        <field name="description"><text-find ignore-case="true"/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="InvoiceType"/>
