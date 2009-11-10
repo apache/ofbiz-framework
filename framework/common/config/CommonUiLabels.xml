@@ -5315,6 +5315,9 @@
         <value xml:lang="zh">人员</value>
         <value xml:lang="zh_CN">人</value>
     </property>
+    <property key="CommonPleaseEnterValidNumberInThisField">
+        <value xml:lang="en">Please enter a valid number in this field.</value>
+    </property>
     <property key="CommonPortalCategoryPage">
         <value xml:lang="en">Category of portlet pages for application</value>
         <value xml:lang="fr">Catégorie de page portlet pour application</value>
