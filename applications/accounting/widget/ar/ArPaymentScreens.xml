@@ -115,7 +115,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingFindArPaymentGroups"/>
-                <set field="headerItem" value="arPaymentGroups"/>
+                <set field="headerItem" value="paymentGroups"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

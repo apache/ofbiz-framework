@@ -121,7 +121,7 @@ under the License.
     <screen name="CommonPaymentGroupDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="PaymentGroup"/>
+                <set field="headerItem" value="paymentGroups"/>
                 <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
                 <entity-one entity-name="PaymentGroup" value-field="paymentGroup"/>
                 <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
