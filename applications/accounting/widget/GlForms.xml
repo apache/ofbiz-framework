@@ -736,7 +736,7 @@ under the License.
         <field name="physicalInventoryId" position="2"></field>
         <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="productId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="2"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fixedAssetId" position="2">
@@ -764,7 +764,7 @@ under the License.
             <sort-field name="physicalInventoryId"/>
             <sort-field name="invoiceId"/>
             <sort-field name="paymentId"/>
-            <sort-field name="produtId"/>
+            <sort-field name="productId"/>
             <sort-field name="workEffortId"/>
             <sort-field name="shipmentId"/>
             <sort-field name="fixedAssetId"/>
@@ -917,20 +917,69 @@ under the License.
     <form name="ViewAcctgTrans" type="single" default-map-name="acctgTrans"
             default-table-style="basic-table">
         <auto-fields-service service-name="updateAcctgTrans" default-field-type="display"/>
-        <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/></field>
-        <field name="paymentId"><hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/></field>
-        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
+        <field name="acctgTransId" position="1"/>
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" position="1">
             <display-entity entity-name="AcctgTransType"/>
         </field>
-        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2">
             <display-entity entity-name="GlFiscalType"/>
         </field>
-        <field name="roleTypeId">
-            <display-entity entity-name="RoleType"/>
+        <field name="glJournalId" position="1">
+                <display-entity entity-name="GlJournal" description="${glJournalName}"/>
         </field>
-        <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}">
+        <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}" position="2">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
+        <field name="finAccountTransId" position="1"/>
+        <field name="partyId" position="1"/>
+        <field name="roleTypeId" position="2">
+            <display-entity entity-name="RoleType"/>
+        </field>
+        <field name="transactionDate" position="1"/>
+        <field name="scheduledPostingDate" position="2"/>
+        <field name="isPosted" position="1"/>
+        <field name="postedDate" position="2"/>
+        <field name="inventoryItemId" position="1"/>
+        <field name="physicalInventoryId" position="2"/>
+        <field name="invoiceId" position="1"><hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/></field>
+        <field name="paymentId" position="2"><hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/></field>
+        <field name="receiptId" position="1"/>
+        <field name="workEffortId" position="2"/>
+        <field name="shipmentId" position="1"/>
+        <field name="fixedAssetId" position="2"/>
+        <field name="theirAcctgTransId" position="1"/>
+        <field name="voucherRef" position="1"/>
+        <field name="voucherDate" position="2"/>
+        <field name="description" position="1"/>
+        <field name="createdByUserLogin"><hidden/></field>
+        <field name="lastModifiedByUserLogin"><hidden/></field>
+        <sort-order>
+            <sort-field name="acctgTransId"/>
+            <sort-field name="acctgTransTypeId"/>
+            <sort-field name="glFiscalTypeId"/>
+            <sort-field name="glJournalId"/>
+            <sort-field name="groupStatusId"/>
+            <sort-field name="finAccountTransId"/>
+            <sort-field name="partyId"/>
+            <sort-field name="roleTypeId"/>
+            <sort-field name="transactionDate"/>
+            <sort-field name="scheduledPostingDate"/>
+            <sort-field name="isPosted"/>
+            <sort-field name="postedDate"/>
+            <sort-field name="inventoryItemId"/>
+            <sort-field name="physicalInventoryId"/>
+            <sort-field name="invoiceId"/>
+            <sort-field name="paymentId"/>
+            <sort-field name="receiptId"/>
+            <sort-field name="workEffortId"/>
+            <sort-field name="shipmentId"/>
+            <sort-field name="fixedAssetId"/>
+            <sort-field name="theirAcctgTransId"/>
+            <sort-field name="voucherRef"/>
+            <sort-field name="voucherDate"/>
+            <sort-field name="description"/>
+            <sort-field name="createButton"/>
+        </sort-order>
     </form>
     <form name="ViewAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry"
            default-table-style="basic-table">
