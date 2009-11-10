@@ -508,73 +508,67 @@ public class GoogleRequestServices {
         }
         return ServiceUtil.returnSuccess();        
     }    
-    
+
     private static void sendItemsShipped(Delegator delegator, String shipmentId) throws GeneralException {
         List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId));
-        if (issued != null && issued.size() > 0) {
-            for (GenericValue issue : issued) {
-                GenericValue orderItem = issue.getRelatedOne("OrderItem");
-                String shipmentItemSeqId = issue.getString("shipmentItemSeqId"); 
-                String productId = orderItem.getString("productId");
-                String orderId = issue.getString("orderId");
-                GenericValue order = findGoogleOrder(delegator, orderId);
-                                 
-                if (order != null) {
-                    MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
-                    if (mInfo == null) {
-                        Debug.logInfo("Cannot find Google MerchantInfo for Order #" + orderId, module);
-                        continue;
-                    }
-                    
-                    String externalId = order.getString("externalId");
-                    
-                    // locate the shipment package content record
-                    Map<String, ? extends Object> spcLup = UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId);
-
-                    List<GenericValue> spc = delegator.findByAnd("ShipmentPackageContent", spcLup);
-                    GenericValue packageContent = EntityUtil.getFirst(spc);
-                    String carrier = null;
-                    
-                    if (packageContent != null) {
-                        GenericValue shipPackage = packageContent.getRelatedOne("ShipmentPackage");
-
-                        if (shipPackage != null) {
-                            List<GenericValue> prs = shipPackage.getRelated("ShipmentPackageRouteSeg");
-                            GenericValue packageRoute = EntityUtil.getFirst(prs);
-
-                            if (packageRoute != null) {
-                                List<GenericValue> srs = packageRoute.getRelated("ShipmentRouteSegment");
-                                GenericValue route = EntityUtil.getFirst(srs);
-                                String track = packageRoute.getString("trackingCode");
-
-                                if (route != null) { 
-                                    carrier = route.getString("carrierPartyId");
+        if (UtilValidate.isNotEmpty(issued)) {
+            try {
+                ShipItemsRequest isr = null;
+                for (GenericValue issue : issued) {
+                    GenericValue orderItem = issue.getRelatedOne("OrderItem");
+                    String shipmentItemSeqId = issue.getString("shipmentItemSeqId"); 
+                    String productId = orderItem.getString("productId");
+                    String orderId = issue.getString("orderId");
+                    GenericValue order = findGoogleOrder(delegator, orderId);
+                    if (UtilValidate.isNotEmpty(order)) {
+                        MerchantInfo mInfo = getMerchantInfo(delegator, getProductStoreFromOrder(order));
+                        if (UtilValidate.isEmpty(mInfo)) {
+                            Debug.logInfo("Cannot find Google MerchantInfo for Order #" + orderId, module);
+                            continue;
+                        }
+                        String externalId = order.getString("externalId");
+                        if (UtilValidate.isEmpty(isr)) {
+                            isr = new ShipItemsRequest(mInfo, externalId);
+                        }
+                        // locate the shipment package content record
+                        Map<String, ? extends Object> spcLup = UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId);
+                        List<GenericValue> spc = delegator.findByAnd("ShipmentPackageContent", spcLup);
+                        GenericValue packageContent = EntityUtil.getFirst(spc);
+                        String carrier = null;
+                        if (UtilValidate.isNotEmpty(packageContent)) {
+                            GenericValue shipPackage = packageContent.getRelatedOne("ShipmentPackage");
+                            if (UtilValidate.isNotEmpty(shipPackage)) {
+                                List<GenericValue> prs = shipPackage.getRelated("ShipmentPackageRouteSeg");
+                                GenericValue packageRoute = EntityUtil.getFirst(prs);
+                                if (UtilValidate.isNotEmpty(packageRoute)) {
+                                    List<GenericValue> srs = packageRoute.getRelated("ShipmentRouteSegment");
+                                    GenericValue route = EntityUtil.getFirst(srs);
+                                    String track = packageRoute.getString("trackingCode");
+                                    if (UtilValidate.isNotEmpty(route)) { 
+                                        carrier = route.getString("carrierPartyId");
                                     if (UtilValidate.isEmpty(track)) {
                                         track = route.getString("trackingIdNumber");
                                     }
                                     if (track == null) {
                                         track = "";
                                     }
-
-                                    try {
-                                        ShipItemsRequest isr = new ShipItemsRequest(mInfo, externalId);
-                                        isr.addItemShippingInformation(productId, carrier, track);
-                                        Debug.logInfo("Sending item shipped notification: " + productId + " / " + carrier + " / " + track, module);
-                                        Debug.logInfo("Using merchantInfo : " + mInfo.getMerchantId() + " #" + externalId, module);
-                                        isr.send();
-                                    } catch (CheckoutException e) {
-                                        Debug.logError(e, module);
-                                        throw new GeneralException(e);
-                                    }
+                                    isr.addItemShippingInformation(productId, carrier, track);
+                                    Debug.logInfo("Sending item shipped notification: " + productId + " / " + carrier + " / " + track, module);
+                                    Debug.logInfo("Using merchantInfo : " + mInfo.getMerchantId() + " #" + externalId, module);
                                 }
                             }
                         }
                     }
                 }
             }
+            isr.send();
+            } catch (CheckoutException e) {
+                Debug.logError(e, module);
+                throw new GeneralException(e);
+            }
         }
     }
-    
+
     public static GenericValue findGoogleOrder(Delegator delegator, String orderId) {
         GenericValue order = null;
         try {

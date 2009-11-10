@@ -68,4 +68,10 @@ under the License.
     <eca service="createOrderAdjustment" event="in-validate" run-on-failure="false">
         <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
     </eca>
+    <eca service="updateOrderAdjustment" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
+    <eca service="deleteOrderAdjustment" event="in-validate" run-on-failure="false">
+        <action service="catchEditGoogleOrder" mode="sync" result-to-context="true" ignore-failure="false"/>
+    </eca>
  </service-eca>
