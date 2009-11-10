@@ -161,6 +161,7 @@ under the License.
                               <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLine_index}" value="${cartLine.getProductId()}" />
                               <input type="text" name="update${cartLine_index}" id="qty_${cartLine_index}" value="${cartLine.getQuantity()?string.number}" class="required validate-number" />
                               <span id="advice-required-qty_${cartLine_index}" style="display:none;" class="errorMessage"> (required)</span>
+                              <span id="advice-validate-number-qty_${cartLine_index}" style="display:none;" class="errorMessage"> (${uiLabelMap.CommonPleaseEnterValidNumberInThisField}) </span>
                             </#if>
                           </td>
                           <#if !cartLine.getIsPromo()>
