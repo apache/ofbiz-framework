@@ -19,6 +19,7 @@
 
 import java.util.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
 import org.ofbiz.accounting.invoice.*;
@@ -28,6 +29,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import org.ofbiz.base.util.UtilNumber;
 import javolution.util.FastList;
+import javolution.util.FastMap;
+
 
 
 invoiceId = parameters.get("invoiceId");
@@ -42,27 +45,6 @@ decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
 if (invoice) {
-    if (currency && !invoice.getString("currencyUomId").equals(currency)) {
-        conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice);
-        invoice.currencyUomId = currency;
-        invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);
-    }
-
-    invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
-    invoiceItemsConv = FastList.newInstance();
-    invoiceItems.each { invoiceItem ->
-      invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);
-      invoiceItemsConv.add(invoiceItem);
-    }
-
-
-    context.invoiceItems = invoiceItemsConv;
-
-    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
-    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
-    context.invoiceTotal = invoiceTotal;
-    context.invoiceNoTaxTotal = invoiceNoTaxTotal;
-
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
     // home of the customer.)
@@ -78,6 +60,43 @@ if (invoice) {
     context.billingParty = billingParty;
     sendingParty = InvoiceWorker.getSendFromParty(invoice);
     context.sendingParty = sendingParty;
+
+    if (currency && !invoice.getString("currencyUomId").equals(currency)) {
+        conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice);
+        invoice.currencyUomId = currency;
+        invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);
+    }
+
+    invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
+    invoiceItemsConv = FastList.newInstance();
+    vatTaxesByType = FastMap.newInstance();
+    invoiceItems.each { invoiceItem ->
+        invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);
+        invoiceItemsConv.add(invoiceItem);
+        // get party tax id for VAT taxes: they are required in invoices by EU
+        // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
+        taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct");
+        if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
+            taxInfo = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", UtilMisc.toMap("partyId", billingParty.partyId, "taxAuthGeoId", taxRate.taxAuthGeoId, "taxAuthPartyId", taxRate.taxAuthPartyId)), invoice.invoiceDate));
+            if (taxInfo) {
+                context.billingPartyTaxId = taxInfo.partyTaxId;
+            }
+            vatTaxesByTypeAmount = vatTaxesByType[taxRate.taxAuthorityRateSeqId];
+            if (!vatTaxesByTypeAmount) {
+                vatTaxesByTypeAmount = 0.0;
+            }
+            vatTaxesByType.put(taxRate.taxAuthorityRateSeqId, vatTaxesByTypeAmount + invoiceItem.amount);
+        }
+    }
+    context.vatTaxesByType = vatTaxesByType;
+    context.vatTaxIds = vatTaxesByType.keySet().asList();
+
+    context.invoiceItems = invoiceItemsConv;
+
+    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    context.invoiceTotal = invoiceTotal;
+    context.invoiceNoTaxTotal = invoiceNoTaxTotal;
 
                 //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
 
@@ -101,7 +120,7 @@ if (invoice) {
                if (sendingPartyTaxId) {
                    context.sendingPartyTaxId = sendingPartyTaxId;
                }
-               if (billingPartyTaxId) {
+               if (billingPartyTaxId && !context.billingPartyTaxId) {
                    context.billingPartyTaxId = billingPartyTaxId;
                }
                //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
