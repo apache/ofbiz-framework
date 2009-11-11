@@ -523,7 +523,7 @@ under the License.
                         <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.OrderPurchaseOrder}(s)" navigation-form-name="ListPurchaseOrders" >
+                        <screenlet title="${uiLabelMap.OrderPurchaseOrder}" navigation-form-name="ListPurchaseOrders" >
                             <include-form name="ListPurchaseOrders" location="component://order/widget/ordermgr/OrderForms.xml"/>
                         </screenlet>
                     </widgets>
