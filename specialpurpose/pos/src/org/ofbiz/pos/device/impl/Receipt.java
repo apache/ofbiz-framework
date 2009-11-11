@@ -112,13 +112,15 @@ public class Receipt extends GenericDevice implements DialogCallback {
     }
 
     public synchronized void printReport(PosTransaction trans, String resource, Map<String, String> context) {
+        // transaction mode causes all output to be buffered
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
-        } catch (Exception e) {
+        } catch (JposException e) {
+            Debug.logError(e, "Exception while setting jpos.POSPrinter.transactionPrint to transaction mode ", module);
         }
         Debug.log("Print Report Requested", module);
         String[] report = this.readReportTemplate(resource);
-
+        
         if (report != null) {
             for (int i = 0; i < report.length; i++) {
                 if (report[i] != null) {
@@ -132,7 +134,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_NORMAL);
-        } catch (Exception e) {
+        } catch (JposException e) {
+            Debug.logError(e, "Exception while setting jpos.POSPrinter.transactionPrint to normal mode ", module);
         }
     }
 
@@ -170,6 +173,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                 try {
                     Thread.sleep(3000);
                 } catch (Exception e) {
+                    Debug.logError(e, module);
                 }
             }
         }
@@ -180,9 +184,11 @@ public class Receipt extends GenericDevice implements DialogCallback {
     }
 
     private void printReceipt(PosTransaction trans, String[] template, int type, Map<String, Object> payInfo) {
+        // transaction mode causes all output to be buffered
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
-        } catch (Exception e) {
+        } catch (JposException e) {
+            Debug.logError(e, "Exception while setting jpos.POSPrinter.transactionPrint to transaction mode ", module);
         }
 
         if (template != null) {
@@ -208,7 +214,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
         try {
             ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_NORMAL);
-        } catch (Exception e) {
+        } catch (JposException e) {
+            Debug.logError(e, "Exception while setting jpos.POSPrinter.transactionPrint to normal mode ", module);
         }
     }
 
