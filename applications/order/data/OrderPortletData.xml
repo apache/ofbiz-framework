@@ -115,4 +115,11 @@
         description=""/>
     <PortletPortletCategory portalPortletId="PurchByPaymMeth" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PurchByPaymMeth" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
+    
+    <PortalPortlet portalPortletId="ListPurchaseOrders"
+        portletName="List Purchase Orders"
+        screenName="ListPurchaseOrders"
+        screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
+        description="List Purchase Orders"/>
+    <PortletPortletCategory portalPortletId="ListPurchaseOrders" portletCategoryId="ORDERMGR"/>
 </entity-engine-xml>
