@@ -32,6 +32,10 @@ public class MiscConverters implements ConverterLoader {
 
     public static class ClobToString extends AbstractConverter<Clob, String> {
 
+        public ClobToString() {
+            super(Clob.class, String.class);
+        }
+
         public String convert(Clob obj) throws ConversionException {
             StringBuilder strBuf = new StringBuilder();
             char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
@@ -55,33 +59,25 @@ public class MiscConverters implements ConverterLoader {
             return strBuf.toString();
         }
 
-        public Class<Clob> getSourceClass() {
-            return Clob.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
-        }
-
     }
 
     public static class LocaleToString extends AbstractConverter<Locale, String> {
+
+        public LocaleToString() {
+            super(Locale.class, String.class);
+        }
 
         public String convert(Locale obj) throws ConversionException {
              return obj.toString();
         }
 
-        public Class<Locale> getSourceClass() {
-            return Locale.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
-        }
-
     }
 
     public static class StringToLocale extends AbstractConverter<String, Locale> {
+
+        public StringToLocale() {
+            super(String.class, Locale.class);
+        }
 
         public Locale convert(String obj) throws ConversionException {
             Locale loc = UtilMisc.parseLocale(obj);
@@ -90,14 +86,6 @@ public class MiscConverters implements ConverterLoader {
             } else {
                 throw new ConversionException("Could not convert " + obj + " to Locale: ");
             }
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Locale> getTargetClass() {
-            return Locale.class;
         }
 
     }

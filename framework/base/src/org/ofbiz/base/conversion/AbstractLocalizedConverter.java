@@ -24,8 +24,12 @@ import org.ofbiz.base.util.ObjectType;
  * and it implements the <code>canConvert</code> method.
  */
 public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConverter<S, T> {
+    private final Class<S> sourceClass;
+    private final Class<T> targetClass;
 
-    public AbstractLocalizedConverter() {
+    protected AbstractLocalizedConverter(Class<S> sourceClass, Class<T> targetClass) {
+        this.sourceClass = sourceClass;
+        this.targetClass = targetClass;
         Converters.registerConverter(this);
     }
 
@@ -33,4 +37,11 @@ public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConve
         return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && ObjectType.instanceOf(targetClass, this.getTargetClass());
     }
 
+    public final Class<S> getSourceClass() {
+        return sourceClass;
+    }
+
+    public final Class<T> getTargetClass() {
+        return targetClass;
+    }
 }
