@@ -49,3 +49,15 @@ border: none;
 #content-main-section .h1 {
 display: block;
 }
+
+
+ol.numbers {
+    list-style: decimal; 
+    padding-left: 20px;
+}
+ul.dots {
+    list-style: circle; 
+    padding-left: 20px;
+}
+
+

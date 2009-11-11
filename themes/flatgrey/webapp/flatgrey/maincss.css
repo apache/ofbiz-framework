@@ -63,6 +63,15 @@ ol, ul {
 list-style: none;
 }
 
+ol.numbers {
+	list-style: decimal; 
+    padding-left: 20px;
+}
+ul.dots {
+    list-style: circle; 
+    padding-left: 20px;
+}
+
 /* ===== Basic Element Styles ===== */
 
 a, a:visited {

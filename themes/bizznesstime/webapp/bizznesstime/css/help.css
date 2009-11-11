@@ -33,3 +33,14 @@ body {
     float:none;
     min-height:25em;
 }
+
+ol.numbers {
+    list-style: decimal; 
+    padding-left: 20px;
+}
+ul.dots {
+    list-style: circle; 
+    padding-left: 20px;
+}
+
+
