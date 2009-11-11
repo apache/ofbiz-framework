@@ -30,7 +30,7 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 /** Collection Converter classes. */
-public class CollectionConverters {
+public class CollectionConverters implements ConverterLoader {
 
     public static class ArrayToList extends AbstractConverter<Object[], List<?>> {
 
@@ -192,6 +192,10 @@ public class CollectionConverters {
             return Set.class;
         }
 
+    }
+
+    public void loadConverters() {
+        Converters.loadContainedConverters(CollectionConverters.class);
     }
 
 }
