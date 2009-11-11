@@ -120,7 +120,7 @@ under the License.
 </form><#rt/>
 </#if>
 <a <#if id?has_content>id="${id}"</#if> <#if style?has_content>class="${style}"</#if> <#if name?has_content>name="${name}"</#if> <#if targetWindow?has_content>target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#rt/>
-<#if image?has_content>${imgStr}<#else><#if text?has_content>${text}</#if></#if></a>
+<#if imgStr?has_content>${imgStr}<#else><#if text?has_content>${text}</#if></#if></a>
 </#macro>
 <#macro renderImage src id style wid hgt border alt urlString>
 <#if src?has_content>
