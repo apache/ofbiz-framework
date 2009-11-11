@@ -23,64 +23,47 @@ public class BooleanConverters implements ConverterLoader {
 
     public static class BooleanToInteger extends AbstractConverter<Boolean, Integer> {
 
+        public BooleanToInteger() {
+            super(Boolean.class, Integer.class);
+        }
+
         public Integer convert(Boolean obj) throws ConversionException {
              return obj.booleanValue() ? 1 : 0;
-        }
-
-        public Class<Boolean> getSourceClass() {
-            return Boolean.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
 
     }
 
     public static class BooleanToString extends AbstractConverter<Boolean, String> {
 
+        public BooleanToString() {
+            super(Boolean.class, String.class);
+        }
+
         public String convert(Boolean obj) throws ConversionException {
             return obj.booleanValue() ? "true" : "false";
-        }
-
-        public Class<Boolean> getSourceClass() {
-            return Boolean.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
 
     }
 
     public static class IntegerToBoolean extends AbstractConverter<Integer, Boolean> {
 
+        public IntegerToBoolean() {
+            super(Integer.class, Boolean.class);
+        }
+
         public Boolean convert(Integer obj) throws ConversionException {
              return obj.intValue() == 0 ? false : true;
         }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<Boolean> getTargetClass() {
-            return Boolean.class;
-        }
-
     }
 
     public static class StringToBoolean extends AbstractConverter<String, Boolean> {
 
+        public StringToBoolean() {
+            super(String.class, Boolean.class);
+        }
+
         public Boolean convert(String obj) throws ConversionException {
             return "TRUE".equals(obj.toUpperCase());
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Boolean> getTargetClass() {
-            return Boolean.class;
         }
         
     }

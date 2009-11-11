@@ -18,16 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.util.Collection;
+
 import org.ofbiz.base.util.ObjectType;
 
-/** Abstract Converter class. This class handles converter registration
+/** Abstract Set Converter class. This class handles converter registration
  * and it implements the <code>canConvert</code> method.
  */
-public abstract class AbstractConverter<S, T> implements Converter<S, T> {
+public abstract class AbstractCollectionConverter<S, T extends Collection<S>> implements Converter<S, T> {
     private final Class<S> sourceClass;
-    private final Class<T> targetClass;
+    private final Class<? super T> targetClass;
 
-    protected AbstractConverter(Class<S> sourceClass, Class<T> targetClass) {
+    protected AbstractCollectionConverter(Class<S> sourceClass, Class<? super T> targetClass) {
         this.sourceClass = sourceClass;
         this.targetClass = targetClass;
         Converters.registerConverter(this);
@@ -41,7 +43,7 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
         return sourceClass;
     }
 
-    public final Class<T> getTargetClass() {
+    public final Class<? super T> getTargetClass() {
         return targetClass;
     }
 }

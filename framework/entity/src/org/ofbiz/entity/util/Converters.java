@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.conversion.AbstractConverter;
+import org.ofbiz.base.conversion.AbstractCollectionConverter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.ConverterLoader;
 import org.ofbiz.entity.GenericEntity;
@@ -33,7 +34,11 @@ import org.ofbiz.entity.GenericValue;
 /** Entity Engine <code>Converter</code> classes. */
 public class Converters implements ConverterLoader {
 
-    public static class GenericValueToList extends AbstractConverter<GenericValue, List<GenericValue>> {
+    public static class GenericValueToList extends AbstractCollectionConverter<GenericValue, List<GenericValue>> {
+
+        public GenericValueToList() {
+            super(GenericValue.class, List.class);
+        }
 
         public List<GenericValue> convert(GenericValue obj) throws ConversionException {
             List<GenericValue> tempList = FastList.newInstance();
@@ -41,18 +46,13 @@ public class Converters implements ConverterLoader {
             return tempList;
         }
 
-        public Class<GenericValue> getSourceClass() {
-            return GenericValue.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<List> getTargetClass() {
-            return List.class;
-        }
-
     } 
 
-    public static class GenericValueToSet extends AbstractConverter<GenericValue, Set<GenericValue>> {
+    public static class GenericValueToSet extends AbstractCollectionConverter<GenericValue, Set<GenericValue>> {
+
+        public GenericValueToSet() {
+            super(GenericValue.class, Set.class);
+        }
 
         public Set<GenericValue> convert(GenericValue obj) throws ConversionException {
             Set<GenericValue> tempSet = FastSet.newInstance();
@@ -60,61 +60,40 @@ public class Converters implements ConverterLoader {
             return tempSet;
         }
 
-        public Class<GenericValue> getSourceClass() {
-            return GenericValue.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<Set> getTargetClass() {
-            return Set.class;
-        }
-
     }
 
     public static class GenericValueToString extends AbstractConverter<GenericValue, String> {
 
+        public GenericValueToString() {
+            super(GenericValue.class, String.class);
+        }
+
         public String convert(GenericValue obj) throws ConversionException {
             return obj.toString();
-        }
-
-        public Class<GenericValue> getSourceClass() {
-            return GenericValue.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
 
     }
 
     public static class NullFieldToObject extends AbstractConverter<GenericEntity.NullField, Object> {
 
+        public NullFieldToObject() {
+            super(GenericEntity.NullField.class, Object.class);
+        }
+
         public Object convert(GenericEntity.NullField obj) throws ConversionException {
             return null;
-        }
-
-        public Class<GenericEntity.NullField> getSourceClass() {
-            return GenericEntity.NullField.class;
-        }
-
-        public Class<Object> getTargetClass() {
-            return Object.class;
         }
 
     }
 
     public static class ObjectToNullField extends AbstractConverter<Object, GenericEntity.NullField> {
 
+        public ObjectToNullField() {
+            super(Object.class, GenericEntity.NullField.class);
+        }
+
         public GenericEntity.NullField convert(Object obj) throws ConversionException {
             return GenericEntity.NULL_FIELD;
-        }
-
-        public Class<Object> getSourceClass() {
-            return Object.class;
-        }
-
-        public Class<GenericEntity.NullField> getTargetClass() {
-            return GenericEntity.NullField.class;
         }
 
     }

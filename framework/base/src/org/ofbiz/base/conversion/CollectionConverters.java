@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -32,7 +33,11 @@ import javolution.util.FastSet;
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {
 
-    public static class ArrayToList extends AbstractConverter<Object[], List<?>> {
+    public static class ArrayToList extends AbstractConverter<Object[], List> {
+
+        public ArrayToList() {
+            super(Object[].class, List.class);
+        }
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
@@ -43,94 +48,67 @@ public class CollectionConverters implements ConverterLoader {
             return Arrays.asList(obj);
         }
 
-        public Class<Object[]> getSourceClass() {
-            return Object[].class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<List> getTargetClass() {
-            return List.class;
-        }
-
     }
 
-    public static class ListToString extends AbstractConverter<List<?>, String> {
+    public static class ListToString extends AbstractConverter<List, String> {
 
-        public String convert(List<?> obj) throws ConversionException {
+        public ListToString() {
+            super(List.class, String.class);
+        }
+
+        public String convert(List obj) throws ConversionException {
             return obj.toString();
         }
 
-        @SuppressWarnings("unchecked")
-        public Class<List> getSourceClass() {
-            return List.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
-        }
-
     }
 
-    public static class MapToList extends AbstractConverter<Map<?, ?>, List<Map<?,?>>> {
+    public static class MapToList extends AbstractCollectionConverter<Map, List<Map>> {
 
-        public List<Map<?,?>> convert(Map<?, ?> obj) throws ConversionException {
-            List<Map<?,?>> tempList = FastList.newInstance();
+        public MapToList() {
+            super(Map.class, List.class);
+        }
+
+        public List<Map> convert(Map obj) throws ConversionException {
+            List<Map> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
 
-        @SuppressWarnings("unchecked")
-        public Class<Map> getSourceClass() {
-            return Map.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<List> getTargetClass() {
-            return List.class;
-        }
-
     }
 
-    public static class MapToSet extends AbstractConverter<Map<?, ?>, Set<Map<?,?>>> {
+    public static class MapToSet extends AbstractCollectionConverter<Map, Set<Map>> {
 
-        public Set<Map<?,?>> convert(Map<?, ?> obj) throws ConversionException {
-            Set<Map<?,?>> tempSet = FastSet.newInstance();
+        public MapToSet() {
+            super(Map.class, Set.class);
+        }
+
+        public Set<Map> convert(Map obj) throws ConversionException {
+            Set<Map> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
 
-        @SuppressWarnings("unchecked")
-        public Class<Map> getSourceClass() {
-            return Map.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<Set> getTargetClass() {
-            return Set.class;
-        }
-
     }
 
-    public static class MapToString extends AbstractConverter<Map<?, ?>, String> {
+    public static class MapToString extends AbstractConverter<Map, String> {
 
-        public String convert(Map<?, ?> obj) throws ConversionException {
+        public MapToString() {
+            super(Map.class, String.class);
+        }
+
+        public String convert(Map obj) throws ConversionException {
             return obj.toString();
         }
 
-        @SuppressWarnings("unchecked")
-        public Class<Map> getSourceClass() {
-            return Map.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
-        }
-
     }
 
-    public static class StringToList extends AbstractConverter<String, List<?>> {
+    public static class StringToList extends AbstractCollectionConverter<String, List<String>> {
 
-        public List<?> convert(String obj) throws ConversionException {
+        public StringToList() {
+            super(String.class, List.class);
+        }
+
+        public List<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toList(obj);
             } else {
@@ -140,40 +118,30 @@ public class CollectionConverters implements ConverterLoader {
             }
         }
 
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<List> getTargetClass() {
-            return List.class;
-        }
-
     }
 
-    public static class StringToMap extends AbstractConverter<String, Map<?, ?>> {
+    public static class StringToMap extends AbstractConverter<String, Map> {
 
-        public Map<?, ?> convert(String obj) throws ConversionException {
+        public StringToMap() {
+            super(String.class, Map.class);
+        }
+
+        public Map convert(String obj) throws ConversionException {
             if (obj.startsWith("{") && obj.endsWith("}")) {
                 return StringUtil.toMap(obj);
             }
             throw new ConversionException("Could not convert " + obj + " to Map: ");
         }
 
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<Map> getTargetClass() {
-            return Map.class;
-        }
-
     }
 
-    public static class StringToSet extends AbstractConverter<String, Set<?>> {
+    public static class StringToSet extends AbstractCollectionConverter<String, Set<String>> {
 
-        public Set<?> convert(String obj) throws ConversionException {
+        public StringToSet() {
+            super(String.class, Set.class);
+        }
+
+        public Set<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toSet(obj);
             } else {
@@ -181,15 +149,6 @@ public class CollectionConverters implements ConverterLoader {
                 tempSet.add(obj);
                 return tempSet;
             }
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        @SuppressWarnings("unchecked")
-        public Class<Set> getTargetClass() {
-            return Set.class;
         }
 
     }

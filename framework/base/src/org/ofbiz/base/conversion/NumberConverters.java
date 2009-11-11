@@ -36,6 +36,10 @@ public class NumberConverters implements ConverterLoader {
 
     public static abstract class AbstractToNumberConverter<S, T> extends AbstractUsesLocaleConverter<S, T> {
 
+        protected AbstractToNumberConverter(Class<S> sourceClass, Class<T> targetClass) {
+            super(sourceClass, targetClass);
+        }
+
         protected Number fromString(String str, Locale locale) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             try {
@@ -48,6 +52,10 @@ public class NumberConverters implements ConverterLoader {
     }
 
     public static abstract class AbstractUsesLocaleConverter<S, T> extends AbstractLocalizedConverter<S, T> {
+
+        protected AbstractUsesLocaleConverter(Class<S> sourceClass, Class<T> targetClass) {
+            super(sourceClass, targetClass);
+        }
 
         public T convert(S obj) throws ConversionException {
             return convert(obj, Locale.getDefault(), null);
@@ -62,665 +70,505 @@ public class NumberConverters implements ConverterLoader {
 
     public static class BigDecimalToDouble extends AbstractConverter<BigDecimal, Double> {
 
+        public BigDecimalToDouble() {
+            super(BigDecimal.class, Double.class);
+        }
+
         public Double convert(BigDecimal obj) throws ConversionException {
             return Double.valueOf(obj.doubleValue());
-        }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<Double> getTargetClass() {
-            return Double.class;
         }
         
     }
 
     public static class BigDecimalToFloat extends AbstractConverter<BigDecimal, Float> {
 
+        public BigDecimalToFloat() {
+            super(BigDecimal.class, Float.class);
+        }
+
         public Float convert(BigDecimal obj) throws ConversionException {
             return Float.valueOf(obj.floatValue());
-        }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<Float> getTargetClass() {
-            return Float.class;
         }
         
     }
 
     public static class BigDecimalToInteger extends AbstractConverter<BigDecimal, Integer> {
 
+        public BigDecimalToInteger() {
+            super(BigDecimal.class, Integer.class);
+        }
+
         public Integer convert(BigDecimal obj) throws ConversionException {
             return Integer.valueOf(obj.intValue());
-        }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
         
     }
 
-    public static class BigDecimalToList extends AbstractConverter<BigDecimal, List<BigDecimal>> {
+    public static class BigDecimalToList extends AbstractCollectionConverter<BigDecimal, List<BigDecimal>> {
+
+        public BigDecimalToList() {
+            super(BigDecimal.class, List.class);
+        }
 
         public List<BigDecimal> convert(BigDecimal obj) throws ConversionException {
             List<BigDecimal> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return List.class;
-        }
         
     }
 
     public static class BigDecimalToLong extends AbstractConverter<BigDecimal, Long> {
 
+        public BigDecimalToLong() {
+            super(BigDecimal.class, Long.class);
+        }
+
         public Long convert(BigDecimal obj) throws ConversionException {
             return Long.valueOf(obj.longValue());
-        }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<Long> getTargetClass() {
-            return Long.class;
         }
         
     }
 
-    public static class BigDecimalToSet extends AbstractConverter<BigDecimal, Set<BigDecimal>> {
+    public static class BigDecimalToSet extends AbstractCollectionConverter<BigDecimal, Set<BigDecimal>> {
+
+        public BigDecimalToSet() {
+            super(BigDecimal.class, Set.class);
+        }
 
         public Set<BigDecimal> convert(BigDecimal obj) throws ConversionException {
             Set<BigDecimal> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Set.class;
-        }
         
     }
 
     public static class BigDecimalToString extends AbstractUsesLocaleConverter<BigDecimal, String> {
 
+        public BigDecimalToString() {
+            super(BigDecimal.class, String.class);
+        }
+
         public String convert(BigDecimal obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.doubleValue());
-        }
-
-        public Class<BigDecimal> getSourceClass() {
-            return BigDecimal.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
         
     }
 
     public static class DoubleToBigDecimal extends AbstractConverter<Double, BigDecimal> {
 
+        public DoubleToBigDecimal() {
+            super(Double.class, BigDecimal.class);
+        }
+
         public BigDecimal convert(Double obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
-        }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<BigDecimal> getTargetClass() {
-            return BigDecimal.class;
         }
         
     }
 
     public static class DoubleToFloat extends AbstractConverter<Double, Float> {
 
+        public DoubleToFloat() {
+            super(Double.class, Float.class);
+        }
+
         public Float convert(Double obj) throws ConversionException {
             return Float.valueOf(obj.floatValue());
-        }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<Float> getTargetClass() {
-            return Float.class;
         }
         
     }
 
     public static class DoubleToInteger extends AbstractConverter<Double, Integer> {
 
+        public DoubleToInteger() {
+            super(Double.class, Integer.class);
+        }
+
         public Integer convert(Double obj) throws ConversionException {
             return Integer.valueOf(obj.intValue());
-        }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
         
     }
 
-    public static class DoubleToList extends AbstractConverter<Double, List<Double>> {
+    public static class DoubleToList extends AbstractCollectionConverter<Double, List<Double>> {
+
+        public DoubleToList() {
+            super(Double.class, List.class);
+        }
 
         public List<Double> convert(Double obj) throws ConversionException {
             List<Double> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return List.class;
-        }
         
     }
 
     public static class DoubleToLong extends AbstractConverter<Double, Long> {
 
+        public DoubleToLong() {
+            super(Double.class, Long.class);
+        }
+
         public Long convert(Double obj) throws ConversionException {
             return Long.valueOf(obj.longValue());
-        }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<Long> getTargetClass() {
-            return Long.class;
         }
         
     }
 
-    public static class DoubleToSet extends AbstractConverter<Double, Set<Double>> {
+    public static class DoubleToSet extends AbstractCollectionConverter<Double, Set<Double>> {
+
+        public DoubleToSet() {
+            super(Double.class, Set.class);
+        }
 
         public Set<Double> convert(Double obj) throws ConversionException {
             Set<Double> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Set.class;
-        }
         
     }
 
     public static class DoubleToString extends AbstractUsesLocaleConverter<Double, String> {
 
+        public DoubleToString() {
+            super(Double.class, String.class);
+        }
+
         public String convert(Double obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.doubleValue());
-        }
-
-        public Class<Double> getSourceClass() {
-            return Double.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
         
     }
 
     public static class FloatToBigDecimal extends AbstractConverter<Float, BigDecimal> {
 
+        public FloatToBigDecimal() {
+            super(Float.class, BigDecimal.class);
+        }
+
         public BigDecimal convert(Float obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
-        }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<BigDecimal> getTargetClass() {
-            return BigDecimal.class;
         }
         
     }
 
     public static class FloatToDouble extends AbstractConverter<Float, Double> {
 
+        public FloatToDouble() {
+            super(Float.class, Double.class);
+        }
+
         public Double convert(Float obj) throws ConversionException {
             return Double.valueOf(obj.doubleValue());
-        }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<Double> getTargetClass() {
-            return Double.class;
         }
         
     }
 
     public static class FloatToInteger extends AbstractConverter<Float, Integer> {
 
+        public FloatToInteger() {
+            super(Float.class, Integer.class);
+        }
+
         public Integer convert(Float obj) throws ConversionException {
             return Integer.valueOf(obj.intValue());
-        }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
         
     }
 
-    public static class FloatToList extends AbstractConverter<Float, List<Float>> {
+    public static class FloatToList extends AbstractCollectionConverter<Float, List<Float>> {
+
+        public FloatToList() {
+            super(Float.class, List.class);
+        }
 
         public List<Float> convert(Float obj) throws ConversionException {
             List<Float> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return List.class;
-        }
         
     }
 
     public static class FloatToLong extends AbstractConverter<Float, Long> {
 
+        public FloatToLong() {
+            super(Float.class, Long.class);
+        }
+
         public Long convert(Float obj) throws ConversionException {
             return Long.valueOf(obj.longValue());
-        }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<Long> getTargetClass() {
-            return Long.class;
         }
         
     }
 
-    public static class FloatToSet extends AbstractConverter<Float, Set<Float>> {
+    public static class FloatToSet extends AbstractCollectionConverter<Float, Set<Float>> {
+
+        public FloatToSet() {
+            super(Float.class, Set.class);
+        }
 
         public Set<Float> convert(Float obj) throws ConversionException {
             Set<Float> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Set.class;
-        }
         
     }
 
     public static class FloatToString extends AbstractUsesLocaleConverter<Float, String> {
 
+        public FloatToString() {
+            super(Float.class, String.class);
+        }
+
         public String convert(Float obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.floatValue());
-        }
-
-        public Class<Float> getSourceClass() {
-            return Float.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
         
     }
 
     public static class IntegerToBigDecimal extends AbstractConverter<Integer, BigDecimal> {
 
+        public IntegerToBigDecimal() {
+            super(Integer.class, BigDecimal.class);
+        }
+
         public BigDecimal convert(Integer obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
-        }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<BigDecimal> getTargetClass() {
-            return BigDecimal.class;
         }
         
     }
 
     public static class IntegerToDouble extends AbstractConverter<Integer, Double> {
 
+        public IntegerToDouble() {
+            super(Integer.class, Double.class);
+        }
+
         public Double convert(Integer obj) throws ConversionException {
             return Double.valueOf(obj.doubleValue());
-        }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<Double> getTargetClass() {
-            return Double.class;
         }
         
     }
 
     public static class IntegerToFloat extends AbstractConverter<Integer, Float> {
 
+        public IntegerToFloat() {
+            super(Integer.class, Float.class);
+        }
+
         public Float convert(Integer obj) throws ConversionException {
             return Float.valueOf(obj.floatValue());
-        }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<Float> getTargetClass() {
-            return Float.class;
         }
         
     }
 
-    public static class IntegerToList extends AbstractConverter<Integer, List<Integer>> {
+    public static class IntegerToList extends AbstractCollectionConverter<Integer, List<Integer>> {
+
+        public IntegerToList() {
+            super(Integer.class, List.class);
+        }
 
         public List<Integer> convert(Integer obj) throws ConversionException {
             List<Integer> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return List.class;
-        }
         
     }
 
     public static class IntegerToLong extends AbstractConverter<Integer, Long> {
 
+        public IntegerToLong() {
+            super(Integer.class, Long.class);
+        }
+
         public Long convert(Integer obj) throws ConversionException {
             return Long.valueOf(obj.longValue());
-        }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<Long> getTargetClass() {
-            return Long.class;
         }
         
     }
 
-    public static class IntegerToSet extends AbstractConverter<Integer, Set<Integer>> {
+    public static class IntegerToSet extends AbstractCollectionConverter<Integer, Set<Integer>> {
+
+        public IntegerToSet() {
+            super(Integer.class, Set.class);
+        }
 
         public Set<Integer> convert(Integer obj) throws ConversionException {
             Set<Integer> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Set.class;
-        }
         
     }
 
     public static class IntegerToString extends AbstractUsesLocaleConverter<Integer, String> {
 
+        public IntegerToString() {
+            super(Integer.class, String.class);
+        }
+
         public String convert(Integer obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.intValue());
-        }
-
-        public Class<Integer> getSourceClass() {
-            return Integer.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
         
     }
 
     public static class LongToBigDecimal extends AbstractConverter<Long, BigDecimal> {
 
+        public LongToBigDecimal() {
+            super(Long.class, BigDecimal.class);
+        }
+
         public BigDecimal convert(Long obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
-        }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<BigDecimal> getTargetClass() {
-            return BigDecimal.class;
         }
         
     }
 
     public static class LongToDouble extends AbstractConverter<Long, Double> {
 
+        public LongToDouble() {
+            super(Long.class, Double.class);
+        }
+
         public Double convert(Long obj) throws ConversionException {
             return Double.valueOf(obj.doubleValue());
-        }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<Double> getTargetClass() {
-            return Double.class;
         }
         
     }
 
     public static class LongToFloat extends AbstractConverter<Long, Float> {
 
+        public LongToFloat() {
+            super(Long.class, Float.class);
+        }
+
         public Float convert(Long obj) throws ConversionException {
             return Float.valueOf(obj.floatValue());
-        }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<Float> getTargetClass() {
-            return Float.class;
         }
         
     }
 
     public static class LongToInteger extends AbstractConverter<Long, Integer> {
 
+        public LongToInteger() {
+            super(Long.class, Integer.class);
+        }
+
         public Integer convert(Long obj) throws ConversionException {
             return Integer.valueOf(obj.intValue());
-        }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
         
     }
 
-    public static class LongToList extends AbstractConverter<Long, List<Long>> {
+    public static class LongToList extends AbstractCollectionConverter<Long, List<Long>> {
+
+        public LongToList() {
+            super(Long.class, List.class);
+        }
 
         public List<Long> convert(Long obj) throws ConversionException {
             List<Long> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return List.class;
-        }
         
     }
 
-    public static class LongToSet extends AbstractConverter<Long, Set<Long>> {
+    public static class LongToSet extends AbstractCollectionConverter<Long, Set<Long>> {
+
+        public LongToSet() {
+            super(Long.class, Set.class);
+        }
 
         public Set<Long> convert(Long obj) throws ConversionException {
             Set<Long> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Set.class;
-        }
         
     }
 
     public static class LongToString extends AbstractUsesLocaleConverter<Long, String> {
 
+        public LongToString() {
+            super(Long.class, String.class);
+        }
+
         public String convert(Long obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.longValue());
-        }
-
-        public Class<Long> getSourceClass() {
-            return Long.class;
-        }
-
-        public Class<String> getTargetClass() {
-            return String.class;
         }
         
     }
 
     public static class StringToBigDecimal extends AbstractToNumberConverter<String, BigDecimal> {
 
+        public StringToBigDecimal() {
+            super(String.class, BigDecimal.class);
+        }
+
         public BigDecimal convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return BigDecimal.valueOf(this.fromString(obj, locale).doubleValue());
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<BigDecimal> getTargetClass() {
-            return BigDecimal.class;
         }
         
     }
 
     public static class StringToDouble extends AbstractToNumberConverter<String, Double> {
 
+        public StringToDouble() {
+            super(String.class, Double.class);
+        }
+
         public Double convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return this.fromString(obj, locale).doubleValue();
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Double> getTargetClass() {
-            return Double.class;
         }
         
     }
 
     public static class StringToFloat extends AbstractToNumberConverter<String, Float> {
 
+        public StringToFloat() {
+            super(String.class, Float.class);
+        }
+
         public Float convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return this.fromString(obj, locale).floatValue();
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Float> getTargetClass() {
-            return Float.class;
         }
         
     }
 
     public static class StringToInteger extends AbstractToNumberConverter<String, Integer> {
 
+        public StringToInteger() {
+            super(String.class, Integer.class);
+        }
+
         public Integer convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return this.fromString(obj, locale).intValue();
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Integer> getTargetClass() {
-            return Integer.class;
         }
         
     }
 
     public static class StringToLong extends AbstractToNumberConverter<String, Long> {
 
+        public StringToLong() {
+            super(String.class, Long.class);
+        }
+
         public Long convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return this.fromString(obj, locale).longValue();
-        }
-
-        public Class<String> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<Long> getTargetClass() {
-            return Long.class;
         }
         
     }
