@@ -22,17 +22,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro para para>
-<p>
-  <#list para?children as child>
+<#macro text text>
+  <#list text?children as child>
     <#if child?node_type = "text">
-  ${child}
+      ${child}
     <#elseif child?node_type = 'element' && child?node_name = "link">
-  <a href="${child["@xl:href"]}">${child}</a>
+      <a href="${child["@xl:href"]}">${child}</a>
+    <#elseif child?node_type = 'element' && child?node_name = "orderedlist">
+     <@orderedlist node=child/>
+    <#elseif child?node_type = 'element' && child?node_name = "itemizedlist">
+     <@itemizedlist node=child/>
     </#if>
   </#list>
-  <br/><br/>            
-</p>
 </#macro>
 
 <#macro section inSection first="no">
@@ -41,15 +42,42 @@ under the License.
       <#if first = "yes"> 
         <h1>${subSection}</h1>
       <#else>
-        <h2>${subSection}</h2>
+        <br/><h2>${subSection}</h2>
       </#if>
     <#elseif subSection?node_name = "para">
-        <@para para=subSection/>
+        <p><@para para=subSection/></p>
     <#elseif subSection?node_name = "section">
         <@section inSection=subSection/>
+    <#elseif subSection?node_name = "orderedlist">
+        <@orderedlist node=subSection/>
+    <#elseif subSection?node_name  = "itemizedlist">
+        <@itemizedlist node=subSection/>
     </#if>
   </#list>
-  <br/><br/>
+</#macro>
+
+<#macro listItems node>
+  <#list node?children as item>
+    <#if item?node_type = "element" && item?node_name = "listitem">
+      <#list item.* as subpara>
+        <li><@para para=subpara/></li>
+      </#list>  
+    </#if>
+  </#list>
+</#macro>
+
+<#macro orderedlist node>
+  <ol class=numbers><@listItems node=node/></ol>
+</#macro>
+
+<#macro itemizedlist node>
+  <ul class=dots><@listItems node=node/></ul>
+</#macro>
+
+
+
+<#macro para para>
+  <@text text=para/>
 </#macro>
 
 <div class="contentarea">
