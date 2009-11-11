@@ -19,7 +19,7 @@
 package org.ofbiz.base.conversion;
 
 /** Boolean Converter classes. */
-public class BooleanConverters {
+public class BooleanConverters implements ConverterLoader {
 
     public static class BooleanToInteger extends AbstractConverter<Boolean, Integer> {
 
@@ -84,4 +84,9 @@ public class BooleanConverters {
         }
         
     }
+
+    public void loadConverters() {
+        Converters.loadContainedConverters(BooleanConverters.class);
+    }
+
 }

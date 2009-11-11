@@ -30,7 +30,9 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 /** Number Converter classes. */
-public class NumberConverters {
+public class NumberConverters implements ConverterLoader {
+
+    public static final String module = NumberConverters.class.getName();
 
     public static abstract class AbstractToNumberConverter<S, T> extends AbstractUsesLocaleConverter<S, T> {
 
@@ -722,4 +724,9 @@ public class NumberConverters {
         }
         
     }
+
+    public void loadConverters() {
+        Converters.loadContainedConverters(NumberConverters.class);
+    }
+
 }

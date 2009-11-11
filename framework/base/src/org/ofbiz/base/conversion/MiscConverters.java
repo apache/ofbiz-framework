@@ -26,7 +26,7 @@ import java.util.Locale;
 import org.ofbiz.base.util.UtilMisc;
 
 /** Miscellaneous Converter classes. */
-public class MiscConverters {
+public class MiscConverters implements ConverterLoader {
 
     public static final int CHAR_BUFFER_SIZE = 4096;
 
@@ -100,6 +100,10 @@ public class MiscConverters {
             return Locale.class;
         }
 
+    }
+
+    public void loadConverters() {
+        Converters.loadContainedConverters(MiscConverters.class);
     }
 
 }
