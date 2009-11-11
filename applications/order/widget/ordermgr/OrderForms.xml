@@ -217,5 +217,34 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}"><display/></field>
     </form>
-
+    <form name="ListPurchaseOrders" type="list" target="" list-name="listIt" title="" odd-row-style="alternate-row" 
+        header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="OrderHeaderAndRoles">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="roleTypeId" from-field="roleTypeId"/>
+                <order-by field-name="orderDate DESC"/>
+            </entity-and>
+        </actions>
+        <field name="orderTypeId" title="${uiLabelMap.FormFieldTitle_orderTypeId}">
+            <display-entity entity-name="OrderType" description="${description}"/>
+        </field>
+        <field name="orderId" title="${uiLabelMap.OrderOrderId}">
+            <hyperlink target="orderview" description="${orderId}">
+                <parameter param-name="orderId"/>
+            </hyperlink>
+        </field>
+        <field name="orderName" title="${uiLabelMap.OrderOrderName}"><display/></field>
+        <field name="remainingSubTotal" title="${uiLabelMap.FormFieldTitle_remainingSubTotal}"><display/></field>
+        <field name="grandTotal" title="${uiLabelMap.OrderGrandTotal}"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="orderDate" title="${uiLabelMap.OrderOrderDate}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity entity-name="PartyNameView" description="${groupName}"/>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
+            <display-entity entity-name="RoleType" description="${description}"/>
+        </field>
+    </form>
+    
 </forms>
