@@ -21,11 +21,14 @@ package org.ofbiz.base.conversion;
 import java.math.BigDecimal;
 import java.sql.Clob;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+
+import javax.imageio.spi.ServiceRegistry;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -127,6 +130,15 @@ public class Converters {
     public static final LocalizedConverter<String, java.sql.Timestamp> StringToTimestamp = new StringToTimestamp();
     public static final Converter<String, TimeZone> StringToTimeZone = new StringToTimeZone();
     public static final Converter<TimeZone, String> TimeZoneToString = new TimeZoneToString();
+
+    static {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Iterator<ConverterLoader> converterLoaders = ServiceRegistry.lookupProviders(ConverterLoader.class, loader);
+        while (converterLoaders.hasNext()) {
+            ConverterLoader converterLoader = converterLoaders.next();
+            converterLoader.loadConverters();
+        }
+    }
 
     private Converters() {}
 
