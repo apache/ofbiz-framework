@@ -27,14 +27,11 @@ import javolution.util.FastSet;
 import org.ofbiz.base.conversion.AbstractConverter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.ConverterLoader;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericValue;
 
 /** Entity Engine <code>Converter</code> classes. */
 public class Converters implements ConverterLoader {
-
-    public static final String module = Converters.class.getName();
 
     public static class GenericValueToList extends AbstractConverter<GenericValue, List<GenericValue>> {
 
@@ -123,14 +120,7 @@ public class Converters implements ConverterLoader {
     }
 
     public void loadConverters() {
-        Class<?>[] classArray = Converters.class.getClasses();
-        for (int i = 0; i < classArray.length; i++) {
-            try {
-                classArray[i].newInstance();
-            } catch (Exception e) {
-                Debug.logError(e, module);
-            }
-        }
+        org.ofbiz.base.conversion.Converters.loadContainedConverters(Converters.class);
     }
 
 }
