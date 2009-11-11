@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="dataEvents.error_call_create_service">
+        <value xml:lang="da">Fejl ved kald af service createDataResource</value>
         <value xml:lang="de">Fehler beim Aufruf createDataResource Service</value>
         <value xml:lang="en">Error calling the createDataResource service</value>
         <value xml:lang="es">Error al llamar al servicio 'createDataResource'</value>
@@ -30,6 +31,7 @@
         <value xml:lang="zh">调用新建数据资源（createDataResource）服务时出错</value>
     </property>
     <property key="dataEvents.error_call_update_service">
+        <value xml:lang="da">Fejl ved kald af service updateDataResource</value>
         <value xml:lang="de">Fehler beim Aufruf updateDataResource Service</value>
         <value xml:lang="en">Error calling the updateDataResource service</value>
         <value xml:lang="es">Error al llamar al servicio 'updateDataResource'</value>
@@ -40,6 +42,7 @@
         <value xml:lang="zh">调用更新数据资源（updateDataResource）服务时出错</value>
     </property>
     <property key="dataEvents.error_get_image">
+        <value xml:lang="da">Fejl under hentning af billedrecord fra acquireImage</value>
         <value xml:lang="de">Fehler beim Holen des Bild Datensatzes von acquireImage</value>
         <value xml:lang="en">Error getting image record from acquireImage</value>
         <value xml:lang="es">Error al obtener la imagen a partir de la captura de imagenes</value>
@@ -50,6 +53,7 @@
         <value xml:lang="zh">从获取图像（acquireImage）获得图像记录时出错</value>
     </property>
     <property key="dataEvents.error_write_image">
+        <value xml:lang="da">Fejl under skrivning af billede til OutputStream</value>
         <value xml:lang="de">Fehler beim Schreiben des Bildes in den Outputstream</value>
         <value xml:lang="en">Error writing image to OutputStream</value>
         <value xml:lang="es">Error al imprimir la imagen en la salida</value>
@@ -60,6 +64,7 @@
         <value xml:lang="zh">把图像写入OutputStream时出错</value>
     </property>
     <property key="dataEvents.image_or_type_null">
+        <value xml:lang="da">billede({b}) eller type(${imageType}) er null eller tom</value>
         <value xml:lang="de">image({b}) oder Typ(${imageType}) ist null oder leer</value>
         <value xml:lang="en">image({b}) or type(${imageType}) is null or empty</value>
         <value xml:lang="es">imagen({b}) o tipo(${imageType}) son nulos o están vacios</value>
@@ -70,6 +75,7 @@
         <value xml:lang="zh">图像({b})或类型(${imageType})为null或为空</value>
     </property>
     <property key="dataResourceWorker.image_or_field_null">
+        <value xml:lang="da">imageFi(${imageFi}) eller idFieldValue(${idFieldValue}) er null</value>
         <value xml:lang="de">imageFi(${imageFi}) oder idFieldValue(${idFieldValue}) ist null</value>
         <value xml:lang="en">imageFi(${imageFi}) or idFieldValue(${idFieldValue}) is null</value>
         <value xml:lang="es">Imagen(${imageFi}) or Campo(${idFieldValue}) son nulos</value>
@@ -80,6 +86,7 @@
         <value xml:lang="zh">imageFi(${imageFi})或idFieldValue(${idFieldValue})为null</value>
     </property>
     <property key="dataResourceWorker.no_files_uploaded">
+        <value xml:lang="da">Ingen filer er uploaded</value>
         <value xml:lang="de">Keine Dateien hochgeladen</value>
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron los archivos</value>
@@ -90,6 +97,7 @@
         <value xml:lang="zh">没有上传文件</value>
     </property>
     <property key="layoutEvents.content_empty">
+        <value xml:lang="da">indhold er tomt</value>
         <value xml:lang="de">Inhalt ist leer</value>
         <value xml:lang="en">content is empty</value>
         <value xml:lang="es">El contenido está vacio</value>
@@ -100,6 +108,7 @@
         <value xml:lang="zh">内容为空</value>
     </property>
     <property key="layoutEvents.content_id_empty">
+        <value xml:lang="da">contentId er tomt</value>
         <value xml:lang="de">Inhalt ID ist leer</value>
         <value xml:lang="en">contentId is empty</value>
         <value xml:lang="es">El id del contenido está vacío</value>
@@ -110,6 +119,7 @@
         <value xml:lang="zh">内容标识（contentId）为空</value>
     </property>
     <property key="layoutEvents.content_id_to_null">
+        <value xml:lang="da">contentIdTo er null</value>
         <value xml:lang="de">Inhalt ID zu ist leer</value>
         <value xml:lang="en">contentIdTo is null</value>
         <value xml:lang="es">El id del contenido es nulo</value>
@@ -120,6 +130,7 @@
         <value xml:lang="zh">contentIdTo为null</value>
     </property>
     <property key="layoutEvents.data_ressource_id_null">
+        <value xml:lang="da">DataRessourceId er null</value>
         <value xml:lang="de">Datenressource ID ist null</value>
         <value xml:lang="en">DataRessourceId is null</value>
         <value xml:lang="es">El id del recurso de datos está vacío</value>
@@ -130,6 +141,7 @@
         <value xml:lang="zh">数据资源标识（DataRessourceId）为null</value>
     </property>
     <property key="layoutEvents.empty">
+        <value xml:lang="da">er tom</value>
         <value xml:lang="de">ist leer</value>
         <value xml:lang="en">is empty</value>
         <value xml:lang="es">Vacío</value>
@@ -140,6 +152,7 @@
         <value xml:lang="zh">为空</value>
     </property>
     <property key="layoutEvents.entityname_empty">
+        <value xml:lang="da">'entityName' er tom</value>
         <value xml:lang="de">'Entitätenname' ist leer</value>
         <value xml:lang="en">'entityName' is empty</value>
         <value xml:lang="es">'entityName' está vacío</value>
@@ -150,6 +163,7 @@
         <value xml:lang="zh">'实体名称（entityName）'为空</value>
     </property>
     <property key="layoutEvents.image_data_null">
+        <value xml:lang="da">Billeddata er null</value>
         <value xml:lang="de">Bilddaten sind leer</value>
         <value xml:lang="en">Image data is null</value>
         <value xml:lang="es">Imagen es nula</value>
@@ -160,6 +174,7 @@
         <value xml:lang="zh">图像数据为null</value>
     </property>
     <property key="layoutEvents.no_subcontent">
+        <value xml:lang="da">Ingen subindhold fundet</value>
         <value xml:lang="de">Keinen untergeordneten Inhalt gefunden</value>
         <value xml:lang="en">No subcontent found</value>
         <value xml:lang="es">No se encontro subcontenido</value>
@@ -170,6 +185,7 @@
         <value xml:lang="zh">没有找到子内容</value>
     </property>
     <property key="layoutWorker.image_null">
+        <value xml:lang="da">imageFi(${imageFi}) er null</value>
         <value xml:lang="de">ImageFi(${imageFi}) ist null</value>
         <value xml:lang="en">imageFi(${imageFi}) is null</value>
         <value xml:lang="es">Imagen(${imageFi}) eestá vacía</value>
@@ -180,6 +196,7 @@
         <value xml:lang="zh">imageFi(${imageFi})为null</value>
     </property>
     <property key="layoutWorker.no_files_uploaded">
+        <value xml:lang="da">Ingen filer uploaded</value>
         <value xml:lang="de">Keine Dateien hochgeladen</value>
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron archivos</value>
@@ -190,6 +207,7 @@
         <value xml:lang="zh">没有上传文件</value>
     </property>
     <property key="uploadContentAndImage.no_files_uploaded">
+        <value xml:lang="da">Ingen filer uploaded</value>
         <value xml:lang="de">Keine Dateien hochgeladen</value>
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron archivos</value>
