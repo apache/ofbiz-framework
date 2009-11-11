@@ -18,17 +18,12 @@
  */
 package org.ofbiz.entity.util;
 
-import java.util.Map;
-
 import org.ofbiz.base.util.CachedClassLoader;
 
 public class CachedClassLoaderInit implements CachedClassLoader.Init {
-    public void loadClasses(ClassLoader loader, Map<String, Class<?>> classNameMap) throws ClassNotFoundException {
-        classNameMap.put("GenericValue", loader.loadClass("org.ofbiz.entity.GenericValue"));
-        classNameMap.put("org.ofbiz.entity.GenericValue", loader.loadClass("org.ofbiz.entity.GenericValue"));
-        classNameMap.put("GenericPK", loader.loadClass("org.ofbiz.entity.GenericPK"));
-        classNameMap.put("org.ofbiz.entity.GenericPK", loader.loadClass("org.ofbiz.entity.GenericPK"));
-        classNameMap.put("GenericEntity", loader.loadClass("org.ofbiz.entity.GenericEntity"));
-        classNameMap.put("org.ofbiz.entity.GenericEntity", loader.loadClass("org.ofbiz.entity.GenericEntity"));
+    public void loadClasses(ClassLoader loader) throws ClassNotFoundException {
+        CachedClassLoader.registerClass(loader.loadClass("org.ofbiz.entity.GenericValue"));
+        CachedClassLoader.registerClass(loader.loadClass("org.ofbiz.entity.GenericPK"));
+        CachedClassLoader.registerClass(loader.loadClass("org.ofbiz.entity.GenericEntity"));
     }
 }
