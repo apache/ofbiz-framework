@@ -51,7 +51,7 @@ actualCurrCond = EntityCondition.makeCondition("currencyUomId", EntityOperator.E
 
 topCond = EntityCondition.makeCondition([partyCond, statusCond, currCond], EntityOperator.AND);
 topCondActual = EntityCondition.makeCondition([partyCond, statusCond, actualCurrCond], EntityOperator.AND);
-fields = new HashSet(["invoiceId", , "invoiceTypeId", "currencyUomId", "description", "invoiceDate"]);
+fields = new HashSet(["invoiceId", "invoiceTypeId", "currencyUomId", "description", "invoiceDate"]);
 
 //retrieve invoices for the related parties which have not been (fully) applied yet and which have the same currency as the payment
 invoices = delegator.findList("Invoice", topCond, fields, ["invoiceDate"], null, false);
