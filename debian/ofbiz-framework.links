@@ -1,3 +1,2 @@
 usr/share/java/postgresql.jar usr/share/ofbiz/framework/entity/lib/jdbc/postgresql.jar
 usr/share/java/mysql.jar usr/share/ofbiz/framework/entity/lib/jdbc/mysql.jar
-var/lib/ofbiz/runtime/uploads usr/share/ofbiz/runtime/uploads
