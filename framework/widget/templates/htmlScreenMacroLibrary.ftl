@@ -63,7 +63,7 @@ under the License.
 <#macro renderHorizontalSeparator id style><hr<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>/></#macro>
 
 <#macro renderLabel text id style>
-  <#if text?exists>
+  <#if text?has_content>
     <#-- Label is considered block level element in screen widget. There is not reason to render text outside of any html element. Use of style element has set pattern and we'll use style 
        to determine appropriate html element to use -->
     <#if style?has_content>
