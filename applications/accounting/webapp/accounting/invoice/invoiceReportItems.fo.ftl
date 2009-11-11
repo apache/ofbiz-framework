@@ -19,25 +19,50 @@ under the License.
 <#escape x as x?xml>
     <#-- list of orders -->
     <#if orders?has_content>
-    <fo:table space-after="0.3in">
+    <fo:table>
         <fo:table-column column-width="1in"/>
         <fo:table-column column-width="5.5in"/>
 
         <fo:table-body>
           <fo:table-row>
             <fo:table-cell>
-              <fo:block font-size="10pt" font-weight="bold">${uiLabelMap.AccountingOrderNr}:</fo:block>
+              <fo:block font-weight="bold">${uiLabelMap.AccountingOrderNr}:</fo:block>
             </fo:table-cell>
             <fo:table-cell>
-              <fo:block font-size ="10pt" font-weight="bold"><#list orders as order> ${order} </#list></fo:block>
+              <fo:block font-size ="10pt" font-weight="bold"><#list orders as order>${order} </#list></fo:block>
             </fo:table-cell>
           </fo:table-row>
         </fo:table-body>
     </fo:table>
     </#if>
-    <#-- TODO: put shipment information here or somewhere -->
 
-    <fo:table>
+    <#-- list of terms -->
+    <#if terms?has_content>
+    <fo:table space-before="0.1in">
+        <fo:table-column column-width="6.5in"/>
+
+        <fo:table-header height="14px">
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block font-weight="bold">${uiLabelMap.AccountingAgreementItemTerms}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-header>
+
+        <fo:table-body>
+          <#list terms as term>
+          <#assign termType = term.getRelatedOne("TermType")/>
+          <fo:table-row>
+            <fo:table-cell>
+              <fo:block font-size ="10pt" font-weight="bold">${termType.description?if_exists} ${term.description?if_exists} ${term.termDays?if_exists} ${term.textValue?if_exists}</fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          </#list>
+        </fo:table-body>
+    </fo:table>
+    </#if>
+
+    <fo:table space-before="0.2in">
     <fo:table-column column-width="20mm"/>
     <fo:table-column column-width="85mm"/>
     <fo:table-column column-width="15mm"/>
