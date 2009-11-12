@@ -26,6 +26,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.ofbiz.base.util.StringUtil;
+
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
@@ -520,7 +522,11 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return BigDecimal.valueOf(this.fromString(obj, locale).doubleValue());
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return BigDecimal.valueOf(this.fromString(trimStr, locale).doubleValue());
         }
         
     }
@@ -532,7 +538,11 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public Double convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return this.fromString(obj, locale).doubleValue();
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return this.fromString(trimStr, locale).doubleValue();
         }
         
     }
@@ -544,7 +554,11 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public Float convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return this.fromString(obj, locale).floatValue();
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return this.fromString(trimStr, locale).floatValue();
         }
         
     }
@@ -556,7 +570,11 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public Integer convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return this.fromString(obj, locale).intValue();
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return this.fromString(trimStr, locale).intValue();
         }
         
     }
@@ -568,7 +586,11 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public Long convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            return this.fromString(obj, locale).longValue();
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return this.fromString(trimStr, locale).longValue();
         }
         
     }
