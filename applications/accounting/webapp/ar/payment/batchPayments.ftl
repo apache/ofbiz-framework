@@ -54,7 +54,7 @@ function getPaymentRunningTotal() {
     }
 }
 function setServiceName(selection) {
-    if (selection.value == 'massPaymentsToNotPaid' || selection.value == 'massPaymentsToSent' || selection.value == 'massPaymentsToReceived' || selection.value == 'massPaymentsToConfirmed' || selection.value == 'massPaymentsToCancelled' || selection.value == 'massPaymentsToVoid') {
+    if (selection.value == 'massPaymentsToNotPaid' || selection.value == 'massPaymentsToReceived' || selection.value == 'massPaymentsToConfirmed' || selection.value == 'massPaymentsToCancelled' || selection.value == 'massPaymentsToVoid') {
         $('paymentBatchForm').action = $('paymentStatusChange').value;
     }
     else {
@@ -62,9 +62,7 @@ function setServiceName(selection) {
     }
     if (selection.value == 'massPaymentsToNotPaid') {
         $('statusId').value = "PMNT_NOT_PAID";
-    } else if (selection.value == 'massPaymentsToSent') {
-        $('statusId').value = "PMNT_SENT";
-    }else if (selection.value == 'massPaymentsToReceived') {
+    } else if (selection.value == 'massPaymentsToReceived') {
         $('statusId').value = "PMNT_RECEIVED";
     }else if (selection.value == 'massPaymentsToConfirmed') {
         $('statusId').value = "PMNT_CONFIRMED";
@@ -102,7 +100,6 @@ function setServiceName(selection) {
                         <option value="">${uiLabelMap.AccountingSelectAction}</options>
                         <option value="<@ofbizUrl>createPaymentBatch</@ofbizUrl>" id="processBatchPayment">${uiLabelMap.AccountingCreateBatch}</option>
                         <option value="massPaymentsToNotPaid">${uiLabelMap.AccountingPaymentStatusToNotPaid}</option>
-                        <option value="massPaymentsToSent">${uiLabelMap.AccountingInvoiceStatusToSent}</option>
                         <option value="massPaymentsToReceived">${uiLabelMap.AccountingInvoiceStatusToReceived}</option>
                         <option value="massPaymentsToConfirmed">${uiLabelMap.AccountingPaymentTabStatusToConfirmed}</option>
                         <option value="massPaymentsToCancelled">${uiLabelMap.AccountingPaymentTabStatusToCancelled}</option>
