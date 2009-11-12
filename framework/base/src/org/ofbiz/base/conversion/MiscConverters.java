@@ -27,11 +27,9 @@ import org.ofbiz.base.util.UtilMisc;
 
 /** Miscellaneous Converter classes. */
 public class MiscConverters implements ConverterLoader {
-
     public static final int CHAR_BUFFER_SIZE = 4096;
 
     public static class ClobToString extends AbstractConverter<Clob, String> {
-
         public ClobToString() {
             super(Clob.class, String.class);
         }
@@ -58,11 +56,9 @@ public class MiscConverters implements ConverterLoader {
             }
             return strBuf.toString();
         }
-
     }
 
     public static class LocaleToString extends AbstractConverter<Locale, String> {
-
         public LocaleToString() {
             super(Locale.class, String.class);
         }
@@ -70,11 +66,9 @@ public class MiscConverters implements ConverterLoader {
         public String convert(Locale obj) throws ConversionException {
              return obj.toString();
         }
-
     }
 
     public static class StringToLocale extends AbstractConverter<String, Locale> {
-
         public StringToLocale() {
             super(String.class, Locale.class);
         }
@@ -87,11 +81,9 @@ public class MiscConverters implements ConverterLoader {
                 throw new ConversionException("Could not convert " + obj + " to Locale: ");
             }
         }
-
     }
 
     public void loadConverters() {
         Converters.loadContainedConverters(MiscConverters.class);
     }
-
 }

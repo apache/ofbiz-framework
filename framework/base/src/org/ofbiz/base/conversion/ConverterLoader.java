@@ -23,7 +23,6 @@ package org.ofbiz.base.conversion;
  * 
  */
 public interface ConverterLoader {
-
     /** Create and register converters with the Java object type
      * conversion framework. If the converter extends one of the
      * converter abstract classes, then the converter will register
@@ -33,5 +32,4 @@ public interface ConverterLoader {
      * 
      */
     public void loadConverters();
-
 }
