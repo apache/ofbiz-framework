@@ -18,25 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.nio.Buffer;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converter;

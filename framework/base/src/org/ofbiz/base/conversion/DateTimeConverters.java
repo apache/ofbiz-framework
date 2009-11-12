@@ -283,7 +283,8 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public Calendar convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            if (obj.length() == 0) {
+            String trimStr = obj.trim();
+            if (trimStr.length() == 0) {
                 return null;
             }
             DateFormat df = null;
@@ -293,7 +294,7 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
             }
             try {
-                java.util.Date date = df.parse(obj);
+                java.util.Date date = df.parse(trimStr);
                 return UtilDateTime.toCalendar(date, timeZone, locale);
             } catch (ParseException e) {
                 throw new ConversionException(e);
@@ -309,7 +310,8 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.util.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            if (obj.length() == 0) {
+            String trimStr = obj.trim();
+            if (trimStr.length() == 0) {
                 return null;
             }
             DateFormat df = null;
@@ -319,7 +321,7 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
             }
             try {
-                return df.parse(obj);
+                return df.parse(trimStr);
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
@@ -346,7 +348,8 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            if (obj.length() == 0) {
+            String trimStr = obj.trim();
+            if (trimStr.length() == 0) {
                 return null;
             }
             DateFormat df = null;
@@ -356,7 +359,7 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toDateFormat(formatString, timeZone, locale);
             }
             try {
-                return new java.sql.Date(df.parse(obj).getTime());
+                return new java.sql.Date(df.parse(trimStr).getTime());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
@@ -371,7 +374,8 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            if (obj.length() == 0) {
+            String trimStr = obj.trim();
+            if (trimStr.length() == 0) {
                 return null;
             }
             DateFormat df = null;
@@ -381,7 +385,7 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toTimeFormat(formatString, timeZone, locale);
             }
             try {
-                return new java.sql.Time(df.parse(obj).getTime());
+                return new java.sql.Time(df.parse(trimStr).getTime());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
@@ -396,7 +400,8 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            if (obj.length() == 0) {
+            String trimStr = obj.trim();
+            if (trimStr.length() == 0) {
                 return null;
             }
             DateFormat df = null;
@@ -406,7 +411,7 @@ public class DateTimeConverters implements ConverterLoader {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
             }
             try {
-                return new java.sql.Timestamp(df.parse(obj).getTime());
+                return new java.sql.Timestamp(df.parse(trimStr).getTime());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
