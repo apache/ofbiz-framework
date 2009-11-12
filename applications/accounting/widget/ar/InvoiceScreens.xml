@@ -26,14 +26,30 @@ under the License.
             <actions>
                 <set field="headerItem" value="reports"/>
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
+                <set field="invoiceTypeId" value="SALES_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.AccountingReports}">
+                        <screenlet title="${uiLabelMap.AccountingPastDueInvoices}: (${PastDueInvoicestotalAmount})">
                             <section>
+                                <actions>
+                                    <set field="invoices" from-field="PastDueInvoices"/>
+                                </actions>
                                 <widgets>
                                     <include-form name="ListReports" location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingInvoicesDueSoon}: (${InvoicesDueSoonTotalAmount})">
+                            <section>
+                                <actions>
+                                    <set field="invoices" from-field="InvoicesDueSoon"/>
+                                </actions>
+                                <widgets>
+                                    <include-form name="ListReports"  location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>

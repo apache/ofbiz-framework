@@ -21,26 +21,8 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
    <!-- show list of upto 10 Invoices past due for longest duration -->
-    <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="invoices" target="" default-entity-name="Invoice"
+    <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="invoices" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
-        <actions>
-            <entity-condition entity-name="Invoice" list="invoices">
-                <condition-list>
-                    <condition-expr field-name="invoiceTypeId" value="SALES_INVOICE"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="statusId" value="INVOICE_SENT"/>
-                        <condition-expr field-name="statusId" value="INVOICE_APPROVED"/>
-                    </condition-list>
-                    <condition-list combine="or">
-                        <condition-expr field-name="dueDate" operator="equals" from-field="nullField"/>
-                        <condition-expr field-name="dueDate" operator="less" value="${nowTimestamp}"/>
-                    </condition-list>
-                </condition-list>
-                <order-by field-name="dueDate"/>
-                <!-- <limit-range start="0" size="10"/> -->
-                <use-iterator/>
-            </entity-condition>
-        </actions>
         <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
                 <field-map field-name="partyId" from-field="partyIdFrom"/>
