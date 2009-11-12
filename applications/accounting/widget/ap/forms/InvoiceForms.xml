@@ -20,18 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListReports" type="list" separate-columns="true" title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonList}" list-name="listIt" target="" default-entity-name="Invoice"
+    <form name="ListReports" type="list" separate-columns="true" title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonList}" list-name="invoices" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="Invoice" list="invoices">
-                <condition-list>
-                    <condition-expr field-name="statusId" value="INVOICE_SENT"/>
-                    <condition-expr field-name="dueDate" operator="greater" value="${nowTimestamp}"/>
-                </condition-list>
-                <order-by field-name="dueDate"/>
-                <limit-range start="0" size="10"/>
-            </entity-condition>
-        </actions>
         <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
                 <field-map field-name="partyId" from-field="partyIdFrom"/>

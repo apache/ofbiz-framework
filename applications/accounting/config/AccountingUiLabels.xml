@@ -5174,6 +5174,9 @@
         <value xml:lang="th">ใบกำกับการขาย</value>
         <value xml:lang="zh">销售发票</value>
     </property>
+    <property key="AccountingInvoicesDueSoon">
+        <value xml:lang="en">Invoices Due Soon</value>
+    </property>
     <property key="AccountingInvoiceStatus">
         <value xml:lang="ar">الوضعيات</value>
         <value xml:lang="de">Status</value>
@@ -7730,6 +7733,9 @@
         <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario PERIOD_MAINT)</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (PERIOD_MAINT ที่ต้องการ)</value>
         <value xml:lang="zh">你没有权限使用这个页面(需要PERIOD_MAINT)</value>
+    </property>
+    <property key="AccountingPastDueInvoices">
+        <value xml:lang="en">Past Due Invoices</value>
     </property>
     <property key="AccountingOrgPartyId">
         <value xml:lang="en">Org Party Id</value>
