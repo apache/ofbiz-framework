@@ -64,7 +64,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public T convert(S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            return convert(obj, Locale.getDefault(), null);
+            return convert(obj, locale, null);
         }
 
 
