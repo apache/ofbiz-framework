@@ -18,7 +18,7 @@
     under the License.
 -->
 <entity-engine-xml>
-    <PortalPage portalPageId="SFA_MAIN" sequenceNum="0" portalPageName="Main" description="The SFA main page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="SFA_MAIN" sequenceNum="0" portalPageName="Main" description="The SFA main page" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="SFA_MAIN" columnSeqId="00001"/>
     <PortalPagePortlet portalPageId="SFA_MAIN" portalPortletId="Calendar" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="SFA_MAIN" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>

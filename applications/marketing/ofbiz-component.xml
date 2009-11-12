@@ -49,7 +49,7 @@ under the License.
         title="SFA"
         server="default-server"
         location="webapp/sfa"
-        base-permission="OFBTOOLS,MARKETING"
+        base-permission="OFBTOOLS,SFA"
         mount-point="/sfa"/>
 </ofbiz-component>
 
