@@ -75,11 +75,11 @@ public class ServiceEcaSetField {
                 valueMap = FastMap.newInstance();
             }
             // process the context changes
-            String newValue = null;
+            Object newValue = null;
             if (UtilValidate.isNotEmpty(this.value)) {
-                newValue = (String) this.format(this.value, context);
+                newValue = this.format(this.value, context);
             } else if (UtilValidate.isNotEmpty(this.envName) && context.get(this.envName) != null) {
-                newValue = (String) this.format((String) context.get(this.envName), context);
+                newValue = this.format((String) context.get(this.envName), context);
             }
             
             if (newValue != null) {
