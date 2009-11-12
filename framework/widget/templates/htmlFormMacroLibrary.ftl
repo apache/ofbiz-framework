@@ -23,8 +23,8 @@ under the License.
     </#if>
 </#macro>
 
-<#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
-    <#if class?has_content || alert=="true">
+<#macro renderDisplayField idName description class alert inPlaceEditorUrl="" inPlaceEditorParams="">
+    <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
         <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
     </#if>
     <#if description?has_content>
@@ -32,12 +32,12 @@ under the License.
     <#else>
         &nbsp;<#t/>
     </#if>
-    <#if class?has_content || alert=="true">
+    <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
         </span><#lt/>
     </#if>
-    <#if inPlaceEditorId?has_content>
+    <#if inPlaceEditorUrl?has_content && idName?has_content>
         <script language="JavaScript" type="text/javascript"><#lt/>
-        ajaxInPlaceEditDisplayField('${inPlaceEditorId}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
+        ajaxInPlaceEditDisplayField('${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
         </script><#lt/>
     </#if>
 </#macro>
