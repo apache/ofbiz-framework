@@ -85,6 +85,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field use-when="finAccount!=null" name="finAccountName" title="${uiLabelMap.FormFieldTitle_finAccountName}"><display description="${finAccount.finAccountName}" type="text"></display></field>
+        <field use-when="finAccount!=null" name="ownerPartyId" title="${uiLabelMap.FormFieldTitle_ownerPartyId}"><display description="${finAccount.ownerPartyId}" type="text"></display></field>
         <field name="paymentGroupName" use-when="display==true"><display/></field>
         <field name="submitButton" use-when="paymentGroup==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="paymentGroup!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
