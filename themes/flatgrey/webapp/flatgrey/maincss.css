@@ -534,7 +534,7 @@ margin-bottom: 0.5em;
 border-bottom: #999 solid 0.1em;
 /* using min-height as an alternative to clear: both; because that, in some browsers, will clear the top-level columns and not just in this div (Mozilla based, namely) */
 min-height: 6em;
-overflow: auto;
+overflow: visible;
 padding: 0.5em;
 position: relative;
 }
