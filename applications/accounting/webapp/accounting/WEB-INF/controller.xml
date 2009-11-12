@@ -1952,6 +1952,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFinAccountReconciliations"/>
     </request-map>
+    <request-map uri="FindFinAccountReconciliations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindFinAccountReconciliations"/>
+    </request-map>
     <request-map uri="createGlReconciliation">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlReconciliation"/>
@@ -2556,6 +2560,7 @@ under the License.
     <view-map name="BankReconciliation" type="screen" page="component://accounting/widget/FinAccountScreens.xml#BankReconciliation"/>
     <view-map name="EditFinAccountReconciliations" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountReconciliations"/>
     <view-map name="ViewGlReconciliationWithTransaction" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ViewGlReconciliationWithTransaction"/>
+    <view-map name="FindFinAccountReconciliations" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccountReconciliations"/>
 
     <!-- FixedAsset -->
     <view-map name="ListFixedAssets" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/>
