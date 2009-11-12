@@ -433,4 +433,19 @@ under the License.
         <field name="reconciledBalance"><display type="currency" currency="${currencyUomId}"></display></field>
         <field name="openingBalance"><display type="currency" currency="${currencyUomId}"></display></field>
     </form>
+    <form name="FindBankReconciliation" type="single" target="FindFinAccountReconciliations">
+        <field name="finAccountId"><hidden value="${parameters.finAccountId}"/></field>
+        <field name="glReconciliationId"><text/></field>
+        <field name="glReconciliationName"><text/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="GLREC_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="organizationPartyId"><text/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

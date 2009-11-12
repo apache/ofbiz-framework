@@ -2263,6 +2263,9 @@
         <value xml:lang="en">Create New Financial Account</value>
         <value xml:lang="hi_IN">नया  वित्तीय खाता बनाएँ</value>
     </property>
+    <property key="AccountingCreateNewFinAccountReconciliations">
+        <value xml:lang="en">Create New Financial Account Reconciliations</value>
+    </property>
     <property key="AccountingCreateNewGiftCard">
         <value xml:lang="de">Neuen Gutschein erstellen</value>
         <value xml:lang="en">Create New Gift Card</value>
@@ -3323,6 +3326,12 @@
     <property key="AccountingFindDepositSlip">
         <value xml:lang="en">Find Deposit Slips for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">वित्तीय खाता ${finAccount.finAccountName} [${finAccountId}] के लिए जमा पर्चीयां ढूँढें</value>
+    </property>
+    <property key="AccountingFindFinAccountReconciliations">
+        <value xml:lang="en">Find Financial Account Reconciliations</value>
+    </property>
+    <property key="AccountingAddFinAccountReconciliations">
+        <value xml:lang="en">Add Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="AccountingFindFixedAssets">
         <value xml:lang="de">Suche Anlagen</value>
@@ -13037,6 +13046,9 @@
     <property key="PageTitleFindFinAccountTrans">
         <value xml:lang="en">Find Transactions for Financial Account: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए वित्तीय खाता गतिविधियाँ खोजें</value>
+    </property>
+    <property key="PageTitleFindFinAccountReconciliations">
+        <value xml:lang="en">Find Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="PageTitleFindPaymentGatewayConfig">
         <value xml:lang="en">Find Payment Gateway Config</value>

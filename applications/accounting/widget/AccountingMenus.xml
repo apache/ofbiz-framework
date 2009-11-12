@@ -1189,8 +1189,8 @@ under the License.
                 <parameter param-name="organizationPartyId" from-field="finAccount.ownerPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditFinAccountReconciliations" title="${uiLabelMap.AccountingReconciliation}">
-            <link target="EditFinAccountReconciliations">
+        <menu-item name="FindFinAccountReconciliations" title="${uiLabelMap.AccountingReconciliation}">
+            <link target="FindFinAccountReconciliations">
                 <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
@@ -1222,5 +1222,29 @@ under the License.
             <link target="FindFinAccount"/>
         </menu-item>
     </menu>
-
+    <menu name="FinAccountReconciliationsTabBar" menu-container-style="button-bar button-style-2" >
+        <menu-item name="Find" title="${uiLabelMap.AccountingFindFinAccountReconciliations}">
+            <condition>
+                <and>
+                    <not><if-empty field="finAccountId"/></not>
+                    <not><if-empty field="glReconciliationId"/></not>
+                    <if-compare field="tabButtonItem2" operator="not-equals" value="Find"/>
+                </and>
+            </condition>
+            <link target="FindFinAccountReconciliations">
+                <parameter param-name="finAccountId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewFinAccountReconciliations" title="${uiLabelMap.AccountingCreateNewFinAccountReconciliations}">
+            <condition>
+                <or>
+                    <not><if-empty field="glReconciliationId"/></not>
+                    <if-compare field="tabButtonItem2" operator="equals" value="Find"/>
+                </or>
+            </condition>
+            <link target="EditFinAccountReconciliations">
+                <parameter param-name="finAccountId"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>
