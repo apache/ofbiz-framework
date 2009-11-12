@@ -26,4 +26,11 @@ under the License.
     <eca service="testServiceEcaGlobalEventExecToRollback" event="global-rollback">
         <action service="testServiceEcaGlobalEventExecOnRollback" mode="sync"/>
     </eca>
+
+    <!-- Note: This eca is used only to allow time for the global ecas above to 
+            complete before the xml assertion test is run -->
+    <eca service="testServiceEcaGlobalEventExec" event="return">
+        <set field-name="duration" value="5000" format="long"/>
+        <action mode="sync" service="blockingTestScv"/>
+    </eca>
 </service-eca>
