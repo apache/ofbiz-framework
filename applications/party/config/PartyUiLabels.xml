@@ -10569,6 +10569,10 @@
         <value xml:lang="th">ชื่อผู้ใช้</value>
         <value xml:lang="zh">用户名</value>
     </property>
+    <property key="PartyUserNameInUse">
+        <value xml:lang="en">Username in use, please choose another.</value>
+        <value xml:lang="it">Nome utente è già in uso, perfavore scegliere un'altro.</value>
+    </property>
     <property key="PartyUserNameMissing">
         <value xml:lang="de">Benutzername fehlt</value>
         <value xml:lang="en">Username is missing</value>
