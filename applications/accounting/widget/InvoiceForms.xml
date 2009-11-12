@@ -83,7 +83,7 @@ under the License.
         <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
         <field name="invoiceDate" sort-field="true"><display type="date"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
-        <field name="description" sort-field="true"><display/></field>
+        <field name="description" sort-field="true" encode-output="false"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
             <hyperlink target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]">
                 <parameter param-name="partyId" from-field="partyIdFrom"/>
@@ -118,8 +118,8 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2"><display-entity entity-name="StatusItem"/></field>
-        <field position="1" name="description"><display/></field>
-        <field position="2" name="invoiceMessage"><display/></field>
+        <field position="1" name="description" encode-output="false"><display/></field>
+        <field position="2" name="invoiceMessage" encode-output="false"><display/></field>
         <field position="1" name="partyIdFrom">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]">
                 <parameter param-name="partyId" from-field="invoice.partyIdFrom"/>
@@ -198,7 +198,7 @@ under the License.
         target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false">
         <field name="invoiceItemSeqId"><display/></field>
         <field name="productId"><display/></field>
-        <field name="description"><display/></field>
+        <field name="description" encode-output="false"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="linktext">
@@ -303,7 +303,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
-        <field position="1" name="description"><text size="100"/></field>
+        <field position="1" name="description" encode-output="false"><text size="100"/></field>
         <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><display description="${invoice.partyIdFrom}"/></field>
         <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><display description="${invoice.partyId}"/></field>
@@ -340,7 +340,7 @@ under the License.
             </drop-down>
         </field>
         <field position="2" name="recurrenceInfoId"><text size="10"/></field>
-        <field position="1" name="invoiceMessage"><text size="100"/></field>
+        <field position="1" name="invoiceMessage" encode-output="false"><text size="100"/></field>
         <!--field position="2" name="invoiceAmount" use-when="invoiceId!=null"><display/></field-->
         <field position="1" name="updateButton" widget-style="smallSubmit" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;statusId&quot;).equals(&quot;INVOICE_IN_PROCESS&quot;)">
             <submit button-type="button"/>
