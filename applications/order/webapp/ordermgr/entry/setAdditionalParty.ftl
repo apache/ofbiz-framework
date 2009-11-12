@@ -35,26 +35,26 @@ under the License.
       <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td align="right">
-            <input type="radio" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?exists && additionalPartyType == "Person")> checked="checked"</#if>>
+            <input type="radio" id="additionalPartyType_Person" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?exists && additionalPartyType == "Person")> checked="checked"</#if>>
       </td>
           <td>
-            <div>${uiLabelMap.CommonPerson}</div>
+            <label for="additionalPartyType_Person">${uiLabelMap.CommonPerson}</label>
           </td>
         </tr>
         <tr>
           <td align="right">
-            <input type="radio" name="additionalPartyType" value="Group" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if additionalPartyType?exists && additionalPartyType == "Group"> checked="checked"</#if>>
+            <input type="radio" id="additionalPartyType_Group" name="additionalPartyType" value="Group" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if additionalPartyType?exists && additionalPartyType == "Group"> checked="checked"</#if>>
           </td>
           <td>
-            <div>${uiLabelMap.CommonGroup}</div>
+            <label for="additionalPartyType_Group">${uiLabelMap.CommonGroup}</label>
           </td>
         </tr>
         <tr>
           <td align="right">
-            <input type="radio" name="additionalPartyType" value="None" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if !additionalPartyType?exists> checked="checked"</#if>>
+            <input type="radio" id="additionalPartyType_None" name="additionalPartyType" value="None" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if !additionalPartyType?exists> checked="checked"</#if>>
           </td>
           <td>
-            <div>${uiLabelMap.OrderPartyDontWish}</div>
+            <label for="additionalPartyType_None">${uiLabelMap.OrderPartyDontWish}</label>
           </td>
         </tr>
       </table>
