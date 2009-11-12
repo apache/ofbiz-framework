@@ -197,6 +197,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             if (field != null) {
                 this.pks.add(field);
                 field.isPk = true;
+                field.isNotNull = true;
             } else {
                 Debug.logError("[ModelReader.createModelEntity] ERROR: Could not find field \"" +
                         pkElement.getAttribute("field") + "\" specified in a prim-key", module);
