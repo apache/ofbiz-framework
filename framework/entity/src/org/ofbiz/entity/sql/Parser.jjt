@@ -143,6 +143,7 @@ SQLSelect Select():
 	EntityCondition condition;
 	int i;
 	DynamicViewEntity dve = new DynamicViewEntity();
+	jjtThis.setDynamicViewEntity(dve);
 }
 {
 	<SELECT> FieldDefs(dve)
