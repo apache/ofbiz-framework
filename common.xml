@@ -42,6 +42,7 @@ under the License.
     <target name="prepare">
         <mkdir dir="${build.dir}/classes"/>
         <mkdir dir="${build.dir}/lib"/>
+        <taskdef name="if" classname="org.ofbiz.tools.ant.IfTask" classpath="${ofbiz.home.dir}/tools/build/classes"/>
     </target>
 
     <target name="prepare-docs">

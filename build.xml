@@ -33,6 +33,10 @@ under the License.
 
     <target name="ofbiz-init">
         <property environment="env"/>
+        <mkdir dir="tools/build/classes"/>
+        <javac srcdir="tools/src" debug="on" deprecation="off" destdir="tools/build/classes" compiler="javac1.5" target="1.5" source="1.5"/>
+        <mkdir dir="tools/build/lib"/>
+        <jar jarfile="tools/build/lib/ofbiz-tools.jar" basedir="tools/build/classes"/>
     </target>
 
     <!-- ================================================================== -->
@@ -55,6 +59,7 @@ under the License.
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
         <antcall target="clean"/>
+        <antcall target="clean-tools"/>
     </target>
 
     <target name="clean-data"
@@ -115,7 +120,7 @@ under the License.
         </subant>
     </target>
   
-    <target name="tests">
+    <target name="tests" depends="ofbiz-init">
         <subant target="tests">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -143,6 +148,10 @@ under the License.
         <echo message="[clean] ========== Done Cleaning =========="/>
     </target>
 
+    <target name="clean-tools">
+        <delete dir="tools/build"/>
+    </target>
+
     <target name="svninfo">
         <echo message="Creating svninfo..."/>
         <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
@@ -167,7 +176,7 @@ under the License.
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
 
-    <target name="build">
+    <target name="build" depends="ofbiz-init">
         <echo message="[build] ========== Start Building (Compile) =========="/>
 
         <subant inheritall="false">
@@ -194,7 +203,7 @@ under the License.
     <!-- Build JavaDocs                                                     -->
     <!-- ================================================================== -->
 
-    <target name="docs">
+    <target name="docs" depends="ofbiz-init">
         <echo message="[docs] ========== Start Building (JavaDoc) =========="/>
 
         <subant target="docs">
@@ -215,7 +224,7 @@ under the License.
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
-  <target name="docs-all" depends="build"
+  <target name="docs-all" depends="build,ofbiz-init"
         description="Build all javadoc into one tree for easier viewing by the community">
 
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
