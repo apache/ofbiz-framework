@@ -177,20 +177,28 @@ under the License.
         </section>
     </screen>
     
-    <screen name="EbayConfigurations">
+    <screen name="FindEbayConfigurations">
         <section>
             <actions>
                 <set field="titleProperty" value="EbayConfigurations"/>
-                <set field="headerItem" value="eBayConfigurations"/>
-                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="tabButtonItem" value="find"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListEbayConfigurations" location="component://ebay/widget/EbayForms.xml"/>
-                        <screenlet id="add-ebay-configuration" title="${uiLabelMap.EbayAddEbayConfiguration}" collapsible="true">
-                            <include-form name="AddEbayConfiguration" location="component://ebay/widget/EbayForms.xml"/>
-                        </screenlet>     
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindEbayConfig" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section> 
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEbayConfigurations" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>  
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -212,6 +220,34 @@ under the License.
                         <screenlet id="add-ebay-shipping-method" title="${uiLabelMap.EbayAddEbayShippingMethod}" collapsible="true">
                             <include-form name="AddEbayShippingMethod" location="component://ebay/widget/EbayForms.xml"/>
                         </screenlet>    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditEbayConfiguration">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayConfigurations"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="EbayConfig" value-field="ebayConfig"/>
+                <set field="tabButtonItem" value="${groovy:ebayConfig == null?'newEbayConfig' : 'editEbayConfig'}"/>
+                <set field="xmlGatewayUri" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.xmlGatewayUri)}"/>
+                <set field="token" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.token)}"/>
+                <set field="customXml" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.customXml)}"/>
+                <set field="webSiteId" value="${groovy:ebayConfig == null?parameters.webSiteId : ebayConfig.webSiteId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet id="addEbayConfigurationId" title="${groovy:ebayConfig == null?uiLabelMap.EbayAddEbayConfiguration : uiLabelMap.EbayEditEbayConfiguration}">
+                                    <include-form name="AddEbayConfiguration" location="component://ebay/widget/EbayForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

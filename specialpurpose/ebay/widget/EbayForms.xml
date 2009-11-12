@@ -130,35 +130,37 @@ under the License.
     </form>
     
     <!-- Ebay configuration settings forms  -->
-    <form name="ListEbayConfigurations" type="list"  list-name="eBayConfigurations"  target="updateEbayConfiguration"
+    <form name="ListEbayConfigurations" type="list"  list-name="listIt" paginate-target="FindEbayConfigurations"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EbayConfig">
-                <order-by field-name="productStoreId"/>
-            </entity-condition>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="EbayConfig"/>
+                <field-map field-name="orderBy" value="productStoreId DESC"/>
+            </service>
         </actions>
-        <auto-fields-service service-name="updateEbayConfiguration"/>
-        <field name="productStoreId"><display/></field>
-        <field name="token"><textarea cols="60" rows="5"/></field>
-        <field name="customXml"><textarea cols="60" rows="5"/></field> 
-        <field name="webSiteId">
-            <drop-down allow-empty="true">
-                <entity-options description="${siteName}" entity-name="WebSite">
-                    <entity-order-by field-name="siteName"/>
-                </entity-options>
-            </drop-down>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName} [${productStoreId}]"/></field>
+        <field name="devId"><display/></field>
+        <field name="appId"><display/></field>
+        <field name="certId"><display/></field>
+        <field name="compatibilityLevel"><display/></field> 
+        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}"><display-entity entity-name="WebSite" description="${siteName} [${webSiteId}]"/></field>
+        <field name="editEbayConfiguration" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink target="EditEbayConfiguration" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
         </field>
-        <field name="deleteEbayConfiguration" title="" widget-style="buttontext">
+        <field name="deleteEbayConfiguration" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEbayConfiguration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     
     <form name="AddEbayConfiguration" type="single" target="createEbayConfiguration" title="">
-        <auto-fields-service service-name="createEbayConfiguration"/>
-        <field name="productStoreId">
+        <alt-target use-when="ebayConfig != null" target="updateEbayConfiguration"/>
+        <field name="productStoreId" use-when="ebayConfig != null"><display/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" use-when="ebayConfig == null">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
@@ -166,16 +168,24 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="devId"><text default-value="${ebayConfig.devId}" size="40"/></field>
+        <field name="appId"><text default-value="${ebayConfig.appId}" size="40"/></field>
+        <field name="certId"><text default-value="${ebayConfig.certId}" size="40"/></field>
         <field name="token"><textarea cols="60" rows="5"/></field>
+        <field name="compatibilityLevel"><text default-value="${ebayConfig.compatibilityLevel}" size="5"/></field>
+        <field name="siteId"><text default-value="${ebayConfig.siteId}" size="5"/></field>
+        <field name="xmlGatewayUri"><text size="40"/></field>
         <field name="customXml"><textarea cols="60" rows="5"/></field> 
-        <field name="webSiteId">
-            <drop-down allow-empty="true">
+        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down>
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options description="${siteName}" entity-name="WebSite">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" use-when="ebayConfig == null"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="ebayConfig != null"><submit button-type="button"/></field>
     </form>
     
     <form name="ListEbayShippingMethods" type="list"  list-name="eBayShippingMethods"  target="updateEbayShippingMethod"
@@ -239,4 +249,24 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
+    <form name="FindEbayConfig" type="single" target="FindEbayConfigurations">
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
+            <drop-down>
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down>
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
