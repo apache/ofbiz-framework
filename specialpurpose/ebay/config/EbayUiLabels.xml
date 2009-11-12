@@ -52,6 +52,9 @@
         <value xml:lang="en">OrderID / TransactionID</value>
         <value xml:lang="it">Numero Ordine / Numero Transazione</value>
     </property>
+    <property key="EbayEditEbayConfiguration">
+        <value xml:lang="en">Edit Ebay Configuration</value>
+    </property>
     <property key="EbayExportToEbay">
         <value xml:lang="de">zu eBay exportieren</value>
         <value xml:lang="en">Export To eBay</value>

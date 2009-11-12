@@ -71,27 +71,28 @@ under the License.
     
     <!-- Ebay configuration setting request -->
     
-    <request-map uri="EbayConfigurations">
+    <request-map uri="FindEbayConfigurations">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EbayConfigurations"/>
+        <response name="success" type="view" value="FindEbayConfigurations"/>
+        <response name="error" type="view" value="FindEbayConfigurations"/>
     </request-map>
     <request-map uri="createEbayConfiguration">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEbayConfiguration"/>
-        <response name="success" type="view" value="EbayConfigurations"/>
-        <response name="error" type="view" value="EbayConfigurations"/>
+        <response name="success" type="view" value="EditEbayConfiguration"/>
+        <response name="error" type="view" value="EditEbayConfiguration"/>
     </request-map>
     <request-map uri="updateEbayConfiguration">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateEbayConfiguration"/>
-        <response name="success" type="view" value="EbayConfigurations"/>
-        <response name="error" type="view" value="EbayConfigurations"/>
+        <response name="success" type="view" value="EditEbayConfiguration"/>
+        <response name="error" type="view" value="EditEbayConfiguration"/>
     </request-map>
     <request-map uri="deleteEbayConfiguration">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEbayConfiguration"/>
-        <response name="success" type="view" value="EbayConfigurations"/>
-        <response name="error" type="view" value="EbayConfigurations"/>
+        <response name="success" type="view" value="FindEbayConfigurations"/>
+        <response name="error" type="view" value="FindEbayConfigurations"/>
     </request-map>
     
     <request-map uri="EbayShippingMethods">
@@ -144,7 +145,12 @@ under the License.
         <response name="success" type="view" value="EbayOrders"/>
         <response name="failure" type="view" value="EbayOrders"/>
     </request-map>
-    
+
+    <request-map uri="EditEbayConfiguration">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEbayConfiguration"/>
+        <response name="error" type="view" value="EditEbayConfiguration"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -155,7 +161,8 @@ under the License.
     <view-map name="ManageOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ManageOrdersFromEbay"/>
     <view-map name="EbayOrders" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayOrders"/>
     
-    <view-map name="EbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayConfigurations"/>
+    <view-map name="FindEbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#FindEbayConfigurations"/>
     <view-map name="EbayShippingMethods" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayShippingMethods"/>
+    <view-map name="EditEbayConfiguration" type="screen" page="component://ebay/widget/EbayScreens.xml#EditEbayConfiguration"/>
     <!-- end of view mappings -->
 </site-conf>
