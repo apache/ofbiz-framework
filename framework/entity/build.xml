@@ -38,6 +38,10 @@ under the License.
         <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
     </path>
+    <path id="src-path">
+        <pathelement location="build/gen-src/javacc"/>
+        <pathelement location="build/gen-src/jjtree"/>
+    </path>
 
     <patternset id="src.exc.set">
         <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
@@ -48,7 +52,11 @@ under the License.
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
 
-    <target name="classes" depends="prepare">
+    <target name="gen-src">
+        <ofbiz-jjtree dir="org/ofbiz/entity/sql" file="Parser"/>
+    </target>
+
+    <target name="classes" depends="prepare,gen-src">
         <javac15/>
     </target>
 

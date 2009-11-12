@@ -1,0 +1,414 @@
+options {
+  JAVA_UNICODE_ESCAPE = false;
+  ERROR_REPORTING = true;
+  STATIC = false;
+  MULTI = true;
+  JDK_VERSION = "1.5";
+  VISITOR = true;
+  BUILD_NODE_FILES = true;
+  NODE_FACTORY = false;
+  NODE_USES_PARSER = true;
+//  NODE_SCOPE_HOOK = true;
+  NODE_PREFIX = "SQL";
+//  DEBUG_PARSER = true;
+//  DEBUG_LOOKAHEAD = true;
+//  DEBUG_TOKEN_MANAGER = true;
+  LOOKAHEAD = 1;
+//  CHOICE_AMBIGUITY_CHECK = 3;
+//  OTHER_AMBIGUITY_CHECK = 3;
+  IGNORE_CASE = true;
+}
+PARSER_BEGIN(Parser)
+
+package org.ofbiz.entity.sql;
+
+import java.io.*;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Set;
+
+import javolution.util.FastList;
+import javolution.util.FastSet;
+
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.Converters;
+import org.ofbiz.entity.condition.EntityComparisonOperator;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionValue;
+import org.ofbiz.entity.condition.EntityFieldValue;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+
+public class Parser {
+}
+
+PARSER_END(Parser)
+TOKEN_MGR_DECLS: {
+	private final LinkedList<Integer> stack = new LinkedList<Integer>();
+
+	void pushState(int newState) {
+		stack.add(curLexState);
+		SwitchTo(newState);
+	}
+
+	void popState() {
+		SwitchTo(stack.removeLast());
+	}
+}
+
+TOKEN: {
+	<OPEN_PAREN: "(">
+|	<CLOSE_PAREN: ")">
+|	<AND: "AND">
+|	<OR: "OR">
+|	<PERIOD: ".">
+|	<JOIN: "JOIN">
+|	<LEFT: "LEFT">
+|	<RIGHT: "RIGHT">
+|	<AS: "AS">
+|	<WHERE: "WHERE">
+|	<HAVING: "HAVING">
+|	<GROUP: "GROUP">
+|	<ORDER: "ORDER">
+|	<UNION: "UNION">
+|	<BY: "BY">
+|	<ON: "ON">
+|	<LIMIT: "LIMIT">
+|	<OFFSET: "OFFSET">
+|	<SELECT: "SELECT">
+|	<DELETE: "DELETE">
+|	<UPDATE: "UPDATE">
+|	<SET: "SET">
+|	<FROM: "FROM">
+|	<SEMI: ";">
+|	<STAR: "*">
+|	<COMMA: ",">
+|	<START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
+|	<START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
+|	<INTEGER:
+	"0" (
+		"x" (["0"-"9","a"-"b"])+
+		| (["0"-"7"])+
+	)
+	| ["1"-"9"] (["0"-"9"])*
+	>
+|	<NAME:	(["a"-"z"])+>
+//|	<WORD: (~["'", "\"", "/", " ", "\f", "\n", "\r", "\t", "*"])+>
+}
+
+<DEFAULT>
+SKIP: {
+	<SPACE: " " | "\f" | "\n" | "\r" | "\t">
+}
+
+<*>
+MORE: {
+	<COMMENT_START: "/*"> { if (curLexState != IN_COMMENT) pushState(IN_COMMENT); }
+}
+
+<IN_COMMENT>
+MORE: {
+	<(~[])>
+|	<COMMENT_END: ("\n" | "\r" | "\r\n")> { popState(); }
+}
+
+<IN_DQUOTE,IN_SQUOTE>
+TOKEN: {
+	<ESCAPED: "\\" ["r", "n", "b", "t", "f"]>
+}
+
+<IN_DQUOTE>
+TOKEN: {
+	<END_DQUOTE: "\""> { popState(); }
+}
+
+<IN_SQUOTE>
+TOKEN: {
+	<ESCAPE_SQUOTE: "''">
+|	<END_SQUOTE: "'"> { popState(); }
+}
+
+<DEFAULT,IN_DQUOTE,IN_SQUOTE>
+TOKEN: {
+	<TEXT: (~[])>
+}
+
+// -------------------
+
+
+SQLSelect Select():
+{
+	EntityCondition condition;
+	int i;
+	DynamicViewEntity dve = new DynamicViewEntity();
+}
+{
+	<SELECT> FieldDefs(dve)
+	<FROM> Table(dve)
+	( <WHERE> condition=ConditionExpression() { jjtThis.setWhereCondition(condition); } )?
+	( <HAVING> condition=ConditionExpression() { jjtThis.setHavingCondition(condition); } )?
+	( <GROUP> <BY> FieldList() )?
+	( <ORDER> <BY> FieldList() )?
+	( <OFFSET> i=Integer() { jjtThis.setOffset(i); } )?
+	( <LIMIT> i=Integer() { jjtThis.setLimit(i); } )?
+	<SEMI>
+	{ return jjtThis; }
+}
+/*
+CSSUpdate Update():
+{}
+{
+	<UPDATE> Table()
+	( Set() )+
+	( <FROM> TableList() )?
+	( <WHERE> ConditionExpression() )?
+	<SEMI>
+}
+
+CSSDelete Delete():
+{}
+{
+	<DELETE> <FROM>	Table()
+	( <USING> TableList() )?
+	( <WHERE> ConditionExpression() )?
+	<SEMI>
+}
+*/
+
+private void Table(DynamicViewEntity dve) #void:
+{
+	String leftAlias, rightAlias;
+	Boolean relOptional;
+	Set<String> availableAliases = FastSet.newInstance();
+	List<ModelKeyMap> keyMaps;
+}
+{
+	leftAlias=TableName(dve) { availableAliases.add(leftAlias); }
+	(
+		relOptional=Joiner() rightAlias=TableName(dve) { availableAliases.add(rightAlias); }
+		<ON> keyMaps=KeyMaps(leftAlias, rightAlias) {
+    			dve.addViewLink(leftAlias, rightAlias, relOptional, keyMaps);
+		}
+		
+	)*
+
+}
+
+private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias) #void:
+{
+	List<ModelKeyMap> keyMaps = FastList.newInstance();
+	ModelKeyMap keyMap;
+}
+{
+	keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); }
+	( <AND> keyMap=KeyMap(leftAlias, rightAlias) )* { keyMaps.add(keyMap); }
+	{ return keyMaps; }
+}
+
+private ModelKeyMap KeyMap(String leftAlias, String rightAlias) #void:
+{
+	String alias1, field1;
+	String alias2, field2;
+	EntityComparisonOperator op;
+}
+{
+	alias1=NamePart() <PERIOD> field1=NamePart()
+	op=ComparisonOperator()
+	alias2=NamePart() <PERIOD> field2=NamePart()
+	{
+		if (op != EntityOperator.EQUALS) throw new IllegalArgumentException(op + " not supported");
+		if (alias1.equals(leftAlias)) {
+			if (!alias2.equals(rightAlias)) throw new IllegalArgumentException("invalid right alias(" + alias2 + "), expected(" + rightAlias + ")");
+			return new ModelKeyMap(field1, field2);
+		} else if (alias1.equals(rightAlias)) {
+			if (!alias2.equals(leftAlias)) throw new IllegalArgumentException("invalid left alias(" + alias2 + "), expected(" + leftAlias + ")");
+			return new ModelKeyMap(field2, field1);
+		} else {
+			throw new IllegalArgumentException("invalid aliases, expected(" + leftAlias + " or " + rightAlias + ")");
+		}
+	}
+}
+
+private String TableName(DynamicViewEntity dve) #void:
+{
+	String name, alias = null;
+}
+{
+	name=NamePart() ( (<AS>)? alias=NamePart() )?
+	{
+		if (alias == null) alias = name;
+		dve.addMemberEntity(alias, name);
+		return alias;
+	}
+}
+
+private Boolean Joiner() #void:
+{}
+{
+	<LEFT> <JOIN> { return Boolean.TRUE; }
+|	<JOIN> { return Boolean.FALSE; }
+}
+private void FieldDefs(DynamicViewEntity dve) #void:
+{}
+{
+	FieldDef(dve) ( <COMMA> FieldDef(dve) )*
+}
+
+private void FieldDef(DynamicViewEntity dve) #void:
+{}
+{
+	LOOKAHEAD(AllField()) AllField(dve)
+|	FieldSpec(dve)
+}
+
+private void AllField(DynamicViewEntity dve) #void:
+{
+	String n;
+}
+{
+	n=NamePart() <PERIOD>
+	<STAR>
+	{ dve.addAliasAll(n, null); }
+}
+
+private String NamePart() #void:
+{}
+{
+	( LOOKAHEAD(2) <NAME>)+ { return getToken(0).image; }
+}
+
+private void FieldSpec(DynamicViewEntity dve) #void:
+{
+	List<String> fieldUse;
+	String tableAlias, fieldName, fieldAlias = null;
+}
+{
+	tableAlias=NamePart() <PERIOD> fieldName=NamePart()
+	( <AS> fieldAlias=NamePart() )?
+	{
+		if (fieldAlias == null) {
+			dve.addAlias(tableAlias, fieldName);
+		} else {
+			dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, null);
+		}
+	}
+}
+
+private String DQuoted() #void:
+{ StringBuilder sb = new StringBuilder(); }
+{
+	<START_DQUOTE> (<TEXT> { sb.append(getToken(0).image); } | <ESCAPED> { sb.append(getToken(0).image); })* <END_DQUOTE>
+	{ return sb.toString(); }
+}
+
+private String SQuoted() #void:
+{ StringBuilder sb = new StringBuilder(); }
+{
+	<START_SQUOTE> (
+		<TEXT> { sb.append(getToken(0).image); }
+	|	<ESCAPED> { sb.append(getToken(0).image); }
+	|	<ESCAPE_SQUOTE> { sb.append("'"); }
+	)* <END_SQUOTE>
+	{ return sb.toString(); }
+}
+
+private void FieldList():
+{}
+{
+	FieldUse() ( <COMMA> FieldUse() )*
+}
+
+private List<String> FieldUse() #void:
+{
+	List<String> list = FastList.newInstance();
+	String s;
+}
+{
+	s=NamePart() { list.add(s); }
+	( <PERIOD> s=NamePart() { list.add(s); } )?
+	{ return list; }
+}
+
+private Integer Integer() #void:
+{}
+{
+	<INTEGER> {
+		try {
+			Converter<String, Integer> converter = Converters.getConverter(String.class, Integer.class);
+			return converter.convert(getToken(0).image);
+		} catch (ClassNotFoundException e) {
+			return null;
+		} catch (ConversionException e) {
+			return null;
+		}
+	}
+}
+
+private Object Expression() #void:
+{
+	EntityConditionValue ecv;
+	String s;
+	List<String> fieldUse;
+	int i;
+}
+{
+	fieldUse=FieldUse() {
+		if (fieldUse.size() == 1) return EntityFieldValue.makeFieldValue(fieldUse.get(0));
+		if (fieldUse.size() == 2) return EntityFieldValue.makeFieldValue(fieldUse.get(1), fieldUse.get(1), null, null);
+		return null;
+}
+|	i=Integer() { return i; }
+|	s=SQuoted() { return s; }
+}
+
+private EntityCondition ConditionExpression() #void:
+{ EntityCondition ec; }
+{
+	ec=AndExpression() { return ec; }
+}
+
+private EntityCondition AndExpression() #void:
+{
+	List<EntityCondition> list = FastList.newInstance();
+	EntityCondition ec;
+}
+{
+	ec=OrExpression() { list.add(ec); }
+        ( <AND> ec=OrExpression() { list.add(ec); } )*
+	{
+		if (list.size() == 1) return list.get(0);
+		return EntityCondition.makeCondition(list, EntityOperator.AND);
+	}
+}
+
+private EntityCondition OrExpression() #void:
+{
+	List<EntityCondition> list = FastList.newInstance();
+	EntityCondition ec;
+}
+{
+	ec=BooleanExpression() { list.add(ec); }
+        ( <OR> ec=BooleanExpression() { list.add(ec); } )*
+	{
+		if (list.size() == 1) return list.get(0);
+		return EntityCondition.makeCondition(list, EntityOperator.OR);
+	}
+}
+
+private EntityCondition BooleanExpression() #void:
+{
+	Object v1, v2;
+	EntityComparisonOperator op;
+}
+{
+	v1=Expression() op=ComparisonOperator() v2=Expression()
+	{ return EntityCondition.makeCondition(v1, op, v2); }
+}
+
+private EntityComparisonOperator ComparisonOperator() #void:
+{}
+{
+	( <TEXT> )+ { return EntityOperator.lookupComparison(getToken(0).image); }
+}
