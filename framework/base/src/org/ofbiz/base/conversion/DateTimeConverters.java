@@ -400,18 +400,35 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
-            String trimStr = obj.trim();
-            if (trimStr.length() == 0) {
+            String str = obj.trim();
+            if (str.length() == 0) {
                 return null;
             }
             DateFormat df = null;
             if (formatString == null || formatString.length() == 0) {
+                // These hacks are a bad idea, but they are included
+                // for backward compatibility.
+                if (str.length() > 0 && !str.contains(":")) {
+                    str = str + " 00:00:00.00";
+                }
+                // hack to mimic Timestamp.valueOf() method
+                if (str.length() > 0 && !str.contains(".")) {
+                    str = str + ".0";
+                } else {
+                    // DateFormat has a funny way of parsing milliseconds:
+                    // 00:00:00.2 parses to 00:00:00.002
+                    // so we'll add zeros to the end to get 00:00:00.200
+                    String[] timeSplit = str.split("[.]");
+                    if (timeSplit.length > 1 && timeSplit[1].length() < 3) {
+                        str = str + "000".substring(timeSplit[1].length());
+                    }
+                }
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
             }
             try {
-                return new java.sql.Timestamp(df.parse(trimStr).getTime());
+                return new java.sql.Timestamp(df.parse(str).getTime());
             } catch (ParseException e) {
                 throw new ConversionException(e);
             }
