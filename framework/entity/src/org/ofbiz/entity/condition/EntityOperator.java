@@ -99,6 +99,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         }
     };
     static { register("equals", EQUALS); }
+    static { register("=", EQUALS); }
     public static final EntityComparisonOperator NOT_EQUAL = new ComparableEntityComparisonOperator(ID_NOT_EQUAL, "<>") {
         @Override
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareNotEqual(lhs, rhs); }
@@ -114,6 +115,8 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("not-equal", NOT_EQUAL); }
     static { register("not-equals", NOT_EQUAL); }
     static { register("notEqual", NOT_EQUAL); }
+    static { register("!=", NOT_EQUAL); }
+    static { register("<>", NOT_EQUAL); }
     public static final EntityComparisonOperator LESS_THAN = new ComparableEntityComparisonOperator(ID_LESS_THAN, "<") {
         @Override
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareLessThan(lhs, rhs); }
@@ -121,6 +124,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("less", LESS_THAN); }
     static { register("less-than", LESS_THAN); }
     static { register("lessThan", LESS_THAN); }
+    static { register("<", LESS_THAN); }
     public static final EntityComparisonOperator GREATER_THAN = new ComparableEntityComparisonOperator(ID_GREATER_THAN, ">") {
         @Override
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareGreaterThan(lhs, rhs); }
@@ -128,6 +132,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("greater", GREATER_THAN); }
     static { register("greater-than", GREATER_THAN); }
     static { register("greaterThan", GREATER_THAN); }
+    static { register(">", GREATER_THAN); }
     public static final EntityComparisonOperator LESS_THAN_EQUAL_TO = new ComparableEntityComparisonOperator(ID_LESS_THAN_EQUAL_TO, "<=") {
         @Override
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareLessThanEqualTo(lhs, rhs); }
@@ -135,6 +140,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("less-equals", LESS_THAN_EQUAL_TO); }
     static { register("less-than-equal-to", LESS_THAN_EQUAL_TO); }
     static { register("lessThanEqualTo", LESS_THAN_EQUAL_TO); }
+    static { register("<=", LESS_THAN_EQUAL_TO); }
     public static final EntityComparisonOperator GREATER_THAN_EQUAL_TO = new ComparableEntityComparisonOperator(ID_GREATER_THAN_EQUAL_TO, ">=") {
         @Override
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareGreaterThanEqualTo(lhs, rhs); }
@@ -142,6 +148,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     static { register("greater-equals", GREATER_THAN_EQUAL_TO); }
     static { register("greater-than-equal-to", GREATER_THAN_EQUAL_TO); }
     static { register("greaterThanEqualTo", GREATER_THAN_EQUAL_TO); }
+    static { register(">=", GREATER_THAN_EQUAL_TO); }
     public static final EntityComparisonOperator IN = new CollectionEntityComparisonOperator(ID_IN, "IN") {
         @Override
         public boolean compare(Comparable lhs, Collection<Comparable> rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
