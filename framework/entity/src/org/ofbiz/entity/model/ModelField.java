@@ -134,6 +134,9 @@ public class ModelField extends ModelChild {
 
     public void setIsPk(boolean isPk) {
         this.isPk = isPk;
+        if (isPk) {
+            setIsNotNull(true);
+        }
     }
 
     public boolean getIsNotNull() {
