@@ -43,6 +43,8 @@ under the License.
         <override name="statusId" mode = "IN" optional="false"/>
         <override name="partyIdFrom" mode = "IN" optional="false"/>
         <override name="partyId" mode = "IN" optional="false"/>
+        <override name="description" allow-html="safe"/>
+        <override name="invoiceMessage" allow-html="safe"/>
     </service>
     <service name="copyInvoice" engine="simple" default-entity-name="Invoice"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoice">
@@ -65,6 +67,8 @@ under the License.
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" allow-html="safe"/>
+        <override name="invoiceMessage" allow-html="safe"/>
     </service>
     <service name="setInvoiceStatus" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="setInvoiceStatus">
@@ -90,7 +94,7 @@ under the License.
     null taxableFlag is considered to be "N" when it should be "unknown". At some point we'll have to implement the adjustment.includeInTax
     field properly so we don't have to rely on Product.taxable and checking by hand each type that is not taxable. The old way is already
     creating an issue with return-wide adjustments: How do we know that such an adjustment is to be taxed or not?  Because of this problem,
-    we will continue to have null taxableFlags for awhile yet, which is why the mantadory taxableFlag of this method was taken out.
+    we will continue to have null taxableFlags for awhile yet, which is why the mandatory taxableFlag of this method was taken out.
     -->
     <service name="createInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItem">
