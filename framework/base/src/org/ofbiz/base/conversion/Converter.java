@@ -24,7 +24,6 @@ package org.ofbiz.base.conversion;
  * @param <T> The target object type
  */
 public interface Converter<S, T> {
-
     /** Returns <code>true</code> if this object can convert
      * <code>sourceClass</code> to <code>targetClass</code>.
      * <p>Implementations can accomodate class hierarchy ranges
@@ -56,5 +55,4 @@ public interface Converter<S, T> {
      * @return The target <code>Class</code> for this converter
      */
     public Class<?> getTargetClass();
-
 }

@@ -21,7 +21,6 @@ package org.ofbiz.base.conversion;
 /** ConversionException class. */
 @SuppressWarnings("serial")
 public class ConversionException extends Exception {
-
     public ConversionException(String message, Throwable cause) {
         super(message, cause);
     }
@@ -33,5 +32,4 @@ public class ConversionException extends Exception {
     public ConversionException(Throwable cause) {
         super(cause);
     }
-
 }

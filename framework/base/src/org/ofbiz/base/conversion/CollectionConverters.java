@@ -32,9 +32,7 @@ import javolution.util.FastSet;
 
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {
-
     public static class ArrayToList extends AbstractConverter<Object[], List> {
-
         public ArrayToList() {
             super(Object[].class, List.class);
         }
@@ -47,11 +45,9 @@ public class CollectionConverters implements ConverterLoader {
         public List<?> convert(Object[] obj) throws ConversionException {
             return Arrays.asList(obj);
         }
-
     }
 
     public static class ListToString extends AbstractConverter<List, String> {
-
         public ListToString() {
             super(List.class, String.class);
         }
@@ -59,11 +55,9 @@ public class CollectionConverters implements ConverterLoader {
         public String convert(List obj) throws ConversionException {
             return obj.toString();
         }
-
     }
 
     public static class MapToList extends AbstractCollectionConverter<Map, List<Map>> {
-
         public MapToList() {
             super(Map.class, List.class);
         }
@@ -73,11 +67,9 @@ public class CollectionConverters implements ConverterLoader {
             tempList.add(obj);
             return tempList;
         }
-
     }
 
     public static class MapToSet extends AbstractCollectionConverter<Map, Set<Map>> {
-
         public MapToSet() {
             super(Map.class, Set.class);
         }
@@ -87,11 +79,9 @@ public class CollectionConverters implements ConverterLoader {
             tempSet.add(obj);
             return tempSet;
         }
-
     }
 
     public static class MapToString extends AbstractConverter<Map, String> {
-
         public MapToString() {
             super(Map.class, String.class);
         }
@@ -99,11 +89,9 @@ public class CollectionConverters implements ConverterLoader {
         public String convert(Map obj) throws ConversionException {
             return obj.toString();
         }
-
     }
 
     public static class StringToList extends AbstractCollectionConverter<String, List<String>> {
-
         public StringToList() {
             super(String.class, List.class);
         }
@@ -117,11 +105,9 @@ public class CollectionConverters implements ConverterLoader {
                 return tempList;
             }
         }
-
     }
 
     public static class StringToMap extends AbstractConverter<String, Map> {
-
         public StringToMap() {
             super(String.class, Map.class);
         }
@@ -132,11 +118,9 @@ public class CollectionConverters implements ConverterLoader {
             }
             throw new ConversionException("Could not convert " + obj + " to Map: ");
         }
-
     }
 
     public static class StringToSet extends AbstractCollectionConverter<String, Set<String>> {
-
         public StringToSet() {
             super(String.class, Set.class);
         }
@@ -150,11 +134,9 @@ public class CollectionConverters implements ConverterLoader {
                 return tempSet;
             }
         }
-
     }
 
     public void loadConverters() {
         Converters.loadContainedConverters(CollectionConverters.class);
     }
-
 }

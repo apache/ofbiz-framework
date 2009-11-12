@@ -34,10 +34,9 @@ import org.ofbiz.base.util.ObjectType;
 
 /** A <code>Converter</code> factory and repository. */
 public class Converters {
-
-    protected static final String module = Converters.class.getName(); 
-    protected static final String DELIMITER = "->"; 
-    protected static final Map<String, Converter<?, ?>> converterMap = FastMap.newInstance(); 
+    protected static final String module = Converters.class.getName();
+    protected static final String DELIMITER = "->";
+    protected static final Map<String, Converter<?, ?>> converterMap = FastMap.newInstance();
     protected static final Set<String> noConversions = FastSet.newInstance();
     protected static final Converter<Object, Object> nullConverter = new NullConverter();
 
@@ -137,7 +136,6 @@ public class Converters {
     }
 
     protected static class NullConverter implements Converter<Object, Object> {
-
         public NullConverter() {
             Converters.registerConverter(this);
         }
@@ -160,7 +158,5 @@ public class Converters {
         public Class<?> getTargetClass() {
             return Object.class;
         }
-        
     }
-
 }
