@@ -34,4 +34,11 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MARKETING_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="MARKETING_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="MARKETING_ADMIN"/>
+
+    <!-- sfa security...(to be completed) -->
+    <SecurityPermission permissionId="MYPORTAL_EMPLOYEE" description="Use the employee screens in myportal."/>
+    <SecurityGroup description="Employee user of myportal, Limited access to the projectmgr, comms,custRequests" groupId="MYPORTAL_EMPLOYEE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="MYPORTAL_EMPLOYEE"/>
+    
+    
 </entity-engine-xml>
