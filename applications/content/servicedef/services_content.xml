@@ -203,7 +203,7 @@
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.core.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
         <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
