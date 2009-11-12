@@ -8274,6 +8274,10 @@
         <value xml:lang="en">Running Total</value>
         <value xml:lang="hi_IN">निरंतर कुल</value>
     </property>
+    <property key="AccountingRunningTotalOutstanding">
+        <value xml:lang="en">Running Total (Outstanding)</value>
+        <value xml:lang="hi_IN">निरंतर कुल (बकाया राशि)</value>
+    </property>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>

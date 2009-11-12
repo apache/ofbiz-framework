@@ -93,7 +93,7 @@ function runAction() {
 
 <#if invoices?has_content >
   <div>
-    <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
+    <span class="label">${uiLabelMap.AccountingRunningTotalOutstanding} :</span>
     <span class="label" id="showInvoiceRunningTotal"></span>
   </div>
   <form name="listPurchaseInvoices" id="listPurchaseInvoices"  method="post" action="javascript:void();">
