@@ -270,6 +270,7 @@ under the License.
             <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <field-to-result field="newEntity.fromDate" result-name="fromDate"/>
+        <set field="newEntity.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
 
         <if-not-empty field="parameters.statusId">
             <now-timestamp field="newEntity.statusDateTime"/>

@@ -21,14 +21,16 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <description>SFA Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="view" value="main" save-home-view="true"/>
     </request-map>
     <!-- Sales Opportunity Requests -->
     <request-map uri="FindSalesOpportunity">
@@ -232,6 +234,22 @@ under the License.
         <response name="success" type="view" value="EditSalesForecastDetail"/>
         <response name="error" type="view" value="EditSalesForecastDetail"/>
     </request-map>
+    
+    <!-- Event Requests -->
+    <request-map uri="Events">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Events" save-home-view="true"/>
+    </request-map>
+    <request-map uri="updateTaskAssigment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTaskAssigment"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-home"/>
+    </request-map>
+    <request-map uri="EditEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEvent" save-home-view="true"/>
+    </request-map>
 
     <!-- Lookup requests -->
     <request-map uri="LookupSalesForecast"><security https="true" auth="true"/><response name="success" type="view" value="LookupSalesForecast"/></request-map>
@@ -270,6 +288,9 @@ under the License.
     <view-map name="FindSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#FindSalesForecast"/>
     <view-map name="EditSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecast"/>
     <view-map name="EditSalesForecastDetail" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecastDetail"/>
+    
+    <view-map name="Events" type="screen" page="component://marketing/widget/sfa/EventScreens.xml#main"/>
+    <view-map name="EditEvent" type="screen" page="component://marketing/widget/sfa/EventScreens.xml#EditEvent"/>
 
     <view-map name="LookupSalesForecast" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSalesForecast"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>

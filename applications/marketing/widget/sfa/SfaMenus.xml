@@ -23,10 +23,15 @@ under the License.
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
         <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target="FindLeads"/></menu-item>
         <menu-item name="Competitors" title="${uiLabelMap.SfaCompetitors}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
-        <menu-item name="Events" title="${uiLabelMap.SfaEvents}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
+        <menu-item name="Events" title="${uiLabelMap.SfaEvents}"><link target="Events" url-mode="plain"/></menu-item>
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}" widget-style="disabled"><link target="#" url-mode="plain"/></menu-item>
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindSalesOpportunity"/></menu-item>
+        <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <link target="ManagePortalPages">
+                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -326,5 +331,12 @@ under the License.
                 <parameter param-name="salesForecastId" from-field="parameters.salesForecastId"/>
             </link>
         </menu-item>
+    </menu>
+    <menu name="EventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}"><link target="Events"/></menu-item>
+    </menu>
+    <menu name="EventSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2 no-clear">
+        <menu-item name="NewEvent" title="${uiLabelMap.CommonCreateNew}"><link target="EditEvent"/></menu-item>
     </menu>
 </menus>

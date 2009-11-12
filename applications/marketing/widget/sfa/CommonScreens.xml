@@ -29,6 +29,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
@@ -40,6 +41,8 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://marketing/widget/sfa/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly-larger"/>
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="SFA" global="true"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -50,15 +53,32 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="headerItem" value="Main"/>
+                <set field="headerItem" from-field="parameters.headerItem" default-value="main"/>
+                <set field="removeAccountDescription" value="${groovy:session.removeAttribute(&quot;accountDescription&quot;)}"/>
+                <set field="removeContactDescription" value="${groovy:session.removeAttribute(&quot;contactDescription&quot;)}"/>
+                <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;leadDescription&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="no-clear">
-                            <screenlet title="${uiLabelMap.SfaManagerApplication}">
-                                <container><label style="label" text="${uiLabelMap.SfaManagerWelcome}"/></container>
-                            </screenlet>
+                            <section>
+                                <actions>
+                                    <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                    <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                        <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                        <order-by field-name="columnSeqId"/>
+                                    </entity-and>
+                                    <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                        <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                        <order-by field-name="columnSeqId"/>
+                                        <order-by field-name="sequenceNum"/>
+                                    </entity-and>
+                                </actions>
+                                <widgets>
+                                    <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                                </widgets>
+                            </section>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -152,6 +172,15 @@ under the License.
                     <actions>
                         <set field="headerItem" value="Accounts"/>
                         <set field="currentCommonDecorator" value="CommonAccountDecorator"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <if-empty field="currentCommonDecorator"/>
+                    </condition>
+                    <actions>
+                        <set field="currentCommonDecorator" value="main-decorator"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -438,6 +467,35 @@ under the License.
                         <container style="no-clear">
                             <decorator-section-include name="body"/>
                         </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonEventDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Events"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <include-menu name="EventTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                        <include-menu name="EventSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                        <container style="no-clear">
+                            <decorator-section-include name="body"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonWorkEffortDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonEventDecorator">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -103,7 +103,7 @@ under the License.
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}">
                             <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
