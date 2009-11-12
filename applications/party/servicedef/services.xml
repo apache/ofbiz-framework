@@ -839,7 +839,7 @@ under the License.
         <attribute name="deleteCommEventIfLast" mode="IN" type="String" optional="true"/><!-- "Y" for true -->
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createCommEventWorkEffort" engine="simple" location="component://party/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true"  >
+    <service name="createCommEventWorkEffort" engine="simple" location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true"  >
         <description>Creates a WorkEffort entity and CommunicationEventWorkEff</description>
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="WorkEffort"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="WorkEffort"/>

@@ -639,7 +639,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommWorkEfforts}">
                             <container style="button-bar">
-                                <link style="smallSubmit" target="AddCommEventWorkEffort">
+                                <link style="smallSubmit" target="AddCommEventWorkEffort" text="${uiLabelMap.PartyNewCommWorkEffort}">
                                     <parameter param-name="communicationEventId"/>
                                     <parameter param-name="partyId"/>
                                 </link>
