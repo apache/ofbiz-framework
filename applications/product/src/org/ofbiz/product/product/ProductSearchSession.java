@@ -49,6 +49,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -1155,5 +1157,220 @@ public class ProductSearchSession {
         }
 
         return searchParamString.toString();
+    }
+    
+    /**
+     * This method returns a list of productId counts grouped by productFeatureId's of input productFeatureTypeId,
+     * the constraint being applied on current ProductSearchConstraint list in session.
+     * @param productFeatureTypeId The productFeatureTypeId, productFeatureId's of which should be considered.
+     * @param session Current session.
+     * @param delegator The delegator object.
+     * @return List of Maps containing productFeatureId, productFeatureTypeId, description, featureCount.
+     */
+    public static List<Map<String, String>> listCountByFeatureForType(String productFeatureTypeId, HttpSession session, Delegator delegator) {
+        String visitId = VisitHandler.getVisitId(session);
+        
+        ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
+        List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
+        if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
+            productSearchContext.addProductSearchConstraints(productSearchConstraintList);
+        }
+        productSearchContext.finishKeywordConstraints();
+        productSearchContext.finishCategoryAndFeatureConstraints();
+        
+        DynamicViewEntity dynamicViewEntity = productSearchContext.dynamicViewEntity;
+        List<EntityCondition> entityConditionList = productSearchContext.entityConditionList;
+        List<String> fieldsToSelect = FastList.newInstance();
+        
+        dynamicViewEntity.addMemberEntity("PFAC", "ProductFeatureAppl");
+        dynamicViewEntity.addAlias("PFAC", "pfacProductFeatureId", "productFeatureId", null, null, Boolean.TRUE, null);
+        dynamicViewEntity.addAlias("PFAC", "pfacFromDate", "fromDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PFAC", "pfacThruDate", "thruDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PFAC", "featureCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addViewLink("PROD", "PFAC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        fieldsToSelect.add("pfacProductFeatureId");
+        fieldsToSelect.add("featureCount");
+        entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("pfacThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("pfacThruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp())));
+        entityConditionList.add(EntityCondition.makeCondition("pfacFromDate", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp()));
+        
+        dynamicViewEntity.addMemberEntity("PFC", "ProductFeature");
+        dynamicViewEntity.addAlias("PFC", "pfcProductFeatureTypeId", "productFeatureTypeId", null, null, Boolean.TRUE, null);
+        dynamicViewEntity.addAlias("PFC", "pfcDescription", "description", null, null, Boolean.TRUE, null);
+        dynamicViewEntity.addViewLink("PFAC", "PFC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productFeatureId"));
+        fieldsToSelect.add("pfcDescription");
+        fieldsToSelect.add("pfcProductFeatureTypeId");
+        entityConditionList.add(EntityCondition.makeCondition("pfcProductFeatureTypeId", EntityOperator.EQUALS, productFeatureTypeId));
+        
+        EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
+        
+        EntityFindOptions efo = new EntityFindOptions();
+        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+        
+        EntityListIterator eli = null;
+        try {
+            eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, productSearchContext.orderByList, efo);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error in product search", module);
+            return null;
+        }
+        
+        List<Map<String, String>> featureCountList = FastList.newInstance();
+        GenericValue searchResult = null;
+        while ((searchResult = (GenericValue) eli.next()) != null) {
+            featureCountList.add(UtilMisc.toMap("productFeatureId", (String) searchResult.get("pfacProductFeatureId"), "productFeatureTypeId", (String) searchResult.get("pfcProductFeatureTypeId"), "description", (String) searchResult.get("pfcDescription"), "featureCount", Long.toString((Long) searchResult.get("featureCount"))));
+        }
+        
+        if (eli != null) {
+            try {
+                eli.close();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error closing ProductSearch EntityListIterator");
+            }
+        }
+        return featureCountList;
+    }
+    
+    public static int getCategoryCostraintIndex(HttpSession session) {
+        int index = 0;
+        List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
+        for (ProductSearchConstraint constraint: productSearchConstraintList) {
+            if (constraint instanceof CategoryConstraint) {
+                index++;
+            }
+        }
+        return index;
+    }
+    
+    /**
+     * This method returns count of products within a given price range, the constraint being 
+     * applied on current ProductSearchConstraint list in session.
+     * @param priceLow The low price.
+     * @param priceHigh The high price.
+     * @param session Current session.
+     * @param delegator The delegator object.
+     * @return The long value of count of products.
+     */
+    public static long getCountForListPriceRange(BigDecimal priceLow, BigDecimal priceHigh, HttpSession session, Delegator delegator) {
+        String visitId = VisitHandler.getVisitId(session);
+        
+        ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
+        List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
+        if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
+            productSearchContext.addProductSearchConstraints(productSearchConstraintList);
+        }
+        productSearchContext.finishKeywordConstraints();
+        productSearchContext.finishCategoryAndFeatureConstraints();
+        
+        DynamicViewEntity dynamicViewEntity = productSearchContext.dynamicViewEntity;
+        List<EntityCondition> entityConditionList = productSearchContext.entityConditionList;
+        List<String> fieldsToSelect = FastList.newInstance();
+        
+        dynamicViewEntity.addMemberEntity("PPC", "ProductPrice");
+        dynamicViewEntity.addAlias("PPC", "ppcProductPriceTypeId", "productPriceTypeId", null, null, null, null);
+        dynamicViewEntity.addAlias("PPC", "ppcFromDate", "fromDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PPC", "ppcThruDate", "thruDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PPC", "ppcPrice", "price", null, null, null, null);
+        dynamicViewEntity.addAlias("PPC", "priceRangeCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addViewLink("PROD", "PPC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        fieldsToSelect.add("priceRangeCount");
+        entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("ppcThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("ppcThruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp())));
+        entityConditionList.add(EntityCondition.makeCondition("ppcFromDate", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp()));
+        entityConditionList.add(EntityCondition.makeCondition("ppcPrice", EntityOperator.GREATER_THAN_EQUAL_TO, priceLow));
+        entityConditionList.add(EntityCondition.makeCondition("ppcPrice", EntityOperator.LESS_THAN_EQUAL_TO, priceHigh));
+        entityConditionList.add(EntityCondition.makeCondition("ppcProductPriceTypeId", EntityOperator.EQUALS, "LIST_PRICE"));
+        
+        EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
+        
+        EntityFindOptions efo = new EntityFindOptions();
+        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+        
+        EntityListIterator eli = null;
+        try {
+            eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, productSearchContext.orderByList, efo);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error in product search", module);
+            return 0;
+        }
+        
+        GenericValue searchResult = null;
+        Long priceRangeCount = Long.valueOf(0);
+        while ((searchResult = (GenericValue) eli.next()) != null) {
+            priceRangeCount = searchResult.getLong("priceRangeCount");
+        }
+        
+        if (eli != null) {
+            try {
+                eli.close();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error closing ProductSearch EntityListIterator");
+            }
+        }
+        return priceRangeCount;
+    }
+    
+    /**
+     * This method returns count of products in a given category (including all sub categories), the constraint being 
+     * applied on current ProductSearchConstraint list in session.
+     * @param productCategoryId productCategoryId for which the count should be returned.
+     * @param session Current session.
+     * @param delegator The delegator object.
+     * @return The long value of count of products.
+     */
+    public static long getCountForProductCategory(String productCategoryId, HttpSession session, Delegator delegator) {
+        String visitId = VisitHandler.getVisitId(session);
+        
+        ProductSearchContext productSearchContext = new ProductSearchContext(delegator, visitId);
+        List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
+        if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
+            productSearchContext.addProductSearchConstraints(productSearchConstraintList);
+        }
+        productSearchContext.finishKeywordConstraints();
+        productSearchContext.finishCategoryAndFeatureConstraints();
+        
+        DynamicViewEntity dynamicViewEntity = productSearchContext.dynamicViewEntity;
+        List<EntityCondition> entityConditionList = productSearchContext.entityConditionList;
+        List<String> fieldsToSelect = FastList.newInstance();
+        
+        dynamicViewEntity.addMemberEntity("PCMC", "ProductCategoryMember");
+        dynamicViewEntity.addAlias("PCMC", "pcmcProductCategoryId", "productCategoryId", null, null, null, null);
+        dynamicViewEntity.addAlias("PCMC", "pcmcFromDate", "fromDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PCMC", "pcmcThruDate", "thruDate", null, null, null, null);
+        dynamicViewEntity.addAlias("PCMC", "categoryCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addViewLink("PROD", "PCMC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+        fieldsToSelect.add("categoryCount");
+        entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("pcmcThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("pcmcThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
+        entityConditionList.add(EntityCondition.makeCondition("pcmcFromDate", EntityOperator.LESS_THAN, productSearchContext.nowTimestamp));
+        
+        Set<String> productCategoryIdSet = FastSet.newInstance();
+        ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, delegator, productSearchContext.nowTimestamp);
+        entityConditionList.add(EntityCondition.makeCondition("pcmcProductCategoryId", EntityOperator.IN, productCategoryIdSet));
+        
+        EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
+        
+        EntityFindOptions efo = new EntityFindOptions();
+        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
+        
+        EntityListIterator eli = null;
+        try {
+            eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, productSearchContext.orderByList, efo);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error in product search", module);
+            return 0;
+        }
+        
+        GenericValue searchResult = null;
+        Long categoryCount = Long.valueOf(0);
+        while ((searchResult = (GenericValue) eli.next()) != null) {
+            categoryCount = searchResult.getLong("categoryCount");
+        }
+        
+        if (eli != null) {
+            try {
+                eli.close();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error closing ProductSearch EntityListIterator");
+            }
+        }
+        return categoryCount;
     }
 }

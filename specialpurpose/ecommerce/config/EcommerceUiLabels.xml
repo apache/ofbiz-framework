@@ -2156,6 +2156,9 @@
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">价格</value>
     </property>
+    <property key="EcommercePriceRange">
+        <value xml:lang="en">Price Range</value>
+    </property>
     <property key="EcommercePrimaryBillingAddress">
         <value xml:lang="da">Primær faktureringsadresse</value>
         <value xml:lang="de">Haupt Rechnungsadresse</value>
