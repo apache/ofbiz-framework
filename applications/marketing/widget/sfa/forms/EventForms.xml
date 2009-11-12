@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="MyTasks" list-name="myTasks"  extends="ListWorkEfforts" extends-resource="component://workeffort/widget/WorkEffortForms.xml">
+        <row-actions>
+            <entity-one entity-name="UserLogin" value-field="assignedByUserLogin">
+                <field-map field-name="userLoginId" from-field="assignedByUserLoginId"/>
+            </entity-one>
+            <entity-one entity-name="PartyNameView" value-field="assignByPartyName">
+                <field-map field-name="partyId" from-field="assignedByUserLogin.partyId"/>
+            </entity-one>
+        </row-actions>
+        <field name="workEffortTypeId"><hidden/></field>
+        <field name="deleteLink"><hidden/></field>
+        <field name="currentStatusId"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="assignedByUserLoginId" title="${uiLabelMap.SfaAssignedBy}">
+            <hyperlink target="/partymgr/control/viewprofile" description="${assignByPartyName.firstName} ${assignByPartyName.middleName} ${assignByPartyName.lastName} ${assignByPartyName.groupName} [${assignByPartyName.partyId}]" target-type="inter-app">
+                <parameter param-name="partyId" from-field="assignByPartyName.partyId"/>
+            </hyperlink>
+        </field>
+        <field name="complete" title="${uiLabelMap.SfaComplete}" widget-style="buttontext">
+            <hyperlink target="updateWorkEffort" description="${uiLabelMap.SfaComplete}">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="currentStatusId" value="CAL_COMPLETED"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="TasksAssignedByMe" list-name="tasksAssignedByMe" extends="MyTasks">
+        <field name="assignedByUserLoginId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_toPartyId}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="[${partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                    <parameter param-name="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <sort-order>
+            <sort-field name="workEffortId"/>
+            <sort-field name="workEffortPurposeTypeId"/>
+            <sort-field name="description"/>
+            <sort-field name="priority"/>
+            <sort-field name="estimatedStartDate"/>
+            <sort-field name="estimatedCompletionDate"/>
+            <sort-field name="actualStartDate"/>
+            <sort-field name="actualCompletionDate"/>
+            <sort-field name="partyId"/>
+            <sort-field name="complete"/>
+        </sort-order>
+    </form>
+    <form name="EditEvent" extends="editCalEvent" extends-resource="component://workeffort/widget/CalendarForms.xml">
+        <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
+        <field name="scopeEnumId"><hidden/></field>
+        <field name="actualStartDate"><hidden/></field>
+        <field name="actualCompletionDate"><hidden/></field>
+        <field name="priority" position="1">
+            <drop-down allow-empty="true">
+                <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
+                <option key="2" description="${uiLabelMap.WorkEffortPriorityTwo}"/>
+                <option key="3" description="${uiLabelMap.WorkEffortPriorityThree}"/>
+                <option key="4" description="${uiLabelMap.WorkEffortPriorityFour}"/>
+                <option key="5" description="${uiLabelMap.WorkEffortPriorityFive}"/>
+                <option key="6" description="${uiLabelMap.WorkEffortPrioritySix}"/>
+                <option key="7" description="${uiLabelMap.WorkEffortPrioritySeventh}"/>
+                <option key="8" description="${uiLabelMap.WorkEffortPriorityEight}"/>
+                <option key="9" description="${uiLabelMap.WorkEffortPriorityNine}"/>
+            </drop-down>
+        </field>
+        <field name="estimatedStartDate"><date-time input-method="time-dropdown" default-value="${nowTimestamp}"/></field>
+        <field name="estimatedCompletionDate"><date-time input-method="time-dropdown" default-value="${nowTimestamp}"/></field>
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_toPartyId}"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
+        <sort-order>
+            <sort-field name="workEffortName"/>
+            <sort-field name="description"/>
+            <sort-field name="priority"/>
+            <sort-field name="estimatedStartDate"/>
+            <sort-field name="estimatedCompletionDate"/>
+            <sort-field name="partyId"/>
+            <sort-field name="addButton"/>
+            <sort-field name="updateButton"/>
+        </sort-order>
+    </form>
+</forms>

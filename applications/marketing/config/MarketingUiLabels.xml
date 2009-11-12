@@ -1716,6 +1716,10 @@
         <value xml:lang="en">Assign To Me</value>
         <value xml:lang="th">กำหนดให้ฉัน</value>
     </property>
+    <property key="SfaComplete">
+        <value xml:lang="en">Complete</value>
+        <value xml:lang="th">เสร็จสิ้น</value>
+    </property>
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
         <value xml:lang="fr">Comptes</value>
@@ -2132,5 +2136,17 @@
     </property>
     <property key="SfaOpportunityCommunications">
         <value xml:lang="en">Opportunity Communications</value>
+    </property>
+    <property key="SfaTaskAssignedToMe">
+        <value xml:lang="en">Open Tasks Assigned to me.</value>
+        <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
+    </property>
+    <property key="SfaTaskAssignedByMe">
+        <value xml:lang="en">Open Tasks Assigned by me.</value>
+        <value xml:lang="th">งานที่ฉันมอบหมาย</value>
+    </property>
+    <property key="SfaAssignedBy">
+        <value xml:lang="en">Assigned by</value>
+        <value xml:lang="th">กำหนดโดย</value>
     </property>
 </resource>

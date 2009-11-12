@@ -28,7 +28,7 @@ under the License.
                 <set field="headerItem" value="Accounts"/>
                 <set field="setAccountDescription" value="${groovy:session.setAttribute(&quot;accountDescription&quot;,headerItem)}"/>
                 <set field="removeContactDescription" value="${groovy:session.removeAttribute(&quot;contactDescription&quot;)}"/>
-                <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;removeDescription&quot;)}"/>
+                <set field="removeLeadDescription" value="${groovy:session.removeAttribute(&quot;leadDescription&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

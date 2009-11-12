@@ -204,9 +204,12 @@ public class VCard {
             if (UtilValidate.isNotEmpty(state)) {
                 address.setRegion(state.getString("geoName"));
             }
-            String country = postalAddress.getRelatedOne("CountryGeo").getString("geoName");
-            address.setCountry(country);
-            address.setWork(true); // this can be better set by checking contactMechPurposeTypeId
+            GenericValue countryGeo = postalAddress.getRelatedOne("CountryGeo");
+            if (UtilValidate.isNotEmpty(countryGeo)) {
+                String country = postalAddress.getRelatedOne("CountryGeo").getString("geoName");
+                address.setCountry(country);
+                address.setWork(true); // this can be better set by checking contactMechPurposeTypeId
+            }
             contact.addAddress(address);
 
             Communications communication = cmf.createCommunications();
