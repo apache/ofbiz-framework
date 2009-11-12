@@ -32,7 +32,7 @@ import javolution.util.FastSet;
 
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {
-    public static class ArrayToList extends AbstractConverter<Object[], List> {
+    public static class ArrayToList<T> extends AbstractConverter<T[], List<T>> {
         public ArrayToList() {
             super(Object[].class, List.class);
         }
@@ -42,56 +42,56 @@ public class CollectionConverters implements ConverterLoader {
             return sourceClass.isArray() && ObjectType.instanceOf(targetClass, this.getTargetClass());
         }
 
-        public List<?> convert(Object[] obj) throws ConversionException {
+        public List<T> convert(T[] obj) throws ConversionException {
             return Arrays.asList(obj);
         }
     }
 
-    public static class ListToString extends AbstractConverter<List, String> {
+    public static class ListToString<T> extends AbstractConverter<List<T>, String> {
         public ListToString() {
             super(List.class, String.class);
         }
 
-        public String convert(List obj) throws ConversionException {
+        public String convert(List<T> obj) throws ConversionException {
             return obj.toString();
         }
     }
 
-    public static class MapToList extends AbstractCollectionConverter<Map, List<Map>> {
+    public static class MapToList<K, V> extends AbstractConverter<Map<K, V>, List<Map<K, V>>> {
         public MapToList() {
             super(Map.class, List.class);
         }
 
-        public List<Map> convert(Map obj) throws ConversionException {
-            List<Map> tempList = FastList.newInstance();
+        public List<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
+            List<Map<K, V>> tempList = FastList.newInstance();
             tempList.add(obj);
             return tempList;
         }
     }
 
-    public static class MapToSet extends AbstractCollectionConverter<Map, Set<Map>> {
+    public static class MapToSet<K, V> extends AbstractConverter<Map<K, V>, Set<Map<K, V>>> {
         public MapToSet() {
             super(Map.class, Set.class);
         }
 
-        public Set<Map> convert(Map obj) throws ConversionException {
-            Set<Map> tempSet = FastSet.newInstance();
+        public Set<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
+            Set<Map<K, V>> tempSet = FastSet.newInstance();
             tempSet.add(obj);
             return tempSet;
         }
     }
 
-    public static class MapToString extends AbstractConverter<Map, String> {
+    public static class MapToString<K, V> extends AbstractConverter<Map<K, V>, String> {
         public MapToString() {
             super(Map.class, String.class);
         }
 
-        public String convert(Map obj) throws ConversionException {
+        public String convert(Map<K, V> obj) throws ConversionException {
             return obj.toString();
         }
     }
 
-    public static class StringToList extends AbstractCollectionConverter<String, List<String>> {
+    public static class StringToList extends AbstractConverter<String, List<String>> {
         public StringToList() {
             super(String.class, List.class);
         }
@@ -107,12 +107,12 @@ public class CollectionConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToMap extends AbstractConverter<String, Map> {
+    public static class StringToMap extends AbstractConverter<String, Map<String, String>> {
         public StringToMap() {
             super(String.class, Map.class);
         }
 
-        public Map convert(String obj) throws ConversionException {
+        public Map<String, String> convert(String obj) throws ConversionException {
             if (obj.startsWith("{") && obj.endsWith("}")) {
                 return StringUtil.toMap(obj);
             }
@@ -120,7 +120,7 @@ public class CollectionConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToSet extends AbstractCollectionConverter<String, Set<String>> {
+    public static class StringToSet extends AbstractConverter<String, Set<String>> {
         public StringToSet() {
             super(String.class, Set.class);
         }

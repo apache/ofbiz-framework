@@ -94,7 +94,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToList extends AbstractCollectionConverter<BigDecimal, List<BigDecimal>> {
+    public static class BigDecimalToList extends AbstractConverter<BigDecimal, List<BigDecimal>> {
         public BigDecimalToList() {
             super(BigDecimal.class, List.class);
         }
@@ -116,7 +116,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToSet extends AbstractCollectionConverter<BigDecimal, Set<BigDecimal>> {
+    public static class BigDecimalToSet extends AbstractConverter<BigDecimal, Set<BigDecimal>> {
         public BigDecimalToSet() {
             super(BigDecimal.class, Set.class);
         }
@@ -169,7 +169,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToList extends AbstractCollectionConverter<Double, List<Double>> {
+    public static class DoubleToList extends AbstractConverter<Double, List<Double>> {
         public DoubleToList() {
             super(Double.class, List.class);
         }
@@ -191,7 +191,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToSet extends AbstractCollectionConverter<Double, Set<Double>> {
+    public static class DoubleToSet extends AbstractConverter<Double, Set<Double>> {
         public DoubleToSet() {
             super(Double.class, Set.class);
         }
@@ -244,7 +244,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToList extends AbstractCollectionConverter<Float, List<Float>> {
+    public static class FloatToList extends AbstractConverter<Float, List<Float>> {
         public FloatToList() {
             super(Float.class, List.class);
         }
@@ -266,7 +266,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToSet extends AbstractCollectionConverter<Float, Set<Float>> {
+    public static class FloatToSet extends AbstractConverter<Float, Set<Float>> {
         public FloatToSet() {
             super(Float.class, Set.class);
         }
@@ -319,7 +319,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToList extends AbstractCollectionConverter<Integer, List<Integer>> {
+    public static class IntegerToList extends AbstractConverter<Integer, List<Integer>> {
         public IntegerToList() {
             super(Integer.class, List.class);
         }
@@ -341,7 +341,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToSet extends AbstractCollectionConverter<Integer, Set<Integer>> {
+    public static class IntegerToSet extends AbstractConverter<Integer, Set<Integer>> {
         public IntegerToSet() {
             super(Integer.class, Set.class);
         }
@@ -404,7 +404,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToList extends AbstractCollectionConverter<Long, List<Long>> {
+    public static class LongToList extends AbstractConverter<Long, List<Long>> {
         public LongToList() {
             super(Long.class, List.class);
         }
@@ -416,7 +416,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToSet extends AbstractCollectionConverter<Long, Set<Long>> {
+    public static class LongToSet extends AbstractConverter<Long, Set<Long>> {
         public LongToSet() {
             super(Long.class, Set.class);
         }
