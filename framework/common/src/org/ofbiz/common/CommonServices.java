@@ -86,9 +86,13 @@ public class CommonServices {
     }
 
     public static Map<String, Object> blockingTestService(DispatchContext dctx, Map<String, ?> context) {
-        System.out.println("-----SERVICE BLOCKING----- : 30 seconds");
+        Long duration = (Long) context.get("duration");
+        if (duration == null) {
+            duration = 30000l;
+        }
+        System.out.println("-----SERVICE BLOCKING----- : " + duration/1000d +" seconds");
         try {
-            Thread.sleep(30000);
+            Thread.sleep(duration);
         } catch (InterruptedException e) {
         }
         return CommonServices.testService(dctx, context);

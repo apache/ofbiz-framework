@@ -34,13 +34,14 @@ under the License.
     <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true" transaction-timeout="20"
             location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
         <description>Blocking Test service</description>
+        <attribute name="duration" mode="IN" type="Long" optional="true"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
     <service name="testError" engine="java" export="true" validate="false" require-new-transaction="true" max-retry="1"
             location="org.ofbiz.common.CommonServices" invoke="returnErrorService">
     </service>
-    <!-- see serviceengin.xml to configure the rmi location alias -->
+    <!-- see serviceengine.xml to configure the rmi location alias -->
     <service name="testRmi" engine="rmi" validate="false"
             location="main-rmi" invoke="testScv">
         <implements service="testScv"/>
