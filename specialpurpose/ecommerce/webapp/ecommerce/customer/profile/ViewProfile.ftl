@@ -19,7 +19,7 @@ under the License.
 
 <div class="screenlet">
   <h3>${uiLabelMap.EcommerceMyAccount}</h3>
-  <div class="screenlet-body">
+  <div class="screenlet-body clearfix">
     <div>
       <a class="button" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>
       <h3>${uiLabelMap.PartyContactInformation}</h3>

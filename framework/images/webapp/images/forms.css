@@ -20,11 +20,11 @@
 /***********************************************
 Forms
 ***********************************************/
-form {clear:both; margin:0; padding:0}
+form {margin:0; padding:0}
 
 form p.desc {margin:.5em 0; padding:.75em 0;}
 
-fieldset {clear: both; margin: 0 0 2em 0;}
+fieldset {margin: 0 0 2em 0;}
 fieldset.col {clear:none; float:left; display:inline; margin:0 2em 2em 0}
 
 legend {padding: 0 0 1.286em; font-size: 1.167em; font-weight: 700;}
@@ -38,7 +38,7 @@ form ul li {list-style-type: none; margin: 0;}
 form .inline li, form .inline label {display: inline;}
 form .inline li {padding: 0 .75em 0 0;}
 
-form .form-row input, form .form-row select, form .form-row textarea, form table input, form table select { 
+form .form-row input, form .form-row select, form .form-row textarea, form table input, form table select,select { 
 border-style:solid; 
 border-width:1px; 
 background-color:#fbfbfb; 

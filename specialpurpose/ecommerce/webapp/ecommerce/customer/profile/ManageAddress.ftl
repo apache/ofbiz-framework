@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
-<div class="screenlet">
+<div class="screenlet clearfix">
   <form id="refreshRequestForm" method="post" action="<@ofbizUrl>manageAddress</@ofbizUrl>">
   </form>
 
@@ -77,11 +77,11 @@ under the License.
               </#if>
               </select>
           </div>
-          <div>
+          <div class="inline">
             <label for="setBillingPurpose">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
             <input type="checkbox" name="setBillingPurpose" id="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if> />
           </div>
-          <div>
+          <div class="inline">
             <label for="setShippingPurpose">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
             <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
           </div>

@@ -67,11 +67,11 @@ under the License.
         </select>
         <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </div>
-      <div>
+      <div class="inline">
         <label for="setBillingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
         <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForPostalAddress" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if> />
       </div>
-      <div>
+      <div class="inline">
         <label for="setShippingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
         <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForPostalAddress" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
       </div>
