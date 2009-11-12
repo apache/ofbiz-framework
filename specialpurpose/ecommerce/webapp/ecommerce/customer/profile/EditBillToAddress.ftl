@@ -77,7 +77,7 @@ under the License.
         - <input type="text" name="extension" value="${extension?default("${billToExtension?if_exists}")}" size="3" maxlength="3" />
       </div>
     </#if>
-    <div>
+    <div class="inline">
       <label for="setShippingPurposeForBilling">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
       <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForBilling" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
     </div>
