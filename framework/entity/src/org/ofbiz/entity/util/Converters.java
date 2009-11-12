@@ -25,7 +25,6 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.conversion.AbstractConverter;
-import org.ofbiz.base.conversion.AbstractCollectionConverter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.ConverterLoader;
 import org.ofbiz.entity.GenericEntity;
@@ -33,7 +32,7 @@ import org.ofbiz.entity.GenericValue;
 
 /** Entity Engine <code>Converter</code> classes. */
 public class Converters implements ConverterLoader {
-    public static class GenericValueToList extends AbstractCollectionConverter<GenericValue, List<GenericValue>> {
+    public static class GenericValueToList extends AbstractConverter<GenericValue, List<GenericValue>> {
         public GenericValueToList() {
             super(GenericValue.class, List.class);
         }
@@ -45,7 +44,7 @@ public class Converters implements ConverterLoader {
         }
     }
 
-    public static class GenericValueToSet extends AbstractCollectionConverter<GenericValue, Set<GenericValue>> {
+    public static class GenericValueToSet extends AbstractConverter<GenericValue, Set<GenericValue>> {
         public GenericValueToSet() {
             super(GenericValue.class, Set.class);
         }
