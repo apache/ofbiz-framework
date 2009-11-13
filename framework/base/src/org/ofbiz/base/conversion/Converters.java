@@ -127,11 +127,13 @@ public class Converters {
      */
     public static <S, T> void registerConverter(Converter<S, T> converter) {
         String key = converter.getSourceClass().getName().concat(DELIMITER).concat(converter.getTargetClass().getName());
-        synchronized (converterMap) {
-            converterMap.put(key, converter);
-        }
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
+        if (converterMap.get(key) == null) {
+            synchronized (converterMap) {
+                converterMap.put(key, converter);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
+            }
         }
     }
 
