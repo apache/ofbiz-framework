@@ -2,14 +2,14 @@ options {
   JAVA_UNICODE_ESCAPE = false;
   ERROR_REPORTING = true;
   STATIC = false;
-  MULTI = true;
+//  MULTI = true;
   JDK_VERSION = "1.5";
-  VISITOR = true;
-  BUILD_NODE_FILES = true;
-  NODE_FACTORY = false;
-  NODE_USES_PARSER = true;
+//  VISITOR = true;
+//  BUILD_NODE_FILES = true;
+//  NODE_FACTORY = false;
+//  NODE_USES_PARSER = true;
 //  NODE_SCOPE_HOOK = true;
-  NODE_PREFIX = "SQL";
+//  NODE_PREFIX = "SQL";
 //  DEBUG_PARSER = true;
 //  DEBUG_LOOKAHEAD = true;
 //  DEBUG_TOKEN_MANAGER = true;
@@ -148,21 +148,22 @@ SQLSelect Select():
 	EntityCondition condition;
 	int i;
 	DynamicViewEntity dve = new DynamicViewEntity();
-	jjtThis.setDynamicViewEntity(dve);
+	SQLSelect sqlSelect = new SQLSelect();
+	sqlSelect.setDynamicViewEntity(dve);
 	List<String> fieldList;
 	List<String> orderBy;
 }
 {
 	<SELECT> FieldDefs(dve)
 	<FROM> Table(dve)
-	( <WHERE> condition=ConditionExpression() { jjtThis.setWhereCondition(condition); } )?
-	( <HAVING> condition=ConditionExpression() { jjtThis.setHavingCondition(condition); } )?
+	( <WHERE> condition=ConditionExpression() { sqlSelect.setWhereCondition(condition); } )?
+	( <HAVING> condition=ConditionExpression() { sqlSelect.setHavingCondition(condition); } )?
 	( <GROUP> <BY> fieldList=FieldList() { dve.setGroupBy(fieldList); } )?
-	( <ORDER> <BY> orderBy=OrderByList() { jjtThis.setOrderBy(orderBy); } )?
-	( <OFFSET> i=Integer() { jjtThis.setOffset(i); } )?
-	( <LIMIT> i=Integer() { jjtThis.setLimit(i); } )?
+	( <ORDER> <BY> orderBy=OrderByList() { sqlSelect.setOrderBy(orderBy); } )?
+	( <OFFSET> i=Integer() { sqlSelect.setOffset(i); } )?
+	( <LIMIT> i=Integer() { sqlSelect.setLimit(i); } )?
 	<SEMI>
-	{ return jjtThis; }
+	{ return sqlSelect; }
 }
 /*
 CSSUpdate Update():
@@ -185,7 +186,7 @@ CSSDelete Delete():
 }
 */
 
-private void Table(DynamicViewEntity dve) #void:
+private void Table(DynamicViewEntity dve):
 {
 	String leftAlias, rightAlias;
 	Boolean relOptional;
@@ -204,7 +205,7 @@ private void Table(DynamicViewEntity dve) #void:
 
 }
 
-private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias) #void:
+private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias):
 {
 	List<ModelKeyMap> keyMaps = FastList.newInstance();
 	ModelKeyMap keyMap;
@@ -215,7 +216,7 @@ private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias) #void:
 	{ return keyMaps; }
 }
 
-private ModelKeyMap KeyMap(String leftAlias, String rightAlias) #void:
+private ModelKeyMap KeyMap(String leftAlias, String rightAlias):
 {
 	String alias1, field1;
 	String alias2, field2;
@@ -239,7 +240,7 @@ private ModelKeyMap KeyMap(String leftAlias, String rightAlias) #void:
 	}
 }
 
-private String TableName(DynamicViewEntity dve) #void:
+private String TableName(DynamicViewEntity dve):
 {
 	String name, alias = null;
 }
@@ -252,27 +253,27 @@ private String TableName(DynamicViewEntity dve) #void:
 	}
 }
 
-private Boolean Joiner() #void:
+private Boolean Joiner():
 {}
 {
 	<LEFT> <JOIN> { return Boolean.TRUE; }
 |	<JOIN> { return Boolean.FALSE; }
 }
 
-private void FieldDefs(DynamicViewEntity dve) #void:
+private void FieldDefs(DynamicViewEntity dve):
 {}
 {
 	FieldDef(dve) ( <COMMA> FieldDef(dve) )*
 }
 
-private void FieldDef(DynamicViewEntity dve) #void:
+private void FieldDef(DynamicViewEntity dve):
 {}
 {
 	LOOKAHEAD(AllField()) AllField(dve)
 |	FieldSpec(dve)
 }
 
-private void AllField(DynamicViewEntity dve) #void:
+private void AllField(DynamicViewEntity dve):
 {
 	String n;
 }
@@ -282,13 +283,13 @@ private void AllField(DynamicViewEntity dve) #void:
 	{ dve.addAliasAll(n, null); }
 }
 
-private String NamePart() #void:
+private String NamePart():
 {}
 {
 	<NAME> { return getToken(0).image; }
 }
 
-private void FieldSpec(DynamicViewEntity dve) #void:
+private void FieldSpec(DynamicViewEntity dve):
 {
 	List<String> fieldUse;
 	String tableAlias, fieldName, fieldAlias = null;
@@ -305,14 +306,14 @@ private void FieldSpec(DynamicViewEntity dve) #void:
 	}
 }
 
-private String DQuoted() #void:
+private String DQuoted():
 { StringBuilder sb = new StringBuilder(); }
 {
 	<START_DQUOTE> (<TEXT> { sb.append(getToken(0).image); } | <ESCAPED> { sb.append(getToken(0).image); })* <END_DQUOTE>
 	{ return sb.toString(); }
 }
 
-private String SQuoted() #void:
+private String SQuoted():
 { StringBuilder sb = new StringBuilder(); }
 {
 	<START_SQUOTE> (
@@ -323,7 +324,7 @@ private String SQuoted() #void:
 	{ return sb.toString(); }
 }
 
-private List<String> FieldList() #void:
+private List<String> FieldList():
 {
 	List<String> list = FastList.newInstance();
 	String n;
@@ -334,7 +335,7 @@ private List<String> FieldList() #void:
 	{ return list; }
 }
 
-private EntityConditionValue FieldUse() #void:
+private EntityConditionValue FieldUse():
 {
 	String tableAlias = null, fieldName, s;
 }
@@ -344,7 +345,7 @@ private EntityConditionValue FieldUse() #void:
 	{ return EntityFieldValue.makeFieldValue(fieldName, tableAlias, null, null); }
 }
 
-private List<String> OrderByList() #void:
+private List<String> OrderByList():
 {
 	List<String> orderBy = FastList.newInstance();
 	String obi;
@@ -355,7 +356,7 @@ private List<String> OrderByList() #void:
 	{ return orderBy; }
 }
 
-private String OrderByItem() #void:
+private String OrderByItem():
 {
 	StringBuilder sb = new StringBuilder();
 	String n;
@@ -369,7 +370,7 @@ private String OrderByItem() #void:
 	{ return sb.toString(); }
 }
 
-private Integer Integer() #void:
+private Integer Integer():
 {}
 {
 	<INTEGER> {
@@ -384,7 +385,7 @@ private Integer Integer() #void:
 	}
 }
 
-private Object Expression() #void:
+private Object Expression():
 {
 	EntityConditionValue ecv;
 	String s;
@@ -396,13 +397,13 @@ private Object Expression() #void:
 |	s=SQuoted() { return s; }
 }
 
-private EntityCondition ConditionExpression() #void:
+private EntityCondition ConditionExpression():
 { EntityCondition ec; }
 {
 	ec=AndExpression() { return ec; }
 }
 
-private EntityCondition AndExpression() #void:
+private EntityCondition AndExpression():
 {
 	List<EntityCondition> list = FastList.newInstance();
 	EntityCondition ec;
@@ -416,7 +417,7 @@ private EntityCondition AndExpression() #void:
 	}
 }
 
-private EntityCondition OrExpression() #void:
+private EntityCondition OrExpression():
 {
 	List<EntityCondition> list = FastList.newInstance();
 	EntityCondition ec;
@@ -430,7 +431,7 @@ private EntityCondition OrExpression() #void:
 	}
 }
 
-private EntityCondition BooleanExpression() #void:
+private EntityCondition BooleanExpression():
 {
 	Object v1, v2;
 	EntityComparisonOperator op;
@@ -440,7 +441,7 @@ private EntityCondition BooleanExpression() #void:
 	{ return EntityCondition.makeCondition(v1, op, v2); }
 }
 
-private EntityComparisonOperator ComparisonOperator() #void:
+private EntityComparisonOperator ComparisonOperator():
 {}
 {
 	( <TEXT> )+ { return EntityOperator.lookupComparison(getToken(0).image); }
