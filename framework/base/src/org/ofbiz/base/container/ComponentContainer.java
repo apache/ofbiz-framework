@@ -240,8 +240,7 @@ public class ComponentContainer implements Container {
                     if (path.exists()) {
                         if (path.isDirectory()) {
                             // load all .jar and .zip files in this directory
-                            File files[] = path.listFiles();
-                            for (File file: files) {
+                            for (File file: path.listFiles()) {
                                 String fileName = file.getName();
                                 if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
                                     classPath.addComponent(file);
