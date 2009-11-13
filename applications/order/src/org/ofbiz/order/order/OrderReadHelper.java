@@ -1817,7 +1817,7 @@ public class OrderReadHelper {
         Iterator<String> returnHeaderIterator = returnHeaderList.iterator();
         while (returnHeaderIterator.hasNext()) {
             String returnId = returnHeaderIterator.next();
-            Map<String, Object> returnHeaderAdjFilter = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", "_NA_");
+            Map<String, Object> returnHeaderAdjFilter = UtilMisc.<String, Object>toMap("returnId", returnId, "returnItemSeqId", "_NA_");
             returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
         }
         return returnedAmount.setScale(scale, rounding);
