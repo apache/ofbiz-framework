@@ -47,13 +47,20 @@ under the License.
               <td>${currentGlReconciliation.reconciledBalance?if_exists}</td>
             </tr>
           </#if>
+          <#if currentGlReconciliation.statusId?exists>
+            <tr>
+              <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
+              <#assign currentStatus = currentGlReconciliation.getRelatedOneCache("StatusItem")>  
+              <td>${currentStatus.description?if_exists}</td>
+            </tr>
+          </#if>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
             <td>${currentGlReconciliation.reconciledDate?if_exists}</td>
           </tr>
           <tr>
             <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
-            <td><@ofbizCurrency amount=currentGlReconciliation.openingBalance?default('0')/></td>
+            <td><@ofbizCurrency amount=currentGlReconciliation  .openingBalance?default('0')/></td>
           </tr>
         </table>
       </#if>
@@ -74,6 +81,13 @@ under the License.
             <tr>
               <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
               <td>${previousGlReconciliation.reconciledBalance?if_exists}</td>
+            </tr>
+          </#if>
+          <#if previousGlReconciliation.statusId?exists>
+            <tr>
+              <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
+              <#assign previousStatus = previousGlReconciliation.getRelatedOneCache("StatusItem")> 
+              <td>${previousStatus.description?if_exists}</td>
             </tr>
           </#if>
           <tr>
