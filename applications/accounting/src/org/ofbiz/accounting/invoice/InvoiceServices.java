@@ -374,7 +374,6 @@ public class InvoiceServices {
                 }
 
                 // get some quantities
-                BigDecimal orderedQuantity = orderItem.getBigDecimal("quantity");
                 BigDecimal billingQuantity = null;
                 if (itemIssuance != null) {
                     billingQuantity = itemIssuance.getBigDecimal("quantity");
@@ -386,9 +385,13 @@ public class InvoiceServices {
                 } else if (shipmentReceipt != null) {
                     billingQuantity = shipmentReceipt.getBigDecimal("quantityAccepted");
                 } else {
-                    billingQuantity = orderedQuantity;
+                    BigDecimal orderedQuantity = OrderReadHelper.getOrderItemQuantity(orderItem);
+                    BigDecimal invoicedQuantity = OrderReadHelper.getOrderItemInvoicedQuantity(orderItem);
+                    billingQuantity = orderedQuantity.subtract(invoicedQuantity);
+                    if (billingQuantity.compareTo(ZERO) < 0) {
+                        billingQuantity = ZERO;
+                    }
                 }
-                if (orderedQuantity == null) orderedQuantity = ZERO;
                 if (billingQuantity == null) billingQuantity = ZERO;
 
                 // check if shipping applies to this item.  Shipping is calculated for sales invoices, not purchase invoices.
