@@ -18,10 +18,10 @@ select
 	b.lastName,
     c.groupName
 FROM
-	Party a LEFT JOIN Person b ON a.partyId = b.partyId LEFT JOIN PartyGroup c on a.partyId = c.partyId
-RELATION TYPE one Party ON cur.partyId = other.partyId
-RELATION TYPE one Person ON cur.partyId = other.partyId
-RELATION TYPE one PartyGroup ON cur.partyId = other.partyId
+	Party a LEFT JOIN Person b USING partyId LEFT JOIN PartyGroup c USING partyId
+RELATION TYPE one Party USING partyId
+RELATION TYPE one Person USING partyId
+RELATION TYPE one PartyGroup USING partyId
 WHERE
     partyId = 'admin'
 ORDER BY

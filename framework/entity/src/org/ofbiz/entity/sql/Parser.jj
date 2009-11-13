@@ -78,6 +78,7 @@ TOKEN: {
 |	<UNION: "UNION">
 |	<BY: "BY">
 |	<ON: "ON">
+|	<USING: "USING">
 |	<LIMIT: "LIMIT">
 |	<OFFSET: "OFFSET">
 |	<SELECT: "SELECT">
@@ -179,7 +180,7 @@ private void RelationDef(DynamicViewEntity dve):
 	( LOOKAHEAD(2) <TYPE> type=NamePart() )?
 	( LOOKAHEAD(2) <TITLE> title=NamePart() )?
 	entityName=NamePart()
-	<ON> keyMaps=KeyMaps("cur", "other") {
+	keyMaps=KeyMaps("cur", "other") {
 		System.err.println("addRelation(" + type + ", " + title + ", " + entityName + ", " + keyMaps + ")");
 		dve.addRelation(type, title, entityName, keyMaps);
 	}
@@ -216,7 +217,7 @@ private void Table(DynamicViewEntity dve):
 	leftAlias=TableName(dve) { availableAliases.add(leftAlias); }
 	(
 		relOptional=Joiner() rightAlias=TableName(dve) { availableAliases.add(rightAlias); }
-		<ON> keyMaps=KeyMaps(leftAlias, rightAlias) {
+		keyMaps=KeyMaps(leftAlias, rightAlias) {
     			dve.addViewLink(leftAlias, rightAlias, relOptional, keyMaps);
 		}
 		
@@ -228,10 +229,18 @@ private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias):
 {
 	List<ModelKeyMap> keyMaps = FastList.newInstance();
 	ModelKeyMap keyMap;
+	String n;
 }
 {
-	keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); }
-	( <AND> keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); } )*
+	(
+		<ON>
+		keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); }
+		( <AND> keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); } )*
+	|
+		<USING>
+		n=NamePart() { keyMaps.add(new ModelKeyMap(n, n)); }
+		( <COMMA> n=NamePart() { keyMaps.add(new ModelKeyMap(n, n)); } )*
+	)
 	{ return keyMaps; }
 }
 
