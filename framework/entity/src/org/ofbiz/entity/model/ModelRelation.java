@@ -69,8 +69,8 @@ public class ModelRelation extends ModelChild {
 
     /** Default Constructor */
     public ModelRelation(String type, String title, String relEntityName, String fkName, List<ModelKeyMap> keyMaps) {
-        this.title = title;
         if (title == null) title = "";
+        this.title = title;
         this.type = type;
         this.relEntityName = relEntityName;
         this.fkName = fkName;
@@ -107,9 +107,6 @@ public class ModelRelation extends ModelChild {
 
     /** the title, gives a name/description to the relation */
     public String getTitle() {
-        if (this.title == null) {
-            this.title = "";
-        }
         return this.title;
     }
 
