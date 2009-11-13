@@ -139,7 +139,9 @@ public class DynamicViewEntity {
             // TODO: conditions
             viewElement.appendChild(viewLinkElement);
         }
-        // TODO: relations
+        for (ModelRelation relation: relations) {
+            viewElement.appendChild(relation.toXmlElement(doc));
+        }
         return viewElement;
     }
 
