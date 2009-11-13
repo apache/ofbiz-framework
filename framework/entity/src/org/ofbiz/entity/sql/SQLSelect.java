@@ -31,27 +31,13 @@ import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
 
-public class SQLSelect extends SimpleNode {
+public class SQLSelect {
     private DynamicViewEntity dve;
     private EntityCondition whereCondition;
     private EntityCondition havingCondition;
     private int offset = -1;
     private int limit = -1;
     private List<String> orderBy;
-
-    public SQLSelect(int id) {
-        super(id);
-    }
-
-    public SQLSelect(Parser p, int id) {
-        super(p, id);
-    }
-
-
-    /** Accept the visitor. **/
-    public Object jjtAccept(ParserVisitor visitor, Object data) {
-        return visitor.visit(this, data);
-    }
 
     public EntityListIterator getEntityListIterator(Delegator delegator) throws GenericEntityException {
         return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, orderBy, null);

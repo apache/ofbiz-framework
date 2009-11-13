@@ -53,7 +53,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="gen-src">
-        <ofbiz-jjtree dir="org/ofbiz/entity/sql" file="Parser"/>
+        <ofbiz-javacc dir="org/ofbiz/entity/sql" file="Parser"/>
     </target>
 
     <target name="classes" depends="prepare,gen-src">
