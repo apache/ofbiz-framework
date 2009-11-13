@@ -88,6 +88,9 @@ public class ModelViewEntity extends ModelEntity {
     /** A List of the Field objects for the View Entity, one for each GROUP BY field */
     protected List<ModelField> groupBys = FastList.newInstance();
 
+    /** List of field names to group by */
+    protected List<String> groupByFields = FastList.newInstance();
+
     protected Map<String, Map<String, ModelConversion>> conversions = FastMap.newInstance();
     
     protected ViewEntityCondition viewEntityCondition = null;
@@ -164,6 +167,8 @@ public class ModelViewEntity extends ModelEntity {
 
         // relations
         dynamicViewEntity.addAllRelationsToList(this.relations);
+
+        dynamicViewEntity.addAllGroupByFieldsToList(this.groupByFields);
 
         // finalize stuff
         // note that this doesn't result in a call to populateReverseLinks because a DynamicViewEntity should never be cached anyway, and will blow up when attempting to make the reverse links to the DynamicViewEntity
@@ -430,7 +435,7 @@ public class ModelViewEntity extends ModelEntity {
             field.description = alias.description;
 
             // if this is a groupBy field, add it to the groupBys list
-            if (alias.groupBy) {
+            if (alias.groupBy || groupByFields.contains(alias.name)) {
                 this.groupBys.add(field);
             }
 

@@ -60,6 +60,9 @@ public class DynamicViewEntity {
     /** List of aliases with information in addition to what is in the standard field list */
     protected List<ModelAlias> aliases = new ArrayList<ModelAlias>();
 
+    /** List of fields to group by */
+    protected List<String> groupBy;
+
     /** List of view links to define how entities are connected (or "joined") */
     protected List<ModelViewLink> viewLinks = new ArrayList<ModelViewLink>();
 
@@ -210,5 +213,15 @@ public class DynamicViewEntity {
 
     public void addAllRelationsToList(List<ModelRelation> addList) {
         addList.addAll(this.relations);
+    }
+
+    public void setGroupBy(List<String> groupBy) {
+        this.groupBy = groupBy;
+    }
+
+    public void addAllGroupByFieldsToList(List<String> addList) {
+        if (groupBy != null) {
+            addList.addAll(this.groupBy);
+        }
     }
 }
