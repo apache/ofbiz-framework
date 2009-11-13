@@ -173,7 +173,12 @@ under the License.
     </service>
     <service name="createCommissionInvoices" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="createCommissionInvoices">
-        <description>Create commission invoice for the list of sales invoices</description>
+        <description>
+            Create commission invoice for the list of sales invoices.  
+            Returns a List of Maps, one for each invoice created containing: 
+                commissionInvoiceId: the invoiceId of the invoice created 
+                salesRepresentative: the invoice partyIdFrom 
+        </description>
         <attribute name="partyIds" type="List" mode="IN" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="false"/>
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
