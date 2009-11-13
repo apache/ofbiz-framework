@@ -435,10 +435,12 @@ private EntityCondition BooleanExpression():
 {
 	Object v1, v2;
 	EntityComparisonOperator op;
+	EntityCondition ec;
 }
 {
 	v1=Expression() op=ComparisonOperator() v2=Expression()
 	{ return EntityCondition.makeCondition(v1, op, v2); }
+|	<OPEN_PAREN> ec=AndExpression() <CLOSE_PAREN> { return ec; }
 }
 
 private EntityComparisonOperator ComparisonOperator():
