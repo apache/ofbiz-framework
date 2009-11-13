@@ -308,6 +308,7 @@ private String NamePart():
 {}
 {
 	<NAME> { return getToken(0).image; }
+|	<TYPE> { return getToken(0).image; }
 }
 
 private String DQuoted():
