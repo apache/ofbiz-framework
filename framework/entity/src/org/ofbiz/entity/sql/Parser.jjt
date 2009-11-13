@@ -277,7 +277,7 @@ private void AllField(DynamicViewEntity dve) #void:
 private String NamePart() #void:
 {}
 {
-	( LOOKAHEAD(2) <NAME>)+ { return getToken(0).image; }
+	<NAME> { return getToken(0).image; }
 }
 
 private void FieldSpec(DynamicViewEntity dve) #void:
