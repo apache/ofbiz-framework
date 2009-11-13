@@ -5,9 +5,9 @@ response.contentType = 'text/html'
 def delegator = request.delegator
 
 def ec1 = SQLUtil.parseCondition("partyId = 'foo' AND partyTypeId = 'PARTY_GROUP'")
-println("ec1=$ec1")
+response.writer.println("ec1=$ec1<br />")
 def ec2 = SQLUtil.parseCondition(ec1.toString())
-println("ec2=$ec2")
+response.writer.println("ec2=$ec2<br />")
 //return
 
 def sql = """
@@ -33,7 +33,7 @@ TransactionUtil.doNewTransaction("Test", [call: {
         eli = sqlSelect.getEntityListIterator(delegator)
         def gv;
         while ((gv = eli.next()) != null) {
-            println("gv=$gv")
+            response.writer.println("gv=$gv<br />")
         }
     } finally {
         if (eli != null) eli.close()
