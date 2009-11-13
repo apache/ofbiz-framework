@@ -730,7 +730,7 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ModelAliasAll implements Serializable {
+    public static class ModelAliasAll implements Serializable, Iterable<String> {
         protected String entityAlias = "";
         protected String prefix = "";
         protected Set<String> fieldsToExclude = null;
@@ -783,6 +783,10 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 return this.fieldsToExclude.contains(fieldName);
             }
+        }
+
+        public Iterator<String> iterator() {
+            return fieldsToExclude.iterator();
         }
     }
 
@@ -997,7 +1001,7 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ModelViewLink implements Serializable {
+    public static class ModelViewLink implements Serializable, Iterable<ModelKeyMap> {
         protected String entityAlias = "";
         protected String relEntityAlias = "";
         protected boolean relOptional = false;
@@ -1060,6 +1064,10 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public Iterator<ModelKeyMap> getKeyMapsIterator() {
+            return this.keyMaps.iterator();
+        }
+
+        public Iterator<ModelKeyMap> iterator() {
             return this.keyMaps.iterator();
         }
 
