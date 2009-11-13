@@ -32,7 +32,7 @@
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="tabbar">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
@@ -40,6 +40,17 @@
                             </condition>
                             <widgets>
                                 <include-menu name="FeaturesTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                <!-- add Create Product and View Product (in ecommerce) links -->
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
                                 <!-- add Create Product and View Product (in ecommerce) links -->
                                 <container style="no-clear">
                                     <decorator-section-include name="body"/>

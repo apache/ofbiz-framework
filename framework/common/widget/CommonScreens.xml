@@ -196,6 +196,9 @@ under the License.
                 
                 <!-- render messages -->
                 <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
+
+                <decorator-section-include name="tabbar"/>
+
                 <container style="contentarea">
                     <!-- may be used by sight disabled persons to skip directly to content area-->
                     <decorator-section-include name="pre-body"/>

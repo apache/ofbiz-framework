@@ -219,11 +219,17 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="tabbar">
                         <section>
                             <widgets>
                                 <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
                                 <container style="clear"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -331,10 +337,17 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="tabbar">
                         <section>
                             <widgets>
                                 <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
+                                <container style="clear"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
                                 <container style="clear"/>
                                 <decorator-section-include name="body"/>
                             </widgets>

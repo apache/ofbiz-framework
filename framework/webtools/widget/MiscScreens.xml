@@ -42,6 +42,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsDataFileMainTitle"/>
+                <set field="tabButtonItem" value="data"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.groovy"/>
             </actions>
             <widgets>
