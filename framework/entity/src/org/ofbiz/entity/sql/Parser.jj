@@ -212,7 +212,7 @@ private List<ModelKeyMap> KeyMaps(String leftAlias, String rightAlias):
 }
 {
 	keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); }
-	( <AND> keyMap=KeyMap(leftAlias, rightAlias) )* { keyMaps.add(keyMap); }
+	( <AND> keyMap=KeyMap(leftAlias, rightAlias) { keyMaps.add(keyMap); } )*
 	{ return keyMaps; }
 }
 
