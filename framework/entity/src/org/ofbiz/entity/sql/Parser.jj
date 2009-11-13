@@ -420,7 +420,7 @@ public EntityCondition EntityCondition():
 private EntityCondition ConditionExpression():
 { EntityCondition ec; }
 {
-	ec=AndExpression() { return ec; }
+	ec=OrExpression() { return ec; }
 }
 
 private EntityCondition AndExpression():
@@ -429,8 +429,8 @@ private EntityCondition AndExpression():
 	EntityCondition ec;
 }
 {
-	ec=OrExpression() { list.add(ec); }
-        ( <AND> ec=OrExpression() { list.add(ec); } )*
+	ec=BooleanExpression() { list.add(ec); }
+        ( <AND> ec=BooleanExpression() { list.add(ec); } )*
 	{
 		if (list.size() == 1) return list.get(0);
 		return EntityCondition.makeCondition(list, EntityOperator.AND);
@@ -443,8 +443,8 @@ private EntityCondition OrExpression():
 	EntityCondition ec;
 }
 {
-	ec=BooleanExpression() { list.add(ec); }
-        ( <OR> ec=BooleanExpression() { list.add(ec); } )*
+	ec=AndExpression() { list.add(ec); }
+        ( <OR> ec=AndExpression() { list.add(ec); } )*
 	{
 		if (list.size() == 1) return list.get(0);
 		return EntityCondition.makeCondition(list, EntityOperator.OR);
@@ -479,7 +479,7 @@ private EntityCondition BooleanExpression():
 {
 	v1=Expression() op=ComparisonOperator() v2=RightExpression(op)
 	{ return EntityCondition.makeCondition(v1, op, v2); }
-|	<OPEN_PAREN> ec=AndExpression() <CLOSE_PAREN> { return ec; }
+|	<OPEN_PAREN> ec=ConditionExpression() <CLOSE_PAREN> { return ec; }
 }
 
 private EntityComparisonOperator ComparisonOperator():
