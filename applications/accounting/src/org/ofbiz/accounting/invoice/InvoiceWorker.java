@@ -86,7 +86,7 @@ public class InvoiceWorker {
         }
 
         if (invoice == null) {
-            throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
+            throw new IllegalArgumentException("The passed invoiceId [" +invoiceId + "] does not match an existing invoice");
         }
 
         return getInvoiceTotal(invoice, actualCurrency);
