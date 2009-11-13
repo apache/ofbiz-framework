@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CharacterSet.description.ISO-8859-1">
+        <value xml:lang="da">ISO-8859-1</value>
         <value xml:lang="de">ISO-8859-1</value>
         <value xml:lang="en">ISO-8859-1</value>
         <value xml:lang="es">ISO-8859-1 Inglés</value>
@@ -28,6 +29,7 @@
         <value xml:lang="th">ISO-8859-1</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-10">
+        <value xml:lang="da">ISO-8859-10</value>
         <value xml:lang="de">ISO-8859-10</value>
         <value xml:lang="en">ISO-8859-10</value>
         <value xml:lang="es">ISO-8859-10 ?</value>
@@ -36,6 +38,7 @@
         <value xml:lang="th">ISO-8859-10</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-2">
+        <value xml:lang="da">ISO-8859-2</value>
         <value xml:lang="de">ISO-8859-2</value>
         <value xml:lang="en">ISO-8859-2</value>
         <value xml:lang="es">ISO-8859-2 ?</value>
@@ -44,6 +47,7 @@
         <value xml:lang="th">ISO-8859-2</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-3">
+        <value xml:lang="da">ISO-8859-3</value>
         <value xml:lang="de">ISO-8859-3</value>
         <value xml:lang="en">ISO-8859-3</value>
         <value xml:lang="es">ISO-8859-3 ?</value>
@@ -52,6 +56,7 @@
         <value xml:lang="th">ISO-8859-3</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-4">
+        <value xml:lang="da">ISO-8859-4</value>
         <value xml:lang="de">ISO-8859-4</value>
         <value xml:lang="en">ISO-8859-4</value>
         <value xml:lang="es">ISO-8859-4 ?</value>
@@ -60,6 +65,7 @@
         <value xml:lang="th">ISO-8859-4</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-5">
+        <value xml:lang="da">ISO-8859-5</value>
         <value xml:lang="de">ISO-8859-5</value>
         <value xml:lang="en">ISO-8859-5</value>
         <value xml:lang="es">ISO-8859-5 ?</value>
@@ -68,6 +74,7 @@
         <value xml:lang="th">ISO-8859-5</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-6">
+        <value xml:lang="da">ISO-8859-6</value>
         <value xml:lang="de">ISO-8859-6</value>
         <value xml:lang="en">ISO-8859-6</value>
         <value xml:lang="es">ISO-8859-6 Latino/árabe</value>
@@ -76,6 +83,7 @@
         <value xml:lang="th">ISO-8859-6</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-7">
+        <value xml:lang="da">ISO-8859-7</value>
         <value xml:lang="de">ISO-8859-7</value>
         <value xml:lang="en">ISO-8859-7</value>
         <value xml:lang="es">ISO-8859-7 ?</value>
@@ -84,6 +92,7 @@
         <value xml:lang="th">ISO-8859-7</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-8">
+        <value xml:lang="da">ISO-8859-8</value>
         <value xml:lang="de">ISO-8859-8</value>
         <value xml:lang="en">ISO-8859-8</value>
         <value xml:lang="es">ISO-8859-8 Latino/Hebreo</value>
@@ -92,6 +101,7 @@
         <value xml:lang="th">ISO-8859-8</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-9">
+        <value xml:lang="da">ISO-8859-9</value>
         <value xml:lang="de">ISO-8859-9</value>
         <value xml:lang="en">ISO-8859-9</value>
         <value xml:lang="es">ISO-8859-9 ?</value>
@@ -100,6 +110,7 @@
         <value xml:lang="th">ISO-8859-9</value>
     </property>
     <property key="CharacterSet.description.US-ASCII">
+        <value xml:lang="da">US-ASCII</value>
         <value xml:lang="de">US-ASCII</value>
         <value xml:lang="en">US-ASCII</value>
         <value xml:lang="es">US-ASCII</value>
@@ -108,6 +119,7 @@
         <value xml:lang="th">US-ASCII</value>
     </property>
     <property key="CharacterSet.description.UTF-16">
+        <value xml:lang="da">UTF-16</value>
         <value xml:lang="de">UTF-16</value>
         <value xml:lang="en">UTF-16</value>
         <value xml:lang="es">Unicode 16 bit</value>
@@ -116,6 +128,7 @@
         <value xml:lang="th">UTF-16</value>
     </property>
     <property key="CharacterSet.description.UTF-8">
+        <value xml:lang="da">UTF-8</value>
         <value xml:lang="de">UTF-8</value>
         <value xml:lang="en">UTF-8</value>
         <value xml:lang="es">Unicode 8 bit</value>
@@ -124,6 +137,7 @@
         <value xml:lang="th">UTF-8</value>
     </property>
     <property key="ContentAssocPredicate.description.categorizes">
+        <value xml:lang="da">kategorier</value>
         <value xml:lang="de">kategorisiert</value>
         <value xml:lang="en">categorizes</value>
         <value xml:lang="es">Clasifica</value>
@@ -133,6 +147,7 @@
         <value xml:lang="zh">分类</value>
     </property>
     <property key="ContentAssocPredicate.description.defines">
+        <value xml:lang="da">definerer</value>
         <value xml:lang="de">definiert</value>
         <value xml:lang="en">defines</value>
         <value xml:lang="es">Define</value>
@@ -142,6 +157,7 @@
         <value xml:lang="zh">定义</value>
     </property>
     <property key="ContentAssocPredicate.description.extends">
+        <value xml:lang="da">udvider</value>
         <value xml:lang="de">erweitert</value>
         <value xml:lang="en">extends</value>
         <value xml:lang="es">amplía</value>
@@ -151,6 +167,7 @@
         <value xml:lang="zh">扩展</value>
     </property>
     <property key="ContentAssocPredicate.description.member-of">
+        <value xml:lang="da">medlem-af</value>
         <value xml:lang="de">Mitglied von</value>
         <value xml:lang="en">member-of</value>
         <value xml:lang="es">es miembro de</value>
@@ -160,6 +177,7 @@
         <value xml:lang="zh">成员属于</value>
     </property>
     <property key="ContentAssocPredicate.description.references">
+        <value xml:lang="da">referencer</value>
         <value xml:lang="de">referenziert</value>
         <value xml:lang="en">references</value>
         <value xml:lang="es">referencia</value>
@@ -169,6 +187,7 @@
         <value xml:lang="zh">引用</value>
     </property>
     <property key="ContentAssocPredicate.description.related-to">
+        <value xml:lang="da">relateret-til</value>
         <value xml:lang="de">in Beziehung mit</value>
         <value xml:lang="en">related-to</value>
         <value xml:lang="es">se relaciona con</value>
@@ -178,6 +197,7 @@
         <value xml:lang="zh">关联到</value>
     </property>
     <property key="ContentAssocPredicate.description.topifies">
+        <value xml:lang="da">omdan afsnit</value>
         <value xml:lang="de">ist besser als</value>
         <value xml:lang="en">topifies</value>
         <value xml:lang="es">Archivos principales</value>
@@ -187,6 +207,7 @@
         <value xml:lang="zh">Topify</value>
     </property>
     <property key="ContentAssocType.description.ALTERNATE_LOCALE">
+        <value xml:lang="da">Alternativ locale</value>
         <value xml:lang="de">Sekundäres Locale</value>
         <value xml:lang="en">Alternate Locale</value>
         <value xml:lang="es">Ubicación secundaria</value>
@@ -197,6 +218,7 @@
         <value xml:lang="zh">改变语言</value>
     </property>
     <property key="ContentAssocType.description.ATTRIBUTE">
+        <value xml:lang="da">Attribut</value>
         <value xml:lang="de">Attribut</value>
         <value xml:lang="en">Attribute</value>
         <value xml:lang="es">Atributo</value>
@@ -207,6 +229,7 @@
         <value xml:lang="zh">属性</value>
     </property>
     <property key="ContentAssocType.description.AUTHOR">
+        <value xml:lang="da">Forfatter</value>
         <value xml:lang="de">Autor</value>
         <value xml:lang="en">Author</value>
         <value xml:lang="es">Autor</value>
@@ -217,6 +240,7 @@
         <value xml:lang="zh">作者</value>
     </property>
     <property key="ContentAssocType.description.COMPDOC_PART">
+        <value xml:lang="da">Sammensat dokumentdel</value>
         <value xml:lang="de">Zusammengesetzter Dokumentteil</value>
         <value xml:lang="en">Composite Document Part</value>
         <value xml:lang="fr">Partie du document composé</value>
@@ -226,6 +250,7 @@
         <value xml:lang="zh">合成文档部分</value>
     </property>
     <property key="ContentAssocType.description.DEPARTMENT">
+        <value xml:lang="da">Afdeling</value>
         <value xml:lang="de">Abteilung</value>
         <value xml:lang="en">Department</value>
         <value xml:lang="es">Departamento</value>
@@ -236,6 +261,7 @@
         <value xml:lang="zh">部门</value>
     </property>
     <property key="ContentAssocType.description.DESCRIPTION">
+        <value xml:lang="da">Beskrivelse</value>
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
@@ -246,6 +272,7 @@
         <value xml:lang="zh">描述</value>
     </property>
     <property key="ContentAssocType.description.GRAPH_LINK">
+        <value xml:lang="da">Graf link</value>
         <value xml:lang="de">Grafik Link</value>
         <value xml:lang="en">Graph Link</value>
         <value xml:lang="es">Imagen de enlace</value>
@@ -256,6 +283,7 @@
         <value xml:lang="zh">图形链接</value>
     </property>
     <property key="ContentAssocType.description.INSTANCE">
+        <value xml:lang="da">Instans af</value>
         <value xml:lang="de">Instanz von</value>
         <value xml:lang="en">Instance Of</value>
         <value xml:lang="fr">Exemple de</value>
@@ -265,6 +293,7 @@
         <value xml:lang="zh">实例源自</value>
     </property>
     <property key="ContentAssocType.description.LIST_ENTRY">
+        <value xml:lang="da">Liste indgang</value>
         <value xml:lang="de">Listeneintrag</value>
         <value xml:lang="en">List Entry</value>
         <value xml:lang="es">Lista de ingreso</value>
@@ -275,6 +304,7 @@
         <value xml:lang="zh">条目列表</value>
     </property>
     <property key="ContentAssocType.description.PUBLISH_LINK">
+        <value xml:lang="da">Udgiv link</value>
         <value xml:lang="de">Link zur Veröffentlichung</value>
         <value xml:lang="en">Publish link</value>
         <value xml:lang="es">Publicar</value>
@@ -285,6 +315,7 @@
         <value xml:lang="zh">发布链接</value>
     </property>
     <property key="ContentAssocType.description.RELATED_CONTENT">
+        <value xml:lang="da">Relateret indhold</value>
         <value xml:lang="de">in Beziehung stehender Inhalt</value>
         <value xml:lang="en">Related content</value>
         <value xml:lang="es">Contenido asociado</value>
@@ -295,6 +326,7 @@
         <value xml:lang="zh">内嵌内容</value>
     </property>
     <property key="ContentAssocType.description.RESPONSE">
+        <value xml:lang="da">Svar</value>
         <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
         <value xml:lang="es">Respuesta</value>
@@ -305,6 +337,7 @@
         <value xml:lang="zh">回答</value>
     </property>
     <property key="ContentAssocType.description.STRUCTURE_DEF">
+        <value xml:lang="da">Definition af dokumentstruktur</value>
         <value xml:lang="de">Dokumentstruktur Definition</value>
         <value xml:lang="en">Document Structure Definition</value>
         <value xml:lang="es">Definición de estructura de documento</value>
@@ -315,6 +348,7 @@
         <value xml:lang="zh">文档结构定义</value>
     </property>
     <property key="ContentAssocType.description.SUBSITE">
+        <value xml:lang="da">Subside</value>
         <value xml:lang="de">Untergeordnete Seite</value>
         <value xml:lang="en">SubSite</value>
         <value xml:lang="es">Subsitio</value>
@@ -325,6 +359,7 @@
         <value xml:lang="zh">子站点</value>
     </property>
     <property key="ContentAssocType.description.SUB_CONTENT">
+        <value xml:lang="da">Subsektion</value>
         <value xml:lang="de">Untergeordneter Abschnitt</value>
         <value xml:lang="en">Sub Section</value>
         <value xml:lang="es">Sub sección</value>
@@ -335,6 +370,7 @@
         <value xml:lang="zh">小段</value>
     </property>
     <property key="ContentAssocType.description.SUMMARY">
+        <value xml:lang="da">Resumé</value>
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="es">Resumen</value>
@@ -345,6 +381,7 @@
         <value xml:lang="zh">摘要</value>
     </property>
     <property key="ContentAssocType.description.TEMPLATE_MEMBER">
+        <value xml:lang="da">Skabelon medlem</value>
         <value xml:lang="de">Vorlage Mitglied</value>
         <value xml:lang="en">Template Member</value>
         <value xml:lang="fr">Gabarit de membre</value>
@@ -354,6 +391,7 @@
         <value xml:lang="zh">模板成员</value>
     </property>
     <property key="ContentAssocType.description.TOPIC">
+        <value xml:lang="da">Afsnit</value>
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Topic</value>
         <value xml:lang="es">Tema</value>
@@ -364,6 +402,7 @@
         <value xml:lang="zh">主题</value>
     </property>
     <property key="ContentAssocType.description.TREE_CHILD">
+        <value xml:lang="da">Barn af træstruktur</value>
         <value xml:lang="de">Untergeordnetes Element</value>
         <value xml:lang="en">Tree Child</value>
         <value xml:lang="es">Mostrar hijos</value>
@@ -374,6 +413,7 @@
         <value xml:lang="zh">子树</value>
     </property>
     <property key="ContentAssocType.description.TXFORM_DEF">
+        <value xml:lang="da">Transformations definition</value>
         <value xml:lang="de">Transformation Definition</value>
         <value xml:lang="en">Transformation Definition</value>
         <value xml:lang="es">Definición de transformación</value>
@@ -384,6 +424,7 @@
         <value xml:lang="zh">转换定义</value>
     </property>
     <property key="ContentOperation.description.CHILD_CREATE">
+        <value xml:lang="da">Opret barn</value>
         <value xml:lang="de">Untergeordnetes Element erstellen</value>
         <value xml:lang="en">Child Create</value>
         <value xml:lang="es">Crear hijo</value>
@@ -394,6 +435,7 @@
         <value xml:lang="zh">新建子内容</value>
     </property>
     <property key="ContentOperation.description.CHILD_DELETE">
+        <value xml:lang="da">Slet barn</value>
         <value xml:lang="de">Untergeordnetes Element löschen</value>
         <value xml:lang="en">Child Delete</value>
         <value xml:lang="es">Borrar hijo</value>
@@ -404,6 +446,7 @@
         <value xml:lang="zh">删除子内容</value>
     </property>
     <property key="ContentOperation.description.CHILD_UPDATE">
+        <value xml:lang="da">Opdater barn</value>
         <value xml:lang="de">Untergeordnetes Element bearbeiten</value>
         <value xml:lang="en">Child Update</value>
         <value xml:lang="es">Actualizar hijo</value>
@@ -414,6 +457,7 @@
         <value xml:lang="zh">更新子内容</value>
     </property>
     <property key="ContentOperation.description.CHILD_VIEW">
+        <value xml:lang="da">Vis barn</value>
         <value xml:lang="de">Untergeordnetes Element anzeigen</value>
         <value xml:lang="en">Child View</value>
         <value xml:lang="es">Ver hijo</value>
@@ -424,6 +468,7 @@
         <value xml:lang="zh">浏览子内容</value>
     </property>
     <property key="ContentOperation.description.CONTENT_ADMIN">
+        <value xml:lang="da">Indholdsadministration</value>
         <value xml:lang="de">Inhalt Verwaltung</value>
         <value xml:lang="en">Content Admin</value>
         <value xml:lang="es">A</value>
@@ -434,6 +479,7 @@
         <value xml:lang="zh">内容管理</value>
     </property>
     <property key="ContentOperation.description.CONTENT_CREATE">
+        <value xml:lang="da">Opret indhold</value>
         <value xml:lang="de">Inhalt erstellen</value>
         <value xml:lang="en">Content Create</value>
         <value xml:lang="es">Crear contenido</value>
@@ -444,6 +490,7 @@
         <value xml:lang="zh">内容创建</value>
     </property>
     <property key="ContentOperation.description.CONTENT_CREATE_SUB">
+        <value xml:lang="da">Opret subindhold</value>
         <value xml:lang="de">Untergeordneten Inhalt erstellen</value>
         <value xml:lang="en">Create SubContent</value>
         <value xml:lang="es">Crear subcontenido</value>
@@ -454,6 +501,7 @@
         <value xml:lang="zh">新建子内容</value>
     </property>
     <property key="ContentOperation.description.CONTENT_DELETE">
+        <value xml:lang="da">Slet indhold</value>
         <value xml:lang="de">Inhalt löschen</value>
         <value xml:lang="en">Content Delete</value>
         <value xml:lang="es">Borrar contenido</value>
@@ -464,6 +512,7 @@
         <value xml:lang="zh">内容删除</value>
     </property>
     <property key="ContentOperation.description.CONTENT_LINK">
+        <value xml:lang="da">Indholdslink</value>
         <value xml:lang="de">Inhalt Link</value>
         <value xml:lang="en">Content Link</value>
         <value xml:lang="es">Enlace a contenido</value>
@@ -474,6 +523,7 @@
         <value xml:lang="zh">内容链接</value>
     </property>
     <property key="ContentOperation.description.CONTENT_LINK_FROM">
+        <value xml:lang="da">Indholdslink fra</value>
         <value xml:lang="de">Inhalt Link von</value>
         <value xml:lang="en">Content Link From</value>
         <value xml:lang="fr">Lien de contenu depuis</value>
@@ -483,6 +533,7 @@
         <value xml:lang="zh">内容链接来自</value>
     </property>
     <property key="ContentOperation.description.CONTENT_LINK_TO">
+        <value xml:lang="da">Indholdslink til</value>
         <value xml:lang="de">Inhalt Link zu</value>
         <value xml:lang="en">Content Link To</value>
         <value xml:lang="fr">Lien de contenu vers</value>
@@ -492,6 +543,7 @@
         <value xml:lang="zh">把内容链接到</value>
     </property>
     <property key="ContentOperation.description.CONTENT_PUBLISH">
+        <value xml:lang="da">Udgiv indhold</value>
         <value xml:lang="de">Inhalt veröffentlichen</value>
         <value xml:lang="en">Content Publish</value>
         <value xml:lang="fr">Publication de Contenu</value>
@@ -501,6 +553,7 @@
         <value xml:lang="zh">内容发布</value>
     </property>
     <property key="ContentOperation.description.CONTENT_PUBLISH_SELF">
+        <value xml:lang="da">Udgiv indhold</value>
         <value xml:lang="de">Inhalt veröffentlichen</value>
         <value xml:lang="en">Content Publish</value>
         <value xml:lang="fr">Publication de contenu</value>
@@ -510,6 +563,7 @@
         <value xml:lang="zh">内容发布</value>
     </property>
     <property key="ContentOperation.description.CONTENT_RESPOND">
+        <value xml:lang="da">Svar på indhold</value>
         <value xml:lang="de">Inhalt beantworten</value>
         <value xml:lang="en">Content Respond</value>
         <value xml:lang="fr">Répondre au contenu</value>
@@ -519,6 +573,7 @@
         <value xml:lang="zh">内容回答</value>
     </property>
     <property key="ContentOperation.description.CONTENT_UPDATE">
+        <value xml:lang="da">Opdater indhold</value>
         <value xml:lang="de">Inhalt aktualisieren</value>
         <value xml:lang="en">Content Update</value>
         <value xml:lang="fr">Mise à jour de contenu</value>
@@ -528,6 +583,7 @@
         <value xml:lang="zh">内容更新</value>
     </property>
     <property key="ContentOperation.description.CONTENT_VIEW">
+        <value xml:lang="da">Vis indhold</value>
         <value xml:lang="de">Inhalt anzeigen</value>
         <value xml:lang="en">Content View</value>
         <value xml:lang="fr">Visualisation de contenu</value>
@@ -537,6 +593,7 @@
         <value xml:lang="zh">内容浏览</value>
     </property>
     <property key="ContentOperation.description.CONTENT_VIEW_SHORT">
+        <value xml:lang="da">Vis kort beskrivelse</value>
         <value xml:lang="de">Kurzbeschreibung anzeigen</value>
         <value xml:lang="en">View Short Desc</value>
         <value xml:lang="fr">Visualisation de description courte</value>
@@ -546,6 +603,7 @@
         <value xml:lang="zh">浏览简短描述</value>
     </property>
     <property key="ContentOperation.description.HAS_ADMIN_ROLE">
+        <value xml:lang="da">Har administrator rolle</value>
         <value xml:lang="de">Hat Rolle Administrator</value>
         <value xml:lang="en">Has Admin Role</value>
         <value xml:lang="fr">A le rôle d'administrateur</value>
@@ -555,6 +613,7 @@
         <value xml:lang="zh">具有管理员角色</value>
     </property>
     <property key="ContentOperation.description.HAS_AUTHOR_ROLE">
+        <value xml:lang="da">Har forfatter rolle</value>
         <value xml:lang="de">Hat Rolle Autor</value>
         <value xml:lang="en">Has Author Role</value>
         <value xml:lang="fr">A le rôle d'auteur</value>
@@ -564,6 +623,7 @@
         <value xml:lang="zh">具有作者角色</value>
     </property>
     <property key="ContentOperation.description.HAS_EDITOR_ROLE">
+        <value xml:lang="da">Har redaktør rolle</value>
         <value xml:lang="de">Hat Rolle Redakteur</value>
         <value xml:lang="en">Has Editor Role</value>
         <value xml:lang="fr">A le rôle de rédacteur</value>
@@ -573,6 +633,7 @@
         <value xml:lang="zh">具有编辑角色</value>
     </property>
     <property key="ContentOperation.description.HAS_OWNER_ROLE">
+        <value xml:lang="da">Har ejer rolle</value>
         <value xml:lang="de">Hat Rolle Besitzer</value>
         <value xml:lang="en">Has Owner Role</value>
         <value xml:lang="fr">A le rôle de propriétaire</value>
@@ -582,6 +643,7 @@
         <value xml:lang="zh">具有用户角色</value>
     </property>
     <property key="ContentOperation.description.HAS_PUBLISHER_ROLE">
+        <value xml:lang="da">Har udgiver rolle</value>
         <value xml:lang="de">Hat Rolle Herausgeber</value>
         <value xml:lang="en">Has Publisher Role</value>
         <value xml:lang="fr">A le rôle d'éditeur</value>
@@ -591,6 +653,7 @@
         <value xml:lang="zh">具有发布者角色</value>
     </property>
     <property key="ContentOperation.description.HAS_USER_ROLE">
+        <value xml:lang="da">Har bruger rolle</value>
         <value xml:lang="de">Hat Rolle Benutzer</value>
         <value xml:lang="en">Has User Role</value>
         <value xml:lang="fr">A le rôle d'utilisateur</value>
@@ -600,6 +663,7 @@
         <value xml:lang="zh">具有用户角色</value>
     </property>
     <property key="ContentOperation.description._NA_">
+        <value xml:lang="da">Ikke gældende</value>
         <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
@@ -610,6 +674,7 @@
         <value xml:lang="zh">不可用</value>
     </property>
     <property key="ContentPurposeType.description.ADVERTISEMENT">
+        <value xml:lang="da">Annonce</value>
         <value xml:lang="de">Werbung</value>
         <value xml:lang="en">Advertisement</value>
         <value xml:lang="fr">Publicité</value>
@@ -619,6 +684,7 @@
         <value xml:lang="zh">广告</value>
     </property>
     <property key="ContentPurposeType.description.ARTICLE">
+        <value xml:lang="da">Artikel</value>
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Article</value>
         <value xml:lang="es">Artículo</value>
@@ -629,6 +695,7 @@
         <value xml:lang="zh">文章</value>
     </property>
     <property key="ContentPurposeType.description.COMMENT">
+        <value xml:lang="da">Kommentar</value>
         <value xml:lang="de">Kommentar</value>
         <value xml:lang="en">Comment</value>
         <value xml:lang="es">Comentario</value>
@@ -639,6 +706,7 @@
         <value xml:lang="zh">评论</value>
     </property>
     <property key="ContentPurposeType.description.COMPANY_INFO">
+        <value xml:lang="da">Firmainformation</value>
         <value xml:lang="de">Unternehmensinformationen</value>
         <value xml:lang="en">Company Info</value>
         <value xml:lang="fr">Information sur l'entreprise</value>
@@ -648,6 +716,7 @@
         <value xml:lang="zh">公司信息</value>
     </property>
     <property key="ContentPurposeType.description.DESCRIPTION">
+        <value xml:lang="da">Beskrivelse</value>
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="fr">Description</value>
@@ -657,6 +726,7 @@
         <value xml:lang="zh">描述</value>
     </property>
     <property key="ContentPurposeType.description.FAQ">
+        <value xml:lang="da">FAQ</value>
         <value xml:lang="de">Häufig gestellte Fragen (FAQ)</value>
         <value xml:lang="en">FAQ</value>
         <value xml:lang="fr">FAQ</value>
@@ -666,6 +736,7 @@
         <value xml:lang="zh">问答</value>
     </property>
     <property key="ContentPurposeType.description.FEEDBACK">
+        <value xml:lang="da">Tilbagemelding</value>
         <value xml:lang="de">Rückmeldung</value>
         <value xml:lang="en">Feedback</value>
         <value xml:lang="fr">Remarques</value>
@@ -675,6 +746,7 @@
         <value xml:lang="zh">反馈</value>
     </property>
     <property key="ContentPurposeType.description.GENERAL_INFO">
+        <value xml:lang="da">Generel information</value>
         <value xml:lang="de">Generelle Informationen</value>
         <value xml:lang="en">General Info</value>
         <value xml:lang="fr">Informations générales</value>
@@ -684,6 +756,7 @@
         <value xml:lang="zh">通用信息</value>
     </property>
     <property key="ContentPurposeType.description.MAIN_ARTICLE">
+        <value xml:lang="da">Hovedindhold</value>
         <value xml:lang="de">Hauptinhalt</value>
         <value xml:lang="en">Main Content</value>
         <value xml:lang="fr">Contenu principal</value>
@@ -693,6 +766,7 @@
         <value xml:lang="zh">主要内容</value>
     </property>
     <property key="ContentPurposeType.description.MESSAGE">
+        <value xml:lang="da">Besked</value>
         <value xml:lang="de">Mitteilung</value>
         <value xml:lang="en">Message</value>
         <value xml:lang="fr">Message</value>
@@ -702,6 +776,7 @@
         <value xml:lang="zh">消息</value>
     </property>
     <property key="ContentPurposeType.description.OWNER">
+        <value xml:lang="da">Ejer</value>
         <value xml:lang="de">Besitzer</value>
         <value xml:lang="en">Owner</value>
         <value xml:lang="fr">Propriétaire</value>
@@ -711,6 +786,7 @@
         <value xml:lang="zh">拥有人</value>
     </property>
     <property key="ContentPurposeType.description.PRODUCT_INFO">
+        <value xml:lang="da">Produkt</value>
         <value xml:lang="de">Produktinformationen</value>
         <value xml:lang="en">Product Info</value>
         <value xml:lang="fr">information sur le produit</value>
@@ -720,11 +796,13 @@
         <value xml:lang="zh">产品信息</value>
     </property>
     <property key="ContentPurposeType.description.PROJECT_INFO">
+        <value xml:lang="da">Projektinformation</value>
         <value xml:lang="en">Project Info</value>
         <value xml:lang="it">Informazione progetto</value>
         <value xml:lang="zh">项目信息</value>
     </property>
     <property key="ContentPurposeType.description.RESPONSE">
+        <value xml:lang="da">Svar</value>
         <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
         <value xml:lang="fr">Réponse</value>
@@ -734,6 +812,7 @@
         <value xml:lang="zh">回答</value>
     </property>
     <property key="ContentPurposeType.description.SECTION">
+        <value xml:lang="da">Sektion</value>
         <value xml:lang="de">Abschnitt</value>
         <value xml:lang="en">Section</value>
         <value xml:lang="fr">Section</value>
@@ -743,6 +822,7 @@
         <value xml:lang="zh">章节</value>
     </property>
     <property key="ContentPurposeType.description.SOURCE">
+        <value xml:lang="da">Generel kilde</value>
         <value xml:lang="de">Quelle</value>
         <value xml:lang="en">General Source</value>
         <value xml:lang="fr">Source générale</value>
@@ -752,6 +832,7 @@
         <value xml:lang="zh">常用资料</value>
     </property>
     <property key="ContentPurposeType.description.SUB_ARTICLE">
+        <value xml:lang="da">Subindhold</value>
         <value xml:lang="de">Untergeordneter Inhalt</value>
         <value xml:lang="en">Sub Content</value>
         <value xml:lang="fr">Sous-contenu</value>
@@ -761,6 +842,7 @@
         <value xml:lang="zh">章节内容</value>
     </property>
     <property key="ContentPurposeType.description.SUMMARY">
+        <value xml:lang="da">Resumé</value>
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Résumé</value>
@@ -770,6 +852,7 @@
         <value xml:lang="zh">摘要</value>
     </property>
     <property key="ContentPurposeType.description.TOPIC">
+        <value xml:lang="da">Tema</value>
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Topic</value>
         <value xml:lang="fr">Sujet</value>
@@ -779,6 +862,7 @@
         <value xml:lang="zh">话题</value>
     </property>
     <property key="ContentPurposeType.description.USER">
+        <value xml:lang="da">Bruger</value>
         <value xml:lang="de">Benutzer</value>
         <value xml:lang="en">User</value>
         <value xml:lang="fr">Utilisateur</value>
@@ -788,6 +872,7 @@
         <value xml:lang="zh">用户</value>
     </property>
     <property key="ContentPurposeType.description._NA_">
+        <value xml:lang="da">Ikke relevant</value>
         <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="fr">Non applicable</value>
@@ -797,6 +882,7 @@
         <value xml:lang="zh">不可用</value>
     </property>
     <property key="ContentType.description.ANNOTATION">
+        <value xml:lang="da">Note</value>
         <value xml:lang="de">Anmerkung</value>
         <value xml:lang="en">Annotation</value>
         <value xml:lang="fr">Annotation</value>
@@ -806,26 +892,31 @@
         <value xml:lang="zh">说明</value>
     </property>
     <property key="ContentType.description.BLOG_ROOT">
+        <value xml:lang="da">Blog rod</value>
         <value xml:lang="en">Blog Root</value>
         <value xml:lang="it">Blog principale</value>
         <value xml:lang="zh">博客的根</value>
     </property>
     <property key="ContentType.description.DECORATOR">
+        <value xml:lang="da">Dekoratør</value>
         <value xml:lang="en">Decorator</value>
         <value xml:lang="it">Decoratore</value>
         <value xml:lang="zh">修饰程序</value>
     </property>
     <property key="ContentType.description.FAQ_ROOT">
+        <value xml:lang="da">FAQ rod</value>
         <value xml:lang="en">FAQ Root</value>
         <value xml:lang="it">FAQ principale</value>
         <value xml:lang="zh">常见问题的根</value>
     </property>
     <property key="ContentType.description.MENU_CONTAINER">
+        <value xml:lang="da">Menu container</value>
         <value xml:lang="en">Menu Container</value>
         <value xml:lang="it">Contenitore menu</value>
         <value xml:lang="zh">菜单容器</value>
     </property>
     <property key="ContentType.description.COMPDOC_INSTANCE">
+        <value xml:lang="da">Sammensat dokumentinstans</value>
         <value xml:lang="de">Zusammengesetzte Dokumenteninstanz</value>
         <value xml:lang="en">Composite Document Instance</value>
         <value xml:lang="fr">Exemple de document composé</value>
@@ -835,6 +926,7 @@
         <value xml:lang="zh">合成文档实例</value>
     </property>
     <property key="ContentType.description.COMPDOC_TEMPLATE">
+        <value xml:lang="da">Sammensat dokumentskabelon</value>
         <value xml:lang="de">Zusammengesetzte Dokumentenvorlage</value>
         <value xml:lang="en">Composite Document Template</value>
         <value xml:lang="fr">Gabarit de document composé</value>
@@ -844,6 +936,7 @@
         <value xml:lang="zh">合成文档模板</value>
     </property>
     <property key="ContentType.description.CONTENT_LIST">
+        <value xml:lang="da">Indholdsfortegnelse</value>
         <value xml:lang="de">Liste Inhalt</value>
         <value xml:lang="en">Content List</value>
         <value xml:lang="fr">Liste de contenu</value>
@@ -853,6 +946,7 @@
         <value xml:lang="zh">内容列表</value>
     </property>
     <property key="ContentType.description.DEPARTMENT">
+        <value xml:lang="da">Afdeling</value>
         <value xml:lang="de">Abteilung</value>
         <value xml:lang="en">Department</value>
         <value xml:lang="fr">Département</value>
@@ -862,6 +956,7 @@
         <value xml:lang="zh">部门</value>
     </property>
     <property key="ContentType.description.DOCUMENT">
+        <value xml:lang="da">Dokument</value>
         <value xml:lang="de">Dokument</value>
         <value xml:lang="en">Document</value>
         <value xml:lang="fr">Document</value>
@@ -871,6 +966,7 @@
         <value xml:lang="zh">文档</value>
     </property>
     <property key="ContentType.description.FORUM_ROOT">
+        <value xml:lang="da">Forum rod udgivelsespunkt</value>
         <value xml:lang="de">Forum Basis Veröffentlichungsort</value>
         <value xml:lang="en">Forum root publish point</value>
         <value xml:lang="fr">Racine de publication du forum</value>
@@ -880,6 +976,7 @@
         <value xml:lang="zh">论坛根发布点</value>
     </property>
     <property key="ContentType.description.GRAPH_ROOT">
+        <value xml:lang="da">Graf rod</value>
         <value xml:lang="de">Grafik Basis</value>
         <value xml:lang="en">Graph Root</value>
         <value xml:lang="fr">Racine du graphisme</value>
@@ -889,6 +986,7 @@
         <value xml:lang="zh">图形的根</value>
     </property>
     <property key="ContentType.description.OUTLINE_NODE">
+        <value xml:lang="da">Oversigt node</value>
         <value xml:lang="de">Überblick Knoten</value>
         <value xml:lang="en">Outline Node</value>
         <value xml:lang="fr">Noeud d'ébauche</value>
@@ -898,6 +996,7 @@
         <value xml:lang="zh">轮廓节点</value>
     </property>
     <property key="ContentType.description.PAGE_NODE">
+        <value xml:lang="da">Side node</value>
         <value xml:lang="de">Seite Knoten</value>
         <value xml:lang="en">Page Node</value>
         <value xml:lang="fr">Noeud de page</value>
@@ -907,6 +1006,7 @@
         <value xml:lang="zh">页面节点</value>
     </property>
     <property key="ContentType.description.PEOPLE">
+        <value xml:lang="da">Mennesker</value>
         <value xml:lang="de">Leute</value>
         <value xml:lang="en">People</value>
         <value xml:lang="fr">Personnes</value>
@@ -916,6 +1016,7 @@
         <value xml:lang="zh">人们</value>
     </property>
     <property key="ContentType.description.PERSON">
+        <value xml:lang="da">Person</value>
         <value xml:lang="de">Person</value>
         <value xml:lang="en">Person</value>
         <value xml:lang="fr">Personne</value>
@@ -925,6 +1026,7 @@
         <value xml:lang="zh">人</value>
     </property>
     <property key="ContentType.description.PLACEHOLDER">
+        <value xml:lang="da">Pladsholder</value>
         <value xml:lang="de">Platzhalter</value>
         <value xml:lang="en">Place Holder</value>
         <value xml:lang="fr">Paramètre fictif</value>
@@ -934,6 +1036,7 @@
         <value xml:lang="zh">占位符</value>
     </property>
     <property key="ContentType.description.STRUCTURE_DEF">
+        <value xml:lang="da">Strukturdefinition (som DTD)</value>
         <value xml:lang="de">Strukturdefinition (wie DTD)</value>
         <value xml:lang="en">Structure Definition (like DTD)</value>
         <value xml:lang="fr">Définition de structure (comme DTD)</value>
@@ -943,6 +1046,7 @@
         <value xml:lang="zh">结构定义(类似DTD)</value>
     </property>
     <property key="ContentType.description.STRUCTURE_LEAF">
+        <value xml:lang="da">Struktur element</value>
         <value xml:lang="de">Struktur Element</value>
         <value xml:lang="en">Structure Leaf</value>
         <value xml:lang="fr">Feuille de structure</value>
@@ -952,6 +1056,7 @@
         <value xml:lang="zh">结构的叶</value>
     </property>
     <property key="ContentType.description.STRUCTURE_NODE">
+        <value xml:lang="da">Struktur node</value>
         <value xml:lang="de">Struktur Knoten</value>
         <value xml:lang="en">Structure Node</value>
         <value xml:lang="fr">Noeud de structure</value>
@@ -961,6 +1066,7 @@
         <value xml:lang="zh">结构节点</value>
     </property>
     <property key="ContentType.description.SUBPAGE_NODE">
+        <value xml:lang="da">Underside node</value>
         <value xml:lang="de">Untergeordnete Seite Knoten</value>
         <value xml:lang="en">Sub Page Node</value>
         <value xml:lang="fr">Noeud de sous-page</value>
@@ -970,6 +1076,7 @@
         <value xml:lang="zh">子页面节点</value>
     </property>
     <property key="ContentType.description.TEMPLATE">
+        <value xml:lang="da">Skabelon eller formular</value>
         <value xml:lang="de">Vorlage oder Formular</value>
         <value xml:lang="en">Template or Form</value>
         <value xml:lang="fr">Gabarit de forme</value>
@@ -979,6 +1086,7 @@
         <value xml:lang="zh">模板或表单</value>
     </property>
     <property key="ContentType.description.TOPIC">
+        <value xml:lang="da">Afsnit</value>
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Topic</value>
         <value xml:lang="fr">Sujet</value>
@@ -988,6 +1096,7 @@
         <value xml:lang="zh">主题</value>
     </property>
     <property key="ContentType.description.TREE_ROOT">
+        <value xml:lang="da">Træ rod</value>
         <value xml:lang="de">Baum Wurzel</value>
         <value xml:lang="en">Tree Root</value>
         <value xml:lang="fr">Racine d'arborescence</value>
@@ -997,6 +1106,7 @@
         <value xml:lang="zh">树状结构的根</value>
     </property>
     <property key="ContentType.description.TXFORM_DEF">
+        <value xml:lang="da">Transformationsdefinition (som XSLT)</value>
         <value xml:lang="de">Transformationsdefinition (wie XSLT)</value>
         <value xml:lang="en">Transformation Definition (like XSLT)</value>
         <value xml:lang="fr">Définition de transformation (comme XSLT)</value>
@@ -1006,6 +1116,7 @@
         <value xml:lang="zh">转换定义(类似XSLT)</value>
     </property>
     <property key="ContentType.description.WEB_SITE_PUB_PT">
+        <value xml:lang="da">Udgivelsespunkt</value>
         <value xml:lang="de">Veröffentlichungsort</value>
         <value xml:lang="en">Publish Point</value>
         <value xml:lang="fr">Point de publication</value>
@@ -1015,6 +1126,7 @@
         <value xml:lang="zh">发布点</value>
     </property>
     <property key="DataCategory.categoryName.BUSINESS">
+        <value xml:lang="da">Forretning</value>
         <value xml:lang="de">Geschäft</value>
         <value xml:lang="en">Business</value>
         <value xml:lang="fr">Affaires</value>
@@ -1024,6 +1136,7 @@
         <value xml:lang="zh">商务</value>
     </property>
     <property key="DataCategory.categoryName.BUS_MANU">
+        <value xml:lang="da">Produktion</value>
         <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Manufacturing</value>
         <value xml:lang="fr">Fabrication</value>
@@ -1033,6 +1146,7 @@
         <value xml:lang="zh">制造</value>
     </property>
     <property key="DataCategory.categoryName.BUS_RETAIL">
+        <value xml:lang="da">Detail</value>
         <value xml:lang="de">Einzelhandel</value>
         <value xml:lang="en">Retail</value>
         <value xml:lang="fr">Détail</value>
@@ -1042,6 +1156,7 @@
         <value xml:lang="zh">零售</value>
     </property>
     <property key="DataCategory.categoryName.BUS_SERVICE">
+        <value xml:lang="da">Service</value>
         <value xml:lang="de">Dienstleistung</value>
         <value xml:lang="en">Service</value>
         <value xml:lang="fr">Service</value>
@@ -1051,6 +1166,7 @@
         <value xml:lang="zh">服务</value>
     </property>
     <property key="DataCategory.categoryName.FINANCIAL">
+        <value xml:lang="da">Financiel</value>
         <value xml:lang="de">Finanziell</value>
         <value xml:lang="en">Financial</value>
         <value xml:lang="fr">Financier</value>
@@ -1060,6 +1176,7 @@
         <value xml:lang="zh">财务</value>
     </property>
     <property key="DataCategory.categoryName.LEGAL">
+        <value xml:lang="da">Juridisk</value>
         <value xml:lang="de">Rechtlich</value>
         <value xml:lang="en">Legal</value>
         <value xml:lang="fr">Légal</value>
@@ -1069,6 +1186,7 @@
         <value xml:lang="zh">法律</value>
     </property>
     <property key="DataCategory.categoryName.PERSONAL">
+        <value xml:lang="da">Personlig</value>
         <value xml:lang="de">Persönlich</value>
         <value xml:lang="en">Personal</value>
         <value xml:lang="fr">Personnel</value>
@@ -1078,6 +1196,7 @@
         <value xml:lang="zh">人</value>
     </property>
     <property key="DataCategory.categoryName.POLITICAL">
+        <value xml:lang="da">Politisk</value>
         <value xml:lang="de">Politisch</value>
         <value xml:lang="en">Political</value>
         <value xml:lang="fr">Politique</value>
@@ -1087,6 +1206,7 @@
         <value xml:lang="zh">政策</value>
     </property>
     <property key="DataCategory.categoryName.ROOT">
+        <value xml:lang="da">Rod</value>
         <value xml:lang="de">Basis</value>
         <value xml:lang="en">ROOT</value>
         <value xml:lang="fr">Racine</value>
@@ -1095,6 +1215,7 @@
         <value xml:lang="zh">根</value>
     </property>
     <property key="DataCategory.categoryName.TECHNOLOGY">
+        <value xml:lang="da">Teknologi</value>
         <value xml:lang="de">Technologie</value>
         <value xml:lang="en">Technology</value>
         <value xml:lang="fr">Technologie</value>
@@ -1104,6 +1225,7 @@
         <value xml:lang="zh">技术</value>
     </property>
     <property key="DataCategory.categoryName.TECH_HARD">
+        <value xml:lang="da">Hardware</value>
         <value xml:lang="de">Hardware</value>
         <value xml:lang="en">Hardware</value>
         <value xml:lang="fr">Matériel informatique</value>
@@ -1113,6 +1235,7 @@
         <value xml:lang="zh">硬件</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SERV">
+        <value xml:lang="da">Service</value>
         <value xml:lang="de">Technische Dienstleistung</value>
         <value xml:lang="en">Service</value>
         <value xml:lang="fr">Service</value>
@@ -1122,6 +1245,7 @@
         <value xml:lang="zh">服务</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT">
+        <value xml:lang="da">Software</value>
         <value xml:lang="de">Software</value>
         <value xml:lang="en">Software</value>
         <value xml:lang="fr">Logiciel</value>
@@ -1131,6 +1255,7 @@
         <value xml:lang="zh">软件</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_JAVA">
+        <value xml:lang="da">Java</value>
         <value xml:lang="de">Java</value>
         <value xml:lang="en">Java</value>
         <value xml:lang="fr">Java</value>
@@ -1140,6 +1265,7 @@
         <value xml:lang="zh">Java</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_LINUX">
+        <value xml:lang="da">Linux</value>
         <value xml:lang="de">Linux</value>
         <value xml:lang="en">Linux</value>
         <value xml:lang="fr">Linux</value>
@@ -1149,6 +1275,7 @@
         <value xml:lang="zh">Linux</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_OFBIZ">
+        <value xml:lang="da">Open for Business</value>
         <value xml:lang="de">Open for Business</value>
         <value xml:lang="en">Open for Business</value>
         <value xml:lang="fr">Open for Business</value>
@@ -1158,16 +1285,19 @@
         <value xml:lang="zh">OFBiz</value>
     </property>
     <property key="DataCategory.categoryName.TEMPLATE">
+        <value xml:lang="da">Skabelon</value>
         <value xml:lang="en">Template</value>
         <value xml:lang="it">Template</value>
         <value xml:lang="zh">模板</value>
     </property>
     <property key="DataResourceType.description.AUDIO_OBJECT">
+        <value xml:lang="da">Audio</value>
         <value xml:lang="en">Audio</value>
         <value xml:lang="it">Audio</value>
         <value xml:lang="zh">音频</value>
     </property>
     <property key="DataResourceType.description.CONTEXT_FILE">
+        <value xml:lang="da">Fil (relativ til webapp rod)</value>
         <value xml:lang="de">Datei (relativ zu webapp Basisverzeichnis)</value>
         <value xml:lang="en">File (rel to webapp root)</value>
         <value xml:lang="fr">Dossier (relative à la racine d'application web)</value>
@@ -1177,6 +1307,7 @@
         <value xml:lang="zh">文件(相对于webapp根目录)</value>
     </property>
     <property key="DataResourceType.description.CONTEXT_FILE_BIN">
+        <value xml:lang="da">Binær fil (relativ til webapp rod)</value>
         <value xml:lang="de">Binäre Datei (relativ zu webapp Basisverzeichnis)</value>
         <value xml:lang="en">Binary File (rel to webapp root)</value>
         <value xml:lang="fr">Dossier binaire (relative à la racine d'application web)</value>
@@ -1186,6 +1317,7 @@
         <value xml:lang="zh">二进制文件(相对于webapp根目录)</value>
     </property>
     <property key="DataResourceType.description.ELECTRONIC_TEXT">
+        <value xml:lang="da">Lang tekst</value>
         <value xml:lang="de">Ausführlicher Text</value>
         <value xml:lang="en">Long Text</value>
         <value xml:lang="fr">Texte long</value>
@@ -1195,6 +1327,7 @@
         <value xml:lang="zh">长文本</value>
     </property>
     <property key="DataResourceType.description.IMAGE_OBJECT">
+        <value xml:lang="da">Billede</value>
         <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="fr">Image</value>
@@ -1204,6 +1337,7 @@
         <value xml:lang="zh">图片</value>
     </property>
     <property key="DataResourceType.description.LINK">
+        <value xml:lang="da">Hyperlink</value>
         <value xml:lang="de">Hypertext-Link</value>
         <value xml:lang="en">HyperLink</value>
         <value xml:lang="fr">Lien hypertexte</value>
@@ -1213,6 +1347,7 @@
         <value xml:lang="zh">超链接</value>
     </property>
     <property key="DataResourceType.description.LOCAL_FILE">
+        <value xml:lang="da">Locale fil</value>
         <value xml:lang="de">Lokale Datei</value>
         <value xml:lang="en">Local File</value>
         <value xml:lang="fr">Dossier local</value>
@@ -1222,6 +1357,7 @@
         <value xml:lang="zh">本地文件</value>
     </property>
     <property key="DataResourceType.description.LOCAL_FILE_BIN">
+        <value xml:lang="da">Locale binær fil</value>
         <value xml:lang="de">Lokale binäre Datei</value>
         <value xml:lang="en">Local Binary File</value>
         <value xml:lang="fr">Dossier binaire local</value>
@@ -1231,6 +1367,7 @@
         <value xml:lang="zh">本地二进制文件</value>
     </property>
     <property key="DataResourceType.description.OFBIZ_FILE">
+        <value xml:lang="da">Fil (relativ til OFBIZ_HOME)</value>
         <value xml:lang="de">Datei (relativ zum OFBIZ_HOME Verzeichnis)</value>
         <value xml:lang="en">File (rel to OFBIZ_HOME)</value>
         <value xml:lang="fr">Dossier (relatif à OFBIZ_HOME)</value>
@@ -1240,6 +1377,7 @@
         <value xml:lang="zh">文件(相对于OFBIZ_HOME)</value>
     </property>
     <property key="DataResourceType.description.OFBIZ_FILE_BIN">
+        <value xml:lang="da">Binær fil (relativ til OFBIZ_HOME)</value>
         <value xml:lang="de">Binäre Datei (relativ zum OFBIZ_HOME Verzeichnis)</value>
         <value xml:lang="en">Binary File (rel to OFBIZ_HOME)</value>
         <value xml:lang="fr">Dossier binaire (relatif à OFBIZ_HOME)</value>
@@ -1249,6 +1387,7 @@
         <value xml:lang="zh">二进制文件(相对于OFBIZ_HOME)</value>
     </property>
     <property key="DataResourceType.description.OTHER_OBJECT">
+        <value xml:lang="da">Andre</value>
         <value xml:lang="de">Anderes</value>
         <value xml:lang="en">Other</value>
         <value xml:lang="fr">Autre</value>
@@ -1258,6 +1397,7 @@
         <value xml:lang="zh">其它</value>
     </property>
     <property key="DataResourceType.description.SHORT_TEXT">
+        <value xml:lang="da">Kort tekst</value>
         <value xml:lang="de">Kurzer Text</value>
         <value xml:lang="en">Short Text</value>
         <value xml:lang="fr">Texte court</value>
@@ -1267,6 +1407,7 @@
         <value xml:lang="zh">简短文本</value>
     </property>
     <property key="DataResourceType.description.SURVEY">
+        <value xml:lang="da">Rundspørge</value>
         <value xml:lang="de">Befragung</value>
         <value xml:lang="en">Survey</value>
         <value xml:lang="fr">Sondage</value>
@@ -1276,6 +1417,7 @@
         <value xml:lang="zh">调查</value>
     </property>
     <property key="DataResourceType.description.SURVEY_RESPONSE">
+        <value xml:lang="da">Rundspørge svar</value>
         <value xml:lang="de">Befragung Antwort</value>
         <value xml:lang="en">Survey Response</value>
         <value xml:lang="fr">Réponse de sondage</value>
@@ -1285,6 +1427,7 @@
         <value xml:lang="zh">调查回答</value>
     </property>
     <property key="DataResourceType.description.URL_RESOURCE">
+        <value xml:lang="da">URL Ressource</value>
         <value xml:lang="de">URL Ressource</value>
         <value xml:lang="en">URL Resource</value>
         <value xml:lang="fr">Ressource URL</value>
@@ -1294,11 +1437,13 @@
         <value xml:lang="zh">网址资源</value>
     </property>
     <property key="DataResourceType.description.VIDEO_OBJECT">
+        <value xml:lang="da">Video</value>
         <value xml:lang="en">Video</value>
         <value xml:lang="it">Video</value>
         <value xml:lang="zh">视频</value>
     </property>
     <property key="DataTemplateType.description.FTL">
+        <value xml:lang="da">FreeMarker</value>
         <value xml:lang="de">FreeMarker</value>
         <value xml:lang="en">FreeMarker</value>
         <value xml:lang="fr">FreeMarker</value>
@@ -1308,6 +1453,7 @@
         <value xml:lang="zh">FreeMarker</value>
     </property>
     <property key="DataTemplateType.description.NONE">
+        <value xml:lang="da">Ingen skabelon</value>
         <value xml:lang="de">Keine Vorlage</value>
         <value xml:lang="en">No Template</value>
         <value xml:lang="fr">Aucun gabarit</value>
@@ -1317,6 +1463,7 @@
         <value xml:lang="zh">没有模板</value>
     </property>
     <property key="DataTemplateType.description.SCREEN_COMBINED">
+        <value xml:lang="da">Screen Widget</value>
         <value xml:lang="de">Screen Widget</value>
         <value xml:lang="en">Screen widget</value>
         <value xml:lang="fr">Screen widget</value>
@@ -1326,6 +1473,7 @@
         <value xml:lang="zh">屏幕挂件</value>
     </property>
     <property key="DataTemplateType.description.VTL">
+        <value xml:lang="da">Velocity</value>
         <value xml:lang="de">Velocity</value>
         <value xml:lang="en">Velocity</value>
         <value xml:lang="fr">Velocity</value>
@@ -1335,6 +1483,7 @@
         <value xml:lang="zh">Velocity</value>
     </property>
     <property key="DataTemplateType.description.WM">
+        <value xml:lang="da">WebMAcro</value>
         <value xml:lang="de">WebMAcro</value>
         <value xml:lang="en">WebMacro</value>
         <value xml:lang="fr">WebMacro</value>
@@ -1344,6 +1493,7 @@
         <value xml:lang="zh">WebMacro</value>
     </property>
     <property key="DataTemplateType.description.XSLT">
+        <value xml:lang="da">XSLT</value>
         <value xml:lang="de">XSLT</value>
         <value xml:lang="en">XSLT</value>
         <value xml:lang="fr">XSLT</value>
@@ -1353,6 +1503,7 @@
         <value xml:lang="zh">XSLT</value>
     </property>
     <property key="DocumentType.description.BILL_OF_LADING">
+        <value xml:lang="da">Kannossement</value>
         <value xml:lang="de">Seefrachtbrief</value>
         <value xml:lang="en">BILL_OF_LADING</value>
         <value xml:lang="es">Cuenta de carga</value>
@@ -1362,6 +1513,7 @@
         <value xml:lang="zh">提货单</value>
     </property>
     <property key="DocumentType.description.EXPORT_DOCUMENTATION">
+        <value xml:lang="da">Eksportdokumentation</value>
         <value xml:lang="de">Exportdokumentation</value>
         <value xml:lang="en">EXPORT_DOCUMENTATION</value>
         <value xml:lang="es">Documentación de exportación</value>
@@ -1371,6 +1523,7 @@
         <value xml:lang="zh">出口文件</value>
     </property>
     <property key="DocumentType.description.MANIFEST">
+        <value xml:lang="da">Manifest</value>
         <value xml:lang="de">Verzeichnis</value>
         <value xml:lang="en">MANIFEST</value>
         <value xml:lang="es">Manifiesto</value>
@@ -1379,6 +1532,7 @@
         <value xml:lang="th">รายการสินค้า</value>
     </property>
     <property key="DocumentType.description.OTHER_SHIP_DOCUMENT">
+        <value xml:lang="da">Andet forsendelsesdokument</value>
         <value xml:lang="de">Anderes Versanddokument</value>
         <value xml:lang="en">OTHER_SHIP_DOCUMENT</value>
         <value xml:lang="es">Otros documentos de envíos</value>
@@ -1388,6 +1542,7 @@
         <value xml:lang="zh">其它货运单据</value>
     </property>
     <property key="DocumentType.description.PACKAGING_SLIP">
+        <value xml:lang="da">Pakkeseddel</value>
         <value xml:lang="de">Lieferschein</value>
         <value xml:lang="en">PACKAGING_SLIP</value>
         <value xml:lang="es">Embalaje</value>
@@ -1397,6 +1552,7 @@
         <value xml:lang="zh">发货清单</value>
     </property>
     <property key="DocumentType.description.PORT_CHARGE_DOCUMENT">
+        <value xml:lang="da">Havnegebyrsdokument</value>
         <value xml:lang="de">Hafengebühren Dokument</value>
         <value xml:lang="en">PORT_CHARGE_DOCUMENT</value>
         <value xml:lang="es">Carga en puerto</value>
@@ -1406,6 +1562,7 @@
         <value xml:lang="zh">港务费单据</value>
     </property>
     <property key="DocumentType.description.SHIPPING_DOCUMENT">
+        <value xml:lang="da">Forsendelsesdokument</value>
         <value xml:lang="de">Versanddokument</value>
         <value xml:lang="en">SHIPPING_DOCUMENT</value>
         <value xml:lang="es">Envío</value>
@@ -1415,6 +1572,7 @@
         <value xml:lang="zh">货运单据</value>
     </property>
     <property key="MetaDataPredicate.description.author-email">
+        <value xml:lang="da">E-mail adresse på forfatter eller skaber af emnet.</value>
         <value xml:lang="de">E-Mail Adresse des Autors oder Erstellers des Themas.</value>
         <value xml:lang="en">eMail address of the author or creator of the subject.</value>
         <value xml:lang="es">E-mail del autor del tema</value>
@@ -1425,6 +1583,7 @@
         <value xml:lang="zh">主题的作者或创建者的电子邮件地址.</value>
     </property>
     <property key="MetaDataPredicate.description.author-name">
+        <value xml:lang="da">Navn på forfatter eller skaber af emnet. </value>
         <value xml:lang="de">Name des Autors oder Erstellers des Themas.</value>
         <value xml:lang="en">Name of the author or creator of the subject.</value>
         <value xml:lang="es">Nombre del autor</value>
@@ -1435,6 +1594,7 @@
         <value xml:lang="zh">主题的作者或创建者姓名。</value>
     </property>
     <property key="MetaDataPredicate.description.event-date">
+        <value xml:lang="da">Dato og tid hvor emnets begivenhed fandt sted, fortrinsvis i det faldende standard format: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="de">Datum und Zeitpunk des Ereignisses zum Thema, vorzugsweise in absteigendem Standart-Format: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="en">The date and time the subject event took place, preferably in the descending standard format: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="es">Fecha en la cual el evento tomó lugar</value>
@@ -1445,6 +1605,7 @@
         <value xml:lang="zh">主题事件发生的日期和时间，按标准格式的降序排列：[yyyy-MM-dd hh:mm:ss]。</value>
     </property>
     <property key="MetaDataPredicate.description.event-location">
+        <value xml:lang="da">Lokationen hvor emnets begivenhed fand sted.</value>
         <value xml:lang="de">Der Ort wo das Ereignis zum Thema stattfand.</value>
         <value xml:lang="en">The location where subject event took place.</value>
         <value xml:lang="es">Ubicación donde el evento sucedió</value>
@@ -1455,6 +1616,7 @@
         <value xml:lang="zh">主题事件发生的地点。</value>
     </property>
     <property key="MetaDataPredicate.description.event-person-name">
+        <value xml:lang="da">Navnet på personen involveret i emnets begivenhed.</value>
         <value xml:lang="de">Name der Person die im Ereignis zum Thema involviert war.</value>
         <value xml:lang="en">The name of a person involved in the subject event.</value>
         <value xml:lang="es">Nombre de la persona involucrada en el evento</value>
@@ -1465,6 +1627,7 @@
         <value xml:lang="zh">主题事件中牵扯到的人员姓名。</value>
     </property>
     <property key="MimeType.description.application/msword">
+        <value xml:lang="da">Microsoft Word</value>
         <value xml:lang="de">Microsoft Word</value>
         <value xml:lang="en">Microsoft Word</value>
         <value xml:lang="fr">Microsoft Word</value>
@@ -1474,6 +1637,7 @@
         <value xml:lang="zh">微软Word</value>
     </property>
     <property key="MimeType.description.application/octet-stream">
+        <value xml:lang="da">Vilkårlige binære data</value>
         <value xml:lang="de">Beliebige binäre Daten</value>
         <value xml:lang="en">Arbitrary Binary Data</value>
         <value xml:lang="fr">Donnée binaire arbitraire</value>
@@ -1483,6 +1647,7 @@
         <value xml:lang="zh">二进制数据</value>
     </property>
     <property key="MimeType.description.application/pdf">
+        <value xml:lang="da">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="de">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="en">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="fr">Format de document portable Adobe (PDF)</value>
@@ -1492,6 +1657,7 @@
         <value xml:lang="zh">Adobe PDF</value>
     </property>
     <property key="MimeType.description.application/postscript">
+        <value xml:lang="da">Post script Applikation/Script</value>
         <value xml:lang="de">Anwendung/Postscript</value>
         <value xml:lang="en">Post script Application/Script</value>
         <value xml:lang="fr">Application postscript/Script </value>
@@ -1501,6 +1667,7 @@
         <value xml:lang="zh">Postsctipt应用/脚本</value>
     </property>
     <property key="MimeType.description.application/vnd.ms-excel">
+        <value xml:lang="da">Microsoft Excel</value>
         <value xml:lang="de">Microsoft Excel</value>
         <value xml:lang="en">Microsoft Excel</value>
         <value xml:lang="fr">Microsoft Excel</value>
@@ -1509,6 +1676,7 @@
         <value xml:lang="zh">微软Excel</value>
     </property>
     <property key="MimeType.description.application/vnd.ms-powerpoint">
+        <value xml:lang="da">Microsoft PowerPoint</value>
         <value xml:lang="de">Microsoft PowerPoint</value>
         <value xml:lang="en">Microsoft PowerPoint</value>
         <value xml:lang="fr">Microsoft PowerPoint</value>
@@ -1517,11 +1685,13 @@
         <value xml:lang="zh">微软PowerPoint</value>
     </property>
     <property key="MimeType.description.application/vnd.oasis.opendocument.spreadsheet">
+        <value xml:lang="da">OpenOffice OpenDocument regneark</value>
         <value xml:lang="en">OpenOffice OpenDocument Spreadsheet</value>
         <value xml:lang="it">Foglio di lavoro OpenOffice OpenDocument</value>
         <value xml:lang="zh">OpenOffice文档</value>
     </property>
     <property key="MimeType.description.application/vnd.oasis.opendocument.text">
+        <value xml:lang="da">OpenOffice OpenDocument Tekst</value>
         <value xml:lang="de">OpenOffice OpenDocument Text</value>
         <value xml:lang="en">OpenOffice OpenDocument Text</value>
         <value xml:lang="fr">Texte OpenOffice OpenDocument</value>
@@ -1531,6 +1701,7 @@
         <value xml:lang="zh">OpenOffice OpenDocument文本</value>
     </property>
     <property key="MimeType.description.application/vnd.ofbiz.survey">
+        <value xml:lang="da">Rundspørge</value>
         <value xml:lang="de">Befragung</value>
         <value xml:lang="en">Survey</value>
         <value xml:lang="fr">Sondage</value>
@@ -1540,6 +1711,7 @@
         <value xml:lang="zh">调查</value>
     </property>
     <property key="MimeType.description.application/vnd.ofbiz.survey.response">
+        <value xml:lang="da">Rundspørge svar</value>
         <value xml:lang="de">Befragung Antwort</value>
         <value xml:lang="en">Survey Response</value>
         <value xml:lang="fr">Réponse de sondage</value>
@@ -1549,16 +1721,19 @@
         <value xml:lang="zh">调查回答</value>
     </property>
     <property key="MimeType.description.application/x-shockwave-flash">
+        <value xml:lang="da">Shockwave Flash Movie</value>
         <value xml:lang="en">Shockwave Flash Movie</value>
         <value xml:lang="it">Filem Shockwave flash</value>
         <value xml:lang="zh">Flash影片</value>
     </property>
     <property key="MimeType.description.application/x-tgz">
+        <value xml:lang="da">Gzip'et Tar arkiv fil</value>
         <value xml:lang="en">Gzipped Tar archive file</value>
         <value xml:lang="it">File archivio Gzipped Tar</value>
         <value xml:lang="zh">Gzip Tar压缩文件</value>
     </property>
     <property key="MimeType.description.application/x-zip-compressed">
+        <value xml:lang="da">ZIP komprimeret fil</value>
         <value xml:lang="de">ZIP-komprimierte Datei</value>
         <value xml:lang="en">ZIP compressed file</value>
         <value xml:lang="fr">Dossier compressé ZIP</value>
@@ -1567,6 +1742,7 @@
         <value xml:lang="zh">ZIP压缩文件</value>
     </property>
     <property key="MimeType.description.application/zip">
+        <value xml:lang="da">ZIP Data</value>
         <value xml:lang="de">ZIP Daten</value>
         <value xml:lang="en">ZIP Data</value>
         <value xml:lang="fr">Données ZIP</value>
@@ -1576,6 +1752,7 @@
         <value xml:lang="zh">ZIP数据</value>
     </property>
     <property key="MimeType.description.audio/basic">
+        <value xml:lang="da">Basic Audio</value>
         <value xml:lang="de">Basic Audio</value>
         <value xml:lang="en">Basic Audio</value>
         <value xml:lang="fr">Audio basique</value>
@@ -1585,6 +1762,7 @@
         <value xml:lang="zh">基本音频</value>
     </property>
     <property key="MimeType.description.audio/mpeg">
+        <value xml:lang="da">MPEG Audio</value>
         <value xml:lang="de">MPEG Audio</value>
         <value xml:lang="en">MPEG Audio</value>
         <value xml:lang="fr">Audio MPEG</value>
@@ -1594,16 +1772,19 @@
         <value xml:lang="zh">MPEG音频</value>
     </property>
     <property key="MimeType.description.audio/x-ms-wax">
+        <value xml:lang="da">WAX Audio</value>
         <value xml:lang="en">WAX Audio</value>
         <value xml:lang="it">WAX Audio</value>
         <value xml:lang="zh">WAX音频</value>
     </property>
     <property key="MimeType.description.audio/x-ms-wma">
+        <value xml:lang="da">WMA Audio</value>
         <value xml:lang="en">WMA Audio</value>
         <value xml:lang="it">WMA Audio</value>
         <value xml:lang="zh">WMA音频</value>
     </property>
     <property key="MimeType.description.image/gif">
+        <value xml:lang="da">GIF billede</value>
         <value xml:lang="de">GIF Bild</value>
         <value xml:lang="en">GIF Image</value>
         <value xml:lang="fr">Image GIF</value>
@@ -1613,6 +1794,7 @@
         <value xml:lang="zh">GIF图像</value>
     </property>
     <property key="MimeType.description.image/jpeg">
+        <value xml:lang="da">JPEG/JPG billede</value>
         <value xml:lang="de">JPEG/JPG Bild</value>
         <value xml:lang="en">JPEG/JPG Image</value>
         <value xml:lang="fr">Image JPG/JPEG</value>
@@ -1622,6 +1804,7 @@
         <value xml:lang="zh">JPEG/JPG图像</value>
     </property>
     <property key="MimeType.description.image/pjpeg">
+        <value xml:lang="da">Progressiv JPEG/JPG billede</value>
         <value xml:lang="de">Progressives JPEG/JPG Bild</value>
         <value xml:lang="en">Progressive JPEG/JPG Image</value>
         <value xml:lang="fr">Image progressive JPG/JPEG</value>
@@ -1630,6 +1813,7 @@
         <value xml:lang="zh">渐进JPEG/JPG图像</value>
     </property>
     <property key="MimeType.description.image/png">
+        <value xml:lang="da">PNG billede</value>
         <value xml:lang="de">PNG Bild</value>
         <value xml:lang="en">PNG Image</value>
         <value xml:lang="fr">Image PNG</value>
@@ -1639,6 +1823,7 @@
         <value xml:lang="zh">PNG图像</value>
     </property>
     <property key="MimeType.description.image/tiff">
+        <value xml:lang="da">TIFF billede</value>
         <value xml:lang="de">TIFF Bild</value>
         <value xml:lang="en">TIFF Image</value>
         <value xml:lang="fr">Image TIFF</value>
@@ -1648,6 +1833,7 @@
         <value xml:lang="zh">TIFF图像</value>
     </property>
     <property key="MimeType.description.message/external-body">
+        <value xml:lang="da">Ekstern brødtekst besked</value>
         <value xml:lang="de">External Body Message</value>
         <value xml:lang="en">External Body Message</value>
         <value xml:lang="fr">Message de corps externe</value>
@@ -1657,6 +1843,7 @@
         <value xml:lang="zh">外部主体消息</value>
     </property>
     <property key="MimeType.description.message/http">
+        <value xml:lang="da">HTTP besked</value>
         <value xml:lang="de">HTTP Message</value>
         <value xml:lang="en">HTTP Message</value>
         <value xml:lang="fr">Message HTTP</value>
@@ -1666,6 +1853,7 @@
         <value xml:lang="zh">HTTP消息</value>
     </property>
     <property key="MimeType.description.message/news">
+        <value xml:lang="da">Ny besked</value>
         <value xml:lang="de">News Mitteilung</value>
         <value xml:lang="en">News Message</value>
         <value xml:lang="fr">Nouveaux messages</value>
@@ -1675,6 +1863,7 @@
         <value xml:lang="zh">新闻消息</value>
     </property>
     <property key="MimeType.description.message/partial">
+        <value xml:lang="da">Delvis besked</value>
         <value xml:lang="de">Partial Message</value>
         <value xml:lang="en">Partial Message</value>
         <value xml:lang="fr">Message partiel</value>
@@ -1684,6 +1873,7 @@
         <value xml:lang="zh">部分消息</value>
     </property>
     <property key="MimeType.description.message/rfc822">
+        <value xml:lang="da">RFC 822 Headered besked</value>
         <value xml:lang="de">RFC 822 Headered Message</value>
         <value xml:lang="en">RFC 822 Headered Message</value>
         <value xml:lang="fr">Message en-tête RFC 822</value>
@@ -1693,6 +1883,7 @@
         <value xml:lang="zh">RFC 822头信息</value>
     </property>
     <property key="MimeType.description.message/s-http">
+        <value xml:lang="da">HTTPS/S-HTTP besked</value>
         <value xml:lang="de">HTTPS/S-HTTP Message</value>
         <value xml:lang="en">HTTPS/S-HTTP Message</value>
         <value xml:lang="fr">Message HTTPS/S-HTTP</value>
@@ -1702,6 +1893,7 @@
         <value xml:lang="zh">HTTPS/S-HTTP消息</value>
     </property>
     <property key="MimeType.description.model/mesh">
+        <value xml:lang="da">MEsh model</value>
         <value xml:lang="de">MEsh Model</value>
         <value xml:lang="en">Mesh Model</value>
         <value xml:lang="fr">Modèle de grille</value>
@@ -1711,6 +1903,7 @@
         <value xml:lang="zh">网格模型</value>
     </property>
     <property key="MimeType.description.model/vrml">
+        <value xml:lang="da">VRML model</value>
         <value xml:lang="de">VRML Model</value>
         <value xml:lang="en">VRML Model</value>
         <value xml:lang="fr">Modèle VRML</value>
@@ -1720,6 +1913,7 @@
         <value xml:lang="zh">虚拟现实模型语言(VRML)模型</value>
     </property>
     <property key="MimeType.description.multipart/alternative">
+        <value xml:lang="da">Multiple Alternative Multipart</value>
         <value xml:lang="de">Multiple Alternative Multipart</value>
         <value xml:lang="en">Mutliple Alternative Multipart</value>
         <value xml:lang="fr">Multiple alternative multipart</value>
@@ -1729,6 +1923,7 @@
         <value xml:lang="zh">多个二选一多段内容</value>
     </property>
     <property key="MimeType.description.multipart/digest">
+        <value xml:lang="da">Digest of Messages Multipart</value>
         <value xml:lang="de">Digest of Messages Multipart</value>
         <value xml:lang="en">Digest of Messages Multipart</value>
         <value xml:lang="fr">Sommaire de messages multipart</value>
@@ -1738,6 +1933,7 @@
         <value xml:lang="zh">消息多段内容的摘要</value>
     </property>
     <property key="MimeType.description.multipart/encrypted">
+        <value xml:lang="da">Encrypted Multipart</value>
         <value xml:lang="de">Encrypted Multipart</value>
         <value xml:lang="en">Encrypted Multipart</value>
         <value xml:lang="fr">Multipart codé</value>
@@ -1747,6 +1943,7 @@
         <value xml:lang="zh">加密的多段内容</value>
     </property>
     <property key="MimeType.description.multipart/form-data">
+        <value xml:lang="da">Form Data Multipart</value>
         <value xml:lang="de">Form Data Multipart</value>
         <value xml:lang="en">Form Data Multipart</value>
         <value xml:lang="fr">Donnée de forme multipart </value>
@@ -1756,6 +1953,7 @@
         <value xml:lang="zh">表单数据多段内容</value>
     </property>
     <property key="MimeType.description.multipart/mixed">
+        <value xml:lang="da">Mixed Type Multipart</value>
         <value xml:lang="de">Mixed Type Multipart</value>
         <value xml:lang="en">Mixed Type Multipart</value>
         <value xml:lang="fr">Type multipart varié</value>
@@ -1765,6 +1963,7 @@
         <value xml:lang="zh">混合类型多段内容</value>
     </property>
     <property key="MimeType.description.multipart/related">
+        <value xml:lang="da">Related Multipart</value>
         <value xml:lang="de">Related Multipart</value>
         <value xml:lang="en">Related Multipart</value>
         <value xml:lang="fr">Multipart apparenté</value>
@@ -1774,6 +1973,7 @@
         <value xml:lang="zh">内嵌的多段内容</value>
     </property>
     <property key="MimeType.description.multipart/signed">
+        <value xml:lang="da">Signed Multipart</value>
         <value xml:lang="de">Signed Multipart</value>
         <value xml:lang="en">Signed Multipart</value>
         <value xml:lang="fr">Multipart signé</value>
@@ -1783,6 +1983,7 @@
         <value xml:lang="zh">签名的多段内容</value>
     </property>
     <property key="MimeType.description.text/css">
+        <value xml:lang="da">CSS Tekst</value>
         <value xml:lang="de">CSS Text</value>
         <value xml:lang="en">CSS Text</value>
         <value xml:lang="fr">Texte CSS</value>
@@ -1792,6 +1993,7 @@
         <value xml:lang="zh">CSS文本</value>
     </property>
     <property key="MimeType.description.text/csv">
+        <value xml:lang="da">Kommasepareret tekstværdi</value>
         <value xml:lang="de">CSV - Comma Separated Value Text</value>
         <value xml:lang="en">Comma Separated Value Text </value>
         <value xml:lang="fr">Valeur de texte séparée par une virgule (CSV)</value>
@@ -1800,6 +2002,7 @@
         <value xml:lang="zh">逗号分隔文本</value>
     </property>
     <property key="MimeType.description.text/enriched">
+        <value xml:lang="da">Enriched Text</value>
         <value xml:lang="de">Enriched Text</value>
         <value xml:lang="en">Enriched Text</value>
         <value xml:lang="fr">Texte enrichi</value>
@@ -1809,6 +2012,7 @@
         <value xml:lang="zh">增强格式文本</value>
     </property>
     <property key="MimeType.description.text/html">
+        <value xml:lang="da">HTML Text</value>
         <value xml:lang="de">HTML Text</value>
         <value xml:lang="en">HTML Text</value>
         <value xml:lang="fr">Texte HTML</value>
@@ -1818,6 +2022,7 @@
         <value xml:lang="zh">HTML文本</value>
     </property>
     <property key="MimeType.description.text/plain">
+        <value xml:lang="da">Plain Text</value>
         <value xml:lang="de">Plain Text</value>
         <value xml:lang="en">Plain Text</value>
         <value xml:lang="fr">Texte simple</value>
@@ -1827,6 +2032,7 @@
         <value xml:lang="zh">纯文本</value>
     </property>
     <property key="MimeType.description.text/richtext">
+        <value xml:lang="da">Rich Text</value>
         <value xml:lang="de">Rich Text</value>
         <value xml:lang="en">Rich Text</value>
         <value xml:lang="fr">Texte riche</value>
@@ -1836,6 +2042,7 @@
         <value xml:lang="zh">富格式文本</value>
     </property>
     <property key="MimeType.description.text/rtf">
+        <value xml:lang="da">RTF Rich Text</value>
         <value xml:lang="de">RTF Rich Text</value>
         <value xml:lang="en">RTF Rich Text</value>
         <value xml:lang="fr">Texte riche (RTF)</value>
@@ -1845,6 +2052,7 @@
         <value xml:lang="zh">RTF富格式文本</value>
     </property>
     <property key="MimeType.description.text/sgml">
+        <value xml:lang="da">SGML Text</value>
         <value xml:lang="de">SGML Text</value>
         <value xml:lang="en">SGML Text</value>
         <value xml:lang="fr">Texte SGML</value>
@@ -1854,6 +2062,7 @@
         <value xml:lang="zh">SGML文本</value>
     </property>
     <property key="MimeType.description.text/tab-separated-values">
+        <value xml:lang="da">Tab separeret værdi tekst</value>
         <value xml:lang="de">Tab Separated Value Text</value>
         <value xml:lang="en">Tab Separated Value Text</value>
         <value xml:lang="fr">Valeur de texte séparée par une tabulation</value>
@@ -1863,11 +2072,13 @@
         <value xml:lang="zh">制表键分隔文本</value>
     </property>
     <property key="MimeType.description.text/x-diff">
+        <value xml:lang="da">diff til patchnings filer</value>
         <value xml:lang="en">diff for patching files</value>
         <value xml:lang="it">diff per files di patch</value>
         <value xml:lang="zh">补丁文件</value>
     </property>
     <property key="MimeType.description.text/xml">
+        <value xml:lang="da">XML Tekst</value>
         <value xml:lang="de">XML Text</value>
         <value xml:lang="en">XML Text</value>
         <value xml:lang="fr">Texte XML</value>
@@ -1877,21 +2088,25 @@
         <value xml:lang="zh">XML文本</value>
     </property>
     <property key="MimeType.description.text/x-vcard">
+        <value xml:lang="da">eletronisk visitkort</value>
         <value xml:lang="en">electronic business card</value>
         <value xml:lang="it">carta business elettronica</value>
         <value xml:lang="zh">电子名片卡</value>
     </property>
     <property key="MimeType.description.video/avi">
+        <value xml:lang="da">AVI Video</value>
         <value xml:lang="en">AVI Video</value>
         <value xml:lang="it">Video AVI</value>
         <value xml:lang="zh">AVI视频</value>
     </property>
     <property key="MimeType.description.video/mp4">
+        <value xml:lang="da">MPEG-4 (H.264) Video</value>
         <value xml:lang="en">MPEG-4 (H.264) Video</value>
         <value xml:lang="it">Video MPEG-4 (H.264)</value>
         <value xml:lang="zh">MPEG-4 (H.264)视频</value>
     </property>
     <property key="MimeType.description.video/mpeg">
+        <value xml:lang="da">MPEG/MPG Video</value>
         <value xml:lang="de">MPEG/MPG Video</value>
         <value xml:lang="en">MPEG/MPG Video</value>
         <value xml:lang="fr">Vidéo MPEG/MPG</value>
@@ -1901,6 +2116,7 @@
         <value xml:lang="zh">MPEG/MPG视频</value>
     </property>
     <property key="MimeType.description.video/quicktime">
+        <value xml:lang="da">Quicktime Video</value>
         <value xml:lang="de">Quicktime Video</value>
         <value xml:lang="en">Quicktime Video</value>
         <value xml:lang="fr">Vidéo Quicktime</value>
@@ -1910,36 +2126,43 @@
         <value xml:lang="zh">Quicktime视频</value>
     </property>
     <property key="MimeType.description.video/x-flv">
+        <value xml:lang="da">Flash Streaming Video</value>
         <value xml:lang="en">Flash Streaming Video</value>
         <value xml:lang="it">Video flash in streaming</value>
         <value xml:lang="zh">Flash流视频</value>
     </property>
     <property key="MimeType.description.video/x-ms-asf">
+        <value xml:lang="da">ASF Video</value>
         <value xml:lang="en">ASF Video</value>
         <value xml:lang="it">Video ASF</value>
         <value xml:lang="zh">ASF视频</value>
     </property>
     <property key="MimeType.description.video/x-ms-wm">
+        <value xml:lang="da">WM Video</value>
         <value xml:lang="en">WM Video</value>
         <value xml:lang="it">Video WM</value>
         <value xml:lang="zh">WM视频</value>
     </property>
     <property key="MimeType.description.video/x-ms-wmv">
+        <value xml:lang="da">WMV Video</value>
         <value xml:lang="en">WMV Video</value>
         <value xml:lang="it">Video WMV</value>
         <value xml:lang="zh">WMV视频</value>
     </property>
     <property key="MimeType.description.video/x-ms-wmx">
+        <value xml:lang="da">WMX Video</value>
         <value xml:lang="en">WMX Video</value>
         <value xml:lang="it">Video WMX</value>
         <value xml:lang="zh">WMX视频</value>
     </property>
     <property key="MimeType.description.video/x-ms-wvx">
+        <value xml:lang="da">WVX Video</value>
         <value xml:lang="en">WVX Video</value>
         <value xml:lang="it">Video WVX</value>
         <value xml:lang="zh">WVX视频</value>
     </property>
     <property key="SurveyApplType.description.CART_ADD">
+        <value xml:lang="da">Tilføj til indkøbskurv</value>
         <value xml:lang="de">Zum Warenkorb hinzufügen</value>
         <value xml:lang="en">Add-To Cart</value>
         <value xml:lang="es">Añadir al carro</value>
@@ -1950,6 +2173,7 @@
         <value xml:lang="zh">放入购物车</value>
     </property>
     <property key="SurveyApplType.description.CHECK_OUT">
+        <value xml:lang="da">Check-ud</value>
         <value xml:lang="de">Zur Kasse gehen</value>
         <value xml:lang="en">Check-Out</value>
         <value xml:lang="es">Realizar compra</value>
@@ -1960,6 +2184,7 @@
         <value xml:lang="zh">结账</value>
     </property>
     <property key="SurveyApplType.description.CUSTOMER_PROFILE">
+        <value xml:lang="da">Kundeprofil</value>
         <value xml:lang="de">Kundenprofil</value>
         <value xml:lang="en">Customer Profile</value>
         <value xml:lang="es">Perfil del cliente</value>
@@ -1970,6 +2195,7 @@
         <value xml:lang="zh">客户档案</value>
     </property>
     <property key="SurveyApplType.description.GENERAL_POLL">
+        <value xml:lang="da">Generel meningsmåling</value>
         <value xml:lang="de">Allgemeine Umfrage</value>
         <value xml:lang="en">General Poll</value>
         <value xml:lang="es">Encuesta general</value>
@@ -1980,6 +2206,7 @@
         <value xml:lang="zh">通用调查</value>
     </property>
     <property key="SurveyApplType.description.PORDER_PLACE">
+        <value xml:lang="da">Indkøbsordre placering</value>
         <value xml:lang="de">Einkaufsauftrag erfassen</value>
         <value xml:lang="en">Purchase Order Placement</value>
         <value xml:lang="es">Colocación de orden de compras</value>
@@ -1990,6 +2217,7 @@
         <value xml:lang="zh">下购物订单</value>
     </property>
     <property key="SurveyApplType.description.PORDITM_PLACE">
+        <value xml:lang="da">Indkøbsordre post placering</value>
         <value xml:lang="de">Einkaufsauftrag Position erfassen</value>
         <value xml:lang="en">Purchase Order Item Placement</value>
         <value xml:lang="es">Colocación de items de la orden de compras</value>
@@ -2000,6 +2228,7 @@
         <value xml:lang="zh">下购物订单明细</value>
     </property>
     <property key="SurveyApplType.description.RANDOM_POLL">
+        <value xml:lang="da">Vilkårlig meningsmåling</value>
         <value xml:lang="de">Zufällige Befragung</value>
         <value xml:lang="en">Random Poll</value>
         <value xml:lang="es">Encuesta al azar</value>
@@ -2010,6 +2239,7 @@
         <value xml:lang="zh">随机调查</value>
     </property>
     <property key="SurveyApplType.description.SORDER_PLACE">
+        <value xml:lang="da">Salgsordre placering</value>
         <value xml:lang="de">Verkaufsauftrag erfassen</value>
         <value xml:lang="en">Sales Order Placement</value>
         <value xml:lang="es">Colocación de orden de ventas</value>
@@ -2020,6 +2250,7 @@
         <value xml:lang="zh">下销售订单</value>
     </property>
     <property key="SurveyQuestionType.description.BOOLEAN">
+        <value xml:lang="da">Boolean (Ja/Nej)</value>
         <value xml:lang="de">Boolean (Ja/Nein)</value>
         <value xml:lang="en">Boolean (Yes/No)</value>
         <value xml:lang="es">(Yes/No)</value>
@@ -2030,6 +2261,7 @@
         <value xml:lang="zh">布尔值 (是/否)</value>
     </property>
     <property key="SurveyQuestionType.description.CONTENT">
+        <value xml:lang="da">Indholdsrecord</value>
         <value xml:lang="de">Inhalt Datensatz</value>
         <value xml:lang="en">Content Record</value>
         <value xml:lang="es">Contenido</value>
@@ -2040,11 +2272,13 @@
         <value xml:lang="zh">内容记录</value>
     </property>
     <property key="SurveyQuestionType.description.COUNTRY">
+        <value xml:lang="da">Land</value>
         <value xml:lang="en">Country</value>
         <value xml:lang="it">Paese</value>
         <value xml:lang="zh">国家</value>
     </property>
     <property key="SurveyQuestionType.description.CREDIT_CARD">
+        <value xml:lang="da">Kreditkortnummer</value>
         <value xml:lang="de">Kreditkartennummer</value>
         <value xml:lang="en">Credit Card Number</value>
         <value xml:lang="es">Nº tarjeta de crédito</value>
@@ -2055,6 +2289,7 @@
         <value xml:lang="zh">信用卡号码</value>
     </property>
     <property key="SurveyQuestionType.description.DATE">
+        <value xml:lang="da">Datostreng (mm/dd/yyyy)</value>
         <value xml:lang="de">Datum String (mm/dd/yyyy)</value>
         <value xml:lang="en">Date String (mm/dd/yyyy)</value>
         <value xml:lang="es">Fecha (mm/dd/yyyy)</value>
@@ -2065,6 +2300,7 @@
         <value xml:lang="zh">日期字符串 (mm/dd/yyyy)</value>
     </property>
     <property key="SurveyQuestionType.description.EMAIL">
+        <value xml:lang="da">E-mail adresse</value>
         <value xml:lang="de">E-Mail Adresse</value>
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">E-mail</value>
@@ -2075,16 +2311,19 @@
         <value xml:lang="zh">电子邮件地址</value>
     </property>
     <property key="SurveyQuestionType.description.ENUMERATION">
+        <value xml:lang="da">Nummerering</value>
         <value xml:lang="en">Enumeration</value>
         <value xml:lang="it">Enumerare</value>
         <value xml:lang="zh">枚举</value>
     </property>
     <property key="SurveyQuestionType.description.GEO">
+        <value xml:lang="da">Geo liste</value>
         <value xml:lang="en">Geo List</value>
         <value xml:lang="it">Lista geografia</value>
         <value xml:lang="zh">地理列表</value>
     </property>
     <property key="SurveyQuestionType.description.GIFT_CARD">
+        <value xml:lang="da">Gavekort nummer</value>
         <value xml:lang="de">Geschenkgutschein Nummer</value>
         <value xml:lang="en">Gift Card Number</value>
         <value xml:lang="es">Certificado de regalo</value>
@@ -2095,6 +2334,7 @@
         <value xml:lang="zh">礼品卡号码</value>
     </property>
     <property key="SurveyQuestionType.description.NUMBER_CURRENCY">
+        <value xml:lang="da">Numerisk (kurs)</value>
         <value xml:lang="de">Numerisch (Währung)</value>
         <value xml:lang="en">Numeric (Currency)</value>
         <value xml:lang="es">Numérico (moneda)</value>
@@ -2105,6 +2345,7 @@
         <value xml:lang="zh">数字 (货币)</value>
     </property>
     <property key="SurveyQuestionType.description.NUMBER_FLOAT">
+        <value xml:lang="da">Numerisk (float)</value>
         <value xml:lang="de">Numerisch (Gleitkommazahl)</value>
         <value xml:lang="en">Numeric (Float)</value>
         <value xml:lang="es">Numérico (flotante)</value>
@@ -2115,6 +2356,7 @@
         <value xml:lang="zh">数字 (浮点)</value>
     </property>
     <property key="SurveyQuestionType.description.NUMBER_LONG">
+        <value xml:lang="da">Numerisk (long)</value>
         <value xml:lang="de">Numerisch (Long)</value>
         <value xml:lang="en">Numeric (Long)</value>
         <value xml:lang="es">Numérico (largo)</value>
@@ -2125,6 +2367,7 @@
         <value xml:lang="zh">数字 (长整数)</value>
     </property>
     <property key="SurveyQuestionType.description.OPTION">
+        <value xml:lang="da">Valgte option</value>
         <value xml:lang="de">Ausgewählte Option</value>
         <value xml:lang="en">Selected Option</value>
         <value xml:lang="es">Opción selecccionada</value>
@@ -2135,6 +2378,7 @@
         <value xml:lang="zh">已选择的记录</value>
     </property>
     <property key="SurveyQuestionType.description.PASSWORD">
+        <value xml:lang="da">Kodeord</value>
         <value xml:lang="de">Passwort</value>
         <value xml:lang="en">Password</value>
         <value xml:lang="es">contraseña</value>
@@ -2145,6 +2389,7 @@
         <value xml:lang="zh">密码</value>
     </property>
     <property key="SurveyQuestionType.description.SEPERATOR_LINE">
+        <value xml:lang="da">Separator</value>
         <value xml:lang="de">Trennlinie</value>
         <value xml:lang="en">Seperator Line</value>
         <value xml:lang="es">Separador</value>
@@ -2155,6 +2400,7 @@
         <value xml:lang="zh">分隔线</value>
     </property>
     <property key="SurveyQuestionType.description.SEPERATOR_TEXT">
+        <value xml:lang="da">Separator tekst</value>
         <value xml:lang="de">Trenntext</value>
         <value xml:lang="en">Seperator Text</value>
         <value xml:lang="es">Seperador</value>
@@ -2165,11 +2411,13 @@
         <value xml:lang="zh">分隔文本</value>
     </property>
     <property key="SurveyQuestionType.description.STATE_PROVINCE">
+        <value xml:lang="da">Stat/provins</value>
         <value xml:lang="en">State/Province</value>
         <value xml:lang="it">Stato/Provincia    </value>
         <value xml:lang="zh">省市自治区</value>
     </property>
     <property key="SurveyQuestionType.description.TEXTAREA">
+        <value xml:lang="da">Tekst (multi-line)</value>
         <value xml:lang="de">Text (mehrere Zeilen)</value>
         <value xml:lang="en">Text (multi-line)</value>
         <value xml:lang="es">Texto (multi línea)</value>
@@ -2180,6 +2428,7 @@
         <value xml:lang="zh">文本 (多行)</value>
     </property>
     <property key="SurveyQuestionType.description.TEXT_LONG">
+        <value xml:lang="da">Lang tekst (single-line)</value>
         <value xml:lang="de">Ausführlicher Text (Eine Zeile)</value>
         <value xml:lang="en">Long Text (single-line)</value>
         <value xml:lang="es">Texto (largo)</value>
@@ -2190,6 +2439,7 @@
         <value xml:lang="zh">长文本 (单行)</value>
     </property>
     <property key="SurveyQuestionType.description.TEXT_SHORT">
+        <value xml:lang="da">Kort tekst (single-line)</value>
         <value xml:lang="de">Kurzer Text (Eine Zeile)</value>
         <value xml:lang="en">Short Text (single-line)</value>
         <value xml:lang="es">Texto (corto)</value>
@@ -2200,6 +2450,7 @@
         <value xml:lang="zh">简短文本 (单行)</value>
     </property>
     <property key="SurveyQuestionType.description.URL">
+        <value xml:lang="da">URL</value>
         <value xml:lang="de">URL</value>
         <value xml:lang="en">URL</value>
         <value xml:lang="es">URL</value>
