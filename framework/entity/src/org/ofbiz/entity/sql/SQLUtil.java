@@ -20,8 +20,14 @@ package org.ofbiz.entity.sql;
 
 import java.io.StringReader;
 
+import org.ofbiz.entity.condition.EntityCondition;
+
 public class SQLUtil {
     public static SQLSelect parseSelect(String sql) throws ParseException {
        return new Parser(new StringReader(sql)).Select();
+    }
+
+    public static EntityCondition parseCondition(String condition) throws ParseException {
+        return new Parser(new StringReader(condition)).EntityCondition();
     }
 }
