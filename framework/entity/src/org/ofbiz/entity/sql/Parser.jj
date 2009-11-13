@@ -267,43 +267,28 @@ private void FieldDefs(DynamicViewEntity dve):
 }
 
 private void FieldDef(DynamicViewEntity dve):
-{}
 {
-	LOOKAHEAD(AllField()) AllField(dve)
-|	FieldSpec(dve)
-}
-
-private void AllField(DynamicViewEntity dve):
-{
-	String n;
+	List<String> fieldUse;
+	String tableAlias, fieldName, fieldAlias = null;
 }
 {
-	n=NamePart() <PERIOD>
-	<STAR>
-	{ dve.addAliasAll(n, null); }
+	tableAlias=NamePart() <PERIOD>
+	(
+		<STAR> { dve.addAliasAll(tableAlias, null); }
+	|	fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? {
+			if (fieldAlias == null) {
+				dve.addAlias(tableAlias, fieldName);
+			} else {
+				dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, null);
+			}
+		}
+	)
 }
 
 private String NamePart():
 {}
 {
 	<NAME> { return getToken(0).image; }
-}
-
-private void FieldSpec(DynamicViewEntity dve):
-{
-	List<String> fieldUse;
-	String tableAlias, fieldName, fieldAlias = null;
-}
-{
-	tableAlias=NamePart() <PERIOD> fieldName=NamePart()
-	( <AS> fieldAlias=NamePart() )?
-	{
-		if (fieldAlias == null) {
-			dve.addAlias(tableAlias, fieldName);
-		} else {
-			dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, null);
-		}
-	}
 }
 
 private String DQuoted():
