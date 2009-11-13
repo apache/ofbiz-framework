@@ -29,7 +29,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="tabbar">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
@@ -40,7 +40,21 @@ under the License.
                                     <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
                                         <include-menu name="PromoTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field="productPromoId"/></not></condition>
+                                    <widgets>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>

@@ -756,12 +756,12 @@ Content Sections
 Tab Bar Navigation
 ***********************************************/
 .tab-bar { 
-    margin:0px 0px 10px 0px; 
+    margin:0px 0px 10px 220px; 
     background:url(../images/wr.png) top right no-repeat; 
     padding-right:18px;
     float:left;
     clear:both;
-    width:95%;
+    width:80%;
     display:inline; 
 }
 
