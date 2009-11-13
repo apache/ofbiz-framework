@@ -1029,3 +1029,46 @@ width: 135px;
 #microcart li#googleCheckoutEnabled img, #microcart li#googleCheckoutDisabled img {
 width: 145px;
 }
+/*===================For ProductDetail page.===========================================*/
+#productdetail {
+width: 670px;
+display: inline-block;
+}
+
+#productImageBox {
+width: 770px;
+border-top: 1px #BBBBBB solid;
+display: inline-block;
+}
+div.additionalImage {
+width: 200px;
+}
+
+#detailImageBox {
+float: left;
+height: 800px;
+width: 272px;
+}
+#additionalImageBox {
+float: left;
+width: 272px;
+}
+
+#productDetailBox {
+float: right;
+height: 266px;
+padding: 266px 0;
+width: 200px;
+}
+
+#addItemForm {
+clear: both;
+width : 600px;
+border-top: 1px #BBBBBB solid;
+}
+
+#paginationBox {
+width : 600px;
+border-top: 1px #BBBBBB solid;
+border-bottom: 1px #BBBBBB solid;
+}
