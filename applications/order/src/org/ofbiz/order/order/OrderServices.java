@@ -3206,7 +3206,6 @@ public class OrderServices {
 
         // find any service items
         List<GenericValue> serviceItems = FastList.newInstance();
-        Map<GenericValue, GenericValue> serviceProducts = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(orderItems)) {
             for(GenericValue item : orderItems) {
                 GenericValue product = null;
@@ -3219,7 +3218,6 @@ public class OrderServices {
                     // check for service goods
                     if ("SERVICE".equals(product.get("productTypeId"))) {
                         serviceItems.add(item);
-                        serviceProducts.put(item, product);
                     }
                 }
             }
