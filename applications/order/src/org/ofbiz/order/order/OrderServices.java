@@ -3225,11 +3225,21 @@ public class OrderServices {
 
         // now process the service items
         if (UtilValidate.isNotEmpty(serviceItems)) {
+            // Make sure there is actually something needing invoicing because createInvoiceForOrder doesn't check
+            List<GenericValue> billItems = FastList.newInstance();
+            for (GenericValue item : serviceItems) {
+                BigDecimal orderQuantity = OrderReadHelper.getOrderItemQuantity(item);
+                BigDecimal invoiceQuantity = OrderReadHelper.getOrderItemInvoicedQuantity(item);
+                BigDecimal outstandingQuantity = orderQuantity.subtract(invoiceQuantity);
+                if (outstandingQuantity.compareTo(ZERO) > 0) {
+                    billItems.add(item);
+                }
+            }
             // do something tricky here: run as a different user that can actually create an invoice, post transaction, etc
             Map<String, Object> invoiceResult = null;
             try {
                 GenericValue permUserLogin = ServiceUtil.getUserLogin(dctx, context, "system");
-                Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", serviceItems, "userLogin", permUserLogin);
+                Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", billItems, "userLogin", permUserLogin);
                 invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "ERROR: Unable to invoice service items", module);
