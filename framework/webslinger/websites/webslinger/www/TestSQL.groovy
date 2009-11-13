@@ -19,6 +19,9 @@ select
     c.groupName
 FROM
 	Party a LEFT JOIN Person b ON a.partyId = b.partyId LEFT JOIN PartyGroup c on a.partyId = c.partyId
+RELATION TYPE one Party ON cur.partyId = other.partyId
+RELATION TYPE one Person ON cur.partyId = other.partyId
+RELATION TYPE one PartyGroup ON cur.partyId = other.partyId
 WHERE
     partyId = 'admin'
 ORDER BY
@@ -34,6 +37,10 @@ TransactionUtil.doNewTransaction("Test", [call: {
         def gv;
         while ((gv = eli.next()) != null) {
             response.writer.println("gv=$gv<br />")
+            def party = gv.getRelatedOneCache('Party')
+            def person = gv.getRelatedOneCache('Person')
+            response.writer.println("\tparty=$party<br />")
+            response.writer.println("\tperson=$person<br />")
         }
     } finally {
         if (eli != null) eli.close()
