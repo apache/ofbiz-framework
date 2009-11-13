@@ -397,6 +397,12 @@ private Object Expression():
 |	s=SQuoted() { return s; }
 }
 
+public EntityCondition EntityCondition():
+{ EntityCondition ec; }
+{
+	ec=ConditionExpression() <EOF> { return ec; }
+}
+
 private EntityCondition ConditionExpression():
 { EntityCondition ec; }
 {
