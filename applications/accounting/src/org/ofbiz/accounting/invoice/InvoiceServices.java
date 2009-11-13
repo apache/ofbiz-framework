@@ -195,9 +195,6 @@ public class InvoiceServices {
             String billToCustomerPartyId = orh.getBillToParty().getString("partyId");
             String billFromVendorPartyId = orh.getBillFromParty().getString("partyId");
 
-            // get some quantity totals
-            BigDecimal totalItemsInOrder = orh.getTotalOrderItemsQuantity();
-
             // get some price totals
             BigDecimal shippableAmount = orh.getShippableTotal(null);
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
