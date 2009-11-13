@@ -38,8 +38,11 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionValue;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.OrderByItem;
+import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
 public class Parser {
 }
@@ -85,6 +88,8 @@ TOKEN: {
 |	<SEMI: ";">
 |	<STAR: "*">
 |	<COMMA: ",">
+|	<DESC: "DESC">
+|	<ASC: "ASC">
 |	<START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
 |	<START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
 |	<INTEGER:
@@ -144,14 +149,16 @@ SQLSelect Select():
 	int i;
 	DynamicViewEntity dve = new DynamicViewEntity();
 	jjtThis.setDynamicViewEntity(dve);
+	List<String> fieldList;
+	List<String> orderBy;
 }
 {
 	<SELECT> FieldDefs(dve)
 	<FROM> Table(dve)
 	( <WHERE> condition=ConditionExpression() { jjtThis.setWhereCondition(condition); } )?
 	( <HAVING> condition=ConditionExpression() { jjtThis.setHavingCondition(condition); } )?
-	( <GROUP> <BY> FieldList() )?
-	( <ORDER> <BY> FieldList() )?
+	( <GROUP> <BY> fieldList=FieldList() { dve.setGroupBy(fieldList); } )?
+	( <ORDER> <BY> orderBy=OrderByList() { jjtThis.setOrderBy(orderBy); } )?
 	( <OFFSET> i=Integer() { jjtThis.setOffset(i); } )?
 	( <LIMIT> i=Integer() { jjtThis.setLimit(i); } )?
 	<SEMI>
@@ -251,6 +258,7 @@ private Boolean Joiner() #void:
 	<LEFT> <JOIN> { return Boolean.TRUE; }
 |	<JOIN> { return Boolean.FALSE; }
 }
+
 private void FieldDefs(DynamicViewEntity dve) #void:
 {}
 {
@@ -315,21 +323,50 @@ private String SQuoted() #void:
 	{ return sb.toString(); }
 }
 
-private void FieldList():
-{}
-{
-	FieldUse() ( <COMMA> FieldUse() )*
-}
-
-private List<String> FieldUse() #void:
+private List<String> FieldList() #void:
 {
 	List<String> list = FastList.newInstance();
-	String s;
+	String n;
 }
 {
-	s=NamePart() { list.add(s); }
-	( <PERIOD> s=NamePart() { list.add(s); } )?
+	n=NamePart() { list.add(n); }
+	( <COMMA> n=NamePart() { list.add(n); } )*
 	{ return list; }
+}
+
+private EntityConditionValue FieldUse() #void:
+{
+	String tableAlias = null, fieldName, s;
+}
+{
+	s=NamePart() { fieldName = s; }
+	( <PERIOD> s=NamePart() { tableAlias = fieldName; fieldName = s; } )?
+	{ return EntityFieldValue.makeFieldValue(fieldName, tableAlias, null, null); }
+}
+
+private List<String> OrderByList() #void:
+{
+	List<String> orderBy = FastList.newInstance();
+	String obi;
+}
+{
+	obi=OrderByItem() { orderBy.add(obi); }
+	( <COMMA> obi=OrderByItem() { orderBy.add(obi); } )*
+	{ return orderBy; }
+}
+
+private String OrderByItem() #void:
+{
+	StringBuilder sb = new StringBuilder();
+	String n;
+}
+{
+	n=NamePart() { sb.append(n); }
+	(
+		<DESC> { sb.append(" DESC"); } 
+		| <ASC> { sb.append(" ASC"); }
+	)?
+	{ return sb.toString(); }
 }
 
 private Integer Integer() #void:
@@ -351,15 +388,10 @@ private Object Expression() #void:
 {
 	EntityConditionValue ecv;
 	String s;
-	List<String> fieldUse;
 	int i;
 }
 {
-	fieldUse=FieldUse() {
-		if (fieldUse.size() == 1) return EntityFieldValue.makeFieldValue(fieldUse.get(0));
-		if (fieldUse.size() == 2) return EntityFieldValue.makeFieldValue(fieldUse.get(1), fieldUse.get(1), null, null);
-		return null;
-}
+	ecv=FieldUse() { return ecv; }
 |	i=Integer() { return i; }
 |	s=SQuoted() { return s; }
 }

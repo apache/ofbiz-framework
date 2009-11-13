@@ -18,10 +18,17 @@
  */
 package org.ofbiz.entity.sql;
 
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
 
 public class SQLSelect extends SimpleNode {
@@ -30,6 +37,7 @@ public class SQLSelect extends SimpleNode {
     private EntityCondition havingCondition;
     private int offset = -1;
     private int limit = -1;
+    private List<String> orderBy;
 
     public SQLSelect(int id) {
         super(id);
@@ -46,7 +54,7 @@ public class SQLSelect extends SimpleNode {
     }
 
     public EntityListIterator getEntityListIterator(Delegator delegator) throws GenericEntityException {
-        return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, null, null);
+        return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, orderBy, null);
     }
 
     void setDynamicViewEntity(DynamicViewEntity dve) {
@@ -71,6 +79,14 @@ public class SQLSelect extends SimpleNode {
 
     public EntityCondition getHavingCondition() {
         return havingCondition;
+    }
+
+    void setOrderBy(List<String> orderBy) {
+        this.orderBy = orderBy;
+    }
+
+    public List<String> getOrderBy() {
+        return orderBy;
     }
 
     void setOffset(int offset) {
