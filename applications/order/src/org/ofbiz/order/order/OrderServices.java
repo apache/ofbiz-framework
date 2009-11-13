@@ -3191,26 +3191,18 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
-
-        // need the order header
-        GenericValue orderHeader = null;
+        
+        OrderReadHelper orh = null;
         try {
-            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-        } catch (GenericEntityException e) {
+            orh = new OrderReadHelper(delegator, orderId);
+        } catch (IllegalArgumentException e) {
             Debug.logError(e, "ERROR: Unable to get OrderHeader for orderId : " + orderId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderHeaderForOrderId", UtilMisc.toMap("orderId",orderId), locale));
         }
 
-        // get all the items for the order
+        // get all the approved items for the order
         List<GenericValue> orderItems = null;
-        if (orderHeader != null) {
-            try {
-                orderItems = orderHeader.getRelated("OrderItem");
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "ERROR: Unable to get OrderItem list for orderId : " + orderId, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemListForOrderId", UtilMisc.toMap("orderId",orderId), locale));
-            }
-        }
+        orderItems = orh.getOrderItemsByCondition(EntityCondition.makeCondition("statusId", "ITEM_APPROVED"));
 
         // find any service items
         List<GenericValue> serviceItems = FastList.newInstance();
@@ -3224,24 +3216,10 @@ public class OrderServices {
                     Debug.logError(e, "ERROR: Unable to get Product from OrderItem", module);
                 }
                 if (product != null) {
-                    GenericValue productType = null;
-                    try {
-                        productType = product.getRelatedOne("ProductType");
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
-                    }
-
-                    if (productType != null) {
-                        String productTypeId = productType.getString("productTypeId");
-
-                        // check for service goods
-                        if (productTypeId != null && "SERVICE".equalsIgnoreCase(productTypeId)) {
-                            // we only invoice APPROVED items
-                            if ("ITEM_APPROVED".equals(item.getString("statusId"))) {
-                                serviceItems.add(item);
-                                serviceProducts.put(item, product);
-                            }
-                        }
+                    // check for service goods
+                    if ("SERVICE".equals(product.get("productTypeId"))) {
+                        serviceItems.add(item);
+                        serviceProducts.put(item, product);
                     }
                 }
             }
@@ -3249,19 +3227,12 @@ public class OrderServices {
 
         // now process the service items
         if (UtilValidate.isNotEmpty(serviceItems)) {
-            // single list with all invoice items
-            List<GenericValue> itemsToInvoice = FastList.newInstance();
-            itemsToInvoice.addAll(serviceItems);
-
             // do something tricky here: run as a different user that can actually create an invoice, post transaction, etc
             Map<String, Object> invoiceResult = null;
             try {
-                GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-                Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
+                GenericValue permUserLogin = ServiceUtil.getUserLogin(dctx, context, "system");
+                Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", serviceItems, "userLogin", permUserLogin);
                 invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "ERROR: Unable to invoice service items", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemWithInvoiceCreationServiceItems", locale));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "ERROR: Unable to invoice service items", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemWithInvoiceCreationServiceItems", locale));
@@ -3271,35 +3242,16 @@ public class OrderServices {
             }
 
             // update the status of service goods to COMPLETED;
-            for(GenericValue item : itemsToInvoice) {
-                GenericValue productType = null;
-                GenericValue product = (GenericValue) serviceProducts.get(item);
-                boolean markComplete = false;
-                if (product != null) {
-                    try {
-                        productType = product.getRelatedOne("ProductType");
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
-                    }
-                    if (item != null && productType != null) {
-                        String productTypeId = productType.getString("productTypeId");
-                        if (productTypeId != null && "SERVICE".equalsIgnoreCase(productTypeId)) {
-                            markComplete = true;
-                        }
-                    }
-                }
-
-                if (markComplete) {
-                    Map<String, Object> statusCtx = FastMap.newInstance();
-                    statusCtx.put("orderId", item.getString("orderId"));
-                    statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
-                    statusCtx.put("statusId", "ITEM_COMPLETED");
-                    statusCtx.put("userLogin", userLogin);
-                    try {
-                        dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, "ERROR: Problem setting the status to COMPLETED : " + item, module);
-                    }
+            for(GenericValue item : serviceItems) {
+                Map<String, Object> statusCtx = FastMap.newInstance();
+                statusCtx.put("orderId", item.getString("orderId"));
+                statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
+                statusCtx.put("statusId", "ITEM_COMPLETED");
+                statusCtx.put("userLogin", userLogin);
+                try {
+                    dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "ERROR: Problem setting the status to COMPLETED : " + item, module);
                 }
             }
         }
