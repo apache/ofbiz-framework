@@ -86,7 +86,7 @@ ${virtualJavaScript?if_exists}
            return;
        } else {
            if (isVirtual(document.addform.add_product_id.value)) {
-               document.location = '<@ofbizUrl>product?category_id=${categoryId?if_exists}&product_id=</@ofbizUrl>' + document.addform.add_product_id.value;
+               document.location = '<@ofbizUrl>product?category_id=${categoryId?if_exists}&amp;product_id=</@ofbizUrl>' + document.addform.add_product_id.value;
                return;
            } else {
                document.addform.submit();
@@ -268,11 +268,9 @@ ${virtualJavaScript?if_exists}
 <#assign productAdditionalImage3 = productContentWrapper.get("ADDITIONAL_IMAGE_3")?if_exists />
 <#assign productAdditionalImage4 = productContentWrapper.get("ADDITIONAL_IMAGE_4")?if_exists />
 
-<table border="0" cellpadding="2" cellspacing="0" width="100%">
   <#-- Category next/previous -->
   <#if category?exists>
-    <tr>
-      <td colspan="2" align="right">
+      <div id="paginationBox">
         <#if previousProductId?exists>
           <a href="<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${previousProductId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>&nbsp;|&nbsp;
         </#if>
@@ -280,51 +278,49 @@ ${virtualJavaScript?if_exists}
         <#if nextProductId?exists>
           &nbsp;|&nbsp;<a href="<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${nextProductId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
         </#if>
-      </td>
-    </tr>
+      </div>
   </#if>
 
-  <tr><td colspan="2"><hr /></td></tr>
-
+<hr />
+<div id="productImageBox">
   <#-- Product image/name/price -->
-  <tr>
-    <td valign="top" width="0">
+    <div id="detailImageBox">
       <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
       <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage />
       </#if>
       <#if productLargeImageUrl?string?has_content>
-        <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200" /></a>
+        <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
         <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
       </#if>
       <#if !productLargeImageUrl?string?has_content>
-        <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage" />
+        <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage" alt="" />
       </#if>
-    </td>
-    <td>
+    </div>
+    <div id="additionalImageBox">
       <#if productAdditionalImage1?string?has_content>
         <div class="additionalImage">
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200" /></a>
-        </div><br />
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+        </div>
       </#if>
       <#if productAdditionalImage2?string?has_content>
         <div class="additionalImage">
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200" /></a>
-         </div><br />
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+         </div>
       </#if>
       <#if productAdditionalImage3?string?has_content>
         <div class="additionalImage">
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200" /></a>
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
         </div>
       </#if>
       <#if productAdditionalImage4?string?has_content>
         <div class="additionalImage">
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>" vspace="5" hspace="5" border="0" width="200" /></a>
+          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
         </div>
       </#if>
-    </td>
-    <td align="right" valign="top">
+    </div>
+    <div id="productDetailBox">
       <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
       <div>${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
       <div>${product.productId?if_exists}</div>
@@ -362,7 +358,7 @@ ${virtualJavaScript?if_exists}
         <div>${uiLabelMap.ProductSpecialPromoPrice}: <span class="basePrice"><@ofbizCurrency amount=price.specialPromoPrice isoCode=price.currencyUsed /></span></div>
       </#if>
       <div>
-        <b>
+        <strong>
           <#if price.isSale?exists && price.isSale>
             <span class="salePrice">${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice" />
@@ -375,7 +371,7 @@ ${virtualJavaScript?if_exists}
             <#if product.reservNthPPPerc?exists &&product.reservNthPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReservNthPPPerc} <#if !product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0>${uiLabelMap.ProductReservSecond} <#else> ${uiLabelMap.ProductReservThird} </#if> ${uiLabelMap.CommonUntil} ${product.reservMaxPersons?if_exists}, ${uiLabelMap.ProductEach}: <@ofbizCurrency amount=product.reservNthPPPerc*price.price/100 isoCode=price.currencyUsed /></span></#if>
             <#if (!product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0) && (!product.reservNthPPPerc?exists || product.reservNthPPPerc == 0)><br />${uiLabelMap.ProductMaximum} ${product.reservMaxPersons?if_exists} ${uiLabelMap.ProductPersons}.</#if>
              </#if>
-         </b>
+         </strong>
       </div>
       <#if price.listPrice?exists && price.price?exists && price.price &lt; price.listPrice>
         <#assign priceSaved = price.listPrice - price.price />
@@ -430,7 +426,7 @@ ${virtualJavaScript?if_exists}
       </#if>
 
       <#if daysToShip?exists>
-        <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color="red">${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
+        <div><strong>${uiLabelMap.ProductUsuallyShipsIn} ${daysToShip} ${uiLabelMap.CommonDays}!</strong></div>
       </#if>
 
       <#-- show tell a friend details only in ecommerce application -->
@@ -438,7 +434,6 @@ ${virtualJavaScript?if_exists}
       <div>
           <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
       </div>
-      <br />
 
       <#if disFeatureList?exists && 0 &lt; disFeatureList.size()>
       <p>&nbsp;</p>
@@ -450,8 +445,11 @@ ${virtualJavaScript?if_exists}
         </#list>
             <div>&nbsp;</div>
       </#if>
-
+    </div>
+</div>
+    <div id="addItemForm">
       <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="addform"  style="margin: 0;">
+      <fieldset>
         <#assign inStock = true />
         <#-- Variant Selection -->
         <#if product.isVirtual?if_exists?upper_case == "Y">
@@ -470,13 +468,13 @@ ${virtualJavaScript?if_exists}
             </#list>
               <input type="hidden" name="add_product_id" value="${product.productId}" />
             <div id="addCart1" style="display:none;>
-              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
+              <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonQuantity}:</strong></span>&nbsp;
               <input type="text" size="5" name="quantity" value="1" />
               <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>
             <div id="addCart2" style="display:block;>
-              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
+              <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonQuantity}:</strong></span>&nbsp;
               <input type="text" size="5" value="1" disabled="disabled" />
               <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
@@ -493,12 +491,12 @@ ${virtualJavaScript?if_exists}
             </#list>
             <input type="hidden" name="add_product_id" value="NULL"/>
             <div>
-              <b><span id="product_id_display"> </span></b>
-              <b><div id="variant_price_display"> </div></b>
+              <strong><span id="product_id_display"> </span></strong>
+              <strong><div id="variant_price_display"> </div></strong>
             </div>
           <#else>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
+            <div><strong>${uiLabelMap.ProductItemOutOfStock}.</strong></div>
             <#assign inStock = false />
           </#if>
          </#if>
@@ -508,14 +506,13 @@ ${virtualJavaScript?if_exists}
           <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product) />
           <#if isStoreInventoryNotAvailable>
             <#if isStoreInventoryRequired>
-              <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
+              <div><strong>${uiLabelMap.ProductItemOutOfStock}.</strong></div>
               <#assign inStock = false />
             <#else>
-              <div><b>${product.inventoryMessage?if_exists}</b></div>
+              <div><strong>${product.inventoryMessage?if_exists}</strong></div>
             </#if>
           </#if>
         </#if>
-      </td></tr><tr><td colspan="2" align="right">
         <#-- check to see if introductionDate hasnt passed yet -->
         <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
         <p>&nbsp;</p>
@@ -532,17 +529,19 @@ ${virtualJavaScript?if_exists}
               <#assign hiddenStyle = "hidden"/>
             </#if>
             <div id="add_amount" class="${hiddenStyle}">
-              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
+              <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonAmount}:</strong></span>&nbsp;
               <input type="text" size="5" name="add_amount" value=""/>
             </div>
             <#if product.productTypeId?if_exists == "ASSET_USAGE">
-                <table width="100%"><tr>
-                <td nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal_notime(document.addform.reservStart, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
-                <td nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal_notime(document.addform.reservEnd, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
-                <tr>
+              <div class="inline">
+                <label>Start Date(yyyy-mm-dd)</label><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal_notime(document.addform.reservStart, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" alt="Calendar" alt="" /></a>
+                <label>End Date(yyyy-mm-dd)</label><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal_notime(document.addform.reservEnd, '${nowTimestamp.toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" alt="Calendar" alt="" /></a>
+              </div>
+              <div>
                 <#--td nowrap align="right">Number<br/>of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td align="right" nowrap>&nbsp;</td-->
-                <td nowrap align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>
-                <td nowrap align="right">Number of rooms</td><td><input type="text" size="5" name="quantity" value="1"/></td></tr></table>
+                Number of persons<input type="text" size="4" name="reservPersons" value="2"/>
+                Number of rooms<input type="text" size="5" name="quantity" value="1"/>
+              </div>
             <#else>
                 <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if> />
             </#if>
@@ -550,11 +549,14 @@ ${virtualJavaScript?if_exists}
             <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
           </#if>
         </#if>
+        </fieldset>
       </form>
+    </div>
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr />
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+          <fieldset>
           <input type="hidden" name="productId" value="${product.productId}" />
           <input type="hidden" name="product_id" value="${product.productId}" />
           <input type="hidden" name="productStoreId" value="${productStoreId}" />
@@ -570,12 +572,13 @@ ${virtualJavaScript?if_exists}
           </select>
           &nbsp;&nbsp;
           <#if product.productTypeId?if_exists == "ASSET_USAGE">
-              <table><tr><td>&nbsp;</td><td align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" ></td><td>Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength"></td><td>&nbsp;</td><td align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1"></td><td align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1"></td></tr></table>
+              &nbsp;${uiLabelMap.CommonStartDate} (yyyy-mm-dd)<input type="text" size="10" name="reservStartStr" >Number of&nbsp;days<input type="text" size="4" name="reservLength">&nbsp;Number of&nbsp;persons<input type="text" size="4" name="reservPersons" value="1">Qty&nbsp;<input type="text" size="5" name="quantity" value="1">
           <#else>
               <input type="text" size="5" name="quantity" value="1" />
               <input type="hidden" name="reservStartStr" value= "" />
           </#if>
           <a href="javascript:addShoplistSubmit();" class="buttontext">${uiLabelMap.OrderAddToShoppingList}</a>
+          </fieldset>
         </form>
       <#else> <br />
         ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBeLogged}</a>
@@ -584,7 +587,7 @@ ${virtualJavaScript?if_exists}
       </div>
       <#-- Prefill first select box (virtual products only) -->
       <#if variantTree?exists && 0 &lt; variantTree.size()>
-        <script language="JavaScript" type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
+        <script type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) -->
@@ -592,8 +595,6 @@ ${virtualJavaScript?if_exists}
         <#assign imageKeys = variantSample.keySet() />
         <#assign imageMap = variantSample />
         <p>&nbsp;</p>
-        <table cellspacing="0" cellpadding="0">
-          <tr>
             <#assign maxIndex = 7 />
             <#assign indexer = 0 />
             <#list imageKeys as key>
@@ -606,23 +607,16 @@ ${virtualJavaScript?if_exists}
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = "/images/defaultImage.jpg" />
                 </#if>
-                <td align="center" valign="bottom">
-                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" /></a>
+                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" width="60" height="60" alt="" /></a>
                   <br />
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
-                </td>
               </#if>
               <#assign indexer = indexer + 1 />
             </#list>
             <#if (indexer > maxIndex)>
-              <div><b>${uiLabelMap.ProductMoreOptions}</b></div>
+              <div><strong>${uiLabelMap.ProductMoreOptions}</strong></div>
             </#if>
-          </tr>
-        </table>
       </#if>
-    </td>
-  </tr>
-</table>
 
   <#-- Digital Download Files Associated with this Product -->
   <#if downloadProductContentAndInfoList?has_content>
@@ -648,43 +642,25 @@ ${virtualJavaScript?if_exists}
       <#if averageRating?exists && (averageRating &gt; 0) && numRatings?exists && (numRatings &gt; 1)>
           <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
-      <tr><td colspan="2"><hr /></td></tr>
+<hr />
       <#if productReviews?has_content>
         <#list productReviews as productReview>
           <#assign postedUserLogin = productReview.getRelatedOne("UserLogin") />
           <#assign postedPerson = postedUserLogin.getRelatedOne("Person")?if_exists />
-              <table border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td>
-                    <div><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
-                  </td>
-                  <td>
-                    <div><b>${uiLabelMap.CommonAt}: </b>${productReview.postedDateTime?if_exists}&nbsp;</div>
-                  </td>
-                  <td>
-                    <div><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3">
+                    <div><strong>${uiLabelMap.CommonBy}: </strong><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
+                    <div><strong>${uiLabelMap.CommonAt}: </strong>${productReview.postedDateTime?if_exists}&nbsp;</div>
+                    <div><strong>${uiLabelMap.OrderRanking}: </strong>${productReview.productRating?if_exists?string}</div>
                     <div>&nbsp;</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3">
                     <div>${productReview.productReview?if_exists}</div>
-                  </td>
-                </tr>
-                <tr><td colspan="3"><hr /></td></tr>
-              </table>
+                <hr />
         </#list>
         <div>
-            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductReviewThisProduct}!</a>
+            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&amp;product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductReviewThisProduct}!</a>
         </div>
       <#else>
         <div>${uiLabelMap.ProductProductNotReviewedYet}.</div>
         <div>
-            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
+            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&amp;product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
         </div>
     </div>
   </#if>
@@ -709,7 +685,7 @@ ${virtualJavaScript?if_exists}
             ${assocProductId}
           </a>
         <#if productAssoc.reason?has_content>
-          - <b>${productAssoc.reason}</b>
+          - <strong>${productAssoc.reason}</strong>
         </#if>
         </div>
       ${setRequestAttribute("optProductId", assocProductId)}
