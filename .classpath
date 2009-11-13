@@ -72,7 +72,7 @@
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/ofbiz-minerva.jar"/>
-    <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20091111-r834702.jar"/>
+    <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20080708-r674758.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/barcode4j-fop-ext-complete-2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-beta5.jar"/>
