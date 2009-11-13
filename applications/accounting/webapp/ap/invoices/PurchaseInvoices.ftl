@@ -102,6 +102,7 @@ function runAction() {
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
         <option value="">${uiLabelMap.AccountingSelectAction}</option>
         <option value="<@ofbizUrl>processMassCheckRun</@ofbizUrl>" id="processMassCheckRun">${uiLabelMap.AccountingIssueCheck}</option>
+        <option value="<@ofbizUrl>PrintInvoices</@ofbizUrl>">${uiLabelMap.AccountingPrintInvoices}</option>
         <option value="massInvoicesToApprove">${uiLabelMap.AccountingInvoiceStatusToApproved}</option>
         <option value="massInvoicesToReceive">${uiLabelMap.AccountingInvoiceStatusToReceived}</option>
         <option value="massInvoicesToReady">${uiLabelMap.AccountingInvoiceStatusToReady}</option>
