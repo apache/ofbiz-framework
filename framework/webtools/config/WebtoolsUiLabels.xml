@@ -1507,7 +1507,7 @@
     </property>
     <property key="WebtoolsImportExport">
         <value xml:lang="en">Import/Export</value>
-        <value xml:lang="it">Importazione/Esportazione</value>
+        <value xml:lang="it">Importazione / Esportazione</value>
     </property>
     <property key="WebtoolsImportFile">
         <value xml:lang="de">Datei importieren</value>
