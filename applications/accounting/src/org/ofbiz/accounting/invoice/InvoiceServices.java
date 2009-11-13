@@ -153,8 +153,6 @@ public class InvoiceServices {
         String orderId = (String) context.get("orderId");
         List<GenericValue> billItems = UtilGenerics.checkList(context.get("billItems"));
         String invoiceId = (String) context.get("invoiceId");
-        // FIXME: This variable is never read, what is its purpose?
-        boolean previousInvoiceFound = false;
 
         if (UtilValidate.isEmpty(billItems)) {
             Debug.logVerbose("No order items to invoice; not creating invoice; returning success", module);
@@ -165,28 +163,6 @@ public class InvoiceServices {
             GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingNoOrderHeader",locale));
-            }
-
-            // get list of previous invoices for the order
-            List<GenericValue> billedItems = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId));
-            if (billedItems.size() > 0) {
-                boolean nonDigitalInvoice = false;
-                Iterator<GenericValue> bii = billedItems.iterator();
-                while (bii.hasNext() && !nonDigitalInvoice) {
-                    GenericValue orderItemBilling = (GenericValue) bii.next();
-                    GenericValue invoiceItem = orderItemBilling.getRelatedOne("InvoiceItem");
-                    if (invoiceItem != null) {
-                        String invoiceItemType = invoiceItem.getString("invoiceItemTypeId");
-                        if (invoiceItemType != null) {
-                            if ("INV_FPROD_ITEM".equals(invoiceItemType) || "INV_PROD_FEATR_ITEM".equals(invoiceItemType)) {
-                                nonDigitalInvoice = true;
-                            }
-                        }
-                    }
-                }
-                if (nonDigitalInvoice) {
-                    previousInvoiceFound = true;
-                }
             }
 
             // figure out the invoice type
