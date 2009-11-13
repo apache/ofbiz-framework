@@ -83,6 +83,9 @@ TOKEN: {
 |	<SELECT: "SELECT">
 |	<DELETE: "DELETE">
 |	<UPDATE: "UPDATE">
+|	<RELATION: "RELATION">
+|	<TYPE: "TYPE">
+|	<TITLE: "TITLE">
 |	<SET: "SET">
 |	<FROM: "FROM">
 |	<SEMI: ";">
@@ -156,6 +159,7 @@ SQLSelect Select():
 {
 	<SELECT> FieldDefs(dve)
 	<FROM> Table(dve)
+	( <RELATION> RelationDef(dve) )*
 	( <WHERE> condition=ConditionExpression() { sqlSelect.setWhereCondition(condition); } )?
 	( <HAVING> condition=ConditionExpression() { sqlSelect.setHavingCondition(condition); } )?
 	( <GROUP> <BY> fieldList=FieldList() { dve.setGroupBy(fieldList); } )?
@@ -164,6 +168,21 @@ SQLSelect Select():
 	( <LIMIT> i=Integer() { sqlSelect.setLimit(i); } )?
 	<SEMI>
 	{ return sqlSelect; }
+}
+
+private void RelationDef(DynamicViewEntity dve):
+{
+	String type = null, title = null, entityName;
+	List<ModelKeyMap> keyMaps;
+}
+{
+	( LOOKAHEAD(2) <TYPE> type=NamePart() )?
+	( LOOKAHEAD(2) <TITLE> title=NamePart() )?
+	entityName=NamePart()
+	<ON> keyMaps=KeyMaps("cur", "other") {
+		System.err.println("addRelation(" + type + ", " + title + ", " + entityName + ", " + keyMaps + ")");
+		dve.addRelation(type, title, entityName, keyMaps);
+	}
 }
 /*
 CSSUpdate Update():
