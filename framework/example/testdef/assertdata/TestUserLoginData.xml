@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <UserLogin userLoginId="system" enabled="N" isSystem="Y"/>
-    <UserLogin userLoginId="anonymous" currentPassword="anonymous"/>
+    <UserLogin userLoginId="anonymous" enabled="N"/>
     <UserLogin userLoginId="admin" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a"/>
 </entity-engine-xml>
 
