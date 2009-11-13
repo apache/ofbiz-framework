@@ -2180,6 +2180,11 @@ under the License.
         <!-- security https="true" auth="true"/ -->
         <response name="success" type="view" value="PrintCheckPDF"/>
     </request-map>
+    
+    <request-map uri="PrintInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PrintInvoices"/>
+    </request-map>
 
     <!--Global GL Settings -->
     <request-map uri="globalGLSettings">
@@ -2698,6 +2703,7 @@ under the License.
     <!-- PDFs  -->
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
     <view-map name="PrintCheckPDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#PrintCheckPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="PrintInvoices" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#PrintInvoices" content-type="application/pdf" encoding="none"/>
 
     <!-- Financial Summary Reports -->
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
