@@ -60,7 +60,7 @@ under the License.
         <iterate list="invoicesCreated" entry="invoice">
             <call-class-method method-name="getInvoiceTotal" ret-field="amountTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker">
                 <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-                <field field="invoice" type="String"/> 
+                <field field="invoice.commissionInvoiceId" type="String"/> 
             </call-class-method>
             <assert>
                 <or>
