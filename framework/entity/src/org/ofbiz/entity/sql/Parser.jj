@@ -451,6 +451,25 @@ private EntityCondition OrExpression():
 	}
 }
 
+private Object RightExpression(EntityComparisonOperator op):
+{
+	Object v;
+	List<Object> list;
+}
+{
+	LOOKAHEAD({ op == EntityOperator.BETWEEN }) { list = FastList.newInstance(); }
+	v=Expression() { list.add(v); }
+	<AND>
+	v=Expression() { list.add(v); }
+	{ return list; }
+|	v=Expression() { return v; }
+|	<OPEN_PAREN> { list = FastList.newInstance(); }
+	v=Expression() { list.add(v); }
+	( <COMMA> v=Expression() { list.add(v); } )*
+	<CLOSE_PAREN>
+	{ return list; }
+}
+
 private EntityCondition BooleanExpression():
 {
 	Object v1, v2;
@@ -458,7 +477,7 @@ private EntityCondition BooleanExpression():
 	EntityCondition ec;
 }
 {
-	v1=Expression() op=ComparisonOperator() v2=Expression()
+	v1=Expression() op=ComparisonOperator() v2=RightExpression(op)
 	{ return EntityCondition.makeCondition(v1, op, v2); }
 |	<OPEN_PAREN> ec=AndExpression() <CLOSE_PAREN> { return ec; }
 }
@@ -467,4 +486,5 @@ private EntityComparisonOperator ComparisonOperator():
 {}
 {
 	( <TEXT> )+ { return EntityOperator.lookupComparison(getToken(0).image); }
+|	<NAME> { return EntityOperator.lookupComparison(getToken(0).image); }
 }
