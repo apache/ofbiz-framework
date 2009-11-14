@@ -26,8 +26,8 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -37,10 +37,8 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.webapp.view.ViewHandler;
-import org.ofbiz.webapp.view.ViewHandlerException;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.entity.GenericValue;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
@@ -75,7 +73,7 @@ public class WfsViewHandler extends AbstractViewHandler {
         try {
             String result = null;
 
-            List entityList = (List)request.getAttribute("entityList");
+            List<GenericValue> entityList = UtilGenerics.cast(request.getAttribute("entityList"));
             SimpleSequence simpleList = new SimpleSequence(entityList);
             Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("entityList", simpleList);

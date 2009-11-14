@@ -18,15 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -46,10 +47,10 @@ import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.security.Security;
@@ -381,9 +382,9 @@ public class ContextFilter implements Filter {
     }
 
     protected void putAllInitParametersInAttributes() {
-        Enumeration initParamEnum = config.getServletContext().getInitParameterNames();
+        Enumeration<String> initParamEnum = UtilGenerics.cast(config.getServletContext().getInitParameterNames());
         while (initParamEnum.hasMoreElements()) {
-            String initParamName = (String) initParamEnum.nextElement();
+            String initParamName = initParamEnum.nextElement();
             String initParamValue = config.getServletContext().getInitParameter(initParamName);
             if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", module);
             config.getServletContext().setAttribute(initParamName, initParamValue);
@@ -411,7 +412,7 @@ public class ContextFilter implements Filter {
     protected Container getContainers() throws ServletException {
         Container rmiLoadedContainer = null;
         try {
-            rmiLoadedContainer = ContainerLoader.loadContainers(CONTAINER_CONFIG, null); // used in Geronimo/WASCE to allow to deregister
+            rmiLoadedContainer = ContainerLoader.loadContainers(CONTAINER_CONFIG, null); // used in Geronimo/WASCE to allow to unregister
         } catch (StartupException e) {
             Debug.logError(e, module);
             throw new ServletException("Unable to load containers; cannot start ContextFilter");

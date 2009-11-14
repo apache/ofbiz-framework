@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.webapp.taglib;
 
-import java.util.Iterator;
 import java.util.Map;
+
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
 

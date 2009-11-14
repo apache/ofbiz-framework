@@ -97,7 +97,7 @@ public class IfTag extends BodyTagSupport {
             try {
                 if (object instanceof Collection) {
                     // the object is a Collection so compare the size.
-                    if (((Collection) object).size() > localSize)
+                    if (((Collection<?>) object).size() > localSize)
                         return EVAL_BODY_AGAIN;
                 } else if (object instanceof String) {
                     // the object is a Collection so compare the size.

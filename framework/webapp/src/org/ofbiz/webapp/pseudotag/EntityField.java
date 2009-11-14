@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
@@ -122,7 +123,7 @@ public class EntityField {
                         fieldObjectType = "comment"; // Default for NULL objects.
                     }
                 } else if (attrObject instanceof Map) {
-                    Map valueMap = (Map) attrObject;
+                    Map<String, ?> valueMap = UtilGenerics.cast(attrObject);
 
                     fieldObject = valueMap.get(field);
                     fieldObjectType = "comment"; // Default for NULL objects.

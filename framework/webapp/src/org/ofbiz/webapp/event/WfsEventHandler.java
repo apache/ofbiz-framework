@@ -38,9 +38,11 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
@@ -86,7 +88,6 @@ public class WfsEventHandler implements EventHandler {
         Element queryElem = null;
 
         try {
-            Map paramMap = request.getParameterMap();
             typeName = (String)request.getParameter("typename");
             //determine if "get" or "post" and get "filter" param accordingly
             if (UtilValidate.isNotEmpty(typeName)) {
@@ -110,7 +111,7 @@ public class WfsEventHandler implements EventHandler {
             SimpleMethod meth = new SimpleMethod(simpleElem, null, null);
             MethodContext methodContext = new MethodContext(request, response, null);
             String retStr = meth.exec(methodContext); //Need to check return string
-            List entityList = (List) request.getAttribute("entityList");
+            List<GenericValue> entityList = UtilGenerics.cast(request.getAttribute("entityList"));
             request.setAttribute("entityList", entityList);
 
         } catch (TemplateException ioe) {
