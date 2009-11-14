@@ -26,10 +26,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.webapp.control.RequestHandler;
-import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -45,6 +42,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
 
     public final static String module = OfbizUrlTransform.class.getName();
 
+    @SuppressWarnings("unchecked")
     public boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
@@ -58,6 +56,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);

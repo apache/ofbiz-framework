@@ -32,7 +32,6 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.security.Security;

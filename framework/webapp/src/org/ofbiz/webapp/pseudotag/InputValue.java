@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericValue;
 
 /**
@@ -116,7 +117,7 @@ public class InputValue {
                     if (fieldVal != null)
                         inputValue = fieldVal.toString();
                 } else if (entTemp instanceof Map) {
-                    Map map = (Map) entTemp;
+                    Map<String, ?> map = UtilGenerics.cast(entTemp);
                     Object fieldVal = map.get(field);
 
                     if (fieldVal != null)

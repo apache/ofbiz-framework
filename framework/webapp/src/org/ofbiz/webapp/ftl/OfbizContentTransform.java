@@ -38,6 +38,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
 
     public final static String module = OfbizUrlTransform.class.getName();
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {

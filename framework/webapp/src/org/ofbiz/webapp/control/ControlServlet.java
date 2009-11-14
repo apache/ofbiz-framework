@@ -32,6 +32,7 @@ import java.util.Enumeration;
 import org.apache.bsf.BSFManager;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilTimer;
@@ -346,46 +347,46 @@ public class ControlServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         Debug.logVerbose("--- Start Request Headers: ---", module);
-        Enumeration headerNames = request.getHeaderNames();
+        Enumeration<String> headerNames = UtilGenerics.cast(request.getHeaderNames());
         while (headerNames.hasMoreElements()) {
-            String headerName = (String) headerNames.nextElement();
+            String headerName = headerNames.nextElement();
             Debug.logVerbose(headerName + ":" + request.getHeader(headerName), module);
         }
         Debug.logVerbose("--- End Request Headers: ---", module);
 
         Debug.logVerbose("--- Start Request Parameters: ---", module);
-        Enumeration paramNames = request.getParameterNames();
+        Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
         while (paramNames.hasMoreElements()) {
-            String paramName = (String) paramNames.nextElement();
+            String paramName = paramNames.nextElement();
             Debug.logVerbose(paramName + ":" + request.getParameter(paramName), module);
         }
         Debug.logVerbose("--- End Request Parameters: ---", module);
 
         Debug.logVerbose("--- Start Request Attributes: ---", module);
-        Enumeration reqNames = request.getAttributeNames();
+        Enumeration<String> reqNames = UtilGenerics.cast(request.getAttributeNames());
         while (reqNames != null && reqNames.hasMoreElements()) {
-            String attName = (String) reqNames.nextElement();
+            String attName = reqNames.nextElement();
             Debug.logVerbose(attName + ":" + request.getAttribute(attName), module);
         }
         Debug.logVerbose("--- End Request Attributes ---", module);
 
         Debug.logVerbose("--- Start Session Attributes: ---", module);
-        Enumeration sesNames = null;
+        Enumeration<String> sesNames = null;
         try {
-            sesNames = session.getAttributeNames();
+            sesNames = UtilGenerics.cast(session.getAttributeNames());
         } catch (IllegalStateException e) {
             Debug.logVerbose("Cannot get session attributes : " + e.getMessage(), module);
         }
         while (sesNames != null && sesNames.hasMoreElements()) {
-            String attName = (String) sesNames.nextElement();
+            String attName = sesNames.nextElement();
             Debug.logVerbose(attName + ":" + session.getAttribute(attName), module);
         }
         Debug.logVerbose("--- End Session Attributes ---", module);
 
-        Enumeration appNames = servletContext.getAttributeNames();
+        Enumeration<String> appNames = UtilGenerics.cast(servletContext.getAttributeNames());
         Debug.logVerbose("--- Start ServletContext Attributes: ---", module);
         while (appNames != null && appNames.hasMoreElements()) {
-            String attName = (String) appNames.nextElement();
+            String attName = appNames.nextElement();
             Debug.logVerbose(attName + ":" + servletContext.getAttribute(attName), module);
         }
         Debug.logVerbose("--- End ServletContext Attributes ---", module);

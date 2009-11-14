@@ -78,7 +78,7 @@ public class JavaEventHandler implements EventHandler {
         return invoke(event.path, event.invoke, eventClass, paramTypes, params);
     }
 
-    private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class[] paramTypes, Object[] params) throws EventHandlerException {
+    private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class<?>[] paramTypes, Object[] params) throws EventHandlerException {
         if (eventClass == null) {
             throw new EventHandlerException("Error invoking event, the class " + eventPath + " was not found");
         }

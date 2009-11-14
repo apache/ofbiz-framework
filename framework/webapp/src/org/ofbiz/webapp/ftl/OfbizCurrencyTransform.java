@@ -45,6 +45,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
 
     public static final String module = OfbizCurrencyTransform.class.getName();
 
+    @SuppressWarnings("unchecked")
     private static String getArg(Map args, String key) {
         String  result = "";
         Object o = args.get(key);
@@ -64,6 +65,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private static BigDecimal getAmount(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
@@ -83,6 +85,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return BigDecimal.ZERO;
     }
 
+    @SuppressWarnings("unchecked")
     private static Integer getInteger(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
@@ -110,6 +113,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
 

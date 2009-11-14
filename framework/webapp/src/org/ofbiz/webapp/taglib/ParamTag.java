@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.ofbiz.base.util.UtilGenerics;
+
 /**
  * ParamTag - Defines a parameter for the service tag.
  */
@@ -105,7 +107,7 @@ public class ParamTag extends TagSupport {
                         value = pageContext.getRequest().getParameter(attribute);
                 } else {
                     try {
-                        Map mapObject = (Map) pageContext.findAttribute(map);
+                        Map<String, Object> mapObject = UtilGenerics.cast(pageContext.findAttribute(map));
 
                         value = mapObject.get(attribute);
                     } catch (Exception e) {

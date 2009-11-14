@@ -28,6 +28,7 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
@@ -146,14 +147,14 @@ public class ControlEventListener implements HttpSessionListener {
             Debug.log("Visit Thru     : " + visit.getString("thruDate"), module);
             Debug.log("--------------------------------------------------------------------", module);
             Debug.log("--- Start Session Attributes: ---", module);
-            Enumeration sesNames = null;
+            Enumeration<String> sesNames = null;
             try {
-                sesNames = session.getAttributeNames();
+                sesNames = UtilGenerics.cast(session.getAttributeNames());
             } catch (IllegalStateException e) {
                 Debug.log("Cannot get session attributes : " + e.getMessage(), module);
             }
             while (sesNames != null && sesNames.hasMoreElements()) {
-                String attName = (String) sesNames.nextElement();
+                String attName = sesNames.nextElement();
                 Debug.log(attName + ":" + session.getAttribute(attName), module);
             }
             Debug.log("--- End Session Attributes ---", module);
@@ -192,7 +193,7 @@ public class ControlEventListener implements HttpSessionListener {
     }
 
     private String getUserLoginSession(HttpSession session) {
-        Map userLoginSession = (Map) session.getAttribute("userLoginSession");
+        Map<String, ?> userLoginSession = UtilGenerics.cast(session.getAttribute("userLoginSession"));
 
         String sessionData = null;
         if (UtilValidate.isNotEmpty(userLoginSession)) {

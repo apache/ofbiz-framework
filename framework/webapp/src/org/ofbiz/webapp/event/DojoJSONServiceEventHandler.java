@@ -35,7 +35,6 @@ import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
