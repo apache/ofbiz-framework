@@ -73,10 +73,10 @@ under the License.
                 <tr>
                   <td width='1%' valign="top" >
                     <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>
+                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}'<#if shippingMethod == chosenShippingMethod?default("N@A")> checked</#if> id='${shipGroupIndex?default("0")}_shipping_method_${shippingMethod}'>
                   </td>
                   <td valign="top">
-                    <div class='tabletext'>
+                    <label for="${shipGroupIndex?default("0")}_shipping_method_${shippingMethod}">
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
                       <#if cart.getShippingContactMechId(shipGroupIndex)?exists>
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
@@ -89,7 +89,7 @@ under the License.
                           </#if>
                         </#if>
                       </#if>
-                    </div>
+                    </label>
                   </td>
                 </tr>
                 </#list>
