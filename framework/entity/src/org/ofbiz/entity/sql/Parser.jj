@@ -94,6 +94,7 @@ TOKEN: {
 |	<COMMA: ",">
 |	<DESC: "DESC">
 |	<ASC: "ASC">
+|	<AGGREGATE_FUNCTION: "COUNT"|"COUNT-DISTINCT"|"MIN"|"MAX"|"SUM"|"AVG">
 |	<START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
 |	<START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
 |	<INTEGER:
@@ -294,13 +295,30 @@ private void FieldDefs(DynamicViewEntity dve):
 	FieldDef(dve) ( <COMMA> FieldDef(dve) )*
 }
 
+private String AggregateFunction():
+{}
+{
+	<AGGREGATE_FUNCTION> { return getToken(0).image.toLowerCase(); }
+}
+
 private void FieldDef(DynamicViewEntity dve):
 {
 	List<String> fieldUse;
-	String tableAlias, fieldName, fieldAlias = null;
+	String tableAlias, fieldName, fieldAlias = null, function;
 }
 {
-	tableAlias=NamePart() <PERIOD>
+	function=AggregateFunction()
+	<OPEN_PAREN>
+	tableAlias=NamePart() <PERIOD> fieldName=NamePart()
+	<CLOSE_PAREN>
+	( <AS> fieldAlias=NamePart() )? {
+		if (fieldAlias == null) {
+			dve.addAlias(tableAlias, fieldName, null, null, null, null, function);
+		} else {
+			dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, function);
+		}
+	}
+|	tableAlias=NamePart() <PERIOD>
 	(
 		<STAR> { dve.addAliasAll(tableAlias, null); }
 	|	fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? {
