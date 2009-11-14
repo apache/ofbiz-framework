@@ -44,6 +44,11 @@ context.viewSize = viewSize;
 
 findShipmentExprs = [] as LinkedList;
 paramListBuffer = new StringBuffer();
+
+if (parameters.shipmentId) {
+    findShipmentExprs.add(EntityCondition.makeCondition("shipmentId", EntityOperator.EQUALS, parameters.shipmentId));
+}
+
 if (shipmentTypeId) {
     paramListBuffer.append("&shipmentTypeId=");
     paramListBuffer.append(shipmentTypeId);
