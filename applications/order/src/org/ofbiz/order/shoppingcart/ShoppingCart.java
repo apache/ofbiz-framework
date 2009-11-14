@@ -4510,18 +4510,14 @@ public class ShoppingCart implements Serializable {
         }
 
         public BigDecimal getTotalTax(ShoppingCart cart) {
-            BigDecimal taxTotal = ZERO;
-            for (int i = 0; i < shipTaxAdj.size(); i++) {
-                GenericValue v = (GenericValue) shipTaxAdj.get(i);
-                taxTotal = taxTotal.add(OrderReadHelper.calcOrderAdjustment(v, cart.getSubTotal()));
-            }
-
+            List<GenericValue> taxAdjustments = FastList.newInstance();
+            taxAdjustments.addAll(shipTaxAdj);
             Iterator iter = shipItemInfo.values().iterator();
-            while (iter.hasNext()) {
-                CartShipItemInfo info = (CartShipItemInfo) iter.next();
-                taxTotal = taxTotal.add(info.getItemTax(cart));
+            for (CartShipItemInfo info : shipItemInfo.values()) {
+                taxAdjustments.addAll(info.itemTaxAdj);
             }
-
+            Map<String, Object> taxByAuthority = OrderReadHelper.getOrderTaxByTaxAuthGeoAndParty(taxAdjustments);
+            BigDecimal taxTotal = (BigDecimal) taxByAuthority.get("taxGrandTotal");
             return taxTotal;
         }
 
