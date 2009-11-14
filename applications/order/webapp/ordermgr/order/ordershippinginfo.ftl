@@ -588,8 +588,8 @@ under the License.
                  <br/>
                  <a href="javascript:document.createShipment.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
                  <form name="createShipment" method="post" action="/facility/control/createShipment">
-                   <input type="hidden" name="orderId" value="${orderId}"/>
-                   <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                   <input type="hidden" name="primaryOrderId" value="${orderId}"/>
+                   <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                    <input type="hidden" name="statusId" value="SHIPMENT_INPUT">
                    <input type="hidden" name="facilityId" value=${storeFacilityId?if_exists}>
                  </form>
