@@ -231,9 +231,12 @@ under the License.
         <set field="serviceCtx.quantity" from-field="quantity"/>
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="serviceCtx"/>
 
-        <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
-            <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+        <entity-condition list="acctgTransList" entity-name="AcctgTrans">
+            <condition-expr field-name="shipmentId" from-field="shipmentId"/>
+            <order-by field-name="-postedDate"/>
         </entity-condition>
+        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+        <get-related list="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
