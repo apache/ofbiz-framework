@@ -17,14 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
-
-    <#if headerItem?exists>
-      <#if headerItem!="main">
-        <div class="breadcrumbs-sep">
-          ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
-        </div>
-      </#if>
-    </#if>
+<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+  <#if headerItem!="main">
+    <div class="breadcrumbs-sep">
+      ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
+    </div>
+  </#if>
+</#if>
   </div>
 </div>
 <div class="clear">

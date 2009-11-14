@@ -24,8 +24,15 @@ under the License.
 <#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
 <#assign displaySecondaryApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
 
+<#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
+<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+  <#if headerItem!="main">
+    <#assign show_last_menu = true>
+  </#if>
+</#if>
+
 <div class="tabbar">
-  <div class="breadcrumbs<#if headerItem?exists><#if headerItem!="main"> menu_selected</#if></#if>">
+  <div class="breadcrumbs<#if show_last_menu?exists> menu_selected</#if>">
       <div id="main-navigation">
         <h2>${uiLabelMap.CommonApplications}</h2>
         <ul>
