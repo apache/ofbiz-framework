@@ -182,12 +182,12 @@ function lookupShipments() {
           <#list shipmentList as shipment>
             <#assign originFacility = shipment.getRelatedOneCache("OriginFacility")?if_exists>
             <#assign destinationFacility = shipment.getRelatedOneCache("DestinationFacility")?if_exists>
-            <#assign statusItem = shipment.getRelatedOneCache("StatusItem")>
+            <#assign statusItem = shipment.getRelatedOneCache("StatusItem")?if_exists>
             <#assign shipmentType = shipment.getRelatedOneCache("ShipmentType")?if_exists>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${shipment.shipmentId}</a></td>
-              <td>${shipmentType.get("description",locale)?default(shipmentType.shipmentTypeId?default(""))}</td>
-              <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
+              <td>${(shipmentType.get("description",locale))?default(shipmentType.shipmentTypeId?default(""))}</td>
+              <td>${(statusItem.get("description",locale))?default(statusItem.statusId?default("N/A"))}</td>
               <td>${(originFacility.facilityName)?if_exists} [${shipment.originFacilityId?if_exists}]</td>
               <td>${(destinationFacility.facilityName)?if_exists} [${shipment.destinationFacilityId?if_exists}]</td>
               <td><span style="white-space: nowrap;">${(shipment.estimatedShipDate.toString())?if_exists}</span></td>
