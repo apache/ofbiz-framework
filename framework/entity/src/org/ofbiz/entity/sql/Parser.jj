@@ -42,6 +42,9 @@ import org.ofbiz.entity.condition.OrderByItem;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
+import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
 public class Parser {
@@ -85,6 +88,7 @@ TOKEN: {
 |	<DELETE: "DELETE">
 |	<UPDATE: "UPDATE">
 |	<RELATION: "RELATION">
+|	<COALESCE: "COALESCE">
 |	<TYPE: "TYPE">
 |	<TITLE: "TITLE">
 |	<SET: "SET">
@@ -305,20 +309,10 @@ private void FieldDef(DynamicViewEntity dve):
 {
 	List<String> fieldUse;
 	String tableAlias, fieldName, fieldAlias = null, function;
+	ComplexAliasMember complexAlias;
 }
 {
-	function=AggregateFunction()
-	<OPEN_PAREN>
-	tableAlias=NamePart() <PERIOD> fieldName=NamePart()
-	<CLOSE_PAREN>
-	( <AS> fieldAlias=NamePart() )? {
-		if (fieldAlias == null) {
-			dve.addAlias(tableAlias, fieldName, null, null, null, null, function);
-		} else {
-			dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, function);
-		}
-	}
-|	tableAlias=NamePart() <PERIOD>
+	LOOKAHEAD(4) tableAlias=NamePart() <PERIOD>
 	(
 		<STAR> { dve.addAliasAll(tableAlias, null); }
 	|	fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? {
@@ -329,6 +323,84 @@ private void FieldDef(DynamicViewEntity dve):
 			}
 		}
 	)
+|	LOOKAHEAD(6) function=AggregateFunction()
+	<OPEN_PAREN>
+	tableAlias=NamePart() <PERIOD> fieldName=NamePart()
+	<CLOSE_PAREN>
+	( <AS> fieldAlias=NamePart() )? {
+		if (fieldAlias == null) {
+			dve.addAlias(tableAlias, fieldName, null, null, null, null, function);
+		} else {
+			dve.addAlias(tableAlias, fieldAlias, fieldName, null, null, null, function);
+		}
+	}
+|	complexAlias=ComplexAliasMember() <AS> fieldAlias=NamePart() {
+		dve.addAlias(null, fieldAlias, null, null, null, null, null, complexAlias);
+	}
+}
+
+private ComplexAliasMember ComplexAlias():
+{
+	List<ComplexAliasMember> list = FastList.newInstance();
+	ComplexAliasMember member;
+	String operator = null, newOperator;
+}
+{
+	<OPEN_PAREN>
+		member=ComplexAliasMember() { list.add(member); }
+		(
+			( <AND> | <OR> ) { newOperator = getToken(0).image.toLowerCase(); }
+			member=ComplexAliasMember() {
+				if (operator == null) {
+					operator = newOperator;
+				} else if (!newOperator.equals(operator)) {
+					throw new IllegalArgumentException("Different operators in complex alias(" + operator + ":" + newOperator + ")");
+				}
+				list.add(member);
+			}
+		)*
+	<CLOSE_PAREN>
+	{
+		if (list.size() == 1) return list.get(0);
+		ComplexAlias complexAlias = new ComplexAlias(operator);
+		complexAlias.addAllComplexAliasMembers(list);
+		return complexAlias;
+	}
+}
+
+private ComplexAliasMember ComplexAliasMember():
+{
+	ComplexAliasMember member;
+}
+{
+	member=ComplexAlias() { return member; }
+|	member=ComplexAliasField() { return member; }
+}
+
+private ComplexAliasMember ComplexAliasField():
+{
+	String function = null, tableName, fieldName;
+	Object dflt = null;
+}
+{
+	(
+		function=AggregateFunction() <OPEN_PAREN> (
+			<COALESCE> <OPEN_PAREN>
+				tableName=NamePart() <PERIOD> fieldName=NamePart()
+				<COMMA>
+				dflt=ConstantValue()
+			<CLOSE_PAREN>
+		|	tableName=NamePart() <PERIOD> fieldName=NamePart()
+		) <CLOSE_PAREN>
+	|	<COALESCE> <OPEN_PAREN>
+			tableName=NamePart() <PERIOD> fieldName=NamePart()
+			<COMMA>
+			dflt=ConstantValue()
+		<CLOSE_PAREN>
+	|	tableName=NamePart() <PERIOD> fieldName=NamePart()
+	) {
+		return new ComplexAliasField(tableName, fieldName, dflt != null ? dflt.toString() : null, function);
+	}
 }
 
 private String NamePart():
@@ -420,12 +492,20 @@ private Integer Integer():
 private Object Expression():
 {
 	EntityConditionValue ecv;
+	Object v;
+}
+{
+	ecv=FieldUse() { return ecv; }
+|	v=ConstantValue() { return v; }
+}
+
+private Object ConstantValue():
+{
 	String s;
 	int i;
 }
 {
-	ecv=FieldUse() { return ecv; }
-|	i=Integer() { return i; }
+	i=Integer() { return i; }
 |	s=SQuoted() { return s; }
 }
 
