@@ -27,7 +27,7 @@ under the License.
   </#if>
   <div class="screenlet"> 
     <div class="screenlet-title-bar">
-      <span class="label">${uiLabelMap.AccountingCurrentGlReconciliation}</span>
+      <span class="label">${uiLabelMap.AccountingCurrentBankReconciliation}</span>
     </div>
     <div class="screenlet-body">
       <a href="<@ofbizUrl>EditFinAccountReconciliations?finAccountId=${finAccountId}&glReconciliationId=${glReconciliationId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
@@ -68,7 +68,7 @@ under the License.
   </div>
   <div class="screenlet"> 
     <div class="screenlet-title-bar">
-      <span class="label">${uiLabelMap.AccountingPreviousGlReconciliation}</span>
+      <span class="label">${uiLabelMap.AccountingPreviousBankReconciliation}</span>
     </div>
     <div class="screenlet-body">
       <#if previousGlReconciliation?has_content>
