@@ -2500,6 +2500,10 @@
         <value xml:lang="th">เกิดปัญหาในการตรวจสอบความถูกต้องของคุณ; กรุณาเช็คบัตรของคุณและรหัสส่วนตัวของคุณและทำอีกครั้ง</value>
         <value xml:lang="zh">检查你的余额时出现问题；请检查你的卡和密码，然后重试</value>
     </property>
+    <property key="AccountingCurrentBankReconciliation">
+        <value xml:lang="en">Current Bank Reconciliation</value>
+        <value xml:lang="hi_IN">वर्तमान बैन्क मिलाप</value>
+    </property>
     <property key="AccountingCurrentCustomTimePeriod">
         <value xml:lang="de">Aktueller spezifischer Zeitraum</value>
         <value xml:lang="en">Current Custom Time Period</value>
@@ -2508,10 +2512,6 @@
         <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
         <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
         <value xml:lang="zh">当前定制时间段</value>
-    </property>
-    <property key="AccountingCurrentGlReconciliation">
-        <value xml:lang="en">Current Gl Reconciliation</value>
-        <value xml:lang="hi_IN">वर्तमान प्रधान खाता-बही  मिलाप</value>
     </property>
     <property key="AccountingCustNr">
         <value xml:lang="ar">رقم الزبون</value>
@@ -7886,6 +7886,11 @@
         <value xml:lang="th">Accounting Preferences</value>
         <value xml:lang="zh">团体财务的优先选择</value>
     </property>
+    <property key="AccountingPreviousBankReconciliation">
+        <value xml:lang="de">vorherige Kontenabstimmung</value>
+        <value xml:lang="en">Previous Bank Reconciliation</value>
+        <value xml:lang="hi_IN">पिछला बैन्क मिलाप</value>
+    </property>
     <property key="AccountingPrefixCard">
         <value xml:lang="de">Prefix auf der Karte</value>
         <value xml:lang="en">Prefix Card</value>
@@ -7898,11 +7903,6 @@
         <value xml:lang="ru">Префикс для карты</value>
         <value xml:lang="th">คำนำหน้าบัตร</value>
         <value xml:lang="zh">卡上前缀</value>
-    </property>
-    <property key="AccountingPreviousGlReconciliation">
-        <value xml:lang="de">vorherige Kontenabstimmung</value>
-        <value xml:lang="en">Previous Gl Reconciliation</value>
-        <value xml:lang="hi_IN">पिछला  प्रधान खाता-बही  मिलाप</value>
     </property>
     <property key="AccountingPrintAsCheck">
         <value xml:lang="ar">إطبع ك صك</value>
