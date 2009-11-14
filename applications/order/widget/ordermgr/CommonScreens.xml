@@ -64,7 +64,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="tabbar">
                         <section>
                             <condition>
                                 <not><if-empty field="custRequest"/></not>
@@ -73,6 +73,8 @@ under the License.
                                 <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                             </widgets>
                         </section>
+                    </decorator-section>
+                    <decorator-section name="body">
                         <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         <container>
                             <section>
@@ -98,6 +100,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="tabbar">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                                    <not><if-empty field="quote"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ORDERMGR, _VIEW permission -->
@@ -105,14 +120,6 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="quote"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                                    </widgets>
-                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
@@ -134,6 +141,19 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="tabbar">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                                    <not><if-empty field="quote"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ORDERMGR, _QUOTE_PRICE permission -->
@@ -141,14 +161,6 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="quote"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                                    </widgets>
-                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
