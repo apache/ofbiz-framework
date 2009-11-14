@@ -95,56 +95,57 @@ if (maxDate && maxDate.length() > 8) {
     paramListBuffer.append(maxDate);
     findShipmentExprs.add(EntityCondition.makeCondition("estimatedShipDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
 }
+
 if ("Y".equals(lookupFlag)) {
     context.paramList = paramListBuffer.toString();
 
-        findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        mainCond = null;
-        if (findShipmentExprs.size() > 0) {
-            mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
-        }
-        orderBy = ['-estimatedShipDate'];
+    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+    mainCond = null;
+    if (findShipmentExprs.size() > 0) {
+        mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
+    }
+    orderBy = ['-estimatedShipDate'];
 
-        beganTransaction = false;
+    beganTransaction = false;
+    try {
+        beganTransaction = TransactionUtil.begin();
+
+        // get the indexes for the partial list
+        lowIndex = viewIndex * viewSize + 1;
+        highIndex = (viewIndex + 1) * viewSize;
+        findOpts.setMaxRows(highIndex);
+        // using list iterator
+        orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
+
+        shipmentListSize = orli.getResultsSizeAfterPartialList();
+        if (highIndex > shipmentListSize) {
+            highIndex = shipmentListSize;
+        }
+
+        // get the partial list for this page
+        if (shipmentListSize > 0) {
+            shipmentList = orli.getPartialList(lowIndex, viewSize);
+        } else {
+            shipmentList = [] as ArrayList;
+        }
+
+        // close the list iterator
+        orli.close();
+    } catch (GenericEntityException e) {
+        errMsg = "Failure in operation, rolling back transaction";
+        Debug.logError(e, errMsg, module);
         try {
-            beganTransaction = TransactionUtil.begin();
-
-            // get the indexes for the partial list
-            lowIndex = viewIndex * viewSize + 1;
-            highIndex = (viewIndex + 1) * viewSize;
-            findOpts.setMaxRows(highIndex);
-            // using list iterator
-            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
-
-            shipmentListSize = orli.getResultsSizeAfterPartialList();
-            if (highIndex > shipmentListSize) {
-                highIndex = shipmentListSize;
-            }
-
-            // get the partial list for this page
-            if (shipmentListSize > 0) {
-                shipmentList = orli.getPartialList(lowIndex, viewSize);
-            } else {
-                shipmentList = [] as ArrayList;
-            }
-
-            // close the list iterator
-            orli.close();
-        } catch (GenericEntityException e) {
-            errMsg = "Failure in operation, rolling back transaction";
-            Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
+            // only rollback the transaction if we started one...
+            TransactionUtil.rollback(beganTransaction, errMsg, e);
+        } catch (GenericEntityException e2) {
+            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
         }
+        // after rolling back, rethrow the exception
+        throw e;
+    } finally {
+        // only commit the transaction if we started one... this will throw an exception if it fails
+        TransactionUtil.commit(beganTransaction);
+    }
 
     context.shipmentList = shipmentList;
     context.listSize = shipmentListSize;
