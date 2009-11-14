@@ -927,6 +927,10 @@ public class ModelViewEntity extends ModelEntity {
             this.complexAliasMembers.add(complexAliasMember);
         }
 
+        public void addAllComplexAliasMembers(List<ComplexAliasMember> complexAliasMembers) {
+            this.complexAliasMembers.addAll(complexAliasMembers);
+        }
+
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMembers.size() == 0) {
                 return;
