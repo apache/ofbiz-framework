@@ -18,22 +18,22 @@ specific language governing permissions and limitations
 under the License.
 ***********************************************/
 body {
-    background:none;
-    font-size=105%;
+background:none;
+font-size=105%;
 }
 
 .left-border {
-    float:left;
-    width:20em;
+float:left;
+width:20em;
 }
 
 div.contentarea {
-    margin: 10px 0 0 0.5em;
-    padding:0 0 0 0.5em;
+margin: 10px 0 0 0.5em;
+padding:0 0 0 0.5em;
 }
 .leftonly {
-    float:none;
-    min-height:25em;
+float:none;
+min-height:25em;
 }
 
 #column-container .leftonly {
@@ -48,4 +48,14 @@ border: none;
 #content-main-section h1,
 #content-main-section .h1 {
 display: block;
+}
+
+ol.numbers {
+list-style: decimal; 
+padding-left: 20px;
+}
+
+ul.dots {
+list-style: circle; 
+padding-left: 20px;
 }
