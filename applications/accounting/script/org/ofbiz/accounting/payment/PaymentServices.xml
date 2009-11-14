@@ -484,6 +484,13 @@ under the License.
             <iterate list="paymentGroupMembers" entry="paymentGroupMember">
                 <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
                 <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
+                <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
+                <get-related-one relation-name="FinAccountTrans" value-field="payment" to-value-field="finAccountTrans"/>
+                <if-not-empty field="finAccountTrans">
+                    <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
+                    <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_CANCELED"/>
+                    <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
+                </if-not-empty>
             </iterate>
         <else>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingCancelBatchPaymentsError"/></add-error>
