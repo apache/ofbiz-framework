@@ -60,7 +60,7 @@ under the License.
           </tr>
           <tr>
             <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
-            <td><@ofbizCurrency amount=currentGlReconciliation  .openingBalance?default('0')/></td>
+            <td><@ofbizCurrency amount=currentGlReconciliation.openingBalance?default('0')/></td>
           </tr>
         </table>
       </#if>
