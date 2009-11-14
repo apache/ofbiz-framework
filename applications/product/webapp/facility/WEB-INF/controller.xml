@@ -858,7 +858,9 @@ under the License.
     <request-map uri="createShipment">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createShipment"/>
-        <response name="success" type="view" value="EditShipment"/>
+        <response name="success" type="request-redirect" value="EditShipment">
+            <redirect-parameter name="shipmentId"/>
+        </response>
         <response name="error" type="view" value="EditShipment"/>
     </request-map>
     <request-map uri="updateShipment">
