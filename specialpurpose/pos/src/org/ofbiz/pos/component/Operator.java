@@ -21,6 +21,7 @@ package org.ofbiz.pos.component;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.BorderFactory;
@@ -101,11 +102,11 @@ public class Operator {
 
         String fieldName = field.getName();
         if (OPER_TOTAL[0].equals(fieldName)) {
-            String total = "0.00";
+            BigDecimal total = BigDecimal.ZERO;
             if (trans != null) {
-                total = UtilFormatOut.formatPrice(trans.getTotalDue());
+                total = trans.getTotalDue();
             }
-            field.setText(total);
+            field.setText(UtilFormatOut.formatPrice(total));
         } else if (OPER_DATE[0].equals(fieldName)) {
             field.setText(sdf.format(new Date()));
         } else if (OPER_EMPL[0].equals(fieldName)) {

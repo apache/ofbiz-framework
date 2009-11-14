@@ -476,11 +476,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("taxTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getTaxTotal()), priceLength[type], false, ' '));
         expandMap.put("grandTotal", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getGrandTotal()), priceLength[type], false, ' '));
         expandMap.put("totalPayments", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getPaymentTotal()), priceLength[type], false, ' '));
-        expandMap.put("change", UtilFormatOut.padString((trans.getTotalDue().compareTo(BigDecimal.ZERO) < 0 ?
-                UtilFormatOut.formatPrice(trans.getTotalDue().negate()) : "0.00"), priceLength[type], false, ' '));
-        expandMap.put("saleDiscount", UtilFormatOut.padString((trans.GetTotalDiscount().compareTo(BigDecimal.ZERO) != 0 ?
-                UtilFormatOut.formatPrice(trans.GetTotalDiscount()) : "0.00"), priceLength[type], false, ' '));
-
+        expandMap.put("change", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getTotalDue().compareTo(BigDecimal.ZERO) < 0 ? trans.getTotalDue().negate() : BigDecimal.ZERO), priceLength[type], false, ' '));
+        expandMap.put("saleDiscount",  UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.GetTotalDiscount().compareTo(BigDecimal.ZERO) != 0 ? trans.GetTotalDiscount() : BigDecimal.ZERO), priceLength[type], false, ' '));
         return expandMap;
     }
 
