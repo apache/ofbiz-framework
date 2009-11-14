@@ -1279,6 +1279,7 @@ display: inline; /* IE Fix */
 float: left;
 font-weight: bold;
 padding: 0.1em 0.4em 0.1em 0.4em;
+background-color: #0099CC;
 }
 
 .button-bar ul .opposed {
