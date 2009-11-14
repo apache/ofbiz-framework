@@ -894,7 +894,7 @@ text-align: center;
 }
 
 .tabbar {
-background-color: #39565F;
+background-color: #41636D;
 height: 30px;
 width: 100%;
 }
@@ -921,7 +921,7 @@ font-weight: bold;
 /* ==================================== */
 .logo-area a div{
 background: url(/droppingcrumbs/images/ofbiz_logo.gif) no-repeat;
-width:250px;
+width:260px;
 height:50px;
 }
 
@@ -961,7 +961,7 @@ border: none;
 ul#preferences-menu li.user,
 ul#preferences-menu li.org {
 padding: 0;
-color: #777777;
+color: #AAAAAA;
 }
 
 ul#preferences-menu li.user {
@@ -970,7 +970,7 @@ clear: both;
 
 ul#preferences-menu li.user a,
 ul#preferences-menu li.org a {
-color: #777777;
+color: #AAAAAA;
 }
 
 ul#preferences-menu li a:hover {
@@ -1370,7 +1370,7 @@ font-size:1.1em;
 }
 
 .tab-bar ul li {
-margin: 0;
+margin: 0 5px 0 5px;
 float:left;
 }
 
