@@ -557,7 +557,7 @@ public class AIMPaymentServices {
             results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
-            results.put("processAmount", new BigDecimal("0.00"));
+            results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
         }
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
@@ -574,7 +574,7 @@ public class AIMPaymentServices {
             results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("captureAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("captureAmount", new BigDecimal("0.00"));
+            results.put("captureAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
     }
@@ -591,7 +591,7 @@ public class AIMPaymentServices {
             results.put("refundCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("refundAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("refundAmount", new BigDecimal("0.00"));
+            results.put("refundAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processRefundTransResult: " + results.toString(),module);
         return results;
@@ -609,7 +609,7 @@ public class AIMPaymentServices {
             results.put("releaseCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("releaseAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
-            results.put("releaseAmount", new BigDecimal("0.00"));
+            results.put("releaseAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processReleaseTransResult: " + results.toString(),module);
         return results;
@@ -633,7 +633,7 @@ public class AIMPaymentServices {
             results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("authCode", ar.getResponseCode());
-            results.put("processAmount", new BigDecimal("0.00"));
+            results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", AuthorizeResponse.ERROR);
         }
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);

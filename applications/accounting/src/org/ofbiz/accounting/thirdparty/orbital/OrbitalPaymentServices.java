@@ -516,7 +516,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", new BigDecimal(results.get("processAmount").toString()));
         } else {
             results.put("authCode", response.getAuthCode());
-            results.put("processAmount", new BigDecimal("0.00"));
+            results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
@@ -540,7 +540,7 @@ public class OrbitalPaymentServices {
             results.put("processAmount", new BigDecimal(results.get("processAmount").toString()));
         } else {
             results.put("authCode", response.getAuthCode());
-            results.put("processAmount", new BigDecimal("0.00"));
+            results.put("processAmount", BigDecimal.ZERO);
             results.put("authRefNum", OrbitalPaymentServices.ERROR);
         }
         Debug.logInfo("processAuthCaptureTransResult: " + results.toString(),module);
@@ -557,7 +557,7 @@ public class OrbitalPaymentServices {
             results.put("captureCode", response.getAuthCode());
             results.put("captureAmount", new BigDecimal(results.get("captureAmount").toString()));
         } else {
-            results.put("captureAmount", new BigDecimal("0.00"));
+            results.put("captureAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
     }
@@ -573,7 +573,7 @@ public class OrbitalPaymentServices {
             results.put("refundCode", response.getAuthCode());
             results.put("refundAmount", new BigDecimal(results.get("refundAmount").toString()));
         } else {
-            results.put("refundAmount", new BigDecimal("0.00"));
+            results.put("refundAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processRefundTransResult: " + results.toString(),module);
     }
@@ -589,7 +589,7 @@ public class OrbitalPaymentServices {
             results.put("releaseCode", response.getAuthCode());
             results.put("releaseAmount", new BigDecimal(results.get("releaseAmount").toString()));
         } else {
-            results.put("releaseAmount", new BigDecimal("0.00"));
+            results.put("releaseAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processReleaseTransResult: " + results.toString(),module);
     }

@@ -1634,20 +1634,22 @@ public class ShoppingCartEvents {
                 }
 
                 // get the selected amount
-                String selectedAmountStr = "0.00";
+                String selectedAmountStr = null;
                 if (paramMap.containsKey("amount" + thisSuffix)) {
                     selectedAmountStr = (String) paramMap.remove("amount" + thisSuffix);
                 }
 
                 // parse the amount
                 BigDecimal amount = null;
-                if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(selectedAmountStr)) {
                     try {
                         amount = new BigDecimal(selectedAmountStr);
                     } catch (Exception e) {
                         Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                         amount = null;
                     }
+                } else {
+                    amount = BigDecimal.ZERO;
                 }
 
                 if (paramMap.containsKey("itemDesiredDeliveryDate" + thisSuffix)) {
@@ -1818,18 +1820,20 @@ public class ShoppingCartEvents {
                     Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
                     quantity = BigDecimal.ZERO;
                 }
-                String selectedAmountStr = "0.00";
+                String selectedAmountStr = null;
                 if (paramMap.containsKey("amount" + thisSuffix)) {
                     selectedAmountStr = (String) paramMap.remove("amount" + thisSuffix);
                 }
                 BigDecimal amount = null;
-                if (selectedAmountStr != null && selectedAmountStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(selectedAmountStr)) {
                     try {
                         amount = new BigDecimal(selectedAmountStr);
                     } catch (Exception e) {
                         Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                         amount = null;
                     }
+                } else {
+                    amount = BigDecimal.ZERO;
                 }
                 if (paramMap.containsKey("itemDesiredDeliveryDate" + thisSuffix)) {
                     itemDesiredDeliveryDateStr = (String) paramMap.remove("itemDesiredDeliveryDate" + thisSuffix);

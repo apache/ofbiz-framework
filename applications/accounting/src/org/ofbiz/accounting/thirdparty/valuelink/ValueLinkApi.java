@@ -682,7 +682,7 @@ public class ValueLinkApi {
      */
     public BigDecimal getAmount(String amount) {
         if (amount == null) {
-            return new BigDecimal("0.00");
+            return BigDecimal.ZERO;
         }
         BigDecimal amountBd = new BigDecimal(amount);
         return amountBd.movePointLeft(2);

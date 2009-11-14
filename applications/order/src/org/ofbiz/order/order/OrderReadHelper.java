@@ -1013,7 +1013,7 @@ public class OrderReadHelper {
             product = item.getRelatedOne("Product");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Product from OrderItem; returning 0", module);
-            return new BigDecimal ("0.00");
+            return BigDecimal.ZERO;
         }
         if (product != null) {
             if (ProductWorker.shippingApplies(product)) {

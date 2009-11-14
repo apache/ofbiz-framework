@@ -75,7 +75,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(authResponseDoc) > 4) {  // 5 and higher, process error from HSBC
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("authResult", new Boolean(false));
-            result.put("processAmount", new BigDecimal("0.00"));
+            result.put("processAmount", BigDecimal.ZERO);
             result.put("authRefNum", getReferenceNum(authResponseDoc));
             List<String> messages = getMessageList(authResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -105,7 +105,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(creditResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("creditResult", new Boolean(false));
-            result.put("creditAmount", new BigDecimal("0.00"));
+            result.put("creditAmount", BigDecimal.ZERO);
             result.put("creditRefNum", getReferenceNum(creditResponseDoc));
             List<String> messages = getMessageList(creditResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -138,7 +138,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(captureResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("captureResult", new Boolean(false));
-            result.put("captureAmount", new BigDecimal("0.00"));
+            result.put("captureAmount", BigDecimal.ZERO);
             result.put("captureRefNum", getReferenceNum(captureResponseDoc));
             List<String> messages = getMessageList(captureResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -170,7 +170,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(releaseResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("releaseResult", new Boolean(false));
-            result.put("releaseAmount", new BigDecimal("0.00"));
+            result.put("releaseAmount", BigDecimal.ZERO);
             result.put("releaseRefNum", getReferenceNum(releaseResponseDoc));
             List<String> messages = getMessageList(releaseResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -224,7 +224,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(refundResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("refundResult", new Boolean(false));
-            result.put("refundAmount", new BigDecimal("0.00"));
+            result.put("refundAmount", BigDecimal.ZERO);
             result.put("refundRefNum", getReferenceNum(refundResponseDoc));
             List<String> messages = getMessageList(refundResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -257,7 +257,7 @@ public class CCPaymentServices {
         if (getMessageListMaxSev(reauthResponseDoc) > 4) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("reauthResult", new Boolean(false));
-            result.put("reauthAmount", new BigDecimal("0.00"));
+            result.put("reauthAmount", BigDecimal.ZERO);
             result.put("reauthRefNum", getReferenceNum(reauthResponseDoc));
             List<String> messages = getMessageList(reauthResponseDoc);
             if (UtilValidate.isNotEmpty(messages)) {
@@ -386,7 +386,7 @@ public class CCPaymentServices {
             result.put("processAmount", new BigDecimal(authAmountStr).movePointLeft(2));
         } else {
             result.put("authResult", Boolean.valueOf(false));
-            result.put("processAmount", new BigDecimal("0.00"));
+            result.put("processAmount", BigDecimal.ZERO);
         }
 
         result.put("authRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -432,7 +432,7 @@ public class CCPaymentServices {
             result.put("creditAmount", new BigDecimal(creditAmountStr).movePointLeft(2));
         } else {
             result.put("creditResult", Boolean.valueOf(false));
-            result.put("creditAmount", new BigDecimal("0.00"));
+            result.put("creditAmount", BigDecimal.ZERO);
         }
 
         result.put("creditRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -466,7 +466,7 @@ public class CCPaymentServices {
             result.put("captureAmount", new BigDecimal(captureAmountStr).movePointLeft(2));
         } else {
             result.put("captureResult", Boolean.valueOf(false));
-            result.put("captureAmount", new BigDecimal("0.00"));
+            result.put("captureAmount", BigDecimal.ZERO);
         }
 
         result.put("captureRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -500,7 +500,7 @@ public class CCPaymentServices {
             result.put("releaseAmount", new BigDecimal(releaseAmountStr).movePointLeft(2));
         } else {
             result.put("releaseResult", Boolean.valueOf(false));
-            result.put("releaseAmount", new BigDecimal("0.00"));
+            result.put("releaseAmount", BigDecimal.ZERO);
         }
 
         result.put("releaseRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -534,7 +534,7 @@ public class CCPaymentServices {
             result.put("refundAmount", new BigDecimal(refundAmountStr).movePointLeft(2));
         } else {
             result.put("refundResult", Boolean.valueOf(false));
-            result.put("refundAmount", new BigDecimal("0.00"));
+            result.put("refundAmount", BigDecimal.ZERO);
         }
 
         result.put("refundRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
@@ -568,7 +568,7 @@ public class CCPaymentServices {
             result.put("reauthAmount", new BigDecimal(reauthAmountStr).movePointLeft(2));
         } else {
             result.put("reauthResult", Boolean.valueOf(false));
-            result.put("reauthAmount", new BigDecimal("0.00"));
+            result.put("reauthAmount", BigDecimal.ZERO);
         }
 
         result.put("reauthRefNum", UtilXml.childElementValue(orderFormElement, "Id"));
