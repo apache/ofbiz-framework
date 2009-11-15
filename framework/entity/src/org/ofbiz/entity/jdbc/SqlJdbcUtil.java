@@ -26,10 +26,10 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Clob;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +42,8 @@ import javax.sql.rowset.serial.SerialClob;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
@@ -55,7 +57,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
-import org.ofbiz.entity.datasource.GenericDAO;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
@@ -68,7 +69,7 @@ import org.ofbiz.entity.model.ModelViewEntity;
  *
  */
 public class SqlJdbcUtil {
-    public static final String module = GenericDAO.class.getName();
+    public static final String module = SqlJdbcUtil.class.getName();
 
     public static final int CHAR_BUFFER_SIZE = 4096;
 
@@ -487,6 +488,7 @@ public class SqlJdbcUtil {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void getValue(ResultSet rs, int ind, ModelField curField, GenericEntity entity, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         ModelFieldType mft = modelFieldTypeReader.getModelFieldType(curField.getType());
 
@@ -494,6 +496,37 @@ public class SqlJdbcUtil {
             throw new GenericModelException("definition fieldType " + curField.getType() + " not found, cannot getValue for field " +
                     entity.getEntityName() + "." + curField.getName() + ".");
         }
+
+        // ----- Try out the new converter code -----
+
+        Object sourceObject = null;
+        try {
+            sourceObject = rs.getObject(ind);
+            if (sourceObject == null) {
+                entity.dangerousSetNoCheckButFast(curField, null);
+                return;
+            }
+        } catch (SQLException e) {
+            throw new GenericEntityException(e);
+        }
+        Class<?> targetClass = mft.getJavaClass();
+        if (targetClass != null) {
+            if (targetClass.equals(sourceObject.getClass())) {
+                entity.dangerousSetNoCheckButFast(curField, sourceObject);
+                return;
+            }
+            try {
+                Converter<Object, Object> converter = (Converter<Object, Object>) Converters.getConverter(sourceObject.getClass(), targetClass);
+                entity.dangerousSetNoCheckButFast(curField, converter.convert(sourceObject));
+                return;
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            }
+            Debug.logInfo("Unable to convert, falling back on switch statement", module);
+        }
+
+        // ------------------------------------------
+        
         String fieldType = mft.getJavaType();
 
         try {

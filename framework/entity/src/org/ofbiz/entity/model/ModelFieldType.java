@@ -19,16 +19,25 @@
 package org.ofbiz.entity.model;
 
 import java.io.Serializable;
-import java.util.*;
-import org.w3c.dom.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Generic Entity - FieldType model class
  *
  */
+
+@SuppressWarnings("serial")
 public class ModelFieldType implements Serializable {
+
+    public static final String module = ModelFieldType.class.getName();
 
     /** The type of the Field */
     protected String type = null;
@@ -36,8 +45,14 @@ public class ModelFieldType implements Serializable {
     /** The java-type of the Field */
     protected String javaType = null;
 
+    /** The Java class of the Field */
+    protected Class<?> javaClass = null;
+
     /** The sql-type of the Field */
     protected String sqlType = null;
+
+    /** The sql class of the Field */
+    protected Class<?> sqlClass = null;
 
     /** The sql-type-alias of the Field, this is optional */
     protected String sqlTypeAlias = null;
@@ -54,7 +69,6 @@ public class ModelFieldType implements Serializable {
         this.javaType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("java-type")).intern();
         this.sqlType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type")).intern();
         this.sqlTypeAlias = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type-alias")).intern();
-
         NodeList validateList = fieldTypeElement.getElementsByTagName("validate");
         for (int i = 0; i < validateList.getLength(); i++) {
             Element element = (Element) validateList.item(i);
@@ -62,6 +76,15 @@ public class ModelFieldType implements Serializable {
             String className = element.getAttribute("class");
             if (methodName != null) {
                 this.validators.add(new ModelFieldValidator(className.intern(), methodName.intern()));
+            }
+        }
+        ((ArrayList<ModelFieldValidator>)this.validators).trimToSize();
+        if (this.javaType != null) {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            try {
+                this.javaClass = loader.loadClass(this.javaType);
+            } catch (ClassNotFoundException e) {
+                Debug.logError(e, module);
             }
         }
     }
@@ -76,9 +99,21 @@ public class ModelFieldType implements Serializable {
         return this.javaType;
     }
 
+    /** The Java class of the Field */
+    public Class<?> getJavaClass() {
+        return this.javaClass;
+    }
+
     /** The sql-type of the Field */
     public String getSqlType() {
         return this.sqlType;
+    }
+
+    /** Returns the SQL <code>Class</code> of the Field. The returned value might
+     * be <code>null</code>. The SQL class is unknown until a connection is made
+     * to the database. */
+    public Class<?> getSqlClass() {
+        return this.sqlClass;
     }
 
     /** The sql-type-alias of the Field */
@@ -89,6 +124,14 @@ public class ModelFieldType implements Serializable {
     /** validators to be called when an update is done */
     public List<ModelFieldValidator> getValidators() {
         return this.validators;
+    }
+
+    /** Sets the SQL <code>Class</code> for this field.
+     * 
+     * @param sqlClass
+     */
+    public synchronized void setSqlClass(Class<?> sqlClass) {
+        this.sqlClass = sqlClass;
     }
 
     /** A simple function to derive the max length of a String created from the field value, based on the sql-type
