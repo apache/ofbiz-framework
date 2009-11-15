@@ -881,7 +881,7 @@
         <value xml:lang="es">Código postal</value>
         <value xml:lang="fr">Code postal</value>
         <value xml:lang="hi_IN">पोस्टल कोड</value>
-        <value xml:lang="it">Codice postale</value>
+        <value xml:lang="it">CAP</value>
         <value xml:lang="nl">Postcode</value>
         <value xml:lang="pt_BR">Código postal</value>
         <value xml:lang="th">รหัสไปรษณีย์</value>
@@ -5189,7 +5189,7 @@
         <value xml:lang="es">Formato de E-mail incorrecto, ponga como: name@domain</value>
         <value xml:lang="fr">Format de l'adresse courriel non correct, il doit être similaire à nom@domaine</value>
         <value xml:lang="hi_IN">ईमेल पता सही नही है, ऐसा होना चाहिये : नाम@डोमेन</value>
-        <value xml:lang="it">Indirizzo E-mail non formattato correttamente, dovrebbe essere simile a: nome@dominio</value>
+        <value xml:lang="it">Indirizzo e-mail non valido (formato: nome@dominio)</value>
         <value xml:lang="ja">E-mail address not formatted correctly, must be like: name@domain</value>
         <value xml:lang="nl">E-mail adres niet goed geformateerd, moet zoiets zijn als: naam@domein</value>
         <value xml:lang="pt_BR">Endereço de e-mail foge do seguinte padrão: nome@domínio</value>
@@ -8563,7 +8563,7 @@
         <value xml:lang="es">Postal</value>
         <value xml:lang="fr">Contact courrier</value>
         <value xml:lang="hi_IN">डाक</value>
-        <value xml:lang="it">Codice postale</value>
+        <value xml:lang="it">CAP</value>
         <value xml:lang="nl">Postadres</value>
         <value xml:lang="pt_BR">Postal</value>
         <value xml:lang="ro">C.A.P.</value>
@@ -8603,7 +8603,7 @@
         <value xml:lang="es">Código postal</value>
         <value xml:lang="fr">Code Postal</value>
         <value xml:lang="hi_IN">पोस्टल कोड</value>
-        <value xml:lang="it">Codice postale</value>
+        <value xml:lang="it">CAP</value>
         <value xml:lang="nl">Postcode</value>
         <value xml:lang="pt_BR">Código postal</value>
         <value xml:lang="ru">Индекс</value>
@@ -8616,7 +8616,7 @@
         <value xml:lang="es">Falta código postal</value>
         <value xml:lang="fr">Code postal manquant</value>
         <value xml:lang="hi_IN">‍‍जिप/डाक कोड नही है</value>
-        <value xml:lang="it">Codice postale mancante</value>
+        <value xml:lang="it">CAP mancante</value>
         <value xml:lang="nl">Postcode ontbreekt</value>
         <value xml:lang="pt_BR">Código postal está em branco</value>
         <value xml:lang="pt_PT">Código Postal em falta</value>
@@ -10925,7 +10925,7 @@
         <value xml:lang="es">Código Postal</value>
         <value xml:lang="fr">Code postal</value>
         <value xml:lang="hi_IN">‍‍जिप कोड</value>
-        <value xml:lang="it">Codice Postale</value>
+        <value xml:lang="it">CAP</value>
         <value xml:lang="ja">Zip/Postal Code</value>
         <value xml:lang="nl">Postcode</value>
         <value xml:lang="pt_BR">Código postal</value>
@@ -10943,7 +10943,7 @@
         <value xml:lang="es">Falta Código Postal</value>
         <value xml:lang="fr">Code postal absent</value>
         <value xml:lang="hi_IN">‍‍जिप/डाक कोड नही है</value>
-        <value xml:lang="it">Codice Postale mancante</value>
+        <value xml:lang="it">CAP mancante</value>
         <value xml:lang="ja">Zip/Postal Code is missing</value>
         <value xml:lang="nl">Postcode mist</value>
         <value xml:lang="pt_BR">Código postal está em branco</value>
