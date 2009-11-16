@@ -29,6 +29,8 @@ thruDate=null;
 if (parameters.fromDate && parameters.thruDate) {
   fromDate = Timestamp.valueOf(parameters.fromDate);
   thruDate = Timestamp.valueOf(parameters.thruDate);
+  context.fromDate = fromDate;
+  context.thruDate = thruDate;
 } else if (parameters.selectedMonth) {
   selectedMonth = Integer.valueOf(parameters.selectedMonth);
   selectedMonthDate = UtilDateTime.toTimestamp((selectedMonth + 1), 1, UtilDateTime.getYear(UtilDateTime.nowTimestamp(), timeZone, locale), 0, 0, 0);
@@ -74,6 +76,4 @@ if(fromDate && thruDate && organizationPartyId) {
   }
 }
 
-context.fromDate = fromDate;
-context.thruDate = thruDate;
 context.monthList = ExpressionUiHelper.getMonthValueList(locale);
