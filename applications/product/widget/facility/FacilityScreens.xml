@@ -744,9 +744,11 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
-                <set field="orderByList[]" value="partyId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
-                <get-related value-field="facility" relation-name="FacilityParty" list="facilityParties" order-by-list="orderByList"/>
+                <entity-and entity-name="FacilityParty" list="facilityParties" filter-by-date="true">
+                    <field-map field-name="facilityId"/>
+                    <order-by field-name="partyId"/>
+                </entity-and>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleEditFacilityParties}"/>
             </actions>
