@@ -18,8 +18,6 @@
  */
 package org.ofbiz.sql;
 
-import java.util.ListIterator;
-
 public final class SQLView<P extends ViewPlan<P>> extends SQLStatement<SQLView<P>, P> {
     private final String name;
     private final SQLSelect sqlSelect;
