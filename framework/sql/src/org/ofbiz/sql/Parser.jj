@@ -1,0 +1,773 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+options {
+  JAVA_UNICODE_ESCAPE = false;
+  ERROR_REPORTING = true;
+  STATIC = false;
+//  MULTI = true;
+  JDK_VERSION = "1.5";
+//  VISITOR = true;
+//  BUILD_NODE_FILES = true;
+//  NODE_FACTORY = false;
+//  NODE_USES_PARSER = true;
+//  NODE_SCOPE_HOOK = true;
+//  NODE_PREFIX = "SQL";
+//  DEBUG_PARSER = true;
+//  DEBUG_LOOKAHEAD = true;
+//  DEBUG_TOKEN_MANAGER = true;
+  LOOKAHEAD = 1;
+//  CHOICE_AMBIGUITY_CHECK = 3;
+//  OTHER_AMBIGUITY_CHECK = 3;
+  IGNORE_CASE = true;
+}
+PARSER_BEGIN(Parser)
+
+package org.ofbiz.sql;
+
+import java.io.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
+
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.Converters;
+
+public class Parser {
+}
+
+PARSER_END(Parser)
+TOKEN_MGR_DECLS: {
+	private final LinkedList<Integer> stack = new LinkedList<Integer>();
+
+	void pushState(int newState) {
+		stack.add(curLexState);
+		SwitchTo(newState);
+	}
+
+	void popState() {
+		SwitchTo(stack.removeLast());
+	}
+}
+
+TOKEN: {
+	<OPEN_PAREN: "(">
+|	<CLOSE_PAREN: ")">
+|	<AND: "AND">
+|	<OR: "OR">
+|	<PERIOD: ".">
+|	<JOIN: "JOIN">
+|	<LEFT: "LEFT">
+|	<AS: "AS">
+|	<WHERE: "WHERE">
+|	<HAVING: "HAVING">
+|	<GROUP: "GROUP">
+|	<ORDER: "ORDER">
+//|	<UNION: "UNION">
+|	<BY: "BY">
+|	<ON: "ON">
+|	<USING: "USING">
+|	<LIMIT: "LIMIT">
+|	<OFFSET: "OFFSET">
+|	<SELECT: "SELECT">
+|	<DELETE: "DELETE">
+|	<UPDATE: "UPDATE">
+|	<INSERT: "INSERT">
+|	<RELATION: "RELATION">
+|	<EXCLUDE: "EXCLUDE">
+|	<TYPE: "TYPE">
+|	<TITLE: "TITLE">
+|	<SET: "SET">
+|	<FROM: "FROM">
+|	<SEMI: ";">
+|	<STAR: "*">
+|	<COMMA: ",">
+|	<DESC: "DESC">
+|	<ASC: "ASC">
+|	<EQUALS: "=">
+|	<BETWEEN: "BETWEEN">
+|	<INTO: "INTO">
+|	<VALUES: "VALUES">
+|	<CREATE: "CREATE">
+|	<VIEW: "VIEW">
+|	<START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
+|	<START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
+|	<INTEGER:
+	"0" (
+		"x" (["0"-"9","a"-"b"])+
+		| (["0"-"7"])+
+	)
+	| ["1"-"9"] (["0"-"9"])*
+	>
+|	<NAME:	["a"-"z"] (["a"-"z","0"-"9","_","-"])*>
+|	<PARAMETER: "?" (["a"-"z"])+>
+//|	<WORD: (~["'", "\"", "/", " ", "\f", "\n", "\r", "\t", "*"])+>
+}
+
+<DEFAULT>
+SKIP: {
+	<SPACE: " " | "\f" | "\n" | "\r" | "\t">
+}
+
+<*>
+MORE: {
+	<COMMENT_START: "/*"> { if (curLexState != IN_COMMENT) pushState(IN_COMMENT); }
+}
+
+<IN_COMMENT>
+MORE: {
+	<(~[])>
+|	<COMMENT_END: ("\n" | "\r" | "\r\n")> { popState(); }
+}
+
+<IN_DQUOTE,IN_SQUOTE>
+TOKEN: {
+	<ESCAPED: "\\" ["r", "n", "b", "t", "f"]>
+}
+
+<IN_DQUOTE>
+TOKEN: {
+	<END_DQUOTE: "\""> { popState(); }
+}
+
+<IN_SQUOTE>
+TOKEN: {
+	<ESCAPE_SQUOTE: "''">
+|	<END_SQUOTE: "'"> { popState(); }
+}
+
+<DEFAULT,IN_DQUOTE,IN_SQUOTE>
+TOKEN: {
+	<TEXT: (~[])>
+}
+
+// -------------------
+
+public List<SQLStatement<?, ?>> SQLFile():
+{
+	List<SQLStatement<?, ?>> list = FastList.newInstance();
+	SQLStatement<?, ?> statement;
+}
+{
+	( statement=Statement() ( <SEMI> )? { list.add(statement); } )*
+	<EOF>
+	{ return list; }
+}
+
+public SQLStatement StandaloneStatement():
+{
+	SQLStatement statement;
+}
+{
+	statement=Statement() ( <SEMI> )? <EOF> { return statement; }
+}
+
+public SQLView ViewStatement():
+{
+	SQLView sqlView;
+}
+{
+	sqlView=View() ( <SEMI> )? <EOF> { return sqlView; }
+}
+
+public SQLSelect SelectStatement():
+{
+	SQLSelect sqlSelect;
+}
+{
+	sqlSelect=Select() ( <SEMI> )? <EOF> { return sqlSelect; }
+}
+
+public SQLDelete DeleteStatement():
+{
+	SQLDelete sqlDelete;
+}
+{
+	sqlDelete=Delete() ( <SEMI> )? <EOF> { return sqlDelete; }
+}
+
+public SQLUpdate UpdateStatement():
+{
+	SQLUpdate sqlUpdate;
+}
+{
+	sqlUpdate=Update() ( <SEMI> )? <EOF> { return sqlUpdate; }
+}
+
+public SQLInsert InsertStatement():
+{
+	SQLInsert sqlInsert;
+}
+{
+	sqlInsert=Insert() ( <SEMI> )? <EOF> { return sqlInsert; }
+}
+
+public Condition Condition():
+{ Condition c; }
+{
+	c=ConditionExpression() <EOF> { return c; }
+}
+
+private SQLStatement Statement():
+{
+	SQLStatement statement;
+}
+{
+	(
+		statement=Select() { return statement; }
+	|	statement=Delete() { return statement; }
+	|	statement=Update() { return statement; }
+	|	statement=Insert() { return statement; }
+	)
+}
+
+private SQLView View():
+{
+	String name;
+	SQLSelect sqlSelect;
+}
+{
+	<CREATE> <VIEW> name=NamePart() <AS> sqlSelect=Select()
+	{ return new SQLView(name, sqlSelect); }
+}
+
+private SQLSelect Select():
+{
+	Integer i;
+	List<String> orderBy = null, groupBy = null;
+	Map<String, FieldDef> fieldDefs = FastMap.newInstance();
+	List<FieldAll> fieldAlls = FastList.newInstance();
+	Table table;
+	List<Relation> relations = FastList.newInstance();
+	Relation relation;
+	Condition whereCondition = null, havingCondition = null;
+	int offset = -1, limit = -1;
+}
+{
+	<SELECT> (
+		FieldDef(fieldDefs, fieldAlls)
+		( <COMMA> FieldDef(fieldDefs, fieldAlls) )*
+	)
+	<FROM> table=Table()
+	( <RELATION> relation=Relation() { relations.add(relation); } )*
+	( <WHERE> whereCondition=ConditionExpression() )?
+	( <HAVING> havingCondition=ConditionExpression() )?
+	( <GROUP> <BY> groupBy=FieldList() )?
+	( <ORDER> <BY> orderBy=OrderByList() )?
+	( <OFFSET> offset=Integer() )?
+	( <LIMIT> limit=Integer() )?
+	{ return new SQLSelect(fieldAlls, fieldDefs, table, relations, whereCondition, havingCondition, groupBy, orderBy, offset, limit); }
+}
+
+private Relation Relation():
+{
+	String type = null, title = null, entityName;
+	List<KeyMap> keyMaps;
+}
+{
+	( <TYPE> type=NamePart() )?
+	( <TITLE> title=NamePart() )?
+	<NAME> { entityName = getToken(0).image; }
+	keyMaps=KeyMaps("cur", "other")
+	{ return new Relation(type, title, entityName, keyMaps); }
+}
+
+
+private SQLUpdate Update():
+{
+	TableName tableName;
+	List<Table> tableList = null;
+	Condition whereCondition = null;
+	List<SetField> allSetFields = FastList.newInstance();
+	List<SetField> setFields;
+	Joined joined = null;
+}
+{
+	<UPDATE> tableName=TableName()
+	<SET>
+	setFields=SetField() { allSetFields.addAll(setFields); }
+	( <COMMA> setFields=SetField() { allSetFields.addAll(setFields); } )*
+	( <FROM> joined=JoinedRest(false, tableName) )?
+	( <WHERE> whereCondition=ConditionExpression() )?
+	{ return new SQLUpdate(new Table(tableName, joined), allSetFields, whereCondition); }
+}
+
+private SQLDelete Delete():
+{
+	TableName tableName;
+	List<Table> tableList = null;
+	Condition whereCondition = null;
+	Joined joined = null;
+}
+{
+	<DELETE> <FROM> tableName=TableName()
+	( <USING> joined=JoinedRest(false, tableName) )?
+	( <WHERE> whereCondition=ConditionExpression() )?
+	{ return new SQLDelete(new Table(tableName, joined), whereCondition); }
+}
+
+private SQLInsert Insert():
+{
+	TableName tableName;
+	List<String> columns = FastList.newInstance();
+	String n;
+	InsertSource source;
+}
+{
+	<INSERT> <INTO> tableName=TableName() (
+		<OPEN_PAREN>
+		n=NamePart() { columns.add(n); }
+		( <COMMA> n=NamePart() { columns.add(n); } )*
+		<CLOSE_PAREN>
+	)?
+	( source=InsertValues() | source=Select() )
+	{ return new SQLInsert(tableName, source, columns); }
+}
+
+private InsertValues InsertValues():
+{
+	List<InsertRow> list = FastList.newInstance();
+	InsertRow row;
+}
+{
+	<VALUES>
+	row=InsertRow() { list.add(row); }
+	( <COMMA> row=InsertRow() { list.add(row); } )*
+	{ return new InsertValues(list); }
+}
+
+private InsertRow InsertRow():
+{
+	List<Value> list = FastList.newInstance();
+	Value v;
+}
+{
+	<OPEN_PAREN>
+	v=InsertValue() { list.add(v); }
+	( <COMMA> v=InsertValue() { list.add(v); } )*
+	<CLOSE_PAREN>
+	{ return new InsertRow(list); }
+}
+
+private Value InsertValue():
+{
+	Value v;
+	Integer i;
+	String s;
+}
+{
+	v=ParameterValue() { return v; }
+|	i=Integer() { return new NumberValue<Integer>(i); }
+|	s=SQuoted() { return new StringValue(s); }
+}
+
+private List<SetField> SetField():
+{
+	List<SetField> setFields = FastList.newInstance();
+	String n;
+	Value v;
+	List<String> columnList = FastList.newInstance();
+	List<Value> valueList = FastList.newInstance();
+}
+{
+	(
+		n=NamePart() <EQUALS> v=Value() { setFields.add(new SetField(n, v)); }
+	|	<OPEN_PAREN>
+		n=NamePart() { columnList.add(n); }
+		( <COMMA> n=NamePart() { columnList.add(n); } )*
+		<CLOSE_PAREN>
+		<EQUALS>
+		<OPEN_PAREN>
+		v=Value() { valueList.add(v); }
+		( <COMMA> v=Value() { valueList.add(v); } )*
+		<CLOSE_PAREN>
+	)
+	{ return setFields; }
+}
+
+private Table Table():
+{
+	TableName tableName;
+	Joined joined = null;
+}
+{
+	tableName=TableName()
+	( joined=Joined(tableName) )?
+	{ return new Table(tableName, joined); }
+}
+
+private Joined Joined(TableName leftTableName):
+{
+	Boolean isOptional;
+	Joined joined = null;
+}
+{
+	isOptional=Joiner() joined=JoinedRest(isOptional, leftTableName)
+	{ return joined; }
+}
+
+private Joined JoinedRest(boolean isOptional, TableName leftTableName):
+{
+	TableName rightTableName;
+	List<KeyMap> keyMaps;
+	Joined joined = null;
+}
+{
+	rightTableName=TableName()
+	keyMaps=KeyMaps(leftTableName.getAlias(), rightTableName.getAlias())
+	( joined=Joined(rightTableName) )?
+	{ return new Joined(isOptional, rightTableName, keyMaps, joined); }
+}
+
+private List<KeyMap> KeyMaps(String leftAlias, String rightAlias):
+{
+	List<KeyMap> keyMaps = FastList.newInstance();
+	String n;
+}
+{
+	(
+		<ON>
+		KeyMap(keyMaps, leftAlias, rightAlias)
+		( <AND> KeyMap(keyMaps, leftAlias, rightAlias) )*
+	|
+		<USING>
+		n=NamePart() { keyMaps.add(new KeyMap(n, n)); }
+		( <COMMA> n=NamePart() { keyMaps.add(new KeyMap(n, n)); } )*
+	)
+	{ return keyMaps; }
+}
+
+private void KeyMap(List<KeyMap> keyMaps, String leftAlias, String rightAlias):
+{
+	String alias1, field1;
+	String alias2, field2;
+}
+{
+	alias1=NamePart() <PERIOD> field1=NamePart()
+	<EQUALS>
+	alias2=NamePart() <PERIOD> field2=NamePart()
+	{
+		if (alias1.equals(leftAlias)) {
+			if (!alias2.equals(rightAlias)) throw new IllegalArgumentException("invalid right alias(" + alias2 + "), expected(" + rightAlias + ")");
+			keyMaps.add(new KeyMap(field1, field2));
+		} else if (alias1.equals(rightAlias)) {
+			if (!alias2.equals(leftAlias)) throw new IllegalArgumentException("invalid left alias(" + alias2 + "), expected(" + leftAlias + ")");
+			keyMaps.add(new KeyMap(field2, field1));
+		} else {
+			throw new IllegalArgumentException("invalid aliases, expected(" + leftAlias + " or " + rightAlias + ")");
+		}
+	}
+}
+
+private TableName TableName():
+{
+	String tableName, alias = null;
+}
+{
+	tableName=NamePart()
+	( (<AS>)? alias=NamePart() )?
+	{ return new TableName(tableName, alias); }
+}
+
+private Boolean Joiner():
+{}
+{
+	<LEFT> <JOIN> { return Boolean.TRUE; }
+|	<JOIN> { return Boolean.FALSE; }
+}
+
+private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls):
+{
+	StaticValue v;
+	String n, fieldAlias = null, fieldName, exc;
+	FieldDef def;
+	List<String> excludeList = FastList.newInstance();
+}
+{
+	(
+		n=NamePart() (
+			<PERIOD> (
+				<STAR>
+				(
+					<EXCLUDE> <OPEN_PAREN>
+					exc=NamePart() { excludeList.add(exc); }
+					( <COMMA> exc=NamePart() { excludeList.add(exc); } )*
+					<CLOSE_PAREN>
+				)?
+				{ fieldAlls.add(new FieldAll(n, excludeList)); return; }
+			| fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(new FieldValue(n, fieldName), fieldAlias); }
+			)
+		|	v=FunctionCallRest(n) <AS> fieldAlias=NamePart() { def = new FieldDefValue(v, fieldAlias); }
+		|	( <AS> fieldAlias=NamePart() )? { def = new FieldDefFieldValue(new FieldValue(null, n), fieldAlias); }
+		)
+	|	v=MathValue() <AS> fieldAlias=NamePart() { def = new FieldDefValue(v, fieldAlias); }
+	) {
+		if (fieldDefs.containsKey(def.getAlias())) throw new IllegalArgumentException("duplicate alias(" + def.getAlias() + ")");
+		fieldDefs.put(def.getAlias(), def);
+	}
+}
+
+private StaticValue MathValue():
+{
+	StaticValue v;
+	List<StaticValue> values = FastList.newInstance();
+	String operator = null, newOperator;
+}
+{
+	<OPEN_PAREN>
+		v=StaticValue() { values.add(v); }
+		(
+			newOperator=MathOperator()
+			v=StaticValue() {
+				if (operator == null) {
+					operator = newOperator;
+				} else if (!newOperator.equals(operator)) {
+					throw new IllegalArgumentException("Different operators in complex alias(" + operator + ":" + newOperator + ")");
+				}
+				values.add(v);
+			}
+		)*
+	<CLOSE_PAREN>
+	{
+		if (values.size() == 1) return values.get(0);
+		return new MathValue(operator, values);
+	}
+}
+
+private FunctionCall FunctionCallRest(String name):
+{
+	Value arg;
+	List<Value> args = FastList.newInstance();
+}
+{
+	<OPEN_PAREN>
+	(
+		arg=Value() { args.add(arg); }
+		( <COMMA> arg=Value() { args.add(arg); } )*
+	) ?
+	<CLOSE_PAREN>
+	{ return new FunctionCall(name, args); }
+}
+
+private StaticValue StaticValue():
+{
+	String n;
+	StaticValue v;
+}
+{
+	n=NamePart() (
+		v=FunctionCallRest(n) { return v; }
+	| v=FieldValue(n) { return v; }
+	)
+|	v=MathValue() { return v; }
+}
+
+private String NamePart():
+{}
+{
+	<NAME> { return getToken(0).image; }
+|	<TYPE> { return getToken(0).image; }
+}
+
+private String DQuoted():
+{ StringBuilder sb = new StringBuilder(); }
+{
+	<START_DQUOTE> (<TEXT> { sb.append(getToken(0).image); } | <ESCAPED> { sb.append(getToken(0).image); })* <END_DQUOTE>
+	{ return sb.toString(); }
+}
+
+private String SQuoted():
+{ StringBuilder sb = new StringBuilder(); }
+{
+	<START_SQUOTE> (
+		<TEXT> { sb.append(getToken(0).image); }
+	|	<ESCAPED> { sb.append(getToken(0).image); }
+	|	<ESCAPE_SQUOTE> { sb.append("'"); }
+	)* <END_SQUOTE>
+	{ return sb.toString(); }
+}
+
+private List<String> FieldList():
+{
+	List<String> list = FastList.newInstance();
+	String n;
+}
+{
+	n=NamePart() { list.add(n); }
+	( <COMMA> n=NamePart() { list.add(n); } )*
+	{ return list; }
+}
+
+private FieldValue FieldValue(String fieldName):
+{
+	String tableAlias = null, s;
+}
+{
+	( <PERIOD> s=NamePart() { tableAlias = fieldName; fieldName = s; } )?
+	{
+		return new FieldValue(tableAlias, fieldName);
+	}
+}
+
+private List<String> OrderByList():
+{
+	List<String> orderBy = FastList.newInstance();
+	String obi;
+}
+{
+	obi=OrderByItem() { orderBy.add(obi); }
+	( <COMMA> obi=OrderByItem() { orderBy.add(obi); } )*
+	{ return orderBy; }
+}
+
+private String OrderByItem():
+{
+	StringBuilder sb = new StringBuilder();
+	String n;
+}
+{
+	n=NamePart() { sb.append(n); }
+	(
+		<DESC> { sb.append(" DESC"); } 
+		| <ASC> { sb.append(" ASC"); }
+	)?
+	{ return sb.toString(); }
+}
+
+private Integer Integer():
+{}
+{
+	<INTEGER> {
+		try {
+			Converter<String, Integer> converter = Converters.getConverter(String.class, Integer.class);
+			return converter.convert(getToken(0).image);
+		} catch (ClassNotFoundException e) {
+			return null;
+		} catch (ConversionException e) {
+			return null;
+		}
+	}
+}
+
+private Value Value():
+{
+	String n;
+	Value v;
+	int i;
+	String s;
+}
+{
+	n=NamePart() (
+		v=FunctionCallRest(n) { return v; }
+	|	v=FieldValue(n) { return v; }
+	)
+|	i=Integer() { return new NumberValue<Integer>(i); }
+|	s=SQuoted() { return new StringValue(s); }
+}
+
+private Condition ConditionExpression():
+{ Condition c; }
+{
+	c=OrExpression() { return c; }
+}
+
+private Condition AndExpression():
+{
+	List<Condition> list = FastList.newInstance();
+	Condition c;
+}
+{
+	c=BooleanExpression() { list.add(c); }
+        ( <AND> c=BooleanExpression() { list.add(c); } )*
+	{ return list.size() == 1 ? list.get(0) : new ConditionList(Joiner.AND, list); }
+}
+
+private Condition OrExpression():
+{
+	List<Condition> list = FastList.newInstance();
+	Condition c;
+}
+{
+	c=AndExpression() { list.add(c); }
+        ( <OR> c=AndExpression() { list.add(c); } )*
+	{ return list.size() == 1 ? list.get(0) : new ConditionList(Joiner.OR, list); }
+}
+
+private Value RightValue():
+{
+	Value v;
+}
+{
+	v=Value() { return v; }
+|	v=ParameterValue() { return v; }
+}
+
+private ParameterValue ParameterValue():
+{}
+{
+	<PARAMETER> { return new ParameterValue(getToken(0).image.substring(1)); }
+}
+
+private Condition BooleanExpression():
+{
+	Value v1, v2, v;
+	String op;
+	Condition c;
+	List<Value> list = FastList.newInstance();
+}
+{
+	v1=Value() (
+		<BETWEEN>
+		v=RightValue() { list.add(v); }
+		<AND>
+		v=RightValue() { list.add(v); }
+		{ v2 = new ListValue(list); op = "between"; }
+	|	op=ComparisonOperator() (
+			v2=RightValue()
+		|	<OPEN_PAREN>
+			v=RightValue() { list.add(v); }
+			( <COMMA> v=RightValue() { list.add(v); } )*
+			<CLOSE_PAREN>
+			{ v2 = new ListValue(list); }
+		)
+	)
+	{ return new BooleanCondition(v1, op, v2); }
+|	<OPEN_PAREN> c=ConditionExpression() <CLOSE_PAREN> { return c; }
+}
+
+private String ComparisonOperator():
+{}
+{
+	( <TEXT> )+ { return getToken(0).image; }
+|	<NAME> { return getToken(0).image; }
+|	<EQUALS> { return getToken(0).image.toLowerCase(); }
+}
+
+private String MathOperator():
+{}
+{
+	( <TEXT> )+ { return getToken(0).image.toLowerCase(); }
+|	<NAME> { return getToken(0).image.toLowerCase(); }
+}

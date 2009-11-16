@@ -16,24 +16,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
+public final class KeyMap {
+    private final String leftFieldName;
+    private final String rightFieldName;
 
-import org.ofbiz.entity.condition.EntityCondition;
-
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
-
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+    public KeyMap(String leftFieldName, String rightFieldName) {
+        this.leftFieldName = leftFieldName;
+        this.rightFieldName = rightFieldName;
     }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
+
+    public String getLeftFieldName() {
+        return leftFieldName;
     }
-    */
+
+    public String getRightFieldName() {
+        return rightFieldName;
+    }
+
+    public StringBuilder appendTo(String leftAlias, String rightAlias, StringBuilder sb) {
+        sb.append(leftAlias).append('.').append(leftFieldName);
+        sb.append(" = ");
+        sb.append(rightAlias).append('.').append(rightFieldName);
+        return sb;
+    }
 }

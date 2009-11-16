@@ -16,24 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
+public final class FieldDefFieldValue extends FieldDef {
+    private final FieldValue value;
 
-import org.ofbiz.entity.condition.EntityCondition;
-
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
-
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+    public FieldDefFieldValue(FieldValue value, String alias) {
+        super(alias == null ? value.getFieldName() : alias);
+        this.value = value;
     }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
+
+    public FieldValue getFieldValue() {
+        return value;
     }
-    */
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        value.appendTo(sb);
+        if (!value.getFieldName().equals(alias)) {
+            sb.append(" AS ").append(alias);
+        }
+        return sb;
+    }
 }

@@ -19,72 +19,65 @@
 package org.ofbiz.entity.sql;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.DynamicViewEntity;
+
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
 
-public class SQLSelect {
-    private DynamicViewEntity dve;
-    private EntityCondition whereCondition;
-    private EntityCondition havingCondition;
-    private int offset = -1;
-    private int limit = -1;
-    private List<String> orderBy;
+import org.ofbiz.sql.SelectPlan;
+
+public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
+    private final DynamicViewEntity dve;
+    private final EntityCondition whereCondition;
+    private final EntityCondition havingCondition;
+    private final List<String> orderBy;
+    private final int offset = -1;
+    private final int limit = -1;
+
+    public EntitySelectPlan(DynamicViewEntity dve, EntityCondition whereCondition, EntityCondition havingCondition, List<String> orderBy) {
+        this.dve = dve;
+        this.whereCondition = whereCondition;
+        this.havingCondition = havingCondition;
+        this.orderBy = orderBy;
+        //this.offset = offset;
+        //this.limit = limit;
+    }
 
     public EntityListIterator getEntityListIterator(Delegator delegator) throws GenericEntityException {
         return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, orderBy, null);
-    }
-
-    void setDynamicViewEntity(DynamicViewEntity dve) {
-        this.dve = dve;
     }
 
     public DynamicViewEntity getDynamicViewEntity() {
         return dve;
     }
 
-    void setWhereCondition(EntityCondition whereCondition) {
-        this.whereCondition = whereCondition;
-    }
-
     public EntityCondition getWhereCondition() {
         return whereCondition;
-    }
-
-    void setHavingCondition(EntityCondition havingCondition) {
-        this.havingCondition = havingCondition;
     }
 
     public EntityCondition getHavingCondition() {
         return havingCondition;
     }
 
-    void setOrderBy(List<String> orderBy) {
-        this.orderBy = orderBy;
-    }
-
     public List<String> getOrderBy() {
         return orderBy;
     }
 
-    void setOffset(int offset) {
-        this.offset = offset;
-    }
-
     public int getOffset() {
         return offset;
-    }
-
-    void setLimit(int limit) {
-        this.limit = limit;
     }
 
     public int getLimit() {
@@ -115,4 +108,3 @@ public class SQLSelect {
         return sb.toString();
     }
 }
-/* JavaCC - OriginalChecksum=49309c1a721b16d029f160d2568a03bc (do not edit this line) */

@@ -16,24 +16,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
+public final class BooleanCondition implements Condition {
+    private final Value left;
+    private final String op;
+    private final Value right;
 
-import org.ofbiz.entity.condition.EntityCondition;
-
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
-
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+    public BooleanCondition(Value left, String op, Value right) {
+        this.left = left;
+        this.op = op;
+        this.right = right;
     }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
+
+    public Value getLeft() {
+        return left;
     }
-    */
+
+    public String getOp() {
+        return op;
+    }
+
+    public Value getRight() {
+        return right;
+    }
+
+    public String toString() {
+        return appendTo(new StringBuilder()).toString();
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        left.appendTo(sb);
+        sb.append(' ').append(op).append(' ');
+        right.appendTo(sb);
+        return sb;
+    }
 }
