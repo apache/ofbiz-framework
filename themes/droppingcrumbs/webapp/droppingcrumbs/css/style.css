@@ -1367,11 +1367,14 @@ the top of the main content area */
 background-color: #0099CC;
 padding:5px 10px 0px 10px;
 font-size:1.1em;
+margin: -7px -12px 10px -12px;
+height:19px;
 }
 
 .tab-bar ul li {
 margin: 0 5px 0 5px;
 float:left;
+padding:0;
 }
 
 .tab-bar ul a,.tab-bar ul a:visited {
