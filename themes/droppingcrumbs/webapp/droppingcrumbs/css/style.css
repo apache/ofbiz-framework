@@ -1268,7 +1268,8 @@ color: #D4D0C8;
 /* ===== Button Bar Navigation Styles ===== */
 /* ======================================== */
 .button-bar {
-margin: 0 1em 1em 0;
+margin-bottom: 1em;
+/*margin: 0 1em 1em 0; */
 }
 
 .button-bar ul {
@@ -1278,8 +1279,8 @@ display: inline; /* IE Fix */
 .button-bar ul li {
 float: left;
 font-weight: bold;
-padding: 0.1em 0.4em 0.1em 0.4em;
-background-color: #0099CC;
+/*padding: 0.1em 0.4em 0.1em 0.4em; */
+/*background-color: #0099CC; */
 }
 
 .button-bar ul .opposed {
@@ -1367,8 +1368,8 @@ the top of the main content area */
 background-color: #0099CC;
 padding:5px 10px 0px 10px;
 font-size:1.1em;
-margin: -7px -12px 10px -12px;
-height:19px;
+margin-top: -7px;
+/*height:19px; */
 }
 
 .tab-bar ul li {
