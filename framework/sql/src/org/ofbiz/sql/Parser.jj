@@ -51,7 +51,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-public class Parser {
+public final class Parser {
 }
 
 PARSER_END(Parser)
