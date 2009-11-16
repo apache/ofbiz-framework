@@ -81,7 +81,6 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsCertsX509"/>
-                <set field="tabButtonItem" value="myCertificates"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigurationDecorator" location="component://webtools/widget/CommonScreens.xml">
@@ -100,17 +99,6 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ENTITY_MAINT"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="EntityTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -118,6 +106,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
+                                <include-menu name="EntityTabBar" location="component://webtools/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -137,17 +126,6 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="serviceTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -155,6 +133,7 @@ under the License.
                                 <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                <include-menu name="serviceTabBar" location="component://webtools/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -174,17 +153,6 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ENTITY_MAINT"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="importExportTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -192,6 +160,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
+                                <include-menu name="importExportTabBar" location="component://webtools/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -211,17 +180,6 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ENTITY_MAINT"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="artifactTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -229,6 +187,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
+                                <include-menu name="artifactTabBar" location="component://webtools/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -248,17 +207,6 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <!-- do check for WEBTOOLS, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ENTITY_MAINT"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="configurationTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -266,6 +214,7 @@ under the License.
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
                             <widgets>
+                                <include-menu name="configurationTabBar" location="component://webtools/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

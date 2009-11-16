@@ -53,7 +53,6 @@ under the License.
             <actions>
                 <set field="tabMenuItem" value="findExpression"/>
                 <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionFind"/>
-                <set field="tabButtonItem" value="tempexpr"/>
             </actions>
             <widgets>
                 <decorator-screen name="TemporalExpressionDecorator" location="${parameters.tempExprDecoratorLocation}">
