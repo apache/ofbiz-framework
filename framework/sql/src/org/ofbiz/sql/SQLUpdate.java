@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class SQLUpdate<P extends UpdatePlan<P>> extends SQLStatement<SQLUpdate<P>, P> {
+public final class SQLUpdate<P extends UpdatePlan<P>> extends SQLStatement<SQLUpdate<P>, P> implements Iterable<SetField> {
     private final Table table;
     private final List<SetField> setFields;
     private final Condition whereCondition;
@@ -43,8 +43,8 @@ public final class SQLUpdate<P extends UpdatePlan<P>> extends SQLStatement<SQLUp
         return table;
     }
 
-    public List<SetField> getSetFields() {
-        return setFields;
+    public Iterator<SetField> iterator() {
+        return setFields.iterator();
     }
 
     public Condition getWhereCondition() {

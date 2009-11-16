@@ -18,15 +18,20 @@
  */
 package org.ofbiz.sql;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class ListValue extends Value {
+public final class ListValue extends Value implements Iterable<Value> {
     private final List<Value> values;
 
     public ListValue(List<Value> values) {
         this.values = values;
+    }
+
+    public Iterator<Value> iterator() {
+        return values.iterator();
     }
 
     public StringBuilder appendTo(StringBuilder sb) {

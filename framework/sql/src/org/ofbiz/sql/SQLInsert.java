@@ -18,6 +18,7 @@
  */
 package org.ofbiz.sql;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
@@ -37,6 +38,18 @@ public final class SQLInsert<P extends InsertPlan<P>> extends SQLStatement<SQLIn
     @SuppressWarnings("unchecked")
     public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner) {
         return (PP) planner.plan(this);
+    }
+
+    public TableName getTableName() {
+        return tableName;
+    }
+
+    public InsertSource getSource() {
+        return source;
+    }
+
+    public Iterator<String> iterator() {
+        return columns.iterator();
     }
 
     public StringBuilder appendTo(StringBuilder sb) {
