@@ -217,6 +217,16 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
+    public static class SqlDateToTimestamp extends AbstractConverter<java.sql.Date, java.sql.Timestamp> {
+        public SqlDateToTimestamp() {
+            super(java.sql.Date.class, java.sql.Timestamp.class);
+        }
+
+        public java.sql.Timestamp convert(java.sql.Date obj) throws ConversionException {
+            return new java.sql.Timestamp(obj.getTime());
+       }
+    }
+
     public static class SqlTimeToString extends GenericLocalizedConverter<java.sql.Time, String> {
         public SqlTimeToString() {
             super(java.sql.Time.class, String.class);
