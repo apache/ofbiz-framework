@@ -511,16 +511,30 @@ public class SqlJdbcUtil {
         }
         Class<?> targetClass = mft.getJavaClass();
         if (targetClass != null) {
-            if (targetClass.equals(sourceObject.getClass())) {
+            Class<?> sourceClass = sourceObject.getClass();
+            if (targetClass.equals(sourceClass)) {
                 entity.dangerousSetNoCheckButFast(curField, sourceObject);
                 return;
             }
-            try {
-                Converter<Object, Object> converter = (Converter<Object, Object>) Converters.getConverter(sourceObject.getClass(), targetClass);
-                entity.dangerousSetNoCheckButFast(curField, converter.convert(sourceObject));
-                return;
-            } catch (Exception e) {
-                Debug.logError(e, module);
+            Converter<Object, Object> converter = (Converter<Object, Object>) mft.getSqlToJavaConverter();
+            if (converter == null) {
+                if (mft.getSqlClass() == null) {
+                    mft.setSqlClass(sourceClass);
+                }
+                try {
+                    converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
+                    mft.setSqlToJavaConverter(converter);
+                } catch (Exception e) {
+                    Debug.logError(e, module);
+                }
+            }
+            if (converter != null) {
+                try {
+                    entity.dangerousSetNoCheckButFast(curField, converter.convert(sourceObject));
+                    return;
+                } catch (Exception e) {
+                    Debug.logError(e, module);
+                }
             }
             Debug.logInfo("Unable to convert, falling back on switch statement", module);
         }

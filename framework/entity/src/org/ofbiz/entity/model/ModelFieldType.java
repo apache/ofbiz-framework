@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -56,6 +57,8 @@ public class ModelFieldType implements Serializable {
 
     /** The sql-type-alias of the Field, this is optional */
     protected String sqlTypeAlias = null;
+    
+    protected Converter<?, ?> sqlToJavaConverter = null;
 
     /** validators to be called when an update is done */
     protected List<ModelFieldValidator> validators = new ArrayList<ModelFieldValidator>();
@@ -104,16 +107,23 @@ public class ModelFieldType implements Serializable {
         return this.javaClass;
     }
 
-    /** The sql-type of the Field */
-    public String getSqlType() {
-        return this.sqlType;
-    }
-
     /** Returns the SQL <code>Class</code> of the Field. The returned value might
      * be <code>null</code>. The SQL class is unknown until a connection is made
      * to the database. */
     public Class<?> getSqlClass() {
         return this.sqlClass;
+    }
+
+    /** Returns the SQL-object-type to Java-object-type <code>Converter</code> for
+     * the Field. The returned value might be <code>null</code>. The converter
+     * type is unknown until a connection is made to the database. */
+    public Converter<?, ?> getSqlToJavaConverter() {
+        return this.sqlToJavaConverter;
+    }
+
+    /** The sql-type of the Field */
+    public String getSqlType() {
+        return this.sqlType;
     }
 
     /** The sql-type-alias of the Field */
@@ -132,6 +142,13 @@ public class ModelFieldType implements Serializable {
      */
     public synchronized void setSqlClass(Class<?> sqlClass) {
         this.sqlClass = sqlClass;
+    }
+
+    /** Sets the SQL-object-type to Java-object-type <code>Converter</code> for
+     * the Field.
+     */
+    public synchronized void setSqlToJavaConverter(Converter<?, ?> converter) {
+        this.sqlToJavaConverter = converter;
     }
 
     /** A simple function to derive the max length of a String created from the field value, based on the sql-type
