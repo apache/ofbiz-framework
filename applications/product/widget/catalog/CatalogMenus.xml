@@ -45,7 +45,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ShippingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="ShippingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar tab-bar no-clear">
         <menu-item name="ListShipmentMethodTypes" title="${uiLabelMap.ProductShipmentMethodTypes}">
             <link target="ListShipmentMethodTypes"/>
         </menu-item>
