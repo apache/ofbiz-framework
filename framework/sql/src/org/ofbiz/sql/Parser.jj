@@ -51,10 +51,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.conversion.ConversionException;
-import org.ofbiz.base.conversion.Converter;
-import org.ofbiz.base.conversion.Converters;
-
 public class Parser {
 }
 
@@ -659,16 +655,7 @@ private String OrderByItem():
 private Integer Integer():
 {}
 {
-	<INTEGER> {
-		try {
-			Converter<String, Integer> converter = Converters.getConverter(String.class, Integer.class);
-			return converter.convert(getToken(0).image);
-		} catch (ClassNotFoundException e) {
-			return null;
-		} catch (ConversionException e) {
-			return null;
-		}
-	}
+	<INTEGER> { return Integer.decode(getToken(0).image); }
 }
 
 private Value Value():
