@@ -106,16 +106,10 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="tabbar">
-                        <section>
-                            <widgets>
-                                <include-menu name="ArPaymentTabBar" location="component://accounting/widget/ar/ArMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <include-menu name="ArPaymentTabBar" location="component://accounting/widget/ar/ArMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>

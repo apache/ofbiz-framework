@@ -1427,16 +1427,14 @@ padding: 0.1em;
 the top of the main content area */
 .tab-bar {
 display:table;
-margin-left:10px;
 }
 
 .tab-bar ul li {
-float: left;
 background-color: #0366b0;
 border-right: 0.1em solid #5f9fcf;
 border-bottom: 0.1em solid #5f9fcf;
-padding: 0.1em 0.4em 0.1em 0.4em;
 margin: 0;
+padding: 0;
 }
 
 .tab-bar ul a,
