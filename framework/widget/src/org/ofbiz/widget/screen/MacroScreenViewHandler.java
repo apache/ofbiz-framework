@@ -38,6 +38,8 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.MacroFormRenderer;
+import org.ofbiz.widget.tree.TreeStringRenderer;
+import org.ofbiz.widget.tree.MacroTreeRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
@@ -87,16 +89,15 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".name"), UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"), writer);
             FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), writer, request, response);
+            TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
             // TODO: uncomment these lines when the renderers are implemented
-            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
             //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), writer);
 
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
-            // TODO: uncomment these lines when the renderers are implemented
-            //screens.getContext().put("treeStringRenderer", treeStringRenderer);
+            screens.getContext().put("treeStringRenderer", treeStringRenderer);
             //screens.getContext().put("menuStringRenderer", menuStringRenderer);
             screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
             screenStringRenderer.renderScreenBegin(writer, screens.getContext());

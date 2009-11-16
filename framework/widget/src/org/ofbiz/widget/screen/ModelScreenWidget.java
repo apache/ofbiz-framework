@@ -911,23 +911,10 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
-
-            // try finding the treeStringRenderer by name in the context in case one was prepared and put there
+ 
             TreeStringRenderer treeStringRenderer = (TreeStringRenderer) context.get("treeStringRenderer");
-            // if there was no treeStringRenderer put in place, now try finding the request/response in the context and creating a new one
             if (treeStringRenderer == null) {
-                treeStringRenderer = new HtmlTreeRenderer();
-                /*
-                String renderClassStyle = modelTree.getRenderStyle();
-                if (UtilValidate.isNotEmpty(renderClassStyle) && renderClassStyle.equals("simple"))
-                    treeStringRenderer = new HtmlTreeRenderer();
-                else
-                    treeStringRenderer = new HtmlTreeExpandCollapseRenderer();
-                */
-            }
-            // still null, throw an error
-            if (treeStringRenderer == null) {
-                throw new IllegalArgumentException("Could not find a treeStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
+                throw new IllegalArgumentException("Could not find a treeStringRenderer in the context");
             }
 
             StringBuffer renderBuffer = new StringBuffer();
