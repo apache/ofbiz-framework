@@ -16,24 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
-
-import org.ofbiz.entity.condition.EntityCondition;
-
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
-
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
-    }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
-    }
-    */
+public abstract class UpdatePlan<P extends UpdatePlan<P>> extends SQLPlan<P> {
 }

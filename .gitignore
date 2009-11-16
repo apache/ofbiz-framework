@@ -24,6 +24,7 @@ framework/jetty/build/
 framework/minilang/build/
 framework/security/build/
 framework/service/build/
+framework/sql/build/
 framework/start/build/
 framework/testtools/build/
 framework/webapp/build/

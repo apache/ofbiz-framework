@@ -685,6 +685,28 @@ public class StringUtil {
         return new StringWrapper(theString);
     }
 
+    public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sep) {
+        Iterator<? extends Appender<StringBuilder>> it = iterable.iterator();
+        while (it.hasNext()) {
+            if (prefix != null) sb.append(prefix);
+            it.next().appendTo(sb);
+            if (suffix != null) sb.append(suffix);
+            if (it.hasNext() && sep != null) sb.append(sep);
+        }
+        return sb;
+    }
+
+    public static StringBuilder append(StringBuilder sb, Iterable<? extends Object> iterable, String prefix, String suffix, String sep) {
+        Iterator<? extends Object> it = iterable.iterator();
+        while (it.hasNext()) {
+            if (prefix != null) sb.append(prefix);
+            sb.append(it.next());
+            if (suffix != null) sb.append(suffix);
+            if (it.hasNext() && sep != null) sb.append(sep);
+        }
+        return sb;
+    }
+
     /**
      * A super-lightweight object to wrap a String object. Mainly used with FTL templates
      * to avoid the general HTML auto-encoding that is now done through the Screen Widget.

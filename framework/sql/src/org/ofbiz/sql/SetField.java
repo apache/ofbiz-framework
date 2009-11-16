@@ -16,24 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
+import org.ofbiz.base.util.Appender;
 
-import org.ofbiz.entity.condition.EntityCondition;
+public final class SetField implements Appender<StringBuilder> {
+    private final String name;
+    private final Value value;
 
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
-
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+    public SetField(String name, Value value) {
+        this.name = name;
+        this.value = value;
     }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
+
+    public String getName() {
+        return name;
     }
-    */
+
+    public Value getValue() {
+        return value;
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        sb.append(name).append(" = ");
+        value.appendTo(sb);
+        return sb;
+    }
 }

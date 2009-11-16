@@ -18,38 +18,35 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<project name="OFBiz - Entity" default="jar" basedir=".">
+<project name="OFBiz - SQL" default="jar" basedir=".">
     <import file="../../common.xml"/>
 
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
 
-    <property name="desc" value="Entity Component"/>
-    <property name="name" value="ofbiz-entity"/>
+    <property name="desc" value="SQL Component"/>
+    <property name="name" value="ofbiz-sql"/>
     <property name="ofbiz.home.dir" value="../.."/>
 
     <path id="local.class.path">
-        <fileset dir="${lib.dir}" includes="*.jar"/>
-        <fileset dir="${lib.dir}/jdbc" includes="*.jar"/>
         <fileset dir="../base/lib" includes="*.jar"/>
-        <fileset dir="../base/lib/commons" includes="*.jar"/>
-        <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
-        <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
-        <fileset dir="../sql/build/lib" includes="*.jar"/>
     </path>
-
-    <patternset id="src.exc.set">
-        <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
-        <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
-    </patternset>
+    <path id="src-path">
+        <pathelement location="build/gen-src/javacc"/>
+        <pathelement location="build/gen-src/jjtree"/>
+    </path>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
 
-    <target name="classes" depends="prepare">
+    <target name="gen-src">
+        <ofbiz-javacc dir="org/ofbiz/sql" file="Parser"/>
+    </target>
+
+    <target name="classes" depends="prepare,gen-src">
         <javac15/>
     </target>
 
@@ -58,7 +55,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.entity.*"
+        <javadoc packagenames="org.ofbiz.sql.*"
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
                  Windowtitle="Open for Business - ${desc}">

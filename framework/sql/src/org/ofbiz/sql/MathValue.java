@@ -16,24 +16,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.entity.sql;
+package org.ofbiz.sql;
 
-import java.io.StringReader;
+import java.util.Iterator;
+import java.util.List;
 
-import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.base.util.StringUtil;
 
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.ParseException;
+public final class MathValue extends StaticValue implements Iterable<StaticValue> {
+    private final String op;
+    private final List<StaticValue> values;
 
-public class SQLUtil {
-    private static final EntityPlanner planner = new EntityPlanner();
-
-    public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+    public MathValue(String op, List<StaticValue> values) {
+        this.op = op;
+        this.values = values;
     }
-    /*
-    public static EntityCondition parseCondition(String condition) throws ParseException {
-        return new Parser(new StringReader(condition)).EntityCondition();
+
+    public String getOp() {
+        return op;
     }
-    */
+
+    public String getDefaultName() {
+        return null;
+    }
+
+    public Iterator<StaticValue> iterator() {
+        return values.iterator();
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        sb.append('(');
+        StringUtil.appendTo(sb, values, " ", null, op);
+        sb.append(')');
+        return sb;
+    }
 }
