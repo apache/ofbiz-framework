@@ -18,7 +18,5 @@
  */
 package org.ofbiz.sql;
 
-import java.util.Map;
-
 public abstract class SQLPlan<P extends SQLPlan<P>> {
 }

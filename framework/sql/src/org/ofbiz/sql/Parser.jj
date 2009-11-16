@@ -40,23 +40,18 @@ PARSER_BEGIN(Parser)
 
 package org.ofbiz.sql;
 
-import java.io.*;
-import java.util.Collections;
 import java.util.List;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 public final class Parser {
 }
 
 PARSER_END(Parser)
 TOKEN_MGR_DECLS: {
-	private final LinkedList<Integer> stack = new LinkedList<Integer>();
+	private final FastList<Integer> stack = new FastList<Integer>();
 
 	void pushState(int newState) {
 		stack.add(curLexState);
