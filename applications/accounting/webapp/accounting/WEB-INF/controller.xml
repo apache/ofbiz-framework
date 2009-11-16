@@ -2709,11 +2709,19 @@ under the License.
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
     <view-map name="SalesInvoiceByProductCategorySummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceByProductCategorySummary"/>
     <view-map name="TrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalance"/>
+    <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="TrialBalanceSearchResultsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="IncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatement"/>
+    <view-map name="IncomeStatementListPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="IncomeStatementListCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListCsv" content-type="text/csv" encoding="none"/>
     <view-map name="ComparativeIncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatement"/>
     <view-map name="BalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheet"/>
+    <view-map name="BalanceSheetCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="BalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeBalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheet"/>
     <view-map name="TransactionTotals" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotals"/>
+    <view-map name="TransactionTotalsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="TransactionTotalsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="NewDepositSlip" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositSlip"/>
@@ -2743,14 +2751,6 @@ under the License.
     <view-map name="AcctgTransSearchResultsCsv" type="screencsv" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransSearchResultPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransSearchResultPdf" content-type="application/pdf" encoding="none"/>
 
-    <view-map name="TransactionTotalsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="TransactionTotalsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotalsCsv" content-type="text/csv" encoding="none"/>
-    <view-map name="IncomeStatementListPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="IncomeStatementListCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatementListCsv" content-type="text/csv" encoding="none"/>
-    <view-map name="BalanceSheetCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetCsv" content-type="text/csv" encoding="none"/>
-    <view-map name="BalanceSheetPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheetPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="TrialBalanceSearchResultsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="TrialBalanceSearchResultsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalanceSearchResultsCsv" content-type="text/csv" encoding="none"/>
     <view-map name="AcctgTransDetailReportPdf" type="screenfop" page="component://accounting/widget/GlScreens.xml#AcctgTransDetailReportPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="GlAccountTrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalance"/>
     <view-map name="GlAccountTrialBalanceReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountTrialBalanceReportPdf" content-type="application/pdf" encoding="none"/>
