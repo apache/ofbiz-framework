@@ -44,32 +44,60 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <entity-condition entity-name="PaymentType" list="paymentTypes">
-                    <order-by field-name="paymentTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
-                    <order-by field-name="invoiceTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
-                    <order-by field-name="paymentMethodTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="invoiceStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="paymentStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
+                <set field="parameters.portalPageId" value="ArPortalPage"/>
+                <set field="invoiceTypeId" value="SALES_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingAr}">
-                            <platform-specific><html><html-template location="component://accounting/webapp/ar/main.ftl"/></html></platform-specific>
-                        </screenlet>
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-and>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                    <order-by field-name="sequenceNum"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ArPastDueInvoices">
+        <section>
+           <actions>
+                <set field="invoices" from-field="PastDueInvoices"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingPastDueInvoices}: (${PastDueInvoicestotalAmount})">
+                    <include-form name="ListReports" location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ArInvoicesDueSoon">
+        <section>
+            <actions>
+                <set field="invoices" from-field="InvoicesDueSoon"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingInvoicesDueSoon}: (${InvoicesDueSoonTotalAmount})">
+                    <include-form name="ListReports"  location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

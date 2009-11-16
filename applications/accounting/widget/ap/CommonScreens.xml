@@ -42,119 +42,60 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="main"></set>
-                <entity-condition entity-name="PaymentType" list="paymentTypes">
-                    <order-by field-name="paymentTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
-                    <order-by field-name="invoiceTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
-                    <order-by field-name="paymentMethodTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="invoiceStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="paymentStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
+                <set field="parameters.portalPageId" value="ApPortalPage"/>
+                <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingAp}">
-                        <container style="lefthalf">
-                            <container style="lefthalf">
-                                <label style="h1">${uiLabelMap.AccountingAgreements}</label>
-                                <section>
-                                    <widgets>
-                                        <include-menu name="ApMainAgreementMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                            <container style="righthalf">
-                                <label style="h1">${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}</label>
-                                <section>
-                                    <widgets>
-                                        <include-menu name="ApMainVendorMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="righthalf">
-                            <container style="lefthalf">
-                                <label style="h1">${uiLabelMap.AccountingReports}</label>
-                                <section>
-                                    <widgets>
-                                        <include-menu name="ApMainReportMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="clear"/>
-                        <container>
-                            <label style="h1">${uiLabelMap.AccountingPaymentsMenu}</label>
-                                <container style="lefthalf">
-                                    <container style="lefthalf">
-                                        <iterate-section list="paymentTypes" entry="paymentType">
-                                            <section>
-                                                <widgets>
-                                                    <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                                </widgets>
-                                             </section>
-                                        </iterate-section>
-                                    </container>
-                                    <container style="righthalf">
-                                        <iterate-section list="paymentMethodTypes" entry="paymentMethodType">
-                                            <section>
-                                                <widgets>
-                                                    <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </iterate-section>
-                                    </container>
-                                </container>
-                                <container style="righthalf">
-                                    <container style="lefthalf">
-                                        <iterate-section list="paymentStatus" entry="paymentsStatus">
-                                            <section>
-                                                <widgets>
-                                                    <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </iterate-section>
-                                    </container>
-                                </container>
-                        </container>
-                        <container style="clear"/>
-                        <container>
-                            <label style="h1">${uiLabelMap.AccountingInvoicesMenu}</label>
-                                <container style="lefthalf">
-                                    <container style="lefthalf">
-                                        <iterate-section list="invoiceTypes" entry="invoiceType">
-                                            <section>
-                                                <widgets>
-                                                    <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                                </widgets>
-                                             </section>
-                                        </iterate-section>
-                                    </container>
-                                    <container style="righthalf">
-                                        <iterate-section list="invoiceStatus" entry="invoicesStatus">
-                                            <section>
-                                                <widgets>
-                                                    <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </iterate-section>
-                                    </container>
-                                </container>
-                        </container>
-                        <container style="clear"/>
-                        </screenlet>
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-and>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                    <order-by field-name="sequenceNum"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ApPastDueInvoices">
+        <section>
+           <actions>
+                <set field="invoices" from-field="PastDueInvoices"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingPastDueInvoices}: (${PastDueInvoicestotalAmount})">
+                    <include-form name="ListReports" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ApInvoicesDueSoon">
+        <section>
+            <actions>
+                <set field="invoices" from-field="InvoicesDueSoon"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingInvoicesDueSoon}: (${InvoicesDueSoonTotalAmount})">
+                    <include-form name="ListReports"  location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
