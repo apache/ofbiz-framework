@@ -29,6 +29,7 @@ framework/start/build/
 framework/testtools/build/
 framework/webapp/build/
 framework/webslinger/build/
+framework/webslinger/websites/webslinger/Var/
 framework/webtools/build/
 framework/widget/build/
 specialpurpose/assetmaint/build/
