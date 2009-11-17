@@ -1252,9 +1252,10 @@ public class PaymentGatewayServices {
             Iterator<GenericValue> payments = paymentPrefs.iterator();
             while (payments.hasNext()) {
                 // DEJ20060708: Do we really want to just log and ignore the errors like this? I've improved a few of these in a review today, but it is being done all over...
-                GenericValue paymentPref = (GenericValue) payments.next();
+                GenericValue paymentPref = payments.next();
                 GenericValue authTrans = getAuthTransaction(paymentPref);
                 if (authTrans == null) {
+                    Debug.logWarning("Authorized OrderPaymentPreference has no corresponding PaymentGatewayResponse, cannot capture payment: " + paymentPref, module);
                     continue;
                 }
 
@@ -1340,12 +1341,14 @@ public class PaymentGatewayServices {
             }
         }
 
-        if (amountToCapture.compareTo(ZERO) == 1) {
+        if (amountToCapture.compareTo(ZERO) > 0) {
             GenericValue productStore = orh.getProductStore();
             if (!UtilValidate.isEmpty(productStore)) {
                 boolean shipIfCaptureFails = UtilValidate.isEmpty(productStore.get("shipIfCaptureFails")) || "Y".equalsIgnoreCase(productStore.getString("shipIfCaptureFails"));
                 if (! shipIfCaptureFails) {
                     return ServiceUtil.returnError("Cannot ship order because credit card captures were unsuccessful");
+                } else {
+                    Debug.logWarning("Payment capture failed, shipping order anyway as per ProductStore setting (shipIfCaptureFails)", module);
                 }
             }
             Map<String, Object> result = ServiceUtil.returnSuccess();
