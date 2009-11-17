@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="HelpNotFound">
+        <value xml:lang="da">Hjælp emne ikke fundet</value>
         <value xml:lang="de">Hilfe Thema nicht gefunden.</value>
         <value xml:lang="en">Help topic not found.</value>
         <value xml:lang="es">No se ha encontrado el tema de ayuda.</value>
@@ -28,6 +29,7 @@
         <value xml:lang="zh">帮助主题没有找到。</value>
     </property>
     <property key="PageTitleHelp">
+        <value xml:lang="da">Open for Business hjælp</value>
         <value xml:lang="de">Open for Business Hilfe</value>
         <value xml:lang="en">Open for Business Help</value>
         <value xml:lang="es">Ayuda de Open for Business</value>
