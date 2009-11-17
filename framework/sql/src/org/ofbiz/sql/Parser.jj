@@ -47,6 +47,12 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 public final class Parser {
+	private Condition reduce(List<Condition> conditions, Joiner joiner) {
+		if (conditions.size() == 1) {
+			return conditions.get(0);
+		}
+		return new ConditionList(joiner, conditions);
+	}
 }
 
 PARSER_END(Parser)
@@ -683,7 +689,7 @@ private Condition AndExpression():
 {
 	c=BooleanExpression() { list.add(c); }
         ( <AND> c=BooleanExpression() { list.add(c); } )*
-	{ return list.size() == 1 ? list.get(0) : new ConditionList(Joiner.AND, list); }
+	{ return reduce(list, Joiner.AND); }
 }
 
 private Condition OrExpression():
@@ -694,7 +700,7 @@ private Condition OrExpression():
 {
 	c=AndExpression() { list.add(c); }
         ( <OR> c=AndExpression() { list.add(c); } )*
-	{ return list.size() == 1 ? list.get(0) : new ConditionList(Joiner.OR, list); }
+	{ return reduce(list, Joiner.OR); }
 }
 
 private Value RightValue():
