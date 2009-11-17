@@ -20,6 +20,12 @@
 <test-suite suite-name="accountingtests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+
+    <test-case case-name="accounting-tests-data-load">
+        <entity-xml action="load" entity-xml-url="component://accounting/testdef/data/AccountingTestsData.xml"/>
+    </test-case>
+
+
     <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
 
     <!-- Test case for Accounting Transaction on Purchase -->
