@@ -25,7 +25,7 @@ under the License.
         <set field="packSingleItemInMap.productId" value="GZ-2644"/>
         <set field="packSingleItemInMap.orderId" value="DEMO10090"/>
         <set field="packSingleItemInMap.shipGroupSeqId" value="00001"/>
-        <set field="packSingleItemInMap.quantity" value="1" type="BigDecimal"/>
+        <set field="packSingleItemInMap.quantity" value="2" type="BigDecimal"/>
         <set field="packSingleItemInMap.packageSeq" value="1" type="Integer"/>
         <set field="packSingleItemInMap.pickerPartyId" value="DemoCustomer"/>
         <set field="packSingleItemInMap.handlingInstructions" value="Handle with care"/>
