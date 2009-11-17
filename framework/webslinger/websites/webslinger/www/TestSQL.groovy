@@ -33,7 +33,7 @@ def sqlSelect = SQLUtil.parseSelect(sql)
 TransactionUtil.doNewTransaction("Test", [call: {
     def eli
     try {
-        eli = sqlSelect.getEntityListIterator(delegator)
+        eli = sqlSelect.getEntityListIterator(delegator, null)
         def gv;
         while ((gv = eli.next()) != null) {
             response.writer.println("gv=$gv<br />")

@@ -18,31 +18,22 @@
  */
 package org.ofbiz.sql;
 
-public final class SQLView<P extends ViewPlan<P>> extends SQLStatement<SQLView<P>, P> {
-    private final String name;
-    private final SQLSelect sqlSelect;
+import org.ofbiz.base.util.GeneralException;
 
-    public SQLView(String name, SQLSelect sqlSelect) {
-        this.name = name;
-        this.sqlSelect = sqlSelect;
+public final class ParameterizedConditionException extends GeneralException {
+    public ParameterizedConditionException() {
+        super();
     }
 
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
+    public ParameterizedConditionException(String msg) {
+        super(msg);
     }
 
-    public String getName() {
-        return name;
+    public ParameterizedConditionException(String msg, Throwable nested) {
+        super(msg, nested);
     }
 
-    public SQLSelect getSelect() {
-        return sqlSelect;
-    }
-
-    public StringBuilder appendTo(StringBuilder sb) {
-        sb.append("CREATE VIEW ").append(name).append(" AS ");
-        sqlSelect.appendTo(sb);
-        return sb;
+    public ParameterizedConditionException(Throwable nested) {
+        super(nested);
     }
 }

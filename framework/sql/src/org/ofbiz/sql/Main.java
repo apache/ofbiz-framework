@@ -22,7 +22,7 @@ import java.util.List;
 
 public final class Main {
 	public static void main(String[] args) throws Exception {
-        Planner<?, ?, ?, ?, ?, ?> planner = new DebugPlanner();
+        Planner<?, ?, ?, ?, ?, ?, ?> planner = new DebugPlanner();
 		List<SQLStatement<?, ?>> statements = new Parser(System.in).SQLFile();
         for (SQLStatement<?, ?> statement: statements) {
             run(statement, planner);
@@ -36,6 +36,10 @@ public final class Main {
     }
 
     private final static class DebugPlanner extends Planner {
+        public DebugPlanner() {
+            super(null);
+        }
+
         public SQLPlan plan(SQLStatement statement) {
             return null;
         }

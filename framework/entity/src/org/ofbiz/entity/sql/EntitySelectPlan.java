@@ -38,25 +38,35 @@ import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
 
 import org.ofbiz.sql.SelectPlan;
+import org.ofbiz.sql.ConditionPlan;
+import org.ofbiz.sql.ParameterizedConditionException;
 
 public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
     private final DynamicViewEntity dve;
-    private final EntityCondition whereCondition;
-    private final EntityCondition havingCondition;
+    private final ConditionPlan<EntityCondition> wherePlan;
+    private final ConditionPlan<EntityCondition> havingPlan;
     private final List<String> orderBy;
     private final int offset = -1;
     private final int limit = -1;
 
-    public EntitySelectPlan(DynamicViewEntity dve, EntityCondition whereCondition, EntityCondition havingCondition, List<String> orderBy) {
+    public EntitySelectPlan(DynamicViewEntity dve, ConditionPlan<EntityCondition> wherePlan, ConditionPlan<EntityCondition> havingPlan, List<String> orderBy) {
         this.dve = dve;
-        this.whereCondition = whereCondition;
-        this.havingCondition = havingCondition;
+        this.wherePlan = wherePlan;
+        this.havingPlan = havingPlan;
         this.orderBy = orderBy;
         //this.offset = offset;
         //this.limit = limit;
     }
 
-    public EntityListIterator getEntityListIterator(Delegator delegator) throws GenericEntityException {
+    public EntityListIterator getEntityListIterator(Delegator delegator, Map<String, ? extends Object> params) throws GenericEntityException {
+        EntityCondition whereCondition;
+        EntityCondition havingCondition;
+        try {
+            whereCondition = wherePlan.getCondition(params);
+            havingCondition = havingPlan.getCondition(params);
+        } catch (ParameterizedConditionException e) {
+            throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
+        }
         return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, orderBy, null);
     }
 
@@ -64,12 +74,12 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
         return dve;
     }
 
-    public EntityCondition getWhereCondition() {
-        return whereCondition;
+    public ConditionPlan<EntityCondition> getWherePlan() {
+        return wherePlan;
     }
 
-    public EntityCondition getHavingCondition() {
-        return havingCondition;
+    public ConditionPlan<EntityCondition> getHavingPlan() {
+        return havingPlan;
     }
 
     public List<String> getOrderBy() {
@@ -84,16 +94,19 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
         return limit;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
+    public StringBuilder appendTo(StringBuilder sb) {
         sb.append("dve=" + dve);
-        if (whereCondition != null) {
+        if (wherePlan != null) {
             if (sb.length() > 0) sb.append(", ");
-            sb.append("where=(").append(whereCondition).append(")");
+            sb.append("where=(");
+            wherePlan.appendTo(sb);
+            sb.append(")");
         }
-        if (havingCondition != null) {
+        if (havingPlan != null) {
             if (sb.length() > 0) sb.append(", ");
-            sb.append("having=(").append(havingCondition).append(")");
+            sb.append("having=(");
+            havingPlan.appendTo(sb);
+            sb.append(")");
         }
         if (offset != -1) {
             if (sb.length() > 0) sb.append(", ");
@@ -105,6 +118,6 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
         }
         sb.append("]");
         sb.insert(0, "[").insert(0, super.toString());
-        return sb.toString();
+        return sb;
     }
 }

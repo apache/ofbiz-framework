@@ -18,7 +18,25 @@
  */
 package org.ofbiz.sql;
 
-public abstract class Planner<P extends Planner<P, D, I, S, U, V>, D extends DeletePlan<D>, I extends InsertPlan<I>, S extends SelectPlan<S>, U extends UpdatePlan<U>, V extends ViewPlan<V>> {
+public abstract class Planner<P extends Planner<P, C, D, I, S, U, V>, C, D extends DeletePlan<D>, I extends InsertPlan<I>, S extends SelectPlan<S>, U extends UpdatePlan<U>, V extends ViewPlan<V>> {
+    private final ConditionPlanner<C> conditionPlanner;
+
+    protected Planner(ConditionPlanner<C> conditionPlanner) {
+        this.conditionPlanner = conditionPlanner;
+    }
+
+    public ConditionPlanner<C> getConditionPlanner() {
+        return conditionPlanner;
+    }
+
+    public ConditionPlan<C> plan(Condition condition) {
+        try {
+            return new ConditionPlan<C>(conditionPlanner, null, conditionPlanner.parse(condition, null));
+        } catch (ParameterizedConditionException e) {
+            return new ConditionPlan<C>(conditionPlanner, condition, null);
+        }
+    }
+
     public abstract D plan(SQLDelete<?> deleteStatement);
     public abstract I plan(SQLInsert<?> insertStatement);
     public abstract S plan(SQLSelect<?> selectStatement);

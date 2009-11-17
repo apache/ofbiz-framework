@@ -19,5 +19,5 @@
 package org.ofbiz.sql;
 
 public abstract class SQLStatement<S extends SQLStatement<S, P>, P extends SQLPlan<P>> extends Atom {
-    public abstract <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner);
+    public abstract <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner);
 }
