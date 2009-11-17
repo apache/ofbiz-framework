@@ -37,6 +37,7 @@ import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.NumberValue;
 import org.ofbiz.sql.ParameterizedConditionException;
+import org.ofbiz.sql.ParameterValue;
 import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Value;
 
@@ -80,6 +81,11 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
                 values.add(buildValue(sqlValue, params));
             }
             return values;
+        } else if (value instanceof ParameterValue) {
+            if (params == null) {
+                throw new ParameterizedConditionException();
+            }
+            return params.get(((ParameterValue) value).getName());
         }
         throw new UnsupportedOperationException(value.toString());
     }

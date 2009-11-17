@@ -25,7 +25,7 @@ FROM
 	Party a LEFT JOIN Person b USING partyId LEFT JOIN PartyGroup c USING partyId
 RELATION TYPE one Party USING partyId
 WHERE
-    partyId = 'admin'
+    partyId = ?partyId
 ;
 """
 def sqlSelect = SQLUtil.parseSelect(sql)
@@ -33,7 +33,7 @@ def sqlSelect = SQLUtil.parseSelect(sql)
 TransactionUtil.doNewTransaction("Test", [call: {
     def eli
     try {
-        eli = sqlSelect.getEntityListIterator(delegator, null)
+        eli = sqlSelect.getEntityListIterator(delegator, [partyId: 'admin'])
         def gv;
         while ((gv = eli.next()) != null) {
             response.writer.println("gv=$gv<br />")
