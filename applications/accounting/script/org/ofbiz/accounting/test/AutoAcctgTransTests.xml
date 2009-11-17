@@ -340,28 +340,35 @@ under the License.
               * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
         -->
 
-        <!-- Find Payment by paymentPreferenceId from demo order DEMO10090 -->
-        <entity-condition list="payments" entity-name="Payment"><order-by field-name="-effectiveDate"/></entity-condition>
-        <entity-and list="payments" entity-name="Payment">
-            <field-map field-name="paymentPreferenceId" value="9000"/>
-            <order-by field-name="-effectiveDate"/>
-        </entity-and>
-        <first-from-list entry="payment" list="payments"/>
-        <set field="paymentId" from-field="payment.paymentId"/>
-
+        <!-- Creating a payment from scratch rather than using the demo data -->
+        
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
+
+        <!-- Find a customer -->
+        <entity-and list="customerRoles" entity-name="PartyRole">
+            <field-map field-name="roleTypeId" value="CUSTOMER"/>
+        </entity-and>
+        <first-from-list entry="customerRole" list="customerRoles"/>
+        <set field="serviceCtx.partyIdFrom" from-field="customerRole.partyId"/>
+        <set field="serviceCtx.amount" value="100.00" type="BigDecimal"/>
+        <set field="serviceCtx.partyIdTo" value="Company"/>
+        <set field="serviceCtx.paymentMethodTypeId" value="EFT_ACCOUNT"/>
+        <set field="serviceCtx.paymentTypeId" value="CUSTOMER_PAYMENT"/>
         <set field="serviceCtx.paymentId" from-field="paymentId"/>
         <set field="serviceCtx.statusId" value="PMNT_RECEIVED"/>
-        <call-service service-name="setPaymentStatus" in-map-name="serviceCtx"/>
+        <call-service service-name="createPayment" in-map-name="serviceCtx">
+            <result-to-field result-name="paymentId"/>
+        </call-service>
 
-        <entity-one entity-name="Payment" value-field="payment">
-            <field-map field-name="paymentId" from-field="paymentId"/>
-        </entity-one>
-        <get-related value-field="payment" relation-name="AcctgTrans" list="acctgTransList"/>
+        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+            <field-map field-name="paymentId"/>
+            <field-map field-name="acctgTransTypeId" value="INCOMING_PAYMENT"/>
+        </entity-and>
         <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -370,16 +377,15 @@ under the License.
 
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-            <!--<assert>
+               <assert>
                     <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
-                </assert>-->
+                </assert>
             </if-compare>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-            <!--<assert>
-                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="UNDEPOSITED_RECEIPTS"/>
-                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
-                </assert>-->
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
+                </assert>
             </if-compare>
         </iterate>
         <check-errors/>
