@@ -64,6 +64,8 @@ import org.ofbiz.sql.TableName;
 import org.ofbiz.sql.Value;
 
 public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
+    private final EntityConditionPlanner conditionPlanner = new EntityConditionPlanner();
+
     public EntityDeletePlan plan(SQLDelete<?> deleteStatement) {
         return null;
     }
@@ -211,43 +213,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, Enti
         return entityKeyMaps;
     }
 
-    private static EntityCondition buildCondition(Condition condition) {
-        if (condition == null) return null;
-        if (condition instanceof BooleanCondition) {
-            BooleanCondition bc = (BooleanCondition) condition;
-            return EntityCondition.makeCondition(buildFieldValue(bc.getLeft()), EntityOperator.lookupComparison(bc.getOp()), buildValue(bc.getRight()));
-        } else if (condition instanceof ConditionList) {
-            ConditionList cl = (ConditionList) condition;
-            List<EntityCondition> conditions = FastList.newInstance();
-            for (Condition subCondition: cl) {
-                conditions.add(buildCondition(subCondition));
-            }
-            return EntityCondition.makeCondition(conditions, cl.getJoiner() == Joiner.AND ? EntityOperator.AND : EntityOperator.OR);
-        } else {
-            throw new UnsupportedOperationException(condition.toString());
-        }
-    }
-
-    private static EntityFieldValue buildFieldValue(Value value) {
-        if (value instanceof FieldValue) {
-            FieldValue fv = (FieldValue) value;
-            return EntityFieldValue.makeFieldValue(fv.getFieldName(), fv.getTableName(), null, null);
-        }
-        throw new UnsupportedOperationException(value.toString());
-    }
-
-    private static Object buildValue(Object value) {
-        if (value instanceof NumberValue) {
-            return ((NumberValue) value).getNumber();
-        } else if (value instanceof StringValue) {
-            return ((StringValue) value).getString();
-        } else if (value instanceof List) {
-            List<Object> values = FastList.newInstance();
-            for (Object sqlValue: (List) value) {
-                values.add(buildValue(sqlValue));
-            }
-            return values;
-        }
-        throw new UnsupportedOperationException(value.toString());
+    protected EntityCondition buildCondition(Condition condition) {
+        return conditionPlanner.buildCondition(condition);
     }
 }
