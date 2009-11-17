@@ -67,6 +67,9 @@ public final class EntityConditionPlanner {
             return ((NumberValue) value).getNumber();
         } else if (value instanceof StringValue) {
             return ((StringValue) value).getString();
+        } else if (value instanceof FieldValue) {
+            FieldValue fv = (FieldValue) value;
+            return EntityFieldValue.makeFieldValue(fv.getFieldName(), fv.getTableName(), null, null);
         } else if (value instanceof List) {
             List<Object> values = FastList.newInstance();
             for (Object sqlValue: (List) value) {
