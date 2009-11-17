@@ -27,14 +27,16 @@ under the License.
     <section>
         <title>How do I add a party role to an invoice?</title>
         <para>Party roles will automatically be added to an invoices that have been generated as a result of E-Commerce order entry or Sales Order entry. They can also be added be added manually.</para>
-        <para>Select the 'Roles' sub menu</para>
-        <para>Enter or use the lookup to enter the party to be added to the invoice in the 'Party Id' field</para>
-        <para>Use the drop down box to select the 'Role Type Id' </para>
-        <para>Leave the 'Date Time Performed' field blank (NOTE: This field is optional and can be entered if required. This field can be used to indicate the date and time this role was performed by the party for this invoice)</para>
-        <para>Leave the 'Percentage' field blank (NOTE: This field is optional and can be entered if required. If roles are shared then this field can be used to indicate the assigned percentage for this role) </para>
-        <para>Press the 'Submit' button</para>
-        <para>The new role entry will be displayed on the bottom part of the screen</para>
-        <para>NOTE: If you select a role that is not associated with the party that has been entered an error message will be displayed. To fix it you will need to add the role to the party or choose another party that already has that role associated with it.</para>
+        <orderedlist>
+        <listitem><para>Select the 'Roles' sub menu</para></listitem>
+        <listitem><para>Enter or use the lookup to enter the party to be added to the invoice in the 'Party Id' field</para></listitem>
+        <listitem><para>Use the drop down box to select the 'Role Type Id' </para></listitem>
+        <listitem><para>Leave the 'Date Time Performed' field blank (NOTE: This field is optional and can be entered if required. This field can be used to indicate the date and time this role was performed by the party for this invoice)</para></listitem>
+        <listitem><para>Leave the 'Percentage' field blank (NOTE: This field is optional and can be entered if required. If roles are shared then this field can be used to indicate the assigned percentage for this role) </para></listitem>
+        <listitem><para>Press the 'Submit' button</para></listitem>
+        <listitem><para>The new role entry will be displayed on the bottom part of the screen</para></listitem>
+        <listitem><para>NOTE: If you select a role that is not associated with the party that has been entered an error message will be displayed. To fix it you will need to add the role to the party or choose another party that already has that role associated with it.</para></listitem>
+    </orderedlist>
     </section>
     <section>
         <title>How do I update a party role on an invoice?</title>
@@ -42,8 +44,10 @@ under the License.
     </section>
     <section>
         <title>How do I remove a party role from an invoice?</title>
-        <para>Locate the entry that needs to be removed</para>
-        <para>Press the 'Remove' button next to the entry that needs to be deleted</para>
-        <para>The entry is now removed from the list of invoice roles </para>
+        <orderedlist>
+        <listitem><para>Locate the entry that needs to be removed</para></listitem>
+        <listitem><para>Press the 'Remove' button next to the entry that needs to be deleted</para></listitem>
+        <listitem><para>The entry is now removed from the list of invoice roles </para></listitem>
+        </orderedlist>
     </section>
 </section>

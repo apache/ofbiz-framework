@@ -23,22 +23,26 @@ License.
         transaction header (eg Payment Type, Status, Amount, Effective Date
         etc) and the other it shows if the payment has been applied (or
         matched) to an invoice or billing account etc.</para>
-    <para>he following options are currently available from this screen:
+    <para>The following options are currently available from this screen:
     </para>
-
-    <para>* Create New (Create a new payment)</para>
-    <para>* Status to 'Received' (Change the status of the current payment
+    <itemizedlist>
+    <listitem><para>Create New (Create a new payment)</para></listitem>
+    <listitem><para>Status to 'Received' (Change the status of the current payment
         to 'Received. NOTE: This will create the relevant accounting
-        transactions and post them to the general ledger)</para>
-    <para>* Status to 'Cancelled' (Change the status of the current payment
-        to 'Cancelled')</para>
-    <para>* Status to 'Confirmed' (Change the status of the current invoice
+        transactions and post them to the general ledger)</para></listitem>
+    <listitem><para>Status to 'Cancelled' (Change the status of the current payment
+        to 'Cancelled')</para></listitem>
+    <listitem><para>Status to 'Confirmed' (Change the status of the current invoice
         to 'Confirmed'. NOTE: This status option will not appear until the
-        status has been changed to 'Received')</para>
+        status has been changed to 'Received')</para></listitem>
+     </itemizedlist>
+        
     <para>NOTE: The general ledger transactions generated as a result of
         the payment are based on the GL Account Type defaults for Company as
         follows:</para>
-    <para>* Debit Entry (GL Account Type defaults)</para>
-    <para>* Credit Entry (Payment Method Id / GL Account Id)</para>
+        <itemizedlist>
+    <listitem><para>Debit Entry (GL Account Type defaults)</para></listitem>
+    <listitem><para>Credit Entry (Payment Method Id / GL Account Id)</para></listitem>
+    </itemizedlist>
 
 </section>

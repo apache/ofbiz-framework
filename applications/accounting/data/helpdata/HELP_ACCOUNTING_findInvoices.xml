@@ -24,43 +24,51 @@ License.
         used to create a new Sales or Purchase Invoice. </para>
     <section>
         <title>How do I view all invoices?</title>
-        <para>Press the 'Search' button to view all invoices</para>
+        <orderedlist>
+        <listitem><para>Press the 'Search' button to view all invoices</para></listitem>
+    </orderedlist>
     </section>
     <section>
         <title>How do I locate an existing invoice?</title>
-        <para>Enter the 'Invoice ID' if known</para>
-        <para>Enter a word from the invoice description in the 'Description'
-            field if known</para>
-        <para>Enter the 'Invoice Type' if known</para>
-        <para>Enter the 'From Party Id' if known (NOTE: In most cases for a
+        <orderedlist>
+        <listitem><para>Enter the 'Invoice ID' if known</para></listitem>
+        <listitem><para>Enter a word from the invoice description in the 'Description'
+            field if known</para></listitem>
+        <listitem><para>Enter the 'Invoice Type' if known</para></listitem>
+        <listitem><para>Enter the 'From Party Id' if known (NOTE: In most cases for a
             Sales Invoices this will be Company. For Purchase Invoice it will be
-            the supplier party id)</para>
-        <para>Enter the 'Billing Account Id' if known</para>
-        <para>Enter the invoice status in the 'Status Id' field if known
-        </para>
-        <para>Enter the 'To Party Id' if known (NOTE: In most cases for a
+            the supplier party id)</para></listitem>
+        <listitem><para>Enter the 'Billing Account Id' if known</para></listitem>
+        <listitem><para>Enter the invoice status in the 'Status Id' field if known
+        </para></listitem>
+        <listitem><para>Enter the 'To Party Id' if known (NOTE: In most cases for a
             Purchase Invoice this will be company. For Sales Invoices it will be
-            the customer party id)</para>
-        <para>Press the 'Search' button to view all invoices</para>
-        <para>All invoices that meet the search criteria will be displayed.
-        </para>
+            the customer party id)</para></listitem>
+        <listitem><para>Press the 'Search' button to view all invoices</para></listitem>
+        <listitem><para>All invoices that meet the search criteria will be displayed.
+        </para></listitem>
+        </orderedlist>
     </section>
-
     <section>
         <title>How do I update an invoice?</title>
-        <para>Locate the invoice using the 'Find Invoices' screen</para>
-        <para>Using the relevant sub menu make the required changes.</para>
+        <orderedlist>
+        <listitem><para>Locate the invoice using the 'Find Invoices' screen</para></listitem>
+        <listitem><para>Using the relevant sub menu make the required changes.</para></listitem>
+    </orderedlist>
     </section>
     <section>
         <title>How do I delete an invoice?</title>
         <para>Invoices cannot be deleted through the user interface. They can
             only be cancelled (eg if they have been entered or created by
             mistake).</para>
+             
         <para>NOTE: They can probably be deleted using Entity Data Maintenance
             in the Webtools menu but this is not recommended for 2 reasons:
         </para>
-        <para>1. it may cause data integrity problems.</para>
-        <para>2. In case of audit it would be a problem.
-        </para>
+        <orderedlist>
+        <listitem><para>It may cause data integrity problems.</para></listitem>
+        <listitem><para>In case of audit it would be a problem.
+        </para></listitem>
+        </orderedlist>
     </section>
 </section>

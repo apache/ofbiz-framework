@@ -23,20 +23,22 @@ License.
         can add a simple accompanying email message.</para>
     <section>
         <title>How do I send a copy of an invoice via email?</title>
-        <para>Select the 'Send per Email' sub menu</para>
-        <para>The 'Send per Email' default screen will be displayed</para>
-        <para>Enter the 'From Email Address' (NOTE TO CHECK: Shouldnt this be
-            defaulted from the user login.....????)</para>
-        <para>Leave the 'To Email Address' as it is as this will be defaulted
-            using the customer details from the invoice</para>
-        <para>If required enter the 'Copy Email address' for anyone that needs
-            to be copied on the email</para>
-        <para>Leave the 'Subject' as the default of 'Please find attached
-            invoice'</para>
-        <para>Leave the 'Other Currency' box blank (NOTE TO CHECK: Investigate
-            what effect this has on the email.....)</para>
-        <para>Enter a short email message in the 'Email Body' </para>
-        <para>Press the 'Submit' button </para>
+        <orderedlist>
+        <listitem><para>Select the 'Send per Email' sub menu</para></listitem>
+        <listitem><para>The 'Send per Email' default screen will be displayed</para></listitem>
+        <listitem><para>Enter the 'From Email Address' (NOTE TO CHECK: Shouldnt this be
+            defaulted from the user login.....????)</para></listitem>
+        <listitem><para>Leave the 'To Email Address' as it is as this will be defaulted
+            using the customer details from the invoice</para></listitem>
+        <listitem><para>If required enter the 'Copy Email address' for anyone that needs
+            to be copied on the email</para></listitem>
+        <listitem><para>Leave the 'Subject' as the default of 'Please find attached
+            invoice'</para></listitem>
+        <listitem><para>Leave the 'Other Currency' box blank (NOTE TO CHECK: Investigate
+            what effect this has on the email.....)</para></listitem>
+        <listitem><para>Enter a short email message in the 'Email Body' </para></listitem>
+        <listitem><para>Press the 'Submit' button </para></listitem>
+        </orderedlist>
     </section>
 </section>
 

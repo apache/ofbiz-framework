@@ -60,5 +60,4 @@ License.
     <xi:include href="HELP_ACCOUNTING_editInvoiceTimeEntries.xml" />
     <xi:include href="HELP_ACCOUNTING_sendPerEmail.xml" />
     <xi:include href="HELP_ACCOUNTING_invoiceRoles.xml" />
-    <xi:include href="HELP_ACCOUNTING_findPayments.xml" />
-</section>
+  </section>

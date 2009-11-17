@@ -33,35 +33,41 @@ License.
         automatically by the system or manually by the user. There are
         links
         from this page that can be used to do the following: </para>
-    <para>Create a new incoming or outgoing payment
-    </para>
-    <para>Find Sales Invoices by due date 
-    </para>
-    <para>Find Purchase Invoices by due date </para>
+        <itemizedlist>
+    <listitem><para>Create a new incoming or outgoing payment
+    </para></listitem>
+    <listitem><para>Find Sales Invoices by due date 
+    </para></listitem>
+    <listitem><para>Find Purchase Invoices by due date </para></listitem>
+    </itemizedlist>
     <section>
         <title>How do I view all payments?</title>
-        <para>Press the 'Search' button to view all payments</para>
+        <orderedlist>
+        <listitem><para>Press the 'Search' button to view all payments</para></listitem>
+        </orderedlist>
     </section>
     <section>
         <title>How do I locate an existing payment?</title>
-        <para>Enter the 'Payment ID' if known</para>
-        <para>Enter a word from the payments 'Comment'field if known</para>
-        <para>Enter the 'Payment Type Id' if known</para>
-        <para>Enter the 'From Party Id' if known (NOTE: In most cases for an
-            incoming payment this will be the customer party id)</para>
-        <para>Enter the payment amount in the 'Amount' field if known</para>
-        <para>Enter some details from the payment reference number in the
+        <orderedlist>
+        <listitem><para>Enter the 'Payment ID' if known</para></listitem>
+        <listitem><para>Enter a word from the payments 'Comment'field if known</para></listitem>
+        <listitem><para>Enter the 'Payment Type Id' if known</para></listitem>
+        <listitem><para>Enter the 'From Party Id' if known (NOTE: In most cases for an
+            incoming payment this will be the customer party id)</para></listitem>
+        <listitem><para>Enter the payment amount in the 'Amount' field if known</para></listitem>
+        <listitem><para>Enter some details from the payment reference number in the
             'Reference No' field if known
-        </para>
-        <para>Enter the status of the payment in the 'Status Id' field if
-            known</para>
-        <para>Enter the 'To Party Id' if known (NOTE: In most cases for an
+        </para></listitem>
+        <listitem><para>Enter the status of the payment in the 'Status Id' field if
+            known</para></listitem>
+        <listitem><para>Enter the 'To Party Id' if known (NOTE: In most cases for an
             incoming payment this will the the customer party id. For outgoing
             payments this will be the supplier id, or customer id for a refund)
-        </para>
-        <para>Press the 'Search' button to view all payments</para>
-        <para>All payments that meet the search criteria will be displayed.
-        </para>
+        </para></listitem>
+        <listitem><para>Press the 'Search' button to view all payments</para></listitem>
+        <listitem><para>All payments that meet the search criteria will be displayed.
+        </para></listitem>
+        </orderedlist>
     </section>
 
 </section>

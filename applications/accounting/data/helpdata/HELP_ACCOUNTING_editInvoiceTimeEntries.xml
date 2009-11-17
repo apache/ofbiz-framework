@@ -24,10 +24,13 @@ License.
         track any individual work or billable hours against an invoice.</para>
     <section>
         <title>How do I add a new time entry for an invoice?</title>
-        <para>Two options: Add time entry to a new invoice and add time entry
-            to an existing invoice.</para>
-        <para>Timesheet entries can be added to an existing invoice from
-            Workeffort Manager.</para>
+        <para>Threre are two options</para>
+        <orderedlist>
+        <listitem><para>Add time entry to a new invoice and add time entry
+            to an existing invoice.</para></listitem>
+        <listitem><para>Timesheet entries can be added to an existing invoice from
+            Workeffort Manager.</para></listitem>
+        </orderedlist>
     </section>
     <section>
         <title>How do I update a time entry for an invoice?</title>

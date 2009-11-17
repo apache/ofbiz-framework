@@ -22,15 +22,17 @@ License.
         been made (or received) can be linked or allocated to an invoice. The
         phrase 'applying' an amount to an invoice is often used to describe
         this. The screen is divided into 3 main areas as follows.</para>
-    <para> * Payments Applied (which shows details of the total amount
+        <itemizedlist>
+        <listitem><para>Payments Applied (which shows details of the total amount
         'Applied' and the total amount 'Open'. Note that 'Open' here means
-        outstanding)</para>
-    <para>* Possible Payments to Apply (which shows all the payments that
+        outstanding)</para></listitem>
+        <listitem><para>Possible Payments to Apply (which shows all the payments that
         have been sent from the same party id as the invoice - for a sales
-        invoice this would be the customer party id)</para>
-    <para> * Assign Payment to Invoice (which allows you to manually assign
-        a specific payment id to this invoice)</para>
-    <para>GENERAL NOTE: General Ledger accounting transactions are
+        invoice this would be the customer party id)</para></listitem>
+        <listitem><para>Assign Payment to Invoice (which allows you to manually assign
+        a specific payment id to this invoice)</para></listitem>
+        </itemizedlist>
+        <para>GENERAL NOTE: General Ledger accounting transactions are
         generated during the payment application process but unless your GL is
         setup with Unapplied Cash and Applied Cash accounts - I'm not sure
         that there will be any true accounting impact. In the Sales Order
@@ -59,34 +61,38 @@ License.
         multiple payments being applied to it.</para>
     <section>
         <title>How do I apply a payment (or payments) to an invoice?</title>
-        <para>Select the 'Applications' sub menu for the invoice</para>
-        <para>A list of unapplied payments for the party id will be displayed
-        </para>
-        <para>Press the 'Apply' button next to the entry that needs to be
+        <orderedlist>
+        <listitem><para>Select the 'Applications' sub menu for the invoice</para></listitem>
+        <listitem><para>A list of unapplied payments for the party id will be displayed
+        </para></listitem>
+        <listitem><para>Press the 'Apply' button next to the entry that needs to be
             applied to the invoice (NOTE: More than one entry may be used. Also
             only part of a larger amount may be used)The Payments Applied total
             at the top of the screen will be updated with the amount selected.
-            Also the Amount Open will be reduced by the amount selected.</para>
-        <para> Once the total invoice amount has been selected a message will
+            Also the Amount Open will be reduced by the amount selected.</para></listitem>
+        <listitem><para> Once the total invoice amount has been selected a message will
             be displayed and only the first part of the screen will be displayed
-        </para>
-        <para>The top part of the screen will now be updated to show the
+        </para></listitem>
+        <listitem><para>The top part of the screen will now be updated to show the
             'Payments Applied' total is equal to the invoice total and the
-            'Amount Open' is zero. </para>
+            'Amount Open' is zero. </para></listitem>
+        </orderedlist>
     </section>
     <section>
         <title>How do I update an applied payment for an invoice?</title>
-        <para>Payments that have been applied to an invoice can be updated.
+        <orderedlist>
+        <listitem><para>Payments that have been applied to an invoice can be updated.
             This means that you can change the details of the payment transaction
-            or adjust the amount that was applied to the invoice.</para>
-        <para>Select the 'Applications' sub menu for the invoice</para>
-        <para>A list of payments already applied to the invoice will be
-            displayed in the top part of the screen</para>
-        <para>Enter or use the lookup to change the 'Payment Id' if required
-        </para>
-        <para>Enter the updated amount in the 'Amount to Apply' field if
-            required</para>
-        <para>Press the 'Update' button</para>
+            or adjust the amount that was applied to the invoice.</para></listitem>
+        <listitem><para>Select the 'Applications' sub menu for the invoice</para></listitem>
+        <listitem><para>A list of payments already applied to the invoice will be
+            displayed in the top part of the screen</para></listitem>
+        <listitem><para>Enter or use the lookup to change the 'Payment Id' if required
+        </para></listitem>
+        <listitem><para>Enter the updated amount in the 'Amount to Apply' field if
+            required</para></listitem>
+        <listitem><para>Press the 'Update' button</para></listitem>
+        </orderedlist>
     </section>
     <section>
         <title>How do I remove an applied payment (or payments) from an
@@ -94,13 +100,14 @@ License.
         <para>NOTE TO CHECK: It can be done before transaction has been posted
             to GL but also need to check if its can be done if the transaction
             has been posted. </para>
-        <para>Select the 'Applications' sub menu for the invoice</para>
-        <para>A list of payments already applied to the invoice will be
-            displayed in the top part of the screen</para>
-        <para>Press the 'Remove' button next to the payment entry that needs
-            to be removed</para>
-        <para>The entry will be removed and the top part of the screen will be
-            update the 'Payments Applied' total and 'Amount Open'</para>
-
+        <orderedlist>
+        <listitem><para>Select the 'Applications' sub menu for the invoice</para></listitem>
+        <listitem><para>A list of payments already applied to the invoice will be
+            displayed in the top part of the screen</para></listitem>
+        <listitem><para>Press the 'Remove' button next to the payment entry that needs
+            to be removed</para></listitem>
+        <listitem><para>The entry will be removed and the top part of the screen will be
+            update the 'Payments Applied' total and 'Amount Open'</para></listitem>
+        </orderedlist>
     </section>
 </section>
