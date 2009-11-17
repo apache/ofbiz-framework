@@ -36,7 +36,7 @@ public final class SQLInsert<P extends InsertPlan<P>> extends SQLStatement<SQLIn
     }
 
     @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner) {
+    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
         return (PP) planner.plan(this);
     }
 

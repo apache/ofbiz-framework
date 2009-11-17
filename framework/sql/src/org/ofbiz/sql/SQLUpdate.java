@@ -35,7 +35,7 @@ public final class SQLUpdate<P extends UpdatePlan<P>> extends SQLStatement<SQLUp
     }
 
     @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner) {
+    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
         return (PP) planner.plan(this);
     }
 

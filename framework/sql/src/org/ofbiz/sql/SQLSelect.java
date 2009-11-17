@@ -52,7 +52,7 @@ public final class SQLSelect<P extends SelectPlan<P>> extends SQLStatement<SQLSe
     }
 
     @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner) {
+    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
         return (PP) planner.plan(this);
     }
 

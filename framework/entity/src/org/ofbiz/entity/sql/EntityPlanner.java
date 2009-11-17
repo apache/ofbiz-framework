@@ -63,8 +63,10 @@ import org.ofbiz.sql.Table;
 import org.ofbiz.sql.TableName;
 import org.ofbiz.sql.Value;
 
-public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
-    private final EntityConditionPlanner conditionPlanner = new EntityConditionPlanner();
+public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
+    public EntityPlanner() {
+        super(new EntityConditionPlanner());
+    }
 
     public EntityDeletePlan plan(SQLDelete<?> deleteStatement) {
         return null;
@@ -92,7 +94,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, Enti
         for (FieldDef fieldDef: selectStatement.getFieldDefs()) {
             addFieldDef(dve, groupBy, fieldDef.getAlias(), fieldDef);
         }
-        return new EntitySelectPlan(dve, buildCondition(selectStatement.getWhereCondition()), buildCondition(selectStatement.getHavingCondition()), selectStatement.getOrderBy());
+        return new EntitySelectPlan(dve, plan(selectStatement.getWhereCondition()), plan(selectStatement.getHavingCondition()), selectStatement.getOrderBy());
     }
 
     public EntityUpdatePlan plan(SQLUpdate<?> updateStatement) {
@@ -211,9 +213,5 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, Enti
             entityKeyMaps.add(new ModelKeyMap(keyMap.getLeftFieldName(), keyMap.getRightFieldName()));
         }
         return entityKeyMaps;
-    }
-
-    protected EntityCondition buildCondition(Condition condition) {
-        return conditionPlanner.buildCondition(condition);
     }
 }

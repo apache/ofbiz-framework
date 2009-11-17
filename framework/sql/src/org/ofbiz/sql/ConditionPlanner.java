@@ -18,31 +18,8 @@
  */
 package org.ofbiz.sql;
 
-public final class SQLView<P extends ViewPlan<P>> extends SQLStatement<SQLView<P>, P> {
-    private final String name;
-    private final SQLSelect sqlSelect;
+import java.util.Map;
 
-    public SQLView(String name, SQLSelect sqlSelect) {
-        this.name = name;
-        this.sqlSelect = sqlSelect;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public SQLSelect getSelect() {
-        return sqlSelect;
-    }
-
-    public StringBuilder appendTo(StringBuilder sb) {
-        sb.append("CREATE VIEW ").append(name).append(" AS ");
-        sqlSelect.appendTo(sb);
-        return sb;
-    }
+public interface ConditionPlanner<C> {
+    C parse(Condition originalCondition, Map<String, ? extends Object> params) throws ParameterizedConditionException;
 }
