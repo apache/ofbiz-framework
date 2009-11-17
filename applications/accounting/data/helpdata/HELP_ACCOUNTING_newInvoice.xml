@@ -24,37 +24,41 @@ License.
         supplier.</para>
     <section>
         <title>How do I create a new Sales invoice?</title>
-        <para>Press the 'Create New' button</para>
-        <para>The New Sales Invoice / New Purchase Invoice screen is
-            displayed></para>
-        <para>Using the top part of the screen, leave Invoice type with its
-            default of 'Sales Invoice'</para>
-        <para>Leave 'Organization Party Id' with its default of 'Company'
-        </para>
-        <para>Enter or use the lookup to find the 'To Party Id' (eg
-            DemoCustomer)</para>
-        <para>Press the 'Create' button in the top part of the screen</para>
-        <para>The invoice header has been created and the default header
-            screen will be displayed</para>
-        <para>Details on the invoice will need to be entered via the other sub
-            menus (eg Items, Time Entries etc)  </para>
+        <orderedlist>
+        <listitem><para>Press the 'Create New' button</para></listitem>
+        <listitem><para>The New Sales Invoice / New Purchase Invoice screen is
+            displayed></para></listitem>
+        <listitem><para>Using the top part of the screen, leave Invoice type with its
+            default of 'Sales Invoice'</para></listitem>
+        <listitem><para>Leave 'Organization Party Id' with its default of 'Company'
+        </para></listitem>
+        <listitem><para>Enter or use the lookup to find the 'To Party Id' (eg
+            DemoCustomer)</para></listitem>
+        <listitem><para>Press the 'Create' button in the top part of the screen</para></listitem>
+        <listitem><para>The invoice header has been created and the default header
+            screen will be displayed</para></listitem>
+        <listitem><para>Details on the invoice will need to be entered via the other sub
+            menus (eg Items, Time Entries etc)  </para></listitem>
+        </orderedlist>
     </section>
     <section>
         <title>How do I create a new Purchase invoice?</title>
-        <para>Press the 'Create New' button</para>
-        <para>The New Sales Invoice / New Purchase Invoice screen is
-            displayed></para>
-        <para>Using the bottom part of the screen, leave Invoice type with its
-            default of 'Purchase Invoice'</para>
-        <para>Leave 'Organization Party Id' with its default of 'Company'
-        </para>
-        <para>Enter or use the lookup to find the 'From Party Id' (eg
-            DemoSupplier)</para>
-        <para>Press the 'Create' button in the bottom part of the screen
-        </para>
-        <para>The invoice header has been created and the default header
-            screen will be displayed</para>
-        <para>Details on the invoice will need to be entered via the other sub
-            menus (eg Items, Time Entries etc)  </para>
+        <orderedlist>
+        <listitem><para>Press the 'Create New' button</para></listitem>
+        <listitem><para>The New Sales Invoice / New Purchase Invoice screen is
+            displayed></para></listitem>
+        <listitem><para>Using the bottom part of the screen, leave Invoice type with its
+            default of 'Purchase Invoice'</para></listitem>
+        <listitem><para>Leave 'Organization Party Id' with its default of 'Company'
+        </para></listitem>
+        <listitem><para>Enter or use the lookup to find the 'From Party Id' (eg
+            DemoSupplier)</para></listitem>
+        <listitem><para>Press the 'Create' button in the bottom part of the screen
+        </para></listitem>
+        <listitem><para>The invoice header has been created and the default header
+            screen will be displayed</para></listitem>
+        <listitem><para>Details on the invoice will need to be entered via the other sub
+            menus (eg Items, Time Entries etc)  </para></listitem>
+        </orderedlist>
     </section>
 </section>

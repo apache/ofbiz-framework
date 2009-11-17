@@ -22,21 +22,24 @@ License.
         transaction and allows all fields to be updated if required. </para>
 
     <para>The following options are currently available from this screen:
-    </para>
-    <para>* Create New (Create a new payment)</para>
-    <para>* Status to 'Received' (Change the status of the current payment
+    </para><itemizedlist>
+    <listitem><para>Create New (Create a new payment)</para></listitem>
+    <listitem><para>Status to 'Received' (Change the status of the current payment
         to 'Received. NOTE: This will create the relevant accounting
-        transactions and post them to the general ledger)</para>
-    <para>* Status to 'Cancelled' (Change the status of the current payment
-        to 'Cancelled')</para>
-    <para>* Status to 'Confirmed' (Change the status of the current invoice
+        transactions and post them to the general ledger)</para></listitem>
+    <listitem><para>Status to 'Cancelled' (Change the status of the current payment
+        to 'Cancelled')</para></listitem>
+    <listitem><para>Status to 'Confirmed' (Change the status of the current invoice
         to 'Confirmed'. NOTE: This status option will not appear until the
-        status has been changed to 'Received')</para>
+        status has been changed to 'Received')</para></listitem>
+    </itemizedlist>
     <section>
         <title>How do I update the header details for a Payment?</title>
-        <para>Select the 'Header' sub menu and the header details of the
-            payment will be displayed</para>
-        <para>Update the fields required</para>
-        <para>Press the 'Update' button</para>
+        <orderedlist>
+        <listitem><para>Select the 'Header' sub menu and the header details of the
+            payment will be displayed</para></listitem>
+        <listitem><para>Update the fields required</para></listitem>
+        <listitem><para>Press the 'Update' button</para></listitem>
+        </orderedlist>
     </section>
 </section>

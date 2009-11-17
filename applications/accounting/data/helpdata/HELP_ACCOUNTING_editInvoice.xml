@@ -20,13 +20,15 @@ License.
     <title>The Accounting Edit Invoice Header screen.</title>
     <para>The Invoice Header screen is used to view or update details from
         the invoice header. Examples of the type of information that can be
-        changed are I Due Date, Description, Currency.</para>
+        changed are Due Date, Description, Currency.</para>
     <section>
         <title>How do I update the header details for an Invoice?</title>
-        <para>Select the 'Header' sub menu and the header details of the
-            invoice will be displayed</para>
-        <para>Update the fields required</para>
-        <para> Press the 'Update' button</para>
+        <orderedlist>
+        <listitem><para>Select the 'Header' sub menu and the header details of the
+            invoice will be displayed</para></listitem>
+        <listitem><para>Update the fields required</para></listitem>
+        <listitem><para> Press the 'Update' button</para></listitem>
+        </orderedlist>
     </section>
 </section>
 

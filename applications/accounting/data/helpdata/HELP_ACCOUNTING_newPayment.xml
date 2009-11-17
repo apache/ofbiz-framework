@@ -23,44 +23,43 @@ License.
         types are used to describe what the payments are used for in the
         system.</para>
     <para>Examples of incoming payment types are as follows:</para>
-    <para>Customer Deposit</para>
-    <para>Customer Payment</para>
-    <para>Interest In</para>
-    <para>POS In (POS = Point of Sale)</para>
+    <itemizedlist>
+    <listitem><para>Customer Deposit</para></listitem>
+    <listitem><para>Customer Payment</para></listitem>
+    <listitem><para>Interest In</para></listitem>
+    <listitem><para>POS In (POS = Point of Sale)</para></listitem>
+    </itemizedlist>
     <para>Examples of outgoing payment types are as follows:</para>
-    <para>Commission Payment</para>
-    <para>Pay Check</para>
-    <para>Income Tax Payment</para>
-    <para>Vendor Payment</para>
+    <itemizedlist>
+    <listitem><para>Commission Payment</para></listitem>
+    <listitem><para>Pay Check</para></listitem>
+    <listitem><para>Income Tax Payment</para></listitem>
+    <listitem><para>Vendor Payment</para></listitem>
+    </itemizedlist>
     <section>
         <title>How do I create a new incoming payment?</title>
-        <para>Press the 'Create New Payment' button</para>
-        <para>The New Incoming Payment / New Outgoing Payment screen is
-            displayed</para>
-        <para>Leave 'Organization Party Id' with its default of 'Company'
-        </para>
-        <para>
+        <orderedlist>
+        <listitem><para>Press the 'Create New Payment' button</para></listitem>
+        <listitem><para>The New Incoming Payment / New Outgoing Payment screen is
+            displayed</para></listitem>
+        <listitem><para>Leave 'Organization Party Id' with its default of 'Company'
+        </para></listitem>
+        <listitem><para>
             Select the 'Payment Type Id' from the drop down box (NOTE: This
-            is
-            currently limited to the following: Customer Deposit, Customer
+            is currently limited to the following: Customer Deposit, Customer
             Payment, Interest In, POS Paid In and Gift Certificate Deposit)
-        </para>
-        <para>
-            Enter the payment amount in the 'Amount' field</para>
-        <para>
-            Enter or use the lookup to find the 'From Party Id'</para>
-        <para>
-            Select the 'Payment Method Type' from the drop down box (eg how
-            the payment was paid - cash, cheque, money order etc)</para>
-        <para>
-            Leave the 'Currency' field with its default of 'USD' (NOTE: This
-            default comes from Company)</para>
-        <para>
-            Press the 'Create' button</para>
-        <para>The payment header is created and the default header
-            screen will
-            be displayed subsection content</para>
-        <para>NOTE: Need to understand what happens if customer pays in a
+        </para></listitem>
+        <listitem><para>Enter the payment amount in the 'Amount' field</para></listitem>
+        <listitem><para>Enter or use the lookup to find the 'From Party Id'</para></listitem>
+        <listitem><para>Select the 'Payment Method Type' from the drop down box (eg how
+            the payment was paid - cash, cheque, money order etc)</para></listitem>
+        <listitem><para>Leave the 'Currency' field with its default of 'USD' (NOTE: This
+            default comes from Company)</para></listitem>
+        <listitem><para>Press the 'Create' button</para></listitem>
+        <listitem><para>The payment header is created and the default header
+            screen will be displayed subsection content</para></listitem>
+        </orderedlist>
+         <para>NOTE: Need to understand what happens if customer pays in a
             currency that is not the company default.... if the exchange rate is
             specified then I think it should convert the currency to the default
             currency for accounting purposes.... need to investigate and test.
@@ -68,23 +67,24 @@ License.
     </section>
     <section>
         <title>How do I create a new outgoing payment?</title>
-        <para>Press the 'Create New Payment' button</para>
-        <para>The New Incoming Payment / New Outgoing Payment screen is
-            displayed</para>
-        <para>Leave 'Organization Party Id' with its default of 'Company'
-        </para>
-        <para>Select the 'Payment Type Id' from the drop down box (NOTE: This
+        <orderedlist>
+        <listitem><para>Press the 'Create New Payment' button</para></listitem>
+        <listitem><para>The New Incoming Payment / New Outgoing Payment screen is
+            displayed</para></listitem>
+        <listitem><para>Leave 'Organization Party Id' with its default of 'Company'
+        </para></listitem>
+        <listitem><para>Select the 'Payment Type Id' from the drop down box (NOTE: This
             is currently limited to 11 entries including Commission Payment,
-            Customer Refund, Vendor Payment, Income Tax Payment)</para>
-        <para>Enter the payment amount in the 'Amount' field</para>
-        <para>Enter or use the lookup to find the 'To Party Id'</para>
-        <para>Select the 'Payment Method Type' from the drop down box (eg how
-            the payment is to be paid - cash, cheque, money order etc)</para>
-        <para>Leave the 'Currency' field with its default of 'USD' (NOTE: This
-            default comes from Company)</para>
-        <para>Press the 'Create' button</para>
-        <para>The payment header is created and the default header screen will
-            be displayed
-            subsection content</para>
+            Customer Refund, Vendor Payment, Income Tax Payment)</para></listitem>
+        <listitem><para>Enter the payment amount in the 'Amount' field</para></listitem>
+        <listitem><para>Enter or use the lookup to find the 'To Party Id'</para></listitem>
+        <listitem><para>Select the 'Payment Method Type' from the drop down box (eg how
+            the payment is to be paid - cash, cheque, money order etc)</para></listitem>
+        <listitem><para>Leave the 'Currency' field with its default of 'USD' (NOTE: This
+            default comes from Company)</para></listitem>
+        <listitem><para>Press the 'Create' button</para></listitem>
+        <listitem><para>The payment header is created and the default header screen will
+            be displayed subsection content</para></listitem>
+        </orderedlist>
     </section>
 </section>

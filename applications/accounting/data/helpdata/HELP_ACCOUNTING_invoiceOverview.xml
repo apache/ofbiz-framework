@@ -25,24 +25,16 @@ under the License.
     <title>The Accounting Invoice Overview screen.</title>
     <para>The Invoice Overview screen is used to display the summary of an invoice in a single view. The screen is divided into sections that show various information related to the invoice (eg Roles, Status, Terms, Items, Payments Applied, etc).</para>
    <para>The following options are currently available from this screen:</para>
-   <para>
-    * Create New (Create a new invoice)
-    </para><para>
-    * Copy (Create a copy of the current invoice)
-    </para><para>
-    * PDF (View a PDF of the current invoice)
-    </para><para>
-    * PDF default currency (NOTE TO CHECK: Need to see how this is different from just the PDF view......)
-    </para><para>
-    * Status to 'Approved' (Change the status of the current invoice to 'Approved)
-    </para><para>
-    * Status to 'Sent' (Change the status of the current invoice to 'Sent')
-    </para><para>
-    * Status to 'Ready' (Change the status of the current invoice to 'Ready'. NOTE: This will create the relevant accounting transactions and post them to the general ledger)
-    </para><para>
-    * Status to 'Cancelled' (Change the status of the current invoice to 'Cancelled')
-    </para><para>
-    * Save as Template (NOTE TO CHECK: Save the current invoice format as a template)
-    </para>
+   <itemizedlist>
+   <listitem><para>Create New (Create a new invoice)</para></listitem>
+   <listitem><para>Copy (Create a copy of the current invoice)</para></listitem>
+   <listitem><para>PDF (View a PDF of the current invoice)</para></listitem>
+   <listitem><para>PDF default currency (NOTE TO CHECK: Need to see how this is different from just the PDF view......)</para></listitem>
+   <listitem><para>Status to 'Approved' (Change the status of the current invoice to 'Approved)</para></listitem>
+   <listitem><para>Status to 'Sent' (Change the status of the current invoice to 'Sent')</para></listitem>
+   <listitem><para>Status to 'Ready' (Change the status of the current invoice to 'Ready'. NOTE: This will create the relevant accounting transactions and post them to the general ledger)</para></listitem>
+   <listitem><para>Status to 'Cancelled' (Change the status of the current invoice to 'Cancelled')</para></listitem>
+   <listitem><para>Save as Template (NOTE TO CHECK: Save the current invoice format as a template)</para></listitem>
+   </itemizedlist>
 </section>
 

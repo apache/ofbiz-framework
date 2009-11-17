@@ -32,16 +32,18 @@ License.
         be given a 'grace period' after which the invoice is due.</para>
     <section>
         <title>How do I find Purchase Invoices by Due Date?</title>
-        <para>Press the 'Find Purchase Invoices by Due Date' button</para>
-        <para>The Find Purchase Invoices by Due Date screen is displayed
-        </para>
-        <para>Enter the 'Organization Party Id' (eg. Normally this will be
-            Company)</para>
-        <para>Enter the 'Party Id' that the Purchase Invoice (eg. Normally
-            this will be the Supplier Party Id)</para>
-        <para>Enter a number in the 'Days Offset' field that represents the
+        <orderedlist>
+        <listitem><para>Press the 'Find Purchase Invoices by Due Date' button</para></listitem>
+        <listitem><para>The Find Purchase Invoices by Due Date screen is displayed
+        </para></listitem>
+        <listitem><para>Enter the 'Organization Party Id' (eg. Normally this will be
+            Company)</para></listitem>
+        <listitem><para>Enter the 'Party Id' that the Purchase Invoice (eg. Normally
+            this will be the Supplier Party Id)</para></listitem>
+        <listitem><para>Enter a number in the 'Days Offset' field that represents the
             number of in which the invoice will become due (eg If an invoice is
-            due to be paid in 5 days then enter 5 or greater)</para>
-        <para>Press the 'Select' button</para>
+            due to be paid in 5 days then enter 5 or greater)</para></listitem>
+        <listitem><para>Press the 'Select' button</para></listitem>
+        </orderedlist>
     </section>
 </section>
