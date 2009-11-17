@@ -99,6 +99,26 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
+    public static class DurationToBigDecimal extends AbstractConverter<TimeDuration, java.math.BigDecimal> {
+        public DurationToBigDecimal() {
+            super(TimeDuration.class, java.math.BigDecimal.class);
+        }
+
+        public java.math.BigDecimal convert(TimeDuration obj) throws ConversionException {
+             return new java.math.BigDecimal(TimeDuration.toLong(obj));
+        }
+    }
+
+    public static class DurationToLong extends AbstractConverter<TimeDuration, Long> {
+        public DurationToLong() {
+            super(TimeDuration.class, Long.class);
+        }
+
+        public Long convert(TimeDuration obj) throws ConversionException {
+             return TimeDuration.toLong(obj);
+        }
+    }
+
     public static class DurationToString extends AbstractConverter<TimeDuration, String> {
         public DurationToString() {
             super(TimeDuration.class, String.class);
