@@ -258,5 +258,18 @@ function ShowTab(lname) {
       </#list>
     </#if>
   </div>
+  <div class="screenlet">
+    <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.WebtoolsEntityXMLRepresentation}</h3>
+    </div>
+    <div class="screenlet-body">
+      <p>
+      <#if value?has_content>
+        <#assign valueXmlDoc = Static["org.ofbiz.entity.GenericValue"].makeXmlDocument([value]) />
+        ${Static["org.ofbiz.base.util.UtilXml"].writeXmlDocument(valueXmlDoc)?replace("\n", "<br/>")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
+      </#if>
+      </p>
+    </div>
+  </div>
   <br class="clear"/>
 </div>
