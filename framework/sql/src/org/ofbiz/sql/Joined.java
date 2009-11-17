@@ -21,7 +21,7 @@ package org.ofbiz.sql;
 import java.util.Iterator;
 import java.util.List;
 
-public final class Joined implements Iterable<KeyMap> {
+public final class Joined extends Atom implements Iterable<KeyMap> {
     private final boolean isOptional;
     private final TableName tableName;
     private final List<KeyMap> keyMaps;
@@ -52,6 +52,10 @@ public final class Joined implements Iterable<KeyMap> {
 
     public Joined getJoined() {
         return joined;
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        return appendTo("left", sb);
     }
 
     public StringBuilder appendTo(String leftAlias, StringBuilder sb) {

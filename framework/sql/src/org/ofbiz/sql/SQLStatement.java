@@ -18,12 +18,6 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public abstract class SQLStatement<S extends SQLStatement<S, P>, P extends SQLPlan<P>> implements Appender<StringBuilder> {
+public abstract class SQLStatement<S extends SQLStatement<S, P>, P extends SQLPlan<P>> extends Atom {
     public abstract <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?> planner);
-
-    public String toString() {
-        return appendTo(new StringBuilder()).toString();
-    }
 }

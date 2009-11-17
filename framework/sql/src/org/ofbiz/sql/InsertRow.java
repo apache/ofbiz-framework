@@ -21,10 +21,9 @@ package org.ofbiz.sql;
 import java.util.Iterator;
 import java.util.List;
 
-import org.ofbiz.base.util.Appender;
 import org.ofbiz.base.util.StringUtil;
 
-public final class InsertRow implements Appender<StringBuilder>, Iterable<Value> {
+public final class InsertRow extends Atom implements Iterable<Value> {
     private final List<Value> values;
 
     public InsertRow(List<Value> values) {

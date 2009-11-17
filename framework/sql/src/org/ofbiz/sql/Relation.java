@@ -21,9 +21,7 @@ package org.ofbiz.sql;
 import java.util.Iterator;
 import java.util.List;
 
-import org.ofbiz.base.util.Appender;
-
-public final class Relation implements Appender<StringBuilder>, Iterable<KeyMap> {
+public final class Relation extends Atom implements Iterable<KeyMap> {
     private final String type;
     private final String title;
     private final String entityName;

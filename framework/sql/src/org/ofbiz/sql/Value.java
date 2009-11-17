@@ -18,10 +18,5 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public abstract class Value implements Appender<StringBuilder> {
-    public String toString() {
-        return appendTo(new StringBuilder()).toString();
-    }
+public abstract class Value extends Atom {
 }

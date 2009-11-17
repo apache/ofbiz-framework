@@ -18,9 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public final class Table implements Appender<StringBuilder> {
+public final class Table extends Atom {
     private final TableName tableName;
     private final Joined joined;
 
@@ -39,10 +37,6 @@ public final class Table implements Appender<StringBuilder> {
 
     public Joined getJoined() {
         return joined;
-    }
-
-    public String toString() {
-        return appendTo(new StringBuilder()).toString();
     }
 
     public StringBuilder appendTo(StringBuilder sb) {

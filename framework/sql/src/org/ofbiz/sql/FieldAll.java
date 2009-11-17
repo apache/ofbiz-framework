@@ -21,10 +21,9 @@ package org.ofbiz.sql;
 import java.util.Iterator;
 import java.util.List;
 
-import org.ofbiz.base.util.Appender;
 import org.ofbiz.base.util.StringUtil;
 
-public final class FieldAll implements Appender<StringBuilder>, Iterable<String> {
+public final class FieldAll extends Atom implements Iterable<String> {
     private final String alias;
     private final List<String> exclude;
 

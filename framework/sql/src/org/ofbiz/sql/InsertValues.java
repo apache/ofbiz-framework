@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class InsertValues implements InsertSource, Iterable<InsertRow> {
+public final class InsertValues extends Atom implements InsertSource, Iterable<InsertRow> {
     private final List<InsertRow> rows;
 
     public InsertValues(List<InsertRow> rows) {

@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class ConditionList implements Condition, Iterable<Condition> {
+public final class ConditionList extends Condition implements Iterable<Condition> {
     private final Joiner joiner;
     private final List<Condition> conditions;
 
