@@ -65,7 +65,7 @@ License.
         <para>A list of invoices with the required status will be displayed </para>
     </section>
     <section>
-        <title>ow do I capture a payment for an invoice?</title>
+        <title>How do I capture a payment for an invoice?</title>
         <para>IMPORTANT: In order for this to work a payment needs to have been made to the billing
             account that has not been completely applied to any other invoices. Payments to a
             billing account can be done via the 'Payments' sub menu for the billing account or by

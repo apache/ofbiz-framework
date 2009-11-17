@@ -17,32 +17,75 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-    xmlns:xi="http://www.w3.org/2001/XInclude"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-       <title>The Edit Financial Account Transactions screen.</title>
-         <section>
+    <title>The Edit Financial Account Transactions screen.</title>
+    <section>
         <title>How do I add transactions to a financial account?</title>
-               <para>An example of how to bring in an opening balance is shown below:</para>
-            <para>Navigate to the the Financial Account Transactions sub menu</para> 
-             <para>Select 'Adjustment' in the Fin Account Trans Type Id field</para>
-               <para>Leave the 'Party Id' field blank</para>
-               <para>Fill in the 'Transaction Date' field</para>
-               <para>Fill in the 'Entry Date' field (NOTE TO CHECK: Need to check exactly what this is - is it the date the transaction is entered or is it the date the transaction is processed?)</para>
-               <para>Fill in the 'Amount' field with the transaction amount (Eg. In our case this is the opening balance such as 353.88 - dont think we need the $ sign)</para>
-               <para>Leave the 'Payment Id' field blank</para>
-               <para>Leave the 'Order Id' field blank</para>
-               <para>Leave the 'Order Item Seq Id' field blank</para>
-              <para>Leave the 'Reason Enum Id' field blank (NOTE TO CHECK: This could be useful in identifying transactions to a greater level of detail....)</para>
-              <para>Fill in the 'Comments' field (Eg: Opening Balance from XYZ Statement)</para>
-              <para>Press the 'Add' button and the transaction will be displayed at the bottom of the screen</para>
-            <para>NOTE: When you now view the Financial Account detail the 'Actual Balance' and 'Available Balance' fields will show the entered opening balance (eg 353.88)</para>
-        </section>
-        <section>
+        <para>An example of how to bring in an opening balance is shown below:</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Navigate to the the Financial Account Transactions sub menu</para>
+                </listitem>
+                <listitem>
+                    <para>Select 'Adjustment' in the Fin Account Trans Type Id field</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Party Id' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the 'Transaction Date' field</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the 'Entry Date' field (NOTE TO CHECK: Need to check exactly what
+                        this is - is it the date the transaction is entered or is it the date the
+                        transaction is processed?)</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the 'Amount' field with the transaction amount (Eg. In our case
+                        this is the opening balance such as 353.88 - dont think we need the $
+                        sign)</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Payment Id' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Order Id' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Order Item Seq Id' field blank</para>
+                </listitem>
+                <listitem>
+                    <para>Leave the 'Reason Enum Id' field blank (NOTE TO CHECK: This could be
+                        useful in identifying transactions to a greater level of detail....)</para>
+                </listitem>
+                <listitem>
+                    <para>Fill in the 'Comments' field (Eg: Opening Balance from XYZ
+                        Statement)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Add' button and the transaction will be displayed at the bottom
+                        of the screen</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>NOTE: When you now view the Financial Account detail the 'Actual Balance' and
+            'Available Balance' fields will show the entered opening balance (eg 353.88)</para>
+    </section>
+    <section>
         <title>Other ways to add transactions to a financial account?</title>
-        <para>By selecting financial account as a payment method for a customer</para>
-        <para>By selecting financial account as a refund method for a customer </para>
-        </section>
+        <para>
+            <itemizedlist>
+                <listitem>
+                    <para>By selecting financial account as a payment method for a customer</para>
+                </listitem>
+                <listitem>
+                    <para>By selecting financial account as a refund method for a customer </para>
+                </listitem>
+            </itemizedlist>
+        </para>
+    </section>
 </section>
