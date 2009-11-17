@@ -27,6 +27,7 @@ import org.ofbiz.base.util.UtilMisc;
 
 /** Miscellaneous Converter classes. */
 public class MiscConverters implements ConverterLoader {
+
     public static final int CHAR_BUFFER_SIZE = 4096;
 
     public static class ClobToString extends AbstractConverter<Clob, String> {
@@ -65,6 +66,20 @@ public class MiscConverters implements ConverterLoader {
 
         public String convert(Locale obj) throws ConversionException {
              return obj.toString();
+        }
+    }
+
+    public static class StringToClob extends AbstractConverter<String, Clob> {
+        public StringToClob() {
+            super(String.class, Clob.class);
+        }
+
+        public Clob convert(String obj) throws ConversionException {
+            try {
+                return new javax.sql.rowset.serial.SerialClob(obj.toCharArray());
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
         }
     }
 
