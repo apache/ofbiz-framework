@@ -63,7 +63,7 @@ import org.ofbiz.sql.Table;
 import org.ofbiz.sql.TableName;
 import org.ofbiz.sql.Value;
 
-public class EntityPlanner implements Planner<EntityPlanner, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
+public class EntityPlanner extends Planner<EntityPlanner, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
     public EntityDeletePlan plan(SQLDelete<?> deleteStatement) {
         return null;
     }
