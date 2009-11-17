@@ -286,23 +286,43 @@ under the License.
         <entity-one entity-name="Invoice" value-field="invoice">
             <field-map field-name="invoiceId" from-field="invoiceId"/>
         </entity-one>
-        <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList" order-by-list="[-transactionDate]"/>
-        <first-from-list list="acctgTransList" entry="acctgTrans"/>
-        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+        <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList"/>
+
+        <!-- Check the invoice transaction -->
+        <set field="acctgTransFilter.acctgTransTypeId" value="SALES_INVOICE"/>
+        <filter-list-by-and to-list="salesAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
+        <first-from-list entry="salesAcctgTrans" list="salesAcctgTransList"/>
+        <get-related value-field="salesAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
 
         <call-simple-method method-name="UtilCheckEntriesBalance"/>
 
-        <set field="checkMap.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
-        <set field="checkMap.glAccountId" value="120000"/>
-        <filter-list-by-and list="acctgTransEntryList" to-list="accountsReceivableEntries" map="checkMap"/>
+        <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="accountsReceivableEntries" map="acctgTransEntryFilter"/>
         <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
 
-        <clear-field field="checkMap"/>
-        <set field="checkMap.glAccountId" value="400000"/>
-        <filter-list-by-and list="acctgTransEntryList" to-list="salesAccountEntries" map="checkMap"/>
+        <clear-field field="acctgTransEntryFilter"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="400000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="salesAccountEntries" map="acctgTransEntryFilter"/>
         <assert><not><if-empty field="salesAccountEntries"></if-empty></not></assert>
+
+        <!-- Check the payment transaction -->
+        <clear-field field="acctgTransEntryFilter"/>
+        <set field="acctgTransFilter.acctgTransTypeId" value="PAYMENT_APPL"/>
+        <filter-list-by-and to-list="paymentAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
+        <first-from-list entry="paymentAcctgTrans" list="paymentAcctgTransList"/>
+        <get-related value-field="paymentAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+
+        <set field="acctgTransEntryFilter.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="120000"/>
+        <filter-list-by-and list="acctgTransEntryList" to-list="accountsReceivableEntries" map="acctgTransEntryFilter"/>
+        <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
 
         <check-errors/>
     </simple-method>
@@ -320,7 +340,15 @@ under the License.
               * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
         -->
 
-        <set field="paymentId" value="10000"/>
+        <!-- Find Payment by paymentPreferenceId from demo order DEMO10090 -->
+        <entity-condition list="payments" entity-name="Payment"><order-by field-name="-effectiveDate"/></entity-condition>
+        <entity-and list="payments" entity-name="Payment">
+            <field-map field-name="paymentPreferenceId" value="9000"/>
+            <order-by field-name="-effectiveDate"/>
+        </entity-and>
+        <first-from-list entry="payment" list="payments"/>
+        <set field="paymentId" from-field="payment.paymentId"/>
+
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -543,7 +571,7 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="UtilCheckEntriesBalance" 
+    <simple-method method-name="UtilCheckEntriesBalance" login-required="false"
             short-description="Short util method that takes a list of AcctgTransEntry values (acctgTransEntryList) and checks that the debit and credit totals balance.">
         <set field="debitTotal" type="BigDecimal" value="0.0"/>
         <set field="creditTotal" type="BigDecimal" value="0.0"/>
