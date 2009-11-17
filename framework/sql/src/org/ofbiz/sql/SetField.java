@@ -18,9 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public final class SetField implements Appender<StringBuilder> {
+public final class SetField extends Atom {
     private final String name;
     private final Value value;
 

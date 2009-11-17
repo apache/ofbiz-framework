@@ -18,33 +18,10 @@
  */
 package org.ofbiz.sql;
 
-public final class BooleanCondition extends Condition {
-    private final Value left;
-    private final String op;
-    private final Value right;
+import org.ofbiz.base.util.Appender;
 
-    public BooleanCondition(Value left, String op, Value right) {
-        this.left = left;
-        this.op = op;
-        this.right = right;
-    }
-
-    public Value getLeft() {
-        return left;
-    }
-
-    public String getOp() {
-        return op;
-    }
-
-    public Value getRight() {
-        return right;
-    }
-
-    public StringBuilder appendTo(StringBuilder sb) {
-        left.appendTo(sb);
-        sb.append(' ').append(op).append(' ');
-        right.appendTo(sb);
-        return sb;
+public abstract class Atom implements Appender<StringBuilder> {
+    public String toString() {
+        return appendTo(new StringBuilder()).toString();
     }
 }

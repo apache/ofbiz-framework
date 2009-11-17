@@ -18,9 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public final class TableName implements Appender<StringBuilder> {
+public final class TableName extends Atom {
     private final String tableName;
     private final String alias;
 
@@ -35,10 +33,6 @@ public final class TableName implements Appender<StringBuilder> {
 
     public final String getAlias() {
         return alias;
-    }
-
-    public String toString() {
-        return appendTo(new StringBuilder()).toString();
     }
 
     public StringBuilder appendTo(StringBuilder sb) {

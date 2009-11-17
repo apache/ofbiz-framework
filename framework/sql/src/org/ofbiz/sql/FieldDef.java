@@ -18,9 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public abstract class FieldDef implements Appender<StringBuilder> {
+public abstract class FieldDef extends Atom {
     protected final String alias;
 
     protected FieldDef(String alias) {
@@ -29,9 +27,5 @@ public abstract class FieldDef implements Appender<StringBuilder> {
 
     public final String getAlias() {
         return alias;
-    }
-
-    public String toString() {
-        return appendTo(new StringBuilder()).toString();
     }
 }

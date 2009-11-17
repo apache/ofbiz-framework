@@ -18,5 +18,8 @@
  */
 package org.ofbiz.sql;
 
-public abstract class SQLPlan<P extends SQLPlan<P>> {
+public abstract class SQLPlan<P extends SQLPlan<P>> extends Atom {
+    public StringBuilder appendTo(StringBuilder sb) {
+        return sb.append("SQLPlan[").append(getClass().getName()).append("]");
+    }
 }

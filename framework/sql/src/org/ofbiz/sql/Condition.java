@@ -18,7 +18,5 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
-
-public interface Condition extends Appender<StringBuilder> {
+public abstract class Condition extends Atom {
 }
