@@ -1194,6 +1194,9 @@
         <value xml:lang="th">แสดง Entity </value>
         <value xml:lang="zh">浏览实体 </value>
     </property>
+    <property key="WebtoolsEntityXMLRepresentation">
+        <value xml:lang="en">Entity XML Representation</value>
+    </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
         <value xml:lang="en">Entity XML Tools</value>
