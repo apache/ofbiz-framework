@@ -216,7 +216,7 @@ under the License.
         <set field="shipGroupSeqId" value="00001"/>
         <set field="orderItemSeqId" value="00001"/>
         <set field="inventoryItemId" value="9001"/>
-        <set field="quantity" value="1" type="BigDecimal"/>
+        <set field="quantity" value="2" type="BigDecimal"/>
         <set field="productId" value="GZ-2644"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
@@ -273,16 +273,27 @@ under the License.
               * Credit; in account=400000 - Account Type="SALES_ACCOUNT"
               * Debit; in  account=120000 - Account Type="ACCOUNTS_RECEIVABLE"
         -->
-
-        <set field="invoiceId" value="CI1"/>
-
+        <!-- Note: The above notes seem to assume that you are going to manually follow the preconditions above before running this test.
+                   Instead the test will now use order DEMO10090 which currently preconditions 1-4 fulfilled, and we'll then update the
+                   shipment to the packed status (precondition 4).  Additionally it doesn't seem to be necessary to set the invoice status
+                   to ready because the invoice is created in that state.
+        -->
+        
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <set field="serviceCtx.invoiceId" from-field="invoiceId"/>
-        <set field="serviceCtx.statusId" value="INVOICE_READY"/>
-        <call-service service-name="setInvoiceStatus" in-map-name="serviceCtx"/>
+
+        <set field="serviceCtx.userLogin"  from-field="userLogin"/>
+        <set field="serviceCtx.shipmentId" value="9998"/>
+        <set field="serviceCtx.statusId" value="SHIPMENT_PACKED"/>
+        <call-service service-name="updateShipment" in-map-name="serviceCtx"/>
+
+        <entity-condition list="shipmentItemBillings" entity-name="ShipmentItemBilling">
+            <condition-expr field-name="shipmentId" value="9998"/>
+            <order-by field-name="-createdStamp"/>
+        </entity-condition>
+        <first-from-list entry="shipmentItemBilling" list="shipmentItemBillings"/>
+        <set field="invoiceId" from-field="shipmentItemBilling.invoiceId"/>
 
         <entity-one entity-name="Invoice" value-field="invoice">
             <field-map field-name="invoiceId" from-field="invoiceId"/>
@@ -292,22 +303,38 @@ under the License.
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
 
         <assert><not><if-empty field="acctgTransEntries"/></not></assert>
+        <set field="debitTotal" value="0" type="BigDecimal"/>
+        <set field="creditTotal" value="0" type="BigDecimal"/>
         <iterate entry="acctgTransEntry" list="acctgTransEntries">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-            <!--<assert>
-                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="SALES_ACCOUNT"/>
-                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="400000"/>
-                </assert>-->
+                <calculate field="creditTotal">
+                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
+                    <calcop operator="get" field="creditTotal"/>
+                </calculate>
             <else>
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                    <assert>
-                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
-                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
-                    </assert>
+	                <calculate field="debitTotal">
+	                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
+                        <calcop operator="get" field="debitTotal"/>
+	                </calculate>
                 </if-compare>
             </else>
             </if-compare>
         </iterate>
+        <assert>
+            <if-compare-field field="debitTotal" operator="equals" to-field="creditTotal"/>
+        </assert>
+
+        <set field="checkMap.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <set field="checkMap.glAccountId" value="120000"/>
+        <filter-list-by-and list="acctgTransEntries" to-list="accountsReceivableEntries" map="checkMap"/>
+        <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
+
+        <clear-field field="checkMap"/>
+        <set field="checkMap.glAccountId" value="400000"/>
+        <filter-list-by-and list="acctgTransEntries" to-list="salesAccountEntries" map="checkMap"/>
+        <assert><not><if-empty field="salesAccountEntries"></if-empty></not></assert>
+
         <check-errors/>
     </simple-method>
 
