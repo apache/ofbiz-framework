@@ -35,7 +35,7 @@ public final class Main {
         System.err.println("\tplan=" + plan);
     }
 
-    private final static class DebugPlanner implements Planner {
+    private final static class DebugPlanner extends Planner {
         public SQLPlan plan(SQLStatement statement) {
             return null;
         }

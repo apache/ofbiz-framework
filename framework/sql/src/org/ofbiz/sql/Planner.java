@@ -18,10 +18,10 @@
  */
 package org.ofbiz.sql;
 
-public interface Planner<P extends Planner<P, D, I, S, U, V>, D extends DeletePlan<D>, I extends InsertPlan<I>, S extends SelectPlan<S>, U extends UpdatePlan<U>, V extends ViewPlan<V>> {
-    D plan(SQLDelete<?> deleteStatement);
-    I plan(SQLInsert<?> insertStatement);
-    S plan(SQLSelect<?> selectStatement);
-    U plan(SQLUpdate<?> updateStatement);
-    V plan(SQLView<?> viewStatement);
+public abstract class Planner<P extends Planner<P, D, I, S, U, V>, D extends DeletePlan<D>, I extends InsertPlan<I>, S extends SelectPlan<S>, U extends UpdatePlan<U>, V extends ViewPlan<V>> {
+    public abstract D plan(SQLDelete<?> deleteStatement);
+    public abstract I plan(SQLInsert<?> insertStatement);
+    public abstract S plan(SQLSelect<?> selectStatement);
+    public abstract U plan(SQLUpdate<?> updateStatement);
+    public abstract V plan(SQLView<?> viewStatement);
 }
