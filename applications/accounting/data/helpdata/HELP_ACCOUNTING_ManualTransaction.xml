@@ -13,34 +13,62 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for
 the specific language governing permissions and limitations under the
 License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Manual Transaction help screen</title>
-    <para>The Manual Electronic Transaction screen allows the user to
-        manually input and process payment related transactions.</para>
+    <para>The Manual Electronic Transaction screen allows the user to manually input and process
+        payment related transactions.</para>
     <para>Options available include the following:</para>
-    <para>Authorising payment transactions</para>
-    <para>Refunding payments</para>
-    <para>Payment Re-Authorisation</para>
-    <para>Payment Capture</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Authorising payment transactions</para>
+            </listitem>
+            <listitem>
+                <para>Refunding payments</para>
+            </listitem>
+            <listitem>
+                <para>Payment Re-Authorisation</para>
+            </listitem>
+            <listitem>
+                <para>Payment Capture</para>
+            </listitem>
+        </itemizedlist>
+    </para>
     <section>
         <title>How do I create a manual electronic transaction?</title>
-        <para>Select the 'Payment Method Type' (eg Credit Card)</para>
-        <para>Select the 'Product Store'</para>
-        <para>Select the 'Transaction Type' (NOTE: This is the type of
-            transaction that needs to be created, eg authorisation,
-            capture,refund etc)</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Payment Method Type' (eg Credit Card)</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Product Store'</para>
+                </listitem>
+                <listitem>
+                    <para>Select the 'Transaction Type' (NOTE: This is the type of transaction that
+                        needs to be created, eg authorisation, capture,refund etc)</para>
+                </listitem>
+            </orderedlist>
+        </para>
         <para>Additional fields will be displayed </para>
-        <para>Enter the required details (eg name, credit card, billing
-            address, amount etc)</para>
-        <para>Press the 'Submit' button</para>
-        <para>A transsaction will be created that can be viewed via the
-            Gateway Transactions screen</para>
-        <para>NOTE TO CHECK: Possible bug as could not get this to work using
-            'Payment Authorisation Service' and error message appeared regarding
-            a missing parameter missing for Order Preference Id but the Order
-            Preference Id was not displayed on the screen</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Enter the required details (eg name, credit card, billing address, amount
+                        etc)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Submit' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
+        <para>A transsaction will be created that can be viewed via the Gateway Transactions
+            screen</para>
+        <para>NOTE TO CHECK: Possible bug as could not get this to work using 'Payment Authorisation
+            Service' and error message appeared regarding a missing parameter missing for Order
+            Preference Id but the Order Preference Id was not displayed on the screen</para>
     </section>
 </section>

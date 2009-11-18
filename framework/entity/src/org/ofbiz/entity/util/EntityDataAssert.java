@@ -72,8 +72,7 @@ public class EntityDataAssert {
         if (valueList == null) return;
 
         Iterator<GenericValue> valueIter = valueList.iterator();
-        while (valueIter.hasNext()) {
-            GenericValue checkValue = valueIter.next();
+        for (GenericValue checkValue : valueList) {
             checkSingleValue(checkValue, delegator, errorMessages);
         }
     }
