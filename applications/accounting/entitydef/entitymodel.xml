@@ -2949,6 +2949,7 @@ under the License.
     <alias entity-alias="PM" name="glAccountId"/>
     <alias entity-alias="PM" name="fromDate"/>
     <alias entity-alias="PM" name="thruDate"/>
+    <alias entity-alias="PM" name="description"/>
     <alias entity-alias="CC" name="cardType"/>
     <alias entity-alias="CC" name="cardNumber"/>
     <alias entity-alias="CC" name="expireDate"/>
