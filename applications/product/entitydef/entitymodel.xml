@@ -789,6 +789,7 @@ under the License.
       <field name="partyId" type="id"></field>
       <field name="geoId" type="id"></field>
       <field name="workEffortId" type="id"></field>
+      <field name="fixedAssetId" type="id"></field>
       <field name="costComponentCalcId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -815,6 +816,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="COST_COMP_WEFF" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="COST_COMP_FXADSST" rel-entity-name="FixedAsset">
+        <key-map field-name="fixedAssetId"/>
       </relation>
       <relation type="one" fk-name="COST_COMP_CALC" rel-entity-name="CostComponentCalc">
         <key-map field-name="costComponentCalcId"/>
