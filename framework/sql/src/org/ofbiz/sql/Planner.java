@@ -37,9 +37,18 @@ public abstract class Planner<P extends Planner<P, C, D, I, S, U, V>, C, D exten
         }
     }
 
-    public abstract D plan(SQLDelete<?> deleteStatement);
-    public abstract I plan(SQLInsert<?> insertStatement);
-    public abstract S plan(SQLSelect<?> selectStatement);
-    public abstract U plan(SQLUpdate<?> updateStatement);
-    public abstract V plan(SQLView<?> viewStatement);
+    public SQLPlan<?> plan(SQLStatement statement) {
+        if (statement instanceof SQLDelete) return planDelete((SQLDelete) statement);
+        if (statement instanceof SQLInsert) return planInsert((SQLInsert) statement);
+        if (statement instanceof SQLSelect) return planSelect((SQLSelect) statement);
+        if (statement instanceof SQLUpdate) return planUpdate((SQLUpdate) statement);
+        if (statement instanceof SQLView) return planView((SQLView) statement);
+        return null;
+    }
+
+    public abstract D planDelete(SQLDelete deleteStatement);
+    public abstract I planInsert(SQLInsert insertStatement);
+    public abstract S planSelect(SQLSelect selectStatement);
+    public abstract U planUpdate(SQLUpdate updateStatement);
+    public abstract V planView(SQLView viewStatement);
 }

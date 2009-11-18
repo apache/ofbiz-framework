@@ -162,10 +162,10 @@ TOKEN: {
 
 // -------------------
 
-public List<SQLStatement<?, ?>> SQLFile():
+public List<SQLStatement<?>> SQLFile():
 {
-	List<SQLStatement<?, ?>> list = FastList.newInstance();
-	SQLStatement<?, ?> statement;
+	List<SQLStatement<?>> list = FastList.newInstance();
+	SQLStatement<?> statement;
 }
 {
 	( statement=Statement() ( <SEMI> )? { list.add(statement); } )*

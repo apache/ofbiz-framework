@@ -18,18 +18,13 @@
  */
 package org.ofbiz.sql;
 
-public final class SQLView<P extends ViewPlan<P>> extends SQLStatement<SQLView<P>, P> {
+public final class SQLView extends SQLStatement<SQLView> {
     private final String name;
     private final SQLSelect sqlSelect;
 
     public SQLView(String name, SQLSelect sqlSelect) {
         this.name = name;
         this.sqlSelect = sqlSelect;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
     }
 
     public String getName() {

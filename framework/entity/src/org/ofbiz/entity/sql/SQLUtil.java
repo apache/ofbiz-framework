@@ -29,7 +29,7 @@ public class SQLUtil {
     private static final EntityPlanner planner = new EntityPlanner();
 
     public static EntitySelectPlan parseSelect(String sql) throws ParseException {
-       return planner.plan(new Parser(new StringReader(sql)).SelectStatement());
+       return planner.planSelect(new Parser(new StringReader(sql)).SelectStatement());
     }
     /*
     public static EntityCondition parseCondition(String condition) throws ParseException {

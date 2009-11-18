@@ -18,18 +18,13 @@
  */
 package org.ofbiz.sql;
 
-public final class SQLDelete<P extends DeletePlan<P>> extends SQLStatement<SQLDelete<P>, P> {
+public final class SQLDelete extends SQLStatement<SQLDelete> {
     private final Table table;
     private final Condition whereCondition;
 
     public SQLDelete(Table table, Condition whereCondition) {
         this.table = table;
         this.whereCondition = whereCondition;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
     }
 
     public Table getTable() {
