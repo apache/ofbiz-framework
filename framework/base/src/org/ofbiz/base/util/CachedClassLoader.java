@@ -106,7 +106,7 @@ public class CachedClassLoader extends URLClassLoader {
      * the alias for <code>java.lang.Object</code> is <code>Object</code>.
      * If the alias already exists for another class, then no alias is created
      * (the previously aliased class takes precedence).</p>
-     * 
+     *
      * @param theClass The <code>Class</code> to register
      * @throws IllegalArgumentException If <code>theClass</code> is an array
      */
@@ -119,7 +119,7 @@ public class CachedClassLoader extends URLClassLoader {
             if (obj == null) {
                 globalClassNameClassMap.put(theClass.getName(), theClass);
             }
-            String alias = theClass.getName(); 
+            String alias = theClass.getName();
             int pos = alias.lastIndexOf(".");
             if (pos != -1) {
                 alias = alias.substring(pos + 1);

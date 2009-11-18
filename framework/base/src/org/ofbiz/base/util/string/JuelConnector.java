@@ -129,7 +129,7 @@ public class JuelConnector {
             Symbol start_eval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
             if (this.getToken().getSymbol() == start_eval) {
                 consumeToken();
-                AstNode node = expr(true); 
+                AstNode node = expr(true);
                 try {
                     consumeToken(END_EVAL);
                 } catch (ParseException e) {

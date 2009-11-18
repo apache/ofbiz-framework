@@ -24,7 +24,7 @@ import java.util.TimeZone;
 /** Localized converter interface. */
 public interface LocalizedConverter<S, T> extends Converter<S, T> {
     /** Converts <code>obj</code> to <code>T</code>.
-     * 
+     *
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
      * @param timeZone The time zone used for conversion - must not be <code>null</code>
@@ -34,7 +34,7 @@ public interface LocalizedConverter<S, T> extends Converter<S, T> {
     public T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException;
 
     /** Converts <code>obj</code> to <code>T</code>.
-     * 
+     *
      * @param obj The source <code>Object</code> to convert
      * @param locale The locale used for conversion - must not be <code>null</code>
      * @param timeZone The time zone used for conversion - must not be <code>null</code>

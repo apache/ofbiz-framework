@@ -105,7 +105,7 @@ public class GroovyUtil {
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
                 parsedScripts.put(script, scriptClass);
             }
-            
+
             return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
         } catch (CompilationFailedException e) {
             String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
@@ -115,7 +115,7 @@ public class GroovyUtil {
             throw new GeneralException(errMsg, e);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
         try {

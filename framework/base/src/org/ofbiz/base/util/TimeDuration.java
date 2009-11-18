@@ -82,7 +82,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         return false;
     }
 
-    /** Returns a <code>String</code> formatted as 
+    /** Returns a <code>String</code> formatted as
      * years:months:days:hours:minutes:seconds:millseconds.
      */
     @Override
@@ -100,7 +100,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     }
 
     /** Returns <code>true</code> if this duration is negative.
-     * 
+     *
      * @return <code>true</code> if this duration is negative
      */
     public boolean isNegative() {
@@ -108,14 +108,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     }
 
     /** Returns <code>true</code> if this duration is zero.
-     * 
+     *
      * @return <code>true</code> if this duration is zero
      */
     public boolean isZero() {
         return this == ZeroTimeDuration || (this.millis == 0 && this.seconds == 0 &&
                 this.minutes == 0 && this.hours == 0 && this.days == 0 &&
                 this.months == 0 && this.years == 0);
-        
     }
 
     /** Returns the milliseconds in this time duration. */

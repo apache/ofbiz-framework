@@ -20,7 +20,7 @@ package org.ofbiz.base.conversion;
 
 /** Converter loader interface. Components implement this
  * interface to load their object class converters.
- * 
+ *
  */
 public interface ConverterLoader {
     /** Create and register converters with the Java object type
@@ -29,7 +29,7 @@ public interface ConverterLoader {
      * itself when an instance is created. Otherwise, call
      * {@link org.ofbiz.base.conversion.Converters#registerConverter(Converter)}
      * with the <code>Converter</code> instance.
-     * 
+     *
      */
     public void loadConverters();
 }

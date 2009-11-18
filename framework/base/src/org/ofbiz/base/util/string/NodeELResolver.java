@@ -42,10 +42,10 @@ import org.w3c.dom.NodeList;
 
 /**
  * Defines property resolution behavior on Nodes. This resolver handles base objects that implement
- * org.w3c.dom.Node or org.apache.xerces.dom.NodeImpl. It accepts a String as a property and compiles 
- * that String into an XPathExpression. The resulting value is the evaluation of the XPathExpression 
- * in the context of the base Node. This resolver is currently only available in read-only mode, which 
- * means that isReadOnly will always return true and {@link #setValue(ELContext, Object, Object, Object)} 
+ * org.w3c.dom.Node or org.apache.xerces.dom.NodeImpl. It accepts a String as a property and compiles
+ * that String into an XPathExpression. The resulting value is the evaluation of the XPathExpression
+ * in the context of the base Node. This resolver is currently only available in read-only mode, which
+ * means that isReadOnly will always return true and {@link #setValue(ELContext, Object, Object, Object)}
  * will always throw PropertyNotWritableException. ELResolvers are combined together using {@link CompositeELResolver}
  * s, to define rich semantics for evaluating an expression. See the javadocs for {@link ELResolver}
  * for details.
@@ -100,7 +100,7 @@ public class NodeELResolver extends ELResolver {
                 NodeList nodeList = (NodeList) expr.evaluate(node, XPathConstants.NODESET);
                 if (nodeList.getLength() == 0) {
                     return null;
-                } else if (nodeList.getLength() == 1) { 
+                } else if (nodeList.getLength() == 1) {
                     result = nodeList.item(0);
                 } else {
                     List<Node> newList = FastList.newInstance();
@@ -141,7 +141,7 @@ public class NodeELResolver extends ELResolver {
     private final boolean isResolvable(Object base) {
         return base != null && (base instanceof Node || base instanceof NodeImpl);
     }
-    
+
     private XPathExpression getXPathExpressionInstance(String xPathString) {
         XPathExpression xpe = exprCache.get(xPathString);
         if (xpe == null) {

@@ -391,7 +391,6 @@ public class UtilProperties implements java.io.Serializable {
                      +"# Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)\n"
                      +"# The comments have been removed, you may still find them on the OFBiz repository... \n"
                      +"#");
-                 
              }
 
              propFile.close();
@@ -402,7 +401,7 @@ public class UtilProperties implements java.io.Serializable {
          }
      }
 
-     /** Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it 
+     /** Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
       * @param resource The name of the resource
       * @param name The name of the property in the resource
       * @param value The value of the property to set in memory */

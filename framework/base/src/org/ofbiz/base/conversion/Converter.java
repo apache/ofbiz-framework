@@ -19,7 +19,7 @@
 package org.ofbiz.base.conversion;
 
 /** Converter interface.
- * 
+ *
  * @param <S> The source object type
  * @param <T> The target object type
  */
@@ -28,7 +28,7 @@ public interface Converter<S, T> {
      * <code>sourceClass</code> to <code>targetClass</code>.
      * <p>Implementations can accomodate class hierarchy ranges
      * by converting super classes or interfaces.</p>
-     * 
+     *
      * @param sourceClass The source <code>Class</code>
      * @param targetClass The target <code>Class</code>
      * @return <code>true</code> if this object can convert
@@ -37,7 +37,7 @@ public interface Converter<S, T> {
     public boolean canConvert(Class<?> sourceClass, Class<?> targetClass);
 
     /** Converts <code>obj</code> to <code>T</code>.
-     * 
+     *
      * @param obj The source <code>Object</code> to convert
      * @return The converted <code>Object</code>
      * @throws ConversionException
@@ -45,13 +45,13 @@ public interface Converter<S, T> {
     public T convert(S obj) throws ConversionException;
 
     /** Returns the source <code>Class</code> for this converter.
-     * 
+     *
      * @return The source <code>Class</code> for this converter
      */
     public Class<?> getSourceClass();
 
     /** Returns the target <code>Class</code> for this converter.
-     * 
+     *
      * @return The target <code>Class</code> for this converter
      */
     public Class<?> getTargetClass();

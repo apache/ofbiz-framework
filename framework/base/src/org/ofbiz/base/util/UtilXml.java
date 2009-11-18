@@ -265,7 +265,7 @@ public class UtilXml {
             return;
         }
         // OutputFormat defaults are: indent on, indent = 4, include XML declaration,
-        // charset = UTF-8, line width = 72 
+        // charset = UTF-8, line width = 72
         try {
             writeXmlDocument(node, os, "UTF-8", false, true, 4);
         } catch (TransformerException e) {
@@ -586,14 +586,14 @@ public class UtilXml {
         return newElement;
     }
 
-    /** Creates a child element with the given namespace supportive name and appends it to the element child node list. */    
+    /** Creates a child element with the given namespace supportive name and appends it to the element child node list. */
     public static Element addChildElementNSElement(Element element, String childElementName,
             Document document, String nameSpaceUrl) {
         Element newElement = document.createElementNS(nameSpaceUrl, childElementName);
-        element.appendChild(newElement);         
+        element.appendChild(newElement);
         return element;
     }
-    
+
     /** Creates a child element with the given namespace supportive name and appends it to the element child node list.
      *  Also creates a Text node with the given value and appends it to the new elements child node list.
      */
@@ -601,7 +601,7 @@ public class UtilXml {
             String childElementValue, Document document, String nameSpaceUrl) {
         Element newElement = document.createElementNS(nameSpaceUrl, childElementName);
         newElement.appendChild(document.createTextNode(childElementValue));
-        element.appendChild(newElement);         
+        element.appendChild(newElement);
         return element;
     }
 
