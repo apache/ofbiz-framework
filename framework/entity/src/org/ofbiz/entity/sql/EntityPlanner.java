@@ -68,15 +68,15 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         super(new EntityConditionPlanner());
     }
 
-    public EntityDeletePlan plan(SQLDelete<?> deleteStatement) {
+    public EntityDeletePlan planDelete(SQLDelete deleteStatement) {
         return null;
     }
 
-    public EntityInsertPlan plan(SQLInsert<?> insertStatement) {
+    public EntityInsertPlan planInsert(SQLInsert insertStatement) {
         return null;
     }
 
-    public EntitySelectPlan plan(SQLSelect<?> selectStatement) {
+    public EntitySelectPlan planSelect(SQLSelect selectStatement) {
         DynamicViewEntity dve = new DynamicViewEntity();
         Table table = selectStatement.getTable();
         addMember(dve, table.getTableName());
@@ -97,11 +97,11 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         return new EntitySelectPlan(dve, plan(selectStatement.getWhereCondition()), plan(selectStatement.getHavingCondition()), selectStatement.getOrderBy());
     }
 
-    public EntityUpdatePlan plan(SQLUpdate<?> updateStatement) {
+    public EntityUpdatePlan planUpdate(SQLUpdate updateStatement) {
         return null;
     }
 
-    public EntityViewPlan plan(SQLView<?> viewStatement) {
+    public EntityViewPlan planView(SQLView viewStatement) {
         return null;
     }
 

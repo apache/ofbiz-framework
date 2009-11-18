@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class SQLSelect<P extends SelectPlan<P>> extends SQLStatement<SQLSelect<P>, P> implements InsertSource {
+public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSource {
     private final List<FieldAll> fieldAlls;
     private final Map<String, FieldDef> fieldDefs;
     private final Table table;
@@ -49,11 +49,6 @@ public final class SQLSelect<P extends SelectPlan<P>> extends SQLStatement<SQLSe
         this.orderBy = orderBy;
         this.offset = offset;
         this.limit = limit;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
     }
 
     public Collection<FieldAll> getFieldAlls() {

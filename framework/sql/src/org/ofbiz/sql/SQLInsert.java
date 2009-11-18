@@ -24,7 +24,7 @@ import java.util.List;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 
-public final class SQLInsert<P extends InsertPlan<P>> extends SQLStatement<SQLInsert<P>, P> {
+public final class SQLInsert extends SQLStatement<SQLInsert> {
     private final TableName tableName;
     private final InsertSource source;
     private final List<String> columns;
@@ -33,11 +33,6 @@ public final class SQLInsert<P extends InsertPlan<P>> extends SQLStatement<SQLIn
         this.tableName = tableName;
         this.source = source;
         this.columns = columns;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <PP extends P> PP plan(Planner<?, ?, ?, ?, ?, ?, ?> planner) {
-        return (PP) planner.plan(this);
     }
 
     public TableName getTableName() {

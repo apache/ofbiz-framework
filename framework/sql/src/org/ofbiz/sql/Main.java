@@ -24,15 +24,15 @@ import java.util.Map;
 public final class Main {
 	public static void main(String[] args) throws Exception {
         Planner<?, ?, ?, ?, ?, ?, ?> planner = new DebugPlanner();
-		List<SQLStatement<?, ?>> statements = new Parser(System.in).SQLFile();
-        for (SQLStatement<?, ?> statement: statements) {
+		List<SQLStatement<?>> statements = new Parser(System.in).SQLFile();
+        for (SQLStatement<?> statement: statements) {
             run(statement, planner);
         }
 	}
 
     private static final void run(SQLStatement statement, Planner planner) {
         System.err.println(statement);
-        SQLPlan plan = statement.plan(planner);
+        SQLPlan plan = planner.plan(statement);
         System.err.println("\tplan=" + plan);
     }
 
@@ -41,23 +41,23 @@ public final class Main {
             super(new DebugConditionPlanner());
         }
 
-        public DebugDeletePlan plan(SQLDelete deleteStatement) {
+        public DebugDeletePlan planDelete(SQLDelete deleteStatement) {
             return null;
         }
 
-        public DebugInsertPlan plan(SQLInsert insertStatement) {
+        public DebugInsertPlan planInsert(SQLInsert insertStatement) {
             return null;
         }
 
-        public DebugSelectPlan plan(SQLSelect selectStatement) {
+        public DebugSelectPlan planSelect(SQLSelect selectStatement) {
             return null;
         }
 
-        public DebugUpdatePlan plan(SQLUpdate updateStatement) {
+        public DebugUpdatePlan planUpdate(SQLUpdate updateStatement) {
             return null;
         }
 
-        public DebugViewPlan plan(SQLView viewStatement) {
+        public DebugViewPlan planView(SQLView viewStatement) {
             return null;
         }
     }
