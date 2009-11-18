@@ -18,12 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
-import java.util.Iterator;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 
 public class EntityCache extends AbstractCache<GenericPK, GenericValue> {

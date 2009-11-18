@@ -1420,16 +1420,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         // append relation elements
-        Iterator relIter = this.getRelationsIterator();
+        Iterator<ModelRelation> relIter = this.getRelationsIterator();
         while (relIter != null && relIter.hasNext()) {
-            ModelRelation rel = (ModelRelation) relIter.next();
+            ModelRelation rel = relIter.next();
 
         }
 
         // append index elements
-        Iterator idxIter = this.getIndexesIterator();
+        Iterator<ModelIndex> idxIter = this.getIndexesIterator();
         while (idxIter != null && idxIter.hasNext()) {
-            ModelIndex idx = (ModelIndex) idxIter.next();
+            ModelIndex idx = idxIter.next();
             root.appendChild(idx.toXmlElement(document));
 
         }

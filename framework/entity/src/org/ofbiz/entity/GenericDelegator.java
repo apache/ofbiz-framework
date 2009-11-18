@@ -39,10 +39,10 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -102,7 +102,7 @@ public class GenericDelegator implements Delegator {
     protected Cache cache = null;
 
     /** keeps a list of field key sets used in the by and cache, a Set (of Sets of fieldNames) for each entityName */
-    protected Map andCacheFieldSets = FastMap.newInstance();
+    protected Map<?,?> andCacheFieldSets = FastMap.newInstance();
 
     protected DistributedCacheClear distributedCacheClear = null;
     protected EntityEcaHandler<?> entityEcaHandler = null;
@@ -288,7 +288,7 @@ public class GenericDelegator implements Delegator {
             String distributedCacheClearClassName = getDelegatorInfo().distributedCacheClearClassName;
 
             try {
-                Class dccClass = loader.loadClass(distributedCacheClearClassName);
+                Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
                 this.distributedCacheClear = (DistributedCacheClear) dccClass.newInstance();
                 this.distributedCacheClear.setDelegator(this, getDelegatorInfo().distributedCacheClearUserLoginId);
             } catch (ClassNotFoundException e) {
@@ -318,8 +318,8 @@ public class GenericDelegator implements Delegator {
             String entityEcaHandlerClassName = getDelegatorInfo().entityEcaHandlerClassName;
 
             try {
-                Class eecahClass = loader.loadClass(entityEcaHandlerClassName);
-                this.entityEcaHandler = (EntityEcaHandler) eecahClass.newInstance();
+                Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
+                this.entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
                 this.entityEcaHandler.setDelegator(this);
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
@@ -2807,15 +2807,15 @@ public class GenericDelegator implements Delegator {
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#setEntityEcaHandler(org.ofbiz.entity.eca.EntityEcaHandler)
      */
-    public void setEntityEcaHandler(EntityEcaHandler entityEcaHandler) {
+    public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
         this.entityEcaHandler = entityEcaHandler;
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getEntityEcaHandler()
      */
-    public EntityEcaHandler getEntityEcaHandler() {
-        return this.entityEcaHandler;
+    public <T> EntityEcaHandler<T> getEntityEcaHandler() {
+        return UtilGenerics.cast(this.entityEcaHandler);
     }
 
     /* (non-Javadoc)

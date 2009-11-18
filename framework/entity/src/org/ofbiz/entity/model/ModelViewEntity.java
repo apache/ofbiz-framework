@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -1240,7 +1241,7 @@ public class ModelViewEntity extends ModelEntity {
         }
         
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
-            EntityOperator operator = EntityOperator.lookup(this.operator);
+            EntityOperator<?,?,?> operator = EntityOperator.lookup(this.operator);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + this.operator);
             }
@@ -1285,21 +1286,21 @@ public class ModelViewEntity extends ModelEntity {
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER(lhs), (EntityComparisonOperator) operator, EntityFunction.UPPER(rhs)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER(lhs), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(rhs)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 } else {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(lhs, (EntityComparisonOperator) operator, rhs),
+                            EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), rhs),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
             } else {
                 if (ignoreCase) {
                     // use the stuff to upper case both sides
-                    return EntityCondition.makeCondition(EntityFunction.UPPER(lhs), (EntityComparisonOperator) operator, EntityFunction.UPPER(rhs));
+                    return EntityCondition.makeCondition(EntityFunction.UPPER(lhs), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(rhs));
                 } else {
-                    return EntityCondition.makeCondition(lhs, (EntityComparisonOperator) operator, rhs);
+                    return EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), rhs);
                 }
             }
         }
@@ -1343,12 +1344,12 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            EntityOperator operator = EntityOperator.lookup(this.combine);
+            EntityOperator<?,?,?> operator = EntityOperator.lookup(this.combine);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operator);
             }
 
-            return EntityCondition.makeCondition(entityConditionList, (EntityJoinOperator) operator);
+            return EntityCondition.makeCondition(entityConditionList, UtilGenerics.<EntityJoinOperator>cast(operator));
         }
     }
 }

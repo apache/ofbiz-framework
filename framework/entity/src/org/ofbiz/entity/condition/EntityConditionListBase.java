@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -63,7 +64,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         this.operator = null;
     }
 
-    public EntityOperator getOperator() {
+    public EntityJoinOperator getOperator() {
         return this.operator;
     }
 
@@ -118,7 +119,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionListBase)) return false;
-        EntityConditionListBase other = (EntityConditionListBase) obj;
+        EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
         boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);
         //if (!isEqual) {

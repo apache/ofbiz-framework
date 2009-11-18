@@ -43,6 +43,7 @@ import java.util.WeakHashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.Debug;
@@ -157,9 +158,9 @@ public class XmlSerializer {
 
             // if (elementName == null) return serializeCustom(object, document);
 
-            Collection value = (Collection) object;
+            Collection<?> value = UtilGenerics.cast(object);
             Element element = document.createElement(elementName);
-            Iterator iter = value.iterator();
+            Iterator<?> iter = value.iterator();
 
             while (iter.hasNext()) {
                 element.appendChild(serializeSingle(iter.next(), document));
@@ -195,11 +196,11 @@ public class XmlSerializer {
             }
 
             Element element = document.createElement(elementName);
-            Map value = (Map) object;
-            Iterator iter = value.entrySet().iterator();
+            Map<?,?> value = UtilGenerics.cast(object);
+            Iterator<Map.Entry<?, ?>> iter = UtilGenerics.cast(value.entrySet().iterator());
 
             while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
+                Map.Entry<?,?> entry = iter.next();
 
                 Element entryElement = document.createElement("map-Entry");
 

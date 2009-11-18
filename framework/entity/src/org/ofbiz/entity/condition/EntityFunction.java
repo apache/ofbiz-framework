@@ -25,6 +25,7 @@ import java.util.Map;
 import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -35,7 +36,7 @@ import org.ofbiz.entity.model.ModelField;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
-public abstract class EntityFunction<T extends Comparable> extends EntityConditionValue implements Reusable {
+public abstract class EntityFunction<T extends Comparable<?>> extends EntityConditionValue implements Reusable {
 
     public static interface Fetcher<T> {
         T getValue(Object value);
@@ -247,7 +248,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityFunction)) return false;
-        EntityFunction otherFunc = (EntityFunction) obj;
+        EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
         return (this.function == otherFunc.function &&
             (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
             (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));

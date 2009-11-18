@@ -18,13 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.entity.condition;
 
+import static org.ofbiz.base.util.UtilGenerics.cast;
+
 import java.util.List;
 import java.util.Map;
 
 import javolution.lang.Reusable;
 import javolution.util.FastList;
 
-import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -44,13 +45,13 @@ import org.ofbiz.entity.model.ModelEntity;
  */
 public abstract class EntityCondition extends EntityConditionBase implements Reusable {
 
-    public static EntityExpr makeCondition(Object lhs, EntityComparisonOperator operator, Object rhs) {
+    public static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         EntityExpr expr = EntityExpr.entityExprFactory.object();
         expr.init(lhs, operator, rhs);
         return expr;
     }
 
-    public static EntityExpr makeCondition(String fieldName, Object value) {
+    public static <R> EntityExpr makeCondition(String fieldName, R value) {
         EntityExpr expr = EntityExpr.entityExprFactory.object();
         expr.init(fieldName, EntityOperator.EQUALS, value);
         return expr;
@@ -86,7 +87,7 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
         return ecl;
     }
 
-    public static EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
+    public static <L,R> EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap, EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp) {
         EntityFieldMap efm = EntityFieldMap.entityFieldMapFactory.object();
         efm.init(fieldMap, compOp, joinOp);
         return efm;
@@ -104,7 +105,7 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
         return efm;
     }
 
-    public static EntityFieldMap makeCondition(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
+    public static <L,R> EntityFieldMap makeCondition(EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp, Object... keysValues) {
         EntityFieldMap efm = EntityFieldMap.entityFieldMapFactory.object();
         efm.init(compOp, joinOp, keysValues);
         return efm;

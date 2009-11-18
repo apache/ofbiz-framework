@@ -93,7 +93,7 @@ public class ConnectionFactory {
                         if (className == null) {
                             throw new IllegalStateException("Could not find connection factory class name definition");
                         }
-                        Class cfClass = null;
+                        Class<?> cfClass = null;
 
                         if (className != null && className.length() > 0) {
                             try {

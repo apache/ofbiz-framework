@@ -362,7 +362,7 @@ public class ModelReader implements Serializable {
                                                 String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity [" + relatedEnt.getEntityName() + "] ant relationship to entity [" +
                                                         curModelEntity.getEntityName() + "] title [" + targetTitle + "]; would auto-create: type [" +
                                                         newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
-                                                //Debug.logInfo(message, module);
+                                                Debug.logInfo(message, module);
                                             }
                                         }
                                     } else {
@@ -539,7 +539,7 @@ public class ModelReader implements Serializable {
         if (entityName == null) {
             return null;
         }
-        Set allEntities = this.getEntityNames();
+        Set<String> allEntities = this.getEntityNames();
         while (!allEntities.contains(entityName) && entityName.length() > 0) {
             entityName = entityName.substring(1);
         }

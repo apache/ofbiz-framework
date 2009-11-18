@@ -505,7 +505,7 @@ public interface Delegator {
 
     public String getDelegatorName();
 
-    public EntityEcaHandler getEntityEcaHandler();
+    public <T> EntityEcaHandler<T> getEntityEcaHandler();
 
     /**
      * Gets a field type instance by name from the helper that corresponds to
@@ -1095,7 +1095,7 @@ public interface Delegator {
 
     public void setEntityCrypto(EntityCrypto crypto);
 
-    public void setEntityEcaHandler(EntityEcaHandler entityEcaHandler);
+    public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler);
 
     /**
      * Look at existing values for a sub-entity with a sequenced secondary ID,

@@ -20,7 +20,6 @@ package org.ofbiz.entity.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
