@@ -6215,6 +6215,7 @@
     </property>
     <property key="StatusItem.description.CAL_IN_PLANNING">
         <value xml:lang="en">In Planning</value>
+        <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">In pianificazione</value>
         <value xml:lang="zh">计划中</value>
     </property>
@@ -6232,6 +6233,7 @@
     </property>
     <property key="StatusItem.description.CAL_PLANNED">
         <value xml:lang="en">Planned</value>
+        <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="zh">已计划</value>
     </property>
@@ -6273,6 +6275,7 @@
     </property>
     <property key="StatusItem.description.CLPT_IN_USE">
         <value xml:lang="en">In Use</value>
+        <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="zh">使用中</value>
     </property>
@@ -6302,26 +6305,31 @@
     </property>
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.CNTAP_IN_PROCESS">
         <value xml:lang="en">Approval In Process</value>
+        <value xml:lang="fr">Approbation en cours</value>
         <value xml:lang="it">Approvazione in corso</value>
         <value xml:lang="zh">审批中</value>
     </property>
     <property key="StatusItem.description.CNTAP_NOT_READY">
         <value xml:lang="en">Not Ready for Approval</value>
+        <value xml:lang="fr">Non prêt pour approbation</value>
         <value xml:lang="it">Non pronto per l'approvazione</value>
         <value xml:lang="zh">没有准备好审批</value>
     </property>
     <property key="StatusItem.description.CNTAP_READY">
         <value xml:lang="en">Ready for Approval</value>
+        <value xml:lang="fr">Prêt pour approbation</value>
         <value xml:lang="it">Pronto per l'approvazione</value>
         <value xml:lang="zh">审批准备就绪</value>
     </property>
     <property key="StatusItem.description.CNTAP_REJECTED">
         <value xml:lang="en">Rejected</value>
+        <value xml:lang="fr">Refusé</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="zh">已拒绝</value>
     </property>
@@ -6428,11 +6436,13 @@
     </property>
     <property key="StatusItem.description.COM_ROLE_COMPLETED">
         <value xml:lang="en">Closed</value>
+        <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="zh">已关闭</value>
     </property>
     <property key="StatusItem.description.COM_ROLE_CREATED">
         <value xml:lang="en">Created</value>
+        <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="zh">已创建</value>
     </property>
@@ -6522,6 +6532,7 @@
     </property>
     <property key="StatusItem.description.CTNT_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="zh">有效</value>
     </property>
@@ -6599,16 +6610,19 @@
     </property>
     <property key="StatusItem.description.EMPL_POS_ACTIVE">
         <value xml:lang="en">Active/Open</value>
+        <value xml:lang="fr">Actif / Ouvert</value>
         <value xml:lang="it">Attivo/Aperto</value>
         <value xml:lang="zh">有效/开放</value>
     </property>
     <property key="StatusItem.description.EMPL_POS_INACTIVE">
         <value xml:lang="en">Inactive/Closed</value>
+        <value xml:lang="fr">Inactif / Fermé</value>
         <value xml:lang="it">Inattivo/Chiuso</value>
         <value xml:lang="zh">无效/已关闭</value>
     </property>
     <property key="StatusItem.description.EMPL_POS_PLANNEDFOR">
         <value xml:lang="en">Planned For</value>
+        <value xml:lang="fr">Prévu pour</value>
         <value xml:lang="it">Pianificato per</value>
         <value xml:lang="zh">已计划用于</value>
     </property>
@@ -6670,36 +6684,43 @@
     </property>
     <property key="StatusItem.description.EXST_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.EXST_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.EXST_COMPLETE">
         <value xml:lang="en">Complete</value>
+        <value xml:lang="fr">Achevé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="zh">完成</value>
     </property>
     <property key="StatusItem.description.EXST_DEFINED">
         <value xml:lang="en">Defined</value>
+        <value xml:lang="fr">Paramétré</value>
         <value xml:lang="it">Definito</value>
         <value xml:lang="zh">已定义</value>
     </property>
     <property key="StatusItem.description.EXST_IMPLEMENTED">
         <value xml:lang="en">Implemented</value>
+        <value xml:lang="fr">Implémenté</value>
         <value xml:lang="it">Implementato</value>
         <value xml:lang="zh">已实现</value>
     </property>
     <property key="StatusItem.description.EXST_IN_DESIGN">
         <value xml:lang="en">In Design</value>
+        <value xml:lang="fr">En projet</value>
         <value xml:lang="it">In progettazione</value>
         <value xml:lang="zh">设计中</value>
     </property>
     <property key="StatusItem.description.EXST_TESTED">
         <value xml:lang="en">Tested</value>
+        <value xml:lang="fr">Testé</value>
         <value xml:lang="it">Testato</value>
     </property>
     <property key="StatusItem.description.FAM_CANCELLED">
@@ -6764,31 +6785,37 @@
     </property>
     <property key="StatusItem.description.FA_ASGN_ASSIGNED">
         <value xml:lang="en">Assigned</value>
+        <value xml:lang="fr">Affecté</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="zh">已指定</value>
     </property>
     <property key="StatusItem.description.FA_ASGN_DENIED">
         <value xml:lang="en">Request Denied</value>
+        <value xml:lang="fr">Demande refusée</value>
         <value xml:lang="it">Richiesta negata</value>
         <value xml:lang="zh">请求被否决</value>
     </property>
     <property key="StatusItem.description.FA_ASGN_REQUESTED">
         <value xml:lang="en">Requested</value>
+        <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="zh">已请求</value>
     </property>
     <property key="StatusItem.description.FNACT_ACTIVE">
         <value xml:lang="en">Active</value>
+        <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.FNACT_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.FNACT_MANFROZEN">
         <value xml:lang="en">Manually Frozen</value>
+        <value xml:lang="fr">Bloqué manuellement</value>
         <value xml:lang="it">Congelato manualmente</value>
         <value xml:lang="zh">手工冻结</value>
     </property>
@@ -6799,16 +6826,19 @@
     </property>
     <property key="StatusItem.description.HR_DS_COMPLETE">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.HR_DS_DEFERRED">
         <value xml:lang="en">Deferred</value>
+        <value xml:lang="fr">Reporté</value>
         <value xml:lang="it">Rinviato</value>
         <value xml:lang="zh">已延迟</value>
     </property>
     <property key="StatusItem.description.HR_DS_INCOMPLETE">
         <value xml:lang="en">Incomplete</value>
+        <value xml:lang="fr">Incomplet</value>
         <value xml:lang="it">Incompleto</value>
         <value xml:lang="zh">未完成</value>
     </property>
@@ -6819,11 +6849,13 @@
     </property>
     <property key="StatusItem.description.HR_JS_FULLTIME">
         <value xml:lang="en">Full time</value>
+        <value xml:lang="fr">Temps plein</value>
         <value xml:lang="it">Tempo pieno</value>
         <value xml:lang="zh">全职</value>
     </property>
     <property key="StatusItem.description.HR_JS_PARTTIME">
         <value xml:lang="en">Part time</value>
+        <value xml:lang="fr">Temps partiel</value>
         <value xml:lang="it">Part time</value>
         <value xml:lang="zh">兼职</value>
     </property>
@@ -6933,6 +6965,7 @@
     </property>
     <property key="StatusItem.description.INV_ACTIVATED">
         <value xml:lang="en">Activated</value>
+        <value xml:lang="fr">Activé</value>
         <value xml:lang="it">Attivato</value>
         <value xml:lang="zh">已激活</value>
     </property>
@@ -6974,6 +7007,7 @@
     </property>
     <property key="StatusItem.description.INV_DEACTIVATED">
         <value xml:lang="en">Deactivated</value>
+        <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disattivato</value>
         <value xml:lang="zh">已失效</value>
     </property>
@@ -7003,11 +7037,13 @@
     </property>
     <property key="StatusItem.description.INV_NS_DEFECTIVE">
         <value xml:lang="en">Defective (Non-Serialized)</value>
+        <value xml:lang="fr">Défectueux (non sérialisable)</value>
         <value xml:lang="it">Difettoso (non-serializzato)</value>
         <value xml:lang="zh">有缺陷(未序列化)</value>
     </property>
     <property key="StatusItem.description.INV_NS_ON_HOLD">
         <value xml:lang="en">On Hold (Non-Serialized)</value>
+        <value xml:lang="fr">En attente (non sérialisable)</value>
         <value xml:lang="it">In attesa (non-serializzato)</value>
         <value xml:lang="zh">等待(未序列化)</value>
     </property>
@@ -7179,16 +7215,19 @@
     </property>
     <property key="StatusItem.description.LEAD_ASSIGNED">
         <value xml:lang="en">Assigned</value>
+        <value xml:lang="fr">Affecté</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="zh">已指派</value>
     </property>
     <property key="StatusItem.description.LEAD_CONVERTED">
         <value xml:lang="en">Converted</value>
+        <value xml:lang="fr">Converti</value>
         <value xml:lang="it">Convertito</value>
         <value xml:lang="zh">已转换</value>
     </property>
     <property key="StatusItem.description.LEAD_QUALIFIED">
         <value xml:lang="en">Qualified</value>
+        <value xml:lang="fr">Qualifié</value>
         <value xml:lang="it">Qualificato</value>
         <value xml:lang="zh">合格的</value>
     </property>
@@ -7267,66 +7306,73 @@
     </property>
     <property key="StatusItem.description.OAGMP_ERRCONFSENT">
         <value xml:lang="en">Error Confirm Sent</value>
+        <value xml:lang="fr">Confirmation d'erreur envoyée</value>
         <value xml:lang="it">Errore conferma inviata</value>
         <value xml:lang="zh">发送确认时出错</value>
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_ERROR">
         <value xml:lang="en">Out Generated - Error</value>
+        <value xml:lang="fr">Sortie générée - Erreur</value>
         <value xml:lang="it">Errore genereato fuori</value>
         <value xml:lang="zh">生成输出 - 错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_SUCCESS">
         <value xml:lang="en">Out Generated - Success</value>
+        <value xml:lang="fr">Sortie générée - Succès</value>
         <value xml:lang="it">Successo genereato fuori</value>
         <value xml:lang="zh">生成输出 - 成功</value>
     </property>
     <property key="StatusItem.description.OAGMP_PROC_ERROR">
         <value xml:lang="en">In Processed - Error</value>
+        <value xml:lang="fr">Erreur pendant l'exécution</value>
         <value xml:lang="it">Errore durante l'esecuzione</value>
         <value xml:lang="zh">处理输入 - 错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_PROC_SUCCESS">
         <value xml:lang="en">In Processed - Success</value>
+        <value xml:lang="fr">Exécuté avec succès</value>
         <value xml:lang="it">Successo durante l'esecuzione</value>
         <value xml:lang="zh">处理输入 - 成功</value>
     </property>
     <property key="StatusItem.description.OAGMP_RECEIVED">
         <value xml:lang="en">In Message Received</value>
+        <value xml:lang="fr">Message reçu</value>
         <value xml:lang="it">Ricevuto messaggo in entrata</value>
-        <value xml:lang="zh">接收到的输入消息</value>
-    </property>
-    <property key="StatusItem.description.OAGMP_RECEIVEDOAGMP_RECEIVED">
-        <value xml:lang="en">In Message Received</value>
-        <value xml:lang="it">Messaggio in ingresso ricevuto</value>
         <value xml:lang="zh">接收到的输入消息</value>
     </property>
     <property key="StatusItem.description.OAGMP_REC_ERR_CON">
         <value xml:lang="en">Received Error Confirm</value>
+        <value xml:lang="fr">Confirmation d'erreur reçue</value>
         <value xml:lang="it">Conferma errore ricevuto</value>
         <value xml:lang="zh">接收到的错误确认</value>
     </property>
     <property key="StatusItem.description.OAGMP_REC_SUC_CON">
         <value xml:lang="en">Received Success Confirm</value>
+        <value xml:lang="fr">Confirmation de succès reçue</value>
         <value xml:lang="it">Conferma successo ricevuto</value>
         <value xml:lang="zh">接收到的成功确认</value>
     </property>
     <property key="StatusItem.description.OAGMP_SEND_ERROR">
         <value xml:lang="en">Out Message Send Error</value>
+        <value xml:lang="fr">Message d'erreur envoyé</value>
         <value xml:lang="it">Errore invio messaggio all'esterno</value>
         <value xml:lang="zh">输出消息发送错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_SENT">
         <value xml:lang="en">Out Message Sent</value>
+        <value xml:lang="fr">Message envoyé</value>
         <value xml:lang="it">Messaggio inviato all'esterno</value>
         <value xml:lang="zh">输出消息已发送</value>
     </property>
     <property key="StatusItem.description.OAGMP_SYS_ERROR">
         <value xml:lang="en">System Error</value>
+        <value xml:lang="fr">Erreur système</value>
         <value xml:lang="it">Errore di sistema</value>
         <value xml:lang="zh">系统错误</value>
     </property>
     <property key="StatusItem.description.OAGMP_TRIGGERED">
         <value xml:lang="en">Out Message Triggered</value>
+        <value xml:lang="fr">Message en sortie déclenché</value>
         <value xml:lang="it">Intercettato messaggio dall'esterno</value>
         <value xml:lang="zh">输出消息被触发</value>
     </property>
@@ -7486,36 +7532,43 @@
     </property>
     <property key="StatusItem.description.PARTYINV_ACCEPTED">
         <value xml:lang="en">Invitation Accepted</value>
+        <value xml:lang="fr">Invitation acceptée</value>
         <value xml:lang="it">Invito accettato</value>
         <value xml:lang="zh">已接受邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_CANCELLED">
         <value xml:lang="en">Invitation Cancelled</value>
+        <value xml:lang="fr">Invitation annulée</value>
         <value xml:lang="it">Invito cancellato</value>
         <value xml:lang="zh">已取消邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_DECLINED">
         <value xml:lang="en">Invitation Declined</value>
+        <value xml:lang="fr">Invitation refusée</value>
         <value xml:lang="it">Invito declinato</value>
         <value xml:lang="zh">已拒绝邀请</value>
     </property>
     <property key="StatusItem.description.PARTYINV_PENDING">
         <value xml:lang="en">Invitation Pending</value>
+        <value xml:lang="fr">Invitation en attente</value>
         <value xml:lang="it">Invito in attesa</value>
         <value xml:lang="zh">邀请等待中</value>
     </property>
     <property key="StatusItem.description.PARTYINV_SENT">
         <value xml:lang="en">Invitation Sent</value>
+        <value xml:lang="fr">Invitation envoyée</value>
         <value xml:lang="it">Invito inviato</value>
         <value xml:lang="zh">已发送邀请</value>
     </property>
     <property key="StatusItem.description.PARTY_DISABLED">
         <value xml:lang="en">Disabled</value>
+        <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disabilitato</value>
         <value xml:lang="zh">已禁用</value>
     </property>
     <property key="StatusItem.description.PARTY_ENABLED">
         <value xml:lang="en">Enabled</value>
+        <value xml:lang="fr">Activé</value>
         <value xml:lang="it">Abilitato</value>
         <value xml:lang="zh">已启用</value>
     </property>
@@ -7609,6 +7662,7 @@
     </property>
     <property key="StatusItem.description.PAYMENT_REFUNDED">
         <value xml:lang="en">Refunded</value>
+        <value xml:lang="fr">Remboursé</value>
         <value xml:lang="it">Rimborsato</value>
         <value xml:lang="zh">已退款</value>
     </property>
@@ -7626,16 +7680,19 @@
     </property>
     <property key="StatusItem.description.PICKITEM_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.PICKITEM_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.PICKITEM_PENDING">
         <value xml:lang="en">Pending</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="zh">等待中</value>
     </property>
@@ -7689,6 +7746,7 @@
     </property>
     <property key="StatusItem.description.PICKLIST_PRINTED">
         <value xml:lang="en">Printed</value>
+        <value xml:lang="fr">Imprimée</value>
         <value xml:lang="it">Stampata</value>
         <value xml:lang="zh">已打印</value>
     </property>
@@ -7775,11 +7833,13 @@
     </property>
     <property key="StatusItem.description.POSTX_PAID_IN">
         <value xml:lang="en">PaidIn</value>
+        <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento in entrata</value>
         <value xml:lang="zh">借入款</value>
     </property>
     <property key="StatusItem.description.POSTX_PAID_OUT">
         <value xml:lang="en">PaidOut</value>
+        <value xml:lang="fr">Paiement en sortie</value>
         <value xml:lang="it">Pagamento in uscita</value>
         <value xml:lang="zh">借出款</value>
     </property>
@@ -7809,26 +7869,31 @@
     </property>
     <property key="StatusItem.description.PQV_NOT_VERIFIED">
         <value xml:lang="en">Not verified</value>
+        <value xml:lang="fr">Non vérifié</value>
         <value xml:lang="it">Non verificato</value>
         <value xml:lang="zh">未验证</value>
     </property>
     <property key="StatusItem.description.PQV_VERIFIED">
         <value xml:lang="en">Verified</value>
+        <value xml:lang="fr">Vérifié</value>
         <value xml:lang="it">Verificato</value>
         <value xml:lang="zh">已验证</value>
     </property>
     <property key="StatusItem.description.PRJ_ACTIVE">
         <value xml:lang="en">Active</value>
+        <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.PRJ_CLOSED">
         <value xml:lang="en">Closed</value>
+        <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="zh">已关闭</value>
     </property>
     <property key="StatusItem.description.PRR_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Validé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="zh">已批准</value>
     </property>
@@ -7958,6 +8023,7 @@
     </property>
     <property key="StatusItem.description.PRUN_SCHEDULED">
         <value xml:lang="en">Scheduled</value>
+        <value xml:lang="fr">Programmé</value>
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="zh">已计划</value>
     </property>
@@ -8197,6 +8263,7 @@
     </property>
     <property key="StatusItem.description.RETURN_MAN_REFUND">
         <value xml:lang="en">Manual Refund Required</value>
+        <value xml:lang="fr">Remboursement manuel nécessaire</value>
         <value xml:lang="it">Reso manual richiesto</value>
         <value xml:lang="zh">需要手工退款</value>
     </property>
@@ -8282,12 +8349,14 @@
         <value xml:lang="zh">等待中</value>
     </property>
     <property key="StatusItem.description.SERVICE_QUEUED">
-        <value xml:lang="en">Running</value>
+        <value xml:lang="en">Queued</value>
+        <value xml:lang="fr">Placé dans la file d'attente</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="zh">正在运行</value>
     </property>
     <property key="StatusItem.description.SERVICE_RUNNING">
-        <value xml:lang="en">Queued</value>
+        <value xml:lang="en">Running</value>
+        <value xml:lang="fr">En cours d'éxécution</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="zh">已进入队列</value>
     </property>
@@ -8409,26 +8478,31 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_ACCEPTED">
         <value xml:lang="en">Accepted</value>
+        <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="zh">已接受</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_REQUESTED">
         <value xml:lang="en">Requested</value>
+        <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="zh">已请求</value>
     </property>
     <property key="StatusItem.description.SUP_RETURN_SHIPPED">
         <value xml:lang="en">Shipped</value>
+        <value xml:lang="fr">Expédié</value>
         <value xml:lang="it">Spedito</value>
         <value xml:lang="zh">已装运</value>
     </property>
@@ -8465,81 +8539,97 @@
     </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.WEFA_IN_USE">
         <value xml:lang="en">In Use</value>
+        <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="zh">使用中</value>
     </property>
     <property key="StatusItem.description.WEGS_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.WEGS_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="zh">已完成</value>
     </property>
     <property key="StatusItem.description.WEGS_CREATED">
         <value xml:lang="en">Created</value>
+        <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="zh">已创建</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="zh">有效</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_AWAY">
         <value xml:lang="en">Away</value>
+        <value xml:lang="fr">Distant</value>
         <value xml:lang="it">Lontano</value>
         <value xml:lang="zh">离开</value>
     </property>
     <property key="StatusItem.description.WEPA_AV_BUSY">
         <value xml:lang="en">Busy</value>
+        <value xml:lang="fr">Occupé</value>
         <value xml:lang="it">Occupato</value>
         <value xml:lang="zh">忙</value>
     </property>
     <property key="StatusItem.description.WEPR_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
     <property key="StatusItem.description.WEPR_COMPLETE">
         <value xml:lang="en">Complete</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completo</value>
         <value xml:lang="zh">完成</value>
     </property>
     <property key="StatusItem.description.WEPR_IN_PROGRESS">
         <value xml:lang="en">In Progress</value>
+        <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="zh">进行中</value>
     </property>
     <property key="StatusItem.description.WEPR_ON_HOLD">
         <value xml:lang="en">On Hold</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="zh">保留</value>
     </property>
     <property key="StatusItem.description.WEPR_PLANNING">
         <value xml:lang="en">Planning</value>
+        <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="zh">正在计划</value>
     </property>
     <property key="StatusItem.description.WERV_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.WERV_DELETED">
         <value xml:lang="en">Deleted</value>
+        <value xml:lang="fr">Supprimé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已删除</value>
     </property>
     <property key="StatusItem.description.WERV_PENDING">
         <value xml:lang="en">Pending</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="zh">等待</value>
     </property>
@@ -8634,7 +8724,7 @@
     <property key="StatusItem.description.WIP_INCOMING_PLAN">
         <value xml:lang="en">WIP_INCOMING_PLAN</value>
         <value xml:lang="es">Entrante planificado</value>
-        <value xml:lang="fr">En cours : article entrant estimé</value>
+        <value xml:lang="fr">En cours : article estimé à recevoir</value>
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
         <value xml:lang="zh">计划收入</value>
@@ -10802,6 +10892,7 @@
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_ASSIGNED.PICKLIST_PRINTED">
         <value xml:lang="en">Printed</value>
+        <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_ASSIGNED">
@@ -10842,14 +10933,17 @@
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_PRINTED">
         <value xml:lang="en">Print</value>
+        <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_PICKED">
         <value xml:lang="en">Pick</value>
+        <value xml:lang="fr">Prélevé</value>
         <value xml:lang="it">Preleva</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_CANCELLED">
         <value xml:lang="en">Cancel</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancella</value>
     </property>
     <property key="StatusValidChange.transitionName.PMNT_NOT_PAID.PMNT_CANCELLED">
@@ -13528,6 +13622,7 @@
     </property>
     <property key="Uom.description.OTH_ea">
         <value xml:lang="en">Each</value>
+        <value xml:lang="fr">Chaque</value>
         <value xml:lang="it">Ciascuno</value>
         <value xml:lang="zh">每个</value>
     </property>
@@ -13545,6 +13640,7 @@
     </property>
     <property key="Uom.description.OTH_pp">
         <value xml:lang="en">Per Person</value>
+        <value xml:lang="fr">Par personne</value>
         <value xml:lang="it">Per persona</value>
         <value xml:lang="zh">每人</value>
     </property>
