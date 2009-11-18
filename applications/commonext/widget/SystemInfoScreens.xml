@@ -30,7 +30,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet
-                    title="System Info notes for user: ${userLogin.partyId}"
+                    title="${uiLabelMap.CommonExtSystemInfoNoteForUser} ${userLogin.partyId}"
                     navigation-menu-name="SystemInfoNotes">
                 <section>
                     <condition>
@@ -64,7 +64,7 @@ under the License.
                         <not><if-empty field="systemInfoStatus"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="System Status Info for user: ${userLogin.partyId}">
+                        <screenlet title="${uiLabelMap.CommonExtSystemInfoStatusForUser} ${userLogin.partyId}">
                             <include-form name="SystemInfoStatus" location="component://commonext/widget/SystemInfoForms.xml"/>
                         </screenlet>
                     </widgets>

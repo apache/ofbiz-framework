@@ -21,7 +21,16 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CommonExtCreatePublicMessage">
         <value xml:lang="en">Create Public Message</value>
+        <value xml:lang="fr">Créer un message public</value>
         <value xml:lang="it">Creare messaggio pubblico</value>
+    </property>
+    <property key="CommonExtDateInfoCreated">
+        <value xml:lang="en">Date info created</value>
+        <value xml:lang="fr">Date de création</value>
+    </property>
+    <property key="CommonExtDateLastChanged">
+        <value xml:lang="en">Date Last Changed</value>
+        <value xml:lang="fr">Dernière date de changement</value>
     </property>
     <property key="CommonExtHelpDefinition">
         <value xml:lang="en">Definition, what is it?</value>
@@ -42,5 +51,21 @@
     <property key="CommonExtIndex">
         <value xml:lang="en">Index</value>
         <value xml:lang="it">Indice</value>
+    </property>
+    <property key="CommonExtSystemInfoNote">
+        <value xml:lang="en">System Info Note</value>
+        <value xml:lang="fr">Message d'information système</value>
+    </property>
+    <property key="CommonExtSystemInfoNoteForUser">
+        <value xml:lang="en">System Info note for user:</value>
+        <value xml:lang="fr">Message d'information système pour l'utilisateur :</value>
+    </property>
+    <property key="CommonExtSystemInfoStatus">
+        <value xml:lang="en">System Info Status</value>
+        <value xml:lang="fr">Message d'information d'état</value>
+    </property>
+    <property key="CommonExtSystemInfoStatusForUser">
+        <value xml:lang="en">System Info status for user:</value>
+        <value xml:lang="fr">Message d'information d'état pour l'utilisateur :</value>
     </property>
 </resource>
