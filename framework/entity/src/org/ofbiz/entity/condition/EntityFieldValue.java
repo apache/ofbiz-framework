@@ -26,7 +26,6 @@ import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;

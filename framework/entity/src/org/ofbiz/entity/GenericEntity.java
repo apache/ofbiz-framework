@@ -67,7 +67,7 @@ import org.w3c.dom.Element;
  * <code>Observer</code>.
  *
  */
-public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
+public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
 
     public static final String module = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
@@ -1009,9 +1009,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // else element = new ElementImpl(null, this.getEntityName());
         if (element == null) return null;
 
-        Iterator modelFields = this.getModelEntity().getFieldsIterator();
+        Iterator<ModelField> modelFields = this.getModelEntity().getFieldsIterator();
         while (modelFields.hasNext()) {
-            ModelField modelField = (ModelField) modelFields.next();
+            ModelField modelField = modelFields.next();
             String name = modelField.getName();
             String value = this.getString(name);
 

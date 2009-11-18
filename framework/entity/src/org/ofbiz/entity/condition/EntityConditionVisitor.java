@@ -33,21 +33,21 @@ import java.util.List;
  *
  */
 public interface EntityConditionVisitor {
-    void visit(Object obj);
-    void accept(Object obj);
+    <T> void visit(T obj);
+    <T> void accept(T obj);
     void acceptObject(Object obj);
     void acceptEntityCondition(EntityCondition condition);
-    void acceptEntityJoinOperator(EntityJoinOperator op, List conditions);
-    void acceptEntityOperator(EntityOperator op, Object lhs, Object rhs);
-    void acceptEntityComparisonOperator(EntityComparisonOperator op, Object lhs, Object rhs);
+    <T extends EntityCondition> void acceptEntityJoinOperator(EntityJoinOperator op, List<T> conditions);
+    <L,R,T> void acceptEntityOperator(EntityOperator<L, R, T> op, L lhs, R rhs);
+    <L,R> void acceptEntityComparisonOperator(EntityComparisonOperator<L, R> op, L lhs, R rhs);
     void acceptEntityConditionValue(EntityConditionValue value);
     void acceptEntityFieldValue(EntityFieldValue value);
 
     void acceptEntityExpr(EntityExpr expr);
-    void acceptEntityConditionList(EntityConditionList list);
+    <T extends EntityCondition> void acceptEntityConditionList(EntityConditionList<T> list);
     void acceptEntityFieldMap(EntityFieldMap fieldMap);
     void acceptEntityConditionFunction(EntityConditionFunction func, EntityCondition nested);
-    void acceptEntityFunction(EntityFunction func);
+    <T extends Comparable<?>> void acceptEntityFunction(EntityFunction<T> func);
     void acceptEntityWhereString(EntityWhereString condition);
 
     void acceptEntityDateFilterCondition(EntityDateFilterCondition condition);

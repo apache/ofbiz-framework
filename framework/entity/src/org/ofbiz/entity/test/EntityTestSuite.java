@@ -131,6 +131,7 @@ public class EntityTestSuite extends EntityTestCase {
             GenericValue v = delegator.create("TestingNode", "testingNodeId", nextSeqId,
                                     "primaryParentNodeId", root.get("testingNodeId"),
                                     "description", "node-level #1");
+            assertNotNull(v);
         }
 
         long created = level1;

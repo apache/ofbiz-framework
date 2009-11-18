@@ -31,6 +31,7 @@ import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
@@ -68,7 +69,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     @Override
-    public void validateSql(ModelEntity entity, Object lhs, Object rhs) throws GenericModelException {
+    public void validateSql(ModelEntity entity, L lhs, R rhs) throws GenericModelException {
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
             ecv.validateSql(entity);
@@ -80,13 +81,13 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor, Object lhs, Object rhs) {
+    public void visit(EntityConditionVisitor visitor, L lhs, R rhs) {
         visitor.accept(lhs);
         visitor.accept(rhs);
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
 
         // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.  Note that "FALSE" does not work with all databases.
@@ -115,12 +116,12 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         makeRHSWhereString(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, DatasourceInfo datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
         makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, DatasourceInfo datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
@@ -131,13 +132,12 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
 
     public abstract boolean compare(L lhs, R rhs);
 
-    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs) {
         return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs) {
         Object leftValue;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
@@ -156,11 +156,11 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         }
 
         if (leftValue == WILDCARD || rightValue == WILDCARD) return true;
-        return compare((L) leftValue, (R) rightValue);
+        return compare(UtilGenerics.<L>cast(leftValue), UtilGenerics.<R>cast(rightValue));
     }
 
     @Override
-    public EntityCondition freeze(Object lhs, Object rhs) {
+    public EntityCondition freeze(L lhs, R rhs) {
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
@@ -177,7 +177,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         super(id, code);
     }
 
-    public static final boolean compareEqual(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareEqual(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -188,7 +188,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return true;
     }
 
-    public static final boolean compareNotEqual(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareNotEqual(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs == null) {
                 return false;
@@ -243,7 +243,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return true;
     }
 
-    public static final boolean compareIn(Object lhs, Object rhs) {
+    public static final <L,R> boolean compareIn(L lhs, R rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -251,7 +251,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
                 return true;
             }
         } else if (rhs instanceof Collection) {
-            if (((Collection) rhs).contains(lhs)) {
+            if (((Collection<?>) rhs).contains(lhs)) {
                 return true;
             } else {
                 return false;
@@ -263,7 +263,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         }
     }
 
-    public static final boolean compareLike(Object lhs, Object rhs) {
+    public static final <L,R> boolean compareLike(L lhs, R rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;

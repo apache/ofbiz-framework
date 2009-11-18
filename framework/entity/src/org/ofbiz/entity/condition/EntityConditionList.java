@@ -30,10 +30,10 @@ import javolution.context.ObjectFactory;
 public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
     public static final String module = EntityConditionList.class.getName();
 
-    protected static final ObjectFactory<EntityConditionList> entityConditionListFactory = new ObjectFactory<EntityConditionList>() {
+    protected static final ObjectFactory<EntityConditionList<EntityCondition>> entityConditionListFactory = new ObjectFactory<EntityConditionList<EntityCondition>>() {
         @Override
-        protected EntityConditionList create() {
-            return new EntityConditionList();
+        protected EntityConditionList<EntityCondition> create() {
+            return new EntityConditionList<EntityCondition>();
         }
     };
 

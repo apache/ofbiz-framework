@@ -231,18 +231,18 @@ public class SqlJdbcUtil {
     }
 
     /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
-    public static String makeWhereStringFromFields(List modelFields, Map<String, Object> fields, String operator) {
+    public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator) {
         return makeWhereStringFromFields(modelFields, fields, operator, null);
     }
 
     /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
-    public static String makeWhereStringFromFields(List modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
+    public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
         if (modelFields.size() < 1) {
             return "";
         }
 
         StringBuilder returnString = new StringBuilder();
-        Iterator iter = modelFields.iterator();
+        Iterator<ModelField> iter = modelFields.iterator();
         while (iter.hasNext()) {
             Object item = iter.next();
             Object name = null;
@@ -862,7 +862,7 @@ public class SqlJdbcUtil {
                 break;
 
             case 15:
-                sqlP.setValue((java.util.Collection) fieldValue);
+                sqlP.setValue(UtilGenerics.<Collection<?>>cast(fieldValue));
                 break;
             }
         } catch (GenericNotImplementedException e) {

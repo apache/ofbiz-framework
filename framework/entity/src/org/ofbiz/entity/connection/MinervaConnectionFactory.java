@@ -21,13 +21,13 @@ package org.ofbiz.entity.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.ofbiz.minerva.pool.jdbc.xa.XAPoolDataSource;
@@ -123,13 +123,13 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     }
 
     // static methods for webtools
-    public static Set getPooledData(String helperName) throws GenericEntityException {
+    public static <X> Set<X> getPooledData(String helperName) throws GenericEntityException {
         XAPoolDataSource pds = dsCache.get(helperName);
         if (pds == null) {
             Debug.logError("No pool found for helper name [" + helperName + "]", module);
-            return new HashSet();
+            return new HashSet<X>();
         } else {
-            return pds.getPooledObjectRecords(0); // 0 to return all (in use and waiting)
+            return UtilGenerics.cast(pds.getPooledObjectRecords(0)); // 0 to return all (in use and waiting)
         }
     }
 

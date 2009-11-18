@@ -50,8 +50,6 @@ public class SequenceUtil {
     String nameColName;
     String idColName;
 
-    private SequenceUtil() {}
-
     public SequenceUtil(String helperName, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
         this.helperName = helperName;
         this.seqEntity = seqEntity;

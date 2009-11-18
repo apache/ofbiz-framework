@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.config;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;

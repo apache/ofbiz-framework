@@ -47,8 +47,8 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 @SuppressWarnings("serial")
 public abstract class EntityConditionBase implements Serializable {
 
-    public static final List emptyList = Collections.unmodifiableList(FastList.newInstance());
-    public static final Map _emptyMap = Collections.unmodifiableMap(FastMap.newInstance());
+    public static final List<?> emptyList = Collections.unmodifiableList(FastList.newInstance());
+    public static final Map<?,?> _emptyMap = Collections.unmodifiableMap(FastMap.newInstance());
     public static final Map<String, String> emptyAliases = Collections.unmodifiableMap(FastMap.<String, String>newInstance());
 
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {

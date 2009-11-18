@@ -53,8 +53,8 @@ public class EntityUtil {
 
     public static final String module = EntityUtil.class.getName();
 
-    public static Map<String, Object> makeFields(Object... args) {
-        Map<String, Object> fields = FastMap.newInstance();
+    public static <V> Map<String, V> makeFields(V... args) {
+        Map<String, V> fields = FastMap.newInstance();
         if (args != null) {
             for (int i = 0; i < args.length;) {
                 if (!(args[i] instanceof String)) throw new IllegalArgumentException("Key(" + i + "), with value(" + args[i] + ") is not a String.");

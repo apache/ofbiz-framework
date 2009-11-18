@@ -72,7 +72,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
     protected org.xml.sax.Locator locator;
     protected Delegator delegator;
-    protected EntityEcaHandler ecaHandler = null;
+    protected EntityEcaHandler<?> ecaHandler = null;
     protected GenericValue currentValue = null;
     protected CharSequence currentFieldName = null;
     protected CharSequence currentFieldValue = null;

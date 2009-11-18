@@ -125,10 +125,10 @@ public class MemoryHelper implements GenericHelper {
             return 0;
         }
 
-        Iterator it = entityCache.values().iterator();
+        Iterator<GenericValue> it = entityCache.values().iterator();
         int count = 0;
         while (it.hasNext()) {
-            GenericValue value = (GenericValue) it.next();
+            GenericValue value = it.next();
             if (condition.entityMatches(value)) {
                 it.remove();
                 count++;

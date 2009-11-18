@@ -25,6 +25,7 @@ import javolution.context.ObjectFactory;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.EntityCryptoException;
@@ -52,27 +53,29 @@ public class EntityExpr extends EntityCondition {
     };
 
     private Object lhs = null;
-    private EntityOperator<?, ?, ?> operator = null;
+    private EntityOperator<Object, Object, ?> operator = null;
     private Object rhs = null;
 
     protected EntityExpr() {}
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
     @Deprecated
-    public EntityExpr(Object lhs, EntityComparisonOperator operator, Object rhs) {
+    public <L,R> EntityExpr(L lhs, EntityComparisonOperator<L,R> operator, R rhs) {
         this.init(lhs, operator, rhs);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
     @Deprecated
-    public EntityExpr(String lhs, EntityComparisonOperator operator, Object rhs) {
+    public <R> EntityExpr(String lhs, EntityComparisonOperator<String,R> operator, R rhs) {
         this.init(lhs, operator, rhs);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
     @Deprecated
-    public EntityExpr(String lhs, boolean leftUpper, EntityComparisonOperator operator, Object rhs, boolean rightUpper) {
-        this.init(leftUpper ? EntityFunction.UPPER_FIELD(lhs) : lhs, operator, rightUpper ? EntityFunction.UPPER(rhs) : rhs);
+    public <L,R> EntityExpr(L lhs, boolean leftUpper, EntityComparisonOperator<L,R> operator, R rhs, boolean rightUpper) {
+        L l = leftUpper ? UtilGenerics.<L>cast(EntityFunction.UPPER_FIELD((String)lhs)) : lhs;
+        R r = rightUpper ? UtilGenerics.<R>cast(EntityFunction.UPPER(rhs)) : rhs;
+        this.init(l, operator, r);
     }
 
     /** @deprecated Use EntityCondition.makeCondition() instead */
@@ -81,7 +84,7 @@ public class EntityExpr extends EntityCondition {
         this.init(lhs, operator, rhs);
     }
 
-    public void init(Object lhs, EntityComparisonOperator operator, Object rhs) {
+    public <L,R,LL,RR> void init(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
         }
@@ -96,7 +99,7 @@ public class EntityExpr extends EntityCondition {
         }
 
         if (EntityOperator.BETWEEN.equals(operator)) {
-            if (!(rhs instanceof Collection) || (((Collection) rhs).size() != 2)) {
+            if (!(rhs instanceof Collection) || (((Collection<?>) rhs).size() != 2)) {
                 throw new IllegalArgumentException("BETWEEN Operator requires a Collection with 2 elements for the right/rhs argument");
             }
         }
@@ -106,7 +109,7 @@ public class EntityExpr extends EntityCondition {
         } else {
             this.lhs = lhs;
         }
-        this.operator = operator;
+        this.operator = UtilGenerics.cast(operator);
         this.rhs = rhs;
 
         //Debug.logInfo("new EntityExpr internal field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
@@ -124,7 +127,7 @@ public class EntityExpr extends EntityCondition {
         }
 
         this.lhs = lhs;
-        this.operator = operator;
+        this.operator = UtilGenerics.cast(operator);
         this.rhs = rhs;
     }
 
@@ -160,8 +163,8 @@ public class EntityExpr extends EntityCondition {
         return lhs;
     }
 
-    public EntityOperator getOperator() {
-        return operator;
+    public <L,R,T> EntityOperator<L,R,T> getOperator() {
+        return UtilGenerics.cast(operator);
     }
 
     public Object getRhs() {
@@ -240,11 +243,11 @@ public class EntityExpr extends EntityCondition {
 
         Object value = this.rhs;
         if (this.rhs instanceof EntityFunction) {
-            value = ((EntityFunction) this.rhs).getOriginalValue();
+            value = UtilGenerics.<EntityFunction<?>>cast(this.rhs).getOriginalValue();
         }
 
         if (value instanceof Collection) {
-            Collection valueCol = (Collection) value;
+            Collection<?> valueCol = UtilGenerics.cast(value);
             if (valueCol.size() > 0) {
                 value = valueCol.iterator().next();
             } else {

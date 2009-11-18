@@ -34,6 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -192,7 +193,7 @@ public class EntityFinderUtil {
             }
 
             String operatorName = operatorExdr.expandString(context);
-            EntityOperator operator = EntityOperator.lookup(operatorName);
+            EntityOperator<?,?,?> operator = EntityOperator.lookup(operatorName);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operatorName);
             }
@@ -240,21 +241,21 @@ public class EntityFinderUtil {
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) operator, EntityFunction.UPPER(value)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(value)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 } else {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) operator, value),
+                            EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), value),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 }
             } else {
                 if (ignoreCase) {
                     // use the stuff to upper case both sides
-                    return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) operator, EntityFunction.UPPER(value));
+                    return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(value));
                 } else {
-                    return EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) operator, value);
+                    return EntityCondition.makeCondition(fieldName, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), value);
                 }
             }
         }
@@ -299,12 +300,12 @@ public class EntityFinderUtil {
             }
 
             String operatorName = combineExdr.expandString(context);
-            EntityOperator operator = EntityOperator.lookup(operatorName);
+            EntityOperator<?,?,?> operator = EntityOperator.lookup(operatorName);
             if (operator == null) {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operatorName);
             }
 
-            return EntityCondition.makeCondition(entityConditionList, (EntityJoinOperator) operator);
+            return EntityCondition.makeCondition(entityConditionList, UtilGenerics.<EntityJoinOperator>cast(operator));
         }
     }
     public static class ConditionObject implements Condition {

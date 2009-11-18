@@ -127,7 +127,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     }
    
     @Override
-    public Comparable getValue(Delegator delegator, Map<String, ? extends Object> map) {
+    public Comparable<?> getValue(Delegator delegator, Map<String, ? extends Object> map) {
         // do nothing for now
         return null;
     }

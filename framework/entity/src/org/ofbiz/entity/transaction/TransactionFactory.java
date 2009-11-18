@@ -48,7 +48,7 @@ public class TransactionFactory {
                         if (className == null) {
                             throw new IllegalStateException("Could not find transaction factory class name definition");
                         }
-                        Class tfClass = null;
+                        Class<?> tfClass = null;
 
                         if (className != null && className.length() > 0) {
                             try {

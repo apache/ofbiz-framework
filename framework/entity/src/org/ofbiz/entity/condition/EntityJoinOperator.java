@@ -45,14 +45,14 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, DatasourceInfo datasourceInfo) {
         sql.append('(');
-        sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
+        sql.append(lhs.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sql.append(' ');
         sql.append(getCode());
         sql.append(' ');
         if (rhs instanceof EntityCondition) {
-            sql.append(((EntityCondition) rhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
+            sql.append(rhs.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         } else {
             addValue(sql, null, rhs, entityConditionParams);
         }
@@ -81,7 +81,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public EntityCondition freeze(Object lhs, Object rhs) {
+    public EntityCondition freeze(EntityCondition lhs, EntityCondition rhs) {
         return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
@@ -102,20 +102,17 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor, Object lhs, Object rhs) {
-        ((EntityCondition) lhs).visit(visitor);
+    public void visit(EntityConditionVisitor visitor, EntityCondition lhs, EntityCondition rhs) {
+        lhs.visit(visitor);
         visitor.visit(rhs);
     }
 
-    @Override
-    public boolean entityMatches(GenericEntity entity, Object lhs, Object rhs) {
-        return entityMatches(entity, (EntityCondition) lhs, (EntityCondition) rhs);
-    }
-
+  
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
-
+    
+    @Override
     public boolean entityMatches(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         if (lhs.entityMatches(entity) == shortCircuitValue) return shortCircuitValue;
         if (rhs.entityMatches(entity) == shortCircuitValue) return shortCircuitValue;
@@ -126,14 +123,14 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return mapMatches(entity.getDelegator(), entity, conditionList);
     }
 
-    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
+    public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
         return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
-    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
-        if (((EntityCondition) lhs).mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
-        if (((EntityCondition) rhs).mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
+    public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
+        if (lhs.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
+        if (rhs.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
         return !shortCircuitValue;
     }
 
@@ -151,10 +148,6 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     @Override
-    public void validateSql(ModelEntity modelEntity, Object lhs, Object rhs) throws GenericModelException {
-        validateSql(modelEntity, (EntityCondition) lhs, (EntityCondition) rhs);
-    }
-
     public void validateSql(ModelEntity modelEntity, EntityCondition lhs, EntityCondition rhs) throws GenericModelException {
         lhs.checkCondition(modelEntity);
         rhs.checkCondition(modelEntity);
