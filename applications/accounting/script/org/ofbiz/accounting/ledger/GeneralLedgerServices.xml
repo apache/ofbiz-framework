@@ -1674,7 +1674,17 @@ under the License.
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
-        <set field="creditEntry.glAccountTypeId" from-field="costComponentCalc.costGlAccountTypeId"/>
+        <if-not-empty field="costComponentCalc.costGlAccountTypeId">
+            <set field="creditEntry.glAccountTypeId" from-field="costComponentCalc.costGlAccountTypeId"/>
+            <else>
+                <if-not-empty field="costComponent.fixedAssetId">
+                    <!-- FIXME: 20091119 There is currently no way of determining what glAccountTypeId should be used when a 
+                                         CostComponent has been created based on a FixedAsset's FixedAssetStdCost records,
+                                         hard-coding as OPERATING_EXPENSE until that is resolved. -->
+                    <set field="creditEntry.glAccountTypeId" value="OPERATING_EXPENSE"/>
+                </if-not-empty>
+            </else>
+        </if-not-empty>
         <set field="creditEntry.organizationPartyId" from-field="facility.ownerPartyId"/>
         <set field="creditEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="creditEntry.origAmount" from-field="costComponent.cost"/>
