@@ -412,7 +412,7 @@ under the License.
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
         <description>
             Gets a single user preference.
-            If not found for the specific userLogin, find it for the _NA_ userlogin. 
+            If not found for the specific userLogin, find it for the _NA_ userlogin.
             If the value is DEFAULT, find the value in general.properties file.
         </description>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
@@ -633,6 +633,21 @@ under the License.
         location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPageColumn">
         <description>Delete a Column from a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- update Sequence No for Drag and Drop -->
+    <service name="updatePortletSeqDragDrop" engine="simple" auth="true"
+        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="updatePortletSeqDragDrop">
+        <attribute name="o_portalPageId" mode="IN" type="String" ></attribute>
+        <attribute name="o_portalPortletId" mode="IN" type="String"></attribute>
+        <attribute name="o_portletSeqId" mode="IN" type="String"></attribute>
+
+        <attribute name="d_portalPageId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="d_portalPortletId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="d_portletSeqId" mode="IN" type="String" optional="true"></attribute>
+
+        <attribute name="destinationColumn" mode="IN" optional="true" type="String"/>
+        <attribute name="mode" type="String" mode="IN"/>
     </service>
 
     <!-- PortletAttribute services -->

@@ -75,6 +75,11 @@ under the License.
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
+    <request-map uri="updatePortalPagePortletSeqAjax">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortletSeqDragDrop"/>
+        <response name="success" type="none" />
+    </request-map>
     <request-map uri="createPortalPage">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPortalPage"/>

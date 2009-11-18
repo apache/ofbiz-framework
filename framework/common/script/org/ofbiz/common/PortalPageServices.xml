@@ -107,9 +107,9 @@ under the License.
         </if-not-empty>
         <entity-condition entity-name="PortletAttribute" list="attributeList">
             <condition-list combine="and">
-                <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>                
-                <condition-expr field-name="portalPortletId" operator="equals" from-field="parameters.portalPortletId"/>                
-                <condition-expr field-name="portletSeqId" operator="equals" from-field="parameters.portletSeqId" ignore-if-empty="true"/>                
+                <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
+                <condition-expr field-name="portalPortletId" operator="equals" from-field="parameters.portalPortletId"/>
+                <condition-expr field-name="portletSeqId" operator="equals" from-field="parameters.portletSeqId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>
         <if-not-empty field="attributeList">
@@ -299,5 +299,72 @@ under the License.
         <set field="first.sequenceNum" from-field="getSequenceNum.sequenceNum" type="Long"/>
         <call-service service-name="updatePortalPage" in-map-name="first"/>
     </simple-method>
+    <!-- update Portlet Seq with Drag & Drop -->
+    <simple-method method-name="updatePortletSeqDragDrop" short-description="Updates a portlet Seq No for the Drag and Drop Feature">
+        <set field="parameters.portalPageId" value="${parameters.o_portalPageId}"/>
+        <call-simple-method method-name="checkOwnerShip"/>
 
+        <!-- origin Portlet -->
+        <entity-one value-field="originPp" entity-name="PortalPagePortlet">
+            <field-map field-name="portalPageId" value="${parameters.o_portalPageId}"/>
+            <field-map field-name="portalPortletId" value="${parameters.o_portalPortletId}"/>
+            <field-map field-name="portletSeqId" value="${parameters.o_portletSeqId}"/>
+        </entity-one>
+
+        <!-- destination Portlet -->
+        <if-compare operator="equals" field="parameters.mode" value="DRAGDROP">
+            <entity-one value-field="destiPp" entity-name="PortalPagePortlet">
+                <field-map field-name="portalPageId" value="${parameters.d_portalPageId}"/>
+                <field-map field-name="portalPortletId" value="${parameters.d_portalPortletId}"/>
+                <field-map field-name="portletSeqId" value="${parameters.d_portletSeqId}"/>
+            </entity-one>
+
+            <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+             <condition-list combine="and">
+                <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
+                <condition-expr field-name="sequenceNum" operator="greater-equals" value="${destiPp.sequenceNum}"/>
+             </condition-list>
+        </entity-condition>
+
+        </if-compare>
+
+        <!-- Portlets to Modify -->
+        <if-compare operator="equals" field="parameters.mode" value="ColBOTTOM">
+            <entity-one value-field="pPColumn" entity-name="PortalPageColumn">
+                <field-map field-name="columnSeqId" value="${parameters.destinationColumn}"/>
+                <field-map field-name="portalPageId" value="${parameters.o_portalPageId}"/>
+            </entity-one>
+            <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+                 <condition-list combine="and">
+                    <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}" />
+                    <condition-expr field-name="columnSeqId" operator="equals" value="${pPColumn.columnSeqId}"/>
+                 </condition-list>
+            <order-by field-name="-sequenceNum" />
+            </entity-condition>
+            <if-not-empty field="modifyPpList">
+                <first-from-list entry="destiPp" list="modifyPpList"/>
+                <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+                     <condition-list combine="and">
+                        <condition-expr field-name="sequenceNum" operator="greater" value="${destiPp.sequenceNum}"/>
+                     </condition-list>
+                </entity-condition>
+                <set field="destiPp.sequenceNum" value="${destiPp.sequenceNum + 1}" type="Long"/>
+                <else>
+                    <clone-value new-value-field="destiPp" value-field="originPp"/>
+                    <set field="destiPp.columnSeqId" value="${pPColumn.columnSeqId}"/>
+                </else>
+            </if-not-empty>
+        </if-compare>
+        <if-not-empty field="modifyPpList">
+            <iterate entry="modifyPp" list="modifyPpList">
+                <set field="modifyPp.sequenceNum" value="${modifyPp.sequenceNum + 1}" type="Long"/>
+                <store-value value-field="modifyPp"/>
+            </iterate>
+        </if-not-empty>
+        <!-- Origin Portlet Modify -->
+        <set field="originPp.sequenceNum" from-field="destiPp.sequenceNum"/>
+        <set field="originPp.columnSeqId" from-field="destiPp.columnSeqId"/>
+        <store-value value-field="originPp"/>
+    </simple-method>
+    <!--  -->
 </simple-methods>

@@ -42,7 +42,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="showPortlet">
         <section>
             <actions>
@@ -64,7 +64,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="showPortalPage">
         <section>
             <actions>
@@ -95,10 +95,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ManagePortalPages">
         <section>
             <actions>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
             </actions>
@@ -148,12 +150,14 @@ under the License.
                                 </entity-condition>
                             </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                    <link target="addPortalPageColumn" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
-                                        <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                    </link>
-                                    <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
-                                </screenlet>
+                                <container id="portalContainerId">
+                                    <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                        <link target="addPortalPageColumn" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
+                                            <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                        </link>
+                                        <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                                    </screenlet>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>

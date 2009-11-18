@@ -1,0 +1,28 @@
+#loading {
+position: absolute;
+z-index: 100;
+left: 10px;
+top: 250px;
+background-image: url(/images/myportal_load_bg.png);
+background-repeat:repeat;
+background-position:top center;
+border: 0px !important;
+width: 99%;
+height: 100%;
+}
+
+#loaderImg {
+position: absolute;
+top: 200px;
+left: 50%;
+}
+
+td.hover {
+border: 2px dashed #aaa;
+background:#efefef;
+}
+
+div.hover {
+border: 2px dashed #aaa;
+background:#efefef;
+}
