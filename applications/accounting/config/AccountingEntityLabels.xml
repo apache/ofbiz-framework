@@ -101,6 +101,7 @@
     </property>
     <property key="AcctgTransType.description.INCOMING_PAYMENT">
         <value xml:lang="en">Incoming Payment</value>
+        <value xml:lang="fr">Paiement à recevoir</value>
         <value xml:lang="hi_IN">आवक भुगतान</value>
         <value xml:lang="it">Pagamento in entrata</value>
         <value xml:lang="pt_BR">Pagamento na Entrada</value>
@@ -119,6 +120,7 @@
     </property>
     <property key="AcctgTransType.description.INVENTORY">
         <value xml:lang="en">Inventory</value>
+        <value xml:lang="fr">Stock</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory)</value>
         <value xml:lang="it">Inventario</value>
         <value xml:lang="pt_BR">Inventário</value>
@@ -148,6 +150,7 @@
     </property>
     <property key="AcctgTransType.description.MANUFACTURING">
         <value xml:lang="en">Manufacturing</value>
+        <value xml:lang="fr">Production</value>
         <value xml:lang="hi_IN">विनिर्माण</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="pt_BR">Produção</value>
@@ -199,6 +202,7 @@
     </property>
     <property key="AcctgTransType.description.OUTGOING_PAYMENT">
         <value xml:lang="en">Outgoing Payment</value>
+        <value xml:lang="fr">Paiement sortant</value>
         <value xml:lang="hi_IN">निर्गामी भुगतान</value>
         <value xml:lang="it">Pagamento in uscita</value>
         <value xml:lang="pt_BR">Pagamento na Saída</value>
@@ -217,6 +221,7 @@
     </property>
     <property key="AcctgTransType.description.PAYMENT_APPL">
         <value xml:lang="en">Payment Applied</value>
+        <value xml:lang="fr">Paiment effectué</value>
         <value xml:lang="hi_IN">भुगतान लागू</value>
         <value xml:lang="it">Pagamento applicato</value>
         <value xml:lang="pt_BR">Pagamento Executado</value>
@@ -235,6 +240,7 @@
     </property>
     <property key="AcctgTransType.description.PURCHASE_INVOICE">
         <value xml:lang="en">Purchase Invoice</value>
+        <value xml:lang="fr">Facture d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
         <value xml:lang="it">Fattura di acquisto</value>
         <value xml:lang="pt_BR">Fatura de Compra</value>
@@ -265,6 +271,7 @@
     </property>
     <property key="AcctgTransType.description.SALES_INVOICE">
         <value xml:lang="en">Sales Invoice</value>
+        <value xml:lang="fr">Facture de vente</value>
         <value xml:lang="hi_IN">बिक्री चालान</value>
         <value xml:lang="it">Fattura di vendita</value>
         <value xml:lang="pt_BR">Fatura da Venda</value>
@@ -272,6 +279,7 @@
     </property>
     <property key="AcctgTransType.description.SALES_SHIPMENT">
         <value xml:lang="en">Sales Shipment</value>
+        <value xml:lang="fr">Facture d'expédition</value>
         <value xml:lang="hi_IN">बिक्री शिपमेंट</value>
         <value xml:lang="it">Spedizione di vendita</value>
         <value xml:lang="pt_BR">Entrega</value>
@@ -279,6 +287,7 @@
     </property>
     <property key="AcctgTransType.description.SHIPMENT_RECEIPT">
         <value xml:lang="en">Shipment Receipt</value>
+        <value xml:lang="fr">Reçu d'expédition</value>
         <value xml:lang="hi_IN">शिपमेंट रसीद</value>
         <value xml:lang="it">Ricevuta di spedizione</value>
         <value xml:lang="pt_BR">Recibo da Entrega</value>
@@ -514,6 +523,7 @@
     </property>
     <property key="FixedAssetType.description.COMPUTER_HARDWARE">
         <value xml:lang="en">Computer Hardware</value>
+        <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर हार्डवेयर</value>
         <value xml:lang="it">Hardware per computer</value>
         <value xml:lang="pt_BR">Hardware de Computador</value>
@@ -521,6 +531,7 @@
     </property>
     <property key="FixedAssetType.description.COMPUTER_SOFTWARE">
         <value xml:lang="en">Computer Software</value>
+        <value xml:lang="fr">Logiciel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर सॉफ्टवेयर</value>
         <value xml:lang="it">Software per computer</value>
         <value xml:lang="pt_BR">Software</value>
@@ -550,7 +561,7 @@
     </property>
     <property key="FixedAssetType.description.OTHER_FIXED_ASSET">
         <value xml:lang="en">Other Fixed Asset</value>
-        <value xml:lang="fr">Autre actif  immobilisé</value>
+        <value xml:lang="fr">Autre actif immobilisé</value>
         <value xml:lang="hi_IN">अन्य अचल संपत्ति</value>
         <value xml:lang="it">Altri Cespiti</value>
         <value xml:lang="pt_BR">Outro Ativo Fixo</value>
@@ -826,6 +837,7 @@
     </property>
     <property key="GlAccountClass.description.INVENTORY_ASSET">
         <value xml:lang="en">Inventory Asset</value>
+        <value xml:lang="fr">Actif en stock</value>
         <value xml:lang="hi_IN">सूची परिसंपत्ति</value>
         <value xml:lang="it">Inventario cespite</value>
         <value xml:lang="pt_BR">Inventário de Ativo</value>
@@ -1028,6 +1040,7 @@
     </property>
     <property key="GlAccountType.description.COMMISSIONS_PAYABLE">
         <value xml:lang="en">Commissions Payables</value>
+        <value xml:lang="fr">Commissions payables</value>
         <value xml:lang="hi_IN">देय दलाली</value>
         <value xml:lang="it">Provvigioni a debito</value>
         <value xml:lang="zh">应付佣金</value>
@@ -1040,6 +1053,7 @@
     </property>
     <property key="GlAccountType.description.COMMISSION_EXPENSE">
         <value xml:lang="en">Commission Expense</value>
+        <value xml:lang="fr">Frais de commission</value>
         <value xml:lang="hi_IN">दलाली व्यय</value>
         <value xml:lang="it">Provvigioni sulle spese</value>
         <value xml:lang="zh">佣金支出</value>
@@ -1127,6 +1141,7 @@
     </property>
     <property key="GlAccountType.description.EXPENSE">
         <value xml:lang="en">Expense</value>
+        <value xml:lang="fr">Frais</value>
         <value xml:lang="hi_IN">व्यय</value>
         <value xml:lang="it">Spese</value>
         <value xml:lang="zh">支出</value>
@@ -1143,6 +1158,7 @@
     </property>
     <property key="GlAccountType.description.FIXED_ASSET_MAINT">
         <value xml:lang="en">Fixed Asset Maintenance</value>
+        <value xml:lang="fr">Maintenance des immobilisations</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव</value>
         <value xml:lang="it">Manutenzione cespiti</value>
         <value xml:lang="zh">固定资产维护</value>
@@ -1167,6 +1183,7 @@
     </property>
     <property key="GlAccountType.description.INCOME">
         <value xml:lang="en">Income</value>
+        <value xml:lang="fr">Revenu</value>
         <value xml:lang="hi_IN">आय</value>
         <value xml:lang="it">Reddito</value>
         <value xml:lang="zh">收入</value>
@@ -1297,6 +1314,7 @@
     </property>
     <property key="GlAccountType.description.OTHER_INCOME">
         <value xml:lang="en">Other Income</value>
+        <value xml:lang="fr">Autres revenus</value>
         <value xml:lang="hi_IN">अन्य आय</value>
         <value xml:lang="it">Altri redditi</value>
         <value xml:lang="zh">其它收入</value>
@@ -2163,8 +2181,8 @@
     </property>
     <property key="InvoiceItemType.description.PAYROL_DD_UNION">
         <value xml:lang="en">Union Dues</value>
-        <value xml:lang="it">Diritti sindacali dovuti</value>
         <value xml:lang="hi_IN">संघ देय</value>
+        <value xml:lang="it">Diritti sindacali dovuti</value>
         <value xml:lang="zh">工会会费</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_DD_WAG_GARN">
@@ -2216,6 +2234,7 @@
     </property>
     <property key="InvoiceItemType.description.PAYROL_SALARY">
         <value xml:lang="en">Salary</value>
+        <value xml:lang="fr">Salaire</value>
         <value xml:lang="hi_IN">वेतन</value>
         <value xml:lang="it">Salario</value>
         <value xml:lang="zh">薪水</value>
@@ -2714,8 +2733,8 @@
     <property key="InvoiceType.description.CUST_RTN_INVOICE">
         <value xml:lang="de">Kundenrücksendung</value>
         <value xml:lang="en">Customer Return</value>
-        <value xml:lang="hi_IN">ग्राहक रिटर्न</value>
         <value xml:lang="fr">Articles retournés</value>
+        <value xml:lang="hi_IN">ग्राहक रिटर्न</value>
         <value xml:lang="it">Resi Cliente</value>
         <value xml:lang="nl">Credit nota retour(en)</value>
         <value xml:lang="ro">Returnari Clienti</value>
@@ -2776,12 +2795,14 @@
     </property>
     <property key="InvoiceType.description.SALES_INV_TEMPLATE">
         <value xml:lang="en">Sales Invoice Template</value>
+        <value xml:lang="fr">Modèle de facture de vente</value>
         <value xml:lang="hi_IN">बिक्री चालान खाका</value>
         <value xml:lang="it">Template fattura di vendita</value>
         <value xml:lang="zh">销售发票模板</value>
     </property>
     <property key="InvoiceType.description.TEMPLATE">
         <value xml:lang="en">Invoice Template</value>
+        <value xml:lang="fr">Modèle de facture</value>
         <value xml:lang="hi_IN">चालान खाका</value>
         <value xml:lang="it">Template fattura</value>
         <value xml:lang="zh">发票模板</value>
