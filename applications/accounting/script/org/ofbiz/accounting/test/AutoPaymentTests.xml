@@ -23,7 +23,7 @@ under the License.
     
     <simple-method method-name="testCreatePaymentGroupAndMember" short-description="auto test createPaymentGroupAndMember service" login-required="false">
         <set field="paymentIds[]" value="demo10001"/>
-        <set field="paymentIds[]" value="demo10010"/>
+        <set field="paymentIds[]" value="demo10000"/>
         <set field="paymentGroupTypeId" value="BATCH_PAYMENT"/>
         <set field="paymentGroupName" value="Payment Batch"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
