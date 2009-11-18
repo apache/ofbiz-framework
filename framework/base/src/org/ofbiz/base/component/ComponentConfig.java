@@ -93,7 +93,7 @@ public class ComponentConfig {
             return Boolean.TRUE;
         }
     }
-    
+
     public static Collection<ComponentConfig> getAllComponents() {
         Collection<ComponentConfig> values = componentConfigs.values();
         if (values != null) {

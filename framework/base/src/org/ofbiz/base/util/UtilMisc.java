@@ -68,7 +68,7 @@ public class UtilMisc {
             return obj1.compareTo(obj2);
         }
     }
-    
+
     public static <E> int compare(List<E> obj1, List<E> obj2) {
         if (obj1 == obj2) {
             return 0;
@@ -77,11 +77,11 @@ public class UtilMisc {
             if (obj1.size() == obj2.size() && obj1.containsAll(obj2) && obj2.containsAll(obj1)) {
                 return 0;
             }
-            
+
         } catch (Exception e) {}
         return 1;
     }
-    
+
     /**
      * Get an iterator from a collection, returning null if collection is null
      * @param col The collection to be turned in to an iterator

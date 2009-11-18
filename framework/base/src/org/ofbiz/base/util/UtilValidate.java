@@ -894,7 +894,7 @@ public class UtilValidate {
             return false;
         }
     }
-    
+
     public static boolean isDateBeforeNow(Timestamp  date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {
@@ -903,7 +903,7 @@ public class UtilValidate {
             return false;
         }
     }
-    
+
     public static boolean isDateAfterNow(Timestamp  date) {
         Timestamp now = UtilDateTime.nowTimestamp();
         if (date != null) {

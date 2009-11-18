@@ -59,16 +59,16 @@ public class Converters {
      * <code>sourceClass</code> and <code>targetClass</code>. If no matching
      * <code>Converter</code> is found, the method throws
      * <code>ClassNotFoundException</code>.
-     * 
+     *
      * <p>This method is intended to be used when the source or
      * target <code>Object</code> types are unknown at compile time.
      * If the source and target <code>Object</code> types are known
      * at compile time, then one of the "ready made" converters should be used.</p>
-     * 
+     *
      * @param sourceClass The object class to convert from
      * @param targetClass The object class to convert to
      * @return A matching <code>Converter</code> instance
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     @SuppressWarnings("unchecked")
     public static <S, T> Converter<S, T> getConverter(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
@@ -101,7 +101,7 @@ public class Converters {
 
     /** Load all classes that implement <code>Converter</code> and are
      * contained in <code>containerClass</code>.
-     * 
+     *
      * @param containerClass
      */
     public static void loadContainedConverters(Class<?> containerClass) {
@@ -120,7 +120,7 @@ public class Converters {
     /** Registers a <code>Converter</code> instance to be used by the
      * {@link org.ofbiz.base.conversion.Converters#getConverter(Class, Class)}
      * method.
-     * 
+     *
      * @param <S> The source object type
      * @param <T> The target object type
      * @param converter The <code>Converter</code> instance to register
