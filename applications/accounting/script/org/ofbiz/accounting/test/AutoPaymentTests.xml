@@ -164,11 +164,11 @@ under the License.
         </entity-one>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.organizationPartyId" value="Company"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.checkStartNumber" type="Long" value="100101"/>
-        <string-to-list string="demo10001" list="invoiceIds"/>
         <string-to-list string="8000" list="invoiceIds"/>
-        <string-to-list string="8001" list="invoiceIds"/>
+        <string-to-list string="8008" list="invoiceIds"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.invoiceIds" from-field="invoiceIds"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.paymentMethodTypeId" value="COMPANY_CHECK"/>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.paymentMethodId" value="SC_CHECKING"/>
         <call-service service-name="createPaymentAndPaymentGroupForInvoices" in-map-name="createPaymentAndPaymentGroupForInvoicesMap">
             <result-to-field result-name="paymentGroupId"/>
         </call-service>
