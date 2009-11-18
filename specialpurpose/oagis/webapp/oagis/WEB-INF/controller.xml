@@ -195,7 +195,14 @@
         <response name="success" type="none"/>
     </request-map>
     -->
-
+    <request-map uri="showHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showHelp"/>
+    </request-map>
+    <request-map uri="views">
+        <security https="true" auth="false"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -205,5 +212,7 @@
     <view-map name="EditMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageInfo"/>
     <view-map name="FindMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageErrorInfo"/>
     <view-map name="EditMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageErrorInfo"/>
+    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
+    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
     <!-- end of view mappings -->
 </site-conf>
