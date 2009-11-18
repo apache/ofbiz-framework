@@ -7923,7 +7923,7 @@
         <value xml:lang="es">Problema de validez</value>
         <value xml:lang="fr">Problème de validité</value>
         <value xml:lang="hi_IN">वैधता की समस्या</value>
-        <value xml:lang="it">Problema validità</value>
+        <value xml:lang="it">Problema di validità</value>
         <value xml:lang="nl">Test probleem</value>
         <value xml:lang="pt">Problema de Validade</value>
         <value xml:lang="ro">Problema Validitate</value>
@@ -8017,7 +8017,7 @@
         <value xml:lang="es">Tema visual</value>
         <value xml:lang="fr">Charte graphique</value>
         <value xml:lang="hi_IN">दृश्य शैली(Visual Theme)</value>
-        <value xml:lang="it">Temi visuali</value>
+        <value xml:lang="it">Tema grafico</value>
         <value xml:lang="zh">视觉风格</value>
     </property>
     <property key="CommonVisualThemeIdNotFound">
@@ -8049,7 +8049,7 @@
         <value xml:lang="es">No se han encontrado recursos de tema visual.</value>
         <value xml:lang="fr">Réf. de ressource de charte graphique inconnue.</value>
         <value xml:lang="hi_IN">दृश्य शैली संसाधन नहीं मिला|</value>
-        <value xml:lang="it">Risorse tema grafico non trovato.</value>
+        <value xml:lang="it">Risorse tema grafico non trovate.</value>
         <value xml:lang="zh">没有找到视觉风格资源。</value>
     </property>
     <property key="CommonVisualThemeSelected">
@@ -8065,7 +8065,7 @@
         <value xml:lang="es">Temas visuales</value>
         <value xml:lang="fr">Chartes graphiques</value>
         <value xml:lang="hi_IN">दृश्य शैलीयां(Visual Themes)</value>
-        <value xml:lang="it">Tema grafico</value>
+        <value xml:lang="it">Temi grafici</value>
         <value xml:lang="zh">视觉风格</value>
     </property>
     <property key="CommonVolume">
@@ -8387,7 +8387,7 @@
         <value xml:lang="es">Crear fuente de datos</value>
         <value xml:lang="fr">Nouvelle source de données</value>
         <value xml:lang="hi_IN">डेटा स्रोत बनाएँ</value>
-        <value xml:lang="it">Creare sorgente dati</value>
+        <value xml:lang="it">Nuova sorgente dati</value>
         <value xml:lang="nl">Aanmaken bron data</value>
         <value xml:lang="pt">Criar Origem de Dados</value>
         <value xml:lang="ro">Creare Sursa Date</value>
@@ -8435,7 +8435,7 @@
         <value xml:lang="es">No se encontró la fuente de datos con código</value>
         <value xml:lang="fr">Aucune source de données trouvée pour cette réf.</value>
         <value xml:lang="hi_IN">इस क्रमांक के साथ डेटा स्रोत नहीं मिला</value>
-        <value xml:lang="it">Nessun sorgente dati trovata con il codice</value>
+        <value xml:lang="it">Nessuna sorgente dati trovata con il codice</value>
         <value xml:lang="nl">Geen Brondata gevonden met Id</value>
         <value xml:lang="pt">Não foi Encontrada nenhuma Origem de Dados com ID</value>
         <value xml:lang="ro">Nici-o sursa Date cu codul Id Gasita </value>
@@ -8635,7 +8635,7 @@
         <value xml:lang="es">Crear</value>
         <value xml:lang="fr">Créer</value>
         <value xml:lang="hi_IN">बनाएँ</value>
-        <value xml:lang="it">Creare</value>
+        <value xml:lang="it">Crea</value>
         <value xml:lang="nl">Toevoegen</value>
         <value xml:lang="pt">Criar</value>
         <value xml:lang="ro">Creare</value>
@@ -8718,7 +8718,7 @@
         <value xml:lang="en">Current Recurrence Count</value>
         <value xml:lang="fr">Nombre de récurrences courant</value>
         <value xml:lang="hi_IN">वर्तमान पुनरावृत्ति गणना</value>
-        <value xml:lang="it">Conteggio attuale ricorrenze</value>
+        <value xml:lang="it">Numero di ricorrenze attuale</value>
         <value xml:lang="zh">当前并发计数</value>
     </property>
     <property key="FormFieldTitle_currentStatusId">
@@ -8875,7 +8875,7 @@
         <value xml:lang="en">Max Recurrence Count</value>
         <value xml:lang="fr">Nombre max de récurrences</value>
         <value xml:lang="hi_IN">अधिकतम पुनरावृत्ति गणना</value>
-        <value xml:lang="it">Conteggio massimo ricorrenze</value>
+        <value xml:lang="it">Numero massimo di ricorrenze</value>
         <value xml:lang="zh">最大并发数量</value>
     </property>
     <property key="FormFieldTitle_modifiedByUserLoginId">
@@ -9123,7 +9123,7 @@
         <value xml:lang="en">Handheld Facility</value>
         <value xml:lang="es">Gestión de Almacén PDA</value>
         <value xml:lang="fr">Gestion de stock sur PDA</value>
-        <value xml:lang="it">Gestione stabilimenti su handheld</value>
+        <value xml:lang="it">Gestione stabilimenti su PDA</value>
         <value xml:lang="th">คลังสินค้าขนาดเล็ก</value>
         <value xml:lang="zh">手持设备</value>
     </property>
@@ -9250,7 +9250,7 @@
         <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
         <value xml:lang="hi_IN">अनुरोधित एलेमेन्ट का भू स्थान</value>
-        <value xml:lang="it">Localizzation geografica dell'elemento richiesto</value>
+        <value xml:lang="it">Posizione geografica dell'elemento richiesto</value>
         <value xml:lang="zh">请求的元素的地理位置</value>
     </property>
     <property key="PageTitleEditDataSource">
