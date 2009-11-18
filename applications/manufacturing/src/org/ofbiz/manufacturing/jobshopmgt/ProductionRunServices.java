@@ -1045,6 +1045,7 @@ public class ProductionRunServices {
                     inMap.put("costComponentTypeId", "ACTUAL_ROUTE_COST");
                     inMap.put("costUomId", currencyUomId);
                     inMap.put("cost", fixedAssetCost);
+                    inMap.put("fixedAssetId", fixedAsset.get("fixedAssetId"));
                     dispatcher.runSync("createCostComponent", inMap);
                 }
             }
