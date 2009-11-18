@@ -54,5 +54,5 @@ public class DelegatorFactoryImpl extends DelegatorFactory {
         }
         return delegator;
     }
-    
+
 }

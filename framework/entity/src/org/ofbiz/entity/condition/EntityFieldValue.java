@@ -136,7 +136,7 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (this.modelViewEntity != null) {
             // NOTE: this section is a bit of a hack; the other code is terribly complex and really needs to be refactored to incorporate support for this
-            
+
             if (UtilValidate.isNotEmpty(entityAlias)) {
                 ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(entityAlias);
                 ModelField modelField = memberModelEntity.getField(fieldName);
@@ -152,7 +152,7 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
                             sql.append(".");
                             dotUsed = true;
                         }
-                       
+
                     }
                     sql.append(entityAlias);
                     sql.append("_");

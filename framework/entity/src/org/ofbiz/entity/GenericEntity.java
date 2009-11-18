@@ -591,7 +591,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      * The field's Java data type can be either <code>String</code> or
      * <code>Number</code>. Invalid Java data types will throw
      * <code>IllegalArgumentException</code>.
-     * 
+     *
      * @param name The name of the desired field
      * @return A <code>TimeDuration</code> instance or <code>null</code>
      */
@@ -601,11 +601,11 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             return null;
         }
         try {
-            Number number = (Number) obj; 
+            Number number = (Number) obj;
             return TimeDuration.fromNumber(number);
         } catch (Exception e) {}
         try {
-            String duration = (String) obj; 
+            String duration = (String) obj;
             return TimeDuration.parseDuration(duration);
         } catch (Exception e) {}
         throw new IllegalArgumentException("getDuration could not map the object '" + obj.toString() + "' to TimeDuration type, incompatible object type: " + obj.getClass().getName());

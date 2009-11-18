@@ -107,11 +107,10 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         visitor.visit(rhs);
     }
 
-  
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
-    
+
     @Override
     public boolean entityMatches(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         if (lhs.entityMatches(entity) == shortCircuitValue) return shortCircuitValue;

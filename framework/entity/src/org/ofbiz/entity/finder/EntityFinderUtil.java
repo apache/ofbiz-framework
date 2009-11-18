@@ -211,7 +211,7 @@ public class EntityFinderUtil {
                     value = StringUtil.split((String)value, delim);
                 }
             }
-            
+
             if (modelEntity.getField(fieldName) == null) {
                 throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + modelEntity.getEntityName() + "]");
             }

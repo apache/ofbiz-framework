@@ -237,7 +237,7 @@ public abstract class ListFinder extends Finder {
             throw new GeneralException(errMsg, e);
         }
     }
-    
+
     public List<String> getOrderByFieldList(Map<String, Object> context) {
         List<String> orderByFields = EntityFinderUtil.makeOrderByFieldList(this.orderByExpanderList, context);
         return orderByFields;

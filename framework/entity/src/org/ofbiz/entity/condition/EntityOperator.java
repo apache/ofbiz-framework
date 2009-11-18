@@ -229,7 +229,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         }
         if (obj instanceof EntityOperator) {
             EntityOperator<?,?,?> otherOper = UtilGenerics.cast(obj);
-            return this.idInt == otherOper.idInt;            
+            return this.idInt == otherOper.idInt;
         }
         return false;
     }

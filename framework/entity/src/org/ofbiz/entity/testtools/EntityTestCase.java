@@ -34,7 +34,7 @@ public class EntityTestCase extends TestCase {
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
     }
-    
+
     public Delegator getDelegator() {
         return delegator;
     }

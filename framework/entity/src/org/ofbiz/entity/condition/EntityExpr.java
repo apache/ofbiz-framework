@@ -284,7 +284,7 @@ public class EntityExpr extends EntityCondition {
             throw new IllegalArgumentException("Type " + curField.getType() + " not found for entity [" + modelEntity.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + delegator.getEntityGroupName(modelEntity.getEntityName()) + "]");
         }
         if (value instanceof EntityConditionSubSelect){
-        	ModelFieldType valueType=null; 
+        	ModelFieldType valueType = null;
         	try {
         		 ModelEntity valueModelEntity= ((EntityConditionSubSelect) value).getModelEntity();
         		 valueType = delegator.getEntityFieldType(valueModelEntity,  valueModelEntity.getField(((EntityConditionSubSelect) value).getKeyFieldName()).getType());
@@ -303,7 +303,7 @@ public class EntityExpr extends EntityCondition {
 				String errMsg = "In entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
 				// eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
 				Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + errMsg, module);
-			} 
+			}
         }
     }
 
