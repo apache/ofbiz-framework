@@ -126,7 +126,7 @@ public class GroovyUtil {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
 
-                scriptClass = groovyClassLoader.parseClass(scriptUrl.openStream(), scriptUrl.getFile());
+                scriptClass = groovyClassLoader.parseClass(scriptUrl.openStream(), location);
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script at: " + location, module);
                 parsedScripts.put(location, scriptClass);
             }
