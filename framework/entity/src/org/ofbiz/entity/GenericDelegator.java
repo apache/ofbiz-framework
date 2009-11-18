@@ -118,7 +118,7 @@ public class GenericDelegator implements Delegator {
     private boolean testRollbackInProgress = false;
     private List<TestOperation> testOperations = null;
     private enum OperationType {INSERT, UPDATE, DELETE};
-    
+
     private String originalDelegatorName = null;
 
     /** @deprecated Use Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
@@ -341,7 +341,7 @@ public class GenericDelegator implements Delegator {
     public String getDelegatorName() {
         return this.delegatorName;
     }
-    
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getOriginalDelegatorName()
      */
@@ -481,7 +481,7 @@ public class GenericDelegator implements Delegator {
     public ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException {
         return this.getModelFieldTypeReader(entity).getModelFieldType(type);
     }
-    
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getModelFieldTypeReader(org.ofbiz.entity.model.ModelEntity)
      */
@@ -3181,7 +3181,7 @@ public class GenericDelegator implements Delegator {
     public GenericDelegator cloneDelegator() {
         return this.cloneDelegator(this.delegatorName);
     }
-    
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#makeTestDelegator(java.lang.String)
      */
@@ -3200,7 +3200,7 @@ public class GenericDelegator implements Delegator {
             this.testOperations.clear();
         }
     }
-    
+
     private void storeForTestRollback(TestOperation testOperation) {
         if (!this.testMode || this.testRollbackInProgress) {
             throw new IllegalStateException("An attempt was made to store a TestOperation during rollback or outside of test mode");

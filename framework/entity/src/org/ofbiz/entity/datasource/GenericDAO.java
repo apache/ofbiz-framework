@@ -621,7 +621,7 @@ public class GenericDAO {
         if (modelEntity == null) {
             return null;
         }
-        
+
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -683,7 +683,7 @@ public class GenericDAO {
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
-        
+
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
         StringBuilder whereString = makeConditionWhereString(modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
@@ -691,7 +691,7 @@ public class GenericDAO {
             sqlBuffer.append(" WHERE ");
             sqlBuffer.append(whereString.toString());
         }
-        
+
         // GROUP BY clause for view-entity
         if (modelViewEntity != null) {
             String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), ", ", "", false);
@@ -721,7 +721,7 @@ public class GenericDAO {
             orderByExpanded.addAll(viewOrderByList);
         }
         sqlBuffer.append(SqlJdbcUtil.makeOrderByClause(modelEntity, orderByExpanded, datasourceInfo));
-        
+
         // make the final SQL String
         String sql = sqlBuffer.toString();
 
@@ -760,13 +760,13 @@ public class GenericDAO {
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader, this, whereEntityCondition, havingEntityCondition, findOptions.getDistinct());
     }
-    
+
     protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
         }
-        
+
         String entityCondWhereString = "";
         if (whereEntityCondition != null) {
             entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
@@ -790,7 +790,7 @@ public class GenericDAO {
             whereString.append(entityCondWhereString);
             if (addParens) whereString.append(")");
         }
-        
+
         if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
             if (whereString.length() > 0) whereString.append(" AND ");
             boolean addParens = false;
@@ -808,21 +808,21 @@ public class GenericDAO {
             whereString.append(viewClause);
             if (addParens) whereString.append(")");
         }
-        
+
         return whereString;
     }
-    
+
     protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
         }
-        
+
         String entityCondHavingString = "";
         if (havingEntityCondition != null) {
             entityCondHavingString = havingEntityCondition.makeWhereString(modelEntity, havingEntityConditionParams, this.datasourceInfo);
         }
-        
+
         String viewEntityCondHavingString = null;
         if (modelViewEntity != null) {
             EntityCondition viewHavingEntityCondition = EntityCondition.makeCondition(viewHavingConditions);
@@ -847,7 +847,7 @@ public class GenericDAO {
             havingString.append(viewEntityCondHavingString);
             if (addParens) havingString.append(")");
         }
-        
+
         return havingString;
     }
 

@@ -57,7 +57,7 @@ public class ModelFieldType implements Serializable {
 
     /** The sql-type-alias of the Field, this is optional */
     protected String sqlTypeAlias = null;
-    
+
     protected Converter<?, ?> sqlToJavaConverter = null;
 
     /** validators to be called when an update is done */
@@ -137,7 +137,7 @@ public class ModelFieldType implements Serializable {
     }
 
     /** Sets the SQL <code>Class</code> for this field.
-     * 
+     *
      * @param sqlClass
      */
     public synchronized void setSqlClass(Class<?> sqlClass) {
