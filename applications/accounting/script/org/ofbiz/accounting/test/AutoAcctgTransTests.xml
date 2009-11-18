@@ -581,10 +581,17 @@ under the License.
                  productId = PROD_COST, quantity = 2, facilityId = Web Store Warehouse
              then issue components and complete the product issuance and at last put 2 quantities into "Stock in" field
              Post condition: In entity "AcctgTransEntry" two entries will be created:
-                * Debit, in account 140000 - "INVENTORY"; amount: 328$
-                * Credit, in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 328$ (36$ + 42$ + 250$) -->
+                * Debit, in account 140000 - "INVENTORY"; amount: 135.68$
+                * Credit, in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 135.68$ (36$ + 42$ + 57.68$) -->
 
-        <set field="workEffortId" value="10000"/>
+        <entity-and list="productionRuns" entity-name="WorkEffort">
+            <field-map field-name="workEffortName" value="ACCTG_TEST_PROD_RUN"/>
+            <field-map field-name="workEffortTypeId" value="PROD_ORDER_HEADER"/>
+            <field-map field-name="workEffortPurposeTypeId" value="WEPT_PRODUCTION_RUN"/>
+        </entity-and>
+        <first-from-list entry="productionRun" list="productionRuns"/>
+
+        <set field="serviceCtx.workEffortId" from-field="productionRun.workEffortId"/>
         <set field="serviceCtx.workEffortId" from-field="workEffortId"/>
         <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -593,7 +600,7 @@ under the License.
 
         <!-- For credit entry -->
         <entity-and entity-name="AcctgTransEntry" list="acctgTransEntryList">
-            <field-map field-name="productId" value="PROD_COST"/>
+            <field-map field-name="productId" value="PROD_MANUF"/>
             <field-map field-name="glAccountTypeId" value="WIP_INVENTORY"/>
             <field-map field-name="glAccountId" value="142000"/>
             <order-by field-name="-createdStamp"/>
@@ -601,12 +608,12 @@ under the License.
         <first-from-list list="acctgTransEntryList" entry="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="BigDecimal"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="135.68" type="BigDecimal"/>
         </assert>
 
         <!-- For debit entry -->
         <entity-and entity-name="AcctgTransEntry" list="acctgTransEntryList">
-            <field-map field-name="productId" value="PROD_COST"/>
+            <field-map field-name="productId" value="PROD_MANUF"/>
             <field-map field-name="glAccountTypeId" value="INVENTORY_ACCOUNT"/>
             <field-map field-name="glAccountId" value="140000"/>
             <order-by field-name="-createdStamp"/>
@@ -614,7 +621,7 @@ under the License.
         <first-from-list list="acctgTransEntryList" entry="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="BigDecimal"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="135.68" type="BigDecimal"/>
         </assert>
         <check-errors/>
     </simple-method>
