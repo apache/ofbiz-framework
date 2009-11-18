@@ -19,6 +19,7 @@
 package org.ofbiz.sql;
 
 import java.util.List;
+import java.util.Map;
 
 public final class Main {
 	public static void main(String[] args) throws Exception {
@@ -35,33 +36,53 @@ public final class Main {
         System.err.println("\tplan=" + plan);
     }
 
-    private final static class DebugPlanner extends Planner {
+    private final static class DebugPlanner extends Planner<DebugPlanner, DebugCondition, DebugDeletePlan, DebugInsertPlan, DebugSelectPlan, DebugUpdatePlan, DebugViewPlan> {
         public DebugPlanner() {
-            super(null);
+            super(new DebugConditionPlanner());
         }
 
-        public SQLPlan plan(SQLStatement statement) {
+        public DebugDeletePlan plan(SQLDelete deleteStatement) {
             return null;
         }
 
-        public DeletePlan plan(SQLDelete deleteStatement) {
+        public DebugInsertPlan plan(SQLInsert insertStatement) {
             return null;
         }
 
-        public InsertPlan plan(SQLInsert insertStatement) {
+        public DebugSelectPlan plan(SQLSelect selectStatement) {
             return null;
         }
 
-        public SelectPlan plan(SQLSelect selectStatement) {
+        public DebugUpdatePlan plan(SQLUpdate updateStatement) {
             return null;
         }
 
-        public UpdatePlan plan(SQLUpdate updateStatement) {
+        public DebugViewPlan plan(SQLView viewStatement) {
             return null;
         }
+    }
 
-        public ViewPlan plan(SQLView viewStatement) {
+    private final static class DebugConditionPlanner implements ConditionPlanner<DebugCondition> {
+        public DebugCondition parse(Condition originalCondition, Map<String, ? extends Object> params) throws ParameterizedConditionException {
             return null;
         }
+    }
+
+    private final static class DebugCondition {
+    }
+
+    private final static class DebugDeletePlan extends DeletePlan<DebugDeletePlan> {
+    }
+
+    private final static class DebugInsertPlan extends InsertPlan<DebugInsertPlan> {
+    }
+
+    private final static class DebugSelectPlan extends SelectPlan<DebugSelectPlan> {
+    }
+
+    private final static class DebugUpdatePlan extends UpdatePlan<DebugUpdatePlan> {
+    }
+
+    private final static class DebugViewPlan extends ViewPlan<DebugViewPlan> {
     }
 }
