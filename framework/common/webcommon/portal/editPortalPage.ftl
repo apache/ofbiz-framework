@@ -47,13 +47,14 @@ under the License.
   </tr>
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="${portalPageColumn.columnSeqId}" name="portalColumn">
+      <script type="text/javascript">makeDroppable("${portalPageColumn.columnSeqId}")</script>
       <#assign firstInColumn = true/>
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
               <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
-              <div class="portlet-config">
+              <div class="portlet-config" id="${portlet_index}" name="portalPortlet">
               <div class="portlet-config-title-bar">
                 <#list portalPages as portalPageList>
                   <#if portalPage.portalPageId != portalPageList.portalPageId>
@@ -64,6 +65,9 @@ under the License.
                   </#if>
                 </#list>
                 <ul>
+                  <script type="text/javascript">makeDragable("${portlet_index}");</script>
+                  <script type="text/javascript">makeDroppable("${portlet_index}");</script>
+                  <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
                   <li class="title">Portlet : ${portlet.portletName?if_exists} [${portlet.portalPortletId}]</li>
                   <li class="remove"><form method="post" action="<@ofbizUrl>deletePortalPagePortlet</@ofbizUrl>" name="removePP_${portlet_index}">${portletFields}</form><a href="javascript:document.removePP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
 
