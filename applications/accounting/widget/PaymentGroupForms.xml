@@ -34,12 +34,17 @@ under the License.
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="PaymentGroup"/>
+                <field-map field-name="entityName" value="PmtGrpMembrPaymentAndFinAcctTrans"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="orderBy" value="effectiveDate DESC"/>
             </service>
         </actions>
         <row-actions>
+            <entity-one entity-name="PaymentGroup" value-field="paymentGroup">
+                <field-map field-name="paymentGroupId"/>
+            </entity-one>
+            <set field="paymentGroupTypeId" from-field="paymentGroup.paymentGroupTypeId"/>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
                 <field-map field-name="paymentGroupId"/>
             </entity-and>
@@ -50,7 +55,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.FormFieldTitle_paymentGroupType}"><display-entity entity-name="PaymentGroupType"/></field>
-        <field name="paymentGroupName"><display/></field>
+        <field name="paymentGroupName"><display description="${paymentGroup.paymentGroupName}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="cancelPaymentGroup" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
