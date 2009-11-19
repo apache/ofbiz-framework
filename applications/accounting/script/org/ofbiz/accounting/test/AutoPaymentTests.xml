@@ -433,6 +433,7 @@ under the License.
         <set field="createPaymentAndPaymentGroupForInvoicesMap.checkStartNumber" type="Long" value="100100"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.invoiceIds" from-field="invoiceIds"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.paymentMethodTypeId" value="COMPANY_CHECK"/>
+        <set field="createPaymentAndPaymentGroupForInvoicesMap.paymentMethodId" value="SC_CHECKING"/>
         <call-service service-name="createPaymentAndPaymentGroupForInvoices" in-map-name="createPaymentAndPaymentGroupForInvoicesMap">
             <result-to-field result-name="paymentGroupId"/>
         </call-service>
