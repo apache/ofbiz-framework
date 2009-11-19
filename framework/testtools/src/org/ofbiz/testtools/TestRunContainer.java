@@ -28,6 +28,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestFailure;
 import junit.framework.TestListener;
 import junit.framework.TestResult;
@@ -214,19 +215,28 @@ public class TestRunContainer implements Container {
     class JunitListener implements TestListener {
 
         public void addError(Test test, Throwable throwable) {
-            Debug.logWarning(throwable, "[JUNIT (error)] - " + test.getClass().getName() + " : " + throwable.toString(), module);
+            Debug.logWarning(throwable, "[JUNIT (error)] - " + getTestName(test) + " : " + throwable.toString(), module);
         }
 
         public void addFailure(Test test, AssertionFailedError assertionFailedError) {
-            Debug.logWarning("[JUNIT (failure)] - " + test.getClass().getName() + " : " + assertionFailedError.getMessage(), module);
+            Debug.logWarning("[JUNIT (failure)] - " + getTestName(test) + " : " + assertionFailedError.getMessage(), module);
         }
 
         public void endTest(Test test) {
-            //Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " finished.", module);
+            Debug.logInfo("[JUNIT] : " + getTestName(test) + " finished.", module);
         }
 
         public void startTest(Test test) {
-           //Debug.logInfo("[JUNIT] : " + test.getClass().getName() + " starting...", module);
+           Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", module);
+        }
+
+        private String getTestName(Test test) {
+            if (test instanceof TestCase) {
+                return ((TestCase)test).getName();
+            } else {
+                return test.getClass().getName();
+            }
+            
         }
     }
 }
