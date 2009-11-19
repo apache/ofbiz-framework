@@ -13686,4 +13686,52 @@
         <value xml:lang="en">Batch Payments</value>
         <value xml:lang="hi_IN">भुगतान का बैच</value>
     </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigSagePay">
+        <value xml:lang="en">Update Payment Gateway Config SagePay</value>
+    </property>
+    <property key="AccountingSagePayVendor">
+        <value xml:lang="en">Vendor Name</value>
+    </property>
+    <property key="AccountingSagePayProductionHost">
+        <value xml:lang="en">Production Host</value>
+    </property>
+    <property key="AccountingSagePayTestingHost">
+        <value xml:lang="en">Testing Host</value>
+    </property>
+    <property key="AccountingSagePayMode">
+        <value xml:lang="en">Mode</value>
+    </property>            
+    <property key="AccountingSagePayProtocolVersion">
+        <value xml:lang="en">Protocol Version</value>
+    </property>    
+    <property key="AccountingSagePayAuthenticationTransType">
+        <value xml:lang="en">Authentication Type</value>
+    </property>
+    <property key="AccountingSagePayAuthenticationUrl">
+        <value xml:lang="en">Authentication Url</value>
+    </property>
+    <property key="AccountingSagePayAuthorisationTransType">
+        <value xml:lang="en">Authorisation Type</value>
+    </property>
+    <property key="AccountingSagePayAuthorisationUrl">
+        <value xml:lang="en">Authorisation Url</value>
+    </property>
+    <property key="AccountingSagePayReleaseTransType">
+        <value xml:lang="en">Release Type</value>
+    </property>
+    <property key="AccountingSagePayReleaseUrl">
+        <value xml:lang="en">Release Url</value>
+    </property>
+    <property key="AccountingSagePayVoidUrl">
+        <value xml:lang="en">Void Url</value>
+    </property>
+    <property key="AccountingSagePayRefundUrl">
+        <value xml:lang="en">Refund Url</value>
+    </property>
+    <property key="AccountingSagePayProduction">
+        <value xml:lang="en">Production</value>
+    </property>
+    <property key="AccountingSagePayTest">
+        <value xml:lang="en">Test</value>
+    </property>
 </resource>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="sagepayCCAuth" engine="java"
+            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccAuth">
+        <description>SagePay Payment Authorization Service</description>
+        <implements service="ccAuthInterface"/>
+    </service>
+
+    <service name="sagepayCCCapture" engine="java"
+            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccCapture">
+        <description>SagePay Payment Capture Service</description>
+        <implements service="ccCaptureInterface"/>
+    </service>
+
+    <service name="sagepayCCRelease" engine="java"
+            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRelease">
+        <description>SagePay Payment Release</description>
+        <implements service="paymentReleaseInterface"/>
+    </service>
+
+    <service name="sagepayCCRefund" engine="java"
+            location="org.ofbiz.accounting.thirdparty.sagepay.SagePayPaymentServices" invoke="ccRefund">
+        <description>SagePay Payment Refund Service</description>
+        <implements service="paymentRefundInterface"/>
+    </service>
+
+    <service name="SagePayPaymentAuthentication" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+         invoke="paymentAuthentication" auth="false">
+        <description>For payment authentication</description>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="transactionType" type="String" mode="OUT" optional="false"/>
+        <attribute name="vendorTxCode" type="String" mode="INOUT" optional="false"/>
+        <attribute name="cardHolder" type="String" mode="IN" optional="false"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
+        <attribute name="expiryDate" type="String" mode="IN" optional="false"/>
+        <attribute name="cardType" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="String" mode="INOUT" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="false"/>
+        
+        <!-- All the Billing* & Delivery* fields are not mandatory in version 2.22, 
+        but mandatory in version 2.23, hence making them as optional -->
+        
+        <attribute name="billingSurname" type="String" mode="IN" optional="true"/>
+        <attribute name="billingFirstnames" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="billingAddress2" type="String" mode="IN" optional="true"/>
+        <attribute name="billingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="billingPostCode" type="String" mode="IN" optional="false"/>
+        <attribute name="billingCountry" type="String" mode="IN" optional="true"/>
+        <attribute name="billingState" type="String" mode="IN" optional="true"/>
+        <attribute name="billingPhone" type="String" mode="IN" optional="true"/>
+        
+        <attribute name="isBillingSameAsDelivery" type="Boolean" mode="IN" optional="true"/>
+
+        <attribute name="deliverySurname" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryFirstnames" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryAddress2" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryCity" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryPostCode" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryCountry" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryState" type="String" mode="IN" optional="true"/>
+        <attribute name="deliveryPhone" type="String" mode="IN" optional="true"/>
+
+        <!-- start optional parameters (optional not to the service, but to the payment gateway -->
+        <attribute name="cv2" type="String" mode="IN" optional="true"/>
+        <attribute name="startDate" type="String" mode="IN" optional="true"/>
+        <attribute name="issueNumber" type="String" mode="IN" optional="true"/>
+        <!-- end optional parameters -->
+        
+        <attribute name="basket" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="clientIPAddress" type="String" mode="IN" optional="true"/>
+        
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
+
+        <!-- start - this parameters will only be returned if the transaction is authorised -->
+        <attribute name="vpsTxId" type="String" mode="OUT" optional="true"/>
+        <attribute name="securityKey" type="String" mode="OUT" optional="true"/>
+        <attribute name="txAuthNo" type="String" mode="OUT" optional="true"/>
+        <attribute name="avsCv2" type="String" mode="OUT" optional="true"/>
+        <attribute name="addressResult" type="String" mode="OUT" optional="true"/>
+        <attribute name="postCodeResult" type="String" mode="OUT" optional="true"/>
+        <attribute name="cv2Result" type="String" mode="OUT" optional="true"/>
+        <attribute name="cavv" type="String" mode="OUT" optional="true"/>
+        <!-- end - this parameters will only be returned if the transaction is authorised -->        
+
+    </service>
+    
+    <service name="SagePayPaymentAuthorisation" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+         invoke="paymentAuthorisation" auth="false">
+        <description>For capturing the payment</description>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="vendorTxCode" type="String" mode="IN" optional="false"/>
+        <attribute name="vpsTxId" type="String" mode="IN" optional="true"/>
+        <attribute name="securityKey" type="String" mode="IN" optional="true"/>
+        <attribute name="txAuthNo" type="String" mode="IN" optional="true"/>
+        <attribute name="amount" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="SagePayPaymentRelease" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+         invoke="paymentRelease" auth="false">
+        <description>For releasing (cancel) the payment</description>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="vendorTxCode" type="String" mode="IN" optional="false"/>
+        <attribute name="vpsTxId" type="String" mode="IN" optional="false"/>
+        <attribute name="securityKey" type="String" mode="IN" optional="false"/>
+        <attribute name="txAuthNo" type="String" mode="IN" optional="false"/>
+        <attribute name="releaseAmount" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="SagePayPaymentVoid" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+         invoke="paymentVoid" auth="false">
+        <description>For voiding the payment</description>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="vendorTxCode" type="String" mode="IN" optional="false"/>
+        <attribute name="vpsTxId" type="String" mode="IN" optional="false"/>
+        <attribute name="securityKey" type="String" mode="IN" optional="false"/>
+        <attribute name="txAuthNo" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="SagePayPaymentRefund" engine="java" location="org.ofbiz.accounting.thirdparty.sagepay.SagePayServices"
+         invoke="paymentRefund" auth="false">
+        <description>For refunding the payment</description>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="vendorTxCode" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="String" mode="IN" optional="false"/>
+        <attribute name="currency" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="relatedVPSTxId" type="String" mode="IN" optional="false"/>
+        <attribute name="relatedVendorTxCode" type="String" mode="IN" optional="false"/>
+        <attribute name="relatedSecurityKey" type="String" mode="IN" optional="false"/>
+        <attribute name="relatedTxAuthNo" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDetail" type="String" mode="OUT" optional="true"/>
+        <attribute name="vpsTxId" type="String" mode="OUT" optional="true"/>
+        <attribute name="txAuthNo" type="String" mode="OUT" optional="true"/>
+    </service>
+
+</services>
