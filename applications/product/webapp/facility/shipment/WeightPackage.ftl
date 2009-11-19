@@ -62,7 +62,7 @@ under the License.
           </#list>
         </#if>
         <br/>
-        <#if (invoiceIds?has_content) || !(orderId?has_content)>
+        <#if !(orderId?has_content)>
           <form name="selectOrderForm" method="post" action="<@ofbizUrl>WeightPackageOnly</@ofbizUrl>">
             <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}">
             <table cellspacing="0" class="basic-table">
