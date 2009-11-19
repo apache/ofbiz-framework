@@ -60,7 +60,7 @@ public class ModelFieldTypeReader implements Serializable {
                 Debug.logError("Invalid field-type element, type attribute is missing in file " + location, module);
             } else {
                 ModelFieldType fieldType = new ModelFieldType(curFieldType);
-                fieldTypeMap.put(fieldTypeName, fieldType);
+                fieldTypeMap.put(fieldTypeName.intern(), fieldType);
             }
         }
         return fieldTypeMap;
