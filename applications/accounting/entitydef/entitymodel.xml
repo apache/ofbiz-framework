@@ -3153,7 +3153,7 @@ under the License.
       <field name="vendor" type="short-varchar"><description>Vendor name</description></field>
       <field name="productionHost" type="short-varchar"><description>Production Host</description></field>
       <field name="testingHost" type="short-varchar"><description>Testing Host</description></field>
-      <field name="mode" type="short-varchar"><description>Mode (PRODUCTION/TEST)</description></field>
+      <field name="sagePayMode" type="short-varchar"><description>Mode (PRODUCTION/TEST)</description></field>
       <field name="protocolVersion" type="very-short"><description>Protocol Version</description></field>
       <field name="authenticationTransType" type="short-varchar"><description>Authentication type (PAYMENT/AUTHENTICATE/DEFERRED)</description></field>
       <field name="authenticationUrl" type="long-varchar"><description>Authentication Url</description></field>
