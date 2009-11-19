@@ -192,8 +192,6 @@ public class InvoiceWorker {
                         invoiceItems, UtilMisc.toList(
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PINV_SALES_TAX"), 
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PITM_SALES_TAX")));
-            } else {
-                invoiceItems = null;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);
