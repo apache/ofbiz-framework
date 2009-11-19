@@ -18,30 +18,31 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.List;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.sql.Timestamp;
 
-import org.ofbiz.accounting.payment.PaymentGatewayServices;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.accounting.payment.PaymentGatewayServices;
 
 
 public class RitaServices {
@@ -50,7 +51,7 @@ public class RitaServices {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-    public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccAuth(DispatchContext dctx, Map context) {
         Properties props = buildPccProperties(context);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
@@ -90,7 +91,7 @@ public class RitaServices {
         }
 
         if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(RitaApi.RESULT);
             boolean passed = false;
             if ("CAPTURED".equals(resultCode)) {
@@ -134,7 +135,7 @@ public class RitaServices {
         }
     }
 
-    public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccCapture(DispatchContext dctx, Map context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -171,7 +172,7 @@ public class RitaServices {
         }
 
         if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(RitaApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
                 result.put("captureResult", Boolean.TRUE);
@@ -190,15 +191,15 @@ public class RitaServices {
         }
     }
 
-    public static Map<String, Object> ccVoidRelease(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccVoidRelease(DispatchContext dctx, Map context) {
         return ccVoid(dctx, context, false);
     }
 
-    public static Map<String, Object> ccVoidRefund(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccVoidRefund(DispatchContext dctx, Map context) {
         return ccVoid(dctx, context, true);
     }
 
-    private static Map<String, Object> ccVoid(DispatchContext dctx, Map<String, Object> context, boolean isRefund) {
+    private static Map ccVoid(DispatchContext dctx, Map context, boolean isRefund) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -241,7 +242,7 @@ public class RitaServices {
         }
 
         if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(RitaApi.RESULT);
             if ("VOIDED".equals(resultCode)) {
                 result.put(isRefund ? "refundResult" : "releaseResult", Boolean.TRUE);
@@ -260,7 +261,7 @@ public class RitaServices {
         }
     }
 
-    public static Map<String, Object> ccCreditRefund(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccCreditRefund(DispatchContext dctx, Map context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -305,7 +306,7 @@ public class RitaServices {
         }
 
         if (out != null) {
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             String resultCode = out.get(RitaApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
                 result.put("refundResult", Boolean.TRUE);
@@ -324,7 +325,7 @@ public class RitaServices {
         }
     }
 
-    public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, Object> context) {
+    public static Map ccRefund(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -343,7 +344,7 @@ public class RitaServices {
                 Timestamp orderDate = orderHeader.getTimestamp("orderDate");
                 GenericValue terminalState = null;
                 try {
-                    List<GenericValue> states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", terminalId));
+                    List states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", terminalId));
                     states = EntityUtil.filterByDate(states, UtilDateTime.nowTimestamp(), "openedDate", "closedDate", true);
                     terminalState = EntityUtil.getFirst(states);
                 } catch (GenericEntityException e) {
@@ -361,7 +362,7 @@ public class RitaServices {
                 }
             }
 
-            Map<String, Object> refundResp = null;
+            Map refundResp = null;
             try {
                 if (isVoid) {
                     refundResp = dispatcher.runSync("ritaCCVoidRefund", context);
@@ -378,14 +379,14 @@ public class RitaServices {
         }
     }
 
-    private static void setCreditCardInfo(RitaApi api, Delegator delegator, Map<String, Object> context) throws GeneralException {
+    private static void setCreditCardInfo(RitaApi api, Delegator delegator, Map context) throws GeneralException {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         if (creditCard == null) {
             creditCard = delegator.findByPrimaryKey("CreditCard", UtilMisc.toMap("paymentMethodId", orderPaymentPreference.getString("paymentMethodId")));
         }
         if (creditCard != null) {
-            List<String> expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");
+            List expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");
             String month = (String) expDateList.get(0);
             String year = (String) expDateList.get(1);
             String y2d = year.substring(2);
@@ -482,7 +483,7 @@ public class RitaServices {
         return api;
     }
 
-    private static Properties buildPccProperties(Map<String, Object> context) {
+    private static Properties buildPccProperties(Map context) {
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
@@ -526,7 +527,7 @@ public class RitaServices {
         return props;
     }
 
-    private static String getAmountString(Map<String, Object> context, String amountField) {
+    private static String getAmountString(Map context, String amountField) {
         BigDecimal processAmount = (BigDecimal) context.get(amountField);
         return processAmount.setScale(decimals, rounding).toPlainString();
     }

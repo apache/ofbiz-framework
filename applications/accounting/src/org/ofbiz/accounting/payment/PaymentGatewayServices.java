@@ -387,7 +387,7 @@ public class PaymentGatewayServices {
 
             if (((Boolean) results.get("finished")).booleanValue()) finished += 1;
             if (((Boolean) results.get("errors")).booleanValue()) hadError += 1;
-            if (results.get("messages") != null) messages.addAll(UtilGenerics.<List<String>>cast(results.get("messages")));
+            if (results.get("messages") != null) messages.addAll((List) results.get("messages"));
             if (results.get("processAmount") != null) totalRemaining = totalRemaining.subtract(((BigDecimal) results.get("processAmount")));
         }
 

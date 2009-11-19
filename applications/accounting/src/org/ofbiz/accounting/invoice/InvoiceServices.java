@@ -1158,7 +1158,7 @@ public class InvoiceServices {
         return serviceResult;
     }
 
-    public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<String> shipmentIds = UtilGenerics.checkList(context.get("shipmentIds"));
