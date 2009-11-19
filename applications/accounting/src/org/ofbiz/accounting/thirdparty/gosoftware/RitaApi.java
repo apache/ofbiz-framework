@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -91,19 +92,19 @@ public class RitaApi {
     protected static final int MODE_IN = 10;
 
     // instance variables
-    protected LinkedHashMap<String, String> document = null;
+    protected LinkedHashMap document = null;
     protected String host = null;
     protected boolean ssl = false;
     protected int port = 0;
     protected int mode = 0;
 
-    public RitaApi(Map<String, String> document) {
-        this.document = new LinkedHashMap<String, String>(document);
+    public RitaApi(Map document) {
+        this.document = new LinkedHashMap(document);
         this.mode = MODE_OUT;
     }
 
     public RitaApi() {
-        this.document = new LinkedHashMap<String, String>();
+        this.document = new LinkedHashMap();
         this.mode = MODE_IN;
     }
 
@@ -150,7 +151,9 @@ public class RitaApi {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        for (Map.Entry<String, String> entry : document.entrySet()) {
+        Iterator i = document.entrySet().iterator();
+        while (i.hasNext()) {
+            Map.Entry entry = (Map.Entry) i.next();
             String name = (String) entry.getKey();
             String value = (String) entry.getValue();
             buf.append(name);
@@ -162,7 +165,7 @@ public class RitaApi {
         return buf.toString();
     }
 
-    public Map<String, String> getDocument() {
+    public Map getDocument() {
         return this.document;
     }
 
@@ -224,7 +227,7 @@ public class RitaApi {
             br.close();
             */
 
-            LinkedHashMap<String, String> docMap = new LinkedHashMap<String, String>();
+            LinkedHashMap docMap = new LinkedHashMap();
             String resp = null;
             try {
                 resp = http.post(stream);

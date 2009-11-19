@@ -20,9 +20,8 @@
 package org.ofbiz.accounting.util;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.accounting.AccountingException;
 import org.ofbiz.base.util.Debug;
@@ -30,6 +29,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+
+import javolution.util.FastList;
 
 
 public class UtilAccounting {
@@ -116,15 +117,17 @@ public class UtilAccounting {
         return balance;
     }
 
-    public static List<String> getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
-        List<String> glAccountClassIds = FastList.newInstance();
+    public static List getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
+        List glAccountClassIds = FastList.newInstance();
         getGlAccountClassChildren(glAccountClass, glAccountClassIds);
         return glAccountClassIds;
     }
-    private static void getGlAccountClassChildren(GenericValue glAccountClass, List<String> glAccountClassIds) throws GenericEntityException {
+    private static void getGlAccountClassChildren(GenericValue glAccountClass, List glAccountClassIds) throws GenericEntityException {
         glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
-        List<GenericValue> glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
-        for(GenericValue glAccountClassChild : glAccountClassChildren) {
+        List glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
+        Iterator glAccountClassChildrenIt = glAccountClassChildren.iterator();
+        while (glAccountClassChildrenIt.hasNext()) {
+            GenericValue glAccountClassChild = (GenericValue) glAccountClassChildrenIt.next();
             getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
         }
     }

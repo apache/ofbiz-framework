@@ -21,6 +21,7 @@ package org.ofbiz.accounting.payment;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class GiftCertificateServices {
     public static BigDecimal ZERO = BigDecimal.ZERO;
 
     // Base Gift Certificate Services
-    public static Map<String, Object> createGiftCertificate(DispatchContext dctx, Map<String, Object> context) {
+    public static Map createGiftCertificate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -82,7 +83,7 @@ public class GiftCertificateServices {
             final String deposit = "DEPOSIT";
 
             GenericValue giftCertSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
-            Map<String, Object> acctResult = null;
+            Map acctResult = null;
 
             if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
                 // TODO: move this code to createFinAccountForStore as well
@@ -101,7 +102,7 @@ public class GiftCertificateServices {
                 finAccountId = cardNumber;
 
                 // create the FinAccount
-                Map<String, Object> acctCtx = UtilMisc.toMap("finAccountId", (Object)finAccountId);
+                Map acctCtx = UtilMisc.toMap("finAccountId", finAccountId);
                 acctCtx.put("finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId);
                 acctCtx.put("finAccountName", accountName);
                 acctCtx.put("finAccountCode", pinNumber);
@@ -140,7 +141,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("cardNumber", cardNumber);
         result.put("pinNumber", pinNumber);
         result.put("initialAmount", initialAmount);
@@ -151,7 +152,7 @@ public class GiftCertificateServices {
         return result;
     }
 
-    public static Map<String, Object> addFundsToGiftCertificate(DispatchContext dctx, Map<String, Object> context) {
+    public static Map addFundsToGiftCertificate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         final String deposit = "DEPOSIT";
@@ -222,7 +223,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("previousBalance", previousBalance);
         result.put("balance", balance);
         result.put("amount", amount);
@@ -233,7 +234,7 @@ public class GiftCertificateServices {
         return result;
     }
 
-    public static Map<String, Object> redeemGiftCertificate(DispatchContext dctx, Map<String, Object> context) {
+    public static Map redeemGiftCertificate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         final String withdrawl = "WITHDRAWAL";
@@ -299,7 +300,7 @@ public class GiftCertificateServices {
             refNum = "N/A";
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("previousBalance", previousBalance);
         result.put("balance", balance);
         result.put("amount", amount);
@@ -310,7 +311,7 @@ public class GiftCertificateServices {
         return result;
     }
 
-    public static Map<String, Object> checkGiftCertificateBalance(DispatchContext dctx, Map<String, Object> context) {
+    public static Map checkGiftCertificateBalance(DispatchContext dctx, Map context) {
         Delegator delegator = dctx.getDelegator();
         String cardNumber = (String) context.get("cardNumber");
         String pinNumber = (String) context.get("pinNumber");
@@ -332,14 +333,14 @@ public class GiftCertificateServices {
         // get the balance
         BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("balance", balance);
         Debug.log("GC Balance Result - " + result, module);
         return result;
     }
 
     // Fullfilment Services
-    public static Map<String, Object> giftCertificateProcessor(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificateProcessor(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -379,7 +380,7 @@ public class GiftCertificateServices {
             // obtain the order information
             OrderReadHelper orh = new OrderReadHelper(delegator, orderPaymentPreference.getString("orderId"));
 
-            Map<String, Object> redeemCtx = new HashMap<String, Object>();
+            Map redeemCtx = new HashMap();
             redeemCtx.put("userLogin", userLogin);
             redeemCtx.put("productStoreId", orh.getProductStoreId());
             redeemCtx.put("cardNumber", giftCard.get("finAccountId"));
@@ -391,20 +392,20 @@ public class GiftCertificateServices {
             redeemCtx.put("amount", amount);
 
             // invoke the redeem service
-            Map<String, Object> redeemResult = null;
+            Map redeemResult = null;
             redeemResult = dispatcher.runSync("redeemGiftCertificate", redeemCtx);
             if (ServiceUtil.isError(redeemResult)) {
                 return redeemResult;
             }
 
             // now release the authorization should this use the gift card release service?
-            Map<String, Object> releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+            Map releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
                 return releaseResult;
             }
 
             String authRefNum = authTransaction.getString("referenceNum");
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             if (redeemResult != null) {
                 Boolean processResult = (Boolean) redeemResult.get("processResult");
                 result.put("processAmount", amount);
@@ -424,7 +425,7 @@ public class GiftCertificateServices {
 }
 
 
-    public static Map<String, Object> giftCertificateAuthorize(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificateAuthorize(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -478,7 +479,7 @@ public class GiftCertificateServices {
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Boolean processResult = null;
             String refNum = null;
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
 
             // make sure to round and scale it to the same as availableBalance
             amount = amount.setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
@@ -489,7 +490,7 @@ public class GiftCertificateServices {
                 if (giftCertSettings.getLong("authValidDays") != null) {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays"));
                 }
-                Map<String, Object> tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "amount", amount, "currencyUomId", currency,
+                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "amount", amount, "currencyUomId", currency,
                         "thruDate", thruDate, "userLogin", userLogin));
                 if (ServiceUtil.isError(tmpResult)) {
                     return tmpResult;
@@ -521,7 +522,7 @@ public class GiftCertificateServices {
         }
     }
 
-    public static Map<String, Object> giftCertificateRefund(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificateRefund(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String currency = (String) context.get("currency");
@@ -529,7 +530,7 @@ public class GiftCertificateServices {
         return giftCertificateRestore(dctx, userLogin, paymentPref, amount, currency, "refund");
     }
 
-    public static Map<String, Object> giftCertificateRelease(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificateRelease(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -542,10 +543,10 @@ public class GiftCertificateServices {
             if (authTransaction == null) {
                 return ServiceUtil.returnError(err + " Could not find authorization transaction.");
             }
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
-            Map<String, Object> serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
+            Map input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
+            Map serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
 
-            Map<String, Object> result = ServiceUtil.returnSuccess();
+            Map result = ServiceUtil.returnSuccess();
             result.put("releaseRefNum", authTransaction.getString("referenceNum"));
             result.put("releaseAmount", authTransaction.getBigDecimal("amount"));
             result.put("releaseResult", Boolean.TRUE);
@@ -562,7 +563,7 @@ public class GiftCertificateServices {
         }
     }
 
-    private static Map<String, Object> giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, BigDecimal amount, String currency, String resultPrefix) {
+    private static Map giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, BigDecimal amount, String currency, String resultPrefix) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -596,7 +597,7 @@ public class GiftCertificateServices {
             currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         }
 
-        Map<String, Object> refundCtx = new HashMap<String, Object>();
+        Map refundCtx = new HashMap();
         refundCtx.put("productStoreId", productStoreId);
         refundCtx.put("currency", currency);
         refundCtx.put("partyId", partyId);
@@ -606,7 +607,7 @@ public class GiftCertificateServices {
         refundCtx.put("amount", amount);
         refundCtx.put("userLogin", userLogin);
 
-        Map<String, Object> restoreGcResult = null;
+        Map restoreGcResult = null;
         try {
             restoreGcResult = dispatcher.runSync("addFundsToGiftCertificate", refundCtx);
         } catch (GenericServiceException e) {
@@ -617,7 +618,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(restoreGcResult));
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         if (restoreGcResult != null) {
             Boolean processResult = (Boolean) restoreGcResult.get("processResult");
             result.put(resultPrefix + "Amount", amount);
@@ -630,7 +631,7 @@ public class GiftCertificateServices {
         return result;
     }
 
-    public static Map<String, Object> giftCertificatePurchase(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificatePurchase(DispatchContext dctx, Map context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -707,9 +708,9 @@ public class GiftCertificateServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            Map fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
+            List order = UtilMisc.toList("-responseDate");
+            List responses = delegator.findByAnd("SurveyResponse", fields, order);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -721,7 +722,7 @@ public class GiftCertificateServices {
         }
 
         // get the response answers
-        List<GenericValue> responseAnswers = null;
+        List responseAnswers = null;
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
         } catch (GenericEntityException e) {
@@ -730,9 +731,11 @@ public class GiftCertificateServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = new HashMap<String, Object>();
+        Map answerMap = new HashMap();
         if (responseAnswers != null) {
-            for (GenericValue answer : responseAnswers) {
+            Iterator rai = responseAnswers.iterator();
+            while (rai.hasNext()) {
+                GenericValue answer = (GenericValue) rai.next();
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
@@ -762,7 +765,7 @@ public class GiftCertificateServices {
         int qtyLoop = quantity.intValue();
         for (int i = 0; i < qtyLoop; i++) {
             // create a gift certificate
-            Map<String, Object> createGcCtx = new HashMap<String, Object>();
+            Map createGcCtx = new HashMap();
             //createGcCtx.put("paymentConfig", paymentConfig);
             createGcCtx.put("productStoreId", productStoreId);
             createGcCtx.put("currency", currency);
@@ -771,7 +774,7 @@ public class GiftCertificateServices {
             createGcCtx.put("initialAmount", amount);
             createGcCtx.put("userLogin", userLogin);
 
-            Map<String, Object> createGcResult = null;
+            Map createGcResult = null;
             try {
                 createGcResult = dispatcher.runSync("createGiftCertificate", createGcCtx);
             } catch (GenericServiceException e) {
@@ -783,7 +786,7 @@ public class GiftCertificateServices {
             }
 
             // create the fulfillment record
-            Map<String, Object> gcFulFill = new HashMap<String, Object>();
+            Map gcFulFill = new HashMap();
             gcFulFill.put("typeEnumId", "GC_ACTIVATE");
             gcFulFill.put("partyId", partyId);
             gcFulFill.put("orderId", orderId);
@@ -834,7 +837,7 @@ public class GiftCertificateServices {
                     }
                 }
 
-                Map<String, Object> emailCtx = new HashMap<String, Object>();
+                Map emailCtx = new HashMap();
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
                     bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -865,7 +868,7 @@ public class GiftCertificateServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> giftCertificateReload(DispatchContext dctx, Map<String, Object> context) {
+    public static Map giftCertificateReload(DispatchContext dctx, Map context) {
         // this service should always be called via FULFILLMENT_EXTSYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -931,9 +934,9 @@ public class GiftCertificateServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
+            Map fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
+            List order = UtilMisc.toList("-responseDate");
+            List responses = delegator.findByAnd("SurveyResponse", fields, order);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -942,7 +945,7 @@ public class GiftCertificateServices {
         }
 
         // get the response answers
-        List<GenericValue> responseAnswers = null;
+        List responseAnswers = null;
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
         } catch (GenericEntityException e) {
@@ -951,9 +954,11 @@ public class GiftCertificateServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = new HashMap<String, Object>();
+        Map answerMap = new HashMap();
         if (responseAnswers != null) {
-            for (GenericValue answer : responseAnswers) {
+            Iterator rai = responseAnswers.iterator();
+            while (rai.hasNext()) {
+                GenericValue answer = (GenericValue) rai.next();
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
@@ -975,7 +980,7 @@ public class GiftCertificateServices {
         String pinNumber = (String) answerMap.get(pinNumberKey);
 
         // reload the gift card
-        Map<String, Object> reloadCtx = new HashMap<String, Object>();
+        Map reloadCtx = new HashMap();
         reloadCtx.put("productStoreId", productStoreId);
         reloadCtx.put("currency", currency);
         reloadCtx.put("partyId", partyId);
@@ -986,7 +991,7 @@ public class GiftCertificateServices {
         reloadCtx.put("userLogin", userLogin);
 
         String errorMessage = null;
-        Map<String, Object> reloadGcResult = null;
+        Map reloadGcResult = null;
         try {
             reloadGcResult = dispatcher.runSync("addFundsToGiftCertificate", reloadCtx);
         } catch (GenericServiceException e) {
@@ -998,7 +1003,7 @@ public class GiftCertificateServices {
         }
 
         // create the fulfillment record
-        Map<String, Object> gcFulFill = new HashMap<String, Object>();
+        Map gcFulFill = new HashMap();
         gcFulFill.put("typeEnumId", "GC_RELOAD");
         gcFulFill.put("userLogin", userLogin);
         gcFulFill.put("partyId", partyId);
@@ -1025,7 +1030,7 @@ public class GiftCertificateServices {
 
             // process the return
             try {
-                Map<String, Object> refundCtx = UtilMisc.toMap("orderItem", orderItem, "partyId", partyId, "userLogin", userLogin);
+                Map refundCtx = UtilMisc.toMap("orderItem", orderItem, "partyId", partyId, "userLogin", userLogin);
                 dispatcher.runAsync("refundGcPurchase", refundCtx, null, true, 300, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "ERROR! Unable to call create refund service; this failed reload will NOT be refunded", module);
@@ -1057,7 +1062,7 @@ public class GiftCertificateServices {
             answerMap.put("uiLabelMap", uiLabelMap);
             answerMap.put("locale", locale);
 
-            Map<String, Object> emailCtx = new HashMap<String, Object>();
+            Map emailCtx = new HashMap();
             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
             if (UtilValidate.isEmpty(bodyScreenLocation)) {
                 bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -1086,7 +1091,7 @@ public class GiftCertificateServices {
     }
 
     // Tracking Service
-    public static Map<String, Object> createFulfillmentRecord(DispatchContext dctx, Map<String, Object> context) {
+    public static Map createFulfillmentRecord(DispatchContext dctx, Map context) {
         Delegator delegator = dctx.getDelegator();
 
         // create the fulfillment record
@@ -1115,7 +1120,7 @@ public class GiftCertificateServices {
     }
 
     // Refund Service
-    public static Map<String, Object> refundGcPurchase(DispatchContext dctx, Map<String, Object> context) {
+    public static Map refundGcPurchase(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1129,7 +1134,7 @@ public class GiftCertificateServices {
             Debug.logError(e, module);
         }
 
-        Map<String, Object> returnableInfo = null;
+        Map returnableInfo = null;
         try {
             returnableInfo = dispatcher.runSync("getReturnableQuantity", UtilMisc.toMap("orderItem", orderItem, "userLogin", userLogin));
         } catch (GenericServiceException e) {
@@ -1143,10 +1148,10 @@ public class GiftCertificateServices {
             Debug.logInfo("Returnable INFO : " + returnableQuantity + " @ " + returnablePrice + " :: " + orderItem, module);
 
             // create the return header
-            Map<String, Object> returnHeaderInfo = new HashMap<String, Object>();
+            Map returnHeaderInfo = new HashMap();
             returnHeaderInfo.put("fromPartyId", partyId);
             returnHeaderInfo.put("userLogin", userLogin);
-            Map<String, Object> returnHeaderResp = null;
+            Map returnHeaderResp = null;
             try {
                 returnHeaderResp = dispatcher.runSync("createReturnHeader", returnHeaderInfo);
             } catch (GenericServiceException e) {
@@ -1171,7 +1176,7 @@ public class GiftCertificateServices {
             }
 
             // create the return item
-            Map<String, Object> returnItemInfo = new HashMap<String, Object>();
+            Map returnItemInfo = new HashMap();
             returnItemInfo.put("returnId", returnId);
             returnItemInfo.put("returnReasonId", "RTN_DIG_FILL_FAIL");
             returnItemInfo.put("returnTypeId", "RTN_REFUND");
@@ -1182,7 +1187,7 @@ public class GiftCertificateServices {
             returnItemInfo.put("returnQuantity", returnableQuantity);
             returnItemInfo.put("returnPrice", returnablePrice);
             returnItemInfo.put("userLogin", userLogin);
-            Map<String, Object> returnItemResp = null;
+            Map returnItemResp = null;
             try {
                 returnItemResp = dispatcher.runSync("createReturnItem", returnItemInfo);
             } catch (GenericServiceException e) {
@@ -1218,12 +1223,12 @@ public class GiftCertificateServices {
             }
 
             // update the status to received so it can process
-            Map<String, Object> updateReturnInfo = new HashMap<String, Object>();
+            Map updateReturnInfo = new HashMap();
             updateReturnInfo.put("returnId", returnId);
             updateReturnInfo.put("statusId", "RETURN_RECEIVED");
             updateReturnInfo.put("currentStatusId", "RETURN_REQUESTED");
             updateReturnInfo.put("userLogin", admin);
-            Map<String, Object> updateReturnResp = null;
+            Map updateReturnResp = null;
             try {
                 updateReturnResp = dispatcher.runSync("updateReturnHeader", updateReturnInfo);
             } catch (GenericServiceException e) {
@@ -1287,7 +1292,7 @@ public class GiftCertificateServices {
         }
 
         // create the payment for the transaction
-        Map<String, Object> paymentCtx = UtilMisc.toMap("paymentTypeId", (Object)paymentType);
+        Map paymentCtx = UtilMisc.toMap("paymentTypeId", paymentType);
         paymentCtx.put("paymentMethodTypeId", paymentMethodType);
         //paymentCtx.put("paymentMethodId", "");
         //paymentCtx.put("paymentGatewayResponseId", "");
@@ -1301,7 +1306,7 @@ public class GiftCertificateServices {
         paymentCtx.put("paymentRefNum", "N/A");
 
         String paymentId = null;
-        Map<String, Object> payResult = null;
+        Map payResult = null;
         try {
             payResult = dispatcher.runSync("createPayment", paymentCtx);
         } catch (GenericServiceException e) {
@@ -1317,14 +1322,14 @@ public class GiftCertificateServices {
         }
 
         // create the initial transaction
-        Map<String, Object> transCtx = UtilMisc.toMap("finAccountTransTypeId", (Object)txType);
+        Map transCtx = UtilMisc.toMap("finAccountTransTypeId", txType);
         transCtx.put("finAccountId", finAccountId);
         transCtx.put("partyId", userLogin.getString("partyId"));
         transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);
         transCtx.put("amount", amount);
 
-        Map<String, Object> transResult = null;
+        Map transResult = null;
         String txId = null;
         try {
             transResult = dispatcher.runSync("createFinAccountTrans", transCtx);
