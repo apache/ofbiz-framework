@@ -19,7 +19,6 @@
 package org.ofbiz.accounting;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
