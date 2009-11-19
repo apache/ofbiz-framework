@@ -68,6 +68,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_olap.xml"/>
 
     <!-- Payment Processor/Gateway Service Definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services_sagepay.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_authorizedotnet.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_clearcommerce.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cybersource.xml"/>

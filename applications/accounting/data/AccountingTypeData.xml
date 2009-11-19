@@ -694,6 +694,10 @@ under the License.
     <PaymentGroupType paymentGroupTypeId="BATCH_PAYMENT" parentTypeId="" hasTable="N" description="Batch of Payments"/>
 
     <!-- Payment Gateway Config -->
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="SAGEPAY" hasTable="N" description="SagePay Payment Gateway"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="SAGEPAY_CONFIG" paymentGatewayConfigTypeId="SAGEPAY" description="SagePay Config"/>
+    <PaymentGatewaySagePay paymentGatewayConfigId="SAGEPAY_CONFIG" vendor="YOUR_VENDOR_NAME" productionHost="https://live.sagepay.com:443" testingHost="https://test.sagepay.com:443" mode="TEST" protocolVersion="2.22" authenticationTransType="DEFERRED" authenticationUrl="/gateway/service/vspdirect-register.vsp" authoriseTransType="RELEASE" authoriseUrl="/gateway/service/release.vsp" releaseTransType="ABORT" releaseUrl="/gateway/service/abort.vsp" voidUrl="/gateway/service/void.vsp" refundUrl="/gateway/service/refund.vsp"/>
+
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="AUTHORIZE_NET" description="Authorize Dot Net Config"/>
     <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://certification.authorize.net/gateway/transact.dll" certificateAlias="certification.authorize.net-1" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" tranKey="" userId="" pwd="" transDescription="OFBizAuthNet"/>

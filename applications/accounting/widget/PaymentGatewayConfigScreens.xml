@@ -85,6 +85,9 @@ under the License.
                 
                 <set field="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 <entity-one entity-name="PaymentGatewayConfig" value-field="paymentGatewayConfig"/>
+                <entity-one entity-name="PaymentGatewaySagePay" value-field="paymentGatewaySagePay">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
                 <entity-one entity-name="PaymentGatewayAuthorizeNet" value-field="paymentGatewayAuthorizeNet">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
@@ -110,6 +113,27 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfig}">
                             <include-form name="EditPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                         </screenlet>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewaySagePay"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigSagePay}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditPaymentGatewayConfigSagePay" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
                         <section>
                             <condition>
                                 <not><if-empty field="paymentGatewayAuthorizeNet"/></not>

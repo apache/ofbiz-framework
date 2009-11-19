@@ -68,6 +68,56 @@ under the License.
         </field>
     </form>
     
+    <form name="EditPaymentGatewayConfigSagePay" type="single" target="UpdatePaymentGatewayConfigSagePay" default-map-name="paymentGatewaySagePay" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewaySagePay" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="vendor" title="${uiLabelMap.AccountingSagePayVendor}">
+            <text size="60" maxlength="60"/>
+        </field>
+        <field name="productionHost" title="${uiLabelMap.AccountingSagePayProductionHost}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="testingHost" title="${uiLabelMap.AccountingSagePayTestingHost}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="mode" title="${uiLabelMap.AccountingSagePayMode}">
+            <drop-down>
+                <option key="TEST" description="${uiLabelMap.AccountingSagePayTest}"/>
+                <option key="PRODUCTION" description="${uiLabelMap.AccountingSagePayProduction}"/>
+            </drop-down>
+        </field>
+        <field name="protocolVersion" title="${uiLabelMap.AccountingSagePayProtocolVersion}">
+            <text size="10" maxlength="10"/>
+        </field>
+        <field name="authenticationTransType" title="${uiLabelMap.AccountingSagePayAuthenticationTransType}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="authenticationUrl" title="${uiLabelMap.AccountingSagePayAuthenticationUrl}">
+            <text size="100" maxlength="100"/>
+        </field>        
+        <field name="authoriseTransType" title="${uiLabelMap.AccountingSagePayAuthorisationTransType}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="authoriseUrl" title="${uiLabelMap.AccountingSagePayAuthorisationUrl}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="releaseTransType" title="${uiLabelMap.AccountingSagePayReleaseTransType}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="releaseUrl" title="${uiLabelMap.AccountingSagePayReleaseUrl}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="voidUrl" title="${uiLabelMap.AccountingSagePayVoidUrl}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="refundUrl" title="${uiLabelMap.AccountingSagePayRefundUrl}">
+            <text size="100" maxlength="100"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
     <form name="EditPaymentGatewayConfigAuthorizeNet" type="single" target="UpdatePaymentGatewayConfigAuthorizeNet" default-map-name="paymentGatewayAuthorizeNet" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayAuthorizeNet" default-field-type="edit"/>
         <field name="paymentGatewayConfigId"><hidden/></field>
