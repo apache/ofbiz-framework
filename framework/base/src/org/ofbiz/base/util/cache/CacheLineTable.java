@@ -140,7 +140,7 @@ public class CacheLineTable<K, V> implements Serializable {
         return oldValue;
     }
 
-    public CacheLine<V> get(Object key) {
+    public synchronized CacheLine<V> get(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
         }
