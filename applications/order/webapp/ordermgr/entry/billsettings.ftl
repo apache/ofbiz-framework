@@ -52,7 +52,11 @@ function makeExpDate() {
                       <option value=""></option>
                         <#list billingAccountList as billingAccount>
                           <#assign availableAmount = billingAccount.accountBalance?double>
-                          <#assign accountLimit = billingAccount.accountLimit?double>
+                          <#if (billingAccount.accountLimit)?exists>
+                              <#assign accountLimit = billingAccount.accountLimit?double />
+                          <#else>
+                              <#assign accountLimit = 0.00 />
+                          </#if> 
                           <option value="${billingAccount.billingAccountId}" <#if billingAccount.billingAccountId == selectedBillingAccountId?default("")>selected</#if>>${billingAccount.description?default("")} [${billingAccount.billingAccountId}] Available: <@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/> Limit: <@ofbizCurrency amount=accountLimit isoCode=billingAccount.accountCurrencyUomId/></option>
                         </#list>
                     </select>
