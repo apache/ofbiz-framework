@@ -298,7 +298,7 @@ under the License.
                                         <html><html-template location="component://order/webapp/ordermgr/entry/OrderEntryCatalogTabBar.ftl"/></html>
                                     </platform-specific>
                                     <container style="screenlet-body">
-                                        <include-form location="component://order/webapp/ordermgr/order/OrderForms.xml" name="LookupBulkAddSupplierProductsInApprovedOrder"></include-form>
+                                        <include-form location="component://order/widget/ordermgr/OrderForms.xml" name="LookupBulkAddSupplierProductsInApprovedOrder"></include-form>
                                     </container>
                                 </container>
                             </widgets>
