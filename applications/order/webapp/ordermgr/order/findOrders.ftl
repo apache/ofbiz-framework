@@ -221,7 +221,7 @@ function toggleOrderIdList() {
                     <option value="${currentType.orderTypeId}">${currentType.get("description", locale)}</option>
                     <option value="${currentType.orderTypeId}">---</option>
                     </#if>
-                    <option value="">${uiLabelMap.CommonAnyOrderType}</option>
+                    <option value="">${uiLabelMap.OrderAnyOrderType}</option>
                     <#list orderTypes as orderType>
                       <option value="${orderType.orderTypeId}">${orderType.get("description", locale)}</option>
                     </#list>
@@ -295,7 +295,7 @@ function toggleOrderIdList() {
                     <option value="${currentStatus.statusId}">${currentStatus.get("description", locale)}</option>
                     <option value="${currentStatus.statusId}">---</option>
                     </#if>
-                    <option value="">${uiLabelMap.CommonAnyOrderStatus}</option>
+                    <option value="">${uiLabelMap.OrderAnyOrderStatus}</option>
                     <#list orderStatuses as orderStatus>
                       <option value="${orderStatus.statusId}">${orderStatus.get("description", locale)}</option>
                     </#list>

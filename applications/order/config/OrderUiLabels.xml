@@ -1463,6 +1463,38 @@
         <value xml:lang="th">ไม่ระบุ</value>
         <value xml:lang="zh">匿名</value>
     </property>
+    <property key="OrderAnyOrderStatus">
+        <value xml:lang="ar">كل وضع للطلبيات</value>
+        <value xml:lang="de">Beliebiger Auftragsstatus</value>
+        <value xml:lang="en">Any Order Status</value>
+        <value xml:lang="es">Cualquier estado de orden</value>
+        <value xml:lang="fr">Tous statuts</value>
+        <value xml:lang="hi_IN">कोईभी आदेश स्थिति</value>
+        <value xml:lang="it">Qualsiasi stato ordine</value>
+        <value xml:lang="nl">Elke bestellingstatus</value>
+        <value xml:lang="pt">Qualquer Estado de Encomenda</value>
+        <value xml:lang="ro">Orice Stadiu Comanda</value>
+        <value xml:lang="ru">Любой статус заказа</value>
+        <value xml:lang="th">ทุก ๆ สถานะรายการสั่งซื้อ</value>
+        <value xml:lang="zh">任何订单状态</value>
+        <value xml:lang="zh_CN">任意订单状态</value>
+    </property>
+    <property key="OrderAnyOrderType">
+        <value xml:lang="ar">أي نوع للطلبيات</value>
+        <value xml:lang="de">Beliebiger Auftragstyp</value>
+        <value xml:lang="en">Any Order Type</value>
+        <value xml:lang="es">Cualquier tipo de orden</value>
+        <value xml:lang="fr">Tous types</value>
+        <value xml:lang="hi_IN">कोईभी आदेश के प्रकार</value>
+        <value xml:lang="it">Qualsiasi tipo ordine</value>
+        <value xml:lang="nl">Elk bestellingstype</value>
+        <value xml:lang="pt">Qualquer Tipo de Encomenda</value>
+        <value xml:lang="ro">Orice Tip de Comanda</value>
+        <value xml:lang="ru">Любой тип заказа</value>
+        <value xml:lang="th">ทุก ๆ ประเภทรายการสั่งซื้อ</value>
+        <value xml:lang="zh">任何订单类型</value>
+        <value xml:lang="zh_CN">任意订单类型</value>
+    </property>
     <property key="OrderApproveOrder">
         <value xml:lang="de">Auftrag bestätigen</value>
         <value xml:lang="en">Approve Order</value>
