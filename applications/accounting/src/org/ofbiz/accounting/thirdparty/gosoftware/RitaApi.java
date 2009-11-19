@@ -19,7 +19,6 @@
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -151,9 +150,7 @@ public class RitaApi {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        Iterator<Map.Entry<String, String>> i = document.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry<String, String> entry = i.next();
+        for (Map.Entry<String, String> entry : document.entrySet()) {
             String name = (String) entry.getKey();
             String value = (String) entry.getValue();
             buf.append(name);

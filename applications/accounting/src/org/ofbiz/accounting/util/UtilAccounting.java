@@ -20,8 +20,9 @@
 package org.ofbiz.accounting.util;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
+
+import javolution.util.FastList;
 
 import org.ofbiz.accounting.AccountingException;
 import org.ofbiz.base.util.Debug;
@@ -29,8 +30,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-
-import javolution.util.FastList;
 
 
 public class UtilAccounting {
@@ -125,9 +124,7 @@ public class UtilAccounting {
     private static void getGlAccountClassChildren(GenericValue glAccountClass, List<String> glAccountClassIds) throws GenericEntityException {
         glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
         List<GenericValue> glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
-        Iterator<GenericValue> glAccountClassChildrenIt = glAccountClassChildren.iterator();
-        while (glAccountClassChildrenIt.hasNext()) {
-            GenericValue glAccountClassChild = glAccountClassChildrenIt.next();
+        for(GenericValue glAccountClassChild : glAccountClassChildren) {
             getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
         }
     }

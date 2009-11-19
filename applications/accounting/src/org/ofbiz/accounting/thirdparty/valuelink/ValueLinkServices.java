@@ -20,11 +20,11 @@ package org.ofbiz.accounting.thirdparty.valuelink;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.transaction.xa.XAException;
 
 import org.ofbiz.base.util.Debug;
@@ -1094,9 +1094,7 @@ public class ValueLinkServices {
         // make a map of answer info
         Map<String, Object> answerMap = new HashMap<String, Object>();
         if (responseAnswers != null) {
-            Iterator<GenericValue> rai = responseAnswers.iterator();
-            while (rai.hasNext()) {
-                GenericValue answer = rai.next();
+            for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
