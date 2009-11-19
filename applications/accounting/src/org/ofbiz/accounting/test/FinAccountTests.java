@@ -50,31 +50,31 @@ public class FinAccountTests extends OFBizTestCase {
     }
 
     public void testCreateFinAccount() throws Exception {
-        Map ctx = FastMap.newInstance();
+        Map<String, Object> ctx = FastMap.newInstance();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("finAccountName", "Test Financial Account");
         ctx.put("finAccountTypeId", "BANK_ACCOUNT");
         ctx.put("userLogin", userLogin);
-        Map resp = dispatcher.runSync("createFinAccount", ctx);
+        Map<String, Object> resp = dispatcher.runSync("createFinAccount", ctx);
         assertEquals("Service result success", ModelService.RESPOND_SUCCESS, resp.get(ModelService.RESPONSE_MESSAGE));
     }
 
     public void testDeposit() throws Exception {
-        Map ctx = FastMap.newInstance();
+        Map<String, Object> ctx = FastMap.newInstance();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new BigDecimal("100.00"));
         ctx.put("userLogin", userLogin);
-        Map resp = dispatcher.runSync("finAccountDeposit", ctx);
+        Map<String, Object> resp = dispatcher.runSync("finAccountDeposit", ctx);
         BigDecimal balance = (BigDecimal) resp.get("balance");
         assertEquals(balance.toPlainString(), "100.00");
     }
 
     public void testWithdraw() throws Exception {
-        Map ctx = FastMap.newInstance();
+        Map<String, Object> ctx = FastMap.newInstance();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new BigDecimal("50.00"));
         ctx.put("userLogin", userLogin);
-        Map resp = dispatcher.runSync("finAccountWithdraw", ctx);
+        Map<String, Object> resp = dispatcher.runSync("finAccountWithdraw", ctx);
         BigDecimal previousBalance = (BigDecimal) resp.get("previousBalance");
         BigDecimal balance = ((BigDecimal) resp.get("balance"));
         assertEquals(balance.add(new BigDecimal("50.00")).toPlainString(), previousBalance.toPlainString());

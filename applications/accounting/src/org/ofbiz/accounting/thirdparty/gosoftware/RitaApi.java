@@ -92,19 +92,19 @@ public class RitaApi {
     protected static final int MODE_IN = 10;
 
     // instance variables
-    protected LinkedHashMap document = null;
+    protected LinkedHashMap<String, String> document = null;
     protected String host = null;
     protected boolean ssl = false;
     protected int port = 0;
     protected int mode = 0;
 
-    public RitaApi(Map document) {
-        this.document = new LinkedHashMap(document);
+    public RitaApi(Map<String, String> document) {
+        this.document = new LinkedHashMap<String, String>(document);
         this.mode = MODE_OUT;
     }
 
     public RitaApi() {
-        this.document = new LinkedHashMap();
+        this.document = new LinkedHashMap<String, String>();
         this.mode = MODE_IN;
     }
 
@@ -151,9 +151,9 @@ public class RitaApi {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        Iterator i = document.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> i = document.entrySet().iterator();
         while (i.hasNext()) {
-            Map.Entry entry = (Map.Entry) i.next();
+            Map.Entry<String, String> entry = i.next();
             String name = (String) entry.getKey();
             String value = (String) entry.getValue();
             buf.append(name);
@@ -165,7 +165,7 @@ public class RitaApi {
         return buf.toString();
     }
 
-    public Map getDocument() {
+    public Map<String, String> getDocument() {
         return this.document;
     }
 
@@ -227,7 +227,7 @@ public class RitaApi {
             br.close();
             */
 
-            LinkedHashMap docMap = new LinkedHashMap();
+            LinkedHashMap<String, String> docMap = new LinkedHashMap<String, String>();
             String resp = null;
             try {
                 resp = http.post(stream);

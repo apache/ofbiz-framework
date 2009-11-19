@@ -30,8 +30,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,8 +60,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -76,7 +74,7 @@ public class ValueLinkApi {
     public static final String module = ValueLinkApi.class.getName();
 
     // static object cache
-    private static Map objectCache = new HashMap();
+    private static Map<String, ValueLinkApi> objectCache = new HashMap<String, ValueLinkApi>();
 
     // instance variables
     protected Delegator delegator = null;
@@ -120,10 +118,10 @@ public class ValueLinkApi {
             throw new IllegalArgumentException("Properties cannot be null");
         }
 
-        ValueLinkApi api = (ValueLinkApi) objectCache.get(merchantId);
+        ValueLinkApi api = objectCache.get(merchantId);
         if (api == null || reload) {
             synchronized(ValueLinkApi.class) {
-                api = (ValueLinkApi) objectCache.get(merchantId);
+                api = objectCache.get(merchantId);
                 if (api == null || reload) {
                     api = new ValueLinkApi(delegator, props);
                     objectCache.put(merchantId, api);
@@ -233,7 +231,7 @@ public class ValueLinkApi {
      * @return Map of response parameters
      * @throws HttpClientException
      */
-    public Map send(Map request) throws HttpClientException {
+    public Map<String, Object> send(Map<String, Object> request) throws HttpClientException {
         return send((String) props.get("payment.valuelink.url"), request);
     }
 
@@ -244,7 +242,7 @@ public class ValueLinkApi {
      * @return Map of response parameters
      * @throws HttpClientException
      */
-    public Map send(String url, Map request) throws HttpClientException {
+    public Map<String, Object> send(String url, Map<String, Object> request) throws HttpClientException {
         if (debug) {
             Debug.log("Request : " + url + " / " + request, module);
         }
@@ -697,8 +695,8 @@ public class ValueLinkApi {
      * Note: For 2010 (assign working key) transaction, the EncryptID will need to be adjusted
      * @return Map containing the inital request values
      */
-    public Map getInitialRequestMap(Map context) {
-        Map request = new HashMap();
+    public Map<String, Object> getInitialRequestMap(Map<String, Object> context) {
+        Map<String, Object> request = new HashMap<String, Object>();
 
         // merchant information
         request.put("MerchID", merchantId + terminalId);
@@ -905,7 +903,7 @@ public class ValueLinkApi {
         return StringUtil.fromHexString(this.getGenericValue().getString("privateKey"));
     }
 
-    protected Map parseResponse(String response) {
+    protected Map<String, Object> parseResponse(String response) {
         if (debug) {
             Debug.log("Raw Response : " + response, module);
         }
@@ -918,7 +916,7 @@ public class ValueLinkApi {
 
         // check for a history table
         String history = null;
-        List historyMapList = null;
+        List<Map<String, String>> historyMapList = null;
         if (subResponse.indexOf("<table") > -1) {
             int startHistory = subResponse.indexOf("<table");
             int endHistory = subResponse.indexOf("</table>") + 8;
@@ -943,7 +941,7 @@ public class ValueLinkApi {
         subResponse = StringUtil.replaceString(subResponse, "</td>", "");
 
         // make the map
-        Map responseMap = StringUtil.strToMap(subResponse, true);
+        Map<String, Object> responseMap = UtilGenerics.cast(StringUtil.strToMap(subResponse, true));
 
         // add the raw html back in just in case we need it later
         responseMap.put("_rawHtmlResponse", response);
@@ -961,7 +959,7 @@ public class ValueLinkApi {
         return responseMap;
     }
 
-    private List parseHistoryResponse(String response) {
+    private List<Map<String, String>> parseHistoryResponse(String response) {
         if (debug) {
             Debug.log("Raw History : " + response, module);
         }
@@ -995,12 +993,12 @@ public class ValueLinkApi {
 
         // split sets of values up
         values = StringUtil.replaceString(values, "|</tr><tr>", "&");
-        List valueList = StringUtil.split(values, "&");
+        List<String> valueList = StringUtil.split(values, "&");
 
         // create a List of Maps for each set of values
-        List valueMap = new ArrayList();
+        List<Map<String, String>> valueMap = new ArrayList<Map<String, String>>();
         for (int i = 0; i < valueList.size(); i++) {
-            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split((String) valueList.get(i), "|")));
+            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
         }
 
         if (debug) {
