@@ -1276,6 +1276,7 @@ under the License.
             <condition-list combine="and">
                 <condition-expr field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="ORDER_CANCELLED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="ORDER_COMPLETED"/>
             </condition-list>
         </entity-condition>
         <iterate entry="currentOrder" list="orders">
