@@ -230,8 +230,7 @@ under the License.
     
     <simple-method method-name="testDepositWithdrawPayments" short-description="test depositWithdrawPayments service" login-required="false">
         <set field="paymentIds[]" value="demo10010"/>
-        <set field="paymentIds[]" value="8000"/>
-        <set field="finAccountId" value="9000"/>
+        <set field="finAccountId" value="SC_CHECKING"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -259,8 +258,8 @@ under the License.
     </simple-method>
     
     <simple-method method-name="testDepositWithdrawPaymentsInSingleTrans" short-description="test depositWithdrawPayments service for single transaction" login-required="false">
-        <set field="paymentIds[]" value="demo10001"/>
-        <set field="finAccountId" value="9000"/>
+        <set field="paymentIds[]" value="8004"/>
+        <set field="finAccountId" value="SC_CHECKING"/>
         <set field="groupInOneTransaction" value="Y"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -268,6 +267,7 @@ under the License.
         <set field="depositWithdrawPaymentsMap.paymentIds" from-field="paymentIds"/>
         <set field="depositWithdrawPaymentsMap.finAccountId" from-field="finAccountId"/>
         <set field="depositWithdrawPaymentsMap.groupInOneTransaction" from-field="groupInOneTransaction"/>
+        <set field="depositWithdrawPaymentsMap.paymentGroupTypeId" value="BATCH_PAYMENT"/>
         <set field="depositWithdrawPaymentsMap.userLogin" from-field="userLogin"/>
         <call-service service-name="depositWithdrawPayments" in-map-name="depositWithdrawPaymentsMap">
             <result-to-field result-name="finAccountTransId"/>
