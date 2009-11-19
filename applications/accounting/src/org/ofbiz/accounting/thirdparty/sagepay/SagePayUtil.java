@@ -119,9 +119,9 @@ public class SagePayUtil
 
     public static HttpHost getHost(Map<String, String> props) {
         String hostUrl = null;
-        if("PRODUCTION".equals(props.get("mode"))) {
+        if("PRODUCTION".equals(props.get("sagePayMode"))) {
             hostUrl = props.get("productionHost");
-        } else if("TEST".equals(props.get("mode"))) {
+        } else if("TEST".equals(props.get("sagePayMode"))) {
             hostUrl = props.get("testingHost");
         }
         String scheme = hostUrl.substring(0, 5);

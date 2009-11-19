@@ -696,7 +696,7 @@ under the License.
     <!-- Payment Gateway Config -->
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="SAGEPAY" hasTable="N" description="SagePay Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="SAGEPAY_CONFIG" paymentGatewayConfigTypeId="SAGEPAY" description="SagePay Config"/>
-    <PaymentGatewaySagePay paymentGatewayConfigId="SAGEPAY_CONFIG" vendor="YOUR_VENDOR_NAME" productionHost="https://live.sagepay.com:443" testingHost="https://test.sagepay.com:443" mode="TEST" protocolVersion="2.22" authenticationTransType="DEFERRED" authenticationUrl="/gateway/service/vspdirect-register.vsp" authoriseTransType="RELEASE" authoriseUrl="/gateway/service/release.vsp" releaseTransType="ABORT" releaseUrl="/gateway/service/abort.vsp" voidUrl="/gateway/service/void.vsp" refundUrl="/gateway/service/refund.vsp"/>
+    <PaymentGatewaySagePay paymentGatewayConfigId="SAGEPAY_CONFIG" vendor="YOUR_VENDOR_NAME" productionHost="https://live.sagepay.com:443" testingHost="https://test.sagepay.com:443" sagePayMode="TEST" protocolVersion="2.22" authenticationTransType="DEFERRED" authenticationUrl="/gateway/service/vspdirect-register.vsp" authoriseTransType="RELEASE" authoriseUrl="/gateway/service/release.vsp" releaseTransType="ABORT" releaseUrl="/gateway/service/abort.vsp" voidUrl="/gateway/service/void.vsp" refundUrl="/gateway/service/refund.vsp"/>
 
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="AUTHORIZE_NET" hasTable="N" description="Authorize Dot Net Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="AUTHORIZE_NET" description="Authorize Dot Net Config"/>

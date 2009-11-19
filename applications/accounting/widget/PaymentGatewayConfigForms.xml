@@ -80,7 +80,7 @@ under the License.
         <field name="testingHost" title="${uiLabelMap.AccountingSagePayTestingHost}">
             <text size="100" maxlength="100"/>
         </field>
-        <field name="mode" title="${uiLabelMap.AccountingSagePayMode}">
+        <field name="sagePayMode" title="${uiLabelMap.AccountingSagePayMode}">
             <drop-down>
                 <option key="TEST" description="${uiLabelMap.AccountingSagePayTest}"/>
                 <option key="PRODUCTION" description="${uiLabelMap.AccountingSagePayProduction}"/>
