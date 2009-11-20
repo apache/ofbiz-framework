@@ -65,7 +65,7 @@ under the License.
                 <td colspan="3">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyHomePhone}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyHomePhone}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="homeCountryCode" value="${requestParameters.homeCountryCode?if_exists}" size="4" maxlength="10"/>
@@ -83,7 +83,7 @@ under the License.
                 </td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="workCountryCode" value="${requestParameters.CUSTOMER_WORK_COUNTRY?if_exists}" size="4" maxlength="10"/>
@@ -104,7 +104,7 @@ under the License.
                 <td colspan="3">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.CommonAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="emailAddress" value="" size="60" maxlength="255">

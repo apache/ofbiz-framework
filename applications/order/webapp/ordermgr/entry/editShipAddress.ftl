@@ -108,7 +108,7 @@ under the License.
                     *</td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAllowSolicitation}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.OrderAllowSolicitation}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <select name="allowSolicitation">
