@@ -40,12 +40,18 @@ productId = product?.productId ?: optProductId ?: request.getAttribute("productI
 
 webSiteId = CatalogWorker.getWebSiteId(request);
 catalogId = CatalogWorker.getCurrentCatalogId(request);
-productStore = ProductStoreWorker.getProductStore(request);
-facilityId = productStore.inventoryFacilityId;
-productStoreId = productStore.productStoreId;
+cart = ShoppingCartEvents.getCartObject(request);
+productStore = null;
+productStoreId = null;
+facilityId = null;
+if (cart.isSalesOrder()) {
+    productStore = ProductStoreWorker.getProductStore(request);
+    productStoreId = productStore.productStoreId;
+    context.productStoreId = productStoreId;
+    facilityId = productStore.inventoryFacilityId;
+}
 autoUserLogin = session.getAttribute("autoUserLogin");
 userLogin = session.getAttribute("userLogin");
-cart = ShoppingCartEvents.getCartObject(request);
 
 context.remove("daysToShip");
 context.remove("averageRating");
@@ -57,12 +63,15 @@ if (!product && productId) {
     product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
 }
 if (product) {
-    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : product.productId, facilityId : facilityId, useCache : true]);
-    totalAvailableToPromise = resultOutput.availableToPromiseTotal;
-    if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
-        productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : product.productId, facilityId : facilityId]);
-        if (productFacility?.daysToShip != null) {
-            context.daysToShip = productFacility.daysToShip;
+    //if order is purchase then don't calculate available inventory for product.
+    if (cart.isSalesOrder()) {
+        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : product.productId, facilityId : facilityId, useCache : true]);
+        totalAvailableToPromise = resultOutput.availableToPromiseTotal;
+        if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
+            productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : product.productId, facilityId : facilityId]);
+            if (productFacility?.daysToShip != null) {
+                context.daysToShip = productFacility.daysToShip;
+            }
         }
     } else {
        supplierProducts = delegator.findByAndCache("SupplierProduct", [productId : product.productId], ["-availableFromDate"]);
@@ -140,7 +149,6 @@ if (reviews) {
 sizeProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", [productId : productId, productFeatureTypeId : "SIZE"], ["sequenceNum", "defaultSequenceNum"]);
 
 context.product = product;
-context.productStoreId = productStoreId;
 context.categoryId = categoryId;
 context.productReviews = reviews;
 context.sizeProductFeatureAndAppls = sizeProductFeatureAndAppls;

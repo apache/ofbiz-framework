@@ -50,7 +50,8 @@ under the License.
         <description>Gets a tree of product variants based on a virtual product and a list of features.</description>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="featureOrder" type="java.util.Collection" mode="IN"/>
-        <attribute name="productStoreId" type="String" mode="IN"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="checkInventory" type="Boolean" mode="IN" default-value="true" optional="true"/>
         <attribute name="variantTree" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="variantSample" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="virtualVariant" type="java.util.List" mode="OUT" optional="true"/>

@@ -187,6 +187,7 @@ public class ProductServices {
     public static Map<String, Object> prodMakeFeatureTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Parent (virtual) product ID
         // * List featureOrder     -- Order of features
+        // * Boolean checkInventory-- To calculate available inventory.
         // * String productStoreId -- Product Store ID for Inventory
         String productStoreId = (String) context.get("productStoreId");
         Locale locale = (Locale) context.get("locale");
@@ -251,11 +252,19 @@ public class ProductServices {
             }
 
             // next check inventory for each item: if inventory is not required or is available
+            Boolean checkInventory = (Boolean) context.get("checkInventory");
             try {
-                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
-                if (ServiceUtil.isError(invReqResult)) {
-                    return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
-                } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
+                if (checkInventory) {
+                    Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
+                    if (ServiceUtil.isError(invReqResult)) {
+                        return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
+                    } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
+                        items.add(productIdTo);
+                        if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
+                            virtualVariant.add(productIdTo);
+                        }
+                    }
+                } else {
                     items.add(productIdTo);
                     if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
                         virtualVariant.add(productIdTo);

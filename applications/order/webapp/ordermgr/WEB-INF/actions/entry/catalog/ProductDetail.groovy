@@ -137,11 +137,15 @@ if (product) {
         }
     }
 
-    // get the product store
-    productStore = ProductStoreWorker.getProductStore(request);
-    productStoreId = productStore.productStoreId;
-    context.productStoreId = productStoreId;
-
+    // get the product store for only Sales Order not for Purchase Order.
+    productStore = null;
+    productStoreId = null;
+    cart = ShoppingCartEvents.getCartObject(request);
+    if (cart.isSalesOrder()) {
+        productStore = ProductStoreWorker.getProductStore(request);
+        productStoreId = productStore.productStoreId;
+        context.productStoreId = productStoreId;
+    }
     // get a defined survey
     productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD");
     if (productSurvey) {
@@ -176,8 +180,13 @@ if (product) {
         context.priceMap = priceMap;
     }
 
-    // get the product review(s)
-    reviewByAnd = [statusId : "PRR_APPROVED", productStoreId : productStoreId];
+    // get the product review(s) 
+    // get all product review in case of Purchase Order.
+    reviewByAnd = [:];
+    reviewByAnd.statusId = "PRR_APPROVED";
+    if (cart.isSalesOrder()) {
+        reviewByAnd.productStoreId = productStoreId;
+    }
     reviews = product.getRelatedCache("ProductReview", reviewByAnd, ["-postedDateTime"]);
     context.productReviews = reviews;
     // get the average rating
@@ -190,18 +199,20 @@ if (product) {
     }
 
     // get the days to ship
-
-    facilityId = productStore.inventoryFacilityId;
-    /*
-    productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId);
-    context.daysToShip = productFacility?.daysToShip
-    */
-
-    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facilityId, useCache : false]);
-    totalAvailableToPromise = resultOutput.availableToPromiseTotal;
-    if (totalAvailableToPromise) {
-        productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId]);
+    // if order is purchase then don't calculate available inventory for product. 
+    if (cart.isSalesOrder()) {
+        facilityId = productStore.inventoryFacilityId;
+        /*
+        productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId);
         context.daysToShip = productFacility?.daysToShip
+        */
+
+        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facilityId, useCache : false]);
+        totalAvailableToPromise = resultOutput.availableToPromiseTotal;
+        if (totalAvailableToPromise) {
+            productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId]);
+            context.daysToShip = productFacility?.daysToShip
+        }
     } else {
        supplierProducts = delegator.findByAndCache("SupplierProduct", [productId : productId], ["-availableFromDate"]);
        supplierProduct = EntityUtil.getFirst(supplierProducts);
@@ -229,7 +240,12 @@ if (product) {
             featureMap = dispatcher.runSync("getProductFeatureSet", [productId : productId]);
             featureSet = featureMap.featureSet;
             if (featureSet) {
-                variantTreeMap = dispatcher.runSync("getProductVariantTree", [productId : productId, featureOrder : featureSet, productStoreId : productStoreId]);
+                //if order is purchase then don't calculate available inventory for product.
+                if (cart.isPurchaseOrder()) {
+                    variantTreeMap = dispatcher.runSync("getProductVariantTree", [productId : productId, featureOrder : featureSet, checkInventory: false]);
+                } else {
+                    variantTreeMap = dispatcher.runSync("getProductVariantTree", [productId : productId, featureOrder : featureSet, productStoreId : productStoreId]);
+                }
                 variantTree = variantTreeMap.variantTree;
                 imageMap = variantTreeMap.variantSample;
                 virtualVariant = variantTreeMap.virtualVariant;
@@ -349,21 +365,27 @@ if (product) {
                         variantPriceJS = new StringBuffer();
                         variantPriceJS.append("function getVariantPrice(sku) { ");
                         // Format to apply the currency code to the variant price in the javascript
-                        localeString = productStore.defaultLocaleString;
-                        if (localeString) {
-                            locale = UtilMisc.parseLocale(localeString);
+                        if (productStore) {
+                            localeString = productStore.defaultLocaleString;
+                            if (localeString) {
+                                locale = UtilMisc.parseLocale(localeString);
+                            }
                         }
                         numberFormat = NumberFormat.getCurrencyInstance(locale);
                         variants.each { variantAssoc ->
                             variant = variantAssoc.getRelatedOne("AssocProduct");
                             // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
+                            priceContext.product = variant;
                             if (cart.isSalesOrder()) {
                                 // sales order: run the "calculateProductPrice" service
-                                priceContext.product = variant;
+                                variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                            } else {
                                 variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ");
-                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ");
+                            if (variantPriceMap) {
+                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ");
+                            }
                         }
                         amt.append(" } ");
                         variantPriceJS.append(" } ");
