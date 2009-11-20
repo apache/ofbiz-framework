@@ -1140,8 +1140,8 @@ under the License.
         </actions>
         <field name="workEffortId" widget-style="buttontext"><hidden/></field>
         <field name="keyword"  title="${uiLabelMap.WorkEffortKeywords}" ><display/></field>
-        <field name="relevancyWeight" header-link="createWorkEffortKeywords?workEffortId=${workEffortId}" title="${uiLabelMap.ProductReInduceKeywords}" header-link-style="buttontext" ><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.ProductDeleteAllKeywords}" header-link="deleteWorkEffortKeywords?workEffortId=${workEffortId}" widget-style="buttontext" header-link-style="buttontext" >
+        <field name="relevancyWeight"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.ProductDeleteAllKeywords}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortKeyword">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="keyword"/>
