@@ -25,13 +25,11 @@ under the License.
        <title>The Edit Tax Authority screen.</title>
         <para>The 'Edit Tax Authority' sub menu is the first of six sub menus used in the creation or update of a Tax Authority. On the creation or update of a Tax Authority it is the default screen that is displayed.</para>
         <para>It can be used for updating the basic details of a Tax Authority such as:</para>
-        <para>* Changing whether a tax id or code is required for an exemption</para> 
-        <para>* Modifying the tax id or code format</para>
-        <para>* Updating where or not to include the tax calculation as part of the product price</para>
+        <orderedlist>
+        <listitem><para>Changing whether a tax id or code is required for an exemption</para></listitem> 
+        <listitem><para>Modifying the tax id or code format</para></listitem>
+        <listitem><para>Updating where or not to include the tax calculation as part of the product price</para></listitem>
+        </orderedlist>
         <para>NOTE: An example of the Tax Id is as follows:</para>
-        <para>which translates to 99-9999999 or 999-99-9999</para>
-        <section>
-        <title></title>
-        <para></para>
-        </section>
+        <para>\d{2}\-\d{7}|\d{3}\-\d{2}\-\d{4} which translates to 99-9999999 or 999-99-9999</para>
 </section>
