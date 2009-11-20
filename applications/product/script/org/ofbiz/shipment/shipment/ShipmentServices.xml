@@ -831,11 +831,24 @@ under the License.
         <set value="Delete ShipmentItem" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
+        <!-- If there is any Shipment Package Content available for this Shipment Item then it cannot be deleted as it require 
+                Shipment Package content to be deleted first -->
+        <entity-and entity-name="ShipmentPackageContent" list="shipmentPackageContents">
+            <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
+            <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
+        </entity-and>
+        <if-not-empty field="shipmentPackageContents">
+            <add-error>
+                <fail-property property="ProductErrorShipmentItemCannotBeDeleted" resource="ProductErrorUiLabels"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
+            <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+            <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
+        </else>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="splitShipmentItemByQuantity" short-description="splitShipmentItemByQuantity">
@@ -971,9 +984,22 @@ under the License.
         <set value="Delete ShipmentPackage" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
-
-        <entity-one entity-name="ShipmentPackage" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
+        <!-- If there is any Shipment Package Content available for this shipment than Shipment Package cannot be deleted as it require
+             Shipment Package Content to be deleted first -->
+        <entity-and entity-name="ShipmentPackageContent" list="shipmentPackageContents">
+            <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
+            <field-map field-name="shipmentPackageSeqId" from-field="parameters.shipmentPackageSeqId"/>
+        </entity-and>
+        <if-not-empty field="shipmentPackageContents">
+            <add-error>
+                <fail-property property="ProductErrorShipmentPackageCannotBeDeleted" resource="ProductErrorUiLabels"/>
+            </add-error>
+            <check-errors/>
+        <else>
+            <entity-one entity-name="ShipmentPackage" value-field="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
+        </else>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="ensurePackageRouteSeg" short-description="Ensure ShipmentPackageRouteSeg exists for all RouteSegments for this Package">
         <entity-and entity-name="ShipmentRouteSegment" list="shipmentRouteSegments">
