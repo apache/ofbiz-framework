@@ -1927,7 +1927,16 @@ public class ModelForm extends ModelWidget {
             return this.getName();
         }
     }
-
+    
+    public String getCurrentContainerId(Map<String, Object> context) {
+        Integer itemIndex = (Integer) context.get("itemIndex");
+        if (itemIndex != null && "list".equals(this.getType())) {
+            return this.getContainerId() + this.getItemIndexSeparator() + itemIndex.intValue();
+        } 
+        
+        return this.getContainerId();
+    }
+    
     public String getContainerStyle() {
         return this.containerStyle;
     }
