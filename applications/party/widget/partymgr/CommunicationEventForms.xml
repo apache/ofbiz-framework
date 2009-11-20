@@ -340,6 +340,7 @@ under the License.
 
     <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" focus-field-name="submitButton"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="communicationEventId" position="1"><text-find/></field>
         <field name="parentCommEventId" position="2"><text-find/></field>
         <!-- <field name="origCommEventId"><text-find/></field-->
@@ -533,7 +534,7 @@ under the License.
             <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
                 <field-map from-field="entityName" field-name="entityName"/>
-                <field-map value="-createdStamp" field-name="orderBy"/>
+                <field-map value="-entryDate" field-name="orderBy"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>

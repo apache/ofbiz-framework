@@ -245,8 +245,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindCommunicationEvents"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="Find"/>
-                <set field="entityName" value="CommunicationEvent"/>
-                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="entityName" value="CommunicationEventAndRole"/>
             </actions>
             <widgets>
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
