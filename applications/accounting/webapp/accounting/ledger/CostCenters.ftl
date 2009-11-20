@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,6 +20,7 @@ under the License.
 
   <form id="costCenters" method="post" action="<@ofbizUrl>createUpdateCostCenter</@ofbizUrl>">
     <div id="errorMessage" class="errorMessage" style="display : none">${uiLabelMap.AccountingTotalAmountPercentageIsNotEqualOneHundred}</div>
+    <div id="eventMessage" class="eventMessage" style="display : none">${uiLabelMap.AccountingTotalCostCenterAmount}.</div>
     <input type="hidden" name="_useRowSubmit" value="Y">
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">

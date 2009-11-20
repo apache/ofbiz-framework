@@ -8754,6 +8754,9 @@
         <value xml:lang="en">Total amountPercentage is not equal 100.</value>
         <value xml:lang="hi_IN">कुल amountPercentage बराबर 100 नहीं है</value>
     </property>
+    <property key="AccountingTotalCostCenterAmount">
+        <value xml:lang="en">Cost center amount percentage saved successfully</value>
+    </property>
     <property key="AccountingTotalCommissionAmount">
         <value xml:lang="en">Total Commission Amount</value>
         <value xml:lang="hi_IN">कुल दलाली राशी</value>
