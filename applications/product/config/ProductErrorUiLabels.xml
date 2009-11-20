@@ -100,6 +100,12 @@
     <property key="ProductErrorPackageWeightCannotBeNullOrZero">
         <value xml:lang="en">ERROR: Package weight cannot be null/zero, it should be greater than zero</value>
     </property>
+    <property key="ProductErrorShipmentItemCannotBeDeleted">
+        <value xml:lang="en">ERROR: Shipment Item cannot be deleted and require Shipment Package Content to be deleted first</value>
+    </property>
+    <property key="ProductErrorShipmentPackageCannotBeDeleted">
+        <value xml:lang="en">ERROR: Shipment Package cannot be deleted and require Shipment Package Content to be deleted first</value>
+    </property>
     <property key="ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem">
         <value xml:lang="en">ERROR: Verified quantity does not match the reserved quantity for item #${productId} [verified qty = ${verifiedQty} / reserved qty = ${reservedQty}]</value>
     </property>
