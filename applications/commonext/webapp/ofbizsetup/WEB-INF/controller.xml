@@ -33,14 +33,20 @@
         <response name="success" type="view" value="initialsetup"/>
     </request-map>
     
-    <request-map uri="editpartygroup"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyGroup"/></request-map>
+    <request-map uri="editpartygroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyGroup"/>
+    </request-map>
     <request-map uri="updatePartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyGroup"/>
         <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyGroup"/>
     </request-map>
-    <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
+    <request-map uri="editperson">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPerson"/>
+    </request-map>
     <request-map uri="updatePerson">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePerson"/>
@@ -57,7 +63,11 @@
     </request-map>
 
     <!-- Entity Export requests -->
-    <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
+    <request-map uri="EntityExportAll">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EntityExportAll"/>
+        <response name="error" type="view" value="EntityExportAll"/>
+    </request-map>
     <request-map uri="entityExportAll">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="entityExportAll"/>
@@ -123,7 +133,10 @@
     </request-map>
     
     <request-map uri="FindWebSite"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
-    <request-map uri="EditWebSite"><security https="true" auth="true"/><response name="success" type="view" value="EditWebSite"/></request-map>
+    <request-map uri="EditWebSite">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWebSite"/>
+    </request-map>
     <request-map uri="createWebSite">
         <security https="true" auth="true"/>
         <event type="simple" path="component://commonext/script/org/ofbiz/setup/SetupEvents.xml" invoke="createDefaultWebSite"/>
