@@ -20,20 +20,21 @@ package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastMap;
-import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -1307,6 +1308,7 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         String orderId = request.getParameter("orderId");
 
@@ -1322,7 +1324,49 @@ public class ShoppingCartEvents {
              }
 
             cart = (ShoppingCart) outMap.get("shoppingCart");
-            
+
+            cart.removeAdjustmentByType("SALES_TAX");
+            cart.removeAdjustmentByType("PROMOTION_ADJUSTMENT");
+            String shipGroupSeqId = null;
+            long groupIndex = cart.getShipInfoSize();
+            List orderAdjustmentList = new ArrayList();
+            List orderAdjustments = new ArrayList();
+            orderAdjustments = cart.getAdjustments();
+            try {
+                orderAdjustmentList = delegator.findList("OrderAdjustment", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), null, null, null, false);
+            } catch (Exception e) {
+                Debug.logError(e, module);
+            }
+            for (long itr = 1; itr <= groupIndex; itr++) {
+                shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
+                List<GenericValue> duplicateAdjustmentList = new ArrayList<GenericValue>();
+                for (GenericValue adjustment: (List<GenericValue>)orderAdjustmentList) {
+                    if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) { 
+                        cart.addAdjustment(adjustment);
+                    }
+                    if ("SALES_TAX".equals(adjustment.get("orderAdjustmentTypeId"))) {
+                        if (adjustment.get("description") != null 
+                                    && ((String)adjustment.get("description")).startsWith("Tax adjustment due")) {
+                                cart.addAdjustment(adjustment);
+                            }
+                        if ( adjustment.get("comments") != null 
+                                && ((String)adjustment.get("comments")).startsWith("Added manually by")) {
+                            cart.addAdjustment(adjustment);
+                        }
+                    }
+                }
+                for (GenericValue orderAdjustment: (List<GenericValue>)orderAdjustments) {
+                    if ("OrderAdjustment".equals(orderAdjustment.getEntityName())) {
+                        if (("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) &&
+                                orderAdjustment.get("orderId").equals(orderId) &&
+                                orderAdjustment.get("shipGroupSeqId").equals(shipGroupSeqId) && orderAdjustment.get("comments") == null) {
+                            // Removing objects from list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
+                            duplicateAdjustmentList.add(orderAdjustment);
+                        }
+                    }
+                }
+                orderAdjustments.removeAll(duplicateAdjustmentList);
+            }
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
             return "error";
