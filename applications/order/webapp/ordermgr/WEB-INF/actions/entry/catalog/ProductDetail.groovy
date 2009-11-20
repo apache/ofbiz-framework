@@ -380,7 +380,7 @@ if (product) {
                                 // sales order: run the "calculateProductPrice" service
                                 variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
                             } else {
-                                variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                                variantPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ");
                             if (variantPriceMap) {
