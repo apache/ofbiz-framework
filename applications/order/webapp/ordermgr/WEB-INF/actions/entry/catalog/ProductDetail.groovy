@@ -383,7 +383,7 @@ if (product) {
                                 variantPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ");
-                            if (variantPriceMap) {
+                            if (variantPriceMap && variantPriceMap.basePrice) {
                                 variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ");
                             }
                         }
