@@ -1370,6 +1370,8 @@ padding:5px 10px 0px 10px;
 font-size:1.1em;
 margin-top: -7px;
 /*height:19px; */
+margin-left:-7px;
+margin-right:-7px;
 }
 
 .tab-bar ul li {
@@ -1405,6 +1407,11 @@ border-left: 0.1em solid #5f9fcf;
 border-right: none;
 }
 
+.leftonly .tab-bar {
+margin-left:0px;
+margin-right:-12px;
+padding-bottom:4px;
+}
 /* ======================== */
 /* ===== Table Styles ===== */
 /* ======================== */
