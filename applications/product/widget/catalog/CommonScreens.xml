@@ -75,7 +75,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="product"/></not></condition>
                                     <widgets>
-                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <container style="no-clear">
+                                            <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        </container>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content" alt="${product.internalName}"/>
@@ -132,7 +134,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="prodCatalogId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <container style="no-clear">
+                                            <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        </container>
                                     </widgets>
                                 </section>
 
@@ -174,7 +178,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="productStoreId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <container style="no-clear">
+                                            <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        </container>
 
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
@@ -231,7 +237,9 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="ShippingTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                <container style="no-clear">
+                                    <include-menu name="ShippingTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                </container>
                                 <!--<include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>-->
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>

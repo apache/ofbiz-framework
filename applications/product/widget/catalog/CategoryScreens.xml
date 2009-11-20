@@ -39,7 +39,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="productCategoryId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="CategoryTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <container style="no-clear">
+                                            <include-menu name="CategoryTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        </container>                                            
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
                                         </container>
