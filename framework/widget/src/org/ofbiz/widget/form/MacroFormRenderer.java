@@ -1005,7 +1005,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
 
-        String formId = modelForm.getContainerId();
+        String formId = modelForm.getCurrentContainerId(context);
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnSubmitUpdateAreas();
         // This is here for backwards compatibility. Use on-event-update-area
         // elements instead.
@@ -1153,7 +1153,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String formType = modelForm.getType();
         String targetWindow = modelForm.getTargetWindow(context);
-        String containerId =  modelForm.getContainerId();
+        String containerId =  modelForm.getCurrentContainerId(context);
         String containerStyle =  modelForm.getContainerStyle();
         String autocomplete = "";
         String name = modelForm.getCurrentFormName(context);
