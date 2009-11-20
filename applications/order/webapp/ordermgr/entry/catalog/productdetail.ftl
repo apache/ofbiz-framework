@@ -470,14 +470,16 @@ ${virtualJavaScript?if_exists}
         <#else>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
-          <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
-          <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
-          <#if isStoreInventoryNotAvailable>
-            <#if isStoreInventoryRequired>
-              <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
-              <#assign inStock = false>
-            <#else>
-              <div><b>${product.inventoryMessage?if_exists}</b></div>
+          <#if productStoreId?exists>
+            <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
+            <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
+            <#if isStoreInventoryNotAvailable>
+              <#if isStoreInventoryRequired>
+                <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
+                <#assign inStock = false>
+              <#else>
+                <div><b>${product.inventoryMessage?if_exists}</b></div>
+              </#if>
             </#if>
           </#if>
         </#if>
@@ -526,7 +528,7 @@ ${virtualJavaScript?if_exists}
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}"/>
           <input type="hidden" name="product_id" value="${product.productId}"/>
-          <input type="hidden" name="productStoreId" value="${productStoreId}"/>
+          <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
           <input type="hidden" name="reservStart" value= ""/>
           <select name="shoppingListId">
             <#if shoppingLists?has_content>
