@@ -53,6 +53,7 @@ under the License.
     <ContentPurposeType contentPurposeTypeId="COMPANY_INFO" description="Company Info"/>
     <ContentPurposeType contentPurposeTypeId="ADVERTISEMENT" description="Advertisement"/>
     <ContentPurposeType contentPurposeTypeId="GENERAL_INFO" description="General Info"/>
+    <ContentPurposeType contentPurposeTypeId="LEGAL_INFO" description="Legal Info"/>
 
     <ContentPurposeType contentPurposeTypeId="DESCRIPTION" description="Description"/>
     <ContentPurposeType contentPurposeTypeId="OWNER" description="Owner"/>
