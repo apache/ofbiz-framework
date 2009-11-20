@@ -25,7 +25,11 @@ function processCostCenterData() {
         onSuccess: function(transport) {
             if (transport.responseText == "") {
                 Effect.Appear('errorMessage', {duration: 0.0});
-            } 
+                Effect.Fade('errorMessage', {duration: 0.0, delay: 3.0});
+            } else {
+                Effect.Appear('eventMessage', {duration: 0.0});
+                Effect.Fade('eventMessage', {duration: 0.0, delay: 3.0});
+            }
         }, parameters: $('costCenters').serialize(), requestHeaders: {Accept: 'application/json'}
     });
 }
