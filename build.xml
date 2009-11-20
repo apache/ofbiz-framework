@@ -119,7 +119,14 @@ under the License.
             <filelist dir="." files="framework/testtools/build.xml"/>
         </subant>
     </target>
-  
+
+    <target name="download-PG-JDBC"
+      description="Download the PostgreSQL JDBC driver file">
+        <subant target="install-PG-JDBC">
+            <filelist dir="." files="framework/entity/build.xml"/>
+        </subant>
+    </target>
+
     <target name="tests" depends="ofbiz-init">
         <subant target="tests">
             <filelist dir="." files="framework/build.xml"/>
