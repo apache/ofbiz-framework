@@ -420,22 +420,6 @@
         <value xml:lang="zh">全部周</value>
         <value xml:lang="zh_CN">所有星期</value>
     </property>
-    <property key="CommonAllowSolicitation">
-        <value xml:lang="ar">السماح بالإستدعاءات</value>
-        <value xml:lang="de">(Erlaubt Werbung?)</value>
-        <value xml:lang="en">(allow solicitation?)</value>
-        <value xml:lang="es">(¿Permitir solicitud?)</value>
-        <value xml:lang="fr">Accepte les sollicitations</value>
-        <value xml:lang="hi_IN">(क्या याचना कर सकते हैं ?)</value>
-        <value xml:lang="it">(permetti sollecito?)</value>
-        <value xml:lang="nl">(stuur verkoopinfo?)</value>
-        <value xml:lang="pt">(permitir solicitação?)</value>
-        <value xml:lang="ro">(permiti solecitare?)</value>
-        <value xml:lang="ru">(допустимы обращения?)</value>
-        <value xml:lang="th">(ยอมรับการร้องขอหรือไม่)</value>
-        <value xml:lang="zh">（允许提示？）</value>
-        <value xml:lang="zh_CN">(可以联络)</value>
-    </property>
     <property key="CommonAlwaysInclude">
         <value xml:lang="de">Immer berücksichtigen</value>
         <value xml:lang="en">Always Include</value>
@@ -5007,13 +4991,6 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh_CN">订单</value>
-    </property>
-    <property key="CommonOrdersStatus">
-        <value xml:lang="en">Orders Status</value>
-        <value xml:lang="fr">Statuts des commandes</value>
-        <value xml:lang="hi_IN">आदेशो की स्थिति</value>
-        <value xml:lang="it">Stati ordini</value>
-        <value xml:lang="zh">订单状态</value>
     </property>
     <property key="CommonOther">
         <value xml:lang="ar">أخرى</value>

@@ -364,7 +364,7 @@
                 <sort-field name="defaultLocaleString"/>
                 <sort-field name="defaultCurrencyUomId"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonOrdersStatus}" collapsible="true" initially-collapsed="true">
+            <field-group title="${uiLabelMap.ProductOrdersStatus}" collapsible="true" initially-collapsed="true">
                 <sort-field name="headerApprovedStatus"/>
                 <sort-field name="itemApprovedStatus"/>
                 <sort-field name="digitalItemApprovedStatus"/>

@@ -1384,6 +1384,22 @@
         <value xml:lang="th">ตัวแทนจำหน่ายรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">订单代理人</value>
     </property>
+    <property key="OrderAllowSolicitation">
+        <value xml:lang="ar">السماح بالإستدعاءات</value>
+        <value xml:lang="de">(Erlaubt Werbung?)</value>
+        <value xml:lang="en">(allow solicitation?)</value>
+        <value xml:lang="es">(¿Permitir solicitud?)</value>
+        <value xml:lang="fr">Accepte les sollicitations</value>
+        <value xml:lang="hi_IN">(क्या याचना कर सकते हैं ?)</value>
+        <value xml:lang="it">(permetti sollecito?)</value>
+        <value xml:lang="nl">(stuur verkoopinfo?)</value>
+        <value xml:lang="pt">(permitir solicitação?)</value>
+        <value xml:lang="ro">(permiti solecitare?)</value>
+        <value xml:lang="ru">(допустимы обращения?)</value>
+        <value xml:lang="th">(ยอมรับการร้องขอหรือไม่)</value>
+        <value xml:lang="zh">（允许提示？）</value>
+        <value xml:lang="zh_CN">(可以联络)</value>
+    </property>
     <property key="OrderAllowSplit">
         <value xml:lang="cs">Povolení rozdělit</value>
         <value xml:lang="de">Aufteilung gestatten</value>

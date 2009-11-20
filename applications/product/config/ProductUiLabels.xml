@@ -15135,6 +15135,13 @@
         <value xml:lang="th">หน่วยขนาดมากกว่า</value>
         <value xml:lang="zh">超大单位</value>
     </property>
+    <property key="ProductOrdersStatus">
+        <value xml:lang="en">Orders Status</value>
+        <value xml:lang="fr">Statuts des commandes</value>
+        <value xml:lang="hi_IN">आदेशो की स्थिति</value>
+        <value xml:lang="it">Stati ordini</value>
+        <value xml:lang="zh">订单状态</value>
+    </property>
     <property key="ProductPackItem">
         <value xml:lang="de">Position verpacken</value>
         <value xml:lang="en">Pack Item</value>
