@@ -2500,7 +2500,8 @@ public class MacroFormRenderer implements FormStringRenderer {
                 targetType="plain";
             }
             StringWriter sr = new StringWriter();
-            makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, null, modelFormField, this.request, this.response, null, null);
+            makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, "", modelFormField, this.request, this.response, context, "");
+            
             String title = sr.toString().replace("\"", "\'");            
             sr = new StringWriter();
             sr.append("<@renderHyperlinkTitle ");
