@@ -99,8 +99,8 @@
         <value xml:lang="zh">数据项11：带有缺省值的日期和时间选择</value>
     </property>
     <property key="ExampleDateField11Tooltip">
-        <value xml:lang="en">Uses the \${date:dayStart(nowTimestamp, timeZone, locale)} UEL expression to set the default value to the start of today</value>
-        <value xml:lang="zh">使用\${date:dayStart(nowTimestamp, timeZone, locale)}表达式来把缺省值设置为今天的开始时间</value>
+        <value xml:lang="en">Uses the \${r'${date:dayStart(nowTimestamp, timeZone, locale)}'} UEL expression to set the default value to the start of today</value>
+        <value xml:lang="zh">使用\${r'${date:dayStart(nowTimestamp, timeZone, locale)}'}表达式来把缺省值设置为今天的开始时间</value>
     </property>
     <property key="ExampleDateField1Title">
         <value xml:lang="en">Field1: date and time selection field</value>
@@ -175,10 +175,10 @@
         <value xml:lang="zh">数据项9：日期和时间选择带有缺省值</value>
     </property>
     <property key="ExampleDateField9Tooltip">
-        <value xml:lang="en">Same as above, uses the \${groovy:...} notation to call an util method to get the now timestamp</value>
-        <value xml:lang="fr">La même chose mais utilise la notation \${groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
-        <value xml:lang="it">Lo stesso di sopra, usare la notazione \${groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
-        <value xml:lang="zh">同上，使用\${groovy:...}来调用一个应用方法来获得现在的时间戳</value>
+        <value xml:lang="en">Same as above, uses the \${r'${groovy:...}'} notation to call an util method to get the now timestamp</value>
+        <value xml:lang="fr">La même chose mais utilise la notation \${r'${groovy:...}'} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
+        <value xml:lang="it">Lo stesso di sopra, usare la notazione \${r'${groovy:...}'} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
+        <value xml:lang="zh">同上，使用\${r'${groovy:...}'}来调用一个应用方法来获得现在的时间戳</value>
     </property>
     <property key="ExampleDateTimeFields">
         <value xml:lang="en">Date/Time fields</value>
