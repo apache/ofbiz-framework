@@ -120,6 +120,7 @@ public class TestRunContainer implements Container {
             throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
         }
 
+        boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
             Delegator testDelegator = modelSuite.getDelegator();
             TestSuite suite = modelSuite.makeTestSuite();
@@ -147,6 +148,10 @@ public class TestRunContainer implements Container {
             // rollback all entity operations performed by the delegator
             testDelegator.rollback();
             xml.endTestSuite(test);
+
+            if (!results.wasSuccessful()) {
+                failedRun = true;
+            }
 
             // display the results
             Debug.log("[JUNIT] Results for test suite: " + suite.getName());
@@ -184,6 +189,9 @@ public class TestRunContainer implements Container {
             }
         }
 
+        if (failedRun) {
+            throw new ContainerException("Test run was unsuccessful");
+        }
         return true;
     }
 

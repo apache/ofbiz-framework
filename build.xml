@@ -433,7 +433,7 @@ under the License.
     </target>
     <target name="run-tests" depends="build" 
       description="Run OFBiz default tests">
-        <java jar="ofbiz.jar" fork="true">
+        <java jar="ofbiz.jar" fork="true" failonerror="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
