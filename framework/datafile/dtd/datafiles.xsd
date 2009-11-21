@@ -92,11 +92,37 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field">
-        <xs:attribute name="name" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="position"/>
         <xs:attribute name="length"/>
-        <xs:attribute name="type" use="required"/>
-        <xs:attribute name="format"/>
+        <xs:attribute name="type" use="required">
+            <xs:annotation><xs:documentation>The field type is always required. See more about the type attribure in Record.setString() method</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="CustomDate"/>
+                    <xs:enumeration value="CustomTime"/>
+                    <xs:enumeration value="FixedPointDouble"/>
+                    <xs:enumeration value="java.lang.String"/>
+                    <xs:enumeration value="String"/>
+                    <xs:enumeration value="java.sql.Timestamp"/>
+                    <xs:enumeration value="Timestamp"/>
+                    <xs:enumeration value="java.sql.Time"/>
+                    <xs:enumeration value="Time"/>
+                    <xs:enumeration value="java.lang.Integer"/>
+                    <xs:enumeration value="Integer"/>
+                    <xs:enumeration value="java.lang.Long"/>
+                    <xs:enumeration value="Long"/>
+                    <xs:enumeration value="java.lang.Float"/>
+                    <xs:enumeration value="Float"/>
+                    <xs:enumeration value="java.lang.Double"/>
+                    <xs:enumeration value="Double"/>
+                </xs:restriction>
+       </xs:simpleType>
+       </xs:attribute>
+        <xs:attribute name="format">
+            <xs:annotation><xs:documentation>You may use EncryptedString if you want to encrypt the string (password for instance). See more in Record.setString() method.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        
         <xs:attribute name="valid-exp"/>
         <xs:attribute name="description"/>
         <xs:attribute name="default-value"/>
