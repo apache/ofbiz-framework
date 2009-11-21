@@ -642,22 +642,6 @@ public class ModelServiceReader implements Serializable {
         def.optional = true;
         def.internal = true;
         service.addParam(def);
-        // login.username
-        def = new ModelParam();
-        def.name = "login.username";
-        def.type = "String";
-        def.mode = "IN";
-        def.optional = true;
-        def.internal = true;
-        service.addParam(def);
-        // login.password
-        def = new ModelParam();
-        def.name = "login.password";
-        def.type = "String";
-        def.mode = "IN";
-        def.optional = true;
-        def.internal = true;
-        service.addParam(def);
         // Locale
         def = new ModelParam();
         def.name = "locale";
