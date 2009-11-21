@@ -27,9 +27,9 @@ under the License.
                catalina/build.xml,jetty/build.xml,
                security/build.xml,service/build.xml,entityext/build.xml,
                webslinger/build.xml,
-               bi/build.xml,datafile/build.xml,minilang/build.xml,
+               bi/build.xml,minilang/build.xml,
                webapp/build.xml,guiapp/build.xml,widget/build.xml,
-               common/build.xml,
+               common/build.xml,datafile/build.xml,
                testtools/build.xml,
                appserver/build.xml,webtools/build.xml,example/build.xml"/>
 
