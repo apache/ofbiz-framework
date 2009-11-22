@@ -47,6 +47,19 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 public final class Parser {
+	private boolean deleteSupportsUsing = true;
+	private boolean updateSupportsFrom = true;
+
+	public Parser deleteSupportsUsing(boolean value) {
+		deleteSupportsUsing = value;
+		return this;
+	}
+
+	public Parser updateSupportsFrom(boolean value) {
+		updateSupportsFrom = value;
+		return this;
+	}
+
 	private Condition reduce(List<Condition> conditions, Joiner joiner) {
 		if (conditions.size() == 1) {
 			return conditions.get(0);
@@ -306,7 +319,7 @@ private SQLUpdate Update():
 	<SET>
 	setFields=SetField() { allSetFields.addAll(setFields); }
 	( <COMMA> setFields=SetField() { allSetFields.addAll(setFields); } )*
-	( <FROM> joined=JoinedRest(false, tableName) )?
+	( LOOKAHEAD(<FROM>, {updateSupportsFrom}) <FROM> joined=JoinedRest(false, tableName) )?
 	( <WHERE> whereCondition=ConditionExpression() )?
 	{ return new SQLUpdate(new Table(tableName, joined), allSetFields, whereCondition); }
 }
@@ -320,7 +333,7 @@ private SQLDelete Delete():
 }
 {
 	<DELETE> <FROM> tableName=TableName()
-	( <USING> joined=JoinedRest(false, tableName) )?
+	( LOOKAHEAD(<USING>, {deleteSupportsUsing}) <USING> joined=JoinedRest(false, tableName) )?
 	( <WHERE> whereCondition=ConditionExpression() )?
 	{ return new SQLDelete(new Table(tableName, joined), whereCondition); }
 }
