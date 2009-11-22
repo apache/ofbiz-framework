@@ -30,6 +30,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
+                                    <not><if-empty field="agreement"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="AgreementTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -41,7 +54,6 @@ under the License.
                                         <not><if-empty field="agreement"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="AgreementTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         <section>
                                             <condition>
                                                 <not><if-empty field="agreementItem"/></not>
