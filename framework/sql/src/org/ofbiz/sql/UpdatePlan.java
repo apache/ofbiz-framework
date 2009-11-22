@@ -18,5 +18,14 @@
  */
 package org.ofbiz.sql;
 
-public abstract class UpdatePlan<P extends UpdatePlan<P>> extends SQLPlan<P> {
+public abstract class UpdatePlan<P extends UpdatePlan<P, C>, C> extends SQLPlan<P> {
+    private final ConditionPlan<C> wherePlan;
+
+    protected UpdatePlan(ConditionPlan<C> wherePlan) {
+        this.wherePlan = wherePlan;
+    }
+
+    public ConditionPlan<C> getWherePlan() {
+        return wherePlan;
+    }
 }

@@ -41,18 +41,15 @@ import org.ofbiz.sql.SelectPlan;
 import org.ofbiz.sql.ConditionPlan;
 import org.ofbiz.sql.ParameterizedConditionException;
 
-public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
+public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityCondition> {
     private final DynamicViewEntity dve;
-    private final ConditionPlan<EntityCondition> wherePlan;
-    private final ConditionPlan<EntityCondition> havingPlan;
     private final List<String> orderBy;
     private final int offset = -1;
     private final int limit = -1;
 
     public EntitySelectPlan(DynamicViewEntity dve, ConditionPlan<EntityCondition> wherePlan, ConditionPlan<EntityCondition> havingPlan, List<String> orderBy) {
+        super(wherePlan, havingPlan);
         this.dve = dve;
-        this.wherePlan = wherePlan;
-        this.havingPlan = havingPlan;
         this.orderBy = orderBy;
         //this.offset = offset;
         //this.limit = limit;
@@ -62,8 +59,8 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
         EntityCondition whereCondition;
         EntityCondition havingCondition;
         try {
-            whereCondition = wherePlan.getCondition(params);
-            havingCondition = havingPlan.getCondition(params);
+            whereCondition = getWherePlan().getCondition(params);
+            havingCondition = getHavingPlan().getCondition(params);
         } catch (ParameterizedConditionException e) {
             throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
         }
@@ -72,14 +69,6 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
 
     public DynamicViewEntity getDynamicViewEntity() {
         return dve;
-    }
-
-    public ConditionPlan<EntityCondition> getWherePlan() {
-        return wherePlan;
-    }
-
-    public ConditionPlan<EntityCondition> getHavingPlan() {
-        return havingPlan;
     }
 
     public List<String> getOrderBy() {
@@ -96,16 +85,16 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
 
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("dve=" + dve);
-        if (wherePlan != null) {
+        if (getWherePlan() != null) {
             if (sb.length() > 0) sb.append(", ");
             sb.append("where=(");
-            wherePlan.appendTo(sb);
+            getWherePlan().appendTo(sb);
             sb.append(")");
         }
-        if (havingPlan != null) {
+        if (getHavingPlan() != null) {
             if (sb.length() > 0) sb.append(", ");
             sb.append("having=(");
-            havingPlan.appendTo(sb);
+            getHavingPlan().appendTo(sb);
             sb.append(")");
         }
         if (offset != -1) {

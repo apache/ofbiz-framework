@@ -18,7 +18,7 @@
  */
 package org.ofbiz.sql;
 
-public abstract class Planner<P extends Planner<P, C, D, I, S, U, V>, C, D extends DeletePlan<D>, I extends InsertPlan<I>, S extends SelectPlan<S>, U extends UpdatePlan<U>, V extends ViewPlan<V>> {
+public abstract class Planner<P extends Planner<P, C, D, I, S, U, V>, C, D extends DeletePlan<D, C>, I extends InsertPlan<I>, S extends SelectPlan<S, C>, U extends UpdatePlan<U, C>, V extends ViewPlan<V>> {
     private final ConditionPlanner<C> conditionPlanner;
 
     protected Planner(ConditionPlanner<C> conditionPlanner) {

@@ -18,7 +18,12 @@
  */
 package org.ofbiz.entity.sql;
 
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.sql.ConditionPlan;
 import org.ofbiz.sql.UpdatePlan;
 
-public class EntityUpdatePlan extends UpdatePlan<EntityUpdatePlan> {
+public class EntityUpdatePlan extends UpdatePlan<EntityUpdatePlan, EntityCondition> {
+    public EntityUpdatePlan(ConditionPlan<EntityCondition> wherePlan) {
+        super(wherePlan);
+    }
 }

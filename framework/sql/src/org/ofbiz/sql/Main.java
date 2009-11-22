@@ -71,16 +71,25 @@ public final class Main {
     private final static class DebugCondition {
     }
 
-    private final static class DebugDeletePlan extends DeletePlan<DebugDeletePlan> {
+    private final static class DebugDeletePlan extends DeletePlan<DebugDeletePlan, DebugCondition> {
+        protected DebugDeletePlan(ConditionPlan<DebugCondition> wherePlan) {
+            super(wherePlan);
+        }
     }
 
     private final static class DebugInsertPlan extends InsertPlan<DebugInsertPlan> {
     }
 
-    private final static class DebugSelectPlan extends SelectPlan<DebugSelectPlan> {
+    private final static class DebugSelectPlan extends SelectPlan<DebugSelectPlan, DebugCondition> {
+        protected DebugSelectPlan(ConditionPlan<DebugCondition> wherePlan, ConditionPlan<DebugCondition> havingPlan) {
+            super(wherePlan, havingPlan);
+        }
     }
 
-    private final static class DebugUpdatePlan extends UpdatePlan<DebugUpdatePlan> {
+    private final static class DebugUpdatePlan extends UpdatePlan<DebugUpdatePlan, DebugCondition> {
+        protected DebugUpdatePlan(ConditionPlan<DebugCondition> wherePlan) {
+            super(wherePlan);
+        }
     }
 
     private final static class DebugViewPlan extends ViewPlan<DebugViewPlan> {

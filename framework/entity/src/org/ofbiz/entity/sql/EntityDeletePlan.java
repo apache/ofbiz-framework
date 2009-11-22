@@ -18,7 +18,12 @@
  */
 package org.ofbiz.entity.sql;
 
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.sql.ConditionPlan;
 import org.ofbiz.sql.DeletePlan;
 
-public class EntityDeletePlan extends DeletePlan<EntityDeletePlan> {
+public class EntityDeletePlan extends DeletePlan<EntityDeletePlan, EntityCondition> {
+    public EntityDeletePlan(ConditionPlan<EntityCondition> wherePlan) {
+        super(wherePlan);
+    }
 }
