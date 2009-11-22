@@ -113,13 +113,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <not><if-empty field="organizationPartyId"/></not>
                             </condition>
                             <widgets>
                                 <include-menu name="PartyTopTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="organizationPartyId"/></not>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -220,14 +229,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="GlobalGLSettingMenus" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <container>
-                                    <include-menu name="GlobalGLSettingMenus" location="component://accounting/widget/AccountingMenus.xml"/>
-                                </container>
-                            </widgets>
-                        </section>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>

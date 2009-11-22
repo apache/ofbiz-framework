@@ -160,14 +160,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
+                    </decorator-section>
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
-                                <container style="clear"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -216,11 +213,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
-                        <section>
-                            <widgets>
-                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                            </widgets>
-                        </section>
+                        <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -272,14 +265,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu name="ApReportTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
-                                <container style="clear"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
