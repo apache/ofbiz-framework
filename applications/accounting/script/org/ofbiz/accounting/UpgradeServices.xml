@@ -68,4 +68,14 @@ under the License.
             </if-empty>
         </iterate>
     </simple-method>
+ 
+    <simple-method method-name="migrateAgreementWorkEffortAppl" short-description="Copy AgreementWorkEffortAppl To AgreementWorkEffortApplic">
+        <entity-condition list="agreementWorkEffortApplList" entity-name="OldAgreementWorkEffortAppl"/>
+        <iterate list="agreementWorkEffortApplList" entry="agreementWorkEffortAppl">
+            <make-value value-field="newEntity" entity-name="AgreementWorkEffortApplic"/>
+            <set-pk-fields map="agreementWorkEffortAppl" value-field="newEntity"/>
+            <create-value value-field="newEntity"/>
+            <check-errors/>
+        </iterate>
+    </simple-method>        
 </simple-methods>

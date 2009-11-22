@@ -991,8 +991,8 @@ under the License.
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
             </link>
         </menu-item>
-        <menu-item name="AgreementWorkEffortAppls" title="${uiLabelMap.AccountingAgreementWorkEffortAppls}">
-            <link target="EditAgreementWorkEffortAppls">
+        <menu-item name="AgreementWorkEffortApplics" title="${uiLabelMap.AccountingAgreementWorkEffortApplics}">
+            <link target="EditAgreementWorkEffortApplics">
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
             </link>
         </menu-item>

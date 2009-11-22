@@ -125,7 +125,7 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="WorkEffortAgreementAppls" title="${uiLabelMap.WorkEffortAgreementAppls}">
-            <link target="EditAgreementWorkEffortAppls">
+            <link target="EditAgreementWorkEffortApplics">
                 <parameter param-name="workEffortId"/>
             </link>
         </menu-item>

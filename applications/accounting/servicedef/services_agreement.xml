@@ -235,15 +235,16 @@ under the License.
         <attribute name="commissions" type="List" mode="OUT" optional="false"/>
     </service>
 
-    <!--AgrementWorkEffortAppl-->
-    <service name="createAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
-            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementWorkEffortAppl">
-        <description> Create AgreementWorkEffortAppl </description>
+    <!--AgrementWorkEffortApplic-->
+    <service name="createAgreementWorkEffortApplic" engine="simple" default-entity-name="AgreementWorkEffortApplic"
+            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementWorkEffortApplic">
+        <description> Create AgreementWorkEffortApplic </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <override name="agreementItemSeqId" default-value="_NA_"></override>
     </service>
-    <service name="deleteAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
-            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementWorkEffortAppl">
-        <description>Delete AgreementWorkEffortAppl</description>
+    <service name="deleteAgreementWorkEffortApplic" engine="simple" default-entity-name="AgreementWorkEffortApplic"
+            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementWorkEffortApplic">
+        <description>Delete AgreementWorkEffortApplic</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 

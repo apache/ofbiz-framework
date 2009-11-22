@@ -48,4 +48,10 @@ under the License.
         <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
     </service>
+    
+    <service name="migrateAgreementWorkEffortAppl" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/UpgradeServices.xml" invoke="migrateAgreementWorkEffortAppl" auth="true">
+        <description>Copy the AgreementWorkEffortAppl entity to AgreementWorkEffortApplic</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
+    </service>    
 </services>
