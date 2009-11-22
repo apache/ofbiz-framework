@@ -117,7 +117,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan> {
             sb.append("limit=").append(limit);
         }
         sb.append("]");
-        sb.insert(0, "[").insert(0, super.toString());
+        sb.insert(0, "[");
         return sb;
     }
 }
