@@ -627,21 +627,21 @@ under the License.
     <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
 
     <!--WorkEffort Agreements-->
-    <request-map uri="EditAgreementWorkEffortAppls">
+    <request-map uri="EditAgreementWorkEffortApplics">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
     </request-map>
-    <request-map uri="createAgreementWorkEffortAppl">
+    <request-map uri="createAgreementWorkEffortApplic">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createAgreementWorkEffortAppl"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
-        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+        <event type="service" invoke="createAgreementWorkEffortApplic"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortApplics"/>
     </request-map>
-    <request-map uri="deleteAgreementWorkEffortAppl">
+    <request-map uri="deleteAgreementWorkEffortApplic">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteAgreementWorkEffortAppl"/>
-        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
-        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+        <event type="service" invoke="deleteAgreementWorkEffortApplic"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortApplics"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortApplics"/>
     </request-map>
 
     <!--WorkEffort Event Reminders -->
@@ -750,7 +750,7 @@ under the License.
     <view-map name="LookupContactMech" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContactMech"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
 
-    <view-map name="EditAgreementWorkEffortAppls" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortAppls"/>
+    <view-map name="EditAgreementWorkEffortApplics" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortApplics"/>
     <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
     <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
     <view-map name="newEvent" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#newCompanyEvent"/>

@@ -215,11 +215,11 @@
         <value xml:lang="th">รหัสหน่วยวัดจำนวนเงิน</value>
         <value xml:lang="zh">实际金额货币单位标识</value>
     </property>
-    <property key="AccountingAddAgreementWorkEffortAppl">
+    <property key="AccountingAddAgreementWorkEffortApplic">
         <value xml:lang="de">Vereinbarung-Arbeitseinsatz hinzufügen</value>
-        <value xml:lang="en">Add Agreement Work Effort Appl</value>
+        <value xml:lang="en">Add Agreement Work Effort Applic</value>
         <value xml:lang="fr">Ajouter une application de tâche d'accord commercial</value>
-        <value xml:lang="hi_IN">अनुबंध कार्य प्रयास अनुप्रयोग(AgreementWorkEffortAppl) बनाएँ</value>
+        <value xml:lang="hi_IN">अनुबंध कार्य प्रयास अनुप्रयोग(AgreementWorkEffortApplic) बनाएँ</value>
         <value xml:lang="it">Aggiungi Applicazione Termine Impegno di Lavoro</value>
         <value xml:lang="nl">Voeg Werkinzettoepassing van overeenkomt toe</value>
         <value xml:lang="zh">添加协议人工服务用途</value>
@@ -647,16 +647,16 @@
         <value xml:lang="th">รหัสประเภทสัญญา</value>
         <value xml:lang="zh">合同类型标识</value>
     </property>
-    <property key="AccountingAgreementWorkEffortApplAlreadyExists">
-        <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
+    <property key="AccountingAgreementWorkEffortApplicAlreadyExists">
+        <value xml:lang="en">Agreement Work Effort Applic Already Exists</value>
         <value xml:lang="fr">Cette tâche d'application d'accord commercial existe déjà</value>
         <value xml:lang="hi_IN">अनुबंध - काम प्रयास का अनुप्रयोग पहले से ही मौजूद है</value>
         <value xml:lang="it">Applicazioni contratto impegno di labovo già esistente</value>
-        <value xml:lang="nl">Overeenkomst Work Effort Appl bestaat al</value>
+        <value xml:lang="nl">Overeenkomst Work Effort Applic bestaat al</value>
         <value xml:lang="zh">合同人工服务用途已存在</value>
     </property>
-    <property key="AccountingAgreementWorkEffortAppls">
-        <value xml:lang="en">Agreement Work Effort Appls</value>
+    <property key="AccountingAgreementWorkEffortApplics">
+        <value xml:lang="en">Agreement Work Effort Applics</value>
         <value xml:lang="fr">Applications de tâche d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Impegni di Lavoro</value>
@@ -5487,9 +5487,9 @@
         <value xml:lang="th">ผลรวมแถว</value>
         <value xml:lang="zh">总行数</value>
     </property>
-    <property key="AccountingListAgreementWorkEffortAppls">
+    <property key="AccountingListAgreementWorkEffortApplics">
         <value xml:lang="de">Zugewiesene Arbeitseinsätze zu Vereinbarungen auflisten</value>
-        <value xml:lang="en">List Agreement Work Effort Appls</value>
+        <value xml:lang="en">List Agreement Work Effort Applics</value>
         <value xml:lang="fr">Liste des applications d'accords commerciaux de service</value>
         <value xml:lang="hi_IN">अनुबंध- कार्य प्रयास अनुप्रयोग की सूची</value>
         <value xml:lang="it">Lista applicazioni contratto impegno di lavoro</value>
@@ -12631,8 +12631,8 @@
         <value xml:lang="th">แก้ไขสัญญาที่กำหนด</value>
         <value xml:lang="zh">编辑合同条件</value>
     </property>
-    <property key="PageTitleEditAgreementWorkEffortAppls">
-        <value xml:lang="en">Edit Agreement Work Effort Appls</value>
+    <property key="PageTitleEditAgreementWorkEffortApplics">
+        <value xml:lang="en">Edit Agreement Work Effort Applics</value>
         <value xml:lang="fr">Modifier les application d'accords commerciaux de service</value>
         <value xml:lang="hi_IN">अनुबंध-कार्य प्रयास अनुप्रयोग संपादित करें</value>
         <value xml:lang="it">Aggiorna Applicazioni Impegno di Lavoro</value>

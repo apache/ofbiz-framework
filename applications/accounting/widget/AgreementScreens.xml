@@ -694,21 +694,21 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditAgreementWorkEffortAppls">
+    <screen name="EditAgreementWorkEffortApplics">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortAppls"/>
-                <set field="tabButtonItem" value="AgreementWorkEffortAppls"/>
+                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortApplics"/>
+                <set field="tabButtonItem" value="AgreementWorkEffortApplics"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="AgreementWorkEffortApplsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}" collapsible="true">
-                            <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/widget/AgreementForms.xml"/>
+                        <screenlet id="AgreementWorkEffortApplicsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortApplic}" collapsible="true">
+                            <include-form name="AddAgreementWorkEffortApplic" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/widget/AgreementForms.xml"/>
+                        <include-form name="ListAgreementWorkEffortApplics" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

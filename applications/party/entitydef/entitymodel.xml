@@ -379,21 +379,23 @@ under the License.
         <key-map field-name="agreementTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="AgreementWorkEffortAppl" package-name="org.ofbiz.party.agreement" title="Agreement Product Application Entity">
+    <entity entity-name="AgreementWorkEffortApplic" 
+            package-name="org.ofbiz.party.agreement" 
+            title="Agreement WorkEffort Application Entity">
         <field name="agreementId" type="id-ne"></field>
         <field name="agreementItemSeqId" type="id-ne"></field>
         <field name="workEffortId" type="id-ne"></field>
         <prim-key field="agreementId"/>
         <prim-key field="agreementItemSeqId"/>
         <prim-key field="workEffortId"/>
-        <relation type="one-nofk" rel-entity-name="Agreement">
+        <relation type="one" fk-name="AGRMNT_WEA_AGRMNT" rel-entity-name="Agreement">
             <key-map field-name="agreementId"/>
         </relation>
-        <relation type="one" fk-name="AGRMNT_WEA_AITM" rel-entity-name="AgreementItem">
+        <relation type="one-nofk" rel-entity-name="AgreementItem">
             <key-map field-name="agreementId"/>
             <key-map field-name="agreementItemSeqId"/>
         </relation>
-        <relation type="one" fk-name="AGRMNT_WEA_WEFF" rel-entity-name="WorkEffort">
+        <relation type="one" fk-name="AGRMNT_WEA_WE" rel-entity-name="WorkEffort">
             <key-map field-name="workEffortId"/>
         </relation>
     </entity>

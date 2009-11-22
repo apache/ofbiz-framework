@@ -203,8 +203,8 @@
         <value xml:lang="en">09.3 Agreement Items</value>
         <value xml:lang="zh">09.3 合同条款</value>
     </property>
-    <property key="ACCOUNTING_EditAgreementWorkEffortAppls">
-        <value xml:lang="en">09.4 Agreement Work Effort Appls</value>
+    <property key="ACCOUNTING_EditAgreementWorkEffortApplics">
+        <value xml:lang="en">09.4 Agreement Work Effort Applics</value>
         <value xml:lang="zh">09.4 合同人工服务用途</value>
     </property>
     <property key="ACCOUNTING_EditAgreementRoles">

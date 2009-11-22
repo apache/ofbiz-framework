@@ -704,20 +704,20 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditAgreementWorkEffortAppls">
+    <screen name="EditAgreementWorkEffortApplics">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortAppls"/>
+                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortApplics"/>
                 <set field="tabButtonItem" value="WorkEffortAgreementAppls"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="AddAccountingAgreementWorkEffortApplsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}" collapsible="true">
-                            <include-form name="AddAgreementWorkEffortAppl" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <screenlet id="AddAccountingAgreementWorkEffortApplicsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortApplic}" collapsible="true">
+                            <include-form name="AddAgreementWorkEffortApplic" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         </screenlet>
-                        <include-form name="ListAgreementWorkEffortAppls" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <include-form name="ListAgreementWorkEffortApplics" location="component://workeffort/widget/WorkEffortForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

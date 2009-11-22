@@ -556,12 +556,13 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <!-- Agreement WorkEffort Appl-->
-    <form name="AddAgreementWorkEffortAppl" target="createAgreementWorkEffortAppl" title="" type="single"
+    <!-- Agreement WorkEffort Applic-->
+    <form name="AddAgreementWorkEffortApplic" target="createAgreementWorkEffortApplic" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="agreementId"><hidden value="${agreementId}"/></field>
         <field name="agreementItemSeqId">
             <drop-down allow-empty="false">
+                <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
                 <entity-options entity-name="AgreementItem" description="${agreementItemSeqId}">
                     <entity-constraint name="agreementId" operator="equals" env-name="agreementId"/>
                     <entity-order-by field-name="agreementItemSeqId"/>
@@ -573,17 +574,17 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
+    <form name="ListAgreementWorkEffortApplics" type="list" target="updateAgreementWorkEffortApplic" list-name="agreementWorkEffortApplics"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
+            <entity-and entity-name="AgreementWorkEffortApplic" use-cache="true" list="agreementWorkEffortApplics">
                 <field-map from-field="agreementId" field-name="agreementId"/>
             </entity-and>
         </actions>
         <field name="agreementItemSeqId"><display/></field>
         <field name="workEffortId"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortAppl">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortApplic">
                 <parameter param-name="agreementId"/>
                 <parameter param-name="agreementItemSeqId"/>
                 <parameter param-name="workEffortId"/>
