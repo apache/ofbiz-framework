@@ -98,11 +98,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                            </widgets>
-                        </section>
+                        <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <screenlet title="${uiLabelMap.AcctgAssignGlAccount}">
                             <include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
@@ -116,7 +112,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AcctgNavigateAccts"/>
-                <set field="headerItem" value="GlobalGLSettings"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
                 <set field="tabButtonItem2" value="GlAccountNavigate"/>
                 <set field="labelTitleProperty" value="AcctgNavigateAccts"/>
@@ -128,15 +123,8 @@ under the License.
                 <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <container>
-                                    <include-menu name="GlobalGLSettingMenus" location="component://accounting/widget/AccountingMenus.xml"/>
-                                </container>
-                            </widgets>
-                        </section>
                         <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <screenlet title="${uiLabelMap.AcctgNavigateAccts}">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>

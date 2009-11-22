@@ -31,6 +31,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-service-permission service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
+                                    <not><if-empty field="parameters.invoiceId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="InvoiceTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -40,7 +53,6 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="parameters.invoiceId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="InvoiceTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                         <container style="leftclear">
                                             <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>

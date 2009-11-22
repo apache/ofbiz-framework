@@ -26,7 +26,7 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
                             <condition>
@@ -41,6 +41,16 @@ under the License.
                                         <include-menu name="BillingAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                     </widgets>
                                 </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ACCOUNTING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

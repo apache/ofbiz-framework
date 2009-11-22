@@ -31,7 +31,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
@@ -47,9 +47,16 @@ under the License.
                                     </fail-widgets>
                                 </section>
                             </widgets>
-                            <fail-widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/></not>
+                            </condition>
+                            <widgets>
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
-                            </fail-widgets>
+                            </widgets>
                         </section>
                         <decorator-section-include name="body"/>
                     </decorator-section>

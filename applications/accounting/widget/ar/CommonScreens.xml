@@ -134,13 +134,11 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ArPaymentTabBar" location="component://accounting/widget/ar/ArMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu name="ArPaymentTabBar" location="component://accounting/widget/ar/ArMenus.xml"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -159,11 +157,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
-                        <section>
-                            <widgets>
-                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                            </widgets>
-                        </section>
+                        <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
