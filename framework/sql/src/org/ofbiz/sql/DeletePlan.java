@@ -18,5 +18,14 @@
  */
 package org.ofbiz.sql;
 
-public abstract class DeletePlan<P extends DeletePlan<P>> extends SQLPlan<P> {
+public abstract class DeletePlan<P extends DeletePlan<P, C>, C> extends SQLPlan<P> {
+    private final ConditionPlan<C> wherePlan;
+
+    protected DeletePlan(ConditionPlan<C> wherePlan) {
+        this.wherePlan = wherePlan;
+    }
+
+    public ConditionPlan<C> getWherePlan() {
+        return wherePlan;
+    }
 }

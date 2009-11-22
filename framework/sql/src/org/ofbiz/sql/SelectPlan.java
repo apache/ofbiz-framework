@@ -18,5 +18,20 @@
  */
 package org.ofbiz.sql;
 
-public abstract class SelectPlan<P extends SelectPlan<P>> extends SQLPlan<P> {
+public abstract class SelectPlan<P extends SelectPlan<P, C>, C> extends SQLPlan<P> {
+    private final ConditionPlan<C> wherePlan;
+    private final ConditionPlan<C> havingPlan;
+
+    protected SelectPlan(ConditionPlan<C> wherePlan, ConditionPlan<C> havingPlan) {
+        this.wherePlan = wherePlan;
+        this.havingPlan = havingPlan;
+    }
+
+    public ConditionPlan<C> getWherePlan() {
+        return wherePlan;
+    }
+
+    public ConditionPlan<C> getHavingPlan() {
+        return havingPlan;
+    }
 }
