@@ -679,7 +679,7 @@ public class ModelForm extends ModelWidget {
 
         for (ModelParam modelParam: modelService.getInModelParamList()) {
             // skip auto params that the service engine populates...
-            if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name)) {
+            if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name) || "login.username".equals(modelParam.name) || "login.password".equals(modelParam.name)) {
                 continue;
             }
             if (modelParam.formDisplay) {

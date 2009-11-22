@@ -863,11 +863,11 @@ public class ServiceDispatcher {
             return context;
         }
 
-        if (context.containsKey("login.username")) {
+        if (UtilValidate.isNotEmpty(context.get("login.username"))) {
             // check for a username/password, if there log the user in and make the userLogin object
             String username = (String) context.get("login.username");
 
-            if (context.containsKey("login.password")) {
+            if (UtilValidate.isNotEmpty(context.get("login.password"))) {
                 String password = (String) context.get("login.password");
 
                 context.put("userLogin", getLoginObject(service, localName, username, password, (Locale) context.get("locale")));
