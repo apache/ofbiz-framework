@@ -79,9 +79,7 @@ public abstract class AbstractCache<K, V> {
             String name = getCacheName(entityName);
             UtilCache<K, V> cache = UtilCache.findCache(name);
             if (cache == null) {
-                cache = UtilCache.createUtilCache(name, 0, 0, true);
-                String[] names = getCacheNames(entityName);
-                cache.setPropertiesParams(names);
+                cache = UtilCache.createUtilCache(name, 0, 0, 0, true, false, getCacheNames(entityName));
             }
             return cache;
         }
