@@ -25,6 +25,7 @@ import java.util.TimeZone;
 
 import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilValidate;
 
 import com.ibm.icu.util.Calendar;
 
@@ -80,7 +81,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         public String convert(java.util.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
@@ -228,7 +229,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         public String convert(java.sql.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateFormat(formatString, timeZone, locale);
@@ -254,7 +255,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         public String convert(java.sql.Time obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toTimeFormat(formatString, timeZone, locale);
@@ -282,7 +283,7 @@ public class DateTimeConverters implements ConverterLoader {
                 return null;
             }
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
@@ -307,7 +308,7 @@ public class DateTimeConverters implements ConverterLoader {
                 return null;
             }
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateTimeFormat(formatString, timeZone, locale);
@@ -341,7 +342,7 @@ public class DateTimeConverters implements ConverterLoader {
                 return null;
             }
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toDateFormat(formatString, timeZone, locale);
@@ -365,7 +366,7 @@ public class DateTimeConverters implements ConverterLoader {
                 return null;
             }
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
             } else {
                 df = UtilDateTime.toTimeFormat(formatString, timeZone, locale);
@@ -389,7 +390,7 @@ public class DateTimeConverters implements ConverterLoader {
                 return null;
             }
             DateFormat df = null;
-            if (formatString == null || formatString.length() == 0) {
+            if (UtilValidate.isEmpty(formatString)) {
                 // These hacks are a bad idea, but they are included
                 // for backward compatibility.
                 if (str.length() > 0 && !str.contains(":")) {

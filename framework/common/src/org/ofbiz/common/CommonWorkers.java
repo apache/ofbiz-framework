@@ -114,7 +114,7 @@ public class CommonWorkers {
      * Returns a list of regional geo associations.
      */
     public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country) {
-        if (country == null || country.length() == 0) {
+        if (UtilValidate.isEmpty(country)) {
             // Load the system default country
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         }

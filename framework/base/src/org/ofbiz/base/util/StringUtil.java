@@ -134,7 +134,7 @@ public class StringUtil {
         if (mainString == null) {
             return null;
         }
-        if (oldString == null || oldString.length() == 0) {
+        if (UtilValidate.isEmpty(oldString)) {
             return mainString;
         }
         if (newString == null) {
@@ -387,7 +387,7 @@ public class StringUtil {
 
     /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes; if in String is null or empty, returns zero length string. */
     public static String cleanUpPathPrefix(String prefix) {
-        if (prefix == null || prefix.length() == 0) return "";
+        if (UtilValidate.isEmpty(prefix)) return "";
 
         StringBuilder cppBuff = new StringBuilder(prefix.replace('\\', '/'));
 

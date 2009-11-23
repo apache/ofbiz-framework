@@ -120,7 +120,7 @@ public class CheckId extends MethodOperation {
             //String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
 
-            if (propMsg == null || propMsg.length() == 0) {
+            if (UtilValidate.isEmpty(propMsg)) {
                 messages.add(defaultMessage + errorDetails);
             } else {
                 messages.add(methodContext.expandString(propMsg) + errorDetails);

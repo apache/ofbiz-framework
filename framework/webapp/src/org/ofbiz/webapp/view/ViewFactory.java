@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 
 /**
@@ -76,7 +77,7 @@ public class ViewFactory {
     }
 
     public ViewHandler getViewHandler(String type) throws ViewHandlerException {
-        if (type == null || type.length() == 0) {
+        if (UtilValidate.isEmpty(type)) {
             type = "default";
         }
 

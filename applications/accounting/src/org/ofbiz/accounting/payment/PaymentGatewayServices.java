@@ -355,7 +355,7 @@ public class PaymentGatewayServices {
                 GenericValue paymentSettings = getPaymentSettings(orh.getOrderHeader(), paymentPref, AUTH_SERVICE_TYPE, false);
                 if (paymentSettings != null) {
                     paymentConfig = paymentSettings.getString("paymentPropertiesPath");
-                    if (paymentConfig == null || paymentConfig.length() == 0) {
+                    if (UtilValidate.isEmpty(paymentConfig)) {
                         paymentConfig = "payment.properties";
                     }
                 }
@@ -908,7 +908,7 @@ public class PaymentGatewayServices {
             Debug.logWarning(errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        if (paymentConfig == null || paymentConfig.length() == 0) {
+        if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(paymentPref);
@@ -1611,7 +1611,7 @@ public class PaymentGatewayServices {
             return null;
         }
 
-        if (paymentConfig == null || paymentConfig.length() == 0) {
+        if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
 

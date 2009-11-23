@@ -995,7 +995,7 @@ public class ModelFormField {
             return title.expandString(context);
         } else {
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-            if (this.name == null || this.name.length() == 0) {
+            if (UtilValidate.isEmpty(this.name)) {
                 // this should never happen, ie name is required
                 return "";
             }
@@ -2081,7 +2081,7 @@ public class ModelFormField {
             } else {
                 retVal = this.modelFormField.getEntry(context);
             }
-            if (retVal == null || retVal.length() == 0) {
+            if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             } else if ("currency".equals(type)) {
                 retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
@@ -2211,10 +2211,10 @@ public class ModelFormField {
                 retVal = this.description.expandString(localContext, locale);
             }
             // try to get the entry for the field if description doesn't expand to anything
-            if (retVal == null || retVal.length() == 0) {
+            if (UtilValidate.isEmpty(retVal)) {
                 retVal = fieldValue;
             }
-            if (retVal == null || retVal.length() == 0) {
+            if (UtilValidate.isEmpty(retVal)) {
                 retVal = "";
             }
             return retVal;

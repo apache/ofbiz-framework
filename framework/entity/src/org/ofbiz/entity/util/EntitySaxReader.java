@@ -40,6 +40,7 @@ import javolution.xml.sax.XMLReaderImpl;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -498,7 +499,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                 CharSequence name = attributes.getLocalName(i);
                 CharSequence value = attributes.getValue(i);
 
-                if (name == null || name.length() == 0) {
+                if (UtilValidate.isEmpty(name)) {
                     name = attributes.getQName(i);
                 }
                 newElement.setAttribute(name.toString(), value.toString());
@@ -547,7 +548,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     CharSequence name = attributes.getLocalName(i);
                     CharSequence value = attributes.getValue(i);
 
-                    if (name == null || name.length() == 0) {
+                    if (UtilValidate.isEmpty(name)) {
                         name = attributes.getQName(i);
                     }
                     try {

@@ -117,7 +117,7 @@ public class PartyServices {
         }
 
         // partyId might be empty, so check it and get next seq party id if empty
-        if (partyId == null || partyId.length() == 0) {
+        if (UtilValidate.isEmpty(partyId)) {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
@@ -339,7 +339,7 @@ public class PartyServices {
         String errMsg = null;
 
         // partyId might be empty, so check it and get next seq party id if empty
-        if (partyId == null || partyId.length() == 0) {
+        if (UtilValidate.isEmpty(partyId)) {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
@@ -517,7 +517,7 @@ public class PartyServices {
         }
 
         // partyId might be empty, so check it and get next seq party id if empty
-        if (partyId == null || partyId.length() == 0) {
+        if (UtilValidate.isEmpty(partyId)) {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
@@ -665,7 +665,7 @@ public class PartyServices {
 
             noteId = (String) noteRes.get("noteId");
 
-            if (noteId == null || noteId.length() == 0) {
+            if (UtilValidate.isEmpty(noteId)) {
                 errMsg = UtilProperties.getMessage(resource,"partyservices.problem_creating_note_no_noteId_returned", locale);
                 return ServiceUtil.returnError(errMsg);
             }

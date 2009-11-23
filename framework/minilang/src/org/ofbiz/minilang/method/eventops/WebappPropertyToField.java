@@ -84,7 +84,7 @@ public class WebappPropertyToField extends MethodOperation {
                 Debug.logWarning("Webapp resource (properties file) not found with name " + resource, module);
             } else {
                 fieldVal = UtilProperties.getPropertyValue(propsUrl, property);
-                if (fieldVal == null || fieldVal.length() == 0) {
+                if (UtilValidate.isEmpty(fieldVal)) {
                     Debug.logWarning("Webapp resource property value not found with name " + property + " in resource " + resource, module);
                 }
             }

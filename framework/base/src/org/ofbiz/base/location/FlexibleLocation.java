@@ -25,6 +25,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * A special location resolver that uses Strings like URLs, but with more options
@@ -73,7 +74,7 @@ public class FlexibleLocation {
     }
 
     public static URL resolveLocation(String location, ClassLoader loader) throws MalformedURLException {
-        if (location == null || location.length() == 0) {
+        if (UtilValidate.isEmpty(location)) {
             return null;
         }
         String locationType = getLocationType(location);
@@ -84,12 +85,12 @@ public class FlexibleLocation {
                 resolver = locationResolvers.get(locationType);
                 if (resolver == null) {
                     String locationResolverName = UtilProperties.getPropertyValue("locationresolvers", locationType);
-                    if (locationResolverName == null || locationResolverName.length() == 0) {
+                    if (UtilValidate.isEmpty(locationResolverName)) {
                         // try one of the defaults
                         locationResolverName = defaultResolvers.get(locationType);
                     }
 
-                    if (locationResolverName == null || locationResolverName.length() == 0) {
+                    if (UtilValidate.isEmpty(locationResolverName)) {
                         // still nothing, give up
                         throw new MalformedURLException("Could not find a LocationResolver class name for the location type: " + locationType);
                     }
@@ -141,7 +142,7 @@ public class FlexibleLocation {
      *   If no type descriptor is found, defaults to "classpath".
      */
     public static String getLocationType(String location) {
-        if (location == null || location.length() == 0) {
+        if (UtilValidate.isEmpty(location)) {
             return null;
         }
 
@@ -154,7 +155,7 @@ public class FlexibleLocation {
     }
 
     public static String stripLocationType(String location) {
-        if (location == null || location.length() == 0) {
+        if (UtilValidate.isEmpty(location)) {
             return "";
         }
 

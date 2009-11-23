@@ -296,7 +296,7 @@ public class AIMPaymentServices {
     private static Map<String, Object> processCard(Map<String, Object> request, Properties props) {
         Map<String, Object> result = FastMap.newInstance();
         String url = props.getProperty("url");
-        if (url == null || url.length() == 0) {
+        if (UtilValidate.isEmpty(url)) {
             return ServiceUtil.returnFailure("No payment.authorizedotnet.url found.");
         }
         if (isTestMode()) {
@@ -354,13 +354,13 @@ public class AIMPaymentServices {
         String login = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "userId", configStr, "payment.authorizedotnet.login");
         String password = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", configStr, "payment.authorizedotnet.password");
         String transDescription = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "transDescription", configStr, "payment.authorizedotnet.transdescription");
-        if (ver == null || ver.length() == 0) {
+        if (UtilValidate.isEmpty(ver)) {
             ver = "3.0";
         }
-        if (login == null || login.length() == 0) {
+        if (UtilValidate.isEmpty(login)) {
             Debug.logInfo("the login property in " + configStr + " is not configured.", module);
         }
-        if ((password == null || password.length() == 0) && !("3.1".equals(ver))) {
+        if (UtilValidate.isEmpty((password)) && !("3.1".equals(ver))) {
             Debug.logInfo("The password property in " + configStr + " is not configured.", module);
         }
         if ("3.1".equals(ver)) {

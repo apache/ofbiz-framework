@@ -143,7 +143,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return A FlexibleStringExpander instance
      */
     public static FlexibleStringExpander getInstance(String original) {
-        if (original == null || original.length() == 0) {
+        if (UtilValidate.isEmpty(original)) {
             return nullExpr;
         }
         // Remove the next three lines to cache all expressions
@@ -205,7 +205,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return a list of parsed string elements
      */
     protected static List<StrElem> getStrElems(String original) {
-        if (original == null || original.length() == 0) {
+        if (UtilValidate.isEmpty(original)) {
             return null;
         }
         int origLen = original.length();

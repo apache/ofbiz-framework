@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.callops;
 
 import org.w3c.dom.*;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
 
@@ -42,7 +43,7 @@ public class Return extends MethodOperation {
     public Return(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         responseCode = element.getAttribute("response-code");
-        if (responseCode == null || responseCode.length() == 0)
+        if (UtilValidate.isEmpty(responseCode))
             responseCode = "success";
     }
 

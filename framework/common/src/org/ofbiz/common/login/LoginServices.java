@@ -588,7 +588,7 @@ public class LoginServices {
         String userLoginId = (String) context.get("userLoginId");
         String errMsg = null;
 
-        if (userLoginId == null || userLoginId.length() == 0) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             userLoginId = loggedInUserLogin.getString("userLoginId");
         }
 
@@ -824,7 +824,7 @@ public class LoginServices {
         String userLoginId = (String) context.get("userLoginId");
         String errMsg = null;
 
-        if (userLoginId == null || userLoginId.length() == 0) {
+        if (UtilValidate.isEmpty(userLoginId)) {
             userLoginId = loggedInUserLogin.getString("userLoginId");
         }
 
@@ -998,7 +998,7 @@ public class LoginServices {
     public static String getHashType() {
         String hashType = UtilProperties.getPropertyValue("security.properties", "password.encrypt.hash.type");
 
-        if (hashType == null || hashType.length() == 0) {
+        if (UtilValidate.isEmpty(hashType)) {
             Debug.logWarning("Password encrypt hash type is not specified in security.properties, use SHA", module);
             hashType = "SHA";
         }

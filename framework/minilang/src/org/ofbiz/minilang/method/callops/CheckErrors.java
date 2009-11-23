@@ -53,7 +53,7 @@ public class CheckErrors extends MethodOperation {
     public CheckErrors(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         errorCode = element.getAttribute("error-code");
-        if (errorCode == null || errorCode.length() == 0) errorCode = "error";
+        if (UtilValidate.isEmpty(errorCode)) errorCode = "error";
 
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 

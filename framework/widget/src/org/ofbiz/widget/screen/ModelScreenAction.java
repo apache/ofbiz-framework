@@ -371,7 +371,7 @@ public abstract class ModelScreenAction implements Serializable {
             } else {
                 value = UtilProperties.getMessage(resource, property, locale);
             }
-            if (value == null || value.length() == 0) {
+            if (UtilValidate.isEmpty(value)) {
                 value = this.defaultExdr.expandString(context);
             }
 

@@ -19,6 +19,8 @@
 package org.ofbiz.minilang.operation;
 
 import java.util.*;
+
+import org.ofbiz.base.util.UtilValidate;
 import org.w3c.dom.*;
 
 /**
@@ -33,7 +35,7 @@ public class Copy extends SimpleMapOperation {
     public Copy(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         toField = element.getAttribute("to-field");
-        if (this.toField == null || this.toField.length() == 0) {
+        if (UtilValidate.isEmpty(this.toField)) {
             this.toField = this.fieldName;
         }
 

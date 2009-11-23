@@ -479,9 +479,9 @@ public class ModelServiceReader implements Serializable {
     protected void createAutoAttrDef(Element autoElement, ModelService service) {
         // get the entity name; first from the auto-attributes then from the service def
         String entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
-        if (entityName == null || entityName.length() == 0) {
+        if (UtilValidate.isEmpty(entityName)) {
             entityName = service.defaultEntityName;
-            if (entityName == null || entityName.length() == 0) {
+            if (UtilValidate.isEmpty(entityName)) {
                 Debug.logWarning("Auto-Attribute does not specify an entity-name; not default-entity on service definition", module);
             }
         }

@@ -33,6 +33,7 @@ import org.apache.bsf.BSFManager;
 import org.apache.bsf.util.IOUtils;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 
@@ -79,7 +80,7 @@ public class BsfEventHandler implements EventHandler {
             InputStream scriptStream = null;
             String scriptString = null;
             String cacheName = null;
-            if (event.path == null || event.path.length() == 0) {
+            if (UtilValidate.isEmpty(event.path)) {
                 // we are a resource to be loaded off the classpath
                 cacheName = event.invoke;
                 scriptString = eventCache.get(cacheName);

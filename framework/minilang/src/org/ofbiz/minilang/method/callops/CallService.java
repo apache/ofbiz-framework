@@ -98,7 +98,7 @@ public class CallService extends MethodOperation {
         includeUserLoginStr = element.getAttribute("include-user-login");
         breakOnErrorStr = element.getAttribute("break-on-error");
         errorCode = element.getAttribute("error-code");
-        if (errorCode == null || errorCode.length() == 0) errorCode = "error";
+        if (UtilValidate.isEmpty(errorCode)) errorCode = "error";
         this.requireNewTransactionStr = element.getAttribute("require-new-transaction");
 
         String timeoutStr = UtilXml.checkEmpty(element.getAttribute("transaction-timeout"), element.getAttribute("transaction-timout"));
@@ -114,7 +114,7 @@ public class CallService extends MethodOperation {
         this.transactionTimeout = timeout;
 
         successCode = element.getAttribute("success-code");
-        if (successCode == null || successCode.length() == 0) successCode = "success";
+        if (UtilValidate.isEmpty(successCode)) successCode = "success";
 
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "service.error.prefix");
         errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "service.error.suffix");

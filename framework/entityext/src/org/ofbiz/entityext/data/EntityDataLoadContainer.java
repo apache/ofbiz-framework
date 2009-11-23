@@ -200,13 +200,13 @@ public class EntityDataLoadContainer implements Container {
         String delegatorName = null;
         String entityGroupName = null;
 
-        if (delegatorNameProp == null || delegatorNameProp.value == null || delegatorNameProp.value.length() == 0) {
+        if (delegatorNameProp == null || UtilValidate.isEmpty(delegatorNameProp.value)) {
             throw new ContainerException("Invalid delegator-name defined in container configuration");
         } else {
             delegatorName = delegatorNameProp.value;
         }
 
-        if (entityGroupNameProp == null || entityGroupNameProp.value == null || entityGroupNameProp.value.length() == 0) {
+        if (entityGroupNameProp == null || UtilValidate.isEmpty(entityGroupNameProp.value)) {
             throw new ContainerException("Invalid entity-group-name defined in container configuration");
         } else {
             entityGroupName = entityGroupNameProp.value;

@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * ViewHandlerException - View Handler Exception
@@ -46,7 +47,7 @@ public class HttpViewHandler extends AbstractViewHandler {
 
         if (request == null)
             throw new ViewHandlerException("Null HttpServletRequest object");
-        if (page == null || page.length() == 0)
+        if (UtilValidate.isEmpty(page))
             throw new ViewHandlerException("Null or empty source");
 
         if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, module);

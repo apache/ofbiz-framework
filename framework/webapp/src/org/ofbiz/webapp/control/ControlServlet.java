@@ -94,8 +94,8 @@ public class ControlServlet extends HttpServlet {
 
         // setup DEFAULT chararcter encoding and content type, this will be overridden in the RequestHandler for view rendering
         String charset = getServletContext().getInitParameter("charset");
-        if (charset == null || charset.length() == 0) charset = request.getCharacterEncoding();
-        if (charset == null || charset.length() == 0) charset = "UTF-8";
+        if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
+        if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
         if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request and response is: [" + charset + "]", module);
 
         if (!"none".equals(charset)) {
