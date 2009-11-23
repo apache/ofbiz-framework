@@ -116,10 +116,6 @@ public class UtilCache<K, V> implements Serializable {
 
         setPropertiesParams(cacheName);
         createCache();
-
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(name, this);
-        }
     }
 
     private UtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
@@ -161,9 +157,6 @@ public class UtilCache<K, V> implements Serializable {
         setPropertiesParams("default");
         setPropertiesParams(cacheName);
         createCache();
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(name, this);
-        }
     }
 
     /** This constructor takes a name for the cache, puts itself in the utilCacheTable.
@@ -176,9 +169,6 @@ public class UtilCache<K, V> implements Serializable {
         setPropertiesParams("default");
         setPropertiesParams(cacheName);
         createCache();
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(name, this);
-        }
     }
 
     /** Default constructor, all members stay at default values as defined in cache.properties, or the defaults in this file if cache.properties is not found, or there are no 'default' entries in it.
@@ -188,9 +178,6 @@ public class UtilCache<K, V> implements Serializable {
 
         name = "default" + this.getNextDefaultIndex("default");
         createCache();
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(name, this);
-        }
     }
 
     protected String getNextDefaultIndex(String cacheName) {
@@ -703,7 +690,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public static <K, V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
-        return new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
@@ -715,19 +702,26 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(int maxSize, long expireTime) {
-        return new UtilCache<K, V>(maxSize, expireTime);
+        return storeCache(new UtilCache<K, V>(maxSize, expireTime));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, boolean useSoftReference) {
-        return new UtilCache<K, V>(cacheName, useSoftReference);
+        return storeCache(new UtilCache<K, V>(cacheName, useSoftReference));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName) {
-        return new UtilCache<K, V>(cacheName);
+        return storeCache(new UtilCache<K, V>(cacheName));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache() {
-        return new UtilCache<K, V>();
+        return storeCache(new UtilCache<K, V>());
+    }
+
+    private static <K, V> UtilCache<K, V> storeCache(UtilCache<K, V> cache) {
+        synchronized (utilCacheTable) {
+            utilCacheTable.put(cache.getName(), cache);
+        }
+        return cache;
     }
 
     @SuppressWarnings("unchecked")
