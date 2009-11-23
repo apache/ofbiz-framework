@@ -12,7 +12,6 @@
         <td><#if productAdditionalImage1?has_content><a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" height="50" width="50"/></a></#if></td>
         <td><input id="additionalImageOne" type="file" size="20" name="additionalImageOne" /></td>
       </tr>
-      </br></br>
       <tr>
         <td><#if productAdditionalImage2?has_content><a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" ><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" height="50" width="50" /></a></#if></td>
         <td><input type="file" size="20" name="additionalImageTwo" /></td>
