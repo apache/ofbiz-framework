@@ -21,6 +21,7 @@ package org.ofbiz.base.util.cache;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -422,6 +423,14 @@ public class UtilCache<K, V> implements Serializable {
             list.addAll(utilCacheTable.values());
         }
         return list;
+    }
+
+    public static Set<String> getUtilCacheTableKeySet() {
+        Set<String> set = new HashSet<String>(utilCacheTable.size());
+        synchronized (utilCacheTable) {
+            set.addAll(utilCacheTable.keySet());
+        }
+        return set;
     }
 
     /** Getter for the name of the UtilCache instance.

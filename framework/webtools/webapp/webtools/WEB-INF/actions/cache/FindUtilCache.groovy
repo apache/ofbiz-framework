@@ -29,7 +29,7 @@ context.usedMemory = UtilFormatOut.formatQuantity((rt.totalMemory() - rt.freeMem
 context.maxMemory = UtilFormatOut.formatQuantity(rt.maxMemory());
 
 cacheList = [];
-names = new TreeSet(UtilCache.utilCacheTable.keySet());
+names = new TreeSet(UtilCache.getUtilCacheTableKeySet());
 names.each { cacheName ->
         utilCache = UtilCache.findCache(cacheName);
         cache = [:];
