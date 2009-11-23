@@ -38,8 +38,8 @@ import org.w3c.dom.Element;
  */
 public class SimpleMapProcessor {
 
-    protected static UtilCache<String, Map<String, MapProcessor>> simpleMapProcessorsResourceCache = new UtilCache<String, Map<String, MapProcessor>>("minilang.SimpleMapProcessorsResource", 0, 0);
-    protected static UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = new UtilCache<URL, Map<String, MapProcessor>>("minilang.SimpleMapProcessorsURL", 0, 0);
+    protected static UtilCache<String, Map<String, MapProcessor>> simpleMapProcessorsResourceCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsResource", 0, 0);
+    protected static UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
 
     public static void runSimpleMapProcessor(String xmlResource, String name, Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale) throws MiniLangException {
         runSimpleMapProcessor(xmlResource, name, inMap, results, messages, locale, null);

@@ -34,7 +34,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class JNDIContextFactory {
 
     public static final String module = JNDIContextFactory.class.getName();
-    static UtilCache<String, InitialContext> contexts = new UtilCache<String, InitialContext>("entity.JNDIContexts", 0, 0);
+    static UtilCache<String, InitialContext> contexts = UtilCache.createUtilCache("entity.JNDIContexts", 0, 0);
 
     /**
      * Return the initial context according to the entityengine.xml parameters that correspond to the given prefix

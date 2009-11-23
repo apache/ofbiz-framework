@@ -52,7 +52,7 @@ import org.w3c.dom.NodeList;
  */
 public class NodeELResolver extends ELResolver {
     private final XPath xpath;
-    private final UtilCache<String, XPathExpression> exprCache = new UtilCache<String, XPathExpression>("nodeElResolver.ExpressionCache");
+    private final UtilCache<String, XPathExpression> exprCache = UtilCache.createUtilCache("nodeElResolver.ExpressionCache");
     private static final String module = NodeELResolver.class.getName();
 
     /**

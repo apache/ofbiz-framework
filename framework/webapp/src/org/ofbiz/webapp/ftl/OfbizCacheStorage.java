@@ -30,7 +30,7 @@ public class OfbizCacheStorage implements CacheStorage {
     protected final UtilCache<Object, Object> localCache;
 
     public OfbizCacheStorage(String id) {
-        this.localCache = new UtilCache<Object, Object>("webapp.FreeMarkerCache." + id, 0, 0, false);
+        this.localCache = UtilCache.createUtilCache("webapp.FreeMarkerCache." + id, 0, 0, false);
     }
 
     public Object get(Object key) {

@@ -38,7 +38,7 @@ import org.jpublish.RepositoryWrapper;
 public class JpCacheIncludeTransform implements TemplateTransformModel {
 
     public static final String module = JpCacheIncludeTransform.class.getName();
-    protected static UtilCache pageCache = new UtilCache("webapp.JpInclude", 0, 0, 0, false, false);
+    protected static UtilCache pageCache = UtilCache.createUtilCache("webapp.JpInclude", 0, 0, 0, false, false);
 
     public Writer getWriter(final Writer writer, Map args) throws TemplateModelException, IOException {
         Environment env = Environment.getCurrentEnvironment();

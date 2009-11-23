@@ -40,7 +40,7 @@ public class ServiceConfigUtil implements Serializable {
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
-    protected static UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = new UtilCache<String, Map<String, NotificationGroup>>("service.NotificationGroups", 0, 0, false);
+    protected static UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = UtilCache.createUtilCache("service.NotificationGroups", 0, 0, false);
 
     public static Element getXmlRootElement() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);

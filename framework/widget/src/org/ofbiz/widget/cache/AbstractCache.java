@@ -53,7 +53,7 @@ public abstract class AbstractCache {
             String name = getCacheName(widgetName);
             UtilCache<WidgetContextCacheKey, GenericWidgetOutput> cache = UtilCache.findCache(name);
             if (cache == null) {
-                cache = new UtilCache<WidgetContextCacheKey, GenericWidgetOutput>(name, 0, 0, true);
+                cache = UtilCache.createUtilCache(name, 0, 0, true);
                 cache.setPropertiesParams(new String[] {name});
             }
             return cache;

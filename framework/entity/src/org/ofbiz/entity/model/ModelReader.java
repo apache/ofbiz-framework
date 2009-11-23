@@ -56,7 +56,7 @@ import org.w3c.dom.Node;
 public class ModelReader implements Serializable {
 
     public static final String module = ModelReader.class.getName();
-    public static UtilCache<String, ModelReader> readers = new UtilCache<String, ModelReader>("entity.ModelReader", 0, 0);
+    public static UtilCache<String, ModelReader> readers = UtilCache.createUtilCache("entity.ModelReader", 0, 0);
 
     protected Map<String, ModelEntity> entityCache = null;
 

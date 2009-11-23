@@ -45,7 +45,7 @@ public final class BshUtil {
     public static final String module = BshUtil.class.getName();
 
     protected static Map<ClassLoader, BshClassManager> masterClassManagers = new HashMap<ClassLoader, BshClassManager>();
-    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshLocationParsedCache", 0, 0, false);
+    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshLocationParsedCache", 0, 0, false);
 
     /**
      * Evaluate a BSH condition or expression

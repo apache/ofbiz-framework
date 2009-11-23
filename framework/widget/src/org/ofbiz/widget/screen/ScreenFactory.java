@@ -46,8 +46,8 @@ public class ScreenFactory {
 
     public static final String module = ScreenFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = new UtilCache<String, Map<String, ModelScreen>>("widget.screen.locationResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelScreen>> screenWebappCache = new UtilCache<String, Map<String, ModelScreen>>("widget.screen.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = UtilCache.createUtilCache("widget.screen.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> screenWebappCache = UtilCache.createUtilCache("widget.screen.webappResource", 0, 0, false);
 
     public static boolean isCombinedName(String combinedName) {
         int numSignIndex = combinedName.lastIndexOf("#");

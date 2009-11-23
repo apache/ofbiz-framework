@@ -64,7 +64,7 @@ public class ArtifactInfoFactory {
 
     public static final String module = ArtifactInfoFactory.class.getName();
 
-    protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = new UtilCache<String, ArtifactInfoFactory>("ArtifactInfoFactory");
+    protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = UtilCache.createUtilCache("ArtifactInfoFactory");
 
     public static final String EntityInfoTypeId = "entity";
     public static final String ServiceInfoTypeId = "service";

@@ -52,7 +52,7 @@ public class DispatchContext implements Serializable {
     public static final String module = DispatchContext.class.getName();
 
     protected static final String GLOBAL_KEY = "global.services";
-    public static UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = new UtilCache<String, Map<String, ModelService>>("service.ModelServiceMapByDispatcher", 0, 0, false);
+    public static UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = UtilCache.createUtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;

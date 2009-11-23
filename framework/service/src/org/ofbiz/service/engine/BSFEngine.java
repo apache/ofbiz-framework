@@ -40,7 +40,7 @@ import org.apache.bsf.BSFManager;
 public class BSFEngine extends GenericAsyncEngine {
 
     public static final String module = BSFEngine.class.getName();
-    public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BSFScripts", 0, 0);
+    public static UtilCache<String, String> scriptCache = UtilCache.createUtilCache("BSFScripts", 0, 0);
 
     public BSFEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
