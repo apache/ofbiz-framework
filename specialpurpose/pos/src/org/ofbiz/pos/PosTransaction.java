@@ -220,7 +220,7 @@ public class PosTransaction implements Serializable {
     }
 
     public boolean isEmpty() {
-        return (cart == null || cart.size() == 0);
+        return (UtilValidate.isEmpty(cart));
     }
 
     public List<GenericValue> lookupItem(String sku) throws GeneralException {

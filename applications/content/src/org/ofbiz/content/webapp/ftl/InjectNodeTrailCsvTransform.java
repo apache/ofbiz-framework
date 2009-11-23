@@ -102,7 +102,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                 //GenericValue currentValue = getCurrentContent(delegator, trail,  userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
                 String redo = (String)templateCtx.get("redo");
 
-                if (trail == null || trail.size() == 0 || (redo != null && redo.equalsIgnoreCase("true"))) {
+                if (UtilValidate.isEmpty(trail) || (redo != null && redo.equalsIgnoreCase("true"))) {
                     String thisContentId = null;
                     String subContentId = (String)templateCtx.get("subContentId");
                     if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), subContentId:"+subContentId,module);

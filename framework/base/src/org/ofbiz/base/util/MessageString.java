@@ -61,7 +61,7 @@ public class MessageString implements Serializable {
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
     public static List<Object> getMessagesForField(Set<String> fieldNameSet, boolean convertToStrings, List<Object> messageStringList) {
-        if (messageStringList == null || fieldNameSet == null || fieldNameSet.size() == 0) {
+        if (messageStringList == null || UtilValidate.isEmpty(fieldNameSet)) {
             return Collections.emptyList();
         }
         List<Object> outList = new ArrayList<Object>(messageStringList.size());
