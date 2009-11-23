@@ -31,17 +31,17 @@ under the License.
     <ProductMaintType description="HVAC Maintenance" productMaintTypeId="HVAC_MAINT"/>
     <ProductMaintType description="Replace Air Filter" productMaintTypeId="HVAC_REPLACE_FILTER" parentTypeId="HVAC_MAINT"/>
     <ProductMaintType description="Check/Recharge Refrigerant" productMaintTypeId="HVAC_CHECK_REFR" parentTypeId="HVAC_MAINT"/>
-    <FixedAsset fixedAssetId="DEMO_FORKLIFT_01" instanceOfProductId="FORKLIFT_PROPANE" fixedAssetName="Forklift #1" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_FORKLIFT_01" instanceOfProductId="FORKLIFT_PROPANE" fixedAssetName="Forklift #1" fixedAssetTypeId="EQUIPMENT" purchaseCost="1500" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_FORKLIFT_02" instanceOfProductId="FORKLIFT_BATTERY" fixedAssetName="Forklift #2" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_FORKLIFT_02" instanceOfProductId="FORKLIFT_BATTERY" fixedAssetName="Forklift #2" fixedAssetTypeId="EQUIPMENT" purchaseCost="2000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_VEHICLE_01" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Pickup Truck" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_VEHICLE_01" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Pickup Truck" fixedAssetTypeId="VEHICLE" purchaseCost="45000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_VEHICLE_02" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Delivery Van" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_VEHICLE_02" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Delivery Van" fixedAssetTypeId="VEHICLE" purchaseCost="25000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_HVAC_01" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - First Floor" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_HVAC_01" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - First Floor" fixedAssetTypeId="EQUIPMENT" purchaseCost="6000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_HVAC_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_HVAC_02" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - Second Floor" fixedAssetTypeId="EQUIPMENT"/>
+    <FixedAsset fixedAssetId="DEMO_HVAC_02" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - Second Floor" fixedAssetTypeId="EQUIPMENT" purchaseCost="6000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_HVAC_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <ProductMeterType description="Odometer" productMeterTypeId="ODOMETER"/>
     <ProductMaint productId="FORKLIFT_PROPANE" productMaintSeqId="seq01" productMaintTypeId="TUNE_UP" maintName="Tune Up" intervalQuantity="1000" intervalMeterTypeId="ODOMETER"/>
