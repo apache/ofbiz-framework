@@ -6641,6 +6641,9 @@
         <value xml:lang="th">การขนส่งโดยแท้จริง</value>
         <value xml:lang="zh">实际运输</value>
     </property>
+    <property key="ProductAddAdditionalImages">
+        <value xml:lang="en">Add Additional Images</value>
+    </property>
     <property key="ProductAddCatalogProdCat">
         <value xml:lang="de">Kategorie zu diesem Katalog hinzufügen (Kategorie und Typ auswählen, optionales Von Datum angeben)</value>
         <value xml:lang="en">Add a Category to this Catalog (select Category and Type, then enter optional From Date)</value>

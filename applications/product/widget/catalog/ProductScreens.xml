@@ -827,6 +827,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
+                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/productAdditionalView.js" global="true"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.groovy"/>
             </actions>
             <widgets>
@@ -844,6 +845,11 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductOverrideSimpleFields}">
                             <platform-specific>
                                 <html><html-template location="component://product/webapp/catalog/product/EditProductContent.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductAddAdditionalImages}">
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/catalog/product/AddAdditionalImages.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
