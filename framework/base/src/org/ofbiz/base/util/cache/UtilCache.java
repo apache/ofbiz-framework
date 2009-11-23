@@ -58,7 +58,7 @@ public class UtilCache<K, V> implements Serializable {
     protected static Map<String, Integer> defaultIndices = FastMap.newInstance();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
-    protected String name = null;
+    private final String name;
 
     /** A hashtable containing a CacheLine object with a value and a loadTime for each element. */
     public CacheLineTable<K, V> cacheLineTable = null;
@@ -101,14 +101,12 @@ public class UtilCache<K, V> implements Serializable {
 
     /** Constructor which specifies the cacheName as well as the maxSize, expireTime and useSoftReference.
      * The passed maxSize, expireTime and useSoftReference will be overridden by values from cache.properties if found.
-     * @deprecated use {@link #createUtilCache(String, int, int, long, boolean, boolean)}
      * @param maxSize The maxSize member is set to this value
      * @param expireTime The expireTime member is set to this value
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    @Deprecated
-    public UtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
+    private UtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
         this.maxSize = maxSize;
         this.maxInMemory = maxInMemory;
         this.expireTime = expireTime;
@@ -124,49 +122,39 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
-    @Deprecated
-    public UtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
+    private UtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
         this(cacheName, maxSize, maxSize, expireTime, useSoftReference, false);
     }
 
     /** Constructor which specifies the cacheName as well as the maxSize and expireTime.
      * The passed maxSize and expireTime will be overridden by values from cache.properties if found.
-     * @deprecated use {@link #createUtilCache(String, int, long)}
      * @param maxSize The maxSize member is set to this value
      * @param expireTime The expireTime member is set to this value
      * @param cacheName The name of the cache.
      */
-    @Deprecated
-    public UtilCache(String cacheName, int maxSize, long expireTime) {
+    private UtilCache(String cacheName, int maxSize, long expireTime) {
         this(cacheName, maxSize, expireTime, false);
     }
 
     /** Constructor which specifies the maxSize and expireTime.
-     * @deprecated use {@link #createUtilCache(int, long)}
      * @param maxSize The maxSize member is set to this value
      * @param expireTime The expireTime member is set to this value
      */
-    @Deprecated
-    public UtilCache(int maxSize, long expireTime) {
+    private UtilCache(int maxSize, long expireTime) {
         this.useSoftReference = false;
         this.maxSize = maxSize;
         this.expireTime = expireTime;
-        String name = "specified" + this.getNextDefaultIndex("specified");
+        name = "specified" + this.getNextDefaultIndex("specified");
 
         setPropertiesParams(name);
         createCache();
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(name, this);
-        }
     }
 
     /** This constructor takes a name for the cache, puts itself in the utilCacheTable.
      * It also uses the cacheName to lookup the initialization parameters from cache.properties.
-     * @deprecated use {@link #createUtilCache(String, boolean)}
      * @param cacheName The name of the cache.
      */
-    @Deprecated
-    public UtilCache(String cacheName, boolean useSoftReference) {
+    private UtilCache(String cacheName, boolean useSoftReference) {
         name = cacheName + this.getNextDefaultIndex(cacheName);
         this.useSoftReference = useSoftReference;
 
@@ -180,11 +168,9 @@ public class UtilCache<K, V> implements Serializable {
 
     /** This constructor takes a name for the cache, puts itself in the utilCacheTable.
      * It also uses the cacheName to lookup the initialization parameters from cache.properties.
-     * @deprecated use {@link #createUtilCache(String)}
      * @param cacheName The name of the cache.
      */
-    @Deprecated
-    public UtilCache(String cacheName) {
+    private UtilCache(String cacheName) {
         name = cacheName + this.getNextDefaultIndex(cacheName);
 
         setPropertiesParams("default");
@@ -196,10 +182,8 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     /** Default constructor, all members stay at default values as defined in cache.properties, or the defaults in this file if cache.properties is not found, or there are no 'default' entries in it.
-     * @deprecated use {@link #createUtilCache()}
      */
-    @Deprecated
-    public UtilCache() {
+    private UtilCache() {
         setPropertiesParams("default");
 
         name = "default" + this.getNextDefaultIndex("default");
@@ -718,37 +702,30 @@ public class UtilCache<K, V> implements Serializable {
         cache.clear();
     }
 
-    @SuppressWarnings("deprecated")
     public static <K, V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
         return new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
         return createUtilCache(cacheName, maxSize, maxSize, expireTime, useSoftReference, false);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, long expireTime) {
         return createUtilCache(cacheName, maxSize, maxSize, expireTime, false, false);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache(int maxSize, long expireTime) {
         return new UtilCache<K, V>(maxSize, expireTime);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, boolean useSoftReference) {
         return new UtilCache<K, V>(cacheName, useSoftReference);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache(String cacheName) {
         return new UtilCache<K, V>(cacheName);
     }
 
-    @SuppressWarnings("deprecated")
     public static <K,V> UtilCache<K, V> createUtilCache() {
         return new UtilCache<K, V>();
     }
