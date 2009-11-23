@@ -231,6 +231,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="custRequest==null" target="createrequest"/>
         <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
+        <field name="form"><hidden value="list"/></field>
+        <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="custRequestId"><hidden/></field>
         <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
         <field name="custRequestTypeId">

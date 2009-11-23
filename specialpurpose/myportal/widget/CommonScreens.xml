@@ -98,24 +98,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonMyCommunicationEventDecorator">
-        <section>
-            <actions>
-                <entity-one entity-name="CommunicationEvent" value-field="commEvent">
-                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/>
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonMyTaskDecorator">
         <section>
             <widgets>

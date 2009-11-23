@@ -196,32 +196,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonMyCommunicationEventDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="mycomm"/>
-                <set field="my" value="My" global="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="MyCommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CommonRequestDecorator">
         <section>
             <actions/>
