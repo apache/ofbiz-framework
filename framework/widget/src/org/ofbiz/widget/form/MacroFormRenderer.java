@@ -1404,7 +1404,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
-        String areaStyle = modelFormField.getTitleAreaStyle();
+        String areaStyle = modelFormField.getWidgetAreaStyle();
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowCellOpen ");
         sr.append(" fieldName=\"");
