@@ -75,8 +75,8 @@ public abstract class AbstractCache<K, V> {
     }
 
     protected UtilCache<K, V> getOrCreateCache(String entityName) {
+        String name = getCacheName(entityName);
         synchronized (UtilCache.utilCacheTable) {
-            String name = getCacheName(entityName);
             UtilCache<K, V> cache = UtilCache.findCache(name);
             if (cache == null) {
                 cache = UtilCache.createUtilCache(name, 0, 0, 0, true, false, getCacheNames(entityName));
