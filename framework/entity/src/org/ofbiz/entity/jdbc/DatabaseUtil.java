@@ -2190,7 +2190,7 @@ public class DatabaseUtil {
     }
 
     public void repairColumnSizeChanges(Map<String, ModelEntity> modelEntities, List<String> fieldsWrongSize, List<String> messages) {
-        if (modelEntities == null || fieldsWrongSize == null || fieldsWrongSize.size() == 0) {
+        if (modelEntities == null || UtilValidate.isEmpty(fieldsWrongSize)) {
             messages.add("No fields to repair");
             return;
         }

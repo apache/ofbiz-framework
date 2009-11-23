@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
@@ -67,7 +68,7 @@ public class ModelDataFileReader {
                 }
             }
         }
-        if (reader != null && (reader.modelDataFiles == null || reader.modelDataFiles.size() == 0)) {
+        if (reader != null && UtilValidate.isEmpty(reader.modelDataFiles)) {
             readers.remove(readerURL);
             return null;
         }
