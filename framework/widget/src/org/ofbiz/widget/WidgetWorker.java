@@ -296,6 +296,15 @@ public class WidgetWorker {
             this.fromField = UtilValidate.isNotEmpty(element.getAttribute("from-field")) ? FlexibleMapAccessor.getInstance(element.getAttribute("from-field")) : null;
         }
 
+        public Parameter(String paramName, String paramValue, boolean isField) {
+            this.name = paramName;
+            if (isField) {
+                this.fromField = FlexibleMapAccessor.getInstance(paramValue);
+            } else {
+                this.value = FlexibleStringExpander.getInstance(paramValue);
+            }
+        }
+
         public String getName() {
             return name;
         }
