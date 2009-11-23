@@ -55,7 +55,7 @@ public class UtilCache<K, V> implements Serializable {
     public static final Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
-    protected static Map<String, Integer> defaultIndices = FastMap.newInstance();
+    private final static Map<String, Integer> defaultIndices = FastMap.newInstance();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
     private final String name;
@@ -180,7 +180,7 @@ public class UtilCache<K, V> implements Serializable {
         createCache();
     }
 
-    protected String getNextDefaultIndex(String cacheName) {
+    private static String getNextDefaultIndex(String cacheName) {
         Integer curInd = UtilCache.defaultIndices.get(cacheName);
 
         if (curInd == null) {
