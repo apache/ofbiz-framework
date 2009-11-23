@@ -589,7 +589,7 @@ under the License.
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
-        <response name="success" type="view-home" value="RequestList"/>
+        <response name="success" type="view-last-noparam" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
 
@@ -737,8 +737,8 @@ under the License.
     <request-map uri="setCommunicationEventRoleStatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="setCommunicationEventRoleStatus"/>
-        <response name="success" type="view-home"/>
-        <response name="error" type="view-home"/>
+        <response name="success" type="view-last-noparam"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="MyCommunicationEvents">
         <security https="true" auth="true"/>
@@ -772,8 +772,8 @@ under the License.
     <request-map uri="uploadAttachFiletoEmail">
         <security https="true" auth="true"/>
         <event type="simple" invoke="createCommunicationEventContent" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
+        <response name="success" type="view-home" value="EditCommunicationEvent"/>
+        <response name="error" type="view-home" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="uploadAttachFile">
         <security https="true" auth="true"/>
@@ -809,19 +809,19 @@ under the License.
     <request-map uri="updateCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view-home" value="EditCommunicationEvent"/>
+        <response name="success" type="view-last-noparam" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="sendCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view-home" value="EditCommunicationEvent"/>
+        <response name="success" type="view-last-noparam" value="EditCommunicationEvent"/>
         <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="deleteCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view-home"/>
+        <response name="success" type="view-last-noparam"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="deleteUnknownCommunicationEvent">
@@ -854,8 +854,8 @@ under the License.
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
         <event type="simple" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml" invoke="allocateMsgToParty"/>
-        <response name="success" type="view-home"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-last-noparam"/>
+        <response name="error" type="view-last" value="ViewCommunicationEvent"/>
     </request-map>
 
     <request-map uri="createCommContentDataResource">
