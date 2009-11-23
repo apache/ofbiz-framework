@@ -216,7 +216,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -232,7 +232,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -248,7 +248,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="FindTransactionTotals" type="single" target="TransactionTotals" title="Find list of transaction totals"
