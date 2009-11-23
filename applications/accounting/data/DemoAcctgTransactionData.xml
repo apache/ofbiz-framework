@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
 
-    <!-- Set CAPITAL STOCK and initial CASH value: 200000USD -->
+    <!-- Set CAPITAL STOCK and initial CASH value -->
     <AcctgTrans acctgTransId="6000" acctgTransTypeId="CAPITALIZATION" description="Initial Capital Stock" transactionDate="2009-01-01 10:33:26.0" isPosted="Y" postedDate="2009-01-01 10:53:46.623" glFiscalTypeId="ACTUAL"/>
     <AcctgTransEntry acctgTransId="6000" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Initial Capital From Owners" glAccountId="310000" organizationPartyId="Company" amount="200000.00" currencyUomId="USD" origAmount="200000.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="6000" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Initial Cash From Owners" glAccountId="111100" organizationPartyId="Company" amount="200000.00" currencyUomId="USD" origAmount="200000.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
@@ -31,16 +31,16 @@ under the License.
     <AcctgTrans acctgTransId="6002" acctgTransTypeId="DISBURSEMENT" description="Purchase of manufacturing equipment" transactionDate="2009-01-03 11:16:21.0" isPosted="Y" postedDate="2009-01-03 11:17:03.511" glFiscalTypeId="ACTUAL"/>
     <AcctgTransEntry acctgTransId="6002" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Purchase of manufacturing equipment" glAccountId="111100" organizationPartyId="Company" amount="76500.00" currencyUomId="USD" origAmount="76500.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="6002" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Purchase of manufacturing equipment" glAccountId="171000" organizationPartyId="Company" amount="76500.00" currencyUomId="USD" origAmount="76500.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
-    <!-- Set initial INVENTORY value for finished goods: sum of all inventory items' QOH * UNIT COST before invoices/shipments/receipts 1786.43USD -->
+    <!-- Set initial INVENTORY value for finished goods: sum of all inventory items' QOH * UNIT COST before invoices/shipments/receipts -->
     <AcctgTrans acctgTransId="6003" acctgTransTypeId="INVENTORY" description="Set initial inventory value" transactionDate="2009-01-04 11:16:21.0" isPosted="Y" postedDate="2009-01-04 11:17:03.511" glFiscalTypeId="ACTUAL"/>
-    <AcctgTransEntry acctgTransId="6003" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Initial inventory purchase" glAccountId="111100" organizationPartyId="Company" amount="1801.93" currencyUomId="USD" origAmount="1801.93" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
-    <AcctgTransEntry acctgTransId="6003" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Initial inventory value" glAccountId="140000" organizationPartyId="Company" amount="1801.93" currencyUomId="USD" origAmount="1801.93" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
-    <!-- Set initial INVENTORY value for raw materials: sum of all inventory items' QOH * UNIT COST before invoices/shipments/receipts 1786.43USD -->
+    <AcctgTransEntry acctgTransId="6003" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Initial inventory purchase" glAccountId="111100" organizationPartyId="Company" amount="1981.90" currencyUomId="USD" origAmount="1981.90" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="6003" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Initial inventory value" glAccountId="140000" organizationPartyId="Company" amount="1981.90" currencyUomId="USD" origAmount="1981.90" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <!-- Set initial INVENTORY value for raw materials: sum of all inventory items' QOH * UNIT COST before invoices/shipments/receipts -->
     <AcctgTrans acctgTransId="6004" acctgTransTypeId="INVENTORY" description="Set initial inventory value" transactionDate="2009-01-04 12:16:21.0" isPosted="Y" postedDate="2009-01-04 12:17:03.511" glFiscalTypeId="ACTUAL"/>
     <AcctgTransEntry acctgTransId="6004" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Initial raw materials inventory purchase" glAccountId="111100" organizationPartyId="Company" amount="320.00" currencyUomId="USD" origAmount="320.00" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="6004" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Initial raw materials inventory value" glAccountId="141000" organizationPartyId="Company" amount="320.00" currencyUomId="USD" origAmount="320.00" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
 
-<!--
+    <!--
     <AcctgTrans acctgTransId="9000" acctgTransTypeId="AMORTIZATION" description="Posted accounting transaction" transactionDate="2009-06-19 00:00:00.0" isPosted="Y" postedDate="2009-06-19 00:00:00.0" glFiscalTypeId="ACTUAL" voucherRef="Z000"/>
     <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" description="Posted accounting transaction entries" voucherRef="Z000" glAccountId="100000" organizationPartyId="Company" amount="1786.43" currencyUomId="USD" origAmount="1786.43" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="9000" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" description="Posted accounting transaction entries" voucherRef="Z000" glAccountId="210000" organizationPartyId="Company" amount="1786.43" currencyUomId="USD" origAmount="1786.43" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
