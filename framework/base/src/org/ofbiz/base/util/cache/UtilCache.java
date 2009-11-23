@@ -695,6 +695,20 @@ public class UtilCache<K, V> implements Serializable {
         cache.clear();
     }
 
+    @SuppressWarnings("unchecked")
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+        UtilCache<K, V> cache;
+        synchronized (utilCacheTable) {
+            cache = (UtilCache<K, V>) utilCacheTable.get(cacheName);
+            if (cache == null) {
+                cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
+                cache.setPropertiesParams(names);
+                utilCacheTable.put(cacheName, cache);
+            }
+        }
+        return cache;
+    }
+
     public static <K, V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
         UtilCache<K, V> cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
         cache.setPropertiesParams(names);
