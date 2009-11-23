@@ -301,10 +301,13 @@ public class FindServices {
             if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
                 cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
+                if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
+                    fieldObject = null;
+                }
                 cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
             }
             
-            if (EntityOperator.NOT_EQUAL.equals(fieldOp) && !fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
+            if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
                 tmpOrList = FastList.newInstance();
                 tmpOrList.add(cond);
                 nullCond = EntityCondition.makeCondition(fieldName, null);
