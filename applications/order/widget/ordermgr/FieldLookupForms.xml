@@ -23,7 +23,7 @@ under the License.
 
     <form name="lookupOrderHeader" target="LookupOrderHeader" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="OrderHeader" default-field-type="find"/>
+        <auto-fields-entity entity-name="OrderHeader" default-field-type="find" map-name="parameters"/>
         <field name="orderHeaderId"><text-find/></field>
         <field name="orderTypeId">
             <drop-down allow-empty="true">
@@ -146,7 +146,7 @@ under the License.
 
     <form name="lookupPurchaseOrderHeaderAndShipInfo" target="LookupPurchaseOrderHeaderAndShipInfo" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden"/>
+        <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden" map-name="parameters"/>
         <field name="orderId"><text-find/></field>
         <field name="orderTypeId"><hidden/></field>
         <field name="partyId"><text-find/></field>
