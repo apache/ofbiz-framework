@@ -412,7 +412,7 @@ public class CategoryWorker {
 
     public static boolean isProductInCategory(Delegator delegator, String productId, String productCategoryId) throws GenericEntityException {
         if (productCategoryId == null) return false;
-        if (productId == null || productId.length() == 0) return false;
+        if (UtilValidate.isEmpty(productId)) return false;
 
         List<GenericValue> productCategoryMembers = EntityUtil.filterByDate(delegator.findByAndCache("ProductCategoryMember",
                 UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId)), true);
