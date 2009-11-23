@@ -20,6 +20,7 @@ package org.ofbiz.base.conversion;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Blob;
 import java.sql.Clob;
 import java.util.Locale;
 
@@ -29,6 +30,34 @@ import org.ofbiz.base.util.UtilMisc;
 public class MiscConverters implements ConverterLoader {
 
     public static final int CHAR_BUFFER_SIZE = 4096;
+
+    public static class BlobToByteArray extends AbstractConverter<Blob, byte[]> {
+        public BlobToByteArray() {
+            super(Blob.class, byte[].class);
+        }
+
+        public byte[] convert(Blob obj) throws ConversionException {
+            try {
+                return obj.getBytes(1, Integer.MAX_VALUE);
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+        }
+    }
+
+    public static class ByteArrayToBlob extends AbstractConverter<byte[], Blob> {
+        public ByteArrayToBlob() {
+            super(byte[].class, Blob.class);
+        }
+
+        public Blob convert(byte[] obj) throws ConversionException {
+            try {
+                return new javax.sql.rowset.serial.SerialBlob(obj);
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+        }
+    }
 
     public static class ClobToString extends AbstractConverter<Clob, String> {
         public ClobToString() {
