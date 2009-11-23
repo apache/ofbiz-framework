@@ -151,7 +151,7 @@ public class RemoteRequest {
             } else if (nm.equals("param-out")) {
                 name = elem.getAttributeValue("result-name");
                 fieldName = elem.getAttributeValue("field-name");
-                if (UtilValidate.isEmpty(fieldName)) {
+                if (fieldName == null || fieldName.length() == 0) {
                     fieldName = name;
                 }
                 this.outMap.put(name, fieldName);
