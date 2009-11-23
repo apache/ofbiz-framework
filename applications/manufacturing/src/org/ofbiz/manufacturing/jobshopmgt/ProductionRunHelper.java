@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -76,7 +77,7 @@ public class ProductionRunHelper {
         List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", workEffortId,
                                                          "workEffortTypeId", "PROD_ORDER_TASK",
                                                          "workEffortName", taskName));
-        return (tasks != null && tasks.size() > 0);
+        return (UtilValidate.isNotEmpty(tasks));
     }
 
     public static void getLinkedProductionRuns(Delegator delegator, LocalDispatcher dispatcher, String productionRunId, List productionRuns)  throws GenericEntityException {

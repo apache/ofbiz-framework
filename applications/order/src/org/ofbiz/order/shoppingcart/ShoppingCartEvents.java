@@ -430,7 +430,7 @@ public class ShoppingCartEvents {
 
         // get the ship before date (handles both yyyy-mm-dd input and full timestamp)
         shipBeforeDateStr = (String) paramMap.remove("shipBeforeDate");
-        if (shipBeforeDateStr != null && shipBeforeDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(shipBeforeDateStr)) {
             if (shipBeforeDateStr.length() == 10) shipBeforeDateStr += " 00:00:00.000";
             try {
                 shipBeforeDate = java.sql.Timestamp.valueOf(shipBeforeDateStr);
@@ -442,7 +442,7 @@ public class ShoppingCartEvents {
 
         // get the ship after date (handles both yyyy-mm-dd input and full timestamp)
         shipAfterDateStr = (String) paramMap.remove("shipAfterDate");
-        if (shipAfterDateStr != null && shipAfterDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(shipAfterDateStr)) {
             if (shipAfterDateStr.length() == 10) shipAfterDateStr += " 00:00:00.000";
             try {
                 shipAfterDate = java.sql.Timestamp.valueOf(shipAfterDateStr);
@@ -656,7 +656,7 @@ public class ShoppingCartEvents {
         cart.setOrderPartyId(supplierPartyId);
         cart.setOrderId(orderId);
         String agreementId = request.getParameter("agreementId_o_0");
-        if (agreementId != null && agreementId.length() > 0) {
+        if (UtilValidate.isNotEmpty(agreementId)) {
             ShoppingCartHelper sch = new ShoppingCartHelper(delegator, dispatcher, cart);
             sch.selectAgreement(agreementId);
         }
@@ -1534,7 +1534,7 @@ public class ShoppingCartEvents {
         }
         String userLoginId = request.getParameter("userLoginId");
         if (partyId != null || userLoginId != null) {
-            if (UtilValidate.isEmpty((partyId)) && userLoginId != null && userLoginId.length() > 0) {
+            if (UtilValidate.isEmpty((partyId)) && UtilValidate.isNotEmpty(userLoginId)) {
                 GenericValue thisUserLogin = null;
                 try {
                     thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
@@ -1547,7 +1547,7 @@ public class ShoppingCartEvents {
                     partyId = userLoginId;
                 }
             }
-            if (partyId != null && partyId.length() > 0) {
+            if (UtilValidate.isNotEmpty(partyId)) {
                 GenericValue thisParty = null;
                 try {
                     thisParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));

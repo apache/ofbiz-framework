@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilValidate;
+
 /**
  * Service Permission Group Model Class
  */
@@ -37,7 +39,7 @@ public class ModelPermGroup implements Serializable {
     public String joinType;
 
     public boolean evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
-        if (permissions != null && permissions.size() > 0)  {
+        if (UtilValidate.isNotEmpty(permissions))  {
             boolean foundOne = false;
             for (ModelPermission perm: permissions) {
                 if (perm.evalPermission(dctx, context)) {

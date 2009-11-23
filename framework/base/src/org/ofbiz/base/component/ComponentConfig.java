@@ -492,7 +492,7 @@ public class ComponentConfig {
             buf.append(rootLocation);
         }
 
-        if (resourceLoaderInfo.prependEnv != null && resourceLoaderInfo.prependEnv.length() > 0) {
+        if (UtilValidate.isNotEmpty(resourceLoaderInfo.prependEnv)) {
             String propValue = System.getProperty(resourceLoaderInfo.prependEnv);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + resourceLoaderInfo.prependEnv + " is not set, cannot load resource.";
@@ -501,7 +501,7 @@ public class ComponentConfig {
             }
             buf.append(propValue);
         }
-        if (resourceLoaderInfo.prefix != null && resourceLoaderInfo.prefix.length() > 0) {
+        if (UtilValidate.isNotEmpty(resourceLoaderInfo.prefix)) {
             buf.append(resourceLoaderInfo.prefix);
         }
         buf.append(location);

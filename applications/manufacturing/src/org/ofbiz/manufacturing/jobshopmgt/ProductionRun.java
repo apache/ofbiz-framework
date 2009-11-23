@@ -373,7 +373,7 @@ public class ProductionRun {
                     Debug.logWarning(e.getMessage(), module);
                 }
             }
-            return (GenericValue)(productionRunRoutingTasks != null && productionRunRoutingTasks.size() > 0? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
+            return (GenericValue) (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
         }
         return null;
     }

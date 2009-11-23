@@ -399,7 +399,7 @@ public class AIMPaymentServices {
     private static void buildMerchantInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         AIMRequest.put("x_Login", props.getProperty("login"));
         String trankey = props.getProperty("trankey");
-        if (trankey != null && trankey.length() > 0) {
+        if (UtilValidate.isNotEmpty(trankey)) {
             AIMRequest.put("x_Tran_Key", props.getProperty("trankey"));
         }
         AIMRequest.put("x_Password",props.getProperty("password"));

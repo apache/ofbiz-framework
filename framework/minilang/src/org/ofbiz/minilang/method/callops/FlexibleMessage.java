@@ -47,11 +47,11 @@ public class FlexibleMessage implements Serializable {
             elVal = UtilXml.elementValue(element);
         }
 
-        if (resAttr != null && resAttr.length() > 0) {
+        if (UtilValidate.isNotEmpty(resAttr)) {
             propertyResource = resAttr;
             message = propAttr;
             isProperty = true;
-        } else if (elVal != null && elVal.length() > 0) {
+        } else if (UtilValidate.isNotEmpty(elVal)) {
             message = elVal;
             isProperty = false;
         } else {

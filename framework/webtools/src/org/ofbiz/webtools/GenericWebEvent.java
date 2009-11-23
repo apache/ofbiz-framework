@@ -31,6 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -132,7 +133,7 @@ public class GenericWebEvent {
             }
 
             String fval = request.getParameter(field.getName());
-            if (fval != null && fval.length() > 0) {
+            if (UtilValidate.isNotEmpty(fval)) {
                 try {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
@@ -180,7 +181,7 @@ public class GenericWebEvent {
             }
 
             String fval = request.getParameter(field.getName());
-            if (fval != null && fval.length() > 0) {
+            if (UtilValidate.isNotEmpty(fval)) {
                 try {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {

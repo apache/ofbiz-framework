@@ -183,7 +183,7 @@ public class UtilHttp {
         // note that if a parameter with a given name already exists it will be put into a list with all values
         String pathInfoStr = request.getPathInfo();
 
-        if (pathInfoStr != null && pathInfoStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(pathInfoStr)) {
             // make sure string ends with a trailing '/' so we get all values
             if (!pathInfoStr.endsWith("/")) pathInfoStr += "/";
 
@@ -393,7 +393,7 @@ public class UtilHttp {
         for (Map.Entry<String, ? extends Object> entry: context.entrySet()) {
             String parameterName = entry.getKey();
             if (parameterName.startsWith(prefix)) {
-                if (suffix != null && suffix.length() > 0) {
+                if (UtilValidate.isNotEmpty(suffix)) {
                     if (parameterName.endsWith(suffix)) {
                         String key = parameterName.substring(prefix.length(), parameterName.length() - (suffix.length()));
                         if (entry.getValue() instanceof ByteBuffer) {
@@ -420,7 +420,7 @@ public class UtilHttp {
             for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
                 String fieldName = entry.getKey();
                 if (fieldName.startsWith(prefix)) {
-                    if (suffix != null && suffix.length() > 0) {
+                    if (UtilValidate.isNotEmpty(suffix)) {
                         if (fieldName.endsWith(suffix)) {
                             String key = fieldName.substring(prefix.length(), fieldName.length() - (suffix.length() - 1));
                             Object value = entry.getValue();
@@ -489,7 +489,7 @@ public class UtilHttp {
         while (parameterNames.hasMoreElements()) {
             String parameterName = parameterNames.nextElement();
             if (parameterName.endsWith(suffix)) {
-                if (prefix != null && prefix.length() > 0) {
+                if (UtilValidate.isNotEmpty(prefix)) {
                     if (parameterName.startsWith(prefix)) {
                         String value = request.getParameter(parameterName);
                         paramList.add(value);
@@ -504,7 +504,7 @@ public class UtilHttp {
             for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
                 String fieldName = entry.getKey();
                 if (fieldName.endsWith(suffix)) {
-                    if (prefix != null && prefix.length() > 0) {
+                    if (UtilValidate.isNotEmpty(prefix)) {
                         if (fieldName.startsWith(prefix)) {
                             paramList.add(entry.getValue());
                         }
@@ -753,7 +753,7 @@ public class UtilHttp {
                         valueStr = value.toString();
                     }
 
-                    if (valueStr != null && valueStr.length() > 0) {
+                    if (UtilValidate.isNotEmpty(valueStr)) {
                         if (buf.length() > 0) {
                             if (useExpandedEntites) {
                                 buf.append("&amp;");

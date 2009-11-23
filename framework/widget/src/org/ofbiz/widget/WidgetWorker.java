@@ -83,7 +83,7 @@ public class WidgetWorker {
             localWriter.append(localRequestName);
         }
 
-        if (parameterList != null && parameterList.size() > 0) {
+        if (UtilValidate.isNotEmpty(parameterList)) {
             String localUrl = localWriter.toString();
             externalWriter.append(localUrl);
             boolean needsAmp = true;

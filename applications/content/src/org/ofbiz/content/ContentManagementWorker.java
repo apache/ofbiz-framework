@@ -139,12 +139,12 @@ public class ContentManagementWorker {
         while (it.hasNext()) {
             String ky = (String)it.next();
             String val = (String)pk.get(ky);
-            if (val != null && val.length() > 0) {
+            if (UtilValidate.isNotEmpty(val)) {
                 if (sig.length() > 0) sig += "_";
                 sig += val;
             }
         }
-        if (suffix != null && suffix.length() > 0) {
+        if (UtilValidate.isNotEmpty(suffix)) {
             if (sig.length() > 0) sig += "_";
             sig += suffix;
         }

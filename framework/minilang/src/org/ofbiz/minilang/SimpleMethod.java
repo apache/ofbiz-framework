@@ -715,7 +715,7 @@ public class SimpleMethod {
             boolean forceError = false;
 
             String tempErrorMsg = (String) methodContext.getEnv(eventErrorMessageName);
-            if (errorMsg.length() > 0 || (tempErrorMsg != null && tempErrorMsg.length() > 0)) {
+            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
                 forceError = true;
@@ -732,7 +732,7 @@ public class SimpleMethod {
             }
 
             String eventMsg = (String) methodContext.getEnv(eventEventMessageName);
-            if (eventMsg != null && eventMsg.length() > 0) {
+            if (UtilValidate.isNotEmpty(eventMsg)) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
             }
             List<String> eventMsgList = UtilGenerics.checkList(methodContext.getEnv(eventEventMessageListName));
@@ -758,7 +758,7 @@ public class SimpleMethod {
             boolean forceError = false;
 
             String tempErrorMsg = (String) methodContext.getEnv(serviceErrorMessageName);
-            if (errorMsg.length() > 0 || (tempErrorMsg != null && tempErrorMsg.length() > 0)) {
+            if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
                 methodContext.putResult(ModelService.ERROR_MESSAGE, errorMsg);
                 forceError = true;
@@ -785,7 +785,7 @@ public class SimpleMethod {
             }
 
             String successMsg = (String) methodContext.getEnv(serviceSuccessMessageName);
-            if (successMsg != null && successMsg.length() > 0) {
+            if (UtilValidate.isNotEmpty(successMsg)) {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE, successMsg);
             }
 

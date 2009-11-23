@@ -144,7 +144,7 @@ public class PayflowPro {
 
             // gather the address info
             if (ps != null) {
-                String street = ps.getString("address1") + (ps.get("address2") != null && ps.getString("address2").length() > 0 ? " " + ps.getString("address2") : "");
+                String street = ps.getString(UtilValidate.isNotEmpty(ps.getString("address2")) ? " " + ps.getString("address2") : "");
 
                 data.put("STREET", street);
                 data.put("ZIP", ps.getString("postalCode"));

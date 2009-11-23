@@ -737,7 +737,7 @@ public class UtilMisc {
                 if (availableLocaleList == null) {
                     TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
                     String localesString = UtilProperties.getPropertyValue("general", "locales.available");
-                    if (localesString != null && localesString.length() > 0) { // check if available locales need to be limited according general.properties file
+                    if (UtilValidate.isNotEmpty(localesString)) { // check if available locales need to be limited according general.properties file
                         int end = -1;
                         int start = 0;
                         for (int i=0; start < localesString.length(); i++) {

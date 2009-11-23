@@ -22,6 +22,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
@@ -84,7 +85,7 @@ public class IfHasPermission extends MethodOperation {
 
             Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
-            if (action != null && action.length() > 0) {
+            if (UtilValidate.isNotEmpty(action)) {
                 // run hasEntityPermission
                 if (security.hasEntityPermission(permission, action, userLogin)) {
                     runSubOps = true;

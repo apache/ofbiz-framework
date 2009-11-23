@@ -62,7 +62,7 @@ public class CheckOutEvents {
         //Locale locale = UtilHttp.getLocale(request);
         String errMsg = null;
 
-        if (cart != null && cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(cart)) {
             return "success";
         } else {
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -302,7 +302,7 @@ public class CheckOutEvents {
                 }
                 String amountStr = request.getParameter("amount_" + paymentMethods[i]);
                 BigDecimal amount = null;
-                if (amountStr != null && amountStr.length() > 0 && !"REMAINING".equals(amountStr)) {
+                if (UtilValidate.isNotEmpty(amountStr) && !"REMAINING".equals(amountStr)) {
                     try {
                         amount = new BigDecimal(amountStr);
                     } catch (NumberFormatException e) {

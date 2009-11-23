@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.ofbiz.base.util.UtilValidate;
+
 // figure out the MARKETING_EMAIL of the ContactList owner, for setting in the send email link
 if (!contactList && contactListId) {
     contactList = delegator.findOne("ContactList", [contactListId : "contactListId"], true);
@@ -29,7 +31,7 @@ if (contactList) {
             contactMechs = ownerParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
         }
         
-        if (contactMechs != null && contactMechs.size() > 0) {
+        if (UtilValidate.isNotEmpty(contactMechs)) {
             context.marketingEmail = contactMechs.get(0);
             //context.contactMechIdFrom = context.marketingEmail.contactMechId;
         }

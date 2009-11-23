@@ -134,12 +134,12 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         String fromDateStr = (String)templateCtx.get("fromDateStr");
         String thruDateStr = (String)templateCtx.get("thruDateStr");
         Timestamp fromDate = null;
-        if (fromDateStr != null && fromDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(fromDateStr)) {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
         }
         traverseContext.put("fromDate", fromDate);
         Timestamp thruDate = null;
-        if (thruDateStr != null && thruDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(thruDateStr)) {
             thruDate = UtilDateTime.toTimestamp(thruDateStr);
         }
         traverseContext.put("thruDate", thruDate);

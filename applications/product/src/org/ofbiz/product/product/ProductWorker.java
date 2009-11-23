@@ -322,13 +322,13 @@ public class ProductWorker {
             obsolescenceProducts = EntityUtil.filterByDate(obsolescenceProducts);
             obsoleteByProducts = EntityUtil.filterByDate(obsoleteByProducts);
 
-            if (upgradeProducts != null && upgradeProducts.size() > 0)
+            if (UtilValidate.isNotEmpty(upgradeProducts))
                 pageContext.setAttribute(assocPrefix + "upgrade", upgradeProducts);
-            if (complementProducts != null && complementProducts.size() > 0)
+            if (UtilValidate.isNotEmpty(complementProducts))
                 pageContext.setAttribute(assocPrefix + "complement", complementProducts);
-            if (obsolescenceProducts != null && obsolescenceProducts.size() > 0)
+            if (UtilValidate.isNotEmpty(obsolescenceProducts))
                 pageContext.setAttribute(assocPrefix + "obsolescence", obsolescenceProducts);
-            if (obsoleteByProducts != null && obsoleteByProducts.size() > 0)
+            if (UtilValidate.isNotEmpty(obsoleteByProducts))
                 pageContext.setAttribute(assocPrefix + "obsoleteby", obsoleteByProducts);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);

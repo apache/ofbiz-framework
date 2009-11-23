@@ -209,26 +209,26 @@ public class ValueLinkServices {
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
         Map request = vl.getInitialRequestMap(context);
         request.put("Interface", iFace != null ? iFace : "Activate");
-        if (vlPromoCode != null && vlPromoCode.length() > 0) {
+        if (UtilValidate.isNotEmpty(vlPromoCode)) {
             request.put("PromoCode", vlPromoCode);
         }
         request.put("Amount", vl.getAmount(amount));
         request.put("LocalCurr", vl.getCurrency(currency));
 
-        if (cardNumber != null && cardNumber.length() > 0) {
+        if (UtilValidate.isNotEmpty(cardNumber)) {
             request.put("CardNo", cardNumber);
         }
-        if (pin != null && pin.length() > 0) {
+        if (UtilValidate.isNotEmpty(pin)) {
             request.put("PIN", vl.encryptPin(pin));
         }
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -287,7 +287,7 @@ public class ValueLinkServices {
         request.put("PPIN", vl.encryptPin(physicalPin));
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -340,12 +340,12 @@ public class ValueLinkServices {
         request.put("Amount", vl.getAmount(amount));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -401,12 +401,12 @@ public class ValueLinkServices {
         request.put("LocalCurr", vl.getCurrency(currency));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -468,12 +468,12 @@ public class ValueLinkServices {
         request.put("LocalCurr", vl.getCurrency(currency));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -529,12 +529,12 @@ public class ValueLinkServices {
         request.put("LocalCurr", vl.getCurrency(currency));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -583,12 +583,12 @@ public class ValueLinkServices {
         request.put("PIN", vl.encryptPin(pin));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 
@@ -645,12 +645,12 @@ public class ValueLinkServices {
         request.put("LocalCurr", vl.getCurrency(currency));
 
         // user defined field #1
-        if (orderId != null && orderId.length() > 0) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             request.put("User1", orderId);
         }
 
         // user defined field #2
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             request.put("User2", partyId);
         }
 

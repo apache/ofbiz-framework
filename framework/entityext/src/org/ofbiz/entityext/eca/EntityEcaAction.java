@@ -71,7 +71,7 @@ public class EntityEcaAction implements java.io.Serializable {
             // pull out context parameters needed for this service.
             Map<String, Object> actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
             // if value-attr is specified, insert the value object in that attr name
-            if (valueAttr != null && valueAttr.length() > 0) {
+            if (UtilValidate.isNotEmpty(valueAttr)) {
                 actionContext.put(valueAttr, newValue);
             }
 

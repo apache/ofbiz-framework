@@ -261,7 +261,7 @@ public class IcsPaymentServices {
         props.put("logDirectory", logDir);
         props.put("logFilename", logFile);
         props.put("logMaximumSize", logSize);
-        if (keysFile != null && keysFile.length() > 0) {
+        if (UtilValidate.isNotEmpty(keysFile)) {
             props.put("alternateKeyFilename", keysFile);
         }
         Debug.log("Created CyberSource Properties : " + props, module);
@@ -383,12 +383,12 @@ public class IcsPaymentServices {
             }
             if (avsOverride != null && avsOverride.get("avsDeclineString") != null) {
                 String overrideString = avsOverride.getString("avsDeclineString");
-                if (overrideString != null && overrideString.length() > 0) {
+                if (UtilValidate.isNotEmpty(overrideString)) {
                     avsCodes = overrideString;
                 }
             }
         }
-        if (avsCodes != null && avsCodes.length() > 0) {
+        if (UtilValidate.isNotEmpty(avsCodes)) {
             request.put("businessRules_declineAVSFlags", avsCodes);
         }
         String avsIgnore = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "ignoreAvs", configString, "payment.cybersource.ignoreAvs", "false");

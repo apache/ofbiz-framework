@@ -1293,7 +1293,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // The 'action' attribute is mandatory in a form definition,
         // even if it is empty.
         writer.append(" action=\"");
-        if (targ != null && targ.length() > 0) {
+        if (UtilValidate.isNotEmpty(targ)) {
             //this.appendOfbizUrl(writer, "/" + targ);
             WidgetWorker.buildHyperlinkUrl(writer, targ, targetType, null, null, false, false, true, request, response, context);
         }

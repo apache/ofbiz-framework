@@ -35,6 +35,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -65,7 +66,7 @@ public class ImportProductServices {
         String path = System.getProperty("user.dir") + "/spreadsheet";
         List<File> fileItems = FastList.newInstance();
 
-        if (path != null && path.length() > 0) {
+        if (UtilValidate.isNotEmpty(path)) {
             File importDir = new File(path);
             if (importDir.isDirectory() && importDir.canRead()) {
                 File[] files = importDir.listFiles();

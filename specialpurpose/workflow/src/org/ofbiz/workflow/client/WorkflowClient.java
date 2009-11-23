@@ -251,7 +251,7 @@ public class WorkflowClient {
      */
     public void complete(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, Map result) throws WfException {
         WfAssignment assign = WfFactory.getWfAssignment(delegator, workEffortId, partyId, roleTypeId, fromDate);
-        if (result != null && result.size() > 0)
+        if (UtilValidate.isNotEmpty(result))
             assign.setResult(result);
         assign.complete();
     }

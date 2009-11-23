@@ -308,7 +308,7 @@ public class WorkEffortServices {
 
             String statusId = (String) context.get("currentStatusId");
 
-            if (statusId != null && statusId.length() > 0) {
+            if (UtilValidate.isNotEmpty(statusId)) {
                 try {
                     currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", statusId));
                 } catch (GenericEntityException e) {
@@ -324,7 +324,7 @@ public class WorkEffortServices {
                     Debug.logWarning(e, module);
                 }
             }
-            canView = (workEffortPartyAssignments != null && workEffortPartyAssignments.size() > 0) ? Boolean.TRUE : Boolean.FALSE;
+            canView = (UtilValidate.isNotEmpty(workEffortPartyAssignments)) ? Boolean.TRUE : Boolean.FALSE;
             if (!canView.booleanValue() && security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
                 canView = Boolean.TRUE;
             }

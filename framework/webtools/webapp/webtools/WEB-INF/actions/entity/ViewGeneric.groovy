@@ -28,6 +28,7 @@ import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.Time;
@@ -68,7 +69,7 @@ for(int fnum = 0; fnum < entity.getPksSize(); fnum++) {
     ModelField field = entity.getPk(fnum);
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
     String fval = parameters.get(field.getName());
-    if (fval != null && fval.length() > 0) {
+    if (UtilValidate.isNotEmpty(fval)) {
         curFindString = curFindString + "&" + field.getName() + "=" + fval;
         findByPK.setString(field.getName(), fval);
     }

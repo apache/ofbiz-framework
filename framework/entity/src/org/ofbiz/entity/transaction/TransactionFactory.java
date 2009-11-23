@@ -24,6 +24,7 @@ import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
@@ -50,7 +51,7 @@ public class TransactionFactory {
                         }
                         Class<?> tfClass = null;
 
-                        if (className != null && className.length() > 0) {
+                        if (UtilValidate.isNotEmpty(className)) {
                             try {
                                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                                 tfClass = loader.loadClass(className);

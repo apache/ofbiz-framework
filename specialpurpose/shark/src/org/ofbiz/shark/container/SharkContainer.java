@@ -138,8 +138,8 @@ public class SharkContainer implements Container, Runnable
         {
             Debug.logError("OUT :Java home variable is undefined", module);
         } else
-            if (iiopHost != null && iiopHost.value != null && iiopHost.value.length() > 0) {
-                if (iiopPort != null && iiopPort.value != null && iiopPort.value.length() > 0) {
+            if (iiopHost != null && UtilValidate.isNotEmpty(iiopHost.value)) {
+                if (iiopPort != null && UtilValidate.isNotEmpty(iiopPort.value)) {
                        try {
                             p = Runtime.getRuntime().exec(java_home + "\\" + "bin\\tnameserv"
                                      + " -ORBInitialPort "
@@ -162,8 +162,8 @@ public class SharkContainer implements Container, Runnable
         Debug.logInfo("Started Shark workflow service", module);
 
         // create the CORBA server and bind to iiop
-        if (iiopHost != null && iiopHost.value != null && iiopHost.value.length() > 0) {
-            if (iiopPort != null && iiopPort.value != null && iiopPort.value.length() > 0) {
+        if (iiopHost != null && UtilValidate.isNotEmpty(iiopHost.value)) {
+            if (iiopPort != null && UtilValidate.isNotEmpty(iiopPort.value)) {
                 try {
                     corbaServer = new SharkCORBAServer(engineName.value, iiopHost.value, iiopPort.value, shark);
                     orbThread = new Thread(this);

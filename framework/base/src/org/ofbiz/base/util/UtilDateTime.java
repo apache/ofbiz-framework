@@ -1055,7 +1055,7 @@ public class UtilDateTime {
                     availableTimeZoneList = new LinkedList<TimeZone>();
                     List<String> idList = null;
                     String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
-                    if (tzString != null && tzString.length() > 0) {
+                    if (UtilValidate.isNotEmpty(tzString)) {
                         idList = StringUtil.split(tzString, ",");
                     } else {
                         idList = Arrays.asList(TimeZone.getAvailableIDs());

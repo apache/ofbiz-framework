@@ -29,6 +29,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -262,7 +263,7 @@ public class OFBizSecurity implements Security {
 
             // if we pass all tests
             //Debug.logInfo("Found (" + (roleTest == null ? 0 : roleTest.size()) + ") matches :: " + roleTest, module);
-            if (roleTest != null && roleTest.size() > 0) return true;
+            if (UtilValidate.isNotEmpty(roleTest)) return true;
         }
 
         return false;

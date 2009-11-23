@@ -89,7 +89,7 @@ public class JasperReportsXmlViewHandler extends AbstractViewHandler {
             PipedOutputStream fillToPrintOutputStream = new PipedOutputStream();
             PipedInputStream fillToPrintInputStream = new PipedInputStream(fillToPrintOutputStream);
 
-            if (datasourceName != null && datasourceName.length() > 0) {
+            if (UtilValidate.isNotEmpty(datasourceName)) {
                 JasperFillManager.fillReportToStream(report, fillToPrintOutputStream, parameters, ConnectionFactory.getConnection(datasourceName));
             } else {
                 JasperFillManager.fillReportToStream(report, fillToPrintOutputStream, parameters, new JREmptyDataSource());

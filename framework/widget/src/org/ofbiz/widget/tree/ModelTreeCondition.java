@@ -35,6 +35,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -217,7 +218,7 @@ public class ModelTreeCondition {
 
                 Authorization authz = (Authorization) context.get("authorization");
                 Security security = (Security) context.get("security");
-                if (action != null && action.length() > 0) {
+                if (UtilValidate.isNotEmpty(action)) {
                     //Debug.logWarning("Deprecated method hasEntityPermission() was called; the action field should no longer be used", module);
                     // run hasEntityPermission
                     if (security.hasEntityPermission(permission, action, userLogin)) {

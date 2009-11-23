@@ -197,7 +197,7 @@ public class CheckOutHelper {
         // interal code
         this.cart.setInternalCode(internalCode);
 
-        if (shipBeforeDate != null && shipBeforeDate.length() > 0) {
+        if (UtilValidate.isNotEmpty(shipBeforeDate)) {
             if (UtilValidate.isDate(shipBeforeDate)) {
                 cart.setShipBeforeDate(UtilDateTime.toTimestamp(shipBeforeDate));
             } else {
@@ -206,7 +206,7 @@ public class CheckOutHelper {
             }
         }
 
-        if (shipAfterDate != null && shipAfterDate.length() > 0) {
+        if (UtilValidate.isNotEmpty(shipAfterDate)) {
             if (UtilValidate.isDate(shipAfterDate)) {
                 cart.setShipAfterDate(UtilDateTime.toTimestamp(shipAfterDate));
             } else {
@@ -495,7 +495,7 @@ public class CheckOutHelper {
                     gcFieldsOkay = false;
                 }
             }
-            if (gcAmt != null && gcAmt.length() > 0) {
+            if (UtilValidate.isNotEmpty(gcAmt)) {
                 try {
                     gcAmount = new BigDecimal(gcAmt);
                 } catch (NumberFormatException e) {
@@ -603,7 +603,7 @@ public class CheckOutHelper {
         try {
             storeResult = dispatcher.runSync("storeOrder", context);
             orderId = (String) storeResult.get("orderId");
-            if (orderId != null && orderId.length() > 0) {
+            if (UtilValidate.isNotEmpty(orderId)) {
                 this.cart.setOrderId(orderId);
                 if (this.cart.getFirstAttemptOrderId() == null) {
                     this.cart.setFirstAttemptOrderId(orderId);
@@ -1519,12 +1519,12 @@ public class CheckOutHelper {
         BigDecimal selectedPaymentTotal = cart.getPaymentTotal();
 
         BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
-        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
+        if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
             Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, module);
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.payment_not_cover_this_order", (cart != null ? cart.getLocale() : Locale.getDefault()));
             return ServiceUtil.returnError(errMsg);
         }
-        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount.compareTo(selectedPaymentTotal) < 0) {
+        if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) < 0) {
             BigDecimal changeAmount = selectedPaymentTotal.subtract(requiredAmount);
             if (!paymentTypes.contains("CASH")) {
                 Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);

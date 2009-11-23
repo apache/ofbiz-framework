@@ -2682,7 +2682,7 @@ public class ModelForm extends ModelWidget {
             String positionStr = element.getAttribute("default-position");
             int position = 1;
             try {
-                if (positionStr != null && positionStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(positionStr)) {
                     position = Integer.valueOf(positionStr);
                 }
             } catch (Exception e) {
@@ -2706,7 +2706,7 @@ public class ModelForm extends ModelWidget {
             String positionStr = element.getAttribute("default-position");
             int position = 1;
             try {
-                if (positionStr != null && positionStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(positionStr)) {
                     position = Integer.valueOf(positionStr);
                 }
             } catch (Exception e) {

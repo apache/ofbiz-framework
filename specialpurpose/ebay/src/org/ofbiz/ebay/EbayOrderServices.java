@@ -431,7 +431,7 @@ public class EbayOrderServices {
             
             if (ack != null && "Success".equals(ack)) {
                 List<? extends Element> orderArrays = UtilXml.childElementList(elemResponse, "OrderArray");
-                if (orderArrays != null && orderArrays.size() > 0) {
+                if (UtilValidate.isNotEmpty(orderArrays)) {
                     totalOrders = orderArrays.size();
                 }
                 if (totalOrders > 0) {
@@ -680,7 +680,7 @@ public class EbayOrderServices {
                                     getSellerTransactionsContainingOrderList.add(orderId);
                                 }
                             }                            
-                            if (containingOrders != null && containingOrders.size() > 0) {
+                            if (UtilValidate.isNotEmpty(containingOrders)) {
                                 continue;
                             }
                             
@@ -1109,7 +1109,7 @@ public class EbayOrderServices {
                     List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shippingAddressCtx.get("shippingAddressStreet1").toString(), 
                             (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), shippingAddressCtx.get("city").toString(), shippingAddressCtx.get("stateProvinceGeoId").toString(), 
                             shippingAddressCtx.get("shippingAddressPostalCode").toString(), null, shippingAddressCtx.get("countryGeoId").toString(), firstName, null, lastName);
-                    if (shipInfo != null && shipInfo.size() > 0) {
+                    if (UtilValidate.isNotEmpty(shipInfo)) {
                         GenericValue first = EntityUtil.getFirst(shipInfo);
                         partyId = first.getString("partyId");
                         Debug.logInfo("Existing shipping address found for : (party: " + partyId + ")", module);
@@ -1223,7 +1223,7 @@ public class EbayOrderServices {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
         GenericValue orderHeader = null;
         List<GenericValue> orderHeaderList = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
-        if (orderHeaderList != null && orderHeaderList.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderHeaderList)) {
             orderHeader = EntityUtil.getFirst(orderHeaderList);
         }
         return orderHeader;

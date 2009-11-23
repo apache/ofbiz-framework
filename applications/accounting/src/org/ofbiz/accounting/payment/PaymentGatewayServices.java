@@ -3159,7 +3159,7 @@ public class PaymentGatewayServices {
         }
         Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);
 
-        if (amount != null && amount.length() > 0) {
+        if (UtilValidate.isNotEmpty(amount)) {
             BigDecimal authAmount = new BigDecimal(amount);
             if (authAmount.compareTo(BigDecimal.ZERO) > 0) {
                 Map<String, Object> ccAuthContext = FastMap.newInstance();

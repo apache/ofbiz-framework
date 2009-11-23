@@ -137,9 +137,9 @@ public class WorldPayEvents {
         // string of customer's name
         String name = "";
         if (contactAddress != null) {
-            if (contactAddress.get("attnName") != null && contactAddress.getString("attnName").length() > 0)
+            if (UtilValidate.isNotEmpty(contactAddress.getString("attnName")))
                 name = contactAddress.getString("attnName");
-            else if (contactAddress.get("toName") != null && contactAddress.getString("toName").length() > 0)
+            else if (UtilValidate.isNotEmpty(contactAddress.getString("toName")))
                 name = contactAddress.getString("toName");
         }
         // build an address string
@@ -191,9 +191,9 @@ public class WorldPayEvents {
                 GenericValue contactMechShip = EntityUtil.getFirst(shippingAddresses);
                 contactAddressShip = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechShip.getString("contactMechId")), false);
                 if (UtilValidate.isNotEmpty(contactAddressShip)) {
-                    if (contactAddressShip.get("attnName") != null && contactAddressShip.getString("attnName").length() > 0) {
+                    if (UtilValidate.isNotEmpty(contactAddressShip.getString("attnName"))) {
                         shipName = contactAddressShip.getString("attnName");
-                    } else if (contactAddressShip.get("toName") != null && contactAddressShip.getString("toName").length() > 0) {
+                    } else if (UtilValidate.isNotEmpty(contactAddressShip.getString("toName"))) {
                         shipName = contactAddressShip.getString("toName");
                     }
                     if (contactAddressShip.get("address1") != null) {

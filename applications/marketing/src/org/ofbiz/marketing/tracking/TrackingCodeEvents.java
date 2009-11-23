@@ -246,7 +246,7 @@ public class TrackingCodeEvents {
         // if site id exist in cookies then it is not required to create it, if exist with different site then create it
         int siteIdCookieAge = (60 * 60 * 24 * 365); // should this be configurable?
         String siteId = request.getParameter("siteId");
-        if (siteId != null && siteId.length() > 0) {
+        if (UtilValidate.isNotEmpty(siteId)) {
             String visitorSiteIdCookieName = "Ofbiz.TKCD.SiteId";
             String visitorSiteId = null;
             // first try to get the current ID from the visitor cookie
@@ -285,7 +285,7 @@ public class TrackingCodeEvents {
         if (overrideCss != null)
             session.setAttribute("overrideCss", overrideCss);
         String prodCatalogId = trackingCode.getString("prodCatalogId");
-        if (prodCatalogId != null && prodCatalogId.length() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogId)) {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
             CategoryWorker.setTrail(request, FastList.<String>newInstance());
         }

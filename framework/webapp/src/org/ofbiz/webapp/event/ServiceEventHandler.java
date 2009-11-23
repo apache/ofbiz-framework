@@ -242,11 +242,11 @@ public class ServiceEventHandler implements EventHandler {
             if ("timeZone".equals(name)) continue;
 
             Object value = null;
-            if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
+            if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
                 Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
                 value = paramMap;
                 if (Debug.verboseOn()) Debug.log("Set [" + modelParam.name + "]: " + paramMap, module);
-            } else if (modelParam.stringListSuffix != null && modelParam.stringListSuffix.length() > 0) {
+            } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
                 List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
                 value = paramList;
             } else {

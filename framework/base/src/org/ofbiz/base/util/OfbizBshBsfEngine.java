@@ -174,7 +174,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
 
             Interpreter.ParsedScript script = null;
 
-            if (source != null && source.length() > 0) {
+            if (UtilValidate.isNotEmpty(source)) {
                 script = parsedScripts.get(source);
                 if (script == null) {
                     synchronized (OfbizBshBsfEngine.class) {

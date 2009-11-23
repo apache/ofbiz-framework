@@ -328,7 +328,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     /** The table-name of the Entity including a Schema name if specified in the datasource config */
     public String getTableName(DatasourceInfo datasourceInfo) {
-        if (datasourceInfo != null && datasourceInfo.schemaName != null && datasourceInfo.schemaName.length() > 0) {
+        if (UtilValidate.isNotEmpty(datasourceInfo.schemaName)) {
             return datasourceInfo.schemaName + "." + this.tableName;
         } else {
             return this.tableName;

@@ -152,7 +152,7 @@ public class DataServices {
         Delegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
             String textData = (String) context.get("textData");
-            if (textData != null && textData.length() > 0) {
+            if (UtilValidate.isNotEmpty(textData)) {
                 GenericValue electronicText = delegator.makeValue("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId, "textData", textData));
                 try {
                     electronicText.create();

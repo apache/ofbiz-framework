@@ -23,6 +23,7 @@ import java.net.URL;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
@@ -136,7 +137,7 @@ public abstract class ResourceLoader {
         try {
             Class<?> lClass = null;
 
-            if (className != null && className.length() > 0) {
+            if (UtilValidate.isNotEmpty(className)) {
                 try {
                     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                     lClass = classLoader.loadClass(className);
@@ -179,7 +180,7 @@ public abstract class ResourceLoader {
     public String fullLocation(String location) {
         StringBuilder buf = new StringBuilder();
 
-        if (envName != null && envName.length() > 0) {
+        if (UtilValidate.isNotEmpty(envName)) {
             String propValue = System.getProperty(envName);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + envName + " is not set, cannot load resource.";
@@ -188,7 +189,7 @@ public abstract class ResourceLoader {
             }
             buf.append(propValue);
         }
-        if (prefix != null && prefix.length() > 0) {
+        if (UtilValidate.isNotEmpty(prefix)) {
             buf.append(prefix);
         }
         buf.append(location);

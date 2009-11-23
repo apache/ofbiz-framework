@@ -126,7 +126,7 @@ public class WebToolsServices {
         // #############################
         // The filename to parse is prepared
         // #############################
-        if (filename != null && filename.length() > 0) {
+        if (UtilValidate.isNotEmpty(filename)) {
             try {
                 url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
                 InputStream is = url.openStream();
@@ -143,7 +143,7 @@ public class WebToolsServices {
         // #############################
         // The text to parse is prepared
         // #############################
-        if (fulltext != null && fulltext.length() > 0) {
+        if (UtilValidate.isNotEmpty(fulltext)) {
             StringReader sr = new StringReader(fulltext);
             ins = new InputSource(sr);
         }
@@ -243,7 +243,7 @@ public class WebToolsServices {
             filePause = Long.valueOf(0);
         }
 
-        if (path != null && path.length() > 0) {
+        if (UtilValidate.isNotEmpty(path)) {
             long pauseLong = filePause != null ? filePause.longValue() : 0;
             File baseDir = new File(path);
 
@@ -481,7 +481,7 @@ public class WebToolsServices {
 
         List<String> results = FastList.newInstance();
 
-        if (outpath != null && outpath.length() > 0) {
+        if (UtilValidate.isNotEmpty(outpath)) {
             File outdir = new File(outpath);
             if (!outdir.exists()) {
                 outdir.mkdir();

@@ -865,27 +865,27 @@ public class UtilXml {
     }
 
     public static String checkEmpty(String string) {
-        if (string != null && string.length() > 0)
+        if (UtilValidate.isNotEmpty(string))
             return string;
         else
             return "";
     }
 
     public static String checkEmpty(String string1, String string2) {
-        if (string1 != null && string1.length() > 0)
+        if (UtilValidate.isNotEmpty(string1))
             return string1;
-        else if (string2 != null && string2.length() > 0)
+        else if (UtilValidate.isNotEmpty(string2))
             return string2;
         else
             return "";
     }
 
     public static String checkEmpty(String string1, String string2, String string3) {
-        if (string1 != null && string1.length() > 0)
+        if (UtilValidate.isNotEmpty(string1))
             return string1;
-        else if (string2 != null && string2.length() > 0)
+        else if (UtilValidate.isNotEmpty(string2))
             return string2;
-        else if (string3 != null && string3.length() > 0)
+        else if (UtilValidate.isNotEmpty(string3))
             return string3;
         else
             return "";

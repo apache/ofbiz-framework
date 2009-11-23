@@ -237,7 +237,7 @@ public class GoogleCheckoutHelper {
 
         // check and make sure this order doesn't already exist
         List<GenericValue> existingOrder = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
-        if (existingOrder != null && existingOrder.size() > 0) {
+        if (UtilValidate.isNotEmpty(existingOrder)) {
             //throw new GeneralException("Google order #" + externalId + " already exists.");
             Debug.logWarning("Google order #" + externalId + " already exists.", module);
             return;
@@ -439,7 +439,7 @@ public class GoogleCheckoutHelper {
                 shipAddr.getPostalCode(), null, getCountryGeoId(shipAddr.getCountryCode()), shipAddr.getStructuredName().getFirstName(), 
                 null, shipAddr.getStructuredName().getLastName());
         
-        if (shipInfo != null && shipInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(shipInfo)) {
             GenericValue first = EntityUtil.getFirst(shipInfo);
             shipCmId = first.getString("contactMechId");
             partyId = first.getString("partyId");
@@ -452,7 +452,7 @@ public class GoogleCheckoutHelper {
                 billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
                 null, billAddr.getStructuredName().getLastName());
         
-        if (billInfo != null && billInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(billInfo)) {
             GenericValue first = EntityUtil.getFirst(billInfo);
             billCmId = first.getString("contactMechId");
             if (partyId == null) {
@@ -486,7 +486,7 @@ public class GoogleCheckoutHelper {
                     billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(), 
                     null, billAddr.getStructuredName().getLastName());
             
-            if (billInfo != null && billInfo.size() > 0) {
+            if (UtilValidate.isNotEmpty(billInfo)) {
                 GenericValue first = EntityUtil.getFirst(billInfo);
                 billCmId = first.getString("contactMechId");
            } else {
@@ -611,7 +611,7 @@ public class GoogleCheckoutHelper {
             throw e;
         }
 
-        if (cmLookup != null && cmLookup.size() > 0) {
+        if (UtilValidate.isNotEmpty(cmLookup)) {
             GenericValue v = EntityUtil.getFirst(cmLookup);
             if (v != null) {
                 cmId = v.getString("contactMechId");
@@ -661,7 +661,7 @@ public class GoogleCheckoutHelper {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        if (geos != null && geos.size() > 0) {
+        if (UtilValidate.isNotEmpty(geos)) {
             return EntityUtil.getFirst(geos).getString("geoId");
         } else {
             return "_NA_";

@@ -101,7 +101,7 @@ public class EntityCount extends MethodOperation {
             String entityName = this.entityNameExdr.expandString(context);
             String delegatorName = this.delegatorNameExdr.expandString(context);
 
-            if (delegatorName != null && delegatorName.length() > 0) {
+            if (UtilValidate.isNotEmpty(delegatorName)) {
                 delegator = DelegatorFactory.getDelegator(delegatorName);
             }
 

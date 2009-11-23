@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 
@@ -54,7 +55,7 @@ public class GenericHelperFactory {
                         String helperClassName = datasourceInfo.helperClass;
                         Class<?> helperClass = null;
 
-                        if (helperClassName != null && helperClassName.length() > 0) {
+                        if (UtilValidate.isNotEmpty(helperClassName)) {
                             try {
                                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                                 helperClass = loader.loadClass(helperClassName);

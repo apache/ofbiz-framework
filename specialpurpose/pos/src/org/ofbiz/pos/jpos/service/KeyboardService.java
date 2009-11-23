@@ -220,7 +220,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
 
             // set the key modifiers
             String[] modifiers = null;
-            if (keyMod != null && keyMod.length() > 0) {
+            if (UtilValidate.isNotEmpty(keyMod)) {
                 if (keyMod.indexOf("+") != -1) {
                     modifiers = keyMod.split("\\+");
                 } else {

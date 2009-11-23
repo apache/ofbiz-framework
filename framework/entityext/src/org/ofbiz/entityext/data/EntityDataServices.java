@@ -281,7 +281,7 @@ public class EntityDataServices {
             }
 
             // check for null values
-            if (value != null && value.length() > 0) {
+            if (UtilValidate.isNotEmpty(value)) {
                 char first = value.charAt(0);
                 if (first == 0x00) {
                     value = null;

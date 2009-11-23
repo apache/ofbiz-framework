@@ -183,7 +183,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (contactMechId != null && contactMechId.length() > 0 && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
             // set the contactMechId on the credit card
             newCc.set("contactMechId", context.get("contactMechId"));
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
@@ -334,7 +334,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (contactMechId != null && contactMechId.length() > 0 && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
             // set the contactMechId on the credit card
             newCc.set("contactMechId", contactMechId);
         }
@@ -347,7 +347,7 @@ public class PaymentMethodServices {
             isModified = true;
         }
 
-        if (contactMechId != null && contactMechId.length() > 0 && !contactMechId.equals("_NEW_")) {
+        if (UtilValidate.isNotEmpty(contactMechId) && !contactMechId.equals("_NEW_")) {
 
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
@@ -671,7 +671,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (contactMechId != null && contactMechId.length() > 0) {
+        if (UtilValidate.isNotEmpty(contactMechId)) {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
@@ -787,7 +787,7 @@ public class PaymentMethodServices {
         GenericValue newPartyContactMechPurpose = null;
         String contactMechId = (String) context.get("contactMechId");
 
-        if (contactMechId != null && contactMechId.length() > 0) {
+        if (UtilValidate.isNotEmpty(contactMechId)) {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 

@@ -72,7 +72,7 @@ public class TyrexConnectionFactory {
 
                 String transIso = inlineJdbcElement.getAttribute("isolation-level");
 
-                if (transIso != null && transIso.length() > 0)
+                if (UtilValidate.isNotEmpty(transIso))
                     ds.setIsolationLevel(transIso);
 
                 ds.setLogWriter(Debug.getPrintWriter());

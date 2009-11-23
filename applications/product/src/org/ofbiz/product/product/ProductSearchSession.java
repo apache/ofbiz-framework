@@ -630,7 +630,7 @@ public class ProductSearchSession {
         for (String parameterName: parameters.keySet()) {
             if (parameterName.startsWith("SEARCH_FEAT") && !parameterName.startsWith("SEARCH_FEAT_EXC")) {
                 String productFeatureId = (String) parameters.get(parameterName);
-                if (productFeatureId != null && productFeatureId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureId)) {
                     String paramNameExt = parameterName.substring("SEARCH_FEAT".length());
                     String searchCategoryExc = (String) parameters.get("SEARCH_FEAT_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
@@ -642,7 +642,7 @@ public class ProductSearchSession {
             // a shorter feature variation
             if (parameterName.startsWith("S_PFI")) {
                 String productFeatureId = (String) parameters.get(parameterName);
-                if (productFeatureId != null && productFeatureId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureId)) {
                     String paramNameExt = parameterName.substring("S_PFI".length());
                     String searchCategoryExc = (String) parameters.get("S_PFX" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
@@ -655,7 +655,7 @@ public class ProductSearchSession {
             //if product features category were selected add a constraint for each
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT") && !parameterName.startsWith("SEARCH_PROD_FEAT_CAT_EXC")) {
                 String productFeatureCategoryId = (String) parameters.get(parameterName);
-                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureCategoryId)) {
                     String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_CAT".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("SEARCH_PROD_FEAT_CAT_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureCategoryExc));
@@ -666,7 +666,7 @@ public class ProductSearchSession {
             // a shorter variation for feature category
             if (parameterName.startsWith("S_FCI")) {
                 String productFeatureCategoryId = (String) parameters.get(parameterName);
-                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureCategoryId)) {
                     String paramNameExt = parameterName.substring("S_FCI".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("S_FCX" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureCategoryExc));
@@ -678,7 +678,7 @@ public class ProductSearchSession {
             //if product features group were selected add a constraint for each
             if (parameterName.startsWith("SEARCH_PROD_FEAT_GRP") && !parameterName.startsWith("SEARCH_PROD_FEAT_GRP_EXC")) {
                 String productFeatureGroupId = (String) parameters.get(parameterName);
-                if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureGroupId)) {
                     String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_GRP".length());
                     String searchProdFeatureGroupExc = (String) parameters.get("SEARCH_PROD_FEAT_GRP_EXC" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureGroupExc));
@@ -689,7 +689,7 @@ public class ProductSearchSession {
             // a shorter variation for feature group
             if (parameterName.startsWith("S_FGI")) {
                 String productFeatureGroupId = (String) parameters.get(parameterName);
-                if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureGroupId)) {
                     String paramNameExt = parameterName.substring("S_FGI".length());
                     String searchProdFeatureGroupExc = (String) parameters.get("S_FGX" + paramNameExt);
                     Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureGroupExc));

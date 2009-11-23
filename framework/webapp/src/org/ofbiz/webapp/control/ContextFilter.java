@@ -168,7 +168,7 @@ public class ContextFilter implements Filter {
 
         // check if we are told to redirect everthing
         String redirectAllTo = config.getInitParameter("forceRedirectAll");
-        if (redirectAllTo != null && redirectAllTo.length() > 0) {
+        if (UtilValidate.isNotEmpty(redirectAllTo)) {
             // little trick here so we don't loop on ourself
             if (httpRequest.getSession().getAttribute("_FORCE_REDIRECT_") == null) {
                 httpRequest.getSession().setAttribute("_FORCE_REDIRECT_", "true");

@@ -692,7 +692,7 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        if (workEfforts != null && workEfforts.size() > 0) {
+        if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
             Set validWorkEfforts = FastSet.newInstance();
             for (GenericValue workEffort : workEfforts) {
