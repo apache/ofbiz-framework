@@ -4824,18 +4824,19 @@
         <value xml:lang="th">คำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求</value>
     </property>
-    <property key="PartyCustomerTemporaryPassword">
-        <value xml:lang="de">Der Kunde wird ein provisorischen Passwort per E-Mail erhalten.</value>
-        <value xml:lang="en">Customer will receive a temporary password by email.</value>
-        <value xml:lang="fr">Le client recevra un mot de passe provisoire par courriel.</value>
-        <value xml:lang="hi_IN">ग्राहक को ईमेल द्वारा एक अस्थायी पासवर्ड प्राप्त होगा|</value>
-        <value xml:lang="it">Il cliente riceverà una password temporanea per email.</value>
-        <value xml:lang="nl">Klant wil een tijdelijk wachtwoord per e-mail ontvangen.</value>
-        <value xml:lang="pt_BR">Cliente receberá uma senha provisória por e-mail</value>
-        <value xml:lang="ro">Clientul va primi o password provizorie pentru  email.</value>
-        <value xml:lang="ru">Клиент получит временный пароль по эл.почте.</value>
-        <value xml:lang="th">ลูกค้าจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์</value>
-        <value xml:lang="zh">客户将通过电子邮件收到一个临时密码。</value>
+    <property key="PartyTemporaryPassword">
+        <value xml:lang="de">Die Person wird ein provisorischen Passwort per E-Mail erhalten.</value>
+        <value xml:lang="en">The person will receive a temporary password by email.</value>
+        <value xml:lang="es">La persona recibirá una contraseña temporal por el email.</value>        
+        <value xml:lang="fr">La personne recevra un mot de passe provisoire par courriel.</value>
+        <value xml:lang="hi_IN">स्व को ईमेल द्वारा एक अस्थायी पासवर्ड प्राप्त होगा|</value> <!-- was ग्राहक को ईमेल द्वारा एक अस्थायी पासवर्ड प्राप्त होगा| -->
+        <value xml:lang="it">La persona riceverà una password temporanea per email.</value>
+        <value xml:lang="nl">De persoon wil een tijdelijk wachtwoord per e-mail ontvangen.</value>
+        <value xml:lang="pt_BR">A pessoa receberá uma senha provisória por e-mail</value>
+        <value xml:lang="ro">Persoană va primi o password provizorie pentru  email.</value>
+        <value xml:lang="ru">Персона получит временный пароль по эл.почте.</value><!-- was Клиент получит временный пароль по эл.почте. -->        
+        <value xml:lang="th">ผู้มาเยี่ยมจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์</value><!-- was ลูกค้าจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์ -->        
+        <value xml:lang="zh">人将由电子邮件接受一个临时密码。</value><!-- was 客户将通过电子邮件收到一个临时密码。 -->
     </property>
     <property key="PartyCybersourceAvsOver">
         <value xml:lang="de">Cybersource AVS übersteuern</value>

@@ -74,7 +74,7 @@
         <field use-when="displayPassword!=null" name="USERNAME" title="${uiLabelMap.CommonUsername}"><text size="30" maxlength="250"/></field>
         <field use-when="displayPassword!=null" name="PASSWORD" title="${uiLabelMap.CommonPassword}"><password size="15" maxlength="250"/></field>
         <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}"><password size="15" maxlength="250"/></field>
-        <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyCustomerTemporaryPassword}"><text size="30" maxlength="250"/></field>
+        <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyTemporaryPassword}"><text size="30" maxlength="250"/></field>
         <field name="USER_ADDRESS_ALLOW_SOL"><hidden value="Y"/></field>
         <field name="USER_HOME_ALLOW_SOL"><hidden value="Y"/></field>
         <field name="USER_WORK_ALLOW_SOL"><hidden value="Y"/></field>
