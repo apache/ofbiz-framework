@@ -238,4 +238,10 @@ under the License.
     <OrderItemBilling orderId="Demo1002" orderItemSeqId="00001" invoiceId="8009" invoiceItemSeqId="00001" itemIssuanceId="9001" quantity="2.000000" amount="59.99"/>
     <OrderItemBilling orderId="Demo1002" orderItemSeqId="00004" invoiceId="8009" invoiceItemSeqId="00005" itemIssuanceId="9002" quantity="1.000000" amount="59.99"/>
 
+    <Invoice invoiceId="8010" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_APPROVED" invoiceDate="2009-09-17 14:57:03.614" currencyUomId="USD"/>
+    <InvoiceItem invoiceId="8010" invoiceItemSeqId="00001" invoiceItemTypeId="INV_FPROD_ITEM" inventoryItemId="9005" productId="WG-1111" quantity="3.000000" amount="59.990" description="Micro Chrome Widget"/>
+    <AcctgTrans acctgTransId="9007" acctgTransTypeId="SALES_INVOICE" transactionDate="2009-09-17 14:57:06.129" isPosted="Y" postedDate="2009-09-17 14:57:06.587" glFiscalTypeId="ACTUAL" invoiceId="8010"/>
+    <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" productId="WG-1111" glAccountId="400000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
+    <AcctgTransEntry acctgTransId="9007" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000" organizationPartyId="Company" amount="179.97" currencyUomId="USD" origAmount="179.97" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
+
 </entity-engine-xml>
