@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javolution.util.FastList;
@@ -53,7 +52,7 @@ public class UtilCache<K, V> implements Serializable {
     public static final String module = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
-    private static final Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
+    private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<String, UtilCache<?, ?>>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
     private final static ConcurrentHashMap<String, Integer> defaultIndices = new ConcurrentHashMap<String, Integer>();
@@ -640,17 +639,14 @@ public class UtilCache<K, V> implements Serializable {
 
     @SuppressWarnings("unchecked")
     public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
-        UtilCache<K, V> cache;
         String cacheName = name + getNextDefaultIndex(name);
-
-        synchronized (utilCacheTable) {
-            cache = (UtilCache<K, V>) utilCacheTable.get(cacheName);
-            if (cache == null) {
-                cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
-                utilCacheTable.put(cacheName, cache);
-            }
+        UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
+        UtilCache<K, V> oldCache = (UtilCache<K, V>) utilCacheTable.putIfAbsent(cacheName, newCache);
+        if (oldCache == null) {
+            return newCache;
+        } else {
+            return oldCache;
         }
-        return cache;
     }
 
     public static <K, V> UtilCache<K, V> createUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
@@ -694,9 +690,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     private static <K, V> UtilCache<K, V> storeCache(UtilCache<K, V> cache) {
-        synchronized (utilCacheTable) {
-            utilCacheTable.put(cache.getName(), cache);
-        }
+        utilCacheTable.put(cache.getName(), cache);
         return cache;
     }
 
