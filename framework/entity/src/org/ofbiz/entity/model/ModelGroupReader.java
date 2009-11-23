@@ -34,6 +34,7 @@ import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
@@ -204,7 +205,7 @@ public class ModelGroupReader implements Serializable {
         Set<String> enames = FastSet.newInstance();
 
         if (groupName == null || groupName.length() <= 0) return enames;
-        if (gc == null || gc.size() == 0) return enames;
+        if (UtilValidate.isEmpty(gc)) return enames;
         for (Map.Entry<String, String> entry: gc.entrySet()) {
             if (groupName.equals(entry.getValue())) enames.add(entry.getKey());
         }

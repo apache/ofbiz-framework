@@ -438,7 +438,7 @@ public class ProductSearchSession {
         String visitId = VisitHandler.getVisitId(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         List<ProductSearchConstraint> productSearchConstraintList = productSearchOptions.getConstraintList();
-        if (productSearchConstraintList == null || productSearchConstraintList.size() == 0) {
+        if (UtilValidate.isEmpty(productSearchConstraintList)) {
             // no constraints, don't do a search...
             return new ArrayList<String>();
         }
@@ -474,7 +474,7 @@ public class ProductSearchSession {
 
     public static void searchAddFeatureIdConstraints(Collection<String> featureIds, Boolean exclude, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (featureIds == null || featureIds.size() == 0) {
+        if (UtilValidate.isEmpty(featureIds)) {
             return;
         }
         for (String productFeatureId: featureIds) {

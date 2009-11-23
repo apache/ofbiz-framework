@@ -86,7 +86,7 @@ public class GeoWorker {
     }
 
     public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, Delegator delegator) throws GenericEntityException {
-        if (geoIdSet == null || geoIdSet.size() == 0) {
+        if (UtilValidate.isEmpty(geoIdSet)) {
             return geoIdSet;
         }
         Set<String> geoIdSetTemp = FastSet.newInstance();

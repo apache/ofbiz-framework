@@ -244,7 +244,7 @@ public class EntityUtil {
         if (values == null) return null;
 
         List<T> result = null;
-        if (fields == null || fields.size() == 0) {
+        if (UtilValidate.isEmpty(fields)) {
             result = FastList.newInstance();
             result.addAll(values);
         } else {
@@ -267,7 +267,7 @@ public class EntityUtil {
      */
     public static <T extends GenericEntity> List<T> filterByAnd(List<T> values, List<? extends EntityCondition> exprs) {
         if (values == null) return null;
-        if (exprs == null || exprs.size() == 0) {
+        if (UtilValidate.isEmpty(exprs)) {
             // no constraints... oh well
             return values;
         }
@@ -296,7 +296,7 @@ public class EntityUtil {
      */
     public static <T extends GenericEntity> List<T> filterByOr(List<T> values, List<? extends EntityCondition> exprs) {
         if (values == null) return null;
-        if (exprs == null || exprs.size() == 0) {
+        if (UtilValidate.isEmpty(exprs)) {
             return values;
         }
 
@@ -326,7 +326,7 @@ public class EntityUtil {
     public static <T extends GenericEntity> List<T> orderBy(Collection<T> values, List<String> orderBy) {
         if (values == null) return null;
         if (values.size() == 0) return FastList.newInstance();
-        if (orderBy == null || orderBy.size() == 0) {
+        if (UtilValidate.isEmpty(orderBy)) {
             List<T> newList = FastList.newInstance();
             newList.addAll(values);
             return newList;

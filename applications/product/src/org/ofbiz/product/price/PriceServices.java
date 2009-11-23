@@ -1355,7 +1355,7 @@ public class PriceServices {
                         "productPricePurposeId", "PURCHASE"), UtilMisc.toList("-fromDate"));
 
                 // if no prices are found; find the prices of the parent product
-                if (prices == null || prices.size() == 0) {
+                if (UtilValidate.isEmpty(prices)) {
                     GenericValue parentProduct = ProductWorker.getParentProduct(productId, delegator);
                     if (parentProduct != null) {
                         String parentProductId = parentProduct.getString("productId");
@@ -1373,10 +1373,10 @@ public class PriceServices {
 
             // first check for the AVERAGE_COST price type
             List<GenericValue> pricesToUse = EntityUtil.filterByAnd(prices, UtilMisc.toMap("productPriceTypeId", "AVERAGE_COST"));
-            if (pricesToUse == null || pricesToUse.size() == 0) {
+            if (UtilValidate.isEmpty(pricesToUse)) {
                 // next go with default price
                 pricesToUse = EntityUtil.filterByAnd(prices, UtilMisc.toMap("productPriceTypeId", "DEFAULT_PRICE"));
-                if (pricesToUse == null || pricesToUse.size() == 0) {
+                if (UtilValidate.isEmpty(pricesToUse)) {
                     // finally use list price
                     pricesToUse = EntityUtil.filterByAnd(prices, UtilMisc.toMap("productPriceTypeId", "LIST_PRICE"));
                 }

@@ -620,7 +620,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
 
-            if (packages == null || packages.size() == 0) {
+            if (UtilValidate.isEmpty(packages)) {
                 return ServiceUtil.returnError("No packages are available for shipping!");
             }
 

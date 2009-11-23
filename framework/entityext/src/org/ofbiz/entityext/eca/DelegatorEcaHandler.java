@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
@@ -65,7 +67,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     public void evalRules(String currentOperation, Map<String, List<EntityEcaRule>> eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException {
         // if the eventMap is passed we save a HashMap lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = this.getEntityEventMap(value.getEntityName());
-        if (eventMap == null || eventMap.size() == 0) {
+        if (UtilValidate.isEmpty(eventMap)) {
             //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", no eventMap for this entity", module);
             return;
         }
@@ -73,7 +75,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         List<EntityEcaRule> rules = eventMap.get(event);
         //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), module);
 
-        if (rules == null || rules.size() == 0) {
+        if (UtilValidate.isEmpty(rules)) {
             return;
         }
 

@@ -370,7 +370,7 @@ public class CmsEvents {
             hasContent=true;
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
-        if (contentAssoc == null || contentAssoc.size() == 0) {
+        if (UtilValidate.isEmpty(contentAssoc)) {
             List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
             assocs = EntityUtil.filterByDate(assocs);
             if (assocs != null) {

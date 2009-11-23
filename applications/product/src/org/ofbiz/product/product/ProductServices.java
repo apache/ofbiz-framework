@@ -197,14 +197,14 @@ public class ProductServices {
         Map<String, Object> result = FastMap.newInstance();
         List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkCollection(context.get("featureOrder")));
 
-        if (featureOrder == null || featureOrder.size() == 0) {
+        if (UtilValidate.isEmpty(featureOrder)) {
             return ServiceUtil.returnError("Empty list of features passed");
         }
 
         List<GenericValue> variants = UtilGenerics.checkList(prodFindAllVariants(dctx, context).get("assocProducts"));
         List<String> virtualVariant = FastList.newInstance();
 
-        if (variants == null || variants.size() == 0) {
+        if (UtilValidate.isEmpty(variants)) {
             return ServiceUtil.returnSuccess();
         }
         List<String> items = FastList.newInstance();
@@ -314,7 +314,7 @@ public class ProductServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (tree == null || tree.size() == 0) {
+        if (UtilValidate.isEmpty(tree)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource,"productservices.feature_grouping_came_back_empty", locale));
         } else {
@@ -818,7 +818,7 @@ public class ProductServices {
                 } else {
                     // is a GoodIdentification.idValue?
                     List<GenericValue> goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId));
-                    if (goodIdentificationList == null || goodIdentificationList.size() == 0) {
+                    if (UtilValidate.isEmpty(goodIdentificationList)) {
                         // whoops, nothing found... return error
                         return ServiceUtil.returnError("Error creating a virtual with variants: the ID [" + variantProductId + "] is not a valid Product.productId or a GoodIdentification.idValue");
                     }

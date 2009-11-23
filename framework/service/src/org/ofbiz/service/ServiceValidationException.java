@@ -107,7 +107,7 @@ public class ServiceValidationException extends GenericServiceException {
 
     @Override
     public List<String> getMessageList() {
-        if (this.messages == null || this.messages.size() == 0) {
+        if (UtilValidate.isEmpty(this.messages)) {
             return null;
         }
         return this.messages;

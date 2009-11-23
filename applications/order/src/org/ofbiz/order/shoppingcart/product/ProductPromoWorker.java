@@ -177,7 +177,7 @@ public class ProductPromoWorker {
             List productStorePromoApplsList = productStore.getRelatedCache("ProductStorePromoAppl", null, UtilMisc.toList("sequenceNum"));
             productStorePromoApplsList = EntityUtil.filterByDate(productStorePromoApplsList, nowTimestamp);
 
-            if (productStorePromoApplsList == null || productStorePromoApplsList.size() == 0) {
+            if (UtilValidate.isEmpty(productStorePromoApplsList)) {
                 if (Debug.verboseOn()) Debug.logVerbose("Not doing promotions, none applied to store with ID " + productStoreId, module);
             }
 
@@ -231,7 +231,7 @@ public class ProductPromoWorker {
             List agreementPromoApplsList = agreementItem.getRelatedCache("AgreementPromoAppl", null, UtilMisc.toList("sequenceNum"));
             agreementPromoApplsList = EntityUtil.filterByDate(agreementPromoApplsList, nowTimestamp);
 
-            if (agreementPromoApplsList == null || agreementPromoApplsList.size() == 0) {
+            if (UtilValidate.isEmpty(agreementPromoApplsList)) {
                 if (Debug.verboseOn()) Debug.logVerbose("Not doing promotions, none applied to agreement with ID " + agreementId, module);
             }
 

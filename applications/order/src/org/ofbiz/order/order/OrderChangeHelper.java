@@ -269,7 +269,7 @@ public class OrderChangeHelper {
                 GenericValue opp = (GenericValue) oppi.next();
                 if ("PAYMENT_RECEIVED".equals(opp.getString("statusId"))) {
                     List payments = orh.getOrderPayments(opp);
-                    if (payments == null || payments.size() == 0) {
+                    if (UtilValidate.isEmpty(payments)) {
                         // only do this one time; if we have payment already for this pref ignore.
                         Map results = dispatcher.runSync("createPaymentFromPreference",
                                 UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"),

@@ -410,7 +410,7 @@ public class OrderReturnServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnItemInformation", locale));
             }
-            if (returnedItems == null || returnedItems.size() == 0) {
+            if (UtilValidate.isEmpty(returnedItems)) {
                 returnableQuantity = orderQty;
             } else {
                 BigDecimal returnedQty = BigDecimal.ZERO;

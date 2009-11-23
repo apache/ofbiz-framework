@@ -188,7 +188,7 @@ public class UpsServices {
             }
 
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
@@ -806,7 +806,7 @@ public class UpsServices {
             }
 
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
@@ -1400,7 +1400,7 @@ public class UpsServices {
             }
 
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
@@ -1824,7 +1824,7 @@ public class UpsServices {
             List<? extends Element> rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
             Map<String, BigDecimal> rateMap = FastMap.newInstance();
             BigDecimal firstRate = null;
-            if (rates == null || rates.size() == 0) {
+            if (UtilValidate.isEmpty(rates)) {
                 return ServiceUtil.returnError("No rates available at this time");
             } else {
                 for (Element element: rates) {
@@ -2434,7 +2434,7 @@ public class UpsServices {
             }
 
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
@@ -2613,7 +2613,7 @@ public class UpsServices {
                 return ServiceUtil.returnError("ERROR: The Carrier for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is not UPS.");
             }
 
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
             
@@ -2863,7 +2863,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(shipFromAddressElement, "CountryCode", originCountryGeo.getString("geoCode"), rateRequestDoc);
              
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
             for (GenericValue shipmentPackageRouteSeg :shipmentPackageRouteSegs) {
@@ -3037,7 +3037,7 @@ public class UpsServices {
         if ("1".equals(responseStatusCode)) {
             List<? extends Element> rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
             Map<String, BigDecimal> rateMap = FastMap.newInstance();
-            if (rates == null || rates.size() == 0) {
+            if (UtilValidate.isEmpty(rates)) {
                 return ServiceUtil.returnError("No rates available at this time");
             } else {
                 for (Element element: rates) {

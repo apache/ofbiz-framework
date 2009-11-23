@@ -416,7 +416,7 @@ public class CategoryWorker {
 
         List<GenericValue> productCategoryMembers = EntityUtil.filterByDate(delegator.findByAndCache("ProductCategoryMember",
                 UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId)), true);
-        if (productCategoryMembers == null || productCategoryMembers.size() == 0) {
+        if (UtilValidate.isEmpty(productCategoryMembers)) {
             //before giving up see if this is a variant product, and if so look up the virtual product and check it...
             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             List<GenericValue> productAssocs = ProductWorker.getVariantVirtualAssocs(product);

@@ -370,7 +370,7 @@ public class OrderServices {
             GenericValue orderItem = (GenericValue) orderItemIter.next();
             if ("RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {
                 // check to see if workefforts are available for this order type.
-                if (workEfforts == null || workEfforts.size() == 0)    {
+                if (UtilValidate.isEmpty(workEfforts))    {
                     String errMsg = "Work Efforts missing for ordertype RENTAL_ORDER_ITEM " + "Product: "  + orderItem.getString("productId");
                     Debug.logError(errMsg, module);
                     errorMessages.add(errMsg);
@@ -799,10 +799,10 @@ public class OrderServices {
                 orderAdjustment.set("createdDate", UtilDateTime.nowTimestamp());
                 orderAdjustment.set("createdByUserLogin", userLogin.getString("userLoginId"));
 
-                if (orderAdjustment.get("orderItemSeqId") == null || orderAdjustment.getString("orderItemSeqId").length() == 0) {
+                if (UtilValidate.isEmpty(orderAdjustment.get("orderItemSeqId"))) {
                     orderAdjustment.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
                 }
-                if (orderAdjustment.get("shipGroupSeqId") == null || orderAdjustment.getString("shipGroupSeqId").length() == 0) {
+                if (UtilValidate.isEmpty(orderAdjustment.get("shipGroupSeqId"))) {
                     orderAdjustment.set("shipGroupSeqId", DataModelConstants.SEQ_ID_NA);
                 }
                 toBeStored.add(orderAdjustment);
@@ -850,7 +850,7 @@ public class OrderServices {
                     }
                 } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
                     // shipping / tax adjustment(s)
-                    if (valueObj.get("orderItemSeqId") == null || valueObj.getString("orderItemSeqId").length() == 0) {
+                    if (UtilValidate.isEmpty(valueObj.get("orderItemSeqId"))) {
                         valueObj.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
                     }
                     valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
@@ -1655,7 +1655,7 @@ public class OrderServices {
 
                 Map shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
                 BigDecimal shippingTotal = null;
-                if (orh.getValidOrderItems(shipGroupSeqId) == null || orh.getValidOrderItems(shipGroupSeqId).size() == 0) {
+                if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
                     Debug.log("No valid order items found - " + shippingTotal, module);
                 } else {
@@ -2716,7 +2716,7 @@ public class OrderServices {
 
             String noteId = (String) noteRes.get("noteId");
 
-            if (noteId == null || noteId.length() == 0) {
+            if (UtilValidate.isEmpty(noteId)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingTheNoteNoNoteIdReturned", locale));
             }
 
@@ -2806,7 +2806,7 @@ public class OrderServices {
             Debug.logError(e, "Problem getting order headers", module);
         }
 
-        if (ordersToCheck == null || ordersToCheck.size() == 0) {
+        if (UtilValidate.isEmpty(ordersToCheck)) {
             Debug.logInfo("No orders to check, finished", module);
             return ServiceUtil.returnSuccess();
         }
@@ -3877,7 +3877,7 @@ public class OrderServices {
                 }
             } else if ("OrderAdjustment".equals(valueObj.getEntityName())) {
                 // shipping / tax adjustment(s)
-                if (valueObj.get("orderItemSeqId") == null || valueObj.getString("orderItemSeqId").length() == 0) {
+                if (UtilValidate.isEmpty(valueObj.get("orderItemSeqId"))) {
                     valueObj.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
                 }
                 valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));

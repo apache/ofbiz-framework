@@ -392,7 +392,7 @@ public class LayoutEvents {
         try {
             results = dispatcher.runSync("getAssocAndContentAndDataResource", serviceIn);
             entityList = (List)results.get("entityList");
-            if (entityList == null || entityList.size() == 0) {
+            if (UtilValidate.isEmpty(entityList)) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
             }

@@ -1036,7 +1036,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (source == null) {
             return target;
         }
-        if (contextInfo == null || contextInfo.size() == 0) {
+        if (UtilValidate.isEmpty(contextInfo)) {
             return target;
         }
         for (ModelParam modelParam: this.contextParamList) {
