@@ -33,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
@@ -608,7 +609,7 @@ public class ServerHitBin {
 
             String visitId = VisitHandler.getVisitId(request.getSession());
 
-            if (visitId == null || visitId.length() == 0) {
+            if (UtilValidate.isEmpty(visitId)) {
                 // no visit info stored, so don't store the ServerHit
                 Debug.logWarning("Could not find a visitId, so not storing ServerHit. This is probably a configuration error. If you turn of persistance of visits you should also turn off persistence of hits.", module);
                 return;

@@ -692,7 +692,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
      * @throws WfException
      */
     protected boolean evalBshCondition(String expression, Map context) throws WfException {
-        if (expression == null || expression.length() == 0) {
+        if (UtilValidate.isEmpty(expression)) {
             Debug.logVerbose("Null or empty expression, returning true.", module);
             return true;
         }

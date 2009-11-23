@@ -84,25 +84,25 @@ public class SharkContainer implements Container, Runnable
         ContainerConfig.Container.Property iiopPort = cfg.getProperty("iiop-port");
 
         // check the required delegator-name property
-        if (delegatorProp == null || delegatorProp.value == null || delegatorProp.value.length() == 0) {
+        if (delegatorProp == null || UtilValidate.isEmpty(delegatorProp.value)) {
             throw new ContainerException("Invalid delegator-name defined in container configuration");
         }
 
         // check the required dispatcher-name property
-        if (dispatcherProp == null || dispatcherProp.value == null || dispatcherProp.value.length() == 0) {
+        if (dispatcherProp == null || UtilValidate.isEmpty(dispatcherProp.value)) {
             throw new ContainerException("Invalid dispatcher-name defined in container configuration");
         }
 
         // check the required admin-user property
-        if (adminProp == null || adminProp.value == null || adminProp.value.length() == 0) {
+        if (adminProp == null || UtilValidate.isEmpty(adminProp.value)) {
             throw new ContainerException("Invalid admin-user defined in container configuration");
         }
 
-        if (adminPassProp == null || adminPassProp.value == null || adminPassProp.value.length() == 0) {
+        if (adminPassProp == null || UtilValidate.isEmpty(adminPassProp.value)) {
             throw new ContainerException("Invalid admin-pass defined in container configuration");
         }
 
-        if (engineName == null || engineName.value == null || engineName.value.length() == 0) {
+        if (engineName == null || UtilValidate.isEmpty(engineName.value)) {
             throw new ContainerException("Invalid engine-name defined in container configuration");
         }
 

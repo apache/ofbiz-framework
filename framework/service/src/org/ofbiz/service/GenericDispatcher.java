@@ -26,6 +26,7 @@ import java.util.Set;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 
 /**
@@ -127,7 +128,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     }
 
     protected void init(String name, Delegator delegator, DispatchContext ctx) {
-        if (name == null || name.length() == 0)
+        if (UtilValidate.isEmpty(name))
             throw new IllegalArgumentException("The name of a LocalDispatcher cannot be a null or empty String");
 
         this.name = name;

@@ -21,6 +21,7 @@ package org.ofbiz.entity.config;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
@@ -159,8 +160,8 @@ public class DatasourceInfo {
             this.characterSet = datasourceElement.getAttribute("character-set");
             this.collate = datasourceElement.getAttribute("collate");
         }
-        if (this.fkStyle == null || this.fkStyle.length() == 0) this.fkStyle = "name_constraint";
-        if (this.joinStyle == null || this.joinStyle.length() == 0) this.joinStyle = "ansi";
+        if (UtilValidate.isEmpty(this.fkStyle)) this.fkStyle = "name_constraint";
+        if (UtilValidate.isEmpty(this.joinStyle)) this.joinStyle = "ansi";
 
         this.jndiJdbcElement = UtilXml.firstChildElement(datasourceElement, "jndi-jdbc");
         this.tyrexDataSourceElement = UtilXml.firstChildElement(datasourceElement, "tyrex-dataSource");

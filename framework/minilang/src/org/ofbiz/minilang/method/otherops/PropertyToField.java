@@ -75,7 +75,7 @@ public class PropertyToField extends MethodOperation {
         } else {
             value = UtilProperties.getMessage(resource, property, methodContext.getLocale());
         }
-        if (value == null || value.length() == 0) {
+        if (UtilValidate.isEmpty(value)) {
             value = defaultVal;
         }
 

@@ -61,10 +61,10 @@ public class JasperReportsXmlViewHandler extends AbstractViewHandler {
         if (request == null) {
             throw new ViewHandlerException("The HttpServletRequest object was null, how did that happen?");
         }
-        if (page == null || page.length() == 0) {
+        if (UtilValidate.isEmpty(page)) {
             throw new ViewHandlerException("View page was null or empty, but must be specified");
         }
-        if (info == null || info.length() == 0) {
+        if (UtilValidate.isEmpty(info)) {
             Debug.logWarning("View info string was null or empty, but must be used to specify an Entity that is mapped to the Entity Engine datasource that the report will use.", module);
         }
 

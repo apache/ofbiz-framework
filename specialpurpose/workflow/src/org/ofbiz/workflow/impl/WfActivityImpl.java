@@ -81,7 +81,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
     public WfActivityImpl(Delegator delegator, String workEffortId) throws WfException {
         super(delegator, workEffortId);
-        if (activityId == null || activityId.length() == 0)
+        if (UtilValidate.isEmpty(activityId))
             throw new WfException("Execution object is not of type WfActivity");
         this.processId = getRuntimeObject().getString("workEffortParentId");
     }

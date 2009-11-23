@@ -114,7 +114,7 @@ public class UtilProperties implements java.io.Serializable {
     public static String getPropertyValue(String resource, String name, String defaultValue) {
         String value = getPropertyValue(resource, name);
 
-        if (value == null || value.length() == 0)
+        if (UtilValidate.isEmpty(value))
             return defaultValue;
         else
             return value;
@@ -453,7 +453,7 @@ public class UtilProperties implements java.io.Serializable {
     public static String getMessage(String resource, String name, Object[] arguments, Locale locale) {
         String value = getMessage(resource, name, locale);
 
-        if (value == null || value.length() == 0) {
+        if (UtilValidate.isEmpty(value)) {
             return "";
         } else {
             if (arguments != null && arguments.length > 0) {
@@ -474,7 +474,7 @@ public class UtilProperties implements java.io.Serializable {
     public static <E> String getMessage(String resource, String name, List<E> arguments, Locale locale) {
         String value = getMessage(resource, name, locale);
 
-        if (value == null || value.length() == 0) {
+        if (UtilValidate.isEmpty(value)) {
             return "";
         } else {
             if (UtilValidate.isNotEmpty(arguments)) {
@@ -499,7 +499,7 @@ public class UtilProperties implements java.io.Serializable {
     public static String getMessage(String resource, String name, Map<String, ? extends Object> context, Locale locale) {
         String value = getMessage(resource, name, locale);
 
-        if (value == null || value.length() == 0) {
+        if (UtilValidate.isEmpty(value)) {
             return "";
         } else {
             if (UtilValidate.isNotEmpty(context)) {

@@ -140,7 +140,7 @@ public class ValueLinkServices {
 
         // see if we passed in the DES hex string
         String desHexString = (String) context.get("desHexString");
-        if (desHexString == null || desHexString.length() == 0) {
+        if (UtilValidate.isEmpty(desHexString)) {
             mwk = vl.generateMwk();
         } else {
             mwk = vl.generateMwk(StringUtil.fromHexString(desHexString));
@@ -1062,7 +1062,7 @@ public class ValueLinkServices {
 
         // get the VL promo code
         String promoCode = typeFeature.getString("idCode");
-        if (promoCode == null || promoCode.length() == 0) {
+        if (UtilValidate.isEmpty(promoCode)) {
             return ServiceUtil.returnError("Invalid promo code set on idCode field of feature type TYPE");
         }
 

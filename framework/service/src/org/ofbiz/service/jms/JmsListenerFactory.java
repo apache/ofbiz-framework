@@ -26,6 +26,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
@@ -125,7 +126,7 @@ public class JmsListenerFactory implements Runnable {
         String password = server.getAttribute("password");
         String className = server.getAttribute("listener-class");
 
-        if (className == null || className.length() == 0) {
+        if (UtilValidate.isEmpty(className)) {
             if (type.equals("topic"))
                 className = JmsListenerFactory.TOPIC_LISTENER_CLASS;
             else if (type.equals("queue"))

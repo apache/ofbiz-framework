@@ -741,7 +741,7 @@ public class SimpleMethod {
             }
 
             response = (String) methodContext.getEnv(eventResponseCodeName);
-            if (response == null || response.length() == 0) {
+            if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     //override response code, always use error code
                     Debug.logInfo("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
@@ -795,7 +795,7 @@ public class SimpleMethod {
             }
 
             response = (String) methodContext.getEnv(serviceResponseMessageName);
-            if (response == null || response.length() == 0) {
+            if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     //override response code, always use error code
                     Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);

@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 
 /** A collection of TemporalExpression classes.
  * <p>For the most part, these classes are immutable - with the exception
@@ -480,10 +481,10 @@ public class TemporalExpressions implements Serializable {
          * @param count The interval count - must be greater than zero
          */
         public TimeOfDayRange(String start, String end, int interval, int count) {
-            if (start == null || start.length() == 0) {
+            if (UtilValidate.isEmpty(start)) {
                 throw new IllegalArgumentException("start argument cannot be null or empty");
             }
-            if (end == null || end.length() == 0) {
+            if (UtilValidate.isEmpty(end)) {
                 throw new IllegalArgumentException("end argument cannot be null or empty");
             }
             if (interval != Calendar.SECOND && interval != Calendar.MINUTE && interval != Calendar.HOUR_OF_DAY) {

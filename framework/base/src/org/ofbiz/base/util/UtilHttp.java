@@ -790,7 +790,7 @@ public class UtilHttp {
     }
 
     public static String getRequestUriFromTarget(String target) {
-        if (target == null || target.length() == 0) return null;
+        if (UtilValidate.isEmpty(target)) return null;
         int endOfRequestUri = target.length();
         if (target.indexOf('?') > 0) {
             endOfRequestUri = target.indexOf('?');
@@ -811,7 +811,7 @@ public class UtilHttp {
      * @return The query string
      */
     public static String getQueryStringFromTarget(String target) {
-        if (target == null || target.length() == 0) return "";
+        if (UtilValidate.isEmpty(target)) return "";
         int queryStart = target.indexOf('?');
         if (queryStart != -1) {
             return target.substring(queryStart);
@@ -825,7 +825,7 @@ public class UtilHttp {
      * @return The request target string
      */
     public static String removeQueryStringFromTarget(String target) {
-        if (target == null || target.length() == 0) return null;
+        if (UtilValidate.isEmpty(target)) return null;
         int queryStart = target.indexOf('?');
         if (queryStart < 0) {
             return target;
@@ -835,7 +835,7 @@ public class UtilHttp {
 
     public static String getWebappMountPointFromTarget(String target) {
         int firstChar = 0;
-        if (target == null || target.length() == 0) return null;
+        if (UtilValidate.isEmpty(target)) return null;
         if (target.charAt(0) == '/') firstChar = 1;
         int pathSep = target.indexOf('/', 1);
         String webappMountPoint = null;
@@ -1175,7 +1175,7 @@ public class UtilHttp {
      */
     public static Object makeParamValueFromComposite(HttpServletRequest request, String prefix, Locale locale) {
         String compositeType = request.getParameter(makeCompositeParam(prefix, "compositeType"));
-        if (compositeType == null || compositeType.length() == 0) return null;
+        if (UtilValidate.isEmpty(compositeType)) return null;
 
         // collect the composite fields into a map
         Map<String, String> data = FastMap.newInstance();
@@ -1201,9 +1201,9 @@ public class UtilHttp {
             String minutes = data.get("minutes");
             String ampm = data.get("ampm");
             if (date == null || date.length() < 10) return null;
-            if (hour == null || hour.length() == 0) return null;
-            if (minutes == null || minutes.length() == 0) return null;
-            boolean isTwelveHour = ((ampm == null || ampm.length() == 0) ? false : true);
+            if (UtilValidate.isEmpty(hour)) return null;
+            if (UtilValidate.isEmpty(minutes)) return null;
+            boolean isTwelveHour = (UtilValidate.isEmpty((ampm)) ? false : true);
 
             // create the timestamp from the data
             try {

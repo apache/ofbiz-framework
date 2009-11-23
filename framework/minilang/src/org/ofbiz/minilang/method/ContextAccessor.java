@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 
 /**
@@ -38,7 +39,7 @@ public class ContextAccessor<T> {
     }
 
     public ContextAccessor(String name, String defaultName) {
-        if (name == null || name.length() == 0) {
+        if (UtilValidate.isEmpty(name)) {
             init(defaultName);
         } else {
             init(name);

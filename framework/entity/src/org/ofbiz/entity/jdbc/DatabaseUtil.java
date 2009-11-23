@@ -2231,7 +2231,7 @@ public class DatabaseUtil {
     public String makeFkConstraintName(ModelRelation modelRelation, int constraintNameClipLength) {
         String relConstraintName = modelRelation.getFkName();
 
-        if (relConstraintName == null || relConstraintName.length() == 0) {
+        if (UtilValidate.isEmpty(relConstraintName)) {
             relConstraintName = modelRelation.getTitle() + modelRelation.getRelEntityName();
             relConstraintName = relConstraintName.toUpperCase();
         }
@@ -2886,7 +2886,7 @@ public class DatabaseUtil {
 
         StringBuilder indexSqlBuf = new StringBuilder("DROP INDEX ");
         String tableName = entity.getTableName(datasourceInfo);
-        String schemaName = (tableName == null || tableName.length() == 0 || tableName.indexOf('.') == -1) ? "" :
+        String schemaName = (UtilValidate.isEmpty(tableName) || tableName.indexOf('.') == -1) ? "" :
                 tableName.substring(0, tableName.indexOf('.'));
 
         indexSqlBuf.append(schemaName);
@@ -3105,7 +3105,7 @@ public class DatabaseUtil {
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
         String tableName = entity.getTableName(datasourceInfo);
-        String schemaName = (tableName == null || tableName.length() == 0 || tableName.indexOf('.') == -1) ? "" :
+        String schemaName = (UtilValidate.isEmpty(tableName) || tableName.indexOf('.') == -1) ? "" :
                 tableName.substring(0, tableName.indexOf('.'));
 
         if (UtilValidate.isNotEmpty(schemaName)) {

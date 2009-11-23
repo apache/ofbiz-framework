@@ -821,7 +821,7 @@ public class UtilXml {
         Element childElement = firstChildElement(element, childElementName);
         String elementValue = elementValue(childElement);
 
-        if (elementValue == null || elementValue.length() == 0)
+        if (UtilValidate.isEmpty(elementValue))
             return defaultValue;
         else
             return elementValue;

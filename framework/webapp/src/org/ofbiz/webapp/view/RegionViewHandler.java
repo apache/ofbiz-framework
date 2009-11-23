@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.ContextFilter;
 import org.ofbiz.webapp.region.Region;
 import org.ofbiz.webapp.region.RegionManager;
@@ -67,7 +68,7 @@ public class RegionViewHandler extends AbstractViewHandler {
         if (request == null) {
             throw new ViewHandlerException("The HttpServletRequest object was null, how did that happen?");
         }
-        if (page == null || page.length() == 0) {
+        if (UtilValidate.isEmpty(page)) {
             throw new ViewHandlerException("Page name was null or empty, but must be specified");
         }
 

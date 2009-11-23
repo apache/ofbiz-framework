@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.ContextFilter;
 
 /**
@@ -49,7 +50,7 @@ public class JspViewHandler extends AbstractViewHandler {
         if (request == null) {
             throw new ViewHandlerException("Null HttpServletRequest object");
         }
-        if (page == null || page.length() == 0) {
+        if (UtilValidate.isEmpty(page)) {
             throw new ViewHandlerException("Null or empty source");
         }
 

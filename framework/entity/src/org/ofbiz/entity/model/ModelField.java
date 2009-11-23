@@ -122,7 +122,7 @@ public class ModelField extends ModelChild {
 
     public void setColName(String colName) {
         this.colName = colName;
-        if (this.colName == null || this.colName.length() == 0) {
+        if (UtilValidate.isEmpty(this.colName)) {
             this.colName = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name));
         }
     }

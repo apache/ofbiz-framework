@@ -690,7 +690,7 @@ public class UtilMisc {
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
     public static Locale parseLocale(String localeString) {
-        if (localeString == null || localeString.length() == 0) {
+        if (UtilValidate.isEmpty(localeString)) {
             return null;
         }
 

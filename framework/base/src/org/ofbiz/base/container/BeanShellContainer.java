@@ -22,6 +22,7 @@ import bsh.Interpreter;
 import bsh.EvalError;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * BeanShellContainer - Container implementation for BeanShell
@@ -52,7 +53,7 @@ public class BeanShellContainer implements Container {
 
         // get the app-name
         ContainerConfig.Container.Property appName = cfg.getProperty("app-name");
-        if (appName == null || appName.value == null || appName.value.length() == 0) {
+        if (appName == null || UtilValidate.isEmpty(appName.value)) {
             throw new ContainerException("Invalid app-name defined in container configuration");
         } else {
             this.name = appName.value;
@@ -60,7 +61,7 @@ public class BeanShellContainer implements Container {
 
         // get the telnet-port
         ContainerConfig.Container.Property telnetPort = cfg.getProperty("telnet-port");
-        if (telnetPort == null || telnetPort.value == null || telnetPort.value.length() == 0) {
+        if (telnetPort == null || UtilValidate.isEmpty(telnetPort.value)) {
             throw new ContainerException("Invalid telnet-port defined in container configuration");
         } else {
             try {

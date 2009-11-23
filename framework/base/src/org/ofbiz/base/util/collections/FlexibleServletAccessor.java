@@ -26,6 +26,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 
 /**
@@ -48,7 +49,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
 
     public FlexibleServletAccessor(String name, String defaultName) {
-        if (name == null || name.length() == 0) {
+        if (UtilValidate.isEmpty(name)) {
             init(defaultName);
         } else {
             init(name);
@@ -57,7 +58,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
 
     protected void init(String name) {
         this.name = name;
-        if (name == null || name.length() == 0) {
+        if (UtilValidate.isEmpty(name)) {
             empty = true;
             needsExpand = false;
             fma = FlexibleMapAccessor.getInstance(name);

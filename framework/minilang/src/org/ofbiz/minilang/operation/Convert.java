@@ -25,6 +25,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.w3c.dom.Element;
 
 /**
@@ -42,7 +43,7 @@ public class Convert extends SimpleMapOperation {
     public Convert(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         this.toField = element.getAttribute("to-field");
-        if (this.toField == null || this.toField.length() == 0) {
+        if (UtilValidate.isEmpty(this.toField)) {
             this.toField = this.fieldName;
         }
 
