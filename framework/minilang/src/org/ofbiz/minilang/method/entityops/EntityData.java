@@ -86,7 +86,7 @@ public class EntityData extends MethodOperation {
         String delegatorName = this.delegatorNameExdr.expandString(methodContext.getEnvMap());
 
         Delegator delegator = methodContext.getDelegator();
-        if (delegatorName != null && delegatorName.length() > 0) {
+        if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
 

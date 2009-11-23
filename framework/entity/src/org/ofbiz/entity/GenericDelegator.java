@@ -246,7 +246,7 @@ public class GenericDelegator implements Delegator {
             if (Debug.infoOn()) Debug.logInfo("Delegator \"" + delegatorName + "\" initializing helper \"" +
                     helperName + "\" for entity group \"" + groupName + "\".", module);
             TreeSet<String> helpersDone = new TreeSet<String>();
-            if (helperName != null && helperName.length() > 0) {
+            if (UtilValidate.isNotEmpty(helperName)) {
                 // make sure each helper is only loaded once
                 if (helpersDone.contains(helperName)) {
                     if (Debug.infoOn()) Debug.logInfo("Helper \"" + helperName + "\" already initialized, not re-initializing.", module);
@@ -461,7 +461,7 @@ public class GenericDelegator implements Delegator {
     public GenericHelper getEntityHelper(String entityName) throws GenericEntityException {
         String helperName = getEntityHelperName(entityName);
 
-        if (helperName != null && helperName.length() > 0) {
+        if (UtilValidate.isNotEmpty(helperName)) {
             return GenericHelperFactory.getHelper(helperName);
         } else {
             throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datesource (helper) for entity [" + entityName + "]");
@@ -2762,7 +2762,7 @@ public class GenericDelegator implements Delegator {
             String name = modelField.getName();
             String attr = element.getAttribute(name);
 
-            if (attr != null && attr.length() > 0) {
+            if (UtilValidate.isNotEmpty(attr)) {
                 value.setString(name, attr);
             } else {
                 // if no attribute try a subelement

@@ -26,6 +26,7 @@ import org.apache.commons.dbcp.managed.ManagedDataSource;
 import org.apache.commons.dbcp.managed.XAConnectionFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
@@ -135,7 +136,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             factory.setDefaultReadOnly(false);
 
             String transIso = jdbcElement.getAttribute("isolation-level");
-            if (transIso != null && transIso.length() > 0) {
+            if (UtilValidate.isNotEmpty(transIso)) {
                 if ("Serializable".equals(transIso)) {
                     factory.setDefaultTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
                 } else if ("RepeatableRead".equals(transIso)) {

@@ -142,7 +142,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         // put the results in to the defined map
-        if (resultMapName != null && resultMapName.length() > 0) {
+        if (UtilValidate.isNotEmpty(resultMapName)) {
             Map<String, Object> resultMap = UtilGenerics.checkMap(context.get(resultMapName));
             if (resultMap == null) {
                 resultMap = FastMap.newInstance();

@@ -527,7 +527,7 @@ public class ShipmentServices {
             featurePrice = BigDecimal.ZERO;
         }
 
-        if (featureGroupId != null && featureGroupId.length() > 0 && shippableFeatureMap != null) {
+        if (UtilValidate.isNotEmpty(featureGroupId) && shippableFeatureMap != null) {
             for (Map.Entry<String, BigDecimal> entry: shippableFeatureMap.entrySet()) {
                 String featureId = entry.getKey();
                 BigDecimal quantity = entry.getValue();

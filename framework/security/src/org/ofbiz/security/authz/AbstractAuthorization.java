@@ -149,7 +149,7 @@ public abstract class AbstractAuthorization implements Authorization {
                     
                     // first check auto-granted permissions
                     List<String> grantedPerms = autoGrant.get();
-                    if (grantedPerms != null && grantedPerms.size() > 0) {
+                    if (UtilValidate.isNotEmpty(grantedPerms)) {
                         Debug.logVerbose("Auto-Grant permissions found; looking for a match", module);
                         for (String granted : grantedPerms) {
                             if (Debug.verboseOn()) Debug.logVerbose("Testing - " + granted + " - with - " + joined.toString(), module);
@@ -192,7 +192,7 @@ public abstract class AbstractAuthorization implements Authorization {
     
     protected void handleAutoGrantPermissions(String userId, String expandedPermission, Map<String, ? extends Object> context) {                
         List<String> granted = getAutoGrantPermissions(userId, expandedPermission, context);
-        if (granted != null && granted.size() > 0) {
+        if (UtilValidate.isNotEmpty(granted)) {
             List<String> alreadyGranted = autoGrant.get();
             if (alreadyGranted == null) {
                 alreadyGranted = FastList.newInstance();

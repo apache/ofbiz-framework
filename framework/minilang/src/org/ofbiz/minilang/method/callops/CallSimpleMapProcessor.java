@@ -86,8 +86,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
         }
 
         // run external map processor first
-        if (this.xmlResource != null && this.xmlResource.length() > 0 &&
-                this.processorName != null && this.processorName.length() > 0) {
+        if (UtilValidate.isNotEmpty(this.xmlResource) && UtilValidate.isNotEmpty(this.processorName)) {
             String xmlResource = methodContext.expandString(this.xmlResource);
             String processorName = methodContext.expandString(this.processorName);
             try {

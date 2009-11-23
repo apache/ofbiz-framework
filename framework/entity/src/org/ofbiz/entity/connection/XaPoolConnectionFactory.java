@@ -84,7 +84,7 @@ public class XaPoolConnectionFactory {
             ds.setTransactionManager(TransactionFactory.getTransactionManager());
 
             String transIso = jdbcElement.getAttribute("isolation-level");
-            if (transIso != null && transIso.length() > 0) {
+            if (UtilValidate.isNotEmpty(transIso)) {
                 if ("Serializable".equals(transIso)) {
                     ((StandardXADataSource) ds).setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
                 } else if ("RepeatableRead".equals(transIso)) {
@@ -119,7 +119,7 @@ public class XaPoolConnectionFactory {
 
                 // set the test statement to test connections
                 String testStmt = jdbcElement.getAttribute("pool-jdbc-test-stmt");
-                if (testStmt != null && testStmt.length() > 0) {
+                if (UtilValidate.isNotEmpty(testStmt)) {
                     pds.setJdbcTestStmt(testStmt);
                     Debug.logInfo("Set JDBC Test Statement : " + testStmt, module);
                 }

@@ -156,7 +156,7 @@ public class CatalogWorker {
         // get it from the database
         if (prodCatalogId == null) {
             List<String> catalogIds = getCatalogIdsAvailable(request);
-            if (catalogIds != null && catalogIds.size() > 0) prodCatalogId = catalogIds.get(0);
+            if (UtilValidate.isNotEmpty(catalogIds)) prodCatalogId = catalogIds.get(0);
         }
 
         if (!fromSession) {

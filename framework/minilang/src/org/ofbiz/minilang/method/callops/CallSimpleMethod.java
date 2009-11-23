@@ -63,7 +63,7 @@ public class CallSimpleMethod extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) {
-        if (this.methodName != null && this.methodName.length() > 0) {
+        if (UtilValidate.isNotEmpty(this.methodName)) {
             String methodName = methodContext.expandString(this.methodName);
             String xmlResource = methodContext.expandString(this.xmlResource);
 

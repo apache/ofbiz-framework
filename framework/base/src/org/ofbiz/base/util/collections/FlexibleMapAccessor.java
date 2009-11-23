@@ -51,7 +51,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         this.original = name;
         FlexibleStringExpander fse = null;
         String bracketedOriginal = null;
-        if (name != null && name.length() > 0) {
+        if (UtilValidate.isNotEmpty(name)) {
             if (name.charAt(0) == '-') {
                 this.isAscending = false;
                 name = name.substring(1);

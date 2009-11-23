@@ -845,7 +845,7 @@ public class InvoiceServices {
                 String invoiceItemSeqId = invoiceItem.getString("invoiceItemSeqId");
                 String invoiceId = invoiceItem.getString("invoiceId");
                 // Determine commission parties for this invoiceItem
-                if (productId != null && productId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productId)) {
                     Map<String, Object> resultMap = null;
                     try {
                         resultMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.<String, Object>toMap(
@@ -1730,7 +1730,7 @@ public class InvoiceServices {
                     billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
                 }
                 // if there are billings, we have already billed the item, so skip it
-                if (billings != null && billings.size() > 0) continue;
+                if (UtilValidate.isNotEmpty(billings)) continue;
 
                 // get the List of items shipped to/from this returnId
                 List<GenericValue> billItems = itemsShippedGroupedByReturn.get(returnId);

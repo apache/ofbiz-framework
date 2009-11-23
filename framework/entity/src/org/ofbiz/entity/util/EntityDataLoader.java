@@ -30,6 +30,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -51,12 +52,12 @@ public class EntityDataLoader {
 
     public static String getPathsString(String helperName) {
         StringBuilder pathBuffer = new StringBuilder();
-        if (helperName != null && helperName.length() > 0) {
+        if (UtilValidate.isNotEmpty(helperName)) {
             DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
             for (Element sqlLoadPathElement: datasourceInfo.sqlLoadPaths) {
                 String prependEnv = sqlLoadPathElement.getAttribute("prepend-env");
                 pathBuffer.append(pathBuffer.length() == 0 ? "" : ";");
-                if (prependEnv != null && prependEnv.length() > 0) {
+                if (UtilValidate.isNotEmpty(prependEnv)) {
                     pathBuffer.append(System.getProperty(prependEnv));
                     pathBuffer.append("/");
                 }
@@ -138,7 +139,7 @@ public class EntityDataLoader {
         }
 
         // get files from the paths string
-        if (paths != null && paths.length() > 0) {
+        if (UtilValidate.isNotEmpty(paths)) {
             StringTokenizer tokenizer = new StringTokenizer(paths, ";");
             while (tokenizer.hasMoreTokens()) {
                 String path = tokenizer.nextToken().toLowerCase();

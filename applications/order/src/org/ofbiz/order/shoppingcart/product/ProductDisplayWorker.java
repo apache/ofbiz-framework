@@ -233,7 +233,7 @@ public class ProductDisplayWorker {
 
             // remove all products that are already in the cart
             ShoppingCart cart = (ShoppingCart) httpRequest.getSession().getAttribute("shoppingCart");
-            if (cart != null && cart.size() > 0) {
+            if (UtilValidate.isNotEmpty(cart)) {
                 Iterator cartiter = cart.iterator();
                 while (cartiter.hasNext()) {
                     ShoppingCartItem item = (ShoppingCartItem) cartiter.next();

@@ -358,7 +358,7 @@ public class ImportOrdersFromEbay {
 
                             Element transactionElement = (Element) transactionElemIter.next();
                             List<? extends Element> containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");                            
-                            if (containingOrders != null && containingOrders.size() > 0) {
+                            if (UtilValidate.isNotEmpty(containingOrders)) {
                                 continue;
                             }
                             order.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));

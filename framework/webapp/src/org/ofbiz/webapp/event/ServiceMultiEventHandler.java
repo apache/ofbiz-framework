@@ -210,10 +210,10 @@ public class ServiceMultiEventHandler implements EventHandler {
                     if ("timeZone".equals(paramName)) continue;
 
                     Object value = null;
-                    if (modelParam.stringMapPrefix != null && modelParam.stringMapPrefix.length() > 0) {
+                    if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
                         Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, modelParam.stringMapPrefix, curSuffix);
                         value = paramMap;
-                    } else if (modelParam.stringListSuffix != null && modelParam.stringListSuffix.length() > 0) {
+                    } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
                         List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, modelParam.stringListSuffix, null);
                         value = paramList;
                     } else {

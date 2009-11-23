@@ -885,7 +885,7 @@ public class XpdlReader {
         transitionValue.set("fromActivityId", transitionElement.getAttribute("From"));
         transitionValue.set("toActivityId", transitionElement.getAttribute("To"));
 
-        if (transitionElement.getAttribute("Loop") != null && transitionElement.getAttribute("Loop").length() > 0)
+        if (UtilValidate.isNotEmpty(transitionElement.getAttribute("Loop")))
             transitionValue.set("loopTypeEnumId", "WTL_" + transitionElement.getAttribute("Loop"));
         else
             transitionValue.set("loopTypeEnumId", "WTL_NOLOOP");
@@ -962,7 +962,7 @@ public class XpdlReader {
         if (joinElement != null) {
             String joinType = joinElement.getAttribute("Type");
 
-            if (joinType != null && joinType.length() > 0) {
+            if (UtilValidate.isNotEmpty(joinType)) {
                 activityValue.set("joinTypeEnumId", "WJT_" + joinType);
             }
         }
@@ -973,7 +973,7 @@ public class XpdlReader {
         if (splitElement != null) {
             String splitType = splitElement.getAttribute("Type");
 
-            if (splitType != null && splitType.length() > 0) {
+            if (UtilValidate.isNotEmpty(splitType)) {
                 activityValue.set("splitTypeEnumId", "WST_" + splitType);
             }
 
@@ -1183,7 +1183,7 @@ public class XpdlReader {
             // Length?
             String lengthStr = UtilXml.childElementValue(dataFieldElement, "Length");
 
-            if (lengthStr != null && lengthStr.length() > 0) {
+            if (UtilValidate.isNotEmpty(lengthStr)) {
                 try {
                     dataFieldValue.set("lengthBytes", Long.valueOf(lengthStr));
                 } catch (NumberFormatException e) {
@@ -1221,7 +1221,7 @@ public class XpdlReader {
 
             String indexStr = formalParameterElement.getAttribute("Index");
 
-            if (indexStr != null && indexStr.length() > 0) {
+            if (UtilValidate.isNotEmpty(indexStr)) {
                 try {
                     formalParameterValue.set("indexNumber", Long.valueOf(indexStr));
                 } catch (NumberFormatException e) {

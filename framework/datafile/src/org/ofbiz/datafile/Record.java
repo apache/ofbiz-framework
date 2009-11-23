@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import org.ofbiz.base.crypto.HashCrypt;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.login.LoginServices;
 
 /**
@@ -553,7 +554,7 @@ public class Record implements Serializable {
             String strVal = null;
 
             if (modelField.expression) {
-                if (modelField.refField != null && modelField.refField.length() > 0) {
+                if (UtilValidate.isNotEmpty(modelField.refField)) {
                     strVal = record.getString(modelField.refField);
                 }
                 if (strVal == null) {

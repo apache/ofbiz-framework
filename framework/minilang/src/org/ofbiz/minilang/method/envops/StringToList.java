@@ -69,7 +69,7 @@ public class StringToList extends MethodOperation {
         }
 
         Object value;
-        if (this.messageFieldName != null && this.messageFieldName.length() > 0) {
+        if (UtilValidate.isNotEmpty(this.messageFieldName)) {
             value = new MessageString(valueStr, this.messageFieldName, true);
         } else {
             value = valueStr;

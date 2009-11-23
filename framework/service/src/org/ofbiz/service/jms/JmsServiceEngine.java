@@ -49,6 +49,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.JNDIContextFactory;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -96,7 +97,7 @@ public class JmsServiceEngine extends AbstractEngine {
         throws GenericServiceException, JMSException {
         List<String> outParams = modelService.getParameterNames(ModelService.OUT_PARAM, false);
 
-        if (outParams != null && outParams.size() > 0)
+        if (UtilValidate.isNotEmpty(outParams))
             throw new GenericServiceException("JMS service cannot have required OUT parameters; no parameters will be returned.");
         String xmlContext = null;
 

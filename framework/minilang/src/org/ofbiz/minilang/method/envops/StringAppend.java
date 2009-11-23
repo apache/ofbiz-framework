@@ -99,7 +99,7 @@ public class StringAppend extends MethodOperation {
         }
 
         StringBuilder newValue = new StringBuilder();
-        if (value != null && value.length() > 0) {
+        if (UtilValidate.isNotEmpty(value)) {
             if (UtilValidate.isEmpty(oldValue)) {
                 newValue.append(value);
             } else {

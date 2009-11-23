@@ -58,7 +58,7 @@ public class CallBsh extends MethodOperation {
         resource = element.getAttribute("resource");
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
-        if (inline != null && inline.length() > 0) {// pre-parse/compile inlined bsh, only accessed here
+        if (UtilValidate.isNotEmpty(inline)) {// pre-parse/compile inlined bsh, only accessed here
         }
     }
 
@@ -81,7 +81,7 @@ public class CallBsh extends MethodOperation {
             }
 
             // run external, from resource, first if resource specified
-            if (resource != null && resource.length() > 0) {
+            if (UtilValidate.isNotEmpty(resource)) {
                 String resource = methodContext.expandString(this.resource);
                 InputStream is = methodContext.getLoader().getResourceAsStream(resource);
 

@@ -21,6 +21,8 @@ package org.ofbiz.accounting.thirdparty.authorizedotnet;
 
 import java.util.*;
 
+import org.ofbiz.base.util.UtilValidate;
+
 public class AuthorizeResponse {
 
     private String rawResp = null;
@@ -114,7 +116,7 @@ public class AuthorizeResponse {
 
     public void setVersion(String version)
     {
-        if (version != null && version.length() > 0)
+        if (UtilValidate.isNotEmpty(version))
         {
             if (version.equals("3.0") || version.equals("3.1"))
                 this.version = version;

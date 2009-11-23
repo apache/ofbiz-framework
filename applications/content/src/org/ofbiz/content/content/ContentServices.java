@@ -193,12 +193,12 @@ public class ContentServices {
         String fromDateStr = (String) context.get("fromDateStr");
         String thruDateStr = (String) context.get("thruDateStr");
         Timestamp fromDate = null;
-        if (fromDateStr != null && fromDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(fromDateStr)) {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
         }
 
         Timestamp thruDate = null;
-        if (thruDateStr != null && thruDateStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(thruDateStr)) {
             thruDate = UtilDateTime.toTimestamp(thruDateStr);
         }
 

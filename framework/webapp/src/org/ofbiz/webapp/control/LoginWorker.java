@@ -264,11 +264,11 @@ public class LoginWorker {
                 // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in the URL (never encrypted) that was originally in a form field that may have been encrypted
                 // keep 2 maps: one for URL parameters and one for form parameters
                 Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
-                if (urlParams != null && urlParams.size() > 0) {
+                if (UtilValidate.isNotEmpty(urlParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_URL_", urlParams);
                 }
                 Map<String, Object> formParams = UtilHttp.getParameterMap(request, urlParams.keySet(), false);
-                if (formParams != null && formParams.size() > 0) {
+                if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
 

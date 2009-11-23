@@ -95,7 +95,7 @@ public class RmiServiceContainer implements Container {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
         // load the factories
-        if (clientProp != null && clientProp.value != null && clientProp.value.length() > 0) {
+        if (clientProp != null && UtilValidate.isNotEmpty(clientProp.value)) {
             try {
                 Class<?> c = loader.loadClass(clientProp.value);
                 csf = (RMIClientSocketFactory) c.newInstance();
@@ -103,7 +103,7 @@ public class RmiServiceContainer implements Container {
                 throw new ContainerException(e);
             }
         }
-        if (serverProp != null && serverProp.value != null && serverProp.value.length() > 0) {
+        if (serverProp != null && UtilValidate.isNotEmpty(serverProp.value)) {
             try {
                 Class<?> c = loader.loadClass(serverProp.value);
                 ssf = (RMIServerSocketFactory) c.newInstance();

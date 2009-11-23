@@ -168,7 +168,7 @@ public class ParametricSearch {
             if (parameterName.startsWith("pft_")) {
                 String productFeatureTypeId = parameterName.substring(4);
                 String productFeatureId = (String) entry.getValue();
-                if (productFeatureId != null && productFeatureId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureId)) {
                     featureIdByType.put(productFeatureTypeId, productFeatureId);
                 }
             }
@@ -186,7 +186,7 @@ public class ParametricSearch {
             String parameterName = entry.getKey();
             if (parameterName.startsWith("SEARCH_FEAT")) {
                 String productFeatureId = (String) entry.getValue();
-                if (productFeatureId != null && productFeatureId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureId)) {
                     featureIdList.add(productFeatureId);
                 }
             }
@@ -228,7 +228,7 @@ public class ParametricSearch {
             String parameterName = entry.getKey();
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
                 String productFeatureCategoryId = (String) entry.getValue();
-                if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
+                if (UtilValidate.isNotEmpty(productFeatureCategoryId)) {
                    prodFeatureCategoryIdList.add(productFeatureCategoryId);
                 }
             }

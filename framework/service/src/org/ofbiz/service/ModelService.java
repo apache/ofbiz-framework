@@ -869,13 +869,13 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 String key = param.name;
 
                 // internal map of strings
-                if (param.stringMapPrefix != null && param.stringMapPrefix.length() > 0 && !source.containsKey(key)) {
+                if (UtilValidate.isNotEmpty(param.stringMapPrefix) && !source.containsKey(key)) {
                     Map<String, Object> paramMap = this.makePrefixMap(source, param);
                     if (UtilValidate.isNotEmpty(paramMap)) {
                         target.put(key, paramMap);
                     }
                 // internal list of strings
-                } else if (param.stringListSuffix != null && param.stringListSuffix.length() > 0 && !source.containsKey(key)) {
+                } else if (UtilValidate.isNotEmpty(param.stringListSuffix) && !source.containsKey(key)) {
                     List<Object> paramList = this.makeSuffixList(source, param);
                     if (UtilValidate.isNotEmpty(paramList)) {
                         target.put(key, paramList);
@@ -928,7 +928,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     public boolean containsPermissions() {
-        return (this.permissionGroups != null && this.permissionGroups.size() > 0);
+        return (UtilValidate.isNotEmpty(this.permissionGroups));
     }
 
     /**
@@ -1097,7 +1097,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             }
 
             // handle interfaces
-            if (implServices != null && implServices.size() > 0 && dctx != null) {
+            if (UtilValidate.isNotEmpty(implServices) && dctx != null) {
                 for (ModelServiceIface iface: implServices) {
                     String serviceName = iface.getService();
                     boolean optional = iface.isOptional();

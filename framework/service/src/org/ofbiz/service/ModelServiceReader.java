@@ -430,7 +430,7 @@ public class ModelServiceReader implements Serializable {
             ModelPermission perm = new ModelPermission();
             perm.nameOrRole = element.getAttribute("permission").intern();
             perm.action = element.getAttribute("action").intern();
-            if (perm.action != null && perm.action.length() > 0) {
+            if (UtilValidate.isNotEmpty(perm.action)) {
                 perm.permissionType = ModelPermission.ENTITY_PERMISSION;
             } else {
                 perm.permissionType = ModelPermission.PERMISSION;

@@ -75,7 +75,7 @@ public class OrderManagerEvents {
             try {
                 paymentPrefs = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
                 List pRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"));
-                if (pRoles != null && pRoles.size() > 0)
+                if (UtilValidate.isNotEmpty(pRoles))
                     placingCustomer = EntityUtil.getFirst(pRoles);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems looking up order payment preferences", module);
@@ -171,7 +171,7 @@ public class OrderManagerEvents {
         GenericValue placingCustomer = null;
         try {
             List pRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"));
-            if (pRoles != null && pRoles.size() > 0)
+            if (UtilValidate.isNotEmpty(pRoles))
                 placingCustomer = EntityUtil.getFirst(pRoles);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up order payment preferences", module);

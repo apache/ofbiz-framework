@@ -122,7 +122,7 @@ public final class Debug {
     }
 
     public static Logger getLogger(String module) {
-        if (module != null && module.length() > 0) {
+        if (UtilValidate.isNotEmpty(module)) {
             return Logger.getLogger(module);
         } else {
             return root;

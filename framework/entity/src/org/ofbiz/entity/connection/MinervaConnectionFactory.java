@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.ofbiz.minerva.pool.jdbc.xa.XAPoolDataSource;
@@ -66,7 +67,7 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
             ds.setURL(jdbcElement.getAttribute("jdbc-uri"));
 
             String transIso = jdbcElement.getAttribute("isolation-level");
-            if (transIso != null && transIso.length() > 0) {
+            if (UtilValidate.isNotEmpty(transIso)) {
                 if ("Serializable".equals(transIso)) {
                     pds.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
                 } else if ("RepeatableRead".equals(transIso)) {

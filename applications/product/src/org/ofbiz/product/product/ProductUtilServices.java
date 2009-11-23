@@ -671,7 +671,7 @@ while (allCatIter.hasNext()) {
             while ((productFeatureAndAppl = (GenericValue) productFeatureAndApplEli.next()) != null) {
                 String productFeatureId = productFeatureAndAppl.getString("productFeatureId");
                 String productFeatureTypeId = productFeatureAndAppl.getString("productFeatureTypeId");
-                if (productFeatureTypeIdsToInclude != null && productFeatureTypeIdsToInclude.size() > 0 && !productFeatureTypeIdsToInclude.contains(productFeatureTypeId)) {
+                if (UtilValidate.isNotEmpty(productFeatureTypeIdsToInclude) && !productFeatureTypeIdsToInclude.contains(productFeatureTypeId)) {
                     continue;
                 }
                 if (productFeatureTypeIdsToExclude != null && productFeatureTypeIdsToExclude.contains(productFeatureTypeId)) {

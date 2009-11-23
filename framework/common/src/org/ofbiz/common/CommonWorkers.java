@@ -46,7 +46,7 @@ public class CommonWorkers {
         List<GenericValue> geoList = FastList.newInstance();
         String defaultCountry = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         GenericValue defaultGeo = null;
-        if (defaultCountry != null && defaultCountry.length() > 0) {
+        if (UtilValidate.isNotEmpty(defaultCountry)) {
             try {
                 defaultGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", defaultCountry), true);
             } catch (GenericEntityException e) {

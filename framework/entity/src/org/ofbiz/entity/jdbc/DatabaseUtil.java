@@ -326,7 +326,7 @@ public class DatabaseUtil {
                             // add the column
                             String errMsg = addColumn(entity, field);
 
-                            if (errMsg != null && errMsg.length() > 0) {
+                            if (UtilValidate.isNotEmpty(errMsg)) {
                                 message = "Could not add column [" + field.getColName() + "] to table [" + entity.getTableName(datasourceInfo) + "]: " + errMsg;
                                 Debug.logError(message, module);
                                 if (messages != null) messages.add(message);
@@ -346,7 +346,7 @@ public class DatabaseUtil {
                 if (addMissing) {
                     // create the table
                     String errMsg = createTable(entity, modelEntities, false);
-                    if (errMsg != null && errMsg.length() > 0) {
+                    if (UtilValidate.isNotEmpty(errMsg)) {
                         message = "Could not create table [" + entity.getTableName(datasourceInfo) + "]: " + errMsg;
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
@@ -463,7 +463,7 @@ public class DatabaseUtil {
 
                             if (addMissing) {
                                 String errMsg = createForeignKey(entity, modelRelation, relModelEntity, datasourceInfo.constraintNameClipLength, datasourceInfo.fkStyle, datasourceInfo.useFkInitiallyDeferred);
-                                if (errMsg != null && errMsg.length() > 0) {
+                                if (UtilValidate.isNotEmpty(errMsg)) {
                                     String message = "Could not create foreign key " + relConstraintName + " for entity [" + entity.getEntityName() + "]: " + errMsg;
                                     Debug.logError(message, module);
                                     if (messages != null) messages.add(message);
@@ -550,7 +550,7 @@ public class DatabaseUtil {
 
                                 if (addMissing) {
                                     String errMsg = createForeignKeyIndex(entity, modelRelation, datasourceInfo.constraintNameClipLength);
-                                    if (errMsg != null && errMsg.length() > 0) {
+                                    if (UtilValidate.isNotEmpty(errMsg)) {
                                         String message = "Could not create foreign key index " + relConstraintName + " for entity [" + entity.getEntityName() + "]: " + errMsg;
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
@@ -633,7 +633,7 @@ public class DatabaseUtil {
 
                                 if (addMissing) {
                                     String errMsg = createDeclaredIndex(entity, modelIndex);
-                                    if (errMsg != null && errMsg.length() > 0) {
+                                    if (UtilValidate.isNotEmpty(errMsg)) {
                                         String message = "Could not create index " + relIndexName + " for entity [" + entity.getEntityName() + "]: " + errMsg;
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
@@ -1220,7 +1220,7 @@ public class DatabaseUtil {
             String lookupSchemaName = null;
             try {
                 if (dbData.supportsSchemasInTableDefinitions()) {
-                    if (this.datasourceInfo.schemaName != null && this.datasourceInfo.schemaName.length() > 0) {
+                    if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
                         lookupSchemaName = this.datasourceInfo.schemaName;
                     } else {
                         lookupSchemaName = dbData.getUserName();
@@ -1456,7 +1456,7 @@ public class DatabaseUtil {
             // ResultSet rsCols = dbData.getCrossReference(null, null, null, null, null, null);
             String lookupSchemaName = null;
             if (dbData.supportsSchemasInTableDefinitions()) {
-                if (this.datasourceInfo.schemaName != null && this.datasourceInfo.schemaName.length() > 0) {
+                if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
                     lookupSchemaName = this.datasourceInfo.schemaName;
                 } else {
                     lookupSchemaName = dbData.getUserName();
@@ -1609,7 +1609,7 @@ public class DatabaseUtil {
             for (String curTableName: tableNames) {
                 String lookupSchemaName = null;
                 if (dbData.supportsSchemasInTableDefinitions()) {
-                    if (this.datasourceInfo.schemaName != null && this.datasourceInfo.schemaName.length() > 0) {
+                    if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
                         lookupSchemaName = this.datasourceInfo.schemaName;
                     } else {
                         lookupSchemaName = dbData.getUserName();
@@ -2295,7 +2295,7 @@ public class DatabaseUtil {
                 }
 
                 String retMsg = createForeignKey(entity, modelRelation, relModelEntity, constraintNameClipLength, fkStyle, useFkInitiallyDeferred);
-                if (retMsg != null && retMsg.length() > 0) {
+                if (UtilValidate.isNotEmpty(retMsg)) {
                     Debug.logError(retMsg, module);
                     if (messages != null) messages.add(retMsg);
                     continue;
@@ -2483,7 +2483,7 @@ public class DatabaseUtil {
                 }
 
                 String retMsg = deleteForeignKey(entity, modelRelation, relModelEntity, constraintNameClipLength);
-                if (retMsg != null && retMsg.length() > 0) {
+                if (UtilValidate.isNotEmpty(retMsg)) {
                     if (messages != null) messages.add(retMsg);
                     Debug.logError(retMsg, module);
                 }
@@ -2740,7 +2740,7 @@ public class DatabaseUtil {
             ModelIndex modelIndex = indexesIter.next();
 
             String retMsg = createDeclaredIndex(entity, modelIndex);
-            if (retMsg != null && retMsg.length() > 0) {
+            if (UtilValidate.isNotEmpty(retMsg)) {
                 String message = "Could not create declared indices for entity [" + entity.getEntityName() + "]: " + retMsg;
                 Debug.logError(message, module);
                 if (messages != null) messages.add(message);
@@ -2850,7 +2850,7 @@ public class DatabaseUtil {
         while (indexesIter.hasNext()) {
             ModelIndex modelIndex = indexesIter.next();
             String retMsg = deleteDeclaredIndex(entity, modelIndex);
-            if (retMsg != null && retMsg.length() > 0) {
+            if (UtilValidate.isNotEmpty(retMsg)) {
                 if (retMsgsBuffer.length() > 0) {
                     retMsgsBuffer.append("\n");
                 }
@@ -2946,7 +2946,7 @@ public class DatabaseUtil {
             ModelRelation modelRelation = relationsIter.next();
             if ("one".equals(modelRelation.getType())) {
                 String retMsg = createForeignKeyIndex(entity, modelRelation, constraintNameClipLength);
-                if (retMsg != null && retMsg.length() > 0) {
+                if (UtilValidate.isNotEmpty(retMsg)) {
                     String message = "Could not create foreign key indices for entity [" + entity.getEntityName() + "]: " + retMsg;
                     Debug.logError(message, module);
                     if (messages != null) messages.add(message);
@@ -3070,7 +3070,7 @@ public class DatabaseUtil {
             if ("one".equals(modelRelation.getType())) {
                 String retMsg = deleteForeignKeyIndex(entity, modelRelation, constraintNameClipLength);
 
-                if (retMsg != null && retMsg.length() > 0) {
+                if (UtilValidate.isNotEmpty(retMsg)) {
                     if (retMsgsBuffer.length() > 0) {
                         retMsgsBuffer.append("\n");
                     }
@@ -3144,7 +3144,7 @@ public class DatabaseUtil {
 
     public String getSchemaName(DatabaseMetaData dbData) throws SQLException {
         if (!isLegacy && this.datasourceInfo.useSchemas && dbData.supportsSchemasInTableDefinitions()) {
-            if (this.datasourceInfo.schemaName != null && this.datasourceInfo.schemaName.length() > 0) {
+            if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
                 return this.datasourceInfo.schemaName;
             } else {
                 return dbData.getUserName();

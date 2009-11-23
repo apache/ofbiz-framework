@@ -136,7 +136,7 @@ public abstract class ListFinder extends Finder {
         if ("forward".equals(resultSetTypeString))
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
 
-        if (delegatorName != null && delegatorName.length() > 0) {
+        if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
 

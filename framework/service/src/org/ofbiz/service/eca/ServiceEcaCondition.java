@@ -137,7 +137,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
 
         Object lhsValue = null;
         Object rhsValue = null;
-        if (lhsMapName != null && lhsMapName.length() > 0) {
+        if (UtilValidate.isNotEmpty(lhsMapName)) {
             try {
                 if (context.containsKey(lhsMapName)) {
                     Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(lhsMapName));
@@ -158,7 +158,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
 
         if (isConstant) {
             rhsValue = rhsValueName;
-        } else if (rhsMapName != null && rhsMapName.length() > 0) {
+        } else if (UtilValidate.isNotEmpty(rhsMapName)) {
             try {
                 if (context.containsKey(rhsMapName)) {
                     Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(rhsMapName));

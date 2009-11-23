@@ -62,12 +62,12 @@ public class JNDIContextFactory {
 
                             h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
                             h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
-                            if (jndiServerInfo.urlPkgPrefixes != null && jndiServerInfo.urlPkgPrefixes.length() > 0)
+                            if (UtilValidate.isNotEmpty(jndiServerInfo.urlPkgPrefixes))
                                 h.put(Context.URL_PKG_PREFIXES, jndiServerInfo.urlPkgPrefixes);
 
-                            if (jndiServerInfo.securityPrincipal != null && jndiServerInfo.securityPrincipal.length() > 0)
+                            if (UtilValidate.isNotEmpty(jndiServerInfo.securityPrincipal))
                                 h.put(Context.SECURITY_PRINCIPAL, jndiServerInfo.securityPrincipal);
-                            if (jndiServerInfo.securityCredentials != null && jndiServerInfo.securityCredentials.length() > 0)
+                            if (UtilValidate.isNotEmpty(jndiServerInfo.securityCredentials))
                                 h.put(Context.SECURITY_CREDENTIALS, jndiServerInfo.securityCredentials);
 
                             ic = new InitialContext(h);

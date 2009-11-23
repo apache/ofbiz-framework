@@ -64,6 +64,7 @@ import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -706,7 +707,7 @@ public class ValueLinkApi {
 
         // mode settings
         String modes = (String) props.get("payment.valuelink.modes");
-        if (modes != null && modes.length() > 0) {
+        if (UtilValidate.isNotEmpty(modes)) {
             request.put("Modes", modes);
         }
 

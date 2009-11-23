@@ -22,6 +22,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -39,7 +40,7 @@ public class PropFindHelper extends ResponseHelper {
     
     public Element createPropElement(List<Element> propList) {
         Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:prop");
-        if (propList != null && propList.size() > 0) {
+        if (UtilValidate.isNotEmpty(propList)) {
             for (Element propElement : propList) {
                 element.appendChild(propElement);
             }

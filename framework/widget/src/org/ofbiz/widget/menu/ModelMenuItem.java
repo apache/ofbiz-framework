@@ -127,7 +127,7 @@ public class ModelMenuItem {
 
         String positionStr = fieldElement.getAttribute("position");
         try {
-            if (positionStr != null && positionStr.length() > 0) {
+            if (UtilValidate.isNotEmpty(positionStr)) {
                 position = Integer.valueOf(positionStr);
             }
         } catch (Exception e) {

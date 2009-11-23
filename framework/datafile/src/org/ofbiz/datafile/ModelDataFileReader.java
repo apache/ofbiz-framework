@@ -195,7 +195,7 @@ public class ModelDataFileReader {
         dataFile.receiver = UtilXml.checkEmpty(dataFileElement.getAttribute("receiver"));
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("record-length"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             dataFile.recordLength = Integer.parseInt(tempStr);
         }
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("delimiter"));
@@ -204,7 +204,7 @@ public class ModelDataFileReader {
         }
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("text-delimiter"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             dataFile.textDelimiter = tempStr;
         }
 
@@ -254,16 +254,16 @@ public class ModelDataFileReader {
         if (record.tcMax.length() > 0) record.tcMaxNum = Long.parseLong(record.tcMax);
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             record.tcIsNum = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-position"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             record.tcPosition = Integer.parseInt(tempStr);
         }
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-length"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             record.tcLength = Integer.parseInt(tempStr);
         }
 
@@ -301,11 +301,11 @@ public class ModelDataFileReader {
         field.name = UtilXml.checkEmpty(fieldElement.getAttribute("name"));
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("position"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             field.position = Integer.parseInt(tempStr);
         }
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("length"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             field.length = Integer.parseInt(tempStr);
         }
 
@@ -317,17 +317,17 @@ public class ModelDataFileReader {
         field.refField = UtilXml.checkEmpty(fieldElement.getAttribute("ref-field"));
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("prim-key"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             field.isPk = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("ignored"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             field.ignored = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("expression"));
-        if (tempStr != null && tempStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(tempStr)) {
             field.expression = Boolean.parseBoolean(tempStr);
         }
 

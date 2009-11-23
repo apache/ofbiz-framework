@@ -178,7 +178,7 @@ public class CheckPermission extends MethodOperation {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
 
-            if (action != null && action.length() > 0) {
+            if (UtilValidate.isNotEmpty(action)) {
                 // run hasEntityPermission
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {

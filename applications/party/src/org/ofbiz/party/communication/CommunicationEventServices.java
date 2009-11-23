@@ -1173,7 +1173,7 @@ public class CommunicationEventServices {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
-                        if (values != null && values.size() > 0) {
+                        if (UtilValidate.isNotEmpty(values)) {
                             // there should be only one; unique key
                             GenericValue value = values.get(0);
 
@@ -1205,7 +1205,7 @@ public class CommunicationEventServices {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
-                            if (values != null && values.size() > 0) {
+                            if (UtilValidate.isNotEmpty(values)) {
                                 // there should be only one; unique key
                                 GenericValue value = values.get(0);
 

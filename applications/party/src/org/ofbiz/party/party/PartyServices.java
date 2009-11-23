@@ -112,7 +112,7 @@ public class PartyServices {
         String description = (String) context.get("description");
 
         // if specified partyId starts with a number, return an error
-        if (partyId != null && partyId.length() > 0 && Character.isDigit(partyId.charAt(0))) {
+        if (UtilValidate.isNotEmpty(partyId) && Character.isDigit(partyId.charAt(0))) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "party.id_is_digit", locale));
         }
 
@@ -986,7 +986,7 @@ public class PartyServices {
         String roleTypeId;
         try {
             roleTypeId = (String) context.get("roleTypeId");
-            if (roleTypeId != null && roleTypeId.length() > 0) {
+            if (UtilValidate.isNotEmpty(roleTypeId)) {
                 GenericValue currentRole = delegator.findByPrimaryKeyCache("RoleType", UtilMisc.toMap("roleTypeId", roleTypeId));
                 result.put("currentRole", currentRole);
             }
@@ -1010,7 +1010,7 @@ public class PartyServices {
         String partyTypeId;
         try {
             partyTypeId = (String) context.get("partyTypeId");
-            if (partyTypeId != null && partyTypeId.length() > 0) {
+            if (UtilValidate.isNotEmpty(partyTypeId)) {
                 GenericValue currentPartyType = delegator.findByPrimaryKeyCache("PartyType", UtilMisc.toMap("partyTypeId", partyTypeId));
                 result.put("currentPartyType", currentPartyType);
             }
@@ -1024,7 +1024,7 @@ public class PartyServices {
         String stateProvinceGeoId;
         try {
             stateProvinceGeoId = (String) context.get("stateProvinceGeoId");
-            if (stateProvinceGeoId != null && stateProvinceGeoId.length() > 0) {
+            if (UtilValidate.isNotEmpty(stateProvinceGeoId)) {
                 GenericValue currentStateGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", stateProvinceGeoId));
                 result.put("currentStateGeo", currentStateGeo);
             }
@@ -1123,7 +1123,7 @@ public class PartyServices {
 
             if (!"Y".equals(showAll)) {
                 // check for a partyId
-                if (partyId != null && partyId.length() > 0) {
+                if (UtilValidate.isNotEmpty(partyId)) {
                     paramList = paramList + "&partyId=" + partyId;
                     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyId"), EntityOperator.LIKE, EntityFunction.UPPER("%"+partyId+"%")));
                 }
@@ -1149,7 +1149,7 @@ public class PartyServices {
                 // ----
 
                 // filter on user login
-                if (userLoginId != null && userLoginId.length() > 0) {
+                if (UtilValidate.isNotEmpty(userLoginId)) {
                     paramList = paramList + "&userLoginId=" + userLoginId;
 
                     // modify the dynamic view
@@ -1168,7 +1168,7 @@ public class PartyServices {
                 // ----
 
                 // filter on groupName
-                if (groupName != null && groupName.length() > 0) {
+                if (UtilValidate.isNotEmpty(groupName)) {
                     paramList = paramList + "&groupName=" + groupName;
 
                     // modify the dynamic view
@@ -1187,7 +1187,7 @@ public class PartyServices {
                 // ----
 
                 // modify the dynamic view
-                if ((firstName != null && firstName.length() > 0) || (lastName != null && lastName.length() > 0)) {
+                if (UtilValidate.isNotEmpty(firstName) || UtilValidate.isNotEmpty(lastName)) {
                     dynamicView.addMemberEntity("PE", "Person");
                     dynamicView.addAlias("PE", "firstName");
                     dynamicView.addAlias("PE", "lastName");
@@ -1200,13 +1200,13 @@ public class PartyServices {
                 }
 
                 // filter on firstName
-                if (firstName != null && firstName.length() > 0) {
+                if (UtilValidate.isNotEmpty(firstName)) {
                     paramList = paramList + "&firstName=" + firstName;
                     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+firstName+"%")));
                 }
 
                 // filter on lastName
-                if (lastName != null && lastName.length() > 0) {
+                if (UtilValidate.isNotEmpty(lastName)) {
                     paramList = paramList + "&lastName=" + lastName;
                     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+lastName+"%")));
                 }
@@ -1288,21 +1288,21 @@ public class PartyServices {
 
                     // filter on address1
                     String address1 = (String) context.get("address1");
-                    if (address1 != null && address1.length() > 0) {
+                    if (UtilValidate.isNotEmpty(address1)) {
                         paramList = paramList + "&address1=" + address1;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("address1"), EntityOperator.LIKE, EntityFunction.UPPER("%" + address1 + "%")));
                     }
 
                     // filter on address2
                     String address2 = (String) context.get("address2");
-                    if (address2 != null && address2.length() > 0) {
+                    if (UtilValidate.isNotEmpty(address2)) {
                         paramList = paramList + "&address2=" + address2;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("address2"), EntityOperator.LIKE, EntityFunction.UPPER("%" + address2 + "%")));
                     }
 
                     // filter on city
                     String city = (String) context.get("city");
-                    if (city != null && city.length() > 0) {
+                    if (UtilValidate.isNotEmpty(city)) {
                         paramList = paramList + "&city=" + city;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.LIKE, EntityFunction.UPPER("%" + city + "%")));
                     }
@@ -1315,7 +1315,7 @@ public class PartyServices {
 
                     // filter on postal code
                     String postalCode = (String) context.get("postalCode");
-                    if (postalCode != null && postalCode.length() > 0) {
+                    if (UtilValidate.isNotEmpty(postalCode)) {
                         paramList = paramList + "&postalCode=" + postalCode;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("postalCode"), EntityOperator.LIKE, EntityFunction.UPPER("%" + postalCode + "%")));
                     }
@@ -1339,7 +1339,7 @@ public class PartyServices {
 
                     // filter on infoString
                     String infoString = (String) context.get("infoString");
-                    if (infoString != null && infoString.length() > 0) {
+                    if (UtilValidate.isNotEmpty(infoString)) {
                         paramList = paramList + "&infoString=" + infoString;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER("%"+infoString+"%")));
                         fieldsToSelect.add("infoString");
@@ -1363,21 +1363,21 @@ public class PartyServices {
 
                     // filter on countryCode
                     String countryCode = (String) context.get("countryCode");
-                    if (countryCode != null && countryCode.length() > 0) {
+                    if (UtilValidate.isNotEmpty(countryCode)) {
                         paramList = paramList + "&countryCode=" + countryCode;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("countryCode"), EntityOperator.EQUALS, EntityFunction.UPPER(countryCode)));
                     }
 
                     // filter on areaCode
                     String areaCode = (String) context.get("areaCode");
-                    if (areaCode != null && areaCode.length() > 0) {
+                    if (UtilValidate.isNotEmpty(areaCode)) {
                         paramList = paramList + "&areaCode=" + areaCode;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("areaCode"), EntityOperator.EQUALS, EntityFunction.UPPER(areaCode)));
                     }
 
                     // filter on contact number
                     String contactNumber = (String) context.get("contactNumber");
-                    if (contactNumber != null && contactNumber.length() > 0) {
+                    if (UtilValidate.isNotEmpty(contactNumber)) {
                         paramList = paramList + "&contactNumber=" + contactNumber;
                         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("contactNumber"), EntityOperator.EQUALS, EntityFunction.UPPER(contactNumber)));
                     }

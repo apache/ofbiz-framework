@@ -53,7 +53,7 @@ public class EntityAuthorization extends AbstractAuthorization {
         while (checking) {
             if (Debug.verboseOn()) Debug.logVerbose("Looking for auto-grant permissions for : " + checkString, module);
             List<String> autoGrant = getPermissionAutoGrant(checkString);
-            if (autoGrant != null && autoGrant.size() > 0) {
+            if (UtilValidate.isNotEmpty(autoGrant)) {
                 return autoGrant;
             }
             if (checkString.indexOf(":") > -1) {
@@ -183,7 +183,7 @@ public class EntityAuthorization extends AbstractAuthorization {
                 Debug.logWarning(e, module);
             }
             
-            if (values != null && values.size() > 0) {
+            if (UtilValidate.isNotEmpty(values)) {
                 for (GenericValue v : values) {
                     autoGrants.add(v.getString("grantPermission"));
                 }

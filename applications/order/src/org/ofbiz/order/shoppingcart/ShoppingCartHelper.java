@@ -404,7 +404,7 @@ public class ShoppingCartHelper {
                 continue;
             }
 
-            if (quantStr != null && quantStr.length() > 0) {
+            if (UtilValidate.isNotEmpty(quantStr)) {
                 BigDecimal quantity = BigDecimal.ZERO;
 
                 try {
@@ -480,7 +480,7 @@ public class ShoppingCartHelper {
                     return ServiceUtil.returnError("Requirement with id [" + requirementId + "] doesn't exist.");
                 }
 
-                if (quantStr != null && quantStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(quantStr)) {
                     BigDecimal quantity = BigDecimal.ZERO;
                     try {
                         quantity = new BigDecimal(nf.parse(quantStr).doubleValue());
@@ -697,21 +697,21 @@ public class ShoppingCartHelper {
                             item.setReservPersons(reservPersons);
                         }
                     } else if (parameterName.startsWith("shipBeforeDate")) {
-                        if (item != null && quantString.length() > 0) {
+                        if (UtilValidate.isNotEmpty(quantString)) {
                             // input is either yyyy-mm-dd or a full timestamp
                             if (quantString.length() == 10)
                                 quantString += " 00:00:00.000";
                             item.setShipBeforeDate(Timestamp.valueOf(quantString));
                         }
                     } else if (parameterName.startsWith("shipAfterDate")) {
-                        if (item != null && quantString.length() > 0) {
+                        if (UtilValidate.isNotEmpty(quantString)) {
                             // input is either yyyy-mm-dd or a full timestamp
                             if (quantString.length() == 10)
                                 quantString += " 00:00:00.000";
                             item.setShipAfterDate(Timestamp.valueOf(quantString));
                         }
                     } else if (parameterName.startsWith("amount")) {
-                        if (item != null && quantString.length() > 0) {
+                        if (UtilValidate.isNotEmpty(quantString)) {
                             BigDecimal amount = new BigDecimal(quantString);
                             if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                                 String errMsg = UtilProperties.getMessage(resource_error, "cart.amount_not_positive_number", this.cart.getLocale());
@@ -722,7 +722,7 @@ public class ShoppingCartHelper {
                             item.setSelectedAmount(amount);
                         }
                     } else if (parameterName.startsWith("itemType")) {
-                        if (item != null && quantString.length() > 0) {
+                        if (UtilValidate.isNotEmpty(quantString)) {
                             item.setItemType(quantString);
                         }
                     } else {

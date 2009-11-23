@@ -97,7 +97,7 @@ public class HtmlFormWrapper {
         }
 
         Map<String, String> uiLabelMap = UtilGenerics.cast(request.getAttribute("uiLabelMap"));
-        if (uiLabelMap != null && uiLabelMap.size() > 0 && context.get("uiLabelMap") == null) {
+        if (UtilValidate.isNotEmpty(uiLabelMap) && context.get("uiLabelMap") == null) {
             Debug.logInfo("Got uiLabelMap: " + uiLabelMap, module);
             context.put("uiLabelMap", uiLabelMap);
         }

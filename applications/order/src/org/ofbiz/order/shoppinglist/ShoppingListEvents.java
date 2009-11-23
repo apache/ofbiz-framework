@@ -191,7 +191,7 @@ public class ShoppingListEvents {
             return "error";
         }
 
-        if (eventMessage != null && eventMessage.length() > 0) {
+        if (UtilValidate.isNotEmpty(eventMessage)) {
             request.setAttribute("_EVENT_MESSAGE_", eventMessage);
         }
 

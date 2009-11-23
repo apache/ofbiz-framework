@@ -313,7 +313,7 @@ public class ModelScreenCondition implements Serializable {
 
                 Authorization authz = (Authorization) context.get("authz");
                 Security security = (Security) context.get("security");
-                if (action != null && action.length() > 0) {
+                if (UtilValidate.isNotEmpty(action)) {
                     //Debug.logWarning("Deprecated method hasEntityPermission() was called; the action field should no longer be used", module);
                     // run hasEntityPermission
                     if (security.hasEntityPermission(permission, action, userLogin)) {

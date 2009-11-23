@@ -348,7 +348,7 @@ public class ContactMechWorker {
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
-                if (partyContactMechPurposes != null && partyContactMechPurposes.size() > 0)
+                if (UtilValidate.isNotEmpty(partyContactMechPurposes))
                     target.put("partyContactMechPurposes", partyContactMechPurposes);
             }
 
@@ -559,7 +559,7 @@ public class ContactMechWorker {
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
-                if (facilityContactMechPurposes != null && facilityContactMechPurposes.size() > 0)
+                if (UtilValidate.isNotEmpty(facilityContactMechPurposes))
                     target.put("facilityContactMechPurposes", facilityContactMechPurposes);
             }
 

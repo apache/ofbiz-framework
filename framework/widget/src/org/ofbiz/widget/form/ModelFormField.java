@@ -160,7 +160,7 @@ public class ModelFormField {
 
         String positionStr = fieldElement.getAttribute("position");
         try {
-            if (positionStr != null && positionStr.length() > 0) {
+            if (UtilValidate.isNotEmpty(positionStr)) {
                 position = Integer.valueOf(positionStr);
             }
         } catch (Exception e) {
@@ -2665,7 +2665,7 @@ public class ModelFormField {
             try {
                 size = Integer.parseInt(sizeStr);
             } catch (Exception e) {
-                if (sizeStr != null && sizeStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(sizeStr)) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr + "], setting to the default of " + size, module);
                 }
             }
@@ -2675,7 +2675,7 @@ public class ModelFormField {
                 maxlength = Integer.valueOf(maxlengthStr);
             } catch (Exception e) {
                 maxlength = null;
-                if (maxlengthStr != null && maxlengthStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(maxlengthStr)) {
                     Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr + "], setting to null; default of no maxlength will be used", module);
                 }
             }
@@ -2788,7 +2788,7 @@ public class ModelFormField {
             try {
                 cols = Integer.parseInt(colsStr);
             } catch (Exception e) {
-                if (colsStr != null && colsStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(colsStr)) {
                     Debug.logError("Could not parse the size value of the text element: [" + colsStr + "], setting to default of " + cols, module);
                 }
             }
@@ -2797,7 +2797,7 @@ public class ModelFormField {
             try {
                 rows = Integer.parseInt(rowsStr);
             } catch (Exception e) {
-                if (rowsStr != null && rowsStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(rowsStr)) {
                     Debug.logError("Could not parse the size value of the text element: [" + rowsStr + "], setting to default of " + rows, module);
                 }
             }
@@ -3013,7 +3013,7 @@ public class ModelFormField {
             try {
                 this.otherFieldSize = Integer.parseInt(sizeStr);
             } catch (Exception e) {
-                if (sizeStr != null && sizeStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(sizeStr)) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr + "], setting to the default of " + this.otherFieldSize, module);
                 }
             }
@@ -3577,7 +3577,7 @@ public class ModelFormField {
             try {
                 border = Integer.parseInt(borderStr);
             } catch (Exception e) {
-                if (borderStr != null && borderStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(borderStr)) {
                     Debug.logError("Could not parse the border value of the text element: [" + borderStr + "], setting to the default of " + border, module);
                 }
             }
@@ -3587,7 +3587,7 @@ public class ModelFormField {
                 width = Integer.valueOf(widthStr);
             } catch (Exception e) {
                 width = null;
-                if (widthStr != null && widthStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(widthStr)) {
                     Debug.logError(
                         "Could not parse the size value of the text element: [" + widthStr + "], setting to null; default of no width will be used",
                         module);
@@ -3599,7 +3599,7 @@ public class ModelFormField {
                 height = Integer.valueOf(heightStr);
             } catch (Exception e) {
                 height = null;
-                if (heightStr != null && heightStr.length() > 0) {
+                if (UtilValidate.isNotEmpty(heightStr)) {
                     Debug.logError(
                         "Could not parse the size value of the text element: [" + heightStr + "], setting to null; default of no height will be used",
                         module);

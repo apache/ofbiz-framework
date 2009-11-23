@@ -67,7 +67,7 @@ public class HasPermissionCondition implements Conditional {
 
             Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
-            if (action != null && action.length() > 0) {
+            if (UtilValidate.isNotEmpty(action)) {
                 // run hasEntityPermission
                 if (security.hasEntityPermission(permission, action, userLogin)) {
                     runSubOps = true;

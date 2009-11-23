@@ -411,7 +411,7 @@ public class JobManager {
                 "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId);
 
         // set the pool ID
-        if (poolName != null && poolName.length() > 0) {
+        if (UtilValidate.isNotEmpty(poolName)) {
             jFields.put("poolId", poolName);
         } else {
             jFields.put("poolId", ServiceConfigUtil.getSendPool());

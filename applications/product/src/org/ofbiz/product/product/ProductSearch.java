@@ -2113,7 +2113,7 @@ public class ProductSearch {
         boolean productIdGroupBy = false;
 
         // Category
-        if (productCategoryId != null && productCategoryId.length() > 0) {
+        if (UtilValidate.isNotEmpty(productCategoryId)) {
             List productCategoryIdList = null;
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId

@@ -275,7 +275,7 @@ public class ProductsExportToGoogle {
         if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
             response = toString(inputStream);
-            if (response != null && response.length() > 0) {
+            if (UtilValidate.isNotEmpty(response)) {
                 result = readResponseFromGoogle(response, newProductsInGoogle, productsRemovedFromGoogle, dispatcher, delegator, locale);
                 //String msg = ServiceUtil.getErrorMessage(result);
                 if (ServiceUtil.isError(result)) {

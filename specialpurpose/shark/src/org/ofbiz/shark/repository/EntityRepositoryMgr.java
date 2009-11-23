@@ -177,8 +177,8 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public boolean doesXPDLExist(RepositoryTransaction t, String xpdlId) throws RepositoryException {
         List xpdls = this.getXpdlValues(xpdlId, null, false);
-        Debug.log("Does XPDL [" + xpdlId + "] Exist - " + xpdls + "(" + (xpdls != null && xpdls.size() > 0 ? true : false) + ")", module);
-        return (xpdls != null && xpdls.size() > 0 ? true : false);
+        Debug.log(UtilValidate.isNotEmpty(xpdls) ? true : false) + ")", module);
+        return (UtilValidate.isNotEmpty(xpdls) ? true : false);
     }
 
     public boolean doesXPDLExist(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {

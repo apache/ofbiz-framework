@@ -101,7 +101,7 @@ public class JasperReportsPdfViewHandler extends AbstractViewHandler {
             JasperPrint jp = null;
             if (jrDataSource == null) {
                 String datasourceName = delegator.getEntityHelperName(info);
-                if (datasourceName != null && datasourceName.length() > 0) {
+                if (UtilValidate.isNotEmpty(datasourceName)) {
                     Debug.logInfo("Filling report with connection from datasource: " + datasourceName, module);
                     jp = JasperFillManager.fillReport(report, parameters, ConnectionFactory.getConnection(datasourceName));
                 } else {

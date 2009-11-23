@@ -19,6 +19,7 @@
 package org.ofbiz.entity.jdbc;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.connection.ConnectionFactoryInterface;
@@ -47,7 +48,7 @@ public class ConnectionFactory {
         }
 
         try {
-            if (userName != null && userName.length() > 0)
+            if (UtilValidate.isNotEmpty(userName))
                 return DriverManager.getConnection(connectionUrl, userName, password);
             else if (props != null)
                 return DriverManager.getConnection(connectionUrl, props);
@@ -95,7 +96,7 @@ public class ConnectionFactory {
                         }
                         Class<?> cfClass = null;
 
-                        if (className != null && className.length() > 0) {
+                        if (UtilValidate.isNotEmpty(className)) {
                             try {
                                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
                                 cfClass = loader.loadClass(className);

@@ -1147,7 +1147,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String targetType = modelForm.getTargetType();
         String targ = modelForm.getTarget(context, targetType);
         StringBuilder linkUrl = new StringBuilder();
-        if (targ != null && targ.length() > 0) {
+        if (UtilValidate.isNotEmpty(targ)) {
             //this.appendOfbizUrl(writer, "/" + targ);
             WidgetWorker.buildHyperlinkUrl(linkUrl, targ, targetType, null, null, false, false, true, request, response, context);
         }

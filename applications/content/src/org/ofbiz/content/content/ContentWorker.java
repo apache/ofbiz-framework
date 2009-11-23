@@ -702,7 +702,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static boolean checkWhen(Map context, String whenStr) {
 
         boolean isWhen = true; //opposite default from checkReturnWhen
-        if (whenStr != null && whenStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             //if (Debug.infoOn()) Debug.logInfo("newWhen:" + newWhen,null);
@@ -722,7 +722,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static boolean checkReturnWhen(Map<String, Object> context, String whenStr) {
         boolean isWhen = false; //opposite default from checkWhen
-        if (whenStr != null && whenStr.length() > 0) {
+        if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             try {

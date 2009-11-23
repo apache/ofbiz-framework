@@ -497,7 +497,7 @@ public class LoginServices {
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             GenericValue party = null;
 
             try {
@@ -724,7 +724,7 @@ public class LoginServices {
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
-        if (partyId != null && partyId.length() > 0) {
+        if (UtilValidate.isNotEmpty(partyId)) {
             //GenericValue party = null;
             //try {
             //    party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
