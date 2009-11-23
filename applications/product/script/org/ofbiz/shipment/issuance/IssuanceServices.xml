@@ -323,7 +323,7 @@ under the License.
             </entity-and>
             <if-not-empty field="itemIssuances">
                 <first-from-list entry="itemIssuance" list="itemIssuances"/>
-                <set field="itemIssuance.quantity" value="${itemIssuance.quantity + parameters.quantity}" type="BigDecimal"/>
+                <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + parameters.quantity$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="itemIssuance"/>
                 <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
                 <field-to-result field="itemIssuanceId"/>
@@ -595,7 +595,7 @@ under the License.
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
         <iterate entry="itemIssuance" list="allItemIssuances">
-            <set field="totalIssuedQuantity" value="${totalIssuedQuantity + itemIssuance.quantity}" type="BigDecimal"/>
+            <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + itemIssuance.quantity$bigDecimal}" type="BigDecimal"/>
         </iterate>
     </simple-method>
 </simple-methods>

@@ -374,10 +374,10 @@ under the License.
         <else>
             <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
             <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
-            <set field="receivedQuantity" value="${receivedQuantity + parameters.quantity}" type="BigDecimal"/>
+            <set field="receivedQuantity" value="${receivedQuantity$bigDecimal + parameters.quantity$bigDecimal}" type="BigDecimal"/>
             <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
-                <set field="quantityToAdd" value="${receivedQuantity - totalIssuedQuantity}" type="BigDecimal"/>
-                <set field="shipmentItem.quantity" value="${shipmentItem.quantity + quantityToAdd}" type="BigDecimal"/>
+                <set field="quantityToAdd" value="${receivedQuantity$bigDecimal - totalIssuedQuantity$bigDecimal}" type="BigDecimal"/>
+                <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="shipmentItem"/>
                 <set field="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                 
@@ -390,7 +390,7 @@ under the License.
                     <order-by field-name="-issuedDateTime"/>
                 </entity-and>
                 <first-from-list entry="itemIssuance" list="itemIssuances"/>
-                <set field="itemIssuance.quantity" value="${itemIssuance.quantity + quantityToAdd}" type="BigDecimal"/>
+                <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="itemIssuance"/>
                 <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
             </if-compare-field>
@@ -414,7 +414,7 @@ under the License.
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
         <iterate entry="shipmentReceipt" list="shipmentReceipts">
-            <set field="receivedQuantity" value="${receivedQuantity + shipmentReceipt.quantityAccepted}" type="BigDecimal"/>
+            <set field="receivedQuantity" value="${receivedQuantity$bigDecimal + shipmentReceipt.quantityAccepted$bigDecimal}" type="BigDecimal"/>
         </iterate>
     </simple-method>
 
@@ -442,7 +442,7 @@ under the License.
             <if-not-empty field="orderItem.productId">
                 <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
                 <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
-                    <set field="quantityToAdd" value="${receivedQuantity - totalIssuedQuantity}" type="BigDecimal"/>
+                    <set field="quantityToAdd" value="${receivedQuantity$bigDecimal - totalIssuedQuantity$bigDecimal}" type="BigDecimal"/>
                     <entity-condition entity-name="ShipmentItem" list="shipmentItems">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" from-field="orderItem.productId"/>
@@ -452,7 +452,7 @@ under the License.
                         <order-by field-name="shipmentItemSeqId"/>
                     </entity-condition>
                     <first-from-list entry="shipmentItem" list="shipmentItems"/>
-                    <set field="shipmentItem.quantity" value="${shipmentItem.quantity + quantityToAdd}" type="BigDecimal"/>
+                    <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                     <store-value value-field="shipmentItem"/>
                     
                     <entity-and list="itemIssuances" entity-name="ItemIssuance">
@@ -463,7 +463,7 @@ under the License.
                         <order-by field-name="-issuedDateTime"/>
                     </entity-and>
                     <first-from-list entry="itemIssuance" list="itemIssuances"/>
-                    <set field="itemIssuance.quantity" value="${itemIssuance.quantity + quantityToAdd}" type="BigDecimal"/>
+                    <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                     <store-value value-field="itemIssuance"/>
                     
                     <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
