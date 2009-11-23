@@ -46,8 +46,8 @@ public class MenuFactory {
 
     public static final String module = MenuFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.webappResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);
 
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {

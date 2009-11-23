@@ -48,7 +48,7 @@ public class EntityEcaUtil {
 
     public static final String module = EntityEcaUtil.class.getName();
 
-    public static UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = new UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>>("entity.EcaReaders", 0, 0, false);
+    public static UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = entityEcaReaders.get(entityEcaReaderName);

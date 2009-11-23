@@ -111,9 +111,9 @@ public class SimpleMethod {
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
 
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = new UtilCache<String, Map<String, SimpleMethod>>("minilang.SimpleMethodsDirect", 0, 0);
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = new UtilCache<String, Map<String, SimpleMethod>>("minilang.SimpleMethodsResource", 0, 0);
-    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = new UtilCache<URL, Map<String, SimpleMethod>>("minilang.SimpleMethodsURL", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
+    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = UtilCache.createUtilCache("minilang.SimpleMethodsURL", 0, 0);
 
     // ----- Event Context Invokers -----
 

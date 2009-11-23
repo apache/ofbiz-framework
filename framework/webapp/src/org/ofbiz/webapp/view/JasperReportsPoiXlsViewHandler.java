@@ -52,7 +52,7 @@ public class JasperReportsPoiXlsViewHandler extends AbstractViewHandler {
     public static final String module = JasperReportsPoiXlsViewHandler.class.getName();
 
     protected ServletContext context;
-    public static UtilCache jasperReportsCompiledCache = new UtilCache("webapp.JasperReportsCompiled");
+    public static UtilCache jasperReportsCompiledCache = UtilCache.createUtilCache("webapp.JasperReportsCompiled");
 
     public void init(ServletContext context) throws ViewHandlerException {
         this.context = context;

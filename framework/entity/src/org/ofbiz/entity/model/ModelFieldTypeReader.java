@@ -48,7 +48,7 @@ import org.w3c.dom.Element;
 public class ModelFieldTypeReader implements Serializable {
 
     public static final String module = ModelFieldTypeReader.class.getName();
-    protected static final UtilCache<String, ModelFieldTypeReader> readers = new UtilCache<String, ModelFieldTypeReader>("entity.ModelFieldTypeReader", 0, 0);
+    protected static final UtilCache<String, ModelFieldTypeReader> readers = UtilCache.createUtilCache("entity.ModelFieldTypeReader", 0, 0);
 
     protected static Map<String, ModelFieldType> createFieldTypeCache(Element docElement, String location) {
         docElement.normalize();

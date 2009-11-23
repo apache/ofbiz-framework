@@ -51,8 +51,8 @@ public class ConfigXMLReader {
     public static final String module = ConfigXMLReader.class.getName();
     public static final String controllerXmlFileName = "/WEB-INF/controller.xml";
 
-    public static UtilCache<URL, ControllerConfig> controllerCache = new UtilCache<URL, ControllerConfig>("webapp.ControllerConfig");
-    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = new UtilCache<String, List<ControllerConfig>>("webapp.ControllerSearchResults");
+    public static UtilCache<URL, ControllerConfig> controllerCache = UtilCache.createUtilCache("webapp.ControllerConfig");
+    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = UtilCache.createUtilCache("webapp.ControllerSearchResults");
 
     public static URL getControllerConfigURL(ServletContext context) {
         try {

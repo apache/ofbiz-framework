@@ -48,7 +48,7 @@ public class CommonEvents {
 
     public static final String module = CommonEvents.class.getName();
 
-    public static UtilCache<String, Map<String, String>> appletSessions = new UtilCache<String, Map<String, String>>("AppletSessions", 0, 600000, true);
+    public static UtilCache<String, Map<String, String>> appletSessions = UtilCache.createUtilCache("AppletSessions", 0, 600000, true);
 
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");

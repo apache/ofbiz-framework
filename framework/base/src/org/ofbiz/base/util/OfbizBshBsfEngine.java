@@ -61,7 +61,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
     protected Interpreter interpreter;
     protected boolean installedApplyMethod;
 
-    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshBsfParsedCache", 0, 0, false);
+    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshBsfParsedCache", 0, 0, false);
 
     @SuppressWarnings("unchecked")
     @Override

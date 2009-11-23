@@ -51,7 +51,7 @@ import org.w3c.dom.Node;
 public class ModelGroupReader implements Serializable {
 
     public static final String module = ModelGroupReader.class.getName();
-    public static UtilCache<String, ModelGroupReader> readers = new UtilCache<String, ModelGroupReader>("entity.ModelGroupReader", 0, 0);
+    public static UtilCache<String, ModelGroupReader> readers = UtilCache.createUtilCache("entity.ModelGroupReader", 0, 0);
 
     private Map<String, String> groupCache = null;
     private Set<String> groupNames = null;

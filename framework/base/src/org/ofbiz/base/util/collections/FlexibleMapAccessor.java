@@ -37,7 +37,7 @@ import org.ofbiz.base.util.string.UelUtil;
 @SuppressWarnings("serial")
 public class FlexibleMapAccessor<T> implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();
-    protected static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = new UtilCache<String, FlexibleMapAccessor<?>>("flexibleMapAccessor.ExpressionCache");
+    protected static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
     @SuppressWarnings("unchecked")
     protected static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor(null);
 

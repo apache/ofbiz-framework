@@ -45,8 +45,8 @@ public class TreeFactory {
 
     public static final String module = TreeFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.locationResource", 0, 0, false);
-    public static final UtilCache<String, Map<String, ModelTree>> treeWebappCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = UtilCache.createUtilCache("widget.tree.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelTree>> treeWebappCache = UtilCache.createUtilCache("widget.tree.webappResource", 0, 0, false);
 
     public static ModelTree getTreeFromLocation(String resourceName, String treeName, Delegator delegator, LocalDispatcher dispatcher)
             throws IOException, SAXException, ParserConfigurationException {

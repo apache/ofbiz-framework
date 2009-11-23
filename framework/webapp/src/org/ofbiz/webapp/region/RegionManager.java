@@ -38,7 +38,7 @@ public class RegionManager {
 
     public static final String module = RegionManager.class.getName();
 
-    protected static UtilCache<URL, Map<String, Region>> regionCache = new UtilCache<URL, Map<String, Region>>("webapp.Regions.Config", 0, 0);
+    protected static UtilCache<URL, Map<String, Region>> regionCache = UtilCache.createUtilCache("webapp.Regions.Config", 0, 0);
 
     protected URL regionFile = null;
 

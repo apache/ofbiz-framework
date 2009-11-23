@@ -47,7 +47,7 @@ public class ModelDataFileReader {
 
     public static final String module = ModelDataFileReader.class.getName();
 
-    public static UtilCache<URL, ModelDataFileReader> readers = new UtilCache<URL, ModelDataFileReader>("ModelDataFile", 0, 0);
+    public static UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", 0, 0);
 
     public URL readerURL = null;
     public Map<String, ModelDataFile> modelDataFiles = null;

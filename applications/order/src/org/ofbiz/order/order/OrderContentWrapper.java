@@ -66,7 +66,7 @@ public class OrderContentWrapper {
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
         if (orderContentCache == null) {
-            orderContentCache = new UtilCache("order.content", true);     // use soft reference to free up memory if needed
+            orderContentCache = UtilCache.createUtilCache("order.content", true);     // use soft reference to free up memory if needed
         }
     }
 
@@ -76,7 +76,7 @@ public class OrderContentWrapper {
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
         if (orderContentCache == null) {
-            orderContentCache = new UtilCache("order.content", true);     // use soft reference to free up memory if needed
+            orderContentCache = UtilCache.createUtilCache("order.content", true);     // use soft reference to free up memory if needed
         }
     }
 

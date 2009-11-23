@@ -65,12 +65,12 @@ public class UtilProperties implements java.io.Serializable {
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each Properties instance is keyed by the resource String.
      */
-    protected static UtilCache<String, Properties> resourceCache = new UtilCache<String, Properties>("properties.UtilPropertiesResourceCache");
+    protected static UtilCache<String, Properties> resourceCache = UtilCache.createUtilCache("properties.UtilPropertiesResourceCache");
 
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each Properties instance is keyed by the file's URL.
      */
-    protected static UtilCache<String, Properties> urlCache = new UtilCache<String, Properties>("properties.UtilPropertiesUrlCache");
+    protected static UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
 
     public static final Locale LOCALE_ROOT = new Locale("", "", "");
 
@@ -857,7 +857,7 @@ public class UtilProperties implements java.io.Serializable {
      * properties file format.
      */
     public static class UtilResourceBundle extends ResourceBundle {
-        protected static UtilCache<String, UtilResourceBundle> bundleCache = new UtilCache<String, UtilResourceBundle>("properties.UtilPropertiesBundleCache");
+        protected static UtilCache<String, UtilResourceBundle> bundleCache = UtilCache.createUtilCache("properties.UtilPropertiesBundleCache");
         protected Properties properties = null;
         protected Locale locale = null;
         protected int hashCode = hashCode();

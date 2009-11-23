@@ -47,7 +47,7 @@ public class FlexibleStringExpander implements Serializable {
     public static final String module = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
-    protected static final UtilCache<String, FlexibleStringExpander> exprCache = new UtilCache<String, FlexibleStringExpander>("flexibleStringExpander.ExpressionCache");
+    protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
     protected static final FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
     protected final String orig;
     protected final List<StrElem> strElems;

@@ -56,7 +56,7 @@ import javax.xml.transform.stream.StreamResult;
 public final class XslTransform {
 
     public static final String module = XslTransform.class.getName();
-    public static UtilCache<String, Templates> xslTemplatesCache = new UtilCache<String, Templates>("XsltTemplates", 0, 0);
+    public static UtilCache<String, Templates> xslTemplatesCache = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
      * @param template the content or url of the xsl template

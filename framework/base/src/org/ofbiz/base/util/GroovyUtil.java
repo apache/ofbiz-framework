@@ -42,7 +42,7 @@ public class GroovyUtil {
     public static final String module = GroovyUtil.class.getName();
 
     @SuppressWarnings("unchecked")
-    public static UtilCache<String, Class> parsedScripts = new UtilCache<String, Class>("script.GroovyLocationParsedCache", 0, 0, false);
+    public static UtilCache<String, Class> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 
     public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
 
@@ -160,7 +160,7 @@ public class GroovyUtil {
              */
 
             /* NOTE DEJ20080527: this approach works but only caches script text, not the parsed script
-            public static UtilCache<String, String> sourceScripts = new UtilCache<String, String>("script.GroovyLocationSourceCache", 0, 0, false);
+            public static UtilCache<String, String> sourceScripts = UtilCache.createUtilCache("script.GroovyLocationSourceCache", 0, 0, false);
 
             public static GroovyShell emptyGroovyShell = new GroovyShell();
             String scriptString = sourceScripts.get(location);

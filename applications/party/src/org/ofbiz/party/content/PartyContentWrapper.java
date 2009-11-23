@@ -47,7 +47,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static final String module = PartyContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
-    public static UtilCache<String, String> partyContentCache = new UtilCache<String, String>("party.content.rendered", true);
+    public static UtilCache<String, String> partyContentCache = UtilCache.createUtilCache("party.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue party;

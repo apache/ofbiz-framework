@@ -36,7 +36,7 @@ import org.ofbiz.service.ServiceUtil;
  */
 public final class BeanShellEngine extends GenericAsyncEngine {
 
-    public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BeanShellScripts", 0, 0);
+    public static UtilCache<String, String> scriptCache = UtilCache.createUtilCache("BeanShellScripts", 0, 0);
 
     public BeanShellEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
