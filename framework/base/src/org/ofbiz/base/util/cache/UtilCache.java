@@ -425,8 +425,8 @@ public class UtilCache<K, V> implements Serializable {
      * Return an image of the values at a time
      * @return {@link List}
      */
-    private static List getUtilCacheTableValuesImage() {
-        List list = new ArrayList(utilCacheTable.size());
+    private static List<UtilCache<?, ?>> getUtilCacheTableValuesImage() {
+        List<UtilCache<?, ?>> list = new ArrayList<UtilCache<?, ?>>(utilCacheTable.size());
         synchronized (utilCacheTable) {
             list.addAll(utilCacheTable.values());
         }
