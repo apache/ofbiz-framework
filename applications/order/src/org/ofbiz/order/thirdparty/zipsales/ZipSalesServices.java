@@ -272,7 +272,7 @@ public class ZipSalesServices {
 
         // lookup the records
         List zipLookup = delegator.findByAnd("ZipSalesTaxLookup", UtilMisc.toMap("zipCode", zipCode), UtilMisc.toList("-fromDate"));
-        if (zipLookup == null || zipLookup.size() == 0) {
+        if (UtilValidate.isEmpty(zipLookup)) {
             throw new GeneralException("The zip code entered is not valid.");
         }
 

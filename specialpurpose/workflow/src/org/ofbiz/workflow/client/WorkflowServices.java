@@ -218,7 +218,7 @@ public class WorkflowServices {
         String workEffortId = (String) context.get("workEffortId");
         Map appendContext = (Map) context.get("currentContext");
 
-        if (appendContext == null || appendContext.size() == 0) {
+        if (UtilValidate.isEmpty(appendContext)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, "The passed context is empty");
         }

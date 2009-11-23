@@ -943,7 +943,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
 
     public boolean matchesFields(Map<String, ? extends Object> keyValuePairs) {
         if (fields == null) return true;
-        if (keyValuePairs == null || keyValuePairs.size() == 0) return true;
+        if (UtilValidate.isEmpty(keyValuePairs)) return true;
         for (Map.Entry<String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
             if (!UtilValidate.areEqual(anEntry.getValue(), this.fields.get(anEntry.getKey()))) {
                 return false;

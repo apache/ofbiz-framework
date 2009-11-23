@@ -582,7 +582,7 @@ public class DhlServices {
             }
 
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
-            if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
+            if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
             if (shipmentPackageRouteSegs.size() != 1) {

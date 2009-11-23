@@ -285,7 +285,7 @@ public class XpdlReader {
     }
 
     protected void readResponsibles(List responsibles, GenericValue valueObject, String prefix) throws DefinitionParserException {
-        if (responsibles == null || responsibles.size() == 0) {
+        if (UtilValidate.isEmpty(responsibles)) {
             return;
         }
 
@@ -318,7 +318,7 @@ public class XpdlReader {
     }
 
     protected void readExternalPackages(List externalPackages, String packageId, String packageVersion) {
-        if (externalPackages == null || externalPackages.size() == 0)
+        if (UtilValidate.isEmpty(externalPackages))
             return;
         Iterator externalPackageIter = externalPackages.iterator();
 
@@ -334,7 +334,7 @@ public class XpdlReader {
     }
 
     protected void readTypeDeclarations(List typeDeclarations, String packageId, String packageVersion) throws DefinitionParserException {
-        if (typeDeclarations == null || typeDeclarations.size() == 0)
+        if (UtilValidate.isEmpty(typeDeclarations))
             return;
         Iterator typeDeclarationsIter = typeDeclarations.iterator();
 
@@ -362,7 +362,7 @@ public class XpdlReader {
     // ----------------------------------------------------------------
 
     protected void readWorkflowProcesses(List workflowProcesses, String packageId, String packageVersion) throws DefinitionParserException {
-        if (workflowProcesses == null || workflowProcesses.size() == 0)
+        if (UtilValidate.isEmpty(workflowProcesses))
             return;
         Iterator workflowProcessIter = workflowProcesses.iterator();
 
@@ -533,7 +533,7 @@ public class XpdlReader {
 
     protected void readActivities(List activities, String packageId, String packageVersion, String processId,
         String processVersion, GenericValue processValue) throws DefinitionParserException {
-        if (activities == null || activities.size() == 0)
+        if (UtilValidate.isEmpty(activities))
             return;
         Iterator activitiesIter = activities.iterator();
 
@@ -776,7 +776,7 @@ public class XpdlReader {
 
     protected void readTools(List tools, String packageId, String packageVersion, String processId,
         String processVersion, String activityId) throws DefinitionParserException {
-        if (tools == null || tools.size() == 0)
+        if (UtilValidate.isEmpty(tools))
             return;
         Iterator toolsIter = tools.iterator();
 
@@ -822,7 +822,7 @@ public class XpdlReader {
     }
 
     protected String readActualParameters(List actualParameters) {
-        if (actualParameters == null || actualParameters.size() == 0) return null;
+        if (UtilValidate.isEmpty(actualParameters)) return null;
         StringBuilder actualParametersBuf = new StringBuilder();
         Iterator actualParametersIter = actualParameters.iterator();
 
@@ -837,7 +837,7 @@ public class XpdlReader {
     }
 
     protected String readExtendedAttributes(List extendedAttributes) {
-        if (extendedAttributes == null || extendedAttributes.size() == 0) return null;
+        if (UtilValidate.isEmpty(extendedAttributes)) return null;
         Map ea = new HashMap();
         Iterator i = extendedAttributes.iterator();
 
@@ -855,7 +855,7 @@ public class XpdlReader {
 
     protected void readTransitions(List transitions, String packageId, String packageVersion, String processId,
         String processVersion) throws DefinitionParserException {
-        if (transitions == null || transitions.size() == 0)
+        if (UtilValidate.isEmpty(transitions))
             return;
         Iterator transitionsIter = transitions.iterator();
 
@@ -921,7 +921,7 @@ public class XpdlReader {
     }
 
     protected void readTransitionRestrictions(List transitionRestrictions, GenericValue activityValue) throws DefinitionParserException {
-        if (transitionRestrictions == null || transitionRestrictions.size() == 0)
+        if (UtilValidate.isEmpty(transitionRestrictions))
             return;
         Iterator transitionRestrictionsIter = transitionRestrictions.iterator();
 
@@ -986,7 +986,7 @@ public class XpdlReader {
     }
 
     protected void readTransitionRefs(List transitionRefs, String packageId, String packageVersion, String processId, String processVersion, String activityId) throws DefinitionParserException {
-        if (transitionRefs == null || transitionRefs.size() == 0)
+        if (UtilValidate.isEmpty(transitionRefs))
             return;
         Iterator transitionRefsIter = transitionRefs.iterator();
 
@@ -1010,7 +1010,7 @@ public class XpdlReader {
     // ----------------------------------------------------------------
 
     protected void readParticipants(List participants, String packageId, String packageVersion, String processId, String processVersion, GenericValue valueObject) throws DefinitionParserException {
-        if (participants == null || participants.size() == 0)
+        if (UtilValidate.isEmpty(participants))
             return;
         Iterator participantsIter = participants.iterator();
 
@@ -1046,7 +1046,7 @@ public class XpdlReader {
 
     /*
     protected void readParticipants(List participants, String packageId, String packageVersion, String processId, String processVersion, GenericValue valueObject) throws DefinitionParserException {
-        if (participants == null || participants.size() == 0)
+        if (UtilValidate.isEmpty(participants))
             return;
 
         Long nextSeqId = delegator.getNextSeqId("WorkflowParticipantList");
@@ -1112,7 +1112,7 @@ public class XpdlReader {
 
     protected void readApplications(List applications, String packageId, String packageVersion, String processId,
             String processVersion) throws DefinitionParserException {
-        if (applications == null || applications.size() == 0)
+        if (UtilValidate.isEmpty(applications))
             return;
         Iterator applicationsIter = applications.iterator();
 
@@ -1144,7 +1144,7 @@ public class XpdlReader {
 
     protected void readDataFields(List dataFields, String packageId, String packageVersion, String processId,
             String processVersion) throws DefinitionParserException {
-        if (dataFields == null || dataFields.size() == 0)
+        if (UtilValidate.isEmpty(dataFields))
             return;
         Iterator dataFieldsIter = dataFields.iterator();
 
@@ -1156,7 +1156,7 @@ public class XpdlReader {
 
             String dataFieldId = dataFieldElement.getAttribute("Id");
             String dataFieldName = dataFieldElement.getAttribute("Name");
-            if (dataFieldName == null || dataFieldName.length() == 0)
+            if (UtilValidate.isEmpty(dataFieldName))
                 dataFieldName = dataFieldId;
 
             dataFieldValue.set("packageId", packageId);
@@ -1198,7 +1198,7 @@ public class XpdlReader {
 
     protected void readFormalParameters(List formalParameters, String packageId, String packageVersion,
         String processId, String processVersion, String applicationId) throws DefinitionParserException {
-        if (formalParameters == null || formalParameters.size() == 0)
+        if (UtilValidate.isEmpty(formalParameters))
             return;
         Iterator formalParametersIter = formalParameters.iterator();
         long index = 1;
@@ -1288,7 +1288,7 @@ public class XpdlReader {
             return defaultValue;
         List extendedAttributes = UtilXml.childElementList(extendedAttributesElement, "ExtendedAttribute");
 
-        if (extendedAttributes == null || extendedAttributes.size() == 0)
+        if (UtilValidate.isEmpty(extendedAttributes))
             return defaultValue;
 
         Iterator iter = extendedAttributes.iterator();

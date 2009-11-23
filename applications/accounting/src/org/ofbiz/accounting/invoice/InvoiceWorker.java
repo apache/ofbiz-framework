@@ -326,7 +326,7 @@ public class InvoiceWorker {
             Debug.logError("Touble getting InvoiceContactMech entity list", module);
         }
 
-        if (locations == null || locations.size() == 0)    {
+        if (UtilValidate.isEmpty(locations))    {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
             if (invoice.getString("invoiceTypeId").equals("SALES_INVOICE"))
@@ -340,7 +340,7 @@ public class InvoiceWorker {
                 Debug.logError("Trouble getting contact party purpose list", module);
             }
             //if still not found get it from the general location
-            if (locations == null || locations.size() == 0)    {
+            if (UtilValidate.isEmpty(locations))    {
                 try {
                     locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                             UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", "GENERAL_LOCATION")));

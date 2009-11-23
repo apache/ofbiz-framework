@@ -450,7 +450,7 @@ public class CheckOutHelper {
             BigDecimal gcAmount = BigDecimal.ONE.negate();
 
             boolean gcFieldsOkay = true;
-            if (gcNum == null || gcNum.length() == 0) {
+            if (UtilValidate.isEmpty(gcNum)) {
                 errMsg = UtilProperties.getMessage(resource_error,"checkhelper.enter_gift_card_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
                 errorMessages.add(errMsg);
                 gcFieldsOkay = false;
@@ -489,7 +489,7 @@ public class CheckOutHelper {
             }
 
             if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
-                if (gcAmt == null || gcAmt.length() == 0) {
+                if (UtilValidate.isEmpty(gcAmt)) {
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.enter_amount_to_place_on_gift_card", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
@@ -1009,7 +1009,7 @@ public class CheckOutHelper {
                     if (!ok) {
                         throw new GeneralException("Problem with order change; see above error");
                     }
-                    if (messages == null || messages.size() == 0) {
+                    if (UtilValidate.isEmpty(messages)) {
                         return ServiceUtil.returnError(DECLINE_MESSAGE);
                     } else {
                         return ServiceUtil.returnError(messages);
@@ -1036,7 +1036,7 @@ public class CheckOutHelper {
                         if (!ok) {
                             throw new GeneralException("Problem with order change; see above error");
                         }
-                        if (messages == null || messages.size() == 0) {
+                        if (UtilValidate.isEmpty(messages)) {
                             return ServiceUtil.returnError(ERROR_MESSAGE);
                         } else {
                             return ServiceUtil.returnError(messages);

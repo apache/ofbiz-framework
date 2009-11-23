@@ -559,7 +559,7 @@ public class GoogleCheckoutHelper {
         List<GenericValue> values = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, 
                 "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId));
         
-        if (values == null || values.size() == 0) {
+        if (UtilValidate.isEmpty(values)) {
             Map<String, Object> addPurposeMap = FastMap.newInstance();
             addPurposeMap.put("contactMechId", contactMechId);
             addPurposeMap.put("partyId", partyId);       

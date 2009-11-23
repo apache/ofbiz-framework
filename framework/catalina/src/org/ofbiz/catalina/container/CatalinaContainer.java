@@ -195,7 +195,7 @@ public class CatalinaContainer implements Container {
 
         // create the engines
         List<ContainerConfig.Container.Property> engineProps = cc.getPropertiesWithValue("engine");
-        if (engineProps == null || engineProps.size() == 0) {
+        if (UtilValidate.isEmpty(engineProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined!");
         }
         for (ContainerConfig.Container.Property engineProp: engineProps) {
@@ -207,7 +207,7 @@ public class CatalinaContainer implements Container {
 
         // create the connectors
         List<ContainerConfig.Container.Property> connectorProps = cc.getPropertiesWithValue("connector");
-        if (connectorProps == null || connectorProps.size() == 0) {
+        if (UtilValidate.isEmpty(connectorProps)) {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
         for (ContainerConfig.Container.Property connectorProp: connectorProps) {

@@ -406,7 +406,7 @@ public class GenericDelegator implements Delegator {
         }
 
         Map<String, ModelEntity> entities = FastMap.newInstance();
-        if (entityNameSet == null || entityNameSet.size() == 0) {
+        if (UtilValidate.isEmpty(entityNameSet)) {
             return entities;
         }
 

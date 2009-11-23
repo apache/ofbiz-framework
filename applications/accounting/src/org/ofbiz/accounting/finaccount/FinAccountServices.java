@@ -377,7 +377,7 @@ public class FinAccountServices {
 
                                 // make sure the item hasn't already been returned
                                 List<GenericValue> returnItems = orderItem.getRelated("ReturnItem");
-                                if (returnItems == null || returnItems.size() == 0) {
+                                if (UtilValidate.isEmpty(returnItems)) {
                                     BigDecimal txAmt = trans.getBigDecimal("amount");
                                     BigDecimal refAmt = txAmt;
                                     if (remainingBalance.compareTo(txAmt) == -1) {

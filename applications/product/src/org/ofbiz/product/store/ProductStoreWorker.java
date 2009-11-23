@@ -333,7 +333,7 @@ public class ProductStoreWorker {
                 // check the items excluded from shipping
                 String includeFreeShipping = method.getString("includeNoChargeItems");
                 if (includeFreeShipping != null && "N".equalsIgnoreCase(includeFreeShipping)) {
-                    if ((itemSizes == null || itemSizes.size() == 0) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
+                    if (UtilValidate.isEmpty((itemSizes)) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
                         returnShippingMethods.remove(method);
                         //Debug.logInfo("Removed shipping method due to all items being exempt from shipping", module);
                         continue;
@@ -560,7 +560,7 @@ public class ProductStoreWorker {
             return -1;
         }
 
-        if (surveyResponse == null || surveyResponse.size() == 0) {
+        if (UtilValidate.isEmpty(surveyResponse)) {
             return 0;
         } else {
             return surveyResponse.size();

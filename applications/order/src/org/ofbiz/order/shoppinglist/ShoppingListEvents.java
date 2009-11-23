@@ -240,7 +240,7 @@ public class ShoppingListEvents {
         }
 
         // no items; not an error; just mention that nothing was added
-        if (shoppingListItems == null || shoppingListItems.size() == 0) {
+        if (UtilValidate.isEmpty(shoppingListItems)) {
             errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.no_items_added", cart.getLocale());
             return errMsg;
         }

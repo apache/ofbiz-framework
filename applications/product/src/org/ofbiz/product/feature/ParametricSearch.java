@@ -32,6 +32,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -195,7 +196,7 @@ public class ParametricSearch {
     }
 
     public static String makeFeatureIdByTypeString(Map<String, String> featureIdByType) {
-        if (featureIdByType == null || featureIdByType.size() == 0) {
+        if (UtilValidate.isEmpty(featureIdByType)) {
             return "";
         }
 

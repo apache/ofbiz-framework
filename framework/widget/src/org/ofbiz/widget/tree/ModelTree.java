@@ -241,7 +241,7 @@ public class ModelTree extends ModelWidget {
         List<String> trail = null;
         if (UtilValidate.isNotEmpty(treeString)) {
             trail = StringUtil.split(treeString, "|");
-            if (trail == null || trail.size() == 0)
+            if (UtilValidate.isEmpty(trail))
                 throw new RuntimeException("Tree 'trail' value is empty.");
 
             context.put("rootEntityId", trail.get(0));

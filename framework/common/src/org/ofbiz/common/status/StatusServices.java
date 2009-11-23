@@ -25,6 +25,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
@@ -43,7 +45,7 @@ public class StatusServices {
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         Delegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
-        if (statusTypes == null || statusTypes.size() == 0) {
+        if (UtilValidate.isEmpty(statusTypes)) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
         }
 

@@ -289,7 +289,7 @@ public class EbayOrderServices {
                 }
             }
         }
-        if (orderList == null || orderList.size() == 0) {
+        if (UtilValidate.isEmpty(orderList)) {
             Debug.logError("No orders found", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.noOrdersFound", locale));
         }

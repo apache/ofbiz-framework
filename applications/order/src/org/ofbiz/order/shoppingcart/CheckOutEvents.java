@@ -239,7 +239,7 @@ public class CheckOutEvents {
 
     public static String setCheckOutError(HttpServletRequest request, HttpServletResponse response) {
         String currentPage = request.getParameter("checkoutpage");
-        if (currentPage == null || currentPage.length() == 0) {
+        if (UtilValidate.isEmpty(currentPage)) {
             return "error";
         } else {
             return currentPage;
@@ -1015,7 +1015,7 @@ public class CheckOutEvents {
             } else if (currProcess.equals("payment")) {
                 List paymentMethodIds = cart.getPaymentMethodIds();
                 List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
-                if (requirePayment && (paymentMethodIds == null || paymentMethodIds.size() == 0) && (paymentMethodTypeIds == null || paymentMethodTypeIds.size() == 0)) {
+                if (requirePayment && UtilValidate.isEmpty(paymentMethodIds) && UtilValidate.isEmpty(paymentMethodTypeIds)) {
                     return "payment";
                 }
             } else if (currProcess.equals("addparty")) {
@@ -1046,7 +1046,7 @@ public class CheckOutEvents {
 
     public static String finalizeOrderEntryError(HttpServletRequest request, HttpServletResponse response) {
         String finalizePage = request.getParameter("finalizeMode");
-        if (finalizePage == null || finalizePage.length() == 0) {
+        if (UtilValidate.isEmpty(finalizePage)) {
             return "error";
         } else {
             return finalizePage;

@@ -620,7 +620,7 @@ public class OrderReadHelper {
     public String getStatusString(Locale locale) {
         List<GenericValue> orderStatusList = this.getOrderHeaderStatuses();
 
-        if (orderStatusList == null || orderStatusList.size() == 0) return "";
+        if (UtilValidate.isEmpty(orderStatusList)) return "";
 
         Iterator<GenericValue> orderStatusIter = orderStatusList.iterator();
         StringBuilder orderStatusString = new StringBuilder(50);
