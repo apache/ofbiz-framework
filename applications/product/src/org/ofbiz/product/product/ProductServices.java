@@ -381,7 +381,7 @@ public class ProductServices {
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
-        if (productId == null || productId.length() == 0) {
+        if (UtilValidate.isEmpty(productId)) {
             errMsg = UtilProperties.getMessage(resource,"productservices.invalid_productId_passed", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);

@@ -25,6 +25,7 @@ import javax.el.*;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.string.UelUtil;
@@ -77,7 +78,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public static <T> FlexibleMapAccessor<T> getInstance(String original) {
-        if (original == null || original.length() == 0 || "null".equals(original)) {
+        if (UtilValidate.isEmpty(original) || "null".equals(original)) {
             return nullFma;
         }
         FlexibleMapAccessor fma = fmaCache.get(original);
