@@ -53,7 +53,7 @@ public class UtilCache<K, V> implements Serializable {
     public static final String module = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
-    public static final Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
+    private static final Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
     private final static ConcurrentHashMap<String, Integer> defaultIndices = new ConcurrentHashMap<String, Integer>();
