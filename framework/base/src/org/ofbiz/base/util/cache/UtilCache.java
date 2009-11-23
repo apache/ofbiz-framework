@@ -107,78 +107,18 @@ public class UtilCache<K, V> implements Serializable {
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    private UtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
+    private UtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
+        this.name = cacheName;
         this.maxSize = maxSize;
         this.maxInMemory = maxInMemory;
         this.expireTime = expireTime;
         this.useSoftReference = useSoftReference;
         this.useFileSystemStore = useFileSystemStore;
-        name = cacheName + this.getNextDefaultIndex(cacheName);
-
-        setPropertiesParams(cacheName);
-        createCache();
-    }
-
-    private UtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
-        this(cacheName, maxSize, maxSize, expireTime, useSoftReference, false);
-    }
-
-    /** Constructor which specifies the cacheName as well as the maxSize and expireTime.
-     * The passed maxSize and expireTime will be overridden by values from cache.properties if found.
-     * @param maxSize The maxSize member is set to this value
-     * @param expireTime The expireTime member is set to this value
-     * @param cacheName The name of the cache.
-     */
-    private UtilCache(String cacheName, int maxSize, long expireTime) {
-        this(cacheName, maxSize, expireTime, false);
-    }
-
-    /** Constructor which specifies the maxSize and expireTime.
-     * @param maxSize The maxSize member is set to this value
-     * @param expireTime The expireTime member is set to this value
-     */
-    private UtilCache(int maxSize, long expireTime) {
-        this.useSoftReference = false;
-        this.maxSize = maxSize;
-        this.expireTime = expireTime;
-        name = "specified" + this.getNextDefaultIndex("specified");
-
-        setPropertiesParams(name);
-        createCache();
-    }
-
-    /** This constructor takes a name for the cache, puts itself in the utilCacheTable.
-     * It also uses the cacheName to lookup the initialization parameters from cache.properties.
-     * @param cacheName The name of the cache.
-     */
-    private UtilCache(String cacheName, boolean useSoftReference) {
-        name = cacheName + this.getNextDefaultIndex(cacheName);
-        this.useSoftReference = useSoftReference;
-
-        setPropertiesParams("default");
-        setPropertiesParams(cacheName);
-        createCache();
-    }
-
-    /** This constructor takes a name for the cache, puts itself in the utilCacheTable.
-     * It also uses the cacheName to lookup the initialization parameters from cache.properties.
-     * @param cacheName The name of the cache.
-     */
-    private UtilCache(String cacheName) {
-        name = cacheName + this.getNextDefaultIndex(cacheName);
-
-        setPropertiesParams("default");
-        setPropertiesParams(cacheName);
-        createCache();
-    }
-
-    /** Default constructor, all members stay at default values as defined in cache.properties, or the defaults in this file if cache.properties is not found, or there are no 'default' entries in it.
-     */
-    private UtilCache() {
-        setPropertiesParams("default");
-
-        name = "default" + this.getNextDefaultIndex("default");
-        createCache();
+        setPropertiesParams(propName);
+        setPropertiesParams(propNames);
+        int maxMemSize = this.maxInMemory;
+        if (maxMemSize == 0) maxMemSize = maxSize;
+        this.cacheLineTable = new CacheLineTable<K, V>(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
     }
 
     private static String getNextDefaultIndex(String cacheName) {
@@ -270,12 +210,6 @@ public class UtilCache<K, V> implements Serializable {
                 Debug.logWarning(e, "Error getting cache.file.store value from cache.properties file for propNames: " + propNames, module);
             }
         }
-    }
-
-    private void createCache() {
-        int maxMemSize = this.maxInMemory;
-        if (maxMemSize == 0) maxMemSize = maxSize;
-        this.cacheLineTable = new CacheLineTable<K, V>(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
     }
 
     /** Puts or loads the passed element into the cache
@@ -705,51 +639,58 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
         UtilCache<K, V> cache;
+        String cacheName = name + getNextDefaultIndex(name);
+
         synchronized (utilCacheTable) {
             cache = (UtilCache<K, V>) utilCacheTable.get(cacheName);
             if (cache == null) {
-                cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
-                cache.setPropertiesParams(names);
+                cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
                 utilCacheTable.put(cacheName, cache);
             }
         }
         return cache;
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
-        UtilCache<K, V> cache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore);
-        cache.setPropertiesParams(names);
-        return storeCache(cache);
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names));
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
-        return createUtilCache(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, new String[0]);
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, long expireTime, boolean useSoftReference) {
-        return createUtilCache(cacheName, maxSize, maxSize, expireTime, useSoftReference, false, new String[0]);
+    public static <K,V> UtilCache<K, V> createUtilCache(String name, int maxSize, long expireTime, boolean useSoftReference) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, useSoftReference, false, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, int maxSize, long expireTime) {
-        return createUtilCache(cacheName, maxSize, maxSize, expireTime, false, false, new String[0]);
+    public static <K,V> UtilCache<K, V> createUtilCache(String name, int maxSize, long expireTime) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, false, false, name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(int maxSize, long expireTime) {
-        return storeCache(new UtilCache<K, V>(maxSize, expireTime));
+        String cacheName = "specified" + getNextDefaultIndex("specified");
+        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, false, false, "specified"));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String cacheName, boolean useSoftReference) {
-        return storeCache(new UtilCache<K, V>(cacheName, useSoftReference));
+    public static <K,V> UtilCache<K, V> createUtilCache(String name, boolean useSoftReference) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, useSoftReference, false, "default", name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String cacheName) {
-        return storeCache(new UtilCache<K, V>(cacheName));
+    public static <K,V> UtilCache<K, V> createUtilCache(String name) {
+        String cacheName = name + getNextDefaultIndex(name);
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, false, "default", name));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache() {
-        return storeCache(new UtilCache<K, V>());
+        String cacheName = "default" + getNextDefaultIndex("default");
+        return storeCache(new UtilCache<K, V>(cacheName, 0, 0, 0, false, false, "default"));
     }
 
     private static <K, V> UtilCache<K, V> storeCache(UtilCache<K, V> cache) {
