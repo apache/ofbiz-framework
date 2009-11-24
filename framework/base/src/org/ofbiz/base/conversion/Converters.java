@@ -31,6 +31,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 
 /** A <code>Converter</code> factory and repository. */
 public class Converters {
@@ -75,7 +76,6 @@ public class Converters {
      * @return A matching <code>Converter</code> instance
      * @throws ClassNotFoundException
      */
-    @SuppressWarnings("unchecked")
     public static <S, T> Converter<S, T> getConverter(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
         String key = sourceClass.getName().concat(DELIMITER).concat(targetClass.getName());
         if (Debug.verboseOn()) {
@@ -89,13 +89,13 @@ public class Converters {
                     for (Converter<?, ?> value : values) {
                         if (value.canConvert(sourceClass, targetClass)) {
                             converterMap.put(key, value);
-                            return (Converter<S, T>) value;
+                            return UtilGenerics.cast(value);
                         }
                     }
                     // Null converter must be checked last
                     if (nullConverter.canConvert(sourceClass, targetClass)) {
                         converterMap.put(key, nullConverter);
-                        return (Converter<S, T>) nullConverter;
+                        return UtilGenerics.cast(nullConverter);
                     }
                     noConversions.add(key);
                     Debug.logWarning("*** No converter found, converting from " +
@@ -106,7 +106,7 @@ public class Converters {
             }
             throw new ClassNotFoundException("No converter found for " + key);
         }
-        return (Converter<S, T>) result;
+        return UtilGenerics.cast(result);
     }
 
     /** Load all classes that implement <code>Converter</code> and are
