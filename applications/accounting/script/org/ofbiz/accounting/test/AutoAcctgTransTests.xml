@@ -437,17 +437,11 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="issueProductionRunTask" in-map-name="serviceCtx"/>
-        <entity-condition entity-name="WorkEffortAndInventoryAssign" list="workEffortAndInventoryAssigns"/>
 
         <entity-condition entity-name="WorkEffortAndInventoryAssign" list="workEffortAndInventoryAssigns">
-            <condition-list combine="and">
-                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
-                <condition-list combine="or">
-                    <condition-expr field-name="productId" operator="equals" value="MAT_A_COST"/>
-                    <condition-expr field-name="productId" operator="equals" value="MAT_B_COST"/>
-                </condition-list>
-            </condition-list>
+            <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
         </entity-condition>
+
         <assert><not><if-empty field="workEffortAndInventoryAssigns"/></not></assert>
 
         <set field="totalIssuedQty_MAT_A_COST" value="0.0" type="BigDecimal"/>
@@ -479,8 +473,7 @@ under the License.
         <entity-condition entity-name="AcctgTrans" list="acctgTransList">
             <condition-list combine="and">
                 <condition-expr field-name="acctgTransTypeId" operator="equals" value="INVENTORY"/>
-                <condition-expr field-name="acctgTransId" operator="not-equals" value="6003"/>
-                <condition-expr field-name="acctgTransId" operator="not-equals" value="6004"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
             </condition-list>
         </entity-condition>
         <assert><not><if-empty field="acctgTransList"/></not></assert>
@@ -548,10 +541,12 @@ under the License.
         <set field="serviceCtx.statusId" value="PRUN_COMPLETED"/>
         <call-service service-name="changeProductionRunTaskStatus" in-map-name="serviceCtx"/>
 
-        <entity-one entity-name="WorkEffort" value-field="workEffort">
-            <field-map field-name="workEffortId" from-field="workEffortId"/>
-        </entity-one>
-        <get-related value-field="workEffort" relation-name="AcctgTrans" list="acctgTransList"/>
+        <entity-condition entity-name="AcctgTrans" list="acctgTransList">
+            <condition-list combine="and">
+                <condition-expr field-name="workEffortId" operator="equals" from-field="workEffortId"/>
+                <condition-expr field-name="acctgTransTypeId" operator="equals" value="MANUFACTURING"/>
+            </condition-list>
+        </entity-condition>
         <assert><not><if-empty field="acctgTransList"></if-empty></not></assert>
         <iterate list="acctgTransList" entry="acctgTrans">
             <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
