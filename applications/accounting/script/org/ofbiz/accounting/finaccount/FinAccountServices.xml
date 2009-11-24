@@ -1043,4 +1043,12 @@ under the License.
         </entity-condition>
         <field-to-result field="acctgTransAndEntries"/>
     </simple-method>
+    
+    <simple-method method-name="getReconciliationClosingBalance" short-description="Get Reconciliation Closing Balance.">
+        <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
+        <set field="reconciledBalance" from-field="glReconciliation.reconciledBalance" default-value="0" type="BigDecimal"/>
+        <set field="openingBalance" from-field="glReconciliation.openingBalance" default-value="0" type="BigDecimal"/>
+        <set field="closingBalance" value="${reconciledBalance + openingBalance}" type="BigDecimal"/>
+        <field-to-result field="closingBalance"/>
+    </simple-method>
 </simple-methods>

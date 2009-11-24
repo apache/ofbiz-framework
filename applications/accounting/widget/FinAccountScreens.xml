@@ -629,6 +629,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="reconciledDate DESC"/>
                 </entity-condition>
+                <set field="previousGlReconciliation" from-field="glReconciliationList[0]"/>
                 <service service-name="getFinAccountTransListAndTotals" result-map="transactionTotalAmount"/>
                 <set field="finAccountTransList" from-field="transactionTotalAmount.finAccountTransList" type="List"/>
                 <set field="finAccountTransIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'finAccountTransId', true);}" type="List"/>
@@ -640,6 +641,13 @@ under the License.
                 </entity-condition>
                 <service service-name="isGlReconciliationReconciled" result-map="reconciledMap"/>
                 <set field="isReconciled" from-field="reconciledMap.isReconciled"/>
+                <service service-name="getReconciliationClosingBalance" result-map="currentRecnciliationClosingBalance"/>
+                <set field="currentClosingBalance" from-field="currentRecnciliationClosingBalance.closingBalance"/>
+                <set field="previousGlReconciliationId" from-field="previousGlReconciliation.glReconciliationId" default-value="${glReconciliationId}"/>
+                <service service-name="getReconciliationClosingBalance" result-map="previousReconciliationClosingBalance">
+                    <field-map field-name="glReconciliationId" from-field="previousGlReconciliationId"/>
+                </service>
+                <set field="previousClosingBalance" from-field="previousReconciliationClosingBalance.closingBalance"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
