@@ -86,8 +86,6 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo}"/>
-                <set field="parameters.roleTypeId" to-scope="screen" default-value="SHIP_FROM_VENDOR"/>
-                <set field="parameters.orderTypeId" to-scope="screen" default-value="PURCHASE_ORDER"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>

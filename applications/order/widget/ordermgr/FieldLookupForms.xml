@@ -148,7 +148,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderHeaderAndShipGroups" default-field-type="hidden" map-name="parameters"/>
         <field name="orderId"><text-find/></field>
-        <field name="orderTypeId"><hidden/></field>
+        <field name="orderTypeId"><hidden value="PURCHASE_ORDER"/></field>
+        <field name="roleTypeId"><hidden value="SHIP_FROM_VENDOR"/></field>
         <field name="partyId"><text-find/></field>
         <field name="shipmentMethodTypeId">
             <drop-down allow-empty="true">
