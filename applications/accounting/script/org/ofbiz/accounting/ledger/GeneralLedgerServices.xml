@@ -1644,6 +1644,7 @@ under the License.
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
+        <set field="createAcctgTransAndEntriesInMap.workEffortId" from-field="parameters.workEffortId"/>       
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
@@ -1660,7 +1661,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="workEffort">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-one>
-        <get-related-one value-field="workEffort" relation-name="Facility"  to-value-field="facility"/>
+        <get-related-one value-field="workEffort" relation-name="Facility" to-value-field="facility"/>
         <if-compare field="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
             <if-not-empty field="workEffort.workEffortParentId">
                 <entity-and entity-name="WorkEffortGoodStandard" list="workEffortGoodStandards">
@@ -1688,7 +1689,7 @@ under the License.
         <set field="creditEntry.organizationPartyId" from-field="facility.ownerPartyId"/>
         <set field="creditEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="creditEntry.origAmount" from-field="costComponent.cost"/>
-        <set field="creditEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>
+        <set field="creditEntry.origCurrencyUomId" from-field="costComponent.costUomId"/>
         <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
@@ -1702,7 +1703,7 @@ under the License.
         <set field="debitEntry.organizationPartyId" from-field="facility.ownerPartyId"/>
         <set field="debitEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="debitEntry.origAmount" from-field="costComponent.cost"/>
-        <set field="debitEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>
+        <set field="debitEntry.origCurrencyUomId" from-field="costComponent.costUomId"/>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
@@ -1835,6 +1836,7 @@ under the License.
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
+        <set field="createAcctgTransAndEntriesInMap.workEffortId" from-field="parameters.workEffortId"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
