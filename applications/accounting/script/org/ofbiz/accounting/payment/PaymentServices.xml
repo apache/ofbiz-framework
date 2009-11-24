@@ -477,9 +477,17 @@ under the License.
         <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
             <field-map field-name="paymentGroupId"/>
         </entity-and>
-        <call-service service-name="getPaymentGroupReconciliationId" in-map-name="parameters">
-            <result-to-field result-name="glReconciliationId"/>
-        </call-service>
+        <set field="isGlReconciliationId" value="${parameters.glReconciliationId == 'null'}" type="Boolean"/>
+        <if-compare field="isGlReconciliationId" operator="equals" value="true" type="Boolean">
+            <set-service-fields service-name="getPaymentGroupReconciliationId" map="parameters" to-map="getPaymentGroupReconciliationIdMap"/>
+            <set field="getPaymentGroupReconciliationIdMap.paymentGroupId"  from-field="paymentGroupId"/>
+            <call-service service-name="getPaymentGroupReconciliationId" in-map-name="getPaymentGroupReconciliationIdMap">
+                <result-to-field result-name="glReconciliationId"/>
+            </call-service>
+        <else>
+            <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>    
+        </else>
+        </if-compare>
         <if-empty field="glReconciliationId">
             <iterate list="paymentGroupMembers" entry="paymentGroupMember">
                 <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>

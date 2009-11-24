@@ -267,6 +267,7 @@ under the License.
             <hyperlink target="deleteDepositSlip" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
                 <parameter param-name="finAccountId"/>
+                <parameter param-name="glReconciliationId"/>
             </hyperlink>
         </field>
     </form>
