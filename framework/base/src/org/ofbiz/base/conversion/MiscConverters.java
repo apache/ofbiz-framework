@@ -31,6 +31,20 @@ public class MiscConverters implements ConverterLoader {
 
     public static final int CHAR_BUFFER_SIZE = 4096;
 
+    public static class BlobToBlob extends AbstractConverter<Blob, Blob> {
+        public BlobToBlob() {
+            super(Blob.class, Blob.class);
+        }
+
+        public Blob convert(Blob obj) throws ConversionException {
+            try {
+                return new javax.sql.rowset.serial.SerialBlob(obj.getBytes(1, (int) obj.length()));
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+        }
+    }
+
     public static class BlobToByteArray extends AbstractConverter<Blob, byte[]> {
         public BlobToByteArray() {
             super(Blob.class, byte[].class);
@@ -38,7 +52,7 @@ public class MiscConverters implements ConverterLoader {
 
         public byte[] convert(Blob obj) throws ConversionException {
             try {
-                return obj.getBytes(1, Integer.MAX_VALUE);
+                return obj.getBytes(1, (int) obj.length());
             } catch (Exception e) {
                 throw new ConversionException(e);
             }
