@@ -17,24 +17,24 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The System Event Portlet</title>
+    <para> This portlet shows changes which happened in the system for the logged on user. The first two functions which are working now:</para>
     <para>
-        This portlet shows changes which happened in the system for the logged on user.
-The first two functions which are working now:
-1. Incoming communication events (email, internal notes)
-2. tasks which are assigned either in projectmanager or workeffort
-
-These event can be notified to the user even when not logged on to ofbiz by using a firefox plugin and when it changes the employee is notified from within firefox
-The plugin: http://updatescanner.mozdev.org/en/index.html
-and it should check the following url: (adjust to your requirements)
-https://localhost:8443/myportal/control/showPortlet?portalPortletId=SystemInfoNotes&USERNAME=admin&PASSWORD=ofbiz
-
-In the flat grey theme i also have added notifications in the header when they are available.    
-</para>
-
+        <orderedlist>
+            <listitem>
+                <para>Incoming communication events (email, internal notes).</para>
+            </listitem>
+            <listitem>
+                <para>Tasks which are assigned either in projectmanager or workeffort.</para>
+                <para>These event can be notified to the user even when not logged on to OFBiz by using a firefox plugin and when it changes the
+                    employee is notified from within firefox </para>
+                <para>The plugin: http://updatescanner.mozdev.org/en/index.html and it should check the following url: (adjust to your requirements)
+                    <![CDATA[https://localhost:8443/myportal/control/showPortlet?portalPortletId=SystemInfoNotes&USERNAME=admin&PASSWORD=ofbiz]]></para>
+                <para> In the Flat Grey theme (only) notifications show in the header when they are available. </para>
+            </listitem>
+        </orderedlist>
+    </para>
 </section>

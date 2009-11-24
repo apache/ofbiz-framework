@@ -17,30 +17,50 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The OFBiz Setup Edit Product Store help screen.</title>
-    <para>
-        The Product Store screen is used to manage a store with has all the information needed to sell products. For example shippings
-        ,a series of catalogs, which are composed of product categories and products , and also used to configure the payment processing settings
-        , fulfillment, notification, promotions, payment processing, and tax calculation policies , and etc.
-    </para>
+    <para> The Product Store screen is used to manage a store with has all the information needed to sell products. For example shippings ,a series of
+        catalogs, which are composed of product categories and products , and also used to configure the payment processing settings , fulfillment,
+        notification, promotions, payment processing, and tax calculation policies , and etc. </para>
     <section>
         <title>How do I create a Product Store?</title>
-        <para>Select the 'Product Store' sub menu and the screen will be displayed</para>
-        <para>Enter the 'Product Store Id' field (NOTE: If you do not enter the 'Product Store Id' field it will be used the default as 'Organization Party Id')</para>
-        <para>Enter the 'Store Name' field </para>
-        <para>Press the 'Update' button</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Product Store' sub menu and the screen will be displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Product Store Id' field (NOTE: If you do not enter the 'Product Store Id' field it will be used the default as
+                        'Organization Party Id')</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Store Name' field </para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
     </section>
     <section>
         <title>How do I update a Product Store?</title>
-        <para>Not all the fields on the Product Store can be updated. For example Product Store Id cannot be updated. If these fields need to be amended then the Product Store will need to be removed and then re-created.</para>
-        <para>Select the 'Product Store' sub menu and the screen will be displayed</para>
-        <para>Any existing Product Store will be displayed in the 'Items' box</para>
-        <para>Amend the details in the line item that needs to be updated (eg Store Name)</para>
-        <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
+        <para>Not all the fields on the Product Store can be updated. For example Product Store Id cannot be updated. If these fields need to be
+            amended then the Product Store will need to be removed and then re-created.</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Product Store' sub menu and the screen will be displayed: Any existing Product Store will be displayed in the
+                        'Items' box</para>
+                </listitem>
+                <listitem>
+                    <para>Amend the details in the line item that needs to be updated (eg Store Name)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
+                </listitem>
+            </orderedlist>
+        </para>
     </section>
 </section>
