@@ -271,7 +271,7 @@ public class EntityExpr extends EntityCondition {
         }
 
         ModelField curField = modelEntity.getField(fieldName);
-        if (UtilValidate.isEmpty(curField)) {
+        if (curField == null) {
             throw new IllegalArgumentException("FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName());
         }
         ModelFieldType type = null;
