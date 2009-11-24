@@ -662,10 +662,18 @@ under the License.
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId" default-value=""/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
+                    <condition-list>
+                        <condition-expr field-name="finAccountId" operator="equals" from-field="finAccountId"/>
+                        <condition-expr field-name="glReconciliationId" operator="not-equals" from-field="nullField" ignore-if-empty="true"/>
+                        <condition-expr field-name="glReconciliationId" operator="equals" from-field="glReconciliationId" ignore-if-empty="true"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="glReconciliationIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(finAccountTransList, 'glReconciliationId', true);}" type="List"/>
                 <entity-condition entity-name="GlReconciliation" list="glReconciliations">
                     <condition-list>
-                        <condition-expr field-name="glAccountId" operator="equals" from-field="finAccount.postToGlAccountId"/>
-                        <condition-expr field-name="glReconciliationId" operator="equals" from-field="parameters.glReconciliationId" ignore-if-empty="true"/>
+                        <condition-expr field-name="glReconciliationId" operator="in" from-field="glReconciliationIds"/>
+                        <condition-expr field-name="glAccountId" operator="equals" from-field="finAccount.postToGlAccountId" ignore-if-empty="true"/>
                         <condition-expr field-name="glReconciliationName" operator="equals" from-field="parameters.glReconciliationName" ignore-if-empty="true"/>
                         <condition-expr field-name="description" operator="equals" from-field="parameters.description" ignore-if-empty="true"/>
                         <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId" ignore-if-empty="true"/>
