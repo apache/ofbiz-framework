@@ -232,7 +232,7 @@ under the License.
     </target>
 
   <target name="docs-all" depends="build,ofbiz-init"
-        description="Build all javadoc into one tree for easier viewing by the community">
+        description="For committers : Build all javadoc into one tree for easier viewing by the community">
 
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
@@ -269,7 +269,8 @@ under the License.
     <!-- WebSite Targets                                                    -->
     <!-- ================================================================== -->
 
-    <target name="build-website">
+    <target name="build-website" 
+      description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
         <antcall target="copy-apis"/>
@@ -291,7 +292,8 @@ under the License.
         </copy>
     </target>
 
-    <target name="copy-dtds">
+    <target name="copy-dtds"
+      description="For committers : Copy all dtds from OFBiz instance to website">
         <mkdir dir="${site.dir}/dtds"/>
         <copy todir="${site.dir}/dtds" flatten="true" overwrite="true">
             <fileset dir="${basedir}" includes="**/*.dtd"/>
