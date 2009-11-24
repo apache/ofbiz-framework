@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-/** Converter interface.
+/** Converter interface. Classes implement this interface to convert one
+ * Java object type to another.
  *
  * @param <S> The source object type
  * @param <T> The target object type

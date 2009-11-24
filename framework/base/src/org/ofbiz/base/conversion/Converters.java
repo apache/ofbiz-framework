@@ -38,7 +38,12 @@ public class Converters {
     protected static final String DELIMITER = "->";
     protected static final Map<String, Converter<?, ?>> converterMap = FastMap.newInstance();
     protected static final Set<String> noConversions = FastSet.newInstance();
-    protected static final Converter<Object, Object> nullConverter = new NullConverter();
+    /** Null converter used when the source and target java object
+     * types are the same. The <code>convert</code> method returns the
+     * source object.
+     * 
+     */
+    public static final Converter<Object, Object> nullConverter = new NullConverter();
 
     static {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -137,6 +142,11 @@ public class Converters {
         }
     }
 
+    /** Null converter used when the source and target java object
+     * types are the same. The <code>convert</code> method returns the
+     * source object.
+     * 
+     */
     protected static class NullConverter implements Converter<Object, Object> {
         public NullConverter() {
             Converters.registerConverter(this);

@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-/** Converter loader interface. Components implement this
- * interface to load their object class converters.
- *
+/** Converter loader interface. Applications implement this
+ * interface to load their Java object converters.
+ * 
  */
 public interface ConverterLoader {
     /** Create and register converters with the Java object type

@@ -20,8 +20,9 @@ package org.ofbiz.base.conversion;
 
 import org.ofbiz.base.util.ObjectType;
 
-/** Abstract LocalizedConverter class.  This class handles converter registration
- * and it implements the <code>canConvert</code> method.
+/** Abstract LocalizedConverter class. This class handles converter registration
+ * and it implements the <code>canConvert</code>, <code>getSourceClass</code>,
+ * and <code>getTargetClass</code> methods.
  */
 public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConverter<S, T> {
     private final Class<S> sourceClass;
