@@ -768,6 +768,10 @@ public class ObjectType {
             if (((Map<?,?>) value).size() == 0) {
                 return true;
             }
+        } else if (value instanceof CharSequence) {
+            if (((CharSequence) value).length() == 0) {
+                return true;
+            }
         }
         return false;
     }
