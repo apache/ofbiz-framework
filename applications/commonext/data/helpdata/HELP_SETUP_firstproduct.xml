@@ -17,32 +17,60 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
-    xmlns:xl="http://www.w3.org/1999/xlink" 
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The OFBiz Setup Edit First Product help screen.</title>
-    <para>
-        The Edit First Product screen is used to manage the first product with related the first catalog and the first category.
-    </para>
+    <para> The Edit First Product screen is used to manage the first product with related the first catalog and the first category. </para>
     <section>
         <title>How do I create a Product?</title>
-        <para>Select the 'Product' sub menu and the screen will be displayed</para>
-        <para>Enter the 'Product Id' field (NOTE: If you do not enter the 'Product Id' field it will be used the default as 'Organization Party Id')</para>
-        <para>Enter the 'Internal Name' field </para>
-        <para>Enter the 'Product Name' field </para>
-        <para>Enter a description describing what the category is</para>
-        <para>Enter a number in the 'Default Price' field</para>
-        <para>Enter a number in the 'Average Cost ' field</para>
-        <para>Press the 'Update' button</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Product' sub menu and the screen will be displayed</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Product Id' field (NOTE: If you do not enter the 'Product Id' field it will be used the default as 'Organization
+                        Party Id')</para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Internal Name' field </para>
+                </listitem>
+                <listitem>
+                    <para>Enter the 'Product Name' field </para>
+                </listitem>
+                <listitem>
+                    <para>Enter a description describing what the category is</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a number in the 'Default Price' field</para>
+                </listitem>
+                <listitem>
+                    <para>Enter a number in the 'Average Cost ' field</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button</para>
+                </listitem>
+            </orderedlist>
+        </para>
     </section>
     <section>
         <title>How do I update a Product?</title>
-        <para>Not all the fields on the Product can be updated. For example Product Id  cannot be updated. If these fields need to be amended then the Product will need to be removed and then re-created.</para>
-        <para>Select the 'Product' sub menu and the screen will be displayed</para>
-        <para>Any existing Product will be displayed in the box</para>
-        <para>Amend the details in the line item that needs to be updated (eg Internal Name, Product Name, Short Description, Default Price, Average Cost)</para>
-        <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
+        <para>Not all the fields on the Product can be updated. For example Product Id cannot be updated. If these fields need to be amended then the
+            Product will need to be removed and then re-created.</para>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>Select the 'Product' sub menu and the screen will be displayed: Any existing Product will be displayed in the box</para>
+                </listitem>
+                <listitem>
+                    <para>Amend the details in the line item that needs to be updated (eg Internal Name, Product Name, Short Description, Default
+                        Price, Average Cost)</para>
+                </listitem>
+                <listitem>
+                    <para>Press the 'Update' button displayed at the end of the line item that has been updated </para>
+                </listitem>
+            </orderedlist>
+        </para>
     </section>
 </section>
