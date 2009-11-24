@@ -476,9 +476,13 @@ under the License.
             <if-compare field="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="BigDecimal"/>
             <if-compare field="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="BigDecimal"/>
         </assert>
-        <entity-and entity-name="AcctgTrans" list="acctgTransList">
-            <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
-        </entity-and>
+        <entity-condition entity-name="AcctgTrans" list="acctgTransList">
+            <condition-list combine="and">
+                <condition-expr field-name="acctgTransTypeId" operator="equals" value="INVENTORY"/>
+                <condition-expr field-name="acctgTransId" operator="not-equals" value="6003"/>
+                <condition-expr field-name="acctgTransId" operator="not-equals" value="6004"/>
+            </condition-list>
+        </entity-condition>
         <assert><not><if-empty field="acctgTransList"/></not></assert>
 
         <iterate list="acctgTransList" entry="acctgTrans">
