@@ -396,4 +396,12 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="createReturnStatus" mode="sync"/>
     </eca>
+    
+    <!-- fact entities -->
+    <!-- Load data into the SalesOrderItemFact olap entity when a sales order is set to ready -->
+    <eca service="setOrderStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="loadSalesOrderFact" mode="sync" run-as-user="system"/>
+    </eca>
 </service-eca>

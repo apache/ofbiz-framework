@@ -195,4 +195,40 @@ under the License.
         <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <!--New From-->
+    <form name="SalesReport" type="single" target="SalesReport.pdf" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+<!--        <field name="report">
+            <drop-down allow-empty="false">
+                <option key="BIC" description="BIC"/>
+                <option key="NBO" description="NBO"/>
+            </drop-down>
+        </field>-->
+<!--        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>-->
+<!--        <field name="orderTypeId">
+            <drop-down allow-empty="false">
+                <option key="SALES_ORDER" description="${uiLabelMap.OrderSalesOrder}"/>
+                <option key="PURCHASE_ORDER" description="${uiLabelMap.OrderPurchaseOrder}"/>
+            </drop-down>
+        </field>-->
+<!--        <field name="orderStatusId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>-->
+        <field name="fromDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
+        <field name="thruDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -46,7 +46,24 @@ under the License.
         <iterate list="invoices" entry="invoice">
             <clear-field field="inMap"/>
             <set field="inMap.invoiceId" from-field="invoice.invoiceId"/>
+            <log level="always" message="===================inMap : ${inMap}"/>
             <call-service service-name="loadSalesInvoiceFact" in-map-name="inMap"/>
+            <check-errors/>
+        </iterate>
+        
+        <!-- loads the order items in the SalesOrderItemFact fact entity -->
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
+            <condition-list>
+                <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+                <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromDate"/>
+                <condition-expr field-name="orderDate" operator="less-equals" from-field="parameters.thruDate"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="orderHeaders" entry="orderHeader">
+            <clear-field field="inMap"/>
+            <set field="inMap.orderId" from-field="orderHeader.orderId"/>
+            <log level="always" message="===================inMap : ${inMap}"/>
+            <call-service service-name="loadSalesOrderFact" in-map-name="inMap"></call-service>
             <check-errors/>
         </iterate>
     </simple-method>

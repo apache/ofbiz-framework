@@ -122,4 +122,12 @@
         screenLocation="component://order/widget/ordermgr/OrderViewScreens.xml"
         description="List Purchase Orders"/>
     <PortletPortletCategory portalPortletId="ListPurchaseOrders" portletCategoryId="ORDERMGR"/>
+
+    <PortalPortlet portalPortletId="SalesReport"
+        portletName="Sales Report"
+        screenName="SalesReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="SalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="SalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
 </entity-engine-xml>

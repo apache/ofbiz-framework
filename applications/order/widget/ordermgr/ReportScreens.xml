@@ -96,6 +96,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <!--New Screen-->
+    <screen name="SalesReport">
+        <section>
+            <widgets>
+                <screenlet title="Sales Report">
+                    <include-form name="SalesReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="OrderPurchaseReportPayment">
         <section>
@@ -276,6 +287,24 @@ under the License.
             <widgets>
                 <platform-specific>
                     <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/PurchasesByOrganizationReport.fo.ftl"/></xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="SalesOrderReport">
+        <section>
+  <!--          <actions>
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="SalesReportList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromOrderDate" ignore-if-null="true"/>
+                        <condition-expr field-name="orderDate" operator="less" from-field="parameters.thruOrderDate" ignore-if-null="true"/>
+                    </condition-list>
+                </entity-condition>
+                </actions>-->
+            <widgets>
+                <platform-specific>
+                    <xml><html-template location="component://birt/webapp/birt/report/SalesReport.rptdesign"/></xml>
                 </platform-specific>
             </widgets>
         </section>

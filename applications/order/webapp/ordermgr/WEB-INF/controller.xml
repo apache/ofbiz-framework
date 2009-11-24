@@ -30,6 +30,7 @@ under the License.
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
     <handler name="jsonjava" type="request" class="org.ofbiz.webapp.event.JSONJavaEventHandler"/>
+    <handler name="birt" type="view" class="org.ofbiz.webapp.view.BirtViewHandler"/>
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -1082,6 +1083,10 @@ under the License.
     <request-map uri="PurchasesByOrganizationReport.pdf"><security https="true" auth="true"/>
         <response name="success" type="view" value="PurchasesByOrganizationReport"/>
     </request-map>
+    <request-map uri="SalesReport.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/report/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReport"/>
+    </request-map>
 
      <!-- Requirement request mappings -->
     <request-map uri="FindRequirements">
@@ -1760,6 +1765,7 @@ under the License.
     <view-map name="SalesByStoreReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#SalesByStoreReport" content-type="application/pdf" encoding="none"/>
     <view-map name="OpenOrderItemsReport" type="screen" page="component://order/widget/ordermgr/ReportScreens.xml#OpenOrderItemsReport"/>
     <view-map name="PurchasesByOrganizationReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#PurchasesByOrganizationReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="SalesOrderReport" type="birt" page="component://birt/webapp/birt/report/SalesReport.rptdesign" content-type="application/pdf"/>
 
     <view-map name="FindRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#FindRequirements"/>
     <view-map name="EditRequirement" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#EditRequirement"/>
