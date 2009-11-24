@@ -253,6 +253,7 @@ under the License.
                                 in case no previous view can be retrieved.</xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="view-last-noparam"/>                            
                     <xs:enumeration value="view-home">
                         <xs:annotation>
                             <xs:documentation>Will use the view from the last saved 'home' position
