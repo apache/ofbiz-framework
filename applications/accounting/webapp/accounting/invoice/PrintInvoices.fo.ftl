@@ -32,6 +32,7 @@ under the License.
         <#assign invoice = invoiceDetail.invoice />
         <#if invoiceDetail.billingParty?has_content>
           <#assign billingParty = invoiceDetail.billingParty />
+          <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : billingParty.partyId}, true)>
         </#if>
         <fo:page-sequence master-reference="main">
           <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
@@ -65,7 +66,7 @@ under the License.
                               <fo:table-cell><fo:block>${uiLabelMap.AccountingCustNr}:</fo:block></fo:table-cell>
                               <fo:table-cell>
                                 <fo:block>
-                                  ${billingParty.partyId?if_exists}
+                                  <#if partyName?has_content>${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}</#if>
                                 </fo:block>
                               </fo:table-cell>
                             </fo:table-row>
@@ -113,9 +114,12 @@ under the License.
                           <#if billingAddress.address2?exists>
                             <fo:block>${billingAddress.address2}</fo:block>
                           </#if>
-                          <fo:block>${billingAddress.city?if_exists} ${billingAddress.stateProvinceGeoId?if_exists} ${billingAddress.postalCode?if_exists}</fo:block>
+                          <fo:block>
+                            <#assign stateGeo = (delegator.findOne("Geo", {"geoId", billingAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
+                            ${billingAddress.city?if_exists} <#if stateGeo?has_content>${stateGeo.geoName?if_exists}</#if> ${billingAddress.postalCode?if_exists}
+                          </fo:block>
                         <#else>
-                          <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound}${billingParty.partyId?if_exists}</fo:block>
+                          <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound} <#if partyName?has_content>${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}</#if></fo:block>
                         </#if>
                       </fo:table-cell>
                     </fo:table-row>
