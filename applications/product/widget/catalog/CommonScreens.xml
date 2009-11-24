@@ -65,6 +65,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                    <not><if-empty field="product"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -75,9 +88,6 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="product"/></not></condition>
                                     <widgets>
-                                        <container style="no-clear">
-                                            <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                        </container>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content" alt="${product.internalName}"/>
