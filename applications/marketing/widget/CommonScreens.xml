@@ -58,6 +58,20 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <!-- do check for MARKETING, _VIEW permission -->
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="MARKETING" action="_VIEW"/>
+                                    <not><if-empty field="contactListId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ContactListTabBar" location="component://marketing/widget/ContactListMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
@@ -68,7 +82,6 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="contactListId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="ContactListTabBar" location="component://marketing/widget/ContactListMenus.xml"/>
                                         <container>
                                             <label style="h1">${uiLabelMap.MarketingContactList} ${contactList.contactListName} [${contactListId}]</label>
                                         </container>

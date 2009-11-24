@@ -74,6 +74,20 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <!-- do check for MARKETING, _VIEW permission -->
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="MARKETING" action="_VIEW"/>
+                                    <not><if-empty field="segmentGroupId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu location="component://marketing/widget/SegmentMenus.xml" name="SegmentGroupTabBar"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
@@ -84,11 +98,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="segmentGroupId"/></not></condition>
                                     <widgets>
-                                        <include-menu location="component://marketing/widget/SegmentMenus.xml" name="SegmentGroupTabBar"/>
                                         <container><link text="${uiLabelMap.MarketingSegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
                                     </widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
