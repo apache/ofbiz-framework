@@ -430,6 +430,12 @@ under the License.
                 <parameter param-name="partyId" from-field="partyName.partyId"/>
             </hyperlink>
         </field>
+        <field name="cancelButton" title="${uiLabelMap.AccountingCancelBankReconciliation}" use-when="${glReconciliation.statusId == 'GLREC_CREATED'}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelReconciliation">
+                <parameter param-name="glReconciliationId" from-field="glReconciliation.glReconciliationId"/>
+                <parameter param-name="finAccountId"/>
+            </hyperlink>
+        </field>
         <field name="reconciledBalance"><display type="currency" currency="${currencyUomId}"></display></field>
         <field name="openingBalance"><display type="currency" currency="${currencyUomId}"></display></field>
     </form>
