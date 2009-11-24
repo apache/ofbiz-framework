@@ -21,7 +21,10 @@ package org.ofbiz.base.conversion;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/** Localized converter interface. */
+/** Localized converter interface. Classes implement this interface
+ * to convert one object type to another. Methods are provided to
+ * localize the conversion.
+ */
 public interface LocalizedConverter<S, T> extends Converter<S, T> {
     /** Converts <code>obj</code> to <code>T</code>.
      *

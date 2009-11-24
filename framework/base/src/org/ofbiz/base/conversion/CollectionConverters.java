@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilGenerics;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;

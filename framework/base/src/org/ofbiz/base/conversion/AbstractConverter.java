@@ -21,7 +21,8 @@ package org.ofbiz.base.conversion;
 import org.ofbiz.base.util.ObjectType;
 
 /** Abstract Converter class. This class handles converter registration
- * and it implements the <code>canConvert</code> method.
+ * and it implements the <code>canConvert</code>, <code>getSourceClass</code>,
+ * and <code>getTargetClass</code> methods.
  */
 public abstract class AbstractConverter<S, T> implements Converter<S, T> {
     private final Class<? super S> sourceClass;
