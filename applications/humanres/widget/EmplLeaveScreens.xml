@@ -36,8 +36,10 @@
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
                   	    <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
@@ -81,8 +83,10 @@
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
