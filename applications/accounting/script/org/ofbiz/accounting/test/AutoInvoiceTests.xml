@@ -144,14 +144,12 @@ under the License.
         <!-- Precondition :
             * Two invoices are associated with PaymentGroupId 9000 which are 8001 and 8002
             * Invoices are in ready status so accounting transactions are already posted to the GL
-            * GL Accounts associated with Invoices are ACCOUNTS PAYABLE and UNDEPOSITED RECEIPTS
-            * ACCOUNTS PAYABLE 210000 - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
-            * UNDEPOSITED RECEIPTS 112000 - debitTotal :$40 ; creditTotal:$116.85 ; debitCreditDifference : $ -76.85
+            * GL Accounts associated with Invoices are ACCOUNTS PAYABLE (210000) and GENERAL CHECKING ACCOUNT (111100)
         -->
 
         <!-- Post condition : After Cancel Check Run process accounting transactions are automatically posted to the GL.
-            * ACCOUNTS PAYABLE 210000  - debitTotal $468.55 ; creditTotal:$1885.4 ; debitCreditDifference : $ -1416.5
-            * UNDEPOSITED RECEIPTS 112000 - debitTotal :$156.85 ; creditTotal:$116.85 ; debitCreditDifference : $40
+            * ACCOUNTS PAYABLE 210000  - debitTotal increased of $116.85 ; creditTotal increased of $233.7 ; debitCreditDifference decreased of $116.85
+            * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $116.85 ; debitCreditDifference increased of $116.85
         -->
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -166,7 +164,7 @@ under the License.
             <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
         </call-service>
-        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
@@ -195,7 +193,7 @@ under the License.
         <check-errors/>
         <set field="totalUndepositedDebitAmount" value="${undepositedDebitTotal + 116.85}" type="BigDecimal"/>
         <set field="totalUndepositedDebitCreditDifference" value="${undepositedDebitCreditDifference + 116.85}" type="BigDecimal"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
