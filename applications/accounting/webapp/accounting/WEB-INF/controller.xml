@@ -1784,6 +1784,12 @@ under the License.
         <response name="success" type="view" value="FindGlAccountReconciliations"/>
         <response type="view" name="error"  value="FindGlAccountReconciliations"/>
     </request-map>
+    <request-map uri="cancelReconciliation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelBankReconciliation"/>
+        <response name="success" type="view" value="FindFinAccountReconciliations"/>
+        <response name="error" type="view" value="FindFinAccountReconciliations"/>
+    </request-map>
 
     <!-- ================ check requests ================= -->
     <request-map uri="listChecksToPrint">
