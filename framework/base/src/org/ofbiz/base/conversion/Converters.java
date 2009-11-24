@@ -92,6 +92,11 @@ public class Converters {
                             return (Converter<S, T>) value;
                         }
                     }
+                    // Null converter must be checked last
+                    if (nullConverter.canConvert(sourceClass, targetClass)) {
+                        converterMap.put(key, nullConverter);
+                        return (Converter<S, T>) nullConverter;
+                    }
                     noConversions.add(key);
                     Debug.logWarning("*** No converter found, converting from " +
                             sourceClass.getName() + " to " + targetClass.getName() +
@@ -149,7 +154,6 @@ public class Converters {
      */
     protected static class NullConverter implements Converter<Object, Object> {
         public NullConverter() {
-            Converters.registerConverter(this);
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
