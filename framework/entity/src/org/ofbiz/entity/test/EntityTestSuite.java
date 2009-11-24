@@ -506,19 +506,29 @@ public class EntityTestSuite extends EntityTestCase {
    */
   public void testBlobCreate() throws Exception {
       try {
-          byte[] b = new byte[1];
-          b[0] = (byte)0x01;
+          byte[] b = new byte[100000];
+          for (int i = 0; i < b.length; i++) {
+              b[i] = (byte) i;
+          }
           GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
           testingBlob.setBytes("testBlobField", b);
           testingBlob.create();
-
-          TestCase.assertTrue("Blob with byte value successfully created...", true);
+          TestCase.assertTrue("Blob with byte array created successfully", true);
+          testingBlob = delegator.findOne("TestBlob", UtilMisc.toMap("testBlobId", "byte-blob"), false);
+          byte[] c = testingBlob.getBytes("testBlobField");
+          TestCase.assertTrue("Byte array read from Blob data is the same length", b.length == c.length);
+          for (int i = 0; i < b.length; i++) {
+              if (b[i] != c[i]) {
+                  TestCase.fail("Blob data mismatch at " + i);
+              }
+          }
+          TestCase.assertTrue("Blob with byte array read successfully", true);
       } catch (Exception ex) {
-        TestCase.fail(ex.getMessage());
+          TestCase.fail(ex.getMessage());
       } finally {
           // Remove all our newly inserted values.
-        List<GenericValue> values = delegator.findList("TestBlob", null, null, null, null, false);
-        delegator.removeAll(values);
+          List<GenericValue> values = delegator.findList("TestBlob", null, null, null, null, false);
+          delegator.removeAll(values);
       }
   }
 
