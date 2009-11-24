@@ -375,7 +375,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
 
         if (currentValue != null) {
             if (currentFieldName != null) {
-                if (currentFieldValue != null && currentFieldValue.length() > 0) {
+                if (UtilValidate.isNotEmpty(currentFieldValue)) {
                     if (currentValue.getModelEntity().isField(currentFieldName.toString())) {
                         ModelEntity modelEntity = currentValue.getModelEntity();
                         ModelField modelField = modelEntity.getField(currentFieldName.toString());
@@ -499,7 +499,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                 CharSequence name = attributes.getLocalName(i);
                 CharSequence value = attributes.getValue(i);
 
-                if (name == null || name.length() == 0) {
+                if (UtilValidate.isEmpty(name)) {
                     name = attributes.getQName(i);
                 }
                 newElement.setAttribute(name.toString(), value.toString());
@@ -548,12 +548,12 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     CharSequence name = attributes.getLocalName(i);
                     CharSequence value = attributes.getValue(i);
 
-                    if (name == null || name.length() == 0) {
+                    if (UtilValidate.isEmpty(name)) {
                         name = attributes.getQName(i);
                     }
                     try {
                         // treat empty strings as nulls
-                        if (value != null && value.length() > 0) {
+                        if (UtilValidate.isNotEmpty(value)) {
                             if (currentValue.getModelEntity().isField(name.toString())) {
                                 currentValue.setString(name.toString(), value.toString());
                             } else {
