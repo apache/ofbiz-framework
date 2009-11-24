@@ -24,7 +24,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResFindPartySkill"/>
-                <set field="headerItem" value="PartySkills"/>
+                <set field="headerItem" value="EmplSkills"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partySkillsCtx" from-field="parameters"/>
             </actions>

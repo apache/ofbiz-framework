@@ -30,20 +30,25 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                                    <not><if-empty field="tabBar"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="${tabBar}" location="component://content/widget/forum/ForumMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="tabBar"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="${tabBar}" location="component://content/widget/forum/ForumMenus.xml"/>
-                                    </widgets>
-                                </section>
                                 <container style="h1"><label text="${pageTitle}"/></container>
                                 <decorator-section-include name="body"/>
                             </widgets>

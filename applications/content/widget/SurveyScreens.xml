@@ -65,20 +65,26 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                                    <not><if-empty field="surveyId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="SurveyTabBar" location="component://content/widget/SurveyMenus.xml"/>
+                                <container><link  text="${uiLabelMap.ContentSurveyCreate}" target="EditSurvey" style="buttontext"/></container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition><not><if-empty field="surveyId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="SurveyTabBar" location="component://content/widget/SurveyMenus.xml"/>
-                                        <container><link  text="${uiLabelMap.ContentSurveyCreate}" target="EditSurvey" style="buttontext"/></container>
-                                    </widgets>
-                                </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
