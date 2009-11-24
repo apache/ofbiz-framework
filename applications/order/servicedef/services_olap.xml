@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+
+    <!-- Order Facts -->
+    <service name="loadSalesOrderItemFact" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="loadSalesOrderItemFact">
+        <description>
+            Pulls information from the OrderItem* entities and stores them in the SalesOrderItem entity (olap entity).
+            One of orderId/orderItemSeqId or order/orderItem must be passed or an error is returned.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="loadSalesOrderFact" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="loadSalesOrderFact">
+        <description>Calls the loadSalesOrderItemFact service for all the order items.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+</services>

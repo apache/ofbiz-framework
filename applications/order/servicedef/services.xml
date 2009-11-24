@@ -1043,4 +1043,24 @@ under the License.
         <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="availabalityList" type="List" mode="OUT"/>
     </service>
+    
+    <!-- Order Facts -->
+    <service name="loadSalesOrderFact" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="loadSalesOrderFact">
+        <description>Calls the loadSalesOrderItemFact service for all the order items.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="loadSalesOrderItemFact" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="loadSalesOrderItemFact">
+        <description>
+            Pulls information from the OrderItem* entities and stores them in the SalesOrderItem entity (olap entity).
+            One of orderId/orderItemSeqId or order/orderItem must be passed or an error is returned.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderAdjustment " type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
 </services>
