@@ -352,17 +352,13 @@ public class UtilCache<K, V> implements Serializable {
      */
     private static List<UtilCache<?, ?>> getUtilCacheTableValuesImage() {
         List<UtilCache<?, ?>> list = new ArrayList<UtilCache<?, ?>>(utilCacheTable.size());
-        synchronized (utilCacheTable) {
-            list.addAll(utilCacheTable.values());
-        }
+        list.addAll(utilCacheTable.values());
         return list;
     }
 
     public static Set<String> getUtilCacheTableKeySet() {
         Set<String> set = new HashSet<String>(utilCacheTable.size());
-        synchronized (utilCacheTable) {
-            set.addAll(utilCacheTable.keySet());
-        }
+        set.addAll(utilCacheTable.keySet());
         return set;
     }
 
@@ -613,21 +609,12 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public static void clearCachesThatStartWith(String startsWith) {
-        synchronized (utilCacheTable) {
-            List<UtilCache<?, ?>> cachesToClear = FastList.newInstance();
-            synchronized (utilCacheTable) {
-                for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
-                    String name = entry.getKey();
-                    if (name.startsWith(startsWith)) {
-                        UtilCache<?, ?> cache = entry.getValue();
-                        cachesToClear.add(cache);
-                    }
-                }
-            }
-            for (UtilCache<?,?> cache : cachesToClear) {
+        for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
+            String name = entry.getKey();
+            if (name.startsWith(startsWith)) {
+                UtilCache<?, ?> cache = entry.getValue();
                 cache.clear();
             }
-            cachesToClear.clear();
         }
     }
 
