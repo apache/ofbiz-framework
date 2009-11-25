@@ -32,7 +32,7 @@ under the License.
       <#assign line = line + 1>
       <#assign curRoleType = productRole.getRelatedOneCache("RoleType")>
       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-        <td><a href="/partymgr/control/viewprofile?party_id=${(productRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productRole.partyId)?if_exists}</a></td>
+        <td><a href="/partymgr/control/viewprofile?partyId=${(productRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productRole.partyId)?if_exists}</a></td>
         <td>${(curRoleType.get("description",locale))?if_exists}</td>
         <#assign hasntStarted = false>
         <#if (productRole.getTimestamp("fromDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
