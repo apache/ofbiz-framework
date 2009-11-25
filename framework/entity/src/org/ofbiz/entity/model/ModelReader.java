@@ -53,6 +53,7 @@ import org.w3c.dom.Node;
  * Generic Entity - Entity Definition Reader
  *
  */
+@SuppressWarnings("serial")
 public class ModelReader implements Serializable {
 
     public static final String module = ModelReader.class.getName();
@@ -359,10 +360,10 @@ public class ModelReader implements Serializable {
                                                     orderedMessages.add(message);
                                                 }
                                             } else {
-                                                String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity [" + relatedEnt.getEntityName() + "] ant relationship to entity [" +
+                                                String message = "Existing relationship with the same name, but different specs found from what would be auto-created for Entity [" + relatedEnt.getEntityName() + "] and relationship to entity [" +
                                                         curModelEntity.getEntityName() + "] title [" + targetTitle + "]; would auto-create: type [" +
                                                         newRel.getType() + "] and fields [" + newRel.keyMapString(",", "") + "]";
-                                                Debug.logInfo(message, module);
+                                                Debug.logVerbose(message, module);
                                             }
                                         }
                                     } else {
