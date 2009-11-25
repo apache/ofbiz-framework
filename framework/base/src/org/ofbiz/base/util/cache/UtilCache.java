@@ -617,9 +617,11 @@ public class UtilCache<K, V> implements Serializable {
 
     @SuppressWarnings("unchecked")
     public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+        UtilCache<K, V> existingCache = (UtilCache<K, V>) utilCacheTable.get(name);
+        if (existingCache != null) return existingCache;
         String cacheName = name + getNextDefaultIndex(name);
         UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
-        UtilCache<K, V> oldCache = (UtilCache<K, V>) utilCacheTable.putIfAbsent(cacheName, newCache);
+        UtilCache<K, V> oldCache = (UtilCache<K, V>) utilCacheTable.putIfAbsent(name, newCache);
         if (oldCache == null) {
             return newCache;
         } else {
