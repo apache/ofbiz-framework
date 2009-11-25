@@ -513,6 +513,11 @@ under the License.
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
+    
+    <!-- ================================================================== -->
+    <!-- Create New Component. This target will create basic directory structure for an OFBiz component in hot-deploy directory. -->
+    <!-- ================================================================== -->
+    
     <target name="create-component"
         description="Creates the layout of an OFBiz component in the hot-deploy folder.">
         <input addproperty="component-name" message="Component name: "/>
