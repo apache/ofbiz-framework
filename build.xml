@@ -269,12 +269,12 @@ under the License.
     <!-- WebSite Targets                                                    -->
     <!-- ================================================================== -->
 
-    <target name="build-website" 
+    <!--target name="build-website" 
       description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
         <antcall target="copy-apis"/>
-    </target>
+    </target--><!-- deprecated -->
 
     <target name="copy-apis">
         <mkdir dir="${site.dir}/api"/>
