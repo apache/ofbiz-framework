@@ -1134,6 +1134,8 @@ background-color:#EEEEEE;
 background-color:#0099CC;
 height: 1%; /* IE fix */
 min-height: 1.5em;
+padding-top: 1px;
+padding-bottom: 2px;
 }
 
 .screenlet-title-bar .h1,
