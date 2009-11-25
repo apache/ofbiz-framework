@@ -39,9 +39,8 @@ public class UtilFormatOut {
         }
     }
 
-    // ------------------- price format handlers -------------------
-    static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
-    static DecimalFormat priceNumberFormat = new DecimalFormat("##0.00");
+    // ------------------- price format handlers -------------------    
+    static DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "#,##0.00"));
 
     /** Formats a Double representing a price into a string
      * @param price The price Double to be formatted
