@@ -256,7 +256,7 @@ public class CacheLineTable<K, V> implements Serializable {
         nullValue = null;
     }
 
-    public int size() {
+    public synchronized int size() {
         if (fileTable != null) {
             return this.keySet().size();
         } else {
