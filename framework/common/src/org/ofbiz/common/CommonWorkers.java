@@ -20,6 +20,7 @@ package org.ofbiz.common;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javolution.util.FastList;
 
@@ -53,45 +54,34 @@ public class CommonWorkers {
                 Debug.logError(e, "Cannot lookup Geo", module);
             }
         }
-        List<String> countriesList = FastList.newInstance();
-        List<String> countriesAvailable = StringUtil.split(UtilProperties.getPropertyValue("general.properties", "countries.geo.id.available"), ",");
-        if (countriesAvailable != null) {
-            for(String country : countriesAvailable) {
-                GenericValue geoCountry = null;
-                try {
-                    geoCountry = delegator.findOne("Geo", UtilMisc.toMap("geoId", country.trim()), true);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "The country specified into countries.geo.id.available does not exists in Geo", module);
-                }
-                if (geoCountry != null) {
-                    countriesList.add(country);
-                }
-            }
+                
+        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
+        List<String> countriesAvailable = StringUtil.split(UtilProperties.getPropertyValue("general.properties", "countries.geo.id.available"), ",");              
+        if (UtilValidate.isNotEmpty(countriesAvailable)) {
+            // only available countries (we don't verify the list of geoId in countries.geo.id.available)
+            exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));
         }
+        
+        List<GenericValue> countriesList = FastList.newInstance();
         try {
-            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
-            // only available countries
-            if (UtilValidate.isNotEmpty(countriesList)) {
-                exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesList));
-            }
-            List<GenericValue> countryGeoList = delegator.findList("Geo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("geoName"), null, true);
-            if (defaultGeo != null) {
-                geoList.add(defaultGeo);
-                /* remove the default geo to avoid double rows in the drop-down */
-                int idx = 0;
-                for (GenericValue geo : countryGeoList) {
-                    if (geo.get("geoId") != null && defaultGeo.get("geoId") != null &&
-                            geo.get("geoId").equals(defaultGeo.get("geoId"))) {
-                        countryGeoList.remove(idx);
-                    }
-                    idx += 1;
-                }
-                geoList.addAll(countryGeoList);
-            } else {
-                geoList = countryGeoList;
-            }
+            countriesList = delegator.findList("Geo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("geoName"), null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
+        }
+        if (defaultGeo != null) {
+            geoList.add(defaultGeo);
+            boolean removeDefaultGeo = false;
+            for (GenericValue country  : countriesList) {
+                if (country.get("geoId").equals(defaultGeo.get("geoId"))) {
+                    removeDefaultGeo = true;
+                }
+            }
+            if (removeDefaultGeo) { 
+                countriesList.remove(0); // Remove default country to avoid double rows in drop-down, from 1st place to keep alphabetical order
+            }
+            geoList.addAll(countriesList);
+        } else {
+            geoList = countriesList;
         }
         return geoList;
     }
