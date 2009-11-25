@@ -28,6 +28,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -97,7 +98,7 @@ public class UtilCache<K, V> implements Serializable {
     private String fileStore = "runtime/data/utilcache";
 
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
-    protected Set<CacheListener<K, V>> listeners = FastSet.newInstance();
+    protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
     /** Constructor which specifies the cacheName as well as the maxSize, expireTime and useSoftReference.
      * The passed maxSize, expireTime and useSoftReference will be overridden by values from cache.properties if found.
@@ -549,43 +550,33 @@ public class UtilCache<K, V> implements Serializable {
 
     /** Send a key addition event to all registered listeners */
     protected void noteAddition(K key, V newValue) {
-        synchronized (listeners) {
-            for (CacheListener<K, V> listener: listeners) {
-                listener.noteKeyAddition(this, key, newValue);
-            }
+        for (CacheListener<K, V> listener: listeners) {
+            listener.noteKeyAddition(this, key, newValue);
         }
     }
 
     /** Send a key removal event to all registered listeners */
     protected void noteRemoval(K key, V oldValue) {
-        synchronized (listeners) {
-            for (CacheListener<K, V> listener: listeners) {
-                listener.noteKeyRemoval(this, key, oldValue);
-            }
+        for (CacheListener<K, V> listener: listeners) {
+            listener.noteKeyRemoval(this, key, oldValue);
         }
     }
 
     /** Send a key update event to all registered listeners */
     protected void noteUpdate(K key, V newValue, V oldValue) {
-        synchronized (listeners) {
-            for (CacheListener<K, V> listener: listeners) {
-                listener.noteKeyUpdate(this, key, newValue, oldValue);
-            }
+        for (CacheListener<K, V> listener: listeners) {
+            listener.noteKeyUpdate(this, key, newValue, oldValue);
         }
     }
 
     /** Adds an event listener for key removals */
     public void addListener(CacheListener<K, V> listener) {
-        synchronized (listeners) {
-            listeners.add(listener);
-        }
+        listeners.add(listener);
     }
 
     /** Removes an event listener for key removals */
     public void removeListener(CacheListener<K, V> listener) {
-        synchronized (listeners) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
     /** Clears all expired cache entries from all caches */
