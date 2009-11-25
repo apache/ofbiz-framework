@@ -30,18 +30,18 @@ under the License.
 
     <path id="local.class.path">
         <fileset dir="${lib.dir}" includes="*.jar"/>
-        <fileset dir="../base/lib" includes="*.jar"/>
-        <fileset dir="../base/lib/commons" includes="*.jar"/>
-        <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
-        <fileset dir="../base/lib/scripting" includes="*.jar"/>
-        <fileset dir="../base/build/lib" includes="*.jar"/>
-        <fileset dir="../entity/lib" includes="*.jar"/>
-        <fileset dir="../entity/build/lib" includes="*.jar"/>
-        <fileset dir="../security/build/lib" includes="*.jar"/>
-        <fileset dir="../service/lib" includes="*.jar"/>
-        <fileset dir="../service/build/lib" includes="*.jar"/>
-        <fileset dir="../entityext/build/lib" includes="*.jar"/>
-        <fileset dir="../common/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/commons" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/scripting" includes="*.jar"/>
+        <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/security/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entityext/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
     </path>
 
     <patternset id="src.exc.set">
