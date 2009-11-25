@@ -274,7 +274,7 @@ under the License.
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
         <antcall target="copy-apis"/>
-    </target--><!-- deprecated -->
+    </target>
 
     <target name="copy-apis">
         <mkdir dir="${site.dir}/api"/>
@@ -290,7 +290,7 @@ under the License.
         <copy todir="${site.dir}/api/specialpurpose">
             <fileset dir="${basedir}/specialpurpose" includes="**/build/javadocs/**"/>
         </copy>
-    </target>
+    </target--><!-- deprecated -->
 
     <target name="copy-dtds"
       description="For committers : Copy all dtds from OFBiz instance to website">
