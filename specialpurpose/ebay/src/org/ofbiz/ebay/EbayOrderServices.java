@@ -1151,7 +1151,10 @@ public class EbayOrderServices {
                 // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
                     Map buyerCtx = (Map) context.get("buyerCtx");
-                    String eiasTokenBuyer = (String) buyerCtx.get("eiasTokenBuyer");
+                    String eiasTokenBuyer = null;
+                    if (UtilValidate.isNotEmpty(buyerCtx)) {
+                        eiasTokenBuyer = (String) buyerCtx.get("eiasTokenBuyer");
+                    }    
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", shippingAddressCtx);
                     if (UtilValidate.isEmpty(contactMechId)) {
