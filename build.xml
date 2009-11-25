@@ -269,7 +269,7 @@ under the License.
     <!-- WebSite Targets                                                    -->
     <!-- ================================================================== -->
 
-    <!--target name="build-website" 
+    <target name="build-website" 
       description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
@@ -290,7 +290,7 @@ under the License.
         <copy todir="${site.dir}/api/specialpurpose">
             <fileset dir="${basedir}/specialpurpose" includes="**/build/javadocs/**"/>
         </copy>
-    </target--><!-- deprecated -->
+    </target>
 
     <target name="copy-dtds"
       description="For committers : Copy all dtds from OFBiz instance to website">
