@@ -432,7 +432,7 @@ public interface Delegator {
      *            entity with group-by aliases)
      * @param fieldsToSelect
      *            The fields of the named entity to get from the database; if
-     *            empty or null all fields will be retreived
+     *            empty or null all fields will be retrieved
      * @param orderBy
      *            The fields of the named entity to order the query by;
      *            optionally add a " ASC" for ascending or " DESC" for
