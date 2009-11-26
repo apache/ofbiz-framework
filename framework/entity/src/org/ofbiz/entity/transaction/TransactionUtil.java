@@ -52,6 +52,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityException;
 
 /**
  * <p>Transaction Utility to help with some common transaction tasks
@@ -73,11 +74,11 @@ public class TransactionUtil implements Status {
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<Timestamp>();
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<Timestamp>();
 
-    public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
+    public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
         return doNewTransaction(ifErrorMessage, true, callable);
     }
 
-    public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws Throwable {
+    public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
         Transaction tx = TransactionUtil.suspend();
         try {
             return doTransaction(ifErrorMessage, printException, callable);
@@ -86,11 +87,11 @@ public class TransactionUtil implements Status {
         }
     }
 
-    public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws Throwable {
+    public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
         return doTransaction(ifErrorMessage, true, callable);
     }
 
-    public static <V> V doTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws Throwable {
+    public static <V> V doTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
         boolean tx = TransactionUtil.begin();
         Throwable transactionAbortCause = null;
         try {
@@ -110,7 +111,7 @@ public class TransactionUtil implements Status {
             throw e;
         } catch (Throwable t) {
             transactionAbortCause = t;
-            throw t;
+            throw new GenericEntityException(t);
         } finally {
             if (transactionAbortCause == null) {
                 TransactionUtil.commit(tx);
