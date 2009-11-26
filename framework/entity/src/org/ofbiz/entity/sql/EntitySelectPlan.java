@@ -69,7 +69,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
         return delegator.findListIteratorByCondition(dve, whereCondition, havingCondition, null, orderBy, null);
     }
 
-    public List<GenericValue> getAll(final GenericDelegator delegator, final Map<String, ? extends Object> params) throws GenericEntityException {
+    public List<GenericValue> getAll(final Delegator delegator, final Map<String, ? extends Object> params) throws GenericEntityException {
         return TransactionUtil.doTransaction("sql select", new Callable<List<GenericValue>>() {
             public List<GenericValue> call() throws Exception {
                 EntityListIterator it = null;
