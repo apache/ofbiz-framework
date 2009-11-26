@@ -70,10 +70,12 @@ public class CommonWorkers {
         }
         if (defaultGeo != null) {
             geoList.add(defaultGeo);
-            boolean removeDefaultGeo = false;
-            for (GenericValue country  : countriesList) {
-                if (country.get("geoId").equals(defaultGeo.get("geoId"))) {
-                    removeDefaultGeo = true;
+            boolean removeDefaultGeo = UtilValidate.isEmpty(countriesList);
+            if (!removeDefaultGeo) {
+                for (GenericValue country  : countriesList) {
+                    if (country.get("geoId").equals(defaultGeo.get("geoId"))) {
+                        removeDefaultGeo = true;
+                    }
                 }
             }
             if (removeDefaultGeo) { 
