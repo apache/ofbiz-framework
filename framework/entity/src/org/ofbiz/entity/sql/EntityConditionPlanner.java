@@ -89,6 +89,6 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
             }
             return params.get(((ParameterValue) value).getName());
         }
-        throw new UnsupportedOperationException(value.toString());
+        throw new UnsupportedOperationException(value.getClass().getName() + ":" + value.toString());
     }
 }
