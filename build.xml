@@ -435,7 +435,7 @@ under the License.
     </target>
     <target name="run-tests" depends="build" 
       description="Run OFBiz default tests">
-        <java jar="ofbiz.jar" fork="true" failonerror="true">
+        <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
@@ -448,6 +448,13 @@ under the License.
             </fileset>
             <report format="frames" todir="runtime/logs/test-results/html"/>
         </junitreport>
+        <fail message="Test run was unsuccessful">
+            <condition>
+                <not>
+                    <equals arg1="${test.result}" arg2="0"/>
+                </not>
+            </condition>
+        </fail>
     </target>
     <target name="_save-runtime-data">
         <delete file="runtime/data.zip"/>
