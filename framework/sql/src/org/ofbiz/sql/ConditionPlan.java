@@ -38,4 +38,14 @@ public final class ConditionPlan<C> extends SQLPlan<ConditionPlan<C>> {
             return condition;
         }
     }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        sb.append("ConditionPlan[");
+        if (originalCondition != null) {
+            sb.append("original=" + originalCondition);
+        } else {
+            sb.append("condition=" + condition);
+        }
+        return sb.append("]");
+    }
 }
