@@ -21,6 +21,7 @@ package org.ofbiz.base.util;
 import java.sql.Timestamp;
 import com.ibm.icu.util.Calendar;
 import java.util.Collection;
+import java.util.Map;
 
 import org.apache.commons.validator.EmailValidator;
 
@@ -199,6 +200,11 @@ public class UtilValidate {
     /** Check whether collection c is empty. */
     public static <E> boolean isEmpty(Collection<E> c) {
         return ((c == null) || (c.size() == 0));
+    }
+
+    /** Check whether map m is empty. */
+    public static <K,E> boolean isEmpty(Map<K,E> m) {
+        return ((m == null) || (m.size() == 0));
     }
 
     /** Check whether charsequence c is empty. */
