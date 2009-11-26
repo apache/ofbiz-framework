@@ -753,26 +753,22 @@ public class ObjectType {
         return Boolean.TRUE;
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean isEmpty(Object value) {
         if (value == null) return true;
-
-        if (value instanceof String) {
-            if (((String) value).length() == 0) {
-                return true;
-            }
-        } else if (value instanceof Collection) {
-            if (((Collection<?>) value).size() == 0) {
-                return true;
-            }
-        } else if (value instanceof Map) {
-            if (((Map<?,?>) value).size() == 0) {
-                return true;
-            }
-        } else if (value instanceof CharSequence) {
-            if (((CharSequence) value).length() == 0) {
-                return true;
-            }
-        }
+        
+        if (value instanceof String) return UtilValidate.isEmpty((String) value);
+        if (value instanceof Collection) return UtilValidate.isEmpty((Collection<? extends Object>) value);
+        if (value instanceof Map) return UtilValidate.isEmpty((Map<? extends Object, ? extends Object>) value);
+        if (value instanceof CharSequence) return UtilValidate.isEmpty((CharSequence) value);
+        
+        // These types would flood the log
+        if (value instanceof Boolean) return false;        
+        if (value instanceof Integer) return false;        
+        if (value instanceof java.math.BigDecimal) return false;          
+        if (value instanceof java.sql.Timestamp) return false;        
+        
+        Debug.logWarning("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
         return false;
     }
 
