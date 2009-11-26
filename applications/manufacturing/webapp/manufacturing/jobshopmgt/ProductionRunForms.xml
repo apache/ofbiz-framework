@@ -71,6 +71,7 @@ under the License.
                 <field-map field-name="entityName" value="WorkEffortAndGoods"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="orderBy" value="estimatedStartDate"/>
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
