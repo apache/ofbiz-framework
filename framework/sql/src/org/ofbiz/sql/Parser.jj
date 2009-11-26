@@ -122,6 +122,9 @@ TOKEN: {
 |	<VALUES: "VALUES">
 |	<CREATE: "CREATE">
 |	<VIEW: "VIEW">
+|	<IS: "IS">
+|	<NOT: "NOT">
+|	<NULL: "NULL">
 |	<START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
 |	<START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
 |	<INTEGER:
@@ -745,6 +748,10 @@ private Condition BooleanExpression():
 		<AND>
 		v=RightValue() { list.add(v); }
 		{ v2 = new ListValue(list); op = "between"; }
+	| <IS> (
+		<NULL> { op = "="; v2 = Value.NULL; }
+		| <NOT> <NULL> { op = "!="; v2 = Value.NULL; }
+	)
 	|	op=ComparisonOperator() (
 			v2=RightValue()
 		|	<OPEN_PAREN>
@@ -759,9 +766,15 @@ private Condition BooleanExpression():
 }
 
 private String ComparisonOperator():
-{}
 {
-	( <TEXT> )+ { return getToken(0).image; }
+	StringBuilder sb;
+}
+{
+	(<TEXT>)+ { sb = new StringBuilder(); sb.append(getToken(0).image); }
+	(
+		<EQUALS> { sb.append(getToken(0).image); }
+		((<TEXT>)+ { sb.append(getToken(0).image); })?
+	)* { return sb.toString(); }
 |	<NAME> { return getToken(0).image; }
 |	<EQUALS> { return getToken(0).image.toLowerCase(); }
 }

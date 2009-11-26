@@ -19,4 +19,9 @@
 package org.ofbiz.sql;
 
 public abstract class Value extends Atom {
+    public static final Value NULL = new Value() {
+        public StringBuilder appendTo(StringBuilder sb) {
+            return sb.append("NULL");
+        }
+    };
 }
