@@ -36,7 +36,7 @@
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Véritable date d'achèvement</value>
         <value xml:lang="it">Data completamento attuale</value>
-        <value xml:lang="nl">Actual Completion Date</value>
+        <value xml:lang="nl">Datum gereed</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
         <value xml:lang="th">วันที่สำเร็จตามความจริง</value>
         <value xml:lang="zh">实际完成日期</value>
@@ -73,7 +73,7 @@
         <value xml:lang="es">Fecha de comienzo real</value>
         <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data inizio attuale</value>
-        <value xml:lang="nl">Actual Start Date</value>
+        <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
@@ -113,7 +113,7 @@
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date d'achèvement estimée</value>
         <value xml:lang="it">Data completamento stimata</value>
-        <value xml:lang="nl">Estimated Completion Date</value>
+        <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
         <value xml:lang="zh">预计完成日期</value>
@@ -142,7 +142,7 @@
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
-        <value xml:lang="nl">Verwachtte start datum</value>
+        <value xml:lang="nl">Gepl. datum start</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">เริ่มประมาณวันที่</value>
         <value xml:lang="zh">预计开始日期</value>
@@ -440,7 +440,7 @@
         <value xml:lang="en">Timesheet Id</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Numero Timbratura</value>
-        <value xml:lang="nl">Tijdschema Id</value>
+        <value xml:lang="nl">Urenstaat Id</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
         <value xml:lang="zh">工单标识</value>
@@ -1832,7 +1832,7 @@
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date estimée d'achèvement</value>
         <value xml:lang="it">Data completamento stimata</value>
-        <value xml:lang="nl">Estimated Completion Date</value>
+        <value xml:lang="nl">Gepl. datum afgerond</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
         <value xml:lang="zh">预计完成日期</value>
@@ -1843,7 +1843,7 @@
         <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date estimée de début</value>
         <value xml:lang="it">Data Inizio Stimata</value>
-        <value xml:lang="nl">Estimated Start Date</value>
+        <value xml:lang="nl">Datum start</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">วันที่เริ่มประมาณ</value>
         <value xml:lang="zh">预计开始日期</value>
@@ -2270,6 +2270,7 @@
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="fr">Mes tâches</value>
         <value xml:lang="it">Miei Compiti</value>
+        <value xml:lang="nl">Mijn taken</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
         <value xml:lang="zh">我的任务</value>
     </property>
@@ -2868,7 +2869,7 @@
         <value xml:lang="es">Proyectos</value>
         <value xml:lang="fr">Projets</value>
         <value xml:lang="it">Progetti</value>
-        <value xml:lang="nl">Projects</value>
+        <value xml:lang="nl">Projecten</value>
         <value xml:lang="ro">Proiecte</value>
         <value xml:lang="ru">Проекты</value>
         <value xml:lang="th">โปรเจค</value>
@@ -3229,6 +3230,7 @@
         <value xml:lang="es">Fecha de comienzo</value>
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data inizio</value>
+        <value xml:lang="nl">Datum start</value>
         <value xml:lang="th">เริ่มวันที่</value>
         <value xml:lang="zh">开始日期</value>
     </property>
@@ -3383,7 +3385,7 @@
         <value xml:lang="es">Hoja de tiempos</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Timbratura</value>
-        <value xml:lang="nl">Tijdschema</value>
+        <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Pontaj</value>
         <value xml:lang="th">ตารางเวลาการทำงาน</value>
         <value xml:lang="zh">工单</value>
@@ -3393,7 +3395,7 @@
         <value xml:lang="es">Crear hoja de tiempos</value>
         <value xml:lang="fr">Créer une feuille d'activité</value>
         <value xml:lang="it">Creare timbratura</value>
-        <value xml:lang="nl">Nieuw tijdschema</value>
+        <value xml:lang="nl">Nieuwe urenstaat</value>
         <value xml:lang="ro">Creare Pontaj</value>
         <value xml:lang="th">สร้างตารางการทำงาน</value>
         <value xml:lang="zh">新建工单</value>
@@ -3479,7 +3481,7 @@
         <value xml:lang="es">Código de hoja de tiempos</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Numero timbratura</value>
-        <value xml:lang="nl">Tijdschema ID</value>
+        <value xml:lang="nl">Urenstaat</value>
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
         <value xml:lang="zh">工单编号</value>

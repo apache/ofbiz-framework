@@ -77,7 +77,7 @@
         <value xml:lang="en">Non Billed Hours</value>
         <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="it">Ore non fatturate</value>
-        <value xml:lang="nl">>Niet gefakt. uren</value>
+        <value xml:lang="nl">Niet gefakt. uren</value>
         <value xml:lang="zh">非记账工时</value>
     </property>
     <property key="FormFieldTitle_originalActualHours">
@@ -982,7 +982,7 @@
         <value xml:lang="en">Estimated Cost</value>
         <value xml:lang="fr">Coût estimé</value>
         <value xml:lang="it">Costo stimato</value>
-        <value xml:lang="nl">Verw. kosten</value>
+        <value xml:lang="nl">Geschatte kosten</value>
         <value xml:lang="th">ราคาโดยประมาณ</value>
         <value xml:lang="zh">评估费用</value>
     </property>
@@ -991,7 +991,7 @@
         <value xml:lang="en">Estimated Duration</value>
         <value xml:lang="fr">Durée estimée</value>
         <value xml:lang="it">Durata stimata</value>
-        <value xml:lang="nl">Verw. duur</value>
+        <value xml:lang="nl">Geschatte duur</value>
         <value xml:lang="th">ช่วงเวลาโดยประมาณ</value>
         <value xml:lang="zh">评估周期</value>
     </property>
@@ -1477,7 +1477,7 @@
         <value xml:lang="en">Schedule</value>
         <value xml:lang="fr">Planifier</value>
         <value xml:lang="it">Schedula</value>
-        <value xml:lang="nl">Tijdschema</value>
+        <value xml:lang="nl">Uren</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">进度表</value>
     </property>
@@ -1887,7 +1887,7 @@
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="fr">Date d'achèvement estimée</value>
         <value xml:lang="it">Data fine stimata</value>
-        <value xml:lang="nl">Verw. datum gereed</value>
+        <value xml:lang="nl">Gepl. datum gereed</value>
         <value xml:lang="th">วันที่เสร็จโดยประมาณ</value>
         <value xml:lang="zh">估计完成日期</value>
     </property>
@@ -1896,7 +1896,7 @@
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data inizio stimata</value>
-        <value xml:lang="nl">Verw. datum start</value>
+        <value xml:lang="nl">Gepl. datum start</value>
         <value xml:lang="th">วันที่เริ่มโดยประมาณ</value>
         <value xml:lang="zh">估计开始日期</value>
     </property>
