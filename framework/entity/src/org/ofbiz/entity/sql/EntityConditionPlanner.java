@@ -81,6 +81,8 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
                 values.add(buildValue(sqlValue, params));
             }
             return values;
+        } else if (value == Value.NULL) {
+            return null;
         } else if (value instanceof ParameterValue) {
             if (params == null) {
                 throw new ParameterizedConditionException();
