@@ -40,7 +40,9 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
@@ -107,12 +109,8 @@ public class SharkContainer implements Container, Runnable
         }
 
         // get the delegator and dispatcher objects
-        SharkContainer.delegator = Delegator.getDelegator(delegatorProp.value);
-        try {
-            SharkContainer.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherProp.value, SharkContainer.delegator);
-        } catch (GenericServiceException e) {
-            throw new ContainerException(e);
-        }
+        SharkContainer.delegator = DelegatorFactory.getDelegator(delegatorProp.value);
+        SharkContainer.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherProp.value, SharkContainer.delegator);
 
         // get the admin user
         try {

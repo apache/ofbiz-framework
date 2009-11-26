@@ -31,7 +31,7 @@ public abstract class InstanceEntityObject {
     protected EntityPersistentMgr mgr = null;
     protected String delegatorName = null;
 
-    public InstanceEntityObject(EntityPersistentMgr mgr, GenericDelegator delegator) {
+    public InstanceEntityObject(EntityPersistentMgr mgr, Delegator delegator) {
         this.delegatorName = delegator.getDelegatorName();
         this.delegator = delegator;
         this.mgr = mgr;
@@ -43,11 +43,7 @@ public abstract class InstanceEntityObject {
 
     public Delegator getGenericDelegator() {
         if (this.delegator == null && delegatorName != null) {
-            try {
-                this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, module);
-            }
+            this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
         }
         return this.delegator;
     }

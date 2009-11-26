@@ -308,7 +308,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         EntityCondition cond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         List lookupList = null;
         try {
-            lookupList = delegator.findByCondition(org.ofbiz.shark.SharkConstants.WfRepository, cond, null, UtilMisc.toList("-xpdlVersion"));
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfRepository, cond, null, UtilMisc.toList("-xpdlVersion"), null, false);
         } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         } finally {

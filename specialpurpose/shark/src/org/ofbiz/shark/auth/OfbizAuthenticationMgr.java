@@ -25,6 +25,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.shark.container.SharkContainer;
+import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.service.LocalDispatcher;
@@ -52,7 +53,7 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
         Delegator delegator = SharkContainer.getDelegator();
         String p = null;
         GenericValue adminUser = null;
-        String pass_hash = LoginServices.getPasswordHash(password);
+        String pass_hash = HashCrypt.getDigestHash(password, LoginServices.getHashType());
         try {
             adminUser = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userName));
             String a = adminUser.getString("userLoginId");
@@ -61,9 +62,9 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
         if (adminUser != null) {
             if (password.equals(p)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(password).equals(p)) {
+            } else if (HashCrypt.getDigestHash(password, LoginServices.getHashType()).equals(p)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(p).equals(password)) {
+            } else if (HashCrypt.getDigestHash(p, LoginServices.getHashType()).equals(password)) {
                 return true;
             } else {
                 return false;
