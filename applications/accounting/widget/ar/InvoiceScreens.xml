@@ -63,6 +63,12 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingFindArInvoices"/>
+                <service service-name="performFind" result-map="result">
+                    <field-map field-name="inputFields" from-field="parameters"/>
+                    <field-map field-name="entityName" value="InvoiceAndType"/>
+                    <field-map field-name="orderBy" value="invoiceDate DESC"/>
+                </service>
+                <set field="invoices" from-field="result.listIt"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -79,7 +85,9 @@ under the License.
                                         <include-form name="FindArInvoices" location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/ar/invoice/ListInvoices.ftl"/></html>
+                                        </platform-specific>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>

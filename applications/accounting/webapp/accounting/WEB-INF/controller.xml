@@ -278,7 +278,11 @@ under the License.
         <response name="success" type="view" value="editInvoice"/>
         <response name="error" type="view" value="editInvoice"/>
     </request-map>
-
+    <request-map uri="getInvoiceRunningTotal">
+        <event type="jsonservice" invoke="getInvoiceRunningTotal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
      <!-- Request EditInvoiceItemType -->
     <request-map uri="editInvoiceItemType">
         <security https="true" auth="true"/>
