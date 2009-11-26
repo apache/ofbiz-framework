@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-    <h1>${title}</h1>
     <div class="button-bar">
       <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
       <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
@@ -76,7 +75,7 @@ under the License.
         <h1>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h1>
         <br/>
         <table class="basic-table hover-bar" cellspacing="0">
-        <tr class="header-row">
+        <tr class="header-row-2">
             <td>${uiLabelMap.ProductFacility}</td>
             <td>${uiLabelMap.ProductLocationSeqId}</td>
             <td>${uiLabelMap.ProductType}</td>

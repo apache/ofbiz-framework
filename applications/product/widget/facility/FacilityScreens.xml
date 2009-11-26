@@ -302,9 +302,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${title}">
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
