@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 // **************************************
 // ShipmentPlan list form
@@ -144,18 +145,22 @@ if (shipmentPlans) {
                                     widthUom.abbreviation + "x" +
                                     depthUom.abbreviation;
         }
+        rows.add(oneRow);
         // Select the production runs, if available
         productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId],["workEffortId"]); // TODO: add shipmentId
         if (productionRuns) {
             workInProgress = "true";
             productionRunsId = "";
             productionRuns.each { productionRun ->
-                productionRunsId = productionRun.workEffortId + " " + productionRunsId;
+                productionRunRow = new HashMap();
+                productionRunRow.put("productionRunId", productionRun.workEffortId);
+                ProductionRun productionRunWrapper = new ProductionRun(productionRun.workEffortId, delegator, dispatcher);
+                productionRunRow.put("productionRunEstimatedCompletionDate", productionRunWrapper.getEstimatedCompletionDate());
+                productionRunRow.put("productionRunStatusId", productionRunWrapper.getGenericValue().currentStatusId);
+                productionRunRow.put("productionRunQuantityProduced", productionRunWrapper.getGenericValue().quantityProduced);
+                rows.add(productionRunRow);
             }
-            oneRow.productionRuns = productionRunsId;
         }
-
-        rows.add(oneRow);
     }
     context.workInProgress = workInProgress;
     context.shipmentPlan = rows;

@@ -738,7 +738,11 @@ under the License.
     <!-- List for Shipment Plan -->
     <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
+        </field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
         <!-- quantity planned in this shipment -->
@@ -753,12 +757,23 @@ under the License.
         <field name="totPlannedQuantity"><display/></field>
         <!-- total issued quantity -->
         <field name="totIssuedQuantity"><display/></field>
-        <field name="productionRuns"><display/></field>
+        <field name="productionRunId" widget-style="buttontext">
+            <hyperlink target="ShowProductionRun" description="${productionRunId}" also-hidden="false">
+                <parameter param-name="productionRunId" from-field="productionRunId"/>
+            </hyperlink>
+        </field>
+        <field name="productionRunStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="productionRunEstimatedCompletionDate"><display/></field>
+        <field name="productionRunQuantityProduced"><display/></field>
     </form>
 
     <form name="listShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="shipmentId"><display/></field>
+        <field name="shipmentId" widget-style="buttontext">
+            <hyperlink target="/facility/control/ViewShipment" target-type="inter-app" description="${shipmentId}">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
+        </field>
         <field name="statusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
