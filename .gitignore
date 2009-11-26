@@ -51,6 +51,7 @@ runtime/svninfo.ftl
 runtime/logs/access_log.*
 runtime/logs/*.log*
 runtime/logs/*.html*
+runtime/logs/test-results/*
 runtime/data/derby/*
 runtime/catalina/work/*
 debian/EncryptPassword.class
