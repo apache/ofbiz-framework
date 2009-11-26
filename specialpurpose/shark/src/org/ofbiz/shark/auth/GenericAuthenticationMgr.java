@@ -22,6 +22,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.shark.container.SharkContainer;
+import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.common.login.LoginServices;
 
@@ -54,9 +55,9 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
             String registeredPwd = sharkUser.getString(org.ofbiz.shark.SharkConstants.passwd);
             if (password.equals(registeredPwd)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(password).equals(registeredPwd)) {
+            } else if (HashCrypt.getDigestHash(password, LoginServices.getHashType()).equals(registeredPwd)) {
                 return true;
-            } else if (LoginServices.getPasswordHash(registeredPwd).equals(password)) {
+            } else if (HashCrypt.getDigestHash(registeredPwd, LoginServices.getHashType()).equals(password)) {
                 return true;
             } else {
                 return false;

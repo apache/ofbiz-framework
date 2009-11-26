@@ -20,6 +20,7 @@ package org.ofbiz.shark.expression;
 
 import org.enhydra.shark.api.common.ProcessMgrIteratorExpressionBuilder;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 

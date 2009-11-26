@@ -24,6 +24,7 @@ import org.enhydra.shark.api.RootException;
 import org.enhydra.shark.api.common.ActivityIteratorExpressionBuilder;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelKeyMap;
 public class ActivityIteratorCondExprBldr extends BaseEntityCondExprBldr implements ActivityIteratorExpressionBuilder {

@@ -478,8 +478,8 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findByCondition(org.ofbiz.shark.SharkConstants.WfProcess,
-                    makeStateListCondition(org.ofbiz.shark.SharkConstants.currentState, runningStates, EntityOperator.EQUALS, EntityOperator.OR), null, order);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfProcess,
+                    makeStateListCondition(org.ofbiz.shark.SharkConstants.currentState, runningStates, EntityOperator.EQUALS, EntityOperator.OR), null, order, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -504,7 +504,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         try {
             EntityCondition stateCond = this.makeStateListCondition(org.ofbiz.shark.SharkConstants.currentState, finsihedStates, EntityOperator.EQUALS, EntityOperator.OR);
             EntityCondition cond = this.makeProcessFilterCondition(stateCond, packageId, processDefId, packageVer, finishedBefore);
-            lookupList = delegator.findByCondition(org.ofbiz.shark.SharkConstants.WfProcess, cond, null, order);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfProcess, cond, null, order, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -846,7 +846,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         Delegator delegator = SharkContainer.getDelegator();
         long count = 0;
         try {
-            count = delegator.findCountByAnd(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, procId, org.ofbiz.shark.SharkConstants.setDefinitionId, asDefId, org.ofbiz.shark.SharkConstants.definitionId, aDefId));
+            count = delegator.findCountByCondition(org.ofbiz.shark.SharkConstants.WfActivity, EntityCondition.makeCondition(UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, procId, org.ofbiz.shark.SharkConstants.setDefinitionId, asDefId, org.ofbiz.shark.SharkConstants.definitionId, aDefId)), null, null);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -1146,7 +1146,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             } else {
                 cond = proc;
             }
-            lookupList = delegator.findByCondition(org.ofbiz.shark.SharkConstants.WfActivity, cond, null, order);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfActivity, cond, null, order, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }

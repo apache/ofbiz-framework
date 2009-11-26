@@ -28,6 +28,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.shark.container.SharkContainer;
 import org.ofbiz.shark.transaction.JtaTransaction;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 
 import org.enhydra.shark.api.internal.working.CallbackUtilities;
 import org.enhydra.shark.api.internal.partmappersistence.ParticipantMap;
