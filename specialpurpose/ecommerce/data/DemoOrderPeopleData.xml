@@ -39,7 +39,7 @@ under the License.
     <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP"/>
     <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
-    <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreRole partyId="DemoRepStore" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
 
     <!-- Commission Agreements -->
     <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
