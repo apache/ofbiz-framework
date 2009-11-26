@@ -17,27 +17,17 @@
  * under the License.
  */
 
-import org.ofbiz.widget.html.HtmlFormWrapper;
-
-shipmentId = parameters.shipmentId ?: context.get("shipmentId");
-
-action = parameters.action;
-
-shipment = null;
-if (shipmentId) {
-    shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
-}
 
 // **************************************
 // ShipmentPlan list form
 // **************************************
 shipmentPlans = [];
 rows = [];
-if (shipment) {
+if (shipment && shipment.shipmentId) {
     shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipment.shipmentId]);
 }
 if (shipmentPlans) {
-    boolean workInProgress = false;
+    workInProgress = "false";
     shipmentPlans.each { shipmentPlan ->
         oneRow = new HashMap(shipmentPlan);
         //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes"));
@@ -92,15 +82,15 @@ if (shipmentPlans) {
                 if (qtyPlannedInShipment.containsKey(plan.shipmentId)) {
                     qtyInShipment = qtyPlannedInShipment[plan.shipmentId];
                     qtyInShipment += netPlanQty;
-                    qtyPlannedInShipment.plan.shipmentId = qtyInShipment;
+                    qtyPlannedInShipment[plan.shipmentId] = qtyInShipment;
                 } else {
-                    qtyPlannedInShipment.plan.shipmentId = netPlanQty;
+                    qtyPlannedInShipment[plan.shipmentId] = netPlanQty;
                 }
             }
         }
         oneRow.totPlannedQuantity = plannedQuantity;
-        if (qtyIssuedInShipment.containsKey(shipmentId)) {
-            oneRow.issuedQuantity = qtyIssuedInShipment.get(shipmentId);
+        if (qtyIssuedInShipment.containsKey(shipmentPlan.shipmentId)) {
+            oneRow.issuedQuantity = qtyIssuedInShipment.get(shipmentPlan.shipmentId);
         } else {
             oneRow.issuedQuantity = "";
         }
@@ -157,7 +147,8 @@ if (shipmentPlans) {
         // Select the production runs, if available
         productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId],["workEffortId"]); // TODO: add shipmentId
         if (productionRuns) {
-            workInProgress = true;
+            workInProgress = "true";
+            productionRunsId = "";
             productionRuns.each { productionRun ->
                 productionRunsId = productionRun.workEffortId + " " + productionRunsId;
             }
@@ -167,21 +158,5 @@ if (shipmentPlans) {
         rows.add(oneRow);
     }
     context.workInProgress = workInProgress;
-    HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "listShipmentPlan", request, response);
-    listShipmentPlanForm.putInContext("shipmentPlan", rows);
-    context.listShipmentPlanForm = listShipmentPlanForm; // Form for ShipmentPlan list
-} else {
-    shipments = [];
-    scheduledShipments = delegator.findByAndCache("Shipment", [shipmentTypeId : "SALES_SHIPMENT", statusId : "SHIPMENT_SCHEDULED"]);
-    scheduledShipments.each { scheduledShipment ->
-        shipments.add(scheduledShipment);
-    }
-    //List confirmedShipments = delegator.findByAndCache("Shipment", UtilMisc.toMap("shipmentTypeId", "SALES_SHIPMENT", "statusId", "SCHEDULED_CONFIRMED"));
-
-    HtmlFormWrapper listShipmentPlansForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "listShipmentPlans", request, response);
-    listShipmentPlansForm.putInContext("shipmentPlans", shipments);
-    context.listShipmentPlansForm = listShipmentPlansForm;
+    context.shipmentPlan = rows;
 }
-context.shipmentId = shipmentId;
-context.shipment = shipment;
-
