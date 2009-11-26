@@ -403,6 +403,8 @@ under the License.
         <field name="glReconciliationId" use-when="glReconciliationId != null"><display/></field>
         <field name="glAccountId"><hidden value="${finAccount.postToGlAccountId}"/></field>
         <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="reconciledBalance" use-when="${reconciledBalance == null}"><hidden/></field>
+        <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field name="createButton" use-when="glReconciliationId == null" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -442,7 +444,7 @@ under the License.
     </form>
     <form name="FindBankReconciliation" type="single" target="FindFinAccountReconciliations">
         <field name="finAccountId"><hidden value="${parameters.finAccountId}"/></field>
-        <field name="glReconciliationId"><text/></field>
+        <field name="glReconciliationId"><lookup target-form-name="LookupGlReconciliation"/></field>
         <field name="glReconciliationName"><text/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
@@ -452,7 +454,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="organizationPartyId"><text/></field>
+        <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="glAccountId"><lookup target-form-name="LookupGlAccount"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

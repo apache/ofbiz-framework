@@ -2178,6 +2178,7 @@ under the License.
     <request-map uri="LookupAgreement"><security https="true" auth="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>
     <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
     <request-map uri="LookupPaymentGroupMember"><security auth="true" https="true"/><response name="success" type="view" value="LookupPaymentGroupMember"/></request-map>
+    <request-map uri="LookupGlReconciliation"><security auth="true" https="true"/><response name="success" type="view" value="LookupGlReconciliation"/></request-map>
 
 
     <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile"/></request-map>
@@ -2713,6 +2714,7 @@ under the License.
     <view-map name="LookupAgreement" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreement"/>
     <view-map name="LookupAgreementItem" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem"/>
     <view-map name="LookupPaymentGroupMember" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupPaymentGroupMember"/>
+    <view-map name="LookupGlReconciliation" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupGlReconciliation"/>
 
     <!-- PDFs  -->
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>

@@ -5572,6 +5572,9 @@
         <value xml:lang="nl">Vind onderdelen overeenkomst</value>
         <value xml:lang="zh">查找合同条款</value>
     </property>
+    <property key="AccountingLookupGlReconciliations">
+        <value xml:lang="en">Lookup Gl Reconciliations</value>
+    </property>
     <property key="AccountingLookupInvoices">
         <value xml:lang="ar">إطلالة على  الفواتير</value>
         <value xml:lang="de">Rechnungen suchen</value>
