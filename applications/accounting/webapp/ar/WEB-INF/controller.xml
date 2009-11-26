@@ -89,6 +89,12 @@ under the License.
         <response name="success" type="view" value="BatchPayments"/>
         <response name="error" type="view" value="BatchPayments"/>
     </request-map>
+    <request-map uri="massChangeInvoiceStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="massChangeInvoiceStatus"/>
+        <response name="success" type="view" value="FindArInvoices"/>
+        <response name="error" type="view" value="FindArInvoices"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

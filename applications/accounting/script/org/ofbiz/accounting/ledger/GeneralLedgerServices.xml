@@ -2140,7 +2140,7 @@ under the License.
             <iterate list="invoiceItems" entry="invoiceItem">
                 <!-- TODO: handle serialized inventory -->
                 <if-empty field="invoiceItem.quantity">
-                    <set field="invoiceItem.quantity" value="1"/>
+                    <set field="invoiceItem.quantity" type="BigDecimal" value="1"/>
                 </if-empty>
                 <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="multiply">
