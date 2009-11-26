@@ -544,15 +544,56 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ManufacturingWorkWithShipmentPlans"/>
                 <set field="headerItem" value="ShipmentPlans"/>
-
+                <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <entity-one entity-name="Shipment" value-field="shipment"/>
+                <entity-condition entity-name="Shipment" list="shipmentPlans">
+                    <condition-list>
+                        <condition-expr field-name="shipmentTypeId" value="SALES_SHIPMENT"/>
+                        <condition-expr field-name="statusId" value="SHIPMENT_SCHEDULED"/>
+                    </condition-list>
+                </entity-condition>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/WorkWithShipmentPlans.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.ManufacturingWorkWithShipmentPlans}">
+                            <include-form name="listShipmentPlans" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <not><if-empty field="shipment"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.FormFieldTitle_shipmentId} ${shipment.shipmentId}">
+                                    <include-form name="listShipmentPlan" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <if-compare field="workInProgress" operator="equals" value="true"/>
+                                    </condition>
+                                    <widgets>
+                                        <link text="${uiLabelMap.ManufacturingTasksReport}" style="buttontext" target="ShipmentWorkEffortTasks.pdf">
+                                            <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                        </link>
+                                        <link text="${uiLabelMap.ManufacturingCuttingListReport}" style="buttontext" target="CuttingListReport.pdf">
+                                            <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                        </link>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <link text="${uiLabelMap.ManufacturingCreateProductionRun}" style="buttontext" target="createProductionRunsForShipment">
+                                            <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                        </link>
+                                        <link text="${uiLabelMap.ManufacturingShipmentPlanStockReport}" style="buttontext" target="ShipmentPlanStockReport.pdf">
+                                            <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                        </link>
+                                    </fail-widgets>
+                                </section>
+                                <link text="${uiLabelMap.ManufacturingPackageLabelsReport}" style="buttontext" target="ShipmentLabel.pdf">
+                                    <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                </link>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
