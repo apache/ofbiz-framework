@@ -22,6 +22,8 @@ import org.ofbiz.entity.condition.*
 import org.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
+    boolean isMarketingPackage = CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
+    context.isMarketingPackage = (isMarketingPackage? "true": "false");
     //If product is virtual gather summary data from variants
     if (product.isVirtual && "Y".equals(product.isVirtual)) {
         //Get the virtual product feature types
@@ -86,7 +88,7 @@ if (product) {
             quantitySummary.totalAvailableToPromise = resultOutput.availableToPromiseTotal;
     
             // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
-            if (CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")) {
+            if (isMarketingPackage) {
                 resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productId, facilityId : facility.facilityId]);
                 quantitySummary.mktgPkgQOH = resultOutput.quantityOnHandTotal;
                 quantitySummary.mktgPkgATP = resultOutput.availableToPromiseTotal;
@@ -94,7 +96,7 @@ if (product) {
     
             quantitySummaryByFacility.put(facility.facilityId, quantitySummary);
         }
-    
+        
         productInventoryItems = delegator.findByAnd("InventoryItem",
                 [productId : productId],
                 ['facilityId', '-datetimeReceived', '-inventoryItemId']);
