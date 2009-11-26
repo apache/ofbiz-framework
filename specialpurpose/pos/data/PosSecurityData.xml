@@ -39,4 +39,5 @@
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ACCTG_ATX_CREATE"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ACCTG_ATX_UPDATE"/>
     <SecurityGroupPermission groupId="POSCLERK" permissionId="ACCTG_PREF_ADMIN"/>
+    <SecurityGroupPermission groupId="POSCLERK" permissionId="FACILITY_ADMIN"/>
 </entity-engine-xml>
