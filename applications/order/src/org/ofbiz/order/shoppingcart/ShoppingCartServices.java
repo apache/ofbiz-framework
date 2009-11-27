@@ -981,6 +981,8 @@ public class ShoppingCartServices {
             while (i.hasNext()) {
                 ShoppingCartItem cartLine = (ShoppingCartItem) i.next();
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
+                cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
+                cartItemData.put("displayItemPrice_" + cartLineIndex, org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex, cartLine.getDisplayItemSubTotal());
                 cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(), isoCode, locale));
                 cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));

@@ -501,6 +501,12 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                         $(cartItemDisplayRowId).remove();
                     } else {
                         var itemsHash = $H(data.cartItemData);
+                        $(elementId).value = itemsHash.get("displayItemQty_"+itemIndex);
+                        var lineItemPrice = itemsHash.get("displayItemPrice_"+itemIndex);
+                        var cartItemPrice = elementId.sub('qty_','itemUnitPrice_');
+                        var completedCartItemPrice = elementId.sub('qty_','completedCartItemPrice_');
+                        $(cartItemPrice).update(lineItemPrice);
+                        $(completedCartItemPrice).update(lineItemPrice);
                         var lineTotalId = elementId.sub('qty_','displayItem_');
                         var lineDiscountTotalId = elementId.sub('qty_','addPromoCode_');
                         var lineItemTotal = itemsHash.get("displayItemSubTotalCurrencyFormatted_"+itemIndex);
