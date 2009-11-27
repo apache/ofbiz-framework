@@ -29,6 +29,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -65,19 +66,19 @@ public class UtilCache<K, V> implements Serializable {
     public CacheLineTable<K, V> cacheLineTable = null;
 
     /** A count of the number of cache hits */
-    protected long hitCount = 0;
+    protected AtomicLong hitCount = new AtomicLong(0);
 
     /** A count of the number of cache misses because it is not found in the cache */
-    protected long missCountNotFound = 0;
+    protected AtomicLong missCountNotFound = new AtomicLong(0);
     /** A count of the number of cache misses because it expired */
-    protected long missCountExpired = 0;
+    protected AtomicLong missCountExpired = new AtomicLong(0);
     /** A count of the number of cache misses because it was cleared from the Soft Reference (ie garbage collection, etc) */
-    protected long missCountSoftRef = 0;
+    protected AtomicLong missCountSoftRef = new AtomicLong(0);
 
     /** A count of the number of cache hits on removes */
-    protected long removeHitCount = 0;
+    protected AtomicLong removeHitCount = new AtomicLong(0);
     /** A count of the number of cache misses on removes */
-    protected long removeMissCount = 0;
+    protected AtomicLong removeMissCount = new AtomicLong(0);
 
     /** The maximum number of elements in the cache.
      * If set to 0, there will be no limit on the number of elements in the cache.
@@ -267,19 +268,19 @@ public class UtilCache<K, V> implements Serializable {
     protected CacheLine<V> getInternal(Object key, boolean countGet) {
         CacheLine<V> line = getInternalNoCheck(key);
         if (line == null) {
-            if (countGet) missCountNotFound++;
+            if (countGet) incrementCounter(missCountNotFound);
         } else if (line.isInvalid()) {
             removeInternal(key, false);
-            if (countGet) missCountSoftRef++;
+            if (countGet) incrementCounter(missCountSoftRef);
             line = null;
         } else if (line.hasExpired()) {
             // note that print.info in debug.properties cannot be checked through UtilProperties here, it would cause infinite recursion...
             // if (Debug.infoOn()) Debug.logInfo("Element has expired with key " + key, module);
             removeInternal(key, false);
-            if (countGet) missCountExpired++;
+            if (countGet) incrementCounter(missCountExpired);
             line = null;
         } else {
-            if (countGet) hitCount++;
+            if (countGet) incrementCounter(hitCount);
         }
         return line;
     }
@@ -319,10 +320,10 @@ public class UtilCache<K, V> implements Serializable {
         CacheLine<V> line = cacheLineTable.remove(key);
         if (line != null) {
             noteRemoval((K) key, line.getValue());
-            if (countRemove) this.removeHitCount++;
+            if (countRemove) incrementCounter(removeHitCount);
             return line.getValue();
         } else {
-            if (countRemove) this.removeMissCount++;
+            if (countRemove) incrementCounter(removeMissCount);
             return null;
         }
     }
@@ -370,58 +371,65 @@ public class UtilCache<K, V> implements Serializable {
         return this.name;
     }
 
+    private static final void incrementCounter(AtomicLong stat) {
+        long currentValue;
+        do {
+            currentValue = stat.get();
+        } while (!stat.weakCompareAndSet(currentValue, currentValue + 1));
+    }
+
     /** Returns the number of successful hits on the cache
      * @return The number of successful cache hits
      */
     public long getHitCount() {
-        return this.hitCount;
+        return this.hitCount.get();
     }
 
     /** Returns the number of cache misses from entries that are not found in the cache
      * @return The number of cache misses
      */
     public long getMissCountNotFound() {
-        return this.missCountNotFound;
+        return this.missCountNotFound.get();
     }
 
     /** Returns the number of cache misses from entries that are expired
      * @return The number of cache misses
      */
     public long getMissCountExpired() {
-        return this.missCountExpired;
+        return this.missCountExpired.get();
     }
 
     /** Returns the number of cache misses from entries that are have had the soft reference cleared out (by garbage collector and such)
      * @return The number of cache misses
      */
     public long getMissCountSoftRef() {
-        return this.missCountSoftRef;
+        return this.missCountSoftRef.get();
     }
 
     /** Returns the number of cache misses caused by any reason
      * @return The number of cache misses
      */
     public long getMissCountTotal() {
-        return this.missCountSoftRef + this.missCountNotFound + this.missCountExpired;
+        return getMissCountSoftRef() + getMissCountNotFound() + getMissCountExpired();
     }
 
     public long getRemoveHitCount() {
-        return this.removeHitCount;
+        return this.removeHitCount.get();
     }
 
     public long getRemoveMissCount() {
-        return this.removeMissCount;
+        return this.removeMissCount.get();
     }
 
     /** Clears the hit and miss counters
      */
     public void clearCounters() {
-        this.hitCount = 0;
-        this.missCountNotFound = 0;
-        this.missCountExpired = 0;
-        this.missCountSoftRef = 0;
-        this.removeHitCount = 0;
-        this.removeMissCount = 0;
+        this.hitCount.set(0);
+        this.missCountNotFound.set(0);
+        this.missCountExpired.set(0);
+        this.missCountSoftRef.set(0);
+        this.removeHitCount.set(0);
+        this.removeMissCount.set(0);
     }
 
     /** Sets the maximum number of elements in the cache.
