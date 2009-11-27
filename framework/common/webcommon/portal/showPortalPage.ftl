@@ -16,23 +16,29 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#if portalPage?has_content>
 <table width="100%">
   <tr>
     <#list portalPageColumns?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="${portalPageColumn.columnSeqId}" name="portalColumn">
       <#assign firstInColumn = true/>
       <#list portalPagePortlets as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
-            <div>
+            <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
+            <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}">${portletFields}<input name="newPortalPageId" value="${portlet.portalPageId}" type="hidden"/></form>
+            <div id="${portlet_index}" name="portalPortlet" class="noClass">
             ${setRequestAttribute("portalPageId", portalPage.portalPageId)}
             ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
             ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
             ${screens.render(portlet.screenLocation, portlet.screenName)}
             ${screens.setRenderFormUniqueSeq(portlet_index)}
             </div>
+            <#-- DragNDrop is only activated, when the portal Page isn't the Default page -->
+            <#if portalPage.originalPortalPageId?has_content><script>setMousePointer("${portlet_index}")</script></#if>
+            <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">makeDragable("${portlet_index}");</script></#if>
+            <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">makeDroppable("${portlet_index}");</script></#if>
+            <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
           </#if>
           <#assign firstInColumn = false/>
         </#if>

@@ -68,6 +68,8 @@ under the License.
     <screen name="showPortalPage">
         <section>
             <actions>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
                 <set field="headerItem" from-field="parameters.portalPageId"/>
             </actions>
             <widgets>
@@ -87,7 +89,9 @@ under the License.
                                 </entity-and>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                                <container id="portalContainerId">
+                                    <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
