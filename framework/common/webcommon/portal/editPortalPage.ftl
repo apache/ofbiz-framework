@@ -48,13 +48,12 @@ under the License.
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
       <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="${portalPageColumn.columnSeqId}" name="portalColumn">
-      <script type="text/javascript">makeDroppable("${portalPageColumn.columnSeqId}")</script>
       <#assign firstInColumn = true/>
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
               <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
-              <div class="portlet-config" id="${portlet_index}" name="portalPortlet">
+              <div class="portlet-config" id="${portlet_index}" name="portalPortlet" onMouseOver="javascript:this.style.cursor='move';">
               <div class="portlet-config-title-bar">
                 <#list portalPages as portalPageList>
                   <#if portalPage.portalPageId != portalPageList.portalPageId>

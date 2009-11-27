@@ -312,7 +312,7 @@ under the License.
         </entity-one>
 
         <!-- destination Portlet -->
-        <if-compare operator="equals" field="parameters.mode" value="DRAGDROP">
+        <if-compare operator="equals" field="parameters.mode" value="DRAGDROPBEFORE">
             <entity-one value-field="destiPp" entity-name="PortalPagePortlet">
                 <field-map field-name="portalPageId" value="${parameters.d_portalPageId}"/>
                 <field-map field-name="portalPortletId" value="${parameters.d_portalPortletId}"/>
@@ -325,11 +325,25 @@ under the License.
                 <condition-expr field-name="sequenceNum" operator="greater-equals" value="${destiPp.sequenceNum}"/>
              </condition-list>
         </entity-condition>
+        </if-compare>
 
+        <if-compare operator="equals" field="parameters.mode" value="DRAGDROPAFTER">
+            <entity-one value-field="destiPp" entity-name="PortalPagePortlet">
+                <field-map field-name="portalPageId" value="${parameters.d_portalPageId}"/>
+                <field-map field-name="portalPortletId" value="${parameters.d_portalPortletId}"/>
+                <field-map field-name="portletSeqId" value="${parameters.d_portletSeqId}"/>
+            </entity-one>
+
+            <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
+             <condition-list combine="and">
+                <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
+                <condition-expr field-name="sequenceNum" operator="greater" value="${destiPp.sequenceNum}"/>
+             </condition-list>
+            </entity-condition>
         </if-compare>
 
         <!-- Portlets to Modify -->
-        <if-compare operator="equals" field="parameters.mode" value="ColBOTTOM">
+        <if-compare operator="equals" field="parameters.mode" value="DRAGDROPBOTTOM">
             <entity-one value-field="pPColumn" entity-name="PortalPageColumn">
                 <field-map field-name="columnSeqId" value="${parameters.destinationColumn}"/>
                 <field-map field-name="portalPageId" value="${parameters.o_portalPageId}"/>
