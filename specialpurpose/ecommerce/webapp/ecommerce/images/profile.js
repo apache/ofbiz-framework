@@ -25,6 +25,7 @@ Event.observe(window, 'load', function() {
         validateNewUser = new Validation('newUserForm', {immediate: true, onSubmit: false});
         addValidations();
         Event.observe($('emailAddress'), 'change', setUserNameFromEmail);
+        useShippingAddressAsBillingToggle();
         Event.observe('useShippingAddressForBilling', 'click', useShippingAddressAsBillingToggle);
         Event.observe($('submitNewUserForm'), 'click', submitValidNewUser);
         // Get associate states for Shipping Information
