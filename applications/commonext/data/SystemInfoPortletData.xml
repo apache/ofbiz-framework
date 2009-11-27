@@ -29,8 +29,8 @@
         screenshot="/images/portlets/SystemInfoNotes.png"/>
     <PortletPortletCategory portalPortletId="SystemInfoNotes" portletCategoryId="SYSTEMINFO"/>
     <DataResource dataResourceId="HELP_SystemInfoNotes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-      objectInfo="applications/workeffort/data/helpdata/HELP_PORTLET_CALENDER.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Calendar help file" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_SystemInfoNotes" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_Calendar" statusId="CTNT_IN_PROGRESS" 
+        objectInfo="applications/commonext/data/helpdata/HELP_SystemInfoNotes.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="SystemInfoNotes help file" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_SystemInfoNotes" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_SystemInfoNotes" statusId="CTNT_IN_PROGRESS" 
         contentName="Help SystemInfoNotes" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_MYPORTAL" contentIdTo="HELP_SystemInfoNotes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
 
