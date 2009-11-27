@@ -39,10 +39,18 @@ if (!userLogin) {
         if (orderId) {
             orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
             orderStatuses = orderHeader.getRelated("OrderStatus");
-            orderStatuses.each { orderStatus ->
-                if ("ORDER_COMPLETED".equals(orderStatus.statusId)) {
-                    statusUserLogin = orderStatus.statusUserLogin;
-                    userLogin = delegator.findOne("UserLogin", [userLoginId :statusUserLogin], false);
+            filteredOrderStatusList = EntityUtil.filterByCondition(orderStatuses, EntityCondition.makeCondition("statusId", EntityOperator.IN, ["ORDER_COMPLETED", "ORDER_APPROVED"]));
+            if (UtilValidate.isNotEmpty(filteredOrderStatusList)) {
+                if (filteredOrderStatusList.size() < 2) {
+                    statusUserLogin = EntityUtil.getFirst(filteredOrderStatusList).statusUserLogin;
+                    userLogin = delegator.findOne("UserLogin", [userLoginId : statusUserLogin], false);
+                } else {
+                    filteredOrderStatusList.each { orderStatus ->
+                        if ("ORDER_COMPLETED".equals(orderStatus.statusId)) {
+                            statusUserLogin = orderStatus.statusUserLogin;
+                            userLogin = delegator.findOne("UserLogin", [userLoginId :statusUserLogin], false);
+                        }
+                    }
                 }
             }
         }
