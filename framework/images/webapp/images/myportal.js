@@ -25,8 +25,8 @@ var hoverColumnBefore = -1;
 
 //init KeyListener
 window.onload=function(){
-    document.onkeydown = key_event;
-    document.onkeypress = key_event;
+    //Observe
+    Event.observe(document, "keypress", key_event);
 
     //set a column droppable when it's empty
     checkIfTabelsContainsDivs();
@@ -318,7 +318,7 @@ function checkIfTabelsContainsDivs(){
     for(var i=0; i<td.length; i++){
         //if the next DIV is the hoverDiv do nothing
 
-            var next = (td[i].select('DIV'));
+            var next = td[i].getElementsByTagName('DIV');
             if(next.length == 0){
                 //make a column droppable when it's empty
                 makeDroppable(td[i].getAttribute('id'));
