@@ -81,7 +81,7 @@ public class ProductsExportToEbay {
                     GenericValue product = (GenericValue) productsListIter.next();
                     GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
                     if (UtilValidate.isEmpty(startPriceValue)) {
-                        String startPriceMissingMsg = "Unable to find a starting price for auction of product with id (" + product.getString("productId") + "). So Ignoring the export of this product to eBay.  \n";
+                        String startPriceMissingMsg = "Unable to find a starting price for auction of product with id (" + product.getString("productId") + "), So Ignoring the export of this product to eBay.";
                         productExportFailureMessageList.add(startPriceMissingMsg);
                         // Ignore the processing of product having no start price value
                         continue;
@@ -582,7 +582,7 @@ public class ProductsExportToEbay {
                 }
                 productExportFailureMessageList.add(errorMessage);
             } else {
-                String productSuccessfullyExportedMsg = "Product successfully exported with ID (" + product.getString("productId") + "). \n";
+                String productSuccessfullyExportedMsg = "Product successfully exported with ID (" + product.getString("productId") + ").";
                 productExportSuccessMessageList.add(productSuccessfullyExportedMsg);
             }
         } catch (Exception e) {

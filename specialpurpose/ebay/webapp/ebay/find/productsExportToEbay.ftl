@@ -46,7 +46,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_ebayCategory}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="hidden" name="selectResult" value="${selectResult}"/>
+                    <input type="hidden" name="selectResult" value="${selectResult?if_exists}"/>
                     <select name="ebayCategory" onchange="changeEbayCategory(this.value)">
                         <option value=""> </option>
                         <#if categories?exists>

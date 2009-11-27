@@ -1192,11 +1192,15 @@ public class EbayOrderServices {
                 Debug.logInfo("Creating order.", module);
                 Map<?, ?> orderCreate = checkout.createOrder(userLogin);
 
+                if ("error".equals(orderCreate.get("responseMessage"))) {
+                    List errorMessageList = (List)orderCreate.get("errorMessageList");
+                    return ServiceUtil.returnError(errorMessageList);
+                }
                 String orderId = (String) orderCreate.get("orderId");
                 Debug.logInfo("Created order with id: " + orderId, module);
                 
                 if (UtilValidate.isNotEmpty(orderId)) {
-                    String orderCreatedMsg = "Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + "). \n";
+                    String orderCreatedMsg = "Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + ").";
                     orderImportSuccessMessageList.add(orderCreatedMsg);
                 }
 

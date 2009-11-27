@@ -121,8 +121,8 @@ under the License.
     <!-- New Import Order entries -->
     <request-map uri="eBayOrders">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EbayOrders"/>
-        <response name="failure" type="view" value="EbayOrders"/>
+        <response name="success" type="view" value="FindEbayOrders"/>
+        <response name="failure" type="view" value="FindEbayOrders"/>
     </request-map>
 
     <request-map uri="GetEbayOrders">
@@ -136,14 +136,16 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="importEbayOrders"/>
         <response name="success" type="request" value="updatedEbayOrders"/>
-        <response name="failure" type="view" value="EbayOrders"/>
+        <response name="failure" type="view" value="FindEbayOrders"/>
+        <response name="error" type="view" value="FindEbayOrders"/>
     </request-map>
 
     <request-map uri="updatedEbayOrders">
         <security https="true" auth="true"/>
         <event type="groovy" path="component://ebay/webapp/ebay/WEB-INF/actions/find/" invoke="updatedEbayOrders.groovy"/>
-        <response name="success" type="view" value="EbayOrders"/>
-        <response name="failure" type="view" value="EbayOrders"/>
+        <response name="success" type="view" value="FindEbayOrders"/>
+        <response name="failure" type="view" value="FindEbayOrders"/>
+        <response name="error" type="view" value="FindEbayOrders"/>
     </request-map>
 
     <request-map uri="EditEbayConfiguration">
@@ -160,7 +162,7 @@ under the License.
     <view-map name="ProductsExportToEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ProductsExportToEbay"/>
     <view-map name="ManageOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ManageOrdersFromEbay"/>
     <view-map name="EbayOrders" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayOrders"/>
-    
+    <view-map name="FindEbayOrders" type="screen" page="component://ebay/widget/EbayScreens.xml#FindEbayOrders"/>
     <view-map name="FindEbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#FindEbayConfigurations"/>
     <view-map name="EbayShippingMethods" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayShippingMethods"/>
     <view-map name="EditEbayConfiguration" type="screen" page="component://ebay/widget/EbayScreens.xml#EditEbayConfiguration"/>
