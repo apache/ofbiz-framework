@@ -255,7 +255,7 @@ under the License.
     <ProductCategory categoryName="15064" productCategoryId="eBay_Category" productCategoryTypeId="EBAY_CATEGORY"/>
     <ProdCatalogCategory prodCatalogId="eBayCatalog" productCategoryId="eBay_Category" fromDate="2009-11-05 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
     
-    <ProductCategory productCategoryId="eBay_ECom_Category" categoryName="Ebay E-Commerce Category" productCategoryTypeId="EBAY_CATEGORY"/>
+    <ProductCategory productCategoryId="eBay_ECom_Category" categoryName="15064" productCategoryTypeId="EBAY_CATEGORY"/>
 
     <ProdCatalogCategory prodCatalogId="GoogleCatalog" productCategoryId="GOOGLE_BASE" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
