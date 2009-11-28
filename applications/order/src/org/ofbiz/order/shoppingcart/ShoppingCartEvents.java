@@ -1534,7 +1534,7 @@ public class ShoppingCartEvents {
         }
         String userLoginId = request.getParameter("userLoginId");
         if (partyId != null || userLoginId != null) {
-            if (UtilValidate.isEmpty((partyId)) && UtilValidate.isNotEmpty(userLoginId)) {
+            if (UtilValidate.isEmpty(partyId) && UtilValidate.isNotEmpty(userLoginId)) {
                 GenericValue thisUserLogin = null;
                 try {
                     thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));

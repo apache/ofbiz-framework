@@ -640,8 +640,8 @@ public class ProductPromoWorker {
 
                 Map messageContext = UtilMisc.toMap("quantity", productPromoAction.get("quantity"), "amount", productPromoAction.get("amount"), "productId", productId, "partyId", productPromoAction.get("partyId"));
 
-                if (UtilValidate.isEmpty((String) messageContext.get("productId"))) messageContext.put("productId", "any");
-                if (UtilValidate.isEmpty((String) messageContext.get("partyId"))) messageContext.put("partyId", "any");
+                if (UtilValidate.isEmpty(messageContext.get("productId"))) messageContext.put("productId", "any");
+                if (UtilValidate.isEmpty(messageContext.get("partyId"))) messageContext.put("partyId", "any");
                 GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                 if (product != null) {
                     messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null));
