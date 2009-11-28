@@ -360,7 +360,7 @@ public class AIMPaymentServices {
         if (UtilValidate.isEmpty(login)) {
             Debug.logInfo("the login property in " + configStr + " is not configured.", module);
         }
-        if (UtilValidate.isEmpty((password)) && !("3.1".equals(ver))) {
+        if (UtilValidate.isEmpty(password) && !("3.1".equals(ver))) {
             Debug.logInfo("The password property in " + configStr + " is not configured.", module);
         }
         if ("3.1".equals(ver)) {

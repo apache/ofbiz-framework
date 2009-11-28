@@ -91,9 +91,7 @@ public class WebappPropertyToField extends MethodOperation {
         }
 
         // if fieldVal is null, or has zero length, use defaultVal
-        if (UtilValidate.isNotEmpty((fieldVal)) {
-            fieldVal = defaultVal;
-        }
+        if (UtilValidate.isEmpty(fieldVal)) fieldVal = defaultVal;
 
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> fromMap = mapAcsr.get(methodContext);

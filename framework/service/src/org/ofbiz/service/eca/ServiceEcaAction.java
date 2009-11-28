@@ -198,7 +198,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
             // do something with the errorMessage
             if (UtilValidate.isNotEmpty(errorMessage)) {
-                if (UtilValidate.isEmpty((String) result.get(ModelService.ERROR_MESSAGE))) {
+                if (UtilValidate.isEmpty(result.get(ModelService.ERROR_MESSAGE))) {
                     result.put(ModelService.ERROR_MESSAGE, errorMessage);
                 } else {
                     List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));

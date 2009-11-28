@@ -330,7 +330,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     }
 
                     // get the success messages
-                    if (!UtilValidate.isEmpty((String)result.get(ModelService.SUCCESS_MESSAGE))) {
+                    if (!UtilValidate.isEmpty(result.get(ModelService.SUCCESS_MESSAGE))) {
                         String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
                         if (!successMessages.contains(newSuccessMessage)) {
                             successMessages.add(newSuccessMessage);
