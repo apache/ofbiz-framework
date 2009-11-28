@@ -156,7 +156,7 @@ public class FinAccountHelper {
          List accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode));
          accounts = EntityUtil.filterByDate(accounts);
 
-         if (UtilValidate.isNotEmpty(accounts)) {
+         if (UtilValidate.isEmpty(accounts)) {
              // OK to display - not a code anyway
              Debug.logWarning("No fin account found for account code ["  + finAccountCode + "]", module);
              return null;
