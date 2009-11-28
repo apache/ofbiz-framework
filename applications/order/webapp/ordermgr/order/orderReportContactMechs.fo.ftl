@@ -116,7 +116,9 @@ under the License.
                    <#list shipGroups as shipGroup>
                    <#-- TODO: List all full details of each ship group here -->
                         <fo:block>
-                      ${shipGroup.shipmentMethodTypeId?if_exists}
+                      <#if (shipGroup.shipmentMethodTypeId)?exists>
+                        ${(shipGroup.getRelatedOne("ShipmentMethodType").get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
+                      </#if>
                      </fo:block>
                    </#list>
                   </#if>
