@@ -90,10 +90,10 @@ under the License.
             </td>
             <td class="button-col">
               &nbsp;
-              <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
+              <#if security.hasEntityPermission("FACILITY", "_UPDATE", session)>
                 <a href='<@ofbizUrl>EditContactMech?facilityId=${facilityId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>'>${uiLabelMap.CommonUpdate}</a>
               </#if>
-              <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session)>
+              <#if security.hasEntityPermission("FACILITY", "_DELETE", session)>
                 <form action="<@ofbizUrl>deleteContactMech/ViewContactMechs</@ofbizUrl>" name="deleteContactForm_${contactMechMap_index}" method="post">
                   <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                   <input type="hidden" name="contactMechId" value="${contactMech.contactMechId?if_exists}"/>

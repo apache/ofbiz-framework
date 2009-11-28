@@ -799,9 +799,16 @@ under the License.
                                         <parameter param-name="facilityId"/>
                                         <parameter param-name="externalLoginKey"/>
                                     </link>
-                                    <link target="EditContactMech" text="${uiLabelMap.ProductNewContactMech}" style="buttontext">
-                                        <parameter param-name="facilityId"/>
-                                    </link>
+                                    <section>
+                                        <condition>
+                                            <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
+                                        </condition>
+                                        <widgets>
+                                            <link target="EditContactMech" text="${uiLabelMap.ProductNewContactMech}" style="buttontext">
+                                                <parameter param-name="facilityId"/>
+                                            </link>
+                                        </widgets>
+                                    </section>
                                 </widgets>
                             </section>
                         </container>
