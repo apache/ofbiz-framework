@@ -3110,7 +3110,7 @@ public class OrderServices {
                     List allProductContent = product.getRelated("ProductContent");
 
                     // try looking up the parent product if the product has no content and is a variant
-                    if (((allProductContent == null) || allProductContent.size() == 0) && ("Y".equals(product.getString("isVariant")))) {
+                    if (UtilValidate.isNotEmpty(allProductContent) && ("Y".equals(product.getString("isVariant")))) {
                         GenericValue parentProduct = ProductWorker.getParentProduct(product.getString("productId"), delegator);
                         if (allProductContent == null) {
                             allProductContent = FastList.newInstance();

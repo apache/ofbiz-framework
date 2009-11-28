@@ -457,7 +457,7 @@ public class CheckOutHelper {
             }
             if (cart.isPinRequiredForGC(delegator)) {
                 //  if a PIN is required, make sure the PIN is valid
-                if ((gcPin == null) || (gcPin.length() == 0)) {
+                if (UtilValidate.isNotEmpty((gcPin)) {
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.enter_gift_card_pin_number", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
