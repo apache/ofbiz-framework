@@ -566,7 +566,7 @@ public class ShoppingListServices {
                 GenericValue orderItem = (GenericValue) iter.next();
                 String shoppingListId = orderItem.getString("shoppingListId");
                 String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");
-                if ((shoppingListId != null) && (shoppingListId.length() > 0)) {
+                if (UtilValidate.isNotEmpty(shoppingListId)) {
                     GenericValue shoppingListItem=delegator.findByPrimaryKey("ShoppingListItem", UtilMisc.toMap("shoppingListId",
                                 shoppingListId, "shoppingListItemSeqId", shoppingListItemSeqId));
                     if (shoppingListItem != null) {

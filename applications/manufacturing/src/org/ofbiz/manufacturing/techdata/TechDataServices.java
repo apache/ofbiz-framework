@@ -30,6 +30,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -67,9 +68,9 @@ public class TechDataServices {
         List listRoutingTask = null;
         List constraints = new LinkedList();
 
-        if (workEffortName != null && workEffortName.length()>0)
+        if (UtilValidate.isNotEmpty(workEffortName))
             constraints.add(EntityCondition.makeCondition("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
-        if (fixedAssetId != null && fixedAssetId.length()>0 && ! "ANY".equals(fixedAssetId))
+        if (UtilValidate.isNotEmpty(fixedAssetId) && ! "ANY".equals(fixedAssetId))
             constraints.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
 
         constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
