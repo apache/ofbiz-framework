@@ -178,7 +178,7 @@ public class UploadContentAndImage {
                 } else {
                     map.put("contentAssocTypeId", contentAssocTypeId);
                 }
-                if (UtilValidate.isNotEmpty((String)map.get("contentAssocTypeId"))) {
+                if (UtilValidate.isNotEmpty(map.get("contentAssocTypeId"))) {
                     ftlResults = dispatcher.runSync("createContentAssoc", map);
                     isError = ModelService.RESPOND_ERROR.equals(ftlResults.get(ModelService.RESPONSE_MESSAGE));
                     if (isError) {

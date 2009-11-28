@@ -952,7 +952,7 @@ public class ProductServices {
         String productContentTypeId = (String) context.get("productContentTypeId");
         ByteBuffer imageData = (ByteBuffer) context.get("uploadedFile");
 
-        if (UtilValidate.isNotEmpty((String) context.get("_uploadedFile_fileName"))) {
+        if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
             String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
             String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");

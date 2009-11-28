@@ -494,39 +494,39 @@ public class OrderServices {
             orderHeader.set("grandTotal", context.get("grandTotal"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("visitId"))) {
+        if (UtilValidate.isNotEmpty(context.get("visitId"))) {
             orderHeader.set("visitId", context.get("visitId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("internalCode"))) {
+        if (UtilValidate.isNotEmpty(context.get("internalCode"))) {
             orderHeader.set("internalCode", context.get("internalCode"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("externalId"))) {
+        if (UtilValidate.isNotEmpty(context.get("externalId"))) {
             orderHeader.set("externalId", context.get("externalId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("originFacilityId"))) {
+        if (UtilValidate.isNotEmpty(context.get("originFacilityId"))) {
             orderHeader.set("originFacilityId", context.get("originFacilityId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("productStoreId"))) {
+        if (UtilValidate.isNotEmpty(context.get("productStoreId"))) {
             orderHeader.set("productStoreId", context.get("productStoreId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("transactionId"))) {
+        if (UtilValidate.isNotEmpty(context.get("transactionId"))) {
             orderHeader.set("transactionId", context.get("transactionId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("terminalId"))) {
+        if (UtilValidate.isNotEmpty(context.get("terminalId"))) {
             orderHeader.set("terminalId", context.get("terminalId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("autoOrderShoppingListId"))) {
+        if (UtilValidate.isNotEmpty(context.get("autoOrderShoppingListId"))) {
             orderHeader.set("autoOrderShoppingListId", context.get("autoOrderShoppingListId"));
         }
 
-        if (UtilValidate.isNotEmpty((String) context.get("webSiteId"))) {
+        if (UtilValidate.isNotEmpty(context.get("webSiteId"))) {
             orderHeader.set("webSiteId", context.get("webSiteId"));
         }
 
@@ -983,7 +983,7 @@ public class OrderServices {
         while (attributeRoleEntryIter.hasNext()) {
             Map.Entry attributeRoleEntry = (Map.Entry) attributeRoleEntryIter.next();
 
-            if (UtilValidate.isNotEmpty((String) context.get(attributeRoleEntry.getKey()))) {
+            if (UtilValidate.isNotEmpty(context.get(attributeRoleEntry.getKey()))) {
                 // make sure the party is in the role before adding
                 toBeStored.add(delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", context.get(attributeRoleEntry.getKey()), "roleTypeId", attributeRoleEntry.getValue())));
                 toBeStored.add(delegator.makeValue("OrderRole", UtilMisc.toMap("orderId", orderId, "partyId", context.get(attributeRoleEntry.getKey()), "roleTypeId", attributeRoleEntry.getValue())));
@@ -1006,7 +1006,7 @@ public class OrderServices {
         }
 
         // find all parties in role VENDOR associated with WebSite OR ProductStore (where WebSite overrides, if specified), associated first valid with the Order
-        if (UtilValidate.isNotEmpty((String) context.get("productStoreId"))) {
+        if (UtilValidate.isNotEmpty(context.get("productStoreId"))) {
             try {
                 List productStoreRoles = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("roleTypeId", "VENDOR", "productStoreId", context.get("productStoreId")), UtilMisc.toList("-fromDate"));
                 productStoreRoles = EntityUtil.filterByDate(productStoreRoles, true);
@@ -1020,7 +1020,7 @@ public class OrderServices {
             }
 
         }
-        if (UtilValidate.isNotEmpty((String) context.get("webSiteId"))) {
+        if (UtilValidate.isNotEmpty(context.get("webSiteId"))) {
             try {
                 List webSiteRoles = delegator.findByAnd("WebSiteRole", UtilMisc.toMap("roleTypeId", "VENDOR", "webSiteId", context.get("webSiteId")), UtilMisc.toList("-fromDate"));
                 webSiteRoles = EntityUtil.filterByDate(webSiteRoles, true);

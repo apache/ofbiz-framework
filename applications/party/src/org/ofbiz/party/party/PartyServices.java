@@ -375,7 +375,7 @@ public class PartyServices {
                 // create a party if one doesn't already exist
                 String partyTypeId = "PARTY_GROUP";
 
-                if (UtilValidate.isNotEmpty(((String) context.get("partyTypeId")))) {
+                if (UtilValidate.isNotEmpty(context.get("partyTypeId"))) {
                     GenericValue desiredPartyType = delegator.findByPrimaryKeyCache("PartyType", UtilMisc.toMap("partyTypeId", context.get("partyTypeId")));
                     if (desiredPartyType != null && EntityTypeUtil.isType(desiredPartyType, partyGroupPartyType)) {
                         partyTypeId = desiredPartyType.getString("partyTypeId");

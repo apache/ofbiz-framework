@@ -1026,7 +1026,7 @@ public class EbayOrderServices {
 
             // set the order date with the eBay created date
             Timestamp orderDate = UtilDateTime.nowTimestamp();
-            if (UtilValidate.isNotEmpty((String) context.get("createdDate"))) {
+            if (UtilValidate.isNotEmpty(context.get("createdDate"))) {
                 orderDate = UtilDateTime.toTimestamp((String) context.get("createdDate"));
             }
             cart.setOrderDate(orderDate);
@@ -1118,7 +1118,7 @@ public class EbayOrderServices {
                 
                 // If matching party not found then try to find partyId from PartyAttribute entity.
                 GenericValue partyAttribute = null;
-                if (UtilValidate.isNotEmpty((String) context.get("eiasTokenBuyer"))) {
+                if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
                     partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer"))));
                     if (UtilValidate.isNotEmpty(partyAttribute)) {
                         partyId = (String) partyAttribute.get("partyId");
