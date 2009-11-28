@@ -162,7 +162,7 @@ public class ShoppingCartHelper {
         }
 
         // stores the default desired delivery date in the cart if need
-        if (!UtilValidate.isEmpty((String) context.get("useAsDefaultDesiredDeliveryDate"))) {
+        if (!UtilValidate.isEmpty(context.get("useAsDefaultDesiredDeliveryDate"))) {
             cart.setDefaultItemDeliveryDate((String) context.get("itemDesiredDeliveryDate"));
         } else {
             // do we really want to clear this if it isn't checked?
@@ -170,7 +170,7 @@ public class ShoppingCartHelper {
         }
 
         // stores the default comment in session if need
-        if (!UtilValidate.isEmpty((String) context.get("useAsDefaultComment"))) {
+        if (!UtilValidate.isEmpty(context.get("useAsDefaultComment"))) {
             cart.setDefaultItemComment((String) context.get("itemComment"));
         } else {
             // do we really want to clear this if it isn't checked?

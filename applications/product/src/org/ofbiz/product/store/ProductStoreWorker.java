@@ -333,7 +333,7 @@ public class ProductStoreWorker {
                 // check the items excluded from shipping
                 String includeFreeShipping = method.getString("includeNoChargeItems");
                 if (includeFreeShipping != null && "N".equalsIgnoreCase(includeFreeShipping)) {
-                    if (UtilValidate.isEmpty((itemSizes)) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
+                    if (UtilValidate.isEmpty(itemSizes) && orderTotal.compareTo(BigDecimal.ZERO) == 0) {
                         returnShippingMethods.remove(method);
                         //Debug.logInfo("Removed shipping method due to all items being exempt from shipping", module);
                         continue;

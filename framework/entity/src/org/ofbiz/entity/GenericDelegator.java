@@ -2997,7 +2997,7 @@ public class GenericDelegator implements Delegator {
             if (field.getEncrypt()) {
                 Object obj = entity.get(field.getName());
                 if (obj != null) {
-                    if (obj instanceof String && UtilValidate.isEmpty((String) obj)) {
+                    if (obj instanceof String && UtilValidate.isEmpty(obj)) {
                         continue;
                     }
                     entity.dangerousSetNoCheckButFast(field, this.encryptFieldValue(entityName, obj));
@@ -3011,7 +3011,7 @@ public class GenericDelegator implements Delegator {
      */
     public Object encryptFieldValue(String entityName, Object fieldValue) throws EntityCryptoException {
         if (fieldValue != null) {
-            if (fieldValue instanceof String && UtilValidate.isEmpty((String) fieldValue)) {
+            if (fieldValue instanceof String && UtilValidate.isEmpty(fieldValue)) {
                 return fieldValue;
             }
             return this.crypto.encrypt(entityName, fieldValue);
