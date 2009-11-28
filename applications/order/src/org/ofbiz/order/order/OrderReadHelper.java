@@ -337,7 +337,7 @@ public class OrderReadHelper {
      */
     public Long getOrderTermNetDays() {
         List<GenericValue> orderTerms = EntityUtil.filterByAnd(getOrderTerms(), UtilMisc.toMap("termTypeId", "FIN_PAYMENT_TERM"));
-        if ((orderTerms == null) || (orderTerms.size() == 0)) {
+        if (UtilValidate.isNotEmpty(orderTerms)) {
             return null;
         } else if (orderTerms.size() > 1) {
             Debug.logWarning("Found " + orderTerms.size() + " FIN_PAYMENT_TERM order terms for orderId [" + getOrderId() + "], using the first one ", module);
