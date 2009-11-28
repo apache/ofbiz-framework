@@ -86,7 +86,7 @@ public class HtmlMenuWrapper {
         context.put("locale", UtilHttp.getLocale(request));
 
         // if there was an error message, this is an error
-        if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {
+        if (UtilValidate.isNotEmpty(request.getAttribute("_ERROR_MESSAGE_"))) {
             context.put("isError", Boolean.TRUE);
         } else {
             context.put("isError", Boolean.FALSE);

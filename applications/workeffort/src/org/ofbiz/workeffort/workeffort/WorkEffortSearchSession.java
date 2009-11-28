@@ -185,13 +185,13 @@ public class WorkEffortSearchSession {
         }
 
 //      add a Work Effort Review to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING_REVIEW_TEXT"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_STRING_REVIEW_TEXT"))) {
             String reviewText = (String) parameters.get("SEARCH_STRING_REVIEW_TEXT");
             searchAddConstraint(new WorkEffortSearch.WorkEffortReviewConstraint(reviewText), session);
             constraintsChanged = true;
         }
 //      add a Work Effort Assoc Type to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_WORK_EFFORT_ID"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_WORK_EFFORT_ID"))) {
             String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
             String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
             boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
@@ -199,7 +199,7 @@ public class WorkEffortSearchSession {
             constraintsChanged = true;
         }
 //      add a Work Effort Party Assignment to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("partyId"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("partyId"))) {
             String partyId=(String) parameters.get("partyId");
             String roleTypeId=(String) parameters.get("roleTypeId");
             searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId,roleTypeId), session);
@@ -207,10 +207,10 @@ public class WorkEffortSearchSession {
         }
 
 //      add a Product Set to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("productId_1"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("productId_1"))) {
             List<String> productSet = FastList.newInstance();
             productSet.add((String) parameters.get("productId_1"));
-            if (UtilValidate.isNotEmpty((String) parameters.get("productId_2"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("productId_2"))) {
                 productSet.add((String) parameters.get("productId_2"));
             }
             searchAddConstraint(new WorkEffortSearch.ProductSetConstraint(productSet), session);
@@ -218,14 +218,14 @@ public class WorkEffortSearchSession {
         }
 
 //      add a WorkEfort fromDate thruDate  to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("fromDate")) || UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("fromDate")) || UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
             Timestamp fromDate =null;
-            if (UtilValidate.isNotEmpty((String) parameters.get("fromDate"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("fromDate"))) {
                 fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
             }
 
             Timestamp thruDate = null;
-            if (UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
             }
             searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
@@ -233,7 +233,7 @@ public class WorkEffortSearchSession {
         }
 
         // if keywords were specified, add a constraint for them
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
             String searchOperator = (String) parameters.get("SEARCH_OPERATOR");
             // defaults to true/Y, ie anything but N is true/Y

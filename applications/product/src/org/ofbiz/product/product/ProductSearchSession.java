@@ -535,9 +535,9 @@ public class ProductSearchSession {
         }
 
         String prioritizeCategoryId = null;
-        if (UtilValidate.isNotEmpty((String) parameters.get("PRIORITIZE_CATEGORY_ID"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("PRIORITIZE_CATEGORY_ID"))) {
             prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
-        } else if (UtilValidate.isNotEmpty((String) parameters.get("S_TPC"))) {
+        } else if (UtilValidate.isNotEmpty(parameters.get("S_TPC"))) {
             prioritizeCategoryId = (String) parameters.get("S_TPC");
         }
         if (UtilValidate.isNotEmpty(prioritizeCategoryId)) {
@@ -546,7 +546,7 @@ public class ProductSearchSession {
         }
 
         // if there is another category, add a constraint for it
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CATEGORY_ID"))) {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
             String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES");
             String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC");
@@ -556,7 +556,7 @@ public class ProductSearchSession {
         }
 
         for (int catNum = 1; catNum < 10; catNum++) {
-            if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID" + catNum))) {
+            if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CATEGORY_ID" + catNum))) {
                 String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID" + catNum);
                 String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES" + catNum);
                 String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC" + catNum);
@@ -568,7 +568,7 @@ public class ProductSearchSession {
 
         // a shorter variation for categories
         for (int catNum = 1; catNum < 10; catNum++) {
-            if (UtilValidate.isNotEmpty((String) parameters.get("S_CAT" + catNum))) {
+            if (UtilValidate.isNotEmpty(parameters.get("S_CAT" + catNum))) {
                 String searchCategoryId = (String) parameters.get("S_CAT" + catNum);
                 String searchSubCategories = (String) parameters.get("S_CSB" + catNum);
                 String searchCategoryExc = (String) parameters.get("S_CEX" + catNum);
@@ -579,7 +579,7 @@ public class ProductSearchSession {
         }
 
         // if there is any category selected try to use catalog and add a constraint for it
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_CATALOG_ID"))) {
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
             if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
                 String topCategory = CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId);
@@ -593,7 +593,7 @@ public class ProductSearchSession {
         }
 
         // if keywords were specified, add a constraint for them
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
             String searchOperator = (String) parameters.get("SEARCH_OPERATOR");
             // defaults to true/Y, ie anything but N is true/Y
@@ -603,21 +603,21 @@ public class ProductSearchSession {
         }
 
         // if productName were specified, add a constraint for them
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_PRODUCT_NAME"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_PRODUCT_NAME"))) {
             String productName = (String) parameters.get("SEARCH_PRODUCT_NAME");
             searchAddConstraint(new ProductSearch.ProductFieldConstraint(productName, "productName"), session);
             constraintsChanged = true;
         }
 
         // if internalName were specified, add a constraint for them
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_INTERNAL_PROD_NAME"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_INTERNAL_PROD_NAME"))) {
             String internalName = (String) parameters.get("SEARCH_INTERNAL_PROD_NAME");
             searchAddConstraint(new ProductSearch.ProductFieldConstraint(internalName, "internalName"), session);
             constraintsChanged = true;
         }
 
         for (int kwNum = 1; kwNum < 10; kwNum++) {
-            if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING" + kwNum))) {
+            if (UtilValidate.isNotEmpty(parameters.get("SEARCH_STRING" + kwNum))) {
                 String keywordString = (String) parameters.get("SEARCH_STRING" + kwNum);
                 String searchOperator = (String) parameters.get("SEARCH_OPERATOR" + kwNum);
                 // defaults to true/Y, ie anything but N is true/Y
@@ -707,7 +707,7 @@ public class ProductSearchSession {
         }
 
         // add a supplier to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_SUPPLIER_ID")) || UtilValidate.isNotEmpty((String) parameters.get("S_SUP"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_SUPPLIER_ID")) || UtilValidate.isNotEmpty(parameters.get("S_SUP"))) {
             String supplierPartyId = (String) parameters.get("SEARCH_SUPPLIER_ID");
             if (UtilValidate.isEmpty(supplierPartyId)) supplierPartyId = (String) parameters.get("S_SUP");
             searchAddConstraint(new ProductSearch.SupplierConstraint(supplierPartyId), session);
@@ -715,18 +715,18 @@ public class ProductSearchSession {
         }
 
         // add a list price range to the search
-        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW")) || UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_LOW")) || UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_HIGH"))) {
             BigDecimal listPriceLow = null;
             BigDecimal listPriceHigh = null;
             String listPriceCurrency = UtilHttp.getCurrencyUom(request);
-            if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_LOW"))) {
                 try {
                     listPriceLow = new BigDecimal((String) parameters.get("LIST_PRICE_LOW"));
                 } catch (NumberFormatException e) {
                     Debug.logError("Error parsing LIST_PRICE_LOW parameter [" + (String) parameters.get("LIST_PRICE_LOW") + "]: " + e.toString(), module);
                 }
             }
-            if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_HIGH"))) {
                 try {
                     listPriceHigh = new BigDecimal((String) parameters.get("LIST_PRICE_HIGH"));
                 } catch (NumberFormatException e) {
@@ -736,7 +736,7 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
             constraintsChanged = true;
         }
-        if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_RANGE")) || UtilValidate.isNotEmpty((String) parameters.get("S_LPR"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("LIST_PRICE_RANGE")) || UtilValidate.isNotEmpty(parameters.get("S_LPR"))) {
             String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
             if (UtilValidate.isEmpty(listPriceRangeStr)) listPriceRangeStr = (String) parameters.get("S_LPR");
             int underscoreIndex = listPriceRangeStr.indexOf("_");
@@ -783,8 +783,8 @@ public class ProductSearchSession {
             constraintsChanged = true;
         }
 
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
-            UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
+        if (UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
+            UtilValidate.isNotEmpty(parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
             String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
             if (UtilValidate.isEmpty(include)) {
                 include = "Y";

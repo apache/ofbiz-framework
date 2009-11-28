@@ -85,7 +85,7 @@ public class HtmlFormWrapper {
         context.put("timeZone", UtilHttp.getTimeZone(request));
 
         // if there was an error message, this is an error
-        if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {
+        if (UtilValidate.isNotEmpty(request.getAttribute("_ERROR_MESSAGE_"))) {
             context.put("isError", Boolean.TRUE);
         } else {
             context.put("isError", Boolean.FALSE);

@@ -633,7 +633,7 @@ public class ImportOrdersFromEbay {
 
             // set the order date with the eBay created date
             Timestamp orderDate = UtilDateTime.nowTimestamp();
-            if (UtilValidate.isNotEmpty((String) parameters.get("createdDate"))) {
+            if (UtilValidate.isNotEmpty(parameters.get("createdDate"))) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 Date createdDate = sdf.parse((String) parameters.get("createdDate"));
                 orderDate = new Timestamp(createdDate.getTime());
@@ -716,7 +716,7 @@ public class ImportOrdersFromEbay {
                 String emailContactMechId = null;
                 String phoneContactMechId = null;
                 GenericValue partyAttribute = null;
-                if (UtilValidate.isNotEmpty((String)parameters.get("eiasTokenBuyer"))) {
+                if (UtilValidate.isNotEmpty(parameters.get("eiasTokenBuyer"))) {
                     partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String)parameters.get("eiasTokenBuyer"))));
                 }
 

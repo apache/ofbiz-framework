@@ -532,7 +532,7 @@ public class UtilHttp {
 
     public static void setInitialRequestInfo(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (UtilValidate.isNotEmpty((String) session.getAttribute("_WEBAPP_NAME_"))) {
+        if (UtilValidate.isNotEmpty(session.getAttribute("_WEBAPP_NAME_"))) {
             // oops, info already in place...
             return;
         }
