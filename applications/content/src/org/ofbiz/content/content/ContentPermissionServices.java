@@ -291,8 +291,7 @@ public class ContentPermissionServices {
         Map permResults = FastMap.newInstance();
         String skipPermissionCheck = null;
 
-        if (skipPermissionCheck == null
-            || skipPermissionCheck.length() == 0
+        if (UtilValidate.isEmpty(skipPermissionCheck)
             || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
             // Use the purposes from the from entity for both cases.
             List relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
