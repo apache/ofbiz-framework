@@ -331,7 +331,7 @@ public class RemoteRequest {
                         valueStr = value.toString();
                     }
 
-                    if (UtilValidate.isNotEmpty(valueStr)) {
+                    if (valueStr != null && valueStr.length() > 0) {
                         if (buf.length() > 0) {
                             if (useExpandedEntites) {
                                 buf.append("&amp;");
