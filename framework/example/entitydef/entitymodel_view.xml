@@ -79,7 +79,10 @@ under the License.
         <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
         <member-entity entity-alias="EFAAT" entity-name="ExampleFeatureApplAndType"/>
         <alias-all entity-alias="EXFT"/>
-        <alias-all entity-alias="EFAAT"/>
+        <alias-all entity-alias="EFAAT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="typeDescription" entity-alias="EFAAT" field="description"/>
         <view-link entity-alias="EXFT" rel-entity-alias="EFAAT">
             <key-map field-name="exampleFeatureId"/>
         </view-link>
@@ -88,7 +91,10 @@ under the License.
         <member-entity entity-alias="EX" entity-name="Example"/>
         <member-entity entity-alias="EFAAAT" entity-name="ExampleFeatureAndApplAndType"/>
         <alias-all entity-alias="EX"/>
-        <alias-all entity-alias="EFAAAT"/>
+        <alias-all entity-alias="EFAAAT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="featureDescription" entity-alias="EFAAAT" field="description"/>
         <view-link entity-alias="EX" rel-entity-alias="EFAAAT">
             <key-map field-name="exampleId"/>
         </view-link>
@@ -110,7 +116,10 @@ under the License.
         <member-entity entity-alias="EXFTAP" entity-name="ExampleFeatureAppl"/>
         <member-entity entity-alias="EXFTAPTP" entity-name="ExampleFeatureApplType"/>
         <alias-all entity-alias="EXFTAP"/>
-        <alias-all entity-alias="EXFTAPTP"/>
+        <alias-all entity-alias="EXFTAPTP">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="typeDescription" entity-alias="EXFTAPTP" field="description"/>
         <view-link entity-alias="EXFTAP" rel-entity-alias="EXFTAPTP">
             <key-map field-name="exampleFeatureApplTypeId"/>
         </view-link>
@@ -123,8 +132,11 @@ under the License.
         <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
         <member-entity entity-alias="EX" entity-name="Example"/>
         <alias-all entity-alias="EFAATD"/>
-        <alias-all entity-alias="EXFT"/>
+        <alias-all entity-alias="EXFT">
+            <exclude field="description"/>
+        </alias-all>
         <alias-all entity-alias="EX"/>
+        <alias name="featureDescription" entity-alias="EXFT" field="description"/>
         <view-link entity-alias="EFAATD" rel-entity-alias="EXFT">
             <key-map field-name="exampleFeatureId"/>
         </view-link>
