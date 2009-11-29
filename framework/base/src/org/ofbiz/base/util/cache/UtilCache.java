@@ -502,7 +502,7 @@ public class UtilCache<K, V> implements Serializable {
     /** Returns the number of elements currently in the cache
      * @return The number of elements currently in the cache
      */
-    public long size() {
+    public int size() {
         return cacheLineTable.size();
     }
 
