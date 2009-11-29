@@ -1464,6 +1464,10 @@ but they are grouped here for convenience purposes -->
     glAccountClassId="CASH_EXPENSE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="OTHER EXPENSES" description="" postedBalance="0.0"/>
 
+  <GlAccount parentGlAccountId="" glAccountId="850000" accountCode="850000"
+    glAccountClassId="DEBIT" glAccountTypeId="PROFIT_LOSS_ACCOUNT" glResourceTypeId="MONEY"
+    accountName="NET INCOME" description="" postedBalance="0.0"/>
+
   <GlAccount parentGlAccountId="" glAccountId="900000" accountCode="900000"
     glAccountClassId="NON_POSTING" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="INCOME TAX" description="" postedBalance="0.0"/>

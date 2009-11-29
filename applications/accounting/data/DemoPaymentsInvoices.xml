@@ -154,20 +154,6 @@ under the License.
     <AcctgTransEntry acctgTransId="8009" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="8010" acctgTransEntrySeqId="00001" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="D" reconcileStatusId="AES_NOT_RECONCILED"/>
     <AcctgTransEntry acctgTransId="8010" acctgTransEntrySeqId="00002" acctgTransEntryTypeId="_NA_" partyId="DemoSupplier" roleTypeId="BILL_FROM_VENDOR" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000" organizationPartyId="Company" amount="33.99" currencyUomId="USD" origAmount="33.99" origCurrencyUomId="USD" debitCreditFlag="C" reconcileStatusId="AES_NOT_RECONCILED"/>
-
-    <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="0.00" postedCredits="116.85"/>
-    <GlAccountHistory glAccountId="112000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="0.00" postedCredits="116.85"/>
-    <GlAccountHistory glAccountId="140000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="101.97" postedCredits="0.00"/>
-    <GlAccountHistory glAccountId="140000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="101.97" postedCredits="0.00"/>
-    <GlAccountHistory glAccountId="210000" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="233.70" postedCredits="233.70"/>
-    <GlAccountHistory glAccountId="210000" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="233.70" postedCredits="233.70"/>
-    <GlAccountHistory glAccountId="516100" organizationPartyId="Company" customTimePeriodId="6010" postedDebits="14.88" postedCredits="0.00"/>
-    <GlAccountHistory glAccountId="516100" organizationPartyId="Company" customTimePeriodId="6013" postedDebits="14.88" postedCredits="0.00"/>
-
-    <GlAccountOrganization glAccountId="112000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="-116.85"/>
-    <GlAccountOrganization glAccountId="140000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="101.97"/>
-    <GlAccountOrganization glAccountId="210000" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="0.00"/>
-    <GlAccountOrganization glAccountId="516100" organizationPartyId="Company" fromDate="2001-01-01 00:00:00.0" postedBalance="14.88"/>
     
     <!-- Demo invoice data for sales invoice with INVOICE_PAID status -->
     <Party partyId="DemoCustAgent"/>

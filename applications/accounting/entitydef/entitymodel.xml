@@ -2031,6 +2031,28 @@ under the License.
         <key-map field-name="customTimePeriodId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="GlAccountAndHistoryTotals"
+            package-name="org.ofbiz.accounting.ledger"
+            title="View of GL Account and its History totals">
+      <member-entity entity-alias="GLA" entity-name="GlAccount"/>
+      <member-entity entity-alias="GLAH" entity-name="GlAccountHistory"/>
+      <alias-all entity-alias="GLA" group-by="true"/>
+      <alias-all entity-alias="GLAH" group-by="true"/>
+      <alias entity-alias="GLAH" name="totalPostedDebits" field="postedDebits" function="sum"/>
+      <alias entity-alias="GLAH" name="totalPostedCredits" field="postedCredits" function="sum"/>
+      <alias entity-alias="GLAH" name="totalEndingBalance" field="endingBalance" function="sum"/>
+      <view-link entity-alias="GLA" rel-entity-alias="GLAH">
+        <key-map field-name="glAccountId"/>
+      </view-link>
+      <relation type="one" fk-name="GLAAH_GLACT" rel-entity-name="GlAccount">
+        <key-map field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="GLAAH_GLAH" rel-entity-name="GlAccountHistory">
+        <key-map field-name="glAccountId"/>
+        <key-map field-name="organizationPartyId"/>
+        <key-map field-name="customTimePeriodId"/>
+      </relation>
+    </view-entity>
     <entity entity-name="GlAccountOrganization"
             package-name="org.ofbiz.accounting.ledger"
             title="GL Account Organization Entity">
