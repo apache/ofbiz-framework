@@ -289,7 +289,7 @@ public class UtilCache<K, V> implements Serializable {
         return line;
     }
 
-    public List<V> values() {
+    public Collection<V> values() {
         if (cacheLineTable == null) {
             return null;
         }
