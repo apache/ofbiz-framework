@@ -256,6 +256,23 @@ public class CacheLineTable<K, V> implements Serializable {
         nullValue = null;
     }
 
+    public synchronized boolean isEmpty() {
+        if (fileTable != null) {
+            try {
+                return fileTable.keys().next() == null;
+            } catch (IOException e) {
+                Debug.logError(e, module);
+                return false;
+            }
+        } else {
+            if (isNullSet) {
+                return false;
+            } else {
+                return memoryTable.isEmpty();
+            }
+        }
+    }
+
     public synchronized int size() {
         if (fileTable != null) {
             return this.keySet().size();

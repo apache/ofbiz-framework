@@ -213,6 +213,10 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
+    public boolean isEmpty() {
+        return cacheLineTable.isEmpty();
+    }
+
     /** Puts or loads the passed element into the cache
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @param value The value of the element
