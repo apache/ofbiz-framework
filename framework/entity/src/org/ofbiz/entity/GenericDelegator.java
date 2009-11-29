@@ -29,6 +29,8 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -116,7 +118,8 @@ public class GenericDelegator implements Delegator {
 
     private boolean testMode = false;
     private boolean testRollbackInProgress = false;
-    private List<TestOperation> testOperations = null;
+    private static final AtomicReferenceFieldUpdater<GenericDelegator, LinkedBlockingDeque> testOperationsUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericDelegator.class, LinkedBlockingDeque.class, "testOperations");
+    private volatile LinkedBlockingDeque<TestOperation> testOperations = null;
     private enum OperationType {INSERT, UPDATE, DELETE};
 
     private String originalDelegatorName = null;
@@ -3169,7 +3172,7 @@ public class GenericDelegator implements Delegator {
         newDelegator.crypto = this.crypto;
         // In case this delegator is in testMode give it a reference to
         // the rollback list
-        newDelegator.testOperations = this.testOperations;
+        testOperationsUpdater.set(newDelegator, this.testOperations);
         // not setting the sequencer so that we have unique sequences.
 
         return newDelegator;
@@ -3195,7 +3198,7 @@ public class GenericDelegator implements Delegator {
     private void setTestMode(boolean testMode) {
         this.testMode = testMode;
         if (testMode) {
-            this.testOperations = FastList.newInstance();
+            testOperationsUpdater.set(this, new LinkedBlockingDeque());
         } else {
             this.testOperations.clear();
         }
@@ -3217,25 +3220,23 @@ public class GenericDelegator implements Delegator {
         }
         this.testMode = false;
         this.testRollbackInProgress = true;
-        synchronized (testOperations) {
-            Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
-            ListIterator<TestOperation> iterator = this.testOperations.listIterator(this.testOperations.size());
-            while (iterator.hasPrevious()) {
-                TestOperation testOperation = iterator.previous();
-                try {
-                    if (testOperation.getOperation().equals(OperationType.INSERT)) {
-                        this.removeValue(testOperation.getValue());
-                    } else if (testOperation.getOperation().equals(OperationType.UPDATE)) {
-                        this.store(testOperation.getValue());
-                    } else if (testOperation.getOperation().equals(OperationType.DELETE)) {
-                        this.create(testOperation.getValue());
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e.toString(), module);
+        Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
+        while (!this.testOperations.isEmpty()) {
+            TestOperation testOperation = this.testOperations.pollLast();
+            if (testOperation == null) break;
+            try {
+                if (testOperation.getOperation().equals(OperationType.INSERT)) {
+                    this.removeValue(testOperation.getValue());
+                } else if (testOperation.getOperation().equals(OperationType.UPDATE)) {
+                    this.store(testOperation.getValue());
+                } else if (testOperation.getOperation().equals(OperationType.DELETE)) {
+                    this.create(testOperation.getValue());
                 }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e.toString(), module);
             }
-            this.testOperations.clear();
         }
+        this.testOperations.clear();
         this.testRollbackInProgress = false;
         this.testMode = true;
     }
