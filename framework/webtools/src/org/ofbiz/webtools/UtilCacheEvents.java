@@ -81,11 +81,11 @@ public class UtilCacheEvents {
 
             if (utilCache.getMaxSize() > 0) {
                 try {
-                    key = utilCache.cacheLineTable.getKeyFromMemory(number);
+                    key = utilCache.getCacheLineTable().getKeyFromMemory(number);
                 } catch (Exception e) {}
             } else {
                 // no LRU, try looping through the keySet to see if we find the specified index...
-                Iterator<?> ksIter = utilCache.cacheLineTable.keySet().iterator();
+                Iterator<?> ksIter = utilCache.getCacheLineTable().keySet().iterator();
                 int curNum = 0;
 
                 while (ksIter.hasNext()) {
