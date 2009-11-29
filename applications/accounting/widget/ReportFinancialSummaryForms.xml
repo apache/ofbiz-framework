@@ -79,37 +79,6 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="TrialBalanceList" type="list" list-name="trialBalances"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
-            </entity-one>
-            <set field="showDebit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
-            <set field="showCredit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
-            <set field="absolutePostedBalance" value="${bsh:(postedBalance.abs())}" type="BigDecimal"/>
-            <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
-            <set field="debitTotal" from-field="parameters.debitTotal" type="BigDecimal"/>
-            <set field="creditTotal" from-field="parameters.creditTotal" type="BigDecimal"/>
-            <set field="parameters.debitTotal" value="${bsh:(showDebit ? (debitTotal.add(absolutePostedBalance)) : (debitTotal))}" type="BigDecimal"/>
-            <set field="parameters.creditTotal" value="${bsh:(showCredit ? (creditTotal.add(absolutePostedBalance)) : (creditTotal))}" type="BigDecimal"/>
-        </row-actions>
-        <field name="glAccountId" use-when="!showTotals || isPdf != true">
-            <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="glAccountId" use-when="isPdf == true" title-area-style="tableheadhuge"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="debit" use-when="showDebit" widget-style="tabletextright"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="debit" use-when="showCredit" widget-style="tabletextright"><display/></field>
-        <field name="credit" use-when="showCredit" widget-style="tabletextright"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showDebit" widget-style="tabletextright"><display/></field>
-        <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.CommonTotal}"/></field>
-        <field name="debit" use-when="showTotals" widget-style="tabletextright"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showTotals" widget-style="tabletextright"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
-    </form>
-
     <form name="IncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="isIncomeStatement"><hidden value="true"/></field>
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
@@ -361,32 +330,6 @@ under the License.
         <field name="glAccountId"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-
-    <form name="TrialBalanceSearchResultsCsv" type="list" list-name="trialBalances"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
-            </entity-one>
-            <set field="showDebit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
-            <set field="showCredit" value="${bsh:(postedBalance.compareTo(java.math.BigDecimal.ZERO) &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance.compareTo(java.math.BigDecimal.ZERO) &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
-            <set field="absolutePostedBalance" value="${bsh:(postedBalance.abs())}" type="BigDecimal"/>
-            <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
-            <set field="debitTotal" from-field="parameters.debitTotal" type="BigDecimal"/>
-            <set field="creditTotal" from-field="parameters.creditTotal" type="BigDecimal"/>
-            <set field="noValue" value="0" type="BigDecimal"/>
-            <set field="parameters.debitTotal" value="${bsh:(showDebit ? (debitTotal.add(absolutePostedBalance)) : (debitTotal))}" type="BigDecimal"/>
-            <set field="parameters.creditTotal" value="${bsh:(showCredit ? (creditTotal.add(absolutePostedBalance)) : (creditTotal))}" type="BigDecimal"/>
-        </row-actions>
-        <field name="glAccountId" use-when="!showTotals"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="debit" use-when="showCredit"><display description="${noValue}"/></field>
-        <field name="credit" use-when="showCredit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showDebit"><display description="${noValue}"/></field>
-        <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.Total}"/></field>
-        <field name="debit" use-when="showTotals"><display description="${parameters.debitTotal}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" use-when="showTotals"><display description="${parameters.creditTotal}" type="currency" currency="${currencyUomId}"/></field>
-    </form>
     <form name="GlAccountTrialBalance" type="single" target="GlAccountTrialBalance">
         <actions>
             <entity-and entity-name="CustomTimePeriod" list="customTimePeriods">
@@ -586,4 +529,48 @@ under the License.
     </form>
 
     <form name="ComparativeExpenseStatementsCsv" type="list" list-name="glAccountExpenseList" view-size="99999" extends="ComparativeIncomeStatementsCsv"/>
+
+    <form name="TrialBalanceFinancialTimePeriodSelection" type="single" header-row-style="header-row" target="TrialBalance" default-table-style="basic-table">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="customTimePeriodId" required-field="true">
+            <drop-down>
+                <entity-options entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="${periodName}: ${fromDate} - ${thruDate}" filter-by-date="false">
+                    <entity-constraint name="periodTypeId" operator="like" value="FISCAL_%"/>
+                    <entity-order-by field-name="-thruDate"/>
+                    <entity-order-by field-name="periodNum"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="TrialBalanceReport" type="list" list-name="glAccountAndHistories"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="GlAccountAndHistoryTotals" filter-by-date="false" list="glAccountAndHistories">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="in" from-field="partyIds"/>
+                    <condition-expr field-name="customTimePeriodId" operator="equals" from-field="parameters.customTimePeriodId"/>
+                </condition-list>
+                <select-field field-name="glAccountId"/>
+                <select-field field-name="accountCode"/>
+                <select-field field-name="accountName"/>
+                <select-field field-name="totalPostedDebits"/>
+                <select-field field-name="totalPostedCredits"/>
+                <select-field field-name="totalEndingBalance"/>
+                <order-by field-name="accountCode"/>
+            </entity-condition>
+        </actions>
+        <field name="glAccountId">
+            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountCode"><display description="${accountCode}"/></field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="totalPostedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display description="${totalPostedDebits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalPostedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display description="${totalPostedCredits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalEndingBalance" title="${uiLabelMap.AccountingEndingBalance}" widget-style="tabletextright"><display description="${totalEndingBalance}" type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
 </forms>

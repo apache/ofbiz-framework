@@ -645,7 +645,7 @@ under the License.
             <field field="equityGlAccountClass" type="GenericValue"/>
         </call-class-method>
 
-        <!-- Compute the total posted amount of the period -->
+        <!-- Compute the total posted amount of the period for expense/revenue/income accounts -->
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
                 <condition-expr field-name="organizationPartyId" operator="equals" from-field="customTimePeriod.organizationPartyId"/>
@@ -664,6 +664,8 @@ under the License.
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
         <set field="totalAmount" value="0.0" type="BigDecimal"/>
+        <set field="totalCreditAmount" value="0.0" type="BigDecimal"/>
+        <set field="totalDebitAmount" value="0.0" type="BigDecimal"/>
         <iterate list="acctgTransAndEntries" entry="acctgTransAndEntry">
             <get-related-one value-field="acctgTransAndEntry" relation-name="GlAccount" to-value-field="glAccount"/>
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field="isCreditAccount">
@@ -678,32 +680,23 @@ under the License.
             <set field="amount" from-field="acctgTransAndEntry.amount"/>
             <if>
                 <condition>
-                    <or>
-                        <and>
-                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
-                            <if-compare field="isCreditAccount" operator="equals" value="true" type="Boolean"/>
-                        </and>
-                        <and>
-                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
-                            <if-compare field="isDebitAccount" operator="equals" value="true" type="Boolean"/>
-                        </and>
-                    </or>
+                    <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
                 </condition>
                 <then>
-                    <calculate field="amount">
-                        <calcop field="amount" operator="negative"/>
+                    <calculate field="totalDebitAmount">
+                        <calcop field="totalDebitAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
                     </calculate>
                 </then>
+                <else>
+                    <calculate field="totalCreditAmount">
+                        <calcop field="totalCreditAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
+                    </calculate>
+                </else>
             </if>
-            <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
-                <calculate field="amount">
-                    <calcop field="amount" operator="negative"/>
-                </calculate>
-            </if-compare>
-            <calculate field="totalAmount">
-                <calcop field="totalAmount" operator="add"><calcop field="amount" operator="get"/></calcop>
-            </calculate>
         </iterate>
+        <calculate field="totalAmount">
+            <calcop field="totalCreditAmount" operator="subtract"><calcop field="totalDebitAmount" operator="get"/></calcop>
+        </calculate>
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
@@ -753,6 +746,8 @@ under the License.
             </call-service>
         </else>
         </if-not-empty>
+
+        <!-- The history records in the current time period are updated with the endingBalance field -->
         <entity-and entity-name="GlAccountHistory" list="glAccountHistories">
             <field-map field-name="organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
             <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
@@ -764,6 +759,8 @@ under the License.
             <set field="glAccountHistory.endingBalance" from-field="endingBalance"/>
             <store-value value-field="glAccountHistory"/>
         </iterate>
+
+        <!-- For all the accounts of class assets/liability/equity the endingBalance of the last time period's history is added to the one of the history of the period being closed -->
         <if-not-empty field="lastClosedTimePeriod">
             <entity-condition entity-name="GlAccountAndHistory" list="lastPeriodGlAccountAndHistories">
                 <condition-list combine="and">
@@ -803,7 +800,8 @@ under the License.
             </iterate>
         </if-not-empty>
 
-        <!-- Initialize the accounts for the new fiscal period -->
+        <!-- TODO: the usage of GlAccountOrganization.postedAmount is deprecated in place of GlAccountHistory; the next section will then be removed-->
+        <!-- Initialize the GlAccountOrganization.postedAmount for expense/revenue/income accounts for the new fiscal period -->
         <entity-condition entity-name="GlAccountOrganizationAndClass" list="glAccountOrganizationAndClassList">
             <condition-list combine="and">
                 <condition-expr field-name="organizationPartyId" operator="equals" from-field="customTimePeriod.organizationPartyId"/>
@@ -812,6 +810,7 @@ under the License.
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="expenseAccountClassIds"/>
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="revenueAccountClassIds"/>
                     <condition-expr field-name="glAccountClassId" operator="in" from-field="incomeAccountClassIds"/>
+                    <condition-expr field-name="glAccountId" operator="equals" from-field="profitLossAccount.glAccountId"/>
                 </condition-list>
             </condition-list>
         </entity-condition>
@@ -863,11 +862,6 @@ under the License.
                         </calculate>
                     </then>
                 </if>
-                <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
-                    <calculate field="amount">
-                        <calcop field="amount" operator="negative"/>
-                    </calculate>
-                </if-compare>
                 <calculate field="newPostedBalance">
                     <calcop field="newPostedBalance" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
@@ -1058,7 +1052,7 @@ under the License.
         <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
         <set field="partyIds[]" from-field="organizationPartyId"/>
         <set field="findLastClosedDateInMap.organizationPartyId" from-field="organizationPartyId"/>
-        <set field="findLastClosedDateInMap.findDate" from-field="parameters.thruDate"/>
+        <set field="findLastClosedDateInMap.findDate" from-field="parameters.thruDate" type="Date"/>
         <call-service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
             <result-to-field result-name="lastClosedDate"/>
             <result-to-field result-name="lastClosedTimePeriod"/>
@@ -1186,7 +1180,6 @@ under the License.
             </calculate>
         </iterate>
 
-        <!-- retrieve the last closed date for the same type of time period -->
         <set field="prepareIncomeStatementInMap.organizationPartyId" from-field="organizationPartyId"/>
         <set field="prepareIncomeStatementInMap.glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
         <set field="prepareIncomeStatementInMap.fromDate" from-field="lastClosedDate"/>

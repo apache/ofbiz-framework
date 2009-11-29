@@ -19,6 +19,7 @@
 
 package org.ofbiz.accounting.period;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,11 @@ public class PeriodServices {
         Delegator delegator = dctx.getDelegator();
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
-        Timestamp findDate = (Timestamp) context.get("findDate");
+        Date findDate = (Date) context.get("findDate");
 
         // default findDate to now
         if (findDate == null) {
-            findDate = UtilDateTime.nowTimestamp();
+            findDate = new Date(UtilDateTime.nowTimestamp().getTime());
         }
 
         Timestamp lastClosedDate = null;          // return parameters
