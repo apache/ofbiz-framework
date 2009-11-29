@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.mail;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -92,7 +92,7 @@ public class ServiceMcaUtil {
         }
     }
 
-    public static List<ServiceMcaRule> getServiceMcaRules() {
+    public static Collection<ServiceMcaRule> getServiceMcaRules() {
     if (mcaCache.size() == 0) {
         readConfig();
     }
