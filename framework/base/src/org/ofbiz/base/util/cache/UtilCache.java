@@ -64,7 +64,7 @@ public class UtilCache<K, V> implements Serializable {
     private final String name;
 
     /** A hashtable containing a CacheLine object with a value and a loadTime for each element. */
-    public CacheLineTable<K, V> cacheLineTable = null;
+    private final CacheLineTable<K, V> cacheLineTable;
 
     /** A count of the number of cache hits */
     protected AtomicLong hitCount = new AtomicLong(0);
@@ -214,6 +214,10 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
+    public CacheLineTable<K, V> getCacheLineTable() {
+        return cacheLineTable;
+    }
+
     public boolean isEmpty() {
         return cacheLineTable.isEmpty();
     }
@@ -291,7 +295,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public Collection<V> values() {
-        if (cacheLineTable == null) {
+        if (cacheLineTable.isEmpty()) {
             return Collections.emptyList();
         }
 

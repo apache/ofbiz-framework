@@ -34,9 +34,9 @@ if (cacheName) {
     utilCache = UtilCache.findCache(cacheName);
     if (utilCache) {
         int keyNum = 0;
-        utilCache.cacheLineTable.keySet().each { key ->
+        utilCache.getCacheLineTable().keySet().each { key ->
             cacheElement = [:];
-            line = utilCache.cacheLineTable.get(key);
+            line = utilCache.getCacheLineTable().get(key);
             expireTime = "";
             if (line?.loadTime > 0) {
                 expireTime = (new Date(line.loadTime + utilCache.getExpireTime())).toString();
