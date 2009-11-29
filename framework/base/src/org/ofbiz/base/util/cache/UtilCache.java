@@ -21,6 +21,7 @@ package org.ofbiz.base.util.cache;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -291,7 +292,7 @@ public class UtilCache<K, V> implements Serializable {
 
     public Collection<V> values() {
         if (cacheLineTable == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<V> valuesList = FastList.newInstance();
