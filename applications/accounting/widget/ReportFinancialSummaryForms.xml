@@ -139,7 +139,7 @@ under the License.
     <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
-        <field name="thruDate"><date-time/></field>
+        <field name="thruDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
