@@ -21,8 +21,8 @@ package org.ofbiz.base.util.cache;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -37,9 +37,6 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.collections.GenericMap;
-import org.ofbiz.base.util.collections.GenericMapEntry;
-import org.ofbiz.base.util.collections.IteratorWrapper;
 
 /**
  * Generalized caching utility. Provides a number of caching features:
@@ -53,7 +50,7 @@ import org.ofbiz.base.util.collections.IteratorWrapper;
  *
  */
 @SuppressWarnings("serial")
-public class UtilCache<K, V> extends GenericMap<K, V> implements Serializable {
+public class UtilCache<K, V> implements Serializable {
 
     public static final String module = UtilCache.class.getName();
 
@@ -225,41 +222,6 @@ public class UtilCache<K, V> extends GenericMap<K, V> implements Serializable {
         return cacheLineTable.isEmpty();
     }
 
-    protected Iterator<Map.Entry<K, V>> iterator(final boolean noteAccess) {
-        return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, ? extends CacheLine<V>>>(cacheLineTable.iterator()) {
-            protected Map.Entry<K, V> convert(Map.Entry<K, ? extends CacheLine<V>> src) {
-                return new GenericMapEntry<K, V>(UtilCache.this, src.getKey(), noteAccess);
-            }
-
-            protected void noteRemoval(Map.Entry<K, V> dest, Map.Entry<K, ? extends CacheLine<V>> src) {
-                UtilCache.this.remove(dest.getKey());
-            }
-        };
-    }
-
-    protected <KE extends K, VE extends V> void putAll(Iterator<Map.Entry<KE, VE>> it) {
-        long accessTime = System.currentTimeMillis();
-        while (it.hasNext()) {
-            Map.Entry<KE, VE> entry = it.next();
-            K key = entry.getKey();
-            V value = entry.getValue();
-            CacheLine<V> oldCacheLine;
-            CacheLine<V> newCacheLine;
-            if (expireTime > 0) {
-                newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, accessTime, expireTime) : new HardRefCacheLine<V>(value, accessTime, expireTime);
-            } else {
-                newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, expireTime) : new HardRefCacheLine<V>(value, expireTime);
-            }
-            oldCacheLine = cacheLineTable.put(key, newCacheLine);
-
-            if (oldCacheLine == null) {
-                noteAddition(key, value);
-            } else {
-                noteUpdate(key, value, oldCacheLine.getValue());
-            }
-        }
-    }
-
     /** Puts or loads the passed element into the cache
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @param value The value of the element
@@ -298,8 +260,8 @@ public class UtilCache<K, V> extends GenericMap<K, V> implements Serializable {
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return The value of the element specified by the key
      */
-    protected V get(Object key, boolean noteAccess) {
-        CacheLine<V> line = getInternal(key, noteAccess);
+    public V get(Object key) {
+        CacheLine<V> line = getInternal(key, true);
         if (line == null) {
             return null;
         } else {
@@ -330,6 +292,19 @@ public class UtilCache<K, V> extends GenericMap<K, V> implements Serializable {
             if (countGet) incrementCounter(hitCount);
         }
         return line;
+    }
+
+    public Collection<V> values() {
+        if (cacheLineTable.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<V> valuesList = FastList.newInstance();
+        for (K key: cacheLineTable.keySet()) {
+            valuesList.add(this.get(key));
+        }
+
+        return valuesList;
     }
 
     public long getSizeInBytes() {
@@ -560,7 +535,7 @@ public class UtilCache<K, V> extends GenericMap<K, V> implements Serializable {
      * This behavior is necessary for now for the persisted cache feature.
      */
     public Set<? extends K> getCacheLineKeys() {
-        return keySet();
+        return cacheLineTable.keySet();
     }
 
     public Collection<? extends CacheLine<V>> getCacheLineValues() {
