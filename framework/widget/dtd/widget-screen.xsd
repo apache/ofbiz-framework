@@ -299,6 +299,14 @@ under the License.
     <xs:attributeGroup name="attlist.if-empty">
         <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
+    <xs:element name="if-empty-section" substitutionGroup="AllConditionals">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.if-empty-section"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.if-empty-section">
+        <xs:attribute type="xs:string" name="section-name" use="required"/>
+    </xs:attributeGroup>
 
     <!-- ================ ACTIONS ================ -->
     <xs:element name="AllActions" abstract="true"/>
