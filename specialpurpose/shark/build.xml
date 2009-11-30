@@ -62,6 +62,7 @@ under the License.
     <!-- Build JavaDoc                                                      -->
     <!-- ================================================================== -->
 
+    <!-- commented out to be synchronized with the build wich is not done by default
     <target name="docs" depends="prepare-docs">
         <javadoc packagenames="org.ofbiz.shark.*"
                  classpathref="local.class.path"
@@ -73,6 +74,7 @@ under the License.
             </fileset>
         </javadoc>
     </target>
+    -->
 
     <!-- ================================================================== -->
     <!-- Copy Libs                                                          -->
