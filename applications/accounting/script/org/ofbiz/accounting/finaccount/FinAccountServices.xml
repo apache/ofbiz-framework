@@ -1051,4 +1051,26 @@ under the License.
         <set field="closingBalance" value="${reconciledBalance + openingBalance}" type="BigDecimal"/>
         <field-to-result field="closingBalance"/>
     </simple-method>
+    
+    <simple-method method-name="autoFinAccountReconciliation" short-description="Auto Reconcile Financial(bank) Account Transactions">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="reconciliationDayStart" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}" type="Timestamp"/>
+        <set field="reconciliationDayEnd" value="${groovy: org.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}" type="Timestamp"/>
+        <entity-condition entity-name="GlReconciliation" list="glReconciliation">
+            <condition-list combine="and">
+                <condition-expr field-name="reconciledDate" operator="greater-equals" from-field="reconciliationDayStart"/>
+                <condition-expr field-name="reconciledDate" operator="less-equals" from-field="reconciliationDayEnd"/>
+                <condition-expr field-name="statusId" operator="equals" value="GLREC_CREATED"/>
+            </condition-list>
+        </entity-condition>
+        <set field="glReconciliationIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(glReconciliation, 'glReconciliationId', true);}" type="List"/>
+        <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
+            <condition-expr field-name="glReconciliationId" operator="in" from-field="glReconciliationIds"/>
+        </entity-condition>
+        <iterate list="finAccountTransList" entry="finAccountTrans">
+            <set field="reconcileFinAccountTransMap.finAccountTransId" from-field="finAccountTrans.finAccountTransId"/>
+            <set field="reconcileFinAccountTransMap.organizationPartyId" from-field="finAccountTrans.partyId"/>
+            <call-service service-name="reconcileFinAccountTrans" in-map-name="reconcileFinAccountTransMap"/>
+        </iterate>
+    </simple-method>
 </simple-methods>

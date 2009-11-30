@@ -8180,6 +8180,10 @@
         <value xml:lang="en">Reconciliation</value>
         <value xml:lang="hi_IN">मिलाप</value>
     </property>
+    <property key="AccountingReconciliationDate">
+        <value xml:lang="en">Reconciliation Date</value>
+        <value xml:lang="hi_IN">मिलाप दिनांक</value>
+    </property>
     <property key="AccountingReconciliationError">
         <value xml:lang="en">Can not Reconcile finAccountTrans [${finAccountTrans.finAccountTransId}], glReconciliationId not exist</value>
         <value xml:lang="hi_IN">finAccountTrans [${finAccountTrans.finAccountTransId}] का पुनर्मिलान नहीं कर सकते, glReconciliationId मौजूद नहीं है</value>

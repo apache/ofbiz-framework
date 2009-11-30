@@ -405,6 +405,7 @@ under the License.
         <field name="organizationPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="reconciledBalance" use-when="${reconciledBalance == null}"><hidden/></field>
         <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
+        <field name="reconciledDate" title="${uiLabelMap.AccountingReconciliationDate}"><date-time/></field>
         <field name="createButton" use-when="glReconciliationId == null" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
