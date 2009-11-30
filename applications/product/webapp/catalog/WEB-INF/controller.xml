@@ -631,7 +631,7 @@ under the License.
     </request-map>
     <request-map uri="addAdditionalImagesForProduct">
         <security https="true" auth="true"/>
-        <event type="service" invoke="uploadAdditionalViewImages"/>
+        <event type="service" invoke="uploadProductAdditionalViewImages"/>
         <response name="success" type="view" value="EditProductContent"/>
         <response name="error" type="view" value="EditProductContent"/>
     </request-map>

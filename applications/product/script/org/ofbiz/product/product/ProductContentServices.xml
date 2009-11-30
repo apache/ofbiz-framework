@@ -126,4 +126,45 @@ under the License.
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="uploadProductAdditionalViewImages" short-description="Method to upload multiple Additional View images for product">
+        <set-service-fields service-name="addAdditionalViewForProduct" map="parameters" to-map="addAdditionalViewForProductMap"/>
+        <if-not-empty field="parameters.additionalImageOne">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageOne"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="ADDITIONAL_IMAGE_1"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageOne_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageOne_contentType"/>
+            <call-service service-name="addAdditionalViewForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageTwo">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageTwo"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="ADDITIONAL_IMAGE_2"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageTwo_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageTwo_contentType"/>
+            <call-service service-name="addAdditionalViewForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageThree">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageThree"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="ADDITIONAL_IMAGE_3"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageThree_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageThree_contentType"/>
+            <call-service service-name="addAdditionalViewForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageFour">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageFour"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="ADDITIONAL_IMAGE_4"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageFour_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageFour_contentType"/>
+            <call-service service-name="addAdditionalViewForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <field-to-result field="parameters.productId" result-name="productId"/>
+    </simple-method>
 </simple-methods>
