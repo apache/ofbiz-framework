@@ -53,13 +53,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="cms" location="component://content/widget/cms/CMSMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -79,13 +88,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="content" location="component://content/widget/content/ContentMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
                                 <container>
                                     <include-menu name="contentSub" location="component://content/widget/content/ContentMenus.xml"/>
                                 </container>
@@ -121,13 +139,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
                                 <container style="no-clear">
                                     <decorator-section-include name="body"/>
                                 </container>
@@ -151,6 +178,16 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -162,13 +199,9 @@ under the License.
                                         <not><if-empty field="currentValue.dataResourceId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
                                         <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${${extraFunctionName}}"/>
                                     </widgets>
-                                    <fail-widgets>
-                                        <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                    </fail-widgets>
                                 </section>
                                 <container style="no-clear">
                                     <decorator-section-include name="body"/>
@@ -208,13 +241,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="contentsetup" location="component://content/widget/contentsetup/ContentSetupMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -234,13 +276,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="dataresourcesetup" location="component://content/widget/datasetup/DataResourceSetupMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="dataresourcesetup" location="component://content/widget/datasetup/component://content/widget/layout/LayoutMenus.xml.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -260,20 +311,25 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                                    <not><if-empty field="parameters.webSiteId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="parameters.webSiteId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>
-                                    </widgets>
-                                </section>
                                 <container style="widget-container">
                                     <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/>
                                 </container>
@@ -297,13 +353,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="layout" location="component://content/widget/layout/LayoutMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
