@@ -2707,6 +2707,9 @@
         <value xml:lang="en">Deposit Slip</value>
         <value xml:lang="hi_IN">जमा पर्ची</value>
     </property>
+    <property key="AccountingDepositSlipId">
+        <value xml:lang="en">Deposit Slip Id</value>
+    </property>
     <property key="AccountingDepositSlips">
         <value xml:lang="en">Deposit Slips</value>
         <value xml:lang="hi_IN">जमा पर्चीयां</value>

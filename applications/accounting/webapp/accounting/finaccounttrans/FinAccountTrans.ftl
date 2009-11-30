@@ -178,12 +178,13 @@ function getFinAccountTransRunningTotalAndBalances() {
             <td>
               <#if payments?has_content>
                 <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>"/></a> ${finAccountTrans.finAccountTransId}
-                <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 500px;">
+                <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 650px;">
                   <div align="right">
                     <input class="popup_closebox buttontext" type="button" value="X"/>
                   </div>
                   <table class="basic-table hover-bar" cellspacing="0" style"width :">
                     <tr class="header-row-2">
+                      <th>${uiLabelMap.AccountingDepositSlipId}</th>
                       <th>${uiLabelMap.FormFieldTitle_paymentId}</th>
                       <th>${uiLabelMap.OrderPaymentType}</th>
                       <th>${uiLabelMap.FormFieldTitle_paymentMethodTypeId}</th>
@@ -198,13 +199,30 @@ function getFinAccountTransRunningTotalAndBalances() {
                       <#if payment?has_content && payment.paymentMethodTypeId?has_content>
                         <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, true)>
                       </#if>
+                      <#if payment?has_content>
+                        <#assign paymentGroupMembers = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember")?if_exists) />
+                        <#assign fromParty = payment.getRelatedOne("FromParty")?if_exists />
+                        <#assign fromPartyName = fromParty.getRelatedOne("Person")?if_exists />
+                        <#if !(fromPartyName?has_content)>
+                          <#assign fromPartyName = fromParty.getRelatedOne("PartyGroup")?if_exists />
+                        </#if>
+                        <#assign toParty = payment.getRelatedOne("ToParty")?if_exists />
+                        <#assign toPartyName = toParty.getRelatedOne("Person")?if_exists />
+                        <#if !(toPartyName?has_content)>
+                          <#assign toPartyName = toParty.getRelatedOne("PartyGroup")?if_exists />
+                        </#if>
+                        <#if paymentGroupMembers?has_content>
+                          <#assign paymentGroupMember = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
+                        </#if>
+                      </#if>
                       <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                        <td>${payment.paymentId?if_exists}</td>
+                        <td><#if paymentGroupMember?has_content><a href="<@ofbizUrl>EditDepositSlipAndMembers?paymentGroupId=${paymentGroupMember.paymentGroupId?if_exists}&amp;finAccountId=${parameters.finAccountId?if_exists}</@ofbizUrl>">${paymentGroupMember.paymentGroupId?if_exists}</a></#if></td>
+                        <td><#if payment?has_content><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId?if_exists}</@ofbizUrl>">${payment.paymentId?if_exists}</a></#if></td>
                         <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
                         <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
-                        <td>${payment.amount?if_exists}</td>
-                        <td>${payment.partyIdFrom?if_exists}</td>
-                        <td>${payment.partyIdTo?if_exists}</td>
+                        <td><@ofbizCurrency amount=payment.amount?if_exists/></td>
+                        <td><#if fromPartyName?has_content>${fromPartyName.groupName?if_exists}${fromPartyName.firstName?if_exists} ${fromPartyName.lastName?if_exists}<a href="/partymgr/control/viewprofile?partyId=${fromPartyName.partyId?if_exists}">[${fromPartyName.partyId?if_exists}]</a></#if></td>
+                        <td><#if toPartyName?has_content>${toPartyName.groupName?if_exists}${toPartyName.firstName?if_exists} ${toPartyName.lastName?if_exists}<a href="/partymgr/control/viewprofile?partyId=${toPartyName.partyId?if_exists}">[${toPartyName.partyId?if_exists}]</a></#if></td>
                       </tr>
                     </#list>
                   </table>
