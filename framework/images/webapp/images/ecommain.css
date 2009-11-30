@@ -775,6 +775,7 @@ border-top:#999 solid 1px;
 margin-bottom:5px;
 margin-top:10px;
 position:relative;
+overflow: hidden;
 }
 
 .productsummary {
