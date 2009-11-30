@@ -40,7 +40,7 @@ hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission;
 hasSupplierRelatedPermission = "true".equals(hasSupplierRelatedPermissionStr);
 
 // Initialize the PO Delivery Schedule form
-updatePODeliveryInfoWrapper = new HtmlFormWrapper("component://order/webapp/ordermgr/order/OrderDeliveryScheduleForms.xml", "UpdateDeliveryScheduleInformation", request, response);
+updatePODeliveryInfoWrapper = new HtmlFormWrapper("component://order/widget/ordermgr/OrderDeliveryScheduleForms.xml", "UpdateDeliveryScheduleInformation", request, response);
 updatePODeliveryInfoWrapper.putInContext("orderId", orderId);
 updatePODeliveryInfoWrapper.putInContext("orderItemSeqId", "_NA_");
 updatePODeliveryInfoWrapper.putInContext("schedule", schedule);
