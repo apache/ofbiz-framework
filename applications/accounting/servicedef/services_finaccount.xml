@@ -521,4 +521,9 @@ under the License.
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransAndEntries" type="List" mode="OUT" optional="true"/>
     </service>
+    
+    <service name="autoFinAccountReconciliation" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="autoFinAccountReconciliation" auth="true">
+        <description>Auto Reconciled FinAccountTrans entries</description>
+    </service>
 </services>
