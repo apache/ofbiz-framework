@@ -295,6 +295,10 @@ under the License.
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
+    <request-map uri="UpdateCart">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="UpdateCart"/>
+    </request-map>
 
     <request-map uri="setDesiredAlternateGwpProductId">
         <security https="false" auth="false"/>
@@ -1903,6 +1907,7 @@ under the License.
     <!--view-map name="showcart" type="screen" page="component://ecommerce/widget/CartScreens.xml#showcart" no-cache="true"/--><!-- to be used to avoid "conflicts" when someone use the same machine with different user logins -->
     <view-map name="showAllPromotions" type="screen" page="component://ecommerce/widget/CartScreens.xml#showAllPromotions"/>
     <view-map name="showPromotionDetails" type="screen" page="component://ecommerce/widget/CartScreens.xml#showPromotionDetails"/>
+    <view-map name="UpdateCart" type="screen" page="component://ecommerce/widget/CartScreens.xml#UpdateCart"/>
 
     <!-- Catalog Views -->
     <view-map name="quickadd" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#quickadd"/>

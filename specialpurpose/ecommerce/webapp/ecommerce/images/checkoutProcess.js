@@ -382,6 +382,11 @@ function processBillingAndPayment() {
 function initCartProcessObservers() {
     var cartForm = $('cartForm');
     Event.observe($('productPromoCode'), 'change', addPromoCode);
+    Event.observe($('updateShoppingCart'), 'click', showEditShippingPanel);
+    Event.observe($('openCartPanel'), 'click', function() {
+        showEditCartPanel();
+        updateShippingSummary();
+    });
     var inputs = cartForm.getInputs('text');
     inputs.each(function(e) {
         if(e.id != 'productPromoCode') {
@@ -479,8 +484,14 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('googleCheckoutDisabled').show();
                 $('microCartPayPalCheckout').hide();
             } else {
-                // Used for edit cart
-                $('microCartQuantity').update(data.totalQuantity);
+                // Replace whole cart panel with updated cart values for updating line item in case of gift item is added or remove in cart after applying coupon code
+                // No need to calculate indivisual value for shopping cart when whole cart is updating
+                 new Ajax.Updater($('cartPanel'), 'UpdateCart', {evalScripts: true, method: '', onComplete:function()
+                    {
+                        initCartProcessObservers();
+                     }
+                });
+                /*$('microCartQuantity').update(data.totalQuantity);
                 $('cartSubTotal').update(data.subTotalCurrencyFormatted);
                 $('cartDiscountValue').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
                 $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
@@ -519,7 +530,7 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                         var completedCartItemSubTotalId = elementId.sub('qty_','completedCartItemSubTotal_');
                         $(completedCartItemSubTotalId).update(lineItemTotal);
                     }
-                }
+                }*/
             }
         },
         parameters: formValues
