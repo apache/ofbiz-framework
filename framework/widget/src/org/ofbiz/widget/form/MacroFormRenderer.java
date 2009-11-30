@@ -708,7 +708,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         // if allow empty is true, add an empty option
         if (dropDownField.isAllowEmpty()) {
-            allowEmpty = "&nbsp;";
+            allowEmpty = "Y";
         }
 
         List<String> currentValueList = null;
