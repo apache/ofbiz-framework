@@ -211,6 +211,7 @@ under the License.
     <screen name="TrialBalance">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="AccountingTrialBalance"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TrialBalance"/>
@@ -276,6 +277,7 @@ under the License.
     <screen name="IncomeStatement">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="AccountingIncomeStatement"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="IncomeStatement"/>
@@ -342,6 +344,7 @@ under the License.
     <screen name="BalanceSheet">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="AccountingBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="BalanceSheet"/>
@@ -448,6 +451,7 @@ under the License.
     <screen name="TransactionTotals">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="AccountingTransactionTotals"/>
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
@@ -513,6 +517,7 @@ under the License.
     <screen name="TransactionTotalsPdf">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingTransactionTotals"/>
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
@@ -549,6 +554,7 @@ under the License.
     <screen name="TransactionTotalsCsv">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingTransactionTotals"/>
                 <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
@@ -578,6 +584,7 @@ under the License.
     <screen name="IncomeStatementListPdf">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="isPdf" value="true" type="Boolean"/>
@@ -600,6 +607,7 @@ under the License.
     <screen name="IncomeStatementListCsv">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
@@ -617,8 +625,8 @@ under the License.
     <screen name="BalanceSheetCsv">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <service service-name="prepareBalanceSheet" result-map="result" auto-field-map="true"/>
                 <set field="assetBalancesList" from-field="result.assetBalancesList"/>
                 <set field="liabilityBalancesList" from-field="result.liabilityBalancesList"/>
@@ -640,8 +648,8 @@ under the License.
     <screen name="BalanceSheetPdf">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <service service-name="prepareBalanceSheet" result-map="result" auto-field-map="true"/>
                 <set field="assetBalancesList" from-field="result.assetBalancesList"/>
                 <set field="liabilityBalancesList" from-field="result.liabilityBalancesList"/>
@@ -672,6 +680,7 @@ under the License.
     <screen name="TrialBalanceSearchResultsCsv">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
@@ -706,6 +715,7 @@ under the License.
     <screen name="TrialBalanceSearchResultsPdf">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <service service-name="getPartyAccountingPreferences" result-map="result">
