@@ -409,11 +409,6 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
-        <field name="timePeriod" required-field="false">
-            <drop-down>
-                <list-options list-name="customTimePeriods" key-name="customTimePeriodId" description="${fromDate} - ${thruDate}"/>
-            </drop-down>
-        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" tooltip="Please enter From and Thru date or select financial time period in fields above"><submit button-type="button"/></field>
     </form>
 

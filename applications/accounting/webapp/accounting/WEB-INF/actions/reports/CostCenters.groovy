@@ -24,18 +24,6 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.condition.EntityCondition;
 
 if (organizationPartyId) {
-
-    customTimePeriods = delegator.findByAnd("CustomTimePeriod", [organizationPartyId : organizationPartyId, periodTypeId : "FISCAL_YEAR"]);
-    if (UtilValidate.isNotEmpty(customTimePeriods)) {
-        context.customTimePeriods = customTimePeriods;
-    }
-    onlyIncludePeriodTypeIdList = [];
-    onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
-    customTimePeriodResults = dispatcher.runSync("findCustomTimePeriods", [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
-    customTimePeriodList = customTimePeriodResults.customTimePeriodList;
-    if (UtilValidate.isNotEmpty(customTimePeriodList)) {
-        context.timePeriod = (EntityUtil.getFirst(customTimePeriodList)).customTimePeriodId;
-    }
     resultFromPartyAcctgPref = dispatcher.runSync("getPartyAccountingPreferences", [organizationPartyId : organizationPartyId, userLogin : request.getAttribute("userLogin")]);
     partyAcctgPreference = resultFromPartyAcctgPref.partyAccountingPreference;
     context.currencyUomId = partyAcctgPreference.baseCurrencyUomId;
