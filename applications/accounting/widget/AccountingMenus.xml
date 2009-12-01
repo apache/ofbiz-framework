@@ -787,13 +787,13 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
-            <link target="IncomeStatement">
+        <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
+            <link target="TransactionTotals">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="ComparativeIncomeStatement" title="${uiLabelMap.AccountingComparativeIncomeStatement}">
-            <link target="ComparativeIncomeStatement">
+        <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
+            <link target="IncomeStatement">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
@@ -802,13 +802,13 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="ComparativeBalanceSheet" title="${uiLabelMap.AccountingComparativeBalanceSheet}">
-            <link target="ComparativeBalanceSheet">
+        <menu-item name="ComparativeIncomeStatement" title="${uiLabelMap.AccountingComparativeIncomeStatement}">
+            <link target="ComparativeIncomeStatement">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
-            <link target="TransactionTotals">
+        <menu-item name="ComparativeBalanceSheet" title="${uiLabelMap.AccountingComparativeBalanceSheet}">
+            <link target="ComparativeBalanceSheet">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
@@ -822,13 +822,13 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="CostCenterReport" title="${uiLabelMap.FormFieldTitle_costCenters}">
-            <link target="CostCenterReport">
+        <menu-item name="InventoryValuation" title="${uiLabelMap.AccountingInventoryValuation}">
+            <link target="InventoryValuation">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="InventoryValuation" title="${uiLabelMap.AccountingInventoryValuation}">
-            <link target="InventoryValuation">
+        <menu-item name="CostCenterReport" title="${uiLabelMap.FormFieldTitle_costCenters}">
+            <link target="CostCenterReport">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
