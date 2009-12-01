@@ -531,8 +531,17 @@ public class IcsPaymentServices {
         result.put("cvCode", reply.get("ccAuthReply_cvCode"));
         result.put("avsCode", reply.get("ccAuthReply_avsCode"));
         result.put("scoreCode", reply.get("ccAuthReply_authFactorCode"));
-        result.put("captureRefNum", reply.get("requestID")); // maybe use something else here?
-        result.put("captureCode", reply.get("ccCaptureReply_reconciliationID"));
+        result.put("captureRefNum", reply.get("requestID"));
+        if (UtilValidate.isNotEmpty(reply.get("ccCaptureReply_reconciliationID"))) {
+            if ("ACCEPT".equalsIgnoreCase(decision)) {
+                result.put("captureResult", Boolean.TRUE);
+            } else {
+                result.put("captureResult", Boolean.FALSE);
+            }
+            result.put("captureCode", reply.get("ccCaptureReply_reconciliationID"));
+            result.put("captureFlag", reply.get("ccCaptureReply_reasonCode"));
+            result.put("captureMessage", reply.get("decision"));
+        }
         if (Debug.infoOn())
             Debug.logInfo("CC [Cybersource] authorization result : " + result, module);
     }
