@@ -2287,8 +2287,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         // get the parameterized pagination index and size fields
         int paginatorNumber = modelForm.getPaginatorNumber(context);
-        String viewIndexParam = modelForm.getPaginateIndexField(context);
-        String viewSizeParam = modelForm.getPaginateSizeField(context);
+        String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
+        String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 
         int viewIndex = modelForm.getViewIndex(context);
         int viewSize = modelForm.getViewSize(context);

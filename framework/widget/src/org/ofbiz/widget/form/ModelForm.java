@@ -2180,28 +2180,42 @@ public class ModelForm extends ModelWidget {
         if (UtilValidate.isEmpty(field)) {
             field = DEFAULT_PAG_INDEX_FIELD;
         }
+        return field;
+    }
+    
+    public String getMultiPaginateIndexField(Map<String, Object> context) {
+        String field = this.paginateIndexField.expandString(context);
+        if (UtilValidate.isEmpty(field)) {
+            field = DEFAULT_PAG_INDEX_FIELD;
+        }
         //  append the paginator number
         field = field + "_" + getPaginatorNumber(context);
         return field;
     }
 
     public int getPaginateIndex(Map<String, Object> context) {
-        String field = this.getPaginateIndexField(context);
+        String field = this.getMultiPaginateIndexField(context);
 
         int viewIndex = 0;
         try {
             Object value = context.get(field);
 
             if (value == null) {
-            // try parameters.VIEW_INDEX as that is an old OFBiz convention
-            Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-            if (parameters != null) {
-                value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
+                // try parameters.VIEW_INDEX as that is an old OFBiz convention
+                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+                if (parameters != null) {
+                    value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
 
-                if (value == null) {
-                    value = parameters.get(field);
+                    if (value == null) {
+                        value = parameters.get(field);
+                    }
                 }
             }
+            
+            // try paginate index field without paginator number
+            if (value == null) {
+                field = this.getPaginateIndexField(context);
+                value = context.get(field);
             }
 
             if (value instanceof Integer) {
@@ -2221,13 +2235,21 @@ public class ModelForm extends ModelWidget {
         if (UtilValidate.isEmpty(field)) {
             field = DEFAULT_PAG_SIZE_FIELD;
         }
+        return field;
+    }
+    
+    public String getMultiPaginateSizeField(Map<String, Object> context) {
+        String field = this.paginateSizeField.expandString(context);
+        if (UtilValidate.isEmpty(field)) {
+            field = DEFAULT_PAG_SIZE_FIELD;
+        }
         //  append the paginator number
         field = field + "_" + getPaginatorNumber(context);
         return field;
     }
 
     public int getPaginateSize(Map<String, Object> context) {
-        String field = this.getPaginateSizeField(context);
+        String field = this.getMultiPaginateSizeField(context);
 
         int viewSize = this.defaultViewSize;
         try {
@@ -2243,6 +2265,12 @@ public class ModelForm extends ModelWidget {
                         value = parameters.get(field);
                     }
                 }
+            }
+            
+            // try the page size field without paginator number
+            if (value == null) {
+                field = this.getPaginateSizeField(context);
+                value = context.get(field);
             }
 
             if (value instanceof Integer) {
