@@ -1834,26 +1834,27 @@ under the License.
         <key-map field-name="glJournalId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="AcctgTransEntryProdSums"
+    <view-entity entity-name="AcctgTransEntrySums"
             package-name="org.ofbiz.accounting.ledger"
-            title="Sum of AcctgTransEntry entity amounts, grouped by glAccountId, productId, debitCreditFlag">
+            title="Sum of AcctgTransEntry entity amounts grouped by glAccountId, debitCreditFlag">
       <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
       <member-entity entity-alias="ACT" entity-name="AcctgTrans"/>
       <member-entity entity-alias="GLA" entity-name="GlAccount"/>
-      <alias entity-alias="ATE" name="organizationPartyId" group-by="true"/>
-      <alias entity-alias="ATE" name="productId" group-by="true"/>
+      <alias entity-alias="ATE" name="glAccountId" group-by="true"/>
+      <alias entity-alias="GLA" name="glAccountTypeId" group-by="true"/>
+      <alias entity-alias="GLA" name="accountName" group-by="true"/>
+      <alias entity-alias="GLA" name="accountCode" group-by="true"/>
+      <alias entity-alias="ACT" name="glFiscalTypeId" group-by="true"/>
       <alias entity-alias="ATE" name="debitCreditFlag" group-by="true"/>
       <alias entity-alias="ATE" name="amount" function="sum"/>
-      <alias entity-alias="ATE" name="glAccountId" group-by="false"/>
-      <alias entity-alias="GLA" name="glAccountTypeId" group-by="true"/> <!-- so we can select by type of account -->
-      <alias entity-alias="ACT" name="isPosted" group-by="false"/> <!-- so we can select by posted status -->
-      <alias entity-alias="ACT" name="glFiscalTypeId" group-by="true"/>
+      <alias entity-alias="ATE" name="organizationPartyId" group-by="false"/>
+      <alias entity-alias="ACT" name="isPosted" group-by="false"/>
       <alias entity-alias="ACT" name="transactionDate" group-by="false"/> <!-- so we can select the sum by date -->
-      <view-link entity-alias="ATE" rel-entity-alias="GLA">
-        <key-map field-name="glAccountId"/>
-      </view-link>
       <view-link entity-alias="ATE" rel-entity-alias="ACT">
         <key-map field-name="acctgTransId"/>
+      </view-link>
+      <view-link entity-alias="ATE" rel-entity-alias="GLA">
+        <key-map field-name="glAccountId"/>
       </view-link>
     </view-entity>
     <entity entity-name="AcctgTransEntryType"
