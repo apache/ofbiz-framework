@@ -285,6 +285,14 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <!-- Get a default fromDate -->
+                <set field="findLastClosedDateInMap.organizationPartyId" from-field="organizationPartyId"/>
+                <service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
+                    <result-to-field result-name="lastClosedDate"/>
+                    <result-to-field result-name="lastClosedTimePeriod"/>
+                </service>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${lastClosedDate}"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
             </actions>
             <widgets>
@@ -957,6 +965,15 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="CostCenterReport"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <!-- Get a default fromDate -->
+                <set field="findLastClosedDateInMap.organizationPartyId" from-field="organizationPartyId"/>
+                <service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
+                    <result-to-field result-name="lastClosedDate"/>
+                    <result-to-field result-name="lastClosedTimePeriod"/>
+                </service>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${lastClosedDate}"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+
                 <set field="glAcctgOrgAndCostCenterList" from-field="parameters.glAcctgOrgAndCostCenterList" type="List"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
             </actions>
@@ -969,7 +986,6 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <not><if-empty field="parameters.timePeriod"/></not>
                                     <not><if-empty field="parameters.fromDate"/></not>
                                     <not><if-empty field="glAcctgOrgAndCostCenterMapList"/></not>
                                 </or>
