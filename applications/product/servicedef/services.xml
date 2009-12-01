@@ -438,7 +438,7 @@ under the License.
     </service>
     
     <service name="uploadProductAdditionalViewImages" engine="simple"
-        location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="uploadProductAdditionalViewImages" auth="true">
+        location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="uploadProductAdditionalViewImages" auth="true">
         <description>Upload Additional View Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>
