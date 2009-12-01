@@ -1072,9 +1072,17 @@ under the License.
                         </call-service>
                     </if-compare>
                     <if-compare field="keepAddressBook" operator="equals" value="Y">
-                        <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
-                            <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
-                        </call-service>
+                        <make-value entity-name="PostalAddress" value-field="newValue"/>
+                        <set-pk-fields value-field="newValue" map="billToAddressCtx"/>
+                        <set-nonpk-fields value-field="newValue" map="billToAddressCtx"/>
+                        <entity-one entity-name="PostalAddress" value-field="oldValue" auto-field-map="false">
+                            <field-map field-name="contactMechId" from-field="billToAddressCtx.contactMechId"/>
+                        </entity-one>
+                        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
+                            <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
+                                <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
+                            </call-service>
+                        </if-compare-field>
                     </if-compare>
                     <log level="info" message="Billing Postal Address created billToContactMechId is ${parameters.billToContactMechId}"/>
                 </else>
