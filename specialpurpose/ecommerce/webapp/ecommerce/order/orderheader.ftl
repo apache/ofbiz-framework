@@ -92,8 +92,10 @@ under the License.
               <#if paymentAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${paymentAddress.attnName}</#if>
               ${paymentAddress.address1}
               <#if paymentAddress.address2?has_content>${paymentAddress.address2}</#if>
-              ${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
-              ${paymentAddress.countryGeoId}
+              <#assign paymentStateGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
+              ${paymentAddress.city}<#if paymentStateGeo?has_content>, ${paymentStateGeo.geoName?if_exists}</#if> ${paymentAddress.postalCode?if_exists}
+              <#assign paymentCountryGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.countryGeoId?if_exists}, false))?if_exists />
+              <#if paymentCountryGeo?has_content>${paymentCountryGeo.geoName?if_exists}</#if>
               ${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}
             </#if>
           <#else>
@@ -193,9 +195,10 @@ under the License.
                   <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}</#if>
                 </li>
                 <li>
-                  ${pmBillingAddress.city}<#if pmBillingAddress.stateProvinceGeoId?has_content>, ${pmBillingAddress.stateProvinceGeoId} </#if>
-                  ${pmBillingAddress.postalCode?if_exists}
-                  ${pmBillingAddress.countryGeoId?if_exists}
+                <#assign pmBillingStateGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
+                ${pmBillingAddress.city}<#if pmBillingStateGeo?has_content>, ${ pmBillingStateGeo.geoName?if_exists}</#if> ${pmBillingAddress.postalCode?if_exists}
+                <#assign pmBillingCountryGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.countryGeoId?if_exists}, false))?if_exists />
+                <#if pmBillingCountryGeo?has_content>${pmBillingCountryGeo.geoName?if_exists}</#if>
                 </li>
               </ul>
             </li>
@@ -256,11 +259,12 @@ under the License.
                 <#if shippingAddress.address2?has_content>${shippingAddress.address2}</#if>
               </li>
               <li>
-                ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
-                ${shippingAddress.postalCode?if_exists}
+                <#assign shippingStateGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
+                ${shippingAddress.city}<#if shippingStateGeo?has_content>, ${shippingStateGeo.geoName?if_exists}</#if> ${shippingAddress.postalCode?if_exists}
               </li>
               <li>
-                ${shippingAddress.countryGeoId?if_exists}
+                <#assign shippingCountryGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.countryGeoId?if_exists}, false))?if_exists />
+                <#if shippingCountryGeo?has_content>${shippingCountryGeo.geoName?if_exists}</#if>
               </li>
             </ul>
           </li>
