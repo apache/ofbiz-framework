@@ -784,8 +784,10 @@ public class ModelForm extends ModelWidget {
      *   use the same form definitions for many types of form UIs
      */
     public void renderFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
-        //  increment the paginator
-        this.incrementPaginatorNumber(context);
+        //  increment the paginator, only for list and multi forms
+        if ("list".equals(this.type) || "multi".equals(this.type)) {
+            this.incrementPaginatorNumber(context);
+        }
         // Populate the viewSize and viewIndex so they are available for use during form actions
         context.put("viewIndex", this.getViewIndex(context));
         context.put("viewSize", this.getViewSize(context));
