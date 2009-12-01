@@ -182,7 +182,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EbayConfigurations"/>
                 <set field="tabButtonItem" value="find"/>
-                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <!--set field="webSiteId" from-field="parameters.webSiteId"/-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
@@ -236,7 +236,7 @@ under the License.
                 <set field="xmlGatewayUri" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.xmlGatewayUri)}"/>
                 <set field="token" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.token)}"/>
                 <set field="customXml" value="${groovy:ebayConfig == null?'' : org.ofbiz.base.util.StringUtil.wrapString(ebayConfig.customXml)}"/>
-                <set field="webSiteId" value="${groovy:ebayConfig == null?parameters.webSiteId : ebayConfig.webSiteId}"/>
+                <!--set field="webSiteId" value="${groovy:ebayConfig == null?parameters.webSiteId : ebayConfig.webSiteId}"/-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
