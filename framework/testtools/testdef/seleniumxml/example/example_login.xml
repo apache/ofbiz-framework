@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <testcase>
+    <open value="/example/control/setSessionLocale?newLocale=en" />
     <open value="/example/control/logout" />
     <waitForPageToLoad value="10000" />
     <type name="USERNAME" value="admin" />
