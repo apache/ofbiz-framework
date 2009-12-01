@@ -456,7 +456,7 @@
         <value xml:lang="es">y</value>
         <value xml:lang="fr">et</value>
         <value xml:lang="hi_IN">और</value>
-        <value xml:lang="it">E</value>
+        <value xml:lang="it">e</value>
         <value xml:lang="nl">En</value>
         <value xml:lang="pt">E</value>
         <value xml:lang="ro">si</value>
@@ -892,7 +892,7 @@
         <value xml:lang="es">Conectar</value>
         <value xml:lang="fr">vous connecter</value>
         <value xml:lang="hi_IN">लॉगइन</value>
-        <value xml:lang="it">Login</value>
+        <value xml:lang="it">Accedi</value>
         <value xml:lang="nl">Login</value>
         <value xml:lang="pt">Login</value>
         <value xml:lang="pt_PT">Iniciar</value>
@@ -3705,7 +3705,7 @@
         <value xml:lang="es">Conectar</value>
         <value xml:lang="fr">Connexion</value>
         <value xml:lang="hi_IN">लॉगइन</value>
-        <value xml:lang="it">Login</value>
+        <value xml:lang="it">Accedi</value>
         <value xml:lang="nl">Login</value>
         <value xml:lang="pt">Login</value>
         <value xml:lang="pt_PT">Iniciar</value>
@@ -3723,7 +3723,7 @@
         <value xml:lang="es">Conéctese aquí</value>
         <value xml:lang="fr">Connectez vous ici</value>
         <value xml:lang="hi_IN">यहाँ से प्रवेश करें</value>
-        <value xml:lang="it">log in qui</value>
+        <value xml:lang="it">accedi da qui</value>
         <value xml:lang="nl">Hier Inloggen</value>
         <value xml:lang="pt">log in aqui</value>
         <value xml:lang="pt_PT">Inicie Aqui</value>
@@ -4935,7 +4935,7 @@
         <value xml:lang="es">O</value>
         <value xml:lang="fr">Ou</value>
         <value xml:lang="hi_IN">या</value>
-        <value xml:lang="it">O</value>
+        <value xml:lang="it">o</value>
         <value xml:lang="nl">OF</value>
         <value xml:lang="pt">OU</value>
         <value xml:lang="ro">O</value>
@@ -9269,7 +9269,7 @@
         <value xml:lang="es">Entrada</value>
         <value xml:lang="fr">Connexion</value>
         <value xml:lang="hi_IN">लॉगइन</value>
-        <value xml:lang="it">Login</value>
+        <value xml:lang="it">Accedi</value>
         <value xml:lang="ja">ログイン</value>
         <value xml:lang="nl">Aanmelden</value>
         <value xml:lang="pt_BR">Entrada</value>
