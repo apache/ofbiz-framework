@@ -77,12 +77,9 @@
                 <para>The test uses a .5 second delay for demo purposes. (see example_testsuite.xml and the setSpeed value="500" command). You can
                     remove this at the start of the test if you don't want the delay</para>
                 <para>- Here are some screen shots of what you should be seeing.</para>
-                <!--para>
-                                <graphic fileref="/images/seleniums/ofbizSeleniumSetup1.jpeg" height="150" width="400"></graphic>
-                            </para>
-                            <para>
-                                <graphic fileref="/images/seleniums/ofbizSeleniumSetup2.jpeg" height="150" width="400"></graphic> <graphic fileref="/images/seleniums/ofbizSeleniumSetup3.jpeg" height="150" width="400"></graphic>/>
-                            </para-->
+                <para>
+                    <graphic fileref="/images/help/ofbizSeleniumSetup1.png" height="478" width="638"/>
+                </para>
             </section>
             <section>
                 <title>4.2 run the Example test webtools/Run Selenium</title>

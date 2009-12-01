@@ -32,6 +32,8 @@ under the License.
      <@orderedlist node=child/>
     <#elseif child?node_type = 'element' && child?node_name = "itemizedlist">
      <@itemizedlist node=child/>
+    <#elseif child?node_type = 'element' && child?node_name = "graphic">
+      <img src="${child["@fileref"]}" height="${child["@height"]}" width="${child["@width"]}"/>
     </#if>
   </#list>
 </#macro>
