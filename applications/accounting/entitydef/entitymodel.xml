@@ -1842,9 +1842,11 @@ under the License.
       <member-entity entity-alias="GLA" entity-name="GlAccount"/>
       <alias entity-alias="ATE" name="glAccountId" group-by="true"/>
       <alias entity-alias="GLA" name="glAccountTypeId" group-by="true"/>
+      <alias entity-alias="GLA" name="glAccountClassId" group-by="true"/>
       <alias entity-alias="GLA" name="accountName" group-by="true"/>
       <alias entity-alias="GLA" name="accountCode" group-by="true"/>
       <alias entity-alias="ACT" name="glFiscalTypeId" group-by="true"/>
+      <alias entity-alias="ACT" name="acctgTransTypeId" group-by="false"/>
       <alias entity-alias="ATE" name="debitCreditFlag" group-by="true"/>
       <alias entity-alias="ATE" name="amount" function="sum"/>
       <alias entity-alias="ATE" name="organizationPartyId" group-by="false"/>
@@ -2045,10 +2047,10 @@ under the License.
       <view-link entity-alias="GLA" rel-entity-alias="GLAH">
         <key-map field-name="glAccountId"/>
       </view-link>
-      <relation type="one" fk-name="GLAAH_GLACT" rel-entity-name="GlAccount">
+      <relation type="one" fk-name="GLAAHT_GLACT" rel-entity-name="GlAccount">
         <key-map field-name="glAccountId"/>
       </relation>
-      <relation type="one" fk-name="GLAAH_GLAH" rel-entity-name="GlAccountHistory">
+      <relation type="one" fk-name="GLAAHT_GLAH" rel-entity-name="GlAccountHistory">
         <key-map field-name="glAccountId"/>
         <key-map field-name="organizationPartyId"/>
         <key-map field-name="customTimePeriodId"/>
