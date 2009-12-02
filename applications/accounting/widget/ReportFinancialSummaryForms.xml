@@ -100,38 +100,26 @@ under the License.
 
     <form name="IncomeStatementList" type="list" list-name="glAccountIncomeList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId" from-field="glAccountId"/>
-            </entity-one>
-        </row-actions>
-        <field name="glAccountId" use-when="isPdf != true">
+        <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="glAccountId"  use-when="isPdf == true"><display description="${glAccountId}"/></field>
-        <field name="accountName"><display description="${glAccount.accountName}"/></field>
+        <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="ExpenseStatementList" type="list" list-name="glAccountExpenseList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId" from-field="glAccountId"/>
-            </entity-one>
-        </row-actions>
-        <field name="glAccountId" use-when="isPdf != true">
+        <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="glAccountId"  use-when="isPdf == true"><display description="${glAccountId}"/></field>
-        <field name="accountName"><display description="${glAccount.accountName}"/></field>
+        <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
