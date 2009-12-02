@@ -32,8 +32,8 @@ under the License.
      <@orderedlist node=child/>
     <#elseif child?node_type = 'element' && child?node_name = "itemizedlist">
      <@itemizedlist node=child/>
-    <#elseif child?node_type = 'element' && child?node_name = "graphic">
-      <img src="${child["@fileref"]}" height="${child["@height"]}" width="${child["@width"]}"/>
+    <#elseif child?node_type = 'element' && child?node_name = "mediaobject">
+      <@mediaobject node=child/>
     </#if>
   </#list>
 </#macro>
@@ -76,7 +76,21 @@ under the License.
   <ul class=dots><@listItems node=node/></ul>
 </#macro>
 
-
+<#macro mediaobject node>
+  <#list node?children as item>
+    <#if item?node_type = "element" && item?node_name = "imageobject">
+        <#assign fileref = item.imagedata["@fileref"]/>
+        <#assign depth = item.imagedata["@depth"]/>
+        <#assign width = item.imagedata["@width"]/>
+    <#elseif item?node_type = "element" && item?node_name = "textobject">
+        <#assign alt = item.phrase/>
+    <#elseif item?node_type = "element" && item?node_name = "caption">
+        <#assign caption = item/>
+    </#if>
+  </#list>
+  <img src="${fileref}" <#if depth?has_content> height="${depth}"</#if> <#if width?has_content> width="${width}"</#if> <#if alt?has_content> alt="${alt}"</#if>/>
+  <#if caption?has_content><div>${caption}</div></#if>
+</#macro>
 
 <#macro para para>
   <@text text=para/>
