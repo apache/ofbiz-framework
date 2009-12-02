@@ -2859,7 +2859,7 @@
         <value xml:lang="fr">Carte de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट कार्ड</value>
         <value xml:lang="it">Carta Credito</value>
-        <value xml:lang="nl">Credit Kaart</value>
+        <value xml:lang="nl">Creditcard</value>
         <value xml:lang="ro">Carte de Credit</value>
         <value xml:lang="ru">Кредитная карта</value>
         <value xml:lang="th">บัตรเครดิต</value>
@@ -2871,7 +2871,7 @@
         <value xml:lang="fr">Transfert de fonds électronique</value>
         <value xml:lang="hi_IN">इलेक्ट्रॉनिक निधि अंतरण(EFT)</value>
         <value xml:lang="it">Bonifico (EFT)</value>
-        <value xml:lang="nl">Bank transfer</value>
+        <value xml:lang="nl">Betaling per bank/giro</value>
         <value xml:lang="ro">Transfer Electronic de Fonduri(EFT)</value>
         <value xml:lang="ru">Банковский перевод</value>
         <value xml:lang="th">บัญชีธนาคาร</value>
@@ -2895,7 +2895,7 @@
         <value xml:lang="fr">Paiement à la livraison</value>
         <value xml:lang="hi_IN">सुपुर्दगी पर नकद</value>
         <value xml:lang="it">Contrassegno</value>
-        <value xml:lang="nl">Betaling bij aflevering</value>
+        <value xml:lang="nl">Rembours betaling</value>
         <value xml:lang="ro">Livrare Numerar</value>
         <value xml:lang="ru">Наличными при получении</value>
         <value xml:lang="th">เงินด่วน</value>
@@ -2906,6 +2906,7 @@
         <value xml:lang="en">eBay</value>
         <value xml:lang="fr">eBay</value>
         <value xml:lang="it">eBay</value>
+        <value xml:lang="nl">eBay</value>
         <value xml:lang="th">อีเบย์</value>
     </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
@@ -2946,6 +2947,7 @@
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="hi_IN">वित्तीय खाता</value>
         <value xml:lang="it">Conto finanziario</value>
+        <value xml:lang="nl">Financiële rekening</value>
         <value xml:lang="zh">金融账户</value>
     </property>
     <property key="PaymentMethodType.description.GIFT_CARD">
@@ -2966,7 +2968,7 @@
         <value xml:lang="fr">Bon d'achat</value>
         <value xml:lang="hi_IN">उपहार प्रमाण पत्र(GiftCertificate)</value>
         <value xml:lang="it">Certificato Omaggio</value>
-        <value xml:lang="nl">Geschenk certificaat</value>
+        <value xml:lang="nl">Cadeaubon</value>
         <value xml:lang="ro">Certificat Omagiu</value>
         <value xml:lang="ru">Подарочный сертификат</value>
         <value xml:lang="th">ใบรับรองของขวัญ</value>
@@ -2978,7 +2980,7 @@
         <value xml:lang="fr">Mandat</value>
         <value xml:lang="hi_IN">मनी ऑर्डर</value>
         <value xml:lang="it">Ordine Soldi</value>
-        <value xml:lang="nl">Betaal opdracht</value>
+        <value xml:lang="nl">Betaalopdracht</value>
         <value xml:lang="ro">Mandat postal</value>
         <value xml:lang="ru">Денежный перевод</value>
         <value xml:lang="th">รายการการเงิน</value>
@@ -2990,7 +2992,7 @@
         <value xml:lang="fr">Chèque</value>
         <value xml:lang="hi_IN">व्यक्तिगत चेक</value>
         <value xml:lang="it">Assegno Personale</value>
-        <value xml:lang="nl">Persoonlijke  Check</value>
+        <value xml:lang="nl">Persoonlijke  check</value>
         <value xml:lang="ro">Cec Personal</value>
         <value xml:lang="ru">Личный чек</value>
         <value xml:lang="th">เช็คส่วนบุคคล</value>
@@ -3002,6 +3004,7 @@
         <value xml:lang="fr">Paiement de commission</value>
         <value xml:lang="hi_IN">दलाली भुगतान</value>
         <value xml:lang="it">Pagamento Provvigioni</value>
+        <value xml:lang="nl">Commissie betaling</value>
         <value xml:lang="ru">Комиссионный платеж</value>
         <value xml:lang="th">การชำระเงินค่านายหน้า</value>
         <value xml:lang="zh">佣金付款</value>
@@ -3060,6 +3063,7 @@
         <value xml:lang="fr">Crédit de bons d'achat</value>
         <value xml:lang="hi_IN">उपहार प्रमाणपत्र(GiftCertificate) जमा</value>
         <value xml:lang="it">Deposito Certificato Omaggio</value>
+        <value xml:lang="nl">Tegoedbon</value>
         <value xml:lang="ro">Depozit Certificat Omagiu</value>
         <value xml:lang="ru">Депозит подарочного сертификата</value>
         <value xml:lang="th">เงินมัดจำใบรับรองของขวัญ</value>
