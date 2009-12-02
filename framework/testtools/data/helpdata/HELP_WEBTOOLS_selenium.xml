@@ -78,7 +78,13 @@
                     remove this at the start of the test if you don't want the delay</para>
                 <para>- Here are some screen shots of what you should be seeing.</para>
                 <para>
-                    <graphic fileref="/images/help/ofbizSeleniumSetup1.png" height="478" width="638"/>
+                    <mediaobject>
+                        <imageobject>
+                            <imagedata fileref="/images/help/ofbizSeleniumSetup1.png" width="638" depth="478"/>
+                        </imageobject>
+                        <textobject><phrase>Selenium server in action</phrase></textobject>
+                        <caption>This is a screen capture when Selenium server is launched</caption>
+                    </mediaobject>
                 </para>
             </section>
             <section>
