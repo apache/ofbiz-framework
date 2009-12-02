@@ -4507,7 +4507,7 @@
         <value xml:lang="fr">Configurations globales du GL</value>
         <value xml:lang="hi_IN">सार्विक जीएल(GL) सेटिंग्स</value>
         <value xml:lang="it">Configurazione Contabilità Generale</value>
-        <value xml:lang="nl">Algemene configuratie boekhouding</value>
+        <value xml:lang="nl">Algemene instellingen boekhouding</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">全局总账设置</value>
     </property>
@@ -6555,6 +6555,7 @@
         <value xml:lang="de">Hauptbuch-Einstellungen des Unternehmens</value>
         <value xml:lang="en">Organization GL Settings</value>
         <value xml:lang="hi_IN">संगठन जीएल(Gl) सेटिंग्स</value>
+        <value xml:lang="nl">Organisatie grootboek instellingen</value>		
         <value xml:lang="zh">组织机构总账设置</value>
     </property>
     <property key="AccountingOrganizationPartyId">
