@@ -28,7 +28,7 @@ form label {
     font-size: 11px;
     color: #5d5644;
     margin-top: 5px;
-  text-transform:uppercase;
+    text-transform:uppercase;
 }
 
 form a img {
@@ -45,15 +45,16 @@ form tbody tr {
 
 input[type="radio"],input[type="checkbox"] {
   font-size: 1.1em;
-  margin: 5px 5px 10px 5px;
+  margin: 5px 5px 10px 0px;
 }
 
 input[type="text"],input[type="password"] {
-  border: #ddd solid 2px;
-  font-weight:bold;
-  font-size: 1.1em;
-  margin:5px 5px 5px 5px;
-  padding:2px 4px;
+    background:#fbfbfb;
+    border: #ccc solid 1px;
+    font-weight:normal;
+    font-size: 1.1em;
+    margin:5px 0px;
+    padding:2px 4px;
 }
 
 input[type="submit"],input[type="button"],input[type="reset"] {
@@ -62,7 +63,7 @@ input[type="submit"],input[type="button"],input[type="reset"] {
     color: #444;
   font-weight:bold;
   line-height:1.8em;
-  margin:5px 5px 2px 5px;
+  margin:5px 5px 2px 0px;
   padding:2px 4px;
   text-transform:uppercase;
 }
@@ -84,11 +85,11 @@ input[type="file"] {
 }
 
 select {
-  background-color: #ffffff;
-  border: #ddd solid 2px;
+  background-color: #fbfbfb;
+  border: #ccc solid 1px;
   font-size: 1.1em;
   height: 1.6em; /* force ctrl to scale with text */
-  margin:5px 5px 2px 5px;
+  margin:5px 0px 2px 0px;
 }
 
 select[multiple="multiple"] {
@@ -104,9 +105,9 @@ textarea {
 }
 
 input:focus,.contentarea textarea:focus {
-  border: 2px solid #6E2723;
+  border: 1px solid #6E2723;
 }
 
 input.focused, textarea.focused {
-  border: 2px solid #6E2723;
+  border: 1px solid #6E2723;
 }
