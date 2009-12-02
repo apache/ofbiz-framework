@@ -1,8 +1,8 @@
 rem set JAVA_HOME=%JDK_15%
 set OFBIZ_HOME=../..
 set CP=./build/lib/ofbiz-testtools.jar
-set CP=%CP%;./lib/httpclient-4.0-beta1.jar
 set CP=%CP%;./lib/selenium-java-client-driver.jar
+set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/httpclient-4.0.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/jdom-1.1.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/scripting/jython-nooro.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/junit.jar

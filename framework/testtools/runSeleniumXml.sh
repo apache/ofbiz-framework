@@ -1,9 +1,9 @@
 #!/bin/sh
-# export JAVA_HOME=$JDK_15
+
 export OFBIZ_HOME=../..
 export CP=./build/lib/ofbiz-testtools.jar
-export CP=$CP:./lib/httpclient-4.0-beta1.jar
 export CP=$CP:./lib/selenium-java-client-driver.jar
+export CP=$CP:$OFBIZ_HOME/framework/base/lib/httpclient-4.0.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/jdom-1.1.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/scripting/jython-nooro.jar
 export CP=$CP:$OFBIZ_HOME/framework/base/lib/junit.jar
