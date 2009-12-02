@@ -9,6 +9,7 @@ applications/party/build/
 applications/product/build/
 applications/securityext/build/
 applications/workeffort/build/
+bin/
 framework/appserver/build/
 framework/base/build/
 framework/bi/build/
