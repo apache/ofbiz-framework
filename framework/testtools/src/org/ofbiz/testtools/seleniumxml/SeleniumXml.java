@@ -67,9 +67,7 @@ import org.ofbiz.testtools.seleniumxml.RemoteRequest;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleniumException;
 
-
 public class SeleniumXml {
-    //public static final String PROPS_NAME = "selenium.config";
     public static String PROPS_NAME = "selenium.config";
     Logger  logger = Logger.getLogger(SeleniumXml.class.getName());
 
@@ -83,7 +81,7 @@ public class SeleniumXml {
     private String username;
     private String password;
     private String testCaseDirectory;
-    
+
     public static void main(String[] args) throws JDOMException, IOException, TestCaseException{
         if(args.length == 0) {
             System.out.println("Please include a path for the selenium XML test file.");
@@ -104,7 +102,7 @@ public class SeleniumXml {
                 System.err.println(" Argument : "+ args[0] );
                 System.err.println(" Full absolute path of file : "+ testFile.getAbsolutePath()  );
                 System.err.println(" Full canonical path of file : "+ testFile.getCanonicalPath() );
-                
+
                 sel.testCaseDirectory =  sel.getFileDirectory(testFile.getAbsolutePath());
                 System.err.println(" testCaseDirectory: "+ sel.testCaseDirectory );
                  sel.runTest( testFile.getAbsolutePath() );
@@ -113,7 +111,7 @@ public class SeleniumXml {
             }
         }
     }
-   
+
     /* call run test suite from webtool selenium */
     public static String runTestSuite(HttpServletRequest request, HttpServletResponse response){
         Map parameters = UtilHttp.getParameterMap(request);
@@ -135,17 +133,16 @@ public class SeleniumXml {
              SeleniumXml sel = new SeleniumXml();
              File testFile = new File(para.trim());
              if (testFile.exists()) {
-                 System.err.println(" Argument : "+ para.trim() );
-                 System.err.println(" Full absolute path of file : "+ testFile.getAbsolutePath()  );
-                 System.err.println(" Full canonical path of file : "+ testFile.getCanonicalPath() );
-                 
-                 sel.testCaseDirectory =  sel.getFileDirectory(testFile.getAbsolutePath());
-                 System.err.println(" testCaseDirectory: "+ sel.testCaseDirectory );
-                  sel.runTest( testFile.getAbsolutePath() );
-             } else {
-                 System.err.println("Test File is not exist :"+para.trim());
-             }
-             //sel.runTest(para.trim());
+                System.err.println(" Argument : "+ para.trim() );
+                System.err.println(" Full absolute path of file : "+ testFile.getAbsolutePath()  );
+                System.err.println(" Full canonical path of file : "+ testFile.getCanonicalPath() );
+
+                sel.testCaseDirectory =  sel.getFileDirectory(testFile.getAbsolutePath());
+                System.err.println(" testCaseDirectory: "+ sel.testCaseDirectory );
+                sel.runTest( testFile.getAbsolutePath() );
+            } else {
+                System.err.println("Test File is not exist :"+para.trim());
+            }
         }catch(JDOMException jdome){
              System.out.println(jdome.getMessage());
          }catch(IOException ioe){
@@ -154,7 +151,7 @@ public class SeleniumXml {
              return "success";
          }
     }
-    
+
     private String getFileDirectory(String filePath){
         String directory = null;
         if (filePath.indexOf(File.separatorChar) != -1   ) {
@@ -163,7 +160,7 @@ public class SeleniumXml {
         }
         return directory;
     }
-    
+
     public SeleniumXml() throws IOException {
         this.map = FastMap.newInstance();
         if (props == null) {
@@ -176,8 +173,6 @@ public class SeleniumXml {
     private static void initConfig() throws IOException {
         try {
             String configFile = System.getProperty(PROPS_NAME);
-            //System.out.println("Looking for " + PROPS_NAME);
-            //System.out.println("Found following config file: " + configFile);
             if (configFile == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + PROPS_NAME + " is not set, cannot resolve location.";
                 throw new MalformedURLException(errMsg);
@@ -192,23 +187,22 @@ public class SeleniumXml {
             throw e;
         }
     }
-    
+
     private static void initConfig(URL url) throws IOException {
         try {
             if (url == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + url.toString() + " is not set, cannot resolve location.";
                 throw new MalformedURLException(errMsg);
             }
-           // BasicConfigurator.configure();
             props = UtilProperties.getProperties(url);
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
     }
-    
+
     /**
-     * Constructor to preset with an existing Map of parameters.  Intended to be used 
+     * Constructor to preset with an existing Map of parameters.  Intended to be used
      * for nested Selenium tests.
      * @param map
      */
@@ -232,18 +226,16 @@ public class SeleniumXml {
 
     public void runCommands() throws TestCaseException {
         Element root = this.doc.getRootElement();
-        //List<Element> nodes = UtilGenerics.cast(root.getChildren());
         List<Element> nodes = root.getChildren();
         runCommands(nodes);
     }
-    
+
     public void runCommands(List<Element> nodes) throws TestCaseException{
-        
         for(Element elem: nodes) {
             String thisName = elem.getName();
             if("type" == elem.getName()) {
                 typeCmd(elem);
-                
+
             } else if("setParam" == thisName) {
                 setParam(elem);
             } else if("clickAt" == thisName) {
@@ -327,23 +319,17 @@ public class SeleniumXml {
             } else if("runScript" == thisName) {
                 runScript(elem);
              } else {
-                //logger.error("Unknown SeleniumXml command found:"+elem.getName());
-                //Use reflection with parameters using the naming convention param1, param2, and any return results stored 
-                //in map using "out"
                 logger.info("Undefined command calling by reflection for command: " + thisName);
                 callByReflection(elem);
             }
         }
-        
     }
-    
+
     private void callByReflection(Element elem) {
-        
         String methodName = elem.getName();
-        //Support two parameters for all selenium RC calls
-        String param1 = elem.getAttributeValue("param1");  
-        String param2 = elem.getAttributeValue("param2");  
-    
+        String param1 = elem.getAttributeValue("param1");
+        String param2 = elem.getAttributeValue("param2");
+
         Class[] paramTypes = null;
         Object[] args = null;
         if( (param1 != null)  && (param2 != null) ) {
@@ -358,147 +344,139 @@ public class SeleniumXml {
         }
 
         //Capture the output name for "get" methods
-        String out = elem.getAttributeValue("out");  
-        
+        String out = elem.getAttributeValue("out");
+
         Method m;
         try {
             m = (Method) this.sel.getClass().getDeclaredMethod(methodName, paramTypes);
             Object results = m.invoke(this.sel, args);
-            
+
             //Add output parameter to common map
             if( (out != null) && (results != null)) {
                 addParam(out, results);
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             logger.error("Exception occurred when Unknown SeleniumXml command found:"+elem.getName());
             e.printStackTrace();
         }
     }
-    
+
     public void waitForValue(Element elem) {
-        
+
         String locator = replaceParam(elem.getAttributeValue("locator"));
         String timeout = elem.getAttributeValue("timeout");
         String outParam = elem.getAttributeValue("out");
-        
+
         int maxTime = Integer.parseInt(timeout);
         int maxSeconds = maxTime/1000;
         logger.debug("waitForValue: locator=" + locator + " timeout=" + timeout);
-        //this.sel.waitForCondition(script, timeout);
         String foundValue = null;
         for(int second=0;; second++) {
             if(second >= maxSeconds) {
                 throw new SeleniumException("waitForValue exceeded timeout: " + maxTime);
             }
-            try{ 
+            try{
                 //getValue throws an exception if it can't find locator
                 // - sleep for 1 sec and try again
                 // - otherwise break as we found the value
-                foundValue = sel.getValue(locator); 
+                foundValue = sel.getValue(locator);
                 if(outParam != null) {
                     this.addParam(outParam, foundValue);
                 }
-                break; //
-            } catch(Exception e) { 
+                break;
+            } catch(Exception e) {
                 //wait for 1 second and then resume
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException threadE) {
-                    // TODO Auto-generated catch block
                     threadE.printStackTrace();
                 }
             }
         }
-    }    
-    
+    }
+
     public void setParam(Element elem) {
-        
         String name = replaceParam(elem.getAttributeValue("name"));
         String value = replaceParam(elem.getAttributeValue("value"));
-        
+
         if( (name != null) && (value != null)) {
             this.addParam(name, value);
         }
     }
+
     public void getValueCmd(Element elem) {
-        
         String locator = replaceParam(elem.getAttributeValue("locator"));
         String outParam = elem.getAttributeValue("out");
-        
+
         logger.debug("getValueCmd: locator=" + locator);
-        String foundValue = sel.getValue(locator); 
+        String foundValue = sel.getValue(locator);
         if(outParam != null) {
             this.addParam(outParam, foundValue);
         }
-    }    
-    
+    }
+
     public void waitForCondition(Element elem) {
-        
         String script = elem.getAttributeValue("script");
         String timeout = elem.getAttributeValue("timeout");
-        
+
         logger.debug("waitForCondition: script=" + script + " timeout=" + timeout);
         this.sel.waitForCondition(script, timeout);
     }
-    
+
     public void openWindow(Element elem) {
-        
         String url = elem.getAttributeValue("url");
         String windowId = replaceParam(elem.getAttributeValue("windowId"));
-        
+
         logger.debug("openWindow: url=" + url + " windowId=" + windowId);
         this.sel.openWindow(url, windowId);
         return;
     }
-    
+
     public void selectWindow(Element elem) {
-        
         String windowId = replaceParam(elem.getAttributeValue("windowId"));
-        
+
         logger.debug("selectWindow:  windowId=" + windowId);
         this.sel.selectWindow(windowId);
         return;
     }
-    
+
     public void runScript(Element elem) {
-        
         String script = replaceParam(elem.getAttributeValue("script"));
-        
+
         logger.debug("runScript:  script=" + script);
         this.sel.runScript(script);
         return;
     }
-    
+
     public void loadData(Element elem) throws TestCaseException {
-            
+
             String file = elem.getAttributeValue("file");
             String iterations = elem.getAttributeValue("iterations");
             List<Element> children = UtilGenerics.cast(elem.getChildren());
-            
+
             DataLoader loader = new DataLoader(file, iterations, this, children);
             loader.runTest();
     }
 
     public void groovyRunner(Element elem) {
-        
+
         String urlName = elem.getAttributeValue("srcUrl");
         GroovyRunner runner = new GroovyRunner(urlName, this);
         runner.runTest();
     }
 
     public void jythonRunner(Element elem) {
-        
+
         String urlName = elem.getAttributeValue("srcUrl");
         JythonRunner runner = new JythonRunner(urlName, this);
         runner.runTest();
     }
 
     public void dataLoop(Element elem) throws TestCaseException {
-        
+
         String dataListName = elem.getAttributeValue("dataListName");
         List<Element> children = UtilGenerics.cast(elem.getChildren());
-        
+
         DataLoop looper = new DataLoop(dataListName, this, children);
         looper.runTest();
     }
@@ -517,16 +495,16 @@ public class SeleniumXml {
         RemoteRequest loader = new RemoteRequest( this, children, loginAs, requestUrl, host, responseHandlerMode);
         loader.runTest();
     }
-    
+
     public void ifCmd(Element elem) throws TestCaseException {
         String isRun = replaceParam(elem.getAttributeValue("condition"));
         if (isRun != null && !isRun.equals("") && Boolean.valueOf(isRun)) {
             List <Element> children = elem.getChildren();
-            this.runCommands(children);                
+            this.runCommands(children);
         }else{
             Element child = elem.getChild("else");
             List <Element> children = child.getChildren();
-            this.runCommands(children);                
+            this.runCommands(children);
         }
     }
 
@@ -534,18 +512,18 @@ public class SeleniumXml {
         String isRun = replaceParam(elem.getAttributeValue("isRun"));
         if (isRun != null && Boolean.valueOf(isRun)) {
             List <Element> children = elem.getChildren();
-            this.runCommands(children);                
+            this.runCommands(children);
         }
     }
-    
+
     public String getParamValue(String key) {
         return (String) this.map.get(key);
     }
-    
+
     public Object getParamValue(Object key) {
         return this.map.get(key);
     }
-    
+
     public void addParam(String name, String value) {
         logger.info("addParam: name=" + name + " value="+value);
         this.map.put(name, value);
@@ -557,57 +535,28 @@ public class SeleniumXml {
     }
 
     private void assertContains(Element elem) throws TestCaseException {
-        String src = replaceParam(elem.getAttributeValue("src"));  
-        String test = replaceParam(elem.getAttributeValue("test"));  
+        String src = replaceParam(elem.getAttributeValue("src"));
+        String test = replaceParam(elem.getAttributeValue("test"));
         int indxSearch = src.indexOf(test);
         if(indxSearch == -1) {
             logger.info("assertContains didn't find " + test + " in the src");
             throw new TestCaseException("assertContains didn't find: " + test);
-            
+
         } else {
             logger.info("assertContains found " + test + " in the src");
         }
         //TODO: implement JUnit TestCase - Assert.assertTrue(indxSearch != -1);
-    }   
-    
-/*    private void selectPopup(Element elem) {
-        String locator = elem.getAttributeValue("locator");  
-//        String winId = elem.getAttributeValue("windowId");  
-        String timeout = elem.getAttributeValue("timeout");  
-        
-        //this.sel.waitForPopUp(winId, timeout);
-        this.sel.click(locator); 
-        
-        String[] winNames = this.sel.getAllWindowNames();
-        this.sel.selectWindow("name=" + winNames[1]);
     }
-    
-    private void getAllWindowIds(Element elem) {
-        String[] winIds = this.sel.getAllWindowIds();
-        for (String winId: winIds) {
-            logger.info("WindowId: " + winId);
-        }
-        String[] winNames = this.sel.getAllWindowNames();
-        for (String winName: winNames) {
-            logger.info("WindowName: " + winName);
-        }
-        
-        //this.sel.selectWindow("name=" + winNames[1]);
-        //System.out.println("Did we select WindowName: " + winNames[1]);
-    }
-*/    
+
     private void selectPopup(Element elem) {
-        String locator = elem.getAttributeValue("locator");  
-//        String winId = elem.getAttributeValue("windowId");  
-        String timeout = elem.getAttributeValue("timeout");  
-        
-        //this.sel.waitForPopUp(winId, timeout);
-        this.sel.click(locator); 
-        
+        String locator = elem.getAttributeValue("locator");
+        String timeout = elem.getAttributeValue("timeout");
+
+        this.sel.click(locator);
         String[] winNames = this.sel.getAllWindowNames();
         this.sel.selectWindow("name=" + winNames[1]);
     }
-    
+
     private void getAllWindowIds(Element elem) {
         String[] winIds = this.sel.getAllWindowIds();
         for(int i=0; i<winIds.length; i++) {
@@ -617,59 +566,54 @@ public class SeleniumXml {
         for(int i=0; i<winIds.length; i++) {
             logger.info("WindowName: " + winNames[i]);
         }
-        
-        //this.sel.selectWindow("name=" + winNames[1]);
-        //System.out.println("Did we select WindowName: " + winNames[1]);
     }
-    
+
     /**
      * Gets the hidden value of a list box
      * @param elem
      */
     private void getSelectedValue(Element elem) {
-        String locator = elem.getAttributeValue("locator");  
-        String out = elem.getAttributeValue("out");  
-        String text = this.sel.getSelectedValue(locator);  
+        String locator = elem.getAttributeValue("locator");
+        String out = elem.getAttributeValue("out");
+        String text = this.sel.getSelectedValue(locator);
         logger.info("getSelectedValue: locator=" + locator + " text="+text);
         addParam(out, text);
     }
-    
+
     /**
      * Gets the visible (displayed) value of a list box
      * @param elem
      */
     private void getSelectedLabel(Element elem) {
-        String locator = elem.getAttributeValue("locator");  
-        String out = elem.getAttributeValue("out");  
-        String text = this.sel.getSelectedLabel(locator);  
+        String locator = elem.getAttributeValue("locator");
+        String out = elem.getAttributeValue("out");
+        String text = this.sel.getSelectedLabel(locator);
         logger.info("getSelectedValue: locator=" + locator + " text="+text);
         addParam(out, text);
     }
     private void getSelectedId(Element elem) {
-        String locator = elem.getAttributeValue("locator");  
-        String out = elem.getAttributeValue("out");  
-        String text = this.sel.getSelectedId(locator);  
+        String locator = elem.getAttributeValue("locator");
+        String out = elem.getAttributeValue("out");
+        String text = this.sel.getSelectedId(locator);
         addParam(out, text);
     }
     private void getHtmlSource(Element elem) {
-        String paramName = elem.getAttributeValue("out");  
-        String text = this.sel.getHtmlSource();  
+        String paramName = elem.getAttributeValue("out");
+        String text = this.sel.getHtmlSource();
         logger.info("getHtmlsource: paramName=" + paramName + " text=" + text);
         addParam(paramName, text);
     }
-    
+
     private void getBodyText(Element elem) {
-        String paramName = elem.getAttributeValue("out");  
-        String text = this.sel.getBodyText();  
-//        logger.info("getBodyText: paramName=" + paramName + " text=" + text);
+        String paramName = elem.getAttributeValue("out");
+        String text = this.sel.getBodyText();
         addParam(paramName, text);
     }
     private void testcase(Element elem) {
         System.err.println("New testcase: " + elem.getAttributeValue("file"));
         String testFile = elem.getAttributeValue("file");
         String isRun = replaceParam(elem.getAttributeValue("isRun"));
-        
-        
+
         String absolutePath = getAbsolutePath(testFile);
         String parentTestCase = new String(this.testCaseDirectory);
         SeleniumXml newTest = new SeleniumXml(this);
@@ -680,14 +624,13 @@ public class SeleniumXml {
             }else{
                 System.err.println(" testFile :"+testFile+ "  isRun:"+isRun);
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail("Testcase error for file: " + absolutePath);
         }
         newTest.testCaseDirectory  = parentTestCase;
     }
-    
+
     private String getFileDirectoryForRelativePath(String filePath){
         String directory = null;
         if (filePath.indexOf("/") != -1   ) {
@@ -698,13 +641,14 @@ public class SeleniumXml {
             directory = filePath.substring(0, (lastIndexOf+1));
         }
         return directory;
-    }    
+    }
     private void clickAt(Element elem) {
         logger.debug("clickAt: " + replaceParam(elem.getAttributeValue("locator")));
         String locator = replaceParam(elem.getAttributeValue("locator"));
         String coordString = elem.getAttributeValue("coordString");
         this.sel.clickAt(locator, coordString);
     }
+
     /**
      * @param elem takes a Selenium String locator.  See Javadocs for more information.  Here are some
      * example locators:
@@ -716,90 +660,91 @@ public class SeleniumXml {
     private void clickCmd(Element elem) {
         logger.info("clickCmd: " +  replaceParam(elem.getAttributeValue("locator")));
         try {
-            this.sel.click(replaceParam(elem.getAttributeValue("locator")));  
+            this.sel.click(replaceParam(elem.getAttributeValue("locator")));
         } catch (SeleniumException e) {
-        
+
             logger.info("caught SeleniumException Name:"+elem.getName()+"  , Value: "+elem.getAttributeValue("locator"));
-            
+
             e.printStackTrace();
         }
     }
+
     private void doubleClick(Element elem) {
         logger.info("clickCmd: " +  replaceParam(elem.getAttributeValue("locator")));
-        this.sel.doubleClick((replaceParam(elem.getAttributeValue("locator"))));  
+        this.sel.doubleClick((replaceParam(elem.getAttributeValue("locator"))));
     }
-    
+
     private void checkCmd(Element elem) {
         logger.info("checkCmd: " +  replaceParam(elem.getAttributeValue("locator")));
-        this.sel.check(replaceParam(elem.getAttributeValue("locator")));  
+        this.sel.check(replaceParam(elem.getAttributeValue("locator")));
     }
+
     private void uncheckCmd(Element elem) {
         logger.info("uncheckCmd: " +  replaceParam(elem.getAttributeValue("locator")));
-        this.sel.uncheck(replaceParam(elem.getAttributeValue("locator")));  
+        this.sel.uncheck(replaceParam(elem.getAttributeValue("locator")));
     }
+
     private void typeCmd(Element elem) {
         String name = elem.getAttributeValue("name");
-        String value = replaceParam(elem.getAttributeValue("value"));  
+        String value = replaceParam(elem.getAttributeValue("value"));
         logger.info("typeCmd: id=" + name + " value=" + value);
-        this.sel.type(name, value);  
+        this.sel.type(name, value);
     }
+
     /*
      * setSpeed delays the time for the next selenium command to execute
      */
     private void setSpeed(Element elem) {
         logger.info("setSpeed: " + elem.getAttributeValue("value"));
-        this.sel.setSpeed(elem.getAttributeValue("value"));  
+        this.sel.setSpeed(elem.getAttributeValue("value"));
     }
+
     /*
-     * waitForPageToLoadCmd is the max timeout selenium will wait for a page to load.  
-     * Commands are executed immediately after the page loads therefore if the pages are 
-     * fast the test will go through the pages very quickly.  Use setSpeed if you want to 
+     * waitForPageToLoadCmd is the max timeout selenium will wait for a page to load.
+     * Commands are executed immediately after the page loads therefore if the pages are
+     * fast the test will go through the pages very quickly.  Use setSpeed if you want to
      * see the pages executed slower.
      */
     private void waitForPageToLoadCmd(Element elem) {
         logger.info("waitForPageToLoadCmd: " + elem.getAttributeValue("value"));
-        this.sel.waitForPageToLoad(elem.getAttributeValue("value"));  
+        this.sel.waitForPageToLoad(elem.getAttributeValue("value"));
     }
+
     private void openCmd(Element elem) {
-        String cmd = replaceParam(elem.getAttributeValue("value"));  
+        String cmd = replaceParam(elem.getAttributeValue("value"));
         logger.info("openCmd: " + cmd);
-        this.sel.open(cmd);  
-        //this.sel.windowMaximize();
+        this.sel.open(cmd);
     }
+
     private void uniqueIdCmd(Element elem) {
-        String paramName = elem.getAttributeValue("out");  
+        String paramName = elem.getAttributeValue("out");
         String paramValue = RandomStringUtils.randomAlphanumeric(MAX_STR_LENGTH).toUpperCase();
         logger.info("uniqueIdCmd: parameter=" + paramName + " value=" + paramValue);
         addParam(paramName, paramValue);
     }
-    
+
     /*
-     * captureText command captures the current HTML page and runs a regex to 
-     * get the specified string.  
+     * captureText command captures the current HTML page and runs a regex to
+     * get the specified string.
      *
      * For example:  if the following string existed in a web page
-     * 
      *   "xx <tag a=b> yy </tag> zz"
-     * 
-     *  
      * And you wanted to capture the value in the of the XML (yy).  You would do the following;
      * Use regxp: "<(\\S+?).*?>(.*?)</\\1>";  //The \\1 reuses group 1
-     * 
-     * <captureText regex="<(\\S+?).*?>(.*?)</\\1>" group="2" results="xmlValue" /> 
-     * 
+     *
+     * <captureText regex="<(\\S+?).*?>(.*?)</\\1>" group="2" results="xmlValue" />
+     *
      * The command will find the <tag>.. and group 2 contains the 'yy' value.
-     * 
+     *
      * Note: if 'group' is null it will default to the entire regex group.
      */
     private void captureTextInPageCmd(Element elem) {
-        
-        String regex = elem.getAttributeValue("regex");  
-        String group = elem.getAttributeValue("group");  
-        String results = elem.getAttributeValue("results");  
+        String regex = elem.getAttributeValue("regex");
+        String group = elem.getAttributeValue("group");
+        String results = elem.getAttributeValue("results");
         Pattern pattern = Pattern.compile(regex);
-    
-        String targetString = this.sel.getHtmlSource();  
-        
+        String targetString = this.sel.getHtmlSource();
+
         // Create the 'target' string we wish to interrogate.
         // Get a Matcher based on the target string.
         Matcher matcher = pattern.matcher(targetString);
@@ -818,7 +763,7 @@ public class SeleniumXml {
             addParam(results, resultsValue);
         } else {
             logger.info("Didn't find results with regex: " + regex);
-            
+
             //TODO: temporary to capture the missed string
             /*try {
                   FileWriter out = new FileWriter("c:/dev/erep/output/failure.txt");
@@ -831,16 +776,16 @@ public class SeleniumXml {
             } */
         }
     }
-    
+
     private void randomAlphaStringCmd(Element elem) {
         int nSize = 0;
         int nPrefixSize = 0;
-        String paramName = elem.getAttributeValue("out");  
-        String size = elem.getAttributeValue("size");  
+        String paramName = elem.getAttributeValue("out");
+        String size = elem.getAttributeValue("size");
         if(size != null) {
             nSize = Integer.parseInt(size);
         }
-        String prefix = elem.getAttributeValue("prefix");  
+        String prefix = elem.getAttributeValue("prefix");
         if(prefix != null) {
             nPrefixSize = prefix.length();
         }
@@ -855,34 +800,40 @@ public class SeleniumXml {
         logger.info("randomStringAlphaCmd: paramName=" + paramName + " paramValue=" + paramValue);
         addParam(paramName, paramValue);
     }
+
     private void randomStringCmd(Element elem) {
-        String paramName = elem.getAttributeValue("out");  
-        String size = elem.getAttributeValue("size");  
-        String prefix = elem.getAttributeValue("prefix");  
+        String paramName = elem.getAttributeValue("out");
+        String size = elem.getAttributeValue("size");
+        String prefix = elem.getAttributeValue("prefix");
         String paramValue = TestUtils.createRandomString(prefix, Integer.parseInt(size));
         logger.info("randomStringCmd: paramName=" + paramName + " paramValue=" + paramValue);
         addParam(paramName, paramValue);
     }
+
     private void getSelectedIdsCmd(Element elem) {
         logger.info("getSelectdIdsCmd: " + elem.getAttributeValue("value"));
-        this.sel.getSelectedIds(elem.getAttributeValue("value"));  
+        this.sel.getSelectedIds(elem.getAttributeValue("value"));
     }
+
     private void selectCmd(Element elem) {
         String selectLocator = elem.getAttributeValue("locator");
         String optionLocator = elem.getAttributeValue("option");
         logger.info("selectCmd: selectLocator=" + selectLocator + " optionLocator=" + optionLocator);
-        this.sel.select(selectLocator, optionLocator);  
+        this.sel.select(selectLocator, optionLocator);
     }
+
     private void printCmd(Element elem) {
         String value = replaceParam(elem.getAttributeValue("value"));
         logger.info("Print: " + value);
     }
+
     private void copyCmd(Element elem) {
-        String toStr = replaceParam(elem.getAttributeValue("to")); 
-        String fromStr = replaceParam(elem.getAttributeValue("from"));  
+        String toStr = replaceParam(elem.getAttributeValue("to"));
+        String fromStr = replaceParam(elem.getAttributeValue("from"));
         logger.info("copyCmd: to=" + toStr + " from=" + fromStr);
         addParam(toStr, fromStr);
     }
+
     private void appendCmd(Element elem) {
         logger.info("appendCmd: src1=" + elem.getAttributeValue("src1") + " src2=" + elem.getAttributeValue("src2"));
         String newStr = replaceParam(elem.getAttributeValue("src1")) + replaceParam(elem.getAttributeValue("src2"));
@@ -891,10 +842,10 @@ public class SeleniumXml {
 
     private void loadParameter(Element elem) {
         logger.info("loadParameter: fileName=" + elem.getAttributeValue("file") );
-        
         String parameterFile = elem.getAttributeValue("file");
         String absolutePath = getAbsolutePath(parameterFile);
         BasicConfigurator.configure();
+
         try {
             InputStream in = new FileInputStream(absolutePath);
             Properties parameter = new Properties();
@@ -902,25 +853,24 @@ public class SeleniumXml {
             in.close();
 
             Set<Entry<Object, Object>> entrySet = parameter.entrySet();
-            
+
             for(Map.Entry entry : entrySet) {
                 String key = (String)entry.getKey();
                 String value = (String)entry.getValue();
                 System.out.println(key + " = " + value);
                 addParam(key, value);
-            }            
+            }
         } catch (Exception e) {
             logger.error("Can not load parameter . ");
         }
-        
+
         String newStr = replaceParam(elem.getAttributeValue("src1")) + replaceParam(elem.getAttributeValue("src2"));
         addParam(elem.getAttributeValue("out"), newStr);
     }
 
     public String replaceParam(String value) {
-        
         if (value == null) { return value; }
-        
+
         StringBuilder buf = new StringBuilder();
         int end = 0;
         int start = 0;
@@ -932,13 +882,13 @@ public class SeleniumXml {
             end = remainingStr.indexOf("}");
             String paramName = remainingStr.substring(start + 2, end);
             replacedVal = getParamValue(paramName);
-            if (replacedVal == null) { 
+            if (replacedVal == null) {
                 replacedVal = "";
             }
             buf.append(replacedVal);
             remainingStr = remainingStr.substring(end + 1);
             end = 0;
-        } 
+        }
         buf.append(remainingStr.substring(end));
         return buf.toString();
     }
@@ -948,35 +898,32 @@ public class SeleniumXml {
         if( (value.indexOf("${") != -1) &&
             (value.indexOf("}", 1) != -1) ) {
             return true;
-        } 
+        }
         return false;
     }
-    
+
     //TODO read properties file to setup selenium
     private void setupSelenium() {
-        
         //return if Selenium has already been setup
         //e.g. nested selenium test cases.
         if(this.sel != null) return;
-        
+
         String serverHost = null;
         String serverPort = null;
         String browser = null;
         String startUrl = null;
-        
+
         //First initialize with property values
         if(props != null ) { //Get setup params from property value
-            
+
             serverHost = props.getProperty("serverHost", "localhost");
             serverPort = props.getProperty("proxyPort", "4444");
             browser = props.getProperty("browser", "*iexplore");
             startUrl = props.getProperty("startUrl", "http://localhost:8080");
         }
-        
         //Second over ride properties if defined in the "setup" element
         Element elem = this.doc.getRootElement().getChild("setup");
-        if (elem != null) { 
-        
+        if (elem != null) {
             //Override properties if specified
             if( elem.getAttributeValue("serverHost") != null ) {
                 serverHost = elem.getAttributeValue("serverHost");
@@ -998,6 +945,7 @@ public class SeleniumXml {
         this.sel = new DefaultSelenium(serverHost, Integer.parseInt(serverPort), browser, startUrl);
         this.sel.start();
     }
+
     private String getAbsolutePath(String fileName){
         logger.info("getAbsolutePath: fileName=" + fileName);
         String fileAbsolutePath = fileName;
@@ -1009,30 +957,31 @@ public class SeleniumXml {
         logger.info("getAbsolutePath: returning fileName=" + fileName);
         return fileAbsolutePath;
     }
+
     private void readFile(String fileName) throws JDOMException, IOException {
         String absolutePath = getAbsolutePath(fileName);
         File xmlFile = new File(absolutePath);
-        
+
         SAXBuilder builder = new SAXBuilder();
         this.doc = builder.build(xmlFile);
     }
-    
+
     public String getUserName() {
         return this.username;
     }
-    
+
     public void setUserName(String val) {
         this.username = val;
     }
-    
+
     public void setPassword(String val) {
         this.password = val;
     }
-    
+
     public String getPassword() {
         return this.password;
     }
-    
+
     public Map <String, Object> getMap() {
         return this.map;
     }
