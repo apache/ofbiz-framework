@@ -118,7 +118,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="BIZZNESS_TIME" global="true"/>
@@ -289,7 +290,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapSimple.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>

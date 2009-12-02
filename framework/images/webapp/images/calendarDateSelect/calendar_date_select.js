@@ -1,23 +1,22 @@
-// CalendarDateSelect version 1.10.2 - a prototype based date picker
-// Questions, comments, bugs? - email the Author - Tim Harper <"timseeharper@gmail.seeom".gsub("see", "c")>
+// CalendarDateSelect version 1.15 - a prototype based date picker
+// Questions, comments, bugs? - see the project page: http://code.google.com/p/calendardateselect
 if (typeof Prototype == 'undefined') alert("CalendarDateSelect Error: Prototype could not be found. Please make sure that your application's layout includes prototype.js (.g. <%= javascript_include_tag :defaults %>) *before* it includes calendar_date_select.js (.g. <%= calendar_date_select_includes %>).");
 if (Prototype.Version < "1.6") alert("Prototype 1.6.0 is required.  If using earlier version of prototype, please use calendar_date_select version 1.8.3");
 
 Element.addMethods({
   purgeChildren: function(element) { $A(element.childNodes).each(function(e){$(e).remove();}); },
   build: function(element, type, options, style) {
-    var newElement = Element.build(type, options, style);
+    var newElement = Element.buildAndAppend(type, options, style);
     element.appendChild(newElement);
     return newElement;
   }
 });
 
-Element.build = function(type, options, style)
+Element.buildAndAppend = function(type, options, style)
 {
   var e = $(document.createElement(type));
-  $H(options).each(function(pair) { eval("e." + pair.key + " = pair.value" ); });
-  if (style)
-    $H(style).each(function(pair) { eval("e.style." + pair.key + " = pair.value" ); });
+  $H(options).each(function(pair) { e[pair.key] = pair.value });
+  if (style) e.setStyle(style);
   return e;
 };
 nil = null;
@@ -39,6 +38,15 @@ Date.prototype.toFormattedString = function(include_time){
   if (include_time) { hour = this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + " " + this.getAMPM() }
   return str;
 }
+/* mod for OFBiz Date Field */
+  Date.prototype.toFormattedString_ofbiz_default = function(include_time){
+  var hour, str;
+  str = this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + Date.padded2(this.getDate());
+
+  if (include_time) { hour=this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + ":" + this.getSeconds() + "." + this.getMilliseconds() }
+  return str;
+}
+/* mod end*/
 Date.parseFormattedString = function(string) { return new Date(string);}
 Math.floor_to_interval = function(n, i) { return Math.floor(n/i) * i;}
 window.f_height = function() { return( [window.innerHeight ? window.innerHeight : null, document.documentElement ? document.documentElement.clientHeight : null, document.body ? document.body.clientHeight : null].select(function(x){return x>0}).first()||0); }
@@ -47,7 +55,8 @@ window.f_scrollTop = function() { return ([window.pageYOffset ? window.pageYOffs
 _translations = {
   "OK": "OK",
   "Now": "Now",
-  "Today": "Today"
+  "Today": "Today",
+  "Clear": "Clear"
 }
 SelectBox = Class.create();
 SelectBox.prototype = {
@@ -82,6 +91,7 @@ CalendarDateSelect.prototype = {
       popup: nil,
       time: false,
       buttons: true,
+      clear_button: true,
       year_range: 10,
       close_on_click: nil,
       minute_interval: 5,
@@ -223,7 +233,7 @@ CalendarDateSelect.prototype = {
           onclick: function() {this.today(false); return false;}.bindAsEventListener(this)
         });
 
-      if (this.options.get("time")=="mixed") buttons_div.build("span", {innerHTML: " | ", className:"button_seperator"})
+      if (this.options.get("time")=="mixed") buttons_div.build("span", {innerHTML: "&#160;|&#160;", className:"button_seperator"})
 
       if (this.options.get("time")) b = buttons_div.build("a", {
         innerHTML: _translations["Now"],
@@ -231,10 +241,14 @@ CalendarDateSelect.prototype = {
         onclick: function() {this.today(true); return false}.bindAsEventListener(this)
       });
 
-      if (!this.options.get("embedded"))
+      if (!this.options.get("embedded") && !this.closeOnClick())
       {
-        buttons_div.build("span", {innerHTML: "&#160;"});
+        buttons_div.build("span", {innerHTML: "&#160;|&#160;", className:"button_seperator"})
         buttons_div.build("a", { innerHTML: _translations["OK"], href: "#", onclick: function() {this.close(); return false;}.bindAsEventListener(this) });
+      }
+      if (this.options.get('clear_button')) {
+        buttons_div.build("span", {innerHTML: "&#160;|&#160;", className:"button_seperator"})
+        buttons_div.build("a", { innerHTML: _translations["Clear"], href: "#", onclick: function() {this.clearDate(); if (!this.options.get("embedded")) this.close(); return false;}.bindAsEventListener(this) });
       }
     }
   },
@@ -323,7 +337,9 @@ CalendarDateSelect.prototype = {
   },
   reparse: function() { this.parseDate(); this.refresh(); },
   dateString: function() {
-    return (this.selection_made) ? this.selected_date.toFormattedString(this.use_time) : "&#160;";
+      //mod for ofbiz Date input field, the return value will not be localized.
+      //return (this.selection_made) ? this.selected_date.toFormattedString(this.use_time) : "&#160;";
+      return (this.selection_made) ? this.selected_date.toFormattedString_ofbiz_default(this.use_time) : "&#160;";
   },
   parseDate: function()
   {
@@ -337,6 +353,14 @@ CalendarDateSelect.prototype = {
     this.date.setDate(1);
   },
   updateFooter:function(text) { if (!text) text = this.dateString(); this.footer_div.purgeChildren(); this.footer_div.build("span", {innerHTML: text }); },
+  clearDate:function() {
+    if ((this.target_element.disabled || this.target_element.readOnly) && this.options.get("popup") != "force") return false;
+    var last_value = this.target_element.value;
+    this.target_element.value = "";
+    this.clearSelectedClass();
+    this.updateFooter('&#160;');
+    if (last_value!=this.target_element.value) this.callback("onchange");
+  },
   updateSelectedDate:function(partsOrElement, via_click) {
     var parts = $H(partsOrElement);
     if ((this.target_element.disabled || this.target_element.readOnly) && this.options.get("popup") != "force") return false;
@@ -417,7 +441,7 @@ CalendarDateSelect.prototype = {
     Event.stopObserving(document, "keypress", this.keyPress_handler);
     this.calendar_div.remove(); this.closed = true;
     if (this.iframe) this.iframe.remove();
-    if (this.target_element.type!="hidden") this.target_element.focus();
+    if (this.target_element.type != "hidden" && ! this.target_element.disabled) this.target_element.focus();
     this.callback("after_close");
   },
   closeIfClickedOut: function(e) {
@@ -427,55 +451,14 @@ CalendarDateSelect.prototype = {
     if (e.keyCode==Event.KEY_ESC) this.close();
   },
   callback: function(name, param) { if (this.options.get(name)) { this.options.get(name).bind(this.target_element)(param); } }
-
-
 }
 
-// OFBiz addition: modified format_iso_date.js, included here for convenience
-Date.prototype.toFormattedString = function(include_time) {
-    var str = this.getFullYear() + "-" + Date.padded2(this.getMonth() + 1) + "-" +Date.padded2(this.getDate());
-    if (include_time) {
-        str += " " + this.getHours() + ":" + this.getPaddedMinutes() + ":" + Date.padded2(this.getSeconds());
-        if (this.getMilliseconds > 0) {
-            str += "." + (this.getMilliseconds() < 100 ? '0' : '') + (this.getMilliseconds() < 10 ? '0' : '') + this.getMilliseconds();
-        } else {
-            str += ".0";
-        }
-    }
-    return str;
-};
 
-Date.parseFormattedString = function (string) {
-    var arr_datetime = string.split(' ');
-    var str_date = arr_datetime[0];
-    var str_time = arr_datetime[1];
-
-    var arr_date = str_date.split('-');
-    var dt_date = new Date();
-    dt_date.setDate(1);
-    dt_date.setMonth(arr_date[1]-1);
-    if (arr_date[0] < 100) arr_date[2] = Number(arr_date[0]) + (arr_date[0] < 40 ? 2000 : 1900);
-    dt_date.setFullYear(arr_date[0]);
-    var dt_numdays = new Date(arr_date[0], arr_date[1], 0);
-    dt_date.setDate(arr_date[2]);
-
-    var arr_time = String(str_time ? str_time : '').split(':');
-    if (arr_time.size() >= 1 && arr_time[0] != '') {
-      dt_date.setHours(arr_time[0]);
-      dt_date.setMinutes(arr_time[1]);
-      var arr_sec = String(arr_time[2] ? arr_time[2] : '').split('.');
-      dt_date.setSeconds(arr_sec[0]);
-      if (!arr_sec[1]) dt_date.setMilliseconds(0);
-      dt_date.setMilliseconds(arr_sec[1]);
-    }
-    return dt_date;
-};
-
-// OFBiz addition: functions to call the calendar
+//OFBiz addition: functions to call the calendar
 function call_cal(target, datetime) {
-    new CalendarDateSelect(target, {time:true, year_range:10} );
+    new CalendarDateSelect(target, {time:true,year_range:10} );
 }
 
 function call_cal_notime(target, datetime) {
-    new CalendarDateSelect(target, {year_range:10} );
+    new CalendarDateSelect(target, {time:false,year_range:10} );
 }
