@@ -1184,12 +1184,26 @@ public class ShoppingCartEvents {
         String termDaysStr = request.getParameter("termDays");
         String textValue = request.getParameter("textValue");
 
+        GenericValue termType = null;
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         BigDecimal termValue = null;
         Long termDays = null;
 
         if (UtilValidate.isEmpty(termTypeId)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermTypeIsRequired", locale));
+            return "error";
+        }
+        
+        try {
+            termType = delegator.findOne("TermType", UtilMisc.toMap("termTypeId", termTypeId), false);
+        } catch (GenericEntityException gee) {
+            request.setAttribute("_ERROR_MESSAGE_", gee.getMessage());
+            return "error";
+        }
+        
+        if (("FIN_PAYMENT_TERM".equals(termTypeId) && UtilValidate.isEmpty(termDaysStr)) || (UtilValidate.isNotEmpty(termType) && "FIN_PAYMENT_TERM".equals(termType.get("parentTypeId")) && UtilValidate.isEmpty(termDaysStr))) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermDaysIsRequired", locale));
             return "error";
         }
 
