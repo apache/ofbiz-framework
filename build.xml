@@ -456,27 +456,11 @@ under the License.
             </condition>
         </fail>
     </target>
-    <target name="_save-runtime-data">
-        <delete file="runtime/data.zip"/>
-        <zip zipfile="runtime/data.zip" compress="no">
-            <fileset dir="runtime/data"/>
-        </zip>
-    </target>
-    <target name="_restore-runtime-data">
-        <delete dir="runtime/data"/>
-        <mkdir dir="runtime/data"/>
-        <unzip src="runtime/data.zip" dest="runtime/data"/>
-    </target>
 
     <target name="_check-separated-tests-already-setup">
         <available file="runtime/test-list-build.xml" property="_separated-tests-already-setup"/>
     </target>
     <target name="_setup-separated-test-run" depends="_check-separated-tests-already-setup" unless="_separated-tests-already-setup">
-        <subant target="clean-data">
-            <filelist dir="." files="framework/build.xml"/>
-        </subant>
-        <antcall target="run-install"/>
-        <antcall target="_save-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -488,7 +472,6 @@ under the License.
     </target>
     <target name="run-single-test" 
     	    description="Run a single test">
-        <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -505,7 +488,6 @@ under the License.
     </target>
     <target name="run-single-test-suite" 
             description="Run a single test suite">
-        <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
