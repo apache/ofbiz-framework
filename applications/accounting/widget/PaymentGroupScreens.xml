@@ -27,6 +27,9 @@ under the License.
                 <set field="titleProperty" value="AccountingFindPaymentGroup"/>
                 <set field="headerItem" value="PaymentGroup"/>
                 <set field="tabButtonItem" value="Find"/>
+                <entity-condition entity-name="PaymentGroup" list="paymentGroupList">
+                    <condition-expr field-name="paymentGroupId" from-field="parameters.paymentGroupId" ignore-if-empty="true"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

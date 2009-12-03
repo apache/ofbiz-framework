@@ -255,7 +255,7 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="paymentGroupTypeId"><hidden value="BATCH_PAYMENT"/></field>
     </form>
-    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml"
+    <form name="ListDepositSlips" type="list" target="FindDepositSlips" extends="ListPaymentGroup" extends-resource="component://accounting/widget/PaymentGroupForms.xml" list-name="paymentGroupList"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <field name="paymentGroupId" widget-style="buttontext">
             <hyperlink description="${paymentGroupId}" target="EditDepositSlipAndMembers">
@@ -263,7 +263,7 @@ under the License.
                 <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroup.paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink target="deleteDepositSlip" description="${uiLabelMap.CommonCancel}" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
                 <parameter param-name="finAccountId"/>

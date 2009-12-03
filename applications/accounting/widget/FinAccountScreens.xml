@@ -305,6 +305,19 @@ under the License.
                 <set field="tabButtonItem" value="findDepositSlips"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
+                <entity-condition entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="pmtGrpMembrPaymentAndFinAcctTransList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="paymentGroupId" from-field="parameters.paymentGroupId" ignore-if-empty="true"/>
+                        <condition-expr field-name="finAccountId" from-field="parameters.finAccountId"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="paymentGroupIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(pmtGrpMembrPaymentAndFinAcctTransList, 'paymentGroupId', true);}" type="List"/>
+                <entity-condition entity-name="PaymentGroup" list="paymentGroupList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="paymentGroupId" operator="in" from-field="paymentGroupIds" ignore-if-empty="true"/>
+                        <condition-expr field-name="paymentGroupTypeId" value="BATCH_PAYMENT"/>
+                    </condition-list>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
