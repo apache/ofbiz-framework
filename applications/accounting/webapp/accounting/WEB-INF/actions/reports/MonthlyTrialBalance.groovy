@@ -62,18 +62,6 @@ if(fromDate && thruDate && organizationPartyId) {
           context.financialYearFromDate = customTimePeriodFromDate;
       }
   }
-
-
-  if (parameters.isIncomeStatement) {
-      prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement",
-              [fromDate : fromDate, thruDate : thruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : parameters.glFiscalTypeId, userLogin : userLogin]);
-      glAccountTotalsMap = prepareIncomeStatement.glAccountTotalsMap;
-      if (glAccountTotalsMap) {
-          context.glAccountIncomeList = glAccountTotalsMap.income;
-          context.glAccountExpenseList = glAccountTotalsMap.expenses;
-          context.totalNetIncome = prepareIncomeStatement.totalNetIncome;
-      }
-  }
 }
 
 context.monthList = ExpressionUiHelper.getMonthValueList(locale);

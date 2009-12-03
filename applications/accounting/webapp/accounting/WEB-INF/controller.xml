@@ -2219,12 +2219,6 @@ under the License.
         <response name="success" type="view" value="ComparativeIncomeStatement"/>
         <response name="error" type="view" value="ComparativeIncomeStatement"/>
     </request-map>
-    <request-map uri="prepareIncomeStatement">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="prepareIncomeStatement"/>
-        <response name="success" type="view" value="IncomeStatement"/>
-        <response name="error" type="view" value="IncomeStatement"/>
-    </request-map>
     <request-map uri="BalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="BalanceSheet"/></request-map>
     <request-map uri="prepareBalanceSheet">
         <security https="true" auth="true"/>

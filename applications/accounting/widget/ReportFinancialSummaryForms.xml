@@ -80,7 +80,6 @@ under the License.
     </form>
 
     <form name="IncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
-        <field name="isIncomeStatement"><hidden value="true"/></field>
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
             <drop-down>
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
@@ -98,30 +97,38 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" tooltip="Please enter From and Thru date in fields above"><submit button-type="button"/></field>
     </form>
 
-    <form name="IncomeStatementList" type="list" list-name="glAccountIncomeList"
+    <form name="IncomeStatementRevenues" type="list" list-name="revenueAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId">
-            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-
-    <form name="ExpenseStatementList" type="list" list-name="glAccountExpenseList"
+    <form name="IncomeStatementExpenses" type="list" list-name="expenseAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId">
-            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalOfCurrentFiscalPeriod"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="IncomeStatementIncome" type="list" list-name="incomeAccountBalanceList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet"
