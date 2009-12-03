@@ -574,6 +574,7 @@ under the License.
 
     <entity entity-name="VisualTheme"
             package-name="org.ofbiz.common.theme"
+            default-resource-name="CommonEntityLabels"
             title="Defines a Visual Theme">
       <description>The VisualTheme entity contains one entry per visual theme.</description>
       <field name="visualThemeId" type="id-ne"></field>
