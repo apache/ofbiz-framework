@@ -29,6 +29,9 @@ under the License.
         "head1":"font-size=\"12\" font-weight=\"bold\"",
         "head2":"font-weight=\"bold\"",
         "head3":"font-weight=\"bold\" font-style=\"italic\"",
+        "h1":"font-size=\"12\" font-weight=\"bold\"",
+        "h2":"font-weight=\"bold\"",
+        "h3":"font-weight=\"bold\" font-style=\"italic\"",
         "error":"color=\"red\""}/>
     <#assign foStyle = foStyles[style]?default("")/>
     ${foStyle?default("")}
