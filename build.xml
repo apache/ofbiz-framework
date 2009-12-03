@@ -22,7 +22,7 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
-  <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
+    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
 
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
@@ -44,13 +44,13 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="refresh"
-      description="Clean all and rebuild">
+    	    description="Clean all and rebuild">
         <antcall target="clean-all"/>
         <antcall target="build"/>
     </target>
 
     <target name="clean-all"
-      description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
+    	    description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
         <antcall target="clean-output"/>
@@ -63,7 +63,7 @@ under the License.
     </target>
 
     <target name="clean-data"
-      description="Clean all DB data (Derby and HSQL) under runtime/data">
+    	    description="Clean all DB data (Derby and HSQL) under runtime/data">
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -72,56 +72,56 @@ under the License.
     </target>
 
     <target name="clean-logs"
-      description="Clean all logs in runtime/logs">
+    	    description="Clean all logs in runtime/logs">
         <subant target="clean-logs">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="clean-output"
-      description="Clean runtime/output directory">
+    	    description="Clean runtime/output directory">
         <subant target="clean-output">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="clean-xtra"
-      description="Clean all other files like .rej, .orig, etc.">
+    	    description="Clean all other files like .rej, .orig, etc.">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
     </target>
 
     <target name="clean-catalina"
-      description="Clean Catalina data in runtime/catalina/work">
+    	    description="Clean Catalina data in runtime/catalina/work">
         <subant target="clean-catalina">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
    <target name="clean-cache"
-     description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
+           description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
         <property file="framework/base/config/cache.properties"/>
         <echo message="NOTICE: deleting ${cache.file.store}.db"/>
         <delete file="${cache.file.store}.db" verbose="true"/>
     </target>
 
     <target name="clean-tempfiles"
-      description="Remove files located in runtime/tempfiles (captcha, etc...)">
+    	    description="Remove files located in runtime/tempfiles (captcha, etc...)">
         <subant target="clean-tempfiles">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="download-selenium" 
-      description="Download the selenium files">
+    	    description="Download the selenium files">
         <subant target="install-seleniumxml">
             <filelist dir="." files="framework/testtools/build.xml"/>
         </subant>
     </target>
 
     <target name="download-PG-JDBC"
-      description="Download the PostgreSQL JDBC driver file">
+            description="Download the PostgreSQL JDBC driver file">
         <subant target="install-PG-JDBC">
             <filelist dir="." files="framework/entity/build.xml"/>
         </subant>
@@ -231,26 +231,26 @@ under the License.
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
-  <target name="docs-all" depends="build,ofbiz-init"
-        description="For committers : Build all javadoc into one tree for easier viewing by the community">
+    <target name="docs-all" depends="build,ofbiz-init"
+            description="For committers : Build all javadoc into one tree for easier viewing by the community">
 
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
         <mkdir dir="${site.dir}/javadocs"/>
         <javadoc packagenames="org.ofbiz.*"
-          destdir="${site.dir}/javadocs"
-          maxmemory="256M"
-          windowtitle="Open for Business - API"
-            useexternalfile="yes">
-      <fileset dir="${basedir}" defaultexcludes="yes">
-        <include name="**/*.java"/>
-        <exclude name="**/ControlApplet.java"/>
-        <exclude name="**/ShipmentScaleApplet.java"/>
-        <exclude name="**/test/"/>
-      </fileset>
-    </javadoc>
+                destdir="${site.dir}/javadocs"
+                maxmemory="256M"
+                windowtitle="Open for Business - API"
+                useexternalfile="yes">
+            <fileset dir="${basedir}" defaultexcludes="yes">
+                <include name="**/*.java"/>
+                <exclude name="**/ControlApplet.java"/>
+                <exclude name="**/ShipmentScaleApplet.java"/>
+                <exclude name="**/test/"/>
+            </fileset>
+        </javadoc>
 
-    <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
+        <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
 
     <!-- ================================================================== -->
@@ -270,7 +270,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="build-website" 
-      description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
+            description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
         <antcall target="copy-apis"/>
@@ -293,17 +293,17 @@ under the License.
     </target>
 
     <target name="copy-dtds"
-      description="For committers : Copy all dtds from OFBiz instance to website">
+            description="For committers : Copy all dtds from OFBiz instance to website">
         <mkdir dir="${site.dir}/dtds"/>
         <copy todir="${site.dir}/dtds" flatten="true" overwrite="true">
             <fileset dir="${basedir}" includes="**/*.dtd"/>
             <fileset dir="${basedir}" defaultexcludes="yes"> <!-- all but oagis and external in general -->
-              <include name="**/*.xsd"/>
-              <exclude name="**/002*.xsd"/>
-              <exclude name="**/068*.xsd"/>
-              <exclude name="**/161*.xsd"/>
-              <exclude name="**/196*.xsd"/>
-              <exclude name="**/197*.xsd"/>
+                <include name="**/*.xsd"/>
+                <exclude name="**/002*.xsd"/>
+                <exclude name="**/068*.xsd"/>
+                <exclude name="**/161*.xsd"/>
+                <exclude name="**/196*.xsd"/>
+                <exclude name="**/197*.xsd"/>
             </fileset>
         </copy>
     </target>
@@ -322,15 +322,15 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="run" 
-      description="This will start OFBiz">
+            description="This will start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
-          <jvmarg value="${memory.maxpermsize.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
     <target name="run-pos" 
-      description="Start the POS (Point of sale) system">
+            description="Start the POS (Point of sale) system">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -339,7 +339,7 @@ under the License.
         </java>
     </target>
     <target name="run-install" depends="build"
-        description="This loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes">
+            description="This loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -348,7 +348,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-seed" depends="build"
-        description="This loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation">
+            description="This loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -358,7 +358,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-extseed" depends="build"
-        description="This loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
+            description="This loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -368,7 +368,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-exttest" depends="build"
-        description="This loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz">
+            description="This loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -378,7 +378,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-readers" depends="build"
-        description="This loads data using the command line argument 'readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
+            description="This loads data using the command line argument 'readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
         <java jar="ofbiz.jar" fork="true" >
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -388,7 +388,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-file" depends="build"
-        description="This loads data using the command line argument 'file' to load data from a given file">
+            description="This loads data using the command line argument 'file' to load data from a given file">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -399,7 +399,7 @@ under the License.
         </java>
     </target>
     <target name="load-admin-user-login"
-        description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password. Example command for the userLogin 'admin': ./ant load-admin-user-login -DuserLoginId=admin">
+            description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password. Example command for the userLogin 'admin': ./ant load-admin-user-login -DuserLoginId=admin">
         <fail message="userLoginId parameter is required. To add the parameter to the command for user admin: -DuserLoginId=admin">
             <condition>
                 <not><isset property="userLoginId"/></not>
@@ -416,13 +416,13 @@ under the License.
         <delete file="runtime/tmp/tmpUserLogin.xml"/>
     </target>
     <target name="create-admin-user-login"
-      description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'. After a succesful login the user will be prompted for a new password.">
+            description="Prompts for a user name, then creates a user login with admin privileges and a temporary password equal to 'ofbiz'. After a succesful login the user will be prompted for a new password.">
         <input addproperty="userLoginId" message="Enter user name (log in with the temporary password 'ofbiz'):"/>
         <antcall target="load-admin-user-login"/>
     </target>
 
     <target name="run-debug" depends="build" 
-      description="Starts OFBiz in debugging mode">
+            description="Starts OFBiz in debugging mode">
         <java jar="ofbiz.jar"  fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -434,7 +434,7 @@ under the License.
         </java>
     </target>
     <target name="run-tests" depends="build" 
-      description="Run OFBiz default tests">
+    	    description="Run OFBiz default tests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -487,7 +487,7 @@ under the License.
         </java>
     </target>
     <target name="run-single-test" 
-      description="Run a single test">
+    	    description="Run a single test">
         <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -504,7 +504,7 @@ under the License.
         </move>
     </target>
     <target name="run-single-test-suite" 
-      description="Run a single test suite">
+            description="Run a single test suite">
         <antcall target="_restore-runtime-data"/>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -516,7 +516,7 @@ under the License.
         </java>
     </target>
     <target name="run-test-list" depends="_setup-separated-test-run" 
-      description="Run all configured tests, stopping/starting ofbiz between each test">
+            description="Run all configured tests, stopping/starting ofbiz between each test">
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
@@ -526,7 +526,7 @@ under the License.
     <!-- ================================================================== -->
     
     <target name="create-component"
-        description="Creates the layout of an OFBiz component in the hot-deploy folder.">
+            description="Creates the layout of an OFBiz component in the hot-deploy folder.">
         <input addproperty="component-name" message="Component name: "/>
         <input addproperty="component-resource-name" message="Component resource name: "/>
         <input addproperty="webapp-name" message="Webapp name: "/>
