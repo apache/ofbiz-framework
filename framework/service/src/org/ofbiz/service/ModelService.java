@@ -1238,7 +1238,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         // SOAP binding
         SOAPBinding soapBinding = new SOAPBindingImpl();
-        soapBinding.setStyle("document");
+        soapBinding.setStyle("rpc");
         soapBinding.setTransportURI("http://schemas.xmlsoap.org/soap/http");
 
         Binding binding = def.createBinding();
