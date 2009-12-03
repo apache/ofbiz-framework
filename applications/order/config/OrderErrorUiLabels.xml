@@ -1302,6 +1302,9 @@
         <value xml:lang="th">วันเวลาที่กำหนดรายการสั่งซื้อ : ${orderTermDays}</value>
         <value xml:lang="zh">订单条件天数：${orderTermDays}</value>
     </property>
+    <property key="OrderOrderTermDaysIsRequired">
+        <value xml:lang="en">Order Term Days is required for this term type. </value>
+    </property>
     <property key="OrderOrderTermTypeIsRequired">
         <value xml:lang="en">Order Term Type is required. </value>
         <value xml:lang="es">El tipo de término del pedido es requerido.</value>
