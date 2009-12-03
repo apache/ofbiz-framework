@@ -116,6 +116,12 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindArPaymentGroups"/>
                 <set field="headerItem" value="paymentGroups"/>
+                <entity-condition entity-name="PaymentGroup" list="paymentGroupList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="paymentGroupId" from-field="parameters.paymentGroupId" ignore-if-empty="true"/>
+                        <condition-expr field-name="paymentGroupTypeId" value="BATCH_PAYMENT"/>
+                    </condition-list>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
