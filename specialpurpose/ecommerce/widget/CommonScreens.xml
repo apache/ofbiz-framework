@@ -42,7 +42,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale}.js" global="true"/>
+                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${initialLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
@@ -246,7 +247,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale}.js"  default-value="en.js" global="true"/>
+                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${initialLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
