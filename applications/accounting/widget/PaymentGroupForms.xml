@@ -62,7 +62,12 @@ under the License.
     
     <form name="EditPaymentGroup" type="single" target="updatePaymentGroup" title="" default-map-name="paymentGroup">
         <actions>
-            <set field="finAccountId" from-field="parameters.finAccountId" default-value=""/>
+            <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="pmtGrpMembrPaymentAndFinAcctTransList">
+                <field-map field-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </entity-and>
+            <entity-one entity-name="FinAccount" value-field="finAccount">
+                <field-map field-name="finAccountId" from-field="pmtGrpMembrPaymentAndFinAcctTransList[0].finAccountId"/>
+            </entity-one>            
         </actions>
         <alt-target use-when="paymentGroup==null" target="createPaymentGroup"/>
         <auto-fields-service service-name="updatePaymentGroup"/>
@@ -80,8 +85,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="finAccountId!=null" name="finAccountName" title="${uiLabelMap.FormFieldTitle_finAccountName}"><display description="${finAccount.finAccountName}" type="text"></display></field>
-        <field use-when="finAccountId!=null" name="ownerPartyId" title="${uiLabelMap.FormFieldTitle_ownerPartyId}"><display description="${finAccount.ownerPartyId}" type="text"></display></field>
+        <field use-when="finAccount!=null" name="finAccountName" title="${uiLabelMap.FormFieldTitle_finAccountName}"><display description="${finAccount.finAccountName}" type="text"></display></field>
+        <field use-when="finAccount!=null" name="ownerPartyId" title="${uiLabelMap.FormFieldTitle_ownerPartyId}"><display description="${finAccount.ownerPartyId}" type="text"></display></field>
         <field name="paymentGroupName" use-when="display==true"><display/></field>
         <field name="submitButton" use-when="paymentGroup==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="paymentGroup!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
