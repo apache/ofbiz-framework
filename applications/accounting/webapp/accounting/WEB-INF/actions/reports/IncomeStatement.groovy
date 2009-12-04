@@ -61,6 +61,8 @@ mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperato
 mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
 
+List balanceTotalList = [];
+
 // REVENUE
 // account balances
 accountBalanceList = [];
@@ -103,6 +105,7 @@ if (transactionTotals) {
 context.revenueAccountBalanceList = accountBalanceList;
 context.revenueAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL REVENUES", "balance", balanceTotal));
 context.revenueBalanceTotal = balanceTotal;
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingNetSales", "balance", balanceTotal));
 
 // EXPENSE
 // account balances
@@ -187,6 +190,7 @@ if (transactionTotals) {
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
 context.cogsExpense = balanceTotal;
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingCostOfGoodsSold", "balance", balanceTotal));
 
 // OPERATING EXPENSES (SGA_EXPENSE)
 // account balances
@@ -274,9 +278,16 @@ context.incomeBalanceTotal = balanceTotal;
 
 // GROSS MARGIN = NET SALES - COSTS OF GOODS SOLD
 context.grossMargin = (context.revenueBalanceTotal).subtract(context.cogsExpense);
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingGrossMargin", "balance", context.grossMargin));
 // OPERATING EXPENSES
 context.sgaExpense = sgaExpense;
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingOperatingExpenses", "balance", context.sgaExpense));
 // INCOME FROM OPERATIONS = GROSS MARGIN - OPERATING EXPENSES
 context.incomeFromOperations = (context.grossMargin).subtract(context.sgaExpense);
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingIncomeFromOperations", "balance", context.incomeFromOperations));
 // NET INCOME
 context.netIncome = (context.revenueBalanceTotal).add(context.incomeBalanceTotal).subtract(context.expenseBalanceTotal);
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingNetIncome", "balance", context.netIncome));
+
+context.balanceTotalList = balanceTotalList;
+
