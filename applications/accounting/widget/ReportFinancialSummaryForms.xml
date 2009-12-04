@@ -131,7 +131,7 @@ under the License.
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet"
+    <form name="BalanceSheetParameters" type="single" target="BalanceSheet"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="thruDate"><date-time default-value="${nowTimestamp}"/></field>
@@ -213,6 +213,40 @@ under the License.
         </field>
         <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
         <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
+    <form name="BalanceSheetAssets" type="list" list-name="assetAccountBalanceList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="BalanceSheetLiabilities" type="list" list-name="liabilityAccountBalanceList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="BalanceSheetEquities" type="list" list-name="equityAccountBalanceList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="FindTransactionTotals" type="single" target="TransactionTotals" title="Find list of transaction totals"
