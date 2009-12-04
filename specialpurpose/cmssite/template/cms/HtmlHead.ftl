@@ -19,6 +19,7 @@ under the License.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
+<#assign initialLocale = locale.toString()>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${(decoratedContent.subcontent.title.render)?default("CMS Site Generic Title (Set subcontent 'title' on your content!)")}</title>
@@ -27,7 +28,7 @@ under the License.
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <script language="javascript" src="/images/calendarDateSelect/calendar_date_select.js" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale!"en"}.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale!initialLocale}.js</@ofbizContentUrl>" type="text/javascript"></script>
     <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
     <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
     <link rel="stylesheet" href="/content/images/contentForum.css" type="text/css"/>
