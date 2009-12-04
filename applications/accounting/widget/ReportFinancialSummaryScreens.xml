@@ -302,57 +302,50 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingIncomeStatement}">
                             <include-form name="IncomeStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
-                        <section>
-                            <condition>
-                                <not><if-empty field="totalNetIncome"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.AccountingIncomeStatement}">
-                                    <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
-                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                        <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                    </link>
-                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf">
-                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                        <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                    </link>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
-                                    </container>
-                                    <include-form name="IncomeStatementRevenues" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingExpenses}"/>
-                                    </container>
-                                    <include-form name="IncomeStatementExpenses" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingIncome}"/>
-                                    </container>
-                                    <include-form name="IncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingNetSales}: ${revenueBalanceTotal}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingCostOfGoodsSold}: ${cogsExpense}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingGrossMargin}: ${grossMargin}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingOperatingExpenses}: ${sgaExpense}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingIncomeFromOperations}: ${incomeFromOperations}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
-                                    </container>
-                                </screenlet>
-                            </widgets>
-                        </section>
+                        <screenlet title="${uiLabelMap.AccountingIncomeStatement}">
+                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
+                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                            </link>
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf">
+                                <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                            </link>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
+                            </container>
+                            <include-form name="IncomeStatementRevenues" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingExpenses}"/>
+                            </container>
+                            <include-form name="IncomeStatementExpenses" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingIncome}"/>
+                            </container>
+                            <include-form name="IncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingNetSales}: ${revenueBalanceTotal}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingCostOfGoodsSold}: ${cogsExpense}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingGrossMargin}: ${grossMargin}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingOperatingExpenses}: ${sgaExpense}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingIncomeFromOperations}: ${incomeFromOperations}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
+                            </container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -372,9 +365,8 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="assetBalancesList" from-field="parameters.assetBalancesList"/>
-                <set field="liabilityBalancesList" from-field="parameters.liabilityBalancesList"/>
-                <set field="equityBalancesList" from-field="parameters.equityBalancesList"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -382,38 +374,124 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingBalanceSheet}">
                             <include-form name="BalanceSheetParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
+                        <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="BalanceSheet.csv">
+                            <parameter param-name="organizationPartyId"/>
+                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                        </link>
+                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="BalanceSheet.pdf">
+                            <parameter param-name="organizationPartyId"/>
+                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                        </link>
+                        <screenlet title="${uiLabelMap.AccountingBalanceSheet}">
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
+                            </container>
+                            <include-form name="BalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
+                            </container>
+                            <include-form name="BalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
+                            </container>
+                            <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingCurrentAssets}: ${currentAssetBalanceTotal}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingLongTermAssets}: ${longtermAssetBalanceTotal}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingCurrentLiabilities}: ${currentLiabilityBalanceTotal}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingTotalLiabilitiesAndEquities}: ${liabilityEquityBalanceTotal}"/>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BalanceSheetPdf">
+        <section>
+            <actions>
+                <set field="viewSize" value="99999"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
                         <section>
-                            <condition>
-                                <or>
-                                    <not><if-empty field="assetBalancesList"/></not>
-                                    <not><if-empty field="liabilityBalancesList"/></not>
-                                    <not><if-empty field="equityBalancesList"/></not>
-                                </or>
-                            </condition>
                             <widgets>
-                                <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="BalanceSheet.csv">
-                                    <parameter param-name="organizationPartyId"/>
-                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                    <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                </link>
-                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="BalanceSheet.pdf">
-                                    <parameter param-name="organizationPartyId"/>
-                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                    <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
-                                </link>
-                                <screenlet title="${uiLabelMap.AccountingAssets}">
-                                    <include-form name="BalanceSheetAssetList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingLiabilities}">
-                                    <include-form name="BalanceSheetLiabilityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingEquities}">
-                                    <include-form name="BalanceSheetEquityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
+                                <container>
+                                    <container>
+                                        <label style="h1" text="${uiLabelMap.AccountingBalanceSheet}"/>
+                                    </container>
+                                    <include-form name="BalanceSheetParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
+                                    </container>
+                                    <include-form name="BalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
+                                    </container>
+                                    <include-form name="BalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
+                                    </container>
+                                    <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingCurrentAssets}: ${currentAssetBalanceTotal}"/>
+                                    </container>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingLongTermAssets}: ${longtermAssetBalanceTotal}"/>
+                                    </container>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingCurrentLiabilities}: ${currentLiabilityBalanceTotal}"/>
+                                    </container>
+                                    <container>
+                                        <label style="h3" text="${uiLabelMap.AccountingTotalLiabilitiesAndEquities}: ${liabilityEquityBalanceTotal}"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BalanceSheetCsv">
+        <section>
+            <actions>
+                <set field="viewSize" value="99999"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy"/>
+            </actions>
+            <widgets>
+                <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
+                <include-form name="BalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
+                <include-form name="BalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
+                <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -691,61 +769,6 @@ under the License.
                 <container>
                     <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
                 </container>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="BalanceSheetCsv">
-        <section>
-            <actions>
-                <set field="viewSize" value="99999"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <service service-name="prepareBalanceSheet" result-map="result" auto-field-map="true"/>
-                <set field="assetBalancesList" from-field="result.assetBalancesList"/>
-                <set field="liabilityBalancesList" from-field="result.liabilityBalancesList"/>
-                <set field="equityBalancesList" from-field="result.equityBalancesList"/>
-            </actions>
-            <widgets>
-                <container style="h3">
-                    <label text="${uiLabelMap.AccountingAssets}"/>
-                    <include-form name="BalanceSheetAssetListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                    <label text="${uiLabelMap.AccountingLiabilities}"/>
-                    <include-form name="BalanceSheetLiabilityListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                    <label text="${uiLabelMap.AccountingEquities}"/>
-                    <include-form name="BalanceSheetEquityListCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="BalanceSheetPdf">
-        <section>
-            <actions>
-                <set field="viewSize" value="99999"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <service service-name="prepareBalanceSheet" result-map="result" auto-field-map="true"/>
-                <set field="assetBalancesList" from-field="result.assetBalancesList"/>
-                <set field="liabilityBalancesList" from-field="result.liabilityBalancesList"/>
-                <set field="equityBalancesList" from-field="result.equityBalancesList"/>
-                <set field="isPdf" value="true" type="Boolean"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <container>
-                                    <label text="${uiLabelMap.AccountingAssets}"/>
-                                    <include-form name="BalanceSheetAssetList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                    <label text="${uiLabelMap.AccountingLiabilities}"/>
-                                    <include-form name="BalanceSheetLiabilityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                    <label text="${uiLabelMap.AccountingEquities}"/>
-                                    <include-form name="BalanceSheetEquityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </container>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
             </widgets>
         </section>
     </screen>

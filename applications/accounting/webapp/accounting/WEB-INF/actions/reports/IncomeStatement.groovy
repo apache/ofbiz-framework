@@ -96,7 +96,7 @@ if (transactionTotals) {
         accountMap.put("balance", balance);
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
-    accountBalanceList = transactionTotalsMap.values().asList();
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
     // revenues are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit);
 }
@@ -139,7 +139,7 @@ if (transactionTotals) {
         accountMap.put("balance", balance);
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
-    accountBalanceList = transactionTotalsMap.values().asList();
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
     // revenues are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
@@ -182,7 +182,7 @@ if (transactionTotals) {
         accountMap.put("balance", balance);
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
-    accountBalanceList = transactionTotalsMap.values().asList();
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
     // revenues are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
@@ -223,7 +223,7 @@ if (transactionTotals) {
         accountMap.put("balance", balance);
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
-    accountBalanceList = transactionTotalsMap.values().asList();
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
     // revenues are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
@@ -264,7 +264,7 @@ if (transactionTotals) {
         accountMap.put("balance", balance);
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
-    accountBalanceList = transactionTotalsMap.values().asList();
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));    
     // incomes are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit);
 }
