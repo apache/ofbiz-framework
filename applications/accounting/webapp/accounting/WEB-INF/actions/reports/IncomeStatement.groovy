@@ -143,7 +143,7 @@ if (transactionTotals) {
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
     accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    // revenues are accounts of class DEBIT: the balance is given by debits minus credits
+    // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
 context.expenseAccountBalanceList = accountBalanceList;
@@ -186,7 +186,7 @@ if (transactionTotals) {
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
     accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    // revenues are accounts of class DEBIT: the balance is given by debits minus credits
+    // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
 context.cogsExpense = balanceTotal;
@@ -228,7 +228,7 @@ if (transactionTotals) {
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
     }
     accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    // revenues are accounts of class DEBIT: the balance is given by debits minus credits
+    // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
 sgaExpense = balanceTotal;
