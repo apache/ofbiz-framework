@@ -564,4 +564,29 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ListSupplierInvoices">
+        <section>
+            <actions>
+                <set field="myCompanyId" from-field="userLogin.partyId"/>
+                <entity-condition list="invoiceslistexternal" entity-name="Invoice">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId"/>
+                        <condition-expr field-name="invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SENT"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_READY"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_PAID"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="invoiceDate DESC"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
+                    <include-form name="ListSupplierInvoices"  location="component://accounting/widget/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
