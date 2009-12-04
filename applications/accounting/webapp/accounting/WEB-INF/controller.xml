@@ -2221,12 +2221,6 @@ under the License.
     </request-map>
     <request-map uri="BalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="BalanceSheet"/></request-map>
     <request-map uri="ComparativeBalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="ComparativeBalanceSheet"/></request-map>
-    <request-map uri="prepareComparativeBalanceSheet">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="prepareComparativeBalanceSheet"/>
-        <response name="success" type="view" value="ComparativeBalanceSheet"/>
-        <response name="error" type="view" value="ComparativeBalanceSheet"/>
-    </request-map>
     <request-map uri="TransactionTotals"><security https="true" auth="true"/><response name="success" type="view" value="TransactionTotals"/></request-map>
     <request-map uri="FindPaymentsForDepositOrWithdraw">
         <security https="true" auth="true"/>

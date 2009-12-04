@@ -405,17 +405,9 @@ under the License.
                             </container>
                             <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <container>
-                                <label style="h3" text="${uiLabelMap.AccountingCurrentAssets}: ${currentAssetBalanceTotal}"/>
+                                <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingLongTermAssets}: ${longtermAssetBalanceTotal}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingCurrentLiabilities}: ${currentLiabilityBalanceTotal}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingTotalLiabilitiesAndEquities}: ${liabilityEquityBalanceTotal}"/>
-                            </container>
+                            <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                            
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -459,17 +451,9 @@ under the License.
                                     </container>
                                     <include-form name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                     <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingCurrentAssets}: ${currentAssetBalanceTotal}"/>
+                                        <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                                     </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingLongTermAssets}: ${longtermAssetBalanceTotal}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingCurrentLiabilities}: ${currentLiabilityBalanceTotal}"/>
-                                    </container>
-                                    <container>
-                                        <label style="h3" text="${uiLabelMap.AccountingTotalLiabilitiesAndEquities}: ${liabilityEquityBalanceTotal}"/>
-                                    </container>
+                                    <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                 </container>
                             </widgets>
                         </section>
@@ -506,6 +490,7 @@ under the License.
     <screen name="ComparativeBalanceSheet">
         <section>
             <actions>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="AccountingComparativeBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
@@ -515,9 +500,43 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <set field="assetBalancesList" from-field="parameters.assetBalancesList"/>
-                <set field="liabilityBalancesList" from-field="parameters.liabilityBalancesList"/>
-                <set field="equityBalancesList" from-field="parameters.equityBalancesList"/>
+                
+                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId"/>
+                <set field="thruDate" from-field="period1ThruDate" type="Timestamp"/>
+                <set field="parameters.glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy"/>
+                <set field="assetAccountBalanceList1" from-field="assetAccountBalanceList"/>
+                <set field="liabilityAccountBalanceList1" from-field="liabilityAccountBalanceList"/>
+                <set field="equityAccountBalanceList1" from-field="equityAccountBalanceList"/>
+                <set field="assetBalanceTotal1" from-field="assetBalanceTotal"/>
+                <set field="currentAssetBalanceTotal1" from-field="currentAssetBalanceTotal"/>
+                <set field="longtermAssetBalanceTotal1" from-field="longtermAssetBalanceTotal"/>
+                <set field="liabilityBalanceTotal1" from-field="liabilityBalanceTotal"/>
+                <set field="currentLiabilityBalanceTotal1" from-field="currentLiabilityBalanceTotal"/>
+                <set field="equityBalanceTotal1" from-field="equityBalanceTotal"/>
+                <set field="liabilityEquityBalanceTotal1" from-field="liabilityEquityBalanceTotal"/>
+                <set field="balanceTotalList1" from-field="balanceTotalList"/>
+
+                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId"/>
+                <set field="thruDate" from-field="period2ThruDate" type="Timestamp"/>
+                <set field="parameters.glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/BalanceSheet.groovy"/>
+                <set field="assetAccountBalanceList2" from-field="assetAccountBalanceList"/>
+                <set field="liabilityAccountBalanceList2" from-field="liabilityAccountBalanceList"/>
+                <set field="equityAccountBalanceList2" from-field="equityAccountBalanceList"/>
+                <set field="assetBalanceTotal2" from-field="assetBalanceTotal"/>
+                <set field="currentAssetBalanceTotal2" from-field="currentAssetBalanceTotal"/>
+                <set field="longtermAssetBalanceTotal2" from-field="longtermAssetBalanceTotal"/>
+                <set field="liabilityBalanceTotal2" from-field="liabilityBalanceTotal"/>
+                <set field="currentLiabilityBalanceTotal2" from-field="currentLiabilityBalanceTotal"/>
+                <set field="equityBalanceTotal2" from-field="equityBalanceTotal"/>
+                <set field="liabilityEquityBalanceTotal2" from-field="liabilityEquityBalanceTotal"/>
+                <set field="balanceTotalList2" from-field="balanceTotalList"/>
+
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeBalanceSheet.groovy"/>
+
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -525,26 +544,24 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingComparativeBalanceSheet}">
                             <include-form name="ComparativeBalanceSheetParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
-                        <section>
-                            <condition>
-                                <or>
-                                    <not><if-empty field="assetBalancesList"/></not>
-                                    <not><if-empty field="liabilityBalancesList"/></not>
-                                    <not><if-empty field="equityBalancesList"/></not>
-                                </or>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.AccountingAssets}">
-                                    <include-form name="BalanceSheetAssetList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingLiabilities}">
-                                    <include-form name="BalanceSheetLiabilityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingEquities}">
-                                    <include-form name="BalanceSheetEquityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
+                        <screenlet title="${uiLabelMap.AccountingComparativeBalanceSheet}">
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
+                            </container>
+                            <include-form name="ComparativeBalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
+                            </container>
+                            <include-form name="ComparativeBalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
+                            </container>
+                            <include-form name="ComparativeBalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.CommonTotal}"/>
+                            </container>
+                            <include-form name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -736,23 +753,9 @@ under the License.
                             </container>
                             <include-form name="IncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <container>
-                                <label style="h3" text="${uiLabelMap.AccountingNetSales}: ${revenueBalanceTotal}"/>
+                                <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                             </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingCostOfGoodsSold}: ${cogsExpense}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingGrossMargin}: ${grossMargin}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingOperatingExpenses}: ${sgaExpense}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingIncomeFromOperations}: ${incomeFromOperations}"/>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
-                            </container>
+                            <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -790,23 +793,9 @@ under the License.
                         </container>
                         <include-form name="IncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <container>
-                            <label style="h3" text="${uiLabelMap.AccountingNetSales}: ${revenueBalanceTotal}"/>
+                            <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                         </container>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingCostOfGoodsSold}: ${cogsExpense}"/>
-                        </container>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingGrossMargin}: ${grossMargin}"/>
-                        </container>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingOperatingExpenses}: ${sgaExpense}"/>
-                        </container>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingIncomeFromOperations}: ${incomeFromOperations}"/>
-                        </container>
-                        <container>
-                            <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
-                        </container>
+                        <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -837,23 +826,9 @@ under the License.
                 </container>
                 <include-form name="IncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                 <container>
-                    <label style="h3" text="${uiLabelMap.AccountingNetSales}: ${revenueBalanceTotal}"/>
+                    <label style="h3" text="${uiLabelMap.CommonTotal}"/>
                 </container>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingCostOfGoodsSold}: ${cogsExpense}"/>
-                </container>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingGrossMargin}: ${grossMargin}"/>
-                </container>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingOperatingExpenses}: ${sgaExpense}"/>
-                </container>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingIncomeFromOperations}: ${incomeFromOperations}"/>
-                </container>
-                <container>
-                    <label style="h3" text="${uiLabelMap.AccountingNetIncome}: ${netIncome}"/>
-                </container>
+                <include-form name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
             </widgets>
         </section>
     </screen>
