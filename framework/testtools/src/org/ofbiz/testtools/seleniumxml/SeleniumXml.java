@@ -270,6 +270,8 @@ public class SeleniumXml {
                 testcase(elem);
             } else if("assertContains" == thisName) {
                 assertContains(elem);
+            } else if("assertNotContains" == thisName) {
+                assertNotContains(elem);
             } else if("getHtmlSource" == thisName) {
                 getHtmlSource(elem);
             } else if("getBodyText" == thisName) {
@@ -288,11 +290,11 @@ public class SeleniumXml {
                 appendCmd(elem);
             } else if("loadParameter" == thisName) {
                 loadParameter(elem);
-            }else if("partialRunDependency" == thisName) {
+            } else if("partialRunDependency" == thisName) {
                 partialRunDependency(elem);
-            }else if("if" == thisName) {
+            } else if("if" == thisName) {
                 ifCmd(elem);
-            }else if("open" == thisName) {
+            } else if("open" == thisName) {
                 openCmd(elem);
             } else if("click" == thisName) {
                 clickCmd(elem);
@@ -316,9 +318,11 @@ public class SeleniumXml {
                 openWindow(elem);
             } else if("selectWindow" == thisName) {
                 selectWindow(elem);
+            }  else if("assertConfirmation" == thisName) {
+                assertConfirmation(elem);
             } else if("runScript" == thisName) {
                 runScript(elem);
-             } else {
+            } else {
                 logger.info("Undefined command calling by reflection for command: " + thisName);
                 callByReflection(elem);
             }
@@ -362,7 +366,6 @@ public class SeleniumXml {
     }
 
     public void waitForValue(Element elem) {
-
         String locator = replaceParam(elem.getAttributeValue("locator"));
         String timeout = elem.getAttributeValue("timeout");
         String outParam = elem.getAttributeValue("out");
@@ -541,11 +544,34 @@ public class SeleniumXml {
         if(indxSearch == -1) {
             logger.info("assertContains didn't find " + test + " in the src");
             throw new TestCaseException("assertContains didn't find: " + test);
-
         } else {
             logger.info("assertContains found " + test + " in the src");
         }
         //TODO: implement JUnit TestCase - Assert.assertTrue(indxSearch != -1);
+    }
+
+    private void assertNotContains(Element elem) throws TestCaseException {
+        String src = replaceParam(elem.getAttributeValue("src"));
+        String test = replaceParam(elem.getAttributeValue("test"));
+        int indxSearch = src.indexOf(test);
+        if(indxSearch != -1) {
+            logger.info("assertNotContains found " + test + " in the src");
+            throw new TestCaseException("assertContains didn't find: " + test);
+        } else {
+            logger.info("assertNotContains didn't find " + test + " in the src");
+        }
+    }
+
+    private void assertTitle(Element elem) throws TestCaseException {
+        String src = replaceParam(this.sel.getTitle());
+        String test = replaceParam(elem.getAttributeValue("value"));
+        int indxSearch = src.indexOf(test);
+        if(indxSearch == -1) {
+            logger.info("assertTitle value " + test + " doesn't match exact "+src);
+            throw new TestCaseException("assertTitle value " + test + " doesn't match exact "+src);
+        } else {
+            logger.info("assertTitle matched title");
+        }
     }
 
     private void selectPopup(Element elem) {
@@ -591,12 +617,14 @@ public class SeleniumXml {
         logger.info("getSelectedValue: locator=" + locator + " text="+text);
         addParam(out, text);
     }
+
     private void getSelectedId(Element elem) {
         String locator = elem.getAttributeValue("locator");
         String out = elem.getAttributeValue("out");
         String text = this.sel.getSelectedId(locator);
         addParam(out, text);
     }
+
     private void getHtmlSource(Element elem) {
         String paramName = elem.getAttributeValue("out");
         String text = this.sel.getHtmlSource();
@@ -609,6 +637,7 @@ public class SeleniumXml {
         String text = this.sel.getBodyText();
         addParam(paramName, text);
     }
+
     private void testcase(Element elem) {
         System.err.println("New testcase: " + elem.getAttributeValue("file"));
         String testFile = elem.getAttributeValue("file");
@@ -642,11 +671,18 @@ public class SeleniumXml {
         }
         return directory;
     }
+
     private void clickAt(Element elem) {
         logger.debug("clickAt: " + replaceParam(elem.getAttributeValue("locator")));
         String locator = replaceParam(elem.getAttributeValue("locator"));
         String coordString = elem.getAttributeValue("coordString");
         this.sel.clickAt(locator, coordString);
+    }
+
+    private void assertConfirmation(Element elem) {
+        logger.debug("assertConfirmation: " + replaceParam(elem.getAttributeValue("value")));
+        this.sel.waitForCondition("selenium.isConfirmationPresent();", "1000");
+        this.sel.getConfirmation();
     }
 
     /**
@@ -662,9 +698,7 @@ public class SeleniumXml {
         try {
             this.sel.click(replaceParam(elem.getAttributeValue("locator")));
         } catch (SeleniumException e) {
-
             logger.info("caught SeleniumException Name:"+elem.getName()+"  , Value: "+elem.getAttributeValue("locator"));
-
             e.printStackTrace();
         }
     }
