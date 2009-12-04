@@ -716,11 +716,16 @@ public class OrderReturnServices {
             // Fetch the ProductStore
             GenericValue productStore = null;
             GenericValue orderHeader = null;
-            GenericValue returnItem = EntityUtil.getFirst(returnItems);
+            GenericValue returnItem = null;
+            if (UtilValidate.isNotEmpty(returnItems)) {
+                returnItem = EntityUtil.getFirst(returnItems);
+            }
+            if (UtilValidate.isNotEmpty(returnItem)) {
             try {
                 orderHeader = returnItem.getRelatedOne("OrderHeader");
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
+            }
             }
             if (orderHeader != null) {
                 OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
