@@ -114,7 +114,14 @@ if (orderHeader) {
     grandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
     context.grandTotal = grandTotal;
 
+    canceledPromoOrderItem = [:];
     orderItemList = orderReadHelper.getOrderItems();
+    orderItemList.each { orderItem -> 
+        if("Y".equals(orderItem.get("isPromo")) && "ITEM_CANCELLED".equals(orderItem.get("statusId"))) {
+            canceledPromoOrderItem = orderItem;
+        }
+        orderItemList.remove(canceledPromoOrderItem);
+    }
     context.orderItemList = orderItemList;
 
     shippingAddress = orderReadHelper.getShippingAddress();
