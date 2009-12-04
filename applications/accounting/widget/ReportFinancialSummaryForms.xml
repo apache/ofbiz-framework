@@ -166,55 +166,6 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
-            </entity-one>
-        </row-actions>
-        <field name="glAccountId" use-when="isPdf != true">
-            <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
-            </entity-one>
-        </row-actions>
-        <field name="glAccountId" use-when="isPdf != true">
-            <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <entity-one entity-name="GlAccount" value-field="glAccount">
-                <field-map field-name="glAccountId"/>
-            </entity-one>
-        </row-actions>
-        <field name="glAccountId" use-when="isPdf != true">
-            <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="glAccountId" use-when="isPdf == true"><display description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/></field>
-        <field name="totalAmount" title-area-style="tableheadmedium" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-
     <form name="BalanceSheetAssets" type="list" list-name="assetAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
@@ -254,13 +205,21 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="PostedTransactionTotalList" type="list" list-name="postedTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
@@ -269,9 +228,10 @@ under the License.
     </form>
     <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
@@ -280,9 +240,10 @@ under the License.
     </form>
     <form name="PostedAndUnpostedTransactionTotalList" type="list" list-name="allTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="glAccountId">
-            <hyperlink target="GlAccountNavigate" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
@@ -562,13 +523,12 @@ under the License.
                 <order-by field-name="accountCode"/>
             </entity-condition>
         </actions>
-        <field name="glAccountId">
-            <hyperlink target="FindAcctgTransEntries" description="${glAccountId}">
+        <field name="accountCode">
+            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountCode"><display description="${accountCode}"/></field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="totalPostedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display description="${totalPostedDebits}" type="currency" currency="${currencyUomId}"/></field>
         <field name="totalPostedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display description="${totalPostedCredits}" type="currency" currency="${currencyUomId}"/></field>

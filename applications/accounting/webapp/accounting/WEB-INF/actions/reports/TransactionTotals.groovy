@@ -33,6 +33,9 @@ if (!fromDate) {
 if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp();
 }
+if (!parameters.glFiscalTypeId) {
+    parameters.glFiscalTypeId = "ACTUAL";
+}
 
 // POSTED
 // Posted transactions totals and grand totals
@@ -42,6 +45,7 @@ postedTotalCredit = BigDecimal.ZERO;
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
@@ -64,6 +68,7 @@ if (postedTransactionTotals) {
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "D"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
@@ -79,6 +84,7 @@ if (postedDebitTransactionTotals) {
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "C"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
@@ -101,6 +107,7 @@ unpostedTotalCredit = BigDecimal.ZERO;
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
@@ -123,6 +130,7 @@ if (unpostedTransactionTotals) {
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "D"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
@@ -138,6 +146,7 @@ if (unpostedDebitTransactionTotals) {
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "C"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
@@ -159,6 +168,7 @@ allTotalDebit = BigDecimal.ZERO;
 allTotalCredit = BigDecimal.ZERO;
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
@@ -180,6 +190,7 @@ if (allTransactionTotals) {
 // Posted and unposted grand total for Debits
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "D"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
@@ -194,6 +205,7 @@ if (allDebitTransactionTotals) {
 // Posted and unposted grand total for Credits
 andExprs = FastList.newInstance();
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
 andExprs.add(EntityCondition.makeCondition("debitCreditFlag", EntityOperator.EQUALS, "C"));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
