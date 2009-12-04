@@ -721,11 +721,11 @@ public class OrderReturnServices {
                 returnItem = EntityUtil.getFirst(returnItems);
             }
             if (UtilValidate.isNotEmpty(returnItem)) {
-            try {
-                orderHeader = returnItem.getRelatedOne("OrderHeader");
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.getMessage());
-            }
+                try {
+                    orderHeader = returnItem.getRelatedOne("OrderHeader");
+                } catch (GenericEntityException e) {
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             }
             if (orderHeader != null) {
                 OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
