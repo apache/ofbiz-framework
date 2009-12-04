@@ -56,12 +56,13 @@ under the License.
           </div>
        </td>
        <#if (adjEditable)>
-       <td align='right'><a href="<@ofbizUrl>removeReturnAdjustment?returnAdjustmentId=${returnAdjustment.returnAdjustmentId}&returnId=${returnAdjustment.returnId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
+         <td align='right'><a href='javascript:document.removeReturnAdjustment_${rowCountForAdjRemove}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a></td>
        <#else>
        <td>&nbsp;</td>
        </#if>
         <#if (adjEditable)>
           <#assign rowCount = rowCount + 1>
+          <#assign rowCountForAdjRemove = rowCountForAdjRemove + 1>
        </#if>
        <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
     </tr>
@@ -139,6 +140,7 @@ under the License.
           </tr>
           <#assign returnTotal = 0.0>
           <#assign rowCount = 0>
+          <#assign rowCountForAdjRemove = 0>
           <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
           <input type="hidden" name="_useRowSubmit" value="Y">
           <#if returnItems?has_content>
@@ -319,6 +321,14 @@ under the License.
             <form name="removeReturnItem_${item_index}" method="post" action="<@ofbizUrl>removeReturnItem</@ofbizUrl>">
               <input type="hidden" name="returnId" value="${item.returnId}"/>
               <input type="hidden" name="returnItemSeqId" value="${item.returnItemSeqId}"/>
+            </form>
+          </#list>
+        </#if>
+        <#if returnAdjustments?has_content>
+          <#list returnAdjustments as returnAdjustment>
+            <form name="removeReturnAdjustment_${returnAdjustment_index}" method="post" action="<@ofbizUrl>removeReturnAdjustment</@ofbizUrl>">
+              <input type="hidden" name="returnId" value="${returnAdjustment.returnId}"/>
+              <input type="hidden" name="returnAdjustmentId" value="${returnAdjustment.returnAdjustmentId}"/>
             </form>
           </#list>
         </#if>
