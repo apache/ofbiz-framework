@@ -68,4 +68,10 @@
 
     <PortalPagePortlet portalPageId="ApPortalPage" portalPortletId="ApPastDueInvoices" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="ApPortalPage" portalPortletId="ApInvoicesDueSoon" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+
+    <PortalPortlet portalPortletId="ListSupplierInvoices" portletName="List Supplier Invoices"
+        screenName="ListSupplierInvoices"
+        screenLocation="component://accounting/widget/InvoiceScreens.xml"
+        description="List Invoices for a certain supplier who is just logged in"/>
+    <PortletPortletCategory portalPortletId="ListSupplierInvoices" portletCategoryId="ACCOUNTING"/>
 </entity-engine-xml>

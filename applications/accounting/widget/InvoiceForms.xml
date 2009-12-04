@@ -649,5 +649,10 @@ under the License.
         <field name="partyIdFrom"><ignored/></field>
         <field name="partyIdTo"><ignored/></field>
     </form>
-
+    
+    <form name="ListSupplierInvoices" extends="ListInvoices" list-name="invoiceslistexternal"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="partyIdFrom"><ignored/></field>
+        <field name="partyIdTo"><ignored/></field>
+    </form>
 </forms>
