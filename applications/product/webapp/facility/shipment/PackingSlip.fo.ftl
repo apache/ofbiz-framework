@@ -72,7 +72,9 @@ under the License.
                                 <#if carrier != "_NA_">
                                    ${carrier}
                                 </#if>
-                                ${shipGroup.shipmentMethodTypeId?default("??")}
+                                <#if (shipGroup.shipmentMethodTypeId)?exists>
+                                  ${(shipGroup.getRelatedOne("ShipmentMethodType").get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
+                                </#if>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
