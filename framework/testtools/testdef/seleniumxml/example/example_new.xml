@@ -20,11 +20,9 @@
   <waitForPageToLoad value="10000" />
   <click locator="link=Items" />
   <waitForPageToLoad value="10000" />
-  <type name="description" value="Item 1" />
+  <type name="AddExampleItem_description" value="Item 1" />
   <type name="amount" value="100" />
   <select locator="amountUomId" option="label=Weight: Stone (st)" />
   <click locator="submitButton" />
-  <waitForPageToLoad value="10000" />
-  <!-- click locator="link=New Example" />
-  <waitForPageToLoad value="10000" / --> 
+  <assertConfirmation value="Do you confirm ?" />
 </testcase>

@@ -44,7 +44,7 @@ public class SeleniumIDEConverter {
     private Element xmlDestRoot;
     private Namespace ns = Namespace.getNamespace("http://www.w3.org/1999/xhtml");
     private Map root;
-    
+
     public void convert(String ideFile, String xmlFile) throws JDOMException, IOException, SAXException, ParserConfigurationException {
         readInputFile(ideFile);
         convertIDECommands();
@@ -54,7 +54,7 @@ public class SeleniumIDEConverter {
     private void readInputFile(String input) throws JDOMException, IOException, SAXException, ParserConfigurationException {
         File xmlFile = new File(input);
         SAXBuilder builder = new SAXBuilder();
-        this.ideFile = builder.build(xmlFile);    
+        this.ideFile = builder.build(xmlFile);
     }
 
     private void createSeleniumXml(String outputFile) {
@@ -93,29 +93,42 @@ public class SeleniumIDEConverter {
             System.out.println("Found clickAndWait");
             this.xmlDestRoot.addContent(buildCommand("click", "locator", cmd.get(1).getValue(), null, null));
             this.xmlDestRoot.addContent(buildCommand("waitForPageToLoad", "value", "10000", null, null));
-
         } else if ("type".compareTo(cmdElem.getValue()) == 0 ) {
             System.out.println("Found type");
             this.xmlDestRoot.addContent (buildCommand("type", "name", cmd.get(1).getValue(), "value", cmd.get(2).getValue()));
-
         } else if ("select".compareTo(cmdElem.getValue()) == 0) {
             System.out.println("Found select");
             this.xmlDestRoot.addContent(buildCommand("select", "locator", cmd.get(1).getValue(), "option", cmd.get(2).getValue()));
-
         } else if ("open".compareTo(cmdElem.getValue()) == 0) {
             System.out.println("Found open");
             this.xmlDestRoot.addContent(buildCommand("open", "value", cmd.get(1).getValue(), null, null));
-
         } else if ("click".compareTo(cmdElem.getValue()) == 0) {
             Element newCmd = new Element("click");
             newCmd.setAttribute("locator", cmd.get(1).getValue());
             this.xmlDestRoot.addContent(newCmd);
-
         } else if ("doubleClick".compareTo(cmdElem.getValue()) == 0) {
             Element newCmd = new Element("doubleClick");
             newCmd.setAttribute("locator", cmd.get(1).getValue());
             this.xmlDestRoot.addContent(newCmd);
-
+        } else if ("echo".compareTo(cmdElem.getValue()) == 0) {
+             System.out.println("Found echo");
+             Element newCmd = new Element("print");
+             newCmd.setAttribute("value", cmd.get(1).getValue());
+             this.xmlDestRoot.addContent(newCmd);
+        } else if ("verifyTextPresent".compareTo(cmdElem.getValue()) == 0) {
+            System.out.println("Found verifyTextPresent");
+            this.xmlDestRoot.addContent(buildCommand("getBodyText", "out", "bodySource", null, null));
+            this.xmlDestRoot.addContent(buildCommand("assertContains", "test", cmd.get(1).getValue(), "src", "${bodySource}"));
+        } else if ("verifyTextNotPresent".compareTo(cmdElem.getValue()) == 0) {
+            System.out.println("Found verifyTextNotPresent");
+            this.xmlDestRoot.addContent(buildCommand("getBodyText", "out", "bodySource", null, null));
+            this.xmlDestRoot.addContent(buildCommand("assertNotContains", "test", cmd.get(1).getValue(), "src", "${bodySource}"));
+        } else if ("assertTitle".compareTo(cmdElem.getValue()) == 0) {
+            System.out.println("Found assertTitle");
+            this.xmlDestRoot.addContent(buildCommand("assertTitle", "value", cmd.get(1).getValue(), null, null));
+        } else if ("assertConfirmation".compareTo(cmdElem.getValue()) == 0) {
+            System.out.println("Found assertConfirmation");
+            this.xmlDestRoot.addContent(buildCommand("assertConfirmation", "value", cmd.get(1).getValue(), null, null));
         } else {
             System.out.println("WARNING: No definition for " + cmdElem.getValue() + " defaulting to us 'reflection'.");
             Element newCmd = new Element(cmdElem.getValue());

@@ -1,11 +1,8 @@
 <testcase>
-  <click locator="link=Example" />
+  <open value="/example/control/FindExample" />
   <waitForPageToLoad value="10000" />
   <click locator="searchButton" />
   <waitForPageToLoad value="10000" />
-  <!-- click locator="link=Last" />
-  <waitForPageToLoad value="10000" / -->
   <getHtmlSource out="searchResults"/>
-  <!--  assertContains src="${searchResults}" test="${exampleName}" / -->
   <assertContains src="${searchResults}" test="Brett" />
 </testcase>
