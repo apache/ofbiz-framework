@@ -212,19 +212,19 @@ public class SagePayPaymentServices {
                 }
             } else if (status != null && "INVALID".equals(status)) {
                 Debug.logInfo("SagePay - Invalid authorisation request for order : " + vendorTxCode, module);
-                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, new BigDecimal("0.00"), "INVALID", vendorTxCode, statusDetail);
+                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, BigDecimal.ZERO, "INVALID", vendorTxCode, statusDetail);
             } else if (status != null && "MALFORMED".equals(status)) {
                 Debug.logInfo("SagePay - Malformed authorisation request for order : " + vendorTxCode, module);
-                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, new BigDecimal("0.00"), "MALFORMED", vendorTxCode, statusDetail);
+                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, BigDecimal.ZERO, "MALFORMED", vendorTxCode, statusDetail);
             } else if (status != null && "NOTAUTHED".equals(status)) {
                 Debug.logInfo("SagePay - NotAuthed authorisation request for order : " + vendorTxCode, module);
-                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, securityKey, new BigDecimal("0.00"), vpsTxId, vendorTxCode, statusDetail);
+                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, securityKey, BigDecimal.ZERO, vpsTxId, vendorTxCode, statusDetail);
             } else if (status != null && "REJECTED".equals(status)) {
                 Debug.logInfo("SagePay - Rejected authorisation request for order : " + vendorTxCode, module);
                 result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, securityKey, new BigDecimal(amount), vpsTxId, vendorTxCode, statusDetail);
             } else {
                 Debug.logInfo("SagePay - Invalid status " + status + " received for order : " + vendorTxCode, module);
-                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, new BigDecimal("0.00"), "ERROR", vendorTxCode, statusDetail);
+                result = SagePayUtil.buildCardAuthorisationPaymentResponse(Boolean.FALSE, null, null, BigDecimal.ZERO, "ERROR", vendorTxCode, statusDetail);
             }
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthentication", module);
@@ -394,7 +394,7 @@ public class SagePayPaymentServices {
                 result = SagePayUtil.buildCardRefundPaymentResponse(Boolean.TRUE, txAuthNo, amount, vpsTxId, orderId, statusDetail);
             } else {
                 Debug.logInfo("SagePay - Invalid status " + status + " received for order : " + orderId, module);
-                result = SagePayUtil.buildCardRefundPaymentResponse(Boolean.FALSE, null, new BigDecimal("0.00"), status, orderId, statusDetail);
+                result = SagePayUtil.buildCardRefundPaymentResponse(Boolean.FALSE, null, BigDecimal.ZERO, status, orderId, statusDetail);
             }
 
         } catch(GenericServiceException e) {
@@ -437,13 +437,13 @@ public class SagePayPaymentServices {
                 result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.TRUE, amount, "SUCCESS", orderId, statusDetail);
             } else if (status != null && "MALFORMED".equals(status)) {
                 Debug.logInfo("SagePay - Malformed void request for order : " + orderId, module);
-                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, new BigDecimal("0.00"), "MALFORMED", orderId, statusDetail);
+                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, BigDecimal.ZERO, "MALFORMED", orderId, statusDetail);
             } else if (status != null && "INVALID".equals(status)){
                 Debug.logInfo("SagePay - Invalid void request for order : " + orderId, module);
-                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, new BigDecimal("0.00"), "INVALID", orderId, statusDetail);
+                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, BigDecimal.ZERO, "INVALID", orderId, statusDetail);
             } else if (status != null && "ERROR".equals(status)){
                 Debug.logInfo("SagePay - Error in void request for order : " + orderId, module);
-                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, new BigDecimal("0.00"), "ERROR", orderId, statusDetail);
+                result = SagePayUtil.buildCardVoidPaymentResponse(Boolean.FALSE, BigDecimal.ZERO, "ERROR", orderId, statusDetail);
             }
 
         } catch(GenericServiceException e) {
