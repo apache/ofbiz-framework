@@ -440,14 +440,14 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelPaymentBatch"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
-        <response name="error" type="view" value="PaymentGroupOverview"/>
+        <response name="error" type="view" value="FindPaymentGroup"/>
     </request-map>
     
     <request-map uri="cancelCheckRunPayments">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelCheckRunPayments"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
-        <response name="error" type="view" value="PaymentGroupOverview"/>
+        <response name="error" type="view" value="FindPaymentGroup"/>
     </request-map>
     
     <request-map uri="DepositSlip.pdf">

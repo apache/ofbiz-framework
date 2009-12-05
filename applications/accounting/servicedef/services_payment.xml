@@ -161,7 +161,6 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="glReconciliationId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createPaymentAndPaymentGroupForInvoices" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">

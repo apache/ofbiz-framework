@@ -1843,6 +1843,10 @@
         <value xml:lang="th">ตรวจสอบจำนวน</value>
         <value xml:lang="zh">支票金额</value>
     </property>
+    <property key="AccountingCheckIsAlreadyIssued">
+        <value xml:lang="en">Check Is Already Issued</value>
+        <value xml:lang="hi_IN">जांच पहले से ही निर्गत किया जाता है</value>
+    </property>
     <property key="AccountingCheckNumber">
         <value xml:lang="en">Check Number</value>
         <value xml:lang="hi_IN">चेक/हुंडी नम्बर</value>
@@ -8895,6 +8899,10 @@
     <property key="AccountingTotalQuantityOnHand">
         <value xml:lang="en">Total Quantity On Hand</value>
         <value xml:lang="hi_IN">कुल मात्रा हाथ पर</value>
+    </property>
+    <property key="AccountingTransactionIsAlreadyReconciled">
+        <value xml:lang="en">Transaction Is already Reconciled</value>
+        <value xml:lang="hi_IN">गतिविधि पहले से ही समझौता है</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="en">Transaction has been already posted</value>
