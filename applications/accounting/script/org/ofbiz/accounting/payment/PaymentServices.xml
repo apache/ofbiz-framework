@@ -473,38 +473,30 @@ under the License.
     </simple-method>
 
     <simple-method method-name="cancelPaymentBatch" short-description="cancel payment batch">
-        <set field="paymentGroupId" from-field="parameters.paymentGroupId"/>
-        <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers">
-            <field-map field-name="paymentGroupId"/>
+        <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans" list="paymentGroupMemberAndTransList">
+            <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
         </entity-and>
-        <set field="isGlReconciliationId" value="${parameters.glReconciliationId == 'null'}" type="Boolean"/>
-        <if-compare field="isGlReconciliationId" operator="equals" value="true" type="Boolean">
-            <set-service-fields service-name="getPaymentGroupReconciliationId" map="parameters" to-map="getPaymentGroupReconciliationIdMap"/>
-            <set field="getPaymentGroupReconciliationIdMap.paymentGroupId"  from-field="paymentGroupId"/>
-            <call-service service-name="getPaymentGroupReconciliationId" in-map-name="getPaymentGroupReconciliationIdMap">
-                <result-to-field result-name="glReconciliationId"/>
-            </call-service>
-        <else>
-            <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>    
-        </else>
-        </if-compare>
-        <if-empty field="glReconciliationId">
-            <iterate list="paymentGroupMembers" entry="paymentGroupMember">
-                <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
+        <if-not-empty field="paymentGroupMemberAndTransList">
+            <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
+            <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="equals" value="FINACT_TRNS_APPROVED">
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingTransactionIsAlreadyReconciled"/>
+                </add-error>
+                <check-errors/>
+            </if-compare>      
+            <iterate list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans">
+                <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMemberAndTrans" to-map="expirePaymentGroupMemberMap"/>
                 <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
-                <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
-                <get-related-one relation-name="FinAccountTrans" value-field="payment" to-value-field="finAccountTrans"/>
+                <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans">
+                    <field-map field-name="finAccountTransId" from-field="paymentGroupMemberAndTrans.finAccountTransId"/>
+                </entity-one>
                 <if-not-empty field="finAccountTrans">
                     <set-service-fields service-name="setFinAccountTransStatus" map="finAccountTrans" to-map="setFinAccountTransStatusMap"/>
                     <set field="setFinAccountTransStatusMap.statusId" value="FINACT_TRNS_CANCELED"/>
                     <call-service service-name="setFinAccountTransStatus" in-map-name="setFinAccountTransStatusMap"/>
                 </if-not-empty>
             </iterate>
-        <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingCancelBatchPaymentsError"/></add-error>
-            <check-errors/>
-        </else>
-        </if-empty>
+        </if-not-empty>
     </simple-method>
     
     <simple-method method-name="createPaymentAndPaymentGroupForInvoices" short-description="Creates Payments, PaymentApplications and PaymentGroup for the same">
@@ -641,16 +633,29 @@ under the License.
     </simple-method>
     
     <simple-method method-name="cancelCheckRunPayments" short-description="Cancel all payments for payment group">
-        <entity-condition entity-name="PaymentGroupMember" list="paymentGroupMembers">
-            <condition-expr field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
-        </entity-condition>
-        <iterate list="paymentGroupMembers" entry="paymentGroupMember">
-            <get-related-one relation-name="Payment" value-field="paymentGroupMember" to-value-field="payment"/>
+        <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans"  list="paymentGroupMemberAndTransList">
+            <field-map field-name="paymentGroupId" from-field="parameters.paymentGroupId"/>
+        </entity-and>
+        <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
+        <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="not-equals" value="FINACT_TRNS_APPROVED">
+        <iterate list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans">
+            <entity-one entity-name="Payment" value-field="payment">
+                <field-map field-name="paymentId" from-field="paymentGroupMemberAndTrans.paymentId"/>
+            </entity-one>
             <set-service-fields service-name="voidPayment" map="payment" to-map="voidPaymentMap"/>
             <call-service service-name="voidPayment" in-map-name="voidPaymentMap"/>
-            <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMember" to-map="expirePaymentGroupMemberMap"/>
+            <set-service-fields service-name="expirePaymentGroupMember" map="paymentGroupMemberAndTrans" to-map="expirePaymentGroupMemberMap"/>
             <call-service service-name="expirePaymentGroupMember" in-map-name="expirePaymentGroupMemberMap"/>
+            <clear-field field="voidPaymentMap"/>
+            <clear-field field="expirePaymentGroupMemberMap"/>
         </iterate>
+        <else>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingCheckIsAlreadyIssued"/>
+            </add-error>
+            <check-errors/>
+        </else>
+        </if-compare>
     </simple-method>
     
     <simple-method method-name="getPayments" short-description="Get list of payment">

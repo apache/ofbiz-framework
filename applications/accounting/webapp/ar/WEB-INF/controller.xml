@@ -95,6 +95,12 @@ under the License.
         <response name="success" type="view" value="FindArInvoices"/>
         <response name="error" type="view" value="FindArInvoices"/>
     </request-map>
+    <request-map uri="cancelPaymentGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelPaymentBatch"/>
+        <response name="success" type="view" value="PaymentGroupOverview"/>
+        <response name="error" type="view" value="FindArPaymentGroups"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
