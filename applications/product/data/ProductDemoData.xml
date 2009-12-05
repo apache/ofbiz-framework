@@ -32,6 +32,19 @@ under the License.
     <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Pricing Complete?"/> 
     <ProductTypeAttr productTypeId="FINISHED_GOOD" attrName="Listing Approved?"/> 
     
-    
-    
+    <!-- Not real examples just put there to avoid error -->
+    <ProductTypeAttr productTypeId="ASSET_USAGE" attrName="Asset usage?"/>
+    <ProductTypeAttr productTypeId="SERVICE" attrName="Service?"/> 
+    <ProductTypeAttr productTypeId="GOOD" attrName="Good?"/> 
+    <ProductTypeAttr productTypeId="RAW_MATERIAL" attrName="Raw material?"/> 
+    <ProductTypeAttr productTypeId="SUBASSEMBLY" attrName="Subassembly?"/> 
+    <ProductTypeAttr productTypeId="DIGITAL_GOOD" attrName="Digital Good?"/> 
+    <ProductTypeAttr productTypeId="FINDIG_GOOD" attrName="Finished/Digital Good"/> 
+    <ProductTypeAttr productTypeId="AGGREGATED" attrName="Configurable Good?"/> 
+    <ProductTypeAttr productTypeId="MARKETING_PKG" attrName="Marketing Package?"/> 
+    <ProductTypeAttr productTypeId="MARKETING_PKG_AUTO" attrName="Marketing Package: Auto Manufactured?"/> 
+    <ProductTypeAttr productTypeId="MARKETING_PKG_PICK" attrName="Marketing Package: Pick Assembly?"/> 
+    <ProductTypeAttr productTypeId="WIP" attrName="Work In Process?"/> 
+    <ProductTypeAttr productTypeId="AGGREGATED_CONF" attrName="Configurable Good Configuration?"/> 
+        
 </entity-engine-xml>
