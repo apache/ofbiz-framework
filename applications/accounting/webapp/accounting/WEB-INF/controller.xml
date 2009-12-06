@@ -2266,7 +2266,8 @@ under the License.
         <response name="success" type="view" value="InventoryValuationCsv"/>
         <response name="error" type="view" value="InventoryValuation"/>
     </request-map>
-  
+    <request-map uri="CashFlowStatement"><security https="true" auth="true"/><response name="success" type="view" value="CashFlowStatement"/></request-map>
+    
     <!-- ================ Depreciation Calculation Report requests ================ -->
     <request-map uri="showFixedAssetDepreciation">
         <security https="true" auth="true"/>
@@ -2730,6 +2731,7 @@ under the License.
     <view-map name="InventoryValuation" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuation"/>
     <view-map name="InventoryValuationPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="InventoryValuationCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="CashFlowStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CashFlowStatement"/>
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
 

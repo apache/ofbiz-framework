@@ -1811,6 +1811,14 @@
         <value xml:lang="th">ประเภทบัตร</value>
         <value xml:lang="zh">卡类型</value>
     </property>
+	<property key="AccountingCashBalance">
+        <value xml:lang="en">Cash Balance</value>
+        <value xml:lang="hi_IN">à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
+    </property>
+    <property key="AccountingCashFlowStatement">
+        <value xml:lang="en">Cash Flow Statement</value>
+        <value xml:lang="hi_IN">à¤µà¤•à¥à¤¤à¤µà¥à¤¯ à¤¨à¤•à¤¦ à¤ªà¥à¤°à¤µà¤¾à¤¹</value>
+    </property>
     <property key="AccountingChartOfAcctsFor">
         <value xml:lang="en">Chart of accounts for</value>
         <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
@@ -2476,6 +2484,10 @@
         <value xml:lang="it">Valuta</value>
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
+    </property>
+    <property key="AccountingCurrentAsset">
+        <value xml:lang="en">Currennt Asset</value>
+        <value xml:lang="hi_IN">à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥à¤ªà¤¤à¥à¤¤à¤¿</value>
     </property>
     <property key="AccountingCurrentBalance">
         <value xml:lang="de">Ihr aktueller Kontostand ist:</value>
@@ -6494,6 +6506,10 @@
         <value xml:lang="th">เปิดช่วงเวลา</value>
         <value xml:lang="zh">打开时间段</value>
     </property>
+    <property key="AccountingOperationalCash">
+        <value xml:lang="en">Operational Cash</value>
+        <value xml:lang="hi_IN">à¤•à¥à¤°à¤¿à¤¯à¤¾à¤¶à¥€à¤² à¤¨à¤•à¤¦à¥€</value>
+    </property>
     <property key="AccountingOrderItemWithIdNotFound">
         <value xml:lang="de">Auftragsposition mit Nummer ${orderItemSeqId} nicht gefunden.</value>
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
@@ -8770,12 +8786,20 @@
         <value xml:lang="en">Total amountPercentage is not equal 100.</value>
         <value xml:lang="hi_IN">कुल amountPercentage बराबर 100 नहीं है</value>
     </property>
+    <property key="AccountingTotalCashBalance">
+        <value xml:lang="en">Total Cash Balance</value>
+        <value xml:lang="hi_IN">à¤•à¥à¤² à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
+    </property>
     <property key="AccountingTotalCostCenterAmount">
         <value xml:lang="en">Cost center amount percentage saved successfully</value>
     </property>
     <property key="AccountingTotalCommissionAmount">
         <value xml:lang="en">Total Commission Amount</value>
         <value xml:lang="hi_IN">कुल दलाली राशी</value>
+    </property>
+    <property key="AccountingTotalCurrentAssetBalance">
+        <value xml:lang="en">Total Current Asset Balance</value>
+        <value xml:lang="hi_IN">à¤•à¥à¤² à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥à¤ªà¤¤à¥à¤¤à¤¿ à¤°à¤¾à¤¶à¥€</value>
     </property>
     <property key="AccountingTotalOfTheCurrentMonth">
         <value xml:lang="en">Total of the current month</value>
@@ -8784,6 +8808,10 @@
     <property key="AccountingTotalOfYearToDate">
         <value xml:lang="en">Total of Year To Date</value>
         <value xml:lang="hi_IN">वर्ष से दिनांक का कुल</value>
+    </property>
+    <property key="AccountingTotalOperationalCashBalance">
+        <value xml:lang="en">Total Operational Cash Balance</value>
+        <value xml:lang="hi_IN">à¤•à¥à¤² à¤•à¥à¤°à¤¿à¤¯à¤¾à¤¶à¥€à¤² à¤¨à¤•à¤¦à¥€</value>
     </property>
     <property key="AccountingTextData">
         <value xml:lang="de">Textangaben</value>
