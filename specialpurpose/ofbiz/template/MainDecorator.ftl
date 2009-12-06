@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -18,18 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-component name="cmssite"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/CmsSiteDemoData.xml"/>
+${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)?if_exists)}
 
-    <webapp name="cmssite"
-        title="CMS Site"
-        menu-name="secondary"
-        server="default-server"
-        location="webapp/cmssite"
-        mount-point="/cmssite"
-        app-bar-display="true"/>
-</ofbiz-component>
+${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)?if_exists)}
 
+${decoratedContent}
+              
+${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)?if_exists)}

@@ -1,0 +1,1579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="OFBIZ_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" mimeTypeId="text/html" objectInfo="component://ofbiz/template/MainDecorator.ftl"/>
+    <DataResource dataResourceId="OFBIZ_HHEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" mimeTypeId="text/html" objectInfo="component://ofbiz/template/HtmlHead.ftl"/>
+    <DataResource dataResourceId="OFBIZ_HEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" mimeTypeId="text/html" objectInfo="component://ofbiz/template/Header.ftl"/>
+    <DataResource dataResourceId="OFBIZ_FOOT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" mimeTypeId="text/html" objectInfo="component://ofbiz/template/Footer.ftl"/>
+    <DataResource dataResourceId="OFBIZ_HOME_TH" localeString="th" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_HOME_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_PRODUCT_TH" localeString="th" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_PRODUCT_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_SERVICE_TH" localeString="th" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_SERVICE_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_CONTACT_TH" localeString="th" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_CONTACT_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_COURSE_TH" localeString="th" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="OFBIZ_COURSE_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    
+    <Content contentId="OFBIZ_POINT" contentTypeId="WEB_SITE_PUB_PT" contentName="OFBiz Site Publish Point" description=""/>
+    <Content contentId="OFBIZ_DEC" contentTypeId="DECORATOR" contentName="OFBiz main decorator" dataResourceId="OFBIZ_DEC"/>
+    <Content contentId="OFBIZ_HHEAD" contentTypeId="DOCUMENT" contentName="OFBiz HTML Head" dataResourceId="OFBIZ_HHEAD"/>
+    <Content contentId="OFBIZ_HEAD" contentTypeId="DECORATOR" contentName="OFBiz header" dataResourceId="OFBIZ_HEAD"/>
+    <Content contentId="OFBIZ_FOOT" contentTypeId="DECORATOR" contentName="OFBiz footer" dataResourceId="OFBIZ_FOOT"/>
+    <Content contentId="OFBIZ_HOME" localeString="en" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_NL"/><!-- to be completed -->
+    <Content contentId="OFBIZ_HOME_TH" localeString="th" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_TH"/>
+    <Content contentId="OFBIZ_HOME_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_NL"/>
+    <Content contentId="OFBIZ_COURSE_TH" localeString="th" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz course page" dataResourceId="OFBIZ_COURSE_TH"/>
+    <Content contentId="OFBIZ_COURSE_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz course page" dataResourceId="OFBIZ_COURSE_NL"/>
+    <Content contentId="OFBIZ_PRODUCT_TH" localeString="th" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz product page" dataResourceId="OFBIZ_PRODUCT_TH"/>
+    <Content contentId="OFBIZ_PRODUCT_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz product page" dataResourceId="OFBIZ_PRODUCT_NL"/>
+    <Content contentId="OFBIZ_CONTACT_TH" localeString="th" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz contact page" dataResourceId="OFBIZ_CONTACT_TH"/>
+    <Content contentId="OFBIZ_CONTACT_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz contact page" dataResourceId="OFBIZ_CONTACT_NL"/>
+    <Content contentId="OFBIZ_SERVICE_TH" localeString="th" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz service page" dataResourceId="OFBIZ_SERVICE_TH"/>
+    <Content contentId="OFBIZ_SERVICE_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz service page" dataResourceId="OFBIZ_SERVICE_NL"/>
+    
+    <WebSite webSiteId="OFBIZ" siteName="OFBiz Website"/>
+    <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_POINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2009-04-27 13:33:05.29"/>
+    <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    
+    <ContentPurpose contentId="OFBIZ_DEC" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_HHEAD" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_HEAD" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_FOOT" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_HOME_TH" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_HOME_NL" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_PRODUCT_TH" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_PRODUCT_NL" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_COURSE_TH" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_COURSE_NL" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_CONTACT_TH" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_CONTACT_NL" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_SERVICE_TH" contentPurposeTypeId="SECTION"/>
+    <ContentPurpose contentId="OFBIZ_SERVICE_NL" contentPurposeTypeId="SECTION"/>
+    
+    <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_HHEAD" contentAssocTypeId="SUB_CONTENT" fromDate="2009-03-16 10:49:33.238" mapKey="htmlHead" createdDate="2009-03-16 10:49:33.238" createdByUserLogin="admin" lastModifiedDate="2009-03-16 10:49:33.238" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-20 09:26:56.285" lastUpdatedTxStamp="2009-03-20 09:26:56.015" createdStamp="2009-03-20 09:26:56.285" createdTxStamp="2009-03-20 09:26:56.015"/>
+    <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_HEAD" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_FOOT" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_HOME_TH" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="Home"/>
+    <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_PRODUCT_TH" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_COURSE_TH" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_CONTACT_TH" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_SERVICE_TH" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    
+    <!-- Alternate Locale -->
+    <ContentAssoc contentId="OFBIZ_HOME_TH" contentIdTo="OFBIZ_HOME_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201" createdDate="2009-03-24 09:07:40.628" createdByUserLogin="admin" lastModifiedDate="2009-03-24 09:07:40.628" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-25 09:50:22.807" lastUpdatedTxStamp="2009-03-25 09:50:22.455" createdStamp="2009-03-24 09:07:40.629" createdTxStamp="2009-03-24 09:07:40.412"/>
+    <ContentAssoc contentId="OFBIZ_PRODUCT_TH" contentIdTo="OFBIZ_PRODUCT_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201" createdDate="2009-03-24 09:07:40.628" createdByUserLogin="admin" lastModifiedDate="2009-03-24 09:07:40.628" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-25 09:50:22.807" lastUpdatedTxStamp="2009-03-25 09:50:22.455" createdStamp="2009-03-24 09:07:40.629" createdTxStamp="2009-03-24 09:07:40.412"/>
+    <ContentAssoc contentId="OFBIZ_COURSE_TH" contentIdTo="OFBIZ_COURSE_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201" createdDate="2009-03-24 09:07:40.628" createdByUserLogin="admin" lastModifiedDate="2009-03-24 09:07:40.628" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-25 09:50:22.807" lastUpdatedTxStamp="2009-03-25 09:50:22.455" createdStamp="2009-03-24 09:07:40.629" createdTxStamp="2009-03-24 09:07:40.412"/>
+    <ContentAssoc contentId="OFBIZ_CONTACT_TH" contentIdTo="OFBIZ_CONTACT_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201" createdDate="2009-03-24 09:07:40.628" createdByUserLogin="admin" lastModifiedDate="2009-03-24 09:07:40.628" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-25 09:50:22.807" lastUpdatedTxStamp="2009-03-25 09:50:22.455" createdStamp="2009-03-24 09:07:40.629" createdTxStamp="2009-03-24 09:07:40.412"/>
+    
+    
+    <!-- Website -->
+    <WebSite webSiteId="OFBIZ" siteName="OFBiz Website"/>
+    <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_POINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2009-04-27 13:33:05.29"/>
+    <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    
+    
+    
+    <!-- ElectronicText Thailand -->  
+    <ElectronicText dataResourceId="OFBIZ_HOME_TH">
+        <textData><![CDATA[
+<body id="home">
+  <div id="wrap">
+	<div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+       
+        <div id="language">
+            Language: NL
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+        </div>
+        <!--
+        <div id="controls">
+            <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        <div id="nav">
+            <ul>
+                <li id="current"><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">ผลิตภัณฑ์</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">บริการ</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">หลักสูตร</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">ติตต่อเรา</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+        <div id="slides">
+            <div class="slideshow" id="mantleSlides">
+                <div id="slide1">
+                    <div class="callout">
+                        สิ่งที่ดีที่สุดในชีวิตคุณ<br />
+                        เป็นของฟรี<br />
+                    </div>
+                    <div class="description">
+                        Apache Open For Business (OFBiz) เป็นโครงการ open source นั่นหมายความว่าไม่มีลิขสิทธิ์ ไม่ต้องเสียค่าใช้จ่ายใดๆ
+                        ส่วนใหญ่ OFBiz ถูกนำมาใช้เป็นโปรแกรมทาง e-commerce และ enterprise resource planning (ERP) ได้ดีที่สุด
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle.png" />
+                    </div>
+                </div>
+                <div id="slide2" style="display:none">
+                    <div class="callout">
+                        ราคาถูก<br />
+                        แต่ให้ผลลัพธ์ที่สูงกว่า<br />
+                    </div>
+                    <div class="description">
+                         ความสำเร็จของระบบนั้น ดีหรือดีกว่าระบบ EPRs ที่มีอยู่ทั่วไป ด้วยค่าใช้จ่ายโครงการที่ต่ำกว่า
+                        คุณสามารถจัดการงบประมาณที่จะได้จากการปรับปรุงคุณสมบัติและเพิ่มค่าต่างๆคืนมามากกว่า
+                        ค่าลิขสิทธิ์และค่าการดูแลรักษาที่เสียไป
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle2.png" />
+                    </div>
+                </div>
+                <div id="slide3" style="display:none">
+                    <div class="callout">
+                        เปิดตัวคุณสู่<br />
+                        ทั้งหมดของคำว่า<br />
+                        ความเป็นไปได้<br />
+                    </div>
+                    <div class="description">
+                        สนุกกับอิสระกับการไร้ข้อจำกัดจากผู้ขาย ไปกับ OFBiz ซึ่งคุณสามารถจัดการทรัพยากรต่างๆเองได้อย่างเต็มที่
+                        ด้วยคุณภาพของ OFBiz ทั้งทางด้านการปรับแต่งและการรองรับบริการต่างๆ                        
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle3.png" />
+                    </div>
+                </div>
+                <div id="slide4" style="display:none">
+                    <div class="callout">
+                       พวกเรามี<br />
+                       ความเป็นเลิศ<br />
+                    </div>
+                    <div class="description">
+                        ผู้ใช้ OFBIZ เชื่อใจได้ในความมั่นคงของ องค์กร ความถูกต้องตามกฎหมาย และทางการเงิน
+                        เพราะ OFBiz เป็นโครงการระดับยอดนิยมของ Apache Software Foundation (ASF)
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle4.png" />
+                    </div>
+                </div>
+                <div id="slide5" style="display:none">
+                    <div class="callout">            
+                        e-commerce ที่ยืดหยุ่น<br />
+                        และยอดเยี่ยม<br />
+                    </div>
+                    <div class="description">
+                        เนื่องจากคุณสามารถเข้าถึงยัง source code ได้เอง คุณจึงกำจัดความจำกัดทางลิขสิทธิ์ได้ 
+                        ด้วยประโยชน์ทั้งหมดของ OFBiz ทำให้มันเข้าใจง่าย ยืดหยุ่น และ นำกลับมาใช้ใหม่ได้ตามที่เราต้องการ
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle5.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+              <a class="next" id="next" title="Next" href="#">Next</a>
+              <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+              <a class="start" id="start" title="Start" href="#">Start</a>
+              <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          function StartSlides() {
+            new Slides('mantleSlides');
+          }
+          document.observe ('dom:loaded', StartSlides);
+        </script>
+
+    </div>
+            
+    <!-- content-wrap starts -->
+    <div id="content-wrap" class="clearfix">
+        <div id="main">
+
+            <h2>Apache OFBiz คืออะไร?</h2>
+            <h3>รู้จักกับโปรเจคนี้มากขึ้น</h3>
+        <div class="highlights">
+          <h4>Apache OFBiz เสนอฟังก์ชั่นชั้นเยี่ยมในการจัดการต่างๆ เช่น:</h4>
+          <ul>
+            <li>advanced e-commerce</li>
+            <li>catalog management</li>
+            <li>promotion & pricing management</li>
+            <li>order management (sales & purchase)</li>
+            <li>customer management (part of general party management)</li>
+            <li>warehouse management</li>
+            <li>fulfillment (auto stock moves, batched pick, pack & ship)</li>
+            <li>accounting (invoice, payment & billing accounts, fixed assets)</li>
+            <li>manufacturing management</li>
+            <li>general work effort management (events, tasks, projects, requests, etc)</li>
+            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
+            <li>
+            a maturing Point Of Sales (POS) module using
+            <b>
+            </b>
+            as rich client interface
+            </li>
+            <li>and much more all in an open source package!</li>
+           </ul>
+        </div>
+
+        <p>   OFBiz มีชื่อเต็มว่า Open For Business OFBiz เป็น Open Source Enterprise Automation ซอฟต์แวร์ ภายใต้ Apache License Version 2.0
+        ประกอบไปด้วย Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM 
+        OFBiz มีจุดมุ่งหมายที่จะพัฒนาซอฟต์แวร์ที่ใช้งานสำหรับองค์กรที่ต้องการความ ยืดหยุ่นในการใช้งานมากกว่า Open Source อื่น ๆ เช่น การติดตั้ง การใช้งาน 
+        การปรับแต่งแก้ไข การดูแลรักษาระบบ นอกจากความยืดหยุ่นในการใช้งานแล้วประสิทธิภาพและความชื่อถือได้ของ OFBiz นั้นยังได้รับการยอมรับจากผู้ใช้งานและนักพัฒนาทั่วโลก
+        ปัจจุบัน OFBiz เป็น Top Level Project (TLP) ของ Apache Software Foundation
+        </p>
+
+        <p>   OFBiz ไม่ได้เป็นเพียงซอฟต์แวร์ ERP เท่านั้น ยังมีสิ่งหนึ่งที่น่าสนใจมาก คือตัว Framework โดย OFBiz Framework นั้นประกอบได้ด้วย Application Component (ERP, CRM, CMS, E-Commerce, POS)
+        และ Application Development Framework (UI Engine, Service Engine, Workflow Engine,Entity Engine) และ Data Model นักพัฒนาสามารถนำ Framework ไปพัฒนาเพิ่มเติมความสามารถของ OFBiz 
+        โดยอาศัยฟังก์ชันพื้นฐานของ OFBiz หรือนักพัฒนาสามารถที่จะพัฒนา Application โดยอาศัยเพียง Application Development Framework ก็สามารถที่จะสร้าง Application ที่มีประสิทธิภาพได้ เพราะ OFBiz Framework 
+        ได้จัดเตรียมเครื่องมือสำหรับนักพัฒนาไว้อย่างครบถ้วนสมบูรณ์ OFBiz มี Widget สำหรับสร้าง UI ไว้ให้ใช้ในการพัฒนา นักพัฒนายังสามารถที่จะใช้เทคโนโลยีอื่นๆในการสร้าง User Interface เช่น Servlet, JSP, FO,
+        AJAX, FreeMarker, XUI, Java Applet, Swing, SWT, SOAP, RMI และอีกมากมาย และในส่วนของ Service Engine เราสามารถที่จะสร้างจาก simple method ที่ OFBiz จัดเตรียมให้ มีภาษา Minilang 
+        สำหรับจัดการกับขบวนการที่ไม่ซับซ้อน นอกจากนี้พักพัฒนายังสามารถสร้าง Service ที่ซับซ้อนมากขึ้นโดยใช้ Java หรือ BeanShell สุดท้ายคือ Entity Engine เราสามารถสร้าง Table ของฐานข้อมูลได้โดยแทบไม่ต้องมีความรู้เรื่อง 
+        SQL Language เลยเพียง define รายละเอียดของ Data Model ในไฟล์ XML เท่านั้น นั้นก็หมายความว่านักพัฒนาไม่ต้องยุ่งเกี่ยวกับฐานข้อมูลเลยเพราะ OFBiz จะ Mapping ระหว่าง Java Class (OFBiz สร้างให้เอง ) 
+        กับ Table ในฐานข้อมูลให้เองอัตโนมัติ </p>
+        
+        <center>
+        <a target="_blank" href="/ofbiz/images/ofbiz_arch.png"><img border="0" alt="" src="/ofbiz/images/ofbiz_arch.png"/></a>
+        </center>
+        
+        <p>ลิงค์เหล่านี้จะเป็นแหล่งคำตอบของปัญหาต่างๆของคุณ:
+            <a href="http://docs.ofbiz.org/display/OFBADMIN/Apache+OFBiz+Getting+Started">Apache OFBiz Getting Started</a>,
+            <a href="http://docs.ofbiz.org/x/-Qs">Main New Features</a>,
+            <a href="http://docs.ofbiz.org/x/hgM">Is Apache OFBiz for Me?</a>,
+        </p>
+        <p>สำหรับข้อมูลทางเทคนิค สามารถดูได้จาก <a href="http://docs.ofbiz.org/x/Swg">เอกสารเกี่ยวกับ OFBiz</a></p>
+
+
+        <h2>Apache OFBiz เหมาะกับเราหรือไม่</h2>
+        <p>
+        หลายๆท่านอาจจะตั้งคำถามนี้เป็นคำถามถัดมาว่าแล้ว OFBiz เหมาะกับเราหรือไม่และก็เป็นคำถามที่ดีมาก
+        หลายๆ บริษัทที่กำลังจะนำซอฟต์แวร์สักตัวหนึ่งมาใช้ในองค์กรอาจจะคิดหนักในเรื่องนี้ ว่าจะซื้อหรือจะพัฒนาเอง 
+        เรามีอีกทางเลือกหนึ่งคือ OFBiz ทำไม OFBiz จึงเป็นทางเลือกที่ 3 และอาจจะเป็นทางเลือกที่ดีที่สุดเพราะ 
+        OFBiz ได้เตรียมซอฟต์แวร์ที่จำเป็นสำหรับธุรกิจไว้เกือบ 80%
+        และยังเป็น Open Source ซอฟต์แวร์ ท่านสามารถเปลี่ยนแปลงแก้ไข เพิ่มเติมความสามารถต่างๆตามที่ท่านต้องการได้ 
+        <a href="http://docs.ofbiz.org/x/hgM" target="_blank">อ่านเพิ่มเติม</a>
+        </p>
+
+
+        <h2>ใครบ้างที่ใช้ Apache OFBiz?</h2>
+            <p>มันเป็นการยากที่จะบอกว่าใครและจำนวนเท่าไหร่ที่กำลังใช้ Apache OFBiz แต่เรานำรายชื่อเว็บไซต์ต่างๆบางส่วนที่ใช้ระบบนี้มาให้คุณได้เข้าไปชมตัวอย่างได้</p>    
+            <p>นี่เป็นเว็บไซต์ ecommerce ส่วนใหญ่ที่ใช้ Apache OFBiz ที่เลือกมาให้ชมกัน:
+                <a href="http://www.1800flowers.com/" target="_blank">1-800-Flowers.com | </a>
+                <a href="http://www.actionenvelope.com/" target="_blank">Action Envelope | </a>
+                <a href="http://checkmark.heart.org/" target="_blank">American Heart Association: Grocery List Builder | </a>
+                <!-- no longer an OFBIz demonstration JLR 2009-04-20 a href="http://www.ameniti.com/" target="_blank">Ameniti Luxury Travel Club</a-->
+                <a href="http://www.citydeals.com/deals/control/main" target="_blank">City Deals | </a>
+                <a href="http://www.complianceonline.com/ecommerce/control/main" target="_blank">Compliance Online Store | </a>
+                <a href="http://www.dkny.com/control/main" target="_blank">DKNY | </a>
+                <a href="http://www.graciousstyle.com/" target="_blank">Gracious Style | </a>
+                <a href="http://www.imaginwood.com" target="_blank">ImagINwood | </a>
+                <a href="http://www.junipermusic.com" target="_blank">Juniper Music + Soundesign | </a>
+                <a href="http://webshop.messergroup.com/control/main" target="_blank">Messer Group (German, French) | </a>
+                <a href="http://www.oldglory.com/lp/main" target="_blank">Old Glory | </a>
+                <a href="http://www.parago.com" target="_blank">Parago | </a>
+                <!--php ? JLR 2009-04-20 a href="http://www.partnerhomes.com" target="_blank">Partner Homes</a-->
+                <!--asp ? JLR 2009-04-20 a href="http://www.peacockalley.com/control/main" target="_blank">Peacock Alley</a-->
+                <!--jsp ? JLR 2009-04-20 a href="http://www.ulta.com/control/main" target="_blank">Ulta</a-->
+                <a href="http://www.ulta.com/ulta/index.jsp" target="_blank">Ulta | </a>
+                <a href="http://www.shirtpainter.com/ecommerce/control/main" target="_blank">Shirt Painter (German) | </a>
+                <a href="https://www.silverwingsplus.com/swhome/control/swpHome" target="_blank">Silver Wings Plus Club | </a>
+                <a href="http://www.steinersports.com/ssm/control/home" target="_blank">Steiner Sports | </a>
+                <a href="http://www.totes-isotoner-sales.com/ecommerce/control/main" target="_blank">totes &gt;&gt; ISOTONER | </a>
+                <a href="http://www.undersunconsulting.com/control/home.html" target="_blank">Undersun Consulting | </a>
+                <!-- a href="http://store.xinit.com/ecommerce/control/main" target="_blank">Xinit Systems</a-->
+            </p>
+            <p>Products based on Apache OFBiz:
+                <a href="http://www.codesquare.com/products.html" target="_blank">Codesquare Helix | </a>
+                <a href="http://www.myaffiliateprogram.com/u/mvelopes/t.asp?id=1138" target="_blank">Mvelopes (FREE TRIAL!) (Commercial-Service) | </a>
+                <a href="http://www.atlassian.com/software/jira/default.jsp" target="_blank">Atlassian JIRA (Commercial) | </a>
+                <a href="http://www.opentaps.org/index.php" target="_blank">opentaps Open Source ERP + CRM (GPL/Commercial) | </a>
+                <a href="http://neogia.labs.libre-entreprise.org/index.html" target="_blank">Neogia (GPL) | </a>
+                <a href="http://sourcetapcrm.sourceforge.net" target="_blank">SourceTap CRM (GPL/Commercial) | </a>
+                <a href="http://www.neulion.com" target="_blank">NeuLion SAVANNA | </a>
+                <a href="http://www.mietta.info" target="_blank">XtraMind Mietta 2 | </a>
+                <a href="http://www.c-libre.net/control/main" target="_blank">Entente Oya (French) | </a>
+            </p>
+            <p>สำหรับรายชื่อเว็บไซต์ทั้งหมดหาดูได้จากหน้า <a href="http://docs.ofbiz.org/x/ZQM">รายชื่ออีเมล์ผู้ใช้ OFBiz</a></p>
+
+
+            <h2>เริ่มต้นกับ Apache OFBiz อย่างไร</h2>
+            <p>
+                <br>
+                <strong>สำหรับผู้ใช้งานทั่วไป</strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้ใช้งานทั่วไปท่านสามารถทดสอบการใช้งานจากเว็บไซต์ตัวอย่างได้จากเว็บไซต์ของ OFBiz : <a href="http://demo.hotwaxmedia.com/ecommerce/control/main" target="_blank">eCommerce</a>, <a href="https://demo.hotwaxmedia.com/catalog/control/login/main?USERNAME=demoadmin&amp;PASSWORD=ofbiz" target="_blank">Management Application </a>หรือ ท่านสามารถดาว์นโหลดมา
+                ติดตั้งในเครื่องของท่านเพราะว่าการติดตั้งนั้นถ้าเที่ยบกับซอฟต์แวร์ Open Source ตัวอื่นๆแล้วนั้นง่ายมาก 
+                <a href="http://docs.ofbiz.org/display/OFBADMIN/Demo+and+Test+Setup+Guide" target="_blank">วิธีการติดตั้ง</a> จากนั้นอ่านคู่มือการใช้งาน จาก <a href="http://docs.ofbiz.org/pages/viewpageattachments.action?pageId=742" target="_blank">Undersun Doc Site PDF Exports</a>
+                <br>
+        
+                <br>
+                <strong>สำหรับนักพัฒนา</strong>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สำหรับนักพัฒนาที่ต้องการทดสอบความสามารถของ OFBiz ท่านสามารถดาว์นโหลดโค้ดจาก OFBiz svn 
+                <br>
+                วิธีการติดตั้ง
+                <br>
+             </p>
+                <ul>
+                    <li><a href="http://docs.ofbiz.org/display/OFBADMIN/Demo+and+Test+Setup+Guide" target="_blank">Demo &amp; Test</a></li>
+        
+                    <li><a href="http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide" target="_blank">Technical Production Setup</a></li>
+                    <li><a href="http://docs.ofbiz.org/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide" target="_blank">Business Production Setup</a></li>
+                </ul>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;หลังจากที่ได้ทดลองติดตั้งเรียบร้อยแล้วอ่าน <a href="http://bigfiles.ofbiz.org/FrameworkIntro/OFBizFrameworkIntroOutline.pdf" target="_blank">OFBiz Framework Introduction</a> <a href="http://bigfiles.ofbiz.org/FrameworkIntro/01MainDiagram.pdf" target="_blank">Diagrams</a>และ<a href="http://bigfiles.ofbiz.org/FrameworkIntro/18ArtRefDia.pdf" target="_blank">Artifact Reference Diagram</a>ซึ่งจะบอกวิธีและขั้นตอนการ Implement และสุดท้ายทดลอง Implement จาก <a href="http://www.opensourcestrategies.com/ofbiz/tutorials.php" target="_blank">OFBiz tutorials</a> หรือ
+                <a href="http://ofbizwiki.go-integral.com/attach/OFBizInsiderTutorial/OFBiz+An+Insider+View.pdf%20" target="_blank">OFBiz An Insider View</a>
+            
+            <h2>คำถามที่พบบ่อย</h2>
+                <p>
+                    หลายๆครั้งที่คำถามเหล่านี้ถูกถามเป็นประจำ
+                    </p><ul>
+                        <li><strong>ถาม:</strong> Apache OFBiz ฟรี หรือไม่</li>
+                        <strong>ตอบ:</strong> คุณสามารถดาว์นโหลดมาใช้ได้ ฟรี
+                        <li><strong>ถาม:</strong> สามารถแก้ไขโค้ดของ Apache OFBiz ได้หรือไม่</li>
+            
+                        <strong>ตอบ:</strong> Apache OFBiz เป็น Open Source Software ภายใต้ Apache License Version 2.0.  ท่านสามารถแก้ไข โค้ดของ Apache OFBiz ได้ตามเงื่อนไขของ Apache License Version 2.0.
+                        <li><strong>ถาม:</strong>  ต้องเสียค่าใช้จ่ายอื่นๆอีกหรือไม่เช่น Database, Application Server </li>
+                        <strong>ตอบ:</strong> ไม่จำเป็นถ้าท่านไม่ต้องการจ่าย เพราะว่า Apache OFBiz ได้เตรียมไว้ให้ท่านเรียบร้อยแล้ว
+                        <li><strong>ถาม:</strong> Apache OFBiz ใช้กับฐานข้อมูลใดได้บ้าง</li>
+                        <strong>ตอบ:</strong> PostgreSQL, MySQL, DB2, Oracle, MS SQL, Sybase หรือแม้กระทั้ง Apache Derby Database.
+                        <li><strong>ถาม:</strong>  Apache OFBiz ทำ Load Balancing ได้หรือไม่</li>
+            
+                        <strong>ตอบ:</strong> สามารถทำได้<a href="http://docs.ofbiz.org/display/OFBIZ/Apache+OFBiz+Service+Providers" target="_blank"></a>
+                        <li><strong>ถาม:</strong>  มีใครใช้ Apache OFBiz บ้าง</li>
+                        <strong>ตอบ:</strong> ท่านสามารถดูได้จาก <a href="http://docs.ofbiz.org/display/OFBIZ/Apache+OFBiz+User+List" target="_blank">รายชื่ออีเมล์ผู้ใช้ OFBiz</a>
+                    </ul>
+
+
+            <h2>เทคนิคและบทความน่าสนใจ</h2>
+                <ul>
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/ZK+Rich+Client+-+integration+tutorial" target="_blank">ZK Rich Client - integration tutorial</a></li>
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/Entity+Engine+DB2+Express-C+integration" target="_blank"> Entity Engine DB2 Express-C integration</a></li>
+            <a href="http://docs.ofbiz.org/display/OFBIZ/Entity+Engine+DB2+Express-C+integration" target="_blank">           </a><li><a href="http://docs.ofbiz.org/display/OFBIZ/Entity+Engine+LDAP+Integration">Entity Engine LDAP Integration</a></li>
+            
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/How+to+Run+OFBiz+as+Windows+Service+with+Java+Service+Wrapper" target="_blank"> How to Run OFBiz as Windows Service with Java Service Wrapper</a></li>
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/Asterisk+PBX+Server+Integration" target="_blank">Asterisk PBX Server Integration</a></li>
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/Tips+for+translation" target="_blank"> Tips for translation</a></li>
+                       <li><a href="http://docs.ofbiz.org/display/OFBIZ/Load+OpenI+%28Mondrian+Implementation%29+under+OFBiz" target="_blank">Load OpenI (Mondrian Implementation) under OFBiz</a></li>
+                       <li><a href="http://www.opensourcestrategies.com/ofbiz/OFBIZ_SOAP_RMI_Tutorial.pdf" target="_blank">OFBiz SOAP/RMI Tutorial</a></li>
+            
+                       <li><a href="Creating%20OFBiz%20Reports%20with%20BIRT" target="_blank">Creating OFBiz Reports with BIRT</a></li>
+                       
+                    </ul>
+
+
+            <h2>ข่าวสาร</h2>
+              <ul>
+                  <li><a href="http://news.prnewswire.com/DisplayReleaseContent.aspx?ACCT=104&STORY=/www/story/04-20-2009/0005008924&EDATE=" target="_blank">Apache OFBiz version 9.04 is out</a> on <a href="http://www.prnewswire.com/" target="_blank">PR Newswire</a></li>
+                  <li><a href="http://osofbiz.blogspot.com/2009/04/apache-ofbiz-community-building-tour.html" target="_blank">Apache OFBiz Community Building Tour - Mid-western USA, April 2009</a> on <a href="http://osofbiz.blogspot.com/" target="_blank">Open Source Business and Open For Business (David E. Jones' Blog)</a></li>
+                  <li><a href="http://agylen.com/2009/02/05/apache-ofbiz-development-book-review/" target="_blank">Apache OFBiz Development (book review)</a> on <a href="http://agylen.com/" target="_blank">Agylen (Ugo Cei's Weblog). Ugo is an ASF member.</a></li>
+                  <li><a href="http://opensourceerpguru.com/2009/03/01/open-source-erp-e-commerce-with-apache-ofbiz" target="_blank">Open Source ERP E-commerce With Apache OfBiz.</a> on <a href="http://opensourceerpguru.com/" target="_blank">Open source ERP Guru</a></li>
+                  <li><a href="http://www.itbusinessedge.com/cm/community/features/articles/blog/what-do-you-want-from-your-erp-supplier-in-2009/?cs=30549" target="_blank">What Do You Want from Your ERP Supplier in 2009?</a> on <a href="http://www.itbusinessedge.com/" target="_blank">IT Business Edge</a></li>
+                  <li><a href="http://www.itbusinessedge.com/cm/community/features/articles/blog/despite-criticism-erp-vendors-satisfying-their-customers/?cs=30524&amp;page=1" target="_blank">Despite Criticism, ERP Vendors Satisfying Their Customers</a> on <a href="http://www.itbusinessedge.com/" target="_blank">IT Business Edge</a></li>
+                  <li><a href="http://wooga.drbacchus.com/apache-ofbiz-development" target="_blank">A review of 'Apache OFBiz Development: The Beginner's Tutorial'.</a> on <a href="http://www.rcbowen.com/" target="_blank">DrBacchus' Journal (aka Richard Bowen, Richard is a member of the Apache Software Foundation)</a></li>
+                  <li><a href="http://www.packtpub.com/apache-ofbiz-development-beginners-tutorial/book" target="_blank">Apache OFBiz Development: The Beginner's Tutorial (a new book from Packt Publishing, cover only release 4.0).</a> on <a href="http://www.packtpub.com/" target="_blank">Packt Publishing</a></li>
+                  <li><a href="http://www.ebizq.net/hot_topics/open_source/features/8926.html" target="_blank">Can OSS ERP Projects Meet User Demand? (registration required)</a> on <a href="http://www.ebizq.net" target="_blank">ebizQ</a></li>
+              </ul>
+              
+          <h2>Open Source Projects &amp; Standards</h2>
+              <p>Open Source Projects Used:
+                  <a href="http://freemarker.sourceforge.net/" target="_blank">FreeMarker</a>
+
+                  <a href="http://www.beanshell.org/" target="_blank">BeanShell</a>
+                  <a href="http://jakarta.apache.org/tomcat/index.html" target="_blank">Tomcat</a>
+                  <a href="http://jetty.mortbay.org/jetty/index.html" target="_blank">Jetty</a>
+                  <a href="http://jotm.objectweb.org/" target="_blank">JOTM</a>
+                  <a href="http://xapool.experlog.com/" target="_blank">XAPool</a>
+                  <a href="http://www.javolution.org/" target="_blank">Javolution</a>
+
+                  <a href="http://sf.net/projects/jpublish/" target="_blank">JPublish</a>
+                  <a href="http://datavision.sf.net/" target="_blank">DataVision</a>
+                  <a href="http://jasperreports.sf.net/" target="_blank">JasperReports</a>
+                  <a href="http://www.cs.waikato.ac.nz/%7Eml/weka/" target="_blank">WEKA</a>
+                  <a href="http://xml.apache.org/" target="_blank">Apache XML:</a>
+                      <a class="sub-link" href="http://xml.apache.org/xerces-j/index.html" target="_blank">Xerces</a>
+
+                      <a class="sub-link" href="http://xml.apache.org/xalan-j/index.html" target="_blank">Xalan</a>
+                      <a class="sub-link" href="http://xml.apache.org/axis/index.html" target="_blank">Axis</a>
+                      <a class="sub-link" href="http://xml.apache.org/fop/index.html" target="_blank">FOP</a>
+                      <a class="sub-link" href="http://xml.apache.org/batik/index.html" target="_blank">Batik</a>
+                  <a href="http://jakarta.apache.org/" target="_blank">Apache Jakarta:</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/ant/index.html" target="_blank">Ant</a>
+
+                      <a class="sub-link" href="http://jakarta.apache.org/bsf/index.html" target="_blank">BSF</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/commons/index.html" target="_blank">Commons</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/log4j/index.html" target="_blank">Log4J</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/lucene/index.html" target="_blank">Lucene</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/oro/index.html" target="_blank">ORO</a>
+                      <a class="sub-link" href="http://jakarta.apache.org/poi/index.html" target="_blank">POI</a>
+
+                  <a href="http://openjms.sf.net/" target="_blank">OpenJMS</a>
+                  <a href="http://www.postgresql.org/" target="_blank">PostgreSQL</a>
+                  <a href="http://www.mysql.com" target="_blank">MySQL</a>
+                  <a href="http://www.mysql.com/products/maxdb/index.html" target="_blank">MaxDB by MySQL</a>
+                  <a href="http://hsqldb.sf.net/" target="_blank">Hypersonic SQL</a>
+                  <a href="http://db.apache.org/derby/" target="_blank">Derby</a>
+
+              </p>
+
+              <p>Related Standards:
+                  <a href="http://www.w3c.org/" target="_blank">W3C:</a>
+                      <a class="sub-link" href="http://www.w3c.org/XML/" target="_blank">XML</a>
+                      <a class="sub-link" href="http://www.w3.org/TR/SOAP/" target="_blank">SOAP</a>
+                      <a class="sub-link" href="http://www.w3c.org/MarkUp/" target="_blank">HTML</a>
+                  <a href="http://www.sun.com/" target="_blank">Sun:</a>
+
+                      <a class="sub-link" href="http://java.sun.com/" target="_blank">Java</a>
+                      <a class="sub-link" href="http://java.sun.com/j2ee" target="_blank">J2EE</a>
+                  <a href="http://www.dfki.uni-kl.de/ruleml/" target="_blank">RuleML</a>
+                  <a href="http://www.wfmc.org/" target="_blank">WfMC:</a>
+                      <a class="sub-link" href="http://www.wfmc.org/standards/docs.htm" target="_blank">XPDL</a>
+                      <a class="sub-link" href="http://www.wfmc.org/standards/docs.htm" target="_blank">Other Standards</a>
+
+                  <a href="http://www.bpmi.org/" target="_blank">BPML</a>
+                  <a href="http://eccma.org/" target="_blank">ECCMA:</a>
+                      <a class="sub-link" href="http://eccma.org/unspsc/" target="_blank">UNSPSC</a>
+                  <a href="http://www.ebxml.org/" target="_blank">ebXML</a>
+                  <a href="http://www.fasb.org/" target="_blank">FASB</a> <!-- and GAAP -->
+                  <a href="http://www.omg.org/" target="_blank">OMG:</a>
+
+                      <a class="sub-link" href="http://www.omg.org/technology/documents/formal/omg_business_specs.htm" target="_blank">Workflow</a>
+                      <a class="sub-link" href="http://www.omg.org/technology/documents/formal/omg_finance_specs.htm" target="_blank">GL &amp; Party</a>
+                      <a class="sub-link" href="http://www.omg.org/technology/documents/formal/omg_mfg_specs.htm" target="_blank">Product</a>
+                  <a href="http://developer.intuit.com/downloads/quickbooks/sdk/" target="_blank">qbXML</a>
+                  <a href="http://www.openapplications.org/" target="_blank">OAGIS</a>
+
+                  <a href="http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=ubl" target="_blank">UBL</a>
+              </p>
+              
+    </div>
+        <!-- main ends -->
+
+
+        <!-- sidebar starts -->
+        <div id="sidebar">
+
+            <div class="downloadNow"><a href="http://build.ofbiz.org/"><img src="/ofbiz/images/download_th.jpg"/></a></div>
+            <div class="downloadLinks clearfix"><span class="docs"><a href="http://docs.ofbiz.org">เอกสารเกี่ยวกับ OFBiz</a></span><span class="previousVersions"><a href="http://build.ofbiz.org">OFBiz เวอร์ชั่นก่อนหน้านี้</a></span></div>
+            <h3>Apache OFBiz คืออะไร?</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/lQM">คำอธิบายเกี่ยวกับ Project</a></li>
+                <li><a href="http://docs.ofbiz.org/x/hgM">OFBiz เหมาะสำหรับคุณหรือไม่?</a></li>
+                <li><a href="http://ofbiz.apache.org/feature-list.html">ลักษณะของ OFBiz</a></li>
+                <li><a href="http://ofbiz.apache.org/comingsoon.html">ลักษณะของ OFBiz ในอนาคต</a></li>
+                <li><a href="http://docs.ofbiz.org/x/ZQM">ผู้ใช้ OFBiz</a></li>
+                <li><a href="http://docs.ofbiz.org/x/UwM">เรื่องราวของผู้ใช้ OFBiz</a></li>
+                <li><a href="http://docs.ofbiz.org/x/jQM">หนังสือโฆษณา OFBiz</a></li>
+                <li><a href="http://docs.ofbiz.org/x/Swg">เอกสารเกี่ยวกับ OFBiz</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">ประชุมผ่าน video</a></li>
+                <li><a href="http://docs.ofbiz.org/x/PQM">video อธิบาย framework ของ OFBiz</a></li>
+            </ul>
+            <h3>เว็บไซต์ตัวอย่าง</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://demo.hotwaxmedia.com/ecommerce/control/main">เว็บไซต์ eCommerce</a></li>
+                <li><a target="_blank" href="https://demo.hotwaxmedia.com/catalog/control/login/main?USERNAME=demoadmin&PASSWORD=ofbiz">โปรแกรมการจัดการ</a></li>
+            </ul>
+            <h3>ดาวน์โหลด OFBiz</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/rwM">เริ่มต้น(ทำความเข้าใจ)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Access (Recommended)</a></li>
+                <li><a href="http://www.opensourcestrategies.com/ofbiz/downloads.php">Weekly Builds</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">Documentation</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mAM">Copyright & License</a></li>
+            </ul>
+            <h3>แหล่งข้อมูล & เครื่องมือช่วยเหลือ</h3>
+            <ul class="sidemenu">
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-dev/">รายชื่ออีเมล์ผู้พัฒนา OFBiz</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-user/">รายชื่ออีเมล์ผู้ใช้ OFBiz</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-commits/">รายชื่ออีเมล์กรรมการของ OFBiz</a></li>
+                <li><a href="https://issues.apache.org/jira/browse/OFBIZ">Issue Tracker (Jira)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Repository (SVN)</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">หน้าเอกสารหลักของ OFBiz</a></li>
+                <li><a href="http://docs.ofbiz.org/">Documentation (Confluence)</a></li>
+                <li><a href="http://docs.ofbiz.org/display/OFBIZ">OFBiz Wiki</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">ประชุมผ่าน video</a></li>
+            </ul>
+            <h3>แหล่งข้อมูลเก่า</h3>
+            <ul class="sidemenu">
+                <li><a href="http://lists.ofbiz.org/">รายชื่ออีเมล์ผู้พัฒนาเก่าๆ</a></li>
+                <li><a href="http://jira.ofbiz.org/">Old Issue Tracker (Jira)</a></li>
+                <li><a href="http://ofbizwiki.go-integral.com/">Old OFBiz Wiki</a></li>
+                <li><a href="https://ofbiz.dev.java.net/">เว็บไซต์ Java.net เก่า</a></li>
+                <li><a href="http://sourceforge.net/projects/ofbiz">เว็บไซต์ SourceForge.net เก่า</a></li>
+                <li><a href="http://incubator.apache.org/projects/ofbiz.html">Apache Incubator Status</a></li>
+            </ul>
+            <h3>Blogs ที่เกี่ยวข้องกับ Apache OFBiz</h3>
+            <ul class="sidemenu">
+                <li><a href="https://www.undersunconsulting.com/ofbizdoc/control/MainBlog?contentContentId=BLOGROOTJONES&currentMenuItemName=BLOGROOTJONES">OFBiz and Open Source by David E. Jones </a></li>
+                <li><a href="http://ofbiz-new.blogspot.com/">What's New in OFBiz by Si Chen</a></li>
+            </ul>   
+            <h3>ชุมชนคนใช้ Apache OFBiz</h3>
+                <h4>ประเทศต่างๆ</h4>
+                <ul class="sidemenu">
+                    <li><a href="http://www.ofbiz.co.uk/">สหราชอาณาจักร</a></li>
+                    <li><a href="http://www.ofbiz.de/">เยอรมัน</a></li>
+                    <li><a href="http://www.nereide.biz/rubrique.php3?id_rubrique=5">ฝรั่งเศส</a></li>
+                    <li><a href="http://www.ofbiz.nl/">เนเธอร์แลนด์</a></li>
+                    <li><a href="http://www.ofbizchina.com/">จีน</a></li>
+                </ul>
+                <h4>อุตสาหกรรม</h4>
+                <ul class="sidemenu">
+                    <li><a href="http://www.openegovernment.org/index.xml">ด้านการปกครอง</a></li>
+                    <li><a href="http://opentravelsystem.org/index.xml">ด้านการท่องเที่ยว</a></li>
+                </ul>
+            <h3>ผู้ให้บริการ Apache OFBiz</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://www.antwebsystems.com">Antwebsystems</a></li>
+                <li><a target="_blank" href="mailto:support@antwebsystems.com">Support</a></li>
+            </ul>
+            
+             <br>
+             <h3>เว็บไซต์ที่เกี่ยวข้อง</h3> 
+             <ul class="sidemenu">
+            <li><a href="http://ofbiz.org/" target="_blank">
+            <img style="margin: 6px 0px 5px;" src="/ofbiz/images/ofbiz_logo_small.jpg" alt="" border="0">
+            </a></li>
+            <li><a href="http://opentravelsystem.org/" target="_blank">
+            <img style="margin: 6px 0px 5px;" src="/ofbiz/images/opentravel_logo.jpg" alt="" border="0">
+            </a></li>
+            <li><a href="http://openegovernment.org/" target="_blank">
+            <img style="margin: 6px 0px 5px;" src="/ofbiz/images/openegovernment_logo.jpg" alt="" border="0">
+            </a></li>
+              </ul>
+						
+
+        </div>
+        <!-- sidebar -->
+      </div>
+      <!-- content-wrap -->
+   </div>
+            ]]></textData>
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="OFBIZ_PRODUCT_TH">
+        <textData><![CDATA[
+<body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+	<!-- header -->
+	<div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+        <div id="language">
+            Language: NL
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+        </div>
+         <!--
+        <div id="controls">
+            <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
+        </div>
+        -->
+		
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
+                <li id="current"><a href="<@ofbizUrl>product</@ofbizUrl>">ผลิตภัณฑ์</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">บริการ</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">หลักสูตร</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">ติตต่อเรา</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+	</div>
+	<!-- header -->
+	
+
+	<!-- content-wrap -->
+	<div id="content-wrap" class="clearfix">
+    <div id="main">
+      
+        <h3>OFBiz – Open For Business</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ซอฟต์แวร์ Open Source Enterprise Automation สำหรับธุรกิจขนาดเล็กและขนาดกลาง ซอฟต์แวร์ประกอบได้ด้วย  Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM และสามารถนำไปประยุกต์ใช้งานได้หลากหลาย อาทิเช่น
+        </p>
+        <div class="form">
+        <ul>
+            <li>advanced e-commerce</li>
+            <li>catalog management</li>
+            <li>promotion &amp; pricing management</li>
+            <li>order management (sales &amp; purchase)</li>
+            <li>customer management (part of general party management)</li>
+            <li>warehouse management</li>
+            <li>fulfillment (auto stock moves, batched pick, pack &amp; ship)</li>
+            <li>accounting (invoice, payment &amp; billing accounts, fixed assets)</li>
+            <li>manufacturing management</li>
+            <li>general work effort management (events, tasks, projects, requests, etc)</li>
+            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
+        </ul>
+        <p>
+        <a href="<@ofbizUrl>service</@ofbizUrl>">รายละเอียดเพิ่มเติม</a>
+        </p>
+      </div>
+      <br><br><hr/>
+      
+      <h3>OpenTravelSystem – OFBiz For Travel Organization</h3>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ซอฟต์แวร์ OFBizที่ปรับแต่งให้เข้ากับธุรกิจท่องเที่ยว เช่น  airlines, hoteliers, car rental companies, leisure suppliers, travel agencies, global distribution system (GDS) เพื่อให้เหมาะสมกับการใช้งานของแต่ละธุรกิจ อาทิเช่น
+       </p>
+       <div class="form">
+        <ul>
+            <li>Reservation and order management (sales &amp; purchase)</li>
+            <li>Customer relationship management </li>
+            <li>Catalog and product management </li>
+            <li>Promotion &amp; pricing management </li>
+            
+            <li>Information about the facilities offered to the travelers </li>
+            <li>Advanced e-commerce </li>
+            <li>Accounting (invoice, payment &amp; billing accounts)</li>
+            <li>General work effort management (events, tasks, projects, requests, etc)</li>
+            <li>Workflow management according the open standard XPDL </li>
+            <li>Content management (for product content, web sites, document management, forums,</li>
+        </ul>
+        <p>
+        <a href="http://www.opentravelsystem.org">รายละเอียดเพิ่มเติม</a>
+        </p>
+      </div>
+      <br><br><hr/>
+      
+      <h3>opentaps Open Source ERP + CRM</h3>
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://www.opentaps.org"><img src="/ofbiz/images/opentaps_logo.png"></a>
+            <br>
+            <p>
+             ระบบ Open Source Customer Relationship Management ที่พัฒนาบนพื้นฐานของ OFBiz
+            </p>
+            <h4>Key features of opentaps Open Source ERP + CRM include:</h4>
+            <div class="form">
+            <ul>
+                <li>A complete suite that deliver a 360-degree view of your business, from customers to orders to inventory to accounting.  opentaps is one application running on one unified data model with over 700 tables, so you'll never have to do messy integration again.</li>
+                
+                <li>Compatible all major open source and commercial relational databases, including MySQL, PostgreSQL, Oracle, Sybase, and Microsoft SQL Server.</li>
+                <li>Runs on Linux, Unix, and Windows operating platforms.</li>
+                <li>Service-Oriented Architecture for easy interoperability with external or legacy applications.</li>
+                <li>Modular and tiered architecture allows for easy modifications or additions.  An add-on application could be unzipped into a directory and start running.</li>
+                <li>Remote and local synchronization for scalability and high availability.</li>
+                <li>Workflow for adapting to unique business processes.</li>
+            </ul>
+            <p>
+            <a href="http://www.opentaps.org">รายละเอียดเพิ่มเติม</a>
+            </p>
+            </div>
+            <br><br>  
+	</div> <!--main-->
+	</div><!-- content-wrap -->
+</div>
+<!-- wrap -->
+       
+            ]]></textData>
+    </ElectronicText>
+    
+    <ElectronicText dataResourceId="OFBIZ_SERVICE_TH">
+        <textData><![CDATA[
+      <body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+	<!-- header -->
+	<div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+       <div id="language">
+            Language: NL
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+        </div>
+        <!--
+        <div id="controls">
+            <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
+        </div>
+        -->
+		
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">ผลิตภัณฑ์</a></li>
+                <li id="current"><a href="<@ofbizUrl>service</@ofbizUrl>">บริการ</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">หลักสูตร</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">ติตต่อเรา</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+	</div>
+	<!-- header -->
+	
+	<!-- content-wrap -->
+	<div id="content-wrap" class="clearfix">
+    <div id="main">
+	
+	<h3>ฝึกอบรมการใช้งาน</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการฝึกอบรมการใช้งาน การปรับแต่งซอฟต์แวร์ และการพัฒนา OFBiz สำหรับบริษัทห้างร้าน สถานศึกษา ซอฟต์แวร์เฮ้าส์ หรือผู้ที่สนใจจะนำ OFBiz ไปใช้งาน โดย คุณ Hans Bakker Committer ของ OFBiz โดยตรง แบ่งการฝึกอบรมได้ดังนี้ สำหรับผู้ใช้งานทั่วไป และ สำหรับนักพัฒนา
+    <br>
+    <a href="<@ofbizUrl>course</@ofbizUrl>">รายละเอียดการฝึกอบรม</a>
+    </p>
+	
+	<h3>พัฒนาและปรับแต่งระบบ</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการพัฒนาซอฟต์แวร์ภายในองค์กรด้วย OFBiz Framework ปรับแต่ง OFBiz ให้เข้ากับระบบการทำงานของแต่ละองค์กร บริการให้คำปรึกษาการนำเอา OFBiz ไปใช้งาน เพื่อนำไปสู่ความสำเร็จในการทำงาน ไม่ว่าจะเป็นระบบ ERP, CRM, MRP, E-Commerce, HRM
+    <br>
+    <a href="<@ofbizUrl>product</@ofbizUrl>">รายละเอียดเพิ่มเติม</a>
+    </p>
+	
+	</div>
+	</div>
+	</div>
+    ]]></textData>
+    </ElectronicText>
+    
+    <ElectronicText dataResourceId="OFBIZ_COURSE_TH">
+        <textData><![CDATA[
+               <body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+	<!-- header -->
+	<div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+        <div id="language">
+            Language: NL
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+        </div>
+        <!--
+        <div id="controls">
+            <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
+        </div>
+        -->
+		
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">ผลิตภัณฑ์</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">บริการ</a></li>
+                <li  id="current"><a href="<@ofbizUrl>course</@ofbizUrl>">หลักสูตร</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">ติตต่อเรา</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+	</div>
+	<!-- header -->
+	
+    <!-- content-wrap -->
+	<div id="content-wrap" class="clearfix">
+    <div id="main">
+	<h3>Comprehensive OFBiz Training Outlines</h3>
+        <ul>
+        <li><h3>Advanced Framework Course</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Developers (especially Senior level)
+        <br>2.Architects
+        
+        <br><strong>Pre-Requisites</strong>
+        <br>1.OFBiz Framework Introduction (Videos) - Important!
+        <br>2.Basic Java & J2EE (Servlet, JDBC, JNDI, JTA) Familiarity<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Advanced+Framework+Course">รายละเอียด</a>
+        </p><hr/>
+        <li><h3>Business Applications Overview for Developers</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.System Users
+        <br>2.Application Maintenance Personnel
+        <br>3.User Support Staff<br>
+        
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Business+Applications+Overview+for+Developers">รายละเอียด</a>
+        </p><hr/>
+        <li><h3>Business Level Technical Overview</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Web Designers/Developers
+        <br>2.Junior Developers
+        <br>3.Senior Developers (should also take the OFBiz Advanced Framework course)<br>
+        4.Architects
+        <br>5.Project Managers
+        <br>6.Program Managers
+        <br>7.Quality Assurance Personnel
+        <br><a href="http://docs.ofbiz.org/display/OFBTECH/Business+Level+Technical+Overview">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Configuration, Deployment and Maintenance</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.System Administrators
+        <br>2.Database Administrators
+        <br>3.Application Server Administrators
+        <br>4.Application Support Personnel
+        <br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Configuration%2C+Deployment+and+Maintenance">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Framework Introduction Course</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Web Designers/Developers
+        <br>2.Junior Developers
+        <br>3.Senior Developers (should also take the OFBiz Advanced Framework course)<br>
+        4.Architects
+        <br>5.Project Managers
+        <br>6.Program Managers
+        <br>7.Quality Assurance Personnel<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Framework+Introduction+Course">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Open Source for Business Seminar</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Managers
+        <br>2.Decision Makers
+        <br>3.Developers
+        <br>4.Others Interested<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Open+Source+for+Business+Seminar">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Planning for Projects Based on OFBiz</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Managers
+        <br>2.Decision Makers
+        <br>3.Developers
+        <br>4.Deployment, Maintenance and Support Staff
+        <br>5.Other Involved in Projects<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Planning+for+Projects+Based+on+OFBiz">รายละเอียด</a>
+        </p>
+        </ul>
+
+    </div>
+    </div>
+    </div>
+    ]]></textData>
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="OFBIZ_CONTACT_TH">
+        <textData><![CDATA[
+<body id="semi">
+  <!-- wrap -->
+  <div id="wrap">
+	<!-- header -->
+	<div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+        <div id="language">
+            Language: NL
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+        </div>
+        <!--
+        <div id="controls">
+            <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        <div id="nav">
+            <ul>
+               <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">ผลิตภัณฑ์</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">บริการ</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">หลักสูตร</a></li>
+                <li id="current"><a href="<@ofbizUrl>contact</@ofbizUrl>">ติตต่อเรา</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+	</div>
+	<!-- header -->
+	
+    <!-- content-wrap -->
+	<div id="content-wrap" class="clearfix">
+    <div id="main">
+    <h3>ติดต่อเรา</h3>
+        <p>&nbsp;&nbsp;&nbsp; เพื่อให้สามารถสนับสนุนการทำงานของท่านเป็นไปอย่างดี ท่านสามารถติดต่อเราผ่านทางอีเมลล์ ซึ่งเราอ่านอย่างสม่ำเสมอ ท่านสามารถติดต่อได้ที่
+        <br><br><strong>Antwebsystems Co.,Ltd.</strong><br>
+        <br>171/28 หมู่ 3 ตำบลหนองแก๋ว <br>อำเภอหางดง <br>จังหวัดเชียงใหม่<br>50230<br><br>อีเมล :&nbsp; support@antwebsystems.com<br>โทรศัพท์: +66-53-483245<br>แฟกซ์: +66-53-483246<br>
+        </p>
+    </div>
+    <!-- sidebar -->
+    <div id="sidebar">
+        <center><h3>Antwebsystems Co.,Ltd.</h3></center>
+        <br/>
+        <center><a href="http://www.antwebsystems.com"><img border="0" alt="" src="/ofbiz/images/ant_logo.gif"/></a></center>
+        <p>
+            แอนท์ เว็บซิสเต็มส์ ได้ริเริ่มในการสร้างเว็บไซต์กลางเพื่อ สนับสนุนการใช้ระบบ OFBiz และ เป็นผู้ให้บริการ อบรมเกี่ยวกับการใช้งานและการพัฒนา OFBiz ตลอดจนให้บริการพัฒนาซอฟต์แวร์ ERP ด้วย OFBiz
+            <br/>
+            <br/>
+            อีเมล :  support@antwebsystems.com
+            <br/>
+            โทรศัพท์: +66-53-483245
+            <br/>
+            แฟกซ์: +66-53-483246
+            <br/>
+            เว็บไซต์ : 
+            <a target="_blank" href="http://www.antwebsystems.com">
+            <font color="#934000">antwebsystems.com</font>
+            </a>
+            <br/>
+        </p>
+    </div>
+    </div> 
+ </div>
+    ]]></textData>
+    </ElectronicText>
+    
+    
+    
+    <!-- ElectronicText Nederland -->
+    <ElectronicText dataResourceId="OFBIZ_HOME_NL">
+        <textData><![CDATA[
+<body id="home">
+  <div id="wrap">
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+             <!-- OFBiz in Nederland. -->
+        </div>
+        <div id=site-header>
+            <h2>OFbiz in Nederland.</h2>
+        </div>
+        
+        <div id="language">
+            Language: TH
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=th</@ofbizUrl>"><img src="/ofbiz/images/th.png"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        <div id="nav">
+            <ul>
+                <li id="current"><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.OfbizHome}</a></li>
+                <li><a href="http://www.ofbiz.org">ofbiz.org</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="zoeken..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+        <div id="slides">
+            <div class="slideshow" id="mantleSlides">
+                <div id="slide1">
+                    <div class="callout">
+                        The best things in life<br />
+                        are FREE.<br />
+                    </div>
+                    <div class="description">
+                        Apache Open For Business (OFBiz) is a community-driven open source project. That means, no licensing fees.
+                        For many, OFBiz is also the best e-commerce and enterprise resource planning (ERP) software available.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle.png" />
+                    </div>
+                </div>
+                <div id="slide2" style="display:none">
+                    <div class="callout">
+                        Lower Costs,<br />
+                        Higher Margins.<br />
+                    </div>
+                    <div class="description">
+                        Achieve a system that is as good or better than those available
+                        from major proprietary ERPs at a significantly lower total project cost.
+                        You can budget for custom features and added value rather than license and maintenance fees.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle2.png" />
+                    </div>
+                </div>
+                <div id="slide3" style="display:none">
+                    <div class="callout">
+                        OPEN yourself up to all<br />
+                        of the possibilities<br />
+                    </div>
+                    <div class="description">
+                        Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal
+                        resources and/or any of the dozens of organizations offering quality OFBiz
+                        implementation and support services.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle3.png" />
+                    </div>
+                </div>
+                <div id="slide4" style="display:none">
+                    <div class="callout">
+                        We have<br />
+                        street cred.<br />
+                    </div>
+                    <div class="description">
+                       OFBiz users can rely on the organizational, legal, and financial stability
+                       that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle4.png" />
+                    </div>
+                </div>
+                <div id="slide5" style="display:none">
+                    <div class="callout">
+                        Just like muscles,<br />
+                        e-commerce should<br />
+                        be flexible.
+                    </div>
+                    <div class="description">
+                        Because you will have complete access to source code, you will eliminate "proprietary system" limitations.
+                        The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle5.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+              <a class="next" id="next" title="Next" href="#">Next</a>
+              <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+              <a class="start" id="start" title="Start" href="#">Start</a>
+              <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          function StartSlides() {
+            new Slides('mantleSlides');
+          }
+          document.observe ('dom:loaded', StartSlides);
+        </script>
+
+    </div>
+            
+    <!-- content-wrap starts -->
+    <div id="content-wrap" class="clearfix">
+        <div id="main">
+
+            <h2>Wat is Apache OFBiz?</h2>
+            <h3>Learn more about the project</h3>
+        <div class="highlights">
+          <h4>Apache OFBiz offers a great deal of functionality, including:</h4>
+          <ul>
+            <li>advanced e-commerce</li>
+            <li>catalog management</li>
+            <li>promotion & pricing management</li>
+            <li>order management (sales & purchase)</li>
+            <li>customer management (part of general party management)</li>
+            <li>warehouse management</li>
+            <li>fulfillment (auto stock moves, batched pick, pack & ship)</li>
+            <li>accounting (invoice, payment & billing accounts, fixed assets)</li>
+            <li>manufacturing management</li>
+            <li>general work effort management (events, tasks, projects, requests, etc)</li>
+            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
+            <li>
+            a maturing Point Of Sales (POS) module using
+            <b>
+            </b>
+            as rich client interface
+            </li>
+            <li>and much more all in an open source package!</li>
+           </ul>
+        </div>
+
+        <p>   Het Apache Open For Business Project is een open source bedrijfsinformatie systeem met de Apache Licentie Version 2.0. 
+        die het gratis gebruik toelaat in elke vorm. Met een bedrijfsinformatiesysteem bedoelen we Open Source ERP, Open Source CRM, 
+        Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM, en zo verder.
+        </p>
+        <h2>Deze site.</h2>
+        <p>Deze site is een initiatief van <a href="http://www.antwebsystems.com">AntWebsystems</a> en is grotendeels een verwijzing naar de Engelstalige site op ofbiz.org 
+        maar wil u graag ook Nederlandse infomatie geven die op de engelse hoofdsite niet aanwezig is
+        </p>
+        <h2>Support</h2>
+        <p>
+        De volgende Nederlandstalige bedrijven geven support bij de hosting/installatie, introductie en aanpassingen aan het systeem. 
+        Als u wilt dat uw bedrijf hier ook vermeld wordt en u reeds OFBiz klanten van dienst bent geweest stuur dan een email met
+        referenties naar <a href="mailto:support@a-net.nl">support@a-net.nl</a> Ondersteuning gevende bedrijven:
+        </p>
+        <ul>
+         <li><a href="http://www.antwebsystems.com">AntWebsystems Co.Ltd</a></li>
+         <li><a href="http://www.zchokweb.nl">Zchok</a></li>
+         <li><a href="http://www.lbaonline.nl">LBA automatisering</a></li>
+        </ul>
+        <center>
+        <a target="_blank" href="/ofbiz/images/ofbiz_arch.png"><img border="0" alt="" src="/ofbiz/images/ofbiz_arch.png"/></a>
+        </center>
+    </div>
+        <!-- main ends -->
+
+
+        <!-- sidebar starts -->
+        <div id="sidebar">
+
+            <div class="downloadNow"><a href="http://build.ofbiz.org/"><img src="/ofbiz/images/download.jpg" /></a></div>
+            <div class="downloadLinks clearfix"><span class="docs"><a href="http://docs.ofbiz.org">Documentation</a></span><span class="previousVersions"><a href="http://build.ofbiz.org">Previous Versions</a></span></div>
+            <h3>What is Apache OFBiz ?</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/lQM">Project Overview</a></li>
+                <li><a href="http://docs.ofbiz.org/x/hgM">Is OFBiz for Me?</a></li>
+                <li><a href="http://ofbiz.apache.org/feature-list.html">Feature List</a></li>
+                <li><a href="http://ofbiz.apache.org/comingsoon.html">Features Coming Soon</a></li>
+                <li><a href="http://docs.ofbiz.org/x/ZQM">User List</a></li>
+                <li><a href="http://docs.ofbiz.org/x/UwM">User Stories</a></li>
+                <li><a href="http://docs.ofbiz.org/x/jQM">Brochures, etc</a></li>
+                <li><a href="http://docs.ofbiz.org/x/Swg">Documentation</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">Conference Videos</a></li>
+                <li><a href="http://docs.ofbiz.org/x/PQM">Framework Intro Videos</a></li>
+            </ul>
+            <h3>Demo Site</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://demo.ofbiz.org/ecommerce/control/main">eCommerce Demo</a></li>
+                <li><a target="_blank" href="https://demo.ofbiz.org/catalog/control/login/main?USERNAME=demoadmin&PASSWORD=ofbiz">Management Apps</a></li>
+            </ul>
+            <h3>Download OFBiz</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/rwM">Getting Started (Read this first)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Access (Recommended)</a></li>
+                <li><a href="http://www.opensourcestrategies.com/ofbiz/downloads.php">Weekly Builds</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">Documentation</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mAM">Copyright & License</a></li>
+            </ul>
+            <h3>Resources & Tools</h3>
+            <ul class="sidemenu">
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-dev/">dev Mailing List</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-user/">user Mailing List</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-commits/">commits Mailing List</a></li>
+                <li><a href="https://issues.apache.org/jira/browse/OFBIZ">Issue Tracker (Jira)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Repository (SVN)</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">Main Documentation Page</a></li>
+                <li><a href="http://docs.ofbiz.org/">Documentation (Confluence)</a></li>
+                <li><a href="http://docs.ofbiz.org/display/OFBIZ">Doc Site: Wiki</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">Conference Videos</a></li>
+            </ul>
+            <h3>Apache OFBiz Communities</h3>
+                <h4>Locales</h4>
+                <ul class="sidemenu">
+                    <li><a href="http://www.ofbiz.co.uk/">United Kingdom</a></li>
+                    <li><a href="http://www.ofbiz.de/">Germany</a></li>
+                    <li><a href="http://www.nereide.biz/rubrique.php3?id_rubrique=5">France</a></li>
+                    <li><a href="http://www.ofbiz.nl/">Netherlands</a></li>
+                    <li><a href="http://www.ofbizchina.com/">China</a></li>
+                    <li><a href="http://www.ofbiz.in.th/">Thailand</a></li>
+                </ul>
+            <h3>Service Providers</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://www.antwebsystems.com">Antwebsystems</a></li>
+                <li><a target="_blank" href="mailto:support@antwebsystems.com">Support</a></li>
+            </ul>
+        </div>
+        <!-- sidebar -->
+      </div>
+      <!-- content-wrap -->
+   </div>
+            ]]></textData>
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="OFBIZ_PRODUCT_NL">
+        <textData><![CDATA[
+<body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+    <!-- header -->
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+        </div>
+        
+        <div id="language">
+            Language: TH
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=th</@ofbizUrl>"><img src="/ofbiz/images/th.png"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.OfbizHome}</a></li>
+                <li id="current"><a href="<@ofbizUrl>product</@ofbizUrl>">${uiLabelMap.OfbizProduct}</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">${uiLabelMap.OfbizService}</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">${uiLabelMap.OfbizCourse}</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">${uiLabelMap.OfbizContactUs}</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+    </div>
+    <!-- header -->
+    
+
+    <!-- content-wrap -->
+    <div id="content-wrap" class="clearfix">
+    <div id="main">
+      
+        <h3>OFBiz – Open For Business</h3>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ซอฟต์แวร์ Open Source Enterprise Automation สำหรับธุรกิจขนาดเล็กและขนาดกลาง ซอฟต์แวร์ประกอบได้ด้วย  Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM และสามารถนำไปประยุกต์ใช้งานได้หลากหลาย อาทิเช่น
+        </p>
+        <div class="form">
+        <ul>
+            <li>advanced e-commerce</li>
+            <li>catalog management</li>
+            <li>promotion &amp; pricing management</li>
+            <li>order management (sales &amp; purchase)</li>
+            <li>customer management (part of general party management)</li>
+            <li>warehouse management</li>
+            <li>fulfillment (auto stock moves, batched pick, pack &amp; ship)</li>
+            <li>accounting (invoice, payment &amp; billing accounts, fixed assets)</li>
+            <li>manufacturing management</li>
+            <li>general work effort management (events, tasks, projects, requests, etc)</li>
+            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
+        </ul>
+        <p>
+        <a href="localhost:8080/ofbiz_th_site/control/service">รายละเอียดเพิ่มเติม</a>
+        </p>
+      </div>
+      <br><br><hr/>
+      
+      <h3>OpenTravelSystem – OFBiz For Travel Organization</h3>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ซอฟต์แวร์ OFBizที่ปรับแต่งให้เข้ากับธุรกิจท่องเที่ยว เช่น  airlines, hoteliers, car rental companies, leisure suppliers, travel agencies, global distribution system (GDS) เพื่อให้เหมาะสมกับการใช้งานของแต่ละธุรกิจ อาทิเช่น
+       </p>
+       <div class="form">
+        <ul>
+            <li>Reservation and order management (sales &amp; purchase)</li>
+            <li>Customer relationship management </li>
+            <li>Catalog and product management </li>
+            <li>Promotion &amp; pricing management </li>
+            
+            <li>Information about the facilities offered to the travelers </li>
+            <li>Advanced e-commerce </li>
+            <li>Accounting (invoice, payment &amp; billing accounts)</li>
+            <li>General work effort management (events, tasks, projects, requests, etc)</li>
+            <li>Workflow management according the open standard XPDL </li>
+            <li>Content management (for product content, web sites, document management, forums,</li>
+        </ul>
+        <p>
+        <a href="http://www.opentravelsystem.org">รายละเอียดเพิ่มเติม</a>
+        </p>
+      </div>
+      <br><br><hr/>
+      
+      <h3>opentaps Open Source ERP + CRM</h3>
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://www.opentaps.org"><img src="/ofbiz/images/opentaps_logo.png"></a>
+            <br>
+            <p>
+             ระบบ Open Source Customer Relationship Management ที่พัฒนาบนพื้นฐานของ OFBiz
+            </p>
+            <h4>Key features of opentaps Open Source ERP + CRM include:</h4>
+            <div class="form">
+            <ul>
+                <li>A complete suite that deliver a 360-degree view of your business, from customers to orders to inventory to accounting.  opentaps is one application running on one unified data model with over 700 tables, so you'll never have to do messy integration again.</li>
+                
+                <li>Compatible all major open source and commercial relational databases, including MySQL, PostgreSQL, Oracle, Sybase, and Microsoft SQL Server.</li>
+                <li>Runs on Linux, Unix, and Windows operating platforms.</li>
+                <li>Service-Oriented Architecture for easy interoperability with external or legacy applications.</li>
+                <li>Modular and tiered architecture allows for easy modifications or additions.  An add-on application could be unzipped into a directory and start running.</li>
+                <li>Remote and local synchronization for scalability and high availability.</li>
+                <li>Workflow for adapting to unique business processes.</li>
+            </ul>
+            <p>
+            <a href="http://www.opentaps.org">รายละเอียดเพิ่มเติม</a>
+            </p>
+            </div>
+            <br><br>  
+    </div> <!--main-->
+    </div><!-- content-wrap -->
+</div>
+<!-- wrap -->
+       
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="OFBIZ_SERVICE_NL">
+        <textData><![CDATA[
+            <body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+    <!-- header -->
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+        </div>
+       <div id="language">
+            Language: TH
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=th</@ofbizUrl>"><img src="/ofbiz/images/th.png"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.OfbizHome}</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">${uiLabelMap.OfbizProduct}</a></li>
+                <li id="current"><a href="<@ofbizUrl>service</@ofbizUrl>">${uiLabelMap.OfbizService}</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">${uiLabelMap.OfbizCourse}</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">${uiLabelMap.OfbizContactUs}</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+    </div>
+    <!-- header -->
+    
+    <!-- content-wrap -->
+    <div id="content-wrap" class="clearfix">
+    <div id="main">
+    
+    <h3>ฝึกอบรมการใช้งาน</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการฝึกอบรมการใช้งาน การปรับแต่งซอฟต์แวร์ และการพัฒนา OFBiz สำหรับบริษัทห้างร้าน สถานศึกษา ซอฟต์แวร์เฮ้าส์ หรือผู้ที่สนใจจะนำ OFBiz ไปใช้งาน โดย คุณ Hans Bakker Committer ของ OFBiz โดยตรง แบ่งการฝึกอบรมได้ดังนี้ สำหรับผู้ใช้งานทั่วไป และ สำหรับนักพัฒนา
+    <br>
+    <a href="http://localhost:8080/ofbiz_th_site/control/course">รายละเอียดการฝึกอบรม</a>
+    </p>
+    
+    <h3>พัฒนาและปรับแต่งระบบ</h3>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการพัฒนาซอฟต์แวร์ภายในองค์กรด้วย OFBiz Framework ปรับแต่ง OFBiz ให้เข้ากับระบบการทำงานของแต่ละองค์กร บริการให้คำปรึกษาการนำเอา OFBiz ไปใช้งาน เพื่อนำไปสู่ความสำเร็จในการทำงาน ไม่ว่าจะเป็นระบบ ERP, CRM, MRP, E-Commerce, HRM
+    <br>
+    <a href="http://localhost:8080/ofbiz_th_site/control/product">รายละเอียดเพิ่มเติม</a>
+    </p>
+    
+    </div>
+    </div>
+    </div>
+    ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="OFBIZ_COURSE_NL">
+        <textData><![CDATA[
+             <body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+    <!-- header -->
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+        </div>
+        <div id="language">
+            Language: TH
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=th</@ofbizUrl>"><img src="/ofbiz/images/th.png"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.OfbizHome}</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">${uiLabelMap.OfbizProduct}</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">${uiLabelMap.OfbizService}</a></li>
+                <li id="current"><a href="<@ofbizUrl>course</@ofbizUrl>">${uiLabelMap.OfbizCourse}</a></li>
+                <li><a href="<@ofbizUrl>contact</@ofbizUrl>">${uiLabelMap.OfbizContactUs}</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+    </div>
+    <!-- header -->
+    
+    <!-- content-wrap -->
+    <div id="content-wrap" class="clearfix">
+    <div id="main">
+    <h3>Comprehensive OFBiz Training Outlines</h3>
+        <ul>
+        <li><h3>Advanced Framework Course</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Developers (especially Senior level)
+        <br>2.Architects
+        
+        <br><strong>Pre-Requisites</strong>
+        <br>1.OFBiz Framework Introduction (Videos) - Important!
+        <br>2.Basic Java & J2EE (Servlet, JDBC, JNDI, JTA) Familiarity<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Advanced+Framework+Course">รายละเอียด</a>
+        </p><hr/>
+        <li><h3>Business Applications Overview for Developers</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.System Users
+        <br>2.Application Maintenance Personnel
+        <br>3.User Support Staff<br>
+        
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Business+Applications+Overview+for+Developers">รายละเอียด</a>
+        </p><hr/>
+        <li><h3>Business Level Technical Overview</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Web Designers/Developers
+        <br>2.Junior Developers
+        <br>3.Senior Developers (should also take the OFBiz Advanced Framework course)<br>
+        4.Architects
+        <br>5.Project Managers
+        <br>6.Program Managers
+        <br>7.Quality Assurance Personnel
+        <br><a href="http://docs.ofbiz.org/display/OFBTECH/Business+Level+Technical+Overview">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Configuration, Deployment and Maintenance</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.System Administrators
+        <br>2.Database Administrators
+        <br>3.Application Server Administrators
+        <br>4.Application Support Personnel
+        <br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Configuration%2C+Deployment+and+Maintenance">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Framework Introduction Course</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Web Designers/Developers
+        <br>2.Junior Developers
+        <br>3.Senior Developers (should also take the OFBiz Advanced Framework course)<br>
+        4.Architects
+        <br>5.Project Managers
+        <br>6.Program Managers
+        <br>7.Quality Assurance Personnel<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Framework+Introduction+Course">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Open Source for Business Seminar</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Managers
+        <br>2.Decision Makers
+        <br>3.Developers
+        <br>4.Others Interested<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Open+Source+for+Business+Seminar">รายละเอียด</a>
+        </p><hr/>
+        
+        <li><h3>Planning for Projects Based on OFBiz</h3></li>
+        <p>
+        <strong>Target Audience</strong>
+        <br>1.Managers
+        <br>2.Decision Makers
+        <br>3.Developers
+        <br>4.Deployment, Maintenance and Support Staff
+        <br>5.Other Involved in Projects<br>
+        <a href="http://docs.ofbiz.org/display/OFBTECH/Planning+for+Projects+Based+on+OFBiz">รายละเอียด</a>
+        </p>
+        </ul>
+
+    </div>
+    </div>
+    </div>
+    ]]></textData>
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="OFBIZ_CONTACT_NL">
+        <textData><![CDATA[
+             <body id="full">
+  <!-- wrap -->
+  <div id="wrap">
+    <!-- header -->
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+        </div>
+        <div id="language">
+            Language: TH
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=th</@ofbizUrl>"><img src="/ofbiz/images/th.png"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        
+            <div id="nav">
+            <ul>
+                <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.OfbizHome}</a></li>
+                <li><a href="<@ofbizUrl>product</@ofbizUrl>">${uiLabelMap.OfbizProduct}</a></li>
+                <li><a href="<@ofbizUrl>service</@ofbizUrl>">${uiLabelMap.OfbizService}</a></li>
+                <li><a href="<@ofbizUrl>course</@ofbizUrl>">${uiLabelMap.OfbizCourse}</a></li>
+                <li id="current"><a href="<@ofbizUrl>contact</@ofbizUrl>">${uiLabelMap.OfbizContactUs}</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+    </div>
+    <!-- header -->
+    
+    <!-- content-wrap -->
+    <div id="content-wrap" class="clearfix">
+    <div id="main">
+    <h3>ติดต่อเรา</h3>
+        <p>&nbsp;&nbsp;&nbsp; เพื่อให้สามารถสนับสนุนการทำงานของท่านเป็นไปอย่างดี ท่านสามารถติดต่อเราผ่านทางอีเมลล์ ซึ่งเราอ่านอย่างสม่ำเสมอ ท่านสามารถติดต่อได้ที่
+        <br><br><strong>Antwebsystems Co.,Ltd.</strong><br>
+        <br>171/28 หมู่ 3 ตำบลหนองแก๋ว <br>อำเภอหางดง <br>จังหวัดเชียงใหม่<br>50230<br><br>อีเมล :&nbsp; support@antwebsystems.com<br>โทรศัพท์: +66-53-483245<br>แฟกซ์: +66-53-483246<br>
+        </p>
+    </div>
+    </div>
+    </div>
+    ]]></textData>
+    </ElectronicText>
+    
+</entity-engine-xml>

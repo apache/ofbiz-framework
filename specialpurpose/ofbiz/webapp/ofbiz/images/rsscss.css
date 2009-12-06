@@ -1,0 +1,38 @@
+/* border table for feed news */
+.fd_bordertable {
+	background: #FFFFFF;
+	border-style: solid; border-width: 1px; border-color: #CCCCCC;
+	padding: 0;
+	width: 100%;
+}
+
+/* maintable table for feed news */
+.fd_maintable { border-width: 0; background: white }
+
+/* header cell with header text and xml button */
+.fd_header {
+	padding: 5px;
+	padding-left: 4px;
+	background: #000099;
+	color: white;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top;
+	width: 100%;
+}
+
+/* item description area */
+.fd_itemcell {
+	padding: 10px;
+	line-height: 16px;
+	background: #FAFAFA; color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px
+}
+
+/* item link properties, such as text-decoration and etc */
+.fd_itemlink { color: 000099; font-weight: bold; text-decoration: none; }
+.fd_itemlink:visited { color: 000099; font-weight: bold; text-decoration: none }
+.fd_itemlink:hover { color: #000099; font-weight: bold; text-decoration: underline }

@@ -26,12 +26,12 @@ under the License.
 
     <context-param>
         <param-name>webSiteId</param-name>
-        <param-value>OfbizSite</param-value>
+        <param-value>OFBIZ</param-value>
         <description>A unique ID used to look up the WebSite entity</description>
     </context-param>
     <context-param>
         <param-name>localDispatcherName</param-name>
-        <param-value>OfbizSite</param-value>
+        <param-value>OFBIZ</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>
     <context-param>
@@ -46,7 +46,7 @@ under the License.
     </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
-        <param-value>component://cmssite/widget/OfbizsiteScreens.xml</param-value>
+        <param-value>component://ofbiz/widget/OfbizScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
 
@@ -60,7 +60,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/cms:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
+            <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/script</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -68,7 +68,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
-            <param-value>/cms/cms</param-value>
+            <param-value>/control/main</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -93,7 +93,7 @@ under the License.
 
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
-        <url-pattern>/cms/*</url-pattern>
+        <url-pattern>/control/*</url-pattern>
     </servlet-mapping>
 
     <session-config>

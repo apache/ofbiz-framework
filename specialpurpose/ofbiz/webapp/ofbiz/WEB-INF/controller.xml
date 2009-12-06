@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+
+    <description>OFBiz: OFBiz Thai for Thai people.</description>
+
+    <!-- default request; call into CMS -->
+    <default-request request-uri="main"/>
+
+    <!-- Request Mappings -->
+    <request-map uri="main">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="home"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    <!-- End of Request Mappings -->
+
+    <request-map uri="product">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="product"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="service">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="service"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="course">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="course"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="contact">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="contact"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
+    <request-map uri="setSessionLocale">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view-last" value="home"/>
+        <response name="error" type="request" value="home"/>
+    </request-map>
+    
+    <view-map name="home" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#home"/>
+    <view-map name="product" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#product"/>
+    <view-map name="service" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#service"/>
+    <view-map name="course" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#course"/>
+    <view-map name="contact" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#contact"/>
+</site-conf>
