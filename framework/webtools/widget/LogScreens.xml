@@ -27,13 +27,22 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <include-menu location="component://webtools/widget/Menus.xml" name="LoggingTabBar"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WEBTOOLS" action="_VIEW"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
