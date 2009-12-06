@@ -1237,7 +1237,7 @@
         <value xml:lang="es">Hoja de Balance</value>
         <value xml:lang="fr">Bilan</value>
         <value xml:lang="hi_IN">पक्का-चिट्ठा/तुलन-पत्र</value>
-        <value xml:lang="it">Bilancio</value>
+        <value xml:lang="it">Stato Patrimoniale</value>
         <value xml:lang="nl">Balans</value>
         <value xml:lang="ru">Бухгалтерский баланс</value>
         <value xml:lang="th">งบดุล</value>
@@ -2033,7 +2033,7 @@
         <value xml:lang="en">Comparative Balance Sheet</value>
         <value xml:lang="fr">Bilan comparatif</value>
         <value xml:lang="hi_IN">तुलनात्मक तुलन-पत्र</value>
-        <value xml:lang="it">Bilancio Comparativo</value>
+        <value xml:lang="it">Stato Patrimoniale Comparativo</value>
         <value xml:lang="nl">Vergelijkingsbalans</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
         <value xml:lang="zh">比较资产负债表</value>
@@ -2041,6 +2041,7 @@
     <property key="AccountingComparativeIncomeStatement">
         <value xml:lang="de">Vergleichs-Ertragsrechnung</value>
         <value xml:lang="en">Comparative Income Statement</value>
+        <value xml:lang="it">Conto Economico Comparativo</value>
         <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
     </property>
     <property key="AccountingCompleteAcctgTransFields">
@@ -4586,7 +4587,7 @@
         <value xml:lang="es">Declaración de ingresos</value>
         <value xml:lang="fr">Déclaration de revenus</value>
         <value xml:lang="hi_IN">आय विवरण</value>
-        <value xml:lang="it">Estratto Conto in Entrata</value>
+        <value xml:lang="it">Conto Economico</value>
         <value xml:lang="nl">Inkomensoverzicht</value>
         <value xml:lang="ro">Extract Cont in Intrare</value>
         <value xml:lang="ru">Результативный счет</value>
