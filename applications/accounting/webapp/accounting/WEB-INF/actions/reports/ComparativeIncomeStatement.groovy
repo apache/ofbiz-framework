@@ -17,109 +17,69 @@
  * under the License.
  */
 
+import org.ofbiz.base.util.UtilMisc;
 import java.math.BigDecimal; 
-import java.sql.Timestamp;
-import org.ofbiz.entity.util.EntityUtil;
 
-period1FromDate = parameters.period1FromDate;
-period1ThruDate = parameters.period1ThruDate;
-period2FromDate = parameters.period2FromDate;
-period2ThruDate = parameters.period2ThruDate;
-
-if (period1FromDate && period1ThruDate && organizationPartyId && period2FromDate && period2ThruDate) {
-    onlyIncludePeriodTypeIdList = [];
-    onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
-    glAccountIncomeList = [];
-    glAccountExpenseList = [];
-    periodExpenses = [];
-    periodIncomes = [];
-    period1IncomeStatement = getGlAccountTotals(onlyIncludePeriodTypeIdList, Timestamp.valueOf(period1FromDate), Timestamp.valueOf(period1ThruDate), organizationPartyId, parameters.glFiscalTypeId);
-    period1Expenses = [];
-    period1Incomes = [];
-    if (period1IncomeStatement) {
-        context.period1TotalNetIncome = period1IncomeStatement.totalNetIncome;
-        glAccountTotalsMapForPeriod1 = period1IncomeStatement.glAccountTotalsMap;
-        if (glAccountTotalsMapForPeriod1) {
-            period1Expenses = glAccountTotalsMapForPeriod1.expenses;
-            period1Incomes = glAccountTotalsMapForPeriod1.income;
-            if (period1Incomes) 
-                periodIncomes.addAll(period1Incomes);
-            if (period1Expenses) 
-                periodExpenses.addAll(period1Expenses);
-        }
-    }
-    period2IncomeStatement = getGlAccountTotals(onlyIncludePeriodTypeIdList ,Timestamp.valueOf(period2FromDate) ,Timestamp.valueOf(period2ThruDate) ,organizationPartyId , parameters.glFiscalTypeId);
-    period2Expenses = [];
-    period2Incomes = [];
-    if (period2IncomeStatement) {
-        context.period2TotalNetIncome = period2IncomeStatement.totalNetIncome;
-        glAccountTotalsMapForPeriod2 = period2IncomeStatement.glAccountTotalsMap;
-        if (glAccountTotalsMapForPeriod2) {
-            period2Expenses = glAccountTotalsMapForPeriod2.expenses;
-            period2Incomes = glAccountTotalsMapForPeriod2.income;
-            period2Expenses.each { period2Expense ->
-                if (!((periodExpenses.glAccountId).contains(period2Expense.glAccountId)))
-                    periodExpenses.add(period2Expense);
-            }
-            period2Incomes.each { period2Income ->
-                if (!((periodIncomes.glAccountId).contains(period2Income.glAccountId)))
-                    periodIncomes.add(period2Income);
-            }
-        }        
-    }
-    periodExpenses.each { periodExpense ->
-        period1TotalAmount = BigDecimal.ZERO;
-        period2TotalAmount = BigDecimal.ZERO; 
-        if ((period1Expenses.glAccountId).contains(periodExpense.glAccountId)) {
-            period1Expenses.each { period1Expense ->
-                if(periodExpense.glAccountId.equals(period1Expense.glAccountId))
-                    period1TotalAmount = period1Expense.totalAmount; 
-            }
-        }
-        if ((period2Expenses.glAccountId).contains(periodExpense.glAccountId)) {
-            period2Expenses.each { period2Expense ->
-                if(periodExpense.glAccountId.equals(period2Expense.glAccountId))
-                    period2TotalAmount = period2Expense.totalAmount; 
-            }
-        }
-        glAccountExpenseList.add([glAccountId : periodExpense.glAccountId , period1TotalAmount : period1TotalAmount , period2TotalAmount : period2TotalAmount]);
-        context.glAccountExpenseList = glAccountExpenseList;
-    }
-    periodIncomes.each { periodIncome ->
-        period1TotalAmount = BigDecimal.ZERO;
-        period2TotalAmount = BigDecimal.ZERO;
-        if ((period1Incomes.glAccountId).contains(periodIncome.glAccountId)) {
-            period1Incomes.each { period1Income ->
-                if(periodIncome.glAccountId.equals(period1Income.glAccountId))
-                    period1TotalAmount = period1Income.totalAmount; 
-            }
-        }
-        if ((period2Incomes.glAccountId).contains(periodIncome.glAccountId)) {
-            period2Incomes.each { period2Income ->
-                if(periodIncome.glAccountId.equals(period2Income.glAccountId))
-                    period2TotalAmount = period2Income.totalAmount; 
-            }
-        }
-        glAccountIncomeList.add([glAccountId : periodIncome.glAccountId , period1TotalAmount : period1TotalAmount , period2TotalAmount : period2TotalAmount]);
-        context.glAccountIncomeList = glAccountIncomeList;
+revenueAccountBalanceMap = [:];
+revenueAccountBalanceList = [];
+revenueAccountBalanceList1.each { accountBalance ->
+    revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+}
+revenueAccountBalanceList2.each { accountBalance ->
+    Map assetAccount = (Map)revenueAccountBalanceMap.get(accountBalance.glAccountId);
+    if (!assetAccount) {
+        revenueAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+    } else {
+        assetAccount.put("balance2", accountBalance.balance);
     }
 }
+revenueAccountBalanceList = UtilMisc.sortMaps(revenueAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
+context.revenueAccountBalanceList = revenueAccountBalanceList;
 
-private Map getGlAccountTotals(List onlyIncludePeriodTypeIdList, Timestamp fromDate, Timestamp thruDate, String organizationPartyId, String glFiscalTypeId) {
-    customTimePeriodResult = dispatcher.runSync("findCustomTimePeriods", [findDate : thruDate, organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
-    if (customTimePeriodResult) {
-        customTimePeriod = EntityUtil.getFirst(customTimePeriodResult.customTimePeriodList);
-        if (customTimePeriod) {
-            customTimePeriodFromDate = new Timestamp((customTimePeriod.fromDate).getTime());
-            customTimePeriodThruDate = new Timestamp((customTimePeriod.thruDate).getTime());
-            if (customTimePeriodFromDate.compareTo(fromDate) > 0) 
-                fromDate =  customTimePeriodFromDate;
-            if (customTimePeriodThruDate.compareTo(thruDate) < 0) 
-                thruDate =  customTimePeriodThruDate;
-            context.financialYearFromDate = customTimePeriodFromDate;
-        }
-        prepareIncomeStatement = dispatcher.runSync("prepareIncomeStatement",
-                [fromDate : fromDate, thruDate : thruDate, organizationPartyId : organizationPartyId, glFiscalTypeId : glFiscalTypeId, userLogin : userLogin]);
-        return prepareIncomeStatement;
+expenseAccountBalanceMap = [:];
+expenseAccountBalanceList = [];
+expenseAccountBalanceList1.each { accountBalance ->
+    expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+}
+expenseAccountBalanceList2.each { accountBalance ->
+    Map assetAccount = (Map)expenseAccountBalanceMap.get(accountBalance.glAccountId);
+    if (!assetAccount) {
+        expenseAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+    } else {
+        assetAccount.put("balance2", accountBalance.balance);
     }
 }
+expenseAccountBalanceList = UtilMisc.sortMaps(expenseAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
+context.expenseAccountBalanceList = expenseAccountBalanceList;
+
+incomeAccountBalanceMap = [:];
+incomeAccountBalanceList = [];
+incomeAccountBalanceList1.each { accountBalance ->
+    incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+}
+incomeAccountBalanceList2.each { accountBalance ->
+    Map assetAccount = (Map)incomeAccountBalanceMap.get(accountBalance.glAccountId);
+    if (!assetAccount) {
+        incomeAccountBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+    } else {
+        assetAccount.put("balance2", accountBalance.balance);
+    }
+}
+incomeAccountBalanceList = UtilMisc.sortMaps(incomeAccountBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
+context.incomeAccountBalanceList = incomeAccountBalanceList;
+
+balanceTotalMap = [:];
+balanceTotalList = [];
+balanceTotalList1.each { accountBalance ->
+    balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+}
+balanceTotalList2.each { accountBalance ->
+    Map assetAccount = (Map)balanceTotalMap.get(accountBalance.totalName);
+    if (!assetAccount) {
+        balanceTotalMap.put(accountBalance.totalName, UtilMisc.toMap("totalName", accountBalance.totalName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+    } else {
+        assetAccount.put("balance2", accountBalance.balance);
+    }
+}
+balanceTotalList = balanceTotalMap.values().asList();
+context.balanceTotalList = balanceTotalList;

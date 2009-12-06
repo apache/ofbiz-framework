@@ -33,8 +33,8 @@ import javolution.util.FastList;
 if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp();
 }
-if (!parameters.glFiscalTypeId) {
-    parameters.glFiscalTypeId = "ACTUAL";
+if (!glFiscalTypeId) {
+    return;
 }
 
 // Setup the divisions for which the report is executed
@@ -141,7 +141,7 @@ List balanceTotalList = [];
 List mainAndExprs = FastList.newInstance();
 mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
-mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
+mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
 mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
 mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
@@ -353,7 +353,7 @@ transactionTotals.each { transactionTotal ->
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
 }
 // Add the "retained earnings" account
-Map netIncomeResult = dispatcher.runSync("prepareIncomeStatement", UtilMisc.toMap("organizationPartyId", organizationPartyId, "glFiscalTypeId", parameters.glFiscalTypeId, "fromDate", fromDate, "thruDate", thruDate,"userLogin", userLogin));
+Map netIncomeResult = dispatcher.runSync("prepareIncomeStatement", UtilMisc.toMap("organizationPartyId", organizationPartyId, "glFiscalTypeId", glFiscalTypeId, "fromDate", fromDate, "thruDate", thruDate,"userLogin", userLogin));
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome;
 GenericValue retainedEarningsAccount = delegator.findOne("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId), true);
 if (retainedEarningsAccount) {
