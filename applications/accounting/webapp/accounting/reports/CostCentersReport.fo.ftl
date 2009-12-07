@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-    <#if glAcctgOrgAndCostCenterList?has_content && glAccountCategories?has_content>
+    <#if glAcctBalancesByCostCenter?has_content && glAccountCategories?has_content>
         <fo:table border="1pt solid" border-width=".1mm" width="19cm">
             <fo:table-header>
                 <fo:table-cell border="1pt solid" border-width=".1mm">
@@ -39,24 +39,24 @@ under the License.
                 </#list>
             </fo:table-header>
             <fo:table-body>
-                <#list glAcctgOrgAndCostCenterList as glAcctgOrgAndCostCenter>
+                <#list glAcctBalancesByCostCenter as glAcctBalanceByCostCenter>
                     <#if glAcctgOrgAndCostCenter?has_content>
                         <fo:table-row>
                             <fo:table-cell border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="center">${glAcctgOrgAndCostCenter.glAccountId?if_exists}</fo:block>
+                                <fo:block text-align="center">${glAcctBalanceByCostCenter.glAccountId?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="center">${glAcctgOrgAndCostCenter.accountCode?if_exists}</fo:block>
+                                <fo:block text-align="center">${glAcctBalanceByCostCenter.accountCode?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="center">${glAcctgOrgAndCostCenter.accountName?if_exists}</fo:block>
+                                <fo:block text-align="center">${glAcctBalanceByCostCenter.accountName?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="center">${glAcctgOrgAndCostCenter.postedBalance?if_exists!}</fo:block>
+                                <fo:block text-align="center">${glAcctBalanceByCostCenter.balance?if_exists!}</fo:block>
                             </fo:table-cell>
                             <#list glAccountCategories as glAccountCategory>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center">${(glAcctgOrgAndCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</fo:block>
+                                    <fo:block text-align="center">${(glAcctBalanceByCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</fo:block>
                                 </fo:table-cell>
                             </#list>
                         </fo:table-row>

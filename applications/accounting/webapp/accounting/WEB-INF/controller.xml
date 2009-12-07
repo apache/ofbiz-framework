@@ -2445,28 +2445,20 @@ under the License.
         <response name="success" type="view" value="CostCenters"/>
     </request-map>
 
-    <request-map uri="CostCenterReport">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="CostCenterReport"/>
-    </request-map>
-
-    <request-map uri="getGlAcctgOrgWithPostedBalanceSplit">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="getGlAcctgOrgWithPostedBalanceSplit"/>
-        <response name="success" type="view" value="CostCenterReport"/>
-        <response name="error" type="view" value="CostCenterReport"/>
-    </request-map>
-
-    <request-map uri="CostCentersReport.pdf">
-        <security auth="true" https="true"/>
-        <response name="success" type="view" value="CostCentersReportPdf"/>
-    </request-map>
-
     <request-map uri="createUpdateCostCenter">
         <security auth="true" https="true"/>
         <event type="jsonservice-multi"  invoke="createUpdateCostCenter"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
+    </request-map>
+
+    <request-map uri="GlAccountBalanceByCostCenter">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="GlAccountBalanceByCostCenter"/>
+    </request-map>
+    <request-map uri="GlAccountBalanceByCostCenter.pdf">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="GlAccountBalanceByCostCenterPdf"/>
     </request-map>
     <!-- end of request mappings -->
 
@@ -2765,8 +2757,8 @@ under the License.
     <view-map name="FindGlAccountCategory" type="screen" page="component://accounting/widget/GlSetupScreens.xml#FindGlAccountCategory"/>
     <view-map name="EditGlAccountCategoryMember" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditGlAccountCategoryMember"/>
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
-    <view-map name="CostCenterReport" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCenterReport"/>
-    <view-map name="CostCentersReportPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CostCentersReportPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="GlAccountBalanceByCostCenter" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenter"/>
+    <view-map name="GlAccountBalanceByCostCenterPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenterPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeIncomeStatementsPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ComparativeIncomeStatementsCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeIncomeStatementsCsv" content-type="text/csv" encoding="none"/>
     <!-- end of view mappings -->
