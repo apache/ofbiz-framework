@@ -333,6 +333,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected Form navigationForm = null;
         protected boolean collapsible = false;
         protected boolean initiallyCollapsed = false;
+        protected boolean saveCollapsed = true;
         protected boolean padded = true;
         protected List<ModelScreenWidget> subWidgets;
 
@@ -344,6 +345,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             if (this.initiallyCollapsed) {
                 this.collapsible = true;
             }
+            // By default, for a collapsible screenlet, the collapsed/expanded status must be saved
+            this.saveCollapsed = !("false".equals(screenletElement.getAttribute("save-collapsed")));
+            
             this.padded = !"false".equals(screenletElement.getAttribute("padded"));
             if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
@@ -387,7 +391,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
-            boolean collapsed = initiallyCollapsed;
+            boolean collapsed = getInitiallyCollapsed(context);
             if (this.collapsible) {
                 String preferenceKey = getPreferenceKey(context) + "_collapsed";
                 Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
@@ -414,11 +418,21 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public boolean collapsible() {
             return this.collapsible;
         }
-
-        public boolean initiallyCollapsed() {
+        
+        //initially-collapsed status, which may be overriden by user preference
+        public boolean getInitiallyCollapsed(Map<String, Object> context) {
+            String screenletId = this.getId(context) + "_collapsed";
+            Map<String, ? extends Object> userPreferences = UtilGenerics.checkMap(context.get("userPreferences"));
+            if (userPreferences != null && userPreferences.containsKey(screenletId)) {
+                return Boolean.valueOf((String)userPreferences.get(screenletId)).booleanValue() ; 
+            }
+            
             return this.initiallyCollapsed;
         }
 
+        public boolean saveCollapsed() {
+            return this.saveCollapsed;
+        }
         public boolean padded() {
             return this.padded;
         }

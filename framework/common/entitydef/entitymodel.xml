@@ -540,7 +540,7 @@ under the License.
           other data types by specifying a java data type in the userPrefDataType field.
       </description>
       <field name="userLoginId" type="id-vlong-ne"></field>
-      <field name="userPrefTypeId" type="id-ne"><description>A unique identifier for this preference</description></field>
+      <field name="userPrefTypeId" type="id-long-ne"><description>A unique identifier for this preference</description></field>
       <field name="userPrefGroupTypeId" type="id-long"><description>Used to assemble groups of preferences</description></field>
       <field name="userPrefValue" type="value"><description>Contains the value of this preference</description></field>
       <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
