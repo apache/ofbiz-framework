@@ -264,15 +264,17 @@ under the License.
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="partyRelContacts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
                                             <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="LeadPartyDataSource" location="component://marketing/widget/sfa/LeadScreens.xml"/>
+                                        </container>
+                                        <container style="profile-bottom">
                                             <include-screen name="PartySalesOpportunities" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
                                 </section>
