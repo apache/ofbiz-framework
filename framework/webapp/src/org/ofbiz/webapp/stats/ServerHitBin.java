@@ -618,7 +618,7 @@ public class ServerHitBin {
             GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);
-            serverHit.set("hitStartDateTime", getNowTimestamp()); // A change was introduced with https://issues.apache.org/jira/browse/OFBIZ-2208. Since then startTime is not used anymore 
+            serverHit.set("hitStartDateTime", new java.sql.Timestamp(startTime));
             serverHit.set("hitTypeId", ServerHitBin.typeIds[this.type]);
             if (userLogin != null) {
                 serverHit.set("userLoginId", userLogin.get("userLoginId"));
@@ -651,15 +651,27 @@ public class ServerHitBin {
                 Debug.logError("Unable to get localhost internet address: " + e.toString(), module);
             }
 
+            // The problem with
+            //
+            //     serverHit.create();
+            //
+            // is that if there are two requests with the same startTime (this should only happen with MySQL see https://issues.apache.org/jira/browse/OFBIZ-2208)
+            // then this will go wrong and abort the actual
+            // transaction we are interested in.
+            // Another way instead of using create is to store or update,
+            // that is overwrite in case there already was an entry, thus
+            // avoiding the transaction being aborted which is not
+            // less desirable than having multiple requests with the
+            // same startTime overwriting each other.
+            // This may not satisfy those who want to record each and
+            // every server hit even with equal startTimes but that could be
+            // solved adding a counter to the ServerHit's PK (a counter
+            // counting multiple hits at the same startTime).
             try {
                 serverHit.create();
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Could not save ServerHit: ", module);
+                Debug.logError(e, "Could not save ServerHit:", module);
             }
         }
-    }
-    
-    public synchronized java.sql.Timestamp getNowTimestamp() {
-        return new java.sql.Timestamp(System.currentTimeMillis());
     }
 }
