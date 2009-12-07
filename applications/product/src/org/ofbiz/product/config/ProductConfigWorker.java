@@ -129,14 +129,14 @@ public class ProductConfigWorker {
                             GenericValue component = components.get(i);
                             if (option.isVirtualComponent(component)) {
                                 String productParamName = "add_product_id" + k + "_" + cnt + "_" + variantIndex;
-                                String selectedProdcutId = request.getParameter(productParamName);
-                                if (UtilValidate.isEmpty(selectedProdcutId)) {
+                                String selectedProductId = request.getParameter(productParamName);
+                                if (UtilValidate.isEmpty(selectedProductId)) {
                                     Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", module);
                                 } else {
 
                                     //  handle also feature tree virtual variant methods
-                                    if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProdcutId)) {
-                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProdcutId))) {
+                                    if (ProductWorker.isVirtual((Delegator)request.getAttribute("delegator"), selectedProductId)) {
+                                        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = FastList.newInstance();
                                             Enumeration paramNames = request.getParameterNames();
@@ -149,19 +149,19 @@ public class ProductConfigWorker {
 
                                             // check if features are selected
                                             if (UtilValidate.isEmpty(selectedFeatures)) {
-                                                Debug.logWarning("ERROR: No features selected for productId [" + selectedProdcutId+ "]", module);
+                                                Debug.logWarning("ERROR: No features selected for productId [" + selectedProductId+ "]", module);
                                             }
 
-                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProdcutId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
+                                            String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProductId, selectedFeatures, (Delegator)request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
-                                                selectedProdcutId = variantProductId;
+                                                selectedProductId = variantProductId;
                                             } else {
                                                 Debug.logWarning("ERROR: Variant product not found!", module);
                                                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "cart.addToCart.incompatibilityVariantFeature", UtilHttp.getLocale(request)));
                                            }
                                         }
                                     }
-                                    configWrapper.setSelected(k, cnt, i, selectedProdcutId);
+                                    configWrapper.setSelected(k, cnt, i, selectedProductId);
                                 }
                                 variantIndex ++;
                             }

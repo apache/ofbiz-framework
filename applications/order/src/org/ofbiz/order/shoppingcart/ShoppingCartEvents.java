@@ -250,7 +250,7 @@ public class ShoppingCartEvents {
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
 
-            if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
+            if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
                 // get the selected features.
                 List<String> selectedFeatures = new LinkedList<String>();
                 java.util.Enumeration paramNames = request.getParameterNames();
