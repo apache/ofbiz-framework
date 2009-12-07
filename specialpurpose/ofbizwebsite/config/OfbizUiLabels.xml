@@ -20,23 +20,28 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property  key="OfbizHome">
+        <value xml:lang="en">Home</value>
         <value xml:lang="nl">Home</value>
         <value xml:lang="th">หน้าหลัก</value>
     </property>
     <property key="OfbizProduct">
+        <value xml:lang="en">Producten</value>
         <value xml:lang="nl">Products</value>
         <value xml:lang="th">ผลิตภัณฑ์</value>
     </property>
     <property key="OfbizService">
-        <value xml:lang="nl">Services</value>
+        <value xml:lang="en">Services</value>
+        <value xml:lang="nl">Diensten</value>
         <value xml:lang="th">บริการ</value>
     </property>
     <property key="OfbizCourse">
-        <value xml:lang="nl">Course</value>
+        <value xml:lang="en">Courses</value>
+        <value xml:lang="nl">Cursussen</value>
         <value xml:lang="th">หลักสูตร</value>
     </property>
     <property key="OfbizContactUs">
-        <value xml:lang="nl">Contact Us</value>
+        <value xml:lang="en">Contact Us</value>
+        <value xml:lang="nl">Contacteer Ons</value>
         <value xml:lang="th">ติดต่อเรา</value>
     </property>
 </resource>
