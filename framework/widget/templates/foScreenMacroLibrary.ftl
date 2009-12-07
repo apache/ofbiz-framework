@@ -62,7 +62,7 @@ under the License.
 <#macro renderImage></#macro>
 
 <#macro renderContentFrame></#macro>
-<#macro renderScreenletBegin id title collapsible collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled></#macro>
+<#macro renderScreenletBegin id title collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled></#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></#macro>
 

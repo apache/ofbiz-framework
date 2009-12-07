@@ -116,6 +116,12 @@ under the License.
         <response name="error" type="request" value="main"/>
     </request-map>
 
+    <request-map uri="ajaxSetUserPreference">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <request-map uri="ajaxAutocompleteOptions">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ajaxAutocompleteOptions"/>

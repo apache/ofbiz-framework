@@ -662,6 +662,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(title);
         sr.append("\" collapsible=");
         sr.append(Boolean.toString(collapsible));
+        sr.append(" saveCollapsed=");
+        sr.append(Boolean.toString(screenlet.saveCollapsed()));
         sr.append(" collapsibleAreaId=\"");
         sr.append(collapsibleAreaId);
         sr.append("\" expandToolTip=\"");

@@ -383,16 +383,22 @@ function toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt){
   * @param expandTxt Localized 'Expand' text
   * @param collapseTxt Localized 'Collapse' text
 */
-function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
+function toggleScreenlet(link, areaId, saveCollapsed, expandTxt, collapseTxt){
     toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt);
     var container = $(areaId);
     var screenlet = container.up('div');
     if(container.visible()){
         var currentParam = screenlet.id + "_collapsed=false";
         var newParam = screenlet.id + "_collapsed=true";
+        if(saveCollapsed=='true'){
+            setUserLayoutPreferences('GLOBAL_PREFERENCES',screenlet.id+"_collapsed",'true');
+        }
     } else {
         var currentParam = screenlet.id + "_collapsed=true";
         var newParam = screenlet.id + "_collapsed=false";
+        if(saveCollapsed=='true'){
+            setUserLayoutPreferences('GLOBAL_PREFERENCES',screenlet.id+"_collapsed",'false');
+        }
     }
     var paginationMenus = $$('div.nav-pager');
     paginationMenus.each(function(menu) {
@@ -495,4 +501,23 @@ function expandAll(expanded) {
       }
     }
   }
+}
+
+//calls ajax request for storing user layout preferences
+function setUserLayoutPreferences(userPrefGroupTypeId, userPrefTypeId, userPrefValue){
+  new Ajax.Request('ajaxSetUserPreference',{
+    method: "post",
+    parameters: {userPrefGroupTypeId: userPrefGroupTypeId, userPrefTypeId: userPrefTypeId, userPrefValue: userPrefValue},
+    onLoading: function(transport){
+    },
+
+    onSuccess: function(transport){
+    },
+
+    onComplete: function(transport){
+    }
+ });
+}
+
+function toggleLeftColumn(){
 }
