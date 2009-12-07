@@ -30,7 +30,7 @@
         menu-name="secondary"
         server="default-server"
         location="webapp/ofbiz"
-        mount-point="/"
+        mount-point="/ofbiz"
         app-bar-display="false"/>
     
 </ofbiz-component>
