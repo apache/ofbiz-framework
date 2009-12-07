@@ -25,8 +25,8 @@
         <value xml:lang="th">หน้าหลัก</value>
     </property>
     <property key="OfbizProduct">
-        <value xml:lang="en">Producten</value>
-        <value xml:lang="nl">Products</value>
+        <value xml:lang="en">Products</value>
+        <value xml:lang="nl">Producten</value>
         <value xml:lang="th">ผลิตภัณฑ์</value>
     </property>
     <property key="OfbizService">
