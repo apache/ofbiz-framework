@@ -1323,40 +1323,48 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CostCenterReport">
+    <screen name="GlAccountBalanceByCostCenter">
         <section>
             <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="viewSize" value="99999"/>
                 <set field="titleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="labelTitleProperty" value="FormFieldTitle_costCenters"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
-                <set field="tabButtonItem2" value="CostCenterReport"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <set field="tabButtonItem2" value="GlAccountBalanceByCostCenter"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <!-- Get a default fromDate -->
                 <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
                     <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
-
-                <set field="glAcctgOrgAndCostCenterList" from-field="parameters.glAcctgOrgAndCostCenterList" type="List"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
             </actions>
             <widgets>
-               <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
-                            <include-form name="CostCenter" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="SelectAcctReportPeriod" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
-                                <or>
-                                    <not><if-empty field="parameters.fromDate"/></not>
-                                    <not><if-empty field="glAcctgOrgAndCostCenterMapList"/></not>
-                                </or>
+                                <and>
+                                    <not><if-empty field="fromDate"/></not>
+                                    <not><if-empty field="thruDate"/></not>
+                                    <not><if-empty field="organizationPartyId"/></not>
+                                </and>
                             </condition>
                             <widgets>
+                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="GlAccountBalanceByCostCenter.pdf">
+                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                    <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                </link>
                                 <screenlet title="${uiLabelMap.FormFieldTitle_costCenters}">
                                     <platform-specific>
                                         <html>
@@ -1372,7 +1380,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CostCentersReportPdf">
+    <screen name="GlAccountBalanceByCostCenterPdf">
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -1380,11 +1388,12 @@ under the License.
                 <service service-name="getPartyAccountingPreferences" result-map="result" auto-field-map="true"/>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <entity-condition entity-name="GlAccountCategory" list="glAccountCategories">
-                    <condition-expr field-name="glAccountCategoryTypeId" operator="equals" value="COST_CENTER"/>
-                </entity-condition>
-                <service service-name="getGlAcctgOrgWithPostedBalanceSplit" result-map="result" auto-field-map="true"/>
-                <set field="glAcctgOrgAndCostCenterList" from-field="result.glAcctgOrgAndCostCenterList" type="List"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
+                <set field="partyIds[]" from-field="organizationPartyId"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CostCenters.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">

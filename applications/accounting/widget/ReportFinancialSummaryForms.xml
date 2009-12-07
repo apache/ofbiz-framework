@@ -333,6 +333,19 @@ under the License.
         <field name="balance2" title="Period2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
+    <form name="SelectAcctReportPeriod" type="single" title="Select period for report">
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
     <form name="FindTransactionTotals" type="single" target="TransactionTotals" title="Find list of transaction totals"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
@@ -526,13 +539,6 @@ under the License.
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
             extends="MonthlyPostedTransactionList" extends-resource="component://accounting/widget/ReportFinancialSummaryForms.xml">
         <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
-    </form>
-
-    <form name="CostCenter" type="single" header-row-style="header-row" target="getGlAcctgOrgWithPostedBalanceSplit" default-table-style="basic-table">
-        <field name="organizationPartyId"><hidden/></field>
-        <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
-        <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" tooltip="Please enter From and Thru date or select financial time period in fields above"><submit button-type="button"/></field>
     </form>
 
     <form name="InventoryValuation" type="single" target="InventoryValuation" header-row-style="header-row" default-table-style="basic-table">

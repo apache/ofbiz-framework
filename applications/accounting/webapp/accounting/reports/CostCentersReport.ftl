@@ -17,13 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if glAcctgOrgAndCostCenterList?has_content && glAccountCategories?has_content>
-  <form name="costCentersReportPdfForm" method="post" action="<@ofbizUrl>CostCentersReport.pdf</@ofbizUrl>">
-    <input type="hidden" name="organizationPartyId" value="${parameters.organizationPartyId}"/>
-    <input type="hidden" name="fromDate" value="${parameters.fromDate}"/>
-    <input type="hidden" name="thruDate" value="${parameters.thruDate}"/>
-    <a href="javascript:document.costCentersReportPdfForm.submit();" class="buttontext">${uiLabelMap.AccountingExportAsPdf}</a>
-  </form>
+<#if glAcctBalancesByCostCenter?has_content && glAccountCategories?has_content>
   <table class="basic-table hover-bar" cellspacing="0">
     <tr class="header-row">
       <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>
@@ -34,18 +28,18 @@ under the License.
         <th>${glAccountCategory.description!} - (${currencyUomId})</th>
       </#list>
     </tr>
-    <#list glAcctgOrgAndCostCenterList as glAcctgOrgAndCostCenter>
-      <#if glAcctgOrgAndCostCenter?has_content>
-        <tr>
-          <td>${glAcctgOrgAndCostCenter.glAccountId?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenter.accountCode?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenter.accountName?if_exists}</td>
-          <td>${glAcctgOrgAndCostCenter.postedBalance?if_exists}</td>
+    <#assign alt_row = false>
+    <#list glAcctBalancesByCostCenter as glAcctBalanceByCostCenter>
+        <tr <#if alt_row> class="alternate-row"</#if>>
+          <td>${glAcctBalanceByCostCenter.glAccountId?if_exists}</td>
+          <td>${glAcctBalanceByCostCenter.accountCode?if_exists}</td>
+          <td>${glAcctBalanceByCostCenter.accountName?if_exists}</td>
+          <td>${glAcctBalanceByCostCenter.balance?if_exists}</td>
           <#list glAccountCategories as glAccountCategory>
-            <td>${(glAcctgOrgAndCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</td>
+            <td>${(glAcctBalanceByCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</td>
           </#list>
+          <#assign alt_row = !alt_row>
         </tr>
-      </#if>
     </#list>
   </table>
 <#else>

@@ -827,8 +827,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="CostCenterReport" title="${uiLabelMap.FormFieldTitle_costCenters}">
-            <link target="CostCenterReport">
+        <menu-item name="GlAccountBalanceByCostCenter" title="${uiLabelMap.FormFieldTitle_costCenters}">
+            <link target="GlAccountBalanceByCostCenter">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
