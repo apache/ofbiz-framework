@@ -29,6 +29,4 @@
         The Ebay component provides an interface to the Ebay website. It is possible to export products from your store into  eBay category  also import an orders from ebay.               
     </para>
     
-    <xi:include href="HELP_EBAY_main.xml" />
-    
 </section>
