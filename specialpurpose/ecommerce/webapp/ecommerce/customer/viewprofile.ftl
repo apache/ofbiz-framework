@@ -316,7 +316,7 @@ under the License.
                   <#else>
                     <form name="defaultPaymentMethodForm" method="post" action="<@ofbizUrl>setprofiledefault/viewprofile</@ofbizUrl>">
                       <input type="hidden" name="productStoreId" value="${productStoreId}" />
-                      <input type="hidden" name="defaultPayMeth" value="=${paymentMethod.paymentMethodId}" />
+                      <input type="hidden" name="defaultPayMeth" value="${paymentMethod.paymentMethodId}" />
                       <input type="hidden" name="partyId" value="${party.partyId}" />
                       <input type="submit" value="${uiLabelMap.EcommerceSetDefault}" class="button" />
                     </form>
