@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- To know more about this setting please read the documentation http://docs.ofbiz.org/x/chM -->
+<!-- To know more about this setting please read the documentation http://cwiki.apache.org/confluence/x/bgFk -->
 
 <entity-engine-xml>
 <!-- MCS->PSS Central Server to Per Store Server -->
@@ -43,7 +43,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.product.category" applEnumId="ESIA_INCLUDE"/>
     <!-- org.ofbiz.party.party may be needed for certain promotions -->
     <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.pos.PosTerminal" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5501" entityOrPackage="org.ofbiz.specialpurpose.pos.PosTerminal" applEnumId="ESIA_INCLUDE"/>
 
 <!-- POS->PSS POS Terminal to Per Store Server -->
     <EntityGroup entityGroupId="5505" entityGroupName="POS: POS Terminal to Per Store Server"/>
