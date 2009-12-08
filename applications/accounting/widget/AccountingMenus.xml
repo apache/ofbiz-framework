@@ -817,11 +817,6 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
-        <menu-item name="MonthlyTrialBalance" title="${uiLabelMap.AccountingMonthlyTrialBalance}">
-            <link target="MonthlyTrialBalance">
-                <parameter param-name="organizationPartyId"/>
-            </link>
-        </menu-item>
         <menu-item name="InventoryValuation" title="${uiLabelMap.AccountingInventoryValuation}">
             <link target="InventoryValuation">
                 <parameter param-name="organizationPartyId"/>

@@ -713,13 +713,14 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingTransactionTotals}">
-                            <include-form name="FindTransactionTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="TransactionSelectionForm" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -855,7 +856,7 @@ under the License.
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingIncomeStatement}">
-                            <include-form name="IncomeStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-form name="TransactionSelectionForm" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingIncomeStatement}">
                             <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="IncomeStatementListCsv.csv">
@@ -1255,146 +1256,6 @@ under the License.
                                 <html-template location="component://accounting/webapp/accounting/reports/GlAccountTrialBalanceReport.fo.ftl"/>
                             </xsl-fo>
                         </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="MonthlyTrialBalance">
-        <section>
-            <actions>
-                <set field="titleProperty" value="AccountingMonthlyTrialBalance"/>
-                <set field="labelTitleProperty" value="AccountingMonthlyTrialBalance"/>
-                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
-                <set field="tabButtonItem2" value="MonthlyTrialBalance"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingMonthlyTrialBalance}">
-                            <include-form name="MonthlyTrialBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
-                        <section>
-                            <condition>
-                                <and>
-                                    <not><if-empty field="parameters.selectedMonth"/></not>
-                                    <not><if-empty field="parameters.posted"/></not>
-                                </and>
-                            </condition>
-                            <widgets>
-                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="MonthlyTrialBalance.pdf">
-                                    <parameter param-name="posted" from-field="parameters.posted"/>
-                                    <parameter param-name="selectedMonth" from-field="parameters.selectedMonth"/>
-                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                                </link>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <if-compare field="parameters.posted" operator="equals" value="Y"/>
-                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AccountingPostedTransactionTotals}">
-                                            <include-form name="MonthlyPostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </screenlet>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <if-compare field="parameters.posted" operator="equals" value="N"/>
-                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AccountingUnPostedTransactionTotals}">
-                                            <include-form name="MonthlyUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </screenlet>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}">
-                                            <include-form name="MonthlyPostedUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </screenlet>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="MonthlyTrialBalancePdf">
-        <section>
-            <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
-                <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
-                <set field="partyIds[]" from-field="organizationPartyId"/>
-                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <if-compare field="parameters.posted" operator="equals" value="Y"/>
-                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <container>
-                                            <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
-                                            <include-form name="MonthlyPostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <if-compare field="parameters.posted" operator="equals" value="N"/>
-                                            <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <container>
-                                            <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
-                                            <include-form name="MonthlyUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <if-compare field="parameters.posted" operator="equals" value="All"/>
-                                    </condition>
-                                    <widgets>
-                                        <container>
-                                            <label text="${uiLabelMap.AccountingPostedAndUnpostedTransactionTotals}"/>
-                                            <include-form name="MonthlyPostedUnpostedTransactionList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
