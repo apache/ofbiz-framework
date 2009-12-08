@@ -54,7 +54,7 @@
         <section>
             <title>The production setup guide.</title>
             <para>
-                   An excellent guide to configure the system in a production environment, read the document at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide">OFBiz documentation site</link>
+                   An excellent guide to configure the system in a production environment, read the document at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide">OFBiz documentation site</link>
             </para>
         </section>
         
@@ -343,7 +343,7 @@ image=/boot/vmlinuzNew
         <section>
             <title>Revisions Requiring Data Migration.</title>
             <para>
-                   A List of migration actions you need to perform can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Revisions+Requiring+Data+Migration">OFBiz documentation site</link>
+                   A List of migration actions you need to perform can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Revisions+Requiring+Data+Migration">OFBiz documentation site</link>
             </para>
         </section>
     </appendix>

@@ -101,7 +101,7 @@ by
     But you can neglect and force stopping
 
     *** Also beware, you can't have spaces in the path where the application server is installed ***
-    And last but not least you may appreciate http://docs.ofbiz.org/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-HowtouseRMIwithoutSSL
+    And last but not least you may appreciate http://cwiki.apache.org/confluence/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-HowtouseRMIwithoutSSL
 =======================================================================================================================================================
 
 Derby

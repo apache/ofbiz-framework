@@ -190,7 +190,7 @@
     </section>
     <section>
         <title>Note : Please follows the link</title>
-        <para><!--ulink> http://docs.ofbiz.org/display/OFBIZ/Ant+Script+to+build+new+ofbiz+self+cert  </ulink--></para>
+        <para><!--ulink> http://cwiki.apache.org/confluence/display/OFBIZ/Ant+Script+to+build+new+ofbiz+self+cert  </ulink--></para>
         <para> if your found the problem “ofbiz.org cert is expired causes peer not authenticated“. </para>
     </section>
 </section>
