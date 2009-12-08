@@ -22,11 +22,17 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd">
     <title>The Ebay Component</title>
     <section>
-        <title>Introduction</title>
+        <title>Ebay Introduction</title>
         <para>
-            and a introduction paragraph for Ebay
+             The Ebay component provides an interface to the Ebay website. It is possible to export products from your store into  eBay category  also import an orders from ebay.       
         </para>
     </section>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" 
-        href="../data/helpdata/HELP_EBAY.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_main.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_EditEbayConfiguration.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_AdvanceSearch.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_KeywordSearch.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_eBayOrders.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ManageOrdersFromEbay.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ProductsExportToEbay.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ShippingMethods.xml"/>
 </chapter>
