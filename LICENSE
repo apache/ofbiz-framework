@@ -8,7 +8,7 @@ below. This file includes a list of all libraries distributed with Apache
 OFBiz and the full text of the license used for each.
 
 For additional details, see the NOTICE file and:
-http://docs.ofbiz.org/display/OFBADMIN/Libraries+Included+in+OFBiz
+http://cwiki.apache.org/confluence/display/OFBADMIN/Libraries+Included+in+OFBiz
 ==========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
 ofbiz/trunk/framework/base/lib/ant-launcher-1.7.0.jar

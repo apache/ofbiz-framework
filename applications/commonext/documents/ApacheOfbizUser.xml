@@ -34,10 +34,10 @@
             Welcome to Apache OFBiz the ready to use open source ERP system.
         </para>
         <para>
-            A project introduction can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBADMIN/Apache+OFBiz+Project+Overview">OFBiz documentation site</link>
+            A project introduction can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Project+Overview">OFBiz documentation site</link>
         </para>
         <para>
-            A general Business setup guide can be found at <link xl:href="http://docs.ofbiz.org/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide">OFBiz documentation site</link>
+            A general Business setup guide can be found at <link xl:href="http://cwiki.apache.org/confluence/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide">OFBiz documentation site</link>
             For a quick setup check the <link xl:href="#componentSetup">Setup component.</link>
         </para>
         
@@ -55,7 +55,7 @@
     <appendix>
         <title>New features recently added</title>
         <para>
-           A description of the new features recently added can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBIZ/Main+New+Features">OFBiz documentation site</link>
+           A description of the new features recently added can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">OFBiz documentation site</link>
         </para>
     </appendix>
     

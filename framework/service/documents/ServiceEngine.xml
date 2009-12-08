@@ -23,6 +23,6 @@
 	xmlns="http://docbook.org/ns/docbook">
 	<title>The Service Engine</title>
     <para>
-       A description of the service engine can be found at the <link xl:href="http://docs.ofbiz.org/display/OFBTECH/Service+Engine+Guide">OFBiz documentation site</link>
+       A description of the service engine can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Service+Engine+Guide">OFBiz documentation site</link>
     </para>
 </section>

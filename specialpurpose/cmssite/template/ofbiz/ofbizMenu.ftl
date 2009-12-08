@@ -60,7 +60,7 @@ under the License.
         <a href="http://fisheye6.cenqua.com/browse/ofbiz">Source Browse and Stats (Fisheye)</a>
         <!-- no RSS feed any more... <a href="http://www.ofbiz.org/rss/svnlog.rss">SVN Commit RSS Feed</a> -->
         <a href="http://api.ofbiz.org/">API Reference (Javadoc)</a>
-        <a href="http://docs.ofbiz.org/display/OFBIZ">Documentation Site: Wiki</a>
+        <a href="http://cwiki.apache.org/confluence/display/OFBIZ">Documentation Site: Wiki</a>
 
         <a href="VideosConf.html">Conference Videos</a>
         <a href="http://docs.ofbiz.org/x/QQg">Books</a>

@@ -20,7 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="Prefix">
-        <value xml:lang="en">http://docs.ofbiz.org/display/OFBENDUSER/</value> <!-- Use this to link to the online OFBiz Confluence Documentation Space -->
+        <value xml:lang="en">http://cwiki.apache.org/confluence/display/OFBENDUSER/</value> <!-- Use this to link to the online OFBiz Confluence Documentation Space -->
 <!--
         <value xml:lang="en">/help/OFBIZ-ENDUSER/OFBIZ/</value>  Use this to link to a locally exported Confluence Documentation Space
 -->
