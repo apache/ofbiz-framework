@@ -385,12 +385,12 @@ under the License.
                         <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="BalanceSheet.csv">
                             <parameter param-name="organizationPartyId"/>
                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                            <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                         </link>
                         <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="BalanceSheet.pdf">
                             <parameter param-name="organizationPartyId"/>
                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                            <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                            <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                         </link>
                         <screenlet title="${uiLabelMap.AccountingBalanceSheet}">
                             <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
@@ -712,6 +712,7 @@ under the License.
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
@@ -732,11 +733,13 @@ under the License.
                                 <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="TransactionTotalsCsv.csv">
                                     <parameter param-name="fromDate"/>
                                     <parameter param-name="thruDate"/>
+                                    <parameter param-name="glFiscalTypeId"/>
                                     <parameter param-name="organizationPartyId"/>
                                 </link>
                                 <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="TransactionTotalsPdf.pdf">
                                     <parameter param-name="fromDate"/>
                                     <parameter param-name="thruDate"/>
+                                    <parameter param-name="glFiscalTypeId"/>
                                     <parameter param-name="organizationPartyId"/>
                                 </link>
                                 <screenlet title="${uiLabelMap.AccountingPostedTransactionTotals}">
@@ -773,6 +776,7 @@ under the License.
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
@@ -810,6 +814,7 @@ under the License.
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
@@ -843,7 +848,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>                
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/IncomeStatement.groovy"/>
             </actions>
             <widgets>
@@ -1004,22 +1009,22 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingComparativeIncomeStatement}">
                             <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="ComparativeIncomeStatements.csv">
-                                <parameter param-name="period1FromDate" from-field="parameters.period1FromDate"/>
-                                <parameter param-name="period1ThruDate" from-field="parameters.period1ThruDate"/>
-                                <parameter param-name="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId"/>
-                                <parameter param-name="period2FromDate" from-field="parameters.period2FromDate"/>
-                                <parameter param-name="period2ThruDate" from-field="parameters.period2ThruDate"/>
-                                <parameter param-name="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId"/>
+                                <parameter param-name="period1FromDate" from-field="period1FromDate"/>
+                                <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
+                                <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                                <parameter param-name="period2FromDate" from-field="period2FromDate"/>
+                                <parameter param-name="period2ThruDate" from-field="period2ThruDate"/>
+                                <parameter param-name="period2GlFiscalTypeId" from-field="period2GlFiscalTypeId"/>
                                 <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="currencyUomId"/>
                             </link>
                             <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeIncomeStatements.pdf">
-                                <parameter param-name="period1FromDate" from-field="parameters.period1FromDate"/>
-                                <parameter param-name="period1ThruDate" from-field="parameters.period1ThruDate"/>
-                                <parameter param-name="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId"/>
-                                <parameter param-name="period2FromDate" from-field="parameters.period2FromDate"/>
-                                <parameter param-name="period2ThruDate" from-field="parameters.period2ThruDate"/>
-                                <parameter param-name="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId"/>
+                                <parameter param-name="period1FromDate" from-field="period1FromDate"/>
+                                <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
+                                <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                                <parameter param-name="period2FromDate" from-field="period2FromDate"/>
+                                <parameter param-name="period2ThruDate" from-field="period2ThruDate"/>
+                                <parameter param-name="period2GlFiscalTypeId" from-field="period2GlFiscalTypeId"/>
                                 <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="currencyUomId"/>
                             </link>
@@ -1265,8 +1270,8 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" from-field="organizationPartyId"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
-                <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
@@ -1340,8 +1345,8 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
                 <set field="partyIds" value="${groovy:org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')}" type="List"/>
                 <set field="partyIds[]" from-field="organizationPartyId"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
-                <set field="financialYearFromDate" from-field="financialYearFromDate" type="Timestamp"/>
+                <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
@@ -1607,7 +1612,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>                                
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthlyTrialBalance.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/MonthSelection.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/IncomeStatement.groovy"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
             </actions>
@@ -1621,13 +1626,13 @@ under the License.
                             <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
-                                <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
                             <label style="h3" text="${uiLabelMap.AccountingCashBalance}"/>
