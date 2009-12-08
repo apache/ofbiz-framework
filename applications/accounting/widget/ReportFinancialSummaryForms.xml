@@ -79,7 +79,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="IncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
+    <form name="TransactionSelectionForm" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
             <drop-down allow-empty="true">
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
@@ -384,6 +384,10 @@ under the License.
     </form>
     <form name="PostedTransactionTotalList" type="list" list-name="postedTransactionTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="closingD" value="${openingD + D}" type="BigDecimal"/>
+            <set field="closingC" value="${openingC + C}" type="BigDecimal"/>
+        </row-actions>
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
@@ -391,32 +395,18 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="openingD" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="openingC" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="D" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="C" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="closingD" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="closingC" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransactionTotals"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="D" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" extends="PostedTransactionTotalList">
     </form>
     <form name="PostedAndUnpostedTransactionTotalList" type="list" list-name="allTransactionTotals"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="D" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" extends="PostedTransactionTotalList">
     </form>
 
     <form name="IncomeStatementListCsv" type="list" list-name="glAccountIncomeList" view-size="99999">
@@ -496,71 +486,6 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
-    </form>
-    <form name="MonthlyTrialBalance" type="single" target="MonthlyTrialBalance" title="Find list of monthly transaction totals"
-          header-row-style="header-row" default-table-style="basic-table">
-
-        <field name="organizationPartyId"><hidden/></field>
-        <field name="selectedMonth">
-            <drop-down allow-empty="true">
-                <list-options list-name="monthList" key-name="value" description="${description}"/>
-            </drop-down>
-        </field>
-        <field name="posted">
-            <drop-down>
-                <option description="${uiLabelMap.CommonY}" key="Y"/>
-                <option description="${uiLabelMap.CommonN}" key="N"/>
-                <option description="${uiLabelMap.CommonAll}" key="All"/>
-            </drop-down>
-        </field>
-        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    <form name="MonthlyPostedTransactionList" type="list" list-name="postedTransTotalList" paginate-target="MonthlyTrialBalance"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-
-        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
-        <field name="accountCode" title="${uiLabelMap.FormFieldTitle_accountCode}" entry-name="glAccountId">
-            <display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode}"/>
-        </field>
-        <field name="accountName" title="${uiLabelMap.FormFieldTitle_accountName}" entry-name="glAccountId">
-            <display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/>
-        </field>
-        <field name="openingBalanceCredit">
-            <display description="${openingBalanceCredit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="openingBalanceDebit">
-            <display description="${openingBalanceDebit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="monthAmountCredit">
-            <display description="${credit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="monthAmountDebit">
-            <display description="${debit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="closingBalanceCredit">
-            <display description="${openingBalanceCredit + credit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="closingBalanceDebit">
-            <display description="${openingBalanceDebit + debit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="yearToDateBalanceCredit">
-            <display description="${openingBalanceCredit + credit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-        <field name="yearToDateBalanceDebit">
-            <display description="${openingBalanceDebit + debit}" type="currency" currency="${currencyUomId}"/>
-        </field>
-    </form>
-
-    <form name="MonthlyUnpostedTransactionList" type="list" list-name="unpostedTransTotalList" paginate-target="MonthlyTrialBalance"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
-            extends="MonthlyPostedTransactionList" extends-resource="component://accounting/widget/ReportFinancialSummaryForms.xml">
-        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
-    </form>
-    
-    <form name="MonthlyPostedUnpostedTransactionList" type="list" list-name="postedAndUnpostedTransTotalList" paginate-target="MonthlyTrialBalance" 
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-            extends="MonthlyPostedTransactionList" extends-resource="component://accounting/widget/ReportFinancialSummaryForms.xml">
-        <field name="isPosted" field-name="parameters.isPosted"><hidden/></field>
     </form>
 
     <form name="InventoryValuation" type="single" target="InventoryValuation" header-row-style="header-row" default-table-style="basic-table">

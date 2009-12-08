@@ -19,13 +19,16 @@
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
+import org.ofbiz.accounting.util.UtilAccounting;
+
 import javolution.util.FastList;
-import javolution.util.FastMap;
+
+import java.sql.Date;
 
 if (!fromDate) {
     return;
@@ -35,6 +38,14 @@ if (!thruDate) {
 }
 if (!glFiscalTypeId) {
     return;
+}
+
+// Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
+Map lastClosedTimePeriodResult = dispatcher.runSync("findLastClosedDate", UtilMisc.toMap("organizationPartyId", organizationPartyId, "findDate", new Date(fromDate.getTime()),"userLogin", userLogin));
+Timestamp lastClosedDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
+GenericValue lastClosedTimePeriod = null; 
+if (lastClosedDate) {
+    lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.lastClosedTimePeriod;
 }
 
 // POSTED
@@ -49,16 +60,50 @@ andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUA
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-System.out.println("JAC expr: " + andCond);
 List postedTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
 if (postedTransactionTotals) {
     Map postedTransactionTotalsMap = [:]
     postedTransactionTotals.each { postedTransactionTotal ->
         Map accountMap = (Map)postedTransactionTotalsMap.get(postedTransactionTotal.glAccountId);
         if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(postedTransactionTotal);
-            accountMap.put("D", BigDecimal.ZERO);
-            accountMap.put("C", BigDecimal.ZERO);
+            GenericValue glAccount = delegator.findOne("GlAccount", UtilMisc.toMap("glAccountId", postedTransactionTotal.glAccountId), true);
+            if (glAccount) {
+                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount);
+                // Get the opening balances at the end of the last closed time period
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                    if (lastClosedTimePeriod) {
+                        List timePeriodAndExprs = FastList.newInstance();
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, postedTransactionTotal.glAccountId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
+                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        if (lastTimePeriodHistory) {
+                            accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
+                        }
+                    }
+                }
+            }
+            if (!accountMap) {
+                accountMap = UtilMisc.makeMapWritable(postedTransactionTotal);
+                accountMap.put("openingD", BigDecimal.ZERO);
+                accountMap.put("openingC", BigDecimal.ZERO);
+                accountMap.put("D", BigDecimal.ZERO);
+                accountMap.put("C", BigDecimal.ZERO);
+                accountMap.put("balance", BigDecimal.ZERO);
+            }
+            //
+            List mainAndExprs = FastList.newInstance();
+            mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+            mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
+            mainAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, postedTransactionTotal.glAccountId));
+            mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
+            mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, fromDate));
+            transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(mainAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+            transactionTotals.each { transactionTotal ->
+                UtilMisc.addToBigDecimalInMap(accountMap, "opening" + transactionTotal.debitCreditFlag, transactionTotal.amount);
+            }
         }
         UtilMisc.addToBigDecimalInMap(accountMap, postedTransactionTotal.debitCreditFlag, postedTransactionTotal.amount);
         postedTransactionTotalsMap.put(postedTransactionTotal.glAccountId, accountMap);
@@ -118,9 +163,44 @@ if (unpostedTransactionTotals) {
     unpostedTransactionTotals.each { unpostedTransactionTotal ->
         Map accountMap = (Map)unpostedTransactionTotalsMap.get(unpostedTransactionTotal.glAccountId);
         if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(unpostedTransactionTotal);
-            accountMap.put("D", BigDecimal.ZERO);
-            accountMap.put("C", BigDecimal.ZERO);
+            GenericValue glAccount = delegator.findOne("GlAccount", UtilMisc.toMap("glAccountId", unpostedTransactionTotal.glAccountId), true);
+            if (glAccount) {
+                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount);
+                // Get the opening balances at the end of the last closed time period
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                    if (lastClosedTimePeriod) {
+                        List timePeriodAndExprs = FastList.newInstance();
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, unpostedTransactionTotal.glAccountId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
+                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        if (lastTimePeriodHistory) {
+                            accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
+                        }
+                    }
+                }
+            }
+            if (!accountMap) {
+                accountMap = UtilMisc.makeMapWritable(unpostedTransactionTotal);
+                accountMap.put("openingD", BigDecimal.ZERO);
+                accountMap.put("openingC", BigDecimal.ZERO);
+                accountMap.put("D", BigDecimal.ZERO);
+                accountMap.put("C", BigDecimal.ZERO);
+                accountMap.put("balance", BigDecimal.ZERO);
+            }
+            //
+            List mainAndExprs = FastList.newInstance();
+            mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+            mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+            mainAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, unpostedTransactionTotal.glAccountId));
+            mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
+            mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, fromDate));
+            transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(mainAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+            transactionTotals.each { transactionTotal ->
+                UtilMisc.addToBigDecimalInMap(accountMap, "opening" + transactionTotal.debitCreditFlag, transactionTotal.amount);
+            }
         }
         UtilMisc.addToBigDecimalInMap(accountMap, unpostedTransactionTotal.debitCreditFlag, unpostedTransactionTotal.amount);
         unpostedTransactionTotalsMap.put(unpostedTransactionTotal.glAccountId, accountMap);
@@ -179,9 +259,44 @@ if (allTransactionTotals) {
     allTransactionTotals.each { allTransactionTotal ->
         Map accountMap = (Map)allTransactionTotalsMap.get(allTransactionTotal.glAccountId);
         if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(allTransactionTotal);
-            accountMap.put("D", BigDecimal.ZERO);
-            accountMap.put("C", BigDecimal.ZERO);
+            GenericValue glAccount = delegator.findOne("GlAccount", UtilMisc.toMap("glAccountId", allTransactionTotal.glAccountId), true);
+            if (glAccount) {
+                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount);
+                // Get the opening balances at the end of the last closed time period
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                    if (lastClosedTimePeriod) {
+                        List timePeriodAndExprs = FastList.newInstance();
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, allTransactionTotal.glAccountId));
+                        timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
+                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        if (lastTimePeriodHistory) {
+                            accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
+                        }
+                    }
+                }
+            }
+            if (!accountMap) {
+                accountMap = UtilMisc.makeMapWritable(allTransactionTotal);
+                accountMap.put("openingD", BigDecimal.ZERO);
+                accountMap.put("openingC", BigDecimal.ZERO);
+                accountMap.put("D", BigDecimal.ZERO);
+                accountMap.put("C", BigDecimal.ZERO);
+                accountMap.put("balance", BigDecimal.ZERO);
+            }
+            //
+            List mainAndExprs = FastList.newInstance();
+            mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+            mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
+            mainAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, allTransactionTotal.glAccountId));
+            mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
+            mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate));
+            mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, fromDate));
+            transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(mainAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+            transactionTotals.each { transactionTotal ->
+                UtilMisc.addToBigDecimalInMap(accountMap, "opening" + transactionTotal.debitCreditFlag, transactionTotal.amount);
+            }
         }
         UtilMisc.addToBigDecimalInMap(accountMap, allTransactionTotal.debitCreditFlag, allTransactionTotal.amount);
         allTransactionTotalsMap.put(allTransactionTotal.glAccountId, accountMap);
