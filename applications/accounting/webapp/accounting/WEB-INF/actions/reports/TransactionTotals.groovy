@@ -33,8 +33,8 @@ if (!fromDate) {
 if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp();
 }
-if (!parameters.glFiscalTypeId) {
-    parameters.glFiscalTypeId = "ACTUAL";
+if (!glFiscalTypeId) {
+    return;
 }
 
 // POSTED

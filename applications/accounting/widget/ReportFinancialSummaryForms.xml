@@ -81,7 +81,7 @@ under the License.
 
     <form name="IncomeStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
             </drop-down>
         </field>
@@ -502,7 +502,7 @@ under the License.
 
         <field name="organizationPartyId"><hidden/></field>
         <field name="selectedMonth">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
             </drop-down>
         </field>
@@ -653,7 +653,7 @@ under the License.
 
     <form name="CashFlowStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <list-options list-name="monthList" key-name="value" description="${description}"/>
             </drop-down>
         </field>
