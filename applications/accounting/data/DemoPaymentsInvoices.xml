@@ -112,9 +112,10 @@ under the License.
     <PaymentApplication paymentApplicationId="9002" paymentId="8002" invoiceId="8004" amountApplied="33.99"/>
 
     <PaymentGroup paymentGroupId="9000" paymentGroupTypeId="CHECK_RUN" paymentGroupName="Check Run for 2009-07-11 12:28:44.95"/>
-
     <PaymentGroupMember paymentGroupId="9000" paymentId="8001" fromDate="2009-07-11 12:28:45.315"/>
-    <PaymentGroupMember paymentGroupId="9000" paymentId="8002" fromDate="2009-07-11 12:28:45.315"/>
+
+    <PaymentGroup paymentGroupId="9001" paymentGroupTypeId="CHECK_RUN" paymentGroupName="Check run for 2009-08-11 12:28:45.315"/>
+    <PaymentGroupMember paymentGroupId="9001" paymentId="8002" fromDate="2009-08-11 12:28:45.315"/>
 
     <AcctgTrans acctgTransId="8000" acctgTransTypeId="PURCHASE_INVOICE" transactionDate="2009-07-06 16:50:43.806" isPosted="Y" postedDate="2009-07-06 16:50:44.219" glFiscalTypeId="ACTUAL" partyId="AcctBigSupplier" roleTypeId="BILL_FROM_VENDOR" invoiceId="8000"/>
     <AcctgTrans acctgTransId="8001" acctgTransTypeId="OUTGOING_PAYMENT" transactionDate="2009-07-06 16:53:49.259" isPosted="Y" postedDate="2009-07-06 16:53:49.741" glFiscalTypeId="ACTUAL" partyId="AcctBigSupplier" roleTypeId="BILL_FROM_VENDOR" paymentId="8000"/>
@@ -212,11 +213,14 @@ under the License.
             partyId="Company" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
     <FinAccountTrans finAccountTransId="9101" finAccountTransTypeId="DEPOSIT" finAccountId="ABN_CHECKING" amount="75000.00" 
             partyId="Company" glReconciliationId="9000" transactionDate="2009-04-01 00:00:01.000" entryDate="2009-04-01 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_APPROVED"/>
-    <FinAccountTrans finAccountTransId="9102" finAccountTransTypeId="DEPOSIT" finAccountId="ABN_CHECKING" amount="500.00" 
+    <FinAccountTrans finAccountTransId="9102" finAccountTransTypeId="WITHDRAWAL" finAccountId="ABN_CHECKING" amount="500.00" 
             partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-07-18 00:00:01.000" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8001"/>
     <Payment paymentId="8001" finAccountTransId="9102"/>
     <FinAccountTrans finAccountTransId="9103" finAccountTransTypeId="DEPOSIT" finAccountId="ABN_CHECKING" amount="20.00" 
             partyId="Company" transactionDate="2009-08-12 16:34:33.306" entryDate="2009-08-12 16:34:33.306"  paymentId="8003" statusId="FINACT_TRNS_CREATED"/>
     <Payment paymentId="8003" finAccountTransId="9103"/>
+    <FinAccountTrans finAccountTransId="9104" finAccountTransTypeId="WITHDRAWAL" finAccountId="ABN_CHECKING" amount="33.990" 
+            partyId="Company" transactionDate="2009-07-18 00:00:01.000" entryDate="2009-08-11 12:28:45.315" performedByPartyId="admin" statusId="FINACT_TRNS_CREATED" paymentId="8002"/>
+    <Payment paymentId="8002" finAccountTransId="9104"/>
 
 </entity-engine-xml>

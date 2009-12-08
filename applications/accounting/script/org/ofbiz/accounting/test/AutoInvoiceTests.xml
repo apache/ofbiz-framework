@@ -148,8 +148,8 @@ under the License.
         -->
 
         <!-- Post condition : After Cancel Check Run process accounting transactions are automatically posted to the GL.
-            * ACCOUNTS PAYABLE 210000  - debitTotal increased of $116.85 ; creditTotal increased of $233.7 ; debitCreditDifference decreased of $116.85
-            * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $116.85 ; debitCreditDifference increased of $116.85
+            * ACCOUNTS PAYABLE 210000  - debitTotal increased of $82.86 ; creditTotal increased of $165.72 ; debitCreditDifference decreased of $82.86
+            * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $82.86 ; debitCreditDifference increased of $82.86
         -->
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -164,35 +164,45 @@ under the License.
             <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
         </call-service>
+
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="undepositedDebitCreditDifference"/>
         </call-service>
+        
         <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN  : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
         <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
+        
         <set field="paymentGroupId" value="9000"/>
         <set field="cancelCheckRunPaymentsMap.userLogin" from-field="userLogin"/>
         <set field="cancelCheckRunPaymentsMap.paymentGroupId" from-field="paymentGroupId"/>
         <call-service service-name="cancelCheckRunPayments" in-map-name="cancelCheckRunPaymentsMap"/>
-        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 116.85}" type="BigDecimal"/>
-        <set field="totalPayableCreditAmount" value="${payableCreditTotal + 233.7}" type="BigDecimal"/>
-        <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference -116.85}" type="BigDecimal"/>
+        <entity-and entity-name="PmtGrpMembrPaymentAndFinAcctTrans"  list="paymentGroupMemberAndTransList">
+            <field-map field-name="paymentGroupId"/>
+        </entity-and>
+        <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
+        <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="not-equals" value="FINACT_TRNS_APPROVED">
+        
+        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 82.86}" type="BigDecimal"/>
+        <set field="totalPayableCreditAmount" value="${payableCreditTotal + 165.72}" type="BigDecimal"/>
+        <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference - 82.86}" type="BigDecimal"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
             <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
         </call-service>
+        
         <assert>
             <if-compare-field field="totalPayableDebitAmount" operator="equals" to-field="payableDebitTotal" type="BigDecimal"/>
             <if-compare-field field="totalPayableCreditAmount" operator="equals" to-field="payableCreditTotal" type="BigDecimal"/>
             <if-compare-field field="totalPayableDebitCreditDifference" operator="equals" to-field="payableDebitCreditDifference" type="BigDecimal"/>
         </assert>
         <check-errors/>
-        <set field="totalUndepositedDebitAmount" value="${undepositedDebitTotal + 116.85}" type="BigDecimal"/>
-        <set field="totalUndepositedDebitCreditDifference" value="${undepositedDebitCreditDifference + 116.85}" type="BigDecimal"/>
+        <set field="totalUndepositedDebitAmount" value="${undepositedDebitTotal + 82.86}" type="BigDecimal"/>
+        <set field="totalUndepositedDebitCreditDifference" value="${undepositedDebitCreditDifference + 82.86}" type="BigDecimal"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
@@ -204,6 +214,8 @@ under the License.
             <if-compare-field field="totalUndepositedDebitCreditDifference" operator="equals" to-field="undepositedDebitCreditDifference" type="BigDecimal"/>
         </assert>
         <check-errors/>
+
+        </if-compare>
         <log level="info" message="AFTER  RUNNING CANCEL CHECK RUN: ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
         <log level="info" message="AFTER  RUNNING CANCEL CHECK RUN  : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
     </simple-method>
