@@ -80,8 +80,8 @@ if (you are using JavaDB && want seed and demo data loaded) {
 References :
 
 [1] : https://glassfish.dev.java.net/downloads/v2.1-b60e.html
-[2] : http://docs.ofbiz.org/display/OFBADMIN/Demo+and+Test+Setup+Guide (Building from SVN)
+[2] : http://cwiki.apache.org/confluence/confluence/display/OFBADMIN/Demo+and+Test+Setup+Guide (Building from SVN)
 [3] : OFBIZ_HOME/framework/appserver/README
-[4] : http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide (2.c. Database Setup)
-[5] : http://docs.ofbiz.org/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide (2.d. Seed Data Loading)
+[4] : http://cwiki.apache.org/confluence/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide (2.c. Database Setup)
+[5] : http://cwiki.apache.org/confluence/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide (2.d. Seed Data Loading)
 

@@ -98,7 +98,7 @@ under the License.
         <textData><![CDATA[
 <body id="home">
   <div id="wrap">
-	<div id="header">
+  <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
@@ -122,7 +122,7 @@ under the License.
             </ul>
         </div>
         <div id="search">
-           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+           <form method="POST" action="http://cwiki.apache.org/confluence/dosearchsite.action" name="searchForm">
                <input type="hidden" name="quickSearch" value="true" />
                <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
                   <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
@@ -568,7 +568,7 @@ under the License.
             <img style="margin: 6px 0px 5px;" src="/ofbiz/images/openegovernment_logo.jpg" alt="" border="0">
             </a></li>
               </ul>
-						
+            
 
         </div>
         <!-- sidebar -->
@@ -583,8 +583,8 @@ under the License.
 <body id="full">
   <!-- wrap -->
   <div id="wrap">
-	<!-- header -->
-	<div id="header">
+  <!-- header -->
+  <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
@@ -597,7 +597,7 @@ under the License.
             <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
         </div>
         -->
-		
+    
             <div id="nav">
             <ul>
                 <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
@@ -614,12 +614,12 @@ under the License.
                   <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
            </form>
         </div>
-	</div>
-	<!-- header -->
-	
+  </div>
+  <!-- header -->
+  
 
-	<!-- content-wrap -->
-	<div id="content-wrap" class="clearfix">
+  <!-- content-wrap -->
+  <div id="content-wrap" class="clearfix">
     <div id="main">
       
         <h3>OFBiz – Open For Business</h3>
@@ -692,8 +692,8 @@ under the License.
             </p>
             </div>
             <br><br>  
-	</div> <!--main-->
-	</div><!-- content-wrap -->
+  </div> <!--main-->
+  </div><!-- content-wrap -->
 </div>
 <!-- wrap -->
        
@@ -705,8 +705,8 @@ under the License.
       <body id="full">
   <!-- wrap -->
   <div id="wrap">
-	<!-- header -->
-	<div id="header">
+  <!-- header -->
+  <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
@@ -719,7 +719,7 @@ under the License.
             <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
         </div>
         -->
-		
+    
             <div id="nav">
             <ul>
                 <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
@@ -736,28 +736,28 @@ under the License.
                   <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
            </form>
         </div>
-	</div>
-	<!-- header -->
-	
-	<!-- content-wrap -->
-	<div id="content-wrap" class="clearfix">
+  </div>
+  <!-- header -->
+  
+  <!-- content-wrap -->
+  <div id="content-wrap" class="clearfix">
     <div id="main">
-	
-	<h3>ฝึกอบรมการใช้งาน</h3>
+  
+  <h3>ฝึกอบรมการใช้งาน</h3>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการฝึกอบรมการใช้งาน การปรับแต่งซอฟต์แวร์ และการพัฒนา OFBiz สำหรับบริษัทห้างร้าน สถานศึกษา ซอฟต์แวร์เฮ้าส์ หรือผู้ที่สนใจจะนำ OFBiz ไปใช้งาน โดย คุณ Hans Bakker Committer ของ OFBiz โดยตรง แบ่งการฝึกอบรมได้ดังนี้ สำหรับผู้ใช้งานทั่วไป และ สำหรับนักพัฒนา
     <br>
     <a href="<@ofbizUrl>course</@ofbizUrl>">รายละเอียดการฝึกอบรม</a>
     </p>
-	
-	<h3>พัฒนาและปรับแต่งระบบ</h3>
+  
+  <h3>พัฒนาและปรับแต่งระบบ</h3>
     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ให้บริการพัฒนาซอฟต์แวร์ภายในองค์กรด้วย OFBiz Framework ปรับแต่ง OFBiz ให้เข้ากับระบบการทำงานของแต่ละองค์กร บริการให้คำปรึกษาการนำเอา OFBiz ไปใช้งาน เพื่อนำไปสู่ความสำเร็จในการทำงาน ไม่ว่าจะเป็นระบบ ERP, CRM, MRP, E-Commerce, HRM
     <br>
     <a href="<@ofbizUrl>product</@ofbizUrl>">รายละเอียดเพิ่มเติม</a>
     </p>
-	
-	</div>
-	</div>
-	</div>
+  
+  </div>
+  </div>
+  </div>
     ]]></textData>
     </ElectronicText>
     
@@ -766,8 +766,8 @@ under the License.
                <body id="full">
   <!-- wrap -->
   <div id="wrap">
-	<!-- header -->
-	<div id="header">
+  <!-- header -->
+  <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
@@ -780,7 +780,7 @@ under the License.
             <a href="#">เข้าสู่ระบบ | </a> <a href="#">สมัครสมาชิก | </a> <a href="#">Settings</a>
         </div>
         -->
-		
+    
             <div id="nav">
             <ul>
                 <li><a href="<@ofbizUrl>main"</@ofbizUrl>>หน้าหลัก</a></li>
@@ -797,13 +797,13 @@ under the License.
                   <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
            </form>
         </div>
-	</div>
-	<!-- header -->
-	
+  </div>
+  <!-- header -->
+  
     <!-- content-wrap -->
-	<div id="content-wrap" class="clearfix">
+  <div id="content-wrap" class="clearfix">
     <div id="main">
-	<h3>Comprehensive OFBiz Training Outlines</h3>
+  <h3>Comprehensive OFBiz Training Outlines</h3>
         <ul>
         <li><h3>Advanced Framework Course</h3></li>
         <p>
@@ -895,8 +895,8 @@ under the License.
 <body id="semi">
   <!-- wrap -->
   <div id="wrap">
-	<!-- header -->
-	<div id="header">
+  <!-- header -->
+  <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
@@ -925,11 +925,11 @@ under the License.
                   <input type="text" id="searchDocs" value="ค้นหา..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
            </form>
         </div>
-	</div>
-	<!-- header -->
-	
+  </div>
+  <!-- header -->
+  
     <!-- content-wrap -->
-	<div id="content-wrap" class="clearfix">
+  <div id="content-wrap" class="clearfix">
     <div id="main">
     <h3>ติดต่อเรา</h3>
         <p>&nbsp;&nbsp;&nbsp; เพื่อให้สามารถสนับสนุนการทำงานของท่านเป็นไปอย่างดี ท่านสามารถติดต่อเราผ่านทางอีเมลล์ ซึ่งเราอ่านอย่างสม่ำเสมอ ท่านสามารถติดต่อได้ที่
