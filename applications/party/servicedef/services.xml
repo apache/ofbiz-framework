@@ -680,7 +680,7 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
     </service>
     <service name="createPartyIdentifications" engine="simple" default-entity-name="PartyIdentification"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyNameFromPerson">
+            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyIdentifications">
         <description>create many identifications with format in map identifications : [partyType : TYPE, TYPE : value]</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" mode="IN" type="String"/>
