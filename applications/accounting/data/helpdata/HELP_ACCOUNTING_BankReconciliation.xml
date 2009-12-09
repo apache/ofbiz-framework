@@ -176,6 +176,24 @@
    <listitem>
     <para>Click on the 'GL Reconciliation Id' of the group and the details are displayed</para>
    </listitem>
+  </orderedlist>
+     </section>
+      <section>
+  <title>How do I cancel a Bank Reconciliation?</title>
+  <para>If a bank reconciliation needs to be cancelled due to a mistake or error then the bank reconciliation can be cancelled as long as it has not been fully reconciled (i.e. the status of the reconciliation has not been changed to 'Reconciled'. This will allow you to start the bank reconcilation again.</para>
+  <orderedlist>
+   <listitem>
+    <para>Go to the 'Reconciliation' sub menu for the bank account</para>
+   </listitem>
+   <listitem>
+    <para>A list of all the bank reconciliation groups are displayed (NOTE: If no transactions are associated with a reconciliation group then it will not be displayed here)</para>
+   </listitem>
+   <listitem>
+    <para>Click on the 'Cancel' button associated with the 'GL Reconciliation Id' of the group that needs to be cancelled</para>
+   </listitem>
+   <listitem>
+    <para>All transactions will be removed from the reconciliation group and their status will be changed back to 'Not Assigned' so that they can be re-assigned to this or any other reconciliation.</para>
+   </listitem>
    </orderedlist>
      </section>
  </section>

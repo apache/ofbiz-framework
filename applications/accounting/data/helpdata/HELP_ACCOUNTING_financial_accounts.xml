@@ -97,13 +97,15 @@ License.
     <xi:include href="HELP_ACCOUNTING_FindFinAccountTrans.xml"/>
     <xi:include href="HELP_ACCOUNTING_PaymentsDepositWithdraw.xml"/>
     <xi:include href="HELP_ACCOUNTING_FindDepositSlips.xml"/>
-    <xi:include href="HELP_ACCOUNTING_EditFinAccountReconciliations.xml"/>
-    <xi:include href="HELP_ACCOUNTING_ViewGlReconciliationWithTransaction.xml"/>
     <xi:include href="HELP_ACCOUNTING_NewDepositPayment.xml"/>
     <xi:include href="HELP_ACCOUNTING_NewWithdrawalPayment.xml"/>
     <xi:include href="HELP_ACCOUNTING_NewDepositSlip.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditDepositSlipAndMembers.xml"/>
-    <xi:include href="HELP_ACCOUNTING_EditFinAccountTrans.xml"/>
+    <xi:include href="HELP_ACCOUNTING_FindFinAccountReconciliations.xml"/>
     <xi:include href="HELP_ACCOUNTING_BankReconciliation.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountReconciliations.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ViewGlReconciliationWithTransaction.xml"/>
+    <xi:include href="HELP_ACCOUNTING_EditFinAccountTrans.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditFinAccountAuths.xml"/>
+   
 </section>

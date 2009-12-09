@@ -23,7 +23,14 @@ under the License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
        <title>The Edit Financial Account Reconciliations screen.</title>
-        <para></para>
+        <para>This screen is used to create or update a reconciliation group / bank reconciliation. The following details can be input or updated for the reconciliation:</para>
+        <itemizedlist>
+        <listitem><para>GL Reconciliation Name or Identifier</para></listitem>
+       <listitem><para>Description for the reconciliation</para></listitem>
+       <listitem><para>Organisation Party Id for the reconciliation</para></listitem>
+       <listitem><para>Opening Balance for the reconciliation</para></listitem>
+        <listitem><para>Reconciliation date</para></listitem>
+        </itemizedlist>
         <section>
         <title></title>
         <para></para>
