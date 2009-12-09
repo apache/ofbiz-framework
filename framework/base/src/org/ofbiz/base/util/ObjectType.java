@@ -765,6 +765,7 @@ public class ObjectType {
         // These types would flood the log
         if (value instanceof Boolean) return false;        
         if (value instanceof Integer) return false;        
+        if (value instanceof Long) return false;        
         if (value instanceof java.math.BigDecimal) return false;          
         if (value instanceof java.sql.Timestamp) return false;        
         
