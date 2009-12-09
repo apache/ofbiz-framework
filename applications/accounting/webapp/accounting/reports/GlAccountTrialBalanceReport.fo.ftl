@@ -54,11 +54,7 @@ under the License.
             <fo:table-column/>
             <fo:table-column/>
             <fo:table-column/>
-            <fo:table-column/>
             <fo:table-header>
-                <fo:table-cell border="1pt solid" border-width=".1mm">
-                    <fo:block text-align="center">${uiLabelMap.Party}</fo:block>
-                </fo:table-cell>
                 <fo:table-cell border="1pt solid" border-width=".1mm">
                     <fo:block text-align="center">${uiLabelMap.FormFieldTitle_transactionDate}</fo:block>
                 </fo:table-cell>
@@ -94,12 +90,6 @@ under the License.
                     <#if (acctgTransAndEntries)?has_content>
                         <#list acctgTransAndEntries as acctgTransAndEntry>
                             <fo:table-row border="1pt solid" border-width=".1mm">
-                                <fo:table-cell border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center">
-                                        <#assign partyNameFrom = (delegator.findOne("PartyNameView", {"partyId" : acctgTransAndEntry.organizationPartyId}, true))!>
-                                        ${(partyNameFrom.firstName)!} ${(partyNameFrom.lastName)!} ${(partyNameFrom.groupName)!}
-                                    </fo:block>
-                                </fo:table-cell>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
                                     <fo:block text-align="center">
                                         <#if acctgTransAndEntry.transactionDate?has_content>
