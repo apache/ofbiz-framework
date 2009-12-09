@@ -27,6 +27,13 @@ under the License.
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
 
+    <path id="test.class.path">
+        <path refid="local.class.path"/>
+        <pathelement location="${build.dir}/classes"/>
+        <pathelement location="config"/>
+    </path>
+    <filelist id="test.classes"/>
+
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
@@ -74,6 +81,21 @@ under the License.
             <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
             <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
         </jar>
+    </target>
+
+    <target name="tests" depends="jar">
+        <mkdir dir="${build.dir}/test-results"/>
+        <junit>
+            <classpath>
+                <path refid="junit.class.path"/>
+                <path refid="test.class.path"/>
+            </classpath>
+            <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
+            <formatter usefile="false" type="plain"/>
+            <batchtest>
+                <filelist refid="test.classes"/>
+            </batchtest>
+        </junit>
     </target>
 
     <target name="all" depends="jar,docs"/>

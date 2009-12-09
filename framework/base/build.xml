@@ -36,6 +36,10 @@ under the License.
         <fileset dir="../start/build/lib" includes="*.jar"/>
     </path>
 
+    <filelist id="test.classes" dir="${src.dir}">
+        <file name="org/ofbiz/base/test/BaseUnitTests.java"/>
+    </filelist>
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->
