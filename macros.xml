@@ -43,6 +43,10 @@ under the License.
  <path id="ant.lib.class.path">
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
  </path>
+ <path id="junit.class.path">
+  <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
+ </path>
  <path id="local.class.path"/>
 
  <presetdef name="default-javac">
