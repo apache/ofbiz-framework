@@ -39,7 +39,7 @@ Event.observe(window, 'load', function() {
                 if ( $(tableRowId).hasClassName('alternate-rowWarn')){
                     $(tableRowId).removeClassName('alternate-rowWarn');
                 }
-                if ($('costCentersSubmit').hasClassName('buttontextdisabled')) {
+                if ($$('tr.alternate-rowWarn').size() == 0) {
                     $('costCentersSubmit').removeClassName('buttontextdisabled')
                     $('costCentersSubmit').disabled = false;
                 }
