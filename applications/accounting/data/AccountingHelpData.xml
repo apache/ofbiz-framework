@@ -318,6 +318,11 @@ under the License.
     <Content contentId="ACCOUNTING_ViewGlRec" contentTypeId="DOCUMENT" contentName="View GL Reconciliation." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ViewGlRec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_ViewGlRec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ViewGlReconciliationWithTransaction"/>
 	
+    <DataResource dataResourceId="ACCOUNTING_FindFARec" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindFinAccountReconciliations.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Financial Account Reconciliation Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindFARec" contentTypeId="DOCUMENT" contentName="Find Financial Account Reconciliations." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindFARec" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_FinAccoun" contentIdTo="ACCOUNTING_FindFARec" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindFinAccountReconciliations"/>
+ 
     <!-- Tax Authorities -->
 
     <DataResource dataResourceId="ACCOUNTING_TaxAuths" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
@@ -365,7 +370,103 @@ under the License.
     <Content contentId="ACCOUNTING_EditTPInf" contentTypeId="DOCUMENT" contentName="Edit Tax Authority Party Information." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditTPInf" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="ACCOUNTING_TaxAuths" contentIdTo="ACCOUNTING_EditTPInf" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditTaxAuthorityPartyInfo"/>
 
+ <!-- Agreements -->
 
+    <DataResource dataResourceId="ACCOUNTING_Agreement" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_agreements.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Agreements Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_Agreement" contentTypeId="DOCUMENT" contentName="Agreements." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_Agreement" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_ACCOUNTING" contentIdTo="ACCOUNTING_Agreement" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_Agreements"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_FindAgree" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_FindAgreement.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Find Agreements Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_FindAgree" contentTypeId="DOCUMENT" contentName="Find Agreements." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_FindAgree" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_FindAgree" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_FindAgreement"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgree" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreement.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreements Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgree" contentTypeId="DOCUMENT" contentName="Edit Agreements." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgree" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgree" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreement"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgTer" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementTerms.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Terms Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgTer" contentTypeId="DOCUMENT" contentName="Edit Agreement Terms." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgTer" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgTer" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementTerms"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_ListAgItm" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementItems.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Items Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgItm" contentTypeId="DOCUMENT" contentName="List Agreement Items." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgItm" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_ListAgItm" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementItems"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgItm" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementItem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Items Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgItm" contentTypeId="DOCUMENT" contentName="Edit Agreement Items." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgItm" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgItm" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementItem"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_ListAgPro" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementPromoAppls.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Agreement Promotions Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgPro" contentTypeId="DOCUMENT" contentName="List Agreement Promotions." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgPro" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgPro" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementPromoAppls"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_ListAgItT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementItemTerms.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Item Terms Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgItT" contentTypeId="DOCUMENT" contentName="List Agreement Item Terms." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgItT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgItT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementItemTerms"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_EditAgItT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementItemTerm.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Item Terms Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgItT" contentTypeId="DOCUMENT" contentName="Edit Agreement Item Terms." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgItT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgItT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementItemTerm"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_ListAgItP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementItemProducts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Item Products Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgItP" contentTypeId="DOCUMENT" contentName="List Agreement Item Products." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgItP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgItP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementItemProducts"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgItP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementItemProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Item Products Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgItP" contentTypeId="DOCUMENT" contentName="Edit Agreement Item Products." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgItP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgItP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementItemProduct"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_ListAgSIP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementItemSupplierProducts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Item Supplier Products Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgSIP" contentTypeId="DOCUMENT" contentName="List Agreement Item Supplier Products." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgSIP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgSIP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementItemSupplierProducts"/>
+ 
+   <DataResource dataResourceId="ACCOUNTING_EditAgSIP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementItemSupplierProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Item Supplier Products Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgSIP" contentTypeId="DOCUMENT" contentName="Edit Agreement Item Supplier Products." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgSIP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgSIP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementItemSupplierProduct"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_ListAgIPa" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementItemParties.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Item Parties Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgIPa" contentTypeId="DOCUMENT" contentName="List Agreement Item Parties." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgIPa" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgIPa" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementItemParties"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_EditAgIPa" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementItemParty.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Item Parties Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgIPa" contentTypeId="DOCUMENT" contentName="Edit Agreement Item Parties." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgIPa" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgIPa" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementItemParty"/>
+  
+    <DataResource dataResourceId="ACCOUNTING_ListAgGeo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_ListAgreementGeographicalApplic.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting List Agreement Item Geo Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_ListAgGeo" contentTypeId="DOCUMENT" contentName="List Agreement Item Geo." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_ListAgGeo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_ListAgGeo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_ListAgreementGeographicalApplic"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgGeo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementGeographicalApplic.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Item Geo Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgGeo" contentTypeId="DOCUMENT" contentName="Edit Agreement Item Geo." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgGeo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_ListAgItm" contentIdTo="ACCOUNTING_EditAgGeo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementGeographicalApplic"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgrWE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementWorkEffortApplics.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Workeffort Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgrWE" contentTypeId="DOCUMENT" contentName="Edit Agreement Workeffort." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgrWE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgrWE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementWorkEffortApplics"/>
+ 
+    <DataResource dataResourceId="ACCOUNTING_EditAgrRo" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_EditAgreementRoles.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Edit Agreement Roles Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="ACCOUNTING_EditAgrRo" contentTypeId="DOCUMENT" contentName="Edit Agreement Roles." templateDataResourceId="HELP_TEMPL" dataResourceId="ACCOUNTING_EditAgrRo" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="ACCOUNTING_Agreement" contentIdTo="ACCOUNTING_EditAgrRo" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="ACCOUNTING_EditAgreementRoles"/>
+ 
     <!--  features -->
     <DataResource dataResourceId="ACCOUNTING_Features" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/accounting/data/helpdata/HELP_ACCOUNTING_Features.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Features" mimeTypeId="text/xml" isPublic="Y" />
