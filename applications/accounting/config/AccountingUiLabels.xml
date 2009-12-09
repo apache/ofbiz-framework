@@ -7687,7 +7687,7 @@
     <property key="AccountingPaymentsReceived">
         <value xml:lang="ar">التسديدات المستلمة</value>
         <value xml:lang="de">Zahlungen erhalten</value>
-        <value xml:lang="en">Payments received</value>
+        <value xml:lang="en">Payments Received</value>
         <value xml:lang="es">Pagos recibidos</value>
         <value xml:lang="fr">Paiements reçus</value>
         <value xml:lang="hi_IN">भुगतान प्राप्त</value>
