@@ -16,9 +16,47 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 Event.observe(window, 'load', function() {
     Event.observe($('costCentersSubmit'), 'click', processCostCenterData);
+    // Find all text boxes in form and add a method to list on for on change.
+    var categoryShareInputs = $('costCenters').getInputs('text');
+    categoryShareInputs.each(function (element) {
+        Event.observe(element, 'change', function(){
+            var textIdSplit = element.id.split('|');
+            var tableRowId = 'row_' + textIdSplit[0];
+            var tableRow = $(tableRowId);
+            // get all text inputs
+            var rowInputs = $(tableRowId).select('input[type="text"]');
+            var totalPercentage = 0;
+            rowInputs.each(function (inputElement) {
+                var inputElementIdSplit = inputElement.id.split("|");
+                if (inputElement.value) {
+                    totalPercentage = totalPercentage + parseFloat(inputElement.value) 
+                }
+            });
+            if (totalPercentage == 100 || totalPercentage == 0 ) {
+                if ( $(tableRowId).hasClassName('alternate-rowWarn')){
+                    $(tableRowId).removeClassName('alternate-rowWarn');
+                }
+                if ($('costCentersSubmit').hasClassName('buttontextdisabled')) {
+                    $('costCentersSubmit').removeClassName('buttontextdisabled')
+                    $('costCentersSubmit').disabled = false;
+                }
+
+            } else {
+                if ( !$(tableRowId).hasClassName('alternate-rowWarn')){
+                    $(tableRowId).addClassName('alternate-rowWarn');
+                }
+                if (!$('costCentersSubmit').hasClassName('buttontextdisabled')) {
+                    $('costCentersSubmit').addClassName('buttontextdisabled')
+                    $('costCentersSubmit').disabled = true;
+                }
+            }
+        });
+    });
 });
+
 function processCostCenterData() {
     new Ajax.Request($('costCenters').action, {
         asynchronous: false,
