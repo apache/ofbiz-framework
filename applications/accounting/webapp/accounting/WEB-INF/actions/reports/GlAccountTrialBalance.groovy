@@ -76,7 +76,6 @@ if (organizationPartyId) {
         isPosted = parameters.isPosted;
 
         while (customTimePeriodEndDate <= currentTimePeriod.thruDate) {
-
             if ("ALL".equals(isPosted)) {
                 isPosted = "";
             }
@@ -97,7 +96,7 @@ if (organizationPartyId) {
 
             glAcctgTrialBalanceList.add(acctgTransEntriesAndTransTotal);
 
-            calendarTimePeriodStartDate.roll(Calendar.MONTH, 1);
+            calendarTimePeriodStartDate.add(Calendar.MONTH, 1);
             Timestamp retStampStartDate = new Timestamp(calendarTimePeriodStartDate.getTimeInMillis());
             retStampStartDate.setNanos(0);
             customTimePeriodStartDate = retStampStartDate;
