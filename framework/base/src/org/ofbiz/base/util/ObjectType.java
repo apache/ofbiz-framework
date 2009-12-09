@@ -766,7 +766,13 @@ public class ObjectType {
         if (value instanceof Boolean) return false;        
         if (value instanceof Integer) return false;        
         if (value instanceof Long) return false;        
-        if (value instanceof java.math.BigDecimal) return false;          
+        if (value instanceof Float) return false;        
+        if (value instanceof Double) return false;        
+        if (value instanceof Short) return false;        
+        if (value instanceof Byte) return false;        
+        if (value instanceof Character) return false;        
+        if (value instanceof java.math.BigDecimal) return false;
+        if (value instanceof java.math.BigInteger) return false;        
         if (value instanceof java.sql.Timestamp) return false;        
         
         Debug.logWarning("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
