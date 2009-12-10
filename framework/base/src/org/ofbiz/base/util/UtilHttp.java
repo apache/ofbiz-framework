@@ -1333,7 +1333,7 @@ public class UtilHttp {
         return paramMapId;
     }
 
-    public static void restoreStashedParamaterMap(HttpServletRequest request, String paramMapId) {
+    public static void restoreStashedParameterMap(HttpServletRequest request, String paramMapId) {
         HttpSession session = request.getSession();
         Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
         if (paramMapStore != null) {

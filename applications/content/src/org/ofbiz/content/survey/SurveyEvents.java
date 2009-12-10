@@ -58,7 +58,7 @@ public class SurveyEvents {
         Map<String, Object> combinedMap = UtilHttp.getCombinedMap(request);
         if (combinedMap.containsKey("_ORIG_PARAM_MAP_ID_")) {
             String origParamMapId = (String) combinedMap.get("_ORIG_PARAM_MAP_ID_");
-            UtilHttp.restoreStashedParamaterMap(request, origParamMapId);
+            UtilHttp.restoreStashedParameterMap(request, origParamMapId);
         }
         return "success";
     }
