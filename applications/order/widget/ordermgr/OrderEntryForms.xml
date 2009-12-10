@@ -25,7 +25,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartySupplier}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="requirementByDate"><date-find type="date"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="RequirementsList" type="multi" use-row-submit="true" target="addRequirementsToCart" title="" list-name="requirementsForSupplier"
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"

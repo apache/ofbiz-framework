@@ -255,7 +255,7 @@ under the License.
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="find"/>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFindSurveyResponse" list-name="listIt" title="" type="list" paginate-target="FindSurveyResponse"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -284,7 +284,7 @@ under the License.
         <field name="allowUpdate"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupSurvey" list-name="listIt" title="" type="list" paginate-target="LookupSurvey"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -307,7 +307,7 @@ under the License.
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="find"/>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupSurveyResponse" list-name="listIt" title="" type="list" paginate-target="LookupSurveyResponse"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

@@ -35,7 +35,7 @@ under the License.
         <field name="geoSecCode" title="${uiLabelMap.CommonSegmentGroupGeoSecCode}"><text-find/></field>
         <field name="geoAbbr" title="${uiLabelMap.CommonSegmentGroupGeoAbbr}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupGeo" list-name="listIt" target="" title="" type="list" paginate-target="LookupGeo">
         <actions>

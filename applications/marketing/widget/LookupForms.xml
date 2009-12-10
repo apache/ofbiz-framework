@@ -28,7 +28,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="productStoreId" title="${uiLabelMap.MarketingSegmentGroupProductStoreId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupSegmentGroup" list-name="listIt" target="" title="" type="list" paginate-target="LookupSegmentGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -82,7 +82,7 @@ under the License.
         <field name="createdByUserLoginId"><hidden/></field>
         <field name="modifiedByUserLoginId"><hidden/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="ListLookupSalesForecast" list-name="listIt" type="list" paginate-target="LookupSalesForecast" view-size="10"
