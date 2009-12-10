@@ -464,7 +464,8 @@ public class ShoppingCartEvents {
                 if (surveyResponseId != null) {
                     surveyResponses = UtilMisc.toList(surveyResponseId);
                 } else {
-                    Map surveyContext = UtilHttp.getParameterMap(request);
+                    String origParamMapId = UtilHttp.stashParameterMap(request);
+                    Map<String, Object> surveyContext = UtilMisc.<String, Object>toMap("_ORIG_PARAM_MAP_ID_", origParamMapId);
                     GenericValue userLogin = cart.getUserLogin();
                     String partyId = null;
                     if (userLogin != null) {

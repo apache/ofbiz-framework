@@ -428,7 +428,7 @@ under the License.
     </request-map>
     <request-map uri="additemsurvey">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createSurveyResponse"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
@@ -528,7 +528,7 @@ under the License.
     </request-map>
     <request-map uri="addGiftCertificateSurvey">
         <security https="true" auth="false"/>
-        <event type="service" invoke="createSurveyResponse"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="view" value="AddGiftCertificate"/>
     </request-map>
