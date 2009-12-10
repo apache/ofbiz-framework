@@ -31,7 +31,7 @@ under the License.
         </field>
         <field name="customTimePeriodId"><lookup target-form-name="LookupCustomTimePeriod"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListBudgets" type="list" list-name="listIt" paginate-target="LookupBudget"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -59,7 +59,7 @@ under the License.
         </field>
         <field name="budgetId"><lookup target-form-name="LookupBudget"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListBudgetItems" type="list" list-name="listIt" paginate-target="LookupBudgetItem"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -94,7 +94,7 @@ under the License.
         <field name="budgetId"><lookup target-form-name="LookupBudget"/></field>
         <field name="budgetItemSeqId"><lookup target-form-name="LookupBudgetItem"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEmplPositions" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -120,7 +120,7 @@ under the License.
         <auto-fields-entity entity-name="TerminationReason" default-field-type="hidden"/>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTerminationReasons" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -142,7 +142,7 @@ under the License.
         <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListSalarySteps" type="list" list-name="listIt" paginate-target="LookupSalaryStep"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -164,7 +164,7 @@ under the License.
         <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
         <field name="payGradeId" title="${uiLabelMap.HumanResLookupPayGradeId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayGrades" type="list" list-name="listIt" paginate-target="LookupPayGrade"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -186,7 +186,7 @@ under the License.
         <auto-fields-entity entity-name="PayrollPreference" default-field-type="hidden"/>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResLookupPayrollPreferenceSeqId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayRollPreferences" type="list" list-name="listIt" paginate-target="LookupPayRollPreference"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -208,7 +208,7 @@ under the License.
         <auto-fields-entity entity-name="UnemploymentClaim" default-field-type="hidden"/>
         <field name="unemploymentClaimId" title="${uiLabelMap.HumanResLookupUnemploymentClaimId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListUnemploymentClaims" type="list" list-name="listIt" paginate-target="LookupUnemploymentClaim"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -230,7 +230,7 @@ under the License.
         <auto-fields-entity entity-name="AgreementEmploymentAppl" default-field-type="hidden"/>
         <field name="agreementItemSeqId" title="${uiLabelMap.HumanResLookupAgreementItemSeqId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementEmploymentAppls" type="list" list-name="listIt" paginate-target="LookupAgreementEmploymentAppl"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -252,7 +252,7 @@ under the License.
         <auto-fields-entity entity-name="PerfReview" default-field-type="hidden"/>
         <field name="perfReviewId" title="${uiLabelMap.HumanResLookupPerfReviewId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPerfReviews" type="list" list-name="listIt" paginate-target="LookupPerfReview"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -274,7 +274,7 @@ under the License.
         <auto-fields-entity entity-name="PartyResume" default-field-type="hidden"/>
         <field name="resumeId" title="${uiLabelMap.HumanResLookupPartyResume}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPartyResumes" type="list" list-name="listIt" paginate-target="LookupPartyResume"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -296,7 +296,7 @@ under the License.
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="hidden"/>
         <field name="applicationId" title="${uiLabelMap.HumanResLookupApplicationId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEmploymentApps" type="list" list-name="listIt" paginate-target="LookupEmploymentApp"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -333,7 +333,7 @@ under the License.
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLookupJobRequisition" type="list" list-name="listIt" paginate-target="LookupJobRequisition">
         <actions>
@@ -357,7 +357,7 @@ under the License.
         <field name="parentTypeId" title="${uiLabelMap.HumanResPreRequisiteSkill}"><text-find ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find ignore-case="true"/></field>               
         <field name="noConditionFind"><hidden value="Y"/></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLookupTraining" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

@@ -34,7 +34,7 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyName"
@@ -69,7 +69,7 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupPartyEmail" type="list" list-name="listIt" paginate-target="LookupPartyEmail"
@@ -106,7 +106,7 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupCustomerName" type="list" list-name="listIt" paginate-target="LookupCustomerName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -144,7 +144,7 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupCustomerNameForSalesRep" type="list" list-name="listIt" paginate-target="LookupCustomerNameForSalesRep"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -176,7 +176,7 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupPerson" type="list" list-name="listIt" paginate-target="LookupPerson"
@@ -207,7 +207,7 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupPartyAndUserLoginAndPerson" type="list" list-name="listIt" paginate-target="LookupPartyAndUserLoginAndPerson"
@@ -237,7 +237,7 @@ under the License.
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupUserLoginAndPartyDetails" type="list" list-name="listIt" paginate-target="LookupUserLoginAndPartyDetails"
@@ -291,7 +291,7 @@ under the License.
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupPartyClassificationGroup" type="list" list-name="listIt"
@@ -405,7 +405,7 @@ under the License.
         <field name="paPostalCode"><text-find/></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listLookupContactMech" type="list" list-name="listIt" paginate-target="LookupContactMech"
