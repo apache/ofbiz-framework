@@ -862,6 +862,7 @@ in contained elements. */
     text-align: right;
     white-space: nowrap;
     width: 1%;
+    vertical-align: middle;
 }
 
 .required,input.required {
@@ -1461,6 +1462,7 @@ form .basic-table,.screenlet-body .basic-table {
 
 .basic-table tr td { /* Style for all cells */
     padding: 0.1em;
+    vertical-align: middle;
 }
 
 .basic-table tr .label,.basic-table tr .group-label {
