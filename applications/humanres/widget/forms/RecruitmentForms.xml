@@ -57,7 +57,7 @@ under the License.
         <field name="jobRequisitionDate"><hidden/></field>
         <field name="requiredOnDate"><hidden/></field>
         <field name="qualification"><hidden/></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListJobRequisitions" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
         paginate-target="FindJobRequisitions" default-table-style="basic-table hover-bar">
@@ -160,7 +160,7 @@ under the License.
         <field name="emplPositionId"><hidden/></field>
         <field name="employmentAppSourceTypeId"><hidden/></field>
         <field name="referredByPartyId"><hidden/></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListInternalJobPosting" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
         paginate-target="FindInternalJobPosting" default-table-style="basic-table hover-bar">
@@ -250,7 +250,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListInterview" type="list" list-name="listIt" paginate-target="FindJobInterview" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -341,7 +341,7 @@ under the License.
             </drop-down>
         </field>
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListApprovals" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -413,7 +413,7 @@ under the License.
         <field name="reportingDate"><date-find/></field>
         <field name="location"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListRelocation" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2"
         default-table-style="basic-table hover-bar">

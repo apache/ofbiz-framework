@@ -30,7 +30,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}">
             <text-find/>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}">
             <submit button-type="button"/>
         </field>
     </form>
@@ -85,7 +85,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}">
             <submit button-type="button"/>
         </field>
     </form>
