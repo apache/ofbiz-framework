@@ -53,6 +53,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.owasp.esapi.errors.EncodingException;
 
 /**
@@ -1317,5 +1318,36 @@ public class UtilHttp {
             }
         }
         return rowCount;
+    }
+
+    public static String stashParameterMap(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
+        if (paramMapStore == null) {
+            paramMapStore = FastMap.newInstance();
+            session.setAttribute("_PARAM_MAP_STORE_", paramMapStore);
+        }
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
+        String paramMapId = RandomStringUtils.randomAlphanumeric(10);
+        paramMapStore.put(paramMapId, parameters);
+        return paramMapId;
+    }
+
+    public static void restoreStashedParamaterMap(HttpServletRequest request, String paramMapId) {
+        HttpSession session = request.getSession();
+        Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
+        if (paramMapStore != null) {
+            Map<String, Object> paramMap = paramMapStore.get(paramMapId);
+            if (paramMap != null) {
+                paramMapStore.remove(paramMapId);
+                for (Map.Entry<String, Object> paramEntry : paramMap.entrySet()) {
+                    if (request.getAttribute(paramEntry.getKey()) != null) {
+                        Debug.logWarning("Skipped loading parameter [" + paramEntry.getKey() + "] because it would have overwritten a request attribute" , module);
+                        continue;
+                    }
+                    request.setAttribute(paramEntry.getKey(), paramEntry.getValue());
+                }
+            }
+        }
     }
 }
