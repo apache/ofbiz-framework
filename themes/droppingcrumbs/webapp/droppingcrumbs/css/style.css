@@ -853,6 +853,7 @@ padding-right: 1.1em;
 text-align: right;
 white-space: nowrap;
 width: 1%;
+vertical-align: middle;
 }
 
 .required,input.required {
@@ -1429,6 +1430,7 @@ margin-bottom: 0;
 
 .basic-table tr td { /* Style for all cells */
 padding: 0.1em;
+vertical-align: middle;
 }
 
 .basic-table tr .label,.basic-table tr .group-label {

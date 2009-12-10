@@ -706,6 +706,7 @@ Legacy Forms
 	white-space: nowrap;
 	width: 1%;
 	margin:0 4px 0 0px;
+	vertical-align:middle;
 }
 
 .basic-form {
