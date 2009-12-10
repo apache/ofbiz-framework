@@ -421,9 +421,9 @@ public class ProductStoreWorker {
         return returnShippingMethods;
     }
 
-    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(ServletRequest request, String groupName) {
+    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(HttpServletRequest request, String groupName) {
         GenericValue productStore = getProductStore(request);
-        HttpSession session = ((HttpServletRequest)request).getSession();
+        HttpSession session = request.getSession();
         if (productStore == null) {
             return null;
         }
@@ -434,7 +434,8 @@ public class ProductStoreWorker {
         }
 
         String partyId = userLogin != null ? userLogin.getString("partyId") : null;
-        Map<String, Object> passThruFields = UtilHttp.getParameterMap(((HttpServletRequest)request));
+        String origParamMapId = UtilHttp.stashParameterMap(request);
+        Map<String, Object> passThruFields = UtilMisc.<String, Object>toMap("_ORIG_PARAM_MAP_ID_", origParamMapId);
 
         return getRandomSurveyWrapper(productStore.getDelegator(), productStore.getString("productStoreId"), groupName, partyId, passThruFields);
     }

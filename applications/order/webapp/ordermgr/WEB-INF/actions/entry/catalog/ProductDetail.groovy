@@ -150,7 +150,8 @@ if (product) {
     productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD");
     if (productSurvey) {
         survey = EntityUtil.getFirst(productSurvey);
-        surveyContext = UtilHttp.getParameterMap(request);
+        origParamMapId = UtilHttp.stashParameterMap(request);
+        surveyContext = ["_ORIG_PARAM_MAP_ID_" : origParamMapId];
         surveyPartyId = userLogin?.partyId;
         wrapper = new ProductStoreSurveyWrapper(survey, surveyPartyId, surveyContext);
         context.surveyWrapper = wrapper;

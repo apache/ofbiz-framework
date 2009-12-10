@@ -101,13 +101,10 @@ public class SurveyWrapper {
      * @param passThru
      */
     public void setPassThru(Map passThru) {
-        /* Creates an XSS vulnerability, by passing incoming parameters straight back out to the browser
-         * commented until someone decides either cleanse the parameters or find an alternative solution
         if (passThru != null) {
             this.passThru = FastMap.newInstance();
             this.passThru.putAll(passThru);
         }
-        */
     }
 
     /**

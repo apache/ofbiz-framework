@@ -247,7 +247,7 @@ under the License.
 
     <request-map uri="additemsurvey">
         <security https="false" auth="false"/>
-        <event type="service" invoke="createSurveyResponse"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="request" value="additem"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -1245,13 +1245,13 @@ under the License.
     </request-map>
     <request-map uri="profilesurvey">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createSurveyResponse"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="view" value="profilesurvey"/>
         <response name="error" type="view" value="profilesurvey"/>
     </request-map>
     <request-map uri="minipoll">
         <security https="false" auth="false"/>
-        <event type="service" invoke="createSurveyResponse"/>
+        <event type="java" invoke="createSurveyResponseAndRestoreParameters" path="org.ofbiz.content.survey.SurveyEvents"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
