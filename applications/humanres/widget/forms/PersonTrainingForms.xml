@@ -97,7 +97,7 @@ under the License.
         <field name="approverId" use-when="!hasAdminPermission"><hidden value="${loginPartyId}"/></field>
         <field name="reason"><text-find ignore-case="true"/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTrainingApprovals" type="list" list-name="listIt" target="updateTrainingStatus" title="" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>

@@ -35,7 +35,7 @@ under the License.
         <field name="rating"><text-find/></field>
         <field name="skillLevel"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPartySkills" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkillExt" paginate-target="findPartySkills"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">

@@ -1043,7 +1043,7 @@ under the License.
                 <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
             </drop-down>
         </field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="ListGlAccountCategory" type="list" list-name="listIt" paginate-target="FindGlAccountCategory" default-entity-name="GlAccountCategory" separate-columns="true"

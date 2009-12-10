@@ -112,7 +112,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureTypeId"><text-find size="25"></text-find></field>
         <field name="description"><text-find size="25"></text-find></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
     <form name="ListFeatureTypes" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureTypes"
         odd-row-style="alternate-row" default-table-style="basic-table">
@@ -165,8 +165,8 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureId"><text-find size="25"></text-find></field>
         <field name="productFeatureIdTo"><text-find size="25"></text-find></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit/></field>
-        </form>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
+    </form>
     <form name="ListFeatureInterActions" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureInterAction"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
@@ -294,7 +294,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25"></text-find></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25"></text-find></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
 
     <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories"

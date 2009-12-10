@@ -46,7 +46,7 @@ under the License.
         <field position="1" name="amount"><text/></field>
         <field name="paymentRefNum"><text-find ignore-case="true"/></field>
         <field name="paymentGatewayResponseId"><text/></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayments" type="list" separate-columns="true" default-entity-name="Payment" list-name="listIt" paginate-target="findPayments" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

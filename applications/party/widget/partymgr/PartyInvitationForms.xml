@@ -37,7 +37,7 @@ under the License.
         </field>
         <field name="performSearch"><hidden value="Y"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation"

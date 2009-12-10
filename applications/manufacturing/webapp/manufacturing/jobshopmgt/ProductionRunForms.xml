@@ -60,7 +60,7 @@ under the License.
                 </entity-options>
              </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
     <form name="listFindProductionRun" list-name="listIt" title="" type="list" paginate-target="/FindProductionRun"

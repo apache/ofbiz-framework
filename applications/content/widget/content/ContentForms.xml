@@ -64,7 +64,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <form name="ListContent" target="" title="" list-name="listIt" type="list" paginate-target="findContent"
