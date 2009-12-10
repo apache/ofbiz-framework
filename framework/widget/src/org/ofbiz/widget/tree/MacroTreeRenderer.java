@@ -253,7 +253,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderLabel ");
-        sr.append("\" id=\"");
+        sr.append("id=\"");
         sr.append(id);
         sr.append("\" style=\"");
         sr.append(style);
