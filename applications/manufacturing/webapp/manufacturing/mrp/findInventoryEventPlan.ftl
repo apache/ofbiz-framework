@@ -46,7 +46,6 @@ function lookupInventory() {
                     <#if inventoryList?exists>
                         <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=Y${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonHideFields}</a>
                     </#if>
-                    <a href="javascript:lookupInventory();" class="smallSubmit">${uiLabelMap.CommonFind}</a>
                   </#if>
                 </p>
               </td>
