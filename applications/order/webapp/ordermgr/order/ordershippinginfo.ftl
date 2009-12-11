@@ -517,7 +517,9 @@ under the License.
             </td>
           </form>
         </#if>
-        <#if shipGroup.shipAfterDate?has_content>
+        <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
+        <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
+        <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
          <tr><td colspan="3"><hr/></td></tr>
          <tr>
             <td align="right" valign="top" width="15%">
@@ -525,22 +527,22 @@ under the License.
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">
-              ${shipGroup.shipAfterDate}
+              <input type="text" size="23" name="shipAfterDate" value="${shipGroup.shipAfterDate?if_exists}"/>
+              <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipAfterDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
             </td>
          </tr>
-         </#if>
-        <#if shipGroup.shipByDate?has_content>
-        <tr><td colspan="3"><hr/></td></tr>
-        <tr>
+         <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}<span>
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">
-              ${shipGroup.shipByDate}
+              <input type="text" size="23" name="shipByDate" value="${shipGroup.shipByDate?if_exists}"/>
+              <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipByDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+              <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
             </td>
          </tr>
-         </#if>
+        </form>
        <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment")>
        <#if shipGroupShipments?has_content>
           <tr><td colspan="3"><hr/></td></tr>
@@ -575,7 +577,7 @@ under the License.
        </#if>
 
        <#-- shipment actions -->
-       <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
+       <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && ((orderHeader.statusId == "ORDER_CREATED") || (orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
 
 
          <#-- Manual shipment options -->
@@ -584,22 +586,26 @@ under the License.
             <td colspan="3" valign="top" width="100%" align="center">
              <#if orderHeader.orderTypeId == "SALES_ORDER">
                <#if !shipGroup.supplierPartyId?has_content>
-                 <a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
+                 <#if orderHeader.statusId == "ORDER_APPROVED">
+                 <a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
                  <br/>
-                 <a href="javascript:document.createShipment.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
-                 <form name="createShipment" method="post" action="/facility/control/createShipment">
+                 </#if>
+                 <a href="javascript:document.createShipment_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
+                 <form name="createShipment_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                    <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                    <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                    <input type="hidden" name="statusId" value="SHIPMENT_INPUT">
                    <input type="hidden" name="facilityId" value=${storeFacilityId?if_exists}>
+                   <input type="hidden" name="estimatedShipDate" value="${shipGroup.shipByDate?if_exists}"/>
                  </form>
                </#if>
              <#else>
+               <#if (orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT")>
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                <#if facilities?has_content>
                    <div>
-                    <a href="javascript:document.createShipment2.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
-                    <form name="createShipment2" method="post" action="/facility/control/createShipment">
+                    <a href="javascript:document.createShipment2_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
+                    <form name="createShipment2_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                        <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                        <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                        <input type="hidden" name="shipmentTypeId" value="PURCHASE_SHIPMENT"/>
@@ -617,19 +623,20 @@ under the License.
                     </div>
                <#else>
                    <a href="javascript:document.quickDropShipOrder_${shipGroup_index}.submit();" class="buttontext">${uiLabelMap.ProductShipmentQuickComplete}</a>
-                   <a href="javascript:document.createShipment3.submit();" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
+                   <a href="javascript:document.createShipment3_${shipGroup.shipGroupSeqId}.submit();" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
                    <form name="quickDropShipOrder_${shipGroup_index}" method="post" action="<@ofbizUrl>quickDropShipOrder</@ofbizUrl>">
                         <input type="hidden" name="orderId" value="${orderId}"/>
                         <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                         <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
                     </form>
-                    <form name="createShipment3" method="post" action="/facility/control/createShipment">
+                    <form name="createShipment3_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                         <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                         <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                         <input type="hidden" name="shipmentTypeId" value="DROP_SHIPMENT">
                         <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED">
                         <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
                     </form>
+               </#if>
                </#if>
              </#if>
             </td>

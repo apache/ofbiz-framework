@@ -25,6 +25,28 @@ under the License.
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
+            <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td colspan="2">
+                  <h2>${uiLabelMap.OrderInternalNote}</h2>
+                </td>
+                <td colspan="2">
+                  <h2>${uiLabelMap.OrderShippingNotes}</h2>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <textarea cols="30" rows="3" name="internal_order_notes"></textarea>
+                </td>
+                <td colspan="2">
+                  <textarea cols="30" rows="3" name="shippingNotes"></textarea>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
               <input type="hidden" name="finalizeMode" value="options"/>
 <#list 1..cart.getShipGroupSize() as currIndex>
@@ -37,29 +59,7 @@ under the License.
 <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
 
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td colspan="2">
-                    <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td colspan="2">
-                          <h2>${uiLabelMap.OrderInternalNote}</h2>
-                        </td>
-                        <td colspan="2">
-                          <h2>${uiLabelMap.OrderShippingNotes}</h2>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="2">
-                          <textarea cols="30" rows="3" name="internal_order_notes"></textarea>
-                        </td>
-                        <td colspan="2">
-                          <textarea cols="30" rows="3" name="shippingNotes"></textarea>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr/></td></tr>
               <tr>
                 <td colspan="2">
                     <h1><b>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
@@ -67,6 +67,11 @@ under the License.
               </tr>
 
                <#if cart.getOrderType() != "PURCHASE_ORDER">
+                <tr>
+                  <td colspan="2">
+                    <h2>${uiLabelMap.ProductShipmentMethod}</h2>
+                  </td>
+                </tr>
                 <#assign shipEstimateWrapper = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, cart, 0)>
                 <#assign carrierShipmentMethods = shipEstimateWrapper.getShippingMethods()>
                 <#list carrierShipmentMethods as carrierShipmentMethod>
@@ -103,7 +108,6 @@ under the License.
                   </td>
                 </tr>
                 </#if>
-                <tr><td colspan='2'><hr/></td></tr>
                <#else>
                    <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="NO_SHIPPING@_NA_">
                </#if>
@@ -128,7 +132,32 @@ under the License.
                     <div>${uiLabelMap.FacilityShipAvailable}</div>
                   </td>
                 </tr>
-                <tr><td colspan="2"><hr/></td></tr>
+                <tr>
+                  <td colspan="2">
+                    <h2>${uiLabelMap.OrderShipBeforeDate}</h2>
+                  </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    <div>
+                      <input type="text" size="25" maxlength="30" name="sgi${shipGroupIndex?default('0')}_shipBeforeDate"/>
+                      <a href="javascript:call_cal(document.checkoutsetupform.sgi${shipGroupIndex?default("0")}_shipBeforeDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <h2>${uiLabelMap.OrderShipAfterDate}</h2>
+                  </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    <div>
+                      <input type="text" size="25" maxlength="30" name="sgi${shipGroupIndex?default('0')}_shipAfterDate"/>
+                      <a href="javascript:call_cal(document.checkoutsetupform.sgi${shipGroupIndex?default("0")}_shipAfterDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                    </div>
+                    </td>
+                </tr>
                 <tr>
                   <td colspan="2">
                     <h2>${uiLabelMap.FacilitySpecialInstructions}</h2>
@@ -154,7 +183,6 @@ under the License.
                             </td>
                         </tr>
                     </#if>
-                    <tr><td colspan="2"><hr /></td></tr>
                     <tr>
                         <td colspan="2">
                             <h2>${uiLabelMap.OrderGiftMessage}</h2>

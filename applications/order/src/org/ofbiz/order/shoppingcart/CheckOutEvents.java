@@ -803,8 +803,8 @@ public class CheckOutEvents {
                     giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
                     isGift = request.getParameter(shipGroupIndex + "_is_gift");
                     internalCode = request.getParameter("internalCode"); // FIXME
-                    shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
-                    shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
+                    shipBeforeDate = request.getParameter("sgi" + shipGroupIndex + "_shipBeforeDate");
+                    shipAfterDate = request.getParameter("sgi" + shipGroupIndex + "_shipAfterDate");
                     internalOrderNotes = request.getParameter("internal_order_notes");
                     shippingNotes = request.getParameter("shippingNotes");
 
