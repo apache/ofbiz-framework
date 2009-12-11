@@ -1900,6 +1900,10 @@
         <value xml:lang="th">ปิดช่วงเวลา</value>
         <value xml:lang="zh">已结束时段</value>
     </property>
+    <property key="AccountingClosingCashBalance">
+        <value xml:lang="en">Closing Cash Balance</value>
+        <value xml:lang="hi_IN">बंद नकदी शेष</value>
+    </property>
     <property key="AccountingComments">
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="de">Kommentare</value>
@@ -3004,6 +3008,10 @@
     <property key="AccountingEndingBalance">
         <value xml:lang="en">Ending Balance</value>
         <value xml:lang="hi_IN">अंतिम शेष</value>
+    </property>
+    <property key="AccountingEndingCashBalance">
+        <value xml:lang="en">Ending Cash Balance</value>
+        <value xml:lang="hi_IN">अंतिम नकदी शेष</value>
     </property>
     <property key="AccountingEnterGiftCardLink">
         <value xml:lang="de">Geben Sie Ihre Kartennummer (Physikalische und virtuelle) und den Pin-Code an um Sie mit Ihrem Konto zu verknüpfen</value>
@@ -6482,6 +6490,10 @@
         <value xml:lang="en">Opening Balance</value>
         <value xml:lang="hi_IN">प्रारंभिक शेष</value>
     </property>
+    <property key="AccountingOpeningCashBalance">
+        <value xml:lang="en">Opening Cash Balance</value>
+        <value xml:lang="hi_IN">प्रारंभिक नकदी शेष</value>
+    </property>
     <property key="AccountingOpenPayments">
         <value xml:lang="ar">مفتوح</value>
         <value xml:lang="de">Offen</value>
@@ -7808,6 +7820,10 @@
         <value xml:lang="en">Period2 Total Amount</value>
         <value xml:lang="hi_IN">अवधि 2 कुल राशि</value>
     </property>
+    <property key="AccountingPeriodCashBalance">
+        <value xml:lang="en">Period Cash Balance</value>
+        <value xml:lang="hi_IN">अवधि नकदी शेष</value>
+    </property>
     <property key="AccountingPeriodName">
         <value xml:lang="de">Name des Zeitraums</value>
         <value xml:lang="en">Period Name</value>
@@ -8788,7 +8804,15 @@
     </property>
     <property key="AccountingTotalCashBalance">
         <value xml:lang="en">Total Cash Balance</value>
-        <value xml:lang="hi_IN">à¤•à¥à¤² à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
+        <value xml:lang="hi_IN">कुल नकदी शेष</value>
+    </property>
+    <property key="AccountingTotalClosingCashBalance">
+        <value xml:lang="en">Total Closing Cash Balance</value>
+        <value xml:lang="hi_IN">कुल बंद नकदी शेष</value>
+    </property>
+    <property key="AccountingTotalPeriodCashBalance">
+        <value xml:lang="en">Total Period Cash Balance</value>
+        <value xml:lang="hi_IN">कुल अवधि नकदी शेष</value>
     </property>
     <property key="AccountingTotalCostCenterAmount">
         <value xml:lang="en">Cost center amount percentage saved successfully</value>
@@ -8797,9 +8821,21 @@
         <value xml:lang="en">Total Commission Amount</value>
         <value xml:lang="hi_IN">कुल दलाली राशी</value>
     </property>
+    <property key="AccountingTotalCredit_Disbursement">
+        <value xml:lang="en">Total Credit(Disbursement)</value>
+        <value xml:lang="hi_IN">कुल जमा</value>
+    </property>
     <property key="AccountingTotalCurrentAssetBalance">
         <value xml:lang="en">Total Current Asset Balance</value>
         <value xml:lang="hi_IN">à¤•à¥à¤² à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥à¤ªà¤¤à¥à¤¤à¤¿ à¤°à¤¾à¤¶à¥€</value>
+    </property>
+    <property key="AccountingTotalDebit_Receipts">
+        <value xml:lang="en">Total Debit(Receipts)</value>
+        <value xml:lang="hi_IN">कुल नामे</value>
+    </property>
+    <property key="AccountingTotalEndingCashBalance">
+        <value xml:lang="en">Total Ending Cash Balance</value>
+        <value xml:lang="hi_IN">कुल अंतिम नकदी शेष</value>
     </property>
     <property key="AccountingTotalOfTheCurrentMonth">
         <value xml:lang="en">Total of the current month</value>
@@ -8808,6 +8844,10 @@
     <property key="AccountingTotalOfYearToDate">
         <value xml:lang="en">Total of Year To Date</value>
         <value xml:lang="hi_IN">वर्ष से दिनांक का कुल</value>
+    </property>
+    <property key="AccountingTotalOpeningCashBalance">
+        <value xml:lang="en">Total Opening Cash Balance</value>
+        <value xml:lang="hi_IN">कुल अथ नकदी शेष</value>
     </property>
     <property key="AccountingTotalOperationalCashBalance">
         <value xml:lang="en">Total Operational Cash Balance</value>

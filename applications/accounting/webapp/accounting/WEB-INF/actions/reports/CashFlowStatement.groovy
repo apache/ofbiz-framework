@@ -17,14 +17,17 @@
  * under the License.
  */
 
+import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.party.party.PartyWorker;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -40,50 +43,99 @@ if (!parameters.glFiscalTypeId) {
 }
 
 uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale);
+parametersFromDate = fromDate;
 
 // Setup the divisions for which the report is executed
 List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP');
 partyIds.add(organizationPartyId);
 
-// Get the group of account classes that will be used to position accounts in the proper section of the financial statement
-GenericValue cashEquivalentGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CASH_EQUIVALENT"), true);
-List cashEquivalentAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(cashEquivalentGlAccountClass);
-GenericValue nonCashExpanseGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "NON_CASH_EXPENSE"), true);
-List nonCashExpanseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(nonCashExpanseGlAccountClass);
-GenericValue inventoryAdjustGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "INVENTORY_ADJUST"), true);
-List inventoryAdjustAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(inventoryAdjustGlAccountClass);
-GenericValue currentAssetGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CURRENT_ASSET"), true);
-List currentAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentAssetGlAccountClass);
-GenericValue currentLiabilityGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CURRENT_LIABILITY"), true);
-List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentLiabilityGlAccountClass);
-GenericValue longTermAssetGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "LONGTERM_ASSET"), true);
-List longTermAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(longTermAssetGlAccountClass);
-GenericValue accumDepreciationGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "ACCUM_DEPRECIATION"), true);
-List accumDepreciationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumDepreciationGlAccountClass);
-GenericValue accumAmoritizationGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "ACCUM_AMORTIZATION"), true);
-List accumAmoritizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmoritizationGlAccountClass);
-GenericValue longTermLiabilityGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "LONGTERM_LIABILITY"), true);
-List longTermLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(longTermLiabilityGlAccountClass);
-GenericValue ownersEquityGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "OWNERS_EQUITY"), true);
-List ownersEquityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(ownersEquityGlAccountClass);
+// Get the group of account classes that will be used to position accounts in the proper section of the  Cash Flow statement
+GenericValue glAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CASH_EQUIVALENT"), true);
+List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccountClass);
 
+List cashFlowBalanceTotalList = [];
+
+// Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period 
+Map lastClosedTimePeriodResult = dispatcher.runSync("findLastClosedDate", ["organizationPartyId":organizationPartyId, "findDate":new Date(parametersFromDate.getTime()),"userLogin":userLogin]);
+Timestamp periodClosingFromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
+if (!periodClosingFromDate) {
+    return;
+}
+GenericValue lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.lastClosedTimePeriod;
+// Get the opening balances of Cash Account
+Map openingCashBalances = [:];
+if (lastClosedTimePeriod) {
+    List timePeriodAndExprs = FastList.newInstance();
+    timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, glAccountClassIds));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("endingBalance", EntityOperator.NOT_EQUAL, BigDecimal.ZERO));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
+    List lastTimePeriodHistories = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false);
+    lastTimePeriodHistories.each { lastTimePeriodHistory ->
+        Map accountMap = ["glAccountId":lastTimePeriodHistory.glAccountId, "accountCode":lastTimePeriodHistory.accountCode, "accountName":lastTimePeriodHistory.accountName, "balance":lastTimePeriodHistory.getBigDecimal("endingBalance"), "D":lastTimePeriodHistory.getBigDecimal("postedDebits"), "C":lastTimePeriodHistory.getBigDecimal("postedCredits")];
+        openingCashBalances.(lastTimePeriodHistory.glAccountId) = accountMap;
+    }
+}
 List mainAndExprs = FastList.newInstance();
 mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
-mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
-mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
+//mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"));
+mainAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, glAccountClassIds));
 
-List cashFlowBalanceTotalList = [];
-
-// CASH BALANCE 
+// All GlAccount's transactions (from last closing period to parameter's fromDate) 
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List cashEquivalentAndExprs = FastList.newInstance(mainAndExprs);
-cashEquivalentAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, cashEquivalentAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(cashEquivalentAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+List openingCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
+openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, periodClosingFromDate));
+openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, parametersFromDate));
+transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(openingCashBalanceAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotalsMap = [:];
+transactionTotalsMap.putAll(openingCashBalances);
+transactionTotals.each { transactionTotal ->
+    Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
+    if (!accountMap) {
+        accountMap = UtilMisc.makeMapWritable(transactionTotal);
+        accountMap.remove("debitCreditFlag");
+        accountMap.remove("amount");
+        accountMap.D = BigDecimal.ZERO;
+        accountMap.C = BigDecimal.ZERO;
+        accountMap.balance = BigDecimal.ZERO;
+    } else {
+        if (accountMap.debitCreditFlag && accountMap.amount) {
+            accountMap.remove("debitCreditFlag");
+            accountMap.remove("amount");
+        }
+        if (transactionTotal.debitCreditFlag == "C") {
+            accountMap.C = ((BigDecimal)accountMap.get("C")).add(transactionTotal.amount);
+            accountMap.balance = (accountMap.balance).subtract(transactionTotal.amount);
+        } else {
+            accountMap.D = ((BigDecimal)accountMap.get("D")).add(transactionTotal.amount);
+            accountMap.balance = (accountMap.balance).add(transactionTotal.amount);
+        }
+    }
+    transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
+}
+glAccountIdList = [];
+accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
+accountBalanceList.each { accountBalance ->
+    balanceTotal = balanceTotal.add(accountBalance.balance);
+}
+openingCashBalanceTotal = balanceTotal;
+context.openingCashBalanceList = accountBalanceList;
+cashFlowBalanceTotalList.add("totalName":"AccountingOpeningCashBalance", "balance":balanceTotal);
+openingTransactionKeySet = transactionTotalsMap.keySet();
+
+// PERIOD CASH BALANCE 
+// GlAccounts from parameter's fromDate to parameter's thruDate.
+accountBalanceList = [];
+transactionTotals = [];
+balanceTotal = BigDecimal.ZERO;
+List periodCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
+periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, parametersFromDate));
+periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
+transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(periodCashBalanceAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -113,267 +165,63 @@ if (transactionTotals) {
     accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
-cashEquivalentBalanceTotal = balanceTotal;
-context.cashEquivalentBalanceList = accountBalanceList;
-context.cashEquivalentBalanceList.add("accountName":uiLabelMap.AccountingTotalCashBalance, "balance":balanceTotal);
-cashFlowBalanceTotalList.add("totalName":"AccountingCashBalance", "balance":balanceTotal);
+periodCashBalanceTotal = balanceTotal;
+context.periodCashBalanceList = accountBalanceList;
+context.periodCashBalanceList.add("accountName":uiLabelMap.AccountingTotalPeriodCashBalance, "balance":balanceTotal);
+cashFlowBalanceTotalList.add("totalName":"AccountingPeriodCashBalance", "balance":balanceTotal);
 
-// OPERATING CASH FLOW BALANCE
-// NON_CASH_EXPENSE excluding INVENTORY_ADJUST
+// CLOSING BALANCE 
+// GlAccounts from parameter's fromDate to parameter's thruDate.
 accountBalanceList = [];
-transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List nonCashExpenseAndExprs = FastList.newInstance(mainAndExprs);
-nonCashExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, nonCashExpanseAccountClassIds));
-nonCashExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.NOT_IN, inventoryAdjustAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(nonCashExpenseAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+List transactionTotals = FastList.newInstance();
+transactionTotals.addAll(FastList.newInstance(context.openingCashBalanceList));
+transactionTotals.addAll(FastList.newInstance(context.periodCashBalanceList));
+transactionTotals = UtilMisc.sortMaps(transactionTotals, UtilMisc.toList("accountCode"));
+closingTransactionKeySet = [];
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
     balanceTotalDebit = BigDecimal.ZERO;
     transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
+        if (transactionTotal.D != null) {
+            if (transactionTotalsMap.(transactionTotal.glAccountId)) {
+                totalDebitBalance = (transactionTotal.D).add(transactionTotalsMap.(transactionTotal.glAccountId).D);
+                totalCreditBalance = (transactionTotal.C).add(transactionTotalsMap.(transactionTotal.glAccountId).C);
+                if (transactionTotalsMap.(transactionTotal.glAccountId).D == 0 && transactionTotalsMap.(transactionTotal.glAccountId).C == 0) {
+                    transactionTotalsMap.(transactionTotal.glAccountId).balance = (transactionTotal.balance).add(transactionTotalsMap.(transactionTotal.glAccountId).balance);
+                } else {
+                    transactionTotalsMap.(transactionTotal.glAccountId).D = totalDebitBalance;
+                    transactionTotalsMap.(transactionTotal.glAccountId).C = totalCreditBalance;
+                    transactionTotalsMap.(transactionTotal.glAccountId).balance = totalDebitBalance.subtract(totalCreditBalance);
+                }
+            } else {
+                transactionTotalsMap.(transactionTotal.glAccountId) = FastMap.newInstance(transactionTotal);
+            }
+            accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
         }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
+    closingTransactionKeySet = transactionTotalsMap.keySet();
 }
-context.nonCashExpenseBalanceList = accountBalanceList;
-context.nonCashExpenseBalanceList.add("accountName":uiLabelMap.AccountingTotalOperationalCashBalance, "balance":balanceTotal);
-nonCashExpenseBalanceTotal = balanceTotal;
+accountBalanceList.each { accountBalance ->
+    balanceTotal = balanceTotal.add(accountBalance.balance);
+}
+//closingCashBalanceTotal = balanceTotal;
+context.closingCashBalanceList = accountBalanceList;
+context.closingCashBalanceList.add("accountName":uiLabelMap.AccountingTotalClosingCashBalance, "balance":balanceTotal);
 
-// CURRENT_ASSET excluding CASH_EQUIVALENT
-accountBalanceList = [];
-transactionTotals = [];
-balanceTotal = BigDecimal.ZERO;
-List currentAssetAndExprs = FastList.newInstance(mainAndExprs);
-currentAssetAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, currentAssetAccountClassIds));
-currentAssetAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.NOT_IN, cashEquivalentAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(currentAssetAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
-if (transactionTotals) {
-    Map transactionTotalsMap = [:];
-    balanceTotalCredit = BigDecimal.ZERO;
-    balanceTotalDebit = BigDecimal.ZERO;
-    transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
-        }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
+// Get differences of glAccount in closing and opening list and then add difference to opening list.
+if (closingTransactionKeySet) {
+    closingTransactionKeySet.removeAll(openingTransactionKeySet);
+    closingTransactionKeySet.each { closingTransactionKey ->
+        glAccount = delegator.findOne("GlAccount", UtilMisc.toMap("glAccountId", closingTransactionKey), true);
+        context.openingCashBalanceList.add(["glAccountId":glAccount.glAccountId, "accountName":glAccount.accountName, accountCode:glAccount.accountCode, balance:BigDecimal.ZERO, D:BigDecimal.ZERO, C:BigDecimal.ZERO]);
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
 }
-context.currentAssetBalanceList = accountBalanceList;
-context.currentAssetBalanceList.add("accountName":uiLabelMap.AccountingTotalCurrentAssetBalance, "balance":balanceTotal);
-currentAssetBalanceTotal = balanceTotal;
-
-// CURRENT_LIABILITY
-accountBalanceList = [];
-transactionTotals = [];
-balanceTotal = BigDecimal.ZERO;
-List currentLiabilityAndExprs = FastList.newInstance(mainAndExprs);
-currentLiabilityAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, currentLiabilityAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(currentLiabilityAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
-if (transactionTotals) {
-    Map transactionTotalsMap = [:];
-    balanceTotalCredit = BigDecimal.ZERO;
-    balanceTotalDebit = BigDecimal.ZERO;
-    transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
-        }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
-    }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
-}
-context.currentLiabilityBalanceList = accountBalanceList;
-context.currentLiabilityBalanceList.add("accountName":uiLabelMap.AccountingTotalCurrentLiabilityBalance, "balance": balanceTotal);
-currentLiabilityBalanceTotal = balanceTotal;
-
-// TOTAL OPERATION CASH FLOW = NET INCOME + CURRENT_LIABILITY - NON_CASH_EXPENSE escluding INVENTORY_ADJUST - CURRENT_ASSET excluding CASH_EQUIVALENT
-context.totalOperationsCashBalance = ((context.netIncome.add(currentLiabilityBalanceTotal)).subtract(nonCashExpenseBalanceTotal)).subtract(currentAssetBalanceTotal);
-cashFlowBalanceTotalList.add("totalName":"AccountingOperationsCashBalance", "balance":context.totalOperationsCashBalance);
-
-// INVESTING CASH FLOW AMOUNT
-// LONGTERM_ASSET && ! ACCUM_DEPRECIATION && ! ACCUM_AMORTIZATION
-accountBalanceList = [];
-transactionTotals = [];
-balanceTotal = BigDecimal.ZERO;
-List investingCashAndExprs = FastList.newInstance(mainAndExprs);
-investingCashAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, longTermAssetAccountClassIds));
-investingCashAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.NOT_IN, accumDepreciationAccountClassIds));
-investingCashAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.NOT_IN, accumAmoritizationAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(investingCashAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
-if (transactionTotals) {
-    Map transactionTotalsMap = [:];
-    balanceTotalCredit = BigDecimal.ZERO;
-    balanceTotalDebit = BigDecimal.ZERO;
-    transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
-        }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
-    }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
-}
-investingBalanceTotal = balanceTotal;
-context.investingCashBalanceList = accountBalanceList;
-context.investingCashBalanceList.add("accountName":uiLabelMap.AccountingTotalInvestingCashBalance, "balance":balanceTotal);
-cashFlowBalanceTotalList.add("totalName":"AccountingInvestmentsBalance", "balance":((BigDecimal.ZERO).subtract(balanceTotal)));
-
-// FINANCING CASH FLOW AMOUNT
-// LONGTERM_LIABILITY
-accountBalanceList = [];
-transactionTotals = [];
-balanceTotal = BigDecimal.ZERO;
-List longTermLiabilityAndExprs = FastList.newInstance(mainAndExprs);
-longTermLiabilityAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, longTermLiabilityAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(longTermLiabilityAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
-if (transactionTotals) {
-    Map transactionTotalsMap = [:];
-    balanceTotalCredit = BigDecimal.ZERO;
-    balanceTotalDebit = BigDecimal.ZERO;
-    transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
-        }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
-    }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit);
-}
-longTermLiabillityBalanceTotal = balanceTotal; 
-context.longTermLiabilityBalanceList = accountBalanceList;
-context.longTermLiabilityBalanceList.add("accountName":uiLabelMap.AccountingTotalLongTermLiabilityBalance, "balance":balanceTotal);
-cashFlowBalanceTotalList.add("totalName":"AccountingLongTermLiabilityBalance", "balance":balanceTotal);
-
-// OWNERS_EQUITY
-accountBalanceList = [];
-transactionTotals = [];
-balanceTotal = BigDecimal.ZERO;
-List ownersEquityAndExprs = FastList.newInstance(mainAndExprs);
-ownersEquityAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, ownersEquityAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(ownersEquityAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
-if (transactionTotals) {
-    Map transactionTotalsMap = [:];
-    balanceTotalCredit = BigDecimal.ZERO;
-    balanceTotalDebit = BigDecimal.ZERO;
-    transactionTotals.each { transactionTotal ->
-        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
-        if (!accountMap) {
-            accountMap = UtilMisc.makeMapWritable(transactionTotal);
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-            accountMap.D = BigDecimal.ZERO;
-            accountMap.C = BigDecimal.ZERO;
-            accountMap.balance = BigDecimal.ZERO;
-        }
-        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
-            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount);
-        } else {
-            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount);
-        }
-        BigDecimal debitAmount = (BigDecimal)accountMap.D;
-        BigDecimal creditAmount = (BigDecimal)accountMap.C;
-        BigDecimal balance = debitAmount.subtract(creditAmount);
-        accountMap.balance = balance;
-        transactionTotalsMap.(transactionTotal.glAccountId) = accountMap;
-    }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
-    balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit);
-}
-ownersEquityBalanceTotal = balanceTotal;
-context.ownersEquityBalanceList = accountBalanceList;
-context.ownersEquityBalanceList.add("accountName":uiLabelMap.AccountingOwnersEquityBalance, "balance":balanceTotal);
-cashFlowBalanceTotalList.add("totalName":"AccountingOwnersEquityBalance", "balance":balanceTotal);
+context.openingCashBalanceList.add(["accountName":uiLabelMap.AccountingTotalOpeningCashBalance, "balance":openingCashBalanceTotal]);
 
 // CASH FLOW STATEMENT ENDING BALANCE
-// ENDING BALANCE = CASH BALANCE + OPERATING CASH BALANCE + LONG TERM LIABILITY BALANCE + OWNERS EQUITY BALANCE - INVESTMENT BALANCE
-cashFlowEndingBalance = cashEquivalentBalanceTotal.add(context.totalOperationsCashBalance).add(longTermLiabillityBalanceTotal).add(ownersEquityBalanceTotal).subtract(investingBalanceTotal)
-cashFlowBalanceTotalList.add("totalName":"AccountingCashFlowEndingBalance", "balance":cashFlowEndingBalance);
+// ENDING BALANCE = OPENING CASH BALANCE + PERIOD CASH BALANCE 
+endingCashBalanceTotal = openingCashBalanceTotal.add(periodCashBalanceTotal);
+cashFlowBalanceTotalList.add("totalName":"AccountingEndingCashBalance", "balance":endingCashBalanceTotal);
 context.cashFlowBalanceTotalList = cashFlowBalanceTotalList;
