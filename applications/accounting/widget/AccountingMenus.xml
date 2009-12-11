@@ -1237,10 +1237,16 @@ under the License.
         </menu-item>
         <menu-item name="NewFinAccountReconciliations" title="${uiLabelMap.AccountingCreateNewFinAccountReconciliations}">
             <condition>
-                <or>
-                    <not><if-empty field="glReconciliationId"/></not>
-                    <if-compare field="tabButtonItem2" operator="equals" value="Find"/>
-                </or>
+                <and>
+                    <and>
+                        <if-compare field="finAccount.statusId" operator="not-equals" value="FNACT_MANFROZEN"/>
+                        <if-compare field="finAccount.statusId" operator="not-equals" value="FNACT_CANCELLED"/>                        
+                    </and>
+                    <or>
+                        <not><if-empty field="glReconciliationId"/></not>
+                        <if-compare field="tabButtonItem2" operator="equals" value="Find"/>
+                    </or>
+                </and>
             </condition>
             <link target="EditFinAccountReconciliations">
                 <parameter param-name="finAccountId"/>

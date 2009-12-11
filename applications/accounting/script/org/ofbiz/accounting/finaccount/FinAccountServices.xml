@@ -118,6 +118,15 @@ under the License.
                 <set-service-fields service-name="createFinAccountStatus" map="parameters" to-map="createFinAccountStatusMap"/>
                 <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
             </then>
+            <else>
+                <if-compare field="lookedUpValue.statusId" operator="equals" value="FNACT_MANFROZEN">
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+                </if-compare>
+                <if-compare field="lookedUpValue.statusId" operator="equals" value="FNACT_CANCELLED">
+                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountNotValidError"/></add-error>
+                </if-compare>
+                <check-errors/>
+            </else>
         </if>
 
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -160,6 +169,14 @@ under the License.
 
     <!-- FinAccountTrans Services -->
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
+        <entity-one entity-name="FinAccount" value-field="finAccount"/>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+        </if-compare>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountNotValidError"/></add-error>
+        </if-compare>
+        <check-errors/>
         <call-simple-method method-name="getArithmeticSettingsInline"/>
 
         <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
@@ -193,6 +210,14 @@ under the License.
 
     <!-- FinAccountRole Services -->
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
+        <entity-one entity-name="FinAccount" value-field="finAccount"/>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+        </if-compare>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountNotValidError"/></add-error>
+        </if-compare>
+        <check-errors/>
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
