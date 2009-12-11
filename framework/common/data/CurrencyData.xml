@@ -142,7 +142,7 @@ under the License.
     <Uom abbreviation="PLZ" description="Poland" uomId="PLZ" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="PYG" description="Paraguayan Guarani" uomId="PYG" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="QAR" description="Qatar Riyal" uomId="QAR" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="RMB" description="Chinese Renminbi Yuan" uomId="RMB" uomTypeId="CURRENCY_MEASURE"/>
+    <!--Uom abbreviation="RMB" description="Chinese Renminbi Yuan" uomId="RMB" uomTypeId="CURRENCY_MEASURE"/--><!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 -->
     <Uom abbreviation="ROL" description="Romanian Leu" uomId="ROL" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="RUR" description="Russian Rouble" uomId="RUR" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="RWF" description="Rwanda Franc" uomId="RWF" uomTypeId="CURRENCY_MEASURE"/>
