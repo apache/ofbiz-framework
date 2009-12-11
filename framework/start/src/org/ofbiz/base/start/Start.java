@@ -225,6 +225,7 @@ public class Start implements Runnable {
             classPath.addComponent(config.baseConfig);
         }
 
+        classPath.instrument(config.instrumenterFile, config.instrumenterClassName);
         // set the classpath/classloader
         System.setProperty("java.class.path", classPath.toString());
         this.classloader = classPath.getClassLoader();
@@ -447,6 +448,8 @@ public class Start implements Runnable {
         public String baseDtd;
         public String baseConfig;
         public String logDir;
+        public String instrumenterClassName;
+        public String instrumenterFile;
         public List<String> loaders;
         public String awtHeadless;
         public String splashLogo;
@@ -642,6 +645,9 @@ public class Start implements Runnable {
             if (tzString != null && tzString.length() > 0) {
                 TimeZone.setDefault(TimeZone.getTimeZone(tzString));
             }
+
+            instrumenterClassName = getProp(props, "ofbiz.instrumenterClassName", null);
+            instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
             // loader classes
             loaders = new ArrayList<String>();

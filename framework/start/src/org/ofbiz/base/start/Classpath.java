@@ -88,6 +88,9 @@ public class Classpath {
         }
      }
 
+    public void instrument(String instrumenterFile, String instrumenterClassName) {
+        _elements = InstrumenterWorker.instrument(_elements, instrumenterFile, instrumenterClassName);
+    }
 
     @Override
     public String toString() {
@@ -128,6 +131,12 @@ public class Classpath {
         if (parent == null) {
             parent = ClassLoader.getSystemClassLoader();
         }
+        return getClassLoader(parent);
+    }
+
+    public ClassLoader getClassLoader(ClassLoader parent) {
+        URL[] urls = getUrls();
+
         return new URLClassLoader(urls, parent);
     }
 
