@@ -13776,7 +13776,8 @@
         <value xml:lang="th">เรียล กาตาร์</value>
         <value xml:lang="zh">卡塔尔里亚尔</value>
     </property>
-    <property key="Uom.description.RMB">
+    <!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 -->
+    <!--property key="Uom.description.RMB">
         <value xml:lang="en">Chinese Renminbi Yuan</value>
         <value xml:lang="fr">Yuan Renmimbi chinois</value>
         <value xml:lang="it">Chinese Renminbi Yuan</value>
@@ -13785,7 +13786,7 @@
         <value xml:lang="ru">Китайский юань</value>
         <value xml:lang="th">หยวน จีนเหรินหมินปี้</value>
         <value xml:lang="zh">中国人民币元</value>
-    </property>
+    </property-->
     <property key="Uom.description.ROL">
         <value xml:lang="de">Leu Rumänien</value>
         <value xml:lang="en">Romanian Leu</value>
