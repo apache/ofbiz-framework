@@ -23,6 +23,7 @@ import java.util.NoSuchElementException;
 
 public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
     private final Iterator<? extends SRC> it;
+    private boolean nextCalled;
     private DEST lastDest;
     private SRC lastSrc;
 
@@ -31,18 +32,25 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
     }
 
     public boolean hasNext() {
-        return it.hasNext();
+        if (nextCalled) return true;
+        if (!it.hasNext()) return false;
+        do {
+            lastSrc = it.next();
+            if (isValid(lastSrc)) {
+                nextCalled = true;
+                lastDest = convert(lastSrc);
+                return true;
+            }
+        } while (it.hasNext());
+        return false;
     }
 
     public DEST next() {
-        try {
-            lastSrc = it.next();
-            return lastDest = convert(lastSrc);
-        } catch (NoSuchElementException e) {
-            lastDest = null;
-            lastSrc = null;
-            throw e;
+        if (!nextCalled) {
+            if (!hasNext()) throw new NoSuchElementException();
         }
+        nextCalled = false;
+        return lastDest;
     }
 
     public void remove() {
@@ -54,6 +62,10 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         } else {
             throw new IllegalStateException();
         }
+    }
+
+    protected boolean isValid(SRC src) {
+        return true;
     }
 
     protected abstract void noteRemoval(DEST dest, SRC src);
