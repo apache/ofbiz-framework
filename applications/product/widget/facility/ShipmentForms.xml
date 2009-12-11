@@ -197,10 +197,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>
-        <field name="shipGroupSeqId"><hidden/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}">
             <lookup target-form-name="LookupOrderHeaderAndShipInfo"/>
         </field>
+        <field name="shipGroupSeqId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>

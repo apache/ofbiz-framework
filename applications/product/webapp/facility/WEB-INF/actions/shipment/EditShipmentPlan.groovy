@@ -201,8 +201,8 @@ if (orderItemShipGroupAssocs) {
         oneRow.orderId = orderItem.orderId;
         oneRow.orderItemSeqId = orderItem.orderItemSeqId;
         oneRow.productId = orderItem.productId;
-        orderedQuantity = orderItem.getDouble("quantity");
-        canceledQuantity = orderItem.getDouble("cancelQuantity");
+        orderedQuantity = orderItemShipGroupAssoc.getDouble("quantity");
+        canceledQuantity = orderItemShipGroupAssoc.getDouble("cancelQuantity");
         if (canceledQuantity) {
             orderedQuantity = Double.valueOf(orderedQuantity.doubleValue() - canceledQuantity.doubleValue());
         }
