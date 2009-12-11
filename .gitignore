@@ -51,6 +51,8 @@ changelog
 runtime/svninfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
+runtime/logs/cobertura.dat
+runtime/logs/cobertura-report
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*

@@ -52,9 +52,15 @@ under the License.
                 <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
             </not>
         </condition>
+        <condition property="exclude.cobertura" value="org/ofbiz/base/config/Cobertura*.java">
+            <not>
+                <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="local.class.path"/>
+            </not>
+        </condition>
 
         <!-- compile base -->
     <javac15 destdir="${build.dir}/classes" srcdir="${src.dir}">
+            <exclude name="${exclude.cobertura}"/>
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </javac15>

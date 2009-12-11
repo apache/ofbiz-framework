@@ -21,7 +21,10 @@ under the License.
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
     <!-- load the ofbiz component container (always first) -->
-    <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
+    <container name="component-container" class="org.ofbiz.base.container.ComponentContainer">
+        <property name="ofbiz.instrumenterClassName" value="org.ofbiz.base.config.CoberturaInstrumenter"/>
+        <property name="ofbiz.instrumenterFile" value="runtime/logs/cobertura.dat"/>
+    </container>
 
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
