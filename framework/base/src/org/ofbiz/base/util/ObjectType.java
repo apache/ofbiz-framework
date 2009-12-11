@@ -769,7 +769,9 @@ public class ObjectType {
         if (value instanceof Character) return false;        
         if (value instanceof java.sql.Timestamp) return false;        
         
-        Debug.logWarning("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
+        }
         return false;
     }
 
