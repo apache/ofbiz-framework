@@ -217,10 +217,10 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         } else {
             it = map.entrySet().iterator();
         }
-        putAll(it);
+        putAllIterator(it);
     }
 
-    protected abstract <KE extends K, VE extends V> void putAll(Iterator<Map.Entry<KE, VE>> it);
+    protected abstract <KE extends K, VE extends V> void putAllIterator(Iterator<Map.Entry<KE, VE>> it);
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
