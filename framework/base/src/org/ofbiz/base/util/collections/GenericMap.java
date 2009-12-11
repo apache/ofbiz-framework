@@ -19,10 +19,12 @@
 package org.ofbiz.base.util.collections;
 
 import java.io.Serializable;
+import java.util.ConcurrentModificationException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import org.ofbiz.base.util.Appender;
@@ -33,10 +35,28 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     private static final AtomicReferenceFieldUpdater<GenericMap, Set> keySetUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "keySet");
     private static final AtomicReferenceFieldUpdater<GenericMap, Set> entrySetUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "entrySet");
     private static final AtomicReferenceFieldUpdater<GenericMap, Collection> valuesUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Collection.class, "values");
+    private static final AtomicIntegerFieldUpdater<GenericMap> modCountUpdater = AtomicIntegerFieldUpdater.newUpdater(GenericMap.class, "modCount");
 
     private volatile Set<K> keySet;
     private volatile Set<Map.Entry<K, V>> entrySet;
     private volatile Collection<V> values;
+    private volatile int modCount;
+
+    public int getModCount() {
+        return modCount;
+    }
+
+    protected void incrementModCount() {
+        modCountUpdater.getAndIncrement(this);
+    }
+
+    public final void clear() {
+        if (isEmpty()) return;
+        incrementModCount();
+        clearInternal();
+    }
+
+    protected abstract void clearInternal();
 
     public boolean containsValue(Object value) {
         return values().contains(value);
@@ -91,6 +111,19 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
 
     protected abstract V get(Object key, boolean noteAccess);
 
+    protected abstract class GenericMapIterator<DEST> extends IteratorWrapper<DEST, Map.Entry<K, V>> {
+        private final int currentModCount = getModCount();
+
+        protected GenericMapIterator(boolean noteAccess) {
+            super(iterator(noteAccess));
+        }
+
+        protected boolean isValid(Map.Entry<K, V> src) {
+            if (currentModCount != getModCount()) throw new ConcurrentModificationException();
+            return true;
+        }
+    }
+
     public final Set<Map.Entry<K, V>> entrySet() {
         if (entrySet == null) {
             entrySetUpdater.compareAndSet(this, null, new GenericMapEntrySet<K, V, GenericMap<K, V>>(this) {
@@ -99,7 +132,17 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
                 }
 
                 public Iterator<Map.Entry<K, V>> iterator(boolean noteAccess) {
-                    return GenericMap.this.iterator(noteAccess);
+                    return new GenericMapIterator<Map.Entry<K, V>>(noteAccess) {
+                        protected void noteRemoval(Map.Entry<K, V> dest, Map.Entry<K, V> src) {
+                            // No need to note the remove, the wrapped iterator does that for us
+                            // evictionPolicy.remove(evictionDeque, dest);
+                            // if (diskStore != null) diskStore.remove(dest);
+                        }
+
+                        protected Map.Entry<K, V> convert(Map.Entry<K, V> src) {
+                            return src;
+                        }
+                    };
                 }
             });
         }
@@ -116,7 +159,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
                 }
 
                 public Iterator<K> iterator(boolean noteAccess) {
-                    return new IteratorWrapper<K, Map.Entry<K, V>>(GenericMap.this.iterator(noteAccess)) {
+                    return new GenericMapIterator<K>(noteAccess) {
                         protected void noteRemoval(K dest, Map.Entry<K, V> src) {
                             // No need to note the remove, the wrapped iterator does that for us
                             // evictionPolicy.remove(evictionDeque, dest);
@@ -137,7 +180,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         if (values == null) {
             valuesUpdater.compareAndSet(this, null, new GenericMapValues<K, V, GenericMap<K, V>>(this) {
                 public Iterator<V> iterator(boolean noteAccess) {
-                    return new IteratorWrapper<V, Map.Entry<K, V>>(GenericMap.this.iterator(noteAccess)) {
+                    return new GenericMapIterator<V>(noteAccess) {
                         protected void noteRemoval(V dest, Map.Entry<K, V> src) {
                             // No need to note the remove, the wrapped iterator does that for us
                             // evictionPolicy.remove(evictionDeque, src.getKey());
@@ -154,11 +197,19 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         return values;
     }
 
-    public void putAll(Map<? extends K, ? extends V> map) {
+    public final V remove(Object key) {
+        return removeInternal(key, true);
+    }
+
+    protected abstract V removeInternal(Object key, boolean incrementModCount);
+
+    public final void putAll(Map<? extends K, ? extends V> map) {
         putAllInternal(map);
     }
 
     private <KE extends K, VE extends V> void putAllInternal(Map<KE, VE> map) {
+        if (map.isEmpty()) return;
+        incrementModCount();
         Iterator<Map.Entry<KE, VE>> it;
         if (map instanceof GenericMap) {
             GenericMap<KE, VE> otherMap = UtilGenerics.cast(map);
