@@ -503,6 +503,25 @@ under the License.
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
     
+    <target name="cobertura-report">
+        <delete dir="runtime/logs/cobertura-report"/>
+        <mkdir dir="runtime/logs/cobertura-report"/>
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="framework/base/lib">
+                    <include name="cobertura-1.9.3.jar" />
+                    <include name="log4j-1.2.15.jar" />
+                    <include name="scripting/asm*.jar" />
+                </fileset>
+            </classpath>
+        </taskdef>
+        <cobertura-report datafile="runtime/logs/cobertura.dat" destdir="runtime/logs/cobertura-report">
+            <fileset dir=".">
+                <include name="*/*/src/**/*.java"/>
+            </fileset>
+        </cobertura-report>
+    </target>
+
     <!-- ================================================================== -->
     <!-- Create New Component. This target will create basic directory structure for an OFBiz component in hot-deploy directory. -->
     <!-- ================================================================== -->
