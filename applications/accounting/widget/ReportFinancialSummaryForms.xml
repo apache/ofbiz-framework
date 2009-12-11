@@ -595,7 +595,7 @@ under the License.
     </form>
 
     <!-- Cash Flow Statement -->
-    <form name="CashFlowStatementOperationalCash" type="list" list-name="nonCashExpenseBalanceList"
+    <form name="CashFlowStatementOpeningCashBalance" type="list" list-name="openingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
@@ -606,7 +606,7 @@ under the License.
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-    <form name="CashFlowStatementCurrentAsset" type="list" list-name="currentAssetBalanceList"
+    <form name="CashFlowStatementPeriodCashBalance" type="list" list-name="periodCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
@@ -615,53 +615,11 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="D" widget-style="tabletextright" title="${uiLabelMap.AccountingTotalDebit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C" widget-style="tabletextright" title="${uiLabelMap.AccountingTotalCredit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-    <form name="CashFlowStatementCurrentLiability" type="list" list-name="currentLiabilityBalanceList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="CashFlowStatementInvestment" type="list" list-name="investingCashBalanceList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="CashFlowStatementLongTermLiability" type="list" list-name="longTermLiabilityBalanceList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="CashFlowStatementOwnersEquity" type="list" list-name="ownersEquityBalanceList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="accountCode">
-            <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
-                <parameter param-name="glAccountId"/>
-                <parameter param-name="organizationPartyId"/>
-            </hyperlink>
-        </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
-    <form name="CashFlowStatementCashBalance" type="list" list-name="cashEquivalentBalanceList"
+    <form name="CashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
@@ -679,5 +637,19 @@ under the License.
         </row-actions>
         <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge"><display description="${totalName}"/></field>
         <field name="balance" title="_" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="FindCashFlowTotals" type="single" target="TransactionTotals" title="Find list of cash flow totals"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
