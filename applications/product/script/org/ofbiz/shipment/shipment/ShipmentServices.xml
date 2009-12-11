@@ -48,48 +48,44 @@ under the License.
             estimatedShipDate: estimatedShipWorkEffId
             estimatedArrivalDate: estimatedArrivalWorkEffId
         -->
-        <!-- always create the WorkEfforts, even if dates aren't specified yet; when they are they will be set in the update service... -->
-
-        <!-- the Ship WorkEffort entity -->
-        <!-- SC 20070816 I am commenting out the shipment work efforts because there seems to be no code
-        <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
-        <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
-        <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
-        <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedStartDate"/>
-        <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedCompletionDate"/>
-        <set from-field="parameters.originFacilityId" field="shipWorkEffortMap.facilityId"/>
-        <set from-field="userLogin.partyId" field="shipWorkEffortMap.quickAssignPartyId"/>
-        <call-service service-name="createWorkEffort" in-map-name="shipWorkEffortMap">
-            <result-to-field result-name="workEffortId" field="newEntity.estimatedShipWorkEffId"/>
-        </call-service>
-        <if-not-empty field="newEntity.partyIdFrom">
-            <set from-field="newEntity.estimatedShipWorkEffId" field="assignPartyToWorkEffortShip.workEffortId"/>
-            <set from-field="newEntity.partyIdFrom" field="assignPartyToWorkEffortShip.partyId"/>
-            <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortShip.roleTypeId"/>
-            <set value="CAL_SENT" field="assignPartyToWorkEffortShip.statusId"/>
-            <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortShip"/>
+        <if-not-empty field="parameters.estimatedShipDate">
+            <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
+            <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
+            <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
+            <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedStartDate"/>
+            <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedCompletionDate"/>
+            <set from-field="parameters.originFacilityId" field="shipWorkEffortMap.facilityId"/>
+            <set from-field="userLogin.partyId" field="shipWorkEffortMap.quickAssignPartyId"/>
+            <call-service service-name="createWorkEffort" in-map-name="shipWorkEffortMap">
+                <result-to-field result-name="workEffortId" field="newEntity.estimatedShipWorkEffId"/>
+            </call-service>
+            <if-not-empty field="newEntity.partyIdFrom">
+                <set from-field="newEntity.estimatedShipWorkEffId" field="assignPartyToWorkEffortShip.workEffortId"/>
+                <set from-field="newEntity.partyIdFrom" field="assignPartyToWorkEffortShip.partyId"/>
+                <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortShip.roleTypeId"/>
+                <set value="CAL_SENT" field="assignPartyToWorkEffortShip.statusId"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortShip"/>
+            </if-not-empty>
         </if-not-empty>
-        -->
-        <!-- the Arrival WorkEffort entity -->
-        <!--
-        <set value="Shipment #${newEntity.shipmentId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
-        <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
-        <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
-        <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
-        <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedCompletionDate"/>
-        <set from-field="parameters.destinationFacilityId" field="arrivalWorkEffortMap.facilityId"/>
-        <set from-field="userLogin.partyId" field="arrivalWorkEffortMap.quickAssignPartyId"/>
-        <call-service service-name="createWorkEffort" in-map-name="arrivalWorkEffortMap">
-            <result-to-field result-name="workEffortId" field="newEntity.estimatedArrivalWorkEffId"/>
-        </call-service>
-        <if-not-empty field="newEntity.partyIdTo">
-            <set from-field="newEntity.estimatedArrivalWorkEffId" field="assignPartyToWorkEffortArrival.workEffortId"/>
-            <set from-field="newEntity.partyIdTo" field="assignPartyToWorkEffortArrival.partyId"/>
-            <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortArrival.roleTypeId"/>
-            <set value="CAL_SENT" field="assignPartyToWorkEffortArrival.statusId"/>
-            <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortArrival"/>
+        <if-not-empty field="parameters.estimatedArrivalDate">
+            <set value="Shipment #${newEntity.shipmentId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
+            <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
+            <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
+            <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
+            <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedCompletionDate"/>
+            <set from-field="parameters.destinationFacilityId" field="arrivalWorkEffortMap.facilityId"/>
+            <set from-field="userLogin.partyId" field="arrivalWorkEffortMap.quickAssignPartyId"/>
+            <call-service service-name="createWorkEffort" in-map-name="arrivalWorkEffortMap">
+                <result-to-field result-name="workEffortId" field="newEntity.estimatedArrivalWorkEffId"/>
+            </call-service>
+            <if-not-empty field="newEntity.partyIdTo">
+                <set from-field="newEntity.estimatedArrivalWorkEffId" field="assignPartyToWorkEffortArrival.workEffortId"/>
+                <set from-field="newEntity.partyIdTo" field="assignPartyToWorkEffortArrival.partyId"/>
+                <set value="CAL_ATTENDEE" field="assignPartyToWorkEffortArrival.roleTypeId"/>
+                <set value="CAL_SENT" field="assignPartyToWorkEffortArrival.statusId"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyToWorkEffortArrival"/>
+            </if-not-empty>
         </if-not-empty>
-        -->
 
         <create-value value-field="newEntity"/>
 
@@ -156,7 +152,6 @@ under the License.
         <check-errors/>
 
         <!-- Check the pickup and delivery dates for changes and update the corresponding WorkEfforts -->
-        <!--
         <if>
             <condition>
                 <or>
@@ -174,11 +169,13 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="estShipWe" auto-field-map="false">
                     <field-map field-name="workEffortId" from-field="lookedUpValue.estimatedShipWorkEffId"/>
                 </entity-one>
-                <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedStartDate"/>
-                <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedCompletionDate"/>
-                <set from-field="parameters.originFacilityId" field="estShipWe.facilityId"/>
-                <set-service-fields service-name="updateWorkEffort" map="estShipWe" to-map="estShipWeUpdMap"/>
-                <call-service service-name="updateWorkEffort" in-map-name="estShipWeUpdMap"/>
+                <if-not-empty field="estShipWe">
+                    <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedStartDate"/>
+                    <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedCompletionDate"/>
+                    <set from-field="parameters.originFacilityId" field="estShipWe.facilityId"/>
+                    <set-service-fields service-name="updateWorkEffort" map="estShipWe" to-map="estShipWeUpdMap"/>
+                    <call-service service-name="updateWorkEffort" in-map-name="estShipWeUpdMap"/>
+                </if-not-empty>
             </then>
         </if>
         <if>
@@ -195,16 +192,19 @@ under the License.
                 </or>
             </condition>
             <then>
-                <set from-field="lookedUpValue.estimatedArrivalWorkEffId" field="estimatedArrivalWorkEffortMap.workEffortId"/>
                 <find-by-primary-key entity-name="WorkEffort" map="estimatedArrivalWorkEffortMap" value-field="estimatedArrivalWorkEffort"/>
-                <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedStartDate"/>
-                <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedCompletionDate"/>
-                <set from-field="parameters.destinationFacilityId" field="estimatedArrivalWorkEffort.facilityId"/>
-                <set-service-fields service-name="updateWorkEffort" map="estimatedArrivalWorkEffort" to-map="estimatedArrivalWorkEffortUpdMap"/>
-                <call-service service-name="updateWorkEffort" in-map-name="estimatedArrivalWorkEffortUpdMap"/>
+                <entity-one entity-name="WorkEffort" value-field="estimatedArrivalWorkEffort" auto-field-map="false">
+                    <field-map field-name="workEffortId" from-field="lookedUpValue.estimatedArrivalWorkEffId"/>
+                </entity-one>
+                <if-not-empty field="estimatedArrivalWorkEffort">
+                    <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedStartDate"/>
+                    <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedCompletionDate"/>
+                    <set from-field="parameters.destinationFacilityId" field="estimatedArrivalWorkEffort.facilityId"/>
+                    <set-service-fields service-name="updateWorkEffort" map="estimatedArrivalWorkEffort" to-map="estimatedArrivalWorkEffortUpdMap"/>
+                    <call-service service-name="updateWorkEffort" in-map-name="estimatedArrivalWorkEffortUpdMap"/>
+                </if-not-empty>
             </then>
         </if>
-        -->
 
         <!-- if the partyIdTo or partyIdFrom has changed, add WEPAs -->
         <if>
