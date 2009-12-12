@@ -37,7 +37,6 @@
     <classpathentry kind="lib" path="framework/base/lib/serializer-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/Tidy.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.9.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/webslinger-base-invoker-20090630-3606-466aec2fb8ad.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xml-apis-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xml-apis-ext-1.3.04.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-1.3.1.jar"/>
@@ -124,7 +123,6 @@
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-collections-arrays-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-concurrent-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-html-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-invoker-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-io-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-javacc-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-junit-20091211-3897-7ab22baea4b6.jar"/>
