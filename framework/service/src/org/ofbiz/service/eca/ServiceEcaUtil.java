@@ -57,6 +57,10 @@ public class ServiceEcaUtil {
     }
 
     public static void readConfig() {
+        // Only proceed if the cache hasn't already been populated, caller should be using reloadConfig() in that situation
+        if (UtilValidate.isNotEmpty(ecaCache)) {
+            return;
+        }
         Element rootElement = null;
         try {
             rootElement = ServiceConfigUtil.getXmlRootElement();
