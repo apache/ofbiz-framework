@@ -77,7 +77,9 @@
 
 
     <!-- use this one when the scheduled PUSH service is enabled
-    <PosTerminal posTerminalId="pos-1" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    <PosTerminal posTerminalId="pos-1" terminalName="Pos Terminal 1" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    <PosTerminal posTerminalId="pos-2" terminalName="Pos Terminal 2" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    <PosTerminal posTerminalId="pos-3" terminalName="Pos Terminal 3" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
     -->
 
     <!-- use this one when the scheduled PUSH service is not enabled -->
