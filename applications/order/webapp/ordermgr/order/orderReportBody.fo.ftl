@@ -20,7 +20,7 @@ under the License.
     <#if orderHeader?has_content>
         <fo:table border-spacing="3pt">
 
-       <fo:table-column column-width="3.5in"/>
+       <fo:table-column column-width="4in"/>
        <fo:table-column column-width="1in"/>
        <fo:table-column column-width="1in"/>
        <fo:table-column column-width="1in"/>
@@ -28,9 +28,9 @@ under the License.
        <fo:table-header>
            <fo:table-row>
                <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderProduct}</fo:block></fo:table-cell>
-               <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
-               <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderUnitList}</fo:block></fo:table-cell>
-               <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderSubTotal}</fo:block></fo:table-cell>
+               <fo:table-cell text-align="right"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
+               <fo:table-cell text-align="right"><fo:block font-weight="bold">${uiLabelMap.OrderUnitList}</fo:block></fo:table-cell>
+               <fo:table-cell text-align="right"><fo:block font-weight="bold">${uiLabelMap.OrderSubTotal}</fo:block></fo:table-cell>
            </fo:table-row>
        </fo:table-header>
 
