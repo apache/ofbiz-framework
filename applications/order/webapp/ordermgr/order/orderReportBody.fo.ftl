@@ -63,7 +63,7 @@ under the License.
                        </fo:table-row>
                        <#if itemAdjustment != 0>
                        <fo:table-row>
-                        <fo:table-cell number-columns-spanned="2"><fo:block><fo:inline font-style="italic">${uiLabelMap.OrderAdjustments}</fo:inline>: <@ofbizCurrency amount=itemAdjustment isoCode=currencyUomId/></fo:block></fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2"><fo:block text-indent="0.2in"><fo:inline font-style="italic">${uiLabelMap.OrderAdjustments}</fo:inline>: <@ofbizCurrency amount=itemAdjustment isoCode=currencyUomId/></fo:block></fo:table-cell>
                     </fo:table-row>
                     </#if>
            </#list>
