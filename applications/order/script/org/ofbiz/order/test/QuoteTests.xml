@@ -45,6 +45,7 @@ under the License.
             <field-map field-name="workEffortId" from-field="serviceCtx.workEffortId"/>
         </entity-one>
         <assert><not><if-empty field="quoteWorkEffort"/></not></assert>
+        <check-errors/>
     </simple-method>
     
     <simple-method method-name="testCreateQuoteWorkEffortFail" 
@@ -83,6 +84,7 @@ under the License.
         </entity-condition>
         <!--  Should be empty -->
         <assert><if-empty field="quoteWorkEffort"/></assert>
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="testCreateWorkEffortAndQuoteWorkEffort" login-required="false"
@@ -122,5 +124,6 @@ under the License.
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
         </entity-one>
+        <check-errors/>
     </simple-method>
 </simple-methods>
