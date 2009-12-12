@@ -337,7 +337,7 @@ under the License.
     </eca>
 
     <!-- WorkEffort -->
-    <eca service="createQuoteWorkEffort" event="invoke">
+    <eca service="createQuoteWorkEffort" event="in-validate">
         <condition field-name="workEffortId" operator="is-empty"/>
         <action service="createWorkEffort" mode="sync"/>
     </eca>

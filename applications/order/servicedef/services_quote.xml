@@ -187,6 +187,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true" entity-name="WorkEffort"/>
         <auto-attributes mode="INOUT" include="pk" optional="true" entity-name="WorkEffort"/>
         <override name="quoteId" optional="false"/>
+        <override name="workEffortId" optional="false"/>
     </service>
     <service name="deleteQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="deleteQuoteWorkEffort">
