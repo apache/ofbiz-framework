@@ -4913,7 +4913,7 @@
         <value xml:lang="de">Rechnung von Akteur</value>
         <value xml:lang="en">Bill From Party</value>
         <value xml:lang="es">Participante que factura</value>
-        <value xml:lang="fr">Acteur débité</value>
+        <value xml:lang="fr">Acteur crédité</value>
         <value xml:lang="it">Fattura Dal Soggetto</value>
         <value xml:lang="nl">Facturerende relatie</value>
         <value xml:lang="ro">Factura de la Subiect</value>
@@ -4926,7 +4926,7 @@
         <value xml:lang="de">Rechnung an Akteur</value>
         <value xml:lang="en">Bill To Party</value>
         <value xml:lang="es">Participante a quien se factura</value>
-        <value xml:lang="fr">Acteur crédité</value>
+        <value xml:lang="fr">Acteur débité</value>
         <value xml:lang="it">Fattura Al Soggetto</value>
         <value xml:lang="nl">Factuur-relatie</value>
         <value xml:lang="ro">Factura la Subiect</value>
