@@ -872,12 +872,10 @@ under the License.
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <if-empty field="quoteWorkEffort.quoteId">
-            <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-            <create-value value-field="lookupMap"/>
-            <field-to-result field="lookupMap.quoteId"/>
-            <field-to-result field="lookupMap.workEffortId"/>
-        </if-empty>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
+        <create-value value-field="lookupMap"/>
+        <field-to-result field="lookupMap.quoteId" result-name="quoteId"/>
+        <field-to-result field="lookupMap.workEffortId" result-name="workEffortId"/>
     </simple-method>
     <simple-method method-name="deleteQuoteWorkEffort" short-description="Delete a QuoteWorkEffort">
         <make-value entity-name="QuoteWorkEffort" value-field="lookupMap"/>
