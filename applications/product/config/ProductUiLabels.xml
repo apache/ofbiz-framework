@@ -42,7 +42,7 @@
         <value xml:lang="es">OFBiz: Administrador de Almacén</value>
         <value xml:lang="fr">OFBiz: Gestion de stock</value>
         <value xml:lang="it">OFBiz: Gestione stabilimenti</value>
-        <value xml:lang="nl">OFBiz: Faciliteit Manager</value>		
+        <value xml:lang="nl">OFBiz: Faciliteit Manager</value>    
         <value xml:lang="ro">OFBiz: Gestiune Compartimente</value>
         <value xml:lang="ru">OFBiz: Управление объектами</value>
         <value xml:lang="th">OFBiz: การจัดการคลังสินค้า</value>
@@ -52,7 +52,7 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de 'Open For Business' familie van open source software</value>		
+        <value xml:lang="nl">Deel van de 'Open For Business' familie van open source software</value>    
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
     </property>
     <property key="FacilityEstimatedShippingCharges">
@@ -4643,7 +4643,7 @@
         <value xml:lang="es">Elegir Categoría Principal</value>
         <value xml:lang="fr">Choix de la catégorie principale</value>
         <value xml:lang="it">Scegli Categoria Principale</value>
-        <value xml:lang="nl">Lijst van hoofdcategoriën</value>		
+        <value xml:lang="nl">Lijst van hoofdcategoriën</value>    
         <value xml:lang="ro">Alege Categoria Principala</value>
         <value xml:lang="ru">Выбр. корнев. категорию</value>
         <value xml:lang="th">เลือกหมวดหมู่ที่ได้รับความนิยม</value>
@@ -4751,7 +4751,7 @@
         <value xml:lang="es">Editar Categoría</value>
         <value xml:lang="fr">Modification de la catégorie</value>
         <value xml:lang="it">Mostra Categoria</value>
-        <value xml:lang="nl">Wijzig categorie</value>		
+        <value xml:lang="nl">Wijzig categorie</value>    
         <value xml:lang="ro">Afiseaza Categoria</value>
         <value xml:lang="ru">Редактировать категорию</value>
         <value xml:lang="th">แก้ไขหมวดหมู่</value>
@@ -4826,7 +4826,7 @@
         <value xml:lang="es">Editar Productos de una Categoría</value>
         <value xml:lang="fr">Modification des catégories</value>
         <value xml:lang="it">Aggiorna Categoria Prodotti</value>
-        <value xml:lang="nl">Wijzig categorieproducten</value>		
+        <value xml:lang="nl">Wijzig categorieproducten</value>    
         <value xml:lang="ro">Actualizeaza Categoria Produs</value>
         <value xml:lang="ru">Изменить категорию продуктов</value>
         <value xml:lang="th">แก้ไขหมวดหมู่สินค้า</value>
@@ -4838,7 +4838,7 @@
         <value xml:lang="es">Editar jerarquía de una Categoría</value>
         <value xml:lang="fr">Modification de la hiérarchie des catégorie</value>
         <value xml:lang="it">Aggiorna Categoria Arrivo</value>
-        <value xml:lang="nl">Wijzig categorie hiërarchie</value>		
+        <value xml:lang="nl">Wijzig categorie hiërarchie</value>    
         <value xml:lang="ro">Actualizeaza Categoria Sosire</value>
         <value xml:lang="ru">Изменить подчиненность категории</value>
         <value xml:lang="th">Edit Category Rollup</value>
@@ -5071,7 +5071,7 @@
         <value xml:lang="es">Editar Producto</value>
         <value xml:lang="fr">Modification de l'article</value>
         <value xml:lang="it">Aggiorna Prodotto</value>
-        <value xml:lang="nl">Wijzig product</value>		
+        <value xml:lang="nl">Wijzig product</value>    
         <value xml:lang="ro">Actualizeaza Produs</value>
         <value xml:lang="ru">Редактировать продукт</value>
         <value xml:lang="th">แก้ไขสินค้า</value>
@@ -5391,7 +5391,7 @@
         <value xml:lang="es">Editar Reglas de Precio de un Producto</value>
         <value xml:lang="fr">Modification des règles de prix des articles</value>
         <value xml:lang="it">Aggiorna Regole Prezzo Prodotto</value>
-        <value xml:lang="nl">Wijzig productprijsregels</value>		
+        <value xml:lang="nl">Wijzig productprijsregels</value>    
         <value xml:lang="ro">Actualizeaza Reguli Pret Produs</value>
         <value xml:lang="ru">Изменить правила назначения цены продукта</value>
         <value xml:lang="th">แก้ไขข้อกำหนดราคาสินค้า</value>
@@ -5901,7 +5901,7 @@
         <value xml:lang="es">Buscar Regla de Precios de Productos</value>
         <value xml:lang="fr">Recherche de règles de prix</value>
         <value xml:lang="it">Ricerca Regole Prezzo Prodotto</value>
-        <value xml:lang="nl">Zoek productprijsregels</value>		
+        <value xml:lang="nl">Zoek productprijsregels</value>    
         <value xml:lang="ro">Cauta Reguli Pret Produs</value>
         <value xml:lang="ru">Найти правила назначения цены продукта</value>
         <value xml:lang="th">ค้นหาสถานะราคาสินค้า</value>
@@ -6153,7 +6153,7 @@
         <value xml:lang="es">Buscar Producto y precio</value>
         <value xml:lang="fr">Consulter les prix d'un article</value>
         <value xml:lang="it">Ricerca Prodotti e Prezzi</value>
-        <value xml:lang="nl">Zoeken productprijs</value>		
+        <value xml:lang="nl">Zoeken productprijs</value>    
         <value xml:lang="ro">Cauta Produse si Preturi</value>
         <value xml:lang="ru">Искать продукт и цену</value>
         <value xml:lang="th">ค้นหาสินค้าและราคา</value>
@@ -6165,7 +6165,7 @@
         <value xml:lang="es">Buscar tienda de producto</value>
         <value xml:lang="fr">Consulter le centre de profit</value>
         <value xml:lang="it">Ricerca Negozi</value>
-        <value xml:lang="nl">Zoeken winkel</value>		
+        <value xml:lang="nl">Zoeken winkel</value>    
         <value xml:lang="ro">Cauta Magazine</value>
         <value xml:lang="ru">Искать склад продуктов</value>
         <value xml:lang="th">ค้นหาคลังสินค้า</value>
@@ -6951,7 +6951,7 @@
         <value xml:lang="es">Añadir Regla de Precios</value>
         <value xml:lang="fr">Ajouter des règles de prix</value>
         <value xml:lang="it">Aggiungi Regole Prezzo</value>
-        <value xml:lang="nl">Toevoegen prijsregel</value>		
+        <value xml:lang="nl">Toevoegen prijsregel</value>    
         <value xml:lang="ro">Adauga Reguli Pret</value>
         <value xml:lang="ru">Добавить правило</value>
         <value xml:lang="th">เพิ่มข้อบังคับราคา</value>
@@ -7121,7 +7121,7 @@
         <value xml:lang="de">Resultate hinzufügen zu</value>
         <value xml:lang="en">Add Results To</value>
         <value xml:lang="es">Añadir resultados a</value>
-        <value xml:lang="fr">Ajout de résultats à</value>
+        <value xml:lang="fr">Ajout de résultats à la</value>
         <value xml:lang="it">Aggiungi Risultati A</value>
         <value xml:lang="ro">Adauga Rezultate La</value>
         <value xml:lang="ru">Добавить результаты к</value>
@@ -7397,7 +7397,7 @@
         <value xml:lang="es">Palabra clave alterna para la Enciclopedia</value>
         <value xml:lang="fr">Thésaurus de mots clés de remplacement</value>
         <value xml:lang="it">Alternare Chiave Dizionario</value>
-        <value xml:lang="nl">Alternieve trefwoordsynoniemen</value>		
+        <value xml:lang="nl">Alternieve trefwoordsynoniemen</value>    
         <value xml:lang="ro">Alternare Cheie Dictionar</value>
         <value xml:lang="ru">Словарь альтернативных ключевых слов</value>
         <value xml:lang="th">Alternate KeyWord Thesaurus</value>
@@ -7812,7 +7812,7 @@
         <value xml:lang="es">Creación Automática de Palabras Clave para todos los Productos</value>
         <value xml:lang="fr">Création automatique de mots-clés pour tout article</value>
         <value xml:lang="it">Creazione Automatica Chiavi per Tutti i Prodotti</value>
-        <value xml:lang="nl">Automatisch aanmaken trefwoorden voor alle producten</value>		
+        <value xml:lang="nl">Automatisch aanmaken trefwoorden voor alle producten</value>    
         <value xml:lang="ro">Creatie Automatica Chei pentru Toate Produsele </value>
         <value xml:lang="ru">Автоматически создать ключевые слова для всех продуктов</value>
         <value xml:lang="th">สร้างคีย์เวิร์ดอัตโนมัติสำหรับสินค้าทั้งหมด</value>
@@ -7893,7 +7893,7 @@
         <value xml:lang="es">Regresar a Editar Categoría</value>
         <value xml:lang="fr">Revenir à l'édition des catégories</value>
         <value xml:lang="it">Torna all'Aggiornamento della Categoria</value>
-        <value xml:lang="nl">Terug naar wijzigen categorie</value>		
+        <value xml:lang="nl">Terug naar wijzigen categorie</value>    
         <value xml:lang="ro">Intoarcete la Actualizarea Categoriei</value>
         <value xml:lang="ru">Обратно к редактированию категории</value>
         <value xml:lang="th">กลับไปยังการแก้ไขหมวดหมู่</value>
@@ -8033,7 +8033,7 @@
         <value xml:lang="es">Examinar Catálogos</value>
         <value xml:lang="fr">Consulter les catalogues</value>
         <value xml:lang="it">Mostra Cataloghi</value>
-		<value xml:lang="nl">Blader door catalogi</value>
+    <value xml:lang="nl">Blader door catalogi</value>
         <value xml:lang="ro">Afiseaza Catalog</value>
         <value xml:lang="ru">Каталоги</value>
         <value xml:lang="th">แสดงหมวดหมู่</value>
@@ -8219,7 +8219,7 @@
         <value xml:lang="es">Página Principal de Administración de Catálogos</value>
         <value xml:lang="fr">Gestion des articles - Page Principale -</value>
         <value xml:lang="it">Pagina Principale Amministrazione Cataloghi</value>
-        <value xml:lang="nl">Hoofdpagina catalogusbeheer</value>		
+        <value xml:lang="nl">Hoofdpagina catalogusbeheer</value>    
         <value xml:lang="ro">Pagina Principala Administratie Cataloage</value>
         <value xml:lang="ru">Главная страница администрирования каталога</value>
         <value xml:lang="th">หน้าหลักการจัดการหมวดหมู่</value>
@@ -8251,7 +8251,7 @@
         <value xml:lang="es">Lista detallada de Catálogos</value>
         <value xml:lang="fr">Liste des catalogues</value>
         <value xml:lang="it">Lista Dettaglio Catalogo</value>
-        <value xml:lang="nl">Lijst van catalogi</value>		
+        <value xml:lang="nl">Lijst van catalogi</value>    
         <value xml:lang="ro">Lista Detaliu Catalog</value>
         <value xml:lang="ru">Список каталогов</value>
         <value xml:lang="th">รายการรายละเอียดหมวดหมู่</value>
@@ -8285,7 +8285,7 @@
         <value xml:lang="es">Adplicación de Administración de Catálogos</value>
         <value xml:lang="fr">Application de gestion des articles</value>
         <value xml:lang="it">Applicazione Gestione Cataloghi</value>
-        <value xml:lang="nl">Catalogus Manager</value>		
+        <value xml:lang="nl">Catalogus Manager</value>    
         <value xml:lang="ro">Aplicatie Gestiune Catalog</value>
         <value xml:lang="ru">Управление каталогом продуктов</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการหมวดหมู่</value>
@@ -8308,7 +8308,7 @@
         <value xml:lang="es">Nombre de Catálogo</value>
         <value xml:lang="fr">Nom du catalogue</value>
         <value xml:lang="it">Nome Catalogo</value>
-        <value xml:lang="nl">Catalogusnaam</value>		
+        <value xml:lang="nl">Catalogusnaam</value>    
         <value xml:lang="ro">Nume Catalog</value>
         <value xml:lang="ru">Имя каталога</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
@@ -8320,7 +8320,7 @@
         <value xml:lang="es">Nombre de Catálogo [Código]</value>
         <value xml:lang="fr">Catalogue ; Nom ; [Réf.]</value>
         <value xml:lang="it">Nome Catalogo [Codice]</value>
-        <value xml:lang="nl">Catalogusnaam [ID]</value>		
+        <value xml:lang="nl">Catalogusnaam [ID]</value>    
         <value xml:lang="ro">Nume Catalog [Cod]</value>
         <value xml:lang="ru">Имя каталога [Код]</value>
         <value xml:lang="th">ชื่อหมวดหมู่ [รหัส]</value>
@@ -8486,7 +8486,7 @@
         <value xml:lang="es">Productos de esta Categoría</value>
         <value xml:lang="fr">Articles appartenant à cette catégorie</value>
         <value xml:lang="it">Prodotti per questa categoria</value>
-        <value xml:lang="nl">Producten in deze categorie</value>		
+        <value xml:lang="nl">Producten in deze categorie</value>    
         <value xml:lang="ro">Produse pentru aceasta categorie</value>
         <value xml:lang="ru">Продукты из категории</value>
         <value xml:lang="th">สินค้าจากหมวดหมู่นี้
@@ -8738,7 +8738,7 @@
         <value xml:lang="es">Elegir Categoría principal</value>
         <value xml:lang="fr">Choisir une catégorie supérieure</value>
         <value xml:lang="it">Scegli Categoria Principale</value>
-        <value xml:lang="nl">Lijst van hoofdcategoriën</value>		
+        <value xml:lang="nl">Lijst van hoofdcategoriën</value>    
         <value xml:lang="ro">Alege Categorii Principale</value>
         <value xml:lang="ru">Категория верх. уровня</value>
         <value xml:lang="th">เลือกหมวดหมู่</value>
@@ -8920,7 +8920,7 @@
         <value xml:lang="es">Configuraciones</value>
         <value xml:lang="fr">Configurations</value>
         <value xml:lang="it">Configurazioni</value>
-        <value xml:lang="nl">Configuraties</value>		
+        <value xml:lang="nl">Configuraties</value>    
         <value xml:lang="ro">Configuratii</value>
         <value xml:lang="ru">Конфигурации</value>
         <value xml:lang="th">ตัวเลือก</value>
@@ -9255,7 +9255,7 @@
         <value xml:lang="es">Crear nuevo Catálogo</value>
         <value xml:lang="fr">Création d'un nouveau catalogue</value>
         <value xml:lang="it">Creare Nuovo Catalogo</value>
-        <value xml:lang="nl">Aanmaken nieuwe catalogus</value>		
+        <value xml:lang="nl">Aanmaken nieuwe catalogus</value>    
         <value xml:lang="ro">Creare Nou Catalog</value>
         <value xml:lang="ru">Новый каталог</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
@@ -9267,7 +9267,7 @@
         <value xml:lang="es">Crear nueva Categoría</value>
         <value xml:lang="fr">Création d'une nouvelle catégorie</value>
         <value xml:lang="it">Creare nuova categoria</value>
-        <value xml:lang="nl">Aanmaken nieuwe categorie</value>		
+        <value xml:lang="nl">Aanmaken nieuwe categorie</value>    
         <value xml:lang="ro">Creare Noua Categorie</value>
         <value xml:lang="ru">Новая категория</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
@@ -9341,7 +9341,7 @@
         <value xml:lang="es">Crear nuevo Producto</value>
         <value xml:lang="fr">Création d'un nouvel article</value>
         <value xml:lang="it">Creare Nuovo Prodotto</value>
-        <value xml:lang="nl">Aanmaken nieuw product</value>		
+        <value xml:lang="nl">Aanmaken nieuw product</value>    
         <value xml:lang="ro">Creare Nou Produs</value>
         <value xml:lang="ru">Новый продукт</value>
         <value xml:lang="th">สร้างสินค้าใหม่</value>
@@ -9386,7 +9386,7 @@
         <value xml:lang="es">Crear Nueva Tienda de Productos</value>
         <value xml:lang="fr">Création d'un nouveau centre de profit</value>
         <value xml:lang="it">Creare Nuovo Negozio</value>
-        <value xml:lang="nl">Aanmaken nieuwe winkel</value>		
+        <value xml:lang="nl">Aanmaken nieuwe winkel</value>    
         <value xml:lang="ro">Creare Nou Magazin</value>
         <value xml:lang="ru">Создать новый склад</value>
         <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
@@ -9990,7 +9990,7 @@
         <value xml:lang="es">Editar Catálogo</value>
         <value xml:lang="fr">Modification du catalogue</value>
         <value xml:lang="it">Aggiorna Catalogo</value>
-        <value xml:lang="nl">Wijzig catalogus</value>		
+        <value xml:lang="nl">Wijzig catalogus</value>    
         <value xml:lang="ro">Actualizeaza Catalog</value>
         <value xml:lang="ru">Редактировать</value>
         <value xml:lang="th">แก้ไขหมวดหมู่</value>
@@ -10002,7 +10002,7 @@
         <value xml:lang="es">Editar Catálogo con Código</value>
         <value xml:lang="fr">Modification de catalogue avec sa référence</value>
         <value xml:lang="it">Aggiorna Catalogo con Codice Catalogo</value>
-        <value xml:lang="nl">Wijzigen catalogus met [ID]</value>		
+        <value xml:lang="nl">Wijzigen catalogus met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Catalog cu Cod Catalog</value>
         <value xml:lang="ru">Редактировать каталог с кодом</value>
         <value xml:lang="th">แก้ไขหมวดหมู่ด้วยรหัสหมวดหมู่</value>
@@ -10014,7 +10014,7 @@
         <value xml:lang="es">Editar Categoría</value>
         <value xml:lang="fr">Modification de la catégorie</value>
         <value xml:lang="it">Aggiorna Categoria</value>
-        <value xml:lang="nl">Wijzig categorie</value>		
+        <value xml:lang="nl">Wijzig categorie</value>    
         <value xml:lang="ro">Actualizeaza Categoria</value>
         <value xml:lang="ru">Редактировать</value>
         <value xml:lang="th">แก้ไขหมวดหมู่</value>
@@ -10026,7 +10026,7 @@
         <value xml:lang="es">Editar Categoría con Código</value>
         <value xml:lang="fr">Modification de la catégorie avec sa référence</value>
         <value xml:lang="it">Aggiorna Categoria con Codice Categoria</value>
-        <value xml:lang="nl">Wijzigen categorie met [ID]</value>		
+        <value xml:lang="nl">Wijzigen categorie met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Categoria cu Cod Categorie</value>
         <value xml:lang="ru">Редактировать категорию с кодом</value>
         <value xml:lang="th">แก้ไขหมวดหมู่ด้วยรหัสหมวดหมู่</value>
@@ -10115,7 +10115,7 @@
         <value xml:lang="es">Editar Producto</value>
         <value xml:lang="fr">Modification de l'article</value>
         <value xml:lang="it">Aggiorna Prodotto</value>
-        <value xml:lang="nl">Wijzig product</value>		
+        <value xml:lang="nl">Wijzig product</value>    
         <value xml:lang="ro">Actualizeaza Produs</value>
         <value xml:lang="ru">Редактировать</value>
         <value xml:lang="th">แก้ไขสินค้า</value>
@@ -10145,7 +10145,7 @@
         <value xml:lang="es">Editar Producto con Código</value>
         <value xml:lang="fr">Modification de l'article de référence</value>
         <value xml:lang="it">Aggiorna Prodotto con Codice Prodotto</value>
-        <value xml:lang="nl">Wijzigen product met [ID]</value>		
+        <value xml:lang="nl">Wijzigen product met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Produs cu Cod Produs</value>
         <value xml:lang="ru">Редактировать продукт с кодом</value>
         <value xml:lang="th">แก้ไขสินค้าด้วยรหัสสินค้า</value>
@@ -10576,7 +10576,7 @@
         <value xml:lang="de">Resultate ablaufen lassen von</value>
         <value xml:lang="en">Expire Results From</value>
         <value xml:lang="es">Expirar resultados desde</value>
-        <value xml:lang="fr">Supprimer les résultats à partir de</value>
+        <value xml:lang="fr">Supprimer les résultats à partir de (dans la)</value>
         <value xml:lang="it">Risultati Scaduti Da</value>
         <value xml:lang="ro">Resultate Expirate De la ProductExplodeOrderItems=Exploadeaza Linie Comanda</value>
         <value xml:lang="ru">Устаревание результатов из</value>
@@ -10930,7 +10930,7 @@
         <value xml:lang="es">Carga rápida del Catálogo en el caché</value>
         <value xml:lang="fr">Chargement rapide d'article dans le cache</value>
         <value xml:lang="it">Caricamento Veloce Catalogo nella Cache</value>
-        <value xml:lang="nl">Catalogus in cache laden</value>		
+        <value xml:lang="nl">Catalogus in cache laden</value>    
         <value xml:lang="ro">Incarcare Rapida Catalog in Cache</value>
         <value xml:lang="ru">Быстрая загрузка каталога в кэш</value>
         <value xml:lang="th">Fast Load Catalog into Cache</value>
@@ -11020,7 +11020,7 @@
         <value xml:lang="es">Características</value>
         <value xml:lang="fr">Caractéristiques</value>
         <value xml:lang="it">Caratteristiche</value>
-        <value xml:lang="nl">Kenmerken</value>		
+        <value xml:lang="nl">Kenmerken</value>    
         <value xml:lang="ro">Caracteristici</value>
         <value xml:lang="ru">Особенности</value>
         <value xml:lang="th">ลักษณะ</value>
@@ -11144,7 +11144,7 @@
         <value xml:lang="es">Características</value>
         <value xml:lang="fr">Caractéristiques</value>
         <value xml:lang="it">Caratteristiche</value>
-        <value xml:lang="nl">Kenmerken</value> 		
+        <value xml:lang="nl">Kenmerken</value>     
         <value xml:lang="ro">Caracteristica</value>
         <value xml:lang="ru">Особенности</value>
         <value xml:lang="th">ลักษณะ</value>
@@ -11221,7 +11221,7 @@
         <value xml:lang="es">Buscar producto</value>
         <value xml:lang="fr">Recherche d'un article</value>
         <value xml:lang="it">Ricerca Prodotto</value>
-        <value xml:lang="nl">Zoek product</value>		
+        <value xml:lang="nl">Zoek product</value>    
         <value xml:lang="ro">Cauta Produs</value>
         <value xml:lang="ru">Искать</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -11233,7 +11233,7 @@
         <value xml:lang="es">Buscar producto con Código</value>
         <value xml:lang="fr">Recherche d'un article avec sa référence</value>
         <value xml:lang="it">Ricerca Prodotto con Valore Codice</value>
-        <value xml:lang="nl">Zoeken product met [ID]</value>		
+        <value xml:lang="nl">Zoeken product met [ID]</value>    
         <value xml:lang="ro">Cauta Produs cu Valoare Cod</value>
         <value xml:lang="ru">Искать продукт с кодом</value>
         <value xml:lang="th">ค้นหาสินค้าด้วยค่ารหัส</value>
@@ -11501,7 +11501,7 @@
         <value xml:lang="es">Regla Global de precios</value>
         <value xml:lang="fr">Règle globale de prix</value>
         <value xml:lang="it">Regola Globale Prezzi</value>
-        <value xml:lang="nl">Algemene prijsregel</value>		
+        <value xml:lang="nl">Algemene prijsregel</value>    
         <value xml:lang="ro">Regula Globala Pret</value>
         <value xml:lang="ru">Глобальное правило ценообразования</value>
         <value xml:lang="th">ข้อบังคับราคาโดยรวม</value>
@@ -11513,7 +11513,7 @@
         <value xml:lang="es">Reglas Globales de precios</value>
         <value xml:lang="fr">Règles globales de prix</value>
         <value xml:lang="it">Regole Globali Prezzi</value>
-        <value xml:lang="nl">Algemene prijsregels</value>		
+        <value xml:lang="nl">Algemene prijsregels</value>    
         <value xml:lang="ro">Regula Globala Preturi</value>
         <value xml:lang="ru">Глобальные правила ценообразования</value>
         <value xml:lang="th">ข้อบังคับราคาโดยรวม</value>
@@ -13782,7 +13782,7 @@
         <value xml:lang="es">Nuevo catálogo</value>
         <value xml:lang="fr">Nouveau catalogue</value>
         <value xml:lang="it">Nuovo Catalogo Prodotti</value>
-        <value xml:lang="nl">Nieuwe productcatalogus</value>		
+        <value xml:lang="nl">Nieuwe productcatalogus</value>    
         <value xml:lang="ro">Nou Catalog Produse</value>
         <value xml:lang="ru">Новый каталог</value>
         <value xml:lang="th">หมวดหมู่สินค้าใหม่</value>
@@ -14221,7 +14221,7 @@
         <value xml:lang="es">No se encontraron reglas de precio</value>
         <value xml:lang="fr">Règles de prix non trouvées</value>
         <value xml:lang="it">Nessuna Regola Prezzo trovata</value>
-        <value xml:lang="nl">Geen prijsregels gevonden</value>		
+        <value xml:lang="nl">Geen prijsregels gevonden</value>    
         <value xml:lang="ro">Nici-o regula de Pret Gasita ProductNoProductsInCategory=Nici-un produs in categorie</value>
         <value xml:lang="ru">Не найдены правила ценообразования</value>
         <value xml:lang="th">ไม่พบข้อบังคับราคา</value>
@@ -15816,7 +15816,7 @@
         <value xml:lang="es">Nombre de la regla de precio [CÓDIGO]</value>
         <value xml:lang="fr">Nom de la règle de prix [réf]</value>
         <value xml:lang="it">Nome Regola Prezzo [Codice]</value>
-        <value xml:lang="nl">Naam prijsregel [ID]</value>		
+        <value xml:lang="nl">Naam prijsregel [ID]</value>    
         <value xml:lang="ro">Nume Regula Pret [Cod]</value>
         <value xml:lang="ru">Имя правила ценообразования [Код]</value>
         <value xml:lang="th">ชื่อข้อกำหนดราคา [รหัส]</value>
@@ -15828,7 +15828,7 @@
         <value xml:lang="es">Reglas de precio</value>
         <value xml:lang="fr">Règles de prix</value>
         <value xml:lang="it">Regole Prezzo</value>
-        <value xml:lang="nl">Prijsregels</value>		
+        <value xml:lang="nl">Prijsregels</value>    
         <value xml:lang="ro">Regula Pret</value>
         <value xml:lang="ru">Ценообразование</value>
         <value xml:lang="th">ข้อกำหนดราคา</value>
@@ -15983,7 +15983,7 @@
         <value xml:lang="es">Lista de catálogos de productos</value>
         <value xml:lang="fr">Liste des catalogues</value>
         <value xml:lang="it">Lista Cataloghi Prodotto</value>
-        <value xml:lang="nl">Lijst van catalogi</value>		
+        <value xml:lang="nl">Lijst van catalogi</value>    
         <value xml:lang="ro">Lista Cataloage Produs</value>
         <value xml:lang="ru">Список продуктовых каталогов</value>
         <value xml:lang="th">รายการหมวดหมู่สินค้า</value>
@@ -16383,7 +16383,7 @@
         <value xml:lang="es">Lista de tiendas de productos</value>
         <value xml:lang="fr">Liste des centres de profit</value>
         <value xml:lang="it">Lista Negozi</value>
-        <value xml:lang="nl">Lijst van winkels</value>		
+        <value xml:lang="nl">Lijst van winkels</value>    
         <value xml:lang="ro">Lista Magazin</value>
         <value xml:lang="ru">Список складов</value>
         <value xml:lang="th">รายการคลังสินค้า</value>
@@ -16605,7 +16605,7 @@
         <value xml:lang="es">Promociones</value>
         <value xml:lang="fr">Promotions</value>
         <value xml:lang="it">Promozioni</value>
-        <value xml:lang="nl">Promoties</value>		
+        <value xml:lang="nl">Promoties</value>    
         <value xml:lang="ro">Promotii</value>
         <value xml:lang="ru">Акции</value>
         <value xml:lang="th">โปรโมชัน</value>
@@ -17170,7 +17170,7 @@
         <value xml:lang="es">Crear rápido Virtuales a partir de variantes</value>
         <value xml:lang="fr">Créer rapidement un article virtuel depuis des variantes</value>
         <value xml:lang="it">Creazione Veloce Virtuali da Varianti</value>
-        <value xml:lang="nl">Aanmaken virtuele producten van variantproducten</value>		
+        <value xml:lang="nl">Aanmaken virtuele producten van variantproducten</value>    
         <value xml:lang="ro">Creare Rapida Virtuala de Variante</value>
         <value xml:lang="ru">Быстро создать виртуальный из вариантов</value>
         <value xml:lang="th">สร้างทั้งหมดจากการเปลี่ยนแปลงอย่างรวดเร็ว</value>
@@ -17591,7 +17591,7 @@
         <value xml:lang="de">Resultate entfernen von</value>
         <value xml:lang="en">Remove Results From</value>
         <value xml:lang="es">Quitar resultados desde</value>
-        <value xml:lang="fr">Supprimer les résultats de</value>
+        <value xml:lang="fr">Supprimer les résultats de la</value>
         <value xml:lang="it">Rimuovi i Risultati da</value>
         <value xml:lang="ro">Sterge Rezultatele de la </value>
         <value xml:lang="ru">Удалить результаты от</value>
@@ -17954,7 +17954,7 @@
         <value xml:lang="es">Revisiones</value>
         <value xml:lang="fr">Approbations</value>
         <value xml:lang="it">Recensioni</value>
-        <value xml:lang="nl">Klantbeoordelingen</value>		
+        <value xml:lang="nl">Klantbeoordelingen</value>    
         <value xml:lang="ro">Recenzii</value>
         <value xml:lang="ru">Отзывы</value>
         <value xml:lang="th">ตรวจสอบ</value>
@@ -17986,7 +17986,7 @@
         <value xml:lang="es">Jerarquía</value>
         <value xml:lang="fr">Hiérarchie</value>
         <value xml:lang="it">Gerarchia</value>
-        <value xml:lang="nl">Hiërarchie</value>		
+        <value xml:lang="nl">Hiërarchie</value>    
         <value xml:lang="ro">Sosire</value>
         <value xml:lang="ru">Иерархия</value>
         <value xml:lang="th">Rollup</value>
@@ -18297,7 +18297,7 @@
         <value xml:lang="es">Buscar Productos</value>
         <value xml:lang="fr">Rechercher l'article</value>
         <value xml:lang="it">Ricerca Prodotti</value>
-        <value xml:lang="nl">Zoeken producten</value>		
+        <value xml:lang="nl">Zoeken producten</value>    
         <value xml:lang="ro">Cauta Produse </value>
         <value xml:lang="ru">Поиск продуктов</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -19130,7 +19130,7 @@
         <value xml:lang="es">Envío</value>
         <value xml:lang="fr">Expédition</value>
         <value xml:lang="it">Metodi di Spedizione</value>
-        <value xml:lang="nl">Verzendmethoden</value>		
+        <value xml:lang="nl">Verzendmethoden</value>    
         <value xml:lang="ru">Поставки</value>
         <value xml:lang="th">การขนส่ง</value>
         <value xml:lang="zh">送货</value>
@@ -19575,7 +19575,7 @@
         <value xml:lang="es">Nombre de tienda [código]</value>
         <value xml:lang="fr">Nom du centre de profit [réf]</value>
         <value xml:lang="it">Nome Negozio [Codice]</value>
-        <value xml:lang="nl">Naam winkel [ID]</value>		
+        <value xml:lang="nl">Naam winkel [ID]</value>    
         <value xml:lang="ro">Nume Magazin [Cod]</value>
         <value xml:lang="ru">Имя склада [Код]</value>
         <value xml:lang="th">ชื่อคลังสินค้า [รหัส]</value>
@@ -19649,7 +19649,7 @@
         <value xml:lang="es">Tiendas</value>
         <value xml:lang="fr">Centres de profit</value>
         <value xml:lang="it">Negozi</value>
-        <value xml:lang="nl">Winkels</value>		
+        <value xml:lang="nl">Winkels</value>    
         <value xml:lang="ro">Magazine</value>
         <value xml:lang="ru">Торговые точки</value>
         <value xml:lang="th">คลังสินค้า</value>
@@ -19803,7 +19803,7 @@
         <value xml:lang="es">Suscripciones</value>
         <value xml:lang="fr">Abonnements</value>
         <value xml:lang="it">Abbonamenti</value>
-        <value xml:lang="nl">Abonnementen</value>		
+        <value xml:lang="nl">Abonnementen</value>    
         <value xml:lang="ro">Abonamente</value>
         <value xml:lang="ru">Подписки</value>
         <value xml:lang="th">การสั่งซื้อ</value>
@@ -20083,7 +20083,7 @@
         <value xml:lang="es">Tesauro</value>
         <value xml:lang="fr">Thésaurus</value>
         <value xml:lang="it">Sinonimi</value>
-        <value xml:lang="nl">Trefwoord synoniemen</value>		
+        <value xml:lang="nl">Trefwoord synoniemen</value>    
         <value xml:lang="ro">Sinonime</value>
         <value xml:lang="ru">Словари</value>
         <value xml:lang="th">สารานุกรม</value>
