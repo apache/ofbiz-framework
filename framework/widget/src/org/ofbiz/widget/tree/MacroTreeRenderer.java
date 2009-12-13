@@ -176,7 +176,6 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                     expandCollapseLink.setStyle("collapsed");
-                    expandCollapseLink.setText(" ");
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
                     if (target.indexOf("?") < 0) {
@@ -196,7 +195,6 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     currentNodeTrailPiped = "";
                 }
                 expandCollapseLink.setStyle("expanded");
-                expandCollapseLink.setText(" ");
                 StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0) {
@@ -213,7 +211,6 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         } else if (!hasChildren) {
             context.put("processChildren", Boolean.FALSE);
             expandCollapseLink.setStyle("leafnode");
-            expandCollapseLink.setText(" ");
             renderLink(writer, context, expandCollapseLink);
         }
     }
