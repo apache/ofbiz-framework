@@ -1715,7 +1715,7 @@ public class PosTransaction implements Serializable {
             svcCtx.put("userLogin", userLogin);
             svcCtx.put("lastName", name);
             svcCtx.put("firstName", ""); // Needed by service createPersonAndUserLogin
-            if (UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(card)) {
+            if (UtilValidate.isNotEmpty(email) && UtilValidate.isNotEmpty(phone)) {
                 svcCtx.put("userLoginId", email);
                 svcCtx.put("currentPassword", phone);
                 svcCtx.put("currentPasswordVerify", phone);
