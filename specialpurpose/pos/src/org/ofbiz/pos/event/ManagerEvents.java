@@ -42,6 +42,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.pos.PosTransaction;
@@ -478,52 +480,75 @@ public class ManagerEvents {
         BigDecimal othTotal = ZERO;
         BigDecimal total = ZERO;
 
-        Delegator delegator = pos.getSession().getDelegator();
-        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
-                EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
-        EntityListIterator eli = null;
-
+        boolean beganTransaction = false;
         try {
-            eli = delegator.find("OrderHeaderAndPaymentPref", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, null);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-
-        Timestamp dayStart = state.getTimestamp("openedDate");
-        Timestamp dayEnd = state.getTimestamp("closedDate");
-        if (dayEnd == null) {
-            dayEnd = UtilDateTime.nowTimestamp();
-        }
-
-        if (eli != null) {
-            GenericValue ohpp;
-            while (((ohpp = (GenericValue) eli.next()) != null)) {
-                Timestamp orderDate = ohpp.getTimestamp("orderDate");
-                if (orderDate.after(dayStart) && orderDate.before(dayEnd)) {
-                    String pmt = ohpp.getString("paymentMethodTypeId");
-                    BigDecimal amt = ohpp.getBigDecimal("maxAmount");
-
-                    if ("CASH".equals(pmt)) {
-                        cashTotal = cashTotal.add(amt);
-                    } else  if ("PERSONAL_CHECK".equals(pmt)) {
-                        checkTotal = checkTotal.add(amt);
-                    } else if ("GIFT_CARD".equals(pmt)) {
-                        gcTotal = gcTotal.add(amt);
-                    } else if ("CREDIT_CARD".equals(pmt)) {
-                        ccTotal = ccTotal.add(amt);
-                    } else {
-                        othTotal = othTotal.add(amt);
+            beganTransaction = TransactionUtil.begin();
+        
+            Delegator delegator = pos.getSession().getDelegator();
+            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
+                    EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
+            EntityListIterator eli = null;
+    
+            try {
+                eli = delegator.find("OrderHeaderAndPaymentPref", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, null);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+    
+            Timestamp dayStart = state.getTimestamp("openedDate");
+            Timestamp dayEnd = state.getTimestamp("closedDate");
+            if (dayEnd == null) {
+                dayEnd = UtilDateTime.nowTimestamp();
+            }
+    
+            if (eli != null) {
+                GenericValue ohpp;
+                while (((ohpp = (GenericValue) eli.next()) != null)) {
+                    Timestamp orderDate = ohpp.getTimestamp("orderDate");
+                    if (orderDate.after(dayStart) && orderDate.before(dayEnd)) {
+                        String pmt = ohpp.getString("paymentMethodTypeId");
+                        BigDecimal amt = ohpp.getBigDecimal("maxAmount");
+    
+                        if ("CASH".equals(pmt)) {
+                            cashTotal = cashTotal.add(amt);
+                        } else  if ("PERSONAL_CHECK".equals(pmt)) {
+                            checkTotal = checkTotal.add(amt);
+                        } else if ("GIFT_CARD".equals(pmt)) {
+                            gcTotal = gcTotal.add(amt);
+                        } else if ("CREDIT_CARD".equals(pmt)) {
+                            ccTotal = ccTotal.add(amt);
+                        } else {
+                            othTotal = othTotal.add(amt);
+                        }
+                        total = total.add(amt);
                     }
-                    total = total.add(amt);
+                }
+    
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, "Trouble closing ELI", module);
+                    pos.showDialog("dialog/error/exception", e.getMessage());                    
                 }
             }
-
+        } catch (GenericTransactionException e) {
+            Debug.logError(e, module);
             try {
-                eli.close();
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Trouble closing ELI", module);
+                TransactionUtil.rollback(beganTransaction, e.getMessage(), e);
+            } catch (GenericTransactionException e2) {
+                Debug.logError(e2, "Unable to rollback transaction", module);
+                pos.showDialog("dialog/error/exception", e2.getMessage());
+            }
+            pos.showDialog("dialog/error/exception", e.getMessage());
+        } finally {
+            try {
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericTransactionException e) {
+                Debug.logError(e, "Unable to commit transaction", module);
+                pos.showDialog("dialog/error/exception", e.getMessage());
             }
         }
+            
 
         Map<String, String> reportMap = FastMap.newInstance();
         String reportTemplate = "totals.txt";
