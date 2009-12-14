@@ -152,6 +152,8 @@ function ShowTab(lname) {
                             <input type="text" size="80" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
                           <#elseif field.fieldType == 'Textarea'>
                             <textarea cols="60" rows="3" maxlength="${field.stringLength}" name="${field.name}">${field.value}</textarea>
+                          <#else>
+                            <input type="text" size="20" name="${field.name}" value="${field.value}">
                           </#if>
                         </td>
                       </tr>
@@ -192,6 +194,8 @@ function ShowTab(lname) {
                           <input type="text" size="80" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
                         <#elseif field.fieldType == 'Textarea'>
                           <textarea cols="60" rows="3" maxlength="${field.stringLength}" name="${field.name}">${field.value}</textarea>
+                        <#else>
+                          <input type="text" size="20" name="${field.name}" value="${field.value}">
                         </#if>
                       </td>
                     </tr>
