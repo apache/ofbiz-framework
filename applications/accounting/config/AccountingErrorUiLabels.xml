@@ -19,6 +19,12 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AccountingFinAccountInactiveStatusError">
+        <value xml:lang="en">FinAccount must be in active status</value>
+    </property>
+    <property key="AccountingFinAccountStatusNotValidError">
+        <value xml:lang="en">FinAccount not in valid status</value>
+    </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
         <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
