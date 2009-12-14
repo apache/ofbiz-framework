@@ -1265,7 +1265,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         bindingOperation.setBindingInput(bindingInput);
 
         SOAPOperation soapOperation = new SOAPOperationImpl();
-        soapOperation.setSoapActionURI(""); // ?
+        // soapAction should be set to the location of the SOAP URI, or Visual Studio won't construct the correct SOAP message
+        soapOperation.setSoapActionURI(locationURI); 
+        // this is the RPC/literal style.  See http://www.ibm.com/developerworks/webservices/library/ws-whichwsdl/
+        // this parameter is necessary or Apache Synapse won't recognize the WSDL
+        soapOperation.setStyle("rpc");
         bindingOperation.addExtensibilityElement(soapOperation);
 
         binding.addBindingOperation(bindingOperation);
