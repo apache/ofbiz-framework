@@ -198,9 +198,9 @@
 
     <form name="EditArticle" target="createBlogArticle" title="" type="upload" skip-end="true" default-map-name="blogEntry"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <alt-target use-when="contentId!=void" target="updateBlogArticle"/>
+        <alt-target use-when="contentId!=void&amp;&amp;contentId!=null" target="updateBlogArticle"/>
         <field name="blogContentId"><hidden value="${parameters.blogContentId}"/></field>
-        <field name="contentId" title="${uiLabelMap.EcommerceBlogEntryId}" use-when="contentId!=void"><display/></field>
+        <field name="contentId" title="${uiLabelMap.EcommerceBlogEntryId}" use-when="contentId!=void&amp;&amp;contentId!=null"><display/></field>
         <field name="contentName"><text size="40"/></field>
         <field name="description"><textarea cols="40" rows="2"/></field>
         <field name="summaryData" title="${uiLabelMap.EcommerceSummary}" widget-style="inputBox dojo-ResizableTextArea"><textarea cols="60" rows="4"/></field>

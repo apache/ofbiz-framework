@@ -91,6 +91,12 @@ under the License.
         <response name="success" type="view" value="blogContent"/>
         <response name="error" type="view" value="EditBlogArticle"/>
     </request-map>
+    <request-map uri="createBlogArticle">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBlogEntry"/>
+        <response name="error" type="view" value="EditBlogArticle"/>
+        <response name="success" type="view" value="blogContent"/>
+    </request-map>
     <request-map uri="ViewBlogArticle">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewBlogArticle"/>
