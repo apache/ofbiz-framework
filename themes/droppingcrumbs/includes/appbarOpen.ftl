@@ -37,7 +37,7 @@ under the License.
         <h2>${uiLabelMap.CommonApplications}</h2>
         <ul>
           <li>
-            <ul>
+            <ul><li><ul class="primary">
             <#-- Primary Applications -->
             <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>
@@ -58,7 +58,6 @@ under the License.
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
                 </#if>
-<#--            <#if !selected> -->
                 <#-- Show OFBiz Setup component menu bar when the system not have an organization -->
                 <#if thisApp.equals("/ofbizsetup")>
                     <#if PartyAcctgPrefAndGroupList.size() == 0>
@@ -67,10 +66,10 @@ under the License.
                 <#else>
                     <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
                 </#if>
-<#--            </#if> -->
               </#if>
             </#list>
-           
+           </ul></li>
+           <li><ul class="secondary">
             <#-- Secondary Applications -->
             <#list displaySecondaryApps as display>
               <#assign thisApp = display.getContextRoot()>
@@ -91,7 +90,6 @@ under the License.
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
                 </#if>
-<#--            <#if !selected> -->
                 <#-- Show OFBiz Setup component menu bar when the system not have an organization -->
                 <#if thisApp.equals("/ofbizsetup")>
                     <#if PartyAcctgPrefAndGroupList.size() == 0>
@@ -100,7 +98,6 @@ under the License.
                 <#else>
                     <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
                 </#if>
-<#--            </#if> -->
               </#if>
             </#list>
             </ul>
