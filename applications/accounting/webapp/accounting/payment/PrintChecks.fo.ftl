@@ -52,15 +52,15 @@ by hand from a real template using a ruler.
         <#-- the check: note that the format is fairly precise -->
 
         <#-- this seems to be the only way to force a fixed height in fop -->
-        <fo:table table-layout="fixed">
+        <fo:table table-layout="fixed" width="100%">
           <fo:table-column column-width="100%"/>
           <fo:table-body>
           <fo:table-row height="8.85cm">
           <fo:table-cell>
 
-        <fo:table table-layout="fixed">
+        <fo:table table-layout="fixed" width="100%">
           <fo:table-column column-width="17.7cm"/>
-          <fo:table-column/>
+          <fo:table-column column-width="3cm"/>
           <fo:table-body>
             <fo:table-row>
               <fo:table-cell/>
@@ -96,20 +96,20 @@ by hand from a real template using a ruler.
         <#-- payment applications (twice: both blocks are exactly the same) -->
 
         <#-- this seems to be the only way to force a fixed height in fop -->
-        <fo:table table-layout="fixed">
+        <fo:table table-layout="fixed" width="100%">
           <fo:table-column column-width="100%"/>
           <fo:table-body>
           <fo:table-row height="9.3cm">
           <fo:table-cell>
 
-        <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
+        <fo:table table-layout="fixed" margin-left="5pt" margin-right="5pt" width="100%">
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
           <fo:table-header>
             <fo:table-row>
               <fo:table-cell padding="3pt" number-columns-spanned="3" text-align="center">
@@ -295,20 +295,20 @@ by hand from a real template using a ruler.
         <#-- copy of above -->
 
         <#-- this seems to be the only way to force a fixed height in fop -->
-        <fo:table table-layout="fixed">
+        <fo:table table-layout="fixed" width="100%">
           <fo:table-column column-width="100%"/>
           <fo:table-body>
           <fo:table-row height="9.3cm">
           <fo:table-cell>
 
-        <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
-          <fo:table-column/>
+        <fo:table table-layout="fixed" margin-left="5pt" margin-right="5pt" width="100%">
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
+          <fo:table-column column-width="3cm"/>
           <fo:table-header>
             <fo:table-row>
               <fo:table-cell padding="3pt" number-columns-spanned="3" text-align="center">

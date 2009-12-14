@@ -762,6 +762,7 @@ under the License.
                     <fail-message message="productId don't have value, cannot call calcTax service."/>
                 </add-error>
                 <log level="error" message="Cannot call calcTax service, when don't have productId"/>
+                <check-errors/>
             </else>
         </if> 
     </simple-method>  
