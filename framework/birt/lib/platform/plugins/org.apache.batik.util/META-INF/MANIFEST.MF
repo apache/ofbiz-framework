@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.batik.util
+Require-Bundle: org.apache.batik.util.gui;version="[1.6.0,1.7.0)"
+Bundle-ClassPath: ../../../../../base/lib/batik-all-1.7.jar
+Export-Package: org.apache.batik;version="1.6.0",org.apache.batik.i18n
+ ;version="1.6.0",org.apache.batik.util;version="1.6.0",org.apache.bat
+ ik.util.io;version="1.6.0",org.apache.batik.util.resources;version="1
+ .6.0"
+Bundle-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

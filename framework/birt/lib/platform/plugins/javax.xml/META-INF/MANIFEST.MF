@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: javax.xml
+Require-Bundle: system.bundle
+Bundle-ClassPath: ../../../../../base/lib/xml-apis-2.9.1.jar
+Export-Package: javax.xml;version="1.3",javax.xml.datatype;version="1.
+ 3",javax.xml.namespace;version="1.3",javax.xml.parsers;version="1.3",
+ javax.xml.transform;version="1.3",javax.xml.transform.dom;version="1.
+ 3",javax.xml.transform.sax;version="1.3",javax.xml.transform.stream;v
+ ersion="1.3",javax.xml.validation;version="1.3",javax.xml.xpath;versi
+ on="1.3",org.apache.xmlcommons;version="1.3.4",org.w3c.dom;version="3
+ .0",org.w3c.dom.bootstrap;version="3.0",org.w3c.dom.css;version="2.0"
+ ,org.w3c.dom.events;version="2.0",org.w3c.dom.html;version="2.0",org.
+ w3c.dom.ls;version="2.0",org.w3c.dom.ranges;version="2.0",org.w3c.dom
+ .stylesheets;version="2.0",org.w3c.dom.traversal;version="2.0",org.w3
+ c.dom.views;version="2.0",org.w3c.dom.xpath;version="3.0",org.xml.sax
+ ;version="2.0.2",org.xml.sax.ext;version="2.0.2",org.xml.sax.helpers;
+ version="2.0.2"
+Bundle-Version: 2.9.1
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.ibm.icu; singleton:=true
+Eclipse-LazyStart: true
+Eclipse-ExtensibleAPI: true
+Bundle-ClassPath: ../../../../../base/lib/icu4j-4_2_1.jar
+Export-Package: com.ibm.icu.lang;base=true;full=true;version="4.0.1.1"
+ ,com.ibm.icu.math;base=true;full=true;version="4.0.1.1",com.ibm.icu.t
+ ext;base=true;full=true;version="4.0.1.1",com.ibm.icu.util;base=true;
+ full=true;version="4.0.1.1",com.ibm.icu.impl;x-internal:=true,com.ibm
+ .icu.impl.data;x-internal:=true,com.ibm.icu.impl.data.icudt40b;x-inte
+ rnal:=true,com.ibm.icu.impl.data.icudt40b.brkitr;x-internal:=true,com
+ .ibm.icu.impl.data.icudt40b.coll;x-internal:=true,com.ibm.icu.impl.da
+ ta.icudt40b.rbnf;x-internal:=true,com.ibm.icu.impl.data.icudt40b.tran
+ slit;x-internal:=true
+Bundle-Version: 4.2.1
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

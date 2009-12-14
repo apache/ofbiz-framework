@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: javax.wsdl
+Require-Bundle: org.apache.xerces;bundle-version="[2.8.0,3.0.0)";resol
+ ution:=optional
+Bundle-ClassPath: ../../../../../service/lib/wsdl4j.jar
+Export-Package: com.ibm.wsdl,com.ibm.wsdl.extensions,com.ibm.wsdl.exte
+ nsions.http,com.ibm.wsdl.extensions.mime,com.ibm.wsdl.extensions.sche
+ ma,com.ibm.wsdl.extensions.soap,com.ibm.wsdl.factory,com.ibm.wsdl.uti
+ l,com.ibm.wsdl.util.xml,com.ibm.wsdl.xml,javax.wsdl,javax.wsdl.extens
+ ions,javax.wsdl.extensions.http,javax.wsdl.extensions.mime,javax.wsdl
+ .extensions.schema,javax.wsdl.extensions.soap,javax.wsdl.factory,java
+ x.wsdl.xml
+Bundle-Version: 1.5.1
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.batik.parser
+Require-Bundle: org.apache.batik.ext.awt;version="[1.6.0,1.7.0)",org.a
+ pache.batik.util;version="[1.6.0,1.7.0)",org.apache.batik.xml;version
+ ="[1.6.0,1.7.0)",org.w3c.dom.svg;version="[1.1.0,1.3.0)"
+Bundle-ClassPath: ../../../../../base/lib/batik-all-1.7.jar
+Export-Package: org.apache.batik.parser;version="1.6.0"
+Bundle-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation
