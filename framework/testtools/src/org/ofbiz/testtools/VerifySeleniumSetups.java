@@ -34,7 +34,8 @@ public class VerifySeleniumSetups {
     private static int currentValue  = 0;
     private static int contentLength = 0;
     private static Map<String,Object> josonMap = null;
-    private static String urlSite = "http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0-SNAPSHOT-20081126.jar?use_mirror=";
+    // Note: If the download path changes please also the update install-seleniumxml ant target
+    private static String urlSite = "http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0.2-SNAPSHOT-standalone.jar?use_mirror=";
     private static String libPath = "framework/testtools/lib/selenium-server.jar";
 
     public VerifySeleniumSetups(){
