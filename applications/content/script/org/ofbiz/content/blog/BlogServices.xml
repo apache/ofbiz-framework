@@ -256,6 +256,7 @@
 
     <simple-method method-name="getBlogEntry" short-description="Get all the info for a blog article">
         <if-empty field="parameters.contentId">
+            <field-to-result field="parameters.blogContentId" result-name="blogContentId"/>
             <return/>
         </if-empty>
         <entity-one entity-name="Content" value-field="content"/>
