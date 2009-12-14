@@ -2277,6 +2277,23 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CashFlowStatementListCsv"/>
     </request-map>
+    <request-map uri="ComparativeCashFlowStatement">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeCashFlowStatement"/>
+        <response name="error" type="view" value="ComparativeCashFlowStatement"/>
+    </request-map>
+    <request-map uri="ComparativeCashFlowStatement.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeCashFlowStatementCsv"/>
+        <response name="error" type="view" value="ComparativeCashFlowStatement"/>
+    </request-map>
+    <request-map uri="ComparativeCashFlowStatement.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ComparativeCashFlowStatementPdf"/>
+        <response name="error" type="view" value="ComparativeCashFlowStatement"/>
+    </request-map>
+
+
     
     <!-- ================ Depreciation Calculation Report requests ================ -->
     <request-map uri="showFixedAssetDepreciation">
@@ -2731,6 +2748,9 @@ under the License.
     <view-map name="CashFlowStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CashFlowStatement"/>
     <view-map name="CashFlowStatementListPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CashFlowStatementListPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="CashFlowStatementListCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#CashFlowStatementListCsv" content-type="text/csv" encoding="none"/>
+    <view-map name="ComparativeCashFlowStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeCashFlowStatement"/>
+    <view-map name="ComparativeCashFlowStatementPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeCashFlowStatementPdf" content-type="application/pdf" encoding="none"/>
+    <view-map name="ComparativeCashFlowStatementCsv" type="screencsv" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeCashFlowStatementCsv" content-type="text/csv" encoding="none"/>
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
 
