@@ -57,7 +57,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
                             <condition>
@@ -65,6 +65,16 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="BirtTabBar" location="component://birt/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for WEBTOOLS, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ENTITY_MAINT"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
