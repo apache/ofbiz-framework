@@ -37,6 +37,8 @@ under the License.
         <if-empty field="parameters.workEffortId">
             <sequenced-id sequence-name="WorkEffort" field="newEntity.workEffortId"/>
             <else>
+                <check-id field="parameters.workEffortId"/>
+                <check-errors/>            
                 <set field="newEntity.workEffortId" from-field="parameters.workEffortId"/>
             </else>
         </if-empty>

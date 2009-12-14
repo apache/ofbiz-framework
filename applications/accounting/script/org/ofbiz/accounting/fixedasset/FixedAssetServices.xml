@@ -39,7 +39,10 @@ under the License.
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             <if-not-empty field="fixedAsset">
                 <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/></add-error>
-                <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists} "/>
+                <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists}"/>
+                <else>
+                    <check-id field="parameters.fixedAssetId"/>
+                </else>                
             </if-not-empty>
             <check-errors/>
             <set from-field="parameters.fixedAssetId" field="newEntity.fixedAssetId"/>
