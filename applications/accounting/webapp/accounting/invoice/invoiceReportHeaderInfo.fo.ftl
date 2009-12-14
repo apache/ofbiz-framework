@@ -17,13 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-<fo:table>
+<fo:table table-layout="fixed" width="100%">
 <fo:table-column column-width="1in"/>
 <fo:table-column column-width="2.5in"/>
 <fo:table-body>
 <fo:table-row>
   <fo:table-cell>
-     <fo:block number-columns-spanned="2" font-weight="bold" wrap-option="no-wrap">${invoice.getRelatedOne("InvoiceType").get("description",locale)}</fo:block>
+     <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType").get("description",locale)}</fo:block>
   </fo:table-cell>
 </fo:table-row>
 

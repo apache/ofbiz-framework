@@ -19,7 +19,7 @@ under the License.
 <#escape x as x?xml>
     <#-- list of orders -->
     <#if orders?has_content>
-    <fo:table>
+    <fo:table table-layout="fixed" width="100%">
         <fo:table-column column-width="1in"/>
         <fo:table-column column-width="5.5in"/>
 
@@ -38,7 +38,7 @@ under the License.
 
     <#-- list of terms -->
     <#if terms?has_content>
-    <fo:table space-before="0.1in">
+    <fo:table table-layout="fixed" width="100%" space-before="0.1in">
         <fo:table-column column-width="6.5in"/>
 
         <fo:table-header height="14px">
@@ -62,7 +62,7 @@ under the License.
     </fo:table>
     </#if>
 
-    <fo:table space-before="0.2in">
+    <fo:table table-layout="fixed" width="100%" space-before="0.2in">
     <fo:table-column column-width="20mm"/>
     <fo:table-column column-width="85mm"/>
     <fo:table-column column-width="15mm"/>
@@ -252,5 +252,4 @@ under the License.
  <#-- a block with the invoice message-->
  <#if invoice.invoiceMessage?has_content><fo:block>${invoice.invoiceMessage}</fo:block></#if>
  <fo:block></fo:block>
- <fo:block id="theEnd"/>  <#-- marks the end of the pages and used to identify page-number at the end -->
 </#escape>
