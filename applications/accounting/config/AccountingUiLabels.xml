@@ -3284,12 +3284,6 @@
         <value xml:lang="th">การอนุญาต</value>
         <value xml:lang="zh">授权</value>
     </property>
-    <property key="AccountingFinAccountInactiveStatusError">
-        <value xml:lang="en">FinAccount must be in active status</value>
-    </property>
-    <property key="AccountingFinAccountNotValidError">
-        <value xml:lang="en">FinAccount not in valid status</value>
-    </property>    
     <property key="AccountingFinAccountTransaction">
         <value xml:lang="en">Financial Account Transaction</value>
         <value xml:lang="hi_IN">वित्तीय खाता लेन-देन</value>

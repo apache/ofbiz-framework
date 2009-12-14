@@ -105,6 +105,13 @@ under the License.
             </entity-one>
             <set field="partyGroupName" from-field="partyGroup.groupName"/>
             <set field="paymentPartyId" from-field="parameters.partyIdFrom" default-value="${defaultOrganizationPartyId}"/>
+            <entity-condition entity-name="PaymentMethodAndFinAccount" list="paymentMethodAndFinAccounts">
+                <condition-list>
+                    <condition-expr field-name="partyId" from-field="paymentPartyId"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="FNACT_MANFROZEN"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="FNACT_CANCELLED"/>
+                </condition-list>
+            </entity-condition>
         </actions>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
@@ -118,9 +125,7 @@ under the License.
         </field>
         <field name="paymentMethodId" id-name="paymentMethodId" position="2">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethod" description="${description}" filter-by-date="by-name">
-                     <entity-constraint name="partyId" operator="equals" value="${paymentPartyId}"/>
-                </entity-options>
+                <list-options list-name="paymentMethodAndFinAccounts" key-name="paymentMethodId" description="${description}"/>
             </drop-down>
         </field>
         <field name="partyIdTo" position="1"><lookup target-form-name="LookupPartyName"/></field>

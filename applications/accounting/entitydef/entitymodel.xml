@@ -3952,4 +3952,15 @@ under the License.
         <key-map field-name="finAccountTransId"/>
       </view-link>
     </view-entity>  
+    <view-entity entity-name="PaymentMethodAndFinAccount" package-name="org.ofbiz.accounting.finaccount" title="PaymentMethod and FinAccount view entity">
+        <member-entity entity-alias="PM" entity-name="PaymentMethod"/>
+        <member-entity entity-alias="FA" entity-name="FinAccount"/>
+        <alias-all entity-alias="FA"/>
+        <alias-all entity-alias="PM">
+            <exclude field="finAccountId"/>
+        </alias-all>
+        <view-link rel-entity-alias="PM" entity-alias="FA">
+            <key-map field-name="finAccountId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>
