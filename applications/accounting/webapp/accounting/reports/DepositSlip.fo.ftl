@@ -33,7 +33,7 @@ under the License.
     </fo:block>
     <fo:block><fo:leader/></fo:block>
     <fo:block space-after.optimum="10pt" font-size="10pt">
-        <fo:table>
+        <fo:table table-layout="fixed" width="100%">
             <fo:table-column column-width="75pt"/>
             <fo:table-column column-width="100pt"/>
             <fo:table-column column-width="135pt"/>

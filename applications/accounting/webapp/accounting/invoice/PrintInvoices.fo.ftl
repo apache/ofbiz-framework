@@ -37,25 +37,25 @@ under the License.
         <fo:page-sequence master-reference="main">
           <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block>
-              <fo:table>
-                <fo:table-column/>
-                <fo:table-column/>
+              <fo:table width="100%" table-layout="fixed">
+                <fo:table-column column-width="4in"/>
+                <fo:table-column column-width="1in"/>
                 <fo:table-body>
                   <fo:table-row>
                     <fo:table-cell>
-                      <fo:block align="left">
+                      <fo:block>
                         ${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
-                      <fo:block align="right">
-                        <fo:table>
+                      <fo:block>
+                        <fo:table width="100%" table-layout="fixed">
                           <fo:table-column column-width="1in"/>
                           <fo:table-column column-width="2.5in"/>
                           <fo:table-body>
                             <fo:table-row>
                               <fo:table-cell>
-                                <fo:block number-columns-spanned="2" font-weight="bold" wrap-option="no-wrap">${invoice.getRelatedOne("InvoiceType").get("description",locale)?if_exists}</fo:block>
+                                <fo:block number-columns-spanned="2" font-weight="bold">${invoice.getRelatedOne("InvoiceType").get("description",locale)?if_exists}</fo:block>
                               </fo:table-cell>
                             </fo:table-row>
                             <fo:table-row>
@@ -97,7 +97,7 @@ under the License.
               
             <#if billingParty?has_content>
               <fo:block>
-                <fo:table space-after="0.3in">
+                <fo:table width="100%" table-layout="fixed" space-after="0.3in">
                   <fo:table-column column-width="3.5in"/>
                   <fo:table-body>
                     <fo:table-row >
@@ -131,7 +131,7 @@ under the License.
             <fo:block>
               <#if invoiceDetail.orders?has_content>
                 <#assign orders = invoiceDetail.orders?if_exists />
-                <fo:table space-after="0.3in">
+                <fo:table width="100%" table-layout="fixed" space-after="0.3in">
                   <fo:table-column column-width="1in"/>
                   <fo:table-column column-width="5.5in"/>
                   <fo:table-body>
@@ -149,7 +149,7 @@ under the License.
               
               <#if invoiceDetail.invoiceItems?has_content>
                 <#assign invoiceItems = invoiceDetail.invoiceItems?if_exists />
-                <fo:table>
+                <fo:table width="100%" table-layout="fixed">
                   <fo:table-column column-width="20mm"/>
                   <fo:table-column column-width="20mm"/>
                   <fo:table-column column-width="65mm"/>
