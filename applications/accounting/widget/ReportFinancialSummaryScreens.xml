@@ -1563,4 +1563,212 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ComparativeCashFlowStatement">
+        <section>
+            <actions>
+                <set field="viewSize" value="99999"/>
+                <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <!-- Get a default fromDate -->
+                <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
+                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                </service>
+
+                <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
+                <set field="fromDate" from-field="period1FromDate"/>
+                <set field="thruDate" from-field="period1ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList1" from-field="cashFlowBalanceTotalList"/>
+
+                <set field="period2FromDate" from-field="parameters.period2FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>                
+                <set field="fromDate" from-field="period2FromDate"/>
+                <set field="thruDate" from-field="period2ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeCashFlowStatement.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingComparativeCashFlowStatement}">
+                            <include-form name="ComparativeCashFlowStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AccountingComparativeCashFlowStatement}">
+                            <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="ComparativeCashFlowStatement.csv">
+                                <parameter param-name="period1FromDate" from-field="period1FromDate"/>
+                                <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
+                                <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                                <parameter param-name="period2FromDate" from-field="period2FromDate"/>
+                                <parameter param-name="period2ThruDate" from-field="period2ThruDate"/>
+                                <parameter param-name="period2GlFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                                <parameter param-name="organizationPartyId"/>
+                                <parameter param-name="currencyUomId"/>
+                            </link>
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeCashFlowStatement.pdf">
+                                <parameter param-name="period1FromDate" from-field="period1FromDate"/>
+                                <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
+                                <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                                <parameter param-name="period2FromDate" from-field="period2FromDate"/>
+                                <parameter param-name="period2ThruDate" from-field="period2ThruDate"/>
+                                <parameter param-name="period2GlFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                                <parameter param-name="organizationPartyId"/>
+                                <parameter param-name="currencyUomId"/>
+                            </link>
+                            <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementOpeningCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.AccountingPeriodCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementPeriodCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.AccountingClosingCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementClosingCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.CommonTotal}"/>
+                            <include-form name="ComparativeCashFlowBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ComparativeCashFlowStatementPdf">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="viewSize" value="99999"/>
+                <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <!-- Get a default fromDate -->
+                <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
+                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                </service>
+
+                <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
+                <set field="fromDate" from-field="period1FromDate"/>
+                <set field="thruDate" from-field="period1ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList1" from-field="cashFlowBalanceTotalList"/>
+                
+                <set field="period2FromDate" from-field="parameters.period2FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>
+                <set field="fromDate" from-field="period2FromDate"/>
+                <set field="thruDate" from-field="period2ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeCashFlowStatement.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1" text="${uiLabelMap.AccountingComparativeCashFlowStatement}"/>
+                            <include-form name="ComparativeCashFlowStatementParametersOneColumn" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementOpeningCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.AccountingPeriodCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementPeriodCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.AccountingClosingCashBalance}"/>
+                            <include-form name="ComparativeCashFlowStatementClosingCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <label style="h3" text="${uiLabelMap.CommonTotal}"/>
+                            <include-form name="ComparativeCashFlowBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ComparativeCashFlowStatementCsv">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="viewSize" value="99999"/>
+                <set field="titleProperty" value="AccountingComparativeCashFlowStatement"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="ComparativeCashFlowStatement"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" type="String"/>
+                <service service-name="getPartyAccountingPreferences" result-map="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <!-- Get a default fromDate -->
+                <service service-name="findLastClosedDate" result-map="findLastClosedDateOutMap">
+                    <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                </service>
+
+                <set field="period1FromDate" from-field="parameters.period1FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period1ThruDate" from-field="parameters.period1ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
+                <set field="fromDate" from-field="period1FromDate"/>
+                <set field="thruDate" from-field="period1ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList1" from-field="cashFlowBalanceTotalList"/>
+
+                <set field="period2FromDate" from-field="parameters.period2FromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
+                <set field="period2ThruDate" from-field="parameters.period2ThruDate" type="Timestamp" default-value="${nowTimestamp}"/>
+                <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>
+                <set field="fromDate" from-field="period2FromDate"/>
+                <set field="thruDate" from-field="period2ThruDate"/>
+                <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/CashFlowStatement.groovy"/>
+                <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
+                <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
+                <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
+                <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/ComparativeCashFlowStatement.groovy"/>
+            </actions>
+            <widgets>
+                <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
+                <include-form name="ComparativeCashFlowStatementOpeningCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label style="h3" text="${uiLabelMap.AccountingPeriodCashBalance}"/>
+                <include-form name="ComparativeCashFlowStatementPeriodCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label style="h3" text="${uiLabelMap.AccountingClosingCashBalance}"/>
+                <include-form name="ComparativeCashFlowStatementClosingCashBalance" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <label style="h3" text="${uiLabelMap.CommonTotal}"/>
+                <include-form name="ComparativeCashFlowBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

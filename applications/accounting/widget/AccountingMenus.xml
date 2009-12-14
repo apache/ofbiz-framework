@@ -832,6 +832,11 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
+        <menu-item name="ComparativeCashFlowStatement" title="${uiLabelMap.AccountingComparativeCashFlowStatement}">
+            <link target="ComparativeCashFlowStatement">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="PartyAdminTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="PartyAcctgPreference">

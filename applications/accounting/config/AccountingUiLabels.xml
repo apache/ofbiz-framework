@@ -1817,7 +1817,7 @@
     </property>
     <property key="AccountingCashFlowStatement">
         <value xml:lang="en">Cash Flow Statement</value>
-        <value xml:lang="hi_IN">à¤µà¤•à¥à¤¤à¤µà¥à¤¯ à¤¨à¤•à¤¦ à¤ªà¥à¤°à¤µà¤¾à¤¹</value>
+        <value xml:lang="hi_IN">रोकड प्रवाह विवरण</value>
     </property>
     <property key="AccountingChartOfAcctsFor">
         <value xml:lang="en">Chart of accounts for</value>
@@ -2049,6 +2049,10 @@
         <value xml:lang="nl">Vergelijkingsbalans</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
         <value xml:lang="zh">比较资产负债表</value>
+    </property>
+    <property key="AccountingComparativeCashFlowStatement">
+        <value xml:lang="en">Comparative Cash Flow Statement</value>
+        <value xml:lang="hi_IN">तुलनात्मक रोकड प्रवाह विवरण</value>
     </property>
     <property key="AccountingComparativeIncomeStatement">
         <value xml:lang="de">Vergleichs-Ertragsrechnung</value>
