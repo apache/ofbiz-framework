@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.batik.pdf
+Bundle-ClassPath: ../../../../../base/lib/batik-all-1.7.jar
+Export-Package: org.apache.avalon.framework,org.apache.avalon.framewor
+ k.activity,org.apache.avalon.framework.configuration,org.apache.avalo
+ n.framework.container,org.apache.commons.io,org.apache.commons.io.out
+ put,org.apache.commons.logging,org.apache.commons.logging.impl,org.ap
+ ache.fop.apps,org.apache.fop.fo,org.apache.fop.fonts,org.apache.fop.f
+ onts.apps,org.apache.fop.fonts.base14,org.apache.fop.fonts.truetype,o
+ rg.apache.fop.fonts.type1,org.apache.fop.image,org.apache.fop.image.a
+ nalyser,org.apache.fop.pdf,org.apache.fop.render.pdf,org.apache.fop.r
+ ender.ps,org.apache.fop.svg,org.apache.fop.util
+Import-Package: org.apache.batik.bridge;version="[1.6.0,1.7.0)",org.ap
+ ache.batik.dom.svg;version="[1.6.0,1.7.0)",org.apache.batik.dom.util;
+ version="[1.6.0,1.7.0)",org.apache.batik.ext.awt;version="[1.6.0,1.7.
+ 0)",org.apache.batik.ext.awt.g2d;version="[1.6.0,1.7.0)",org.apache.b
+ atik.gvt;version="[1.6.0,1.7.0)",org.apache.batik.gvt.renderer;versio
+ n="[1.6.0,1.7.0)",org.apache.batik.gvt.text;version="[1.6.0,1.7.0)",o
+ rg.apache.batik.transcoder;version="[1.6.0,1.7.0)",org.apache.batik.t
+ ranscoder.image;version="[1.6.0,1.7.0)",org.apache.batik.transcoder.k
+ eys;version="[1.6.0,1.7.0)",org.apache.batik.util;version="[1.6.0,1.7
+ .0)",org.w3c.dom
+Bundle-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

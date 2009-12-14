@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.commons.codec
+Bundle-ClassPath: ../../../../../base/lib/commons/commons-codec-1.3.jar
+Export-Package: org.apache.commons.codec;version="1.3.0",org.apache.co
+ mmons.codec.binary;version="1.3.0",org.apache.commons.codec.digest;ve
+ rsion="1.3.0",org.apache.commons.codec.language;version="1.3.0",org.a
+ pache.commons.codec.net;version="1.3.0"
+Bundle-Version: 1.3
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

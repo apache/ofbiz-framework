@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<ofbiz-component name="birt"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="jar" location="lib/*"/>
+    <classpath type="jar" location="lib/platform/plugins/org.eclipse.emf.common_2.5.0.v200906151043.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.eclipse.emf.ecore_2.5.0.v200906151043.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.eclipse.emf.ecore.xmi_2.5.0.v200906151043.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.w3c.css.sac_1.3.0.v200805290154.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.mozilla.rhino_1.7.1.v20090521/lib/js.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.w3c.sac_1.3.0.v20070710/lib/flute.jar"/>
+    <classpath type="jar" location="build/lib/*"/>
+    <classpath type="dir" location="config"/>
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <webapp name="birt"
+        title="BIRT"
+        menu-name="secondary"
+        server="default-server"
+        location="webapp/birt"
+        base-permission="OFBTOOLS,WEBTOOLS"
+        mount-point="/birt"/>
+</ofbiz-component>

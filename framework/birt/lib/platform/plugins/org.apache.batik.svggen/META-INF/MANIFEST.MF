@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.batik.svggen
+Require-Bundle: org.apache.batik.ext.awt;version="[1.6.0,1.7.0)",org.a
+ pache.batik.util;version="[1.6.0,1.7.0)"
+Bundle-ClassPath: ../../../../../base/lib/batik-all-1.7.jar
+Export-Package: org.apache.batik.svggen;version="1.6.0",org.apache.bat
+ ik.svggen.font;version="1.6.0",org.apache.batik.svggen.font.table;ver
+ sion="1.6.0"
+Bundle-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

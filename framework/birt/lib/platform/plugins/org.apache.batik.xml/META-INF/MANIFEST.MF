@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.apache.batik.xml
+Require-Bundle: org.apache.batik.util;version="[1.6.0,1.7.0)"
+Bundle-ClassPath: ../../../../../base/lib/batik-all-1.7.jar
+Export-Package: org.apache.batik.xml;version="1.6.0"
+Bundle-Version: 1.7
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation

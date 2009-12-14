@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<project name="OFBiz - BIRT Component" default="jar" basedir=".">
+    <import file="../../common.xml"/>
+
+    <!-- ================================================================== -->
+    <!-- Initialization of all property settings                            -->
+    <!-- ================================================================== -->
+
+    <property name="desc" value="BIRT Component"/>
+    <property name="name" value="ofbiz-birt"/>
+    <property name="ofbiz.home.dir" value="../.."/>
+
+    <path id="local.class.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="../base/lib" includes="*.jar"/>
+        <fileset dir="../base/lib/commons" includes="*.jar"/>
+        <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
+        <fileset dir="../base/build/lib" includes="*.jar"/>
+        <fileset dir="../entity/lib" includes="*.jar"/>
+        <fileset dir="../entity/build/lib" includes="*.jar"/>
+        <fileset dir="../entityext/build/lib" includes="*.jar"/>
+        <fileset dir="../security/build/lib" includes="*.jar"/>
+        <fileset dir="../service/lib" includes="*.jar"/>
+        <fileset dir="../service/build/lib" includes="*.jar"/>
+        <fileset dir="../minilang/build/lib" includes="*.jar"/>
+        <fileset dir="../webapp/lib" includes="*.jar"/>
+        <fileset dir="../webapp/build/lib" includes="*.jar"/>
+        <fileset dir="../widget/build/lib" includes="*.jar"/>
+    	<fileset dir="../common/build/lib" includes="*.jar"/>
+    </path>
+
+    <!-- ================================================================== -->
+    <!-- Compilation of the source files                                                                                                                         -->
+    <!-- ================================================================== -->
+
+    <target name="classes" depends="prepare">
+        <javac15/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Build JavaDoc                                                      -->
+    <!-- ================================================================== -->
+
+    <target name="docs" depends="prepare-docs">
+        <javadoc packagenames="org.ofbiz.webtools.*"
+                 classpathref="local.class.path"
+                 destdir="${build.dir}/javadocs"
+                 Windowtitle="Open for Business - ${desc}">
+            <sourcepath path="${src.dir}"/>
+        </javadoc>
+    </target>
+</project>

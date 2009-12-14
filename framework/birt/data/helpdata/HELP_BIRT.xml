@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    
+    <title>OFBiz BIRT Overview</title>
+    <para>
+    	Welcome to OFBiz BIRT. The part installed within OFBiz allows you to run the reports which are prepared using Eclipse with the BIRT plugin installed.
+    	As a demo we have prepared a product report as an example.
+    	Look at the <link xl:href="http://eclipse.org/birt/phoenix/">Eclipse BIRT web site</link> for more information.
+    </para>
+    <para>
+        This is a short document to help you get started using BIRT to make a report.
+    </para>
+    <section>
+        <title>1. HTML tab</title>
+        <para>When you click on this tab. It will show the complete report in an iframe.</para>
+    </section>
+    <section>
+        <title>2. PDF tab</title>
+        <para>When you click on this tab. It will render the report in a pdf format</para>
+    </section>
+    <section>
+        <title>3. Send any format through Mail tab</title>
+        <para>When you click on this tab. It will show a form that can send the report per email.</para>
+    </section>
+    <section>
+        <title>Examine the Example Report</title>
+        <para>
+        	The example report that run in OFBiz is in the file component://birt/webapp/birt/report/product.rptdesign. When you have started Eclipse BIRT, open this document.
+        	This report show how a report receives data from OFBiz through Scripted Data Source using the OFBiz delegator.
+            This report has the scripted data source name "OFBiz" and the data set that use the script data source name is called "Product". 
+            Open the script editor for Product data set, it uses the delegator object query data from the Product entity.
+            A report that runs on the OFBiz platform can use the delegator object, dispatcher object, security object and classpath of OFBiz environment in the script.</para>
+    </section>
+    <section>
+        <title>Important file for using BIRT's jsp tags</title>
+        <para>
+        	If a web applications wants to use the report in a screen, copy birt.tld file to [WEB APP]/WEB-INF/ directory ant assign in in ftl 
+        	like &lt;#assign birt = JspTaglibs["/WEB-INF/birt.tld"]/&gt;</para>
+    </section>
+    <section>
+        <title>Important tag's attribute in ftl.</title>
+        <para>
+            The BIRT uses some servlets for rendering the report.
+            When you use the report tag in a ftl file you must add a specific "baseURL" attribute to the birt webapp for these resources like baseURL="/birt".
+        </para>
+    </section>
+    <section>
+        <title>How do I send parameter to report.</title>
+        <para>If a report is to be rendered through a view map, you can send a parameter through attribute of the request object, the attribute's name is "birtParameters" which is a map.</para>
+        <para>If a report is to be rendered through an e-mail, you can send the parameter through the service's parameter name called birtParameters.</para>
+    </section>
+    <section>
+        <title>Which are the supported content types?</title>
+        <para>text/html</para>
+        <para>application/pdf</para>
+        <para>application/vnd.ms-excel</para>
+        <para>application/vnd.ms-word</para>
+        <para>application/vnd.ms-powerpoint</para>
+    </section>
+</section>

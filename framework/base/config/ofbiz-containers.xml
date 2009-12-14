@@ -256,6 +256,13 @@ under the License.
             <property name="ciphers" value=""/>
         </property>
     </container>
+    
+    <!-- load the BIRT container -->
+    <container name="birt-container" class="org.ofbiz.birt.container.BirtContainer">
+        <property name="delegator-name" value="default"/>
+        <property name="dispatcher-name" value="birt-dispatcher"/>
+        <property name="delegator-group-helper-name" value="org.ofbiz"/>
+    </container>
 
     <!-- load BeanShell remote telnet server -->
     <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
