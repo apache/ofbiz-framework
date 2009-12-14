@@ -711,7 +711,7 @@ public class ComponentConfig {
                 this.basePermission = new String[] { "NONE" };
             }
 
-            // trim the permussions (remove spaces)
+            // trim the permissions (remove spaces)
             for (int i = 0; i < this.basePermission.length; i++) {
                 this.basePermission[i] = this.basePermission[i].trim();
                 if (this.basePermission[i].indexOf('_') != -1) {
