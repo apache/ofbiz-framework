@@ -797,6 +797,11 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
+        <menu-item name="CashFlowStatement" title="${uiLabelMap.AccountingCashFlowStatement}">
+            <link target="CashFlowStatement">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
         <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
             <link target="BalanceSheet">
                 <parameter param-name="organizationPartyId"/>
@@ -804,6 +809,11 @@ under the License.
         </menu-item>
         <menu-item name="ComparativeIncomeStatement" title="${uiLabelMap.AccountingComparativeIncomeStatement}">
             <link target="ComparativeIncomeStatement">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ComparativeCashFlowStatement" title="${uiLabelMap.AccountingComparativeCashFlowStatement}">
+            <link target="ComparativeCashFlowStatement">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
@@ -824,16 +834,6 @@ under the License.
         </menu-item>
         <menu-item name="GlAccountBalanceByCostCenter" title="${uiLabelMap.FormFieldTitle_costCenters}">
             <link target="GlAccountBalanceByCostCenter">
-                <parameter param-name="organizationPartyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="CashFlowStatement" title="${uiLabelMap.AccountingCashFlowStatement}">
-            <link target="CashFlowStatement">
-                <parameter param-name="organizationPartyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ComparativeCashFlowStatement" title="${uiLabelMap.AccountingComparativeCashFlowStatement}">
-            <link target="ComparativeCashFlowStatement">
                 <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
