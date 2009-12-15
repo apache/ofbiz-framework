@@ -19,7 +19,6 @@
 package org.ofbiz.testtools.seleniumxml;
 
 import groovy.lang.Binding;
-import groovy.lang.GroovyClassLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +34,7 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 import org.jdom.Element;
 import org.ofbiz.testtools.seleniumxml.util.TestUtils;
 import org.ofbiz.testtools.seleniumxml.SeleniumXml;
+import org.ofbiz.base.util.GroovyUtil;
 
 public class GroovyRunner {
 
@@ -43,7 +43,6 @@ public class GroovyRunner {
     private SeleniumXml currentTest;
     
     private int currentRowIndx;
-    public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
     
     
     public GroovyRunner(String urlName, SeleniumXml parent) {
@@ -58,7 +57,7 @@ public class GroovyRunner {
         map.put("url", this.urlName);
         try {
             String scriptText = TestUtils.readUrlText(this.urlName);
-            Class scriptClass = groovyClassLoader.parseClass(scriptText);
+            Class scriptClass = GroovyUtil.parseClass(scriptText);
 
             Binding binding = new Binding();
             binding.setVariable("context", map);

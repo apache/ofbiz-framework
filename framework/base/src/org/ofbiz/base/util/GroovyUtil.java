@@ -18,6 +18,7 @@
  */
 package org.ofbiz.base.util;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,7 +45,21 @@ public class GroovyUtil {
     @SuppressWarnings("unchecked")
     public static UtilCache<String, Class> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 
-    public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+    public static Class loadClass(String path) throws ClassNotFoundException {
+        return new GroovyClassLoader().loadClass(path);
+    }
+
+    public static Class parseClass(String text) {
+        return new GroovyClassLoader().parseClass(text);
+    }
+
+    public static Class parseClass(String text, String location) {
+        return new GroovyClassLoader().parseClass(text, location);
+    }
+
+    public static Class parseClass(InputStream in, String location) throws IOException {
+        return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
+    }
 
     public static Binding getBinding(Map<String, ? extends Object> context) {
         Binding binding = new Binding();
@@ -101,7 +116,7 @@ public class GroovyUtil {
         try {
             Class scriptClass = parsedScripts.get(script);
             if (scriptClass == null) {
-                scriptClass = groovyClassLoader.loadClass(script);
+                scriptClass = loadClass(script);
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
                 parsedScripts.put(script, scriptClass);
             }
@@ -126,7 +141,7 @@ public class GroovyUtil {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
 
-                scriptClass = groovyClassLoader.parseClass(scriptUrl.openStream(), location);
+                scriptClass = parseClass(scriptUrl.openStream(), location);
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script at: " + location, module);
                 parsedScripts.put(location, scriptClass);
             }

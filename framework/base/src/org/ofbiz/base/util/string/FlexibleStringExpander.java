@@ -317,7 +317,7 @@ public class FlexibleStringExpander implements Serializable {
         protected final Class<?> parsedScript;
         protected GroovyElem(String script) {
             this.originalString = script;
-            this.parsedScript = GroovyUtil.groovyClassLoader.parseClass(script);
+            this.parsedScript = GroovyUtil.parseClass(script);
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
