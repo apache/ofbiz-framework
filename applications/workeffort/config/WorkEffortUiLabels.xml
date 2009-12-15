@@ -2302,17 +2302,6 @@
         <value xml:lang="th">ไม่พบชื่องาน</value>
         <value xml:lang="zh">缺少人工服务名称。</value>
     </property>
-    <property key="WorkEffortNewEvent">
-        <value xml:lang="en">New Event</value>
-        <value xml:lang="es">Nuevo evento</value>
-        <value xml:lang="fr">Nouvel évènement</value>
-        <value xml:lang="it">Nuovo Evento</value>
-        <value xml:lang="nl">New Event</value>
-        <value xml:lang="ro">Eveniment Nou </value>
-        <value xml:lang="ru">Новое событие</value>
-        <value xml:lang="th">เหตุการณ์ใหม่</value>
-        <value xml:lang="zh">新事件</value>
-    </property>
     <property key="WorkEffortNewNote">
         <value xml:lang="en">New Note</value>
         <value xml:lang="es">Nueva nota</value>

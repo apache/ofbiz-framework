@@ -753,6 +753,5 @@ under the License.
     <view-map name="EditAgreementWorkEffortApplics" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortApplics"/>
     <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
     <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
-    <view-map name="newEvent" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#newCompanyEvent"/>
     <!-- end of view mappings -->
 </site-conf>
