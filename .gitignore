@@ -13,6 +13,7 @@ bin/
 framework/appserver/build/
 framework/base/build/
 framework/bi/build/
+framework/birt/build/
 framework/catalina/build/
 framework/common/build/
 framework/datafile/build/
