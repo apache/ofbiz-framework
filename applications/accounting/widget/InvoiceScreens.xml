@@ -212,7 +212,7 @@ under the License.
                                     <include-form name="invoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
-                                    <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
+                                    <screenlet title="${uiLabelMap.CommonStatus}" navigation-form-name="ListInvoiceStatus">
                                         <include-form name="ListInvoiceStatus" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
@@ -266,7 +266,7 @@ under the License.
                                     <include-form name="invoiceHeader" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
                                 <container style="lefthalf">
-                                    <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
+                                    <screenlet title="${uiLabelMap.CommonStatus}" navigation-form-name="ListInvoiceStatus">
                                         <include-form name="ListInvoiceStatus" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"

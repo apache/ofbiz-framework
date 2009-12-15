@@ -9858,21 +9858,6 @@
         <value xml:lang="pt_BR">Estado está em branco</value>
         <value xml:lang="zh">缺少省</value>
     </property>
-    <property key="PartyStatus">
-        <value xml:lang="de">Status</value>
-        <value xml:lang="en">Status</value>
-        <value xml:lang="es">Estado</value>
-        <value xml:lang="fr">Statut</value>
-        <value xml:lang="hi_IN">स्थिति</value>
-        <value xml:lang="it">Stati</value>
-        <value xml:lang="nl">Status</value>
-        <value xml:lang="pt_BR">Estado</value>
-        <value xml:lang="pt_PT">Estado</value>
-        <value xml:lang="ro">State</value>
-        <value xml:lang="ru">Статус</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">状态</value>
-    </property>
     <property key="PartyStillActive">
         <value xml:lang="de">Immer noch aktiv</value>
         <value xml:lang="en">Still Active</value>

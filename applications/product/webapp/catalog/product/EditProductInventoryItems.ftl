@@ -37,7 +37,7 @@ under the License.
             <tr class="header-row">
                 <td><b>${uiLabelMap.ProductItemId}</b></td>
                 <td><b>${uiLabelMap.ProductItemType}</b></td>
-                <td><b>${uiLabelMap.ProductStatus}</b></td>
+                <td><b>${uiLabelMap.CommonStatus}</b></td>
                 <td><b>${uiLabelMap.CommonReceived}</b></td>
                 <td><b>${uiLabelMap.CommonExpire}</b></td>
                 <td><b>${uiLabelMap.ProductFacilityContainerId}</b></td>

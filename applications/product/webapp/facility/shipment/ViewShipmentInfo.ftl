@@ -35,7 +35,7 @@ under the License.
             <td width="80%">${(shipmentType.get("description",locale))?default(shipment.shipmentTypeId?if_exists)}</td>
           </tr>
           <tr>
-            <td width="20%" align="right" class="label">${uiLabelMap.ProductStatus}</td>
+            <td width="20%" align="right" class="label">${uiLabelMap.CommonStatus}</td>
             <td width="80%">${(statusItem.get("description",locale))?default(shipment.statusId?if_exists)}</td>
           </tr>
           <tr>

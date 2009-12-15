@@ -5209,20 +5209,6 @@
     <property key="AccountingInvoicesDueSoon">
         <value xml:lang="en">Invoices Due Soon</value>
     </property>
-    <property key="AccountingInvoiceStatus">
-        <value xml:lang="ar">الوضعيات</value>
-        <value xml:lang="de">Status</value>
-        <value xml:lang="en">Status</value>
-        <value xml:lang="es">Status</value>
-        <value xml:lang="fr">Statut</value>
-        <value xml:lang="hi_IN">स्थिति</value>
-        <value xml:lang="it">Stato</value>
-        <value xml:lang="nl">Status</value>
-        <value xml:lang="ro">Stadiu</value>
-        <value xml:lang="ru">Статус</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">状态</value>
-    </property>
     <property key="AccountingInvoiceStatusHistory">
         <value xml:lang="ar">سوابق الوضعيات</value>
         <value xml:lang="de">Statusverlauf</value>
