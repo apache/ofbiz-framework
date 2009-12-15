@@ -22,19 +22,28 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * Services for Payment maintenance
@@ -42,6 +51,7 @@ import org.ofbiz.service.*;
 public class PaymentMethodServices {
 
     public final static String module = PaymentMethodServices.class.getName();
+    public final static String resource = "AccountingUiLabels";
 
     /**
      * Deletes a PaymentMethod entity according to the parameters passed in the context
@@ -113,11 +123,12 @@ public class PaymentMethodServices {
      * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map createCreditCard(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createCreditCard(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -126,26 +137,29 @@ public class PaymentMethodServices {
         if (result.size() > 0) return result;
 
         // do some more complicated/critical validation...
-        List messages = new LinkedList();
+        List<String> messages = FastList.newInstance();
 
         // first remove all spaces from the credit card number
         context.put("cardNumber", StringUtil.removeSpaces((String) context.get("cardNumber")));
-        if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber")))
+        if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
-                (String) context.get("cardNumber")
-                    + UtilValidate.isCreditCardPrefixMsg
-                    + (String) context.get("cardType")
-                    + UtilValidate.isCreditCardSuffixMsg
-                    + " (It appears to be a "
-                    + UtilValidate.getCardType((String) context.get("cardNumber"))
-                    + " credit card number)");
-        if (!UtilValidate.isDateAfterToday((String) context.get("expireDate")))
-            messages.add("The expiration date " + (String) context.get("expireDate") + " is before today.");
+                UtilProperties.getMessage(resource, "AccountingCreditCardNumberInvalid", 
+                    UtilMisc.toMap("cardNumber", (String) context.get("cardNumber"),
+                                   "cardType", (String) context.get("cardType"),
+                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+        }
+            
+        if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {
+            messages.add(
+                UtilProperties.getMessage(resource, "AccountingCreditCardExpireDateBeforeToday", 
+                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+        }
+        
         if (messages.size() > 0) {
             return ServiceUtil.returnError(messages);
         }
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
@@ -158,7 +172,7 @@ public class PaymentMethodServices {
             try {
                 newPmId = delegator.getNextSeqId("PaymentMethod");
             } catch (IllegalArgumentException e) {
-                return ServiceUtil.returnError("ERROR: Could not create credit card (id generation failure)");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardCreateIdGenerationFailure", locale));
             }
         }
 
@@ -192,7 +206,7 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
+                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                         UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null), true);
 
                 tempVal = EntityUtil.getFirst(allPCMPs);
@@ -214,7 +228,7 @@ public class PaymentMethodServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError("ERROR: Could not create credit card (write failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardCreateWriteFailure", locale) + e.getMessage());
         }
 
         result.put("paymentMethodId", newCc.getString("paymentMethodId"));
@@ -229,11 +243,12 @@ public class PaymentMethodServices {
      * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map updateCreditCard(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updateCreditCard(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -241,7 +256,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;
@@ -255,19 +270,18 @@ public class PaymentMethodServices {
             paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError(
-                "ERROR: Could not get credit card to update (read error): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardUpdateReadFailure", locale) + e.getMessage());
         }
 
         if (creditCard == null || paymentMethod == null) {
-            return ServiceUtil.returnError("ERROR: Could not find credit card to update with payment method id " + paymentMethodId);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardUpdateWithPaymentMethodId", locale) + paymentMethodId);
         }
         if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin)) {
-            return ServiceUtil.returnError("Party Id [" + partyId + "] is not the owner of payment method [" + paymentMethodId + "] and does not have permission to change it.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardUpdateWithoutPermission", UtilMisc.toMap("partyId", partyId, "paymentMethodId", paymentMethodId), locale));
         }
 
         // do some more complicated/critical validation...
-        List messages = new LinkedList();
+        List<String> messages = FastList.newInstance();
 
         // first remove all spaces from the credit card number
         String updatedCardNumber = StringUtil.removeSpaces((String) context.get("cardNumber"));
@@ -290,12 +304,20 @@ public class PaymentMethodServices {
         }
         context.put("cardNumber", updatedCardNumber);
 
-        if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber")))
-            messages.add((String) context.get("cardNumber")
-                    + UtilValidate.isCreditCardPrefixMsg + (String) context.get("cardType") + UtilValidate.isCreditCardSuffixMsg
-                    + " (It appears to be a " + UtilValidate.getCardType((String) context.get("cardNumber")) + " credit card number)");
-        if (!UtilValidate.isDateAfterToday((String) context.get("expireDate")))
-            messages.add("The expiration date " + (String) context.get("expireDate") + " is before today.");
+        if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {            
+            messages.add(
+                UtilProperties.getMessage(resource, "AccountingCreditCardNumberInvalid", 
+                    UtilMisc.toMap("cardNumber", (String) context.get("cardNumber"),
+                                   "cardType", (String) context.get("cardType"),
+                                   "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
+        }
+        
+        if (!UtilValidate.isDateAfterToday((String) context.get("expireDate"))) {            
+            messages.add(
+                UtilProperties.getMessage(resource, "AccountingCreditCardExpireDateBeforeToday", 
+                    UtilMisc.toMap("expireDate", (String) context.get("expireDate")), locale));
+        }
+        
         if (messages.size() > 0) {
             return ServiceUtil.returnError(messages);
         }
@@ -308,8 +330,8 @@ public class PaymentMethodServices {
         String newPmId = null;
         try {
             newPmId = delegator.getNextSeqId("PaymentMethod");
-        } catch (IllegalArgumentException e) {
-            return ServiceUtil.returnError("ERROR: Could not update credit card info (id generation failure)");
+        } catch (IllegalArgumentException e) { 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardUpdateIdGenerationFailure", locale));
 
         }
 
@@ -355,7 +377,7 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
+                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                         UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null), true);
 
                 tempVal = EntityUtil.getFirst(allPCMPs);
@@ -383,7 +405,7 @@ public class PaymentMethodServices {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
-                return ServiceUtil.returnError("ERROR: Could not update credit card (write failure): " + e.getMessage());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingCreditCardUpdateWriteFailure", locale) + e.getMessage());
             }
         } else {
             result.put("paymentMethodId", paymentMethodId);
