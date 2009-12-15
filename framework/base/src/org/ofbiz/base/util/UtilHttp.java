@@ -85,9 +85,9 @@ public class UtilHttp {
      */
     public static Map<String, Object> getCombinedMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         FastMap<String, Object> combinedMap = FastMap.newInstance();
+        combinedMap.putAll(getParameterMap(request));                   // parameters override nothing
         combinedMap.putAll(getServletContextMap(request, namesToSkip)); // bottom level application attributes
         combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
-        combinedMap.putAll(getParameterMap(request));                   // parameters override session
         combinedMap.putAll(getAttributeMap(request));                   // attributes trump them all
 
         return combinedMap;
