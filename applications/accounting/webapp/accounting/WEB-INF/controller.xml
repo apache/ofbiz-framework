@@ -2478,6 +2478,12 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="GlAccountBalanceByCostCenterPdf"/>
     </request-map>
+    <request-map uri="createWorkEffortAndPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndPartyAssign"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

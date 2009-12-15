@@ -35,6 +35,7 @@ under the License.
         <alt-target use-when="workEffort!=null" target="updateWorkEffort"/>
         <field name="workEffortId" use-when="workEffort!=null"><hidden/></field>
         <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"/></field>
         <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER"/></field>
         <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
