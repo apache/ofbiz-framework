@@ -50,7 +50,7 @@
     <form name="ListEmplLeaves" list-name="listIt" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" 
         paginate-target="FindEmplLeaves" default-table-style="basic-table hover-bar">
         <actions>
-        	<set field="entityName" value="EmplLeave"/>
+            <set field="entityName" value="EmplLeave"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
@@ -136,7 +136,7 @@
                 <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
-		<auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
+        <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
         <field name="partyId" field-name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">

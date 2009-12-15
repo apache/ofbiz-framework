@@ -40,37 +40,37 @@
                         <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
-                  	    <section>
+                        <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
                             </condition>
                             <widgets>
-		                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-		                            <decorator-section name="menu-bar">
-		                                <section>
-		                                    <widgets>
-		                                        <container style="button-bar">
-		                                            <link target="EditEmplLeave" text="${uiLabelMap.HumanResNewLeave}" style="buttontext"/>
-		                                        </container>
-		                                    </widgets>
-		                                </section>
-		                            </decorator-section>
-		                            <decorator-section name="search-options">
-		                                <include-form name="FindEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-		                            </decorator-section>
-		                            <decorator-section name="search-results">
-		                                <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-		                            </decorator-section>
-		                        </decorator-screen>
-		                    </widgets>
-		                </section>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <section>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                    <link target="EditEmplLeave" text="${uiLabelMap.HumanResNewLeave}" style="buttontext"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
     <screen name="FindLeaveApprovals">
-    	<section>
+        <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindApprovals"/>
                 <set field="tabButtonItem" value="Approval"/>
@@ -128,7 +128,7 @@
             <widgets>
                  <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>	
+                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <screenlet id="AddEmplLeavePanel" title="${uiLabelMap.HumanResAddEmplLeave}" collapsible="true">
                             <include-form name="EditEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                         </screenlet>
@@ -141,7 +141,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditApprovalStatus"/>
-                <set field="tabButtonItem" value="Approval"/>                
+                <set field="tabButtonItem" value="Approval"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="leaveTypeId" from-field="parameters.leaveTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
