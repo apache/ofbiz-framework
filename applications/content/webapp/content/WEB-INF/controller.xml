@@ -161,6 +161,7 @@ under the License.
         <response name="success" type="view" value="ViewResponse"/>
         <response name="error" type="view" value="ViewResponse"/>
     </request-map>
+    <!--  UNUSED REQUEST TO BE REMOVED
     <request-map uri="defaultcontent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="defaultcontent"/>
@@ -173,6 +174,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewcontent"/>
     </request-map>
+    -->
     <!-- ================ Forum Requests ================= -->
     <request-map uri="findForumGroups">
         <security https="true" auth="true"/>
