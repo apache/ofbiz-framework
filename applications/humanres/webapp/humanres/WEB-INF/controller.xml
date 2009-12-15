@@ -392,10 +392,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindEmplLeaves"/>
     </request-map>
-    <request-map uri="NewEmplLeave">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="NewEmplLeave"/>
-    </request-map>
     <request-map uri="EditEmplLeave">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmplLeave"/>
@@ -1165,7 +1161,6 @@ under the License.
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
 
     <view-map name="FindEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#FindEmplLeaves"/>
-    <view-map name="NewEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#NewEmplLeave"/>
     <view-map name="EditEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeave"/>
     <view-map name="EditEmplLeaveTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditEmplLeaveTypes"/>
     <view-map name="EditEmplLeaveReasonTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditEmplLeaveReasonTypes"/>
