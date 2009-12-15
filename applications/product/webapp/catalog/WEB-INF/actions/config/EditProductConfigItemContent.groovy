@@ -82,7 +82,7 @@ if (fileType) {
     context.fileType = fileType;
 
     fileNameToUse = "productConfigItem." + configItemId;
-    fileLocation = filenameExpander.expandString(['size', fileType, configItemId, configItemId]);
+    fileLocation = filenameExpander.expandString([size : fileType, configItemId : configItemId]);
     filePathPrefix = "";
     filenameToUse = fileLocation;
     if (fileLocation.lastIndexOf("/") != -1) {
