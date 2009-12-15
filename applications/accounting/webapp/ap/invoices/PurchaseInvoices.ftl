@@ -125,7 +125,14 @@ function runAction() {
       <select name="paymentMethodId">
         <#if paymentMethods?has_content>
           <#list paymentMethods as paymentMethod>
-            <option value="${paymentMethod.get("paymentMethodId")}"><#if paymentMethod.get("description")?has_content>${paymentMethod.get("description")}</#if>[${paymentMethod.get("paymentMethodId")}]</option>
+            <#if paymentMethod.finAccountId?has_content>
+              <#assign finAccount = delegator.findOne("FinAccount", {"finAccountId" : paymentMethod.finAccountId}, true) />
+              <#if finAccount?has_content>
+                <#if (finAccount.statusId != 'FNACT_MANFROZEN') && (finAccount.statusId != 'FNACT_CANCELLED')>
+                  <option value="${paymentMethod.get("paymentMethodId")}"><#if paymentMethod.get("description")?has_content>${paymentMethod.get("description")}</#if>[${paymentMethod.get("paymentMethodId")}]</option>
+                </#if>
+              </#if>
+            </#if>
           </#list>
         </#if>
       </select>

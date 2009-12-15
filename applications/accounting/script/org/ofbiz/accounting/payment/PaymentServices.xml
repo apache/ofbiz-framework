@@ -500,6 +500,17 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPaymentAndPaymentGroupForInvoices" short-description="Creates Payments, PaymentApplications and PaymentGroup for the same">
+        <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount" auto-field-map="false">
+            <field-map field-name="finAccountId" from-field="paymentMethod.finAccountId"/>
+        </entity-one>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
+            <add-error><fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountInactiveStatusError"/></add-error>
+        </if-compare>
+        <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
+            <add-error><fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountStatusNotValidError"/></add-error>
+        </if-compare>
+        <check-errors/>
         <set field="invoices" type="List"/>
         <iterate list="parameters.invoiceIds" entry="invoiceId">  
             <entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
@@ -511,7 +522,6 @@ under the License.
         <clear-field field="invoices"/>
         <iterate-map map="partyInvoices" key="partyId" value="invoices">
             <set-service-fields service-name="createPaymentAndApplicationForParty" map="parameters" to-map="createPaymentAndApplicationForPartyMap"/>
-            <entity-one entity-name="PaymentMethod" value-field="paymentMethod" auto-field-map="true"/>
             <set field="createPaymentAndApplicationForPartyMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
             <set field="createPaymentAndApplicationForPartyMap.finAccountId" from-field="paymentMethod.finAccountId"/>
             <set field="createPaymentAndApplicationForPartyMap.partyId" from-field="partyId"/>
