@@ -7790,6 +7790,22 @@
         <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
         <value xml:lang="zh">子时间段</value>
     </property>
+    <property key="AccountingPeriod1Credit_Disbursement">
+        <value xml:lang="en">Period 1 Credit(Disbursement)</value>
+        <value xml:lang="hi_IN">अवधि 1 जमा</value>
+    </property>
+    <property key="AccountingPeriod2Credit_Disbursement">
+        <value xml:lang="en">Period 2 Credit(Disbursement)</value>
+        <value xml:lang="hi_IN">अवधि 2 जमा</value>
+    </property>
+    <property key="AccountingPeriod1Debit_Receipts">
+        <value xml:lang="en">Period 1 Debit(Receipts)</value>
+        <value xml:lang="hi_IN">अवधि 1 नामे</value>
+    </property>
+    <property key="AccountingPeriod2Debit_Receipts">
+        <value xml:lang="en">Period 2 Debit(Receipts)</value>
+        <value xml:lang="hi_IN">अवधि 2 नामे</value>
+    </property>
     <property key="AccountingPeriod1NetIncome">
         <value xml:lang="de">Nettogewinn in Periode1</value>
         <value xml:lang="en">Period1 Net Income</value>

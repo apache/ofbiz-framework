@@ -695,7 +695,11 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
+        <field name="D1" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C1" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="D2" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C2" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="ComparativeCashFlowStatementClosingCashBalance" type="list" list-name="closingCashBalanceList"

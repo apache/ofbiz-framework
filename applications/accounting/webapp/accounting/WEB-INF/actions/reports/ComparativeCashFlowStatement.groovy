@@ -39,19 +39,21 @@ context.openingCashBalanceList = openingCashBalanceList;
 periodCashBalanceMap = [:];
 periodCashBalanceList = [];
 periodCashBalanceList1.each { accountBalance ->
-    periodCashBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO));
+    periodCashBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance1", accountBalance.balance, "balance2", BigDecimal.ZERO, "D1", accountBalance.D, "C1", accountBalance.C, "D2", BigDecimal.ZERO, "C2", BigDecimal.ZERO));
 }
 periodCashBalanceList2.each { accountBalance ->
     Map periodCashAccount = (Map)periodCashBalanceMap.get(accountBalance.glAccountId);
     if (!periodCashAccount) {
-        periodCashBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO));
+        periodCashBalanceMap.put(accountBalance.glAccountId, UtilMisc.toMap("glAccountId", accountBalance.glAccountId, "accountCode", accountBalance.accountCode, "accountName", accountBalance.accountName, "balance2", accountBalance.balance, "balance1", BigDecimal.ZERO, "D2", accountBalance.D, "C2", accountBalance.C, "D1", BigDecimal.ZERO, "C1", BigDecimal.ZERO));
     } else {
         periodCashAccount.put("balance2", accountBalance.balance);
+        periodCashAccount.put("D2", accountBalance.D);
+        periodCashAccount.put("C2", accountBalance.C);
     }
 }
 periodCashBalanceList = UtilMisc.sortMaps(periodCashBalanceMap.values().asList(), UtilMisc.toList("accountCode"));
-context.periodCashBalanceList = periodCashBalanceList;
 
+context.periodCashBalanceList = periodCashBalanceList;
 closingCashBalanceMap = [:];
 closingCashBalanceList = [];
 closingCashBalanceList1.each { accountBalance ->
