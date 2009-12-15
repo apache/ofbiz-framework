@@ -1128,6 +1128,15 @@ public class MacroFormRenderer implements FormStringRenderer {
                 renderHyperlinkTitle(sb, context, modelFormField, titleText);
             }
         }
+        
+        //check for required field style on single forms
+        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isNotEmpty(requiredStyle)) {
+                style = requiredStyle;
+            }
+        }         
+        
         StringWriter sr = new StringWriter();
         sr.append("<@renderFieldTitle ");
         sr.append(" style=\"");
