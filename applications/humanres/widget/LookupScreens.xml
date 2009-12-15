@@ -274,6 +274,7 @@
             </widgets>
         </section>
     </screen>
+    <!--  unused screen
     <screen name="LookupJobInterview">
         <section>
             <actions>
@@ -290,6 +291,7 @@
             </widgets>
         </section>
     </screen>
+    -->
     <screen name="LookupTraining">
         <section>
             <actions>
