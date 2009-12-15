@@ -21,8 +21,17 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
+    <form name="ListBillingAccounts" type="list" list-name="listIt" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="BillingAccount"/>
+                <field-map field-name="orderBy" value="billingAccountId"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount">
                 <parameter param-name="billingAccountId"/>
@@ -332,5 +341,14 @@ under the License.
         <field name="maxAmount">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
+    </form>
+    <form name="FindBillingAccounts" type="single" target="FindBillingAccount" header-row-style="header-row" default-table-style="basic-table">
+        <field name="billingAccountId"><text-find ignore-case="true"/></field>
+        <field name="description"><text-find ignore-case="true"/></field>
+        <field name="accountLimit"><text/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
