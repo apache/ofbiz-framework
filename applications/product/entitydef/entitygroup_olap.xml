@@ -25,4 +25,6 @@ under the License.
     <!-- Dimensions                                                -->
     <!-- ========================================================= -->
     <entity-group group="org.ofbiz.olap" entity="ProductDimension"/>
+    <entity-group group="org.ofbiz.olap" entity="InventoryItemFact"/>
+    <entity-group group="org.ofbiz.olap" entity="InventoryItemSchema"/>
 </entitygroup>

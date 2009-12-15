@@ -46,7 +46,6 @@ under the License.
         <iterate list="invoices" entry="invoice">
             <clear-field field="inMap"/>
             <set field="inMap.invoiceId" from-field="invoice.invoiceId"/>
-            <log level="always" message="===================inMap : ${inMap}"/>
             <call-service service-name="loadSalesInvoiceFact" in-map-name="inMap"/>
             <check-errors/>
         </iterate>
@@ -62,8 +61,19 @@ under the License.
         <iterate list="orderHeaders" entry="orderHeader">
             <clear-field field="inMap"/>
             <set field="inMap.orderId" from-field="orderHeader.orderId"/>
-            <log level="always" message="===================inMap : ${inMap}"/>
             <call-service service-name="loadSalesOrderFact" in-map-name="inMap"></call-service>
+            <check-errors/>
+        </iterate>
+        
+        
+        <!-- loads the inventory items in the InventoryItemFact fact entity -->
+        <entity-condition entity-name="InventoryItem" list="inventoryItems">
+            <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+        </entity-condition>
+		<iterate list="inventoryItems" entry="inventoryItem">
+            <clear-field field="inventMap"/>
+            <set field="inventMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+            <call-service service-name="loadInventoryFact" in-map-name="inventMap"></call-service>
             <check-errors/>
         </iterate>
     </simple-method>

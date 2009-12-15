@@ -38,13 +38,23 @@ under the License.
         <field name="productDimId" type="id-ne"></field>
         <field name="origCurrencyDimId" type="id-ne"></field>
         <field name="billToCustomerDimId" type="id-ne"></field> <!-- TODO: implement the dimension -->
-
+        
+        <field name="salesChannelEnumId" type="id-ne"></field>
+        <field name="saleChannel" type="description"></field>
+        <field name="orderStatus" type="description"></field>
+        <field name="visitId" type="id-ne"></field>
+        <field name="initialReferrer" type="url"></field>
+        <field name="productPromoCode" type="id"></field>
+        
         <field name="quantity" type="fixed-point">
             <description>Quantity order. From OrderItem.quantity</description>
         </field>
-        
+
         <field name="extGrossAmount" type="currency-precise">
             <description>Extended gross amount: quantity item multiplied by the unit price.</description>
+        </field>
+        <field name="extGrossCost" type="currency-precise">
+            <description>Extended gross cost: quantity item multiplied by the last price.</description>
         </field>
         <field name="extDiscountAmount" type="currency-precise">
             <description>Extended discount amount.</description>
@@ -60,26 +70,36 @@ under the License.
         </field>
         
         <field name="GrossSales" type="currency-precise">
-            <description>Gross Sales</description>
+            <description>Gross Sales: extGrossAmount less extShippingAmount.</description>
         </field>
         <field name="GrossMerchandizeSales" type="currency-precise">
-            <description>Gross Merchandize Sales</description>
+            <description>Gross Merchandize Sales: extGrossAmount.</description>
         </field>
         <field name="GrossMerchandizeProfit" type="currency-precise">
-            <description>Gross Merchandize Profit</description>
+            <description>Gross Merchandize Profit: GrossMerchandizeSales less default price.</description>
         </field>
         <field name="GrossShippingProfit" type="currency-precise">
             <description>Gross Shipping Profit</description>
         </field>
         <field name="GrossProfit" type="currency-precise">
-            <description>Gross Profit</description>
+            <description>Gross Profit: GrossMerchandizeProfit less GrossShippingProfit.</description>
         </field>
-        <field name="AverageMerchandizeProfit" type="currency-precise">
+        
+        <field name="eBay" type="currency-precise">
+            <description>eBay Fee: current ebay fee is captured manually by employee and updated into sharepoint list.</description>
+        </field>
+        <field name="RRC" type="currency-precise">
+            <description>RRC: the total amount of our RRC (refund, replace and cancellation).</description>
+        </field>
+        <field name="OtherFree" type="currency-precise">
+            <description>Others: other fee which calculation is just a percentage of GrossSales.</description>
+        </field>
+<!--        <field name="AverageMerchandizeProfit" type="currency-precise">
             <description>Average Merchandize Profit</description>
         </field>
         <field name="AverageGrossProfit" type="currency-precise">
             <description>Average Gross Profit</description>
-        </field>
+        </field>-->
 
         <!--<field name="extGrossAmount" type="currency-precise">
             <description>Extended gross amount: quantity invoiced multiplied by the list unit price.</description>
@@ -142,7 +162,7 @@ under the License.
         <prim-key field="orderId"/>
         <prim-key field="orderItemSeqId"/>
 
-        <relation type="one" fk-name="SOIF_INVDATE" rel-entity-name="DateDimension">
+        <relation type="one" fk-name="SOIF_ORDERDATE" rel-entity-name="DateDimension">
             <key-map field-name="orderDateDimId" rel-field-name="dimensionId"/>
         </relation>
         <relation type="one" fk-name="SOIF_CURRENCY" rel-entity-name="CurrencyDimension">
@@ -160,12 +180,12 @@ under the License.
     <view-entity entity-name="SalesOrderItemStarSchema" package-name="org.ofbiz.bi.starschema.order" title="Sales Order Item Star Schema">
         <description>Order Item star schema (Profit and Loss Statement).</description>
 
-        <member-entity entity-alias="SIIF" entity-name="SalesOrderItemFact"/>
-        <member-entity entity-alias="IDD" entity-name="DateDimension"/>
+        <member-entity entity-alias="SOIF" entity-name="SalesOrderItemFact"/>
+        <member-entity entity-alias="ODD" entity-name="DateDimension"/>
         <member-entity entity-alias="PD" entity-name="ProductDimension"/>
         <member-entity entity-alias="CD" entity-name="CurrencyDimension"/>
 
-        <alias-all entity-alias="IDD" prefix="orderDate" group-by="true">
+        <alias-all entity-alias="ODD" prefix="orderDate" group-by="true">
             <exclude field="dimensionId"/>
         </alias-all>
         <alias-all entity-alias="PD" prefix="product" group-by="true">
@@ -174,27 +194,38 @@ under the License.
         <alias-all entity-alias="CD" prefix="currency" group-by="true">
             <exclude field="dimensionId"/>
         </alias-all>
-        <alias-all entity-alias="SIIF" function="sum">
+        <alias-all entity-alias="SOIF" function="sum">
+            <exclude field="orderId"/>
             <exclude field="orderItemSeqId"/>
             <exclude field="orderDateDimId"/>
             <exclude field="productDimId"/>
-            <exclude field="billToCustomerDimId"/>
             <exclude field="origCurrencyDimId"/>
-            <exclude field="orderId"/>
-            <exclude field="orderItemSeqId"/>
+            <exclude field="billToCustomerDimId"/>
+            <exclude field="salesChannelEnumId"/>
+            <exclude field="saleChannel"/>
+            <exclude field="orderStatus"/>
+	    	<exclude field="visitId"/>
+	    	<exclude field="initialReferrer"/>
+            <exclude field="productPromoCode"/>
         </alias-all>
-        <alias entity-alias="SIIF" name="orderId" group-by="true">
+        <alias entity-alias="SOIF" name="orderId" group-by="true">
             <description>Order id</description>
         </alias>
-        <alias entity-alias="SIIF" name="orderItemSeqId" group-by="true"/>
+        <alias entity-alias="SOIF" name="orderItemSeqId" group-by="true"/>
+        <alias entity-alias="SOIF" name="salesChannelEnumId" group-by="true"/>
+        <alias entity-alias="SOIF" name="saleChannel" group-by="true"/>
+        <alias entity-alias="SOIF" name="orderStatus" group-by="true"/>
+        <alias entity-alias="SOIF" name="visitId" group-by="true"/>
+        <alias entity-alias="SOIF" name="initialReferrer" group-by="true"/>
+        <alias entity-alias="SOIF" name="productPromoCode" group-by="true"/>
 
-        <view-link entity-alias="SIIF" rel-entity-alias="IDD">
+        <view-link entity-alias="SOIF" rel-entity-alias="ODD">
             <key-map field-name="orderDateDimId" rel-field-name="dimensionId"/>
         </view-link>
-        <view-link entity-alias="SIIF" rel-entity-alias="PD">
+        <view-link entity-alias="SOIF" rel-entity-alias="PD">
             <key-map field-name="productDimId" rel-field-name="dimensionId"/>
         </view-link>
-        <view-link entity-alias="SIIF" rel-entity-alias="CD">
+        <view-link entity-alias="SOIF" rel-entity-alias="CD">
             <key-map field-name="origCurrencyDimId" rel-field-name="dimensionId"/>
         </view-link>
 

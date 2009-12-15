@@ -65,9 +65,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindPayment"/>
                 <set field="headerItem" value="payments"/>
+                <set field="tabButtonItem" value="findPayment"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -531,6 +532,27 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingFindPurchaseInvoicesByDueDate}">
                                     <include-form name="ListInvoicesByDueDate" location="component://accounting/widget/PaymentForms.xml"/>
                                 </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PaymentReport">
+        <section>
+            <actions>
+            	<set field="headerItem" value="payments"/>
+                <set field="tabButtonItem" value="paymentReport"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+	                            <screenlet title="Payment Report">
+	                            	<include-form name="PaymentReport" location="component://accounting/widget/PaymentForms.xml"/>
+	                            </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

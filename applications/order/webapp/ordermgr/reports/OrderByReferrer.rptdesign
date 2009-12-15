@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
+importPackage(Packages.javolution.util)
+importPackage(Packages.org.ofbiz.entity.util)
+module = "OrderByReferrer.rptdesign";]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <parameters>
+        <scalar-parameter name="noConditionFind" id="10">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="referrerUrl" id="11">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="entryDate_fld0_op" id="12">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="entryDate_fld1_op" id="13">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="entryDate_fld1_value" id="14">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="entryDate_fld0_value" id="15">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="referrerUrl_ic" id="16">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="referrerUrl_op" id="17">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="initialReferrer" id="41">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFBIZ" id="8"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="SalesOrderItemFact" id="123">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">orderId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">orderItemSeqId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orderStatus</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">saleChannel</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">visitId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">initialReferrer</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">extNetAmount</property>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">orderId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderItemSeqId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderStatus</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleChannel</property>
+                </structure>
+                <structure>
+                    <property name="columnName">visitId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">initialReferrer</property>
+                </structure>
+                <structure>
+                    <property name="columnName">extNetAmount</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">orderId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">orderItemSeqId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">orderStatus</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">saleChannel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">visitId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">initialReferrer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">extNetAmount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBIZ</property>
+            <method name="open"><![CDATA[salesOrderItemFacts = null;
+try {
+    salesOrderItemFacts = delegator.findAll("SalesOrderItemFact");
+} catch (e) {
+    Debug.logError(e, module);
+}
+totalRow = 0;
+countOfRow = 0;
+if (salesOrderItemFacts) {
+    totalRow = salesOrderItemFacts.size();
+}]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
+
+salesOrderItemFact = salesOrderItemFacts.get(countOfRow);
+
+orderId = salesOrderItemFact.getString("orderId");
+orderItemSeqId = salesOrderItemFact.getString("orderItemSeqId");
+quantity = salesOrderItemFact.getString("quantity");
+orderStatus = salesOrderItemFact.getString("orderStatus");
+saleChannel = salesOrderItemFact.getString("saleChannel");
+visitId = salesOrderItemFact.getString("visitId");
+initialReferrer = salesOrderItemFact.getString("initialReferrer");
+extNetAmount = salesOrderItemFact.getString("extNetAmount");
+
+row["orderId"] = orderId;
+row["orderItemSeqId"] = orderItemSeqId;
+row["quantity"] = quantity;
+row["orderStatus"] = orderStatus;
+row["saleChannel"] = saleChannel;
+row["visitId"] = visitId;
+row["initialReferrer"] = initialReferrer;
+row["extNetAmount"] = extNetAmount;
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Referrer" id="124">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="125">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="126">
+                            <property name="levels">
+                                <tabular-level name="visitId" id="127">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">visitId</property>
+                                </tabular-level>
+                                <tabular-level name="orderId" id="128">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderId</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Group1" id="134">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="135">
+                            <property name="levels">
+                                <tabular-level name="initialReferrer" id="136">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">initialReferrer</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="129">
+                    <property name="measures">
+                        <tabular-measure name="orderId" id="130">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="quantity" id="131">
+                            <expression name="measureExpression">dataSetRow["quantity"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="extNetAmount" id="132">
+                            <expression name="measureExpression">dataSetRow["extNetAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">SalesOrderItemFact</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <grid id="47">
+                    <property name="height">0.2222222222222222in</property>
+                    <property name="width">7.766666666666667in</property>
+                    <column id="48">
+                        <property name="width">3.8777777777777778in</property>
+                    </column>
+                    <column id="49">
+                        <property name="width">3.888888888888889in</property>
+                    </column>
+                    <row id="50">
+                        <property name="height">0.2222222222222222in</property>
+                        <cell id="51">
+                            <text id="53">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="52">
+                            <property name="textAlign">right</property>
+                            <grid id="54">
+                                <property name="height">0.2222222222222222in</property>
+                                <property name="width">1.6in</property>
+                                <column id="55">
+                                    <property name="width">0.8111111111111111in</property>
+                                </column>
+                                <column id="56">
+                                    <property name="width">0.2in</property>
+                                </column>
+                                <column id="57">
+                                    <property name="width">0.5888888888888889in</property>
+                                </column>
+                                <row id="58">
+                                    <property name="height">0.2222222222222222in</property>
+                                    <cell id="59">
+                                        <auto-text id="60">
+                                            <property name="textAlign">right</property>
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="61">
+                                        <text id="62">
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="63">
+                                        <auto-text id="64">
+                                            <property name="textAlign">left</property>
+                                            <property name="whiteSpace">normal</property>
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="40">
+            <property name="fontSize">larger</property>
+            <property name="fontWeight">bolder</property>
+            <property name="fontStyle">normal</property>
+            <property name="color">black</property>
+            <property name="textUnderline">none</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Order By Referrer]]></text-property>
+        </text>
+        <text id="122">
+            <property name="contentType">auto</property>
+        </text>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="137">
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="151">
+                    <property name="measure">orderId</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="152">
+                            <property name="aggregationOnRow">Group1/initialReferrer</property>
+                            <property name="content">
+                                <data id="153">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">orderId_Group1/initialReferrer</property>
+                                </data>
+                            </property>
+                            <property name="width">0.9222222222222223in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="167">
+                            <property name="content">
+                                <data id="168">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">orderId_1</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="154">
+                            <property name="content">
+                                <label id="155">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Orders</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="156">
+                    <property name="measure">quantity</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="157">
+                            <property name="aggregationOnRow">Group1/initialReferrer</property>
+                            <property name="content">
+                                <data id="158">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">quantity_Group1/initialReferrer</property>
+                                </data>
+                            </property>
+                            <property name="width">1.1in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="169">
+                            <property name="content">
+                                <data id="170">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">quantity</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="159">
+                            <property name="content">
+                                <label id="160">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">quantity</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="161">
+                    <property name="measure">extNetAmount</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="162">
+                            <property name="aggregationOnRow">Group1/initialReferrer</property>
+                            <property name="content">
+                                <data id="163">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">extNetAmount_Group1/initialReferrer</property>
+                                </data>
+                            </property>
+                            <property name="width">1.3222222222222222in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="171">
+                            <property name="content">
+                                <data id="172">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">extNetAmount</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="164">
+                            <property name="content">
+                                <label id="165">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Amount</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="139">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="166">
+                            <property name="content">
+                                <label id="173">
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Grand Total</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="140">
+                            <property name="dimension">Group</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="141">
+                                    <property name="level">Group/visitId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="142">
+                                            <property name="content">
+                                                <data name="visitId1" id="143">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">visitId</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.9222222222222223in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="144">
+                                    <property name="level">Group/orderId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="145">
+                                            <property name="content">
+                                                <data name="orderId" id="146">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">orderId</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.9555555555555556in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="DimensionView" id="147">
+                            <property name="dimension">Group1</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View4" id="148">
+                                    <property name="level">Group1/initialReferrer</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="149">
+                                            <property name="content">
+                                                <data name="initialReferrer1" id="150">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">initialReferrer</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">2.7222222222222223in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="grandTotalLocation">after</property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="138">
+                    <property name="content">
+                        <grid id="174">
+                            <property name="height">0.25555555555555554in</property>
+                            <property name="width">4.511111111111111in</property>
+                            <column id="175">
+                                <property name="width">0.8666666666666667in</property>
+                            </column>
+                            <column id="176">
+                                <property name="width">0.9777777777777777in</property>
+                            </column>
+                            <column id="177">
+                                <property name="width">2.6777777777777776in</property>
+                            </column>
+                            <row id="178">
+                                <property name="height">0.25555555555555554in</property>
+                                <cell id="179">
+                                    <label id="182">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">VisitId</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="180">
+                                    <label id="183">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">OrderId</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="181">
+                                    <label id="184">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Referrer Url</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </grid>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="cube">Referrer</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">visitId</property>
+                    <expression name="expression">dimension["Group"]["visitId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderId</property>
+                    <expression name="expression">dimension["Group"]["orderId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">initialReferrer</property>
+                    <expression name="expression">dimension["Group1"]["initialReferrer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderId_Group1/initialReferrer</property>
+                    <expression name="expression">measure["orderId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group1/initialReferrer</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity_Group1/initialReferrer</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group1/initialReferrer</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extNetAmount_Group1/initialReferrer</property>
+                    <expression name="expression">measure["extNetAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group1/initialReferrer</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">orderId_Group/orderId</property>
+                    <expression name="expression">measure["orderId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity_Group/orderId</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extNetAmount_Group/orderId</property>
+                    <expression name="expression">measure["extNetAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">orderId_1</property>
+                    <expression name="expression">measure["orderId"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extNetAmount</property>
+                    <expression name="expression">measure["extNetAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

@@ -110,6 +110,9 @@
         <value xml:lang="zh">库存</value>
         <value xml:lang="zh_CN">库存</value>
     </property>
+    <property key="FacilityInventoryHistoryReport">
+        <value xml:lang="en">Inventory History Report</value>
+    </property>
     <property key="FacilityMultipleLocations">
         <value xml:lang="en">Multiple Locations</value>
         <value xml:lang="it">Posizioni multiple</value>

@@ -24,6 +24,7 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Accounting Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
+    <handler name="birt" type="view" class="org.ofbiz.webapp.view.BirtViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -2478,6 +2479,23 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="GlAccountBalanceByCostCenterPdf"/>
     </request-map>
+
+    <!-- Reports -->
+    <request-map uri="paymentReport">
+    	<security https="true" auth="true"/>
+        <response name="success" type="view" value="paymentReport"/>
+    </request-map>
+    <request-map uri="paymentReportHtml">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/" invoke="PaymentReport.groovy"/>
+        <response name="success" type="view" value="ViewPaymentReportHtml"/>
+    </request-map>
+    <request-map uri="paymentReportPdf">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/" invoke="PaymentReport.groovy"/>
+        <response name="success" type="view" value="ViewPaymentReportPdf"/>
+    </request-map>
+
     <request-map uri="createWorkEffortAndPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffortAndPartyAssign"/>
@@ -2790,5 +2808,11 @@ under the License.
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <view-map name="GlAccountBalanceByCostCenter" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenter"/>
     <view-map name="GlAccountBalanceByCostCenterPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenterPdf" content-type="application/pdf" encoding="none"/>
+    
+    <view-map name="paymentReport" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentReport"/>
+    <view-map name="ViewPaymentReportHtml" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="text/html"/>
+    <view-map name="ViewPaymentReportPdf" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="application/pdf"/>
+    
+    
     <!-- end of view mappings -->
 </site-conf>

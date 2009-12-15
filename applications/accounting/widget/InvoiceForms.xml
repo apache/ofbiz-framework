@@ -42,6 +42,7 @@ under the License.
         <field position="1" name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyIdTo" parameter-name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
+        <field name="invoiceDate"><date-find type="date"/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

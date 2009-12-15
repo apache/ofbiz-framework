@@ -227,8 +227,31 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>-->
-        <field name="fromDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
-        <field name="thruDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
+        <field name="fromDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="OrderByReferrer" type="single" target="OrderByReferrer.pdf" target-window="_BLANK">
+    	<!--field name="referrerUrl"><text-find default-option="contains"/></field-->
+    	<field name="referrerUrl" title="${uiLabelMap.CommonEmptyHeader}"><display description="All Referrer"></display></field>
+    	<field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
+    	<field name="saleChannel">
+    		<drop-down allow-empty="false">
+    			<option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+    			<entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
+    				<entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
+    			</entity-options>
+    		</drop-down>
+    	</field>
+    	<field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="SaleOrderDiscountCode" type="single" target="OrderDiscountCode.pdf" target-window="_BLANK">
+        <field name="discountCodeUrl" title="${uiLabelMap.CommonEmptyHeader}"><display description="All order items with discount code"></display></field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
+    <form name="Last3MonthsSalesReport" type="single" target="Last3MonthsSalesReport.pdf" target-window="_BLANK">
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
 </forms>

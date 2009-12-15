@@ -130,4 +130,36 @@
         description=""/>
     <PortletPortletCategory portalPortletId="SalesReport" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="SalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    
+        <PortalPortlet portalPortletId="OrderByReferrer"
+        portletName="Sale Orders By Referrer Report"
+        screenName="SaleOrdersByReferrerReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="OrderByReferrer" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderByReferrer" portletSeqId="00001" columnSeqId="00001" sequenceNum="6"/>
+    
+	<PortalPortlet portalPortletId="OrderByChannel"
+        portletName="Sale Orders by Channel"
+        screenName="SaleOrdersByChannelReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="OrderByChannel" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderByChannel" portletSeqId="00001" columnSeqId="00001" sequenceNum="7"/>
+
+    <PortalPortlet portalPortletId="OrderDiscountCode"
+        portletName="Orders with discount code"
+        screenName="SaleOrderDiscountCodeReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="OrderDiscountCode" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderDiscountCode" portletSeqId="00001" columnSeqId="00001" sequenceNum="8"/>
+    
+    <PortalPortlet portalPortletId="Last3MSalesReport"
+        portletName="Last 3 Months Sales Report"
+        screenName="Last3MonthsSalesReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="Last3MSalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="Last3MSalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
 </entity-engine-xml>
