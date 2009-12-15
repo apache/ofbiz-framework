@@ -6846,7 +6846,7 @@
         <value xml:lang="zh_CN">统计</value>
     </property>
     <property key="CommonStatus">
-        <value xml:lang="ar">وضعية</value>
+    	<value xml:lang="ar">وضعية</value><!-- was in accounting <value xml:lang="ar">الوضعيات</value> -->
         <value xml:lang="cs">Status</value>
         <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>

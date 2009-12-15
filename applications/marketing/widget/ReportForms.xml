@@ -79,7 +79,7 @@ under the License.
         <field name="partyIdFrom" title="${uiLabelMap.FormFieldTitle_fromPartyId}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
@@ -87,7 +87,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.PartyStatus}">
+        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
@@ -105,7 +105,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
-        <field name="statusDate" title="${uiLabelMap.PartyStatus} (${uiLabelMap.CommonDate}&gt;=)">
+        <field name="statusDate" title="${uiLabelMap.CommonStatus} (${uiLabelMap.CommonDate}&gt;=)">
             <date-time type="timestamp"/>
         </field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.CommonDate}&lt;)">
@@ -118,7 +118,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
@@ -160,11 +160,11 @@ under the License.
         </row-actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field> 
         <field name="communicationEventTypeId" title="${uiLabelMap.MarketingContactListCommEventTypeId}"><display description="${communicationEventType.description}"/></field>
-        <field name="statusId" title="${uiLabelMap.PartyStatus}">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" description="${description}"/>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.FormFieldTitle_toPartyId}"><display/></field>
-        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.PartyStatus}">
+        <field name="roleStatusId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole} ${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.FormFieldTitle_fromPartyId}"><display/></field>
@@ -180,7 +180,7 @@ under the License.
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="statusDate" title="${uiLabelMap.PartyStatus} ${uiLabelMap.CommonDate}"><display/></field>
-        <field name="statusId" title="${uiLabelMap.PartyStatus}"><display description="${statusItem.description}"/></field>
+        <field name="statusDate" title="${uiLabelMap.CommonStatus} ${uiLabelMap.CommonDate}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display description="${statusItem.description}"/></field>
     </form>
 </forms>

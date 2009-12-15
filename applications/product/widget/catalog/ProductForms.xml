@@ -1998,7 +1998,7 @@ under the License.
         <field name="subject"><display/></field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="statusId" title="${uiLabelMap.ProductStatus}">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="lastUpdatedStampCE" title="Email Sent On"><display/></field>

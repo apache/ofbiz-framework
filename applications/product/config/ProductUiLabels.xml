@@ -19474,17 +19474,6 @@
         <value xml:lang="th">รัฐ</value>
         <value xml:lang="zh">州</value>
     </property>
-    <property key="ProductStatus">
-        <value xml:lang="de">Status</value>
-        <value xml:lang="en">Status</value>
-        <value xml:lang="es">Estado</value>
-        <value xml:lang="fr">Statut</value>
-        <value xml:lang="it">Stati</value>
-        <value xml:lang="ro">Stari</value>
-        <value xml:lang="ru">Статус</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">状态</value>
-    </property>
     <property key="ProductStatusId">
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status Id</value>
