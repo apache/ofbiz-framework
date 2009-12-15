@@ -24,6 +24,7 @@ under the License.
     <screen name="OrderPurchaseReportOptions">
         <section>
             <actions>
+            	<set field="headerItem" value="reports"/>
                 <entity-one value-field="portalPage" entity-name="PortalPage">
                     <field-map field-name="portalPageId" value="OrderReportPage"/>
                 </entity-one>
@@ -304,8 +305,48 @@ under the License.
                 </actions>-->
             <widgets>
                 <platform-specific>
-                    <xml><html-template location="component://birt/webapp/birt/report/SalesReport.rptdesign"/></xml>
+                    <xml><html-template location="component://order/webapp/ordermgr/reports/SalesReport.rptdesign"/></xml>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order By Referrer -->
+    <screen name="SaleOrdersByReferrerReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders by Referrer Report">
+                    <include-form name="OrderByReferrer" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order By Channel -->
+    <screen name="SaleOrdersByChannelReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders By Channel Report">
+                    <include-form name="SaleOrdersByChannel" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sale Order with Discount Code -->
+    <screen name="SaleOrderDiscountCodeReport">
+        <section>
+            <widgets>
+                <screenlet title="Sale Orders Discount Code Report">
+                    <include-form name="SaleOrderDiscountCode" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Last Three Months Sales Report -->
+    <screen name="Last3MonthsSalesReport">
+        <section>
+            <widgets>
+                <screenlet title="Last Three Months Sales Report">
+                    <include-form name="Last3MonthsSalesReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

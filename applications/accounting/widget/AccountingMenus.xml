@@ -336,10 +336,7 @@ under the License.
     </menu>
 
     <menu name="PaymentTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="find" title="${uiLabelMap.CommonFind}" >
-            <condition>
-                <if-compare field="tabButtonItem" operator="not-equals" value="find"/>
-            </condition>
+        <menu-item name="findPayment" title="${uiLabelMap.CommonFind}" >
             <link target="findPayments"/>
         </menu-item>
         <menu-item name="paymentOverview" title="${uiLabelMap.AccountingPaymentTabOverview}">
@@ -375,6 +372,9 @@ under the License.
             <link target="editPaymentApplications">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
+        </menu-item>
+       	<menu-item name="paymentReport" title="Payment Report">
+            <link target="paymentReport"/>
         </menu-item>
     </menu>
 

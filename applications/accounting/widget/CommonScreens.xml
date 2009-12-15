@@ -48,6 +48,44 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="CommonPaymentDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="payments"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ACCOUNTING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <container style="leftclear">
+                                	<section>
+                                		<condition>
+                                			<not><if-empty field="paymentId"/></not>
+                                		</condition>
+                                		<widgets>
+                                		<label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
+                                		</widgets>
+                                    </section>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="CommonPaymentGroupDecorator">
         <section>

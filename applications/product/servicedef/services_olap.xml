@@ -51,4 +51,9 @@ under the License.
         <description>Calls the loadProductInProductDimension service for all the products.</description>
         <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE1"/>
     </service>
+    <!-- BI Dimension -->
+    <service name="loadInventoryFact" auth="true" engine="simple"
+        location="component://product/script/org/ofbiz/product/olap/FactServices.xml" invoke="loadInventoryFact">
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

@@ -52,7 +52,7 @@ under the License.
         </if-empty>
         <if-empty field="orderAdjustment">
             <entity-and entity-name="OrderAdjustment" list="orderAdjustments">
-                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
             </entity-and>
         </if-empty>
         <if-empty field="orderHeader">
@@ -73,6 +73,7 @@ under the License.
                 <make-value entity-name="SalesOrderItemFact" value-field="fact"/>
                 <set field="fact.orderId" from-field="orderHeader.orderId"/>
                 <set field="fact.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <set field="fact.salesChannelEnumId" from-field="orderHeader.salesChannelEnumId"/>
                 <!-- conversion of the order date -->
                 <if-not-empty field="orderHeader.orderDate">
                     <clear-field field="inMap"/>
@@ -137,15 +138,29 @@ under the License.
             <set field="fact.GrossMerchandizeProfit" value="0.0" type="BigDecimal"/>
             <set field="fact.GrossShippingProfit" value="0.0" type="BigDecimal"/>
             <set field="fact.GrossProfit" value="0.0" type="BigDecimal"/>
-            <set field="fact.AverageMerchandizeProfit" value="0.0" type="BigDecimal"/>
-            <set field="fact.AverageGrossProfit" value="0.0" type="BigDecimal"/>
+<!--            <set field="fact.AverageMerchandizeProfit" value="0.0" type="BigDecimal"/>
+            <set field="fact.AverageGrossProfit" value="0.0" type="BigDecimal"/>-->
             
-            <!-- gross -->
+            <!-- amount -->
             <calculate field="fact.extGrossAmount">
                 <calcop field="fact.quantity" operator="multiply">
                     <calcop field="orderItem.unitPrice" operator="get"/>
                 </calcop>
             </calculate>
+            
+            <!-- cost -->
+            <entity-and entity-name="SupplierProduct" list="costs">
+                <field-map field-name="productId" from-field="orderItem.productId"/>
+            </entity-and>
+            <iterate list="costs" entry="cost">
+                <if-compare field="cost.minimumOrderQuantity" operator="equals" value="0">
+                    <calculate field="fact.extGrossCost">
+                        <calcop field="fact.quantity" operator="multiply">
+                            <calcop field="cost.lastPrice" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+            </iterate>
             
             <!-- shipping -->
             <iterate list="orderAdjustments" entry="shipping">
@@ -174,9 +189,20 @@ under the License.
                 <if-compare field="discount.orderAdjustmentTypeId" operator="equals" value="PROMOTION_ADJUSTMENT">
                     <calculate field="fact.extDiscountAmount">
                         <calcop field="fact.extDiscountAmount" operator="add">
-                            <calcop field="discount.amount" operator="negative"/>
+                            <calcop field="discount.amount" operator="get"/>
                         </calcop>
                     </calculate>
+                    <!-- product promo code -->
+                    <entity-and entity-name="ProductPromoCode" list="productPromo">
+                        <field-map field-name="productPromoId" from-field="discount.productPromoId"/>
+                    </entity-and>
+                    <first-from-list entry="productPromoCode" list="productPromo"/>
+                    <if-not-empty field="productPromoCode">
+                        <set field="fact.productPromoCode" from-field="productPromoCode.productPromoCodeId"/>
+                        <else>
+                            <set field="fact.productPromoCode" value="Not require code"/>
+                        </else>
+                    </if-not-empty>
                 </if-compare>
             </iterate>
 
@@ -202,23 +228,51 @@ under the License.
             </calculate>
             
             <!-- Gross Merchandize Profit -->
-            <entity-and entity-name="ProductPrice" list="costs">
-                <field-map field-name="productId" from-field="orderItem.productId"/>
-            </entity-and>
-            <iterate list="costs" entry="cost">
-                <if-compare field="cost.productPriceTypeId" operator="equals" value="DEFAULT_PRICE">
-                    <log level="always" message="===================price : ${cost.price}"/>
-                    <calculate field="fact.GrossMerchandizeProfit">
-                        <calcop field="fact.GrossMerchandizeSales" operator="subtract">
-                            <calcop field="cost.price" operator="get"/>
-                        </calcop>
-                    </calculate>
-                </if-compare>
-            </iterate>
+            <calculate field="fact.GrossMerchandizeProfit">
+                <calcop field="fact.GrossMerchandizeSales" operator="subtract">
+                    <calcop field="fact.extGrossCost" operator="get"/>
+                </calcop>
+            </calculate>
+            
+            <!-- Sale Channel -->
+            <if-not-empty field="orderHeader.salesChannelEnumId">
+                <entity-one entity-name="Enumeration" value-field="enumeration">
+                    <field-map field-name="enumId" from-field="orderHeader.salesChannelEnumId"/>
+                </entity-one>
+                <if-not-empty field="enumeration">
+                    <set field="fact.saleChannel" from-field="enumeration.description"/>
+                </if-not-empty>
+            </if-not-empty>
+
+            <!-- Order status -->
+            <if-not-empty field="orderHeader.statusId">
+                <entity-one entity-name="StatusItem" value-field="statusItem">
+                <field-map field-name="statusId" from-field="orderHeader.statusId"/>
+                </entity-one>
+                <if-not-empty field="statusItem">
+                <set field="fact.orderStatus" from-field="statusItem.description"/>
+                </if-not-empty>
+            </if-not-empty>
+            
+            <!-- Order visit and referrer -->
+            <if-not-empty field="orderHeader.visitId">
+                <entity-one entity-name="Visit" value-field="visit">
+                <field-map field-name="visitId" from-field="orderHeader.visitId"/>
+                </entity-one>
+                <if-not-empty field="visit">
+                	<set field="fact.visitId" from-field="visit.visitId"/>
+                	<set field="fact.initialReferrer" from-field="visit.initialReferrer"/>
+                </if-not-empty>
+            </if-not-empty>
             
             <!-- Gross Shipping Profit -->
             
             <!-- Gross Profit -->
+            <calculate field="fact.GrossProfit">
+                <calcop field="fact.GrossMerchandizeProfit" operator="subtract">
+                    <calcop field="fact.GrossShippingProfit" operator="get"/>
+                </calcop>
+            </calculate>
             
             <!-- Average Merchandize Profit -->
             
@@ -238,9 +292,19 @@ under the License.
                     <calcop field="fact.extStorageCost" operator="get"/>
                     <calcop field="fact.extDistributionCost" operator="get"/>
                 </calcop>
-            </calculate>-->
+                </calculate>-->
+            
+            <!-- eBay -->
+            <set field="fact.eBay" value="7"/>
+                
+            <!-- RRC -->
+            <set field="fact.RRC" value="2"/>
+            
+            <!-- Others -->
+            <set field="fact.OtherFree" value="5"/>
 
             <store-value value-field="fact"/>
         </if-compare>
     </simple-method>
+   
 </simple-methods>
