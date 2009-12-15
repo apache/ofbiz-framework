@@ -46,15 +46,15 @@ productContent.each { productContent ->
     productContentDatas.add([productContent : productContent, content : content]);
 }
 
-updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
+updateProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
 context.updateProductContentWrapper = updateProductContentWrapper;
 updateProductContentWrapper.putInContext("productContentDatas", productContentDatas);
 
-prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
+prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
 context.prepareAddProductContentWrapper = prepareAddProductContentWrapper;
 prepareAddProductContentWrapper.putInContext("configItem", configItem);
 
-addProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
+addProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
 context.addProductContentWrapper = addProductContentWrapper;
 addProductContentWrapper.putInContext("configItem", configItem);
 

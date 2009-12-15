@@ -66,7 +66,7 @@ if (contentId && content) {
         }
     }
 }
-updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
+updateProductContentWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
 updateProductContentWrapper.putInContext("textData", textData);
 
 context.updateProductContentWrapper = updateProductContentWrapper;
