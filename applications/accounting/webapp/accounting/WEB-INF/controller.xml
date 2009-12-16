@@ -24,7 +24,6 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Accounting Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-    <handler name="birt" type="view" class="org.ofbiz.webapp.view.BirtViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--

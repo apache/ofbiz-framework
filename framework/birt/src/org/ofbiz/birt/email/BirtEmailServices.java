@@ -48,7 +48,7 @@ import org.ofbiz.common.email.NotificationServices;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.widget.birt.BirtFactory;
+import org.ofbiz.birt.widget.BirtFactory;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
