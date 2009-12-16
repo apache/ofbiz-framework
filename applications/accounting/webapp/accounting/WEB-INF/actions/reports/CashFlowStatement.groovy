@@ -102,19 +102,19 @@ transactionTotals.each { transactionTotal ->
         accountMap.D = BigDecimal.ZERO;
         accountMap.C = BigDecimal.ZERO;
         accountMap.balance = BigDecimal.ZERO;
-    } else {
-        if (accountMap.debitCreditFlag && accountMap.amount) {
-            accountMap.remove("debitCreditFlag");
-            accountMap.remove("amount");
-        }
-        if (transactionTotal.debitCreditFlag == "C") {
-            accountMap.C = ((BigDecimal)accountMap.get("C")).add(transactionTotal.amount);
-            accountMap.balance = (accountMap.balance).subtract(transactionTotal.amount);
-        } else {
-            accountMap.D = ((BigDecimal)accountMap.get("D")).add(transactionTotal.amount);
-            accountMap.balance = (accountMap.balance).add(transactionTotal.amount);
-        }
     }
+    if (accountMap.debitCreditFlag && accountMap.amount) {
+        accountMap.remove("debitCreditFlag");
+        accountMap.remove("amount");
+    }
+    if (transactionTotal.debitCreditFlag == "C") {
+        accountMap.C = ((BigDecimal)accountMap.get("C")).add(transactionTotal.amount);
+        accountMap.balance = (accountMap.balance).subtract(transactionTotal.amount);
+    } else {
+        accountMap.D = ((BigDecimal)accountMap.get("D")).add(transactionTotal.amount);
+        accountMap.balance = (accountMap.balance).add(transactionTotal.amount);
+    }
+
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
 }
 glAccountIdList = [];
