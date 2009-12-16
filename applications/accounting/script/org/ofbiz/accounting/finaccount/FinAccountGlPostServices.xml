@@ -58,7 +58,7 @@ under the License.
         <!-- Find the other side to post to/from -
             if payment directory to account do from Payment;
             if from account refill product purchase pull from special account where those funds wait;
-            if purchase on account, balance like bank acount received or something -->
+            if purchase on account, balance like bank account received or something -->
         <if>
             <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
             <then>
