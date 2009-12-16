@@ -316,7 +316,7 @@ under the License.
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PAYMENT" glAccountTypeId="ACCOUNTS_PAYABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PREPAY" glAccountTypeId="PREPAID_EXPENSES"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE"/>
-    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAY_CHECK" glAccountTypeId="CUSTOMER_CREDIT"/>
+    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAY_CHECK" glAccountTypeId="ACCOUNTS_PAYABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="GC_WITHDRAWAL" glAccountTypeId="CUSTOMER_CREDIT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="SALES_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAYROL_PAYMENT" glAccountTypeId="OPERATING_EXPENSE"/>
