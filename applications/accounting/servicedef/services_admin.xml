@@ -130,4 +130,13 @@ under the License.
         <description>Accounting Foreign Exchange Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    
+    <service name="getFXConversion" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="getFXConversion">
+        <description>get the conversion rate</description>
+        <attribute type="String" mode="IN" name="uomId" optional="false"/>
+        <attribute type="String" mode="IN" name="uomIdTo" optional="false"/>
+        <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
+        <attribute type="BigDecimal" mode="OUT" name="conversionRate" optional="false"/>
+    </service>
 </services>

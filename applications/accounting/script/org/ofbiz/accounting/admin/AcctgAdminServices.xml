@@ -133,4 +133,44 @@ under the License.
         </if-empty>
         <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
     </simple-method>
+    
+    <!-- Get currency conversion rates in the UomConversionDated entity -->
+    <simple-method method-name="getFXConversion" short-description="Get Foreign Exchange conversion rate">
+        <if-empty field="parameters.asOfTimestamp">
+            <now-timestamp field="asOfTimestamp"/>
+            <else>
+                <set field="asOfTimestamp" from-field="parameters.asOfTimestamp"/>
+            </else>
+        </if-empty>
+        <!-- find the existing exchange rates-->
+        <entity-condition entity-name="UomConversionDated" list="rates" filter-by-date="true">
+            <condition-list combine="and">
+                <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfTimestamp"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfTimestamp"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </condition-list>
+            <order-by field-name="-fromDate"/>
+        </entity-condition>
+        
+        <set field="conversionRate" type="BigDecimal" value="1"/>
+        <if-not-empty field="rates">
+            <set field="conversionFactor" from-field="rates[0].conversionFactor"/>
+            <set field="originalValue" type="BigDecimal" value="1"/>
+            
+            <calculate field="conversionRate" type="BigDecimal" decimal-scale="2" rounding-mode="HalfUp">
+                <calcop operator="divide">
+                    <calcop operator="get" field="originalValue"/>
+                    <calcop operator="get" field="conversionFactor"/>
+                </calcop>
+            </calculate>
+            <else>
+                <log level="error" message="Could not find conversion rate"></log>
+            </else>
+        </if-not-empty>
+        <field-to-result field="conversionRate" result-name="conversionRate"/>
+    </simple-method>
 </simple-methods>
