@@ -34,6 +34,7 @@
         <value xml:lang="es">respuesta</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">risposta</value>
+        <value xml:lang="nl">Antwoord</value>
         <value xml:lang="ro">raspuns</value>
         <value xml:lang="th">ตอบ</value>
         <value xml:lang="zh">回答</value>
@@ -46,6 +47,7 @@
         <value xml:lang="es">respuestas</value>
         <value xml:lang="fr">Réponses</value>
         <value xml:lang="it">risposte</value>
+        <value xml:lang="nl">Antwoorden</value>
         <value xml:lang="ro">raspunsuri</value>
         <value xml:lang="th">ตอบ</value>
         <value xml:lang="zh">回答</value>
@@ -58,6 +60,7 @@
         <value xml:lang="es">Asociación de Contenido</value>
         <value xml:lang="fr">Association de contenus</value>
         <value xml:lang="it">Associazione Contenuto</value>
+        <value xml:lang="nl">Content associatie</value>
         <value xml:lang="ro">Asociatie Continut</value>
         <value xml:lang="th">หัวข้อความคิดเห็น</value>
         <value xml:lang="zh">内容关联</value>
@@ -70,6 +73,7 @@
         <value xml:lang="es">Asociación</value>
         <value xml:lang="fr">Association</value>
         <value xml:lang="it">Associazione</value>
+        <value xml:lang="nl">Associatie</value>
         <value xml:lang="ro">Asociatie</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">关联</value>
@@ -82,6 +86,7 @@
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
         <value xml:lang="it">Attributi</value>
+        <value xml:lang="nl">Attribuut</value>
         <value xml:lang="ro">Atribute</value>
         <value xml:lang="th">คุณสมบัติ</value>
         <value xml:lang="zh">属性</value>
@@ -91,6 +96,7 @@
         <value xml:lang="en">Attribute Name</value>
         <value xml:lang="fr">Nom d'attribut</value>
         <value xml:lang="it">Nome attributo</value>
+        <value xml:lang="nl">Naam attribuut</value>
         <value xml:lang="zh">属性名称</value>
     </property>
     <property key="ContentBlog">
@@ -98,6 +104,7 @@
         <value xml:lang="en">Blog</value>
         <value xml:lang="fr">Blog</value>
         <value xml:lang="it">Blog</value>
+        <value xml:lang="nl">Blog</value>
         <value xml:lang="zh">博客</value>
     </property>
     <property key="ContentBlogArticle">
@@ -105,6 +112,7 @@
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
+        <value xml:lang="nl">Artikel</value>
         <value xml:lang="zh">文章</value>
     </property>
     <property key="ContentBlogArticleList">
@@ -112,6 +120,7 @@
         <value xml:lang="en">List of Blog articles</value>
         <value xml:lang="fr">Liste des articles du blog</value>
         <value xml:lang="it">Lista degli articoli Blog</value>
+        <value xml:lang="nl">Lijst blog artikelen</value>
         <value xml:lang="zh">博客文章列表</value>
     </property>
     <property key="ContentBlogDescription">
@@ -119,6 +128,7 @@
         <value xml:lang="en">Blog Description</value>
         <value xml:lang="fr">Description du blog</value>
         <value xml:lang="it">Descrizione blog</value>
+        <value xml:lang="nl">Beschrijving blog</value>
         <value xml:lang="zh">博客描述</value>
     </property>
     <property key="ContentBlogEdit">
@@ -126,6 +136,7 @@
         <value xml:lang="en">Edit a Blog</value>
         <value xml:lang="fr">Modifier un blog</value>
         <value xml:lang="it">Aggiorna un Blog</value>
+        <value xml:lang="nl">Wijzig een blog</value>
         <value xml:lang="zh">编辑一个博客</value>
     </property>
     <property key="ContentBlogList">
@@ -133,6 +144,7 @@
         <value xml:lang="en">List of Blogs</value>
         <value xml:lang="fr">Liste des blogs</value>
         <value xml:lang="it">Lista dei Blog</value>
+        <value xml:lang="nl">Lijst van blogs</value>
         <value xml:lang="zh">博客列表</value>
     </property>
     <property key="ContentBlogName">
@@ -140,6 +152,7 @@
         <value xml:lang="en">Blog Name</value>
         <value xml:lang="fr">Nom du blog</value>
         <value xml:lang="it">Nome blog</value>
+        <value xml:lang="nl">Naam blog</value>
         <value xml:lang="zh">博客名称</value>
     </property>
     <property key="ContentBlogPost">
@@ -147,6 +160,7 @@
         <value xml:lang="en">POST</value>
         <value xml:lang="fr">POST</value>
         <value xml:lang="it">Inviare</value>
+        <value xml:lang="nl">POST</value>
         <value xml:lang="zh">发表</value>
     </property>
     <property key="ContentBlogSummary">
@@ -154,6 +168,7 @@
         <value xml:lang="en">Summary</value>
         <value xml:lang="fr">Summario</value>
         <value xml:lang="it">Sommario</value>
+        <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="zh">摘要</value>
     </property>
     <property key="ContentBlogs">
@@ -161,6 +176,7 @@
         <value xml:lang="en">Blogs</value>
         <value xml:lang="fr">Blogs</value>
         <value xml:lang="it">Blogs</value>
+        <value xml:lang="nl">Blogs</value>
         <value xml:lang="zh">博客</value>
     </property>
     <property key="ContentBrowse">
@@ -168,6 +184,7 @@
         <value xml:lang="en">Browse</value>
         <value xml:lang="fr">Consulter</value>
         <value xml:lang="it">Sfoglia</value>
+        <value xml:lang="nl">Blader</value>
         <value xml:lang="zh">浏览</value>
     </property>
     <property key="ContentCMS">
@@ -178,6 +195,7 @@
         <value xml:lang="es">CMS</value>
         <value xml:lang="fr">CMS</value>
         <value xml:lang="it">CMS</value>
+        <value xml:lang="nl">CMS</value>
         <value xml:lang="ro">CMS</value>
         <value xml:lang="th">CMS</value>
         <value xml:lang="zh">内容管理系统</value>
@@ -187,6 +205,7 @@
         <value xml:lang="en">CMS Content Add Sub Content</value>
         <value xml:lang="fr">Ajout d'un sous-contenu au contenu de CMS</value>
         <value xml:lang="it">CMS aggiungi sotto contenuto</value>
+        <value xml:lang="nl">CMS toevoegen sub-content</value>
         <value xml:lang="zh">内容管理系统内容添加子内容</value>
     </property>
     <property key="ContentCMSEditPage">
@@ -194,6 +213,7 @@
         <value xml:lang="en">CMS Content Edit Page</value>
         <value xml:lang="fr">Modifier la page du contenu de CMS</value>
         <value xml:lang="it">CMS aggiorna pagina</value>
+        <value xml:lang="nl">CMS wijzigen pagina</value>
         <value xml:lang="zh">内容管理系统内容编辑页面</value>
     </property>
     <property key="ContentCMSNotExist">
@@ -202,6 +222,7 @@
         <value xml:lang="en">There is no Content PUBLISH_POINT for this WebSite!</value>
         <value xml:lang="fr">Il n'y a aucun contenu PUBLISH_POINT pour ce site Web !</value>
         <value xml:lang="it">Non c'è nessun Contenuto PUBLISH_POINT per questo Sito Web!</value>
+        <value xml:lang="nl">Er is geen PUBLISH_POINT voor deze website!</value>
         <value xml:lang="th">ไม่มีหัวข้อ PUBLISH_POINT สำหรับเว็บไซต์นี้</value>
         <value xml:lang="zh">这个网站没有内容发布点！</value>
     </property>
@@ -210,6 +231,7 @@
         <value xml:lang="en">CMS Search Page</value>
         <value xml:lang="fr">Recherche de la page de CMS</value>
         <value xml:lang="it">CMS pagina di ricerca</value>
+        <value xml:lang="nl">CMS zoekpagina</value>
         <value xml:lang="zh">内容管理系统搜索页面</value>
     </property>
     <property key="ContentCategory">
@@ -220,6 +242,7 @@
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria</value>
+        <value xml:lang="nl">Categorie</value>
         <value xml:lang="ro">Categoria</value>
         <value xml:lang="th">หมวดหมู่</value>
         <value xml:lang="zh">分类</value>
@@ -232,6 +255,7 @@
         <value xml:lang="es">Set de caracteres</value>
         <value xml:lang="fr">Jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
+        <value xml:lang="nl">Karakterset</value>
         <value xml:lang="ro">Set de Caractere</value>
         <value xml:lang="th">เซ็ตลักษณะ</value>
         <value xml:lang="zh">字符集</value>
@@ -241,6 +265,7 @@
         <value xml:lang="en">Clip</value>
         <value xml:lang="fr">Extraire</value>
         <value xml:lang="it">Taglia</value>
+        <value xml:lang="nl">Clip</value>
         <value xml:lang="zh">剪辑</value>
     </property>
     <property key="ContentCloneLayout">
@@ -249,6 +274,7 @@
         <value xml:lang="en">Clone Layout</value>
         <value xml:lang="fr">Répliquer une mise en page</value>
         <value xml:lang="it">Clona Layout</value>
+        <value xml:lang="nl">Kopiëren layout</value>
         <value xml:lang="th">คัดลอกแผนงาน</value>
         <value xml:lang="zh">克隆版式</value>
     </property>
@@ -260,6 +286,7 @@
         <value xml:lang="es">ComponerDoc</value>
         <value xml:lang="fr">Document composite</value>
         <value xml:lang="it">Composizione documenti</value>
+        <value xml:lang="nl">Samengesteld document (CompDoc)</value>
         <value xml:lang="ro">CompDoc</value>
         <value xml:lang="th">เอกสารคอมพิวเตอร์</value>
         <value xml:lang="zh">合成文档</value>
@@ -269,6 +296,7 @@
         <value xml:lang="en">Add Composite Document Instance Page for Template</value>
         <value xml:lang="fr">Ajouter une page, instance de document composite pour modèle</value>
         <value xml:lang="it">Aggiungi composizione documenti pagina istanza per template.</value>
+        <value xml:lang="nl">Toevoegen deel samengesteld document aan sjabloon.</value>
         <value xml:lang="zh">为模板添加合成文档实例页面</value>
     </property>
     <property key="ContentCompDocAfter">
@@ -276,6 +304,7 @@
         <value xml:lang="en">+Aft</value>
         <value xml:lang="fr">+Après</value>
         <value xml:lang="it">+Dopo</value>
+        <value xml:lang="nl">+Na</value>
         <value xml:lang="zh">+之后</value>
     </property>
     <property key="ContentCompDocApprovalStatus">
@@ -291,6 +320,7 @@
         <value xml:lang="en">Approvals</value>
         <value xml:lang="fr">Approbations</value>
         <value xml:lang="it">Approvazioni</value>
+        <value xml:lang="nl">Goedkeuringen</value>
         <value xml:lang="th">อนุญาต</value>
         <value xml:lang="zh">审批</value>
     </property>
@@ -300,6 +330,7 @@
         <value xml:lang="en">Content Approvals for</value>
         <value xml:lang="fr">Approbations de contenu pour</value>
         <value xml:lang="it">Approvazioni Contenuto</value>
+        <value xml:lang="nl">Goedkeuringen content voor</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
         <value xml:lang="zh">内容审批：</value>
     </property>
@@ -308,6 +339,7 @@
         <value xml:lang="en">+Bef</value>
         <value xml:lang="fr">+Avant</value>
         <value xml:lang="it">+Prima</value>
+        <value xml:lang="nl">+Voor</value>
         <value xml:lang="zh">+之前</value>
     </property>
     <property key="ContentCompDocChild">
@@ -487,6 +519,7 @@
         <value xml:lang="es">Contenido</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="nl">Content</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">内容</value>
@@ -499,6 +532,7 @@
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
         <value xml:lang="it">Gestione contenuti</value>
+        <value xml:lang="nl">Content Manager</value>
         <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
         <value xml:lang="th">หัวข้อการจัดการที่นำไปประยุกต์ใช้</value>
         <value xml:lang="zh">内容管理应用程序</value>
@@ -511,6 +545,7 @@
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
         <value xml:lang="it">Applicazione gestione contenuti</value>
+        <value xml:lang="nl">Content Manager Applicatie</value>
         <value xml:lang="ro">Aplicatie Gestiune Continuturi</value>
         <value xml:lang="th">หัวข้อการจัดการที่นำไปประยุกต์ใช้</value>
         <value xml:lang="zh">内容管理应用程序</value>
@@ -523,6 +558,7 @@
         <value xml:lang="es">Administración de contenido</value>
         <value xml:lang="fr">Configuration du contenu</value>
         <value xml:lang="it">Configurazione contenuto</value>
+        <value xml:lang="nl">Content instellingen</value>
         <value xml:lang="ro">Configurare Continut</value>
         <value xml:lang="th">การจัดการแต่ละหัวข้อ</value>
         <value xml:lang="zh">内容设置</value>
@@ -533,6 +569,7 @@
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
         <value xml:lang="it">Voci contenuto associate a questa risorsa dati</value>
+        <value xml:lang="nl">Content geassocieerd met deze databron</value>
         <value xml:lang="zh">关联到这个数据资源的内容记录</value>
     </property>
     <property key="ContentCreateFile">
@@ -541,6 +578,7 @@
         <value xml:lang="en">Create File</value>
         <value xml:lang="fr">Créer le fichier</value>
         <value xml:lang="it">Creare File</value>
+        <value xml:lang="nl">Aanmaken bestand</value>
         <value xml:lang="th">สร้างไฟล์</value>
         <value xml:lang="zh">新建文件</value>
     </property>
@@ -549,6 +587,7 @@
         <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
         <value xml:lang="it">Creare nuovo Blog</value>
+        <value xml:lang="nl">Aanmaken nieuwe blog</value>
         <value xml:lang="zh">新建博客</value>
     </property>
     <property key="ContentCreateNewBlogArticle">
@@ -556,6 +595,7 @@
         <value xml:lang="en">Create New Art.</value>
         <value xml:lang="fr">Créer un nouvel article</value>
         <value xml:lang="it">Creare nuovo articolo</value>
+        <value xml:lang="nl">Aanmaken nieuw artikel</value>
         <value xml:lang="zh">新建文章</value>
     </property>
     <property key="ContentCreateNewRootCompDocTemplate">
@@ -570,6 +610,7 @@
         <value xml:lang="en">DataBase Text</value>
         <value xml:lang="fr">Texte de base de données</value>
         <value xml:lang="it">Testo database</value>
+        <value xml:lang="nl">Database tekst</value>
         <value xml:lang="zh">数据库文本</value>
     </property>
     <property key="ContentDataResource">
@@ -580,6 +621,7 @@
         <value xml:lang="es">Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="nl">Databron</value>
         <value xml:lang="ro">Resursa Date</value>
         <value xml:lang="th">ที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源</value>
@@ -592,6 +634,7 @@
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
         <value xml:lang="it">Attributo</value>
+        <value xml:lang="nl">Attribuut</value>
         <value xml:lang="ro">Atribut</value>
         <value xml:lang="th">ลักษณะ</value>
         <value xml:lang="zh">属性</value>
@@ -604,6 +647,7 @@
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">Html</value>
         <value xml:lang="it">Html</value>
+        <value xml:lang="nl">Html</value>
         <value xml:lang="ro">Html</value>
         <value xml:lang="th">Html</value>
         <value xml:lang="zh">Html</value>
@@ -616,6 +660,7 @@
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
+        <value xml:lang="nl">Afbeelding</value>
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="zh">图像</value>
@@ -628,6 +673,7 @@
         <value xml:lang="es">Características del Producto</value>
         <value xml:lang="fr">Caractéristiques du produit</value>
         <value xml:lang="it">Caratteristiche Prodotto</value>
+        <value xml:lang="nl">Eigenschappen product</value>
         <value xml:lang="ro">Caracteristiche Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
         <value xml:lang="zh">产品特征</value>
@@ -640,6 +686,7 @@
         <value xml:lang="es">Tol</value>
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Ruolo</value>
+        <value xml:lang="nl">Rol</value>
         <value xml:lang="ro">Drept</value>
         <value xml:lang="th">หน้าที่</value>
         <value xml:lang="zh">角色</value>
@@ -652,6 +699,7 @@
         <value xml:lang="es">Texto</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="nl">Tekst</value>
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
@@ -661,6 +709,7 @@
         <value xml:lang="en">Upload</value>
         <value xml:lang="fr">Télécharger vers le serveur</value>
         <value xml:lang="it">Carica</value>
+        <value xml:lang="nl">Upload</value>
     </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
@@ -670,6 +719,7 @@
         <value xml:lang="es">Administración de recurso de datos</value>
         <value xml:lang="fr">Configuration des ressources de données</value>
         <value xml:lang="it">Configurazione risorsa dati</value>
+        <value xml:lang="nl">Databron instellingen</value>
         <value xml:lang="ro">Configurare Resurse Date</value>
         <value xml:lang="th">ติดตั้งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源设置</value>
@@ -680,6 +730,7 @@
         <value xml:lang="en">Data Type </value>
         <value xml:lang="fr">Type de données</value>
         <value xml:lang="it">Tipo Dati</value>
+        <value xml:lang="nl">Datasoort</value>
         <value xml:lang="th">ประเภทข้อมูล</value>
         <value xml:lang="zh">数据类型</value>
     </property>
@@ -703,6 +754,7 @@
         <value xml:lang="en">Document Type</value>
         <value xml:lang="fr">Type de document</value>
         <value xml:lang="it">Tipo documento</value>
+        <value xml:lang="nl">Soort document</value>
         <value xml:lang="zh">文档类型</value>
     </property>
     <property key="ContentDownload">
@@ -710,6 +762,7 @@
         <value xml:lang="en">Download</value>
         <value xml:lang="fr">Télécharger</value>
         <value xml:lang="it">Scarica</value>
+        <value xml:lang="nl">Download</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
@@ -719,6 +772,7 @@
         <value xml:lang="es">Modificar Tienda</value>
         <value xml:lang="fr">Modifier le centre de profit</value>
         <value xml:lang="it">Aggiorna Negozio</value>
+        <value xml:lang="nl">Wijzigen winkel</value>
         <value xml:lang="ro">Actualizeaza Magazin</value>
         <value xml:lang="th">แก้ไขคลังสินค้า</value>
         <value xml:lang="zh">编辑产品店铺</value>
@@ -738,6 +792,7 @@
         <value xml:lang="es">Archivo</value>
         <value xml:lang="fr">Fichier</value>
         <value xml:lang="it">File</value>
+        <value xml:lang="nl">Bestand</value>
         <value xml:lang="ro">Fisier</value>
         <value xml:lang="th">ไฟล์</value>
         <value xml:lang="zh">文件</value>
@@ -750,6 +805,7 @@
         <value xml:lang="es">Extesión de Archivo</value>
         <value xml:lang="fr">Extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
+        <value xml:lang="nl">Bestand extensie</value>
         <value xml:lang="ro">Estensione Fisier</value>
         <value xml:lang="th">ไฟล์  Ext</value>
         <value xml:lang="zh">文件扩展名</value>
@@ -908,6 +964,7 @@
         <value xml:lang="en">Go to Content</value>
         <value xml:lang="fr">Aller au contenu</value>
         <value xml:lang="it">Vai al contenuto</value>
+        <value xml:lang="nl">Tonen content</value>
         <value xml:lang="zh">转到内容</value>
     </property>
     <property key="ContentGoToDataResource">
@@ -918,6 +975,7 @@
         <value xml:lang="es">Ir al recurso de información</value>
         <value xml:lang="fr">Aller à la ressource de données</value>
         <value xml:lang="it">Vai alla risorsa dati</value>
+        <value xml:lang="nl">Tonen databron</value>
         <value xml:lang="ro">Dute la Resursa Date</value>
         <value xml:lang="th">ไปยังแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">转到数据资源</value>
@@ -937,6 +995,7 @@
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">HTML</value>
         <value xml:lang="it">Html</value>
+        <value xml:lang="nl">Html</value>
         <value xml:lang="ro">Html</value>
         <value xml:lang="th">Html</value>
         <value xml:lang="zh">Html</value>
@@ -946,6 +1005,7 @@
         <value xml:lang="en">Html Text</value>
         <value xml:lang="fr">Texte HTML</value>
         <value xml:lang="it">Teso html</value>
+        <value xml:lang="nl">Html tekst</value>
         <value xml:lang="zh">网页文本</value>
     </property>
     <property key="ContentImage">
@@ -956,6 +1016,7 @@
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
+        <value xml:lang="nl">Afbeelding</value>
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="th">รูป</value>
         <value xml:lang="zh">图像</value>
@@ -1111,6 +1172,7 @@
         <value xml:lang="en">Navigate</value>
         <value xml:lang="fr">Naviguer</value>
         <value xml:lang="it">Naviga</value>
+        <value xml:lang="nl">Navigeren</value>
         <value xml:lang="th">หาเส้นทาง</value>
         <value xml:lang="zh">导航</value>
     </property>
@@ -1255,6 +1317,7 @@
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="nl">Afgewezen</value>
         <value xml:lang="zh">被拒绝了</value>
     </property>
     <property key="ContentRenameFolder">
@@ -1383,6 +1446,7 @@
         <value xml:lang="es">Encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
+        <value xml:lang="nl">Onderzoek</value>
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="th">สำรวจ</value>
         <value xml:lang="zh">调查</value>
@@ -1775,6 +1839,7 @@
         <value xml:lang="en">Templates</value>
         <value xml:lang="fr">Modèles</value>
         <value xml:lang="it">Templates</value>
+        <value xml:lang="nl">Sjablonen</value>
         <value xml:lang="ro">Templates</value>
         <value xml:lang="th">รูปแบบ</value>
         <value xml:lang="zh">模板</value>
@@ -1793,6 +1858,7 @@
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="nl">Tekst</value>
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
@@ -1814,6 +1880,7 @@
         <value xml:lang="en">Content Type</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
+        <value xml:lang="nl">Soort content</value>
         <value xml:lang="th">หัวข้อประเภท</value>
         <value xml:lang="zh">内容类型</value>
     </property>
@@ -1874,6 +1941,7 @@
         <value xml:lang="en">WebSite</value>
         <value xml:lang="fr">Site Web</value>
         <value xml:lang="it">Sito Web</value>
+        <value xml:lang="nl">Website</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">网站</value>
@@ -1929,6 +1997,7 @@
         <value xml:lang="en">Web Site Content</value>
         <value xml:lang="fr">Contenu du site Web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
+        <value xml:lang="nl">Website content</value>
         <value xml:lang="th">หัวข้อเว็บไซต์</value>
         <value xml:lang="zh">网站内容</value>
     </property>
@@ -1948,7 +2017,8 @@
         <value xml:lang="en">WebSites</value>
         <value xml:lang="es">Sitios web</value>
         <value xml:lang="fr">Sites Web</value>
-        <value xml:lang="it">Siti web</value>
+        <value xml:lang="it">Siti web</value> 
+        <value xml:lang="nl">Websites</value>
         <value xml:lang="ro">Situri Web</value>
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">网站</value>
@@ -1958,6 +2028,7 @@
         <value xml:lang="en">Welcome to the Content Manager!</value>
         <value xml:lang="fr">Gestionnaire de contenu : bienvenue !</value>
         <value xml:lang="it">Benvenuti nella gestione contenuti!</value>
+        <value xml:lang="nl">Welkom in de Content Manager</value>
         <value xml:lang="zh">欢迎使用内容管理程序！</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
@@ -1978,6 +2049,7 @@
         <value xml:lang="en">Amount Base</value>
         <value xml:lang="fr">Quantité de base</value>
         <value xml:lang="it">Importo Base</value>
+        <value xml:lang="nl">Basisbedrag</value>
         <value xml:lang="ro">Valoare Baza</value>
         <value xml:lang="th">ฐานเงินเดือน</value>
         <value xml:lang="zh">基数</value>
@@ -1989,6 +2061,7 @@
         <value xml:lang="en">Amount Base Uom Id</value>
         <value xml:lang="fr">Unité de mesure de qantité de base</value>
         <value xml:lang="it">Udm Importo Base</value>
+        <value xml:lang="nl">Basisbedrag eenheid ID</value>
         <value xml:lang="ro">Udm Valoare Baza</value>
         <value xml:lang="th">Amount Base Uom Id</value>
         <value xml:lang="zh">基数货币单位标识</value>
@@ -2000,6 +2073,7 @@
         <value xml:lang="en">Approval Date</value>
         <value xml:lang="fr">Date d'approbation</value>
         <value xml:lang="it">Data Approvazione</value>
+        <value xml:lang="nl">Datum goedkeuring</value>
         <value xml:lang="ro">Data Aprovare</value>
         <value xml:lang="th">วันที่ลงความเห็น</value>
         <value xml:lang="zh">批准日期</value>
@@ -2009,6 +2083,7 @@
         <value xml:lang="en">Approval Status Id</value>
         <value xml:lang="fr">Statut d'approbation</value>
         <value xml:lang="it">Stato approvazione</value>
+        <value xml:lang="nl">Goedkeuring status ID</value>
         <value xml:lang="zh">批准状态标识</value>
     </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
@@ -2029,6 +2104,7 @@
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
+        <value xml:lang="nl">Content ID naar</value>
         <value xml:lang="ro">Continut A</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
         <value xml:lang="zh">内容标识到</value>
@@ -2037,6 +2113,7 @@
         <value xml:lang="da">Oprettet dato</value>
         <value xml:lang="en">ca Created Date</value>
         <value xml:lang="it">Data creazione</value>
+        <value xml:lang="nl">Datum aangemaakt</value>
     </property>
     <property key="FormFieldTitle_caFromDate">
         <value xml:lang="da">Fra dato og tid</value>
@@ -2044,6 +2121,7 @@
         <value xml:lang="en">From Date &amp; Time</value>
         <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
+        <value xml:lang="nl">Vanaf datum en tijd</value>
         <value xml:lang="th">จากวัน เวลา</value>
         <value xml:lang="zh">自日期和时间</value>
     </property>
@@ -2086,6 +2164,7 @@
         <value xml:lang="en">Content Id</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
+        <value xml:lang="nl">Content ID</value>
         <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
         <value xml:lang="zh">内容标识</value>
     </property>
@@ -2095,6 +2174,7 @@
         <value xml:lang="en">Content Name</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Conteunto</value>
+        <value xml:lang="nl">Naam content</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
         <value xml:lang="zh">内容名称</value>
     </property>
@@ -2104,6 +2184,7 @@
         <value xml:lang="en">Content Description</value>
         <value xml:lang="fr">Description de contenu</value>
         <value xml:lang="it">Descrizione Contenuto</value>
+        <value xml:lang="nl">Beschrijving content</value>
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">内容描述</value>
     </property>
@@ -2114,6 +2195,7 @@
         <value xml:lang="en">Column Title</value>
         <value xml:lang="fr">Titre de colonne</value>
         <value xml:lang="it">Titolo Colonna</value>
+        <value xml:lang="nl">Titel kolom</value>
         <value xml:lang="ro">Titlu Coloana</value>
         <value xml:lang="th">ชื่อคอลัมน์</value>
         <value xml:lang="zh">列标题</value>
@@ -2125,6 +2207,7 @@
         <value xml:lang="en">Committed By Party Id</value>
         <value xml:lang="fr">Téléchargement par acteur</value>
         <value xml:lang="it">Registrato Dal Soggetto</value>
+        <value xml:lang="nl">Toegevoegd door partij ID</value>
         <value xml:lang="ro">Registrat de Partenerul</value>
         <value xml:lang="th">รับผิดชอบโดยกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">提交者会员标识</value>
@@ -2136,6 +2219,7 @@
         <value xml:lang="en">Content Approval Id</value>
         <value xml:lang="fr">Contenu d'approbation</value>
         <value xml:lang="it">Codice Approvazione Contenuto</value>
+        <value xml:lang="nl">Content goedkeuring ID</value>
         <value xml:lang="ro">Cod Aprovare Continut</value>
         <value xml:lang="th">รหัสหัวข้อความคิดเห็น</value>
         <value xml:lang="zh">内容批准标识</value>
@@ -2170,7 +2254,7 @@
         <value xml:lang="es">Código de contenido</value>
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
-        <value xml:lang="nl">Content-ID</value>
+        <value xml:lang="nl">Content ID</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Код контента</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -2183,6 +2267,7 @@
         <value xml:lang="en">Content Id From</value>
         <value xml:lang="fr">Contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
+        <value xml:lang="nl">Content ID van</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อจาก</value>
         <value xml:lang="zh">内容标识来自</value>
@@ -2194,6 +2279,7 @@
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
+        <value xml:lang="nl">Content ID naar</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อถึง</value>
         <value xml:lang="zh">内容标识到</value>
@@ -2206,6 +2292,7 @@
         <value xml:lang="es">Nombre de contenido</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome contenuto</value>
+        <value xml:lang="nl">Naam content</value>
         <value xml:lang="ro">Nume Continut</value>
         <value xml:lang="ru">Имя контента</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
@@ -2272,6 +2359,7 @@
         <value xml:lang="da">Status id</value>
         <value xml:lang="en">Status Id</value>
         <value xml:lang="it">Stato</value>
+        <value xml:lang="nl">Status ID</value>
     </property>
     <property key="FormFieldTitle_contentType">
         <value xml:lang="ar">نوع المحتوى</value>
@@ -2281,6 +2369,7 @@
         <value xml:lang="es">Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo contenuto</value>
+        <value xml:lang="nl">Soort content</value>
         <value xml:lang="ro">Tip Continut</value>
         <value xml:lang="ru">Тип контента</value>
         <value xml:lang="th">ประเภทหัวข้อ</value>
@@ -2294,6 +2383,7 @@
         <value xml:lang="es">Código Tipo de contenido</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
+        <value xml:lang="nl">Content soort ID</value>
         <value xml:lang="ro">Tip Continut</value>
         <value xml:lang="ru">Код типа контента</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ</value>
@@ -2307,6 +2397,7 @@
         <value xml:lang="es">Dominio de cookie</value>
         <value xml:lang="fr">Cookie de domaine</value>
         <value xml:lang="it">Dominio cookie</value>
+        <value xml:lang="nl">Cookie domein</value>
         <value xml:lang="ro">Domeniu Cookie</value>
         <value xml:lang="ru">Cookie домен</value>
         <value xml:lang="th">ขอบเขตบุคคล</value>
@@ -2320,6 +2411,7 @@
         <value xml:lang="es">Código Categoría de datos</value>
         <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
+        <value xml:lang="nl">Datacategorie ID</value>
         <value xml:lang="ro">Categorie Date</value>
         <value xml:lang="ru">Код категории данных</value>
         <value xml:lang="th">รหัสประเภทข้อมูล</value>
@@ -2333,7 +2425,7 @@
         <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
-        <value xml:lang="nl">ID databron</value>
+        <value xml:lang="nl">Databron ID</value>
         <value xml:lang="ro">Resurse Date</value>
         <value xml:lang="ru">Код ресурса данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -2347,6 +2439,7 @@
         <value xml:lang="es">Código Recurso de datos</value>
         <value xml:lang="fr">Nom de ressource de données</value>
         <value xml:lang="it">Nome Risorsa Dati</value>
+        <value xml:lang="nl">Naam databron</value>
         <value xml:lang="ro">Nome Resurse Date</value>
         <value xml:lang="ru">Имя ресурса данных</value>
         <value xml:lang="th">ชื่อแหล่งที่มาของข้อมูล</value>
@@ -2359,6 +2452,7 @@
         <value xml:lang="en">Data Resource</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="nl">Titel databron</value>
         <value xml:lang="ro">Resursa Date</value>
         <value xml:lang="th">แหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源</value>
@@ -2385,6 +2479,7 @@
         <value xml:lang="es">Código Fuente de datos</value>
         <value xml:lang="fr">Source de données</value>
         <value xml:lang="it">Risorsa dati</value>
+        <value xml:lang="nl">Databron ID</value>
         <value xml:lang="ro">Risursa Date</value>
         <value xml:lang="ru">Код источника данных</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -2398,6 +2493,7 @@
         <value xml:lang="es">Código Plantilla de datos</value>
         <value xml:lang="fr">Type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
+        <value xml:lang="nl">Data sjabloonsoort ID</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="ru">Код типа шаблона данных</value>
         <value xml:lang="th">รหัสประเภท Template</value>
@@ -2449,6 +2545,7 @@
         <value xml:lang="en">Data Category</value>
         <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
+        <value xml:lang="nl">Datacategorie</value>
         <value xml:lang="ro">Categorie Date</value>
         <value xml:lang="th">หมวดหมู่ข้อมูล</value>
         <value xml:lang="zh">数据分类</value>
@@ -2460,6 +2557,7 @@
         <value xml:lang="en">Dr Data Resource Type Id</value>
         <value xml:lang="fr">Type de ressource de données (Dr)</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
+        <value xml:lang="nl">Databron soort ID</value>
         <value xml:lang="ro">Tip Resurse Date</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มา</value>
         <value xml:lang="zh">指定数据资源类型标识</value>
@@ -2493,6 +2591,7 @@
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
+        <value xml:lang="nl">Taal en regio</value>
         <value xml:lang="ro">Sir Local</value>
         <value xml:lang="th">เส้นทาง</value>
         <value xml:lang="zh">本地语言字符串</value>
@@ -2531,6 +2630,7 @@
         <value xml:lang="en">Duration</value>
         <value xml:lang="fr">Durée</value>
         <value xml:lang="it">Durata</value>
+        <value xml:lang="nl">Duur</value>
         <value xml:lang="ro">Durata</value>
         <value xml:lang="th">ช่วงเวลา</value>
         <value xml:lang="zh">有效期</value>
@@ -2542,6 +2642,7 @@
         <value xml:lang="en">Duration Uom Id</value>
         <value xml:lang="fr">Durée UOM</value>
         <value xml:lang="it">Udm Durata</value>
+        <value xml:lang="nl">Duur eenheid ID</value>
         <value xml:lang="ro">Udm Durata</value>
         <value xml:lang="th">รหัสช่วงเวลา Uom</value>
         <value xml:lang="zh">有效期货币单位标识</value>
@@ -2553,6 +2654,7 @@
         <value xml:lang="en">Edit</value>
         <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
+        <value xml:lang="nl">Wijzigen</value>
         <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="th">แก้ไข</value>
         <value xml:lang="zh">编辑</value>
@@ -2565,6 +2667,7 @@
         <value xml:lang="es">Habilitar Https</value>
         <value xml:lang="fr">Permettre Https</value>
         <value xml:lang="it">Abilita Https</value>
+        <value xml:lang="nl">Maak Https mogelijk</value>
         <value xml:lang="ro">Abilitate Https</value>
         <value xml:lang="ru">Использовать Https</value>
         <value xml:lang="th">Https ที่สามารถใช้ได้</value>
@@ -2800,6 +2903,7 @@
         <value xml:lang="en">Image File Name</value>
         <value xml:lang="fr">Nom de fichier image</value>
         <value xml:lang="it">Nome File Immagine</value>
+        <value xml:lang="nl">Bestandnaam afbeelding</value>
         <value xml:lang="ro">Nume Fisier Imagine</value>
         <value xml:lang="th">ไฟล์รูปภาพชื่อ</value>
         <value xml:lang="zh">图像文件名称</value>
@@ -2836,6 +2940,7 @@
         <value xml:lang="es">Es anónimo</value>
         <value xml:lang="fr">Est anonyme</value>
         <value xml:lang="it">E' Anonimo</value>
+        <value xml:lang="nl">Is anoniem</value>
         <value xml:lang="ro">Este Anonim</value>
         <value xml:lang="ru">Анонимный?</value>
         <value xml:lang="th">ไม่เป็นที่เปิดเผย</value>
@@ -2870,6 +2975,7 @@
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa locale</value>
+        <value xml:lang="nl">Taal en regio</value>
         <value xml:lang="ro">Sir Local</value>
         <value xml:lang="ru">Идентификатор языка</value>
         <value xml:lang="th">ทางที่เกิดเหตุ</value>
@@ -2901,6 +3007,7 @@
         <value xml:lang="en">Msgs List</value>
         <value xml:lang="fr">Liste de messages</value>
         <value xml:lang="it">Lista Messaggi</value>
+        <value xml:lang="nl">Berichtenlijst</value>
         <value xml:lang="ro">Lista Mesaje</value>
         <value xml:lang="th">รายการข้อความ</value>
         <value xml:lang="zh">消息列表</value>
@@ -2912,6 +3019,7 @@
         <value xml:lang="en">Message Text </value>
         <value xml:lang="fr">Texte du message</value>
         <value xml:lang="it">Testo Messaggio</value>
+        <value xml:lang="nl">Berichttekst</value>
         <value xml:lang="ro">Text Mesaj</value>
         <value xml:lang="th">ข้อความตัวอักษร</value>
         <value xml:lang="zh">消息文本 </value>
@@ -3002,6 +3110,7 @@
         <value xml:lang="en">New Data Resource Id</value>
         <value xml:lang="fr">Nouvelle ressource de données</value>
         <value xml:lang="it">Nuovo Codice Risorsa Dati</value>
+        <value xml:lang="nl">Nieuwe databron</value>
         <value xml:lang="ro">Cod Nou Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">新数据资源标识</value>
@@ -3014,6 +3123,7 @@
         <value xml:lang="es">Información del objeto</value>
         <value xml:lang="fr">Information d'objet</value>
         <value xml:lang="it">Informazione Oggetto</value>
+        <value xml:lang="nl">Object informatie</value>
         <value xml:lang="ro">Informatie Obiect</value>
         <value xml:lang="ru">Информация по объекту</value>
         <value xml:lang="th">ข้อมูลสิ่งของ</value>
@@ -3026,6 +3136,7 @@
         <value xml:lang="en">Old Data Resource Id</value>
         <value xml:lang="fr">Ancienne ressource de données</value>
         <value xml:lang="it">Vecchio Codice Risorsa Dati</value>
+        <value xml:lang="nl">Oude databron ID</value>
         <value xml:lang="ro">Cod Vechi Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูลเดิม</value>
         <value xml:lang="zh">旧数据资源标识</value>
@@ -3038,6 +3149,7 @@
         <value xml:lang="es">Código del propietario</value>
         <value xml:lang="fr">Contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
+        <value xml:lang="nl">Eigenaar content ID</value>
         <value xml:lang="ro">Proprietar Continut</value>
         <value xml:lang="ru">Код владельца контента</value>
         <value xml:lang="th">รหัสเจ้าของหัวข้อ</value>
@@ -3050,6 +3162,7 @@
         <value xml:lang="en">Page Name</value>
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome Pagina</value>
+        <value xml:lang="nl">Naam pagina</value>
         <value xml:lang="ro">Nume Pagina</value>
         <value xml:lang="th">ชื่อหน้า</value>
         <value xml:lang="zh">页面名称</value>
@@ -3071,6 +3184,7 @@
         <value xml:lang="en">Paste Content</value>
         <value xml:lang="fr">Coller le contenu</value>
         <value xml:lang="it">Incolla Contenuto</value>
+        <value xml:lang="nl">Invoegen content</value>
         <value xml:lang="th">หัวข้อที่ผ่านมา</value>
         <value xml:lang="zh">粘贴内容</value>
     </property>
@@ -3207,6 +3321,7 @@
         <value xml:lang="en">Roles</value>
         <value xml:lang="fr">Rôles</value>
         <value xml:lang="it">Ruoli</value>
+        <value xml:lang="nl">Rollen</value>
         <value xml:lang="ro">Drepturi</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">角色</value>
@@ -3215,6 +3330,7 @@
         <value xml:lang="da">Sektion</value>
         <value xml:lang="en">section</value>
         <value xml:lang="it">sezione</value>
+        <value xml:lang="nl">sectie</value>
         <value xml:lang="zh">节</value>
     </property>
     <property key="FormFieldTitle_secureContentPrefix">
@@ -3237,6 +3353,7 @@
         <value xml:lang="en">Select</value>
         <value xml:lang="fr">Sélectionner</value>
         <value xml:lang="it">Scegli</value>
+        <value xml:lang="nl">Selecteer</value>
         <value xml:lang="ro">Alege</value>
         <value xml:lang="th">เลือก</value>
         <value xml:lang="zh">选择</value>
@@ -3249,6 +3366,7 @@
         <value xml:lang="es">Nombre del servicio</value>
         <value xml:lang="fr">Nom de service</value>
         <value xml:lang="it">Nome Servizio</value>
+        <value xml:lang="nl">Naam service</value>
         <value xml:lang="ro">Nume Serviciu</value>
         <value xml:lang="ru">Имя сервиса</value>
         <value xml:lang="th">ชื่อบริการ</value>
@@ -3262,6 +3380,7 @@
         <value xml:lang="es">Nombre del sitio</value>
         <value xml:lang="fr">Nom de site</value>
         <value xml:lang="it">Nome Sito</value>
+        <value xml:lang="nl">Naam site</value>
         <value xml:lang="ro">Nume Sit</value>
         <value xml:lang="ru">Имя сайта</value>
         <value xml:lang="th">ชื่อ Site</value>
@@ -3274,6 +3393,7 @@
         <value xml:lang="en">Skip Permission Check</value>
         <value xml:lang="fr">Sauter le contrôle d'autorisation</value>
         <value xml:lang="it">Salta Controllo Permesso</value>
+        <value xml:lang="nl">Sla toestemmingscontrole over</value>
         <value xml:lang="ro">Salta Controlul Permis</value>
         <value xml:lang="th">เช็คการไม่ยินยอม</value>
         <value xml:lang="zh">跳过权限检查</value>
@@ -3299,6 +3419,7 @@
         <value xml:lang="es">Código de encuesta</value>
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
+        <value xml:lang="nl">Onderzoek ID</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="ru">Код обзора</value>
         <value xml:lang="th">รหัสการสำรวจ</value>
@@ -3440,6 +3561,7 @@
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Données textuelles</value>
         <value xml:lang="it">Testo</value>
+        <value xml:lang="nl">Tekst</value>
         <value xml:lang="ro">Text</value>
         <value xml:lang="th">ตัวอักษร</value>
         <value xml:lang="zh">文本</value>
@@ -3449,6 +3571,7 @@
         <value xml:lang="en">Topic</value>
         <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
+        <value xml:lang="nl">Onderwerp</value>
         <value xml:lang="zh">主题</value>
     </property>
     <property key="FormFieldTitle_tree">
@@ -3484,6 +3607,7 @@
         <value xml:lang="en">Visual Theme Set</value>
         <value xml:lang="fr">Ensemble de thèmes visuels</value>
         <value xml:lang="it">Set di temi grafici</value>
+        <value xml:lang="nl">Visueel thema set ID</value>
         <value xml:lang="zh">视觉效果集合</value>
     </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
@@ -3492,6 +3616,7 @@
         <value xml:lang="en">Web Site Content Type Id</value>
         <value xml:lang="fr">Type de contenu de site Web</value>
         <value xml:lang="it">Tipo Contenuto Sito Web</value>
+        <value xml:lang="nl">Website contentsoort ID</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ Web Site</value>
         <value xml:lang="zh">网站内容类型标识</value>
     </property>
@@ -3503,7 +3628,7 @@
         <value xml:lang="es">Código del sitio web</value>
         <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
-        <value xml:lang="nl">Web Site Id</value>
+        <value xml:lang="nl">Website ID</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="ru">Код Web сайта</value>
         <value xml:lang="th">รหัส Web Site</value>
@@ -3527,6 +3652,7 @@
         <value xml:lang="en">Add an association</value>
         <value xml:lang="fr">Ajouter une association</value>
         <value xml:lang="it">Aggiungi una associazione</value>
+        <value xml:lang="nl">Toevoegen associatie</value>
         <value xml:lang="ro">Adauga o asociatie</value>
         <value xml:lang="th">เพิ่มกลุ่มใหม่</value>
         <value xml:lang="zh">新建关联</value>
@@ -3538,6 +3664,7 @@
         <value xml:lang="en">Add an attribute</value>
         <value xml:lang="fr">Ajouter un attribut</value>
         <value xml:lang="it">Aggiungi un'attributo</value>
+        <value xml:lang="nl">Toevoegen attribuut</value>
         <value xml:lang="ro">Adauga un'atribut</value>
         <value xml:lang="th">เพิ่มคุณสมบัติ</value>
         <value xml:lang="zh">新建属性</value>
@@ -3571,6 +3698,7 @@
         <value xml:lang="es">Añadir Contenido</value>
         <value xml:lang="fr">Ajouter un contenu</value>
         <value xml:lang="it">Aggiungi contenuto</value>
+        <value xml:lang="nl">Toevoegen content</value>
         <value xml:lang="ro">Adaugia Continut</value>
         <value xml:lang="ru">Добавить контент</value>
         <value xml:lang="th">เพิ่มหัวข้อ</value>
@@ -3583,6 +3711,7 @@
         <value xml:lang="en">Add DataResource</value>
         <value xml:lang="fr">Ajouter une ressource de données</value>
         <value xml:lang="it">Aggiungi Risorsa Dati</value>
+        <value xml:lang="nl">Toevoegen databron</value>
         <value xml:lang="ro">Adauga Resursa Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">新建数据资源</value>
@@ -3594,6 +3723,7 @@
         <value xml:lang="en">Add DataResource Text</value>
         <value xml:lang="fr">Ajouter une ressource de données (texte)</value>
         <value xml:lang="it">Aggiungi Testo Risorsa Dati</value>
+        <value xml:lang="nl">Toevoegen databron tekst</value>
         <value xml:lang="ro">Adauga Text Resurse Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลเป็นตัวอักษร</value>
         <value xml:lang="zh">新建数据资源文本</value>
@@ -3605,6 +3735,7 @@
         <value xml:lang="en">Add DataResource Upload</value>
         <value xml:lang="fr">Ajouter une ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiungi Caricamento Risorsa Dati</value>
+        <value xml:lang="nl">Toevoegen databron upload</value>
         <value xml:lang="ro">Adauga Incarcare Resursa Dati</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลโดยการโหลด</value>
         <value xml:lang="zh">新建数据资源上传</value>
@@ -3616,6 +3747,7 @@
         <value xml:lang="en">Add DataResource Url</value>
         <value xml:lang="fr">Ajouter une ressource de données (URL)</value>
         <value xml:lang="it">Aggiungi Url Risorsa Dati</value>
+        <value xml:lang="nl">Toevoegen databron url</value>
         <value xml:lang="ro">Adauga Url Resursa Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลเป็น Url</value>
         <value xml:lang="zh">新建数据资源网址</value>
@@ -3649,6 +3781,7 @@
         <value xml:lang="en">Add a MetaData</value>
         <value xml:lang="fr">Ajouter une méta-donnée</value>
         <value xml:lang="it">Aggiungi Metadati</value>
+        <value xml:lang="nl">Toevoegen metadata</value>
         <value xml:lang="ro">Adauga Metadate</value>
         <value xml:lang="th">เพิ่มข้อมูล</value>
         <value xml:lang="zh">新建Meta数据</value>
@@ -3671,6 +3804,7 @@
         <value xml:lang="en">Add a Role</value>
         <value xml:lang="fr">Ajouter un rôle</value>
         <value xml:lang="it">Aggiungi un Ruolo</value>
+        <value xml:lang="nl">Toevoegen rol</value>
         <value xml:lang="ro">Adauga un Rol</value>
         <value xml:lang="th">เพิ่มสถานะ</value>
         <value xml:lang="zh">新建角色</value>
@@ -3720,6 +3854,7 @@
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="it">Creare Sondaggio</value>
+        <value xml:lang="nl">Aanmaken onderzoek</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
         <value xml:lang="zh">新建调查</value>
@@ -3730,6 +3865,7 @@
         <value xml:lang="en">Create Web Site Content</value>
         <value xml:lang="fr">Créer le contenu du site Web</value>
         <value xml:lang="it">Creare Contenuto Sito Web</value>
+        <value xml:lang="nl">Aanmaken website content</value>
         <value xml:lang="th">สร้างหัวข้อเว็บไซต์</value>
         <value xml:lang="zh">新建网站内容</value>
     </property>
@@ -3739,6 +3875,7 @@
         <value xml:lang="en">Create Web Site Parties</value>
         <value xml:lang="fr">Créer les acteurs du site Web</value>
         <value xml:lang="it">Creare Soggetti Sito Web</value>
+        <value xml:lang="nl">Aanmaken website partijen</value>
         <value xml:lang="th">สร้างกลุ่มผู้ใช้เว็บไซต์</value>
         <value xml:lang="zh">新建网站会员</value>
     </property>
@@ -3749,6 +3886,7 @@
         <value xml:lang="en">Edit an association</value>
         <value xml:lang="fr">Modifier une association</value>
         <value xml:lang="it">Aggiorna una associazione</value>
+        <value xml:lang="nl">Wijzig associatie</value>
         <value xml:lang="ro">Adauga o asociatie</value>
         <value xml:lang="th">แก้ไขความคิดเห็น</value>
         <value xml:lang="zh">编辑关联</value>
@@ -3766,6 +3904,7 @@
         <value xml:lang="en">CMS Content Edit</value>
         <value xml:lang="fr">Modifier le contenu CMS</value>
         <value xml:lang="it">Aggiorna Contenuto CMS</value>
+        <value xml:lang="nl">Wijzigen content CMS</value>
         <value xml:lang="th">แก้ไขหัวข้อ CMS</value>
         <value xml:lang="zh">内容管理系统内容编辑</value>
     </property>
@@ -3796,7 +3935,7 @@
         <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="it">Aggiorna contenuto</value>
         <value xml:lang="ja">Edit Content</value>
-        <value xml:lang="nl">Pas de inhoud aan</value>
+        <value xml:lang="nl">Wijzigen content</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
         <value xml:lang="ru">Редактировать контент</value>
         <value xml:lang="th">แก้ไขหัวข้อ</value>
@@ -3818,6 +3957,7 @@
         <value xml:lang="en">Edit Content Association</value>
         <value xml:lang="fr">Modifier le contenu d'association</value>
         <value xml:lang="it">Aggiorna Associazione Contenuto</value>
+        <value xml:lang="nl">Wijzigen content associatie</value>
         <value xml:lang="ro">Actualizeaza Asociatie Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อความคิดเห็น</value>
         <value xml:lang="zh">编辑内容关联</value>
@@ -3840,6 +3980,7 @@
         <value xml:lang="en">Edit Content Association Type</value>
         <value xml:lang="fr">Modifier le type de contenu d'association</value>
         <value xml:lang="it">Aggiorna Tipo Associazione Contenuto</value>
+        <value xml:lang="nl">Wijzigen content associatie soort</value>
         <value xml:lang="th">แก้ไขประเภทหัวข้อความคิดเห็น</value>
         <value xml:lang="zh">编辑内容关联类型</value>
     </property>
@@ -3850,6 +3991,7 @@
         <value xml:lang="en">Edit Content Attribute</value>
         <value xml:lang="fr">Modifier l'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Contenuto</value>
+        <value xml:lang="nl">Wijzigen content attribuut</value>
         <value xml:lang="ro">Actualizeaza Atribut Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อคุณสมบัติ</value>
         <value xml:lang="zh">编辑内容属性</value>
@@ -3861,6 +4003,7 @@
         <value xml:lang="en">Edit Content Metadata</value>
         <value xml:lang="fr">Modifier le contenu méta-données</value>
         <value xml:lang="it">Aggiorna Metadata Contenuto</value>
+        <value xml:lang="nl">Wijzigen content metadata</value>
         <value xml:lang="ro">Actualizeaza Metadata Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อข้อมูล</value>
         <value xml:lang="zh">编辑内容Meta数据</value>
@@ -3915,6 +4058,7 @@
         <value xml:lang="en">Edit Content Role</value>
         <value xml:lang="fr">Modifier le rôle du contenu</value>
         <value xml:lang="it">Aggiorna Ruolo Contenuto</value>
+        <value xml:lang="nl">Wijzigen content rol</value>
         <value xml:lang="ro">Actualizeaza Drept Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อสถานะ</value>
         <value xml:lang="zh">编辑内容角色</value>
@@ -3926,6 +4070,7 @@
         <value xml:lang="en">Edit Content Type</value>
         <value xml:lang="fr">Modifier le type du contenu</value>
         <value xml:lang="it">Aggiorna Tipo Contenuto</value>
+        <value xml:lang="nl">Wijzigen content soort</value>
         <value xml:lang="ro">Actualizeaza Tip Continut</value>
         <value xml:lang="th">แก้ไขหัวข้อประเภท</value>
         <value xml:lang="zh">编辑内容类型</value>
@@ -3937,6 +4082,7 @@
         <value xml:lang="en">Edit Content Type Attribute</value>
         <value xml:lang="fr">Modifier le le type d'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Contenuto</value>
+        <value xml:lang="nl">Wijzigen content soort attribuut</value>
         <value xml:lang="th">แก้ไขหัวข้อประเภทคุณสมบัติ</value>
         <value xml:lang="zh">编辑内容类型属性</value>
     </property>
@@ -3947,6 +4093,7 @@
         <value xml:lang="en">Permissions</value>
         <value xml:lang="fr">Autorisations</value>
         <value xml:lang="it">Permessi</value>
+        <value xml:lang="nl">Rechten</value>
         <value xml:lang="ro">Permisiuni</value>
         <value xml:lang="th">อนุญาต</value>
         <value xml:lang="zh">权限</value>
@@ -3968,6 +4115,7 @@
         <value xml:lang="en">Edit Data Resource</value>
         <value xml:lang="fr">Modifier la ressource de données</value>
         <value xml:lang="it">Aggiorna Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron</value>
         <value xml:lang="ro">Actualizeaza Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">编辑数据资源</value>
@@ -3979,6 +4127,7 @@
         <value xml:lang="en">Edit Data Resource Attribute</value>
         <value xml:lang="fr">Modifier l'attribut de ressources de données</value>
         <value xml:lang="it">Aggiorna Attributo Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron attribuut</value>
         <value xml:lang="ro">Actualizeaza Atribut Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลคุณสมบัติ</value>
         <value xml:lang="zh">编辑数据资源属性</value>
@@ -3989,6 +4138,7 @@
         <value xml:lang="en">Edit Data Resource Category</value>
         <value xml:lang="fr">Modifier la catégorie de ressources de données</value>
         <value xml:lang="it">Aggiorna Categoria Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron categorie</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหมวดหมู่</value>
         <value xml:lang="zh">编辑数据资源分类</value>
     </property>
@@ -3998,6 +4148,7 @@
         <value xml:lang="en">Edit Character Set</value>
         <value xml:lang="fr">Modifier le jeu de caractères</value>
         <value xml:lang="it">Aggiorna Set di Caratteri</value>
+        <value xml:lang="nl">Databron karakter set</value>
         <value xml:lang="th">แก้ไขการเซ็ตลักษณะ</value>
         <value xml:lang="zh">编辑字符集</value>
     </property>
@@ -4007,6 +4158,7 @@
         <value xml:lang="en">Edit File Extension</value>
         <value xml:lang="fr">Modifier l'extension de fichier</value>
         <value xml:lang="it">Aggiorna Estensione File</value>
+        <value xml:lang="nl">Databron bestandsextensie</value>
         <value xml:lang="th">แก้ไขไฟล์ที่เพิ่ม</value>
         <value xml:lang="zh">编辑文件扩展名</value>
     </property>
@@ -4044,6 +4196,7 @@
         <value xml:lang="en">Edit Data Resource Product Features</value>
         <value xml:lang="fr">Modifier la ressource de données (caractéristiques du produit)</value>
         <value xml:lang="it">Aggiorna Caratteristiche Prodotto Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron producteigenschappen</value>
         <value xml:lang="ro">Actualizeaza Caracteristicile Produs Resurse Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลลักษณะสินค้า</value>
         <value xml:lang="zh">编辑数据资源产品特征</value>
@@ -4055,6 +4208,7 @@
         <value xml:lang="en">Edit Data Resource Role</value>
         <value xml:lang="fr">Modifier la ressource de données (rôle)</value>
         <value xml:lang="it">Aggiorna Ruolo Risorsa Dati</value>
+        <value xml:lang="nl">Wijgen databron rol</value>
         <value xml:lang="ro">Actualizeaza Drept Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหน้าที่</value>
         <value xml:lang="zh">编辑数据资源角色</value>
@@ -4066,6 +4220,7 @@
         <value xml:lang="en">Edit Data Resource Text</value>
         <value xml:lang="fr">Modifier la ressource de données (texte)</value>
         <value xml:lang="it">Aggiorna Testo Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen tekst databron</value>
         <value xml:lang="ro">Actualizeaza Text Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลตัวอักษร</value>
         <value xml:lang="zh">编辑数据资源文本</value>
@@ -4077,6 +4232,7 @@
         <value xml:lang="en">Edit Data Resource Type</value>
         <value xml:lang="fr">Modifier la ressource de données (type)</value>
         <value xml:lang="it">Aggiorna Tipo Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron soort</value>
         <value xml:lang="ro">Actualizeaza Tip Risursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลประเภท</value>
         <value xml:lang="zh">编辑数据资源类型</value>
@@ -4087,6 +4243,7 @@
         <value xml:lang="en">Edit Data Resource Type Attribute</value>
         <value xml:lang="fr">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron soort attribuut</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของประเภทคุณสมบัติ</value>
         <value xml:lang="zh">编辑数据资源类型属性</value>
     </property>
@@ -4097,6 +4254,7 @@
         <value xml:lang="en">Edit Data Resource Upload</value>
         <value xml:lang="fr">Modifier la ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiorna Caricamento Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron upload</value>
         <value xml:lang="ro">Actualizeaza Incarcare Risurse Date</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของการโหลด</value>
         <value xml:lang="zh">编辑数据资源上传</value>
@@ -4108,6 +4266,7 @@
         <value xml:lang="en">Edit Data Resource Url</value>
         <value xml:lang="fr">Modifier la ressource de données (URL)</value>
         <value xml:lang="it">Aggiorna Url Risorsa Dati</value>
+        <value xml:lang="nl">Wijzigen databron url</value>
         <value xml:lang="ro">Actualizeaza Url Resura Date</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของ Url</value>
         <value xml:lang="zh">编辑数据资源网址</value>
@@ -4119,6 +4278,7 @@
         <value xml:lang="en">Edit Electronic Text</value>
         <value xml:lang="fr">Modifier le texte électronique</value>
         <value xml:lang="it">Aggiorna Testo Elettronico</value>
+        <value xml:lang="nl">Wijzigen electronische tekst</value>
         <value xml:lang="ro">Actualizeaza Text Electronic</value>
         <value xml:lang="th">แก้ไขตัวอักษรอิเล็กทรอนิกส์</value>
         <value xml:lang="zh">编辑电子文本</value>
@@ -4141,6 +4301,7 @@
         <value xml:lang="en">Edit Html Text</value>
         <value xml:lang="fr">Modifier le texte HTML</value>
         <value xml:lang="it">Aggiorna Testo Html</value>
+        <value xml:lang="nl">Wijzigen Html tekst</value>
         <value xml:lang="ro">Actualizeaza Text Html</value>
         <value xml:lang="th">แก้ไขตัวอักษรใน Html</value>
         <value xml:lang="zh">编辑Html文本</value>
@@ -4242,6 +4403,7 @@
         <value xml:lang="en">Edit WebSite</value>
         <value xml:lang="fr">Modifier le site web</value>
         <value xml:lang="it">Aggiorna Sito Web</value>
+        <value xml:lang="nl">Wijzigen website</value>
         <value xml:lang="ro">Actualizeaza Sit Web</value>
         <value xml:lang="th">แก้ไข WebSite</value>
         <value xml:lang="zh">编辑网站</value>
@@ -4252,6 +4414,7 @@
         <value xml:lang="en">Edit WebSite CMS</value>
         <value xml:lang="fr">Modifier le site web CMS</value>
         <value xml:lang="it">Aggiorna CMS Sito Web</value>
+        <value xml:lang="nl">Wijzigen website CMS</value>
         <value xml:lang="th">แก้ไข WebSite CMS</value>
         <value xml:lang="zh">编辑网站内容管理系统</value>
     </property>
@@ -4261,6 +4424,7 @@
         <value xml:lang="en">Edit WebSite Content</value>
         <value xml:lang="fr">Modifier le contenu du site web</value>
         <value xml:lang="it">Aggiorna Contenuto Sito Web</value>
+        <value xml:lang="nl">Wijzigen website content</value>
         <value xml:lang="th">แก้ไขหัวข้อ WebSite</value>
         <value xml:lang="zh">编辑网站内容</value>
     </property>
@@ -4271,6 +4435,7 @@
         <value xml:lang="en">Edit WebSite Parties</value>
         <value xml:lang="fr">Modifier les acteurs du site web</value>
         <value xml:lang="it">Aggiorna Soggetti Sito Web</value>
+        <value xml:lang="nl">Wijzigen website partijen</value>
         <value xml:lang="ro">Actualizeaza Subiecti Sit Web</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้ WebSite</value>
         <value xml:lang="zh">编辑网站会员</value>
@@ -4281,6 +4446,7 @@
         <value xml:lang="en">CMS Content Find</value>
         <value xml:lang="fr">Rechercher le contenu CMS</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
+        <value xml:lang="nl">Zoeken CMS content</value>
         <value xml:lang="th">ค้นหาหัวข้อ CMS</value>
         <value xml:lang="zh">查找内容管理系统内容</value>
     </property>
@@ -4291,6 +4457,7 @@
         <value xml:lang="en">Find CompDoc</value>
         <value xml:lang="fr">Rechercher le document composite</value>
         <value xml:lang="it">Ricerca composizione documenti</value>
+        <value xml:lang="nl">Zoeken samengesteld document</value>
         <value xml:lang="ro">Cauta CompDoc</value>
         <value xml:lang="th">ค้นหาเอกสารคอมพิวเตอร์</value>
         <value xml:lang="zh">查找合成文档</value>
@@ -4302,6 +4469,7 @@
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Rechercher le contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
+        <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
         <value xml:lang="th">ค้นหาหัวข้อ</value>
         <value xml:lang="zh">搜索内容</value>
@@ -4313,6 +4481,7 @@
         <value xml:lang="en">Find Data Resource</value>
         <value xml:lang="fr">Rechercher la ressource de données</value>
         <value xml:lang="it">Ricerca Risorsa Dati</value>
+        <value xml:lang="nl">Zoeken databron</value>
         <value xml:lang="ro">Actualizeaza Resurse Date</value>
         <value xml:lang="th">ค้นหาแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">查找数据资源</value>
@@ -4390,6 +4559,7 @@
         <value xml:lang="en">Find WebSite</value>
         <value xml:lang="fr">Rechercher le site web</value>
         <value xml:lang="it">Ricerca Sito Web</value>
+        <value xml:lang="nl">Zoeken website</value>
         <value xml:lang="ro">Cauta Sit Web</value>
         <value xml:lang="th">ค้นหา WebSite</value>
         <value xml:lang="zh">查找网站</value>
@@ -4423,6 +4593,7 @@
         <value xml:lang="en">List associations</value>
         <value xml:lang="fr">Liste d'associations</value>
         <value xml:lang="it">Lista associazioni</value>
+        <value xml:lang="nl">Lijst van associaties</value>
         <value xml:lang="ro">Lista asociatii</value>
         <value xml:lang="th">รายการความเห็น</value>
         <value xml:lang="zh">关联列表</value>
@@ -4434,6 +4605,7 @@
         <value xml:lang="en">Content List</value>
         <value xml:lang="fr">Liste de contenus</value>
         <value xml:lang="it">Lista Contenuti</value>
+        <value xml:lang="nl">Contentlijst</value>
         <value xml:lang="ro">Lista Continuturi</value>
         <value xml:lang="th">รายการหัวข้อ</value>
         <value xml:lang="zh">内容列表</value>
@@ -4454,6 +4626,7 @@
         <value xml:lang="en">Data Resource List</value>
         <value xml:lang="fr">Liste de ressources de données</value>
         <value xml:lang="it">Lista Risorse Dati</value>
+        <value xml:lang="nl">Lijst van databronnen</value>
         <value xml:lang="ro">Lista Resurse Date</value>
         <value xml:lang="th">รายการแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源列表</value>
@@ -4483,6 +4656,7 @@
         <value xml:lang="en">WebSite List</value>
         <value xml:lang="fr">Liste de sites web</value>
         <value xml:lang="it">Lista Siti Web</value>
+        <value xml:lang="nl">Lijst van websites</value>
         <value xml:lang="ro">Lista Situri Web</value>
         <value xml:lang="th">รายการ WebSite</value>
         <value xml:lang="zh">站点列表</value>
@@ -4494,6 +4668,7 @@
         <value xml:lang="en">Lookup Content</value>
         <value xml:lang="fr">Consultation de contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
+        <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="ro">Cauta Continut</value>
         <value xml:lang="th">ค้นหาหัวข้อ</value>
         <value xml:lang="zh">查找内容</value>
@@ -4505,6 +4680,7 @@
         <value xml:lang="en">Lookup Data Resource</value>
         <value xml:lang="fr">Consultation de ressource de données</value>
         <value xml:lang="it">Ricerca Risorse Dati</value>
+        <value xml:lang="nl">Zoeken databron</value>
         <value xml:lang="ro">Cauta Resurse Date</value>
         <value xml:lang="th">ค้นหาแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">查找数据资源</value>
@@ -4523,6 +4699,7 @@
         <value xml:lang="en">Lookup Sub Content</value>
         <value xml:lang="fr">Consultation de sous-contenu</value>
         <value xml:lang="it">Ricerca Sotto-Contenuto</value>
+        <value xml:lang="nl">Zoeken subcontent</value>
         <value xml:lang="th">ค้นหาหัวข้อย่อย</value>
         <value xml:lang="zh">查找子内容</value>
     </property>
@@ -4575,6 +4752,7 @@
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca contenuti</value>
+        <value xml:lang="nl">Zoeken content</value>
         <value xml:lang="zh">搜索内容</value>
     </property>
     <property key="PageTitleUploadImageDataResource">
@@ -4641,6 +4819,7 @@
         <value xml:lang="en">Web Site CMS Content</value>
         <value xml:lang="fr">Contenu du site Web CMS</value>
         <value xml:lang="it">Sito Web CMS Contenuto</value>
+        <value xml:lang="nl">Website CMS content</value>
         <value xml:lang="th">เว็บไซต์หัวข้อ CMS</value>
         <value xml:lang="zh">网站内容管理系统内容</value>
     </property>
@@ -4650,6 +4829,7 @@
         <value xml:lang="en">Web Site CMS Nav</value>
         <value xml:lang="fr">Navigation (site Web CMS)</value>
         <value xml:lang="it">Sito Web CMS Navigazione</value>
+        <value xml:lang="nl">Navigatie (Website CMS)</value>
         <value xml:lang="th">เว็บไซต์ CMSNav</value>
         <value xml:lang="zh">网站内容管理系统导航</value>
     </property>
@@ -4659,6 +4839,7 @@
         <value xml:lang="en">WebSite Content</value>
         <value xml:lang="fr">Contenu de site web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
+        <value xml:lang="nl">Website content</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
         <value xml:lang="zh">网站内容</value>
     </property>
