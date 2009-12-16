@@ -850,21 +850,38 @@ under the License.
                             <entity-one entity-name="CustRequest" value-field="custRequest"/>
                             <set field="statusId" from-field="custRequest.statusId"/>
                             <entity-one entity-name="StatusItem" value-field="currentStatus"/>
+                            <set field="projectMgrExists" value="${groovy:org.ofbiz.base.component.ComponentConfig.componentExists(&quot;projectmgr&quot;)}"/>
                         </actions>
                         <widgets>
                             <section>
                                 <condition>
-                                    <if-compare field="parameters.small" operator="equals" value="Y"/>
+                                    <if-compare field="projectMgrExists" operator="equals" value="true"/>
                                 </condition>
+                                <actions>
+                                    <set field="fromPartyId" from-field="communicationEvent.partyIdFrom"/>
+                                    <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getLastRequestAssignment.groovy"/>
+                                </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.OrderRequest}">
-                                        <include-form name="EditSmallCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                        <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                                     </screenlet>
                                 </widgets>
                                 <fail-widgets>
-                                    <screenlet title="${uiLabelMap.OrderRequest}">
-                                        <include-form name="EditCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                                    </screenlet>
+                                    <section>
+                                        <condition>
+                                            <if-compare field="parameters.small" operator="equals" value="Y"/>
+                                        </condition>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.OrderRequest}">
+                                                <include-form name="EditSmallCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <screenlet title="${uiLabelMap.OrderRequest}">
+                                                <include-form name="EditCustRequest" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                            </screenlet>
+                                        </fail-widgets>
+                                    </section>
                                 </fail-widgets>
                             </section>
                         </widgets>

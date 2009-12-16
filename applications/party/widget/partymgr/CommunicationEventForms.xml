@@ -486,6 +486,7 @@ under the License.
                     <parameter param-name="partyId"/>
                     <parameter param-name="roleTypeId"/>
                     <parameter param-name="statusId" value="COM_ROLE_COMPLETED"/>
+                    <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -920,6 +921,7 @@ under the License.
 
     <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml" target="deleteCommunicationEvent"
         use-row-submit="true" header-row-style="header-row-2" list-name="commEventDraft">
+        <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="subject">
             <hyperlink description="${subject}" target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventId"/>
