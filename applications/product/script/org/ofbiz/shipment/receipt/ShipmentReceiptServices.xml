@@ -375,24 +375,24 @@ under the License.
             <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
             <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
             <set field="receivedQuantity" value="${receivedQuantity$bigDecimal + parameters.quantity$bigDecimal}" type="BigDecimal"/>
+            <entity-and list="itemIssuances" entity-name="ItemIssuance">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
+                <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
+                <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
+                <order-by field-name="-issuedDateTime"/>
+            </entity-and>
+            <first-from-list entry="itemIssuance" list="itemIssuances"/>
+            <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
             <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
                 <set field="quantityToAdd" value="${receivedQuantity$bigDecimal - totalIssuedQuantity$bigDecimal}" type="BigDecimal"/>
                 <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="shipmentItem"/>
                 <set field="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                 
-                <entity-and list="itemIssuances" entity-name="ItemIssuance">
-                    <field-map field-name="orderId" from-field="orderItem.orderId"/>
-                    <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
-                    <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
-                    <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
-                    <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
-                    <order-by field-name="-issuedDateTime"/>
-                </entity-and>
-                <first-from-list entry="itemIssuance" list="itemIssuances"/>
                 <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="itemIssuance"/>
-                <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
             </if-compare-field>
         </else>
         </if-empty>
