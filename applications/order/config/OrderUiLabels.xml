@@ -442,7 +442,7 @@
         <value xml:lang="es">Requiere salida de inventario</value>
         <value xml:lang="fr">Nécessite une sortie d'inventaire</value>
         <value xml:lang="it">Necessario prelievo inventario</value>
-        <value xml:lang="nl">Heeft voorraadaandacht nodig</value>
+        <value xml:lang="nl">Heeft voorraaduitgifte nodig</value>
         <value xml:lang="ro">Necesar Emisie Inventar</value>
         <value xml:lang="ru">Необходимо страхование имущества</value>
         <value xml:lang="th">ต้องการทราบสินค้าคงเหลือ</value>
@@ -452,6 +452,7 @@
         <value xml:lang="en">Needs Inventory Receive</value>
         <value xml:lang="fr">Nécessite une réception d'inventaire</value>
         <value xml:lang="it">Necessario ricevere inventario</value>
+        <value xml:lang="nl">Heeft voorraadontvangst nodig</value>
         <value xml:lang="zh">需要库房接收</value>
     </property>
     <property key="FormFieldTitle_newCreditCard">
@@ -812,7 +813,7 @@
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="en">Sales Channel Enum Id</value>
-        <value xml:lang="nl">ID verkoopkanaal</value>
+        <value xml:lang="nl">Verkoopkanaal ID</value>
         <value xml:lang="it">Canale di vendita</value>
         <value xml:lang="zh">销售渠道枚举标识</value>
     </property>
@@ -1325,6 +1326,7 @@
     </property>
     <property key="OrderAddGiftCertificate">
         <value xml:lang="en">Add Gift Certificate</value>
+        <value xml:lang="nl">Toevoegen cadeaubon</value>
     </property>
     <property key="OrderAdjustment">
         <value xml:lang="de">Anpassung</value>
@@ -1628,7 +1630,7 @@
         <value xml:lang="es">Pedido pendiente</value>
         <value xml:lang="fr">Commandé, en attente</value>
         <value xml:lang="it">Backordered</value>
-        <value xml:lang="nl">Backordered</value>
+        <value xml:lang="nl">Nabesteld</value>
         <value xml:lang="ro">Backordered</value>
         <value xml:lang="ru">задолженный заказ</value>
         <value xml:lang="th">กลับรายการสั่งซื้อสินค้า</value>
@@ -2236,7 +2238,7 @@
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
         <value xml:lang="it">Crea una richiesta di preventivo</value>
-        <value xml:lang="nl">RFQ aanmaken</value>
+        <value xml:lang="nl">Invoeren aanvraag</value>
         <value xml:lang="ro">Crearea unei Cereri De Oferta</value>
         <value xml:lang="ru">Создать запрос ценового предложения</value>
         <value xml:lang="th">สร้างการร้องขอสำหรับคำร้อง</value>
@@ -2249,7 +2251,7 @@
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
         <value xml:lang="it">Crea una richiesta di preventivo</value>
-        <value xml:lang="nl">RFQ aanmaken</value>
+        <value xml:lang="nl">Invoeren aanvraag</value>
         <value xml:lang="ro">Crearea unei Cereri De Oferta</value>
         <value xml:lang="ru">Создать запрос ценового предложения</value>
         <value xml:lang="th">สร้างการร้องขอสำหรับคำร้อง</value>
@@ -2507,7 +2509,7 @@
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
         <value xml:lang="it">Cliente</value>
-        <value xml:lang="nl">KLant</value>
+        <value xml:lang="nl">Klant</value>
         <value xml:lang="th">ลูกค้า</value>
         <value xml:lang="zh">客户</value>
     </property>
@@ -2611,7 +2613,7 @@
         <value xml:lang="es">Fecha de entrega deseada</value>
         <value xml:lang="fr">Date d'expédition souhaitée</value>
         <value xml:lang="it">Data Consegna Desiderata</value>
-        <value xml:lang="nl">Verlangde levertijd</value>
+        <value xml:lang="nl">Gewenste leverdatum</value>
         <value xml:lang="ro">Data Livrarii Dorita</value>
         <value xml:lang="ru">Желаемая дата доставки</value>
         <value xml:lang="th">ต้องการส่งวันที่</value>
@@ -3104,7 +3106,7 @@
         <value xml:lang="es">Finalizar el pedido</value>
         <value xml:lang="fr">Finaliser la commande</value>
         <value xml:lang="it">Concludi Ordine</value>
-        <value xml:lang="nl">Bestelling afronden</value>
+        <value xml:lang="nl">Bestelling afronden (maximale opties)</value>
         <value xml:lang="ro">Conclude Comenzi </value>
         <value xml:lang="ru">Завершить</value>
         <value xml:lang="th">รายการที่เสร็จสมบูรณ์</value>
@@ -3117,7 +3119,7 @@
         <value xml:lang="es">Finalizar pedido con opciones por defecto</value>
         <value xml:lang="fr">Terminer avec les options par défaut</value>
         <value xml:lang="it">Concludi Ordine Con Valori di Default</value>
-        <value xml:lang="nl">Bestelling met standaard opties afronden</value>
+        <value xml:lang="nl">Bestelling afronden (Standaard opties)</value>
         <value xml:lang="ro">Conclude Comenzi cu Valori de Default</value>
         <value xml:lang="ru">Закрыть с параметрами по умолчанию</value>
         <value xml:lang="th">รายการที่เสร็จสมบูรณ์ด้วยตัวเลือกค่าเริ่มต้น</value>
@@ -3643,7 +3645,7 @@
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="it">Riga</value>
         <value xml:lang="ja">Item</value>
-        <value xml:lang="nl">Element</value>
+        <value xml:lang="nl">Regel</value>
         <value xml:lang="pt_PT">Item</value>
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Позиция</value>
@@ -3667,7 +3669,7 @@
         <value xml:lang="hi_IN">सामान संग्रह</value>
         <value xml:lang="it">Gruppi di articoli</value>
         <value xml:lang="ja">Item Groups</value>
-        <value xml:lang="nl">Elementgroepen</value>
+        <value xml:lang="nl">Regelgroepen</value>
         <value xml:lang="ro">Grupuri Linie</value>
         <value xml:lang="ru">Группы позиций</value>
         <value xml:lang="th">กลุ่มสินค้า</value>
@@ -3680,7 +3682,7 @@
         <value xml:lang="fr">Article n°</value>
         <value xml:lang="hi_IN">सामान #</value>
         <value xml:lang="it">Riga #</value>
-        <value xml:lang="nl">Element #</value>
+        <value xml:lang="nl">Regel nr</value>
         <value xml:lang="ja">Item #</value>
         <!--value xml:lang="nl">Item #</value--> <!--  to be checked -->
         <value xml:lang="ro">Linie #</value>
@@ -3694,7 +3696,7 @@
         <value xml:lang="es">Estado de Artículo</value>
         <value xml:lang="fr">Statut de l'article</value>
         <value xml:lang="it">Stato Riga</value>
-        <value xml:lang="nl">Elementstatus</value>
+        <value xml:lang="nl">Regelstatus</value>
         <value xml:lang="ro">Stare Linie</value>
         <value xml:lang="ru">Статус позиции</value>
         <value xml:lang="th">หัวข้อสถานะ</value>
@@ -3706,7 +3708,7 @@
         <value xml:lang="es">Total ítem</value>
         <value xml:lang="fr">Total Article</value>
         <value xml:lang="it">Totale Riga</value>
-        <value xml:lang="nl">Elementtotaal</value>
+        <value xml:lang="nl">Regeltotaal</value>
         <value xml:lang="ro">Total Linie</value>
         <value xml:lang="ru">Итог позиции</value>
         <value xml:lang="th">ผลรวมรายการ</value>
@@ -3722,7 +3724,7 @@
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="it">Righe</value>
         <value xml:lang="ja">Items</value>
-        <value xml:lang="nl">Items</value>
+        <value xml:lang="nl">Regels</value>
         <value xml:lang="pt_PT">Itens</value>
         <value xml:lang="ro">Linii</value>
         <value xml:lang="ru">Позиции</value>
@@ -3735,7 +3737,7 @@
         <value xml:lang="es">Ítems dejados pendientes</value>
         <value xml:lang="fr">Produits expédiés par un tiers</value>
         <value xml:lang="it">Righe in Backorder</value>
-        <value xml:lang="nl">Elementen in backorder</value>
+        <value xml:lang="nl">Regels in backorder</value>
         <value xml:lang="ro">Linie in Backorder</value>
         <value xml:lang="ru">Задолженные позиции</value>
         <value xml:lang="th">กลับไปยังรายการรายการ</value>
@@ -3748,7 +3750,7 @@
         <value xml:lang="es">Ítems pedidos</value>
         <value xml:lang="fr">Produits commandés</value>
         <value xml:lang="it">Righe Ordinate</value>
-        <value xml:lang="nl">Elementen besteld</value>
+        <value xml:lang="nl">Bestelde regels</value>
         <value xml:lang="ro">Linii Comandate</value>
         <value xml:lang="ru">Заказано позиций</value>
         <value xml:lang="th">รายการรายการ</value>
@@ -3761,7 +3763,7 @@
         <value xml:lang="es">Ítems devueltos</value>
         <value xml:lang="fr">Produits retournés</value>
         <value xml:lang="it">Righe Rese</value>
-        <value xml:lang="nl">Elementen retour gebracht</value>
+        <value xml:lang="nl">Regels retour</value>
         <value xml:lang="ro">Linii Returnate</value>
         <value xml:lang="ru">Возвращено позиций</value>
         <value xml:lang="th">คืนค่ารายการ</value>
@@ -3774,7 +3776,7 @@
         <value xml:lang="es">Subtotal Ítems</value>
         <value xml:lang="fr">Sous-total articles</value>
         <value xml:lang="it">Subtotale Righe</value>
-        <value xml:lang="nl">Items SubTotaal</value>
+        <value xml:lang="nl">Regels SubTotaal</value>
         <value xml:lang="ro">Subtotal Linii</value>
         <value xml:lang="ru">Всего по позициям</value>
         <value xml:lang="th">ผลรวมย่อย</value>
@@ -4981,7 +4983,7 @@
         <value xml:lang="es">Fijar moneda, acuerdos y fechas de envío</value>
         <value xml:lang="fr">Saisie de l'intitulé et de la devise de la commande</value>
         <value xml:lang="it">Inserire Valuta Ordine, Contratti, e Date Spedizione</value>
-        <value xml:lang="nl">Geef valuta, overeenkomsten en verzenddata</value>
+        <value xml:lang="nl">Invoeren bestellinggegevens (behalve valuta, catalogus, is deze informatie nog aan te passen) </value>
         <value xml:lang="ro">Introducere Valuta Comanda, Contracte, si Data Expediere</value>
         <value xml:lang="ru">Введите валюту заказа, договора и даты поставки</value>
         <value xml:lang="th">การเข้าสู่รายการการเงิน , การยอมรับ และวันที่ขนส่ง</value>
@@ -5084,7 +5086,7 @@
         <value xml:lang="es">Información de encabezado del envío</value>
         <value xml:lang="fr">Informations d'en-tête</value>
         <value xml:lang="it">Informazioni Testata Ordine</value>
-        <value xml:lang="nl">Bestellingkop-info</value>
+        <value xml:lang="nl">Bestelling kopgegevens</value>
         <value xml:lang="ro">Informatii Antet Comanda</value>
         <value xml:lang="ru">Оглавление заказа</value>
         <value xml:lang="th">ข้อมูลหัวข้อรายการสั่งซื้อสินค้า</value>
@@ -5951,7 +5953,7 @@
         <value xml:lang="es">Atajos</value>
         <value xml:lang="fr">Raccourcis</value>
         <value xml:lang="it">Scorciatoie</value>
-        <value xml:lang="nl">Afkortingen</value>
+        <value xml:lang="nl">Snelkoppelingen</value>
         <value xml:lang="ro">Abrevieri</value>
         <value xml:lang="ru">Ссылки</value>
         <value xml:lang="th">ทางลัด</value>
@@ -6193,7 +6195,7 @@
         <value xml:lang="es">Nº de pedido de compra</value>
         <value xml:lang="fr">N° de la commande d'achat</value>
         <value xml:lang="it">Numero OA</value>
-        <value xml:lang="nl">PO Number</value>
+        <value xml:lang="nl">Inkoopordernummer</value>
         <value xml:lang="ro">Numar OA</value>
         <value xml:lang="ru">Индекс</value>
         <value xml:lang="th">PO Number</value>
@@ -6788,7 +6790,7 @@
         <value xml:lang="hi_IN">प्रोत्साहन सामान कि जानकारी</value>
         <value xml:lang="it">Informazioni sulle promozioni</value>
         <value xml:lang="ja">Promotion Information</value>
-        <value xml:lang="nl">Promo-info</value>
+        <value xml:lang="nl">Promotie informatie</value>
         <value xml:lang="pt_PT">Promotion Information</value>
         <value xml:lang="ro">Informatii Promotie</value>
         <value xml:lang="ru">Информация по акции</value>
@@ -7086,7 +7088,7 @@
         <value xml:lang="es">Finalización rápida de pedido</value>
         <value xml:lang="fr">Finaliser rapidement</value>
         <value xml:lang="it">Aggiunta Veloce Ordine</value>
-        <value xml:lang="nl">Quick Finalize Bestelling</value>
+        <value xml:lang="nl">Bestelling afronden (minimale opties)</value>
         <value xml:lang="ro">Adaugare Rapida Comanda</value>
         <value xml:lang="ru">Быстро закрыть</value>
         <value xml:lang="th">ทำรายการสั่งซื้อสินค้าให้เสร็จสมบูรณ์อย่างรวดเร็ว</value>
@@ -7099,7 +7101,7 @@
         <value xml:lang="es">Búsqueda rápida</value>
         <value xml:lang="fr">Recherche rapide</value>
         <value xml:lang="it">Ricerca Veloce</value>
-        <value xml:lang="nl">Quick Lookup</value>
+        <value xml:lang="nl">Zoeken</value>
         <value xml:lang="ro">Cautare Rapida</value>
         <value xml:lang="ru">Быстрый поиск</value>
         <value xml:lang="th">ค้นหาอย่างรวดเร็ว</value>
@@ -7391,7 +7393,7 @@
         <value xml:lang="es">Quitar seleccionados</value>
         <value xml:lang="fr">Retirer la sélection</value>
         <value xml:lang="it">Rimuovi Selezionati</value>
-        <value xml:lang="nl">Remove Selected</value>
+        <value xml:lang="nl">Verwijderen geselecteerde regels</value>
         <value xml:lang="ro">Stergere Selectionari</value>
         <value xml:lang="ru">Удалить выбранный</value>
         <value xml:lang="th">ลบการเลือก</value>
@@ -8011,7 +8013,7 @@
         <value xml:lang="es">Estado de existencias</value>
         <value xml:lang="fr">Statut du stock</value>
         <value xml:lang="it">Stato Inventario</value>
-        <value xml:lang="nl">Inventory Status</value>
+        <value xml:lang="nl">Voorraadstatus</value>
         <value xml:lang="ro">Stare Inventar</value>
         <value xml:lang="ru">Статус ТМЦ</value>
         <value xml:lang="th">สถานะสินค้าคงเหลือ</value>
@@ -8347,7 +8349,7 @@
         <value xml:lang="es">Canal de venta</value>
         <value xml:lang="fr">Canal de vente</value>
         <value xml:lang="it">Canale Vendita</value>
-        <value xml:lang="nl">Sales Channel</value>
+        <value xml:lang="nl">Verkoopkanaal</value>
         <value xml:lang="ro">Canal Vanzare</value>
         <value xml:lang="ru">Канал продаж</value>
         <value xml:lang="th">ช่องทางการขาย</value>
@@ -8509,7 +8511,7 @@
         <value xml:lang="es">O elija una moneda para este pedido</value>
         <value xml:lang="fr">Choisissez une devise pour cette commande</value>
         <value xml:lang="it">imposta una valuta per questo ordine</value>
-        <value xml:lang="nl">Set a currency for this bestelling</value>
+        <value xml:lang="nl">Valuta</value>
         <value xml:lang="ro">Seteaza o valuta pentru aceasta comanda</value>
         <value xml:lang="ru">Установите валюту заказа</value>
         <value xml:lang="th">กำหนดเงินสำหรับรายการสั่งซื้อสินค้านี้</value>
@@ -8771,7 +8773,7 @@
         <value xml:lang="es">Enviar después de la fecha</value>
         <value xml:lang="fr">A livrer après</value>
         <value xml:lang="it">Spedisci Dopo la Data</value>
-        <value xml:lang="nl">Ship After Date</value>
+        <value xml:lang="nl">Verzenden na datum</value>
         <value xml:lang="ro">Expediaza dupa Data</value>
         <value xml:lang="ru">Поставить после</value>
         <value xml:lang="th">การขนส่งหลังจากวันที่</value>
@@ -8784,7 +8786,7 @@
         <value xml:lang="es">Fecha de envío 'después de', por defecto</value>
         <value xml:lang="fr">Date d'expédition au plus tôt par défaut</value>
         <value xml:lang="it">Spedisci Dopo la Data Default</value>
-        <value xml:lang="nl">Default Ship After Date</value>
+        <value xml:lang="nl">Verzenden na datum</value>
         <value xml:lang="ro">Expediaza Dupa Data de Default</value>
         <value xml:lang="ru">Обычное значение поставки после</value>
         <value xml:lang="th">เลือกการขนส่งอัตโนมัติหลังวันที่</value>
@@ -8827,7 +8829,7 @@
         <value xml:lang="es">Enviar antes de la fecha</value>
         <value xml:lang="fr">A livrer avant</value>
         <value xml:lang="it">Spedisci Prima della Data</value>
-        <value xml:lang="nl">Ship Before Date</value>
+        <value xml:lang="nl">Verzenden voor datum</value>
         <value xml:lang="ro">Expediaza Inainte de Data</value>
         <value xml:lang="ru">Поставка до</value>
         <value xml:lang="th">การขนส่งก่อนวันที่</value>
@@ -8840,7 +8842,7 @@
         <value xml:lang="es">Fecha de envío 'antes de', por defecto</value>
         <value xml:lang="fr">Date d'expédition au plus tard par défaut</value>
         <value xml:lang="it">Spedisci Prima della Data Default</value>
-        <value xml:lang="nl">Default Ship Before Date</value>
+        <value xml:lang="nl">Verzenden voor datum</value>
         <value xml:lang="ro">Expediaza Inainte de Data de Default</value>
         <value xml:lang="ru">Обычное значение поставки до</value>
         <value xml:lang="th">เลือกการขนส่งอัตโนมัติก่อนวันที่</value>
@@ -9801,7 +9803,7 @@
         <value xml:lang="es">Utilizarlo por defecto para los siguientes ítems</value>
         <value xml:lang="fr">Utiliser par défaut le commentaire pour les autres lignes</value>
         <value xml:lang="it">Usare un commento di default per il prossimo inserimento</value>
-        <value xml:lang="nl">Use as default comment for next entry</value>
+        <value xml:lang="nl">Ingevulde opmerking als standaard voorstelwaarde instellen</value>
         <value xml:lang="ro">Foloseste un comentariu de default pentru urmatoarea introducere</value>
         <value xml:lang="ru">Использовать как комментарий по умолчанию для следующего</value>
         <value xml:lang="th">ใช้เหมือนค่าที่เลือกความคิดเห็นสำหรับการกรอกข้อมูลครั้งต่อไป</value>
@@ -9814,7 +9816,7 @@
         <value xml:lang="es">Usar como fecha de envío deseada por defecto para los siguientes ítems</value>
         <value xml:lang="fr">Utiliser par défaut la date d'expédition souhaitée pour les autres lignes</value>
         <value xml:lang="it">Usare una data di di consegna desiderata di default per il prossimo inserimento</value>
-        <value xml:lang="nl">Use as default desired delivery date for next entry</value>
+        <value xml:lang="nl">Gekozen datum als standaard voorstelwaarde instellen</value>
         <value xml:lang="ro">Foloseste o data de livrare dorita de default pentru urmatoarea inregistrare</value>
         <value xml:lang="ru">Использовать ожидаемую дату доставки, как значение по умолчанию для следующего</value>
         <value xml:lang="th">ใช้เหมือนค่าที่ต้องการส่งวันที่สำหรับการกรอกข้อมูลครั้งต่อไป</value>
