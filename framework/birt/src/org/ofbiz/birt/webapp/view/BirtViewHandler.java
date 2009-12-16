@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.webapp.view;
+package org.ofbiz.birt.webapp.view;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +41,9 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.birt.BirtWorker;
 import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.widget.birt.BirtFactory;
+import org.ofbiz.webapp.view.ViewHandler;
+import org.ofbiz.webapp.view.ViewHandlerException;
+import org.ofbiz.birt.widget.BirtFactory;
 import org.xml.sax.SAXException;
 
 public class BirtViewHandler implements ViewHandler {

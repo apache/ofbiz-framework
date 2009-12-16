@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.widget.birt;
+package org.ofbiz.birt.widget;
 
 import java.io.IOException;
 import java.io.InputStream;
