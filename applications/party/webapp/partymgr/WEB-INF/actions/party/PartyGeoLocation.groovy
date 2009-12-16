@@ -33,7 +33,7 @@ context.partyId = partyId;
 latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
 context.latestGeoPoint = latestGeoPoint;
 
-if (latestGeoPoint) {
+if (latestGeoPoint && latestGeoPoint.elevationUomId) {
     elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
     context.elevationUomAbbr = elevationUom.abbreviation;
 }

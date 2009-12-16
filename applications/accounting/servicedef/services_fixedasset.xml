@@ -278,4 +278,24 @@ under the License.
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
     </service>
+
+    <!-- FixedAssetGeoPoint services -->
+    <service name="createFixedAssetGeoPoint" default-entity-name="FixedAssetGeoPoint" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a FixedAssetGeoPoint</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateFixedAssetGeoPoint" default-entity-name="FixedAssetGeoPoint" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a FixedAssetGeoPoint</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetGeoPoint" default-entity-name="FixedAssetGeoPoint" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a FixedAssetGeoPoint</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

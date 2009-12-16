@@ -665,4 +665,29 @@ under the License.
         <attribute name="portletSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
     </service>
+
+    <!-- GeoPoint services -->
+    <service name="createGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a GeoPoint</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="dataSourceId" optional="false"/>
+        <override name="latitude" optional="false"/>
+        <override name="longitude" optional="false"/>
+    </service>
+    <service name="updateGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a GeoPoint</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="dataSourceId" optional="false"/>
+        <override name="latitude" optional="false"/>
+        <override name="longitude" optional="false"/>
+    </service>
+    <service name="deleteGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a GeoPoint</description>
+        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

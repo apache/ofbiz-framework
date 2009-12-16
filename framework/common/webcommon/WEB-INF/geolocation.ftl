@@ -21,7 +21,7 @@ under the License.
     ${uiLabelMap.CommonLatitude}${geoPoint.latitude}<br>
     ${uiLabelMap.CommonLongitude}${geoPoint.longitude}
     <#if geoPoint.elevation?has_content>
-      <br>${uiLabelMap.CommonElevation}${geoPoint.elevation} ${elevationUomAbbr}
+      <br>${uiLabelMap.CommonElevation}${geoPoint.elevation} ${elevationUomAbbr?if_exists}
     </#if>
     <#if geoPoint.dataSourceId?has_content>
       <#if geoPoint.dataSourceId == "GEOPT_GOOGLE">
