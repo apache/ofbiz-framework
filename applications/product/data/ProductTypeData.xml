@@ -372,12 +372,21 @@ under the License.
     <ProductMeterType description="Taximeter" productMeterTypeId="TAXIMETER"/>
     <ProductMeterType description="Event Data Recorder" productMeterTypeId="EVENT_DATA_RECORDER"/>
     <ProductMeterType description="Pedometer" productMeterTypeId="PEDOMETER"/>
+    <ProductMeterType description="Odometer" productMeterTypeId="ODOMETER"/>
     
     <ProductMaintType description="Vehicle Maintenance" productMaintTypeId="VEHICLE_MAINT" parentTypeId=""/>
     <ProductMaintType description="Oil Change" productMaintTypeId="OIL_CHANGE" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Serpentine Belt Replacement" productMaintTypeId="SERP_BELT" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Re-Fuel" productMaintTypeId="REFUEL" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Replace Battery" productMaintTypeId="REPLACE_BATTERY" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Tune Up" productMaintTypeId="TUNE_UP" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Check Battery" productMaintTypeId="CHECK_BATTERY" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Chassis Lubrication" productMaintTypeId="CHASSIS_LUBE" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Rotate Tires" productMaintTypeId="ROTATE_TIRES" parentTypeId="VEHICLE_MAINT"/>
+    
+    <ProductMaintType description="HVAC Maintenance" productMaintTypeId="HVAC_MAINT"/>
+    <ProductMaintType description="Replace Air Filter" productMaintTypeId="HVAC_REPLACE_FILTER" parentTypeId="HVAC_MAINT"/>
+    <ProductMaintType description="Check/Recharge Refrigerant" productMaintTypeId="HVAC_CHECK_REFR" parentTypeId="HVAC_MAINT"/>
 
     <ProductMaintType description="Wash" productMaintTypeId="WASH" parentTypeId=""/>
 
