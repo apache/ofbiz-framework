@@ -511,6 +511,7 @@
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="roleTypeId" from-field="parameters.roleTypeId"/>
                 <parameter param-name="statusId" value="COM_ROLE_COMPLETED"/>
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
