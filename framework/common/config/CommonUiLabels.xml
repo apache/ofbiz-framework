@@ -685,7 +685,7 @@
         <value xml:lang="fr">Associations</value>
         <value xml:lang="hi_IN">संघों</value>
         <value xml:lang="it">Associazioni</value>
-        <value xml:lang="nl">Verenigingen</value>
+        <value xml:lang="nl">Associaties</value>
         <value xml:lang="pt">Associações</value>
         <value xml:lang="ro">Asociatii</value>
         <value xml:lang="ru">Ассоциации</value>
@@ -1269,6 +1269,7 @@
         <value xml:lang="fr">Tout replier</value>
         <value xml:lang="hi_IN">सभी को संक्षिप्त करें</value>
         <value xml:lang="it">Collassato</value>
+        <value xml:lang="nl">Verberg velden</value>
         <value xml:lang="th">ล้มเหลว</value>
         <value xml:lang="zh">全部合拢</value>
     </property>
@@ -2366,6 +2367,7 @@
         <value xml:lang="fr">Tout développer</value>
         <value xml:lang="hi_IN">सभी विस्तृत करें</value>
         <value xml:lang="it">Espandi</value>
+        <value xml:lang="nl">Tonen velden</value>
         <value xml:lang="th">แผ่ขยาย</value>
         <value xml:lang="zh">全部展开</value>
     </property>
@@ -3149,7 +3151,7 @@
         <value xml:lang="fr">Cacher les zones de sélection</value>
         <value xml:lang="hi_IN">फील्ड्स छिपाएँ</value>
         <value xml:lang="it">Nascondi campi</value>
-        <value xml:lang="nl">Verberg velden</value>
+        <value xml:lang="nl">Verbergen velden</value>
         <value xml:lang="pt">Esconder Campos</value>
         <value xml:lang="ro">Ascunde Campuri</value>
         <value xml:lang="ru">Скрыть поля</value>
@@ -3415,6 +3417,7 @@
         <value xml:lang="fr">Stockage</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory)</value>
         <value xml:lang="it">Inventario</value>
+        <value xml:lang="nl">Voorraad</value>
         <value xml:lang="zh">库存</value>
     </property>
     <property key="CommonIsA">
@@ -6167,6 +6170,7 @@
         <value xml:lang="fr">Résultats de la recherche</value>
         <value xml:lang="hi_IN">खोज के परिणाम</value>
         <value xml:lang="it">Risultati ricerca</value>
+        <value xml:lang="nl">Zoekresultaten</value>
         <value xml:lang="zh">搜索结果</value>
     </property>
     <property key="CommonSecond">
@@ -6176,6 +6180,7 @@
         <value xml:lang="fr">Seconde</value>
         <value xml:lang="hi_IN">सेकंड</value>
         <value xml:lang="it">Secondo</value>
+        <value xml:lang="nl">Seconde</value>
         <value xml:lang="pt">Secundariamente</value>
         <value xml:lang="ro">Al doilea</value>
         <value xml:lang="ru">Во-вторых</value>
@@ -6189,7 +6194,7 @@
         <value xml:lang="fr">Applications secondaires</value>
         <value xml:lang="hi_IN">द्वितीयक एप्प्लिकेशन्स</value>
         <value xml:lang="it">Apps secondario</value>
-        <value xml:lang="nl">Secundaire Apps</value>
+        <value xml:lang="nl">Secundaire Applicaties</value>
         <value xml:lang="pt">Apps secundário</value>
         <value xml:lang="ru">Вторичные применения</value>
         <value xml:lang="zh">附属应用</value>
@@ -6589,6 +6594,7 @@
         <value xml:lang="fr">Expédition</value>
         <value xml:lang="hi_IN">परिवहन</value>
         <value xml:lang="it">Spedizioni</value>
+        <value xml:lang="nl">Verzending</value>
         <value xml:lang="zh">运输</value>
     </property>
     <property key="CommonShoppingCart">
@@ -6596,6 +6602,7 @@
         <value xml:lang="fr">Panier</value>
         <value xml:lang="hi_IN">शॉपिंगकार्ट</value>
         <value xml:lang="it">Carrello</value>
+        <value xml:lang="nl">Winkelwagen</value>
         <value xml:lang="zh">购物车</value>
     </property>
     <property key="CommonShow">
@@ -6846,7 +6853,7 @@
         <value xml:lang="zh_CN">统计</value>
     </property>
     <property key="CommonStatus">
-    	<value xml:lang="ar">وضعية</value><!-- was in accounting <value xml:lang="ar">الوضعيات</value> -->
+        <value xml:lang="ar">وضعية</value><!-- was in accounting <value xml:lang="ar">الوضعيات</value> -->
         <value xml:lang="cs">Status</value>
         <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
@@ -7001,6 +7008,7 @@
         <value xml:lang="fr">Sondages</value>
         <value xml:lang="hi_IN">सर्वेक्षण</value>
         <value xml:lang="it">Sondaggi</value>
+        <value xml:lang="nl">Onderzoeken</value>
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="ru">Обзоры</value>
         <value xml:lang="th">สำรวจ</value>
@@ -7014,7 +7022,7 @@
         <value xml:lang="fr">Vue normale</value>
         <value xml:lang="hi_IN">साधारण दृश्य</value>
         <value xml:lang="it">Vista semplice</value>
-        <value xml:lang="nl">Simple scherm</value>
+        <value xml:lang="nl">Simpel scherm</value>
         <value xml:lang="pt">Vista Simples</value>
         <value xml:lang="ro">Simplu vue</value>
         <value xml:lang="ru">Постоые</value>
@@ -7059,6 +7067,7 @@
         <value xml:lang="fr">Taxes (TVA)</value>
         <value xml:lang="hi_IN">कर (टैक्स)</value>
         <value xml:lang="it">Tasse</value>
+        <value xml:lang="nl">Belasting</value>
         <value xml:lang="zh">税</value>
     </property>
     <property key="CommonTelephoneAbbr">
@@ -7133,6 +7142,7 @@
         <value xml:lang="fr">Le</value>
         <value xml:lang="hi_IN">इस</value>
         <value xml:lang="it">Il</value>
+        <value xml:lang="nl">de</value>
         <value xml:lang="th">ที่</value>
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
@@ -7142,6 +7152,7 @@
         <value xml:lang="fr">Les champs suivants sont vides</value>
         <value xml:lang="hi_IN">निम्नलिखित आवश्यक क्षेत्र खाली मिले</value>
         <value xml:lang="it">I seguenti campi richiesti sono trovati vuoti</value>
+        <value xml:lang="nl">De volgende verplichte velden waren leeg</value>
         <value xml:lang="th">ตามฟิลด์ที่ต้องการซึ่งพบว่ามันว่าง</value>
         <value xml:lang="zh">发现下列必须的数据项是空的</value>
     </property>
@@ -7265,6 +7276,7 @@
         <value xml:lang="fr">Fuseau horaire</value>
         <value xml:lang="hi_IN">समय क्षेत्र</value>
         <value xml:lang="it">Fuso orario</value>
+        <value xml:lang="it">Tijdzone</value>
         <value xml:lang="th">โซนเวลา</value>
         <value xml:lang="zh">时区</value>
     </property>
@@ -7437,6 +7449,7 @@
         <value xml:lang="fr">Montant total</value>
         <value xml:lang="hi_IN">कुल राशि</value>
         <value xml:lang="it">Importo totale</value>
+        <value xml:lang="nl">Totaalbedrag</value>
         <value xml:lang="ro">Valoare Totala</value>
         <value xml:lang="ru">Общее количество</value>
         <value xml:lang="th">จำนวนผลรวม</value>
@@ -7449,6 +7462,7 @@
         <value xml:lang="fr">Coût total</value>
         <value xml:lang="hi_IN">कुल लागत</value>
         <value xml:lang="it">Costo totale</value>
+        <value xml:lang="nl">Totale kosten</value>
         <value xml:lang="ro">Cost Total</value>
         <value xml:lang="ru">Общая стоимость</value>
         <value xml:lang="th">ผลรวมค่าใช้จ่าย</value>
@@ -7460,6 +7474,7 @@
         <value xml:lang="es">Coste total múltiple</value>
         <value xml:lang="fr">Coût total multiple</value>
         <value xml:lang="it">Totale costo multiplo</value>
+        <value xml:lang="nl">Totale meerkosten</value>
         <value xml:lang="ro">Multiplu Cost Total</value>
         <value xml:lang="ru">Общ. стоим. мульт</value>
         <value xml:lang="th">ผลรวมค่าใช้จ่ายมาก</value>
@@ -7483,6 +7498,7 @@
         <value xml:lang="fr">Pourcentage total du bénéfice</value>
         <value xml:lang="hi_IN">कुल लाभ प्रतिशत</value>
         <value xml:lang="it">Totale percentuale profitto</value>
+        <value xml:lang="nl">Totale winst in procenten</value>
         <value xml:lang="ro">Total Procente Profit</value>
         <value xml:lang="ru">Общий проц. прибыли</value>
         <value xml:lang="th">ผลรวมร้อยละของกำไร</value>
@@ -7495,6 +7511,7 @@
         <value xml:lang="fr">Prix total</value>
         <value xml:lang="hi_IN">कुल मूल्य</value>
         <value xml:lang="it">Totale prezzo</value>
+        <value xml:lang="nl">Totaalprijs</value>
         <value xml:lang="ro">Total Pret</value>
         <value xml:lang="ru">Общая цена</value>
         <value xml:lang="th">ผลรวมราคา</value>
@@ -7507,6 +7524,7 @@
         <value xml:lang="fr">Bénéfice total</value>
         <value xml:lang="hi_IN">कुल लाभ</value>
         <value xml:lang="it">Totale profitto</value>
+        <value xml:lang="nl">Totale winst</value>
         <value xml:lang="ro">Total Profit</value>
         <value xml:lang="ru">Суммарная прибыль</value>
         <value xml:lang="th">ผลรวมกำไร</value>
@@ -7520,6 +7538,7 @@
         <value xml:lang="fr">Valeur totale</value>
         <value xml:lang="hi_IN">कुल मूल्य</value>
         <value xml:lang="it">Valore totale</value>
+        <value xml:lang="nl">Totale waarde</value>
         <value xml:lang="pt">Valor Total</value>
         <value xml:lang="ro">Valoare Totala</value>
         <value xml:lang="ru">Общее значение</value>
@@ -7534,6 +7553,7 @@
         <value xml:lang="fr">Vrai</value>
         <value xml:lang="hi_IN">सच्च</value>
         <value xml:lang="it">Vero</value>
+        <value xml:lang="nl">Waar</value>
         <value xml:lang="pt">Verdadeiro</value>
         <value xml:lang="ro">Adevarat</value>
         <value xml:lang="ru">Истина</value>
@@ -7564,7 +7584,7 @@
         <value xml:lang="fr">Type</value>
         <value xml:lang="hi_IN">प्रकार</value>
         <value xml:lang="it">Tipo</value>
-        <value xml:lang="nl">Type</value>
+        <value xml:lang="nl">Soort</value>
         <value xml:lang="pt">Tipo</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="ru">Тип</value>
@@ -7580,7 +7600,7 @@
         <value xml:lang="fr">P. U.</value>
         <value xml:lang="hi_IN">इकाई मूल्य</value>
         <value xml:lang="it">Prezzo unitario</value>
-        <value xml:lang="nl">Unit Prijs</value>
+        <value xml:lang="nl">Prijs per eenheid</value>
         <value xml:lang="pt">Preço Unitário</value>
         <value xml:lang="ro">Prez Unitar</value>
         <value xml:lang="ru">Цена за ед.</value>
@@ -7821,7 +7841,7 @@
         <value xml:lang="fr">Valable à partir de</value>
         <value xml:lang="hi_IN">'दिनांक से' मान्य</value>
         <value xml:lang="it">Valido da</value>
-        <value xml:lang="nl">Geldig vanaf Datum</value>
+        <value xml:lang="nl">Geldig vanaf datum</value>
         <value xml:lang="pt">Válido Desde (Data)</value>
         <value xml:lang="ro">Valabil De la Data</value>
         <value xml:lang="ru">Действительно с даты</value>
@@ -7915,6 +7935,7 @@
         <value xml:lang="fr">L'accès à cette page a été bloqué.</value>
         <value xml:lang="hi_IN">इसे देखने के लिए प्रतिबंधित कर दिया गया है.</value>
         <value xml:lang="it">L'accesso a questa vista verrà bloccato.</value>
+        <value xml:lang="nl">Toegang tot dit scherm is geblokkeerd.</value>
         <value xml:lang="zh">已经禁止访问这个浏览了。</value>
     </property>
     <property key="CommonViewCalendar">
@@ -7955,6 +7976,7 @@
         <value xml:lang="fr">Visiteurs</value>
         <value xml:lang="hi_IN">आगंतुकों</value>
         <value xml:lang="it">Visitatori</value>
+        <value xml:lang="nl">Bezoekers</value>
         <value xml:lang="zh">访问者</value>
     </property>
     <property key="CommonVisualTheme">
@@ -7963,6 +7985,7 @@
         <value xml:lang="fr">Charte graphique</value>
         <value xml:lang="hi_IN">दृश्य शैली(Visual Theme)</value>
         <value xml:lang="it">Tema grafico</value>
+        <value xml:lang="nl">Visueel thema</value>
         <value xml:lang="zh">视觉风格</value>
     </property>
     <property key="CommonVisualThemeIdNotFound">
@@ -7971,6 +7994,7 @@
         <value xml:lang="fr">Réf. de charte graphique inconnue.</value>
         <value xml:lang="hi_IN">दृश्य शैली क्रमांक(VisualThemeId) नहीं मिला|</value>
         <value xml:lang="it">Tema grafico non trovato.</value>
+        <value xml:lang="nl">Visueel thema niet gevonden</value>
         <value xml:lang="zh">没有找到视觉风格标识。</value>
     </property>
     <property key="CommonVisualThemeInvalidRecord">
@@ -7987,6 +8011,7 @@
         <value xml:lang="fr">Aucune copie d'écran</value>
         <value xml:lang="hi_IN">कोई स्क्रीनशॉट्स नहीं है</value>
         <value xml:lang="it">Anteprima non disponibile</value>
+        <value xml:lang="nl">Geen schermafbeeldingen</value>
         <value xml:lang="zh">没有屏幕截图</value>
     </property>
     <property key="CommonVisualThemeResourcesNotFound">
@@ -8011,6 +8036,7 @@
         <value xml:lang="fr">Chartes graphiques</value>
         <value xml:lang="hi_IN">दृश्य शैलीयां(Visual Themes)</value>
         <value xml:lang="it">Temi grafici</value>
+        <value xml:lang="nl">Visuele themas</value>
         <value xml:lang="zh">视觉风格</value>
     </property>
     <property key="CommonVolume">
@@ -8084,6 +8110,7 @@
         <value xml:lang="fr">Hebdomadaire</value>
         <value xml:lang="hi_IN">साप्ताहिक</value>
         <value xml:lang="it">Settimanale</value>
+        <value xml:lang="nl">Wekelijks</value>
         <value xml:lang="pt">Semanalmente</value>
         <value xml:lang="ro">Saptamanal</value>
         <value xml:lang="ru">Еженедельно</value>
@@ -8129,6 +8156,7 @@
         <value xml:lang="fr">Bienvenue sur le tableau de bord d'OFBiz</value>
         <value xml:lang="hi_IN">OFBiz डैशबोर्ड पर आपका स्वागत है</value>
         <value xml:lang="it">Benvenuto al cruscotto di OFBiz</value>
+        <value xml:lang="nl">Welkom in het OFBiz dashboard</value>
         <value xml:lang="zh">欢迎使用OFBiz个人主页</value>
     </property>
     <property key="CommonWhere">
@@ -8301,7 +8329,7 @@
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="hi_IN">सामग्री</value>
         <value xml:lang="it">Contenuti</value>
-        <value xml:lang="nl">Inhoud</value>
+        <value xml:lang="nl">Content</value>
         <value xml:lang="pt">Conteúdo</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Содержание</value>
@@ -9125,6 +9153,7 @@
         <value xml:lang="fr">Mon portail</value>
         <value xml:lang="hi_IN">मेरा पोर्टल</value>
         <value xml:lang="it">Mio portale</value>
+        <value xml:lang="nl">Mijn Portaal</value>
         <value xml:lang="zh">我的门户</value>
     </property>
     <property key="OFBiz Site">
