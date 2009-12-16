@@ -28,7 +28,7 @@ if (facilityId && locationSeqId) {
     context.facilityId = facilityId
     context.locationSeqId = locationSeqId
 
-    if (latestGeoPoint) {
+    if (latestGeoPoint && latestGeoPoint.elevationUomId) {
         elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false)
         context.elevationUomAbbr = elevationUom.abbreviation
     }

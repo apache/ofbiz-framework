@@ -26,7 +26,7 @@ if (fixedAssetId) {
     context.latestGeoPoint = latestGeoPoint;
     context.fixedAssetId = fixedAssetId;
 
-    if (latestGeoPoint) {
+    if (latestGeoPoint && latestGeoPoint.elevationUomId) {
         elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
         context.elevationUomAbbr = elevationUom.abbreviation;
     }
