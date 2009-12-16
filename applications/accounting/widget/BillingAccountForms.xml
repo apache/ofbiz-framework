@@ -84,7 +84,7 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="paidInvoice" value="${bsh: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(BigDecimal.ZERO)==0}" type="Boolean"/>
+            <set field="paidInvoice" value="${bsh: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
             <set field="amountToApply" value="${bsh:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
