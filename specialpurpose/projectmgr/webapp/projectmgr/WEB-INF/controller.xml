@@ -525,7 +525,7 @@
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
         <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
-        <response name="success" type="view-home" value="RequestList"/>
+        <response name="success" type="view-last-noparam" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="updaterequest">
