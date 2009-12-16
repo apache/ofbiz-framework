@@ -575,7 +575,7 @@
         <value xml:lang="es">Envío</value>
         <value xml:lang="fr">Expédition</value>
         <value xml:lang="it">Spedizione</value>
-        <value xml:lang="nl">Verzenden</value>
+        <value xml:lang="nl">Verzendingen</value>
         <value xml:lang="ro">Expeditor</value>
         <value xml:lang="ru">Поставка</value>
         <value xml:lang="th">การขนส่งสินค้า</value>
@@ -588,7 +588,7 @@
         <value xml:lang="es">Envío y manipulación</value>
         <value xml:lang="fr">Port et emballage</value>
         <value xml:lang="it">Spese di Spedizione e Imballaggio</value>
-        <value xml:lang="nl">Verzend en handelingen</value>
+        <value xml:lang="nl">Verzendingen en handelingen</value>
         <value xml:lang="ro">Cheltuieli de Expediere si Ambalare</value>
         <value xml:lang="ru">Доставка и обработка</value>
         <value xml:lang="th">การขนส่งสินค้าและการควบคุม</value>
@@ -601,7 +601,7 @@
         <value xml:lang="es">Instrucciones especiales</value>
         <value xml:lang="fr">Instructions spéciales</value>
         <value xml:lang="it">Istruzioni Speciali</value>
-        <value xml:lang="nl">Speciale Instructies</value>
+        <value xml:lang="nl">Speciale instructies</value>
         <value xml:lang="ro">Instructiuni Speciale</value>
         <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
@@ -676,6 +676,7 @@
         <value xml:lang="es">Añadir a carro, quitar incompatibles</value>
         <value xml:lang="fr">L'ajout au panier retire les éventuels produits incompatibles</value>
         <value xml:lang="it">Aggiunta al Carrello Rimuove Incompatibilità</value>
+        <value xml:lang="nl">Toevoegen aan winkelwagen verwijdert alle incompatibele producten</value>
         <value xml:lang="th">เพิ่มลงตระกร้าย้ายเข้ากันไม่ได้</value>
         <value xml:lang="zh">添加到购物车去除不兼容产品</value>
     </property>
@@ -685,6 +686,7 @@
         <value xml:lang="es">Añadir a carro, reemplazar sobreventa</value>
         <value xml:lang="fr">L'ajout au panier retire les éventuels produits redondants (upsell)</value>
         <value xml:lang="it">Aggiunta al Carrello Sostituisce Upsell</value>
+        <value xml:lang="nl">Toevoegen aan winkelwagen verwijdert alle overbodige producten (upsell)</value>
         <value xml:lang="th">Add To Cart Replace Upsell</value>
         <value xml:lang="zh">添加到购物车用升级产品替代</value>
     </property>
@@ -946,6 +948,7 @@
         <value xml:lang="es">Guardar el carro automáticamente</value>
         <value xml:lang="fr">Sauvegarde automatique du panier</value>
         <value xml:lang="it">Salvataggio Automatico Carrello</value>
+        <value xml:lang="nl">Winkelwagen automatisch opslaan</value>
         <value xml:lang="ro">Salvare Automatica a cosului</value>
         <value xml:lang="ru">Автосохранение корзины</value>
         <value xml:lang="th">บันทึกลงตระกร้าอัตโนมัติ</value>
@@ -1033,7 +1036,7 @@
         <value xml:lang="en">Balance Res On Order Creation</value>
         <value xml:lang="es">Resto reserva stock al crear pedido</value>
         <value xml:lang="fr">Expédition par un tiers : réservation de stock réévaluée suivant les dates d'exp. au plus tard</value>
-        <value xml:lang="it">Bilancio riserve sulla creazione ordine</value>
+        <value xml:lang="nl">Voorraadreserveringen compenseren nav aanmaken bestelling</value>
         <value xml:lang="zh">订单创建时平衡预订</value>
     </property>
     <property key="FormFieldTitle_bccAddress">
@@ -1199,6 +1202,7 @@
         <value xml:lang="es">Comprobar inventario</value>
         <value xml:lang="fr">Contrôle du stock</value>
         <value xml:lang="it">Controlla Inventario</value>
+        <value xml:lang="nl">Controleer op voorraad</value>
         <value xml:lang="ro">Controleaza Inventar</value>
         <value xml:lang="ru">Проверить наличие</value>
         <value xml:lang="th">ตรวจสอบสินค้าคงเหลือ</value>
@@ -1232,6 +1236,7 @@
         <value xml:lang="es">Nombre de la empresa</value>
         <value xml:lang="fr">Nom de l'entreprise</value>
         <value xml:lang="it">Nome Azienda</value>
+        <value xml:lang="nl">Winkelnaam</value>
         <value xml:lang="ro">Nume Firma</value>
         <value xml:lang="ru">Имя компании</value>
         <value xml:lang="th">ชื่อบริษัท</value>
@@ -1537,6 +1542,7 @@
         <value xml:lang="es">Código Canal de venta por defecto</value>
         <value xml:lang="fr">Réf. de canal de vente par défaut</value>
         <value xml:lang="it">Scelta Canale di Vendita di Default</value>
+        <value xml:lang="nl">Standaard verkoopkanaal</value>
         <value xml:lang="ro">Alege Canal de Vanzare de Default</value>
         <value xml:lang="ru">Канал продаж по умолчанию</value>
         <value xml:lang="th">รหัสค่าเริ่มต้นการแจกแจงช่องทางการขาย
@@ -1571,6 +1577,7 @@
         <value xml:lang="es">Vista detallada</value>
         <value xml:lang="fr">Ecran de détail</value>
         <value xml:lang="it">Videata Dettaglio</value>
+        <value xml:lang="nl">Detailscherm</value>
         <value xml:lang="ro">Videata Detaliu</value>
         <value xml:lang="ru">Экран подробностей</value>
         <value xml:lang="th">รายละเอียดการคัดเลือก</value>
@@ -2054,6 +2061,7 @@
         <value xml:lang="es">Código Almacén inventario</value>
         <value xml:lang="fr">Réf. d'inventaire de lieu de stockage</value>
         <value xml:lang="it">Codice Stabilimento Inventario</value>
+        <value xml:lang="nl">Voorraad magazijn ID</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Склад</value>
         <value xml:lang="th">รหัสสินค้าคงเหลือของสิ่งอำนวยความสะดวก</value>
@@ -2119,6 +2127,7 @@
         <value xml:lang="es">Es tienda de demostración</value>
         <value xml:lang="fr">Est un centre de profit de démonstration</value>
         <value xml:lang="it">E' un Negozio Dimostrativo</value>
+        <value xml:lang="nl">Demowinkel</value>
         <value xml:lang="ro">Este un Magazin Demonstrativ</value>
         <value xml:lang="ru">Это демо магазин</value>
         <value xml:lang="th">ตัวอย่างคลังสินค้า</value>
@@ -2130,6 +2139,7 @@
         <value xml:lang="es">Se ejecuta de inmediato</value>
         <value xml:lang="fr">Commande immédiatement exécutée</value>
         <value xml:lang="it">E' Eseguito Immediatamente</value>
+        <value xml:lang="nl">Is direct uitgevoerd</value>
         <value xml:lang="ro">Este Executat Imediat</value>
         <value xml:lang="ru">Выполнять немедленно</value>
         <value xml:lang="th">ปฏิบัติตามทันที</value>
@@ -2591,6 +2601,7 @@
         <value xml:lang="es">Un solo almacén de inventario</value>
         <value xml:lang="fr">Un seul lieu de stockage</value>
         <value xml:lang="it">Una Stabilimento Inventario</value>
+        <value xml:lang="nl">Eén opslagplaats</value>
         <value xml:lang="ro">Un Compartiment Inventar</value>
         <value xml:lang="ru">Один склад ТМЦ</value>
         <value xml:lang="th">หนึ่งคลังสินค้าสินค้าคงเหลือ</value>
@@ -2857,6 +2868,7 @@
         <value xml:lang="es">Código Tienda primaria</value>
         <value xml:lang="fr">Réf. de Groupe de centre de profit</value>
         <value xml:lang="it">Gruppo Negozio Primario</value>
+        <value xml:lang="nl">Primaire winkelgroep ID</value>
         <value xml:lang="ro">Grup Magazin Primar</value>
         <value xml:lang="ru">Код основной группы торг. точек</value>
         <value xml:lang="th">รหัสกลุ่มคลังสินค้าขั้นพื้นฐาน</value>
@@ -2908,6 +2920,7 @@
         <value xml:lang="es">Excluir variantes en búsqueda de producto</value>
         <value xml:lang="fr">La recherche de produits exclut les variantes</value>
         <value xml:lang="it">Escludere Varianti dalla Ricerca Prodotti</value>
+        <value xml:lang="nl">Uitsluiten varianten bij zoeken producten</value>
         <value xml:lang="th">แยกการเปลี่ยนแปลงสินค้าที่ค้นหา</value>
         <value xml:lang="zh">产品搜索不包括多样化产品</value>
     </property>
@@ -3182,6 +3195,7 @@
         <value xml:lang="es">Prorratear envíos</value>
         <value xml:lang="fr">Coût des expéditions au prorata</value>
         <value xml:lang="it">Ripartire Spedizioni</value>
+        <value xml:lang="nl">Verzending evenredig verdelen</value>
         <value xml:lang="ro">Repartizeaza Expedieri</value>
         <value xml:lang="ru">Пропорциональная отправка</value>
         <value xml:lang="th">แบ่งการขนส่ง</value>
@@ -3459,6 +3473,7 @@
         <value xml:lang="es">Se requiere dirección para artículos digitales</value>
         <value xml:lang="fr">Articles numériques : destination requise</value>
         <value xml:lang="it">Richiesto Indirizzo di Spedizione per Prodotti Digitali</value>
+        <value xml:lang="nl">Verzendadres vereist voor digitale producten</value>
         <value xml:lang="th">Req Ship Addr For Dig Items</value>
         <value xml:lang="zh">需要数字产品明细的送货地址</value>
     </property>
@@ -3509,6 +3524,7 @@
         <value xml:lang="es">Exigir existencias en stock</value>
         <value xml:lang="fr">Nécessite une présence en stock</value>
         <value xml:lang="it">Richiesto Inventario</value>
+        <value xml:lang="nl">Vereist voorraad</value>
         <value xml:lang="ro">Cerere Inventar</value>
         <value xml:lang="ru">Требуется наличие</value>
         <value xml:lang="th">กำหนดสินค้าคงเหลือ</value>
@@ -3536,6 +3552,7 @@
         <value xml:lang="es">Tipo de método de requisito</value>
         <value xml:lang="fr">Méthode retenue pour le réapprovisionnement</value>
         <value xml:lang="it">Richiesta Scelta Tipo Metodo Fabbisogno</value>
+        <value xml:lang="nl">Vereisten methodelijst ID</value>
         <value xml:lang="ro">Cerere Alegere Tip Metoda Necesar</value>
         <value xml:lang="ru">Способ создание требования</value>
         <value xml:lang="th">รหัสระบุวิธีความต้องการ</value>
@@ -3547,6 +3564,7 @@
         <value xml:lang="es">Reservar stock</value>
         <value xml:lang="fr">Réserver le stock</value>
         <value xml:lang="it">Riserva Inventario</value>
+        <value xml:lang="nl">Reserveer voorraad</value>
         <value xml:lang="ro">Rezerva Inventar</value>
         <value xml:lang="ru">Зарезервировать на складе</value>
         <value xml:lang="th">จองสินค้าคงเหลือ</value>
@@ -3558,6 +3576,7 @@
         <value xml:lang="es">Orden de reserva</value>
         <value xml:lang="fr">Ordre de réservation</value>
         <value xml:lang="it">Scegli Tipo Riservamento Ordine</value>
+        <value xml:lang="nl">Voorraadcirculatie methode ID</value>
         <value xml:lang="ro">Alege Tip Rezervare Comanda</value>
         <value xml:lang="ru">Способ резервирования по заказ</value>
         <value xml:lang="th">รหัสระบุการจองรายการสั่งซื้อ</value>
@@ -3665,6 +3684,7 @@
         <value xml:lang="es">Seleccionar tipo de pago por ítem</value>
         <value xml:lang="fr">Choisir le type de paiement par article</value>
         <value xml:lang="it">Seleziona Tipo Pagamento Per Riga</value>
+        <value xml:lang="nl">Toestaan betaalmethode per bestellingregel</value>
         <value xml:lang="ro">Selectioneaza Tip Plata Pe Linie</value>
         <value xml:lang="ru">Выбирать способ платежа по каждой позиции</value>
         <value xml:lang="th">เลือกวิธีการชำระเงินต่อหนึ่งรายการ</value>
@@ -3751,6 +3771,7 @@
         <value xml:lang="es">Enviar si falla pago</value>
         <value xml:lang="fr">Expédier même si le prélèvement échoue</value>
         <value xml:lang="it">Spedire Se la Cattura Pagamento Fallisce</value>
+        <value xml:lang="nl">Als betaling opvangen mislukt, toch verzenden</value>
         <value xml:lang="ru">Поставлять если захват не удался</value>
         <value xml:lang="th">ลักษณะถ้าพบความผิดพลาด</value>
         <value xml:lang="zh">如果捕获失败装运吗</value>
@@ -3830,6 +3851,7 @@
         <value xml:lang="es">Mostrar opciones de regalo al checkout</value>
         <value xml:lang="fr">Montrer les options de cadeaux</value>
         <value xml:lang="it">Mostra Opzioni Checkout Regali</value>
+        <value xml:lang="nl">Toon geschenkopties tijdens bestelproces</value>
         <value xml:lang="ro">Afiseaza Optiuni Checkout Cadouri</value>
         <value xml:lang="ru">Показывать подарки при подтверждении</value>
         <value xml:lang="th">แสดงการออกจากทางเลือกของขวัญ</value>
@@ -3894,6 +3916,7 @@
         <value xml:lang="es">Separar las preferencias de pago por grupos de envío</value>
         <value xml:lang="fr">Séparer les préférences de paiement par groupes d'expédition</value>
         <value xml:lang="it">Suddividere Preferenze Pagamento Per Gruppo di Spedizione</value>
+        <value xml:lang="nl">Opsplitsen betaling per verzendgroep</value>
         <value xml:lang="th">Split Pay Pref Per Shp Grp</value>
         <value xml:lang="zh">把付款分拆给每个运输组</value>
     </property>
@@ -3925,6 +3948,7 @@
         <value xml:lang="es">Nombre de tienda</value>
         <value xml:lang="fr">Nom du centre de profit</value>
         <value xml:lang="it">Nome Negozio</value>
+        <value xml:lang="nl">Winkelnaam</value>
         <value xml:lang="ro">Nume Magazin</value>
         <value xml:lang="ru">Название торговой точки</value>
         <value xml:lang="th">ชื่อคลังสินค้า</value>
@@ -4096,6 +4120,7 @@
         <value xml:lang="es">Título</value>
         <value xml:lang="fr">Titre</value>
         <value xml:lang="it">Titolo</value>
+        <value xml:lang="nl">Titel</value>
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="ru">Заголовок</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -4107,6 +4132,7 @@
         <value xml:lang="es">Texto del título</value>
         <value xml:lang="fr">Texte du titre</value>
         <value xml:lang="it">Testo Titolo</value>
+        <value xml:lang="nl">Titeltekst</value>
         <value xml:lang="ru">Текст заголовка</value>
         <value xml:lang="th">ข้อความหัวข้อ</value>
         <value xml:lang="zh">标题文本</value>
@@ -4300,6 +4326,7 @@
         <value xml:lang="es">Ver el carro al añadir</value>
         <value xml:lang="fr">Voir le panier sur ajout</value>
         <value xml:lang="it">Mostra Carrello In Aggiunta</value>
+        <value xml:lang="nl">Toon winkelwagen na bestellen product</value>
         <value xml:lang="ro">Afiseaza Cos Adaugari</value>
         <value xml:lang="ru">Просмотр корзины после добавления</value>
         <value xml:lang="th">แสดงตระกร้าในการเพิ่ม</value>
@@ -4309,6 +4336,7 @@
         <value xml:lang="en">Visual Theme</value>
         <value xml:lang="fr">Charte graphique</value>
         <value xml:lang="it">Tema grafico</value>
+        <value xml:lang="nl">Visueel thema</value>
         <value xml:lang="zh">视觉风格</value>
     </property>
     <property key="FormFieldTitle_weightBreakId">
@@ -7953,6 +7981,7 @@
     <property key="ProductBestSellingProductsOf">
         <value xml:lang="en">Best Selling Products of</value>
         <value xml:lang="it">Migliori prodotti venduti il</value>
+        <value xml:lang="nl">Best verkochte producten op</value>
     </property>
     <property key="ProductBillingWeightUom">
         <value xml:lang="de">Verrechnung Gewicht Einheit</value>
@@ -8277,6 +8306,7 @@
         <value xml:lang="es">Adplicación de Administración de Catálogos</value>
         <value xml:lang="fr">Application de gestion des articles</value>
         <value xml:lang="it">Gestione cataloghi</value>
+        <value xml:lang="nl">Catalogus Manager</value>
         <value xml:lang="ro">Aplicatie Gestiune Catalog</value>
         <value xml:lang="ru">Управление каталогом продуктов</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการหมวดหมู่</value>
@@ -8346,6 +8376,7 @@
         <value xml:lang="es">Catálogos</value>
         <value xml:lang="fr">Catalogues</value>
         <value xml:lang="it">Cataloghi</value>
+        <value xml:lang="nl">Catalogi</value>
         <value xml:lang="ro">Cataloage </value>
         <value xml:lang="ru">Каталоги</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -8357,6 +8388,7 @@
         <value xml:lang="es">Categorías</value>
         <value xml:lang="fr">Catégories</value>
         <value xml:lang="it">Categorie</value>
+        <value xml:lang="nl">Categorieën</value>
         <value xml:lang="ro">Categorie</value>
         <value xml:lang="ru">Категории</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -8368,6 +8400,7 @@
         <value xml:lang="es">Categorías para</value>
         <value xml:lang="fr">Les catégories de</value>
         <value xml:lang="it">Categorie per</value>
+        <value xml:lang="nl">Categorieën voor</value>
         <value xml:lang="ro">Categorie pentru </value>
         <value xml:lang="ru">Категории для</value>
         <value xml:lang="th">หมวดหมู่สำหรับ</value>
@@ -8631,6 +8664,7 @@
         <value xml:lang="es">Verificar Inventario</value>
         <value xml:lang="fr">Vérifier le stock</value>
         <value xml:lang="it">Controlla Inventario</value>
+        <value xml:lang="nl">Controleer op voorraad</value>
         <value xml:lang="ro">Control Inventar</value>
         <value xml:lang="ru">Проверить наличие</value>
         <value xml:lang="th">ตรวจสอบสินค้าคงเหลือ</value>
@@ -8814,6 +8848,7 @@
     <property key="ProductCompareProducts">
         <value xml:lang="en">Compare Products</value>
         <value xml:lang="it">Confronta prodotti</value>
+        <value xml:lang="nl">Vergelijken producten</value>
     </property>
     <property key="ProductComplete">
         <value xml:lang="de">Abschliessen</value>
@@ -10687,6 +10722,7 @@
         <value xml:lang="es">Unidad de Peso por defecto</value>
         <value xml:lang="fr">Unit de poids par défaut</value>
         <value xml:lang="it">Unità per Pesi di Default</value>
+        <value xml:lang="nl">Standaard gewichtseenheid</value>
         <value xml:lang="ro">Unitate pe Greutati de Default</value>
         <value xml:lang="ru">Единица веса по умолчанию</value>
         <value xml:lang="th">หน่วยน้ำหนักเริ่มต้น</value>
@@ -10698,6 +10734,7 @@
         <value xml:lang="es">Grupo de Almacén</value>
         <value xml:lang="fr">Groupe de lieux de stockage</value>
         <value xml:lang="it">Gruppo Stabilimento</value>
+        <value xml:lang="nl">Magazijngroep</value>
         <value xml:lang="ro">Grup Compartiment</value>
         <value xml:lang="ru">Группа объектов</value>
         <value xml:lang="th">กลุ่มคลังสินค้า</value>
@@ -12064,6 +12101,7 @@
         <value xml:lang="es">Inventario</value>
         <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Inventario</value>
+        <value xml:lang="nl">Voorraad</value>
         <value xml:lang="ro">Inventar</value>
         <value xml:lang="ru">Реестр ТМЦ</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
@@ -13841,6 +13879,7 @@
         <value xml:lang="es">Nueva tienda</value>
         <value xml:lang="fr">Nouveau centre de profit</value>
         <value xml:lang="it">Nuovo Negozio</value>
+        <value xml:lang="nl">Nieuwe winkel</value>
         <value xml:lang="ro">Nou Magazin</value>
         <value xml:lang="ru">Новую торговую точку</value>
         <value xml:lang="th">คลังสินค้าใหม่</value>
@@ -14233,6 +14272,7 @@
     <property key="ProductNoProductFound">
         <value xml:lang="en">No Product Found</value>
         <value xml:lang="it">Nessun prodotto trovato</value>
+        <value xml:lang="nl">Geen producten gevonden</value>
     </property>
     <property key="ProductNoProductsInCategory">
         <value xml:lang="de">Keine Produkte in der Kategorie</value>
@@ -14263,6 +14303,7 @@
     <property key="ProductNoProductsToCompare">
         <value xml:lang="en">You have no products to compare.</value>
         <value xml:lang="it">Non c'è nessun prodotto da confrontare.</value>
+        <value xml:lang="nl">Er zijn geen producten om te vergelijken.</value>
     </property>
     <property key="ProductNoResultsFound">
         <value xml:lang="cs">Nenalezeny žádné výsledky</value>
@@ -15124,6 +15165,7 @@
         <value xml:lang="es">Reemplazo</value>
         <value xml:lang="fr">Remplacement de mot-clé</value>
         <value xml:lang="it">Sostituzione</value>
+        <value xml:lang="nl">Overrulen</value>
         <value xml:lang="ro">Substitutie</value>
         <value xml:lang="ru">Переопределить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -16330,7 +16372,7 @@
         <value xml:lang="es">Tienda de productos</value>
         <value xml:lang="fr">Centre de profit</value>
         <value xml:lang="it">Negozio</value>
-        <value xml:lang="nl">Magazijn</value>
+        <value xml:lang="nl">Winkel</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Торговая точка продукта</value>
         <value xml:lang="th">คลังสินค้า</value>
@@ -17806,6 +17848,7 @@
         <value xml:lang="es">Reserva de inventario</value>
         <value xml:lang="fr">Réservation de stock</value>
         <value xml:lang="it">Inventario Riservato</value>
+        <value xml:lang="nl">Reserveer voorraad</value>
         <value xml:lang="ro">Inventar Rezervat</value>
         <value xml:lang="ru">Резерв</value>
         <value xml:lang="th">การสั่งจองสินค้าคงเหลือ</value>
@@ -18378,6 +18421,7 @@
         <value xml:lang="es">Segmentos</value>
         <value xml:lang="fr">Segments</value>
         <value xml:lang="it">Segmenti</value>
+        <value xml:lang="nl">Segmenten</value>
         <value xml:lang="ro">Segmente</value>
         <value xml:lang="ru">Сегменты</value>
         <value xml:lang="th">กลุ่ม</value>
@@ -19516,6 +19560,7 @@
         <value xml:lang="es">Tienda</value>
         <value xml:lang="fr">Centre de profit</value>
         <value xml:lang="it">Negozio</value>
+        <value xml:lang="nl">Winkel</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Торговая точка</value>
         <value xml:lang="th">คลังสินค้า</value>
@@ -19525,6 +19570,7 @@
         <value xml:lang="en">Product Store Financial Account Settings</value>
         <value xml:lang="fr">Paramétrage des comptes financiers du centre de profit</value>
         <value xml:lang="it">Impostazioni conto finanziario negozio</value>
+        <value xml:lang="nl">Financiële account instellingen winkel</value>
         <value xml:lang="th">ตั้งค่าบัญชีคลังสินค้า</value>
         <value xml:lang="zh">产品店铺金融账户设置</value>
     </property>
@@ -19556,6 +19602,7 @@
         <value xml:lang="es">Nombre de tienda</value>
         <value xml:lang="fr">Nom du centre de profit</value>
         <value xml:lang="it">Nome Negozio</value>
+        <value xml:lang="nl">Winkelnaam</value>
         <value xml:lang="ro">Nume Magazin</value>
         <value xml:lang="ru">Название торговой точки</value>
         <value xml:lang="th">ชื่อคลังสินค้า</value>
@@ -19697,6 +19744,7 @@
         <value xml:lang="es">Subtítulo</value>
         <value xml:lang="fr">Sous-titre</value>
         <value xml:lang="it">Sotto-Titolo</value>
+        <value xml:lang="nl">Subtitel</value>
         <value xml:lang="ro">Sub-Titlu</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">หัวข้อย่อย</value>
@@ -20152,6 +20200,7 @@
         <value xml:lang="es">Título</value>
         <value xml:lang="fr">Titre</value>
         <value xml:lang="it">Titolo</value>
+        <value xml:lang="nl">Titel</value>
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="ru">Заголовок</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -20878,6 +20927,7 @@
         <value xml:lang="es">Pagos a proveedores</value>
         <value xml:lang="fr">Paiements du vendeur</value>
         <value xml:lang="it">Pagamenti del Fornitore</value>
+        <value xml:lang="nl">Leverancier betalingen</value>
         <value xml:lang="th">การชำระเงินผู้จำหน่าย</value>
         <value xml:lang="zh">经销商支付</value>
     </property>
@@ -20887,6 +20937,7 @@
         <value xml:lang="es">Producto de proveedor</value>
         <value xml:lang="fr">Produit du vendeur</value>
         <value xml:lang="it">Prodotti del Fornitore</value>
+        <value xml:lang="nl">Leverancier producten</value>
         <value xml:lang="th">ผู้จำหน่ายสินค้า</value>
         <value xml:lang="zh">经销商产品</value>
     </property>
@@ -20896,6 +20947,7 @@
         <value xml:lang="es">Envíos de proveedores</value>
         <value xml:lang="fr">Expéditions du vendeur</value>
         <value xml:lang="it">Spedizionieri del Fornitore</value>
+        <value xml:lang="nl">Leverancier leveringen</value>
         <value xml:lang="th">การขนส่งผู้จำหน่าย</value>
         <value xml:lang="zh">经销商送货</value>
     </property>
@@ -20919,6 +20971,7 @@
         <value xml:lang="es">Ver estimaciones</value>
         <value xml:lang="fr">Coûts d'expédition</value>
         <value xml:lang="it">Mostra Stime</value>
+        <value xml:lang="nl">Verzendinstellingen</value>
         <value xml:lang="ro">Afiseaza Stimari</value>
         <value xml:lang="ru">Стоимость доставки</value>
         <value xml:lang="th">การขนส่งประมาณ</value>
@@ -21064,6 +21117,7 @@
         <value xml:lang="es">Sitios web</value>
         <value xml:lang="fr">Sites Web</value>
         <value xml:lang="it">Siti Web</value>
+        <value xml:lang="nl">Websites</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="ru">Web сайты</value>
         <value xml:lang="th">เว็บไซต์</value>
