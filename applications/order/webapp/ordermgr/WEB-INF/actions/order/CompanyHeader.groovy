@@ -135,7 +135,7 @@ if (address)    {
    // get the country name and state/province abbreviation
    country = address.getRelatedOneCache("CountryGeo");
    if (country) {
-      context.countryName = country.geoName;
+      context.countryName = country.get("geoName", locale);
    }
    stateProvince = address.getRelatedOneCache("StateProvinceGeo");
    if (stateProvince) {
