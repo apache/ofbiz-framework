@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
@@ -55,7 +56,8 @@ public class CallService extends MethodOperation {
     }
 
     public static final String module = CallService.class.getName();
-
+    public static final String resource = "MiniLangErrorUiLabels";
+    
     protected String serviceName;
     protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
@@ -314,10 +316,10 @@ public class CallService extends MethodOperation {
         String successSuffixStr = successSuffix.getMessage(methodContext.getLoader(), methodContext);
         String messagePrefixStr = messagePrefix.getMessage(methodContext.getLoader(), methodContext);
         String messageSuffixStr = messageSuffix.getMessage(methodContext.getLoader(), methodContext);
-
+        
         String errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, errorPrefixStr, errorSuffixStr);
         if (UtilValidate.isNotEmpty(errorMessage)) {
-            errorMessage += " calling service " + serviceName + " in " + simpleMethod.getMethodName();
+            errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
