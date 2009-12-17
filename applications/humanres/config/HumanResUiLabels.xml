@@ -542,7 +542,7 @@
     </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
-        <value xml:lang="fr">Ajouter le compte-rendu de position [en rapport avec $ {parameters.emplPositionId}</value>
+        <value xml:lang="fr">Ajouter le compte-rendu de position [en rapport avec ${parameters.emplPositionId}</value>
         <value xml:lang="it">Aggiungi posizione impiegato per le competenze [competenze di ${parameters.emplPositionId}]</value>
         <value xml:lang="zh">新建雇员职位级别结构 [上级为 ${parameters.emplPositionId}]</value>
     </property>
