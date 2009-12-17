@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javolution.util.FastList;
 
@@ -115,7 +113,8 @@ public class CommonWorkers {
                 EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
                 EntityCondition.makeCondition(EntityOperator.OR,
                         EntityCondition.makeCondition("geoTypeId", "STATE"),
-                        EntityCondition.makeCondition("geoTypeId", "PROVINCE")));
+                        EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
+                        EntityCondition.makeCondition("geoTypeId", "COUNTY")));
         List<String> sortList = UtilMisc.toList("geoId");
 
         List<GenericValue> geoList = FastList.newInstance();
