@@ -22,7 +22,7 @@ under the License.
     <Geo abbreviation="AG" geoCode="AG" geoId="IT-AG" geoName="Agrigento" geoTypeId="PROVINCE"/>
     <Geo abbreviation="AL" geoCode="AL" geoId="IT-AL" geoName="Alessandria" geoTypeId="PROVINCE"/>
     <Geo abbreviation="AN" geoCode="AN" geoId="IT-AN" geoName="Ancona" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="AO" geoCode="AO" geoId="IT-AO" geoName="Valle d'Aosta" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="AO" geoCode="AO" geoId="IT-AO" geoName="Aosta" geoTypeId="PROVINCE"/>
     <Geo abbreviation="AQ" geoCode="AQ" geoId="IT-AQ" geoName="L'Aquila" geoTypeId="PROVINCE"/>
     <Geo abbreviation="AR" geoCode="AR" geoId="IT-AR" geoName="Arezzo" geoTypeId="PROVINCE"/>
     <Geo abbreviation="AP" geoCode="AP" geoId="IT-AP" geoName="Ascoli Piceno" geoTypeId="PROVINCE"/>
@@ -73,11 +73,11 @@ under the License.
     <Geo abbreviation="MN" geoCode="MN" geoId="IT-MN" geoName="Mantova" geoTypeId="PROVINCE"/>
     <Geo abbreviation="MS" geoCode="MS" geoId="IT-MS" geoName="Massa-Carrara" geoTypeId="PROVINCE"/>
     <Geo abbreviation="MT" geoCode="MT" geoId="IT-MT" geoName="Matera" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="MD" geoCode="MD" geoId="IT-MD" geoName="Medio Campidano" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="VS" geoCode="VS" geoId="IT-VS" geoName="Medio Campidano" geoTypeId="PROVINCE"/>
     <Geo abbreviation="ME" geoCode="ME" geoId="IT-ME" geoName="Messina" geoTypeId="PROVINCE"/>
     <Geo abbreviation="MI" geoCode="MI" geoId="IT-MI" geoName="Milano" geoTypeId="PROVINCE"/>
     <Geo abbreviation="MO" geoCode="MO" geoId="IT-MO" geoName="Modena" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="MZ" geoCode="MZ" geoId="IT-MZ" geoName="Monza" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="MB" geoCode="MB" geoId="IT-MB" geoName="Monza e Brianza" geoTypeId="PROVINCE"/>
     <Geo abbreviation="NA" geoCode="NA" geoId="IT-NA" geoName="Napoli" geoTypeId="PROVINCE"/>
     <Geo abbreviation="NO" geoCode="NO" geoId="IT-NO" geoName="Novara" geoTypeId="PROVINCE"/>
     <Geo abbreviation="NU" geoCode="NU" geoId="IT-NU" geoName="Nuoro" geoTypeId="PROVINCE"/>
@@ -123,13 +123,13 @@ under the License.
     <Geo abbreviation="UD" geoCode="UD" geoId="IT-UD" geoName="Udine" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VA" geoCode="VA" geoId="IT-VA" geoName="Varese" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VE" geoCode="VE" geoId="IT-VE" geoName="Venezia" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="VB" geoCode="VB" geoId="IT-VB" geoName="Verbano Cusio Ossola" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="VB" geoCode="VB" geoId="IT-VB" geoName="Verbano-Cusio-Ossola" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VC" geoCode="VC" geoId="IT-VC" geoName="Vercelli" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VR" geoCode="VR" geoId="IT-VR" geoName="Verona" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VV" geoCode="VV" geoId="IT-VV" geoName="Vibo Valentia" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VI" geoCode="VI" geoId="IT-VI" geoName="Vicenza" geoTypeId="PROVINCE"/>
     <Geo abbreviation="VT" geoCode="VT" geoId="IT-VT" geoName="Viterbo" geoTypeId="PROVINCE"/>
-
+    
     <!-- Associations -->
     <GeoAssoc geoId="ITA" geoIdTo="IT-AG" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-AL" geoAssocTypeId="REGIONS"/>
@@ -185,11 +185,11 @@ under the License.
     <GeoAssoc geoId="ITA" geoIdTo="IT-MN" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-MS" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-MT" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="ITA" geoIdTo="IT-MD" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ITA" geoIdTo="IT-VS" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-ME" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-MI" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-MO" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="ITA" geoIdTo="IT-MZ" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="ITA" geoIdTo="IT-MB" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-NA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-NO" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-NU" geoAssocTypeId="REGIONS"/>
@@ -242,3 +242,4 @@ under the License.
     <GeoAssoc geoId="ITA" geoIdTo="IT-VI" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ITA" geoIdTo="IT-VT" geoAssocTypeId="REGIONS"/>
 </entity-engine-xml>
+
