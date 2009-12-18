@@ -1016,7 +1016,7 @@ under the License.
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="AcctgTransEntriesSearchResultsCsv" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList" view-size="1000">
+    <form name="AcctgTransEntriesSearchResultsCsv" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList" paginate="false">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
                 <condition-list>
@@ -1059,7 +1059,7 @@ under the License.
         <field name="amount"><display/></field>
     </form>
 
-    <form name="AcctgTransSearchResultsCsv" type="list" title="List Accounting Transactions" list-name="acctgTransList" view-size="1000">
+    <form name="AcctgTransSearchResultsCsv" type="list" title="List Accounting Transactions" list-name="acctgTransList" paginate="false">
         <actions>
            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransList" result-set-type="forward" distinct="true">
                 <condition-list>

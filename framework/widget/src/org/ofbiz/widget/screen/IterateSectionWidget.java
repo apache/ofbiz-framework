@@ -62,6 +62,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     protected boolean paginate = true;
 
     public static int DEFAULT_PAGE_SIZE = 5;
+    public static int MAX_PAGE_SIZE = 10000;     
     protected int viewIndex = 0;
     protected int viewSize = DEFAULT_PAGE_SIZE;
     protected int lowIndex = -1;
@@ -274,9 +275,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
             highIndex = (viewIndex + 1) * viewSize;
         } else {
             viewIndex = 0;
-            viewSize = DEFAULT_PAGE_SIZE;
+            viewSize = MAX_PAGE_SIZE;
             lowIndex = 0;
-            highIndex = DEFAULT_PAGE_SIZE;
+            highIndex = MAX_PAGE_SIZE;
         }
     }
 
