@@ -135,9 +135,12 @@ under the License.
         <delete dir="${build.dir}/test-results/cobertura-report"/>
         <mkdir dir="${build.dir}/test-results/cobertura-report"/>
         <cobertura-report datafile="${build.dir}/test-results/cobertura.dat" destdir="${build.dir}/test-results/cobertura-report">
-            <fileset dir=".">
-                <include name="src/**/*.java"/>
-            </fileset>
+            <dirset dir=".">
+                <patternset refid="src-dirs"/>
+                <include name="src"/>
+            </dirset>
+
+            <include name="**/*.java"/>
         </cobertura-report>
     </target>
 
