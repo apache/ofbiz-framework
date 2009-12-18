@@ -35,10 +35,10 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
     private final Condition havingCondition;
     private final int offset;
     private final int limit;
-    private final List<String> orderBy;
+    private final List<OrderByItem> orderBy;
     private final List<String> groupBy;
 
-    public SQLSelect(List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, List<Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<String> orderBy, int offset, int limit) {
+    public SQLSelect(List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, List<Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
         this.fieldAlls = fieldAlls;
         this.fieldDefs = fieldDefs;
         this.table = table;
@@ -79,7 +79,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         return groupBy;
     }
 
-    public List<String> getOrderBy() {
+    public List<OrderByItem> getOrderBy() {
         return orderBy;
     }
 
