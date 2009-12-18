@@ -49,6 +49,7 @@ import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.KeyMap;
 import org.ofbiz.sql.MathValue;
 import org.ofbiz.sql.NumberValue;
+import org.ofbiz.sql.OrderByItem;
 import org.ofbiz.sql.Planner;
 import org.ofbiz.sql.MathValue;
 import org.ofbiz.sql.Relation;
@@ -94,7 +95,16 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         for (FieldDef fieldDef: selectStatement.getFieldDefs()) {
             addFieldDef(dve, groupBy, fieldDef.getAlias(), fieldDef);
         }
-        return new EntitySelectPlan(dve, plan(selectStatement.getWhereCondition()), plan(selectStatement.getHavingCondition()), selectStatement.getOrderBy());
+        List<String> orderBy;
+        if (selectStatement.getOrderBy() == null) {
+            orderBy = null;
+        } else {
+            orderBy = FastList.newInstance();
+            for (OrderByItem orderByItem: selectStatement.getOrderBy()) {
+                orderBy.add(orderByItem.toString());
+            }
+        }
+        return new EntitySelectPlan(dve, plan(selectStatement.getWhereCondition()), plan(selectStatement.getHavingCondition()), orderBy);
     }
 
     public EntityUpdatePlan planUpdate(SQLUpdate updateStatement) {

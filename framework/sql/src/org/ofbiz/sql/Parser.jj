@@ -107,6 +107,8 @@ TOKEN: {
 |	<INSERT: "INSERT">
 |	<RELATION: "RELATION">
 |	<EXCLUDE: "EXCLUDE">
+|	<UPPER: "UPPER">
+|	<LOWER: "LOWER">
 |	<TYPE: "TYPE">
 |	<TITLE: "TITLE">
 |	<SET: "SET">
@@ -114,6 +116,8 @@ TOKEN: {
 |	<SEMI: ";">
 |	<STAR: "*">
 |	<COMMA: ",">
+|	<PLUS: "+">
+|	<MINUS: "-">
 |	<DESC: "DESC">
 |	<ASC: "ASC">
 |	<EQUALS: "=">
@@ -269,7 +273,8 @@ private SQLView View():
 private SQLSelect Select():
 {
 	Integer i;
-	List<String> orderBy = null, groupBy = null;
+	List<OrderByItem> orderBy = null;
+	List<String> groupBy = null;
 	Map<String, FieldDef> fieldDefs = FastMap.newInstance();
 	List<FieldAll> fieldAlls = FastList.newInstance();
 	Table table;
@@ -644,10 +649,10 @@ private FieldValue FieldValue(String fieldName):
 	}
 }
 
-private List<String> OrderByList():
+private List<OrderByItem> OrderByList():
 {
-	List<String> orderBy = FastList.newInstance();
-	String obi;
+	List<OrderByItem> orderBy = FastList.newInstance();
+	OrderByItem obi;
 }
 {
 	obi=OrderByItem() { orderBy.add(obi); }
@@ -655,18 +660,27 @@ private List<String> OrderByList():
 	{ return orderBy; }
 }
 
-private String OrderByItem():
+private OrderByItem OrderByItem():
 {
-	StringBuilder sb = new StringBuilder();
-	String n;
+	String functionName = null, fieldName = null;
+	boolean descending = false, orderingSet = false;
+	OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
 }
 {
-	n=NamePart() { sb.append(n); }
 	(
-		<DESC> { sb.append(" DESC"); } 
-		| <ASC> { sb.append(" ASC"); }
+		<PLUS> { ordering = OrderByItem.Order.ASCENDING; }
+		| <MINUS> { ordering = OrderByItem.Order.DESCENDING; }
 	)?
-	{ return sb.toString(); }
+	(
+		( <UPPER> | <LOWER> ) { functionName = getToken(0).image; }
+		<OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
+		| fieldName=NamePart()
+	)
+	LOOKAHEAD({!orderingSet}) (
+		<DESC> { ordering = OrderByItem.Order.DESCENDING; }
+		| <ASC> { ordering = OrderByItem.Order.ASCENDING; }
+	)?
+	{ return new OrderByItem(ordering, functionName, fieldName); }
 }
 
 private Integer Integer():
