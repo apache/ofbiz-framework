@@ -65,7 +65,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" paginate="false"
+    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" paginate="${paginate}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="GlAccount"/>
@@ -74,8 +74,6 @@ under the License.
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="noConditionFind" value="Y"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>

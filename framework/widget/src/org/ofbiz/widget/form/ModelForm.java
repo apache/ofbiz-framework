@@ -100,6 +100,7 @@ public class ModelForm extends ModelWidget {
     protected String defaultWidgetStyle;
     protected String defaultTooltipStyle;
     protected String itemIndexSeparator;
+    protected FlexibleStringExpander paginate;
     protected FlexibleStringExpander paginateTarget;
     protected FlexibleStringExpander paginateIndexField;
     protected FlexibleStringExpander paginateSizeField;
@@ -112,7 +113,6 @@ public class ModelForm extends ModelWidget {
     protected String paginateTargetAnchor;
     protected String paginateStyle;
     protected boolean separateColumns = false;
-    protected boolean paginate = true;
     protected boolean useRowSubmit = false;
     protected FlexibleStringExpander targetWindowExdr;
     protected String defaultRequiredFieldStyle;
@@ -443,8 +443,10 @@ public class ModelForm extends ModelWidget {
         if (this.paginateStyle == null || formElement.hasAttribute("paginate-style")) {
             setPaginateStyle(formElement.getAttribute("paginate-style"));
         }
+        if (this.paginate == null || formElement.hasAttribute("paginate")) {
+            this.paginate = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate"));
+        }
 
-        this.paginate = "true".equals(formElement.getAttribute("paginate"));
         this.skipStart = "true".equals(formElement.getAttribute("skip-start"));
         this.skipEnd = "true".equals(formElement.getAttribute("skip-end"));
         this.hideHeader = "true".equals(formElement.getAttribute("hide-header"));
@@ -789,6 +791,12 @@ public class ModelForm extends ModelWidget {
         if ("list".equals(this.type) || "multi".equals(this.type)) {
             this.incrementPaginatorNumber(context);
         }
+        
+        //if pagination is disabled, update the defualt view size
+        if (!getPaginate(context)) {
+            setDefaultViewSize(this.MAX_PAGE_SIZE);
+        }
+        
         // Populate the viewSize and viewIndex so they are available for use during form actions
         context.put("viewIndex", this.getViewIndex(context));
         context.put("viewSize", this.getViewSize(context));
@@ -2359,8 +2367,12 @@ public class ModelForm extends ModelWidget {
         return this.separateColumns;
     }
 
-    public boolean getPaginate() {
-        return this.paginate;
+    public boolean getPaginate(Map<String, Object> context) {
+        if (this.paginate != null && !this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
+            return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
+        } else {
+            return true;
+        }        
     }
 
     public boolean getSkipStart() {
@@ -2390,11 +2402,11 @@ public class ModelForm extends ModelWidget {
     public boolean getClientAutocompleteFields() {
         return this.clientAutocompleteFields;
     }
-
+    
     public void setPaginate(boolean val) {
-        paginate = val;
+        this.paginate = FlexibleStringExpander.getInstance(Boolean.valueOf(val).toString());
     }
-
+ 
     public void setOverridenListSize(boolean overridenListSize) {
         this.overridenListSize = overridenListSize;
     }
@@ -2463,13 +2475,14 @@ public class ModelForm extends ModelWidget {
     private int getOverrideListSize(Map<String, Object> context) {
         int listSize = 0;
         String size = this.overrideListSize.expandString(context);
-        if (!UtilValidate.isEmpty(size)) {
+        if (UtilValidate.isNotEmpty(size)) {
             try {
                 listSize = Integer.parseInt(size);
             } catch (NumberFormatException e) {
                 Debug.logError(e, "Error getting override list size from value " + size, module);
             }
         }
+
         return listSize;
     }
 
@@ -2496,10 +2509,9 @@ public class ModelForm extends ModelWidget {
             listSize = items.size();
         }
 
-        if (paginate) {
+        if (getPaginate(context)) {
             viewIndex = this.getPaginateIndex(context);
             viewSize = this.getPaginateSize(context);
-
             lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
         } else {

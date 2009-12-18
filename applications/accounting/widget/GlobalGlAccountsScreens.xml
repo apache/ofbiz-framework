@@ -249,6 +249,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleListAccounts"/>
                 <set field="pageLayoutName" value="simple-landscape"/>
+                <set field="paginate" value="false"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">

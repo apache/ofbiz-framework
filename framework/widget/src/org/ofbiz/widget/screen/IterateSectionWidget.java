@@ -59,7 +59,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     protected FlexibleStringExpander entryNameExdr;
     protected FlexibleStringExpander keyNameExdr;
     protected FlexibleStringExpander paginateTarget;
-    protected boolean paginate = true;
+    protected FlexibleStringExpander paginate;
 
     public static int DEFAULT_PAGE_SIZE = 5;
     public static int MAX_PAGE_SIZE = 10000;     
@@ -84,7 +84,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
             this.paginateTarget = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate-target"));
         }
 
-        paginate = "true".equals(iterateSectionElement.getAttribute("paginate"));
+        if (this.paginate == null || iterateSectionElement.hasAttribute("paginate")) {
+            this.paginate = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate"));
+        }
+        
         if (iterateSectionElement.hasAttribute("view-size")) {
             setViewSize(iterateSectionElement.getAttribute("view-size"));
         }
@@ -161,7 +164,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             setHighIndex(itemIndex + 1);
         }
         setActualPageSize(highIndex - lowIndex);
-        if (paginate) {
+        if (getPaginate(context)) {
             try {
                 Integer lastPageNumber = null;
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
@@ -188,13 +191,17 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public String getPaginateTarget(Map<String, Object> context) {
         return this.paginateTarget.expandString(context);
     }
-
-    public boolean getPaginate() {
-        return this.paginate;
+ 
+    public boolean getPaginate(Map<String, Object> context) {
+        if (this.paginate != null && !this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
+            return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
+        } else {
+            return true;
+        }        
     }
 
     public void setPaginate(boolean val) {
-        paginate = val;
+        this.paginate = FlexibleStringExpander.getInstance(Boolean.valueOf(val).toString());
     }
 
     public void setViewIndex(int val) {
@@ -255,7 +262,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public <X> void getListLimits(Map<String, Object> context, List<X> items) {
         listSize = items.size();
 
-        if (paginate) {
+        if (getPaginate(context)) {
             try {
                 Map<String, String> params = UtilGenerics.cast(context.get("parameters"));
                 String viewIndexString = params.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
