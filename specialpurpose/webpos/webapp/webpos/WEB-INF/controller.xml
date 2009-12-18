@@ -96,6 +96,14 @@
     </request-map>
     <!-- End of Security Mappings -->
 
+    <!-- Common json reponse events, chain these after events to send json reponses -->
+    <!-- Standard json response, uses all compatible request attributes -->
+    <request-map uri="json">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!-- Request Mappings  -->
     <request-map uri="view">
         <security https="true" auth="false"/>
@@ -158,16 +166,16 @@
 
     <request-map uri="FindProducts">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="FindProducts"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="FindProducts"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="FindProductsByIdentification">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="FindProductsByIdentification"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="FindProductsByIdentification"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="ShowCart">

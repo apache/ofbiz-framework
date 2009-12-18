@@ -159,6 +159,14 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
 
+    <!-- Common json reponse events, chain these after events to send json reponses -->
+    <!-- Standard json response, uses all compatible request attributes -->
+    <request-map uri="json">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!-- ShoppingList Requests -->
     <request-map uri="editShoppingList">
         <security auth="true" https="false"/>

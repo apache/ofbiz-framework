@@ -279,9 +279,9 @@ under the License.
         <response name="error" type="view" value="editInvoice"/>
     </request-map>
     <request-map uri="getInvoiceRunningTotal">
-        <event type="jsonservice" invoke="getInvoiceRunningTotal"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getInvoiceRunningTotal"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
      <!-- Request EditInvoiceItemType -->
     <request-map uri="editInvoiceItemType">
@@ -1954,9 +1954,9 @@ under the License.
         <response name="success" type="view" value="BankReconciliation"/>
     </request-map> 
     <request-map uri="getFinAccountTransRunningTotalAndBalances">
-        <event type="jsonservice-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="reconcileFinAccountTrans">
         <security https="true" auth="false"/>
@@ -2230,9 +2230,9 @@ under the License.
         <response name="error" type="view" value="PaymentsDepositWithdraw"/>
     </request-map>
     <request-map uri="getPaymentRunningTotal">
-        <event type="jsonservice" invoke="getPaymentRunningTotal"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getPaymentRunningTotal"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="LookupCustomerName">
         <security auth="true" https="true"/>
@@ -2465,9 +2465,9 @@ under the License.
 
     <request-map uri="createUpdateCostCenter">
         <security auth="true" https="true"/>
-        <event type="jsonservice-multi"  invoke="createUpdateCostCenter"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service-multi"  invoke="createUpdateCostCenter"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="GlAccountBalanceByCostCenter">

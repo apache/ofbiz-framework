@@ -236,9 +236,9 @@ under the License.
 
     <request-map uri="getConfigDetailsEvent">
         <security https="true" auth="false"/>
-        <event type="jsonjava" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="updateTrackingNumber">
         <security https="true" auth="true"/>
@@ -1041,9 +1041,9 @@ under the License.
 
     <request-map uri="getStatusItemsForReturn">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="getStatusItemsForReturn"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getStatusItemsForReturn"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!-- Payment Processor Setup Requests -->
@@ -1583,9 +1583,9 @@ under the License.
 
     <request-map uri="markOrderViewed">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="updateOrderHeader"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="updateOrderHeader"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="addShippingAddress">
@@ -1596,9 +1596,9 @@ under the License.
     </request-map>
     <request-map uri="getAssociatedStateList">
         <security https="true" auth="false"/>
-        <event type="jsonservice" invoke="getAssociatedStateList"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getAssociatedStateList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!-- UPS carrier requests -->
