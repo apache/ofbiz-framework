@@ -30,7 +30,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
     private final List<FieldAll> fieldAlls;
     private final Map<String, FieldDef> fieldDefs;
     private final Table table;
-    private final List<Relation> relations;
+    private final Map<String, Relation> relations;
     private final Condition whereCondition;
     private final Condition havingCondition;
     private final int offset;
@@ -38,7 +38,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
     private final List<OrderByItem> orderBy;
     private final List<String> groupBy;
 
-    public SQLSelect(List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, List<Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
+    public SQLSelect(List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, Map<String, Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
         this.fieldAlls = fieldAlls;
         this.fieldDefs = fieldDefs;
         this.table = table;
@@ -63,7 +63,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         return table;
     }
 
-    public List<Relation> getRelations() {
+    public Map<String, Relation> getRelations() {
         return relations;
     }
 
@@ -101,7 +101,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         sb.append(" FROM ");
         table.appendTo(sb);
         if (!relations.isEmpty()) {
-            StringUtil.appendTo(sb, relations, " ", null, ",");
+            StringUtil.appendTo(sb, relations.values(), " ", null, ",");
         }
         if (whereCondition != null) {
             sb.append(" WHERE ");

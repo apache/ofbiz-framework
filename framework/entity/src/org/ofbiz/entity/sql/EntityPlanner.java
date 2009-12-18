@@ -85,7 +85,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         for (FieldAll fieldAll: selectStatement.getFieldAlls()) {
             dve.addAliasAll(fieldAll.getAlias(), null);
         }
-        for (Relation relation: selectStatement.getRelations()) {
+        for (Relation relation: selectStatement.getRelations().values()) {
             dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
         }
         List<String> groupBy = selectStatement.getGroupBy();
