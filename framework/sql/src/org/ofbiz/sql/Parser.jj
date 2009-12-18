@@ -757,7 +757,7 @@ private ParameterValue ParameterValue():
 
 private Condition BooleanExpression():
 {
-	Value v1, v2, v;
+	Value v1, v2, v, r1, r2;
 	String op;
 	Condition c;
 	List<Value> list = FastList.newInstance();
@@ -765,10 +765,10 @@ private Condition BooleanExpression():
 {
 	v1=Value() (
 		<BETWEEN>
-		v=RightValue() { list.add(v); }
+		r1=RightValue()
 		<AND>
-		v=RightValue() { list.add(v); }
-		{ v2 = new ListValue(list); op = "between"; }
+		r2=RightValue()
+		{ return new BetweenCondition(v1, r1, r2); }
 	| <IS> (
 		<NULL> { op = "="; v2 = Value.NULL; }
 		| <NOT> <NULL> { op = "!="; v2 = Value.NULL; }
@@ -779,7 +779,7 @@ private Condition BooleanExpression():
 			v=RightValue() { list.add(v); }
 			( <COMMA> v=RightValue() { list.add(v); } )*
 			<CLOSE_PAREN>
-			{ v2 = new ListValue(list); }
+			{ return new ListCondition(v1, op, list); }
 		)
 	)
 	{ return new BooleanCondition(v1, op, v2); }
