@@ -42,9 +42,11 @@ package org.ofbiz.sql;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 public final class Parser {
 	private boolean deleteSupportsUsing = true;
@@ -524,7 +526,7 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls)
 	StaticValue v;
 	String n, fieldAlias = null, fieldName, exc;
 	FieldDef def;
-	List<String> excludeList = FastList.newInstance();
+	Set<String> excludeList = FastSet.newInstance();
 }
 {
 	(
