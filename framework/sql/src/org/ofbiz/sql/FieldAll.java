@@ -19,15 +19,15 @@
 package org.ofbiz.sql;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 import org.ofbiz.base.util.StringUtil;
 
 public final class FieldAll extends Atom implements Iterable<String> {
     private final String alias;
-    private final List<String> exclude;
+    private final Set<String> exclude;
 
-    public FieldAll(String alias, List<String> exclude) {
+    public FieldAll(String alias, Set<String> exclude) {
         this.alias = alias;
         this.exclude = exclude;
     }
