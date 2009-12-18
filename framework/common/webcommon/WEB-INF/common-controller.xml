@@ -166,6 +166,14 @@ under the License.
         <response name="success" type="view-last"/>
     </request-map>
 
+    <!-- Common json reponse events, chain these after events to send json reponses -->
+    <!-- Standard json response, uses all compatible request attributes -->
+    <request-map uri="json">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
