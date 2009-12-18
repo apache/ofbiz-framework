@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class Relation extends Atom implements Iterable<KeyMap> {
+    private final String name;
     private final String type;
     private final String title;
     private final String entityName;
@@ -32,6 +33,11 @@ public final class Relation extends Atom implements Iterable<KeyMap> {
         this.title = title;
         this.entityName = entityName;
         this.keyMaps = keyMaps;
+        this.name = title == null ? entityName : title + entityName;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getType() {

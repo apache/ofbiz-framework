@@ -278,8 +278,7 @@ private SQLSelect Select():
 	Map<String, FieldDef> fieldDefs = FastMap.newInstance();
 	List<FieldAll> fieldAlls = FastList.newInstance();
 	Table table;
-	List<Relation> relations = FastList.newInstance();
-	Relation relation;
+	Map<String, Relation> relations = FastMap.newInstance();
 	Condition whereCondition = null, havingCondition = null;
 	int offset = -1, limit = -1;
 }
@@ -289,7 +288,7 @@ private SQLSelect Select():
 		( <COMMA> FieldDef(fieldDefs, fieldAlls) )*
 	)
 	<FROM> table=Table()
-	( <RELATION> relation=Relation() { relations.add(relation); } )*
+	( <RELATION> Relation(relations) )*
 	( <WHERE> whereCondition=ConditionExpression() )?
 	( <HAVING> havingCondition=ConditionExpression() )?
 	( <GROUP> <BY> groupBy=FieldList() )?
@@ -299,7 +298,7 @@ private SQLSelect Select():
 	{ return new SQLSelect(fieldAlls, fieldDefs, table, relations, whereCondition, havingCondition, groupBy, orderBy, offset, limit); }
 }
 
-private Relation Relation():
+private void Relation(Map<String, Relation> relations):
 {
 	String type = null, title = null, entityName;
 	List<KeyMap> keyMaps;
@@ -309,7 +308,11 @@ private Relation Relation():
 	( <TITLE> title=NamePart() )?
 	<NAME> { entityName = getToken(0).image; }
 	keyMaps=KeyMaps("cur", "other")
-	{ return new Relation(type, title, entityName, keyMaps); }
+	{
+		Relation relation = new Relation(type, title, entityName, keyMaps);
+		if (relations.containsKey(relation.getName())) throw new IllegalArgumentException("Duplicate relation: " + relation);
+		relations.put(relation.getName(), relation);
+	}
 }
 
 
