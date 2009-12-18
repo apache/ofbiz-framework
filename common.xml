@@ -98,5 +98,48 @@ under the License.
         </junit>
     </target>
 
+    <target name="tests-cobertura" depends="jar">
+        <mkdir dir="${build.dir}/cobertura-lib"/>
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="${ofbiz.home.dir}/framework/base/lib">
+                    <include name="cobertura-1.9.3.jar" />
+                    <include name="log4j-1.2.15.jar" />
+                </fileset>
+                <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting">
+                    <include name="asm-3.2.jar" />
+                    <include name="asm-tree-3.2.jar" />
+                    <include name="jakarta-oro-2.0.8.jar" />
+                </fileset>
+            </classpath>
+        </taskdef>
+        <cobertura-instrument datafile="${build.dir}/test-results/cobertura.dat" todir="${build.dir}/cobertura-lib">
+            <fileset dir="${build.dir}/lib">
+                <include name="*.jar"/>
+            </fileset>
+        </cobertura-instrument>
+        <mkdir dir="${build.dir}/test-results"/>
+        <junit fork="yes">
+            <classpath>
+                <path refid="junit.class.path"/>
+                <path refid="test.class.path"/>
+                <pathelement location="${build.dir}/cobertura-lib/${name}.jar"/>
+            </classpath>
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${build.dir}/test-results/cobertura.dat" />
+            <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
+            <formatter usefile="false" type="plain"/>
+            <batchtest>
+                <filelist refid="test.classes"/>
+            </batchtest>
+        </junit>
+        <delete dir="${build.dir}/test-results/cobertura-report"/>
+        <mkdir dir="${build.dir}/test-results/cobertura-report"/>
+        <cobertura-report datafile="${build.dir}/test-results/cobertura.dat" destdir="${build.dir}/test-results/cobertura-report">
+            <fileset dir=".">
+                <include name="src/**/*.java"/>
+            </fileset>
+        </cobertura-report>
+    </target>
+
     <target name="all" depends="jar,docs"/>
 </project>
