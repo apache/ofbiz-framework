@@ -279,6 +279,7 @@ private SQLSelect Select():
 	List<String> groupBy = null;
 	Map<String, FieldDef> fieldDefs = FastMap.newInstance();
 	List<FieldAll> fieldAlls = FastList.newInstance();
+	Set<String> fieldAllAliases = FastSet.newInstance();
 	Table table;
 	Map<String, Relation> relations = FastMap.newInstance();
 	Condition whereCondition = null, havingCondition = null;
@@ -286,8 +287,8 @@ private SQLSelect Select():
 }
 {
 	<SELECT> (
-		FieldDef(fieldDefs, fieldAlls)
-		( <COMMA> FieldDef(fieldDefs, fieldAlls) )*
+		FieldDef(fieldDefs, fieldAlls, fieldAllAliases)
+		( <COMMA> FieldDef(fieldDefs, fieldAlls, fieldAllAliases) )*
 	)
 	<FROM> table=Table()
 	( <RELATION> Relation(relations) )*
@@ -521,7 +522,7 @@ private Boolean Joiner():
 |	<JOIN> { return Boolean.FALSE; }
 }
 
-private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls):
+private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls, Set<String> fieldAllAliases):
 {
 	StaticValue v;
 	String n, fieldAlias = null, fieldName, exc;
@@ -534,6 +535,7 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls)
 			<PERIOD> (
 				<STAR>
 				(
+					{ if (fieldAllAliases.contains(n)) throw new IllegalArgumentException("Duplicate aliasAll(" + n + ")"); }
 					<EXCLUDE> <OPEN_PAREN>
 					exc=NamePart() { excludeList.add(exc); }
 					( <COMMA> exc=NamePart() { excludeList.add(exc); } )*
