@@ -403,27 +403,27 @@ under the License.
     </request-map>
     <request-map uri="createWebSiteMetaInfoJson">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createTextContent"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="createTextContent"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="updateWebSiteMetaInfoJson">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="updateDataResource"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="updateDataResource"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="createWebSitePathAliasJson">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createWebSitePathAlias"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="createWebSitePathAlias"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="removeWebSitePathAliasJson">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="removeWebSitePathAlias"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="removeWebSitePathAlias"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!-- ================ ContentType Requests ================= -->

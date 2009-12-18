@@ -1072,9 +1072,9 @@ under the License.
 
     <request-map uri="getFileUploadProgressStatus">
         <security https="true" auth="false"/>
-        <event type="jsonservice" invoke="getFileUploadProgressStatus"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getFileUploadProgressStatus"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="img">
@@ -1164,9 +1164,9 @@ under the License.
     <!-- Ajax Requests -->
     <request-map uri="ajaxUpdatePartyGroup">
         <security https="true" auth="true"/>
-        <event type="jsonservice" path="" invoke="updatePartyGroup"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" path="" invoke="updatePartyGroup"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!-- Order communication event requests -->

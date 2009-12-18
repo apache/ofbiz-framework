@@ -75,9 +75,9 @@ under the License.
     </request-map>
     <request-map uri="createExampleAjax">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createExample"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="createExample"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="updateExampleAjax">
         <security https="true" auth="true"/>
