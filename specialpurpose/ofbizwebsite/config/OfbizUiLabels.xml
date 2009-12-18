@@ -22,26 +22,27 @@
     <property  key="OfbizHome">
         <value xml:lang="en">Home</value>
         <value xml:lang="nl">Home</value>
-        <value xml:lang="th">หน้าหลัก</value>
     </property>
-    <property key="OfbizProduct">
-        <value xml:lang="en">Products</value>
-        <value xml:lang="nl">Producten</value>
-        <value xml:lang="th">ผลิตภัณฑ์</value>
+    <property key="OfbizAbout">
+        <value xml:lang="en">About</value>
+        <value xml:lang="nl">Om</value>
     </property>
-    <property key="OfbizService">
-        <value xml:lang="en">Services</value>
-        <value xml:lang="nl">Diensten</value>
-        <value xml:lang="th">บริการ</value>
+    <property key="OfbizFeatures">
+        <value xml:lang="en">Features</value>
+        <value xml:lang="nl">Kenmerk</value>
     </property>
-    <property key="OfbizCourse">
-        <value xml:lang="en">Courses</value>
-        <value xml:lang="nl">Cursussen</value>
-        <value xml:lang="th">หลักสูตร</value>
+    <property key="OfbizDocumentation">
+        <value xml:lang="en">Documentation</value>
+        <value xml:lang="nl">Documentatie</value>
     </property>
-    <property key="OfbizContactUs">
-        <value xml:lang="en">Contact Us</value>
-        <value xml:lang="nl">Contacteer Ons</value>
-        <value xml:lang="th">ติดต่อเรา</value>
+    <property key="OfbizDownload">
+        <value xml:lang="en">Download</value>
+        <value xml:lang="nl">Downloaden</value>
     </property>
+    <property key="OfbizCommunity">
+        <value xml:lang="en">Community</value>
+        <value xml:lang="nl">Gemeenschap</value>
+    </property>
+    
+    
 </resource>

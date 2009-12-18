@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
 
-    <description>OFBiz: OFBiz Thai for Thai people.</description>
+    <description>OFBiz : The Apache Open for Business Project</description>
 
     <!-- default request; call into CMS -->
     <default-request request-uri="main"/>
@@ -33,31 +33,6 @@ under the License.
         <response name="success" type="view" value="home"/>
         <response name="error" type="view" value="error"/>
     </request-map>
-    <!-- End of Request Mappings -->
-
-    <request-map uri="product">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="product"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    
-    <request-map uri="service">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="service"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    
-    <request-map uri="course">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="course"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-    
-    <request-map uri="contact">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="contact"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
     
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
@@ -65,10 +40,7 @@ under the License.
         <response name="success" type="view-last" value="home"/>
         <response name="error" type="request" value="home"/>
     </request-map>
+    <!-- End of Request Mappings -->
     
     <view-map name="home" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#home"/>
-    <view-map name="product" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#product"/>
-    <view-map name="service" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#service"/>
-    <view-map name="course" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#course"/>
-    <view-map name="contact" type="screen" page="component://ofbiz/widget/OfbizScreens.xml#contact"/>
 </site-conf>
