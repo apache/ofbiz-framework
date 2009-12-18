@@ -18,26 +18,37 @@
  */
 package org.ofbiz.sql;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class ListValue extends Value implements Iterable<Value> {
+public final class ListCondition extends Condition {
+    private final Value left;
+    private final String op;
     private final List<Value> values;
 
-    public ListValue(List<Value> values) {
+    public ListCondition(Value left, String op, List<Value> values) {
+        this.left = left;
+        this.op = op;
         this.values = values;
     }
 
-    public Iterator<Value> iterator() {
-        return values.iterator();
+    public Value getLeft() {
+        return left;
+    }
+
+    public String getOp() {
+        return op;
+    }
+
+    public List<Value> getValues() {
+        return values;
     }
 
     public StringBuilder appendTo(StringBuilder sb) {
-        sb.append('(');
+        left.appendTo(sb);
+        sb.append(' ').append(op).append(' ');
         StringUtil.appendTo(sb, values, null, null, ", ");
-        sb.append(')');
         return sb;
     }
 }
