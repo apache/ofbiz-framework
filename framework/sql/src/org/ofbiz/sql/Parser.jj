@@ -158,7 +158,7 @@ MORE: {
 <IN_COMMENT>
 MORE: {
 	<(~[])>
-|	<COMMENT_END: ("\n" | "\r" | "\r\n")> { popState(); }
+|	<COMMENT_END: "*/"> { popState(); }
 }
 
 <IN_DQUOTE,IN_SQUOTE>
