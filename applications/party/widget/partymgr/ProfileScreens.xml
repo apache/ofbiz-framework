@@ -293,7 +293,7 @@
                     </condition>
                     <widgets>
                         <screenlet id="fin-account-summary" title="${uiLabelMap.PageTitleFinancialAccountSummary}">
-                            <iterate-section entry="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list="ownedFinAccountList">
+                            <iterate-section entry="ownedFinAccount" paginate-target="viewprofile" view-size="3" list="ownedFinAccountList">
                                 <section>
                                     <actions>
                                         <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">

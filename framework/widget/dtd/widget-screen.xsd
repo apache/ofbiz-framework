@@ -1125,14 +1125,9 @@ under the License.
         <xs:attribute type="xs:string" name="key"/>
         <xs:attribute type="xs:string" name="view-size"/>
         <xs:attribute type="xs:string" name="paginate-target"/>
-        <xs:attribute name="paginate" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute type="xs:string" name="paginate">
+            <xs:annotation><xs:documentation>Indicate if this section is paginated or not, true by default.</xs:documentation></xs:annotation>
+        </xs:attribute> 
     </xs:attributeGroup>
 
 
