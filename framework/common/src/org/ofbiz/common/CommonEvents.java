@@ -20,8 +20,8 @@ package org.ofbiz.common;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
+import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -241,6 +242,40 @@ public class CommonEvents {
                 }
             }
         }
+        return "success";
+    }
+
+    public static String jsonResponseFromRequestAttributes(HttpServletRequest request, HttpServletResponse response) {
+        // pull out the service response from the request attribute
+        Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
+
+        // create a JSON Object for return
+        JSONObject json = JSONObject.fromObject(attrMap);
+        String jsonStr = json.toString();
+        if (jsonStr == null) {
+            Debug.logError("JSON Object was empty; fatal error!", module);
+            return "success";
+        }
+
+        // set the X-JSON content type
+        response.setContentType("application/x-json");
+        // jsonStr.length is not reliable for unicode characters
+        try {
+            response.setContentLength(jsonStr.getBytes("UTF8").length);
+        } catch (UnsupportedEncodingException e) {
+            Debug.logError("Problems with Json encoding: " + e, module);
+        }
+
+        // return the JSON String
+        Writer out;
+        try {
+            out = response.getWriter();
+            out.write(jsonStr);
+            out.flush();
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        }
+
         return "success";
     }
 }
