@@ -30,7 +30,12 @@ under the License.
   </sequential>
  </macrodef>
 
- <path id="src-path"/>
+ <path id="src-path">
+  <dirset dir=".">
+   <patternset refid="src-dirs"/>
+  </dirset>
+ </path>
+ <patternset id="src-dirs"/>
  <patternset id="src.inc.set">
   <include name="**/*.java"/>
  </patternset>
