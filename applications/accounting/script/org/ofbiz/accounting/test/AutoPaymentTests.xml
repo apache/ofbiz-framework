@@ -406,7 +406,7 @@ under the License.
             * GL Accounts associated with Payment are ACCOUNTS PAYABLE and UNDEPOSITED RECEIPTS.
             * ACCOUNTS PAYABLE 210000(for Invoice and Payment) - debitTotal $503.41 ; creditTotal:$1991.83 ; debitCreditDifference : $ -1488.42
             * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$48 ; debitCreditDifference : $360
-            * UNDEPOSITED RECEIPTS 112000 (for payment)- debitTotal :$136.85 ; creditTotal:$173.28 ; debitCreditDifference : $ -36.43
+            * GENERAL CHECKING ACCOUNT 111100 (for payment)- debitTotal :$136.85 ; creditTotal:$173.28 ; debitCreditDifference : $ -36.43
         -->
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -421,14 +421,14 @@ under the License.
             <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
         </call-service>
-        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="undepositedDebitCreditDifference"/>
         </call-service>
         <log level="info" message="BEFORE RUNNING CHECK RUN : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
-        <log level="info" message="BEFORE RUNNING VOID PAYMENT : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
+        <log level="info" message="BEFORE RUNNING VOID PAYMENT : GENERAL CHECKING ACCOUNT ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
         <clear-field field="invoiceIds"/>
         <string-to-list string="8007" list="invoiceIds"/>
         <set field="createPaymentAndPaymentGroupForInvoicesMap.userLogin" from-field="userLogin"/>
@@ -457,7 +457,7 @@ under the License.
         <check-errors/>
         <set field="totalUndepositedCreditAmount" value="${undepositedCreditTotal + 36.43}" type="BigDecimal"/>
         <set field="totalUndepositedDebitCreditDifference" value="${undepositedDebitCreditDifference - 36.43}" type="BigDecimal"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="112000"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="111100"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="undepositedDebitTotal"/>
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
@@ -469,7 +469,7 @@ under the License.
         </assert>
         <check-errors/>
         <log level="info" message="AFTER RUNNING CHECK RUN : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
-        <log level="info" message="AFTER RUNNING VOID PAYMENT : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
+        <log level="info" message="AFTER RUNNING VOID PAYMENT : GENERAL CHECKING ACCOUNT ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
     </simple-method>
 
 </simple-methods>

@@ -2235,11 +2235,6 @@ under the License.
             <set field="creditEntry.debitCreditFlag" value="C"/>
             <!-- TODO -->
             <!--set field="creditEntry.glAccountTypeId" from-field=""/-->
-            <entity-one value-field="paymentMethodTypeGlAccount" entity-name="PaymentMethodTypeGlAccount">
-                <field-map field-name="paymentMethodTypeId" from-field="payment.paymentMethodTypeId"/>
-                <field-map field-name="organizationPartyId"/>
-            </entity-one>
-            <set field="creditEntry.glAccountId" from-field="paymentMethodTypeGlAccount.glAccountId"/>
             <set field="creditEntry.origAmount" from-field="payment.amount"/>
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="creditEntry.organizationPartyId" from-field="payment.partyIdFrom"/>
