@@ -37,6 +37,17 @@ under the License.
         <pathelement location="build/gen-src/javacc"/>
         <pathelement location="build/gen-src/jjtree"/>
     </path>
+    <path id="test.class.path">
+        <path refid="local.class.path"/>
+       <fileset dir="../base/lib" includes="*.jar"/>
+       <fileset dir="../base/lib/commons" includes="*.jar"/>
+       <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
+       <pathelement location="config"/>
+       <pathelement location="src"/>
+    </path>
+    <filelist id="test.classes" dir="${src.dir}">
+        <file name="org/ofbiz/sql/test/SQLTest.java"/>
+    </filelist>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
