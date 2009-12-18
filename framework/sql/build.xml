@@ -33,10 +33,10 @@ under the License.
         <fileset dir="../base/lib" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
     </path>
-    <path id="src-path">
-        <pathelement location="build/gen-src/javacc"/>
-        <pathelement location="build/gen-src/jjtree"/>
-    </path>
+    <patternset id="src-dirs">
+        <include name="build/gen-src/javacc"/>
+        <include name="build/gen-src/jjtree"/>
+    </patternset>
     <path id="test.class.path">
         <path refid="local.class.path"/>
        <fileset dir="../base/lib" includes="*.jar"/>
