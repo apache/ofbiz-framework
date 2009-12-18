@@ -29,7 +29,6 @@ under the License.
 
     <path id="test.class.path">
         <path refid="local.class.path"/>
-        <pathelement location="${build.dir}/classes"/>
         <pathelement location="config"/>
     </path>
     <filelist id="test.classes"/>
@@ -89,6 +88,7 @@ under the License.
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
+                <pathelement location="${build.dir}/lib/${name}.jar"/>
             </classpath>
             <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
             <formatter usefile="false" type="plain"/>
