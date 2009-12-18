@@ -174,6 +174,7 @@ public class ModelForm extends ModelWidget {
 
     /** Pagination settings and defaults. */
     public static int DEFAULT_PAGE_SIZE = 10;
+    public static int MAX_PAGE_SIZE = 10000;    
     protected int defaultViewSize = DEFAULT_PAGE_SIZE;
     public static String DEFAULT_PAG_INDEX_FIELD = "viewIndex";
     public static String DEFAULT_PAG_SIZE_FIELD = "viewSize";
@@ -1310,10 +1311,8 @@ public class ModelForm extends ModelWidget {
         Iterator<?> iter = null;
         if (obj instanceof Iterator) {
             iter = (Iterator<?>) obj;
-            setPaginate(true);
         } else if (obj instanceof List) {
             iter = ((List<?>) obj).listIterator();
-            setPaginate(true);
         }
 
         // set low and high index
@@ -1375,10 +1374,8 @@ public class ModelForm extends ModelWidget {
         Iterator<?> iter = null;
         if (obj instanceof Iterator) {
             iter = (Iterator<?>) obj;
-            setPaginate(true);
         } else if (obj instanceof List) {
             iter = ((List<?>) obj).listIterator();
-            setPaginate(true);
         }
 
         // set low and high index
@@ -2507,9 +2504,9 @@ public class ModelForm extends ModelWidget {
             highIndex = (viewIndex + 1) * viewSize;
         } else {
             viewIndex = 0;
-            viewSize = defaultViewSize;
+            viewSize = MAX_PAGE_SIZE;
             lowIndex = 0;
-            highIndex = defaultViewSize;
+            highIndex = MAX_PAGE_SIZE;
         }
 
         context.put("listSize", Integer.valueOf(listSize));
