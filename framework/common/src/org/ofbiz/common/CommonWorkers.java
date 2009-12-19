@@ -100,10 +100,14 @@ public class CommonWorkers {
         return geoList;
     }
 
+    public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country) {
+        return getAssociatedStateList(delegator, country, null);
+    }
+    
     /**
      * Returns a list of regional geo associations.
      */
-    public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country) {
+    public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country, String listOrderBy) {
         if (UtilValidate.isEmpty(country)) {
             // Load the system default country
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
@@ -115,7 +119,11 @@ public class CommonWorkers {
                         EntityCondition.makeCondition("geoTypeId", "STATE"),
                         EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
                         EntityCondition.makeCondition("geoTypeId", "COUNTY")));
-        List<String> sortList = UtilMisc.toList("geoId");
+        
+        if (UtilValidate.isEmpty(listOrderBy)) {
+            listOrderBy = "geoId";
+        }
+        List<String> sortList = UtilMisc.toList(listOrderBy);
 
         List<GenericValue> geoList = FastList.newInstance();
         try {

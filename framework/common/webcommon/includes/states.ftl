@@ -25,7 +25,7 @@ under the License.
 <#if requestParameters.CUSTOMER_COUNTRY?exists>
     <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)>
 <#else>
-    <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,defaultCountryId)>
+    <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,null)>
 </#if>
 
 <#list stateAssocs as stateAssoc>

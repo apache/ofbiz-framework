@@ -1045,9 +1045,11 @@ under the License.
 
     <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
         <set field="countryGeoId" from-field="parameters.countryGeoId"/>
+        <set field="listOrderBy" from-field="parameters.listOrderBy"/>
         <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="countryGeoId" type="String"/>
+            <field field="listOrderBy" type="String"/>
         </call-class-method>
         <iterate list="geoList" entry="stateGeo">
             <set field="stateName" value="${stateGeo.geoName}: ${stateGeo.geoId}"/>
