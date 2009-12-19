@@ -316,7 +316,7 @@ under the License.
     </service>
     
     <service name="addtax" engine="simple" 
-        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceEvents.xml" invoke="addtax">
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="addtax">
         <description>Call Tax Calculate Service</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
