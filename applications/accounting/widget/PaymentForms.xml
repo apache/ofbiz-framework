@@ -125,7 +125,10 @@ under the License.
         </field>
         <field name="paymentMethodId" id-name="paymentMethodId" position="2">
             <drop-down allow-empty="false">
-                <list-options list-name="paymentMethodAndFinAccounts" key-name="paymentMethodId" description="${description}"/>
+                <entity-options entity-name="PaymentMethod" description="${description}">
+                    <entity-constraint name="partyId" operator="equals" env-name="paymentPartyId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="partyIdTo" position="1"><lookup target-form-name="LookupPartyName"/></field>
