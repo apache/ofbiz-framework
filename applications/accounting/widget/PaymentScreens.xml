@@ -182,21 +182,21 @@ under the License.
                 <entity-condition entity-name="PaymentApplication" list="paymentApplicationsPay">
                     <condition-list combine="and">
                         <condition-expr field-name="paymentId" operator="equals" from-field="paymentId"/>
-                        <condition-expr field-name="toPaymentId" operator="not-equals" from-field="null"/>
+                        <condition-expr field-name="toPaymentId" operator="not-equals" from-field="nullField"/>
                     </condition-list>
                     <order-by field-name="toPaymentId"/>
                 </entity-condition>
                 <entity-condition entity-name="PaymentApplication" list="paymentApplicationsBil">
                     <condition-list combine="and">
                         <condition-expr field-name="paymentId" from-field="paymentId"/>
-                        <condition-expr field-name="billingAccountId" operator="not-equals" from-field="null"/>
+                        <condition-expr field-name="billingAccountId" operator="not-equals" from-field="nullField"/>
                     </condition-list>
                     <order-by field-name="billingAccountId"/>
                 </entity-condition>
                 <entity-condition entity-name="PaymentApplication" list="paymentApplicationsTax">
                     <condition-list combine="and">
                         <condition-expr field-name="paymentId" from-field="paymentId"/>
-                        <condition-expr field-name="taxAuthGeoId" operator="not-equals" from-field="null"/>
+                        <condition-expr field-name="taxAuthGeoId" operator="not-equals" from-field="nullField"/>
                     </condition-list>
                     <order-by field-name="taxAuthGeoId"/>
                 </entity-condition>

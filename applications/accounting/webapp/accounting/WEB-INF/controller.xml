@@ -328,6 +328,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editPaymentApplications"/>
     </request-map>
+    <request-map uri="createPaymentApplication">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPaymentApplication"/>
+        <response name="success" type="view" value="editPaymentApplications"/>
+    </request-map>
     <request-map uri="updatePaymentApplication">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePaymentApplicationDef"/>

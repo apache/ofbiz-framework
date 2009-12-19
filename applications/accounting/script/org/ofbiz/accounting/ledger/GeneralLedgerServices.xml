@@ -1924,12 +1924,9 @@ under the License.
                 <set field="creditEntry.origCurrencyUomId" from-field="origCurrencyUomId"/>
                 <if-not-empty field="paymentApplication.overrideGlAccountId">
                     <set field="creditEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
-                <else>
-                    <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
-                </else>
                 </if-not-empty>
                 <set field="creditEntry.organizationPartyId" from-field="organizationPartyId"/>
-                <set field="creditEntry.glAccountTypeId" from-field="creditGlAccountTypeId"/>
+                <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
                 <calculate field="amountAppliedTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
                         <calcop operator="get" field="amountAppliedTotal"/>
@@ -2251,7 +2248,7 @@ under the License.
                 <set field="debitEntry.debitCreditFlag" value="D"/>
                 <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
                 <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
-                <set field="debitEntry.glAccountTypeId" from-field="debitGlAccountTypeId"/>
+                <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
                 <set field="debitEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <if-not-empty field="paymentApplication.overrideGlAccountId">
                     <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
@@ -2263,9 +2260,6 @@ under the License.
                             <field-map field-name="taxAuthPartyId" from-field="partyId"/>
                         </entity-one>
                         <set field="debitEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/>
-                    <else>
-                        <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
-                    </else>
                     </if-not-empty>
                 </else>
                 </if-not-empty>
@@ -2354,14 +2348,22 @@ under the License.
             <field-map field-name="paymentApplicationId" from-field="parameters.paymentApplicationId"/>
         </entity-one>
         <get-related-one value-field="paymentApplication" relation-name="Payment" to-value-field="payment"/>
+        <!-- if the payment transaction has not been already posted to gl then don't do nothing; the transaction for the payment application will be posted together with the payment -->
+        <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID">
+            <return/>
+        </if-compare>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceipt">
             <field field="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
         <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
+            <!-- if the payment Credited account is already "accounts receivable" then don't do nothing -->
             <entity-one entity-name="PaymentGlAccountTypeMap" value-field="paymentGlAccountTypeMap">
                 <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
                 <field-map field-name="organizationPartyId" from-field="payment.partyIdTo"/>
             </entity-one>
+            <if-compare field="paymentGlAccountTypeMap.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE">
+                <return/>
+            </if-compare>
             <!--Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
@@ -2372,7 +2374,7 @@ under the License.
             <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
             <set field="debitEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
-            <!-- Debit -->
+            <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
             <set field="creditEntry.organizationPartyId" from-field="payment.partyIdTo"/>
@@ -2382,10 +2384,14 @@ under the License.
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
         <else>
+            <!-- if the payment Debited account is already "accounts payable" then don't do nothing -->
             <entity-one entity-name="PaymentGlAccountTypeMap" value-field="paymentGlAccountTypeMap">
                 <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
                 <field-map field-name="organizationPartyId" from-field="payment.partyIdFrom"/>
             </entity-one>
+            <if-compare field="paymentGlAccountTypeMap.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE">
+                <return/>
+            </if-compare>
             <!--Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>

@@ -282,8 +282,10 @@ under the License.
             </display-entity>
         </field>
         <field name="invoiceItemSeqId"><display/></field>
-        <field name="amountApplied"><text size="15"/></field>
+        <field name="amountApplied"><display/></field>
+        <!-- TODO: this is commented out because updating (instead of removing and recreating) payment application can cause wrong gl postings.
         <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
+        -->
         <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
                 <parameter param-name="paymentApplicationId"/>
@@ -342,7 +344,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listInvoicesNotApplied" type="list" list-name="invoices" target="updatePaymentApplication" title=""
+    <form name="listInvoicesNotApplied" type="list" list-name="invoices" target="createPaymentApplication" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
