@@ -185,6 +185,7 @@ under the License.
     <service name="getAssociatedStateList" engine="simple" auth="false"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getAssociatedStateList">
         <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
+        <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
     </service>
 
