@@ -128,11 +128,15 @@ under the License.
     accountName="LOANS RECEIVABLE - OWNERS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="124000" glAccountId="124300" accountCode="124300"
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
-    accountName="LOANS RECEIVABLE -OTHERS" description="" postedBalance="0.0"/>
+    accountName="LOANS RECEIVABLE - OTHERS" description="" postedBalance="0.0"/>
 
   <GlAccount parentGlAccountId="120000" glAccountId="125000" accountCode="125000"
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="INVENTORY_XFER_OUT" glResourceTypeId="MONEY"
     accountName="RECEIVABLE FROM INVENTORY TRANSFERRED OUT" description="" postedBalance="0.0"/>
+
+  <GlAccount parentGlAccountId="120000" glAccountId="126000" accountCode="126000"
+    glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCREC_UNAPPLIED" glResourceTypeId="MONEY"
+    accountName="ACCOUNTS RECEIVABLE - UNAPPLIED PAYMENTS" description="" postedBalance="0.0"/>
 
   <GlAccount parentGlAccountId="120000" glAccountId="129000" accountCode="129000"
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
@@ -331,6 +335,10 @@ under the License.
   <GlAccount parentGlAccountId="210000" glAccountId="215000" accountCode="215000"
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="INVENTORY_XFER_IN" glResourceTypeId="MONEY"
     accountName="PAYABLE FOR INVENTORY TRANSFERRED IN" description="" postedBalance="0.0"/>
+
+  <GlAccount parentGlAccountId="210000" glAccountId="216000" accountCode="216000"
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="ACCPAYABLE_UNAPPLIED" glResourceTypeId="MONEY"
+    accountName="ACCOUNTS PAYABLE - UNAPPLIED PAYMENTS" description="" postedBalance="0.0"/>
 
   <GlAccount parentGlAccountId="200000" glAccountId="220000" accountCode="220000"
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"

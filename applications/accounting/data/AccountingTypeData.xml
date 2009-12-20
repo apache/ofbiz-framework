@@ -335,7 +335,6 @@ under the License.
     <GlAccountType description="Customer Gift Certificate Balances" glAccountTypeId="CUSTOMER_GC_DEPOSIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Uninvoiced Shipment Receipts" glAccountTypeId="UNINVOICED_SHIP_RCPT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
-    <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
 
     <GlAccountType description="Income" glAccountTypeId="INCOME" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Other Income" glAccountTypeId="OTHER_INCOME" hasTable="N" parentTypeId="INCOME"/>
@@ -346,6 +345,8 @@ under the License.
 
     <GlAccountType description="Receivable from Inventory Transferred Out" glAccountTypeId="INVENTORY_XFER_OUT" hasTable="N" parentTypeId="CURRENT_ASSET"/>
     <GlAccountType description="Payable from Inventory Transferred In" glAccountTypeId="INVENTORY_XFER_IN" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Accounts Payable - Unapplied Payments" glAccountTypeId="ACCPAYABLE_UNAPPLIED" hasTable="N" parentTypeId="ACCOUNTS_PAYABLE"/>
+    <GlAccountType description="Accounts Receivable - Unapplied Payments" glAccountTypeId="ACCREC_UNAPPLIED" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
 
     <GlAccountType description="Commission Expense" glAccountTypeId="COMMISSION_EXPENSE" hasTable="N" parentTypeId="OPERATING_EXPENSE"/>
     <GlAccountType description="Commissions Payables" glAccountTypeId="COMMISSIONS_PAYABLE" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
