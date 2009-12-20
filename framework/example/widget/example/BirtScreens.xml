@@ -36,7 +36,7 @@
                                 <screenlet title="Using report tag">
                                     <platform-specific>
                                         <html>
-                                            <html-template location="component://example/webapp/birt/report.ftl"/>
+                                            <html-template location="component://example/webapp/birt/birt/report.ftl"/>
                                         </html>
                                     </platform-specific>
                                 </screenlet>

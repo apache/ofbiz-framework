@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<web-app>
+    <display-name>Open For Business - BIRT Component</display-name>
+    <description>BIRT Component of the Open For Business Project</description>
+    
+    <context-param>
+        <param-name>webSiteId</param-name>
+        <param-value>BIRT</param-value>
+        <description>A unique ID used to look up the WebSite entity</description>
+    </context-param>
+    <context-param>
+        <param-name>localDispatcherName</param-name><param-value>birt</param-value>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
+    </context-param>    
+    <context-param>
+        <param-name>entityDelegatorName</param-name><param-value>default</param-value>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
+    </context-param>
+    <context-param>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://example/widget/example/CommonScreens.xml</param-value>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+    </context-param>
+    <context-param>
+        <param-name>widgetVerbose</param-name>
+        <param-value>false</param-value>
+        <description>Enable widget boundary comments. See org.ofbiz.widget.ModelWidget.widgetBoundaryCommentsEnabled().</description>
+    </context-param>
+    <context-param>
+        <param-name>compressHTML</param-name>
+        <param-value>false</param-value>
+        <description>Remove unnecessary whitespace from HTML output.</description>
+    </context-param>
+    
+    <!-- Default locale setting.-->
+    <context-param>
+        <param-name>BIRT_VIEWER_LOCALE</param-name>
+        <param-value>en-US</param-value>
+    </context-param>
+    
+    <!-- 
+        Default timezone setting.
+        Examples: "Europe/Paris", "GMT+1".
+        Defaults to the container's timezone.       
+     -->
+    <context-param>
+        <param-name>BIRT_VIEWER_TIMEZONE</param-name>
+        <param-value></param-value>
+    </context-param>
+    
+    <!--
+        Report resources directory for preview. Defaults to ${birt home}
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_WORKING_FOLDER</param-name>
+        <param-value>${ofbiz.home}/runtime/tempfiles</param-value>
+    </context-param>
+    
+    <!--
+        Temporary document files directory. Defaults to ${birt home}/documents
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_DOCUMENT_FOLDER</param-name>
+        <param-value>${ofbiz.home}/runtime/tempfiles/documents</param-value>
+    </context-param>
+    
+    <!--
+        Flag whether the report resources can only be accessed under the
+        working folder. Defaults to true
+    -->
+    <context-param>
+        <param-name>WORKING_FOLDER_ACCESS_ONLY</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <!--
+        Temporary image/chart directory. Defaults to ${birt home}/report/images
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_IMAGE_DIR</param-name>
+        <param-value>${ofbiz.home}/runtime/tempfiles/images</param-value>
+    </context-param>
+    
+    <!-- Engine log directory. Defaults to ${birt home}/logs -->
+    <context-param>
+        <param-name>BIRT_VIEWER_LOG_DIR</param-name>
+        <param-value>${ofbiz.home}/runtime/logs</param-value>
+    </context-param>
+    
+    <!-- Report engine log level -->
+    <context-param>
+        <param-name>BIRT_VIEWER_LOG_LEVEL</param-name>
+        <param-value>WARNING</param-value>
+    </context-param>
+    
+    <!--
+        Directory where to store all the birt report script libraries (JARs).
+        Defaults to ${birt home}/scriptlib
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_SCRIPTLIB_DIR</param-name>
+        <param-value>${ofbiz.home}/framework/birt/lib/scriptlib</param-value>
+    </context-param>
+    
+    <!-- Resource location directory. Defaults to ${birt home} -->
+    <context-param>
+        <param-name>BIRT_RESOURCE_PATH</param-name>
+        <param-value>${ofbiz.home}/runtime/tempfiles</param-value>
+    </context-param>
+    
+    <!-- Preview report rows limit. An empty value means no limit. -->
+    <context-param>
+        <param-name>BIRT_VIEWER_MAX_ROWS</param-name>
+        <param-value></param-value>
+    </context-param>
+    
+    <!--
+        Max cube fetch levels limit for report preview (Only used when
+        previewing a report design file using the preview pattern)
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_MAX_CUBE_ROWLEVELS</param-name>
+        <param-value></param-value>
+    </context-param>
+    <context-param>
+        <param-name>BIRT_VIEWER_MAX_CUBE_COLUMNLEVELS</param-name>
+        <param-value></param-value>
+    </context-param>
+
+    <!-- Memory size in MB for creating a cube. -->
+    <context-param>
+        <param-name>BIRT_VIEWER_CUBE_MEMORY_SIZE</param-name>
+        <param-value></param-value>
+    </context-param>
+
+    <!-- Defines the BIRT viewer configuration file -->
+    <context-param>
+        <param-name>BIRT_VIEWER_CONFIG_FILE</param-name>
+        <param-value>WEB-INF/viewer.properties</param-value>
+    </context-param>
+
+    <!--
+        Flag whether to allow server-side printing. Possible values are "ON"
+        and "OFF". Defaults to "ON".
+    -->
+    <context-param>
+        <param-name>BIRT_VIEWER_PRINT_SERVERSIDE</param-name>
+        <param-value>ON</param-value>
+    </context-param>
+
+    <!--
+        Flag whether to force browser-optimized HTML output. Defaults to true
+    -->
+    <context-param>
+        <param-name>HTML_ENABLE_AGENTSTYLE_ENGINE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!--
+        Filename generator class/factory to use for the exported reports.
+    -->
+    <context-param>
+        <param-name>BIRT_FILENAME_GENERATOR_CLASS</param-name>
+        <param-value>org.eclipse.birt.report.utility.filename.DefaultFilenameGenerator</param-value>
+    </context-param>
+    
+    <filter>
+        <filter-name>ContextFilter</filter-name>
+        <display-name>ContextFilter</display-name>
+        <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
+        <init-param><param-name>disableContextSecurity</param-name><param-value>N</param-value></init-param>
+        <init-param>
+            <param-name>allowedPaths</param-name>
+            <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css:/frameset:/run:/preview:/download:/parameter:/document:/output:/extract:/webcontent:/CancelTask.jsp</param-value>
+        </init-param>
+        <init-param><param-name>errorCode</param-name><param-value>403</param-value></init-param>
+        <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>        
+    </filter>
+    <!--
+        Viewer Filter used to set the request character encoding to UTF-8.
+    -->
+    <filter>
+        <filter-name>ViewerFilter</filter-name>
+        <filter-class>org.eclipse.birt.report.filter.ViewerFilter</filter-class>
+    </filter>
+    
+    <filter-mapping><filter-name>ContextFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+    <filter-mapping>
+        <filter-name>ViewerFilter</filter-name>
+        <servlet-name>ViewerServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ViewerFilter</filter-name>
+        <servlet-name>EngineServlet</servlet-name>
+    </filter-mapping> 
+
+    <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
+    <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
+    <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
+    <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+
+    <!-- Viewer HttpSession Listener -->
+    <listener>
+        <listener-class>org.eclipse.birt.report.listener.ViewerHttpSessionListener</listener-class>
+    </listener>
+  
+    <servlet>
+        <servlet-name>ControlServlet</servlet-name>
+        <display-name>ControlServlet</display-name>
+        <description>Main Control Servlet</description>
+        <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- Viewer Servlet, Supports SOAP -->
+    <!--
+    <servlet>
+        <servlet-name>ViewerServlet</servlet-name>
+        <servlet-class>org.ofbiz.birt.report.servlet.BirtViewerServlet</servlet-class>
+    </servlet>
+    -->
+    <!-- Engine Servlet -->
+    <servlet>
+        <servlet-name>EngineServlet</servlet-name>
+        <servlet-class>org.ofbiz.birt.report.servlet.BirtEngineServlet</servlet-class>
+    </servlet>
+    <servlet-mapping><servlet-name>ControlServlet</servlet-name><url-pattern>/control/*</url-pattern></servlet-mapping>
+    
+    <!--
+    <servlet-mapping>
+        <servlet-name>ViewerServlet</servlet-name>
+        <url-pattern>/frameset</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ViewerServlet</servlet-name>
+        <url-pattern>/run</url-pattern>
+    </servlet-mapping>
+    -->
+    
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/preview</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/parameter</url-pattern>
+    </servlet-mapping>  
+
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/document</url-pattern>
+    </servlet-mapping>  
+
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/output</url-pattern>
+    </servlet-mapping>  
+    
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/extract</url-pattern>
+    </servlet-mapping>
+
+    <session-config><session-timeout>60</session-timeout><!-- in minutes --></session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+</web-app>

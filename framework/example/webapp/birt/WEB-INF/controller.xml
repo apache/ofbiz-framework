@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+    
+    <description>Birt Component Site Configuration File</description>
+    <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
+
+    <!--
+      These can be used to return the reports as views; make sure the classes are compiled and available
+        <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
+        <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
+        <handler name="jasperreportsxml" type="view" class="org.ofbiz.webapp.view.JasperReportsXmlViewHandler"/>
+    -->
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+
+    <!-- Request Mappings -->
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    <request-map uri="Report">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Report"/>
+    </request-map>
+    <request-map uri="Mail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Mail"/>
+    </request-map>
+    <request-map uri="sendBirtMail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="sendBirtMail"/>
+        <response name="success" type="view" value="Mail"/>
+        <response name="error" type="view" value="Mail"/>
+    </request-map>
+    <request-map uri="ViewHandler">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewHandler"/>
+    </request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
+    <view-map name="Viewer" type="screen" page="component://birt/widget/example/BirtScreens.xml#Viewer"/>
+    <view-map name="Report" type="screen" page="component://birt/widget/example/BirtScreens.xml#Report"/>
+    <view-map name="Mail" type="screen" page="component://birt/widget/example/BirtScreens.xml#EditMail"/>
+    
+    <!-- Supported Content Types -->
+    <!--
+        text/html
+        application/pdf
+        application/vnd.ms-excel
+        application/vnd.ms-word
+        application/vnd.ms-powerpoint
+     -->
+    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
+    <!-- end of view mappings -->
+</site-conf>
