@@ -163,8 +163,7 @@ under the License.
                 <set field="geoCenter.zoom" value="13"/>                
             </actions>
             <widgets>           
-                <decorator-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}">
-                </decorator-screen>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
@@ -183,8 +182,7 @@ under the License.
                 <set field="geoCenter.zoom" value="12"/>                
             </actions>
             <widgets>           
-                <decorator-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}">
-                </decorator-screen>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
@@ -203,8 +201,7 @@ under the License.
                 <set field="geoCenter.zoom" value="11"/>
             </actions>
             <widgets>           
-                <decorator-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}">
-                </decorator-screen>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
