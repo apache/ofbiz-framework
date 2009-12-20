@@ -35,13 +35,4 @@
         <value xml:lang="en">Framework Eclipse BIRT</value>
         <value xml:lang="th">Framework Eclipse BIRT</value>
     </property>
-    <property key="BirtReport">
-        <value xml:lang="en">HTML</value>
-    </property>
-    <property key="BirtMail">
-        <value xml:lang="en">Send any format through Mail</value>
-    </property>
-    <property key="BirtViewHandler">
-        <value xml:lang="en">PDF</value>
-    </property>
 </resource>
