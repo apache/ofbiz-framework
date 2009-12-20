@@ -228,6 +228,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122200" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122300" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122500" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="126000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="140000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="141000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="142000" fromDate="2001-01-01 00:00:00.0"/>
@@ -241,6 +242,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213500" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="214000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="215000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="216000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="221100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224100" fromDate="2001-01-01 00:00:00.0"/>
@@ -287,6 +289,7 @@ under the License.
 
     <!-- Default mapping between account types and account ids -->
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCREC_UNAPPLIED" glAccountId="126000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INTRSTINC_RECEIVABLE" glAccountId="121800"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_OUT" glAccountId="125000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000"/>
@@ -298,6 +301,7 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="CUSTOMER_DEPOSIT" glAccountId="213300"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_IN" glAccountId="215000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCPAYABLE_UNAPPLIED" glAccountId="216000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COMMISSIONS_PAYABLE" glAccountId="221100"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="RETAINED_EARNINGS" glAccountId="336000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="SALES_ACCOUNT" glAccountId="400000"/>
@@ -315,10 +319,10 @@ under the License.
     <!-- mappings for payments -->
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_REFUND" glAccountTypeId="CUSTOMER_CREDIT"/>
     <!-- NOTE: do not change this -->
-    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PAYMENT" glAccountTypeId="ACCOUNTS_PAYABLE"/>
+    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PAYMENT" glAccountTypeId="ACCPAYABLE_UNAPPLIED"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PREPAY" glAccountTypeId="PREPAID_EXPENSES"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE"/>
-    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAY_CHECK" glAccountTypeId="ACCOUNTS_PAYABLE"/>
+    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAY_CHECK" glAccountTypeId="ACCPAYABLE_UNAPPLIED"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="GC_WITHDRAWAL" glAccountTypeId="CUSTOMER_CREDIT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="SALES_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAYROL_PAYMENT" glAccountTypeId="OPERATING_EXPENSE"/>
@@ -326,7 +330,7 @@ under the License.
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="INCOME_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
 
     <!-- NOTE: do not change this -->
-    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_PAYMENT" glAccountTypeId="ACCOUNTS_RECEIVABLE"/>
+    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_PAYMENT" glAccountTypeId="ACCREC_UNAPPLIED"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_DEPOSIT" glAccountTypeId="CUSTOMER_DEPOSIT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="INTEREST_RECEIPT" glAccountTypeId="INTRSTINC_RECEIVABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="GC_DEPOSIT" glAccountTypeId="CUSTOMER_DEPOSIT"/>

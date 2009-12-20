@@ -1913,11 +1913,10 @@ under the License.
                 <field-map field-name="organizationPartyId"/>
             </entity-one>
             <set field="creditGlAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
-
+            <!-- This is now delegated to the createAcctgTransAndEntriesForPaymentApplication calls at the bottom of this service
             <get-related value-field="payment" relation-name="PaymentApplication" list="paymentApplications"/>
             <iterate list="paymentApplications" entry="paymentApplication">
 
-                <!-- credit -->
                 <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                 <set field="creditEntry.debitCreditFlag" value="C"/>
                 <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
@@ -1935,7 +1934,7 @@ under the License.
                 </calculate>
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>
-
+            -->
             <calculate field="diffAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="subtract">
                     <calcop operator="get" field="payment.amount"/>
@@ -1966,6 +1965,15 @@ under the License.
                 <result-to-field result-name="acctgTransId"/>
             </call-service>
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+            <!-- Now create accounting transactions for the payment applications -->
+            <get-related value-field="payment" relation-name="PaymentApplication" list="paymentApplications"/>
+            <iterate list="paymentApplications" entry="paymentApplication">
+                <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+                <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                    <result-to-field result-name="acctgTransId"/>
+                </call-service>
+                <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/>                 
+            </iterate>
         </if-compare>
     </simple-method>
 
@@ -2238,12 +2246,11 @@ under the License.
             <set field="creditEntry.partyId" from-field="payment.partyIdTo"/>
             <set field="creditEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
-
+            <!-- This is now delegated to the createAcctgTransAndEntriesForPaymentApplication calls at the bottom of this service
             <entity-and entity-name="PaymentApplication" list="paymentApplications">
                 <field-map field-name="paymentId" from-field="payment.paymentId"/>
             </entity-and>
             <iterate list="paymentApplications" entry="paymentApplication">
-                <!-- Debit -->
                 <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                 <set field="debitEntry.debitCreditFlag" value="D"/>
                 <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
@@ -2271,6 +2278,7 @@ under the License.
                 </calculate>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
+            -->
             <calculate field="amount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="subtract">
                     <calcop operator="get" field="payment.amount"/>
@@ -2298,6 +2306,17 @@ under the License.
                 <result-to-field result-name="acctgTransId"/>
             </call-service>
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+            <!-- Now create accounting transactions for the payment applications -->
+            <entity-and entity-name="PaymentApplication" list="paymentApplications">
+                <field-map field-name="paymentId" from-field="payment.paymentId"/>
+            </entity-and>
+            <iterate list="paymentApplications" entry="paymentApplication">
+                <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+                <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                    <result-to-field result-name="acctgTransId"/>
+                </call-service>
+                <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/> 
+            </iterate>
         </if-compare>
     </simple-method>
 
@@ -2411,6 +2430,19 @@ under the License.
             <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
             <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <if-not-empty field="paymentApplication.overrideGlAccountId">
+                <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
+            <else>
+                <if-not-empty field="paymentApplication.taxAuthGeoId">
+                    <entity-one entity-name="TaxAuthorityGlAccount" value-field="taxAuthorityGlAccount">
+                        <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
+                        <field-map field-name="taxAuthGeoId" from-field="paymentApplication.taxAuthGeoId"/>
+                        <field-map field-name="taxAuthPartyId" from-field="partyId"/>
+                    </entity-one>
+                    <set field="debitEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/>
+                </if-not-empty>
+            </else>
+            </if-not-empty>
         </else>
         </if-compare>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
