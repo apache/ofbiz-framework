@@ -216,6 +216,29 @@ under the License.
     <request-map uri="ExampleGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet3"/></request-map>
     <request-map uri="ExampleGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet4"/></request-map>
 
+    <!-- Birt example Requests -->
+    <request-map uri="BirtMain">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BirtMain"/>
+    </request-map>
+    <request-map uri="Report">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Report"/>
+    </request-map>
+    <request-map uri="Mail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Mail"/>
+    </request-map>
+    <request-map uri="sendBirtMail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="sendBirtMail"/>
+        <response name="success" type="view" value="Mail"/>
+        <response name="error" type="view" value="Mail"/>
+    </request-map>
+    <request-map uri="ViewHandler">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewHandler"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -248,5 +271,21 @@ under the License.
     <view-map name="ExampleGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet2"/>
     <view-map name="ExampleGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet3"/>
     <view-map name="ExampleGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet4"/>
-    <!-- end of view mappings -->
+
+    <!-- Birt example View Mappings -->
+    <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
+    <view-map name="Viewer" type="screen" page="component://example/widget/example/BirtScreens.xml#Viewer"/>
+    <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
+    <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
+    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
+    <!-- Supported Content Types -->
+    <!--
+        text/html
+        application/pdf
+        application/vnd.ms-excel
+        application/vnd.ms-word
+        application/vnd.ms-powerpoint
+     -->
+   
+    <!-- end of view mappings -->   
 </site-conf>

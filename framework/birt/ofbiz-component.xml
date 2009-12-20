@@ -32,11 +32,4 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    <webapp name="birt"
-        title="BIRT"
-        menu-name="secondary"
-        server="default-server"
-        location="webapp/birt"
-        base-permission="OFBTOOLS,WEBTOOLS"
-        mount-point="/birt"/>
 </ofbiz-component>

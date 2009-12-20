@@ -41,6 +41,15 @@
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
     </property>
+    <property key="ExampleBirtReport">
+        <value xml:lang="en">HTML</value>
+    </property>
+    <property key="ExampleBirtMail">
+        <value xml:lang="en">Send any format through Mail</value>
+    </property>
+    <property key="ExampleBirtViewHandler">
+        <value xml:lang="en">PDF</value>
+    </property>
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
         <value xml:lang="fr">OFBiz : Exemple</value>
