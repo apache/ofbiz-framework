@@ -38,8 +38,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="EditExample" default-selected-style="selected" type="simple"
-            menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
             <link target="EditExample">
                 <parameter param-name="exampleId"/>
@@ -57,8 +56,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="EditExampleFeature" default-selected-style="selected" type="simple"
-            menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="EditExampleFeature" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditExampleFeature" title="${uiLabelMap.ExampleFeature}">
             <link target="EditExampleFeature">
                 <parameter param-name="exampleFeatureId"/>
