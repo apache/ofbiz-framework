@@ -210,6 +210,12 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="request" value="main"/>
     </request-map>
+
+    <request-map uri="ExampleGeoLocationPointSet1"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet1"/></request-map>
+    <request-map uri="ExampleGeoLocationPointSet2"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet2"/></request-map>
+    <request-map uri="ExampleGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet3"/></request-map>
+    <request-map uri="ExampleGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet4"/></request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -237,5 +243,10 @@ under the License.
     <view-map name="printExampleFOPFonts" type="screenfop" page="component://example/widget/example/FormWidgetExampleScreens.xml#printExampleFOPFonts" content-type="application/pdf"  encoding="none"/>
     <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
     <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
+
+    <view-map name="ExampleGeoLocationPointSet1" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet1"/>
+    <view-map name="ExampleGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet2"/>
+    <view-map name="ExampleGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet3"/>
+    <view-map name="ExampleGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet4"/>
     <!-- end of view mappings -->
 </site-conf>

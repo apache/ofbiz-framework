@@ -501,4 +501,16 @@ under the License.
         </section>
     </screen>
 
+    <screen name="geoChart">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCommonGeoLocation"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://common/webcommon/includes/geolocation.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
