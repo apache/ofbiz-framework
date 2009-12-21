@@ -163,7 +163,6 @@ under the License.
         <call-simple-method method-name="UtilCheckEntriesBalance"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
-            <log level="always" message="JAC: ${acctgTransEntry}"/>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
