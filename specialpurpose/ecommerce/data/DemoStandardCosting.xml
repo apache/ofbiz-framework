@@ -69,6 +69,10 @@ under the License.
     <CostComponentCalc costComponentCalcId="TASK_COST_CALC" description="Indirect cost (power supply)" currencyUomId="USD" fixedCost="1" variableCost="2" perMilliSecond="60000"/>
     <WorkEffortCostCalc workEffortId="TASK_COST" costComponentTypeId="OTHER_COST" costComponentCalcId="TASK_COST_CALC" fromDate="2005-12-31 00:01:00.0"/>
 
+    <!-- General Cost for the finished product -->
+    <CostComponentCalc costComponentCalcId="GEN_COST_CALC" description="Overhead cost (5 percent of total cost) for general costs" currencyUomId="USD" fixedCost="0.05" costCustomMethodId="PROD_PERC_FORMULA"/>
+    <ProductCostComponentCalc productId="PROD_MANUF" costComponentTypeId="GEN_COST" costComponentCalcId="GEN_COST_CALC" fromDate="2005-12-31 00:01:00.0"/>
+
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"
         inventoryItemId="9029" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_A_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="9.0"/>
     <InventoryItemDetail inventoryItemId="9029" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20"/>
