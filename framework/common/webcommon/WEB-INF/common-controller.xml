@@ -34,10 +34,14 @@ under the License.
     <handler name="service-stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
+    <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
+    <!-- These event handlers have been deprecated, if you need to send json responses then chain
+         the json request from this controller after calling your event
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
     <handler name="jsonservice-multi" type="request" class="org.ofbiz.webapp.event.JSONServiceMultiEventHandler"/>
     <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
-    <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
+    <handler name="jsonjava" type="request" class="org.ofbiz.webapp.event.JSONJavaEventHandler"/>
+     -->
 
     <!-- view handlers -->
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>

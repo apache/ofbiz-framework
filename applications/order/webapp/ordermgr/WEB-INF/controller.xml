@@ -29,7 +29,6 @@ under the License.
     <!-- event handlers -->
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
-    <handler name="jsonjava" type="request" class="org.ofbiz.webapp.event.JSONJavaEventHandler"/>
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>

@@ -36,6 +36,7 @@ import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 /**
  * JSONJavaEventHandler - JSON Object Wrapper around the JavaEventHandler
  */
+@Deprecated
 public class JSONJavaEventHandler implements EventHandler {
 
     public static final String module = JSONJavaEventHandler.class.getName();

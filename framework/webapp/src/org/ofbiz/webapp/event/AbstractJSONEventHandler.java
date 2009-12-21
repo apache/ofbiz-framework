@@ -35,9 +35,10 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
+@Deprecated
 public abstract class AbstractJSONEventHandler implements EventHandler {
 
-    public static final String module = JSONSimpleEventHandler.class.getName();
+    public static final String module = AbstractJSONEventHandler.class.getName();
     protected EventHandler service;
 
 
