@@ -59,10 +59,10 @@ public final class Relation extends Atom implements Iterable<KeyMap> {
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("RELATION");
         if (type != null) {
-            sb.append(' ').append(type);
+            sb.append(" TYPE ").append(type);
         }
         if (title != null) {
-            sb.append(' ').append(title);
+            sb.append(" TITLE ").append(title);
         }
         sb.append(' ').append(entityName);
         sb.append(" ON");
