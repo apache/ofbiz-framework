@@ -26,6 +26,7 @@ import java.util.*;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.xa.XAException;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.log4j.Level;
@@ -82,6 +83,32 @@ public class CommonServices {
         }
 
         System.out.println("----- SVC: " + dctx.getName() + " -----");
+        return response;
+    }
+    
+    /**
+     * Generic Test SOAP Service
+     *@param dctx The DispatchContext that this service is operating in
+     *@param context Map containing the input parameters
+     *@return Map with the result of the service, the output parameters
+     */
+    public static Map<String, Object> testSOAPService(DispatchContext dctx, Map<String, ?> context) {
+        Delegator delegator = dctx.getDelegator();
+        Map<String, Object> response = ServiceUtil.returnSuccess();
+
+        GenericValue productCategory = (GenericValue) context.get("productCategory");
+        List<GenericValue> products = FastList.newInstance();
+        for (int i = 0; i < 3; i ++) {
+            GenericValue product = delegator.makeValue("Product");
+            product.put("productId", "PROD_TEST" + i);
+            product.put("productTypeId", "FINISHED_GOOD");
+            product.put("primaryProductCategoryId", "202");
+            product.put("internalName", "Product Test " + i);
+            product.put("productName", "Product Test " + i);
+            product.put("createdStamp", UtilDateTime.nowTimestamp());
+            products.add(product);
+        }
+        response.put("products", products);
         return response;
     }
 
