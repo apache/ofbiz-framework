@@ -1934,12 +1934,6 @@ public class ProductionRunServices {
         if (addQuantityRejected == null) {
             addQuantityRejected = BigDecimal.ZERO;
         }
-        if (addSetupTime == null) {
-            addSetupTime = BigDecimal.ZERO;
-        }
-        if (addTaskTime == null) {
-            addTaskTime = BigDecimal.ZERO;
-        }
         if (comments == null) {
             comments = "";
         }
@@ -1968,15 +1962,6 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotRunning", locale));
         }
 
-        Double actualMilliSeconds = theTask.getDouble("actualMilliSeconds");
-        if (actualMilliSeconds == null) {
-            actualMilliSeconds = Double.valueOf(0);
-        }
-        Double actualSetupMillis = theTask.getDouble("actualSetupMillis");
-        if (actualSetupMillis == null) {
-            actualSetupMillis = Double.valueOf(0);
-        }
-
         BigDecimal quantityProduced = theTask.getBigDecimal("quantityProduced");
         if (quantityProduced == null) {
             quantityProduced = BigDecimal.ZERO;
@@ -1985,8 +1970,6 @@ public class ProductionRunServices {
         if (quantityRejected == null) {
             quantityRejected = BigDecimal.ZERO;
         }
-        double totalMillis = actualMilliSeconds.doubleValue() + addTaskTime.doubleValue();
-        double totalSetupMillis = actualSetupMillis.doubleValue() + addSetupTime.doubleValue();
         BigDecimal totalQuantityProduced = quantityProduced.add(addQuantityProduced);
         BigDecimal totalQuantityRejected = quantityRejected.add(addQuantityRejected);
 
@@ -2037,6 +2020,7 @@ public class ProductionRunServices {
 
         // Create a new TimeEntry
         try {
+            /*
             String timeEntryId = delegator.getNextSeqId("TimeEntry");
             Map timeEntryFields = UtilMisc.toMap("timeEntryId", timeEntryId,
                                                  "workEffortId", workEffortId);
@@ -2051,12 +2035,24 @@ public class ProductionRunServices {
             timeEntryFields.put("comments", comments);
             GenericValue timeEntry = delegator.makeValue("TimeEntry", timeEntryFields);
             timeEntry.create();
-
+            */
             Map serviceContext = new HashMap();
             serviceContext.clear();
             serviceContext.put("workEffortId", workEffortId);
-            serviceContext.put("actualMilliSeconds", Double.valueOf(totalMillis));
-            serviceContext.put("actualSetupMillis", Double.valueOf(totalSetupMillis));
+            if (addTaskTime != null) {
+                Double actualMilliSeconds = theTask.getDouble("actualMilliSeconds");
+                if (actualMilliSeconds == null) {
+                    actualMilliSeconds = Double.valueOf(0);
+                }
+                serviceContext.put("actualMilliSeconds", Double.valueOf(actualMilliSeconds.doubleValue() + addTaskTime.doubleValue()));
+            }
+            if (addSetupTime != null) {
+                Double actualSetupMillis = theTask.getDouble("actualSetupMillis");
+                if (actualSetupMillis == null) {
+                    actualSetupMillis = Double.valueOf(0);
+                }
+                serviceContext.put("actualSetupMillis", Double.valueOf(actualSetupMillis.doubleValue() + addSetupTime.doubleValue()));
+            }
             serviceContext.put("quantityProduced", totalQuantityProduced);
             serviceContext.put("quantityRejected", totalQuantityRejected);
             serviceContext.put("userLogin", userLogin);
