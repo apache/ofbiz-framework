@@ -222,6 +222,7 @@ under the License.
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
+                        <container style="clear" />
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
                             <condition>
