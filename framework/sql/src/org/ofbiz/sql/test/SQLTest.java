@@ -37,8 +37,8 @@ public class SQLTest extends TestCase {
         super(name);
     }
 
-    public void testFoo() throws Exception {
-        List statements = new Parser(getClass().getResourceAsStream("TestSelect.sql")).SQLFile();
+    public void testParse() throws Exception {
+        List statements = new Parser(getClass().getResourceAsStream("GoodParseAll.sql")).SQLFile();
         for (Object statement: statements) {
             System.err.println(statement);
         }
