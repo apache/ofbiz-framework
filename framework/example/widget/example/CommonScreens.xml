@@ -195,6 +195,7 @@ under the License.
                         <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
+                        <container style="clear" />
                         <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
