@@ -4,11 +4,11 @@
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
     <classpathentry kind="lib" path="applications/content/lib/lucene-core-2.4.1.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/poi-3.2-FINAL-20081019.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-1.7.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
