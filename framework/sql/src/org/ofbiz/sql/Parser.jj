@@ -557,16 +557,16 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
 
 private StaticValue MathValue():
 {
-	StaticValue v;
-	List<StaticValue> values = FastList.newInstance();
+	ConstantValue v;
+	List<ConstantValue> values = FastList.newInstance();
 	String operator = null, newOperator;
 }
 {
 	<OPEN_PAREN>
-		v=StaticValue() { values.add(v); }
+		v=ConstantValue() { values.add(v); }
 		(
 			newOperator=MathOperator()
-			v=StaticValue() {
+			v=ConstantValue() {
 				if (operator == null) {
 					operator = newOperator;
 				} else if (!newOperator.equals(operator)) {
@@ -577,7 +577,7 @@ private StaticValue MathValue():
 		)*
 	<CLOSE_PAREN>
 	{
-		if (values.size() == 1) return values.get(0);
+		if (values.size() == 1 && values.get(0) instanceof StaticValue) return (StaticValue) values.get(0);
 		return new MathValue(operator, values);
 	}
 }
@@ -597,16 +597,20 @@ private FunctionCall FunctionCallRest(String name):
 	{ return new FunctionCall(name, args); }
 }
 
-private StaticValue StaticValue():
+private ConstantValue ConstantValue():
 {
 	String n;
-	StaticValue v;
+	ConstantValue v;
+	int i;
+	String s;
 }
 {
 	n=NamePart() (
 		v=FunctionCallRest(n) { return v; }
 	| v=FieldValue(n) { return v; }
 	)
+|	i=Integer() { return new NumberValue<Integer>(i); }
+|	s=SQuoted() { return new StringValue(s); }
 |	v=MathValue() { return v; }
 }
 
