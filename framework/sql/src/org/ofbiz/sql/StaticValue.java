@@ -18,6 +18,6 @@
  */
 package org.ofbiz.sql;
 
-public abstract class StaticValue extends Value {
+public abstract class StaticValue extends ConstantValue {
     public abstract String getDefaultName();
 }
