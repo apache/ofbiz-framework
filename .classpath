@@ -7,6 +7,7 @@
     <classpathentry kind="lib" path="framework/base/lib/ant-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-trax-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
