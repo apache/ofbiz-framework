@@ -472,7 +472,7 @@ under the License.
     </target>
     <target name="run-single-test" 
     	    description="Run a single test">
-        <java jar="ofbiz.jar" fork="true">
+        <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
@@ -485,10 +485,17 @@ under the License.
         <move todir="runtime/logs/test-results/${test.component}-${test.case}">
             <fileset dir="runtime/logs/test-results" includes="*.xml"/>
         </move>
+        <fail message="Test run was unsuccessful">
+            <condition>
+                <not>
+                    <equals arg1="${test.result}" arg2="0"/>
+                </not>
+            </condition>
+        </fail>
     </target>
     <target name="run-single-test-suite" 
             description="Run a single test suite">
-        <java jar="ofbiz.jar" fork="true">
+        <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
@@ -496,6 +503,13 @@ under the License.
             <arg value="-component=${test.component}"/>
             <arg value="-suitename=${test.suiteName}"/>
         </java>
+        <fail message="Test run was unsuccessful">
+            <condition>
+                <not>
+                    <equals arg1="${test.result}" arg2="0"/>
+                </not>
+            </condition>
+        </fail>
     </target>
     <target name="run-test-list" depends="_setup-separated-test-run" 
             description="Run all configured tests, stopping/starting ofbiz between each test">
