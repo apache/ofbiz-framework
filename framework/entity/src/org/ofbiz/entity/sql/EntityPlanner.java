@@ -134,7 +134,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         dve.addAlias(null, alias, null, null, null, groupBy.contains(alias), null, member);
     }
 
-    private static void addFieldDef(DynamicViewEntity dve, List<String> groupBy, String alias, StaticValue value) {
+    private static void addFieldDef(DynamicViewEntity dve, List<String> groupBy, String alias, ConstantValue value) {
         ComplexAliasMember complexMember;
         if (value instanceof FieldValue) {
             addFieldDef(dve, groupBy, alias, (FieldValue) value, null);
