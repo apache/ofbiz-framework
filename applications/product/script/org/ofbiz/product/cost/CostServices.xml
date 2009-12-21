@@ -335,8 +335,8 @@ under the License.
                     <set field="totalCostsByType.${costType}" from-field="costAmount"/>
                 </else>
                 </if-not-empty>
-                <calculate field="totalTaskCost" decimal-scale="6">
-                    <calcop field="totalTaskCost" operator="add">
+                <calculate field="totalOtherTaskCost" decimal-scale="6">
+                    <calcop field="totalOtherTaskCost" operator="add">
                         <calcop field="costAmount" operator="get"/>
                     </calcop>
                 </calculate>
@@ -346,6 +346,7 @@ under the License.
         <calculate field="totalCost" decimal-scale="6">
             <calcop field="totalTaskCost" operator="add">
                 <calcop field="totalProductsCost" operator="get"/>
+                <calcop field="totalOtherTaskCost" operator="get"/>
             </calcop>
         </calculate>
 
