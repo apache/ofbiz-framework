@@ -157,12 +157,12 @@ under the License.
                 <set field="geoPoints[+1].lat" value="37,4819" type="Float"/>
                 <set field="geoPoints[1].lon" value="-122,1519" type="Float"/>
                 <set field="geoPoints[+2].lat" value="37,4719" type="Float"/>
-                <set field="geoPoints[2].lon" value="-122,1319" type="Float"/>                
-                <set field="geoCenter.lat" value="37,4419" type="Float"/>                
-                <set field="geoCenter.lon" value="-122,1419" type="Float"/>                
-                <set field="geoCenter.zoom" value="13"/>                
+                <set field="geoPoints[2].lon" value="-122,1319" type="Float"/>
+                <set field="geoCenter.lat" value="37,4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122,1419" type="Float"/>
+                <set field="geoCenter.zoom" value="13"/>
             </actions>
-            <widgets>           
+            <widgets>
                 <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
@@ -177,11 +177,11 @@ under the License.
                 <set field="geoPoints[1].lon" value="-122,1599" type="Float"/>
                 <set field="geoPoints[+2].lat" value="37,4769" type="Float"/>
                 <set field="geoPoints[2].lon" value="-122,1219" type="Float"/>
-                <set field="geoCenter.lat" value="37,4419" type="Float"/>                
-                <set field="geoCenter.lon" value="-122,1419" type="Float"/>                
-                <set field="geoCenter.zoom" value="12"/>                
+                <set field="geoCenter.lat" value="37,4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122,1419" type="Float"/>
+                <set field="geoCenter.zoom" value="12"/>
             </actions>
-            <widgets>           
+            <widgets>
                 <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
@@ -196,11 +196,11 @@ under the License.
                 <set field="geoPoints[1].lon" value="-122,1519" type="Float"/>
                 <set field="geoPoints[+2].lat" value="37,4229" type="Float"/>
                 <set field="geoPoints[2].lon" value="-122,1369" type="Float"/>
-                <set field="geoCenter.lat" value="37,4419" type="Float"/>                
-                <set field="geoCenter.lon" value="-122,1419" type="Float"/>                
+                <set field="geoCenter.lat" value="37,4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122,1419" type="Float"/>
                 <set field="geoCenter.zoom" value="11"/>
             </actions>
-            <widgets>           
+            <widgets>
                 <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
@@ -208,14 +208,15 @@ under the License.
     <screen name="ExampleGeoLocationPointSet4">
         <section>
             <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
                 <set field="tabButtonItem" value="ExampleGeoLocationPointSet4"/>
                 <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
                 <set field="geoChart.width" value="600"/>
-                <set field="geoChart.height" value="500"/>                
+                <set field="geoChart.height" value="500"/>
                 <set field="geoChart.points" from-field="geoPoints"/>
                 <set field="geoChart.center" from-field="geoCenter"/>
             </actions>
-            <widgets>           
+            <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
@@ -231,13 +232,13 @@ under the License.
                                         <set field="geoPoints[1].lon" value="-122,1599" type="Float"/>
                                         <set field="geoPoints[+2].lat" value="37,4769" type="Float"/>
                                         <set field="geoPoints[2].lon" value="-122,1219" type="Float"/>
-                                        <set field="geoCenter.lat" value="37,4419" type="Float"/>                
-                                        <set field="geoCenter.lon" value="-122,1419" type="Float"/>                
-                                        <set field="geoCenter.zoom" value="12"/>                
+                                        <set field="geoCenter.lat" value="37,4419" type="Float"/>
+                                        <set field="geoCenter.lon" value="-122,1419" type="Float"/>
+                                        <set field="geoCenter.zoom" value="12"/>
                                         <set field="geoChart.id" value="chart1"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
                                         <set field="geoChart.width" value="600"/>
-                                        <set field="geoChart.height" value="500"/>                
+                                        <set field="geoChart.height" value="500"/>
                                         <set field="geoChart.points" from-field="geoPoints"/>
                                         <set field="geoChart.center" from-field="geoCenter"/>
                                     </actions>
@@ -254,17 +255,17 @@ under the License.
                                         <set field="geoPoints[1].lon" value="-122,1519" type="Float"/>
                                         <set field="geoPoints[+2].lat" value="37,4229" type="Float"/>
                                         <set field="geoPoints[2].lon" value="-122,1369" type="Float"/>
-                                        <set field="geoCenter.lat" value="37,4419" type="Float"/>                
-                                        <set field="geoCenter.lon" value="-122,1419" type="Float"/>                
+                                        <set field="geoCenter.lat" value="37,4419" type="Float"/>
+                                        <set field="geoCenter.lon" value="-122,1419" type="Float"/>
                                         <set field="geoCenter.zoom" value="11"/>
                                         <set field="geoChart.id" value="chart2"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
                                         <set field="geoChart.width" value="800"/>
-                                        <set field="geoChart.height" value="500"/>                
+                                        <set field="geoChart.height" value="500"/>
                                         <set field="geoChart.points" from-field="geoPoints"/>
                                         <set field="geoChart.center" from-field="geoCenter"/>
                                     </actions>
-                                    <widgets>           
+                                    <widgets>
                                         <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
                                     </widgets>
                                 </section>
