@@ -523,6 +523,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createOrderHeader" short-description="Create OrderHeader">
+        <now-timestamp field="nowTimestamp"/>
+
         <set value="Create OrderHeader" field="operationName"/>
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderShipment"/>
@@ -530,6 +532,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="OrderHeader"/>
+        
         <if-not-empty field="parameters.orderId">
             <set field="newEntity.orderId" from-field="parameters.orderId"/>
         <else>
@@ -537,8 +540,19 @@ under the License.
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.orderId" result-name="orderId"/>
+        
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
+        <if-empty field="newEntity.statusId">
+            <set field="newEntity.statusId" value="ORDER_CREATED"/>
+        </if-empty>
+        <if-empty field="newEntity.orderDate">
+            <set field="newEntity.orderDate" from-field="nowTimestamp"/>
+        </if-empty>
+        <if-empty field="newEntity.entryDate">
+            <set field="newEntity.entryDate" from-field="nowTimestamp"/>
+        </if-empty>
+        
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOrderHeader" short-description="Update OrderHeader">
