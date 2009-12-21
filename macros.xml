@@ -43,14 +43,14 @@ under the License.
 
  <path id="groovy.class.path">
   <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
  </path>
  <path id="ant.lib.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  </path>
  <path id="junit.class.path">
   <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
  </path>
  <path id="local.class.path"/>
 
@@ -73,8 +73,8 @@ under the License.
   </default-javac>
  </presetdef>
 
- <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
- <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
+ <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
+ <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <macrodef name="ofbiz-javacc">
   <attribute name="dir"/>
   <attribute name="file"/>
