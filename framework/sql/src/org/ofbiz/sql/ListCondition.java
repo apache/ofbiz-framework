@@ -47,8 +47,8 @@ public final class ListCondition extends Condition {
 
     public StringBuilder appendTo(StringBuilder sb) {
         left.appendTo(sb);
-        sb.append(' ').append(op).append(' ');
+        sb.append(' ').append(op).append(" (");
         StringUtil.appendTo(sb, values, null, null, ", ");
-        return sb;
+        return sb.append(')');
     }
 }
