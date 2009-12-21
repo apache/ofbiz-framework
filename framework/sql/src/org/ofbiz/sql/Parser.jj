@@ -314,7 +314,7 @@ private void Relation(Map<String, Relation> relations):
 	keyMaps=KeyMaps("cur", "other")
 	{
 		Relation relation = new Relation(type, title, entityName, keyMaps);
-		if (relations.containsKey(relation.getName())) throw new IllegalArgumentException("Duplicate relation: " + relation);
+		if (relations.containsKey(relation.getName())) throw new ParseException("Duplicate relation: " + relation);
 		relations.put(relation.getName(), relation);
 	}
 }
@@ -495,13 +495,13 @@ private void KeyMap(List<KeyMap> keyMaps, String leftAlias, String rightAlias):
 	alias2=NamePart() <PERIOD> field2=NamePart()
 	{
 		if (alias1.equals(leftAlias)) {
-			if (!alias2.equals(rightAlias)) throw new IllegalArgumentException("invalid right alias(" + alias2 + "), expected(" + rightAlias + ")");
+			if (!alias2.equals(rightAlias)) throw new ParseException("invalid right alias(" + alias2 + "), expected(" + rightAlias + ")");
 			keyMaps.add(new KeyMap(field1, field2));
 		} else if (alias1.equals(rightAlias)) {
-			if (!alias2.equals(leftAlias)) throw new IllegalArgumentException("invalid left alias(" + alias2 + "), expected(" + leftAlias + ")");
+			if (!alias2.equals(leftAlias)) throw new ParseException("invalid left alias(" + alias2 + "), expected(" + leftAlias + ")");
 			keyMaps.add(new KeyMap(field2, field1));
 		} else {
-			throw new IllegalArgumentException("invalid aliases, expected(" + leftAlias + " or " + rightAlias + ")");
+			throw new ParseException("invalid aliases, expected(" + leftAlias + " or " + rightAlias + ")");
 		}
 	}
 }
@@ -536,7 +536,7 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
 			<PERIOD> (
 				<STAR>
 				(
-					{ if (fieldAllAliases.contains(n)) throw new IllegalArgumentException("Duplicate aliasAll(" + n + ")"); }
+					{ if (fieldAllAliases.contains(n)) throw new ParseException("Duplicate aliasAll(" + n + ")"); }
 					<EXCLUDE> <OPEN_PAREN>
 					exc=NamePart() { excludeList.add(exc); }
 					( <COMMA> exc=NamePart() { excludeList.add(exc); } )*
@@ -550,7 +550,7 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
 		)
 	|	v=MathValue() <AS> fieldAlias=NamePart() { def = new FieldDefValue(v, fieldAlias); }
 	) {
-		if (fieldDefs.containsKey(def.getAlias())) throw new IllegalArgumentException("duplicate alias(" + def.getAlias() + ")");
+		if (fieldDefs.containsKey(def.getAlias())) throw new ParseException("duplicate alias(" + def.getAlias() + ")");
 		fieldDefs.put(def.getAlias(), def);
 	}
 }
@@ -570,7 +570,7 @@ private StaticValue MathValue():
 				if (operator == null) {
 					operator = newOperator;
 				} else if (!newOperator.equals(operator)) {
-					throw new IllegalArgumentException("Different operators in complex alias(" + operator + ":" + newOperator + ")");
+					throw new ParseException("Different operators in complex alias(" + operator + ":" + newOperator + ")");
 				}
 				values.add(v);
 			}
