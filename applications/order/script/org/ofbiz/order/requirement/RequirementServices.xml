@@ -23,14 +23,16 @@ under the License.
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
         <make-value value-field="newEntity" entity-name="Requirement"/>
         <sequenced-id sequence-name="Requirement" field="requirementId"/>
-        <to-string field="requirementId"/>
-        <set from-field="requirementId" field="newEntity.requirementId"/>
+        <set field="newEntity.requirementId" from-field="requirementId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.statusId">
             <set value="REQ_CREATED" field="newEntity.statusId"/>
         </if-empty>
         <now-timestamp field="nowTimestamp"/>
-        <set from-field="nowTimestamp" field="newEntity.createdDate"/>
+        <set field="newEntity.createdDate" from-field="nowTimestamp"/>
+        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId"/>
+        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <create-value value-field="newEntity"/>
         <field-to-result field="requirementId" result-name="requirementId"/>
     </simple-method>
@@ -42,6 +44,9 @@ under the License.
         <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
 
