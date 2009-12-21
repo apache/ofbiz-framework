@@ -139,7 +139,7 @@ under the License.
 
             Post condition: On payment's status is sent: a double-entry accounting transaction is automatically posted to the GL:
                 * Credit; in account 111100 - "GENERAL CHECKING ACCOUNT"; amount: 290$; however this depends on the "Payment method type" selected;
-                * Debit; in account 210000 - "ACCOUNTS PAYABLE"; amount: 290$
+                * Debit; in account 216000 - "ACCOUNTS PAYABLE - UNAPPLIED PAYMENTS"; amount: 290$
          -->
 
         <set field="paymentId" value="9000"/>
@@ -163,16 +163,16 @@ under the License.
         <call-simple-method method-name="UtilCheckEntriesBalance"/>
 
         <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <log level="always" message="JAC: ${acctgTransEntry}"/>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-            <!--<assert>
-                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="GENERAL_CHECKING_ACCOUNT"/>
+                <assert>
                     <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
-                </assert>-->
+                </assert>
             <else>
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <assert>
-                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
-                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCPAYABLE_UNAPPLIED"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="216000"/>
                     </assert>
                 </if-compare>
             </else>
@@ -336,7 +336,7 @@ under the License.
              1. From the payment detail screen, when you are ready to post the payment to the GL, click on the "Status to Received" link
         -->
         <!-- Post condition: "Status to Received", Received Payments. When you are ready to post the payment to the GL this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped:
-              * Credit; in glAccountId=120000 - glAccountTypeId="ACCOUNTS_RECEIVABLE"
+              * Credit; in glAccountId=126000 - glAccountTypeId="ACCOUNTS_RECEIVABLE - UNAPPLIED PAYMENTS"
               * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
         -->
 
@@ -378,8 +378,8 @@ under the License.
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                <assert>
-                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
-                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCREC_UNAPPLIED"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="126000"/>
                 </assert>
             </if-compare>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
