@@ -259,6 +259,7 @@ private SQLStatement Statement():
 	|	statement=Delete() { return statement; }
 	|	statement=Update() { return statement; }
 	|	statement=Insert() { return statement; }
+	|	statement=View() { return statement; }
 	)
 }
 
