@@ -63,6 +63,7 @@ under the License.
         server="default-server"
         location="webapp/birt"
         base-permission="OFBTOOLS,WEBTOOLS"
-        mount-point="/birt"/>
+        mount-point="/birt"
+        app-bar-display="false"/>
         
 </ofbiz-component>
