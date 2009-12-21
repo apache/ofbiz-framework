@@ -418,16 +418,24 @@ private List<SetField> SetField():
 }
 {
 	(
-		n=NamePart() <EQUALS> v=Value() { setFields.add(new SetField(n, v)); }
+		n=NamePart() <EQUALS> (
+			v=Value() { setFields.add(new SetField(n, v)); }
+		|	v=MathValue() { setFields.add(new SetField(n, v)); }
+		)
 	|	<OPEN_PAREN>
 		n=NamePart() { columnList.add(n); }
 		( <COMMA> n=NamePart() { columnList.add(n); } )*
 		<CLOSE_PAREN>
 		<EQUALS>
 		<OPEN_PAREN>
-		v=Value() { valueList.add(v); }
-		( <COMMA> v=Value() { valueList.add(v); } )*
-		<CLOSE_PAREN>
+		(v=Value()|v=MathValue()) { valueList.add(v); }
+		( <COMMA> (v=Value()|v=MathValue()) { valueList.add(v); } )*
+		<CLOSE_PAREN> {
+			if (columnList.size() != valueList.size()) throw new ParseException();
+			for (int i = 0; i < columnList.size(); i++) {
+				setFields.add(new SetField(columnList.get(i), valueList.get(i)));
+			}
+		}
 	)
 	{ return setFields; }
 }
