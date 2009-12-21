@@ -316,6 +316,17 @@ under the License.
         <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="WorkEffortAssocFromView"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort Association From (Parent) View">
+      <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
+      <member-entity entity-alias="WEFROM" entity-name="WorkEffort"/>
+      <alias-all entity-alias="WEA"/>
+      <alias-all entity-alias="WEFROM"/>
+      <view-link entity-alias="WEA" rel-entity-alias="WEFROM">
+        <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="WorkEffortAssocToView"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Association To (Child) View">
