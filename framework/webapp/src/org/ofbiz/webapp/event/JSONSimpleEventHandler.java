@@ -22,7 +22,7 @@ package org.ofbiz.webapp.event;
 
 import javax.servlet.ServletContext;
 
-
+@Deprecated
 public class JSONSimpleEventHandler extends AbstractJSONEventHandler{
 
     @Override

@@ -36,7 +36,10 @@
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
+    <!-- These event handlers have been deprecated, if you need to send json responses then chain
+         the json request from this controller after calling your event
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
+    -->
 
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>
