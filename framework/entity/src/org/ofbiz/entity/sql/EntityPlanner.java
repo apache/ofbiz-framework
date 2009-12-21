@@ -196,10 +196,9 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
             }
         } else if (value instanceof MathValue) {
             MathValue mv = (MathValue) value;
-            List<ComplexAliasMember> members = FastList.newInstance();
             ComplexAlias complexAlias = new ComplexAlias(mv.getOp());
             for (StaticValue staticValue: mv) {
-                complexAlias.addComplexAliasMember(buildComplexMember(value));
+                complexAlias.addComplexAliasMember(buildComplexMember(staticValue));
             }
             return complexAlias;
         }
