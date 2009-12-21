@@ -38,6 +38,7 @@ import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.sql.BooleanCondition;
 import org.ofbiz.sql.Condition;
 import org.ofbiz.sql.ConditionList;
+import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
 import org.ofbiz.sql.FieldDefFieldValue;
@@ -197,8 +198,8 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         } else if (value instanceof MathValue) {
             MathValue mv = (MathValue) value;
             ComplexAlias complexAlias = new ComplexAlias(mv.getOp());
-            for (StaticValue staticValue: mv) {
-                complexAlias.addComplexAliasMember(buildComplexMember(staticValue));
+            for (ConstantValue constantValue: mv) {
+                complexAlias.addComplexAliasMember(buildComplexMember(constantValue));
             }
             return complexAlias;
         }

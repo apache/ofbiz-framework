@@ -23,11 +23,11 @@ import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
 
-public final class MathValue extends StaticValue implements Iterable<StaticValue> {
+public final class MathValue extends StaticValue implements Iterable<ConstantValue> {
     private final String op;
-    private final List<StaticValue> values;
+    private final List<ConstantValue> values;
 
-    public MathValue(String op, List<StaticValue> values) {
+    public MathValue(String op, List<ConstantValue> values) {
         this.op = op;
         this.values = values;
     }
@@ -40,7 +40,7 @@ public final class MathValue extends StaticValue implements Iterable<StaticValue
         return null;
     }
 
-    public Iterator<StaticValue> iterator() {
+    public Iterator<ConstantValue> iterator() {
         return values.iterator();
     }
 
