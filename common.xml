@@ -119,7 +119,7 @@ under the License.
             </fileset>
         </cobertura-instrument>
         <mkdir dir="${build.dir}/test-results"/>
-        <junit fork="yes">
+        <junit fork="yes" haltonerror="yes">
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
