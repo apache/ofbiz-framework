@@ -41,9 +41,11 @@ import javax.wsdl.Input;
 import javax.wsdl.Message;
 import javax.wsdl.Operation;
 import javax.wsdl.Output;
+import javax.wsdl.Part;
 import javax.wsdl.Port;
 import javax.wsdl.PortType;
 import javax.wsdl.Service;
+import javax.wsdl.Types;
 import javax.wsdl.WSDLException;
 import javax.wsdl.extensions.soap.SOAPAddress;
 import javax.wsdl.extensions.soap.SOAPBinding;
@@ -51,6 +53,8 @@ import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -66,6 +70,7 @@ import org.ofbiz.service.group.GroupModel;
 import org.ofbiz.service.group.GroupServiceModel;
 import org.ofbiz.service.group.ServiceGroupReader;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.ibm.wsdl.extensions.soap.SOAPAddressImpl;
 import com.ibm.wsdl.extensions.soap.SOAPBindingImpl;
@@ -1189,6 +1194,18 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 }
 
     public void getWSDL(Definition def, String locationURI) throws WSDLException {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        Document document = null;
+        try {
+            builder = factory.newDocumentBuilder();
+            document = builder.newDocument();
+        } catch (Exception e) {
+            throw new WSDLException("can not create WSDL", module);
+        }
+        def.setTypes(this.getTypes(document, def));
+        
         // set the IN parameters
         Input input = def.createInput();
         Set<String> inParam = this.getInParamNames();
@@ -1196,12 +1213,25 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             Message inMessage = def.createMessage();
             inMessage.setQName(new QName(TNS, this.name + "Request"));
             inMessage.setUndefined(false);
+            Part parametersPart = def.createPart();
+            parametersPart.setName("map-Map");
+            parametersPart.setTypeName(new QName(TNS, "map-Map"));
+            inMessage.addPart(parametersPart);
+            Element documentation = document.createElement("wsdl:documentation");
             for (String paramName: inParam) {
                 ModelParam param = this.getParam(paramName);
                 if (!param.internal) {
-                    inMessage.addPart(param.getWSDLPart(def));
+                    Part part = param.getWSDLPart(def);
+                    Element attribute = document.createElement("attribute");
+                    attribute.setAttribute("name", paramName);
+                    attribute.setAttribute("type", part.getTypeName().getLocalPart());
+                    attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
+                    attribute.setAttribute("java-class", param.type);
+                    attribute.setAttribute("optional", Boolean.toString(param.optional));
+                    documentation.appendChild(attribute);
                 }
             }
+            parametersPart.setDocumentationElement(documentation);
             def.addMessage(inMessage);
             input.setMessage(inMessage);
         }
@@ -1213,12 +1243,25 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             Message outMessage = def.createMessage();
             outMessage.setQName(new QName(TNS, this.name + "Response"));
             outMessage.setUndefined(false);
+            Part resultsPart = def.createPart();
+            resultsPart.setName("map-Map");
+            resultsPart.setTypeName(new QName(TNS, "map-Map"));
+            outMessage.addPart(resultsPart);
+            Element documentation = document.createElement("wsdl:documentation");
             for (String paramName: outParam) {
                 ModelParam param = this.getParam(paramName);
                 if (!param.internal) {
-                    outMessage.addPart(param.getWSDLPart(def));
+                    Part part = param.getWSDLPart(def);
+                    Element attribute = document.createElement("attribute");
+                    attribute.setAttribute("name", paramName);
+                    attribute.setAttribute("type", part.getTypeName().getLocalPart());
+                    attribute.setAttribute("namespace", part.getTypeName().getNamespaceURI());
+                    attribute.setAttribute("java-class", param.type);
+                    attribute.setAttribute("optional", Boolean.toString(param.optional));
+                    documentation.appendChild(attribute);
                 }
             }
+            resultsPart.setDocumentationElement(documentation);
             def.addMessage(outMessage);
             output.setMessage(outMessage);
         }
@@ -1290,5 +1333,411 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         service.setQName(new QName(TNS, this.name));
         service.addPort(port);
         def.addService(service);
+    }
+    
+    public Types getTypes(Document document, Definition def) {
+        Types types = def.createTypes();
+        /* Schema */
+        Element schema = document.createElement("xsd:schema");
+        schema.setAttribute("targetNamespace", TNS);
+
+        /*-----------------------------------*/
+        /*--------- Standard Objects --------*/
+        /*-----------------------------------*/
+        
+        /* std-String Element */
+        Element stdStringElement = document.createElement("xsd:element");
+        stdStringElement.setAttribute("name", "std-String");
+        Element stdStringElement0 = document.createElement("xsd:complexType");
+        stdStringElement.appendChild(stdStringElement0);
+        Element stdStringElement1 = document.createElement("xsd:attribute");
+        stdStringElement0.appendChild(stdStringElement1);
+        stdStringElement1.setAttribute("name", "value");
+        stdStringElement1.setAttribute("type", "xsd:string");
+        stdStringElement1.setAttribute("use", "required");
+        schema.appendChild(stdStringElement);
+        /* std-Integer Element */
+        Element stdIntegerElement = document.createElement("xsd:element");
+        stdIntegerElement.setAttribute("name", "std-Integer");
+        Element stdIntegerElement0 = document.createElement("xsd:complexType");
+        stdIntegerElement.appendChild(stdIntegerElement0);
+        Element stdIntegerElement1 = document.createElement("xsd:attribute");
+        stdIntegerElement0.appendChild(stdIntegerElement1);
+        stdIntegerElement1.setAttribute("name", "value");
+        stdIntegerElement1.setAttribute("type", "xsd:integer");
+        stdIntegerElement1.setAttribute("use", "required");
+        schema.appendChild(stdIntegerElement);
+        /* std-Long Element */
+        Element stdLongElement = document.createElement("xsd:element");
+        stdLongElement.setAttribute("name", "std-Long");
+        Element stdLongElement0 = document.createElement("xsd:complexType");
+        stdLongElement.appendChild(stdLongElement0);
+        Element stdLongElement1 = document.createElement("xsd:attribute");
+        stdLongElement0.appendChild(stdLongElement1);
+        stdLongElement1.setAttribute("name", "value");
+        stdLongElement1.setAttribute("type", "xsd:long");
+        stdLongElement1.setAttribute("use", "required");
+        schema.appendChild(stdLongElement);
+        /* std-Float Element */
+        Element stdFloatElement = document.createElement("xsd:element");
+        stdFloatElement.setAttribute("name", "std-Float");
+        Element stdFloatElement0 = document.createElement("xsd:complexType");
+        stdFloatElement.appendChild(stdFloatElement0);
+        Element stdFloatElement1 = document.createElement("xsd:attribute");
+        stdFloatElement0.appendChild(stdFloatElement1);
+        stdFloatElement1.setAttribute("name", "value");
+        stdFloatElement1.setAttribute("type", "xsd:float");
+        stdFloatElement1.setAttribute("use", "required");
+        schema.appendChild(stdFloatElement);
+        /* std-Double Element */
+        Element stdDoubleElement = document.createElement("xsd:element");
+        stdDoubleElement.setAttribute("name", "std-Double");
+        Element stdDoubleElement0 = document.createElement("xsd:complexType");
+        stdDoubleElement.appendChild(stdDoubleElement0);
+        Element stdDoubleElement1 = document.createElement("xsd:attribute");
+        stdDoubleElement0.appendChild(stdDoubleElement1);
+        stdDoubleElement1.setAttribute("name", "value");
+        stdDoubleElement1.setAttribute("type", "xsd:double");
+        stdDoubleElement1.setAttribute("use", "required");
+        schema.appendChild(stdDoubleElement);
+        /* std-Boolean Element */
+        Element stdBooleanElement = document.createElement("xsd:element");
+        stdBooleanElement.setAttribute("name", "std-Boolean");
+        Element stdBooleanElement0 = document.createElement("xsd:complexType");
+        stdBooleanElement.appendChild(stdBooleanElement0);
+        Element stdBooleanElement1 = document.createElement("xsd:attribute");
+        stdBooleanElement0.appendChild(stdBooleanElement1);
+        stdBooleanElement1.setAttribute("name", "value");
+        stdBooleanElement1.setAttribute("type", "xsd:boolean");
+        stdBooleanElement1.setAttribute("use", "required");
+        schema.appendChild(stdBooleanElement);
+        /* std-Locale Element */
+        Element stdLocaleElement = document.createElement("xsd:element");
+        stdLocaleElement.setAttribute("name", "std-Locale");
+        Element stdLocaleElement0 = document.createElement("xsd:complexType");
+        stdLocaleElement.appendChild(stdLocaleElement0);
+        Element stdLocaleElement1 = document.createElement("xsd:attribute");
+        stdLocaleElement0.appendChild(stdLocaleElement1);
+        stdLocaleElement1.setAttribute("name", "value");
+        stdLocaleElement1.setAttribute("type", "xsd:string");
+        stdLocaleElement1.setAttribute("use", "required");
+        schema.appendChild(stdLocaleElement);
+
+        /*-----------------------------------*/
+        /*----------- SQL Objects -----------*/
+        /*-----------------------------------*/
+        
+        /* sql-Timestamp Element */
+        Element sqlTimestampElement = document.createElement("xsd:element");
+        sqlTimestampElement.setAttribute("name", "sql-Timestamp");
+        Element sqlTimestampElement0 = document.createElement("xsd:complexType");
+        sqlTimestampElement.appendChild(sqlTimestampElement0);
+        Element sqlTimestampElement1 = document.createElement("xsd:attribute");
+        sqlTimestampElement0.appendChild(sqlTimestampElement1);
+        sqlTimestampElement1.setAttribute("name", "value");
+        sqlTimestampElement1.setAttribute("type", "xsd:dateTime");
+        sqlTimestampElement1.setAttribute("use", "required");
+        schema.appendChild(sqlTimestampElement);
+        /* sql-Date Element */
+        Element sqlDateElement = document.createElement("xsd:element");
+        sqlDateElement.setAttribute("name", "sql-Date");
+        Element sqlDateElement0 = document.createElement("xsd:complexType");
+        sqlDateElement.appendChild(sqlDateElement0);
+        Element sqlDateElement1 = document.createElement("xsd:attribute");
+        sqlDateElement0.appendChild(sqlDateElement1);
+        sqlDateElement1.setAttribute("name", "value");
+        sqlDateElement1.setAttribute("type", "xsd:date");
+        sqlDateElement1.setAttribute("use", "required");
+        schema.appendChild(sqlDateElement);
+        /* sql-Time Element */
+        Element sqlTimeElement = document.createElement("xsd:element");
+        sqlTimeElement.setAttribute("name", "sql-Time");
+        Element sqlTimeElement0 = document.createElement("xsd:complexType");
+        sqlTimeElement.appendChild(sqlTimeElement0);
+        Element sqlTimeElement1 = document.createElement("xsd:attribute");
+        sqlTimeElement0.appendChild(sqlTimeElement1);
+        sqlTimeElement1.setAttribute("name", "value");
+        sqlTimeElement1.setAttribute("type", "xsd:time");
+        sqlTimeElement1.setAttribute("use", "required");
+        schema.appendChild(sqlTimeElement);
+
+        /*-----------------------------------*/
+        /*----------- List Objects -----------*/
+        /*-----------------------------------*/
+        
+        /* col-ArrayList Element */
+        Element colArrayListElement = document.createElement("xsd:element");
+        colArrayListElement.setAttribute("name", "col-ArrayList");
+        schema.appendChild(colArrayListElement);
+        /* col-LinkedList Element */
+        Element colLinkedListElement = document.createElement("xsd:element");
+        colLinkedListElement.setAttribute("name", "col-LinkedList");
+        schema.appendChild(colLinkedListElement);
+        /* col-Stack Element */
+        Element colStackElement = document.createElement("xsd:element");
+        colStackElement.setAttribute("name", "col-Stack");
+        schema.appendChild(colStackElement);
+        /* col-Vector Element */
+        Element colVectorElement = document.createElement("xsd:element");
+        colVectorElement.setAttribute("name", "col-Vector");
+        schema.appendChild(colVectorElement);
+        /* col-TreeSet Element */
+        Element colTreeSetElement = document.createElement("xsd:element");
+        colTreeSetElement.setAttribute("name", "col-TreeSet");
+        schema.appendChild(colTreeSetElement);
+        /* col-HashSet Element */
+        Element colHashSetElement = document.createElement("xsd:element");
+        colHashSetElement.setAttribute("name", "col-HashSet");
+        schema.appendChild(colHashSetElement);
+        /* col-Collection Element */
+        Element colCollectionElement = document.createElement("xsd:element");
+        colCollectionElement.setAttribute("name", "col-Collection");
+        schema.appendChild(colCollectionElement);
+        
+        /*-----------------------------------*/
+        /*----------- Map Objects -----------*/
+        /*-----------------------------------*/
+        
+        /* map-TreeMap Element */
+        Element mapTreeMapElement = document.createElement("xsd:element");
+        mapTreeMapElement.setAttribute("name", "map-TreeMap");
+        mapTreeMapElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapTreeMapElement);
+        /* map-WeakHashMap Element */
+        Element mapWeakHashMapElement = document.createElement("xsd:element");
+        mapWeakHashMapElement.setAttribute("name", "map-WeakHashMap");
+        mapWeakHashMapElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapWeakHashMapElement);
+        /* map-Hashtable Element */
+        Element mapHashtableElement = document.createElement("xsd:element");
+        mapHashtableElement.setAttribute("name", "map-Hashtable");
+        mapHashtableElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapHashtableElement);
+        /* map-Properties Element */
+        Element mapPropertiesElement = document.createElement("xsd:element");
+        mapPropertiesElement.setAttribute("name", "map-Properties");
+        mapPropertiesElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapPropertiesElement);
+        /* map-HashMap Element */
+        Element mapHashMapElement = document.createElement("xsd:element");
+        mapHashMapElement.setAttribute("name", "map-HashMap");
+        mapHashMapElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapHashMapElement);
+        /* map-Map Element */
+        Element mapMapElement = document.createElement("xsd:element");
+        mapMapElement.setAttribute("name", "map-Map");
+        mapMapElement.setAttribute("type", "tns:map-Map");
+        schema.appendChild(mapMapElement);
+        /* map-Entry Element */
+        Element mapEntryElement = document.createElement("xsd:element");
+        mapEntryElement.setAttribute("name", "map-Entry");
+        mapEntryElement.setAttribute("type", "tns:map-Entry");
+        schema.appendChild(mapEntryElement);
+        /* map-Key Element */
+        Element mapKeyElement = document.createElement("xsd:element");
+        mapKeyElement.setAttribute("name", "map-Key");
+        mapKeyElement.setAttribute("type", "tns:map-Key");
+        schema.appendChild(mapKeyElement);
+        /* map-Value Element */
+        Element mapValueElement = document.createElement("xsd:element");
+        mapValueElement.setAttribute("name", "map-Value");
+        mapValueElement.setAttribute("type", "tns:map-Value");
+        schema.appendChild(mapValueElement);
+        /* eepk- Element */
+        Element eepkElement = document.createElement("xsd:element");
+        eepkElement.setAttribute("name", "eepk-");
+        eepkElement.setAttribute("type", "tns:map-Value");
+        schema.appendChild(eepkElement);
+        /* eeval- Element */
+        Element eevalElement = document.createElement("xsd:element");
+        eevalElement.setAttribute("name", "eeval-");
+        eevalElement.setAttribute("type", "tns:map-Value");
+        schema.appendChild(eevalElement);
+
+        /*-----------------------------------*/
+        /*----------- Custom Objects -----------*/
+        /*-----------------------------------*/
+        
+        /* cus-obj Element */
+        Element cusObjElement = document.createElement("xsd:element");
+        cusObjElement.setAttribute("name", "cus-obj");
+        schema.appendChild(cusObjElement);
+
+        /*-----------------------------------*/
+        /*---------- Complex Types ----------*/
+        /*-----------------------------------*/
+        
+        /* map-Map Complex Type */
+        Element mapMapComplexType = document.createElement("xsd:complexType");
+        mapMapComplexType.setAttribute("name", "map-Map");
+        Element mapMapComplexType0 = document.createElement("xsd:sequence");
+        mapMapComplexType.appendChild(mapMapComplexType0);
+        Element mapMapComplexType1 = document.createElement("xsd:element");
+        mapMapComplexType1.setAttribute("ref", "tns:map-Entry");
+        mapMapComplexType1.setAttribute("minOccurs", "0");
+        mapMapComplexType1.setAttribute("maxOccurs", "unbounded");
+        mapMapComplexType0.appendChild(mapMapComplexType1);
+        schema.appendChild(mapMapComplexType);
+        /* map-Entry Complex Type */
+        Element mapEntryComplexType = document.createElement("xsd:complexType");
+        mapEntryComplexType.setAttribute("name", "map-Entry");
+        Element mapEntryComplexType0 = document.createElement("xsd:sequence");
+        mapEntryComplexType.appendChild(mapEntryComplexType0);
+        Element mapEntryComplexType1 = document.createElement("xsd:element");
+        mapEntryComplexType1.setAttribute("ref", "tns:map-Key");
+        mapEntryComplexType1.setAttribute("minOccurs", "1");
+        mapEntryComplexType1.setAttribute("maxOccurs", "1");
+        mapEntryComplexType0.appendChild(mapEntryComplexType1);
+        Element mapEntryComplexType2 = document.createElement("xsd:element");
+        mapEntryComplexType2.setAttribute("ref", "tns:map-Value");
+        mapEntryComplexType2.setAttribute("minOccurs", "1");
+        mapEntryComplexType2.setAttribute("maxOccurs", "1");
+        mapEntryComplexType0.appendChild(mapEntryComplexType2);
+        schema.appendChild(mapEntryComplexType);
+        /* map-Key Complex Type */
+        Element mapKeyComplexType = document.createElement("xsd:complexType");
+        mapKeyComplexType.setAttribute("name", "map-Key");
+        Element mapKeyComplexType0 = document.createElement("xsd:all");
+        mapKeyComplexType.appendChild(mapKeyComplexType0);
+        Element mapKeyComplexType1 = document.createElement("xsd:element");
+        mapKeyComplexType1.setAttribute("ref", "tns:std-String");
+        mapKeyComplexType1.setAttribute("minOccurs", "1");
+        mapKeyComplexType1.setAttribute("maxOccurs", "1");
+        mapKeyComplexType0.appendChild(mapKeyComplexType1);
+        schema.appendChild(mapKeyComplexType);
+        /* map-Value Complex Type */
+        Element mapValueComplexType = document.createElement("xsd:complexType");
+        mapValueComplexType.setAttribute("name", "map-Value");
+        Element mapValueComplexType0 = document.createElement("xsd:choice");
+        mapValueComplexType.appendChild(mapValueComplexType0);
+        Element mapValueComplexType1 = document.createElement("xsd:element");
+        mapValueComplexType1.setAttribute("ref", "tns:std-String");
+        mapValueComplexType1.setAttribute("minOccurs", "1");
+        mapValueComplexType1.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType1);
+        Element mapValueComplexType2 = document.createElement("xsd:element");
+        mapValueComplexType2.setAttribute("ref", "tns:std-Integer");
+        mapValueComplexType2.setAttribute("minOccurs", "1");
+        mapValueComplexType2.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType2);
+        Element mapValueComplexType3 = document.createElement("xsd:element");
+        mapValueComplexType3.setAttribute("ref", "tns:std-Long");
+        mapValueComplexType3.setAttribute("minOccurs", "1");
+        mapValueComplexType3.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType3);
+        Element mapValueComplexType4 = document.createElement("xsd:element");
+        mapValueComplexType4.setAttribute("ref", "tns:std-Float");
+        mapValueComplexType4.setAttribute("minOccurs", "1");
+        mapValueComplexType4.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType4);
+        Element mapValueComplexType5 = document.createElement("xsd:element");
+        mapValueComplexType5.setAttribute("ref", "tns:std-Double");
+        mapValueComplexType5.setAttribute("minOccurs", "1");
+        mapValueComplexType5.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType5);
+        Element mapValueComplexType6 = document.createElement("xsd:element");
+        mapValueComplexType6.setAttribute("ref", "tns:std-Boolean");
+        mapValueComplexType6.setAttribute("minOccurs", "1");
+        mapValueComplexType6.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType6);
+        Element mapValueComplexType7 = document.createElement("xsd:element");
+        mapValueComplexType7.setAttribute("ref", "tns:std-Locale");
+        mapValueComplexType7.setAttribute("minOccurs", "1");
+        mapValueComplexType7.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType7);
+        Element mapValueComplexType8 = document.createElement("xsd:element");
+        mapValueComplexType8.setAttribute("ref", "tns:sql-Timestamp");
+        mapValueComplexType8.setAttribute("minOccurs", "1");
+        mapValueComplexType8.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType8);
+        Element mapValueComplexType9 = document.createElement("xsd:element");
+        mapValueComplexType9.setAttribute("ref", "tns:sql-Date");
+        mapValueComplexType9.setAttribute("minOccurs", "1");
+        mapValueComplexType9.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType9);
+        Element mapValueComplexType10 = document.createElement("xsd:element");
+        mapValueComplexType10.setAttribute("ref", "tns:sql-Time");
+        mapValueComplexType10.setAttribute("minOccurs", "1");
+        mapValueComplexType10.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType10);
+        Element mapValueComplexType11 = document.createElement("xsd:element");
+        mapValueComplexType11.setAttribute("ref", "tns:col-ArrayList");
+        mapValueComplexType11.setAttribute("minOccurs", "1");
+        mapValueComplexType11.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType11);
+        Element mapValueComplexType12 = document.createElement("xsd:element");
+        mapValueComplexType12.setAttribute("ref", "tns:col-LinkedList");
+        mapValueComplexType12.setAttribute("minOccurs", "1");
+        mapValueComplexType12.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType12);
+        Element mapValueComplexType13 = document.createElement("xsd:element");
+        mapValueComplexType13.setAttribute("ref", "tns:col-Stack");
+        mapValueComplexType13.setAttribute("minOccurs", "1");
+        mapValueComplexType13.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType13);
+        Element mapValueComplexType14 = document.createElement("xsd:element");
+        mapValueComplexType14.setAttribute("ref", "tns:col-Vector");
+        mapValueComplexType14.setAttribute("minOccurs", "1");
+        mapValueComplexType14.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType14);
+        Element mapValueComplexType15 = document.createElement("xsd:element");
+        mapValueComplexType15.setAttribute("ref", "tns:col-TreeSet");
+        mapValueComplexType15.setAttribute("minOccurs", "1");
+        mapValueComplexType15.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType15);
+        Element mapValueComplexType16 = document.createElement("xsd:element");
+        mapValueComplexType16.setAttribute("ref", "tns:col-HashSet");
+        mapValueComplexType16.setAttribute("minOccurs", "1");
+        mapValueComplexType16.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType16);
+        Element mapValueComplexType17 = document.createElement("xsd:element");
+        mapValueComplexType17.setAttribute("ref", "tns:col-Collection");
+        mapValueComplexType17.setAttribute("minOccurs", "1");
+        mapValueComplexType17.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType17);
+        Element mapValueComplexType18 = document.createElement("xsd:element");
+        mapValueComplexType18.setAttribute("ref", "tns:map-HashMap");
+        mapValueComplexType18.setAttribute("minOccurs", "1");
+        mapValueComplexType18.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType18);
+        Element mapValueComplexType19 = document.createElement("xsd:element");
+        mapValueComplexType19.setAttribute("ref", "tns:map-Properties");
+        mapValueComplexType19.setAttribute("minOccurs", "1");
+        mapValueComplexType19.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType19);
+        Element mapValueComplexType20 = document.createElement("xsd:element");
+        mapValueComplexType20.setAttribute("ref", "tns:map-Hashtable");
+        mapValueComplexType20.setAttribute("minOccurs", "1");
+        mapValueComplexType20.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType20);
+        Element mapValueComplexType21 = document.createElement("xsd:element");
+        mapValueComplexType21.setAttribute("ref", "tns:map-WeakHashMap");
+        mapValueComplexType21.setAttribute("minOccurs", "1");
+        mapValueComplexType21.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType21);
+        Element mapValueComplexType22 = document.createElement("xsd:element");
+        mapValueComplexType22.setAttribute("ref", "tns:map-TreeMap");
+        mapValueComplexType22.setAttribute("minOccurs", "1");
+        mapValueComplexType22.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType22);
+        Element mapValueComplexType23 = document.createElement("xsd:element");
+        mapValueComplexType23.setAttribute("ref", "tns:map-Map");
+        mapValueComplexType23.setAttribute("minOccurs", "1");
+        mapValueComplexType23.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType23);
+        Element mapValueComplexType24 = document.createElement("xsd:element");
+        mapValueComplexType24.setAttribute("ref", "tns:eepk-");
+        mapValueComplexType24.setAttribute("minOccurs", "1");
+        mapValueComplexType24.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType24);
+        Element mapValueComplexType25 = document.createElement("xsd:element");
+        mapValueComplexType25.setAttribute("ref", "tns:eeval-");
+        mapValueComplexType25.setAttribute("minOccurs", "1");
+        mapValueComplexType25.setAttribute("maxOccurs", "1");
+        mapValueComplexType0.appendChild(mapValueComplexType25);
+        schema.appendChild(mapValueComplexType);
+        
+        types.setDocumentationElement(schema);
+        return types;
     }
 }

@@ -22,6 +22,7 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="service-tests"><junit-test-suite class-name="org.ofbiz.service.test.ServiceEngineTests"/></test-case>
+    <test-case case-name="service-soap-tests"><junit-test-suite class-name="org.ofbiz.service.test.ServiceSOAPTests"/></test-case>
 
     <test-case case-name="load-service-test-data">
         <entity-xml action="load" entity-xml-url="component://service/testdef/data/ServiceTestData.xml"/>

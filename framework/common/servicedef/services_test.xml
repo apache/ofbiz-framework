@@ -31,6 +31,12 @@ under the License.
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
+    <service name="testSOAPScv" engine="java" export="true" validate="false" require-new-transaction="true"
+            location="org.ofbiz.common.CommonServices" invoke="testSOAPService">
+        <description>Test SOAP service</description>
+        <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="products" type="List" mode="OUT" optional="true"/>
+    </service>
     <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true" transaction-timeout="20"
             location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
         <description>Blocking Test service</description>
@@ -84,10 +90,15 @@ under the License.
     </service>
 
     <service name="testSoap" engine="soap" export="true"
+            location="http://localhost:8080/webtools/control/SOAPService" invoke="testSOAPScv">
+        <description>SOAP service; calls the OFBiz test SOAP service</description>
+        <implements service="testSOAPScv"/>
+    </service>
+    
+    <service name="testSoapSimple" engine="soap" export="true"
             location="http://localhost:8080/webtools/control/SOAPService" invoke="testScv">
-        <description>Test SOAP service; calls the OFBiz test service</description>
-        <attribute name="message" type="String" mode="IN" optional="true"/>
-        <attribute name="resp" type="String" mode="OUT"/>
+        <description>simple SOAP service; calls the OFBiz test service</description>
+        <implements service="testScv"/>
     </service>
 
     <service name="testRemoteSoap" engine="soap" export="true"
