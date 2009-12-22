@@ -1118,15 +1118,15 @@ public class ModelViewEntity extends ModelEntity {
             return aliasName + "(" + fromModelEntity.getEntityName() + ")";
         }
 
-        public Map<String, Object> convert(Map<String, ? extends Object> values) {
-            Map<String, Object> newValues = FastMap.newInstance();
+        public Map<String, Object> convert(Map<String, ? extends Object> value) {
+            Map<String, Object> newValue = FastMap.newInstance();
             for (Map.Entry<String, String> entry: fieldMap.entrySet()) {
-                newValues.put(entry.getValue(), values.get(entry.getKey()));
+                newValue.put(entry.getValue(), value.get(entry.getKey()));
             }
             for (String key: wildcards) {
-                newValues.put(key, EntityOperator.WILDCARD);
+                newValue.put(key, EntityOperator.WILDCARD);
             }
-            return newValues;
+            return newValue;
         }
 
         public void addAllAliasConversions(String fieldName, String... aliases) {
