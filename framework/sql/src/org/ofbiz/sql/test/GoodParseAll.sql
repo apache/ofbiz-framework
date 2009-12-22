@@ -3,8 +3,10 @@ SELECT
 	b.* EXCLUDE (partyId, partyId),
 	c.* EXCLUDE (partyId),
 	d.roleTypeId,
-	SUM(a.partyId) AS fooBar,
-	FOO(a.partyId, 1) AS baz
+	d.description AS roleDescription,
+	SUM(a.partyId),
+	FOO(a.partyId, 1) AS baz,
+	(a.partyId || '-' || a.partyTypeId) AS one
 FROM
 	Party a LEFT JOIN Person b USING partyId
 	LEFT JOIN PartyGroup c ON b.partyId = c.partyId
