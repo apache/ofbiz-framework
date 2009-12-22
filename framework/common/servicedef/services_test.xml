@@ -34,8 +34,8 @@ under the License.
     <service name="testSOAPScv" engine="java" export="true" validate="false" require-new-transaction="true"
             location="org.ofbiz.common.CommonServices" invoke="testSOAPService">
         <description>Test SOAP service</description>
-        <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-        <attribute name="products" type="List" mode="OUT" optional="true"/>
+        <attribute name="testing" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="testingNodes" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true" transaction-timeout="20"
             location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
