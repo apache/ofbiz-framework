@@ -301,17 +301,13 @@ public class ModelViewEntity extends ModelEntity {
             if (whereCondition != null) {
                 whereConditions.add(whereCondition);
             }
-        }
 
-        if (this.viewEntityCondition != null) {
             EntityCondition havingCondition = this.viewEntityCondition.getHavingCondition(modelFieldTypeReader, entityAliasStack);
             if (havingCondition != null) {
                 havingConditions.add(havingCondition);
             }
-        }
 
-        // add the current one first so it overrides the lower level ones
-        if (this.viewEntityCondition != null) {
+            // add the current one first so it overrides the lower level ones
             List<String> currentOrderByList = this.viewEntityCondition.getOrderByList();
             if (currentOrderByList != null) {
                 orderByList.addAll(currentOrderByList);
