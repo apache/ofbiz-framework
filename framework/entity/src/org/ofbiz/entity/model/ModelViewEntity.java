@@ -600,7 +600,7 @@ public class ModelViewEntity extends ModelEntity {
         if (conversions == null) return null;
         List<Map<String, Object>> values = FastList.newInstance();
         for (ModelConversion conversion: conversions.values()) {
-            values.add(conversion.convert(data));
+            conversion.convert(values, data);
         }
         return values;
     }
@@ -1118,7 +1118,7 @@ public class ModelViewEntity extends ModelEntity {
             return aliasName + "(" + fromModelEntity.getEntityName() + ")";
         }
 
-        public Map<String, Object> convert(Map<String, ? extends Object> value) {
+        public void convert(List<Map<String, Object>> values, Map<String, ? extends Object> value) {
             Map<String, Object> newValue = FastMap.newInstance();
             for (Map.Entry<String, String> entry: fieldMap.entrySet()) {
                 newValue.put(entry.getValue(), value.get(entry.getKey()));
@@ -1126,7 +1126,7 @@ public class ModelViewEntity extends ModelEntity {
             for (String key: wildcards) {
                 newValue.put(key, EntityOperator.WILDCARD);
             }
-            return newValue;
+            values.add(newValue);
         }
 
         public void addAllAliasConversions(String fieldName, String... aliases) {
