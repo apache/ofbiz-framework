@@ -87,6 +87,33 @@ OUTER:
         if (!list.isEmpty()) fail(msg + "not enough items: " + list);
     }
 
+    public static <T> void assertEquals(Set<T> wanted, Object got) {
+        assertEquals(null, wanted, got);
+    }
+
+    public static <T> void assertEquals(String msg, Set<T> wanted, Object got) {
+        if (wanted.equals(got)) return;
+        if (!(got instanceof Set)) fail(msg + "not a set");
+        // Need to check the reverse, wanted may not implement equals,
+        // which is the case for HashMap.values()
+        if (got.equals(wanted)) return;
+        msg = msg == null ? "" : msg + ' ';
+        assertNotNull(msg + "expected a value", got);
+        Set<T> wantedSet = new HashSet<T>(wanted);
+        Set gotSet = (Set) got;
+        Iterator rightIt = ((Set) got).iterator();
+OUTER:
+        while (rightIt.hasNext()) {
+            Object right = rightIt.next();
+            if (wantedSet.contains(right)) {
+                wantedSet.remove(right);
+            } else {
+                fail(msg + "couldn't find " + right);
+            }
+        }
+        if (!wantedSet.isEmpty()) fail(msg + "not enough items: " + wantedSet);
+    }
+
     private static <T> void assertEqualsArrayArray(String msg, Object wanted, Object got) {
         int i = 0;
         while (i < Array.getLength(wanted) && i < Array.getLength(got)) {
@@ -164,6 +191,8 @@ OUTER:
         } else if (wanted instanceof Collection) {
             System.err.println("c");
             assertEquals(msg, (Collection<?>) wanted, got);
+        } else if (wanted instanceof Set) {
+            assertEquals(msg, (Set<?>) wanted, got);
         } else if (wanted.getClass().isArray()) {
             if (got == null) {
                 TestCase.assertEquals(msg, wanted, got);
@@ -187,6 +216,29 @@ OUTER:
 
     protected static <T> List<T> list(T... list) {
         return Arrays.asList(list);
+    }
+
+    protected static <T> Set<T> set(T value) {
+        HashSet<T> set = new HashSet<T>(1);
+        set.add(value);
+        return set;
+    }
+
+    protected static <T> Set<T> set(T... list) {
+        return new HashSet<T>(Arrays.asList(list));
+    }
+
+    protected static <T> Set<T> set(Iterable<T> iterable) {
+        return set(iterable.iterator());
+    }
+
+    protected static <T> Set<T> set(Iterator<T> it) {
+        HashSet<T> set = new HashSet<T>();
+        while (it.hasNext()) {
+            T item = it.next();
+            set.add(item);
+        }
+        return set;
     }
 
     @SuppressWarnings("unchecked")
