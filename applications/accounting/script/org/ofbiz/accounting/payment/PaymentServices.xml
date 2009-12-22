@@ -48,8 +48,10 @@ under the License.
             <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
                 <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
             </entity-one>
-            <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
-            <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+            <if-compare-field field="parameters.paymentMethodTypeId" operator="not-equals" to-field="paymentMethod.paymentMethodTypeId">
+                <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
+                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+            </if-compare-field>
         </if-not-empty>
         <if-not-empty field="parameters.paymentPreferenceId">
             <entity-one value-field="orderPaymentPreference" entity-name="OrderPaymentPreference">
