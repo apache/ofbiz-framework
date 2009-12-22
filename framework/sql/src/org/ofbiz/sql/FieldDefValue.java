@@ -19,14 +19,14 @@
 package org.ofbiz.sql;
 
 public final class FieldDefValue extends FieldDef {
-    private final ConstantValue value;
+    private final StaticValue value;
 
-    public FieldDefValue(ConstantValue value, String alias) {
-        super(alias == null && value instanceof StaticValue ? ((StaticValue) value).getDefaultName() : alias);
+    public FieldDefValue(StaticValue value, String alias) {
+        super(alias == null ? value.getDefaultName() : alias);
         this.value = value;
     }
 
-    public ConstantValue getValue() {
+    public StaticValue getValue() {
         return value;
     }
 
