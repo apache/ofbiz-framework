@@ -20,6 +20,7 @@ package org.ofbiz.base.test;
 
 import junit.framework.TestCase;
 
+import org.ofbiz.base.conversion.*;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
@@ -69,5 +70,66 @@ public class BaseUnitTests extends TestCase {
     }
     public void testIsFloat_2() {
         assertTrue(UtilValidate.isFloat("10.000", true, true, 3, 3));
+    }
+
+    public void testDateTimeConverters() {
+        // Source class = java.util.Date
+        java.util.Date utilDate = new java.util.Date();
+        long dateMillis = utilDate.getTime();
+        Converter<java.util.Date, Long> dateToLong = new DateTimeConverters.DateToLong();
+        try {
+            Long target = dateToLong.convert(utilDate);
+            assertTrue(buildConversionMessage("DateToLong", dateMillis, target.longValue()), dateMillis == target.longValue());
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        Converter<java.util.Date, java.sql.Date> dateToSqlDate = new DateTimeConverters.DateToSqlDate();
+        try {
+            java.sql.Date target = dateToSqlDate.convert(utilDate);
+            assertTrue(buildConversionMessage("DateToSqlDate", dateMillis, target.getTime()), dateMillis == target.getTime());
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        Converter<java.util.Date, String> dateToString = new DateTimeConverters.DateToString();
+        try {
+            String target = dateToString.convert(utilDate);
+            assertTrue(buildConversionMessage("DateToString", utilDate.toString(), target), utilDate.toString().equals(target));
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        Converter<java.util.Date, java.sql.Timestamp> dateToTimestamp = new DateTimeConverters.DateToTimestamp();
+        try {
+            java.sql.Timestamp timestamp = dateToTimestamp.convert(utilDate);
+            assertTrue(buildConversionMessage("DateToTimestamp", dateMillis, timestamp.getTime()), dateMillis == timestamp.getTime());
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        // Source class = java.sql.Date
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        Converter<java.sql.Date, java.util.Date> sqlDateToDate = new DateTimeConverters.SqlDateToDate();
+        try {
+            java.util.Date target = sqlDateToDate.convert(sqlDate);
+            assertTrue(buildConversionMessage("SqlDateToDate", sqlDate.getTime(), target.getTime()), sqlDate.getTime() == target.getTime());
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        Converter<java.sql.Date, String> sqlDateToString = new DateTimeConverters.SqlDateToString();
+        try {
+            String target = sqlDateToString.convert(sqlDate);
+            assertTrue(buildConversionMessage("SqlDateToString", sqlDate.toString(), target), sqlDate.toString().equals(target));
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+        Converter<java.sql.Date, java.sql.Timestamp> sqlDateToTimestamp = new DateTimeConverters.SqlDateToTimestamp();
+        try {
+            java.sql.Timestamp target = sqlDateToTimestamp.convert(sqlDate);
+            assertTrue(buildConversionMessage("SqlDateToTimestamp", sqlDate.getTime(), target.getTime()), sqlDate.getTime() == target.getTime());
+        } catch (ConversionException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    protected static String buildConversionMessage(String conversion, Object source, Object target) {
+        return conversion + " conversion: source = " + source + ", target = " + target;    
     }
 }

@@ -20,6 +20,7 @@ package org.ofbiz.base.conversion;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -77,6 +78,11 @@ public class DateTimeConverters implements ConverterLoader {
     public static class DateToString extends GenericLocalizedConverter<java.util.Date, String> {
         public DateToString() {
             super(java.util.Date.class, String.class);
+        }
+
+        @Override
+        public String convert(Date obj) throws ConversionException {
+            return obj.toString();
         }
 
         public String convert(java.util.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
@@ -225,6 +231,11 @@ public class DateTimeConverters implements ConverterLoader {
     public static class SqlDateToString extends GenericLocalizedConverter<java.sql.Date, String> {
         public SqlDateToString() {
             super(java.sql.Date.class, String.class);
+        }
+
+        @Override
+        public String convert(java.sql.Date obj) throws ConversionException {
+            return obj.toString();
         }
 
         public String convert(java.sql.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
