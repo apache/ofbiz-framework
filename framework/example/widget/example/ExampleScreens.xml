@@ -243,6 +243,7 @@ under the License.
                                         <set field="geoChart.center" from-field="geoCenter"/>
                                     </actions>
                                     <widgets>
+                                        <container style="clear" />
                                         <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
                                     </widgets>
                                 </section>
