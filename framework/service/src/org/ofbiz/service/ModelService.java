@@ -1191,7 +1191,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         def.addNamespace("soap", "http://schemas.xmlsoap.org/wsdl/soap/");
         this.getWSDL(def, locationURI);
         return factory.newWSDLWriter().getDocument(def);
-}
+    }
 
     public void getWSDL(Definition def, String locationURI) throws WSDLException {
 
@@ -1231,6 +1231,22 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     documentation.appendChild(attribute);
                 }
             }
+            Element usernameAttr = document.createElement("attribute");
+            usernameAttr.setAttribute("name", "login.username");
+            usernameAttr.setAttribute("type", "std-String");
+            usernameAttr.setAttribute("namespace", TNS);
+            usernameAttr.setAttribute("java-class", String.class.getName());
+            usernameAttr.setAttribute("optional", Boolean.toString(!this.auth));
+            documentation.appendChild(usernameAttr);
+
+            Element passwordAttr = document.createElement("attribute");
+            passwordAttr.setAttribute("name", "login.password");
+            passwordAttr.setAttribute("type", "std-String");
+            passwordAttr.setAttribute("namespace", TNS);
+            passwordAttr.setAttribute("java-class", String.class.getName());
+            passwordAttr.setAttribute("optional", Boolean.toString(!this.auth));
+            documentation.appendChild(passwordAttr);
+
             parametersPart.setDocumentationElement(documentation);
             def.addMessage(inMessage);
             input.setMessage(inMessage);
@@ -1546,12 +1562,22 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /* eepk- Element */
         Element eepkElement = document.createElement("xsd:element");
         eepkElement.setAttribute("name", "eepk-");
-        eepkElement.setAttribute("type", "tns:map-Value");
+        eepkElement.setAttribute("type", "tns:map-Map");
+        Element eepkElement0 = document.createElement("xsd:annotation");
+        eepkElement.appendChild(eepkElement0);
+        Element eepkElement1 = document.createElement("xsd:documentation");
+        eepkElement0.appendChild(eepkElement1);
+        eepkElement1.setTextContent("The name of element need to be appended with name of entity such as eepk-Product for Product entity.");
         schema.appendChild(eepkElement);
         /* eeval- Element */
         Element eevalElement = document.createElement("xsd:element");
         eevalElement.setAttribute("name", "eeval-");
-        eevalElement.setAttribute("type", "tns:map-Value");
+        eevalElement.setAttribute("type", "tns:map-Map");
+        Element eevalElement0 = document.createElement("xsd:annotation");
+        eevalElement.appendChild(eevalElement0);
+        Element eevalElement1 = document.createElement("xsd:documentation");
+        eevalElement0.appendChild(eevalElement1);
+        eevalElement1.setTextContent("The name of element need to be appended with name of entity such as eeval-Product for Product entity.");
         schema.appendChild(eevalElement);
 
         /*-----------------------------------*/
@@ -1561,6 +1587,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /* cus-obj Element */
         Element cusObjElement = document.createElement("xsd:element");
         cusObjElement.setAttribute("name", "cus-obj");
+        Element cusObjElement0 = document.createElement("xsd:annotation");
+        cusObjElement.appendChild(cusObjElement0);
+        Element cusObjElement1 = document.createElement("xsd:documentation");
+        cusObjElement0.appendChild(cusObjElement1);
+        cusObjElement1.setTextContent("Object content need to be in CDATA such as <cus-obj><![CDATA[--byteHex--]]></cus-obj>");
         schema.appendChild(cusObjElement);
 
         /*-----------------------------------*/

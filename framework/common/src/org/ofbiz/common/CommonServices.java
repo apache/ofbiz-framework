@@ -96,19 +96,16 @@ public class CommonServices {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        GenericValue productCategory = (GenericValue) context.get("productCategory");
-        List<GenericValue> products = FastList.newInstance();
+        GenericValue testing = (GenericValue) context.get("testing");
+        List<GenericValue> testingNodes = FastList.newInstance();
         for (int i = 0; i < 3; i ++) {
-            GenericValue product = delegator.makeValue("Product");
-            product.put("productId", "PROD_TEST" + i);
-            product.put("productTypeId", "FINISHED_GOOD");
-            product.put("primaryProductCategoryId", "202");
-            product.put("internalName", "Product Test " + i);
-            product.put("productName", "Product Test " + i);
-            product.put("createdStamp", UtilDateTime.nowTimestamp());
-            products.add(product);
+            GenericValue testingNode = delegator.makeValue("TestingNode");
+            testingNode.put("testingNodeId", "TESTING_NODE" + i);
+            testingNode.put("description", "Testing Node " + i);
+            testingNode.put("createdStamp", UtilDateTime.nowTimestamp());
+            testingNodes.add(testingNode);
         }
-        response.put("products", products);
+        response.put("testingNodes", testingNodes);
         return response;
     }
 

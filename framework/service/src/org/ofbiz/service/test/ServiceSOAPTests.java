@@ -5,9 +5,7 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -30,14 +28,14 @@ public class ServiceSOAPTests extends OFBizTestCase {
     
     public void testSOAPService() throws Exception {
         Map<String, Object> serviceContext = FastMap.newInstance();
-        GenericValue productCategory = delegator.makeValue("ProductCategory");
-        productCategory.put("productCategoryId", "PRODCAT_TEST");
-        productCategory.put("productCategoryTypeId", "CATALOG_CATEGORY");
-        productCategory.put("categoryName", "Test ProductCategory");
-        productCategory.put("createdStamp", UtilDateTime.nowTimestamp());
-        serviceContext.put("productCategory", productCategory);
+        GenericValue testing = delegator.makeValue("Testing");
+        testing.put("testingId", "COMPLEX_TYPE_TEST");
+        testing.put("testingTypeId", "SOAP_TEST");
+        testing.put("testingName", "Complex Type Test");
+        testing.put("createdStamp", UtilDateTime.nowTimestamp());
+        serviceContext.put("testing", testing);
         Map<String, Object> results = dispatcher.runSync("testSoap", serviceContext);
-        List<GenericValue> products = (List<GenericValue>) results.get("products");
-        assertNotNull(products);
+        List<GenericValue> testingNodes = (List<GenericValue>) results.get("testingNodes");
+        assertNotNull(testingNodes);
     }
 }
