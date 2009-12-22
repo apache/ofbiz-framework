@@ -162,4 +162,12 @@
         description=""/>
     <PortletPortletCategory portalPortletId="Last3MSalesReport" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="Last3MSalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
+    
+    <PortalPortlet portalPortletId="CouponSalesReport"
+        portletName="Coupon Sales Report"
+        screenName="CouponSalesReport"
+        screenLocation="component://order/widget/ordermgr/ReportScreens.xml"
+        description=""/>
+    <PortletPortletCategory portalPortletId="CouponSalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="CouponSalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/> 
 </entity-engine-xml>
