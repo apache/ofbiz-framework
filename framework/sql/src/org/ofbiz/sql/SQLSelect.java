@@ -51,6 +51,10 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         this.limit = limit;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Collection<FieldAll> getFieldAlls() {
         return fieldAlls;
     }

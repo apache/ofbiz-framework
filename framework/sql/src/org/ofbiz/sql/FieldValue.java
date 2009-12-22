@@ -26,6 +26,10 @@ public final class FieldValue extends StaticValue {
         this(null, fieldName);
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public FieldValue(String tableName, String fieldName) {
         this.tableName = tableName;
         this.fieldName = fieldName;

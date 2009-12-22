@@ -25,6 +25,10 @@ public final class NumberValue<N extends Number> extends ConstantValue {
         this.number = number;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public N getNumber() {
         return number;
     }

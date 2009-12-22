@@ -25,6 +25,10 @@ public final class StringValue extends ConstantValue {
         this.str = str;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getString() {
         return str;
     }

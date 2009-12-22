@@ -19,9 +19,29 @@
 package org.ofbiz.sql;
 
 public abstract class Value extends Atom {
-    public static final Value NULL = new Value() {
+    public static final class Null extends Value {
+        private Null() {
+        }
+        public void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
+
         public StringBuilder appendTo(StringBuilder sb) {
             return sb.append("NULL");
         }
-    };
+    }
+
+    public static final Null NULL = new Null();
+
+    public interface Visitor {
+        void visit(FieldValue value);
+        void visit(FunctionCall value);
+        void visit(MathValue value);
+        void visit(Null value);
+        void visit(NumberValue value);
+        void visit(ParameterValue value);
+        void visit(StringValue value);
+    }
+
+    public abstract void accept(Visitor visitor);
 }

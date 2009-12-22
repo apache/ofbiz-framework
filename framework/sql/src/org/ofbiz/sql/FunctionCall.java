@@ -32,6 +32,10 @@ public final class FunctionCall extends StaticValue implements Iterable<Value> {
         this.values = values;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getName() {
         return name;
     }

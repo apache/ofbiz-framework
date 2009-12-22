@@ -33,6 +33,10 @@ public final class ListCondition extends Condition {
         this.values = values;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Value getLeft() {
         return left;
     }

@@ -32,6 +32,10 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
         this.values = values;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getOp() {
         return op;
     }

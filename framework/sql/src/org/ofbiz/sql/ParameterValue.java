@@ -25,6 +25,10 @@ public final class ParameterValue extends Value {
         this.name = name;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getName() {
         return name;
     }
