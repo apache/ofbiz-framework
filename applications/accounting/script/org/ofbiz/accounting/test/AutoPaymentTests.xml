@@ -440,8 +440,8 @@ under the License.
         <call-service service-name="createPaymentAndPaymentGroupForInvoices" in-map-name="createPaymentAndPaymentGroupForInvoicesMap">
             <result-to-field result-name="paymentGroupId"/>
         </call-service>
-        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 72.86}" type="BigDecimal"/>
-        <set field="totalPayableCreditAmount" value="${payableCreditTotal + 36.43}" type="BigDecimal"/>
+        <set field="totalPayableDebitAmount" value="${payableDebitTotal + 36.43}" type="BigDecimal"/>
+        <set field="totalPayableCreditAmount" from-field="payableCreditTotal" type="BigDecimal"/>
         <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference + 36.43}" type="BigDecimal"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
