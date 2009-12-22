@@ -254,4 +254,7 @@ under the License.
     <form name="Last3MonthsSalesReport" type="single" target="Last3MonthsSalesReport.pdf" target-window="_BLANK">
         <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
+    <form name="CouponSalesReport" type="single" target="CouponSalesReport.pdf" target-window="_BLANK">
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+    </form>
 </forms>

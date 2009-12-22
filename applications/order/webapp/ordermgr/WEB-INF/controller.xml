@@ -1098,7 +1098,10 @@ under the License.
     </request-map>
     <request-map uri="Last3MonthsSalesReport.pdf"><security https="true" auth="true"/>
         <response name="success" type="view" value="Last3MonthsSalesReport"/>
-    </request-map>    
+    </request-map>
+    <request-map uri="CouponSalesReport.pdf"><security https="true" auth="true"/>
+        <response name="success" type="view" value="CouponSalesReport"/>
+    </request-map>     
 
      <!-- Requirement request mappings -->
     <request-map uri="FindRequirements">
@@ -1782,6 +1785,7 @@ under the License.
     <view-map name="OrdersByChannelReport" type="birt" page="component://order/webapp/ordermgr/reports/OrdersByChannel.rptdesign" content-type="application/pdf"/>
     <view-map name="SaleOrderDiscountCodeReport" type="birt" page="component://order/webapp/ordermgr/reports/OrderDiscountCodeReport.rptdesign" content-type="application/pdf"/>
     <view-map name="Last3MonthsSalesReport" type="birt" page="component://order/webapp/ordermgr/reports/Last3MonthsSalesReport.rptdesign" content-type="application/pdf"/>    
+    <view-map name="CouponSalesReport" type="birt" page="component://order/webapp/ordermgr/reports/CouponSalesReport.rptdesign" content-type="application/pdf"/>
 
     <view-map name="FindRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#FindRequirements"/>
     <view-map name="EditRequirement" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#EditRequirement"/>

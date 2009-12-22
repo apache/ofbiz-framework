@@ -350,4 +350,14 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Coupon Sales Report -->
+    <screen name="CouponSalesReport">
+        <section>
+            <widgets>
+                <screenlet title="Coupon Sales Report">
+                    <include-form name="CouponSalesReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
