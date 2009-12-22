@@ -523,6 +523,10 @@
         <value xml:lang="it">Bottone di stampa</value>
         <value xml:lang="zh">打印按钮</value>
     </property>
+    <property key="ExampleSelectionBoxes">
+        <value xml:lang="en">Selection boxes</value>
+        <value xml:lang="fr">Boutons de sélection</value>
+    </property>
     <property key="ExampleSourceCode">
         <value xml:lang="en">Source Code</value>
         <value xml:lang="it">Codice sorgente</value>

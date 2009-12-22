@@ -894,6 +894,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             items.append("{'value':'");
             items.append(optionValue.getKey());
+            items.append("', 'description':'" + optionValue.getDescription());
             items.append("'}");
         }
         items.append("]");
