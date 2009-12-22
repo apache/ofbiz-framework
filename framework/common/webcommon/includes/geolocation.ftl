@@ -34,14 +34,33 @@ under the License.
               map.setCenter(new GLatLng(37.4419, -122.1419), 12);
             </#if>
             map.setUIToDefault();
-            <#list geoChart.points as point>            
-              map.addOverlay(new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c})));             
+            <#list geoChart.points as point>
+              map.addOverlay(new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c})));
             </#list>
           }
         </script>
       <#elseif  geoChart.dataSourceId == "GEOPT_YAHOO">
       <#elseif  geoChart.dataSourceId == "GEOPT_MICROSOFT">
       <#elseif  geoChart.dataSourceId == "GEOPT_MAPTP">
+      <#elseif  geoChart.dataSourceId == "GEOPT_ADDRESS_GOOGLE">
+        <div id="<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}px; height:${geoChart.height}px; margin:2em auto;">
+          <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
+        </div>
+        <#assign defaultUrl = "https." + request.getServerName()>
+        <#assign defaultGogleMapKey = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", defaultUrl)>
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${defaultGogleMapKey}" type="text/javascript"></script>
+        <script type="text/javascript">
+          if (GBrowserIsCompatible()) {
+            var geocoder = new GClientGeocoder();
+            var map = new GMap2(document.getElementById("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>"));
+            geocoder.getLatLng("${pointAddress}", function(point) {
+              if (!point) { alert("Address not found");}
+              map.setUIToDefault();
+              map.setCenter(point, 13);
+              map.addOverlay(new GMarker(point));
+            });
+          }
+        </script>
       </#if>
     </#if>
 <#else>
