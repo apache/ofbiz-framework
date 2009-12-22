@@ -660,12 +660,12 @@ private List<String> FieldList():
 
 private FieldValue FieldValue(String fieldName):
 {
-	String tableAlias = null, s;
+	String s;
 }
 {
-	( <PERIOD> s=NamePart() { tableAlias = fieldName; fieldName = s; } )?
+	( <PERIOD> s=NamePart() { return new FieldValue(fieldName, s); } )?
 	{
-		return new FieldValue(tableAlias, fieldName);
+		return new FieldValue(fieldName);
 	}
 }
 
