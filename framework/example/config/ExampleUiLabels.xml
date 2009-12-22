@@ -489,6 +489,10 @@
         <value xml:lang="th">ข้อผิดพลาดในส่วนของความปลอดภัย: ในการรัน ${resourceDescription} คุณต้องได้รับอนุญาตจาก EXAMPLE_${mainAction} หรือ EXAMPLE_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行${methodShortDescription}，你必须具有EXAMPLE${securityAction}或EXAMPLE_ADMIN权限</value>
     </property>
+    <property key="ExamplePointAddress">
+        <value xml:lang="en">Geolocation via address</value>
+        <value xml:lang="fr">Géolocalisation par l'adresse</value>
+    </property>
     <property key="ExamplePortletFirst">
         <value xml:lang="en">Hi, this is a first example of portlet</value>
         <value xml:lang="it">Salve, questo è il primo esempio di portlet</value>
