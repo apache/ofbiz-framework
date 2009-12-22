@@ -34,6 +34,10 @@ public final class SQLUpdate extends SQLStatement<SQLUpdate> implements Iterable
         this.whereCondition = whereCondition;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Table getTable() {
         return table;
     }

@@ -27,6 +27,10 @@ public final class SQLDelete extends SQLStatement<SQLDelete> {
         this.whereCondition = whereCondition;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Table getTable() {
         return table;
     }

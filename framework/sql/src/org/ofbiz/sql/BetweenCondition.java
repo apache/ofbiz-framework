@@ -29,6 +29,10 @@ public final class BetweenCondition extends Condition {
         this.r2 = r2;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Value getLeft() {
         return left;
     }

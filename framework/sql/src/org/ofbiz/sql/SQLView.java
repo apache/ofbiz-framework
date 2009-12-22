@@ -27,6 +27,10 @@ public final class SQLView extends SQLStatement<SQLView> {
         this.sqlSelect = sqlSelect;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getName() {
         return name;
     }

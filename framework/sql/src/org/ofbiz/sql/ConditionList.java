@@ -32,6 +32,10 @@ public final class ConditionList extends Condition implements Iterable<Condition
         this.conditions = conditions;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public void add(Condition condition) {
         conditions.add(condition);
     }

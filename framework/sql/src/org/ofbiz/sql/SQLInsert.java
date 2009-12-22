@@ -35,6 +35,10 @@ public final class SQLInsert extends SQLStatement<SQLInsert> {
         this.columns = columns;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public TableName getTableName() {
         return tableName;
     }

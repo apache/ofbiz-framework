@@ -29,6 +29,10 @@ public final class BooleanCondition extends Condition {
         this.right = right;
     }
 
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Value getLeft() {
         return left;
     }
