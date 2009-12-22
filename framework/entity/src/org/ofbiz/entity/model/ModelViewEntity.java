@@ -599,7 +599,7 @@ public class ModelViewEntity extends ModelEntity {
         Debug.logVerbose(this + ":" + conversions, module);
     }
 
-    public List<Map<String, Object>> convert(String fromEntityName, Map<String, Object> data) {
+    public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
         Map<String, ModelConversion> conversions = this.conversions.get(fromEntityName);
         if (conversions == null) return null;
         List<Map<String, Object>> values = FastList.newInstance();
@@ -1122,7 +1122,7 @@ public class ModelViewEntity extends ModelEntity {
             return aliasName + "(" + fromModelEntity.getEntityName() + ")";
         }
 
-        public Map<String, Object> convert(Map<String, Object> values) {
+        public Map<String, Object> convert(Map<String, ? extends Object> values) {
             Map<String, Object> newValues = FastMap.newInstance();
             for (Map.Entry<String, String> entry: fieldMap.entrySet()) {
                 newValues.put(entry.getValue(), values.get(entry.getKey()));
