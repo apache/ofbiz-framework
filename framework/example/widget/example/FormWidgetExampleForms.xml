@@ -280,4 +280,12 @@ under the License.
 
     </form>
 
+    <form name="SelectionBoxesExampleForm" type="single">
+        <field name="ExampleTypeId">
+           <check>
+              <entity-options key-field-name="exampleTypeId" description="${description}" entity-name="ExampleType"/>
+           </check>
+        </field>
+    </form>
+
 </forms>
