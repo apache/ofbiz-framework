@@ -553,10 +553,10 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
 				{ fieldAlls.add(new FieldAll(n, excludeList)); return; }
 			| fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefFieldValue(new FieldValue(n, fieldName), fieldAlias); }
 			)
-		|	v=FunctionCallRest(n) <AS> fieldAlias=NamePart() { def = new FieldDefValue(v, fieldAlias); }
+		|	v=FunctionCallRest(n) ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(v, fieldAlias); }
 		|	( <AS> fieldAlias=NamePart() )? { def = new FieldDefFieldValue(new FieldValue(null, n), fieldAlias); }
 		)
-	|	v=MathValue() <AS> fieldAlias=NamePart() { def = new FieldDefValue(v, fieldAlias); }
+	|	v=MathValue() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(v, fieldAlias); }
 	) {
 		if (fieldDefs.containsKey(def.getAlias())) throw new ParseException("duplicate alias(" + def.getAlias() + ")");
 		fieldDefs.put(def.getAlias(), def);
