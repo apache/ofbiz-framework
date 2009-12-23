@@ -46,6 +46,7 @@
     <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
     <xi:include href="../../../applications/party/documents/Party.xml"/>
     <xi:include href="../../../applications/product/documents/Product.xml"/>
+    <xi:include href="../../../applications/order/documents/Order.xml"/>
     <xi:include href="../../../applications/content/documents/Content.xml"/>
     <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
     <xi:include href="../../../applications/humanres/documents/Humanres.xml"/>
