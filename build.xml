@@ -530,9 +530,11 @@ under the License.
             </classpath>
         </taskdef>
         <cobertura-report datafile="runtime/logs/cobertura.dat" destdir="runtime/logs/cobertura-report">
-            <fileset dir=".">
-                <include name="*/*/src/**/*.java"/>
-            </fileset>
+            <dirset dir=".">
+		<include name="*/*/src"/>
+            </dirset>
+
+            <include name="**/*.java"/>
         </cobertura-report>
     </target>
 
