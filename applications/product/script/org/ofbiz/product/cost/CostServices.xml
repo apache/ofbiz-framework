@@ -390,6 +390,7 @@ under the License.
             <get-related-one relation-name="CustomMethod" to-value-field="customMethod" value-field="costComponentCalc"/>
             <if-empty field="customMethod">
                 <!-- TODO: not supported for CostComponentCalc entries directly associated to a product -->
+                <log level="warning" message="Unable to create cost component for cost component calc with id [${costComponentCalc.costComponentCalcId}] because customMethod is not set"/>
             <else>
                 <clear-field field="customMethodParameters"/>
                 <set field="customMethodParameters.productCostComponentCalc" from-field="productCostComponentCalc"/>

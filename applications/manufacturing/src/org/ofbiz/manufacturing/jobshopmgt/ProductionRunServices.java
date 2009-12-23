@@ -845,6 +845,17 @@ public class ProductionRunServices {
                 Debug.logError(e, "Problem calling the updateWorkEffort service", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
             }
+            // Calculate and store the production run task actual costs
+            serviceContext.clear();
+            serviceContext.put("productionRunTaskId", taskId);
+            serviceContext.put("userLogin", userLogin);
+            resultService = null;
+            try {
+                resultService = dispatcher.runSync("createProductionRunTaskCosts", serviceContext);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Problem calling the createProductionRunTaskCosts service", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+            }
             // If this is the last task, then the production run is marked as 'completed'
             if (allTaskCompleted) {
                 serviceContext.clear();
@@ -858,17 +869,49 @@ public class ProductionRunServices {
                     Debug.logError(e, "Problem calling the updateWorkEffort service", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
                 }
-            }
-            // Calculate and store the production run task actual costs
-            serviceContext.clear();
-            serviceContext.put("productionRunTaskId", taskId);
-            serviceContext.put("userLogin", userLogin);
-            resultService = null;
-            try {
-                resultService = dispatcher.runSync("createProductionRunTaskCosts", serviceContext);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem calling the createProductionRunTaskCosts service", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+                // and compute the overhead costs associated to the finished product
+                try {
+                    // get the currency
+                    GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility");
+                    Map outputMap = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.<String, Object>toMap("userLogin", userLogin, "organizationPartyId", facility.getString("ownerPartyId")));
+                    Map partyAccountingPreference = (Map)outputMap.get("partyAccountingPreference");
+                    if (partyAccountingPreference == null) {
+                        return ServiceUtil.returnError("Unable to find a currency for production run costs");
+                    }
+                    outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunId));
+
+                    BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
+                    if (totalCost == null) {
+                        totalCost = ZERO;
+                    }
+
+                    List productCostComponentCalcs = delegator.findByAnd("ProductCostComponentCalc", UtilMisc.toMap("productId", productionRun.getProductProduced().getString("productId")), UtilMisc.toList("sequenceNum"));
+                    for (int i = 0; i < productCostComponentCalcs.size(); i++) {
+                        GenericValue productCostComponentCalc = (GenericValue)productCostComponentCalcs.get(i);
+                        GenericValue costComponentCalc = productCostComponentCalc.getRelatedOne("CostComponentCalc");
+                        GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
+                        if (customMethod == null) {
+                            // TODO: not supported for CostComponentCalc entries directly associated to a product
+                            Debug.logWarning("Unable to create cost component for cost component calc with id [" + costComponentCalc.getString("costComponentCalcId") + "] because customMethod is not set", module);
+                        } else {
+                            Map costMethodResult = dispatcher.runSync(customMethod.getString("customMethodName"), UtilMisc.toMap("productCostComponentCalc", productCostComponentCalc,
+                                                                                                                                 "costComponentCalc", costComponentCalc,
+                                                                                                                                 "costComponentTypePrefix", "ACTUAL", 
+                                                                                                                                 "baseCost", totalCost,
+                                                                                                                                 "currencyUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"),
+                                                                                                                                 "userLogin", userLogin));
+                            BigDecimal productCostAdjustment = (BigDecimal)costMethodResult.get("productCostAdjustment");
+                            totalCost = totalCost.add(productCostAdjustment);
+                            Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId);
+                            inMap.put("costComponentTypeId", "ACTUAL_" + productCostComponentCalc.getString("costComponentTypeId"));
+                            inMap.put("costUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"));
+                            inMap.put("cost", productCostAdjustment);
+                            dispatcher.runSync("createCostComponent", inMap);
+                        }
+                    }
+                } catch(Exception e) {
+                    return ServiceUtil.returnError("Unable to compute overhead costs for production run: " + e.getMessage());
+                }
             }
 
             result.put("oldStatusId", oldStatusId);
@@ -1551,14 +1594,23 @@ public class ProductionRunServices {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        // calculate the inventory item unit cost
+        // the inventory item unit cost is the product's standard cost
         BigDecimal unitCost = ZERO;
         try {
-            Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunId));
-            BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
-            // FIXME
-            unitCost = totalCost.divide(quantity, decimals, rounding);
-        } catch (GenericServiceException e) {
+            // get the currency
+            GenericValue facility = productionRun.getGenericValue().getRelatedOne("Facility");
+            Map outputMap = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.<String, Object>toMap("userLogin", userLogin, "organizationPartyId", facility.getString("ownerPartyId")));
+            Map partyAccountingPreference = (Map)outputMap.get("partyAccountingPreference");
+            if (partyAccountingPreference == null) {
+                return ServiceUtil.returnError("Unable to find a currency for production run costs");
+            }
+            outputMap = dispatcher.runSync("getProductCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productId", productionRun.getProductProduced().getString("productId"), "currencyUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"), "costComponentTypePrefix", "EST_STD"));
+            unitCost = (BigDecimal)outputMap.get("productCost");
+            if (unitCost == null) {
+                unitCost = ZERO;
+            }
+
+        } catch (Exception e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
         }
