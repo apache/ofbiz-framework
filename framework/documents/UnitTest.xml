@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The OFBiz Unit Test (Using JUnit)</title>
+    <section>
+        <title>How to define a unit test?</title>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Define test-suite in ofbiz-component.xml like this:
+                </para>
+                <programlisting>
+                    &lt;test-suite loader="main" location="testdef/servicetests.xml"/&gt;
+                </programlisting>
+            </listitem>
+            <listitem>
+                <para>
+                    Create test-case in test-suite file.
+                </para>
+                <programlisting>
+                    &lt;test-suite suite-name="servicetests"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd"&gt;
+                        ....
+                        ....
+                        &lt;test-case case-name="test-case-name"&gt;
+                        ...
+                        &lt;/test-case&gt;
+                        ....
+                        ....
+                    &lt;/test-suite&gt;
+                </programlisting>
+            </listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to create a test case?</title>
+        <para>
+            Define a test-case in an XML test-suite file like this:
+            <programlisting>
+                &lt;test-case case-name="test-case-name"&gt;
+                    ...
+                &lt;/test-case&gt;
+            </programlisting>
+            The test-case tag contains details of each test type:
+        </para>
+        <section>
+            <title>1. Entity XML</title>
+            <para>
+                Specific entity xml and its action would like to be tested in entity-xml-url attribute and action attribute respectively like this:
+                <programlisting>
+                    &lt;test-case case-name="service-dead-lock-retry-assert-data"&gt;
+                        &lt;entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceDeadLockRetryAssertData.xml"/&gt;
+                    &lt;/test-case&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>2. JUnit</title>
+            <para>
+                Specific class's name which will be tested, in a class-name attribute like this:
+                <programlisting>
+                    &lt;test-case case-name="service-tests"&gt;
+                        &lt;junit-test-suite class-name="org.ofbiz.service.test.ServiceEngineTests"/&gt;
+                    &lt;/test-case&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>3. Jython</title> 
+            <para>
+                Specific jython script's location which will be tested in a script-location attribute like this:
+                <programlisting>
+                    &lt;test-case case-name="service-tests"&gt;
+                        &lt;jython-test script-location="component://testtools/webapp/testtools/actions/ServiceEngineTests.py"/&gt;
+                    &lt;/test-case&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>4. Service</title>
+            <para>
+                Specific service's name which will be tested in a service-name attribute like this:
+                <programlisting>
+                    &lt;test-case case-name="service-lock-wait-timeout-retry-test"&gt;
+                        &lt;service-test service-name="testServiceLockWaitTimeoutRetry"/&gt;
+                    &lt;/test-case&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>5. Simple Method</title>
+            <para>
+                Specific simple method's location and name which will be tested in a location and a name attribute respectively like this:
+                <programlisting>
+                    &lt;test-case case-name="auto-accounting-transaction-tests-PoReceipt"&gt;
+                        &lt;simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/&gt;
+                    &lt;/test-case&gt;
+                </programlisting>
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>How to run a unit test?</title>
+        <para>
+            You can run unit test by run 'ant' with following target:
+        </para>
+        <section>
+            <title>1. run-tests</title>
+            <para>
+                Run OFBiz default tests.
+            </para>
+        </section>
+        <section>
+            <title>2. run-test-list</title>
+            <para>
+                Run all configured tests, stopping/starting ofbiz between each test.
+            </para>
+        </section>
+        <section>
+            <title>3. run-single-test</title>
+            <para>
+                Run a single test, require two arguments:
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            'test.component' is a name of test component.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            'test.case' is a name of test case.
+                        </para>
+                    </listitem>
+                </orderedlist>
+            </para>
+        </section>
+        <section>
+            <title>4. run-single-test-suite</title>
+            <para>
+                Run a single test suite, requiring two arguments:
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            'test.component' is a name of test component.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            'test.suiteName' is a name of test suite.
+                        </para>
+                    </listitem>
+                </orderedlist>
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>Possible error messages</title>
+        <para>
+            Some error messages in the log are not important and often caused by the test.
+        </para>
+        <section>
+            <title>1. Roll back</title>
+            <para>
+                Roll back error message occured when transaction roll back data. This error message will be in between starting and finished test cass line like this:
+                <programlisting>
+                    [java] 2009-12-22 16:05:28,349 (main) [   TestRunContainer.java:238:INFO ] [JUNIT] : [test case's name] starting...
+                    [java] 2009-12-22 16:05:28,355 (main) [    TransactionUtil.java:336:ERROR] 
+                    ....
+                    ....
+                    ....
+                    [java] ---- exception report ----------------------------------------------------------
+                    [java] [TransactionUtil.rollback]
+                    [java] Exception: java.lang.Exception
+                    [java] Message: Stack Trace
+                    [java] ---- stack trace ---------------------------------------------------------------
+                    [java] java.lang.Exception: Stack Trace
+                    [java] org.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:335)
+                    [java] org.ofbiz.entity.transaction.TransactionUtil.rollback(TransactionUtil.java:317)
+                    [java] org.ofbiz.entity.test.EntityTestSuite.testTransactionUtilRollback(EntityTestSuite.java:437)
+                    [java] sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+                    [java] sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+                    [java] sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+                    [java] java.lang.reflect.Method.invoke(Method.java:597)
+                    [java] junit.framework.TestCase.runTest(TestCase.java:154)
+                    [java] junit.framework.TestCase.runBare(TestCase.java:127)
+                    [java] junit.framework.TestResult$1.protect(TestResult.java:106)
+                    [java] junit.framework.TestResult.runProtected(TestResult.java:124)
+                    [java] junit.framework.TestResult.run(TestResult.java:109)
+                    [java] junit.framework.TestCase.run(TestCase.java:118)
+                    [java] junit.framework.TestSuite.runTest(TestSuite.java:208)
+                    [java] junit.framework.TestSuite.run(TestSuite.java:203)
+                    [java] junit.framework.TestSuite.runTest(TestSuite.java:208)
+                    [java] junit.framework.TestSuite.run(TestSuite.java:203)
+                    [java] org.ofbiz.testtools.TestRunContainer.start(TestRunContainer.java:146)
+                    [java] org.ofbiz.base.container.ContainerLoader.start(ContainerLoader.java:100)
+                    [java] org.ofbiz.base.start.Start.startStartLoaders(Start.java:272)
+                    [java] org.ofbiz.base.start.Start.startServer(Start.java:322)
+                    [java] org.ofbiz.base.start.Start.start(Start.java:326)
+                    [java] org.ofbiz.base.start.Start.main(Start.java:411)
+                    [java] --------------------------------------------------------------------------------
+                    [java]
+                    ....
+                    ....
+                    ....
+                    [java] 2009-12-22 16:05:28,366 (main) [    TransactionUtil.java:346:INFO ] [TransactionUtil.rollback] transaction rolled back
+                    [java] 2009-12-22 16:05:28,370 (main) [   TestRunContainer.java:234:INFO ] [JUNIT] : [test case's name] finished.
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>2. Cobertura</title>
+            <para>
+                A Cobertura error message can show because of the test system requires a cobertura library that calculates the percentage of code accessed by tests like this:
+                <programlisting>
+                    [java]  java.lang.ClassNotFoundException: org.ofbiz.base.config.CoberturaInstrumenter
+                    [java]     at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+                    [java]     at java.security.AccessController.doPrivileged(Native Method)
+                    [java]     at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+                    [java]     at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+                    [java]     at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+                    [java]     at org.ofbiz.base.start.InstrumenterWorker.instrument(InstrumenterWorker.java:39)
+                    [java]     at org.ofbiz.base.start.Classpath.instrument(Classpath.java:92)
+                    [java]     at org.ofbiz.base.start.Start.initClasspath(Start.java:228)
+                    [java]     at org.ofbiz.base.start.Start.init(Start.java:87)
+                    [java]     at org.ofbiz.base.start.Start.main(Start.java:410)
+                </programlisting>
+                If you want to use cobertura, you have to install it:
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            download the library from <link xl:href="http://cobertura.sourceforge.net/">the Cobertura website</link>.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Put cobertura.jar in 'framework/base/lib' directory.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Comment cobertura excluding in 'framework/base/build.xml' file.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Re-compile source code.
+                        </para>
+                    </listitem>
+                </orderedlist>
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>Test result</title>
+        <para>
+            After you run unit test, you can see the result of the testing. If you use run-tests target, you can see test result web page by view runtime/logs/test-results/html/index.html file in web browser
+            and see JUnit Test Result files for each test suite in runtime/logs/test-results directory. If you use other target you only see JUnit Test Result file in runtime/logs/test-results.
+        </para>
+    </section>
+</chapter>
