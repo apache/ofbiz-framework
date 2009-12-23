@@ -172,7 +172,7 @@ function doPostViaParent(formName) {
     hiddenDiv.appendChild(newForm);
     window.opener.document.body.appendChild(hiddenDiv);
     newForm.submit();
-    window.opener.focus();    
+    window.opener.focus();
 }
 // From a child window, navigate the parent window to the supplied url
 function doGetViaParent(url) {
@@ -305,8 +305,8 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
         if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
             if(!$('content-messages')) {
                //add this div just after app-navigation
-               if($('app-navigation')){
-                   $('app-navigation' ).insert({after: '<div id="content-messages"></div>'});
+               if($('content-main-section')){
+                   $('content-main-section' ).insert({before: '<div id="content-messages"></div>'});
                }
             }
            $('content-messages').addClassName('errorMessage');
