@@ -18,5 +18,24 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Agreement Work Effort Applications help screen</title>
-    <para></para>
+    <para>This screen is used to link a work effort to the whole agreement or an individual agreement item.</para>
+    <section>
+    <title>How do I add a work effort to an agreement?</title>
+    <orderedlist>
+    <listitem><para>Use the drop down box to select the 'Agreement Item Seq Id'</para></listitem>
+    <listitem><para>Use the lookup to select the 'Workeffort Id'</para></listitem>
+    <listitem><para>Press the 'Add' button</para></listitem>
+    <listitem><para>The new entry is displayed in the lower part of the screen</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a work effort for an agreement?</title>
+    <para>Work efforts can only be added or deleted. They cannot be updated</para>
+    </section>
+    <section>
+    <title>How do I delete a work effort from an agreement?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Delete' button for the entry that needs to be deleted</para></listitem>
+    </orderedlist>
+    </section>
 </section>

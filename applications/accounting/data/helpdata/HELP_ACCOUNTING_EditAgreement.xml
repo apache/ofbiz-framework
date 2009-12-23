@@ -18,5 +18,32 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Edit Agreement help screen</title>
-    <para></para>
+     <para>The 'Agreement' sub menu is used to enter the basic details required for setting up a new
+        agreement or editing an existing one.</para>
+    <para>It can be used to create or update the following details for an Agreement:</para>
+   <itemizedlist>
+   <listitem><para>The parties the agreement is between and their roles</para></listitem>
+   <listitem><para>The agreement type (eg Sales, Purchase, Commission, Employment etc)</para></listitem>
+   <listitem><para>Specific products </para></listitem>
+   <listitem><para>Start and End Date</para></listitem>
+   <listitem><para>Description</para></listitem>
+   </itemizedlist>
+  <section>
+    <title>How do I edit an agreement?</title>
+    <orderedlist>
+    <listitem><para>Find the agreement that needs to be amended</para></listitem>
+    <listitem><para>Click on Agreement Id</para></listitem>
+    <listitem><para>The 'Edit Agreement' screen will be displayed</para></listitem>
+    <listitem><para>Amend the details required and press the 'Submit' button (NOTE: Additional agreement details can be updated via the other tabs eg Agreement Terms, Agreement Roles, Agreement Items and Agreement Work Effort Appls)</para></listitem>
+    </orderedlist>
+   </section>
+   <section>
+   <title>How do I copy an existing agreement?</title>
+   <orderedlist>
+   <listitem><para>Find the agreement that needs to be copied</para></listitem>
+   <listitem><para>Click on the Agreement Id</para></listitem>
+   <listitem><para>The 'Edit Agreement' screen will be displayed</para></listitem>
+   <listitem><para>At the bottom of the screen press the 'Copy' in the 'Copy Agreement' window (NOTE: The default tick boxes will copy the agreement terms, products and party. If not required then click on the boxes to stop them being copied)</para></listitem>
+   </orderedlist>
+   </section>
 </section>

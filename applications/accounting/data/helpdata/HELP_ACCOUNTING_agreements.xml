@@ -30,11 +30,10 @@ License.
     </itemizedlist>
     <xi:include href="HELP_ACCOUNTING_FindAgreement.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditAgreement.xml"/>
-    <xi:include href="HELP_ACCOUNTING_ListAgreementTerms.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditAgreementTerms.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditAgreementItem.xml"/>
     <xi:include href="HELP_ACCOUNTING_ListAgreementPromoAppls.xml"/>
-    <xi:include href="HELP_ACCOUNTING_ListAgreementItemTerm.xml"/>
+    <xi:include href="HELP_ACCOUNTING_ListAgreementItemTerms.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditAgreementItemTerm.xml"/>
     <xi:include href="HELP_ACCOUNTING_ListAgreementItemProducts.xml"/>
     <xi:include href="HELP_ACCOUNTING_EditAgreementItemProduct.xml"/>

@@ -18,5 +18,33 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Edit Agreement Item help screen</title>
-    <para></para>
+    <para>This screen allows specific items to be added to agreement. Currently these are limited to the following:</para>
+    <itemizedlist>
+    <listitem><para>Pricing</para></listitem>
+    <listitem><para>Commission Rate</para></listitem>
+    <listitem><para>Sub-Agreement</para></listitem>
+    <listitem><para>Exhibit</para></listitem>
+    <listitem><para>Section</para></listitem>
+    </itemizedlist>
+    <section>
+    <title>How do I create an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Create Agreement Item' button</para></listitem>
+    <listitem><para>The 'Edit Agreement Item' screen is displayed</para></listitem>
+    <listitem><para>Select the 'Agreement Item Type Id' from the drop down box</para></listitem>
+    <listitem><para>Use the drop down box to select the 'Currency' for the Agreement Item</para></listitem>
+    <listitem><para>Enter any 'Agreement Text' if required</para></listitem>
+    <listitem><para>Enter path for 'Agreement Image' if required</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    <listitem><para>A new sub menu will be displayed containing 'Promotions','Terms','Products','Party' and 'Geo' for additional details that can be setup for the agreement item</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I edit an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Select the agreement item to be updated by clicking on the Agreement Item Id</para></listitem>
+    <listitem><para>The 'Edit Agreement Item' screen is displayed</para></listitem>
+    <listitem><para>Update the fields required (NOTE: Additional details can be updated by selecting the Promotions, Terms, Product, Party or Geo sub menus)</para></listitem>
+    </orderedlist>
+    </section>
 </section>

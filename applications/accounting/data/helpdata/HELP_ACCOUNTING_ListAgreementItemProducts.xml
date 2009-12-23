@@ -18,5 +18,30 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Agreement Item Products help screen</title>
-    <para></para>
-</section>
+    <para>This screen is used to link a specific product or products to an agreement. This can be useful for restricting a discount or product pricing to a particular product (or range of products) for a specific customer.</para>
+    <section>
+    <title>How do I add a product to an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'New Product' button</para></listitem>
+    <listitem><para>The 'Edit Agreement Item Product' screen is displayed</para></listitem>
+    <listitem><para>Manually enter or use the lookup to select the 'Product Id'</para></listitem>
+    <listitem><para>Enter the 'Price' to be associated to the product for this agreement item</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a product linked to an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Select the product required by clicking on the 'Product Id'</para></listitem>
+    <listitem><para>The 'Edit Agreement Item Product' screen is displayed</para></listitem>
+    <listitem><para>Update the 'Price' for the product (NOTE: Only product price is available for update)</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I delete a product from an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button on the entry that needs to be deleted</para></listitem>
+    </orderedlist>
+    </section>
+ </section>

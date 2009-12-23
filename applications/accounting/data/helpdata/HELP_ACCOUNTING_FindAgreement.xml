@@ -18,5 +18,31 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Find Agreements help screen</title>
-    <para></para>
+    <para> The default screen is for the Agreements tab is 'Find Agreements'. It is used to locate existing agreements that have been created. The user has the option to</para>
+    <itemizedlist><listitem><para>use the 'Find' button to locate an existing agreement or </para></listitem>
+    <listitem><para>create a new one by clicking on the 'Create Agreement' button.</para></listitem>
+    </itemizedlist>
+    <section>
+    <title>How do I locate an existing agreement?</title>
+    <orderedlist>
+    <listitem><para>Enter search option details if known</para></listitem>
+    <listitem><para>Press the 'Find' button</para></listitem>
+    <listitem><para>A list of existing agreements will be displayed</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I create a new agreement?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Create Agreement' button</para></listitem>
+    <listitem><para>The 'Edit Agreement' screen is displayed</para></listitem>
+    <listitem><para>Enter the details required and press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I cancel an agreement?</title>
+    <orderedlist>
+    <listitem><para>Locate the agreement required</para></listitem>
+    <listitem><para>Press the 'Cancel' button on the agreement entry that needs to be cancelled</para></listitem>
+    </orderedlist>
+    </section>
 </section>
