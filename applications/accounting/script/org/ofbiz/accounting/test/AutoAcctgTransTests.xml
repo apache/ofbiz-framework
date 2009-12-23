@@ -391,6 +391,22 @@ under the License.
     </simple-method>
 
     <!-- Test case for Accounting Transaction on Manufacturing -->
+    <simple-method  method-name="testCalculateProductCosts" short-description="Product cost test case on estimated standard costs calculation" login-required="false">
+        <set field="serviceCtx.productId" value="PROD_MANUF"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+        <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="calculateProductCosts" in-map-name="serviceCtx">
+            <result-to-field result-name="totalCost"/>
+        </call-service>
+        <assert>
+            <if-compare field="totalCost" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
     <simple-method method-name="testAcctgTransOnMaterialIssuance" short-description="Production run test case for material issuance from the warehouse" login-required="false">
         <!-- Precondition: Inventory is received for following products:
                  productId = MAT_A_COST, quantity = 4, facilityId = Web Store Warehouse
@@ -576,11 +592,11 @@ under the License.
                  productId = MAT_A_COST, quantity = 4, facilityId = Web Store Warehouse
                  productId = MAT_B_COST, quantity = 6, facilityId = Web Store Warehouse
              then new production run is created and started for following product:
-                 productId = PROD_COST, quantity = 2, facilityId = Web Store Warehouse
+                 productId = PROD_MANUF, quantity = 2, facilityId = Web Store Warehouse
              then issue components and complete the product issuance and at last put 2 quantities into "Stock in" field
              Post condition: In entity "AcctgTransEntry" two entries will be created:
-                * Debit, in account 140000 - "INVENTORY"; amount: 135.68$
-                * Credit, in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 135.68$ (36$ + 42$ + 57.68$) -->
+                * Debit, in account 140000 - "INVENTORY"; amount: 168.00$
+                * Credit, in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 168.00$ -->
 
         <entity-and list="productionRuns" entity-name="WorkEffort">
             <field-map field-name="workEffortName" value="ACCTG_TEST_PROD_RUN"/>
@@ -606,7 +622,7 @@ under the License.
         <first-from-list list="acctgTransEntryList" entry="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="135.68" type="BigDecimal"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="168.00" type="BigDecimal"/>
         </assert>
 
         <!-- For debit entry -->
@@ -619,7 +635,7 @@ under the License.
         <first-from-list list="acctgTransEntryList" entry="acctgTransEntry"/>
         <assert>
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
-            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="135.68" type="BigDecimal"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="168.00" type="BigDecimal"/>
         </assert>
         <check-errors/>
     </simple-method>
