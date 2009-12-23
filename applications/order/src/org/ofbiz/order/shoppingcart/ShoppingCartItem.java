@@ -716,10 +716,16 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (parentProduct != null)
             this.parentProductId = _parentProduct.getString("productId");
         if (UtilValidate.isEmpty(itemType)) {
-            if (_product.getString("productTypeId").equals("ASSET_USAGE")) {
-                this.itemType = "RENTAL_ORDER_ITEM";  // will create additional workeffort/asset usage records
+            if (UtilValidate.isNotEmpty(_product)) {
+                if (_product.getString("productTypeId").equals("ASSET_USAGE")) {
+                    this.itemType = "RENTAL_ORDER_ITEM";  // will create additional workeffort/asset usage records
+                } else {
+                    this.itemType = "PRODUCT_ORDER_ITEM";
+                }
             } else {
-                this.itemType = "PRODUCT_ORDER_ITEM";
+        	Debug.logError("Error calling ShoppingCartItem (trying to creates new ShoppingCartItem object)." +
+        			" Check that there is a type for this product ", module);
+        	return;
             }
         } else {
             this.itemType = itemType;
