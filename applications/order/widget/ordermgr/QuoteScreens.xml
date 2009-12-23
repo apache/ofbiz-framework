@@ -74,17 +74,8 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="QuoteReport" text="${uiLabelMap.CommonReports}" style="buttontext">
-                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
-                            </link>
-                            <link target="EditQuoteReportMail" text="${uiLabelMap.CommonSendReportByMail}" style="buttontext">
-                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
-                                <parameter param-name="emailType" value="PRDS_QUO_CONFIRM"/>
-                            </link>
+                            <include-menu name="QuoteSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         </container>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/quote/CreateOrderQuote.ftl"/></html>
-                        </platform-specific>
                         <include-screen name="ViewQuoteTemplate"/>
                         <screenlet title="${uiLabelMap.OrderCopyQuote}">
                             <platform-specific>

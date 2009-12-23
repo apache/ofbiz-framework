@@ -201,6 +201,35 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="QuoteSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="quoteReport" title="${uiLabelMap.CommonReports}">
+            <link target="QuoteReport">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editQuoteReportMail" title="${uiLabelMap.CommonSendReportByMail}">
+            <link target="EditQuoteReportMail">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                <parameter param-name="emailType" value="PRDS_QUO_CONFIRM"/>
+            </link>
+        </menu-item>
+        <menu-item name="editQuote" title="${uiLabelMap.OrderCreateOrderQuote}">
+            <link target="EditQuote"/>
+        </menu-item>
+        <menu-item name="createOrder" title="${uiLabelMap.OrderCreateOrder}">
+            <condition disabled-style="disabled">
+                <and>
+                    <not><if-empty field="quote"/></not>
+                    <if-compare operator="equals" value="QUO_APPROVED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="loadCartFromQuote">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                <parameter param-name="finalizeMode" value="init"/>
+            </link>
+        </menu-item>
+    </menu>
+
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}">
             <link target="ViewRequest">
@@ -211,8 +240,8 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                        <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                        <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
             <link target="request">
