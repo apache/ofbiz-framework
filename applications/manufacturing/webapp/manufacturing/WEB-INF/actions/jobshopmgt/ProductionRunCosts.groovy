@@ -29,4 +29,11 @@ tasks.each { task ->
     taskCostsForm.putInContext("taskCosts", costs);
     taskCosts.add([task : task ,costsForm : taskCostsForm]);
 }
+// get the costs directly associated to the production run (e.g. overhead costs)
+productionRun = delegator.findOne("WorkEffort", [workEffortId: productionRunId], true);
+costs = EntityUtil.filterByDate(delegator.findByAnd("CostComponent", [workEffortId : productionRunId]));
+HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
+taskCostsForm.putInContext("taskCosts", costs);
+taskCosts.add([task : productionRun ,costsForm : taskCostsForm]);
+
 context.taskCosts = taskCosts;

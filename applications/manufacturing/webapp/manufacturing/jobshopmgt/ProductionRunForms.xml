@@ -140,13 +140,14 @@ under the License.
             </hyperlink>
         </field>
         <field name="lotId" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${lotId} "/></field>
-        <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
+        <field name="unitCost" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${unitCost} "/></field>
+\        <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
     </form>
 
      <form name="ViewListProductionRunRoutingTasks" type="list" title="" list-name="productionRunRoutingTasks"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <row-actions>
-             <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}"  type="BigDecimal"/>
+             <set field="estimatedTotalMilliSeconds" value="${groovy:estimatedMilliSeconds * quantity}"  type="BigDecimal"/>
          </row-actions>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
@@ -160,7 +161,7 @@ under the License.
     <form name="ListProductionRunRoutingTasks" type="list" target="ProductionRunTasks" title="" list-name="productionRunRoutingTasks"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}" type="BigDecimal"/>
+            <set field="estimatedTotalMilliSeconds" value="${groovy:estimatedMilliSeconds * quantity}" type="BigDecimal"/>
         </row-actions>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
@@ -509,12 +510,12 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${bsh:delivProducts.size()>0}">
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()>0}">
             <drop-down allow-empty="false">
                 <list-options list-name="delivProducts" key-name="productId" description="${productId}"/>
             </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${bsh:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
             <text/>
         </field>
@@ -904,7 +905,7 @@ under the License.
     <form name="ProductionRunTaskActualComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunActualComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="quantityOnHandDiff" value="${bsh:-1*quantityOnHandDiff}" type="BigDecimal"/>
+            <set field="quantityOnHandDiff" value="${groovy:-1*quantityOnHandDiff}" type="BigDecimal"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="/facility/control/EditInventoryItem" description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
@@ -917,6 +918,9 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="productionRunId"><hidden/></field>
         <field name="quantityOnHandDiff" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="unitCost" entry-name="inventoryItemId">
+            <display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${unitCost}"/>
+        </field>
         <field name="reasonEnumId">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
         </field>
