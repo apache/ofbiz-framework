@@ -18,5 +18,6 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Edit Agreement Geo help screen</title>
-    <para></para>
+    <para>This screen is used to create a geographical location for an agreement item.</para>
+    <para>NOTE: A new entry can be created or removed but not updated.</para>
 </section>

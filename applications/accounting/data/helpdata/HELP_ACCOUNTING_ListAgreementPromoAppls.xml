@@ -18,5 +18,32 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Agreements Item Promotions help screen</title>
-    <para></para>
+    <para>This screen is used to enter or maintain any promotions that are associated with the Agreement Item. This can be useful if you want to limit where a particular promotion is applied. Promotions are setup in Catalog Manager and can be selected here.</para>
+    <section>
+    <title>How do I add a promotion to an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Add New Promotion' button</para></listitem>
+    <listitem><para>The 'Edit Agreement Promo Applications' screen is displayed</para></listitem>
+    <listitem><para>Select the 'Product Promo Id' from the drop down box</para></listitem>
+    <listitem><para>Enter the 'From Date'</para></listitem>
+    <listitem><para>Enter the 'Thru Date' if required (NOTE:This can be left blank)</para></listitem>
+    <listitem><para>Enter the 'Sequence Num' if required</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I edit an existing promotion for an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Select the agreement item promotion by clicking on on the promotion id</para></listitem>
+    <listitem><para>The 'Edit Agreement Promo Applications' screen is displayed</para></listitem>
+    <listitem><para>Update the details required</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I delete a promotion from an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button on the entry that needs to be deleted.</para></listitem>
+    </orderedlist>
+    </section>
 </section>

@@ -18,5 +18,20 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Agreement Items Parties help screen</title>
-    <para></para>
+    <para>This screen is used to display any parties that have been linked to this agreement item.</para>
+    <section>
+    <title>How do I create a party for an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'New' button</para></listitem>
+    <listitem><para>The 'Edit Agreement Item Party' screen is displayed</para></listitem>
+    <listitem><para>Manually enter or use the lookup to select the 'Party Id'</para></listitem>
+    <listitem><para>Press the 'Submit' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I remove a party for an agreement item?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Delete' button for the entry that needs to be deleted.</para></listitem>
+    </orderedlist>
+    </section>
 </section>

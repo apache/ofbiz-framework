@@ -18,5 +18,5 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The List Agreement Items help screen</title>
-    <para></para>
+    <para>This screen is used to display a list of items that have been created for an agreement.</para>
 </section>

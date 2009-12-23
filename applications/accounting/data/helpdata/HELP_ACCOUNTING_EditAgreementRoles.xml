@@ -18,5 +18,24 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Edit Agreements Roles help screen</title>
-    <para></para>
+    <para>This screen is used to assign a party roles for an agreement.</para>
+    <section>
+    <title>How do I add a party role to an agreement?</title>
+    <orderedlist>
+    <listitem><para>Use the lookup to select the 'Party Id'</para></listitem>
+    <listitem><para>Use the drop down box to select the 'Party Role Id'</para></listitem>
+    <listitem><para>Press the 'Add' button (NOTE: If the party does not have this role associated with them then an error will be displayed)</para></listitem>
+    <listitem><para>The new entry will be displayed in the lower part of the screen</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a party role for an agreement?</title>
+    <para>Party roles can only be added and deleted. They cannot be updated.</para>
+    </section>
+    <section>
+    <title>How do I delete a party role from an agreement?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button for the entry that needs to be deleted.</para></listitem>
+    </orderedlist>
+    </section>
 </section>
