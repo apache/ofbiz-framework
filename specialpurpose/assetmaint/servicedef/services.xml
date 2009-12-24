@@ -32,8 +32,30 @@ under the License.
     </service>
 
     <service name="assetMaintPermissionCheck" engine="simple"
-            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="assetMaintPermissionCheck">
+            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintServices.xml" invoke="assetMaintPermissionCheck">
         <description>Asset Maintentance Permission Checking Logic</description>
         <implements service="permissionInterface"/>
+    </service>
+    
+    <service name="createFixedAssetMaintUpdateWorkEffort" engine="simple" default-entity-name="FixedAssetMaint"
+            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintServices.xml" invoke="createFixedAssetMaintUpdateWorkEffort">
+        <description>Create FixedAssetMaint and Update Schedule information in WorkEffort</description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <auto-attributes include="all" mode="IN" entity-name="WorkEffort" optional="true"/>
+        <override name="fixedAssetId" mode="IN" optional="false"/>
+        <override name="maintHistSeqId" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateFixedAssetMaintAndWorkEffort" engine="simple" default-entity-name="FixedAssetMaint"
+            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintServices.xml" invoke="updateFixedAssetMaintAndWorkEffort">
+        <description>Update FixedAssetMaint and Schedule information in WorkEffort</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="all" mode="IN" entity-name="WorkEffort" optional="true"/>
+    </service>
+    
+    <service name="createWorkEffortAndAssocWithParent" engine="simple" default-entity-name="WorkEffort"
+            location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintServices.xml" invoke="createWorkEffortAndAssocWithParent">
+        <description>Create WorkEffort and Associate it with Parent (identified by workEffortFromId)</description>
+        <implements service="createWorkEffortAndAssoc"/>
     </service>
 </services>
