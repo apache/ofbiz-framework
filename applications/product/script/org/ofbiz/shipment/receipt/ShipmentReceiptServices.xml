@@ -420,9 +420,10 @@ under the License.
 
     <simple-method method-name="updateIssuanceShipmentAndPoOnReceiveInventory" short-description="Update issuance, shipment and order items if quantity received is higher than quantity on purchase order">
         <entity-one value-field="orderItem" entity-name="OrderItem"/>
+        <!-- TODO: this is disabled because it doesn't consider different currencies between orders and inventory
         <set field="unitCost" from-field="parameters.unitCost" type="BigDecimal"/>
         <if>
-            <condition> <!-- (unitCost != null && unitCost.compareTo(orderItem.get("unitPrice")) != 0) -->
+            <condition>
                 <and>
                     <not><if-empty field="unitCost"/></not>
                     <if-compare-field field="unitCost" operator="not-equals" to-field="orderItem.unitPrice" type="BigDecimal"/>
@@ -433,6 +434,7 @@ under the License.
                 <store-value value-field="orderItem"/>
             </then>
         </if>
+        -->
         <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
         <if-compare-field field="orderItem.quantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
             <set field="orderItem.quantity" from-field="receivedQuantity"/>
