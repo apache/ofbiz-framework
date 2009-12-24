@@ -35,6 +35,8 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.testtools.EntityTestCase;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.testtools.OFBizTestCase;
@@ -113,7 +115,23 @@ public class ModelTestSuite {
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new ServiceTest(caseName, testElement));
         } else if ("simple-method-test".equals(nodeName)) {
-            this.testList.add(new SimpleMethodTest(caseName, testElement));
+            if (UtilValidate.isNotEmpty(testElement.getAttribute("name"))) {
+                this.testList.add(new SimpleMethodTest(caseName, testElement));
+            } else {
+                String methodLocation = testElement.getAttribute("location");
+                List<SimpleMethod> simpleMethods;
+                try {
+                    simpleMethods = SimpleMethod.getSimpleMethodsList(methodLocation, null);
+                    for (SimpleMethod simpleMethod : simpleMethods) {
+                        String methodName = simpleMethod.getMethodName();
+                        if (methodName.startsWith("test")) {
+                            this.testList.add(new SimpleMethodTest(caseName + "." + methodName, methodLocation, methodName));
+                        }
+                    }
+                } catch (MiniLangException e) {
+                    Debug.logError(e, module);
+                }
+            }
         } else if ("entity-xml".equals(nodeName)) {
             this.testList.add(new EntityXmlAssertTest(caseName, testElement));
         } else if ("entity-xml-assert".equals(nodeName)) {
