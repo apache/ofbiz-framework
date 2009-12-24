@@ -404,7 +404,7 @@ under the License.
         <call-service service-name="createCommunicationEvent" in-map-name="createNewCommEventMap">
             <result-to-field result-name="communicationEventId" field="commEventMap.communicationEventId"/>
         </call-service>
-        <call-simple-method method-name="testUpdateCommEvent"/>
+        <call-simple-method method-name="inlineUpdateCommEvent"/>
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
             <field-map field-name="communicationEventId" from-field="commEventMap.communicationEventId"/>
         </entity-one>
@@ -418,7 +418,7 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUpdateCommEvent" short-description="test to update communication event" login-required="false">
+    <simple-method method-name="inlineUpdateCommEvent" short-description="test to update communication event" login-required="false">
         <log level="info" message="====================Update communication event test case=========================================="/>
         <set field="updateCommEventMap.communicationEventId" from-field="commEventMap.communicationEventId"/>
         <set field="updateCommEventMap.communicationEventTypeId" value="AUTO_EMAIL_COMM"/>
@@ -443,7 +443,7 @@ under the License.
         <call-service service-name="createCustRequest" in-map-name="createNewRequestMap">
           <result-to-field result-name="custRequestId" field="requestMap.custRequestId"/>
         </call-service>
-        <call-simple-method method-name="testUpdateRequest"/>
+        <call-simple-method method-name="inlineUpdateRequest"/>
         <entity-one entity-name="CustRequest" value-field="custRequest">
             <field-map field-name="custRequestId" from-field="requestMap.custRequestId"/>
         </entity-one>
@@ -457,7 +457,7 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUpdateRequest" short-description="update a request" login-required="false">
+    <simple-method method-name="inlineUpdateRequest" short-description="update a request" login-required="false">
         <log level="info" message="====================Update a request test case=========================================="/>
         <set field="updateRequestMap.custRequestId" from-field="requestMap.custRequestId"/>
         <set field="updateRequestMap.custRequestTypeId" value="RF_INFO"/>

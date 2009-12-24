@@ -21,52 +21,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <!-- Test case for Batching Payments process-->
-    <test-case case-name="auto-create-payment-group-and-memebers">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreatePaymentGroupAndMember"/>
+    <test-case case-name="auto-payment-tests">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml"/>
     </test-case>
     
-    <!--Test case for voiding payments -->
-    <test-case case-name="auto-test-voidPayment">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testVoidPayment"/>
-    </test-case>
-    
-    <!--Test case for canceling invoices-->
-    <test-case case-name="auto-test-cancelInvoice">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCancelInvoice"/>
-    </test-case>
-    
-    <!--Test case for process mass check run-->
-    <test-case case-name="auto-tests-createPaymentAndPaymentGroupForInvoices">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCreatePaymentAndPaymentGroupForInvoices"/>
-    </test-case>
-
-    <!--Test case for cancel check run-->
-    <test-case case-name="auto-test-CancelCheckRunPayments">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testCancelCheckRunPayments"/>
-    </test-case>
-    
-    <!-- Test case for deposit or withdraw payments -->
-    <test-case case-name="auto-tests-deposit-withdraw-payments">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testDepositWithdrawPayments"/>
-    </test-case>
-    <test-case case-name="auto-tests-deposit-withdraw-payments-In-single-trans">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testDepositWithdrawPaymentsInSingleTrans"/>
-    </test-case>
-
-    <!--Test case for fin account trans-->
-    <test-case case-name="auto-tests-setFinAccountTransStatus">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testSetFinAccountTransStatus"/>
-    </test-case>    
-
-    <!--Test case to verify GL postings for Void Payment process-->
-    <test-case case-name="auto-test-glPostingsOnVoidPayment">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testGlPostingsOnVoidPayment"/>
-    </test-case>
-
-    <!---Test case to verify GL postings for Check Run process-->
-    <test-case case-name="auto-tests-glPostingOnCheckRun">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml" name="testGlPostingOnCheckRun"/>
-    </test-case>
-
 </test-suite>

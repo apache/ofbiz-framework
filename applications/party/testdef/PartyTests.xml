@@ -19,34 +19,9 @@
 <test-suite suite-name="partytests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
-    <test-case case-name="test-Find party with certain search parameters">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testFindPartyWithSearchParameters"/>
+
+    <test-case case-name="party-tests">
+        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml"/>
     </test-case>
-    <test-case case-name="test-Find party when no search parameters are passed">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testFindPartyWithNoSearchParameters"/>
-    </test-case>
-    <test-case case-name="test-Update party email address">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testUpdatePartyEmailAddress"/>
-    </test-case>
-    <test-case case-name="test-Update party Telecom number">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testUpdatePartyTelecomNumber"/>
-    </test-case>
-    <test-case case-name="test-Update party postal Address">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testUpdatePartyPostalAddress"/>
-    </test-case>
-    <test-case case-name="test-Update party credit card">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testUpdatePartyCreditCard"/>
-    </test-case>
-    <test-case case-name="test-Update password">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testUpdateUserPassword"/>
-    </test-case>
-    <test-case case-name="test-Add role">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testAddRole"/>
-    </test-case>
-    <test-case case-name="test-CreateNewCommEvent">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testCreateNewCommEvent"/>
-    </test-case>
-    <test-case case-name="test-CreateNewRequest">
-        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTests.xml" name="testCreateNewRequest"/>
-    </test-case>
+
 </test-suite>

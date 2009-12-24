@@ -21,6 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
+    <!-- Test case for Batching Payments process-->
     <simple-method method-name="testCreatePaymentGroupAndMember" short-description="auto test createPaymentGroupAndMember service" login-required="false">
         <set field="paymentIds[]" value="demo10001"/>
         <set field="paymentIds[]" value="demo10000"/>
@@ -58,6 +59,7 @@ under the License.
         <log level="info" message="Payment Group ${paymentGroupId} is created successfully for payments"/>
     </simple-method>
 
+    <!--Test case for voiding payments -->
     <simple-method method-name="testVoidPayment" short-description="Test case for voiding payments" login-required="false">
         <!-- Precondition : payment is in sent status and invoice is in ready for posting status 
                             Credit in account 213000 - CUSTOMER CREDIT
@@ -101,6 +103,7 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <!--Test case for canceling invoices-->
     <simple-method method-name="testCancelInvoice" short-description="Test case for canceling invoices" login-required="false">
         <!-- Precondition : invoice is in ready status 
                             Credit in account 210000 - ACCOUNTS PAYABLE
@@ -146,6 +149,7 @@ under the License.
         <check-errors/>
     </simple-method>
     
+    <!--Test case for process mass check run-->
     <simple-method method-name="testCreatePaymentAndPaymentGroupForInvoices" short-description="Test case for validate service which is creating payment and payment group" login-required="false">
         <!-- Precondition : Invoice is in ready status. 
                             Invoice outstanding amount should be greater than zero -->
@@ -190,6 +194,7 @@ under the License.
         <log level="info" message="Test case ran successfully for input - invoiceIds : ${invoiceIds} and output - paymentGroupId : ${paymentGroupId}"/>
     </simple-method>
 
+    <!--Test case for cancel check run-->
     <simple-method method-name="testCancelCheckRunPayments" short-description="Test case for cancelCheckRunPayments" login-required="false">
         <!-- Pre condition : Invoice is in paid status.
                              Payment should be present.
@@ -231,6 +236,7 @@ under the License.
         <log level="info" message="Test case for cancelCheckRunPayments ran successfully for paymentGroupId = ${paymentGroupId}"/>
     </simple-method>
     
+    <!-- Test case for deposit or withdraw payments -->
     <simple-method method-name="testDepositWithdrawPayments" short-description="test depositWithdrawPayments service" login-required="false">
         <set field="paymentIds[]" value="demo10010"/>
         <set field="finAccountId" value="SC_CHECKING"/>
@@ -296,6 +302,7 @@ under the License.
         <log level="info" message="fin Account Trans has been created with Id ${finAccountTransId}"/>
     </simple-method>
 
+    <!--Test case for fin account trans-->
     <simple-method method-name="testSetFinAccountTransStatus" short-description="test case for setFinAccountTransStatus service" login-required="false">
         <!-- Precondition : FinAccountTrans should be in CREATED status -->
 
@@ -324,6 +331,7 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <!--Test case to verify GL postings for Void Payment process-->
     <simple-method method-name="testGlPostingsOnVoidPayment" short-description="Test case to verify GL postings for Void Payment Process" login-required="false">
         <!-- Precondition :
             * Payment is in sent status so accounting transaction is already posted to the GL
@@ -392,6 +400,7 @@ under the License.
         <log level="info" message="AFTER RUNNING VOID PAYMENT : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
     </simple-method>
 
+    <!---Test case to verify GL postings for Check Run process-->
     <simple-method method-name="testGlPostingOnCheckRun" short-description="Test case to verify GL postings for Check Run functionality" login-required="false">
         <!-- Precondition :
             * Invoice is in ready status so accounting transaction is already posted to the GL
