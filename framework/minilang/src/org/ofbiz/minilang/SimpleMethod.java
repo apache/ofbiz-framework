@@ -197,6 +197,43 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
+    public static List<SimpleMethod> getSimpleMethodsList(String xmlResource, ClassLoader loader) throws MiniLangException {
+        List<SimpleMethod> simpleMethods = FastList.newInstance();
+
+        // Let the standard Map returning method take care of caching and compilation
+        Map<String, SimpleMethod> simpleMethodMap = SimpleMethod.getSimpleMethods(xmlResource, loader);
+
+        // Load and traverse the document again to get a correctly ordered list of methods
+        URL xmlURL = null;
+        try {
+            xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
+        } catch (MalformedURLException e) {
+            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
+        }
+        // read in the file
+        Document document = null;
+        try {
+            document = UtilXml.readXmlDocument(xmlURL, true, true);
+        } catch (java.io.IOException e) {
+            throw new MiniLangException("Could not read XML file", e);
+        } catch (org.xml.sax.SAXException e) {
+            throw new MiniLangException("Could not parse XML file", e);
+        } catch (javax.xml.parsers.ParserConfigurationException e) {
+            throw new MiniLangException("XML parser not setup correctly", e);
+        }
+
+        if (document == null) {
+            throw new MiniLangException("Could not find SimpleMethod XML document: " + xmlURL.toString());
+        }
+
+        Element rootElement = document.getDocumentElement();
+        for (Element simpleMethodElement: UtilXml.childElementList(rootElement, "simple-method")) {
+            simpleMethods.add(simpleMethodMap.get(simpleMethodElement.getAttribute("method-name")));
+        }
+
+        return simpleMethods;
+    }
+
     public static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
         Map<String, SimpleMethod> simpleMethods = simpleMethodsURLCache.get(xmlURL);
 

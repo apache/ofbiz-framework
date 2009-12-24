@@ -45,9 +45,13 @@ public class SimpleMethodTest extends OFBizTestCase {
      * @param modelTestSuite
      */
     public SimpleMethodTest(String caseName, Element mainElement) {
+        this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));
+    }
+
+    public SimpleMethodTest(String caseName, String methodLocation, String methodName) {
         super(caseName);
-        this.methodLocation = mainElement.getAttribute("location");
-        this.methodName = mainElement.getAttribute("name");
+        this.methodLocation = methodLocation;
+        this.methodName = methodName;
     }
 
     @Override

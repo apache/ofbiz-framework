@@ -102,7 +102,14 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.simple-method-test">
         <xs:attribute type="xs:string" name="location" use="required"/>
-        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="name">
+            <xs:annotation>
+                <xs:documentation>
+                    The method-name of the simple-method to execute.  If no name is supplied then all simple-methods from
+                    location with a method-name beginning with "test" will be added as individual tests.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
 
     <xs:element name="entity-xml" substitutionGroup="TestCaseTypes">
