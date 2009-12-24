@@ -21,8 +21,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <!-- Test case for create and update contact list -->
-    <test-case case-name="createAndUpdateContactList-test">
-        <simple-method-test location="component://marketing/script/org/ofbiz/marketing/test/MarketingTests.xml" name="testCreateAndUpdateContactList"/>
+    <test-case case-name="marketing-tests">
+        <simple-method-test location="component://marketing/script/org/ofbiz/marketing/test/MarketingTests.xml"/>
     </test-case>
 </test-suite>

@@ -28,39 +28,7 @@
 
     <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
 
-    <!-- Test case for Accounting Transaction on Purchase -->
-    <test-case case-name="auto-accounting-transaction-tests-PoReceipt">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-EditPoInvoice">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnEditPoInvoice"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-PaymentSentToSupplier">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPaymentSentToSupplier"/>
-    </test-case>
-
-    <!-- Test case for Accounting Transaction on Sales -->
-    <test-case case-name="auto-accounting-transaction-tests-SalesOrderShipments">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForSalesOrderShipments"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-SalesInvoice">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnSalesInvoice"/>
-    </test-case>
-    <test-case case-name="auto-accouning-transaction-tests-PaymentReceivedFromCustomer">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPaymentReceivedFromCustomer"/>
-    </test-case>
-
-    <!-- Test case for Accounting Transaction on Manufacturing -->
-    <test-case case-name="auto-accounting-transaction-tests-CalculateProductCosts">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testCalculateProductCosts"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-MaterialIssuance">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnMaterialIssuance"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-ActualManufacturingCost">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForActualManufacturingCost"/>
-    </test-case>
-    <test-case case-name="auto-accounting-transaction-tests-AddFinishedProductsIntoWarehouse">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnAddFinishedProductsIntoWarehouse"/>
+    <test-case case-name="auto-accounting-transaction-tests">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml"/>
     </test-case>
 </test-suite>

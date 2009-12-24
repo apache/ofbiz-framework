@@ -72,6 +72,7 @@ under the License.
         <log level="info" message="Commission Invoice ${invoicesCreated} is created successfully for ${partyIds}"/>
     </simple-method>
 
+    <!--Test case to verify GL postings for Cancel Invoice process-->
     <simple-method method-name="testGlPostingOnCancelInvoice" short-description="Test case to verify GL postings for Cancel Invoice functionality" login-required="false">
         <!-- Precondition :
             * Invoice is in ready status so accounting transaction is already posted to the GL
@@ -140,6 +141,7 @@ under the License.
         <log level="info" message="AFTER RUNNING CANCEL INVOICE : UNINVOICED RECEIPTS ;debitTotal :${uninvoicedDebitTotal} ; creditTotal:${uninvoicedCreditTotal} ; debitCreditDifference : ${uninvoicedDebitCreditDifference}"/>
     </simple-method>
 
+    <!--Test case to verify GL postings for Cancel Check Run process-->
     <simple-method method-name="testGlPostingOnCancelCheckRun" short-description="Test case to verify GL postings for Cancel Check Run functionality" login-required="false">
         <!-- Precondition :
             * Two invoices are associated with PaymentGroupId 9000 which are 8001 and 8002

@@ -26,15 +26,7 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
     </test-case>
 
-    <test-case case-name="testCreateQuoteWorkEffort">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/QuoteTests.xml" name="testCreateQuoteWorkEffort"/>
-    </test-case>
-
-    <test-case case-name="testCreateQuoteWorkEffortFail">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/QuoteTests.xml" name="testCreateQuoteWorkEffortFail"/>
-    </test-case>
-
-    <test-case case-name="testCreateWorkEffortAndQuoteWorkEffort">
-        <simple-method-test location="component://order/script/org/ofbiz/order/test/QuoteTests.xml" name="testCreateWorkEffortAndQuoteWorkEffort"/>
+    <test-case case-name="quote-tests">
+        <simple-method-test location="component://order/script/org/ofbiz/order/test/QuoteTests.xml"/>
     </test-case>
 </test-suite>
