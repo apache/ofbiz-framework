@@ -990,7 +990,7 @@
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): {0}</value>
         <value xml:lang="en">Could not add person info (write failure): {0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): {0}</value>
-        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec écriture): {0}</value>
+        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): {0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): {0}</value>
         <value xml:lang="nl">Could not add person info (write failure): {0}</value>
@@ -1080,7 +1080,7 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): {0}</value>
         <value xml:lang="en">Could not update person information (write failure): {0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): {0}</value>
-        <value xml:lang="fr">Mise à jour d`information personne impossible (échec écriture): {0}</value><!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): {0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->        
         <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): {0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): {0}</value>
         <value xml:lang="nl">Could not update person information (write failure): {0}</value>
