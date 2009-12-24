@@ -167,22 +167,33 @@ public class WorkEffortWorker {
     }
 
     public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId) {
+    	return getLowestLevelWorkEfforts(delegator, workEffortId, workEffortAssocTypeId, "workEffortIdFrom", "workEffortIdTo");
+    }
+    
+    public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId, String left, String right) {
+    	if (left == null) {
+    		left = "workEffortIdFrom";
+    	}
+    	if (right == null) {
+    		right = "workEffortIdTo";
+    	}
+    	
         List<GenericValue> workEfforts = FastList.newInstance();
         try {
             EntityConditionList exprsLevelFirst = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("workEffortIdFrom", workEffortId),
+                    EntityCondition.makeCondition(left, workEffortId),
                     EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
             List<GenericValue> childWEAssocsLevelFirst = delegator.findList("WorkEffortAssoc", exprsLevelFirst, null, null, null, true);
             for (GenericValue childWEAssocLevelFirst : childWEAssocsLevelFirst) {
                 EntityConditionList exprsLevelNext = EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("workEffortIdFrom", childWEAssocLevelFirst.get("workEffortIdTo")),
+                        EntityCondition.makeCondition(left, childWEAssocLevelFirst.get(right)),
                         EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
                 List<GenericValue> childWEAssocsLevelNext = delegator.findList("WorkEffortAssoc", exprsLevelNext, null, null, null, true);
                 while (UtilValidate.isNotEmpty(childWEAssocsLevelNext)) {
                     List<GenericValue> tempWorkEffortList = FastList.newInstance();
                     for (GenericValue childWEAssocLevelNext : childWEAssocsLevelNext) {
                         EntityConditionList exprsLevelNth = EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("workEffortIdFrom", childWEAssocLevelNext.get("workEffortIdTo")),
+                                EntityCondition.makeCondition(left, childWEAssocLevelNext.get(right)),
                                 EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
                         List<GenericValue> childWEAssocsLevelNth = delegator.findList("WorkEffortAssoc", exprsLevelNth, null, null, null, true);
                         if (UtilValidate.isNotEmpty(childWEAssocsLevelNth)) {
