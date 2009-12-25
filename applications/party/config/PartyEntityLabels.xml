@@ -398,7 +398,7 @@
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Adresse de facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) पता</value>
-        <value xml:lang="it">Indirizzo Fatturazione (AP)</value>
+        <value xml:lang="it">Indirizzo di fatturazione</value>
         <value xml:lang="nl">Factuuradres</value>
         <value xml:lang="pt_BR">Endereço para cobrança</value>
         <value xml:lang="ro">Adresa Facturare (AP)</value>
@@ -454,7 +454,7 @@
         <value xml:lang="es">Correo electrónico de notificación de pedidos</value>
         <value xml:lang="fr">Adresse courriel pour les commandes</value>
         <value xml:lang="hi_IN">आदेश अधिसूचना ईमेल का पता</value>
-        <value xml:lang="it">Indirizzo Email Notifica Ordine</value>
+        <value xml:lang="it">Indirizzo e-mail notifica ordine</value>
         <value xml:lang="nl">Bestel notificatie emailadres</value>
         <value xml:lang="pt_BR">E-mail para notificação de pedidos</value>
         <value xml:lang="ro">Adresa Email Notificare Comenzi</value>
@@ -523,7 +523,7 @@
         <value xml:lang="es">Teléfono de facturación</value>
         <value xml:lang="fr">Numéro de téléphone du service facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) फोन नंबर</value>
-        <value xml:lang="it">Numero Telefono Fatturazione (AP)</value>
+        <value xml:lang="it">Numero telefono di fatturazione</value>
         <value xml:lang="pt_BR">Telefone para cobrança</value>
         <value xml:lang="ro">Numar Telefon Facturare (AP)</value>
         <value xml:lang="ru">Телефонный номер по вопросам оплаты (AP)</value>
@@ -591,7 +591,7 @@
         <value xml:lang="es">Teléfono dirección de envío</value>
         <value xml:lang="fr">Numéro de téléphone du lieu de livraison</value>
         <value xml:lang="hi_IN">शिपिंग का गंतव्य फ़ोन नंबर</value>
-        <value xml:lang="it">Numero Telefono Destinazione Spedizione</value>
+        <value xml:lang="it">Numero di telefono per la spedizione</value>
         <value xml:lang="pt_BR">Telefone do destinatário</value>
         <value xml:lang="ro">Numar Telefon Destinatie Expediere</value>
         <value xml:lang="ru">Телефон в пункте доставки</value>
@@ -727,7 +727,7 @@
         <value xml:lang="es">Dirección de envíos</value>
         <value xml:lang="fr">Adresse de livraison</value>
         <value xml:lang="hi_IN">शिपिंग का गंतव्य पता</value>
-        <value xml:lang="it">Indirizzo destinazione spedizione</value>
+        <value xml:lang="it">Indirizzo per la spedizione</value>
         <value xml:lang="nl">Verzendadres</value>
         <value xml:lang="pt_BR">Endereço de destino</value>
         <value xml:lang="ro">Adresa Destinatie Expediere</value>
