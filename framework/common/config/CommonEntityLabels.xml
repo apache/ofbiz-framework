@@ -1668,11 +1668,15 @@
         <value xml:lang="th">การร้องขอการยืนยัน</value>
         <value xml:lang="zh">询价确认</value>
     </property>
+    <property key="Enumeration.description.PRDS_QUO_CREATED">
+        <value xml:lang="en">Quote Created</value>
+        <value xml:lang="it">Creazione preventivo</value>
+    </property>
     <property key="Enumeration.description.PRDS_RTN_ACCEPT">
         <value xml:lang="de">Retoure angenommen</value>
         <value xml:lang="en">Return Accepted</value>
         <value xml:lang="fr">Retour accepté</value>
-        <value xml:lang="it">Accesso reso</value>
+        <value xml:lang="it">Reso accettato</value>
         <value xml:lang="pt">Devolução Aceite</value>
         <value xml:lang="ro">Acces Returnare</value>
         <value xml:lang="ru">Подтверждение возврата</value>
@@ -1710,6 +1714,10 @@
         <value xml:lang="ru">Расскажи-другу</value>
         <value xml:lang="th">บอกต่อเพื่อน</value>
         <value xml:lang="zh">告诉朋友</value>
+    </property>
+    <property key="Enumeration.description.PRDS_ODR_SHIP_COMPLT">
+        <value xml:lang="en">Shipment Complete</value>
+        <value xml:lang="it">Spedizione completata</value>
     </property>
     <property key="Enumeration.description.PRIP_CURRENCY_UOMID">
         <value xml:lang="de">Währung UomId</value>
