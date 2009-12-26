@@ -471,6 +471,14 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้นี้ไม่สามารถเริ่มต้นด้วยตัวเลขนี้ได้, ตัวเลขรหัสจะได้จากการสร้างอัตโนมัติ</value>
         <value xml:lang="zh">指定的会员标识不能以数字开始，数字标识为自动生成的标识预留</value>
     </property>
+    <property key="partyhelper.NotPersonType">
+        <value xml:lang="en">The party {0} is not a PERSON type party</value>
+        <value xml:lang="fr">L`acteur {0} n'est pas du type personne.</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
+    </property>
+    <property key="partyhelper.NotGroupType">
+        <value xml:lang="en">The party {0} is not a PARTYGROUP type party</value>
+        <value xml:lang="fr">L`acteur {0} n'est pas du type groupe.</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
+    </property>    
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID Von besitzt nicht die angebenene Rolle.</value>
         <value xml:lang="en">Cannot create party relationship, partyIdFrom is not in specified role.</value>
