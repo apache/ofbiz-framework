@@ -46,20 +46,4 @@ under the License.
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
     </path>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDoc                                                      -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.ebay.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 windowtitle="Open for Business - ${desc}">
-            <fileset dir="${src.dir}" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </javadoc>
-    </target>
 </project>

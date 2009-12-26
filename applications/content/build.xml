@@ -54,20 +54,4 @@ under the License.
         <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
         <exclude name="org/ofbiz/content/openoffice/*.java"/>
     </patternset>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDoc                                                      -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.content.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - ${desc}">
-            <fileset dir="${src.dir}" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </javadoc>
-    </target>
 </project>

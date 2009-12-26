@@ -61,20 +61,4 @@ under the License.
             <exclude name="org/ofbiz/order/thirdparty/taxware/**"/>
         </javac16>
     </target>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDoc                                                      -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.order.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - ${desc}">
-            <fileset dir="${src.dir}" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </javadoc>
-    </target>
 </project>

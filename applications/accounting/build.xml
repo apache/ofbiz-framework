@@ -60,20 +60,4 @@ under the License.
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
         </patternset>
     </target>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDoc                                                      -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.accounting.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 windowtitle="Open for Business - ${desc}">
-            <fileset dir="${src.dir}" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </javadoc>
-    </target>
 </project>

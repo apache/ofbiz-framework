@@ -86,20 +86,4 @@ under the License.
         <get src="http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0.2-SNAPSHOT-standalone.jar?use_mirror="
             dest="${selenium.lib.dir}/selenium-server.jar" usetimestamp="true" />
     </target>
-
-    <!-- ================================================================== -->
-    <!-- Build JavaDoc                                                      -->
-    <!-- ================================================================== -->
-
-    <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.testtools.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 windowtitle="Open for Business - ${desc}">
-            <fileset dir="${src.dir}" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </javadoc>
-    </target>
 </project>
