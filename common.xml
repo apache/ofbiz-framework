@@ -73,6 +73,14 @@ under the License.
         </fileset>
     </target>
 
+    <!-- ================================================================== -->
+    <!-- Compilation of the source files                                    -->
+    <!-- ================================================================== -->
+
+    <target name="classes" depends="prepare">
+        <javac16/>
+    </target>
+
     <target name="jar" depends="classes,_src-available">
         <jar jarfile="${build.dir}/lib/${name}.jar">
             <fileset dir="${build.dir}/classes"/>

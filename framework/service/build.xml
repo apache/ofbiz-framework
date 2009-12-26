@@ -41,14 +41,6 @@ under the License.
         <fileset dir="../security/build/lib" includes="*.jar"/>
     </path>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
-        <javac16/>
-    </target>
-
     <target name="stubs" depends="classes">
         <rmic base="${build.dir}/classes" classname="org.ofbiz.service.rmi.RemoteDispatcherImpl">
             <classpath>
