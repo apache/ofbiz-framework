@@ -2349,13 +2349,14 @@ public class OrderReturnServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map createReturnAdjustment(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createReturnAdjustment(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         String orderAdjustmentId = (String) context.get("orderAdjustmentId");
         String returnAdjustmentTypeId = (String) context.get("returnAdjustmentTypeId");
         String returnId = (String) context.get("returnId");
         String returnItemSeqId = (String) context.get("returnItemSeqId");
         String description = (String) context.get("description");
+        Locale locale = (Locale) context.get("locale");
 
         GenericValue returnItemTypeMap = null;
         GenericValue orderAdjustment = null;
@@ -2419,7 +2420,7 @@ public class OrderReturnServices {
                 Debug.logInfo("returnPrice:" + returnItem.getBigDecimal("returnPrice") + ",returnQuantity:" + returnItem.getBigDecimal("returnQuantity") + ",sourcePercentage:" + orderAdjustment.getBigDecimal("sourcePercentage"), module);
                 if (orderAdjustment == null) {
                     Debug.logError("orderAdjustment [" + orderAdjustmentId + "] not found", module);
-                    return ServiceUtil.returnError("orderAdjustment [" + orderAdjustmentId + "] not found");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OrderCreateReturnAdjustmentNotFoundOrderAdjustment", UtilMisc.toMap("orderAdjustmentId", orderAdjustmentId), locale));
                 }
                 BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));
@@ -2447,18 +2448,18 @@ public class OrderReturnServices {
             newReturnAdjustment.set("returnItemSeqId", UtilValidate.isEmpty(returnItemSeqId) ? "_NA_" : returnItemSeqId);
 
             delegator.create(newReturnAdjustment);
-            Map result = ServiceUtil.returnSuccess("Create ReturnAdjustment with Id:" + seqId + " successfully.");
+            Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OrderCreateReturnAdjustment", UtilMisc.toMap("seqId", seqId), locale));
             result.put("returnAdjustmentId", seqId);
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Failed to store returnAdjustment", module);
-            return ServiceUtil.returnError("Failed to store returnAdjustment");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OrderCreateReturnAdjustmentFailed", locale));
         }
     }
 
-    public static Map updateReturnAdjustment(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateReturnAdjustment(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue returnItem = null;
         GenericValue returnAdjustment = null;
         String returnAdjustmentTypeId = null;
@@ -2489,20 +2490,20 @@ public class OrderReturnServices {
                 amount = (BigDecimal) context.get("amount");
             }
 
-            Map result = null;
+            Map<String, Object> result = null;
             if (UtilValidate.isNotEmpty(amount)) {
                 returnAdjustment.setNonPKFields(context);
                 returnAdjustment.set("amount", amount);
                 delegator.store(returnAdjustment);
                 Debug.logInfo("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.", module);
-                result = ServiceUtil.returnSuccess("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount +" successfully.");
+                result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OrderUpdateReturnAdjustment", UtilMisc.toMap("returnAdjustmentId", context.get("returnAdjustmentId"), "amount", amount), locale));
             } else {
                 result = ServiceUtil.returnSuccess();
             }
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Failed to store returnAdjustment", module);
-            return ServiceUtil.returnError("Failed to store returnAdjustment");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OrderCreateReturnAdjustmentFailed", locale));
         }
     }
 
