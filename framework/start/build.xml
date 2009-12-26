@@ -25,6 +25,7 @@ under the License.
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
 
+    <property name="desc" value="Start API"/>
     <property name="name" value="ofbiz-base"/>
 
     <!-- ================================================================== -->
@@ -60,7 +61,7 @@ under the License.
         <javadoc packagenames="org.ofbiz.base.*"
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - Start API">
+                 Windowtitle="Open for Business - ${desc}">
             <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
