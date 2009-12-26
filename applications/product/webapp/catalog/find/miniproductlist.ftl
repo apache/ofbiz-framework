@@ -23,7 +23,11 @@ under the License.
         <#assign product = productCategoryMember.getRelatedOneCache("Product")>
           <div>
             <a href='<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>' class='buttontext'>
-              ${product.internalName?default("${uiLabelMap.CommonNo} ${uiLabelMap.ProductInternalName}")}
+              <#if product.internalName?has_content>
+                ${product.internalName}
+              <#else>
+                ${product.productName?default("${uiLabelMap.CommonNo} ${uiLabelMap.ProductInternalName} / ${uiLabelMap.ProductProductName}")}
+              </#if>    
             </a>
             <div>
               <b>${product.productId}</b>
