@@ -73,6 +73,14 @@ under the License.
   </default-javac>
  </presetdef>
 
+ <presetdef name="javac16">
+  <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" sourcepathref="src-path">
+   <!--
+   <compilerarg value="-Xlint:unchecked"/>
+   -->
+  </default-javac>
+ </presetdef>
+
  <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <macrodef name="ofbiz-javacc">
