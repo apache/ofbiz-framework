@@ -3367,7 +3367,7 @@
     <property key="WebtoolsTotalEntities">
         <value xml:lang="de">Gesamtzahl Entitäten</value>
         <value xml:lang="en">Total Entities</value>
-        <value xml:lang="fr">Entitées totales</value>
+        <value xml:lang="fr">Entitées au total</value>
         <value xml:lang="it">Totale entità</value>
         <value xml:lang="th">ผลรวมของเอนติตี้</value>
         <value xml:lang="zh">全部实体</value>
