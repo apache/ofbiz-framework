@@ -61,18 +61,6 @@ under the License.
   </javac>
  </presetdef>
 
- <presetdef name="javac14">
-  <default-javac compiler="javac1.4" target="1.4" source="1.4" encoding="UTF-8" sourcepathref="src-path"/>
- </presetdef>
-
- <presetdef name="javac15">
-  <default-javac compiler="javac1.5" target="1.5" source="1.5" encoding="UTF-8" sourcepathref="src-path">
-   <!--
-   <compilerarg value="-Xlint:unchecked"/>
-   -->
-  </default-javac>
- </presetdef>
-
  <presetdef name="javac16">
   <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" sourcepathref="src-path">
    <!--
