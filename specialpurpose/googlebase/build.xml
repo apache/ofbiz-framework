@@ -54,7 +54,10 @@ under the License.
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
                  windowtitle="Open for Business - ${desc}">
-            <sourcepath path="${src.dir}"/>
+            <fileset dir="${src.dir}" defaultexcludes="yes">
+                <patternset refid="src.inc.set"/>
+                <patternset refid="src.exc.set"/>
+            </fileset>
         </javadoc>
     </target>
 </project>
