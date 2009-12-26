@@ -45,14 +45,6 @@ under the License.
         <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
     </patternset>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
-        <javac16/>
-    </target>
-
     <target name="install-PG-JDBC" description="download the JDBC driver for PostgreSQL">
         <get src="http://jdbc.postgresql.org/download/postgresql-8.4-701.jdbc4.jar"
             dest="lib/jdbc/postgresql-8.4-701.jdbc4.jar" usetimestamp="true" />

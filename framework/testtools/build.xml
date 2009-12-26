@@ -55,14 +55,6 @@ under the License.
         <property name="selenium.lib.dir" value="${lib.dir}"/>
     </target>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
-        <javac16/>
-    </target>
-
     <target name="run-seleniumxml" depends="init, jar" description="Runs the selenium xml test cases">
         <java classname="org.ofbiz.testtools.seleniumxml.SeleniumXml" fork="true">
             <jvmarg value="-Dselenium.config=config/seleniumXml.properties"/>
