@@ -351,6 +351,22 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyRelationshipName" optional="false"/>
     </service>
+    
+    <service name="createUpdatePartyRelationshipAndRoles" engine="java" default-entity-name="PartyRelationship"
+        location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true">
+        <description>
+            Create or update both parties roles and parties relationship, partyRelationshipTypeId being mandatory.
+            The relationship is considered from one side or another (partyId is checked internally against partyIdFrom)
+            If a type of parties relationship exists PartyIdTo or PartyIdFrom are updated.
+            The history is maintained, allowing to track changes.
+        </description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <override name="partyId" optional="false"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+        
 
     <service name="createPartyRelationshipContactAccount" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRelationshipContactAccount" auth="true">
