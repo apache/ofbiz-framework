@@ -2442,6 +2442,18 @@
         <value xml:lang="zh">创建退货</value>
         <value xml:lang="zh_CN">新建退货</value>
     </property>
+    <property key="OrderCreateReturnAdjustment">
+        <value xml:lang="en">Create ReturnAdjustment with Id:${seqId} successfully.</value>
+        <value xml:lang="it">Creato aggiustamento reso:${seqId} con successo.</value>
+    </property>
+    <property key="OrderCreateReturnAdjustmentNotFoundOrderAdjustment">
+        <value xml:lang="en">orderAdjustment ${orderAdjustmentId} not found</value>
+        <value xml:lang="it">Aggiustamento ordine ${orderAdjustmentId} non trovato</value>
+    </property>
+    <property key="OrderCreateReturnAdjustmentFailed">
+        <value xml:lang="en">Failed to store returnAdjustment</value>
+        <value xml:lang="it">Fallito la creazione degli aggiustamenti reso</value>
+    </property>
     <property key="OrderCreateReturnShipment">
         <value xml:lang="de">Retoure Versand erstellen</value>
         <value xml:lang="en">Create return shipment</value>
@@ -9781,6 +9793,10 @@
         <value xml:lang="th">อัพเดทรายการ</value>
         <value xml:lang="zh">更新明细</value>
         <value xml:lang="zh_CN">更新项目</value>
+    </property>
+    <property key="OrderUpdateReturnAdjustment">
+        <value xml:lang="en">Update ReturnAdjustment with Id:${returnAdjustmentId} to amount ${amount} successfully.</value>
+        <value xml:lang="it">Aggiornato aggiustamento reso:${returnAdjustmentId} per l'importo ${amount} con successo.</value>
     </property>
     <property key="OrderUseDefault">
         <value xml:lang="cs">Upozornění pro uživatele: jiný způsob zaslání není možný</value>
