@@ -49,11 +49,7 @@ under the License.
         <fileset dir="../party/build/lib" includes="*.jar"/>
     </path>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
+    <target name="init">
         <!-- check for applet required classes -->
         <condition property="noapplet" value="ShipmentScaleApplet.java">
             <not>
@@ -64,9 +60,9 @@ under the License.
             </not>
         </condition>
 
-        <javac16>
+        <patternset id="src.exc.set">
             <exclude name="${noapplet}"/>
-        </javac16>
+        </patternset>
     </target>
 
     <!-- ================================================================== -->
