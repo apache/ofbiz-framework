@@ -64,9 +64,9 @@ under the License.
             </not>
         </condition>
 
-        <javac15>
+        <javac16>
             <exclude name="${noapplet}"/>
-        </javac15>
+        </javac16>
     </target>
 
     <!-- ================================================================== -->

@@ -58,7 +58,7 @@ under the License.
     </target>
 
     <target name="classes" depends="prepare,gen-src">
-        <javac15/>
+        <javac16/>
     </target>
 
     <!-- ================================================================== -->

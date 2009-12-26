@@ -56,10 +56,10 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15>
+        <javac16>
             <!-- exclude the payment processor packages; comment if you have libs -->
             <exclude name="org/ofbiz/order/thirdparty/taxware/**"/>
-        </javac15>
+        </javac16>
     </target>
 
     <!-- ================================================================== -->
