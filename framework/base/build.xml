@@ -59,11 +59,11 @@ under the License.
         </condition>
 
         <!-- compile base -->
-    <javac15 destdir="${build.dir}/classes" srcdir="${src.dir}">
+    <javac16 destdir="${build.dir}/classes" srcdir="${src.dir}">
             <exclude name="${exclude.cobertura}"/>
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
-        </javac15>
+        </javac16>
     </target>
 
     <target name="jar" depends="classes">

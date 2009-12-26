@@ -46,7 +46,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15/>
+        <javac16/>
     </target>
 
     <target name="stubs" depends="classes">

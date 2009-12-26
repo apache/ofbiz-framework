@@ -46,7 +46,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path"/>
+        <javac16 classpathref="local.class.path"/>
     </target>
 
     <!-- ================================================================== -->

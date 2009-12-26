@@ -60,7 +60,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15/>
+        <javac16/>
     </target>
 
     <target name="run-seleniumxml" depends="init, jar" description="Runs the selenium xml test cases">
