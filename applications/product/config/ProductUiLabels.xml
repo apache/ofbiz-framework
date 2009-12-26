@@ -404,6 +404,30 @@
         <value xml:lang="en">Shipment Gateway Config Types</value>
         <value xml:lang="it">Tipi configurazione gateway spedizione</value>
     </property>
+    <property key="FacilityShipmentIdCreated">
+        <value xml:lang="en">Created shipment with ID {0} for ship group ID {1} for facility ID {2}</value>
+        <value xml:lang="it">Creata spedizione numero {0} per il gruppo spedizione {1} per lo stabilimento {2}</value>
+    </property>
+    <property key="FacilityShipmentMissingProductStore">
+        <value xml:lang="en">No ProductStore associated with order; cannot use Quick Ship</value>
+        <value xml:lang="it">Nessun negozio associato all'ordine; non √® possibile effetuare la spedizione veloce</value>
+    </property>
+    <property key="FacilityShipmentNotCreated">
+        <value xml:lang="en">Warning: no shipments created; could not find anything ready and needing to be shipped.</value>
+        <value xml:lang="it">Attenzione: nessuna spedizione creata; non √® possibile trovare niente di pronto da spedire.</value>
+    </property>
+    <property key="FacilityShipmentNotCreatedForNotReserveInventory">
+        <value xml:lang="en">ProductStore {0} does not reserve inventory; cannot use Quick Ship for Multiple Facilities</value>
+        <value xml:lang="it">Negozio {0} non riserva inventario; non √® possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
+    </property>
+    <property key="FacilityShipmentNotCreatedForExplodesOrderItems">
+        <value xml:lang="en">ProductStore {0} explodes order items; cannot use Quick Ship for Multiple Facilities</value>
+        <value xml:lang="it">Negozio {0} esplosione righe ordine; non √® possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
+    </property>
+    <property key="FacilityShipmentNoItemsAvailableToShip">
+        <value xml:lang="en">No items available to ship at this time for ship group ID {0}</value>
+        <value xml:lang="it">Nessuna riga disponibile da spedire in questo momento per il gruppo spedizione {0}</value>
+    </property>
     <property key="FacilityShipmentServiceName">
         <value xml:lang="en">Shipment Service Name (deprecated use)</value>
         <value xml:lang="it">Nome servizio spedizione (uso deprecato)</value>
