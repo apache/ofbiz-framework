@@ -47,7 +47,7 @@ under the License.
         <javadoc packagenames="org.ofbiz.catalina.*"
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
-                 Windowtitle="${desc}">
+                 Windowtitle="Open for Business - ${desc}">
             <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
