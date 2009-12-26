@@ -48,15 +48,11 @@ under the License.
         <fileset dir="../order/build/lib" includes="*.jar"/>
     </path>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
-        <javac16>
+    <target name="init">
+        <patternset id="src.exc.set">
             <!-- exclude the Truition; comment if you have libs -->
             <exclude name="org/ofbiz/securityext/thirdparty/truition/**"/>
-        </javac16>
+        </patternset>
     </target>
 
     <!-- ================================================================== -->

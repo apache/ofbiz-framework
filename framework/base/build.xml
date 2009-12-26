@@ -42,11 +42,7 @@ under the License.
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
     </filelist>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                    -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
+    <target name="init">
         <!-- make sure we have crypto packages available -->
         <condition property="exclude.crypto" value="org/ofbiz/base/crypto/**">
             <not>
@@ -58,13 +54,11 @@ under the License.
                 <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="local.class.path"/>
             </not>
         </condition>
-
-        <!-- compile base -->
-    <javac16 destdir="${build.dir}/classes" srcdir="${src.dir}">
+        <patternset id="src.exc.set">
             <exclude name="${exclude.cobertura}"/>
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
-        </javac16>
+        </patternset>
     </target>
 
     <target name="jar" depends="classes">

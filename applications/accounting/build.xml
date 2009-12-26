@@ -51,18 +51,14 @@ under the License.
         <fileset dir="lib" includes="*.jar"/>
     </path>
 
-    <!-- ================================================================== -->
-    <!-- Compilation of the source files                                                                                                                         -->
-    <!-- ================================================================== -->
-
-    <target name="classes" depends="prepare">
-        <javac16>
+    <target name="init">
+        <patternset id="src.exc.set">
             <!-- exclude the payment processor packages; comment this out to not exclude if you have libs -->
             <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
-        </javac16>
+        </patternset>
     </target>
 
     <!-- ================================================================== -->
