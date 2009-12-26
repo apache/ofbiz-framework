@@ -45,15 +45,17 @@ under the License.
     <!-- Makes sure the needed directory structure is in place              -->
     <!-- ================================================================== -->
 
-    <target name="prepare">
+    <target name="prepare" depends="init">
         <mkdir dir="${build.dir}/classes"/>
         <mkdir dir="${build.dir}/lib"/>
         <taskdef name="if" classname="org.ofbiz.tools.ant.IfTask" classpath="${ofbiz.home.dir}/tools/build/classes"/>
     </target>
 
-    <target name="prepare-docs">
+    <target name="prepare-docs" depends="init">
         <mkdir dir="${build.dir}/javadocs"/>
     </target>
+
+    <target name="init"/>
 
     <available property="_src-available" file="${src.dir}"/>
     <fileset id="_src-extra-set" dir="." excludes="**"/>
