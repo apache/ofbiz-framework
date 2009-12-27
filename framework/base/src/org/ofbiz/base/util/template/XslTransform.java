@@ -61,7 +61,6 @@ public final class XslTransform {
     /**
      * @param template the content or url of the xsl template
      * @param data the content or url of the xml data file
-     * @param outWriter The Writer to render to
      * @throws TransformerException
      */
     public static String renderTemplate(String template, String data)

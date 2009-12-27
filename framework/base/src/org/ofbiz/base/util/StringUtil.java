@@ -724,7 +724,7 @@ public class StringUtil {
          * Fairly simple method used for the plus (+) base concatenation in Groovy.
          *
          * @param value
-         * @return
+         * @return the wrapped string, plus the value
          */
         public String plus(Object value) {
             return this.theString + value;

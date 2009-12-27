@@ -84,7 +84,7 @@ public abstract class AbstractAuthorization implements Authorization {
      * @param userId the user's userId
      * @param permissionRegexp permission string containing regexp in the base position    
      * @param expanded  true if the permission string is already expanded, false if it will contain ${} context values
-     * @return
+     * @return a map of allowed or disallowed permissions
      */
     public Map<String, Boolean> findMatchingPermission(String userId, String permissionRegexp, Map<String, ? extends Object> context) {
         Map<String, Boolean> resultMap = FastMap.newInstance();

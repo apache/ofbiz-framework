@@ -126,7 +126,7 @@ public class GenericDelegator implements Delegator {
 
     /** @deprecated Use Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
      * @param delegatorName
-     * @return
+     * @return the configured delegator
      */
     @Deprecated
     public static GenericDelegator getGenericDelegator(String delegatorName) {
