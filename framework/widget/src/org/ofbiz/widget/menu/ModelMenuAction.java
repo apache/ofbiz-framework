@@ -47,8 +47,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 
 import org.w3c.dom.Element;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 
 /**

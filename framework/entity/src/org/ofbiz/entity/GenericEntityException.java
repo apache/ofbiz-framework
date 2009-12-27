@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.GeneralException;
 
 /**
  * GenericEntityException

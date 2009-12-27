@@ -39,8 +39,13 @@ import org.ofbiz.base.util.UtilValidate;
 
 import javolution.util.FastList;
 
-import java.util.*;
-import java.io.*;
+import java.util.List;
+import java.util.Map;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URISyntaxException;

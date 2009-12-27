@@ -18,8 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.entity.eca;
 
-import java.util.*;
-import org.ofbiz.entity.*;
+import java.util.List;
+import java.util.Map;
+
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericEntityException;
 
 /**
  * EntityEcaHandler interface

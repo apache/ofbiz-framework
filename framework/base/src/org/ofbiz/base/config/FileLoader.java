@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.config;
 
-import java.net.*;
-import java.io.*;
-import org.ofbiz.base.util.*;
+import java.net.URL;
+import java.io.InputStream;
+import org.ofbiz.base.util.UtilURL;
 
 /**
  * Loads resources from the file system

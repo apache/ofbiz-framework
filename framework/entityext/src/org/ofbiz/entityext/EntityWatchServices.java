@@ -35,8 +35,7 @@ import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 
-import java.util.*;
-import java.io.*;
+import java.util.Map;
 import java.net.URI;
 import java.net.URL;
 import java.net.URISyntaxException;

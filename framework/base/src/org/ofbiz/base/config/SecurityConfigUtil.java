@@ -18,10 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.config;
 
-import java.util.*;
-import org.w3c.dom.*;
+import java.util.Map;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import javolution.util.FastMap;
-import org.ofbiz.base.util.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
 
 /**
  * <code>SecurityConfigUtil</code>

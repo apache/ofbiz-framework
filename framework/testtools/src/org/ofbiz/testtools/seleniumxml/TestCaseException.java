@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.testtools.seleniumxml;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.GeneralException;
 
 /**
  * GenericConfigException

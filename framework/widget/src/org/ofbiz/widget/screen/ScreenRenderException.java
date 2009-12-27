@@ -19,7 +19,7 @@
 
 package org.ofbiz.widget.screen;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.GeneralException;
 
 /**
  * Wraps any exceptions encountered during the rendering of
