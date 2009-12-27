@@ -39,7 +39,7 @@ public class RMIExtendedSocketFactory extends RMISocketFactory {
      * Creates a new <code>RMIExtendedSocketFactory</code> which will create <code>ServerSocket</code>s 
      * bound on the specified network interface. 
      * 
-     * @param host The IP address of the interface to bind the server sockets to.
+     * @param hostIpAddress The IP address of the interface to bind the server sockets to.
      * @throws UnknownHostException If an invalid IP address is provided. 
      */
     public RMIExtendedSocketFactory( String hostIpAddress ) throws UnknownHostException {

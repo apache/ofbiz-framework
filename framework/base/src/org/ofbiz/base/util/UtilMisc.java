@@ -236,7 +236,6 @@ public class UtilMisc {
      *
      * @param <V>
      * @param map
-     * @return
      */
     public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
