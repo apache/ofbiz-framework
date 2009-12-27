@@ -18,11 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
-import java.util.*;
-import org.w3c.dom.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import org.ofbiz.entity.jdbc.*;
-import org.ofbiz.base.util.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import org.ofbiz.entity.jdbc.DatabaseUtil;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 
 /**
  * Generic Entity - Field model class

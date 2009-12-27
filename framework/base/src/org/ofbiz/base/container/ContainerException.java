@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.container;
 
-import org.ofbiz.base.config.*;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * ContainerException

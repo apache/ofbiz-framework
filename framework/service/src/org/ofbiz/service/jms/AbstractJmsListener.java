@@ -29,7 +29,11 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.serialize.XmlSerializer;
-import org.ofbiz.service.*;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceDispatcher;
 
 /**
  * AbstractJmsListener

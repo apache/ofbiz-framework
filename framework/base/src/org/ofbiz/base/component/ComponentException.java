@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.component;
 
-import org.ofbiz.base.config.*;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * ComponentException

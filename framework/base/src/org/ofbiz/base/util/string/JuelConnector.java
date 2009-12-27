@@ -23,14 +23,27 @@ import static de.odysseus.el.tree.impl.Scanner.Symbol.FLOAT;
 import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DEFERRED;
 import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DYNAMIC;
 
-import javax.el.*;
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.ExpressionFactory;
+import javax.el.PropertyNotFoundException;
 
+import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.misc.LocalMessages;
-import de.odysseus.el.tree.*;
-import de.odysseus.el.tree.impl.ast.*;
-import de.odysseus.el.tree.impl.*;
-import de.odysseus.el.tree.impl.Parser.*;
-import de.odysseus.el.tree.impl.Scanner.*;
+import de.odysseus.el.tree.Bindings;
+import de.odysseus.el.tree.Tree;
+import de.odysseus.el.tree.TreeStore;
+import de.odysseus.el.tree.impl.Builder;
+import de.odysseus.el.tree.impl.Cache;
+import de.odysseus.el.tree.impl.Parser;
+import de.odysseus.el.tree.impl.Parser.ParseException;
+import de.odysseus.el.tree.impl.Scanner.ScanException;
+import de.odysseus.el.tree.impl.Scanner.Symbol;
+import de.odysseus.el.tree.impl.ast.AstBracket;
+import de.odysseus.el.tree.impl.ast.AstDot;
+import de.odysseus.el.tree.impl.ast.AstEval;
+import de.odysseus.el.tree.impl.ast.AstIdentifier;
+import de.odysseus.el.tree.impl.ast.AstNode;
 
 import org.ofbiz.base.util.Debug;
 
@@ -47,7 +60,7 @@ public class JuelConnector {
      * @return A customized <code>ExpressionFactory</code> instance
      */
     public static ExpressionFactory newExpressionFactory() {
-        return new de.odysseus.el.ExpressionFactoryImpl(new TreeStore(new ExtendedBuilder(), new Cache(1000)));
+        return new ExpressionFactoryImpl(new TreeStore(new ExtendedBuilder(), new Cache(1000)));
     }
 
     /** Custom <code>AstBracket</code> class that implements

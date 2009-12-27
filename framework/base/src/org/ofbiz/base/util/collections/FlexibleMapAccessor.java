@@ -21,7 +21,7 @@ package org.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
-import javax.el.*;
+import javax.el.PropertyNotFoundException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;

@@ -27,7 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.UtilHttp;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -148,7 +151,7 @@ public class Captcha {
         try {
             String FILE_PATH = File.separator + "runtime" + File.separator + "tempfiles" + File.separator + "captcha" + File.separator;
             String URL_FILE_PATH = "/tempfiles/captcha/";
-            CAPTCHA_FILE_PATH = new java.io.File(".").getCanonicalPath();
+            CAPTCHA_FILE_PATH = new File(".").getCanonicalPath();
             CAPTCHA_FILE_PATH += FILE_PATH;
             File test = new File(CAPTCHA_FILE_PATH);
             if (!test.exists()) {

@@ -18,7 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.webapp.view;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
 
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -28,10 +31,14 @@ import org.apache.fop.apps.FOPException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 
-import javax.xml.transform.*;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.Result;
 
 /**
  * FopRenderer
