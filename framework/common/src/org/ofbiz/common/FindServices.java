@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -26,7 +29,6 @@ import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -34,31 +36,28 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
-import static org.ofbiz.base.util.UtilGenerics.checkList;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityFunction;
-import org.ofbiz.entity.condition.EntityFieldValue;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * FindServices Class
@@ -424,7 +423,7 @@ public class FindServices {
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
         String distinct = (String) context.get("distinct");
-        List fieldList =  (List) context.get("fieldList");
+        List<String> fieldList =  UtilGenerics.<String>checkList(context.get("fieldList"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
