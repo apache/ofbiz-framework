@@ -22,10 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonMrpDecorator">
         <section>
-            <actions>
-                <!-- <set field="leftbarScreenName" value="leftbar"/> -->
-                <!-- <set field="leftbarScreenLocation" value=""/> -->
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
