@@ -237,7 +237,7 @@ under the License.
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
         <mkdir dir="${site.dir}/javadocs"/>
-        <javadoc packagenames="org.ofbiz.*"
+        <default-javadoc packagenames="org.ofbiz.*"
                 destdir="${site.dir}/javadocs"
                 maxmemory="256M"
                 windowtitle="Open for Business - API"
@@ -248,7 +248,7 @@ under the License.
                 <exclude name="**/ShipmentScaleApplet.java"/>
                 <exclude name="**/test/"/>
             </fileset>
-        </javadoc>
+        </default-javadoc>
 
         <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
