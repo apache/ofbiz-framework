@@ -97,14 +97,12 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs">
-        <javadoc classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - ${desc}">
+        <default-javadoc>
             <fileset dir="${src.dir}">
                 <patternset refid="src.inc.set"/>
                 <patternset refid="src.exc.set"/>
             </fileset>
-        </javadoc>
+        </default-javadoc>
     </target>
 
     <target name="tests" depends="jar">

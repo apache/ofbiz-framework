@@ -69,6 +69,12 @@ under the License.
   </default-javac>
  </presetdef>
 
+ <presetdef name="default-javadoc">
+  <javadoc classpathref="local.class.path"
+           destdir="${build.dir}/javadocs"
+           Windowtitle="Open for Business - ${desc}"/>
+ </presetdef>
+
  <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <macrodef name="ofbiz-javacc">

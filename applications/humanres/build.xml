@@ -56,15 +56,12 @@ under the License.
     <target name="docs" depends="prepare-docs">
         <!-- Commented out since there are no java files in this package at this time -->
         <!--
-        <javadoc packagenames="org.ofbiz.humanres.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - ${desc}">
+        <default-javadoc>
             <fileset dir="${src.dir}" defaultexcludes="yes">
                 <patternset refid="src.inc.set"/>
                 <patternset refid="src.exc.set"/>
             </fileset>
-        </javadoc>
+        </default-javadoc>
         -->
     </target>
 </project>

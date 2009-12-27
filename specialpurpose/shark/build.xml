@@ -64,15 +64,12 @@ under the License.
 
     <target name="docs" depends="prepare-docs">
         <!-- commented out to be synchronized with the build wich is not done by default
-        <javadoc packagenames="org.ofbiz.shark.*"
-                 classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs"
-                 Windowtitle="Open for Business - ${desc}">
+        <default-javadoc>
             <fileset dir="${src.dir}" defaultexcludes="yes">
                 <patternset refid="src.inc.set"/>
                 <patternset refid="src.exc.set"/>
             </fileset>
-        </javadoc>
+        </default-javadoc>
         -->
     </target>
 
