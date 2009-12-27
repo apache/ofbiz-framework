@@ -23,11 +23,8 @@ under the License.
     <screen name="CommonRoutingDecorator">
         <section>
             <actions>
-                <!-- <set field="leftbarScreenName" value="leftbar"/> -->
-                <!-- <set field="leftbarScreenLocation" value=""/> -->
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routing"/>
-
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

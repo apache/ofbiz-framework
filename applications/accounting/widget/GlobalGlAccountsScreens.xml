@@ -25,7 +25,6 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="chartofaccounts"/>
-                <!--set field="leftbarScreenName" value="leftbar"/ -->
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
