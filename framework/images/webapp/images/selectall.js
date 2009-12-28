@@ -334,9 +334,14 @@ function ajaxAutoCompleter(areaCsvString) {
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
 	    var optionsDivId = areaArray[i] + "_autoCompleterOptions";
+	    var indicatorId = areaArray[i] + "_indicator";
 	    $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
-        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2]});
+        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2], indicator: indicatorId, afterUpdateElement : getSelectionId});
     }
+}
+
+function getSelectionId(text, li) {
+	text.value = li.id;
 }
 
 /** Enable auto-completion for drop-down elements.
