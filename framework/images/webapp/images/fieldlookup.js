@@ -63,7 +63,7 @@ function fieldLookup1(obj_target, args) {
 	if (!obj_target)
 		return lookup_error("Error calling the field lookup: no target control specified");
 	if (obj_target.value == null)
-		return cal_error("Error calling the field lookup: parameter specified is not valid tardet control");
+		return cal_error("Error calling the field lookup: parameter specified is not valid target control");
     //this.target = obj_target;
     target = obj_target;
 
@@ -79,13 +79,13 @@ function fieldLookup2(obj_target, obj_target2) {
     if (!obj_target)
         return lookup_error("Error calling the field lookup: no target control specified");
     if (obj_target.value == null)
-        return cal_error("Error calling the field lookup: parameter specified is not valid tardet control");
+        return cal_error("Error calling the field lookup: parameter specified is not valid target control");
     target = obj_target;
     // validate input parameters
     if (!obj_target2)
         return lookup_error("Error calling the field lookup: no target control specified");
     if (obj_target2.value == null)
-        return cal_error("Error calling the field lookup: parameter specified is not valid tardet control");
+        return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
     target2 = obj_target2;
 
 
