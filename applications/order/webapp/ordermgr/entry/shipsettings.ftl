@@ -24,9 +24,14 @@ under the License.
 <#if facilityMaps?exists>
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="ship"/>
+            <#if (cart.getShipGroupSize() > 1)>
+            <input type="hidden" name="finalizeReqShipGroups" value="true"/>
+            </#if>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class="boxboutside">
         <tr>
           <td>
+          <a href="<@ofbizUrl>setShipping?createNewShipGroup=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew} ${uiLabelMap.OrderShipGroup}</a>
+          
 
 <#list 1..cart.getShipGroupSize() as currIndex>
 <#assign shipGroupIndex = currIndex - 1>
