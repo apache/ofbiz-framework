@@ -207,6 +207,8 @@ public class EmailServices {
             if (useSmtpAuth) {
                 props.put("mail.smtp.auth", "true");
             }
+            boolean sendPartial = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.smtp.sendpartial", "true");
+            props.put("mail.smtp.sendpartial", sendPartial ? "true" : "false");
 
             session = Session.getInstance(props);
             boolean debug = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y");
