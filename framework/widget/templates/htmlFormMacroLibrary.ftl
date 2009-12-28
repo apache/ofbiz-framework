@@ -420,7 +420,9 @@ ${item.description}</div>
   ,document.${formName}.${item}.value<#rt>
  </#list>
 </#if>
-);"></a></li><#rt>
+);">
+<#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img /></span></#if>
+</a></li><#rt>
 </ul></div>
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script><#t/>

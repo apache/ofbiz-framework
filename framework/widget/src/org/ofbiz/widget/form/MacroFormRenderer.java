@@ -1844,7 +1844,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderLookupField(Appendable writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
-
+        String lookupFieldFormName = lookupField.getFormName(context);
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -1864,6 +1864,20 @@ public class MacroFormRenderer implements FormStringRenderer {
         String id = modelFormField.getIdName();
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
+        
+        //add default ajax auto completer to all lookup fields
+        if (UtilValidate.isEmpty(updateAreas) && UtilValidate.isNotEmpty(lookupFieldFormName)) {
+            String autoCompleterTarget = null;
+            if (lookupFieldFormName.indexOf('?') == -1) {
+                autoCompleterTarget = lookupFieldFormName + "?";
+            } else {
+                autoCompleterTarget = lookupFieldFormName + "&amp;";
+            }
+            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
+            updateAreas = FastList.newInstance();
+            updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
+        }
+        
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
         String autocomplete = "";
         if (!lookupField.getClientAutocompleteField() || ajaxEnabled) {
@@ -1894,7 +1908,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (ajaxEnabled) {
             ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
         }
-        String lookupFieldFormName = lookupField.getFormName(context);
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");

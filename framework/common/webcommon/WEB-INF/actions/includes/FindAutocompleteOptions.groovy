@@ -17,25 +17,41 @@
  * under the License.
  */
 
-import java.util.TreeSet;
-import javolution.util.FastList;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilValidate;
 
-andExprs = FastList.newInstance();
-fieldValue = parameters[fieldName];
-if (fieldValue) {
-    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)),
-            EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
+andExprs = [];
+entityName = context.entityName;
+searchFields = context.searchFields;
+displayFields = context.displayFields ?: searchFields;
+searchValueFieldName = parameters.searchValueField;
+fieldValue = parameters.get(searchValueFieldName);
+ 
+if (searchFields && fieldValue) {
+    searchFieldsList = StringUtil.toList(searchFields);
+    displayFieldsSet = StringUtil.toSet(displayFields);
+    returnField = context.returnField ?: searchFieldsList[0]; //default to first element of searchFields
+    displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
+    context.returnField = returnField;
+    context.displayFieldsSet = displayFieldsSet;
+    searchFieldsList.each { fieldName -> 
+        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
+    }
 }
 
-if (andExprs) {
-    entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-    autocompleteOptions = delegator.findList(entityName, entityConditionList, StringUtil.toList(selectFields) as Set, StringUtil.toList(sortByFields), null, false);
-    context.autocompleteOptions = autocompleteOptions;
+if (andExprs && entityName && displayFieldsSet) {
+    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);    
+    entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.OR);
+    EntityFindOptions findOptions = new EntityFindOptions();
+    findOptions.setMaxRows(autocompleterViewSize);
+    autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false);
+    if (autocompleteOptions) {
+        context.autocompleteOptions = autocompleteOptions;
+    }
 }

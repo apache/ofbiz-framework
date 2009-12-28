@@ -265,6 +265,13 @@ Autocompleter.Base = Class.create({
   },
 
   updateChoices: function(choices) {
+    var elem = new Element('div').insert(choices);
+    var elemType = elem.firstDescendant().tagName;
+    if('UL' != elemType) {
+	    this.stopIndicator();
+	    this.index = 0;
+	    return;
+	}
     if(!this.changed && this.hasFocus) {
       this.update.innerHTML = choices;
       Element.cleanWhitespace(this.update);

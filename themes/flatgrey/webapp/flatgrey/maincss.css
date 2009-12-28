@@ -1268,7 +1268,44 @@ width: 25%;
 .login-screenlet .screenlet-title-bar {
 text-align: center;
 }
+/***********************************************
+ajax auto complete
+***********************************************/
+div.autocomplete {
+  position:absolute;
+  width:auto !important;
+/* min-width:154px; */
+  background-color:#f8f8f8;
+  border:1px solid #999999;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+div.autocomplete ul li.selected {
+ background-color: #ffb;
+}
+div.autocomplete ul li {
+  list-style-type:none;
+  display:block;
+  float: none;
+  margin:0;
+  padding:2px;
+  /*height:32px;*/
+  cursor:pointer;
+}
 
+.indicator img {
+  background: url(/images/ajax-loader.gif) no-repeat 0 0;
+  display: block;  
+  margin:3px 10px 0px 24px;
+  width:16px;
+  height:16px;
+  border: none;
+}
 /* ======================================================= */
 /* ===== Basic Navigation (Vertical Menu) Style ========== */
 /* ======================================================= */
