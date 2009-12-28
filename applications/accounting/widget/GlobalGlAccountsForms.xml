@@ -65,7 +65,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" paginate="${paginate}"
+    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="GlAccount"/>

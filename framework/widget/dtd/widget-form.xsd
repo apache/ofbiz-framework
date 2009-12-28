@@ -111,7 +111,7 @@ under the License.
         <xs:attribute type="xs:string" name="default-sort-field-desc-style">
             <xs:annotation><xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order-desc".</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="paginate">
+        <xs:attribute type="xs:string" name="paginate" default="${paginate}">
             <xs:annotation><xs:documentation>Indicate if this form is paginated or not, true by default.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-target">
