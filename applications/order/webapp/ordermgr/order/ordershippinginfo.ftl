@@ -604,7 +604,6 @@ under the License.
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                <#if facilities?has_content>
                    <div>
-                    <a href="javascript:document.createShipment2_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
                     <form name="createShipment2_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                        <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                        <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
