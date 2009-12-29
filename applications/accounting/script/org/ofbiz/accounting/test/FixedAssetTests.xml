@@ -150,4 +150,27 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreateFixedAssetGeoPoint" short-description="Test case for service createFixedAssetGeoPoint" login-required="false">
+        <set field="geoPointId" value="9000"/>
+        <set field="fixedAssetId" value="DEMO_VEHICLE_01"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.geoPointId" from-field="geoPointId"/>
+        <set field="serviceCtx.fixedAssetId" from-field="fixedAssetId"/>
+        <call-service service-name="createFixedAssetGeoPoint" in-map-name="serviceCtx"/>
+        <entity-and entity-name="FixedAssetGeoPoint" list="fixedAssetGeoPoints" filter-by-date="true">
+            <field-map field-name="geoPointId"/>
+            <field-map field-name="fixedAssetId"/>
+        </entity-and>
+        <first-from-list list="fixedAssetGeoPoints" entry="fixedAssetGeoPoint"/>
+        <assert>
+            <not><if-empty field="fixedAssetGeoPoint"/></not>
+            <if-compare-field field="fixedAssetGeoPoint.geoPointId" operator="equals" to-field="geoPointId"/>
+            <if-compare-field field="fixedAssetGeoPoint.fixedAssetId" operator="equals" to-field="fixedAssetId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
