@@ -10557,6 +10557,7 @@
     </property>
     <property key="PartyUserNameInUse">
         <value xml:lang="en">Username in use, please choose another.</value>
+        <value xml:lang="fr">Identifiant de connexion déjà utilisé, choisissez en un autre SVP.</value>
         <value xml:lang="it">Nome utente è già in uso, perfavore scegliere un'altro.</value>
     </property>
     <property key="PartyUserNameMissing">

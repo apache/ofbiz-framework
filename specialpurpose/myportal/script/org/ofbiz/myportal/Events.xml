@@ -64,7 +64,7 @@ under the License.
                     </call-service>
                     <set-current-user-login value-field="createdUserLogin"/>
                     <else>
-                        <set field="errorMessage" value="Username in use, please choose another."/>
+                        <set field="errorMessage" value="${uiLabelMap.PartyUserNameInUse}"/>
                         <field-to-list field="errorMessage" list="error_list"/>
                         <check-errors error-list-name="error_list" error-code="resultPage"/>
                     </else>
