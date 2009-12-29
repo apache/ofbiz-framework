@@ -977,7 +977,7 @@ under the License.
                     <field-map field-name="userLoginId" value="${userLoginMap.userLoginId}"/>
                 </entity-one>
                 <if-not-empty field="existingUserLogin">
-                    <add-error error-list-name="error_list"><fail-message message="Username in use, please choose another."/></add-error>
+                    <add-error error-list-name="error_list"><fail-property resource="PartyUiLabels" property="PartyUserNameInUse"/></add-error>
                 </if-not-empty>
             </if-not-empty>
             <make-value entity-name="UserLogin" value-field="newUserLogin"/>
