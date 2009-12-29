@@ -246,7 +246,7 @@ public class XmlSerializer {
     }
 
     public static Object deserializeSingle(Element element, Delegator delegator) throws SerializeException {
-        String tagName = element.getTagName();
+        String tagName = element.getLocalName();
 
         if (tagName.equals("null")) return null;
 
@@ -358,11 +358,12 @@ public class XmlSerializer {
                     if (curChild.getNodeType() == Node.ELEMENT_NODE) {
                         Element curElement = (Element) curChild;
 
-                        if ("map-Entry".equals(curElement.getTagName())) {
+                        if ("map-Entry".equals(curElement.getLocalName())) {
+
                             Element mapKeyElement = UtilXml.firstChildElement(curElement, "map-Key");
                             Element keyElement = null;
                             Node tempNode = mapKeyElement.getFirstChild();
-
+                            
                             while (tempNode != null) {
                                 if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
                                     keyElement = (Element) tempNode;
@@ -402,7 +403,7 @@ public class XmlSerializer {
     }
 
     public static Object deserializeCustom(Element element) throws SerializeException {
-        String tagName = element.getTagName();
+        String tagName = element.getLocalName();
         if ("cus-obj".equals(tagName)) {
             String value = UtilXml.elementValue(element);
             if (value != null) {
@@ -414,9 +415,9 @@ public class XmlSerializer {
                     }
                 }
             }
-            throw new SerializeException("Problem deserializing object from byte array + " + element.getTagName());
+            throw new SerializeException("Problem deserializing object from byte array + " + element.getLocalName());
         } else {
-            throw new SerializeException("Cannot deserialize element named " + element.getTagName());
+            throw new SerializeException("Cannot deserialize element named " + element.getLocalName());
         }
     }
 

@@ -726,7 +726,7 @@ public class UtilXml {
 
         if (node != null) {
             do {
-                if (node.getNodeType() == Node.ELEMENT_NODE && childElementNames.contains(node.getNodeName())) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && childElementNames.contains(node.getLocalName())) {
                     Element childElement = (Element) node;
 
                     return childElement;
@@ -772,7 +772,7 @@ public class UtilXml {
         if (node != null) {
             do {
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getNodeName()))) {
+                        childElementName.equals(node.getLocalName()))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
