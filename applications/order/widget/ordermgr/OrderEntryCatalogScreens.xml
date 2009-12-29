@@ -135,9 +135,6 @@ under the License.
     <screen name="product">
         <section>
             <actions>
-<!--                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="rightbarScreenName" value="rightbar"/>
-                <set field="MainColumnStyle" value="center"/>-->
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/popup.css" global="true"/>
@@ -230,9 +227,6 @@ under the License.
     <screen name="advancedsearch">
         <section>
             <actions>
-                <!--<set field="leftbarScreenName" value="leftbar"/>
-                <set field="MainColumnStyle" value="center"/>-->
-
                 <set field="title-property" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/AdvancedSearchOptions.groovy"/>
@@ -256,8 +250,6 @@ under the License.
     <screen name="quickadd">
         <section>
             <actions>
-                <!--<set field="leftbarScreenName" value="leftbar"/>
-                <set field="MainColumnStyle" value="center"/>-->
                 <set field="title-property" value="PageTitleQuickAdd"/>
                 <set field="quickaddsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickaddsummary"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/QuickAdd.groovy"/>
