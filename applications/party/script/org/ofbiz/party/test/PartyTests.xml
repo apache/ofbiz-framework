@@ -85,15 +85,10 @@ under the License.
         -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <call-class-method method-name="findPartyLatestContactMech" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyAndContactMech">
-            <field field="partyId" type="java.lang.String"/>
-            <field field="contactMechTypeId" type="java.lang.String"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
         <!-- first try with just updating without changing the email address -->
         <set field="serviceCtx.partyId" from-field="partyId"/>
-        <set field="serviceCtx.emailAddress" from-field="partyAndContactMech.infoString"/>
-        <set field="serviceCtx.contactMechId" from-field="partyAndContactMech.contactMechId"/>
+        <set field="serviceCtx.emailAddress" value="ofbiztest@yahoo.com"/>
+        <set field="serviceCtx.contactMechId" value="9026"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -143,13 +138,11 @@ under the License.
              1. If telecom number is changed then a new record is created in ContactMech and TelecomNumber entity else no change.
         -->
         <set field="partyId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestTelecomNumber" class-name="org.ofbiz.party.party.PartyWorker" ret-field="telecomNumber">
-            <field field="partyId" type="java.lang.String"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <!-- first try with just updating without changing the telecom number -->
-        <set-service-fields service-name="updatePartyTelecomNumber" map="telecomNumber" to-map="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
+        <set field="serviceCtx.contactMechId" value="9025"/>
+        <set field="serviceCtx.countryCode" value="1"/>
+        <set field="serviceCtx.areaCode" value="801"/>
+        <set field="serviceCtx.contactNumber" value="555-5555"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -178,7 +171,7 @@ under the License.
         <clear-field field="telecomNumber"/>
 
         <!-- try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time -->
-        <set field="serviceCtx.contactNumber" value="555-5555"/>
+        <set field="serviceCtx.contactNumber" value="555-6666"/>
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
            <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
