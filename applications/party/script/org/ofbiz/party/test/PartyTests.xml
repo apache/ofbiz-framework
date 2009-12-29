@@ -463,4 +463,48 @@ under the License.
         <call-service service-name="updateCustRequest" in-map-name="updateRequestMap"/>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreatePartyTelecomNumber" short-description="Test createPartyTelecomNumber service"  login-required="false">
+        <set field="partyId" value="DemoCustomer"/>
+        <set field="serviceCtx.partyId" from-field="partyId"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+        <set field="serviceCtx.countryCode" value="1"/>
+        <set field="serviceCtx.areaCode" value="801"/>
+        <set field="serviceCtx.contactNumber" value="888-8888"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyTelecomNumber" in-map-name="serviceCtx">
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <assert><not><if-empty field="contactMechId"/></not></assert>
+
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
+        <assert><not><if-empty field="contactMech"/></not></assert>
+
+        <entity-one entity-name="TelecomNumber" value-field="telecomNumber"/>
+        <assert>
+            <not><if-empty field="telecomNumber"/></not>
+            <if-compare field="telecomNumber.countryCode" operator="equals" value="1"/>
+            <if-compare field="telecomNumber.areaCode" operator="equals" value="801"/>
+            <if-compare field="telecomNumber.contactNumber" operator="equals" value="888-8888"/>
+        </assert>
+
+        <entity-and entity-name="PartyContactMech" list="pcmList" filter-by-date="true">
+            <field-map field-name="partyId"/>
+            <field-map field-name="contactMechId"/>
+        </entity-and>
+        <assert><not><if-empty field="pcmList"/></not></assert>
+
+        <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
+            <field-map field-name="partyId"/>
+            <field-map field-name="contactMechId"/>
+        </entity-and>
+        <assert><not><if-empty field="pcmpList"/></not></assert>
+
+        <first-from-list list="pcmpList" entry="pcmp"/>
+        <assert><if-compare field="pcmp.contactMechPurposeTypeId" operator="equals" value="PRIMARY_PHONE"/></assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
