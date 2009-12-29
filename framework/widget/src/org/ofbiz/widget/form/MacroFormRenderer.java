@@ -365,7 +365,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
-
+        boolean disabled = textField.disabled;
+        
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextField ");
         sr.append("name=\"");
@@ -390,7 +391,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (action != null) {
             sr.append(action);
         }
-        sr.append("\" clientAutocomplete=\"");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        
+        sr.append(" clientAutocomplete=\"");
         sr.append(clientAutocomplete);
         sr.append("\" ajaxUrl=\"");
         sr.append(ajaxUrl);
@@ -1099,12 +1103,26 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderHiddenField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
         String name = modelFormField.getParameterName(context);
+        String action = modelFormField.getAction(context);
+        String event = modelFormField.getEvent();
+        String id = modelFormField.getIdName();
+        
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
         sr.append(" name=\"");
         sr.append(name);
         sr.append("\" value=\"");
         sr.append(value);
+        sr.append("\" id=\"");
+        sr.append(id);
+        sr.append("\" event=\"");
+        if (event != null) {
+            sr.append(event);
+        }
+        sr.append("\" action=\"");
+        if (action != null) {
+            sr.append(action);
+        }
         sr.append("\" />");
         executeMacro(sr.toString());
     }
@@ -1883,7 +1901,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (!lookupField.getClientAutocompleteField() || ajaxEnabled) {
             autocomplete = "off";
         }
-
+        
+        String event = modelFormField.getEvent();
+        String action = modelFormField.getAction(context);       
+        boolean disabled = lookupField.disabled;
+        
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         String formName = modelFormField.getModelForm().getCurrentFormName(context);
@@ -1925,7 +1947,18 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append((maxlength != null? Integer.toString(maxlength): ""));
         sr.append("\" id=\"");
         sr.append(id);
-        sr.append("\" autocomplete=\"");
+        sr.append("\" event=\"");
+        if (event != null) {
+            sr.append(event);
+        }
+        sr.append("\" action=\"");
+        if (action != null) {
+            sr.append(action);
+        }
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        
+        sr.append(" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" descriptionFieldName=\"");
         sr.append(descriptionFieldName);

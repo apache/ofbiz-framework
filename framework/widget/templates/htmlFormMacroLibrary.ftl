@@ -43,12 +43,13 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action clientAutocomplete ajaxUrl ajaxEnabled>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled>
     <input type="text" name="${name?default("")?html}"<#t/>
     <@renderClass className alert />
     <#if value?has_content> value="${value}"</#if><#rt/>
     <#if textSize?has_content> size="${textSize}"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
+    <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>    
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
@@ -183,8 +184,8 @@ ${item.description}</div>
     <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
 </#macro>
 
-<#macro renderHiddenField name value>
-    <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if>/>
+<#macro renderHiddenField name value id event action>
+    <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if><#if id?has_content> id="${id}"</#if><#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
 </#macro>
 
 <#macro renderIgnoredField></#macro>
@@ -407,9 +408,9 @@ ${item.description}</div>
 </#if>
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength id autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled>
+<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled>
 <div class="field-lookup"><ul>
-<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></li>
+<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></li>
 <li><#if descriptionFieldName?has_content>
  <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html}, document.${formName?html}.${descriptionFieldName},<#rt/>
  <#else>

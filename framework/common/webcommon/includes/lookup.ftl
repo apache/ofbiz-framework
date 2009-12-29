@@ -89,6 +89,9 @@ under the License.
                 if (!obj_caller) return;
                 setSourceColor(obj_caller.target);
                 obj_caller.target.value = value;
+                if (obj_caller.target.onchange != null) {
+                    obj_caller.target.onchange();                       
+                }
                 window.close();
         }
         // function passing selected value to calling window
@@ -98,6 +101,9 @@ under the License.
                 if (obj_caller.target2 == null) return;
                 setSourceColor(obj_caller.target2);
                 obj_caller.target2.value = value2;
+                if (obj_caller.target2.onchange != null) {
+                    obj_caller.target2.onchange();
+                }
         }
         function set_multivalues(value) {
             obj_caller.target.value = value;
