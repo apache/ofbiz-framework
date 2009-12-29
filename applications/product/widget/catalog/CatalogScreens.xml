@@ -24,8 +24,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCatalog"/>
 
@@ -50,8 +48,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogCategories"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCategories"/>
 
@@ -89,8 +85,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogParties"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="PartyParties"/>
 
@@ -124,8 +118,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogStores"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductStores"/>
 
@@ -159,8 +151,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindProductCatalog"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
 
                 <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
                     <order-by field-name="catalogName"/>

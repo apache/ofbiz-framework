@@ -60,26 +60,27 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
-                        <container style="no-clear">
-                            <section>
-                                <actions>
-                                    <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                                    <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
-                                        <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-                                        <order-by field-name="columnSeqId"/>
-                                    </entity-and>
-                                    <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
-                                        <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                        <order-by field-name="columnSeqId"/>
-                                        <order-by field-name="sequenceNum"/>
-                                    </entity-and>
-                                </actions>
-                                <widgets>
-                                    <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
-                                </widgets>
-                            </section>
-                        </container>
+                        <section>
+                            <actions>
+                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                </entity-and>
+                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                    <order-by field-name="columnSeqId"/>
+                                    <order-by field-name="sequenceNum"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -90,14 +91,12 @@ under the License.
         <section>
             <condition><not><if-empty field="userLogin"/></not></condition>
             <widgets>
-                <container style="left-larger">
-                    <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
-                        <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                    </screenlet>
-                    <screenlet id= "SfaQuickAddLeadPanel" title="${uiLabelMap.SfaQuickAddLead}" collapsible="true">
-                        <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                    </screenlet>
-                </container>
+                <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
+                    <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                </screenlet>
+                <screenlet id= "SfaQuickAddLeadPanel" title="${uiLabelMap.SfaQuickAddLead}" collapsible="true">
+                    <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -113,6 +112,9 @@ under the License.
                     <decorator-section name="pre-body">
                         <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                     </decorator-section>
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
                     </decorator-section>
@@ -197,9 +199,7 @@ under the License.
                                         <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName} [${partyId}]"/>
                                     </widgets>
                                 </section>
-                                <container style="no-clear">
-                                    <decorator-section-include name="body"/>
-                                </container>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -389,13 +389,9 @@ under the License.
                         <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <include-menu name="OpportunitySubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                                <container style="screenlet-body">
-                                    <container style="no-clear">
-                                        <screenlet title="${uiLabelMap.PageTitleListCommunications}">
-                                            <decorator-section-include name="body"/>
-                                        </screenlet>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleListCommunications}">
+                                    <decorator-section-include name="body"/>
+                                </screenlet>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -404,6 +400,9 @@ under the License.
                             <decorator-section name="pre-body">
                                 <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                             </decorator-section>
+                            <decorator-section name="left-column">
+                                <include-screen name="leftbar"/>
+                            </decorator-section>                    
                             <decorator-section name="body">
                                 <include-menu name="OpportunitySubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <decorator-section-include name="body"/>
@@ -421,11 +420,12 @@ under the License.
                     <decorator-section name="pre-body">
                         <include-menu name="AccountTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                     </decorator-section>
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                        <container style="no-clear">
-                            <decorator-section-include name="body"/>
-                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -438,11 +438,12 @@ under the License.
                     <decorator-section name="pre-body">
                         <include-menu name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                     </decorator-section>
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                        <container style="no-clear">
-                            <decorator-section-include name="body"/>
-                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -465,9 +466,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                        <container style="no-clear">
-                            <decorator-section-include name="body"/>
-                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -483,11 +482,12 @@ under the License.
                     <decorator-section name="pre-body">
                         <include-menu name="EventTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                     </decorator-section>
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <include-menu name="EventSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                        <container style="no-clear">
-                            <decorator-section-include name="body"/>
-                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
