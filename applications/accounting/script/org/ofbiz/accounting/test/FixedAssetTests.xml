@@ -61,6 +61,7 @@ under the License.
 
         <entity-one entity-name="FixedAssetRegistration" value-field="fixedAssetRegistration"/>
         <assert>
+            <not><if-empty field="fixedAssetRegistration"/></not>
             <if-compare-field field="fixedAssetRegistration.thruDate" operator="equals" to-field="thruDate"/>
             <if-compare-field field="fixedAssetRegistration.registrationDate" operator="equals" to-field="registrationDate"/>
         </assert>
