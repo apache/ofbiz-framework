@@ -48,7 +48,19 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
-                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+                <decorator-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container id="column-container">
+                            <container id="content-main-section">
+                                <decorator-section-include name="body"/>
+                            </container>
+                            <container style="clear"></container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>                
             </widgets>
         </section>
     </screen>

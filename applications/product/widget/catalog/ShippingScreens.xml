@@ -29,10 +29,6 @@ under the License.
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListQuantityBreaks"/>
 
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
-
                 <entity-condition entity-name="QuantityBreak" list="quantityBreaks">
                     <order-by field-name="quantityBreakId"/>
                 </entity-condition>
@@ -58,10 +54,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListShipmentMethodTypes"/>
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListShipmentMethodTypes"/>
-
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
 
                 <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypes">
                     <order-by field-name="sequenceNum"/>
@@ -90,10 +82,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCarrierShipmentMethods"/>
                 <set field="headerItem" value="shipping"/>
                 <set field="tabButtonItem" value="ListCarrierShipmentMethods"/>
-
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
 
                 <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
                     <order-by field-name="sequenceNumber"/>

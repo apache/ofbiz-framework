@@ -198,20 +198,11 @@ under the License.
                 
                 <!-- render messages -->
                 <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
-                <container style="contentarea">
-                    <!-- may be used by sight disabled persons to skip directly to content area-->
-                    <decorator-section-include name="pre-body"/>
-                    <!-- Please don't change the column-container id : it's referenced to allow skipping navigation-->
-                    <container id="column-container">
-                        <!-- by default will render left-bar only if leftbarScreen value not empty -->
-                        <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
 
-                        <container id="content-main-section" style="${MainColumnStyle}">
-                            <!-- render messages -->
-                            <decorator-section-include name="body"/>
-                        </container>
-                        <container style="clear"></container>
-                    </container>
+                <!-- render content area -->
+                <container style="contentarea">
+                    <decorator-section-include name="pre-body"/>
+                    <decorator-section-include name="body"/>
                 </container>
 
                 <!-- render footer -->
@@ -413,7 +404,7 @@ under the License.
     <screen name="forgotPassword">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="login-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://common/webcommon/forgotPassword.ftl"/></html>
@@ -494,27 +485,6 @@ under the License.
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/viewBlocked.ftl"/></html></platform-specific>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="geoLocation">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleCommonGeoLocation"/>
-                <entity-one entity-name="GeoPoint" value-field="geoPoint">
-                    <field-map field-name="geoPointId" from-field="parameters.geoPointId"/>
-                </entity-one>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GeoLocation.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="SimpleDecorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/WEB-INF/geolocation.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
             </widgets>
         </section>
     </screen>

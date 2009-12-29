@@ -28,6 +28,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -56,6 +59,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <section>
                             <widgets>
