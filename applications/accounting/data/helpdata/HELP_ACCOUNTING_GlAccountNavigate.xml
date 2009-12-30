@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Navigate GL Accounts help screen</title>
+    <para>This screen is split into two areas:</para>
+    <itemizedlist>
+    <listitem><para>one for navigating the general ledger accounts in the global template and;</para></listitem>
+    <listitem><para>the other for adding or editing the details of an account</para></listitem>
+    </itemizedlist>
+    <para>This screen can also be used as follows:</para>
+    <itemizedlist>
+    <listitem><para>To locate a particular account</para></listitem>
+    <listitem><para>To view the chart of account structure or hierarchy</para></listitem>
+    <listitem><para>To update the details of an existing account</para></listitem>
+    <listitem><para>To add a new account to the chart of accounts template</para></listitem>
+    </itemizedlist>
+    <para>NOTE: When adding or creating an account it is important to understand the fields used in the chart of accounts hierarchy. The following list tries to define these.</para>
+    <itemizedlist>
+    <listitem><para>GL Account Id: A unique identifier used to identify the account. (NOTE: If using the demo data chart of accounts template then keep any new accounts within the same structure)</para></listitem>
+    <listitem><para>GL Account Type Id: This appears to be a way of translating a business transaction into an accounting transaction (NOTE: In 'Organization GL Settings / Setup / GL Account Type Defaults' it is the GL Account Id that is used to specify which GL account that particular type of transaction will post to such as Accounts Payable, Accounts Receivable etc. When a payment is created thne based on the type of payment made such as 'Customer Deposit' then it will translate to a GL Account Type Id which in turn will map to an actual GL Account)</para></listitem>
+    <listitem><para>GL Account Class Id: This appears to be a classification system and hierarchy for reporting purposes.</para></listitem>
+    <listitem><para>GL Resource Type Id: This appears to be a way of specifying the type of account possibly for reporting (eg Services, Finished Goods, Labour, etc)</para></listitem>
+    <listitem><para>GL Xbrl Class Id: This appears to be indicate the which accounting standards are used. Current examples are as US Generally Accepted Accounting Principles (US GAAP) or International Accounting Standards (IAS) </para></listitem>
+    <listitem><para>Parent GL Account Id: The GL Account of an account that is the next level up in the chart of account hierarchy</para></listitem>
+    <listitem><para>Account Code: This is the same as the GL Accound Id...not sure why???</para></listitem>
+    <listitem><para>Account Name: The name or description of the account</para></listitem>
+    <listitem><para>Description: A further or long description of the account or the details it will contain</para></listitem>
+    <listitem><para>Product Id: This may be for specifying that only details for a specific product can be posted to this account...Needs To be verified...</para></listitem>
+    <listitem><para>Posted Balance: For the Global Template this cannot be updated and is zero</para></listitem>
+    </itemizedlist>
+    <section>
+    <title>How do I add a new GL account?</title>
+    <orderedlist>
+    <listitem><para>Click on the 'Navigate Accounts' tab</para></listitem>
+    <listitem><para>The default display will be to add a new account</para></listitem>
+    <listitem><para>Enter the 'GL Account Id' for the new account (NOTE:This must be entered)</para></listitem>
+    <listitem><para>Enter the 'GL Account Type' for the new account</para></listitem>
+    <listitem><para>Enter the 'GL Account Class Id' for the new account</para></listitem>
+    <listitem><para>Enter the 'GL Resource Type Id' for the new account</para></listitem>
+    <listitem><para>Enter the 'Parent GL Account Id' if required</para></listitem>
+    <listitem><para>Enter the 'Account Code' for the new account (NOTE: This should be the same as the GL Account Id)</para></listitem>
+    <listitem><para>Enter the 'Account Name' for the new account</para></listitem>
+    <listitem><para>Press the 'Add' button</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update an existing GL account?</title>
+    <orderedlist>
+    <listitem><para>Use the 'Navigate Accounts' window to find the account required</para></listitem>
+    <listitem><para>Click on the Account Id and the details will be displayed in the lower part of the screen</para></listitem>
+    <listitem><para>Update the details required</para></listitem>
+    <listitem><para>Press the 'Update' button</para></listitem>
+    </orderedlist>
+    </section>
+</section>

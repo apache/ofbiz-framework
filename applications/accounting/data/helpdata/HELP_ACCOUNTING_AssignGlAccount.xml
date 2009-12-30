@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Assign GL Account help screen</title>
+    <para>The chart of accounts for the default organisation is built up by selecting or 'assigning' accounts that you want to use from the global chart of accounts master template. This means that if you want to create a new account then it needs to be created in the global chart of accounts before it can be assigned to be used. </para>
+    <section>
+    <title>How do I assign a GL account?</title>
+    <orderedlist>
+    <listitem><para>Click on the 'Assign GL Account' tab</para></listitem>
+    <listitem><para>Use the drop down box to select the 'GL Account Id' to required</para></listitem>
+    <listitem><para>Use the drop down box to select the 'Party Id' to assign the GL Account to (NOTE: Only parties that have been setup under 'Organization GL Settings' will be displayed)</para></listitem>
+    <listitem><para>Press the 'Create Assignment' button</para></listitem>
+    </orderedlist>
+    <para>NOTE: All assignments for a party can be viewed under 'Organization GL Settings / Setup / Chart of Accounts' for the party required.</para>
+    </section>
+</section>
