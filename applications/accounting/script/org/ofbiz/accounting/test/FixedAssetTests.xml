@@ -240,4 +240,29 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testUpdateFixedAssetMaintAndWorkEffort" short-description="Test case for service updateFixedAssetMaintAndWorkEffort" login-required="false">
+        <set field="fixedAssetId" value="DEMO_VEHICLE_01"/>
+        <set field="maintHistSeqId" value="00001"/><!-- Sequence created by testCreateFixedAssetMaintUpdateWorkEffortWithProductMaint -->
+        <set field="serviceCtx.fixedAssetId" from-field="fixedAssetId"/>
+        <set field="serviceCtx.maintHistSeqId" from-field="maintHistSeqId"/>
+        <set field="serviceCtx.actualCompletionDate" value="2009-12-22 01:00:00.000" type="Timestamp"/><!-- Changed actualCompletionDate to test update service -->
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+        <set field="serviceCtx.workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateFixedAssetMaintAndWorkEffort" in-map-name="serviceCtx"/>
+        <clear-field field="fixedAssetMaint"/>
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+        <get-related-one relation-name="ScheduleWorkEffort" value-field="fixedAssetMaint" to-value-field="workEffort"/>
+        <assert>
+            <not><if-empty field="fixedAssetMaint"/></not>
+            <not><if-empty field="fixedAssetMaint.scheduleWorkEffortId"/></not>
+            <not><if-empty field="workEffort"/></not>
+            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
