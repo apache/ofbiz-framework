@@ -4583,7 +4583,7 @@
         <value xml:lang="de">Neuen Akteur erstellen - Details</value>
         <value xml:lang="en">Create New Party Detail</value>
         <value xml:lang="es">Nuevo participante</value>
-        <value xml:lang="fr">Créer un nouveau détail pour l'acteur</value>
+        <value xml:lang="fr">Choisir un type d'acteur</value>
         <value xml:lang="hi_IN">पार्टी के नए विस्तार बनाएँ</value>
         <value xml:lang="it">Creare nuovo soggetto</value>
         <value xml:lang="nl">Nieuwe detail relatie</value>
@@ -4642,7 +4642,7 @@
         <value xml:lang="de">Neuen potentiellen Kunden erstellen</value>
         <value xml:lang="en">Create Prospect</value>
         <value xml:lang="es">Nuevo cliente potencial</value>
-        <value xml:lang="fr">Créez le prospect</value>
+        <value xml:lang="fr">Créer un nouveau prospect</value>
         <value xml:lang="hi_IN">संभावना बनाएँ</value>
         <value xml:lang="it">Creare prospetto</value>
         <value xml:lang="nl">Nieuwe prospect</value>
@@ -4656,7 +4656,7 @@
         <value xml:lang="de">Offerte erstellen</value>
         <value xml:lang="en">Create Quote</value>
         <value xml:lang="es">Crear cotización</value>
-        <value xml:lang="fr">Créez le devis</value>
+        <value xml:lang="fr">Créer un devis</value>
         <value xml:lang="hi_IN">कोट(Quote) बनाएँ</value>
         <value xml:lang="it">Creare Preventivo</value>
         <value xml:lang="nl">Nieuwe Offerte</value>
@@ -4827,15 +4827,15 @@
     <property key="PartyTemporaryPassword">
         <value xml:lang="de">Die Person wird ein provisorischen Passwort per E-Mail erhalten.</value>
         <value xml:lang="en">The person will receive a temporary password by email.</value>
-        <value xml:lang="es">La persona recibirá una contraseña temporal por el email.</value>        
+        <value xml:lang="es">La persona recibirá una contraseña temporal por el email.</value>
         <value xml:lang="fr">La personne recevra un mot de passe provisoire par courriel.</value>
         <value xml:lang="hi_IN">स्व को ईमेल द्वारा एक अस्थायी पासवर्ड प्राप्त होगा|</value> <!-- was ग्राहक को ईमेल द्वारा एक अस्थायी पासवर्ड प्राप्त होगा| -->
         <value xml:lang="it">La persona riceverà una password temporanea per email.</value>
         <value xml:lang="nl">De persoon wil een tijdelijk wachtwoord per e-mail ontvangen.</value>
         <value xml:lang="pt_BR">A pessoa receberá uma senha provisória por e-mail</value>
         <value xml:lang="ro">Persoană va primi o password provizorie pentru  email.</value>
-        <value xml:lang="ru">Персона получит временный пароль по эл.почте.</value><!-- was Клиент получит временный пароль по эл.почте. -->        
-        <value xml:lang="th">ผู้มาเยี่ยมจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์</value><!-- was ลูกค้าจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์ -->        
+        <value xml:lang="ru">Персона получит временный пароль по эл.почте.</value><!-- was Клиент получит временный пароль по эл.почте. -->
+        <value xml:lang="th">ผู้มาเยี่ยมจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์</value><!-- was ลูกค้าจะต้องได้รับรหัสผ่านชั่วคราวทางอีเมล์ -->
         <value xml:lang="zh">人将由电子邮件接受一个临时密码。</value><!-- was 客户将通过电子邮件收到一个临时密码。 -->
     </property>
     <property key="PartyCybersourceAvsOver">
