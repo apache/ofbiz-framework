@@ -46,7 +46,7 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.WorkEffortManagerApplication}" global="true"/>
             </actions>
             <widgets>
-                <include-screen name="SingleColumnDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
