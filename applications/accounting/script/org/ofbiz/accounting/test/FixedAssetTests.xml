@@ -173,4 +173,71 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreateFixedAssetMaintUpdateWorkEffortWithProductMaint" short-description="Test case for service createFixedAssetMaintUpdateWorkEffort with a product Maintenance" login-required="false">
+        <set field="fixedAssetId" value="DEMO_VEHICLE_01"/>
+        <set field="serviceCtx.fixedAssetId" from-field="fixedAssetId"/>
+        <set field="serviceCtx.statusId" value="FAM_CREATED"/>
+        <set field="serviceCtx.productMaintSeqId" value="seq03"/><!-- Product Maintenance -->
+        <set field="serviceCtx.intervalMeterTypeId" value="ODOMETER"/>
+        <set field="serviceCtx.estimatedStartDate" value="2009-12-18 00:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.estimatedCompletionDate" value="2009-12-18 01:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.actualStartDate" value="2009-12-20 00:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.actualCompletionDate" value="2009-12-20 02:00:00.000" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createFixedAssetMaintUpdateWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="maintHistSeqId"/>
+        </call-service>
+
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+        <get-related-one relation-name="ScheduleWorkEffort" value-field="fixedAssetMaint" to-value-field="workEffort"/>
+        <assert>
+            <not><if-empty field="fixedAssetMaint"/></not>
+            <not><if-empty field="fixedAssetMaint.scheduleWorkEffortId"/></not>
+            <not><if-empty field="workEffort"/></not>
+            <if-compare-field field="workEffort.estimatedStartDate" operator="equals" to-field="serviceCtx.estimatedStartDate"/>
+            <if-compare-field field="workEffort.estimatedCompletionDate" operator="equals" to-field="serviceCtx.estimatedCompletionDate"/>
+            <if-compare-field field="workEffort.actualStartDate" operator="equals" to-field="serviceCtx.actualStartDate"/>
+            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateFixedAssetMaintUpdateWorkEffortWithoutProductMaint" short-description="Test case for service createFixedAssetMaintUpdateWorkEffort without a product maintenance" login-required="false">
+        <set field="fixedAssetId" value="DEMO_VEHICLE_01"/>
+        <set field="serviceCtx.fixedAssetId" from-field="fixedAssetId"/>
+        <set field="serviceCtx.statusId" value="FAM_CREATED"/>
+        <set field="serviceCtx.productMaintTypeId" value="OIL_CHANGE"/>
+        <set field="serviceCtx.intervalMeterTypeId" value="ODOMETER"/>
+        <set field="serviceCtx.estimatedStartDate" value="2009-12-18 00:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.estimatedCompletionDate" value="2009-12-18 01:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.actualStartDate" value="2009-12-20 00:00:00.000" type="Timestamp"/>
+        <set field="serviceCtx.actualCompletionDate" value="2009-12-20 02:00:00.000" type="Timestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createFixedAssetMaintUpdateWorkEffort" in-map-name="serviceCtx">
+            <result-to-field result-name="maintHistSeqId"/>
+        </call-service>
+
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint">
+            <field-map field-name="fixedAssetId"/>
+            <field-map field-name="maintHistSeqId"/>
+        </entity-one>
+        <get-related-one relation-name="ScheduleWorkEffort" value-field="fixedAssetMaint" to-value-field="workEffort"/>
+        <assert>
+            <not><if-empty field="fixedAssetMaint"/></not>
+            <not><if-empty field="fixedAssetMaint.scheduleWorkEffortId"/></not>
+            <not><if-empty field="workEffort"/></not>
+            <if-compare-field field="workEffort.estimatedStartDate" operator="equals" to-field="serviceCtx.estimatedStartDate"/>
+            <if-compare-field field="workEffort.estimatedCompletionDate" operator="equals" to-field="serviceCtx.estimatedCompletionDate"/>
+            <if-compare-field field="workEffort.actualStartDate" operator="equals" to-field="serviceCtx.actualStartDate"/>
+            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
