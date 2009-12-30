@@ -19,8 +19,6 @@
 -->
 <entity-engine-xml>
 
-    <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
-
     <!-- PortalPortlet System provided pages -->
     <!-- no security group -->
     <PortalPage portalPageId="MYPORTAL_NONE" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/><!-- user belonging to no portal security group -->
