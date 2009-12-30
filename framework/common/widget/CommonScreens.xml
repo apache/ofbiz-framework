@@ -250,7 +250,7 @@ under the License.
                         <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
                         <section>
                             <condition>
-                                <not><if-empty field="sections.body"/></not>
+                                <not><if-empty-section section-name="body"/></not>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
