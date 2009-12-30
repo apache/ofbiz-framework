@@ -46,7 +46,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action clientAutocomplete ajaxUrl ajaxEnabled><@makeBlock className value /></#macro>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled><@makeBlock className value /></#macro>
 
 <#macro renderTextareaField name className alert cols rows id readonly value visualEdtiorEnalble buttons><@makeBlock className value /></#macro>
 
@@ -68,7 +68,7 @@ under the License.
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
-<#macro renderHiddenField name value></#macro>
+<#macro renderHiddenField name value id event action></#macro>
 <#macro renderIgnoredField></#macro>
 
 <#macro renderFieldTitle style title>${title?default("")}</#macro>
@@ -122,7 +122,7 @@ under the License.
 <@makeBlock className value />
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength id autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled><@makeBlock className value /></#macro>
+<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled></#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete><@makeBlock className value /></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete><@makeBlock className "" /></#macro>
