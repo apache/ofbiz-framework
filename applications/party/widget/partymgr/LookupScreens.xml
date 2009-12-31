@@ -44,7 +44,7 @@ under the License.
                 <set field="returnField" value="partyId"/>                  
                 
                 <!-- optional: fields to display, default are searchFields -->
-                <set field="displaytFields" value="[firstName, lastName, groupName]"/>
+                <set field="displayFields" value="[firstName, lastName, groupName]"/>
                 
             </actions>
             <widgets>
