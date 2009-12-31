@@ -19056,6 +19056,10 @@
         <value xml:lang="th">ยกเลิกการขนส่งสำเร็จอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速完成直接送货</value>
     </property>
+    <property key="ProductShipmentReceipts">
+        <value xml:lang="en">Shipment Receipts</value>
+        <value xml:lang="it">Ricevute di Spedizione</value>
+    </property>
     <property key="ProductShipmentReceiptsFor">
         <value xml:lang="de">Lieferbelege für</value>
         <value xml:lang="en">Shipment Receipts for</value>

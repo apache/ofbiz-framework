@@ -44,6 +44,7 @@ under the License.
             <actions>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <entity-one entity-name="Shipment" value-field="shipment"/>
+                <set field="shipmentId" from-field="shipment.shipmentId" global="true"/>
                 <get-related-one value-field="shipment" to-value-field="facility" relation-name="DestinationFacility"/>
             </actions>
             <widgets>
@@ -62,6 +63,7 @@ under the License.
                                         <not><if-empty field="shipment"/></not>
                                     </condition>
                                     <widgets>
+                                        <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
                                             <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf">
                                                 <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
@@ -287,6 +289,22 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/shipment/AddItemsFromOrder.ftl"/></html>
                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewShipmentReceipts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ViewShipmentReceipts"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="ViewShipmentReceipts"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
