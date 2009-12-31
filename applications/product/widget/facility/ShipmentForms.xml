@@ -213,4 +213,26 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="ShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="ShipmentReceipt" list="shipmentReceiptList">
+                <field-map field-name="shipmentId" from-field="shipmentId"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="ShipmentReceipt" map-name="shipmentReceipt" default-field-type="display"/>
+        <field name="shipmentId"><hidden/></field>
+        <field name="orderItemSeqId"><hidden/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId} - ${orderItemSeqId}" >
+                <parameter param-name="orderId"/>
+            </hyperlink>
+        </field>
+        <field name="inventoryItemId" widget-style="buttontext">
+            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+                <parameter param-name="inventoryItemId"/>
+            </hyperlink>
+        </field>
+    </form>
+
 </forms>

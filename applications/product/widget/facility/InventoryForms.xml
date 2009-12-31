@@ -51,8 +51,8 @@ under the License.
         <field name="productId">
             <text>
                 <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
-                <parameter param-name="productId"/>
-            </sub-hyperlink>
+                    <parameter param-name="productId"/>
+                </sub-hyperlink>
             </text>
         </field>
         <field name="statusId" use-when="inventoryItem==null">
@@ -146,7 +146,6 @@ under the License.
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
     </form>
-
     <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

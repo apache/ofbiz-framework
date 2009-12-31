@@ -1223,6 +1223,10 @@ under the License.
         <response name="error" type="view" value="EditShipmentItems"/>
     </request-map>
     -->
+    <request-map uri="ViewShipmentReceipts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewShipmentReceipts"/>
+    </request-map>
 
     <!-- ================ Inventory Reports Requests ================= -->
     <request-map uri="InventoryReports">
@@ -1389,6 +1393,7 @@ under the License.
     <view-map name="EditShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipment"/>
     <view-map name="EditShipmentItems" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentItems"/>
     <view-map name="EditShipmentPlan" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPlan"/>
+    <view-map name="ViewShipmentReceipts" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipmentReceipts"/>
     <view-map name="EditShipmentPackages" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPackages"/>
     <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments"/>
     <view-map name="AddItemsFromOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromOrder"/>

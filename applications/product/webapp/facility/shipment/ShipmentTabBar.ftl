@@ -39,6 +39,9 @@ under the License.
             <li<#if selected="EditShipmentPackages"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPackages?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductPackages}</a></li>
             <li<#if selected="EditShipmentRouteSegments"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentRouteSegments?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductRouteSegments}</a></li>
         </#if>
+        <#if (shipment.shipmentTypeId)?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT'>
+            <li<#if selected="ViewShipmentReceipts"> class="selected"</#if>><a href="<@ofbizUrl>ViewShipmentReceipts?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentReceipts}</a></li>
+        </#if>
         </ul>
         <br/>
     </div>
