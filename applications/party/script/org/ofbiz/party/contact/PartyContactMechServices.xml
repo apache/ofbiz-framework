@@ -594,14 +594,14 @@ under the License.
 
     <simple-method method-name="updateContactMechAndPurposes" short-description="Update postal address, telecom number and purposes">
         <set-service-fields service-name="updatePostalAddressAndPurposes" map="parameters" to-map="updatePostalAddressAndPurposesCtx"/>
-        <call-service service-name="updatePostalAddressAndPurposes" in-map-name="updatePostalAddressAndPurposesCtx"/>
+        <call-service service-name="updatePostalAddressAndPurposes" in-map-name="updatePostalAddressAndPurposesCtx">
+            <result-to-result result-name="contactMechId"/>
+        </call-service>
 
         <if-not-empty field="parameters.phoneContactMechId">
             <set-service-fields service-name="updatePartyTelecomNumber" map="parameters" to-map="updatePartyTelecomNumberCtx"/>
             <set field="updatePartyTelecomNumberCtx.contactMechId" from-field="parameters.phoneContactMechId"/>
-            <call-service service-name="updatePartyTelecomNumber" in-map-name="updatePartyTelecomNumberCtx">
-                <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
-            </call-service>
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="updatePartyTelecomNumberCtx"/>
         </if-not-empty>
     </simple-method>
 
