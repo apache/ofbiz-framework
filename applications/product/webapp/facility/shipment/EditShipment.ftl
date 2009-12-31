@@ -22,9 +22,6 @@ under the License.
     <div><a href="<@ofbizUrl>setShipmentSettingsFromPrimaryOrder?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSettingsFromPrimaryOrder} [${shipment.primaryOrderId}]</a></div>
 </#if>
 -->
-<#if shipmentId?has_content>
-    <div><a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductGenerateShipmentManifestReport}</a></div>
-</#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>

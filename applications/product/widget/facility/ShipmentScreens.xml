@@ -44,6 +44,7 @@ under the License.
             <actions>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
                 <entity-one entity-name="Shipment" value-field="shipment"/>
+                <get-related-one value-field="shipment" to-value-field="facility" relation-name="DestinationFacility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -56,6 +57,54 @@ under the License.
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/shipment/ShipmentTabBar.ftl"/></html>
                                 </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="shipment"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf">
+                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <not><if-empty field="shipment"/></not>
+                                            <not><if-empty field="facility"/></not>
+                                            <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <link style="buttontext" text="${uiLabelMap.ProductReceiveInventory}" target="ReceiveInventory">
+                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                                <parameter param-name="facilityId" from-field="facility.facilityId"/>
+                                                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <not><if-empty field="shipment"/></not>
+                                            <not><if-empty field="facility"/></not>
+                                            <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
+                                            <not><if-empty field="shipment.primaryOrderId"/></not>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <link style="buttontext" text="${uiLabelMap.ProductReceiveInventoryAgainstPO}" target="ReceiveInventoryAgainstPurchaseOrder">
+                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                </section>
 
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -90,11 +139,6 @@ under the License.
                     <widgets>
                         <decorator-screen name="CommonShipmentDecorator">
                             <decorator-section name="body">
-                                <container>
-                                    <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf">
-                                        <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                    </link>
-                                </container>
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
                                 </platform-specific>
@@ -109,6 +153,11 @@ under the License.
                                     </platform-specific>
                                 </screenlet>
                                 <screenlet id="shipmentRoutePanel" title="${uiLabelMap.PageTitleViewShipmentRouteInfo}" initially-collapsed="true">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                                <screenlet id="shipmentReceiptPanel" title="${uiLabelMap.PageTitleViewShipmentReceipts}" initially-collapsed="true">
                                     <platform-specific>
                                         <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
                                     </platform-specific>
