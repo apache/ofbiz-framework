@@ -85,6 +85,7 @@ under the License.
                                                 <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
                                                 <parameter param-name="facilityId" from-field="facility.facilityId"/>
                                                 <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+                                                <parameter param-name="initialSelected" value="Y"/>
                                             </link>
                                         </container>
                                     </widgets>
