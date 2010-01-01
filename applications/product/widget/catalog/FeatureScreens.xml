@@ -36,7 +36,7 @@
                         </section>
                     </decorator-section>
                     <decorator-section name="left-column">
-                        <include-screen name="leftbar"/>
+                        <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>                    
                     <decorator-section name="body">
                         <section>
