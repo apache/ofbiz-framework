@@ -43,13 +43,10 @@ orderItemShipGroupAssocs = null;
 // Search method: search by productId
 // **************************************
 if (action && orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
-    if (orderHeader && "SALES_ORDER".equals(orderHeader.orderTypeId)) {
-        if (shipGroupSeqId) {
-            orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
-        } else {
-            orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId]), null, null, null, false);
-        }
+    if (shipGroupSeqId) {
+        orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
+    } else {
+        orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId]), null, null, null, false);
     }
 }
 
@@ -186,8 +183,6 @@ if (shipmentPlans) {
         rows.add(oneRow);
     }
 }
-HtmlFormWrapper listShipmentPlanForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "listShipmentPlan", request, response);
-listShipmentPlanForm.putInContext("shipmentPlan", rows);
 
 // **************************************
 // ShipmentPlan add form
@@ -198,8 +193,9 @@ if (orderItemShipGroupAssocs) {
         orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem");
         oneRow = [:];
         oneRow.shipmentId = shipmentId;
-        oneRow.orderId = orderItem.orderId;
-        oneRow.orderItemSeqId = orderItem.orderItemSeqId;
+        oneRow.orderId = orderItemShipGroupAssoc.orderId;
+        oneRow.orderItemSeqId = orderItemShipGroupAssoc.orderItemSeqId;
+        oneRow.shipGroupSeqId = orderItemShipGroupAssoc.shipGroupSeqId;
         oneRow.productId = orderItem.productId;
         orderedQuantity = orderItemShipGroupAssoc.getDouble("quantity");
         canceledQuantity = orderItemShipGroupAssoc.getDouble("cancelQuantity");
@@ -233,7 +229,13 @@ if (orderItemShipGroupAssocs) {
         oneRow.issuedQuantity = issuedQuantity;
         // Total quantity planned not issued
         plannedQuantity = 0.0;
-        plans = delegator.findList("OrderShipment", EntityCondition.makeCondition([orderId : orderItem.orderId, orderItemSeqId : orderItem.orderItemSeqId]), null, null, null, false);
+        EntityCondition orderShipmentCondition = null;
+        if (shipGroupSeqId) {
+            orderShipmentCondition = EntityCondition.makeCondition([orderId : orderItemShipGroupAssoc.orderId, orderItemSeqId : orderItemShipGroupAssoc.orderItemSeqId, shipGroupSeqId : orderItemShipGroupAssoc.shipGroupSeqId]);
+        } else {
+            orderShipmentCondition = EntityCondition.makeCondition([orderId : orderItemShipGroupAssoc.orderId, orderItemSeqId : orderItemShipGroupAssoc.orderItemSeqId]);
+        }
+        plans = delegator.findList("OrderShipment", orderShipmentCondition, null, null, null, false);
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.getDouble("quantity");
@@ -276,27 +278,8 @@ if (orderItemShipGroupAssocs) {
         addRows.add(oneRow);
     }
 }
-// Add form
-HtmlFormWrapper addToShipmentPlanForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "addToShipmentPlan", request, response);
-addToShipmentPlanForm.putInContext("shipmentPlan", addRows);
 
-HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "findOrderItems", request, response);
-findOrderItemsForm.putInContext("shipmentId", shipmentId);
-if (shipment && shipment.primaryOrderId) {
-    findOrderItemsForm.putInContext("orderId", shipment.primaryOrderId);
-    if (shipment.primaryShipGroupSeqId) {
-        findOrderItemsForm.putInContext("shipGroupSeqId", shipment.primaryShipGroupSeqId);
-    }
-}
-
-HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("component://product/widget/facility//ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
-shipmentPlanToOrderItemsForm.putInContext("shipmentId", shipmentId);
-
-context.findOrderItemsForm = findOrderItemsForm; // Form for Order search: find By orderId
-context.shipmentPlanToOrderItemsForm = shipmentPlanToOrderItemsForm; // From Shipment Plan to Order Items
-context.listShipmentPlanForm = listShipmentPlanForm; // Form for ShipmentPlan list
-context.listShipmentPlanRows = shipmentPlans;
-context.addToShipmentPlanForm = addToShipmentPlanForm; // For for ShipmentPlan entry
+context.listShipmentPlanRows = rows;
 context.addToShipmentPlanRows = addRows;
 context.rowCount = addRows.size();
 context.shipmentId = shipmentId;

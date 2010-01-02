@@ -227,9 +227,27 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/EditShipmentPlan.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.ProductShipmentPlan}">
+                            <include-form name="findOrderItems" location="component://product/widget/facility//ShipmentForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <not><if-empty field="addToShipmentPlanRows"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ProductShipmentPlanAdd}">
+                                    <include-form name="addToShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <screenlet title="${uiLabelMap.ProductShipmentPlanList}">
+                            <include-form name="listShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
+                            <label style="h2" text="${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}"/>
+                            <link text="${uiLabelMap.ProductShipmentPlanToOrderItems}" target="AddItemsFromOrder">
+                                <parameter param-name="shipmentId"/>
+                                <parameter param-name="selectFromShipmentPlan" value="true"/>
+                            </link>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

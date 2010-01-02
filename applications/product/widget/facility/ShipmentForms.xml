@@ -134,11 +134,12 @@ under the License.
     <!-- Shipment Plan Forms -->
     <!-- ******************* -->
     <!-- List for Shipment Plan -->
-    <form name="listShipmentPlan" type="list" target="" title="" list-name="shipmentPlan"
+    <form name="listShipmentPlan" type="list" target="" title="" list-name="listShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentItemSeqId" title="${uiLabelMap.ProductShipmentItemSeqId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
+        <field name="shipGroupSeqId"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
         <!-- quantity planned in this shipment -->
         <field name="quantity" title="${uiLabelMap.ProductQuantity}"><display/></field>
@@ -159,22 +160,23 @@ under the License.
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeOrderShipmentFromShipment" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
+            <hyperlink target="removeOrderShipmentFromShipment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="shipmentId"/>
                 <parameter param-name="shipmentItemSeqId"/>
                 <parameter param-name="orderId"/>
                 <parameter param-name="orderItemSeqId"/>
+                <parameter param-name="shipGroupSeqId"/>
             </hyperlink>
         </field>
     </form>
-    <!-- Add entries to Shipment Plan -->
-    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan" title="" list-name="shipmentPlan"
+    <form name="addToShipmentPlan" type="multi" target="addToShipmentPlan?shipmentId=${shipmentId}" title="" list-name="addToShipmentPlanRows"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId"><hidden/></field>
         <field name="orderId"><hidden/></field>
         <field name="orderItemSeqId"><hidden/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
+        <field name="shipGroupSeqId"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
         <!-- ordered quantity -->
         <field name="orderedQuantity" title="${uiLabelMap.ProductOrderedQuantity}"><display/></field>
@@ -190,6 +192,9 @@ under the License.
         <!-- planned volume -->
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
+            <submit button-type="button"/>
+        </field>
     </form>
 
     <!-- Search by Order Id -->
@@ -197,19 +202,11 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>
-        <field name="orderId" title="${uiLabelMap.ProductOrderId}">
+        <field name="orderId" entry-name="shipment.primaryOrderId" title="${uiLabelMap.ProductOrderId}">
             <lookup target-form-name="LookupOrderHeaderAndShipInfo"/>
         </field>
-        <field name="shipGroupSeqId"><text/></field>
+        <field name="shipGroupSeqId" entry-name="shipment.primaryShipGroupSeqId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
-    </form>
-    <form name="shipmentPlanToOrderItems" type="single" target="AddItemsFromOrder" title=""
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="selectFromShipmentPlan"><hidden value="true"/></field>
-        <field name="shipmentId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.ProductShipmentPlanToOrderItems}">
             <submit button-type="button"/>
         </field>
     </form>
