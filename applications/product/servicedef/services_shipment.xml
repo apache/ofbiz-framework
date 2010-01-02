@@ -395,7 +395,6 @@ under the License.
         <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="shipmentItemSeqId" type="String" mode="OUT" optional="false"/>
-        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="issueOrderItemShipGrpInvResToShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">

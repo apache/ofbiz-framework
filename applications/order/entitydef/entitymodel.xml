@@ -1131,11 +1131,13 @@ under the License.
             title="Order Shipment Entity">
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="shipGroupSeqId" type="id-ne"></field>
       <field name="shipmentId" type="id-ne"></field>
       <field name="shipmentItemSeqId" type="id-ne"></field>
       <field name="quantity" type="fixed-point"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
+      <prim-key field="shipGroupSeqId"/>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentItemSeqId"/>
       <relation type="one" fk-name="ORDER_SHPMT_OHDR" rel-entity-name="OrderHeader">
@@ -1151,6 +1153,11 @@ under the License.
       <relation type="one-nofk" rel-entity-name="ShipmentItem">
         <key-map field-name="shipmentId"/>
         <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItemShipGroupAssoc">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
       </relation>
     </entity>
     <entity entity-name="OrderStatus"

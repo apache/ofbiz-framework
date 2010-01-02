@@ -152,7 +152,7 @@ under the License.
         <!-- total planned quantity not issued -->
         <field name="totPlannedQuantity" title="${uiLabelMap.ProductTotPlannedQuantity}" ><display/></field>
         <!-- total issued quantity -->
-        <field name="totIssuedQuantity" title="${uiLabelMap.ProductTotIssuedQuantity}" ><display/></field>
+        <field name="totIssuedQuantity" title="${uiLabelMap.ProductTotIssuedQuantity}"><display/></field>
         <!-- planned weight -->
         <field name="weight" title="${uiLabelMap.ProductWeight}"><display/></field>
         <field name="weightUom" title="${uiLabelMap.CommonUom}"><display/></field>

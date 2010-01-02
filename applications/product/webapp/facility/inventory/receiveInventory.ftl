@@ -49,7 +49,7 @@ under the License.
                 <input type="hidden" name="purchaseOrderId" value ="${(item.orderId)?if_exists}"/>
                 <input type="hidden" name="facilityId" value ="${facilityId?if_exists}"/>
                 <tr>
-                  <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId?if_exists}</@ofbizUrl>" class="buttontext">${item.shipmentId?if_exists}</a></td>
+                  <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId?if_exists}</@ofbizUrl>" class="buttontext">${item.shipmentId?if_exists} ${item.shipmentItemSeqId?if_exists}</a></td>
                   <td>${item.receiptId}</td>
                   <td>${item.getString("datetimeReceived").toString()}</td>
                   <td><a href="/ordermgr/control/orderview?orderId=${item.orderId}" class="buttontext">${item.orderId}</a></td>

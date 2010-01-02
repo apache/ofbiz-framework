@@ -128,8 +128,11 @@ under the License.
         <entity-one entity-name="Shipment" value-field="shipment" auto-field-map="true"/>
 
         <call-simple-method method-name="findCreateIssueShipmentItem"/>
+        <!--
+            TODO: if we want to record the role of the facility operation we have to re-implement this using ShipmentReceiptRole
         <call-simple-method method-name="findCreateItemIssuance"/>
         <call-simple-method method-name="associateIssueRoles"/>
+        -->
     </simple-method>
 
     <simple-method method-name="issueOrderItemShipGrpInvResToShipment" short-description="Issue OrderItemShipGrpInvRes to Shipment">
@@ -308,6 +311,19 @@ under the License.
             <store-value value-field="shipmentItem"/>
         </else>
         </if-empty>
+        <set from-field="parameters.shipmentId" field="orderShipmentCreate.shipmentId"/>
+        <set from-field="shipmentItem.shipmentItemSeqId" field="orderShipmentCreate.shipmentItemSeqId"/>
+        <set from-field="orderItem.orderId" field="orderShipmentCreate.orderId"/>
+        <set from-field="orderItem.orderItemSeqId" field="orderShipmentCreate.orderItemSeqId"/>
+        <if-not-empty field="orderItemShipGroupAssoc">
+            <set from-field="orderItemShipGroupAssoc.shipGroupSeqId" field="orderShipmentCreate.shipGroupSeqId"/>
+        </if-not-empty>
+        <if-not-empty field="orderItemShipGrpInvRes">
+            <set from-field="orderItemShipGrpInvRes.shipGroupSeqId" field="orderShipmentCreate.shipGroupSeqId"/>
+        </if-not-empty>
+        <set from-field="parameters.quantity" field="orderShipmentCreate.quantity"/>
+        <call-service service-name="createOrderShipment" in-map-name="orderShipmentCreate"/>
+
         <field-to-result field="shipmentItem.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
     </simple-method>
     <simple-method method-name="findCreateItemIssuance" short-description="Find Create ItemIssuance - meant to be called in-line">
@@ -588,14 +604,26 @@ under the License.
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
     </simple-method>
-    <simple-method method-name="getTotalIssuedQuantityForOrderItem" short-description="Computes the total issued quantity for an order item">
+    <simple-method method-name="getTotalIssuedQuantityForOrderItem" short-description="Computes the total quantity assigned to shipment for a purchase order item">
         <set field="totalIssuedQuantity" type="BigDecimal" value="0"/>
-        <entity-and list="allItemIssuances" entity-name="ItemIssuance">
+        <entity-and list="orderShipments" entity-name="OrderShipment">
             <field-map field-name="orderId" from-field="orderItem.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
         </entity-and>
-        <iterate entry="itemIssuance" list="allItemIssuances">
-            <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + itemIssuance.quantity$bigDecimal}" type="BigDecimal"/>
-        </iterate>
+        <if-not-empty field="orderShipments">
+                <iterate entry="orderShipment" list="orderShipments">
+                    <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + orderShipment.quantity$bigDecimal}" type="BigDecimal"/>
+                </iterate>
+            <else>
+                <!-- This is here for backward compatibility only: ItemIssuances are no more created for purchase orders -->
+                <entity-and list="allItemIssuances" entity-name="ItemIssuance">
+                    <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                    <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                </entity-and>
+                <iterate entry="itemIssuance" list="allItemIssuances">
+                    <set field="totalIssuedQuantity" value="${totalIssuedQuantity$bigDecimal + itemIssuance.quantity$bigDecimal}" type="BigDecimal"/>
+                </iterate>
+            </else>
+        </if-not-empty>
     </simple-method>
 </simple-methods>
