@@ -243,11 +243,18 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductShipmentPlanList}">
                             <include-form name="listShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
                             <label style="h2" text="${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}"/>
-                            <link text="${uiLabelMap.ProductShipmentPlanToOrderItems}" target="AddItemsFromOrder">
-                                <parameter param-name="shipmentId"/>
-                                <parameter param-name="selectFromShipmentPlan" value="true"/>
-                            </link>
                         </screenlet>
+                        <section>
+                            <condition>
+                                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+                            </condition>
+                            <widgets>
+                                <link text="${uiLabelMap.ProductShipmentPlanToOrderItems}" target="AddItemsFromOrder">
+                                    <parameter param-name="shipmentId"/>
+                                    <parameter param-name="selectFromShipmentPlan" value="true"/>
+                                </link>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -355,53 +355,48 @@ under the License.
             <set from-field="parameters.shipmentId" field="shipmentItemLookupPk.shipmentId"/>
             <find-by-primary-key entity-name="ShipmentItem" map="shipmentItemLookupPk" value-field="shipmentItem"/>
             
-            <!-- Create ItemIssuance for this ShipmentItem -->
-            <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
-            <set from-field="shipmentItem.shipmentId" field="itemIssuanceCreate.shipmentId"/>
-            <set from-field="shipmentItem.shipmentItemSeqId" field="itemIssuanceCreate.shipmentItemSeqId"/>
-            <set from-field="orderItem.orderId" field="itemIssuanceCreate.orderId"/>
-            <set from-field="orderItem.orderItemSeqId" field="itemIssuanceCreate.orderItemSeqId"/>
+            <!-- Create OrderShipment for this ShipmentItem -->
+            <set from-field="parameters.quantity" field="orderShipmentCreate.quantity"/>
+            <set from-field="shipmentItem.shipmentId" field="orderShipmentCreate.shipmentId"/>
+            <set from-field="shipmentItem.shipmentItemSeqId" field="orderShipmentCreate.shipmentItemSeqId"/>
+            <set from-field="orderItem.orderId" field="orderShipmentCreate.orderId"/>
+            <set from-field="orderItem.orderItemSeqId" field="orderShipmentCreate.orderItemSeqId"/>
             
             <if-not-empty field="orderItemShipGroupAssoc">
                 <!-- If we have a ShipGroup Assoc for this Item to focus on, set that; this is mostly the case for purchase orders and such -->
-                <set from-field="orderItemShipGroupAssoc.shipGroupSeqId" field="itemIssuanceCreate.shipGroupSeqId"/>
+                <set from-field="orderItemShipGroupAssoc.shipGroupSeqId" field="orderShipmentCreate.shipGroupSeqId"/>
             </if-not-empty>
-
-            <set from-field="userLogin.userLoginId" field="itemIssuanceCreate.issuedByUserLoginId"/>
-            <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
-                <result-to-field result-name="itemIssuanceId"/>
-            </call-service>
+            <call-service service-name="createOrderShipment" in-map-name="orderShipmentCreate"/>
         <else>
             <call-simple-method method-name="getTotalIssuedQuantityForOrderItem" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
             <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
             <set field="receivedQuantity" value="${receivedQuantity$bigDecimal + parameters.quantity$bigDecimal}" type="BigDecimal"/>
-            <entity-and list="itemIssuances" entity-name="ItemIssuance">
+            <entity-and list="orderShipments" entity-name="OrderShipment">
                 <field-map field-name="orderId" from-field="orderItem.orderId"/>
                 <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
                 <field-map field-name="shipmentId" from-field="shipmentItem.shipmentId"/>
                 <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                 <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroupAssoc.shipGroupSeqId"/>
-                <order-by field-name="-issuedDateTime"/>
             </entity-and>
-            <first-from-list entry="itemIssuance" list="itemIssuances"/>
-            <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
+            <first-from-list entry="orderShipment" list="orderShipments"/>
             <if-compare-field field="totalIssuedQuantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
                 <set field="quantityToAdd" value="${receivedQuantity$bigDecimal - totalIssuedQuantity$bigDecimal}" type="BigDecimal"/>
                 <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                 <store-value value-field="shipmentItem"/>
                 <set field="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
                 
-                <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
-                <store-value value-field="itemIssuance"/>
+                <set field="orderShipment.quantity" value="${orderShipment.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
+                <store-value value-field="orderShipment"/>
             </if-compare-field>
         </else>
         </if-empty>
-
+        <!--
+            TODO: if we want to record the role of the facility operation we have to re-implement this using ShipmentReceiptRole
         <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+        -->
 
         <set-service-fields service-name="receiveInventoryProduct" map="parameters" to-map="receiveInventoryProductCtx"/>
         <set field="receiveInventoryProductCtx.shipmentItemSeqId" from-field="shipmentItemSeqId"/>
-        <set field="receiveInventoryProductCtx.itemIssuanceId" from-field="itemIssuanceId"/>
         <call-service service-name="receiveInventoryProduct" in-map-name="receiveInventoryProductCtx">
             <result-to-result result-name="inventoryItemId"/>
         </call-service>
@@ -457,19 +452,20 @@ under the License.
                     <set field="shipmentItem.quantity" value="${shipmentItem.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
                     <store-value value-field="shipmentItem"/>
                     
-                    <entity-and list="itemIssuances" entity-name="ItemIssuance">
+                    <entity-and list="orderShipments" entity-name="OrderShipment">
                         <field-map field-name="orderId" from-field="parameters.orderId"/>
                         <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                         <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
                         <field-map field-name="shipmentItemSeqId" from-field="shipmentItem.shipmentItemSeqId"/>
-                        <order-by field-name="-issuedDateTime"/>
                     </entity-and>
-                    <first-from-list entry="itemIssuance" list="itemIssuances"/>
-                    <set field="itemIssuance.quantity" value="${itemIssuance.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
-                    <store-value value-field="itemIssuance"/>
-                    
+                    <first-from-list entry="orderShipment" list="orderShipments"/>
+                    <set field="orderShipment.quantity" value="${orderShipment.quantity$bigDecimal + quantityToAdd$bigDecimal}" type="BigDecimal"/>
+                    <store-value value-field="orderShipment"/>
+                    <!--
+                        TODO: if we want to record the role of the facility operation we have to re-implement this using ShipmentReceiptRole
                     <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
                     <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml"/>
+                    -->
                 </if-compare-field>
             </if-not-empty>
         </if-not-empty>

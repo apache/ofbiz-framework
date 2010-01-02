@@ -1937,6 +1937,7 @@ under the License.
         <set from-field="parameters.shipmentItemSeqId" field="inMap.shipmentItemSeqId"/>
         <set from-field="parameters.orderId" field="inMap.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="inMap.orderItemSeqId"/>
+        <set from-field="parameters.shipGroupSeqId" field="inMap.shipGroupSeqId"/>
         <call-service service-name="deleteOrderShipment" in-map-name="inMap"/>
 
         <calculate field="shipmentItem.quantity">
@@ -1978,11 +1979,6 @@ under the License.
             <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
             <set-pk-fields value-field="orderHeaderLookupPk" map="parameters"/>
             <find-by-primary-key map="orderHeaderLookupPk" value-field="orderHeader"/>
-
-            <!-- make sure the order is of orderTypeId: SALES_ORDER -->
-            <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
-                <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order is not a Sales Order for order [${parameters.orderId}] order item [${parameters.orderItemSeqId}]" list="error_list"/>
-            </if-compare>
 
             <!-- get orderItem -->
             <make-value entity-name="OrderItem" value-field="orderItemLookupPk"/>

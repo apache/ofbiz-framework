@@ -332,6 +332,7 @@ under the License.
       <field name="inventoryItemId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="shipmentId" type="id"></field>
+      <field name="shipmentItemSeqId" type="id"></field>
       <field name="shipmentPackageSeqId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -370,6 +371,10 @@ under the License.
       <relation type="one-nofk" fk-name="SHP_RCPT_SHIPMT" rel-entity-name="Shipment">
         <key-map field-name="shipmentId"/>
       </relation>
+        <relation type="one-nofk" fk-name="SHP_RCPT_SHIPIT" rel-entity-name="ShipmentItem">
+          <key-map field-name="shipmentId"/>
+          <key-map field-name="shipmentItemSeqId"/>
+        </relation>
       <relation type="one" fk-name="SHP_RCPT_RETINVITM" rel-entity-name="ReturnItem">
         <key-map field-name="returnId"/>
         <key-map field-name="returnItemSeqId"/>
