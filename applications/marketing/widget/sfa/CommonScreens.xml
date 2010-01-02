@@ -38,9 +38,6 @@ under the License.
                 <set field="applicationMenuName" value="SfaAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://marketing/widget/sfa/SfaMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.SfaManagerApplication}" global="true"/>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://marketing/widget/sfa/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly-larger"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="SFA" global="true"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
             </actions>
