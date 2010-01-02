@@ -115,8 +115,6 @@ under the License.
     <screen name="showAllPromotions">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
                 <set field="titleProperty" value="PageTitleShowAllPromotions"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
@@ -134,9 +132,6 @@ under the License.
     <screen name="showPromotionDetails">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
-
                 <set field="titleProperty" value="PageTitleShowPromotionDetails"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/ShowPromotionDetails.groovy"/>

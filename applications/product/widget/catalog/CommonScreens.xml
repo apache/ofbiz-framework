@@ -272,12 +272,10 @@ under the License.
     <screen name="leftbar">
         <section>
             <widgets>
-                <container style="left" id="leftSection">
-                    <include-screen name="keywordsearchbox"/>
-                    <include-screen name="sidecatalogs"/>
-                    <include-screen name="sidedeepcategory"/>
-                    <include-screen name="miniproductlist"/>
-                </container>
+                <include-screen name="keywordsearchbox"/>
+                <include-screen name="sidecatalogs"/>
+                <include-screen name="sidedeepcategory"/>
+                <include-screen name="miniproductlist"/>
             </widgets>
         </section>
     </screen>
@@ -333,15 +331,14 @@ under the License.
     <screen name="ChooseTopCategory">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
-
                 <set field="titleProperty" value="PageTitleChooseTopCategory"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <container>
                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
@@ -355,15 +352,14 @@ under the License.
     <screen name="FastLoadCache">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
-
                 <set field="titleProperty" value="ProductFastLoadCatalogIntoCache"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://product/webapp/catalog/FastLoadCache.ftl"/></html></platform-specific>
                     </decorator-section>
