@@ -21,14 +21,14 @@ under the License.
     <screen name="CommonOrderEntryDecorator">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbar"/>
-                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
                 <set field="headerItem" value="orderentry"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -46,14 +46,14 @@ under the License.
     <screen name="CommonOrderCatalogDecorator">
         <section>
             <actions>
-                <set field="leftbarScreenName" value="leftbarCatalog"/>
-                <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
-                <set field="MainColumnStyle" value="leftonly"/>
                 <set field="headerItem" value="orderentry"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbarCatalog"/>
+                    </decorator-section>                    
                     <decorator-section name="body">
                         <section>
                             <widgets>
