@@ -1281,7 +1281,7 @@
     </property>
     <property key="PageTitleCreateContactFromVCard">
         <value xml:lang="en">Create contact from vCard</value>
-        <value xml:lang="fr">Créer un contact depuis la vCard</value>
+        <value xml:lang="fr">Créer un contact depuis une vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
         <value xml:lang="zh">从vCard新建联系人</value>
     </property>
