@@ -29,7 +29,7 @@ under the License.
         <!-- Postcondition :
                 1 ) Two commission will be creating for the parties DemoCustAgent and DemoRepAll (like 10000 and 10001 invoiceId).
                 2 ) Its amountTotal will be same as commission cost of associated products. -->
- 
+
         <set field="invoiceId" value="8100"/>
         <set field="invoiceIds[]" from-field="invoiceId"/>
         <set field="partyIds[]" value="DemoRepAll"/>
@@ -60,7 +60,7 @@ under the License.
         <iterate list="invoicesCreated" entry="invoice">
             <call-class-method method-name="getInvoiceTotal" ret-field="amountTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker">
                 <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-                <field field="invoice.commissionInvoiceId" type="String"/> 
+                <field field="invoice.commissionInvoiceId" type="String"/>
             </call-class-method>
             <assert>
                 <or>
@@ -90,8 +90,8 @@ under the License.
         </entity-one>
         <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2009-01-01 16:55:01.0" type="Timestamp"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2009-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2010-01-01 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2010-12-31 16:55:01.0" type="Timestamp"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
@@ -158,8 +158,8 @@ under the License.
         </entity-one>
         <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2009-01-01 16:55:01.0" type="Timestamp"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2009-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2010-01-01 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2010-12-31 16:55:01.0" type="Timestamp"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
@@ -173,10 +173,10 @@ under the License.
             <result-to-field result-name="creditTotal" field="undepositedCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="undepositedDebitCreditDifference"/>
         </call-service>
-        
+
         <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN  : ACCOUNTS PAYABLE ;debitTotal :${payableDebitTotal} ; creditTotal:${payableCreditTotal} ; debitCreditDifference : ${payableDebitCreditDifference}"/>
         <log level="info" message="BEFORE  RUNNING CANCEL CHECK RUN : UNDEPOSITED RECEIPTS ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
-        
+
         <set field="paymentGroupId" value="9000"/>
         <set field="cancelCheckRunPaymentsMap.userLogin" from-field="userLogin"/>
         <set field="cancelCheckRunPaymentsMap.paymentGroupId" from-field="paymentGroupId"/>
@@ -186,7 +186,7 @@ under the License.
         </entity-and>
         <first-from-list list="paymentGroupMemberAndTransList" entry="paymentGroupMemberAndTrans"/>
         <if-compare field="paymentGroupMemberAndTrans.finAccountTransStatusId" operator="not-equals" value="FINACT_TRNS_APPROVED">
-        
+
         <set field="totalPayableDebitAmount" value="${payableDebitTotal + 82.86}" type="BigDecimal"/>
         <set field="totalPayableCreditAmount" value="${payableCreditTotal + 165.72}" type="BigDecimal"/>
         <set field="totalPayableDebitCreditDifference" value="${payableDebitCreditDifference - 82.86}" type="BigDecimal"/>
@@ -196,7 +196,7 @@ under the License.
             <result-to-field result-name="creditTotal" field="payableCreditTotal"/>
             <result-to-field result-name="debitCreditDifference" field="payableDebitCreditDifference"/>
         </call-service>
-        
+
         <assert>
             <if-compare-field field="totalPayableDebitAmount" operator="equals" to-field="payableDebitTotal" type="BigDecimal"/>
             <if-compare-field field="totalPayableCreditAmount" operator="equals" to-field="payableCreditTotal" type="BigDecimal"/>
