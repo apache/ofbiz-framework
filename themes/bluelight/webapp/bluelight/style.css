@@ -1442,6 +1442,10 @@ margin: 0 1em 1em 0;
     text-decoration: none;
 }
 
+.button-style-2 .disabled {
+    border: solid #D4D0C8 0.1em;
+    color: #D4D0C8
+}
 /* ===== Button bar decorators ===== */
 .tool-bar {
     background-color: #D4D0C8;
