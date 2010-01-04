@@ -1605,7 +1605,9 @@ under the License.
     <member-entity entity-alias="OH" entity-name="OrderHeader"/>
     <member-entity entity-alias="OHWE" entity-name="OrderHeaderWorkEffort"/>
     <alias-all entity-alias="WE"/>
-    <alias-all entity-alias="OH"/>
+    <alias-all entity-alias="OH">
+        <exclude field="priority"/>
+    </alias-all>
     <alias-all entity-alias="OHWE"/>
     <view-link entity-alias="WE" rel-entity-alias="OHWE">
       <key-map field-name="workEffortId"/>

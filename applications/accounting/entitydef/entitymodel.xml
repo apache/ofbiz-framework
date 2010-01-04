@@ -1576,7 +1576,9 @@ under the License.
         <member-entity entity-alias="INTM" entity-name="InvoiceItem"/>
         <member-entity entity-alias="IIA" entity-name="InvoiceItemAssoc"/>
         <member-entity entity-alias="PROD" entity-name="Product"/>
-        <alias-all entity-alias="IIA"/>
+        <alias-all entity-alias="IIA">
+            <exclude field="amount"/>
+        </alias-all>
         <alias name="termAmount" field="amount" entity-alias="IIA"/>
         <alias name="productId" entity-alias="PROD"/>
         <alias name="productName" entity-alias="PROD"/>
@@ -3958,6 +3960,8 @@ under the License.
         <alias-all entity-alias="FA"/>
         <alias-all entity-alias="PM">
             <exclude field="finAccountId"/>
+            <exclude field="fromDate"/>
+            <exclude field="thruDate"/>
         </alias-all>
         <view-link rel-entity-alias="PM" entity-alias="FA">
             <key-map field-name="finAccountId"/>
