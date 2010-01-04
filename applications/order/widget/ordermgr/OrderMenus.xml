@@ -201,7 +201,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="QuoteSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="QuoteSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2">
         <menu-item name="quoteReport" title="${uiLabelMap.CommonReports}">
             <link target="QuoteReport">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>

@@ -1120,6 +1120,18 @@ a.button-style-2:hover {
     text-decoration: none;
 }
 
+.button-style-2 .disabled {
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#CCCCCC;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 5px 0px;
+    padding:2px 4px;
+    text-transform:uppercase;
+    display:inline-block;
+}
+
 /***********************************************
 Columns (legacy style)
 ***********************************************/
