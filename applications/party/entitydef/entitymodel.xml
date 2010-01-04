@@ -2368,14 +2368,80 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="PartyRelationshipAndContactMechDetail" package-name="org.ofbiz.party.party" title="Party Relationship And Contact Mech Details">
-        <member-entity entity-alias="PTYREL" entity-name="PartyRelationshipAndDetail"/>
-        <member-entity entity-alias="PTYCM" entity-name="PartyAndContactMech"/>
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="PER" entity-name="Person"/>
+        <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <alias-all entity-alias="PTY">
+            <exclude field="statusId"/>
+        </alias-all>
         <alias-all entity-alias="PTYREL"/>
-        <alias-all entity-alias="PTYCM"/>
-        <alias entity-alias="PTYCM" field="statusId" name="partyStatusId"/>
-        <view-link entity-alias="PTYREL" rel-entity-alias="PTYCM" rel-optional="true">
-            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="PA" prefix="pa"/>
+        <alias-all entity-alias="TN" prefix="tn"/>
+        <alias entity-alias="PER" name="firstName"/>
+        <alias entity-alias="PER" name="middleName"/>
+        <alias entity-alias="PER" name="lastName"/>
+        <alias entity-alias="PER" name="firstNameLocal"/>
+        <alias entity-alias="PER" name="lastNameLocal"/>
+        <alias entity-alias="PER" name="personalTitle"/>
+        <alias entity-alias="PER" name="suffix"/>
+        <alias entity-alias="PTYGRP" name="groupName"/>
+        <alias entity-alias="PTYGRP" name="groupNameLocal"/>
+        <alias entity-alias="PCM" name="contactMechId"/>
+        <alias entity-alias="PTY" field="statusId" name="partyStatusId"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PTYREL" rel-optional="true">
+            <key-map field-name="partyId" rel-field-name="partyIdTo"/>
         </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="PartyRelationship">
+            <key-map field-name="partyIdFrom"/>
+            <key-map field-name="partyIdTo"/>
+            <key-map field-name="roleTypeIdFrom"/>
+            <key-map field-name="roleTypeIdTo"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyRelationshipType">
+            <key-map field-name="partyRelationshipTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
     </view-entity>
     <entity entity-name="PartyRole"
             package-name="org.ofbiz.party.party"
@@ -2493,13 +2559,82 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="PartyRoleAndContactMechDetail" package-name="org.ofbiz.party.party" title="Party Role And Contact Mech Details">
-        <member-entity entity-alias="PTYRL" entity-name="PartyRoleDetailAndPartyDetail"/>
-        <member-entity entity-alias="PTYCM" entity-name="PartyAndContactMech"/>
-        <alias-all entity-alias="PTYRL"/>
-        <alias-all entity-alias="PTYCM"/>
-        <view-link entity-alias="PTYRL" rel-entity-alias="PTYCM" rel-optional="true">
-            <key-map field-name="partyId" rel-field-name="partyId"/>
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <member-entity entity-alias="RT" entity-name="RoleType"/>
+        <member-entity entity-alias="PERSON" entity-name="Person"/>
+        <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
+        <member-entity entity-alias="CM" entity-name="ContactMech"/>
+        <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
+        <alias-all entity-alias="PTY">
+            <exclude field="description"/>
+        </alias-all>
+        <alias-all entity-alias="PR"/>
+        <alias-all entity-alias="RT"/>
+        <alias-all entity-alias="PERSON">
+            <exclude field="comments"/>
+            </alias-all>
+        <alias-all entity-alias="PTYGRP">
+            <exclude field="comments"/>
+        </alias-all>
+        <alias-all entity-alias="PCM">
+            <exclude field="roleTypeId"/>
+        </alias-all>
+        <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="PA" prefix="pa"/>
+        <alias-all entity-alias="TN" prefix="tn"/>
+        <alias entity-alias="PERSON" name="personComments" field="comments"/>
+        <alias entity-alias="PTYGRP" name="partyGroupComments" field="comments"/>
+        <view-link entity-alias="PTY" rel-entity-alias="PR">
+            <key-map field-name="partyId"/>
+            </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PERSON" rel-optional="true">
+            <key-map field-name="partyId"/>
+            </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+            <key-map field-name="partyId"/>
+            </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="RT">
+            <key-map field-name="roleTypeId"/>
         </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="CM">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <view-link entity-alias="PCM" rel-entity-alias="TN" rel-optional="true">
+            <key-map field-name="contactMechId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PartyContactMech">
+            <key-map field-name="partyId"/>
+            <key-map field-name="contactMechId"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PostalAddress">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="TelecomNumber">
+            <key-map field-name="contactMechId"/>
+        </relation>
     </view-entity>
     <entity entity-name="PartyStatus"
             package-name="org.ofbiz.party.party"
