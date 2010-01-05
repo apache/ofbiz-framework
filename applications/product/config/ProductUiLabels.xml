@@ -8004,6 +8004,7 @@
     </property>
     <property key="ProductBestSellingProductsOf">
         <value xml:lang="en">Best Selling Products of</value>
+        <value xml:lang="fr">Meilleures ventes du</value>
         <value xml:lang="it">Migliori prodotti venduti il</value>
         <value xml:lang="nl">Best verkochte producten op</value>
     </property>
@@ -14295,6 +14296,7 @@
     </property>
     <property key="ProductNoProductFound">
         <value xml:lang="en">No Product Found</value>
+        <value xml:lang="fr">Aucun produit trouvé</value>
         <value xml:lang="it">Nessun prodotto trovato</value>
         <value xml:lang="nl">Geen producten gevonden</value>
     </property>
