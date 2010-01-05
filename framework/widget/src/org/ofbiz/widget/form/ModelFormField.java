@@ -1755,7 +1755,7 @@ public class ModelFormField {
 
                     Object keyFieldObject = value.get(this.getKeyFieldName());
                     if (keyFieldObject == null) {
-                        throw new IllegalArgumentException("The value found for key-name [" + this.getKeyFieldName() + "], may not be a valid key field name.");
+                        throw new IllegalArgumentException("The entity-options identifier (from key-name attribute, or default to the field name) [" + this.getKeyFieldName() + "], may not be a valid key field name for the entity [" + this.entityName + "].");
                     }
                     String keyFieldValue = keyFieldObject.toString();
                     optionValues.add(new OptionValue(keyFieldValue, optionDesc));
