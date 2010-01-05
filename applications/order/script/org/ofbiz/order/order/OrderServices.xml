@@ -1189,20 +1189,26 @@ under the License.
                 </entity-and>
                 <iterate entry="supplierProduct" list="supplierProducts">
                     <now-timestamp field="nowTimestamp"/>
-                    <if>
-                        <condition>
-                            <if-compare-field field="parameters.unitCost" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
-                        </condition>
-                        <then>
-                            <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
+                    <if-not-empty field="parameters.orderCurrencyUnitPrice">
+                        <if-compare-field field="parameters.orderCurrencyUnitPrice" operator="not-equals" to-field="supplierProduct.lastPrice" type="BigDecimal">
                             <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
-                            <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
-                            <set from-field="parameters.unitCost" field="newSupplierProduct.lastPrice" type="BigDecimal"/>
+                            <set field="newSupplierProduct.availableFromDate" from-field="nowTimestamp"/>
+                            <set field="newSupplierProduct.lastPrice" from-field="parameters.orderCurrencyUnitPrice" type="BigDecimal"/>
                             <create-value value-field="newSupplierProduct"/>
-                            <set from-field="nowTimestamp" field="supplierProduct.availableThruDate"/>
+                            <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
                             <store-value value-field="supplierProduct"/>
-                        </then>
-                    </if>
+                        </if-compare-field>
+                    <else>
+                        <if-compare-field field="parameters.unitCost" operator="not-equals" to-field="supplierProduct.lastPrice" type="BigDecimal">
+                            <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
+                            <set field="newSupplierProduct.availableFromDate" from-field="nowTimestamp"/>
+                            <set field="newSupplierProduct.lastPrice" from-field="parameters.unitCost" type="BigDecimal"/>
+                            <create-value value-field="newSupplierProduct"/>
+                            <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
+                            <store-value value-field="supplierProduct"/>
+                        </if-compare-field>
+                    </else>
+                    </if-not-empty>
                 </iterate>
             </then>
             <else>

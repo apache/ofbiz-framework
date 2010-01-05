@@ -32,27 +32,25 @@ under the License.
     <eca service="storeOrder" event="return">
         <action service="balanceOrderItemsWithNegativeReservations" mode="sync"/>
     </eca>
-    <!--
+
     <eca service="storeOrder" event="return">
         <condition field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
         <action service="setUnitPriceAsLastPrice" mode="sync"/>
     </eca>
-    -->
+
     <eca service="storeOrder" event="return">
         <action service="setOrderReservationPriority" mode="sync"/>
     </eca>
-    <!--
+
     <eca service="updateOrderItems" event="commit">
         <condition field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
         <action service="setUnitPriceAsLastPrice" mode="sync"/>
     </eca>
-    -->
+
     <eca service="receiveInventoryProduct" event="commit">
         <condition field-name="facilityId" operator="is-not-empty"/>
         <action service="addProductsBackToCategory" mode="sync"/>
-        <!--
         <action service="setUnitPriceAsLastPrice" mode="sync"/>
-        -->
     </eca>
     <eca service="receiveInventoryProduct" event="commit">
         <condition field-name="facilityId" operator="is-not-empty"/>

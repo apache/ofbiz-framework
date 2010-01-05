@@ -1310,7 +1310,12 @@ under the License.
         <response name="success" type="view" value="EditShipmentGatewayConfigType"/>
         <response name="error" type="view" value="EditShipmentGatewayConfigType"/>
     </request-map>
-    
+    <request-map uri="getConvertedPrice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="convertUom"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
     <request-map uri="LookupPurchaseOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupPurchaseOrderHeaderAndShipInfo"/></request-map>

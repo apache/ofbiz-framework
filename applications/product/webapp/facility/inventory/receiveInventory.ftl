@@ -299,6 +299,8 @@ under the License.
 
         <#-- Multi-Item PO Receiving -->
         <#elseif requestParameters.initialSelected?exists && purchaseOrder?has_content>
+          <input type="hidden" id="getConvertedPrice" value="<@ofbizUrl secure="${request.isSecure()?string}">getConvertedPrice"</@ofbizUrl> />
+          <input type="hidden" id="alertMessage" value="${uiLabelMap.ProductChangePerUnitPrice}" />
           <form method="post" action="<@ofbizUrl>receiveInventoryProduct</@ofbizUrl>" name="selectAllForm">
             <#-- general request fields -->
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
@@ -433,12 +435,27 @@ under the License.
                           <td>&nbsp;</td>
                           <td align="right">${uiLabelMap.ProductFacilityOwner}:</td>
                           <td align="right"><input type="text" name="ownerPartyId_o_${rowCount}" size="20" maxlength="20" value="${facility.ownerPartyId}"/></td>
-                          <td align="right">${uiLabelMap.ProductPerUnitPrice} :</td>
-                          <td align="right">
-                            <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?if_exists}"/>
-                            <input type="text" name="unitCost_o_${rowCount}" value="${itemCost}" size="6" maxlength="20"/>
-                            ${currencyUomId?if_exists}
-                          </td>
+                          <#if currencyUomId != orderCurrencyUomId>
+                            <td>${uiLabelMap.ProductPerUnitPriceOrder}:</td>
+                            <td>
+                              <input type="hidden" name="orderCurrencyUomId_o_${rowCount}" value="${orderCurrencyUomId?if_exists}" />
+                              <input type="text" id="orderCurrencyUnitPrice_${rowCount}" name="orderCurrencyUnitPrice_o_${rowCount}" value="${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}" onchange="javascript:getConvertedPrice(orderCurrencyUnitPrice_${rowCount}, '${orderCurrencyUomId}', '${currencyUomId}', '${rowCount}', '${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}', '${itemCost}');" size="6" maxlength="20" />
+                              ${orderCurrencyUomId?if_exists}
+                            </td>
+                            <td>${uiLabelMap.ProductPerUnitPriceFacility}:</td>
+                            <td>
+                              <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?if_exists}" />
+                              <input type="text" id="unitCost_${rowCount}" name="unitCost_o_${rowCount}" value="${itemCost}" readonly size="6" maxlength="20" />
+                              ${currencyUomId?if_exists}
+                            </td>
+                          <#else>
+                            <td>${uiLabelMap.ProductPerUnitPrice}:</td>
+                            <td align="right">
+                              <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?if_exists}" />
+                              <input type="text" name="unitCost_o_${rowCount}" value="${itemCost}" size="6" maxlength="20" />
+                              ${currencyUomId?if_exists}
+                            </td>
+                          </#if>
                         </tr>
                       </table>
                     </td>
