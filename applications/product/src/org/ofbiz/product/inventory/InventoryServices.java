@@ -192,6 +192,7 @@ public class InventoryServices {
     public static Map<String, Object> completeInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String inventoryTransferId = (String) context.get("inventoryTransferId");
+        Timestamp receiveDate = (Timestamp) context.get("receiveDate");
         GenericValue inventoryTransfer = null;
         GenericValue inventoryItem = null;
         GenericValue destinationFacility = null;
@@ -214,7 +215,11 @@ public class InventoryServices {
 
         // set the fields on the transfer record
         if (inventoryTransfer.get("receiveDate") == null) {
-            inventoryTransfer.set("receiveDate", UtilDateTime.nowTimestamp());
+            if (receiveDate != null) {
+                inventoryTransfer.set("receiveDate", receiveDate);
+            } else {
+                inventoryTransfer.set("receiveDate", UtilDateTime.nowTimestamp());
+            }
         }
 
         if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {

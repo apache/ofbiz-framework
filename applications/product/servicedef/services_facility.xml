@@ -437,6 +437,7 @@ under the License.
             location="org.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
         <description>Completes the inventory transfer</description>
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
+        <attribute name="receiveDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="cancelInventoryTransfer" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="cancelInventoryTransfer">
