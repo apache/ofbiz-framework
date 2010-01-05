@@ -39,10 +39,10 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -51,6 +51,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -75,6 +77,8 @@ import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
+
+import com.sun.mail.smtp.SMTPAddressFailedException;
 
 /**
  * Email Services
@@ -143,6 +147,7 @@ public class EmailServices {
         String authPass = (String) context.get("authPass");
         String messageId = (String) context.get("messageId");
         String contentType = (String) context.get("contentType");
+        Boolean sendPartial = (Boolean) context.get("sendPartial");
 
         boolean useSmtpAuth = false;
 
@@ -172,6 +177,9 @@ public class EmailServices {
             }
             if (UtilValidate.isEmpty(socketFactoryFallback)) {
                 socketFactoryFallback = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.fallback", "false");
+            }
+            if (sendPartial == null) {
+                sendPartial = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.smtp.sendpartial", "true") ? true : false;
             }
         } else if (sendVia == null) {
             return ServiceUtil.returnError("Parameter sendVia is required when sendType is not mail.smtp.host");
@@ -207,8 +215,9 @@ public class EmailServices {
             if (useSmtpAuth) {
                 props.put("mail.smtp.auth", "true");
             }
-            boolean sendPartial = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.smtp.sendpartial", "true");
-            props.put("mail.smtp.sendpartial", sendPartial ? "true" : "false");
+            if (sendPartial != null) {
+                props.put("mail.smtp.sendpartial", sendPartial ? "true" : "false");
+            }
 
             session = Session.getInstance(props);
             boolean debug = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y");
@@ -248,6 +257,8 @@ public class EmailServices {
                         ByteArrayDataSource bads = new ByteArrayDataSource((byte[]) bodyPartContent, (String) bodyPart.get("type"));
                         Debug.logInfo("part of type: " + bodyPart.get("type") + " and size: " + ((byte[]) bodyPartContent).length , module);
                         mbp.setDataHandler(new DataHandler(bads));
+                    } else if (bodyPartContent instanceof DataHandler) {
+                        mbp.setDataHandler((DataHandler) bodyPartContent);
                     } else {
                         mbp.setDataHandler(new DataHandler(bodyPartContent, (String) bodyPart.get("type")));
                     }
@@ -291,8 +302,9 @@ public class EmailServices {
             return results;
         }
         
+        Transport trans = null;
         try {
-            Transport trans = session.getTransport("smtp");
+            trans = session.getTransport("smtp");
             if (!useSmtpAuth) {
                 trans.connect();
             } else {
@@ -306,8 +318,28 @@ public class EmailServices {
             // message code prefix may be used by calling services to determine the cause of the failure
             String errMsg = "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
             Debug.logError(e, errMsg, module);
-            Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, module);
-            return ServiceUtil.returnError(errMsg);
+            List<SMTPAddressFailedException> failedAddresses = FastList.newInstance();
+            Exception nestedException = null;
+            while ((nestedException = e.getNextException()) != null && nestedException instanceof MessagingException) {
+                if (nestedException instanceof SMTPAddressFailedException) {
+                    SMTPAddressFailedException safe = (SMTPAddressFailedException) nestedException;
+                    Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode() + "], return message [" + safe.getMessage() + "]", errMsg);
+                    failedAddresses.add(safe);
+                }
+            }
+            Boolean sendFailureNotification = (Boolean) context.get("sendFailureNotification");
+            if (sendFailureNotification == null || sendFailureNotification) {
+                sendFailureNotification(ctx, context, mail, failedAddresses);
+                results.put("messageWrapper", new MimeMessageWrapper(session, mail));
+                try {
+                    results.put("messageId", mail.getMessageID());
+                    trans.close();
+                } catch (MessagingException e1) {
+                    Debug.logError(e1, module);
+                }
+            } else {
+                return ServiceUtil.returnError(errMsg);
+            }
         } catch (MessagingException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
             String errMsg = "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
@@ -549,6 +581,39 @@ public class EmailServices {
         result.put("body", bodyWriter.toString());
         result.put("subject", subject);
         return result;
+    }
+
+    public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
+        Map<String, Object> newContext = FastMap.newInstance();
+        newContext.put("userLogin", context.get("userLogin"));
+        newContext.put("sendFailureNotification", false);
+        newContext.put("sendFrom", context.get("sendFrom"));
+        newContext.put("sendTo", context.get("sendFrom"));
+        newContext.put("subject", "Undelivered Mail Returned to Sender");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Delivery to the following recipient(s) failed:\n\n");
+        for (SMTPAddressFailedException failure : failures) {
+            sb.append(failure.getAddress());
+            sb.append(": ");
+            sb.append(failure.getMessage());
+            sb.append("/n/n");
+        }
+        sb.append("----- Original message -----/n/n");
+        List<Map<String, Object>> bodyParts = FastList.newInstance();
+        bodyParts.add(UtilMisc.<String, Object>toMap("content", sb.toString(), "type", "text/plain"));
+        Map<String, Object> bodyPart = FastMap.newInstance();
+        bodyPart.put("content", sb.toString());
+        bodyPart.put("type", "text/plain");
+        try {
+            bodyParts.add(UtilMisc.<String, Object>toMap("content", message.getDataHandler()));
+        } catch (MessagingException e) {
+            Debug.logError(e, module);
+        }
+        try {
+            dctx.getDispatcher().runSync("sendMailMultiPart", newContext);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        }
     }
 
     /** class to create a file in memory required for sending as an attachment */
