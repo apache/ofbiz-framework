@@ -140,6 +140,7 @@ public class SOAPEventHandler implements EventHandler {
         }
 
         // not a wsdl request; invoke the service
+        response.setContentType("text/xml");
         
         // request envelope
         SOAPEnvelope reqEnv = null;
@@ -193,7 +194,7 @@ public class SOAPEventHandler implements EventHandler {
                             SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
                             SOAPEnvelope resEnv = factory.createSOAPEnvelope();
                             SOAPBody resBody = factory.createSOAPBody();
-                            OMElement resService = factory.createOMElement(new QName(serviceName + "Response"));
+                            OMElement resService = factory.createOMElement(new QName(ModelService.TNS, serviceName + "Response"));
                             resService.addChild(resultSer.getFirstElement());
                             resBody.addChild(resService);
                             resEnv.addChild(resBody);
@@ -227,6 +228,7 @@ public class SOAPEventHandler implements EventHandler {
     private void sendError(HttpServletResponse res, String errorMessage) throws EventHandlerException {
         try {
             // setup the response
+        	res.setContentType("text/xml");
             Map<String, Object> results = FastMap.newInstance();
             results.put("errorMessage", errorMessage);
             String xmlResults= XmlSerializer.serialize(results);
