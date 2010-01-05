@@ -701,6 +701,7 @@ under the License.
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="currentInventoryItemId" type="String" mode="IN" optional="true"><!-- allow this to be passed in to update an existing InventoryItem, and all else is the same; if not passed in a new one will be created --></attribute>
         <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"></attribute>
+        <attribute name="orderCurrencyUnitPrice" type="String" mode="IN" optional="true"/>
         <override name="quantityAccepted" optional="false"/>
         <override name="quantityRejected" optional="false"/>
         <override name="inventoryItemTypeId" optional="false"/>
@@ -890,5 +891,6 @@ under the License.
         <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="unitCost" type="String" mode="IN" optional="true"/>
+        <attribute name="orderCurrencyUnitPrice" type="String" mode="IN" optional="true"/>
     </service>
 </services>

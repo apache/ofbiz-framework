@@ -8652,6 +8652,9 @@
         </value>
         <value xml:lang="zh">只有重新创建产品目录，才能修改。</value>
     </property>
+    <property key="ProductChangePerUnitPrice">
+        <value xml:lang="en">If you change Per Unit Price then it will also get update in Supplier product last price and order item price, would you like to continue.</value>
+    </property>
     <property key="ProductChannel">
         <value xml:lang="de">Verkaufskanal</value>
         <value xml:lang="en">Channel</value>
@@ -15519,6 +15522,12 @@
         <value xml:lang="ru">Цена на единицу</value>
         <value xml:lang="th">ราคาต่อหน่วย</value>
         <value xml:lang="zh">每单价</value>
+    </property>
+    <property key="ProductPerUnitPriceFacility">
+        <value xml:lang="en">Per Unit Price (Facility)</value>
+    </property>
+    <property key="ProductPerUnitPriceOrder">
+        <value xml:lang="en">Per Unit Price (Order)</value>
     </property>
     <property key="ProductPercent">
         <value xml:lang="de">Prozent</value>

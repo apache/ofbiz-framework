@@ -130,12 +130,14 @@ if (purchaseOrder) {
     }
 }
 // convert the unit prices to that of the facility owner's currency
+orderCurrencyUnitPriceMap = [:];
 if (purchaseOrder && facility) {
     if (ownerAcctgPref) {
         ownerCurrencyUomId = ownerAcctgPref.baseCurrencyUomId;
         orderCurrencyUomId = purchaseOrder.currencyUom;
         if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
             purchaseOrderItems.each { item ->
+            orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice;
                 serviceResults = dispatcher.runSync("convertUom",
                         [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice]);
                 if (ServiceUtil.isError(serviceResults)) {
@@ -152,10 +154,13 @@ if (purchaseOrder && facility) {
 
         // put the pref currency in the map for display and form use
         context.currencyUomId = ownerCurrencyUomId;
+        context.orderCurrencyUomId = orderCurrencyUomId;
     } else {
         request.setAttribute("_ERROR_MESSAGE_", "Either no owner party was set for this facility, or no accounting preferences were set for this owner party.");
     }
 }
+context.orderCurrencyUnitPriceMap = orderCurrencyUnitPriceMap;
+
 receivedQuantities = [:];
 salesOrderItems = [:];
 if (purchaseOrderItems) {

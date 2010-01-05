@@ -971,6 +971,7 @@ under the License.
         <attribute name="unitCost" mode="IN" type="String" optional="true"/>
         <attribute name="itemPriceMap" type="Map" mode="IN" string-map-prefix="ipm_" optional="true"/>
         <attribute name="overridePriceMap" type="Map" mode="IN" string-map-prefix="opm_" optional="true"/>
+        <attribute name="orderCurrencyUnitPrice" type="String" mode="IN" optional="true"/>
    </service>
 
     <service name="cancelAllBackOrders" engine="simple"
