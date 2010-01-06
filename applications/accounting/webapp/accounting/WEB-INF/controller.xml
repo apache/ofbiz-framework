@@ -435,26 +435,26 @@ under the License.
         <response name="success" type="view" value="EditPaymentGroupMember"/>
         <response name="error" type="view" value="EditPaymentGroupMember"/>
     </request-map>
-    
+
     <request-map uri="PaymentGroupOverview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
     </request-map>
-    
+
     <request-map uri="cancelPaymentGroup">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelPaymentBatch"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="FindPaymentGroup"/>
     </request-map>
-    
+
     <request-map uri="cancelCheckRunPayments">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelCheckRunPayments"/>
         <response name="success" type="view" value="PaymentGroupOverview"/>
         <response name="error" type="view" value="FindPaymentGroup"/>
     </request-map>
-    
+
     <request-map uri="DepositSlip.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="DepositSlipPdf"/>
@@ -492,8 +492,8 @@ under the License.
         <event type="service" invoke="manualForcedCcTransaction"/>
         <response name="success" type="view" value="ManualTransaction"/>
     </request-map>
-    
-    <!-- Payment Gateway Config --> 
+
+    <!-- Payment Gateway Config -->
     <request-map uri="FindPaymentGatewayConfig">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPaymentGatewayConfig"/>
@@ -564,7 +564,7 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfigType"/>
         <response name="error" type="view" value="EditPaymentGatewayConfigType"/>
     </request-map>
-    
+
     <!-- TO BE REMOVED
     <request-map uri="TransactionReports">
         <security https="true" auth="true"/>
@@ -597,7 +597,7 @@ under the License.
         <response name="success" type="view" value="ManualTransaction"/>
         <response name="error" type="view" value="ManualTransaction"/>
     </request-map>
-    
+
     <!-- Party Accounts requests -->
     <request-map uri="PartyAccountsSummary">
         <security https="true" auth="true"/>
@@ -1957,7 +1957,7 @@ under the License.
     <request-map uri="BankReconciliation">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BankReconciliation"/>
-    </request-map> 
+    </request-map>
     <request-map uri="getFinAccountTransRunningTotalAndBalances">
         <event type="service-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
         <response name="success" type="request" value="json"/>
@@ -2202,7 +2202,7 @@ under the License.
         <!-- security https="true" auth="true"/ -->
         <response name="success" type="view" value="PrintCheckPDF"/>
     </request-map>
-    
+
     <request-map uri="PrintInvoices">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintInvoices"/>
@@ -2299,7 +2299,7 @@ under the License.
     </request-map>
 
 
-    
+
     <!-- ================ Depreciation Calculation Report requests ================ -->
     <request-map uri="showFixedAssetDepreciation">
         <security https="true" auth="true"/>
@@ -2308,13 +2308,13 @@ under the License.
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
 
-    <!-- Commented out for now WIP 
+    <!-- Commented out for now WIP
     <request-map uri="taxAuthorityVATReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="taxAuthorityVATReport"/>
     </request-map>
     Commented out for now WIP -->
-    
+
     <!-- GeoLocation-->
     <request-map uri="FixedAssetGeoLocation">
         <security https="true" auth="true"/>
@@ -2705,7 +2705,7 @@ under the License.
     <view-map name="EditPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig" type="screen"/>
     <view-map name="FindPaymentGatewayConfigTypes" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes" type="screen"/>
     <view-map name="EditPaymentGatewayConfigType" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType" type="screen"/>
-    
+
     <!-- TO BE REMOVED
     <view-map name="TransactionReports" page="component://accounting/widget/TransactionScreens.xml#TransactionReports" type="screen"/>
     -->
@@ -2812,11 +2812,11 @@ under the License.
     <view-map name="CostCenters" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#CostCenters"/>
     <view-map name="GlAccountBalanceByCostCenter" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenter"/>
     <view-map name="GlAccountBalanceByCostCenterPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#GlAccountBalanceByCostCenterPdf" content-type="application/pdf" encoding="none"/>
-    
+
     <view-map name="paymentReport" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentReport"/>
     <view-map name="ViewPaymentReportHtml" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="text/html"/>
     <view-map name="ViewPaymentReportPdf" type="birt" page="component://accounting/webapp/accounting/payment/report/PaymentReport.rptdesign" content-type="application/pdf"/>
-    
-    
+
+
     <!-- end of view mappings -->
 </site-conf>
