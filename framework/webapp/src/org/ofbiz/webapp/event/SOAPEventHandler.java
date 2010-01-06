@@ -36,6 +36,7 @@ import javax.xml.stream.XMLStreamReader;
 import javolution.util.FastMap;
 
 import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axiom.om.OMAttribute;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.impl.builder.StAXOMBuilder;
 import org.apache.axiom.om.util.StAXUtils;
@@ -194,10 +195,17 @@ public class SOAPEventHandler implements EventHandler {
                             SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
                             SOAPEnvelope resEnv = factory.createSOAPEnvelope();
                             SOAPBody resBody = factory.createSOAPBody();
-                            OMElement resService = factory.createOMElement(new QName(ModelService.TNS, serviceName + "Response"));
+                            OMElement resService = factory.createOMElement(new QName(serviceName + "Response"));
                             resService.addChild(resultSer.getFirstElement());
                             resBody.addChild(resService);
                             resEnv.addChild(resBody);
+                            
+                            // The declareDefaultNamespace method doesn't work see (https://issues.apache.org/jira/browse/AXIS2-3156)
+                            // so the following doesn't work: 
+                            // resService.declareDefaultNamespace(ModelService.TNS);
+                            // instead, create the xmlns attribute directly:
+                            OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
+                            resService.addAttribute(defaultNS);
                             
                             // log the response message
                             if (Debug.verboseOn()) {
