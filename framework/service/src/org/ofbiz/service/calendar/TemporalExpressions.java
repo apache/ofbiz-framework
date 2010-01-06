@@ -121,17 +121,16 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal) {
-            Set<Calendar> resultSet = new TreeSet<Calendar>();
+            Calendar result = null;
             for (TemporalExpression expression : this.expressionSet) {
                 Calendar next = expression.next(cal);
                 if (next != null && includesDate(next)) {
-                    resultSet.add(next);
+                    if (result == null || next.before(result)) {
+                        result = next;
+                    }
                 }
             }
-            if (!resultSet.isEmpty()) {
-                return resultSet.iterator().next();
-            }
-            return null;
+            return result;
         }
 
         @Override
