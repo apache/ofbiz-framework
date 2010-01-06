@@ -30,7 +30,7 @@ under the License.
     </form>
 
     <form name="ListPaymentGroup" type="list" separate-columns="true" default-entity-name="PaymentGroup" list-name="paymentGroupList" 
-        paginate-target="FindPaymentGroup" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        paginate-target="FindPaymentGroup" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <row-actions>
             <entity-and entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
                 <field-map field-name="paymentGroupId"/>

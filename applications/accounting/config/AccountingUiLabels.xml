@@ -242,6 +242,10 @@
         <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
         <value xml:lang="zh">添加定制时间段</value>
     </property>
+    <property key="AccountingAddPaymentGroupMember">
+        <value xml:lang="en">Add Payment Group Member</value>
+        <value xml:lang="hi_IN">भुगतान समूह सदस्य जोड़ें</value>
+    </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
         <value xml:lang="de">Finanzkonten-Art Hauptkonto hinzufügen</value>
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
@@ -4548,6 +4552,10 @@
         <value xml:lang="en">Group in one Transaction</value>
         <value xml:lang="hi_IN">लेन-देन एक समूह में</value>
     </property>
+    <property key="AccountingGroupMembers">
+        <value xml:lang="en">Group Members</value>
+        <value xml:lang="hi_IN">समूह सदस्य</value>
+    </property>
     <property key="AccountingHideFields">
         <value xml:lang="ar">إخفاء الحقول</value>
         <value xml:lang="de">Felder ausblenden</value>
@@ -7231,9 +7239,9 @@
         <value xml:lang="en">Payment Group Id</value>
         <value xml:lang="hi_IN">भुगतान समूह क्रमांक</value>
     </property>
-    <property key="AccountingPaymentGroupMember">
-        <value xml:lang="en">Group Member</value>
-        <value xml:lang="hi_IN">समूह सदस्य</value>
+    <property key="AccountingPaymentGroupMembers">
+        <value xml:lang="en">Payment Group Members</value>
+        <value xml:lang="hi_IN">भुगतान समूह सदस्य</value>
     </property>
     <property key="AccountingPaymentGroupName">
         <value xml:lang="de">Name der Zahlungsgruppe</value>
