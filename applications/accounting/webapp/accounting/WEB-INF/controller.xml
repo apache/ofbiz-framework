@@ -2506,6 +2506,12 @@ under the License.
         <response name="success" type="view-last"/>
         <response name="error" type="view-last"/>
     </request-map>
+    <request-map uri="updateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
