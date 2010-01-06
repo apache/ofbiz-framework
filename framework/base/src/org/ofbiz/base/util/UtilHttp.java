@@ -1204,7 +1204,7 @@ public class UtilHttp {
             if (date == null || date.length() < 10) return null;
             if (UtilValidate.isEmpty(hour)) return null;
             if (UtilValidate.isEmpty(minutes)) return null;
-            boolean isTwelveHour = UtilValidate.isEmpty(ampm);
+            boolean isTwelveHour = UtilValidate.isNotEmpty(ampm);
 
             // create the timestamp from the data
             try {
