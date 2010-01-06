@@ -68,7 +68,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPaymentGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingPaymentGroup}">
                             <include-form name="EditPaymentGroup" location="component://accounting/widget/PaymentGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -88,8 +90,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPaymentGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListPaymentGroupMember" location="component://accounting/widget/PaymentGroupForms.xml"/>
-                        <include-form name="AddPaymentGroupMember" location="component://accounting/widget/PaymentGroupForms.xml"/>
+                        <screenlet name="listPaymentGroupMember" title="${uiLabelMap.AccountingPaymentGroupMembers}" collapsible="true">
+                            <include-form name="ListPaymentGroupMember" location="component://accounting/widget/PaymentGroupForms.xml"/>
+                        </screenlet>
+                        <screenlet name="addPaymentGroupMember" title="${uiLabelMap.AccountingAddPaymentGroupMember}" collapsible="true">
+                            <include-form name="AddPaymentGroupMember" location="component://accounting/widget/PaymentGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -116,10 +122,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet title="${uiLabelMap.AccountingPaymentGroupOverview}">
+                                <screenlet name="editPaymentGroup" title="${uiLabelMap.AccountingPaymentGroupOverview}" collapsible="true">
                                     <include-form name="EditPaymentGroup" location="component://accounting/widget/PaymentGroupForms.xml"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingPaymentGroupMember}">
+                                <screenlet name="paymentGroupMembers" title="${uiLabelMap.AccountingPaymentGroupMembers}" collapsible="true">
                                     <include-form name="PaymentGroupMembers" location="component://accounting/widget/PaymentGroupForms.xml"/>
                                 </screenlet>
                             </widgets>

@@ -481,7 +481,7 @@ under the License.
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
-        <menu-item name="EditPaymentGroupMember" title="${uiLabelMap.AccountingPaymentGroupMember}">
+        <menu-item name="EditPaymentGroupMember" title="${uiLabelMap.AccountingGroupMembers}">
             <condition><not><if-empty field="paymentGroup.paymentGroupId"/></not></condition>
             <link target="EditPaymentGroupMember">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
