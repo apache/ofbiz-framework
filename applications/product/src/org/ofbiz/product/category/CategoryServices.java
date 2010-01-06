@@ -270,7 +270,9 @@ public class CategoryServices {
 
                     // get only between low and high indexes
                     if (limitView) {
-                        productCategoryMembers = productCategoryMembers.subList(lowIndex-1, highIndex);
+                        if (UtilValidate.isNotEmpty(productCategoryMembers)) {
+                            productCategoryMembers = productCategoryMembers.subList(lowIndex-1, highIndex);
+                        }
                     } else {
                         lowIndex = 1;
                         highIndex = listSize;
