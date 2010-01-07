@@ -26,15 +26,13 @@ import org.ofbiz.entity.transaction.*
 import org.ofbiz.base.util.*
 
 
-delegator = request.getAttribute("delegator");
-
-lookupFlag = request.getParameter("lookupFlag");
-shipmentTypeId = request.getParameter("shipmentTypeId");
-originFacilityId = request.getParameter("originFacilityId");
-destinationFacilityId = request.getParameter("destinationFacilityId");
-statusId = request.getParameter("statusId");
-minDate = request.getParameter("minDate");
-maxDate = request.getParameter("maxDate");
+lookupFlag = parameters.lookupFlag;
+shipmentTypeId = parameters.shipmentTypeId;
+originFacilityId = parameters.originFacilityId;
+destinationFacilityId = parameters.destinationFacilityId;
+statusId = parameters.statusId;
+minDate = parameters.minDate;
+maxDate = parameters.maxDate;
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
