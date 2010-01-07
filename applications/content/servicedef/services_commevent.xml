@@ -27,7 +27,7 @@ under the License.
         This service must do two things:
 
         First, call persistContentAndAssoc service to create the Content, DataResource and ImageDataResource/ElectronicText/??? entities.
-            Note that is will not create a ContentAssoc entity, which persistContentAndAssoc can do.
+            Note that it will not create a ContentAssoc entity, which persistContentAndAssoc can do.
             It should be able to auto populate the service parameters for persistContentAndAssoc from this service's input parameters
             using ModelService.makeValid (or the simple method equivalent).
             persistContentAndAssoc will return contentId.
