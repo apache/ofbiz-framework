@@ -532,6 +532,8 @@ public class SqlJdbcUtil {
                 try {
                     entity.dangerousSetNoCheckButFast(curField, converter.convert(sourceObject));
                     return;
+                } catch (ClassCastException e) {
+                    Debug.logError(e.toString(), module);
                 } catch (Exception e) {
                     Debug.logError(e, module);
                 }
