@@ -160,12 +160,17 @@ under the License.
                                     <#if itemInfo.get("${orderId}")?exists >
                                         <#assign infoItems = itemInfo.get("${orderId}")>
                                         <#list infoItems as infoItem>
-                                            <fo:table-row background-color="${rowColor}">
                                                 <#assign orderItemShipGrpInvRes = infoItem.orderItemShipGrpInvRes>
+                                                <#assign quantityToPick = Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantity}") >
+                                                <#if orderItemShipGrpInvRes.quantityNotAvailable?exists >
+                                                        <#assign quantityToPick = quantityToPick - Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantityNotAvailable}")>
+                                                </#if>
                                                 <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem")>
                                                 <#assign product = orderItem.getRelatedOne("Product")>
                                                 <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct"))?if_exists>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
+                                            <#if (quantityToPick > 0)>
+                                            <fo:table-row background-color="${rowColor}">
                                                 <#if infoItem.facilityLocation?has_content>
                                                     <#assign facilityLocation = infoItem.facilityLocation>
                                                     <fo:table-cell><fo:block font-size="10pt">${facilityLocation.locationSeqId?default("_NA_")}</fo:block></fo:table-cell>
@@ -179,11 +184,11 @@ under the License.
                                                 <#else>
                                                     <fo:table-cell><fo:block font-size="10pt">  </fo:block></fo:table-cell>
                                                 </#if>
-                                                <#assign quantity = Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantity}")/>
-                                                <#assign totalQty = totalQty + quantity>
-                                                <fo:table-cell><fo:block font-size="10pt">${orderItemShipGrpInvRes.quantity?if_exists} </fo:block></fo:table-cell>
+                                                <#assign totalQty = totalQty + quantityToPick>
+                                                <fo:table-cell><fo:block font-size="10pt">${quantityToPick?if_exists} </fo:block></fo:table-cell>
                                                 <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
+                                            </#if>
                                             <#if product.productTypeId == "MARKETING_PKG_AUTO">
                                                 <fo:table-row background-color="${rowColor}">
                                                     <fo:table-cell  number-columns-spanned="6">
