@@ -101,8 +101,11 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_PAYMENT" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_QUICK" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_SHIPPING" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="FAX_BILLING" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_ASSISTANT" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" contactMechTypeId="WEB_ADDRESS"/>
-
+    
     <!-- communication events -->
     <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CONFERENCE" description="Conference" hasTable="N" parentTypeId=""/>
