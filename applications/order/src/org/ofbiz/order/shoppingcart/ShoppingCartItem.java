@@ -239,7 +239,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         newItem.setCancelBackOrderDate(cancelBackOrderDate != null ? cancelBackOrderDate : cart.getCancelBackOrderDate());
 
         try {
-            newItem.setQuantity(quantity, dispatcher, cart, true);
+            newItem.setQuantity(quantity, dispatcher, cart, true, false);
         } catch (CartItemModifyException e) {
             cart.removeCartItem(cart.getItemIndex(newItem), dispatcher);
             cart.clearItemShipInfo(newItem);

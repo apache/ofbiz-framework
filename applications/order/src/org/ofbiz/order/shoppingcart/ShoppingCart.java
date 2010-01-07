@@ -433,7 +433,7 @@ public class ShoppingCart implements Serializable {
         return this.cartCreatedTs;
     }
 
-    private GenericValue getSupplierProduct(String productId, BigDecimal quantity, LocalDispatcher dispatcher) {
+    public GenericValue getSupplierProduct(String productId, BigDecimal quantity, LocalDispatcher dispatcher) {
         GenericValue supplierProduct = null;
         Map params = UtilMisc.toMap("productId", productId,
                                     "partyId", this.getPartyId(),
@@ -1977,7 +1977,9 @@ public class ShoppingCart implements Serializable {
             CartShipInfo csi = this.getShipInfo(i);
             csi.shipItemInfo.remove(item);
         }
-        this.cleanUpShipGroups();
+        
+        // DEJ20100107: commenting this out because we do NOT want to clear out ship group info since there is information there that will be lost; good enough to clear the item/group association which can be restored later (though questionable, the whole processes using this should be rewritten to not destroy information! 
+        // this.cleanUpShipGroups();
     }
 
     public void setItemShipGroupEstimate(BigDecimal amount, int idx) {
@@ -2115,6 +2117,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public void cleanUpShipGroups() {
+        Debug.logInfo(new Exception(), "==================== Call of cleanUpShipGroups!", module);
         for (CartShipInfo csi : this.shipInfo) {
             Iterator<ShoppingCartItem> si = csi.shipItemInfo.keySet().iterator();
             while (si.hasNext()) {
@@ -2245,7 +2248,7 @@ public class ShoppingCart implements Serializable {
     public void setMaySplit(int idx, Boolean maySplit) {
         CartShipInfo csi = this.getShipInfo(idx);
         if (UtilValidate.isNotEmpty(maySplit)) {
-            csi.maySplit = maySplit.booleanValue() ? "Y" : "N";
+            csi.setMaySplit(maySplit);
         }
     }
 
@@ -4294,7 +4297,7 @@ public class ShoppingCart implements Serializable {
         public String supplierPartyId = null;
         public String carrierRoleTypeId = null;
         public String carrierPartyId = null;
-        public String facilityId = null;
+        private String facilityId = null;
         public String giftMessage = null;
         public String shippingInstructions = null;
         public String maySplit = "N";
@@ -4302,28 +4305,49 @@ public class ShoppingCart implements Serializable {
         public BigDecimal shipEstimate = BigDecimal.ZERO;
         public Timestamp shipBeforeDate = null;
         public Timestamp shipAfterDate = null;
-        public String shipGroupSeqId = null;
+        private String shipGroupSeqId = null;
         public String vendorPartyId = null;
+        
+        public CartShipInfo() {
+            // Debug.logInfo(new Exception(), "Created a new CartShipInfo", module);
+        }
 
         public String getOrderTypeId() { return orderTypeId; }
+        
         public String getContactMechId() { return internalContactMechId; }
         public void setContactMechId(String contactMechId) {
             this.internalContactMechId = contactMechId;
             // Debug.logInfo(new Exception(), "Set CartShipInfo.contactMechId=" + this.internalContactMechId, module);
         }
+        
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
         public BigDecimal getShipEstimate() { return shipEstimate; }
+
         public String getShipGroupSeqId() { return shipGroupSeqId; }
-        public String getFacilityId() { return facilityId; }
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
+            // Debug.logInfo(new Exception(), "============= On CartShipInfo shipGroupSeqId to " + this.shipGroupSeqId, module);
         }
+        
+        public String getFacilityId() { return facilityId; }
+        public void setFacilityId(String facilityId) {
+            this.facilityId = facilityId;
+            // Debug.logInfo(new Exception(), "============= On CartShipInfo setFacilityId to " + this.facilityId, module);
+        }
+        
         public String getVendorPartyId() { return vendorPartyId;}
         public void setVendorPartyId(String vendorPartyId) {
             this.vendorPartyId = vendorPartyId;
         }
+        
+        public void setMaySplit(Boolean maySplit) {
+            if (UtilValidate.isNotEmpty(maySplit)) {
+                this.maySplit = maySplit.booleanValue() ? "Y" : "N";
+            }
+        }
+        
 
         public List makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
@@ -4351,6 +4375,8 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
             shipGroup.set("vendorPartyId", vendorPartyId);
             shipGroup.set("facilityId", facilityId);
+            
+            // Debug.logInfo("=================Creating ship group value: " + shipGroup, module);
 
             // use the cart's default ship before and after dates here
             if ((shipBeforeDate == null) && (cart.getDefaultShipBeforeDate() != null)) {
