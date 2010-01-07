@@ -3314,20 +3314,37 @@ public class OrderServices {
 
         // add in the new product
         try {
-            ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
-            if (basePrice != null && overridePrice != null) {
-                item.setBasePrice(basePrice);
-                // special hack to make sure we re-calc the promos after a price change
-                item.setQuantity(quantity.add(BigDecimal.ONE), dispatcher, cart, false);
-                item.setQuantity(quantity, dispatcher, cart, false);
-                item.setBasePrice(basePrice);
-                item.setIsModifiedPrice(true);
+            if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
+                GenericValue supplierProduct = cart.getSupplierProduct(productId, quantity, dispatcher);
+                ShoppingCartItem item = null;
+                if (supplierProduct != null) {
+                    item = ShoppingCartItem.makePurchaseOrderItem(null, productId, null, quantity, null, null, prodCatalogId, null, null, null, dispatcher, cart, supplierProduct, itemDesiredDeliveryDate, itemDesiredDeliveryDate, null);
+                    cart.addItem(0, item);
+                } else {
+                    throw new CartItemModifyException("No supplier information found for product [" + productId + "] and quantity quantity [" + quantity + "], cannot add to cart.");
+                }
+                
+                if (basePrice != null) {
+                    item.setBasePrice(basePrice);
+                    item.setIsModifiedPrice(true);
+                }
+                
+                cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
+            } else {
+                ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
+                if (basePrice != null && overridePrice != null) {
+                    item.setBasePrice(basePrice);
+                    // special hack to make sure we re-calc the promos after a price change
+                    item.setQuantity(quantity.add(BigDecimal.ONE), dispatcher, cart, false);
+                    item.setQuantity(quantity, dispatcher, cart, false);
+                    item.setBasePrice(basePrice);
+                    item.setIsModifiedPrice(true);
+                }
+
+                // set the item in the selected ship group
+                item.setShipBeforeDate(itemDesiredDeliveryDate);
+                cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
             }
-
-
-            // set the item in the selected ship group
-            item.setShipBeforeDate(itemDesiredDeliveryDate);
-            cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
         } catch (CartItemModifyException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
