@@ -31,8 +31,8 @@ under the License.
             It should be able to auto populate the service parameters for persistContentAndAssoc from this service's input parameters
             using ModelService.makeValid (or the simple method equivalent).
             persistContentAndAssoc will return contentId.
-
-        Second, it must create a CommunicationEventContent record.
+            
+        Second, it must create a CommEventContentAssoc record.
             The fromData should be defaulted if not passed in.
     -->
     <service name="createCommContentDataResource" engine="simple"
