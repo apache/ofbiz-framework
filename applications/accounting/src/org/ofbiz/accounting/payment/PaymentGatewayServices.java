@@ -2835,7 +2835,7 @@ public class PaymentGatewayServices {
         GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
         if ("PaymentGatewayResponse".equals(pgr.getEntityName())) {
             String message = pgr.getString("gatewayMessage");
-            if (message.length() > 255) {
+            if (UtilValidate.isNotEmpty(message) && message.length() > 255) {
                 pgr.set("gatewayMessage", message.substring(0, 255));
             }
         }
