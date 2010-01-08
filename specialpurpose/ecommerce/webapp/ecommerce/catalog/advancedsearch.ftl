@@ -73,6 +73,11 @@ under the License.
             <option value="SortProductField:averageCustomerRating">${uiLabelMap.ProductCustomerRating}</option>
             <option value="SortProductPrice:LIST_PRICE">${uiLabelMap.ProductListPrice}</option>
             <option value="SortProductPrice:DEFAULT_PRICE">${uiLabelMap.ProductDefaultPrice}</option>
+            <#if productFeatureTypes?exists && productFeatureTypes?has_content>
+              <#list productFeatureTypes as productFeatureType>
+                <option value="SortProductFeature:${productFeatureType.productFeatureTypeId}">${productFeatureType.description?default(productFeatureType.productFeatureTypeId)}</option>
+              </#list>
+            </#if>
           </select>
           ${uiLabelMap.EcommerceLowToHigh} <input type="radio" name="sortAscending" value="Y" checked="checked"/>
           ${uiLabelMap.EcommerceHighToLow} <input type="radio" name="sortAscending" value="N"/>

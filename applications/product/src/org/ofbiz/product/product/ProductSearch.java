@@ -2094,6 +2094,55 @@ public class ProductSearch {
         }
     }
 
+    public static class SortProductFeature extends ResultSortOrder {
+        protected String productFeatureTypeId;
+        protected boolean ascending;
+
+        public SortProductFeature(String productFeatureTypeId, boolean ascending) {
+            this.productFeatureTypeId = productFeatureTypeId;
+            this.ascending = ascending;
+        }
+
+        @Override
+        public void setSortOrder(ProductSearchContext productSearchContext) {
+            productSearchContext.dynamicViewEntity.addMemberEntity("PFAPPL", "ProductFeatureAndAppl");
+            productSearchContext.dynamicViewEntity.addAlias("PFAPPL", "sortProductFeatureTypeId", "productFeatureTypeId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias("PFAPPL", "sortProductFeatureId", "productFeatureId", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias("PFAPPL", "sortFromDate", "fromDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addAlias("PFAPPL", "sortThruDate", "thruDate", null, null, null, null);
+            productSearchContext.dynamicViewEntity.addViewLink("PROD", "PFAPPL", Boolean.TRUE, UtilMisc.toList(new ModelKeyMap("productId", "productId")));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition("sortProductFeatureTypeId", EntityOperator.EQUALS, this.productFeatureTypeId));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition("sortFromDate", EntityOperator.LESS_THAN_EQUAL_TO, productSearchContext.nowTimestamp));
+            productSearchContext.entityConditionList.add(EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("sortThruDate", EntityOperator.EQUALS, null), EntityOperator.OR,
+                    EntityCondition.makeCondition("sortThruDate", EntityOperator.GREATER_THAN_EQUAL_TO, productSearchContext.nowTimestamp)));
+            if (ascending) {
+                productSearchContext.orderByList.add("+sortProductFeatureId");
+            } else {
+                productSearchContext.orderByList.add("-sortProductFeatureId");
+            }
+            productSearchContext.fieldsToSelect.add("sortProductFeatureId");
+        }
+
+        @Override
+        public String getOrderName() {
+            return "ProductFeature:" + this.productFeatureTypeId;
+        }
+
+        @Override
+        public String prettyPrintSortOrder(boolean detailed, Locale locale) {
+            String featureTypeName = null;
+            if (this.productFeatureTypeId != null) {
+                featureTypeName = this.productFeatureTypeId;
+            }
+            return featureTypeName;
+        }
+
+        @Override
+        public boolean isAscending() {
+            return this.ascending;
+        }
+    }
     /** A rather large and verbose method that doesn't use the cool constraint and sort order objects */
     /*
     public static ArrayList parametricKeywordSearchStandAlone(Set featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
