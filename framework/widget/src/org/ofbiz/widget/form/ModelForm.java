@@ -2918,14 +2918,20 @@ public class ModelForm extends ModelWidget {
         if (this.actions != null) {
             for (ModelFormAction modelFormAction: this.actions) {
                 if (modelFormAction instanceof ModelFormAction.Service) {
-                    allServiceNamesUsed.add(((ModelFormAction.Service)modelFormAction).serviceNameExdr.getOriginal());
+                    String serviceName = ((ModelFormAction.Service) modelFormAction).serviceNameExdr.getOriginal();
+                    if (serviceName != null) {
+                        allServiceNamesUsed.add(serviceName);
+                    }
                 }
             }
         }
         if (this.rowActions != null) {
             for (ModelFormAction modelFormAction: this.rowActions) {
                 if (modelFormAction instanceof ModelFormAction.Service) {
-                    allServiceNamesUsed.add(((ModelFormAction.Service)modelFormAction).serviceNameExdr.getOriginal());
+                    String serviceName = ((ModelFormAction.Service) modelFormAction).serviceNameExdr.getOriginal();
+                    if (serviceName != null) {
+                        allServiceNamesUsed.add(serviceName);
+                    }
                 }
             }
         }
