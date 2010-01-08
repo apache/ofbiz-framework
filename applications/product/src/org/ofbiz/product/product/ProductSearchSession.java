@@ -828,6 +828,12 @@ public class ProductSearchSession {
             } else if (sortOrder.startsWith("SPP:")) {
                 String priceTypeId = sortOrder.substring("SPP:".length());
                 searchSetSortOrder(new ProductSearch.SortProductPrice(priceTypeId, ascending), session);
+            } else if (sortOrder.startsWith("SortProductFeature:")) {
+                String featureId = sortOrder.substring("SortProductFeature:".length());
+                searchSetSortOrder(new ProductSearch.SortProductFeature(featureId, ascending), session);
+            } else if (sortOrder.startsWith("SPFT:")) {
+                String priceTypeId = sortOrder.substring("SPFT:".length());
+                searchSetSortOrder(new ProductSearch.SortProductPrice(priceTypeId, ascending), session);
             }
         }
 
@@ -1151,6 +1157,10 @@ public class ProductSearchSession {
                 ProductSearch.SortProductPrice spp = (ProductSearch.SortProductPrice) resultSortOrder;
                 searchParamString.append("&amp;S_O=SPP:");
                 searchParamString.append(spp.productPriceTypeId);
+            } else if (resultSortOrder instanceof ProductSearch.SortProductFeature) {
+                ProductSearch.SortProductFeature spf = (ProductSearch.SortProductFeature) resultSortOrder;
+                searchParamString.append("&amp;S_O=SPFT:");
+                searchParamString.append(spf.productFeatureTypeId);
             }
             searchParamString.append("&amp;S_A=");
             searchParamString.append(resultSortOrder.isAscending() ? "Y" : "N");

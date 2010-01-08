@@ -26,6 +26,8 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.feature.*;
 import org.ofbiz.product.product.*;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 
 searchCategoryId = parameters.SEARCH_CATEGORY_ID;
 if (!searchCategoryId) {
@@ -36,6 +38,9 @@ searchCategory = delegator.findByPrimaryKey("ProductCategory", [productCategoryI
 
 productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator);
 productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List;
+if(productFeatureTypeIdsOrdered) {
+    context.productFeatureTypes = delegator.findList("ProductFeatureType", EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered), null, null, null, false);
+}
 
 searchOperator = parameters.SEARCH_OPERATOR;
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
