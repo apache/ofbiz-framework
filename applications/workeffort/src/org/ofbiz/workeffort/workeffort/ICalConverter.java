@@ -19,8 +19,8 @@
 
 package org.ofbiz.workeffort.workeffort;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
@@ -34,13 +34,48 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
-
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.component.*;
-import net.fortuna.ical4j.model.parameter.*;
-import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.ComponentList;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Dur;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyList;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.model.component.VAlarm;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.component.VToDo;
+import net.fortuna.ical4j.model.parameter.Cn;
+import net.fortuna.ical4j.model.parameter.PartStat;
+import net.fortuna.ical4j.model.parameter.XParameter;
+import net.fortuna.ical4j.model.property.Action;
+import net.fortuna.ical4j.model.property.Attendee;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.Clazz;
+import net.fortuna.ical4j.model.property.Completed;
+import net.fortuna.ical4j.model.property.Created;
+import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStamp;
+import net.fortuna.ical4j.model.property.DtStart;
+import net.fortuna.ical4j.model.property.Duration;
+import net.fortuna.ical4j.model.property.LastModified;
+import net.fortuna.ical4j.model.property.Location;
+import net.fortuna.ical4j.model.property.Organizer;
+import net.fortuna.ical4j.model.property.PercentComplete;
+import net.fortuna.ical4j.model.property.Priority;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Status;
+import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.Uid;
+import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.model.property.XProperty;
 
 import org.ofbiz.base.util.DateRange;
 import org.ofbiz.base.util.Debug;
@@ -62,7 +97,7 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.service.calendar.TemporalExpressionWorker;
-import static org.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
+import org.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library. 
@@ -692,41 +727,41 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
+        Set validWorkEfforts = FastSet.newInstance();
         if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
-            Set validWorkEfforts = FastSet.newInstance();
             for (GenericValue workEffort : workEfforts) {
                 validWorkEfforts.add(workEffort.getString("workEffortId"));
             }
-            List<Component> components = calendar.getComponents();
-            ResponseProperties responseProps = null;
-            for (Component component : components) {
-                if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
-                    workEffortId = fromXProperty(component.getProperties(), workEffortIdXPropName);
-                    if (workEffortId == null) {
-                        Property uid = component.getProperty(Uid.UID);
-                        if (uid != null) {
-                            GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
-                            if (workEffort != null) {
-                                workEffortId = workEffort.getString("workEffortId");
-                            }
+        }
+        List<Component> components = calendar.getComponents();
+        ResponseProperties responseProps = null;
+        for (Component component : components) {
+            if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
+                workEffortId = fromXProperty(component.getProperties(), workEffortIdXPropName);
+                if (workEffortId == null) {
+                    Property uid = component.getProperty(Uid.UID);
+                    if (uid != null) {
+                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue())));
+                        if (workEffort != null) {
+                            workEffortId = workEffort.getString("workEffortId");
                         }
                     }
-                    if (workEffortId != null) {
-                        if (validWorkEfforts.contains(workEffortId)) {
-                            replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
-                            responseProps = storeWorkEffort(component, context);
-                        } else {
-                            Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
-                                    " on URL workEffortId " + context.get("workEffortId"), module);
-                            responseProps = ICalWorker.createForbiddenResponse(null);
-                        }
-                    } else if (hasCreatePermission) {
-                        responseProps = createWorkEffort(component, context);
+                }
+                if (workEffortId != null) {
+                    if (validWorkEfforts.contains(workEffortId)) {
+                        replaceProperty(component.getProperties(), toXProperty(workEffortIdXPropName, workEffortId));
+                        responseProps = storeWorkEffort(component, context);
+                    } else {
+                        Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId +
+                                " on URL workEffortId " + context.get("workEffortId"), module);
+                        responseProps = ICalWorker.createForbiddenResponse(null);
                     }
-                    if (responseProps != null) {
-                        return responseProps;
-                    }
+                } else if (hasCreatePermission) {
+                    responseProps = createWorkEffort(component, context);
+                }
+                if (responseProps != null) {
+                    return responseProps;
                 }
             }
         }
