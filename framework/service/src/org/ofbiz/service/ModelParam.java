@@ -136,6 +136,18 @@ public class ModelParam implements Serializable {
     public String getMode() {
         return this.mode;
     }
+    
+    public String getEntityName() {
+        return this.entityName;
+    }
+    
+    public String getFieldName() {
+        return this.fieldName;
+    }
+    
+    public boolean getInternal() {
+        return this.internal;
+    }
 
     public boolean isIn() {
         return "IN".equals(this.mode) || "INOUT".equals(this.mode);
