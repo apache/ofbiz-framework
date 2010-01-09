@@ -17,7 +17,7 @@ License.
     xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Accounting Billing Accounts.</title>
+    <title>Billing Accounts.</title>
     <para>A billing account is a way of allowing customers to consolidate several invoices into an
         account that is paid off at a later date.Customers can be allocated a credit limit and
         orders can be taken up to the value of the credit limit without any payment being made.

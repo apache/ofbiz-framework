@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Send Per Email screen.</title>
+    <title>The Send Per Email screen.</title>
     <para>This is used to send a copy of the invoice details to one or more
         email addresses. The invoice is included as an attachment and the user
         can add a simple accompanying email message.</para>

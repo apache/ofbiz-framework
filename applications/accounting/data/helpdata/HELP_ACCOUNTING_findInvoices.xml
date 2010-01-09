@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Find Invoices screen.</title>
+    <title>The Find Invoices screen.</title>
     <para>The default screen is for the Invoices tab is 'Find Invoices'. It
         is used to locate existing invoices that have been created
         automatically by the system or manually by the user. It can also be

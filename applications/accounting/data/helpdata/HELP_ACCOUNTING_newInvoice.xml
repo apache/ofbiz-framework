@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting New Invoice screen.</title>
+    <title>The New Invoice screen.</title>
     <para>This screen allows the user to create a new Sales or Purchase
         Invoice. Sales Invoices are created when a customer buys something
         from you. Purchase Invoices are created when you buy something from a

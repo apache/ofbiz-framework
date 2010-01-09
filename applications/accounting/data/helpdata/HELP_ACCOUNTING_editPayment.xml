@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Payment Header help screen.</title>
+    <title>The Payment Header help screen.</title>
     <para>The Header screen displays the header details for the payment
         transaction and allows all fields to be updated if required. </para>
 

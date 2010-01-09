@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Accounting Invoices.</title>
+    <title>Invoices.</title>
     <para>
         Sales invoices are generated when customers buy something from your
         business.

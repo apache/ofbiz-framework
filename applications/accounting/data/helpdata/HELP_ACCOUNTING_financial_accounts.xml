@@ -17,7 +17,7 @@ License.
     xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Accounting Financial Accounts.</title>
+    <title>Financial Accounts.</title>
     <para>A financial account is a tool (similar to bank account statement) that is used for
         monitoring monetary transactions. Normally they will be linked to a party and the various
         transactions details (eg payments or receipts) will be shown as entries.</para>

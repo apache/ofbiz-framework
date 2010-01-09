@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Find Purchase Invoices By Due Date help screen.
+    <title>The Find Purchase Invoices By Due Date help screen.
     </title>
     <para>This screen allows the user to search for and locate Purchase
         Invoices based on their due date. The 'Due Date' can be defined as the
