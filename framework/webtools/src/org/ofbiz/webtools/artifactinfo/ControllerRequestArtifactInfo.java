@@ -67,7 +67,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
 
-        if (this.requestInfoMap.event != null && "service".equals(this.requestInfoMap.event.type)) {
+        if (this.requestInfoMap.event != null && this.requestInfoMap.event.type != null && (this.requestInfoMap.event.type.indexOf("service") >= 0)) {
             String serviceName = (String) this.requestInfoMap.event.invoke;
             try {
                 this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
