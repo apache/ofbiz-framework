@@ -36,7 +36,7 @@ fieldValue = parameters.get(searchValueFieldName);
 if (searchFields && fieldValue) {
     searchFieldsList = StringUtil.toList(searchFields);
     displayFieldsSet = StringUtil.toSet(displayFields);
-    returnField = context.returnField ?: searchFieldsList[0]; //default to first element of searchFields
+    returnField = searchFieldsList[0]; //default to first element of searchFields
     displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
     context.returnField = returnField;
     context.displayFieldsSet = displayFieldsSet;
@@ -46,8 +46,14 @@ if (searchFields && fieldValue) {
 }
 
 if (andExprs && entityName && displayFieldsSet) {
-    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);    
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.OR);
+    
+    //if there is an extra condition, add it to main condition 
+    if (context.andCondition && context.andCondition  instanceof EntityCondition) {
+        entityConditionList = EntityCondition.makeCondition(context.andCondition, entityConditionList);
+    }
+    
+    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);     
     EntityFindOptions findOptions = new EntityFindOptions();
     findOptions.setMaxRows(autocompleterViewSize);
     autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false);

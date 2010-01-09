@@ -37,15 +37,15 @@ under the License.
                 <set field="entityName" value="PartyNameView"/>
                 
                 <!-- required: fields to search a match -->
+                <!-- the first element from searchFields is returned after user selection --> 
+                <!-- it might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->                
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
-                
-                <!-- optional: field to return after user selection, default is first element of searchFields --> 
-                <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
-                <set field="returnField" value="partyId"/>                  
-                
-                <!-- optional: fields to display, default are searchFields -->
+ 
+                <!-- optional: fields to display in the given order, default is searchFields -->
                 <set field="displayFields" value="[firstName, lastName, groupName]"/>
                 
+                <!-- optional: additional entity condition (named andCondition) added to search query -->
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -141,9 +141,10 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
+                <set field="queryString" from-field="result.queryString"/>                
                 <set field="entityName" value="PartyAndPerson"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
-                <set field="queryString" from-field="result.queryString"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -212,12 +213,13 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="title" value="${uiLabelMap.PartyLookupPartyAndUserLoginAndPerson}"/>
                 <set field="entityName" value="PartyAndUserLoginAndPerson"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="searchFields" value="[userLoginId, partyId, firstName, lastName]"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>                 
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -244,6 +246,8 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="searchFields" value="[userLoginId, partyId, firstName, lastName, groupName]"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -266,6 +270,8 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyGroup}"/>
                 <set field="entityName" value="PartyAndGroup"/>
+                <set field="searchFields" value="[partyId, groupName, comments]"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -311,8 +317,9 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <set field="title" value="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
+                <set field="entityName" value="PartyClassificationGroup"/>
+                <set field="searchFields" value="[partyClassificationGroupId, parentGroupId, description]"/>                                
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -335,7 +342,8 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
-
+                <set field="entityName" value="CommunicationEvent"/>
+                <set field="searchFields" value="[communicationEventId, subject]"/> 
                 <set field="title" value="${uiLabelMap.PartyLookupPartyCommEvent}"/>
                 <set field="tabButtonItem" value="ContactList"/>
             </actions>
@@ -359,6 +367,8 @@ under the License.
 
                 <set field="title" value="${uiLabelMap.PartyLookupContactMech}"/>
                 <set field="entityName" value="PartyAndContactMech"/>
+                <set field="searchFields" value="[contactMechId, partyId, contactMechTypeId, infoString, paToName]"/> 
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
@@ -385,6 +395,10 @@ under the License.
                 <set field="title" value="${uiLabelMap.PartyLookupInternalOrganization}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+                <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>      
+                <set field="updateStatCond" value="${groovy: context.andCondition = org.ofbiz.entity.condition.EntityCondition.makeCondition([context.andCondition, 
+                    org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;roleTypeId&quot;, &quot;INTERNAL_ORGANIZATIO&quot;)])}"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
