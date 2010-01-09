@@ -22,18 +22,18 @@ under the License.
         objectInfo="applications/humanres/data/helpdata/HELP_HR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Human Resources Overview" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_HR" contentTypeId="DOCUMENT" contentName="Human Resources" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+        dataResourceId="HELP_HR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_HR" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000"/>
 
     <DataResource dataResourceId="HR_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/humanres/data/helpdata/HELP_HR_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Main Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HR_main" contentTypeId="DOCUMENT" contentName="Human Resources Main." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="HR_main" contentTypeId="DOCUMENT" contentName="Human Resources Main." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_HR" contentIdTo="HR_main" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HR_main"/>
     
     <!-- training -->    
     <DataResource dataResourceId="HR_training" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
       objectInfo="applications/humanres/data/helpdata/HELP_HR_training.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Human Resources Training Help" mimeTypeId="text/xml" isPublic="Y" />
-  <Content contentId="HR_training" contentTypeId="DOCUMENT" contentName="Training." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_training" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+  <Content contentId="HR_training" contentTypeId="DOCUMENT" contentName="Training." templateDataResourceId="HELP_TEMPL" dataResourceId="HR_training" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
   <ContentAssoc contentId="HELP_HR" contentIdTo="HR_training" contentAssocTypeId="TREE_CHILD" fromDate="2009-10-18 01:01:01" sequenceNum="000" mapKey="HR_training"/>
     
 </entity-engine-xml>

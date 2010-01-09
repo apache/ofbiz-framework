@@ -19,11 +19,11 @@ under the License.
 -->
 <entity-engine-xml>
     <DataResource dataResourceId="HELP_PRODUCT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_PRODUCT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Product" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_PRODUCT" contentTypeId="DOCUMENT" localeString="en" contentName="Catalog Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="HELP_PRODUCT" contentTypeId="DOCUMENT" localeString="en" contentName="Catalog Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_PRODUCT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PRODUCT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="020"/>
 
     <DataResource dataResourceId="PRODCATALOG_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_PRODCATALOG_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="PRODCATALOG_main" contentTypeId="DOCUMENT" contentName="Main Catalog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PRODCATALOG_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="PRODCATALOG_main" contentTypeId="DOCUMENT" contentName="Main Catalog Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PRODCATALOG_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_PRODUCT" contentIdTo="PRODCATALOG_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PRODCATALOG_main"/>
 
 </entity-engine-xml>

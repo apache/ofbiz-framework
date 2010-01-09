@@ -621,7 +621,7 @@ under the License.
     <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
     <!-- Deductions -->
     <InvoiceItemType description="Deductions from Gross" hasTable="N" invoiceItemTypeId="PAYROL_DD_FROM_GROSS" parentTypeId="PAYROL"/>
-    <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>/>
+    <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
     <InvoiceItemType description="125*PPO (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125PPO" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
     <InvoiceItemType description="125*HSA Contribution (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125HSA" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
     <InvoiceItemType description="401K Emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_401K" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>

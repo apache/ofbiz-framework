@@ -22,12 +22,12 @@ under the License.
         objectInfo="applications/party/data/helpdata/HELP_PARTY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Party Overview" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_PARTY" contentTypeId="DOCUMENT" contentName="Party Manager" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_PARTY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+        dataResourceId="HELP_PARTY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PARTY" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
     
     <DataResource dataResourceId="PARTY_findparty" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/party/data/helpdata/HELP_PARTY_findparty.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="List parties Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="PARTY_findparty" contentTypeId="DOCUMENT" contentName="List parties Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PARTY_findparty" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="PARTY_findparty" contentTypeId="DOCUMENT" contentName="List parties Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PARTY_findparty" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_PARTY" contentIdTo="PARTY_findparty" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PARTY_findparty"/>
 
 </entity-engine-xml>
