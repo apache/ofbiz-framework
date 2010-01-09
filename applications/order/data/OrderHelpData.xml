@@ -22,12 +22,12 @@ under the License.
         objectInfo="applications/order/data/helpdata/HELP_ORDER.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Order" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_ORDER" contentTypeId="DOCUMENT" contentName="Order Manager" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_ORDER" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+        dataResourceId="HELP_ORDER" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ORDER" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
 
     <!--  Reports -->
     <DataResource dataResourceId="HELP_ORDER_REPORT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/order/data/helpdata/HELP_ORDER_Report.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_ORDER_REPORT" contentTypeId="DOCUMENT" contentName="Order Reports Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDER_REPORT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="HELP_ORDER_REPORT" contentTypeId="DOCUMENT" contentName="Order Reports Help" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_ORDER_REPORT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ORDER" contentIdTo="HELP_ORDER_REPORT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="OrderEntry_OrderPurchaseReportOptions"/>
 </entity-engine-xml>

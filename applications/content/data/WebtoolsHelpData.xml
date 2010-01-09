@@ -26,23 +26,23 @@
         objectInfo="framework/webtools/data/helpdata/HELP_WEBTOOLS.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Webtools Overview" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_WEBTOOLS" contentTypeId="DOCUMENT" contentName="Framework Webtools" templateDataResourceId="HELP_TEMPL" 
-        dataResourceId="HELP_WEBTOOLS" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+        dataResourceId="HELP_WEBTOOLS" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_WEBTOOLS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
     
     <DataResource dataResourceId="WEBTOOLS_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="framework/webtools/data/helpdata/HELP_WEBTOOLS_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="List parties Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="WEBTOOLS_main" contentTypeId="DOCUMENT" contentName="Webtools main menu." templateDataResourceId="HELP_TEMPL" dataResourceId="WEBTOOLS_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="WEBTOOLS_main" contentTypeId="DOCUMENT" contentName="Webtools main menu." templateDataResourceId="HELP_TEMPL" dataResourceId="WEBTOOLS_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_WEBTOOLS" contentIdTo="WEBTOOLS_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="WEBTOOLS_main"/>
     
     <DataResource dataResourceId="WEBTOOLS_selenium" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="framework/testtools/data/helpdata/HELP_WEBTOOLS_selenium.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Selenium help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="WEBTOOLS_selenium" contentTypeId="DOCUMENT" contentName="Selenium test." templateDataResourceId="HELP_TEMPL" dataResourceId="WEBTOOLS_selenium" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="WEBTOOLS_selenium" contentTypeId="DOCUMENT" contentName="Selenium test." templateDataResourceId="HELP_TEMPL" dataResourceId="WEBTOOLS_selenium" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_WEBTOOLS" contentIdTo="WEBTOOLS_selenium" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="WEBTOOLS_selenium"/>
     
     
     <!--Selenium Help  Load in contentTypeData.xml file -->
     <DataResource dataResourceId="SELENIUM_HTTPS" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="framework/testtools/documents/OfbizSeleniumSetupHTTPS.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ofbiz Selenium HTTPS" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="SELENIUM_HTTPS" contentTypeId="DOCUMENT" contentName="OFBiz Selenium with HTTPS" templateDataResourceId="HELP_TEMPL" dataResourceId="SELENIUM_HTTPS" localeString="en" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>    
+    <Content contentId="SELENIUM_HTTPS" contentTypeId="DOCUMENT" contentName="OFBiz Selenium with HTTPS" templateDataResourceId="HELP_TEMPL" dataResourceId="SELENIUM_HTTPS" localeString="en" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>    
     <ContentAssoc contentId="DOCUMENTS" contentIdTo="SELENIUM_HTTPS" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum="" />
     
      

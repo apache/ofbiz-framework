@@ -50,15 +50,15 @@ under the License.
 
     <!-- Content specific -->
     <DataResource dataResourceId="HELP_CONTENT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Content Manager" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="HELP_CONTENT" contentTypeId="DOCUMENT" contentName="Content Manager" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_CONTENT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="050"/>
 
     <DataResource dataResourceId="HELP_CONTENT_IT" localeString="it" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT_IT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Guida sul gestore di contentui (CMS)" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="HELP_CONTENT_IT" contentTypeId="DOCUMENT" contentName="Guida gestore contenuti" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT_IT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="HELP_CONTENT_IT" contentTypeId="DOCUMENT" contentName="Guida gestore contenuti" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_CONTENT_IT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_CONTENT" contentIdTo="HELP_CONTENT_IT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
     
     <DataResource dataResourceId="CONTENT_SITE_FindWeb" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_CONTENT_SITE_FindWeb.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Accounting Help" mimeTypeId="text/xml" isPublic="Y" />
-    <Content contentId="CONTENT_SITE_FindWeb" contentTypeId="DOCUMENT" contentName="Content Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="CONTENT_SITE_FindWeb" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <Content contentId="CONTENT_SITE_FindWeb" contentTypeId="DOCUMENT" contentName="Content Main Help" templateDataResourceId="HELP_TEMPL" dataResourceId="CONTENT_SITE_FindWeb" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_CONTENT" contentIdTo="CONTENT_SITE_FindWeb" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="CONTENT_SITE_FindWebSite"/>
 
 </entity-engine-xml>
