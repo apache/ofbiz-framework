@@ -17,7 +17,7 @@ License.
     xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Accounting Tax Authorities.</title>
+    <title>Tax Authorities.</title>
     <para>A tax authority is legal body usually the state (country) that imposes a financial levy on
         business transactions.</para>
     <para>In OFBiz tax authorities are used to calculate where business or related taxes are

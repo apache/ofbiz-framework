@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Party GL Account help screen</title>
+ <para>he Party / GL Account mapping allows the translation of different
+  account types (eg Accounts Receivable, Accounts Payable etc) for a
+  party to be mapped to a separate general ledger account. The party
+  role (eg Bill To Customer) is also used to define the mapping even
+  further. OFBiz demo data setup comes with no entries here.</para>
+ <para>It is used as a way of implementing subledger functionality in
+  OFBiz. Subledger functionality is where a higher level account can be
+  split into lower levels. In this case these lower levels can be by
+  party.</para>
+ <para>An example could be that a business may want to use the general
+  ledger to track the Accounts Receivable (AR) by customer so the chart
+  of account would be setup something like as follows:</para>
+ <para>120000 Accounts Receivable</para>
+ <itemizedlist>
+  <listitem>
+   <para>120010 Accounts Receivable - Customer A</para>
+  </listitem>
+  <listitem>
+   <para>120020 Accounts Receiviable - Customer B</para>
+  </listitem>
+  <listitem>
+   <para>120030 Accounts Receivalbe - Customer C</para>
+  </listitem>
+ </itemizedlist>
+ <para>This has the main AR account is at the top of the hierarchy and 3
+  sub accounts below it. Entries for Customers A, B and C would be setup
+  with a role of 'Bill From Customer' as this is a role associated with
+  the customer when the Sales Invoice is generated.When a transaction
+  matching the criteria is processed in the system then these mappings
+  will control where it is posted to.In the case of Customer A any AR
+  transactions with role 'Bill To Customer' are posted to '120010'
+  instead of the standard '120000</para>
+ <section>
+  <title>How do I add a new Party / GL Account mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Enter or Lookup the party for the 'Party Id' field</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'Role Type Id' from the drop down list (NOTE: Be
+     careful that you select the correct role for the transactions you
+     want to track......)</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account Type Id' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account Id' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The new entry will be displayed at the bottom of the screen
+    </para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update a Party / GL Account mapping?</title>
+  <para>Only the GL Account Id linked to the mapping can be updated.
+  </para>
+  <orderedlist>
+   <listitem>
+    <para>Locate the Party / GL Account entry that needs to be updated
+    </para>
+   </listitem>
+   <listitem>
+    <para>Select the new 'GL Account Id' from the drop down list next to
+     the entry </para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button next to the entry</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I remove a Party / GL Account mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Locate the Party / GL Account entry that needs to be removed
+    </para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Delete' button next to the entry</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

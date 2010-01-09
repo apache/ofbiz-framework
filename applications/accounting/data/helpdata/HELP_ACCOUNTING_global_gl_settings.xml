@@ -17,9 +17,9 @@ License.
     xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Accounting Global GL Settings.</title>
+    <title>Global GL Settings.</title>
     <para>The Global GL Settings tab is where a limited global or 'master' accounting configuration can be done.</para>
-    <para>Thse include:</para>
+    <para>These include:</para>
     <itemizedlist>
     <listitem><para>Reviewing the chart of account structure or hierarchy (Navigate Accounts)</para></listitem>
     <listitem><para>Adding new accounts</para></listitem>

@@ -32,7 +32,8 @@ under the License.
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_billing_accounts.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_financial_accounts.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_tax_authorities.xml" />
-    <xi:include href="../data/helpdata/HELP_ACCOUNTING_agreements.xml" /> 
-    <xi:include href="../data/helpdata/HELP_ACCOUNTING_global_gl_settings.xml" />    
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_agreements.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_global_gl_settings.xml" />
+    <xi:include href="../data/helpdata/HELP_ACCOUNTING_organization_gl_settings.xml" />
     <xi:include href="../data/helpdata/HELP_ACCOUNTING_Features.xml" />
 </chapter>

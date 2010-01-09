@@ -21,7 +21,7 @@ under the License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Invoice Roles screen.</title>
+    <title>The Invoice Roles screen.</title>
     <para>The Invoice Roles screen allows parties with specific roles to be associated with and invoice. If the e-commerce or Sales Order entry route has already been used then the invoice generated will already contain the relevant roles from the various parties.</para>
     <para>For a Sales Order examples of roles will include Bill From Customer, Bill To Customer, End User Customer,Ship To Customer etc.</para>
     <section>

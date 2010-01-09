@@ -21,7 +21,7 @@ under the License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Edit Invoice Items screen.</title>
+    <title>The Edit Invoice Items screen.</title>
     <para>The Invoice Items screen displays the individual invoice line details and allows the user to update or remove an entry. As each invoice line is created it is allocated a specific sequence (or Item Number) which acts as a unique identifier.</para>
     <section>
         <title>How do I create a new invoice line item?</title>

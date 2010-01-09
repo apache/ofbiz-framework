@@ -22,7 +22,7 @@ under the License.
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Invoice Overview screen.</title>
+    <title>The Invoice Overview screen.</title>
     <para>The Invoice Overview screen is used to display the summary of an invoice in a single view. The screen is divided into sections that show various information related to the invoice (eg Roles, Status, Terms, Items, Payments Applied, etc).</para>
    <para>The following options are currently available from this screen:</para>
    <itemizedlist>

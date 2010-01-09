@@ -17,7 +17,7 @@ License.
     xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Edit Invoice Applications screen.</title>
+    <title>The Edit Invoice Applications screen.</title>
     <para>The Invoice Applications sub menu is where payments that have been made (or received) can
         be linked or allocated to an invoice. The phrase 'applying' an amount to an invoice is often
         used to describe this. The screen is divided into 3 main areas as follows.</para>

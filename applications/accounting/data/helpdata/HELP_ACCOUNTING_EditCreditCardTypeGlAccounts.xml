@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Credit Card Type GL Accounts help screen</title>
+ <para>The Credit Card Type / GL Account default is used to map
+  different types of credit card to different general ledger accounts.
+ </para>
+ <para>NOTE: This setup will affect one side of a journal entry only.
+ </para>
+ <para>This type of mapping is useful if you need to track the amounts
+  to be collected from different credit card agents. The OFBiz demo data
+  comes with some setup here (NOTE: The demo entries appear to be
+  duplicated...has something changed in ENUM for defining each credit
+  card type.....?????)</para>
+ <para>Examples are as follows:</para>
+ <itemizedlist>
+  <listitem>
+   <para>American Express</para>
+  </listitem>
+  <listitem>
+   <para>Visa</para>
+  </listitem>
+  <listitem>
+   <para>Mastercard</para>
+  </listitem>
+  <listitem>
+   <para>Diners Club </para>
+  </listitem>
+ </itemizedlist>
+ <section>
+  <title>How do I add a Credit Card Type GL Account mapping?</title>
+  <para>There are 10 mappings that come as part of the OFBiz demo data
+   but they do appear to be duplicated for some reason.</para>
+  <orderedlist>
+   <listitem>
+    <para>Select the 'Card Type' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Select the 'GL Account Id' to map it to from the drop down
+     list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The new 'Credit Card / GL Account Id' mapping is displayed in
+     the list at the bottom of the screen</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update a Credit Card Type GL Account mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Select the 'Card Type' from the drop down list</para>
+   </listitem>
+   <listitem>
+    <para>Select the updated 'GL Account Id' to map it to from the drop
+     down list</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The updated 'Credit Card Type / GL Account' mapping is
+     displayed in the list at the bottom of the screen</para>
+   </listitem>
+  </orderedlist>
+  <para>NOTE: Used 'Visa' as an example to update and the 'CCT_VISA' was
+   updated but the 'Visa' one wasnt. This is probably related to the
+   duplication.</para>
+ </section>
+ <section>
+  <title>How do I remove a Credit Card Type GL Account mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Press the 'Remove' button next to the entry that you want to
+     delete</para>
+   </listitem>
+   <listitem>
+    <para>The entry is removed from the list of entries displayed</para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

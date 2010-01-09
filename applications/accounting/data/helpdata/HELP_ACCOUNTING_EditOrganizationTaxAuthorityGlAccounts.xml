@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+ xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+ xmlns="http://docbook.org/ns/docbook">
+ <title>The Tax Authority GL Accounts help screen</title>
+ <para>The Tax Authority / GL Account default is used to map different
+  tax authorities to different general ledger accounts. This setup will
+  affect one side of a journal entry only.</para>
+ <para>NOTE: A tax authority is legal body usually the state (country)
+  that imposes a financial levy on business transactions.</para>
+ <para>Normal business rules require you will to keep track amounts
+  collected or paid to different tax authorities separately. This
+  mapping ensures that money collected or paid to various tax
+  authorities (eg through Sales Orders, Purchase Orders etc) can be
+  separated into specific accounts</para>
+ <para>The OFBiz demo data comes with 9 entries to show an example of
+  how this can be setup using the some of the US states as separate tax
+  authorities.</para>
+ <section>
+  <title>How do I add a Tax Authority / GL Account mapping?</title>
+  <para>Unlike the other GL Account defaults you cannot add a Tax
+   Authority / GL mapping through these screens. It needs to be done via
+   the 'GL Accounts' sub menu under the 'Tax Authorities' menu. The
+   method of how to add a mapping using the 'Tax Authorities' is shown
+   below.</para>
+  <orderedlist>
+   <listitem>
+    <para>From the Accounting Manager / Tax Authorities Menu press the
+     'Edit' button next to the Tax Authority required</para>
+   </listitem>
+   <listitem>
+    <para>Select the sub menu 'GL Accounts'</para>
+   </listitem>
+   <listitem>
+    <para>Enter or Lookup the party for the 'Organisation Party Id'
+     field (NOTE: Use 'Company' as default)</para>
+   </listitem>
+   <listitem>
+    <para>Enter or Lookup the GL Account to be mapped to</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Add' button</para>
+   </listitem>
+   <listitem>
+    <para>The mapping will be displayed at the bottom of the screen.
+    </para>
+   </listitem>
+   <listitem>
+    <para>Return to the Tax Authority / GL Account default and this new
+     mapping will be shown in the list </para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I update a Tax Authority / GL Account mapping?</title>
+  <para>Only the GL Account Id linked to the mapping can be updated.
+  </para>
+  <orderedlist>
+   <listitem>
+    <para>Locate the Tax Authority / GL Account entry that needs to be
+     updated</para>
+   </listitem>
+   <listitem>
+    <para>Select the new 'GL Account Id' from the drop down list next to
+     the entry </para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Update' button next to the entry</para>
+   </listitem>
+  </orderedlist>
+ </section>
+ <section>
+  <title>How do I remove a Tax Authority / GL Account mapping?</title>
+  <orderedlist>
+   <listitem>
+    <para>Locate the Tax Authority / GL Account entry that needs to be
+     removed</para>
+   </listitem>
+   <listitem>
+    <para>Press the 'Delete' button next to the entry </para>
+   </listitem>
+  </orderedlist>
+ </section>
+</section>

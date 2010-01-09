@@ -17,7 +17,7 @@ License.
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Accounting Edit Invoice Header screen.</title>
+    <title>The Edit Invoice Header screen.</title>
     <para>The Invoice Header screen is used to view or update details from
         the invoice header. Examples of the type of information that can be
         changed are Due Date, Description, Currency.</para>

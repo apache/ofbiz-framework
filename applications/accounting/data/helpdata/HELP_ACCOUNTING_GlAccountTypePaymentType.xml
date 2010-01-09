@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Payment Type GL Account Type help screen</title>
+     <para>The Payment Type GL Account Type Id is used to translate (or map) the different payment types to a specific GL Account Type Id. The GL Account Type Id is then used via the 'GL Account Type Id' defaults to translate to one side of a journal entry.</para>
+    <para>NOTE: This GL Account default is used to link to another one of the GL Account defaults.</para>
+    <para>A Payment Type is just a way to categorize transactions. Examples of Payment Types could be as follows:</para>
+    <itemizedlist>
+    <listitem><para>Commission Payments</para></listitem>
+    <listitem><para>Customer Payments</para></listitem>
+    <listitem><para>Vendor (or Supplier) Payments</para></listitem>
+    <listitem><para>Customer Refunds</para></listitem>
+    <listitem><para>Customer Prepayments or Deposits</para></listitem>
+    </itemizedlist>
+    <para>These payment types can then be mapped to the required account type in the Chart of Account. Examples of these type of mappings could be as follows:</para>
+    <itemizedlist>
+    <listitem><para>Customer Payments are mapped to Account Receivable </para></listitem>
+    <listitem><para>Vendor (or Supplier) Payment are mapped to Account Payable</para></listitem>
+    <listitem><para>Customer Refunds are mapped to Customer Credits</para></listitem>
+    </itemizedlist>
+    <section>
+    <title>How do I add a Payment Type / GL Account Type Id mapping?</title>
+    <para>There are currently 14 different Payment Type / GL Account Types mappings that come as part of the demo data with OFBiz and should cover a good variety of payment related transactions.</para>
+    <orderedlist>
+    <listitem><para>Select the 'Payment Type Id' from the drop down list</para></listitem>
+    <listitem><para>Select the 'GL Account Type Id' to map it to from the drop down list</para></listitem>
+    <listitem><para>Press the 'Save' button</para></listitem>
+    <listitem><para>The new 'Payment Type / GL Account Type' mapping is displayed in the list at the bottom of the screen</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I update a Payment Type / GL Account Type Id mapping?</title>
+    <para>A Payment Type / GL Account Type mapping cannot be updated directly but needs to be removed then re-created. If you try to update an existing entry you will get an 'duplicate key' error message.</para>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button next to the entry that you want to update</para></listitem>
+    <listitem><para>The entry is removed from the list of entries displayed</para></listitem>
+    <listitem><para>Select the 'Payment Type Id' from the drop down list</para></listitem>
+    <listitem><para>Select the updated 'GL Account Type Id' to map it to from the drop down list</para></listitem>
+    <listitem><para>Press the 'Save' button</para></listitem>
+    <listitem><para>The new 'Payment Type / GL Account Type' mapping is displayed in the list at the bottom of the screen</para></listitem>
+    </orderedlist>
+    </section>
+    <section>
+    <title>How do I remove a Payment Type / GL Account Type Id mapping?</title>
+    <orderedlist>
+    <listitem><para>Press the 'Remove' button next to the entry that you want to delete</para></listitem>
+    <listitem><para>The entry is removed from the list of entries displayed</para></listitem>
+    </orderedlist>
+    </section>
+</section>
