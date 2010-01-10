@@ -98,7 +98,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyClassificationGroups}">
-                            <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"/></container>
+                            <container style="button-bar"><link target="EditPartyClassificationGroup" style="buttontext" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"/></container>
                             <container style="screenlet-body">
                                 <include-form name="ListPartyClassificationGroups" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                             </container>
