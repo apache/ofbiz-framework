@@ -83,7 +83,7 @@ under the License.
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindCalendar}">
-                            <container>
+                            <container style="button-bar">
                                 <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
                             </container>
                             <include-form name="ListTechDataCalendars" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
@@ -108,7 +108,7 @@ under the License.
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListCalendarWeek}">
-                            <container>
+                            <container style="button-bar">
                                 <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
                             <include-form name="ListCalendarWeek" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>
@@ -131,7 +131,7 @@ under the License.
                 <decorator-screen name="CommonCalendarDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditCalendarWeek}">
-                            <container>
+                            <container style="button-bar">
                                 <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
                             </container>
                             <include-form name="UpdateCalendarWeek" location="component://manufacturing/widget/manufacturing/CalendarForms.xml"/>

@@ -26,7 +26,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-  <a href="<@ofbizUrl>EditCalendar</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendar}</a>
+  <div class="button-bar"><a href="<@ofbizUrl>EditCalendar</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendar}</a></div>
   <form name="calendarform" method="post" action="<@ofbizUrl>UpdateCalendar</@ofbizUrl>">
     <input type="hidden" name="calendarId" value="${techDataCalendar.calendarId}">
 <#else>
