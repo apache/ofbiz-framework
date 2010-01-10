@@ -381,9 +381,11 @@ under the License.
                         <include-screen name="leftbar"/>
                     </decorator-section>                    
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/main.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.ProductCatalogAdministrationMainPage}">
+                            <platform-specific>
+                                <html><html-template location="component://product/webapp/catalog/main.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
