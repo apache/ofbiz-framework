@@ -17,50 +17,43 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
-    <div class="screenlet-title-bar">
-        <div class='h3'>${uiLabelMap.ProductCatalogAdministrationMainPage}</div>
-    </div>
-    <div class="screenlet-body">
-        <#if !sessionAttributes.userLogin?exists>
-          <div class='label'> ${uiLabelMap.ProductGeneralMessage}.</div>
-        </#if>
-        <br/>
-        <#if security.hasEntityPermission("CATALOG", "_VIEW", session)>
-          <div class="label">${uiLabelMap.ProductEditCatalogWithCatalogId}:</div>
-          <form method="post" action="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" style="margin: 0;" name="EditProdCatalogForm">
-            <input type="text" size="20" maxlength="20" name="prodCatalogId" value=""/>
-            <input type="submit" value=" ${uiLabelMap.ProductEditCatalog}" class="smallSubmit"/>
-          </form>
-          <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCatalog}</a></div>
-          <br/>
-          <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
-          <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
-            <input type="text" size="20" maxlength="20" name="productCategoryId" value=""/>
-            <a href="javascript:call_fieldlookup2(document.EditCategoryForm.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
-            <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit"/>
-          </form>
-          <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditCategory</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCategory}</a></div>
-          <br/>
-          <div class="label">${uiLabelMap.ProductEditProductWithProductId}:</div>
-          <form method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
-            <input type="text" size="20" maxlength="20" name="productId" value=""/>
-            <a href="javascript:call_fieldlookup2(document.EditProductForm.productId,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
-            <input type="submit" value=" ${uiLabelMap.ProductEditProduct}" class="smallSubmit"/>
-          </form>
-          <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProduct</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></div>
-          <br/>
-          <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>CreateVirtualWithVariantsForm</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductQuickCreateVirtualFromVariants}</a></div>
-          <br/>
-          <div class="label">${uiLabelMap.ProductFindProductWithIdValue}:</div>
-          <form method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">
-            <input type="text" size="20" maxlength="20" name="idValue" value=""/>
-            <input type="submit" value=" ${uiLabelMap.ProductFindProduct}" class="smallSubmit"/>
-          </form>
-          <br/>
-          <div><a href="<@ofbizUrl>UpdateAllKeywords</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductAutoCreateKeywordsForAllProducts}</a></div>
-          <div><a href="<@ofbizUrl>FastLoadCache</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductFastLoadCatalogIntoCache}</a></div>
-          <br/>
-        </#if>
-    </div>
-</div>
+<#if !sessionAttributes.userLogin?exists>
+  <div class='label'> ${uiLabelMap.ProductGeneralMessage}.</div>
+</#if>
+<br/>
+<#if security.hasEntityPermission("CATALOG", "_VIEW", session)>
+  <div class="label">${uiLabelMap.ProductEditCatalogWithCatalogId}:</div>
+  <form method="post" action="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" style="margin: 0;" name="EditProdCatalogForm">
+    <input type="text" size="20" maxlength="20" name="prodCatalogId" value=""/>
+    <input type="submit" value=" ${uiLabelMap.ProductEditCatalog}" class="smallSubmit"/>
+  </form>
+  <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCatalog}</a></div>
+  <br/>
+  <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
+  <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
+    <input type="text" size="20" maxlength="20" name="productCategoryId" value=""/>
+    <a href="javascript:call_fieldlookup2(document.EditCategoryForm.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+    <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit"/>
+  </form>
+  <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditCategory</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCategory}</a></div>
+  <br/>
+  <div class="label">${uiLabelMap.ProductEditProductWithProductId}:</div>
+  <form method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
+    <input type="text" size="20" maxlength="20" name="productId" value=""/>
+    <a href="javascript:call_fieldlookup2(document.EditProductForm.productId,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+    <input type="submit" value=" ${uiLabelMap.ProductEditProduct}" class="smallSubmit"/>
+  </form>
+  <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProduct</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></div>
+  <br/>
+  <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>CreateVirtualWithVariantsForm</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductQuickCreateVirtualFromVariants}</a></div>
+  <br/>
+  <div class="label">${uiLabelMap.ProductFindProductWithIdValue}:</div>
+  <form method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">
+    <input type="text" size="20" maxlength="20" name="idValue" value=""/>
+    <input type="submit" value=" ${uiLabelMap.ProductFindProduct}" class="smallSubmit"/>
+  </form>
+  <br/>
+  <div><a href="<@ofbizUrl>UpdateAllKeywords</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductAutoCreateKeywordsForAllProducts}</a></div>
+  <div><a href="<@ofbizUrl>FastLoadCache</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductFastLoadCatalogIntoCache}</a></div>
+  <br/>
+</#if>
