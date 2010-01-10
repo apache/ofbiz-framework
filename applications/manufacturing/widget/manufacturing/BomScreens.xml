@@ -141,13 +141,17 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleFindBom}">
-                            <link target="CreateProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/>
-                            <include-form name="findBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleFindBom}">
-                            <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <container style="button-bar"><link target="CreateProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/></container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="findBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
