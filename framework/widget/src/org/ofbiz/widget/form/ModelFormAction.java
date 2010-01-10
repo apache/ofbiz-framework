@@ -304,6 +304,7 @@ public abstract class ModelFormAction {
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
         protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
+        protected boolean ignoreError = false;
 
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
@@ -329,6 +330,7 @@ public abstract class ModelFormAction {
             }
 
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
+            this.ignoreError = "true".equals(serviceElement.getAttribute("ignore-error"));
         }
 
         @Override
@@ -383,7 +385,9 @@ public abstract class ModelFormAction {
             } catch (GenericServiceException e) {
                 String errMsg = "Error in form [" + this.modelForm.getName() + "] calling service with name [" + serviceNameExpanded + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
+                if (!this.ignoreError) {
+                    throw new IllegalArgumentException(errMsg);
+                }
             }
         }
     }
