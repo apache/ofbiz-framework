@@ -1527,6 +1527,14 @@ under the License.
         </xs:attribute>
         <!-- this is deprecated and should not be used; use result-map-list-name instead: <xs:attribute type="xs:string" name="result-map-list-iterator-name"/> -->
         <xs:attribute type="xs:string" name="result-map-list"/>
+        <xs:attribute name="ignore-error" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="set" substitutionGroup="AllActions">
         <xs:complexType>

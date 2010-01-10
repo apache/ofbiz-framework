@@ -2020,7 +2020,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         int viewIndex = modelForm.getViewIndex(context);
         int viewSize = modelForm.getViewSize(context);
         int listSize = modelForm.getListSize(context);
-
+        
         int lowIndex = modelForm.getLowIndex(context);
         int highIndex = modelForm.getHighIndex(context);
         int actualPageSize = modelForm.getActualPageSize(context);
