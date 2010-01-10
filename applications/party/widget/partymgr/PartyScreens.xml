@@ -449,7 +449,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditPersonalInformation"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PageTitleEditPersonalInformation"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
@@ -472,7 +472,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditGroupInformation"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
@@ -636,7 +636,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateNewPartyDetail"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -665,7 +665,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PartyCreateNewCustomer"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
                 <set field="target" value="createCustomer"/>
                 <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
@@ -697,7 +697,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PartyCreateNewProspect"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
                 <set field="displayPassword" value="Y"/>
                 <set field="target" value="createProspect"/>
                 <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
@@ -729,7 +729,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PartyCreateNewCustomer"/>
-                <set field="headerItem" value="create"/>
+                <set field="headerItem" value="find"/>
                 <set field="displayPassword" value="Y"/>
                 <set field="target" value="createEmployee"/>
                 <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
