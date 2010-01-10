@@ -223,9 +223,11 @@ under the License.
                 <set field="headerItem" value="CompDoc"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" >
-                    <decorator-section name="body">
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
                         <include-menu name="${menuName}" location="component://content/widget/compdoc/CompDocMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
                         <label text="${title}" style="h1"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
