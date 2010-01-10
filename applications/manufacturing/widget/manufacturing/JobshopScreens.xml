@@ -42,7 +42,7 @@ under the License.
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId} ${productionRunId}]</label>
                                 </container>
-                                <container>
+                                <container style="button-bar">
                                     <link target="CreateProductionRun" text="${uiLabelMap.ManufacturingCreateProductionRun}" style="buttontext"/>
                                 </container>
                                 <decorator-section-include name="body"/>
@@ -517,7 +517,7 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container>
+                                        <container style="button-bar">
                                             <link target="CreateProductionRun" text="${uiLabelMap.ManufacturingCreateProductionRun}" style="buttontext"/>
                                         </container>
                                     </decorator-section>
