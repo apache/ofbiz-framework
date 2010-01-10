@@ -969,6 +969,10 @@ public class GenericDAO {
     }
 
     public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return selectCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
+    }
+    
+    public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
         if (modelEntity == null) {
             return 0;
         }
@@ -1007,7 +1011,15 @@ public class GenericDAO {
         }
 
         if (findOptions.getDistinct()) {
-            sqlBuffer.append("DISTINCT COUNT(*) ");
+            if (selectFields != null && selectFields.size() > 0) {
+                sqlBuffer.append("COUNT(DISTINCT ");
+                // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
+                sqlBuffer.append(selectFields.get(0).getColName());
+                // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
+                sqlBuffer.append(")");
+            } else {
+                sqlBuffer.append("COUNT(DISTINCT *) ");
+            }
         } else {
             // NOTE DEJ20080701 Changed from COUNT(*) to COUNT(1) to improve performance, and should get the same results at least when there is no DISTINCT
             sqlBuffer.append("COUNT(1) ");
