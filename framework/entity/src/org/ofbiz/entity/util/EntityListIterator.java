@@ -512,7 +512,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
                     efo = new EntityFindOptions();
                     efo.setDistinct(distinctQuery);
                 }
-                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, efo);
+                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, selectFields, efo);
             }
             return resultSize;
         } else if (this.last()) {
