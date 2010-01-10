@@ -26,7 +26,10 @@ function lookupInventory() {
 </script>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PageTitleFindInventoryEventPlan}</h3>
+    <ul>
+      <li class="h3">${uiLabelMap.PageTitleFindInventoryEventPlan}</li>
+    </ul>
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <form method="post" name="lookupinventory" action="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">

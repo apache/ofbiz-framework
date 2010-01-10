@@ -20,7 +20,10 @@ under the License.
   <#if monthsToInclude?exists && totalSubRemainingAmount?exists && totalOrders?exists>
     <div id="totalOrders" class="screenlet">
       <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PartyLoyaltyPoints}</h3>
+        <ul>
+          <li class="h3">${uiLabelMap.PartyLoyaltyPoints}</li>
+        </ul>
+        <br class="clear" />
       </div>
       <div class="screenlet-body">
         ${uiLabelMap.PartyYouHave} ${totalSubRemainingAmount} ${uiLabelMap.PartyPointsFrom} ${totalOrders} ${uiLabelMap.PartyOrderInLast} ${monthsToInclude} ${uiLabelMap.CommonMonths}.

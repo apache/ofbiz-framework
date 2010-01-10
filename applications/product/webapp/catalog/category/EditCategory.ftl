@@ -40,7 +40,10 @@ function insertImageName(type,nameValue) {
 <#if ! productCategory?has_content>
     <#if productCategoryId?has_content>
         <div class="screenlet-title-bar">
-            <h3>${uiLabelMap.ProductCouldNotFindProductCategoryWithId} "${productCategoryId}".</h3>
+          <ul>
+            <li class="h3">${uiLabelMap.ProductCouldNotFindProductCategoryWithId} "${productCategoryId}".</li>
+          </ul>
+          <br class="clear" />
         </div>
         <div class="screenlet-body">
             <form action="<@ofbizUrl>createProductCategory</@ofbizUrl>" method="post" style="margin: 0;" name="productCategoryForm">
@@ -54,7 +57,10 @@ function insertImageName(type,nameValue) {
                     </tr>
     <#else>
         <div class="screenlet-title-bar">
-            <h3>${uiLabelMap.PageTitleCreateProductCategory}</h3>
+          <ul>
+            <li class="h3">${uiLabelMap.PageTitleCreateProductCategory}</li>
+          </ul>
+          <br class="clear" />
         </div>
         <div class="screenlet-body">
             <form action="<@ofbizUrl>createProductCategory</@ofbizUrl>" method="post" style="margin: 0;" name="productCategoryForm">

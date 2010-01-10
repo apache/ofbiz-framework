@@ -19,7 +19,10 @@ under the License.
 
   <div id="partyAVS" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.PartyAvsOver}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.PartyAvsOver}</li>
+      </ul>
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
       <span class="label">${uiLabelMap.PartyAvsString}</span>${(avsOverride.avsDeclineString)?default("${uiLabelMap.CommonGlobal}")}

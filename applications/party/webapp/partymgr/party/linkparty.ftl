@@ -25,7 +25,10 @@ under the License.
 <#if hasUpdatePermission>
   <div id="linkParty" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.PartyLink}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.PartyLink}</li>
+      </ul>
+      <br class="clear"/>
     </div>
     <div class="screenlet-body" align="center">
         <#if partyTo?has_content && partyFrom?has_content>
