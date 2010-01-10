@@ -533,7 +533,6 @@
     </menu>
     <menu name="CommEventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Find" title="${uiLabelMap.CommonFind}">
-            <condition><if-compare field="tabButtonItem" operator="not-equals" value="Find"/></condition>
             <link target="FindCommunicationEvents"/>
         </menu-item>
         <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
@@ -618,8 +617,7 @@
         </menu-item>
     </menu>
 
-    <menu name="CommSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-        menu-container-style="button-bar button-style-2 no-clear">
+    <menu name="CommSubTabBar">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
             <link target="EditCommunicationEvent"/>
         </menu-item>

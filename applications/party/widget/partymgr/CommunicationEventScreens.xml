@@ -227,7 +227,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleListUnknownPartyComms}">
-                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListUnknownPartyEmails"/>
+                                    <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListUnknownPartyEmails"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -248,17 +248,18 @@ under the License.
                 <set field="entityName" value="CommunicationEventAndRole"/>
             </actions>
             <widgets>
-                <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
                                 <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        <container style="button-bar">
+                                            <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="findCommEvents"/>
