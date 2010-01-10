@@ -18,7 +18,10 @@ under the License.
 -->
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductProductCatalogsList}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.ProductProductCatalogsList}</li>
+      </ul>
+      <br class="clear" />
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">

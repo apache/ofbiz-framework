@@ -18,7 +18,10 @@ under the License.
 -->
   <div id="partyContent" class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.PartyContent}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.PartyContent}</li>
+      </ul>
+      <br class="clear" />
     </div>
     <div class="screenlet-body">
           ${screens.render("component://party/widget/partymgr/ProfileScreens.xml#ContentList")}

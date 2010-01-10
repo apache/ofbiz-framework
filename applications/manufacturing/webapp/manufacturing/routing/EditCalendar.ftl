@@ -20,7 +20,10 @@ under the License.
 <#if techDataCalendar?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ManufacturingUpdateCalendar}</h3>
+    <ul>
+      <li class="h3">${uiLabelMap.ManufacturingUpdateCalendar}</li>
+    </ul>
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
   <a href="<@ofbizUrl>EditCalendar</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendar}</a>
@@ -29,7 +32,10 @@ under the License.
 <#else>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ManufacturingCreateCalendar}</h3>
+    <ul>
+      <li class="h3">${uiLabelMap.ManufacturingCreateCalendar}</li>
+    </ul>
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
   <a href="<@ofbizUrl>EditCalendar</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingNewCalendar}</a>

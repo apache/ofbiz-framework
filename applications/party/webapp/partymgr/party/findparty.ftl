@@ -35,7 +35,7 @@ under the License.
 <#else>
     <#assign createUrl = "createnew"/>
 </#if>
-<div class="button-bar"><a href="<@ofbizUrl>${createUrl}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a></div>
+<div class="button-bar"><a href="<@ofbizUrl>${createUrl}</@ofbizUrl>" class="textbutton">${uiLabelMap.CommonCreateNew}</a></div>
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <#if partyList?has_content>

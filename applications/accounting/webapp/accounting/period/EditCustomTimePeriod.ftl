@@ -136,7 +136,10 @@ under the License.
   </div>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.AccountingChildPeriods}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.AccountingChildPeriods}</li>
+      </ul>
+      <br class="clear"/>
     </div>
     <#if customTimePeriods?has_content>
       <table class="basic-table" cellspacing="0">
@@ -230,7 +233,10 @@ under the License.
   </div>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.AccountingAddCustomTimePeriod}</h3>
+      <ul>
+        <li class="h3">${uiLabelMap.AccountingAddCustomTimePeriod}</li>
+      </ul>
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
       <form method="post" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
