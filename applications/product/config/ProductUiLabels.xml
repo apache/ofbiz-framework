@@ -5841,6 +5841,12 @@
         <value xml:lang="th">แก้ไขผู้จำหน่ายสินค้า</value>
         <value xml:lang="zh">编辑经销商产品</value>
     </property>
+    <property key="PageTitleEditWebAnalyticsConfigs">
+        <value xml:lang="en">Edit Web Analytics Configuration</value>
+    </property>
+    <property key="PageTitleEditWebAnalyticsTypes">
+        <value xml:lang="en">Edit Web Analytics Types</value>
+    </property>
     <property key="PageTitleFacilityLocationGeoLocation">
         <value xml:lang="en">Facility Location GeoLocation</value>
         <value xml:lang="fr">Géolocalisation de l'emplacement de stokage</value>
@@ -6019,6 +6025,12 @@
         <value xml:lang="ru">Найти ресурс подписки</value>
         <value xml:lang="th">ค้นหาแหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">查找订阅资源</value>
+    </property>
+    <property key="PageTitleFindWebAnalyticsConfigs">
+        <value xml:lang="en">Find Web Analytics Configuration</value>
+    </property>
+    <property key="PageTitleFindWebAnalyticsTypes">
+        <value xml:lang="en">Find Web Analytics Types</value>
     </property>
     <property key="PageTitleInventoryItemGrandTotals">
         <value xml:lang="de">Bestandsposition Gesamttotale für ${facility.facilityName} [${facility.facilityId}]</value>
@@ -21127,6 +21139,15 @@
         <value xml:lang="ru">Это виртуальный продукт, который не должен числиться на складе </value>
         <value xml:lang="th">นี่คือสินค้าเกือบทั้งหมดและโดยทั่วไปควรจะไม่มีกลุ่มรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">这是一个虚拟产品，通常不应该把库存明细与它关联</value>
+    </property>
+    <property key="CatalogWebAnalytics">
+        <value xml:lang="en">Web Analytics</value>
+    </property>
+    <property key="CatalogWebAnalyticsConfigs">
+        <value xml:lang="en">Web Analytics Configuration</value>
+    </property>
+    <property key="CatalogWebAnalyticsTypes">
+        <value xml:lang="en">Web Analytics Types</value>
     </property>
     <property key="ProductWebSite">
         <value xml:lang="de">Webseite</value>

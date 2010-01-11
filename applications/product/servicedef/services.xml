@@ -1257,4 +1257,36 @@ under the License.
         <description>Create product and inventory item</description>
         <attribute name="dirName" type="java.lang.String" mode="IN" optional="true"/>
     </service>
+    
+    <!-- Start Web Analytics configuration services -->
+    <service name="createWebAnalyticsConfig" default-entity-name="WebAnalyticsConfig" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a WebAnalyticsConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebAnalyticsConfig" default-entity-name="WebAnalyticsConfig" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WebAnalyticsConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWebAnalyticsConfig" default-entity-name="WebAnalyticsConfig" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a WebAnalyticsConfig</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="createWebAnalyticsType" default-entity-name="WebAnalyticsType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a WebAnalyticsType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateWebAnalyticsType" default-entity-name="WebAnalyticsType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WebAnalyticsType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWebAnalyticsType" default-entity-name="WebAnalyticsType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a WebAnalyticsType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>
