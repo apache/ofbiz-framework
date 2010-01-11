@@ -184,6 +184,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -256,11 +256,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="findCommEvents"/>
                                     </decorator-section>
