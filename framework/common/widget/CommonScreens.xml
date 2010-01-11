@@ -244,7 +244,13 @@ under the License.
                         </service>
                         <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
-                    </actions>    
+                        <property-to-field  field="defaultCurrencyUomId" property="currency.uom.id.default" resource="general"/>
+                        <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
+                        <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
+                            <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                        </entity-one>
+                        <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="defaultCurrencyUomId" global="true"/>
+                    </actions>
                     <widgets>
                         <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl"/></html></platform-specific>
                         <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
