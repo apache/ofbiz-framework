@@ -2560,6 +2560,68 @@ under the License.
         <response name="success" type="view" value="EditProductCommunicationEvents"/>
         <response name="error" type="view" value="EditProductCommunicationEvents"/>
     </request-map>
+    
+    <!-- Web Analytics Request Mappings -->
+    <request-map uri="WebAnalytics">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="WebAnalyticsConfigs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="FindWebAnalyticsConfigs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="EditWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWebAnalyticsConfig"/>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    <request-map uri="createWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWebAnalyticsConfig"/>
+        <response name="success" type="view" value="EditWebAnalyticsConfig"/>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    <request-map uri="updateWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWebAnalyticsConfig"/>
+        <response name="success" type="view" value="EditWebAnalyticsConfig"/>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    
+    <request-map uri="WebAnalyticsTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsTypes"/>
+        <response name="error" type="view" value="FindWebAnalyticsTypes"/>
+    </request-map>
+    <request-map uri="FindWebAnalyticsTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsTypes"/>
+        <response name="error" type="view" value="FindWebAnalyticsTypes"/>
+    </request-map>
+    <request-map uri="EditWebAnalyticsType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWebAnalyticsType"/>
+        <response name="error" type="view" value="EditWebAnalyticsType"/>
+    </request-map>
+    <request-map uri="createWebAnalyticsType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWebAnalyticsType"/>
+        <response name="success" type="view" value="EditWebAnalyticsType"/>
+        <response name="error" type="view" value="EditWebAnalyticsType"/>
+    </request-map>
+    <request-map uri="updateWebAnalyticsType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWebAnalyticsType"/>
+        <response name="success" type="view" value="EditWebAnalyticsType"/>
+        <response name="error" type="view" value="EditWebAnalyticsType"/>
+    </request-map>
 
    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
@@ -2745,6 +2807,12 @@ under the License.
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
+
+    <!-- Web Analytics View -->
+    <view-map name="FindWebAnalyticsConfigs" type="screen" page="component://product/widget/catalog/WebAnalyticsScreens.xml#FindWebAnalyticsConfigs"/>
+    <view-map name="EditWebAnalyticsConfig" type="screen" page="component://product/widget/catalog/WebAnalyticsScreens.xml#EditWebAnalyticsConfig"/>
+    <view-map name="FindWebAnalyticsTypes" type="screen" page="component://product/widget/catalog/WebAnalyticsScreens.xml#FindWebAnalyticsTypes"/>
+    <view-map name="EditWebAnalyticsType" type="screen" page="component://product/widget/catalog/WebAnalyticsScreens.xml#EditWebAnalyticsType"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
