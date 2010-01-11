@@ -723,9 +723,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                     this.itemType = "PRODUCT_ORDER_ITEM";
                 }
             } else {
-                Debug.logError("Error calling ShoppingCartItem (trying to creates new ShoppingCartItem object)." +
-                                " Check that there is a type for this product ", module);
-                return;
+                // NOTE DEJ20100111: it seems safe to assume here that because a product is passed in that even if the product has no type this type of item still applies; thanks to whoever wrote the previous code, that's a couple of hours tracking this down that I wouldn't have minded doing something else with... :) 
+                this.itemType = "PRODUCT_ORDER_ITEM";
             }
         } else {
             this.itemType = itemType;
@@ -2411,7 +2410,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public Delegator getDelegator() {
         if (delegator == null) {
             if (UtilValidate.isEmpty(delegatorName)) {
-                throw new IllegalStateException("Bad delegator name");
+                throw new IllegalStateException("No delegator or delegatorName on ShoppingCartItem, somehow was not setup right.");
             }
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
