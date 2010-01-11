@@ -45,4 +45,12 @@ under the License.
             party/data/PartyTypeData.xml
         </description>
     </service>
+    <service name="migrateOrderShipment" engine="simple"
+            location="component://order/script/org/ofbiz/order/UpgradeServices.xml" invoke="migrateOrderShipment">
+        <description>
+            Since revision 895250 (2010-01-02) the entity OrderShipment is used to record purchase order items that
+            will be received as part of a purchase shipment. Previously ItemIssuance was used with an empty inventoryId.
+            This service will replace ItemIssuaces with OrderShipment records for the required shipments.
+        </description>
+    </service>
 </services>

@@ -48,5 +48,29 @@ under the License.
             <create-value value-field="custRequestParty"/>
         </iterate>
     </simple-method>
-</simple-methods>
 
+    <simple-method method-name="migrateOrderShipment" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
+        <entity-condition entity-name="ItemIssuance" list="itemIssuances">
+            <condition-list combine="and">
+                <condition-expr field-name="inventoryItemId" operator="equals" from-field="nullField"/>
+                <condition-expr field-name="shipmentId" operator="not-equals" from-field="nullField"/>
+                <condition-expr field-name="shipmentItemSeqId" operator="not-equals" from-field="nullField"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="itemIssuances" entry="itemIssuance">
+            <make-value entity-name="OrderShipment" value-field="orderShipment"/>
+            <set field="orderShipment.orderId" from-field="itemIssuance.orderId"/>
+            <set field="orderShipment.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
+            <set field="orderShipment.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
+            <set field="orderShipment.shipmentId" from-field="itemIssuance.shipmentId"/>
+            <set field="orderShipment.shipmentItemSeqId" from-field="itemIssuance.shipmentItemSeqId"/>
+            <set field="orderShipment.quantity" from-field="itemIssuance.quantity"/>
+            <create-value value-field="orderShipment"/>
+            <get-related value-field="itemIssuance" relation-name="ItemIssuanceRole" list="itemIssuanceRoles"/>
+            <iterate entry="itemIssuanceRole" list="itemIssuanceRoles">
+                <remove-value value-field="itemIssuanceRole"/>
+            </iterate>
+            <remove-value value-field="itemIssuance"/>
+        </iterate>
+    </simple-method>
+</simple-methods>
