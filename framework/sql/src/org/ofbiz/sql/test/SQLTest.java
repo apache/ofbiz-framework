@@ -65,7 +65,7 @@ public class SQLTest extends GenericTestCaseBase {
             assertTrue("has first field all", fieldAllIt.hasNext());
             FieldAll fieldAll = fieldAllIt.next();
             assertEquals("first fieldAll.alias", "a", fieldAll.getAlias());
-            assertEquals("no excludes", set(), set(fieldAll));
+            assertEquals("no excludes", GenericTestCaseBase.<FieldAll>set(), set(fieldAll));
 
             assertTrue("has second field all", fieldAllIt.hasNext());
             fieldAll = fieldAllIt.next();

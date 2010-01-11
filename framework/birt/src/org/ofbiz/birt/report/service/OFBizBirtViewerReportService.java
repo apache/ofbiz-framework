@@ -49,6 +49,7 @@ import org.eclipse.birt.report.utility.BirtUtility;
 import org.eclipse.birt.report.utility.DataUtil;
 import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -228,7 +229,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             runTask.close( );
 
             // check for non-fatal errors
-            List<Exception> errors = (List<Exception>) runTask.getErrors( );
+            List<Exception> errors = UtilGenerics.cast(runTask.getErrors( ));
             if ( !errors.isEmpty( ) )
             {
                 return errors;

@@ -37,6 +37,7 @@ import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -135,7 +136,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             OMElement payload = factory.createOMElement(serviceName);
             payload.addChild(parameterSer.getFirstElement());
             OMElement respOMElement = client.sendReceive(payload);
-            results = (Map<String, Object>) XmlSerializer.deserialize(respOMElement.toString(), delegator);
+            results = UtilGenerics.cast(XmlSerializer.deserialize(respOMElement.toString(), delegator));
         } catch (Exception e) {
             Debug.logError(e, module);
         }

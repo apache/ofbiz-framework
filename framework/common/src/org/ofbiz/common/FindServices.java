@@ -66,11 +66,10 @@ public class FindServices {
 
     public static final String module = FindServices.class.getName();
 
-    public static Map<String, EntityOperator> entityOperators;
+    public static Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
         entityOperators = FastMap.newInstance();
-        entityOperators.put("and", EntityOperator.AND);
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
@@ -81,7 +80,6 @@ public class FindServices {
         entityOperators.put("like", EntityOperator.LIKE);
         entityOperators.put("not", EntityOperator.NOT);
         entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
-        entityOperators.put("or", EntityOperator.OR);
     }
 
     public FindServices() {}
@@ -214,7 +212,7 @@ public class FindServices {
     public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
         Map<String, Map<String, Object>> subMap = null;
         Map<String, Object> subMap2 = null;
-        EntityOperator fieldOp = null;
+        EntityComparisonOperator<?, ?> fieldOp = null;
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityExpr cond = null;
@@ -298,12 +296,12 @@ public class FindServices {
             }
 
             if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
-                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
+                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
                 if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
                     fieldObject = null;
                 }
-                cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
+                cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
             }
             
             if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
@@ -357,7 +355,7 @@ public class FindServices {
             }
             // String rhs = fieldValue.toString();
             fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
-            cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
+            cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
             tmpList.add(cond);
 
             // add to queryStringMap

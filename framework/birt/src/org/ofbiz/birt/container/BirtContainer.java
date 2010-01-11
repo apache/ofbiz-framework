@@ -38,6 +38,7 @@ import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
@@ -93,7 +94,7 @@ public class BirtContainer implements Container {
         osgiConfig.put("osgi.configuration.area", new File(System.getProperty("ofbiz.home"), "runtime" + File.separator + "tempfiles").getPath());
         config.setOSGiConfig(osgiConfig);
         
-        HashMap context = config.getAppContext();
+        HashMap<String, Object> context = UtilGenerics.cast(config.getAppContext());
         
         // set delegator, dispatcher and security objects to report
         
