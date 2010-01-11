@@ -47,6 +47,7 @@ import net.wimpi.pim.factory.ContactModelFactory;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -166,6 +167,10 @@ public class VCard {
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
                 String serviceName = (String) context.get("serviceName");
+                Map<String, Object> serviceContext = UtilGenerics.cast(context.get("serviceContext"));
+                for(Map.Entry<String, Object> entry : serviceContext.entrySet()) {
+                    serviceCtx.put(entry.getKey(), entry.getValue());
+                }
                 Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
                 result.put("partyId", resp.get("partyId"));
             }
