@@ -336,7 +336,11 @@ under the License.
                   <#assign itemCost = orderItem.unitPrice?default(0)/>
                   <#assign salesOrderItem = salesOrderItems[orderItem.orderItemSeqId]?if_exists/>
                   <#if shipment?has_content>
-                  <#assign defaultQuantity = shippedQuantities[orderItem.orderItemSeqId]?double - receivedQuantities[orderItem.orderItemSeqId]?double/>
+                    <#if shippedQuantities[orderItem.orderItemSeqId]?exists>
+                      <#assign defaultQuantity = shippedQuantities[orderItem.orderItemSeqId]?double - receivedQuantities[orderItem.orderItemSeqId]?double/>
+                    <#else>
+                      <#assign defaultQuantity = 0/>
+                    </#if>
                   </#if>
                   <#if 0 < defaultQuantity>
                   <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")/>
