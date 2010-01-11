@@ -36,6 +36,7 @@ import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.birt.BirtWorker;
@@ -84,9 +85,9 @@ public class BirtViewHandler implements ViewHandler {
                 design = engine.openReportDesign(servletContext.getRealPath(page));
             }
             
-             Map context = FastMap.newInstance();
+             Map<String, Object> context = FastMap.newInstance();
             // set parameters from request
-             Map parameters = (Map)request.getAttribute(BirtWorker.BIRT_PARAMETERS);
+             Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));
                 if (parameters != null) {
                     context.put(BirtWorker.BIRT_PARAMETERS, parameters);
                 }

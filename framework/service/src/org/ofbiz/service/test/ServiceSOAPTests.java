@@ -6,6 +6,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -35,7 +36,7 @@ public class ServiceSOAPTests extends OFBizTestCase {
         testing.put("createdStamp", UtilDateTime.nowTimestamp());
         serviceContext.put("testing", testing);
         Map<String, Object> results = dispatcher.runSync("testSoap", serviceContext);
-        List<GenericValue> testingNodes = (List<GenericValue>) results.get("testingNodes");
+        List<GenericValue> testingNodes = UtilGenerics.cast(results.get("testingNodes"));
         assertNotNull(testingNodes);
     }
 }

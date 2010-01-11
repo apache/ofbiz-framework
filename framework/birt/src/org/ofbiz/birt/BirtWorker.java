@@ -36,6 +36,7 @@ import org.eclipse.birt.report.engine.api.PDFRenderOption;
 import org.eclipse.birt.report.engine.api.RenderOption;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
@@ -62,7 +63,7 @@ public class BirtWorker {
      * @throws GeneralException
      * @throws SQLException
      */
-    public static void exportReport(IReportRunnable design, Map context, String contentType, OutputStream output)
+    public static void exportReport(IReportRunnable design, Map<String, ? extends Object> context, String contentType, OutputStream output)
         throws EngineException, GeneralException, SQLException {
     
         Locale birtLocale = (Locale)context.get(BIRT_LOCALE);
@@ -95,7 +96,7 @@ public class BirtWorker {
         }
         
         // set parameters if exists
-        Map parameters = (Map)context.get(BirtWorker.BIRT_PARAMETERS);
+        Map<String, Object> parameters = UtilGenerics.cast(context.get(BirtWorker.BIRT_PARAMETERS));
         if (parameters != null) {
             Debug.logInfo("Set birt parameters:" + parameters, module);
             task.setParameterValues(parameters);
@@ -126,7 +127,7 @@ public class BirtWorker {
         } else if (options.getOutputFormat().equalsIgnoreCase(RenderOption.OUTPUT_FORMAT_PDF)) {
             // set pdf render options
             PDFRenderOption pdfOptions = new PDFRenderOption(options);
-            pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, new Boolean(true) );
+            pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, Boolean.TRUE );
         } else if (options.getOutputFormat().equalsIgnoreCase("xls")) {
             // set excel render options
             EXCELRenderOption excelOptions = new EXCELRenderOption(options);

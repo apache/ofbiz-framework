@@ -45,6 +45,7 @@ import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.axiom.soap.SOAPFactory;
 import org.apache.axiom.soap.impl.builder.StAXSOAPModelBuilder;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -175,7 +176,7 @@ public class SOAPEventHandler implements EventHandler {
                 if (serviceObj instanceof OMElement) {
                     OMElement serviceElement = (OMElement) serviceObj;
                     String serviceName = serviceElement.getLocalName();
-                    Map<String, Object> parameters = (Map<String, Object>) XmlSerializer.deserialize(serviceElement.toString(), delegator);
+                    Map<String, Object> parameters = UtilGenerics.cast(XmlSerializer.deserialize(serviceElement.toString(), delegator));
                     try {
                         // verify the service is exported for remote execution and invoke it
                         ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);

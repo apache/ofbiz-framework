@@ -33,6 +33,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.LRUMap;
 import org.ofbiz.base.util.collections.ReadOnlyMapEntry;
@@ -224,11 +225,11 @@ public class CacheLineTable<K, V> implements Serializable {
                 jdbm.helper.FastIterator iter = fileTable.keys();
                 Object key = iter.next();
                 while (key != null) {
-                    CacheLine<V> value = (CacheLine<V>) fileTable.get(key);
+                    CacheLine<V> value = UtilGenerics.cast(fileTable.get(key));
                     if (key instanceof ObjectType.NullObject) {
                         key = null;
                     }
-                    list.add(new ReadOnlyMapEntry<K, CacheLine<V>>((K) key, value));
+                    list.add(new ReadOnlyMapEntry<K, CacheLine<V>>(UtilGenerics.<K>cast(key), value));
                     key = iter.next();
                 }
             } catch (IOException e) {

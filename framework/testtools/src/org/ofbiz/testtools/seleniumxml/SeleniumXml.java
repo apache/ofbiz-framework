@@ -226,7 +226,7 @@ public class SeleniumXml {
 
     public void runCommands() throws TestCaseException {
         Element root = this.doc.getRootElement();
-        List<Element> nodes = root.getChildren();
+        List<Element> nodes = UtilGenerics.cast(root.getChildren());
         runCommands(nodes);
     }
 
@@ -502,11 +502,11 @@ public class SeleniumXml {
     public void ifCmd(Element elem) throws TestCaseException {
         String isRun = replaceParam(elem.getAttributeValue("condition"));
         if (isRun != null && !isRun.equals("") && Boolean.valueOf(isRun)) {
-            List <Element> children = elem.getChildren();
+            List <Element> children = UtilGenerics.cast(elem.getChildren());
             this.runCommands(children);
         }else{
             Element child = elem.getChild("else");
-            List <Element> children = child.getChildren();
+            List <Element> children = UtilGenerics.cast(child.getChildren());
             this.runCommands(children);
         }
     }
@@ -514,7 +514,7 @@ public class SeleniumXml {
     public void partialRunDependency(Element elem) throws TestCaseException {
         String isRun = replaceParam(elem.getAttributeValue("isRun"));
         if (isRun != null && Boolean.valueOf(isRun)) {
-            List <Element> children = elem.getChildren();
+            List <Element> children = UtilGenerics.cast(elem.getChildren());
             this.runCommands(children);
         }
     }
