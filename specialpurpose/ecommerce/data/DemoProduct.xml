@@ -124,6 +124,9 @@ under the License.
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_NOTI_EMAIL" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactUsEmailNotification" subject="Contact-us Information Notification" fromAddress="ofbiztest@yahoo.com" />
 
+    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from google analytics" contentId="GOOGLE_ANA_CNT"/>
+    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from bing analytics" contentId="BING_ANA_CNT"/>
+
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreKeywordOvrd productStoreId="9000" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
