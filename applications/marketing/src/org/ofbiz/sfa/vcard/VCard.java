@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import net.wimpi.pim.Pim;
 import net.wimpi.pim.contact.basicimpl.AddressImpl;
 import net.wimpi.pim.contact.basicimpl.EmailAddressImpl;
@@ -40,6 +42,8 @@ import net.wimpi.pim.contact.model.Address;
 import net.wimpi.pim.contact.model.Communications;
 import net.wimpi.pim.contact.model.Contact;
 import net.wimpi.pim.contact.model.EmailAddress;
+import net.wimpi.pim.contact.model.Organization;
+import net.wimpi.pim.contact.model.OrganizationalIdentity;
 import net.wimpi.pim.contact.model.PersonalIdentity;
 import net.wimpi.pim.contact.model.PhoneNumber;
 import net.wimpi.pim.factory.ContactIOFactory;
@@ -77,6 +81,10 @@ public class VCard {
         ByteBuffer byteBuffer = (ByteBuffer) context.get("infile");
         byte[] inputByteArray = byteBuffer.array();
         InputStream in = new ByteArrayInputStream(inputByteArray);
+        String partyType = (String) context.get("partyType");
+        Boolean isGroup =  "PartyGroup".equals(partyType); // By default we import a Person.
+        Map<String, Object> serviceCtx = FastMap.newInstance();
+
         try {
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
@@ -84,8 +92,10 @@ public class VCard {
 
             for (Contact contact: contacts) {
                 PersonalIdentity pid = contact.getPersonalIdentity();
-                Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("firstName", pid.getFirstname(), "lastName", pid.getLastname());
-                    
+                if (!isGroup) {
+                    serviceCtx.put("firstName", pid.getFirstname());
+                    serviceCtx.put("lastName", pid.getLastname());
+                }
                 for (Iterator iter = contact.getAddresses(); iter.hasNext();) {
                     Address address = (AddressImpl) iter.next();
                     if (contact.isPreferredAddress(address)) {
@@ -94,7 +104,7 @@ public class VCard {
                     } else if (address.isWork()) {
                         workAddress = address;
                         break;
-                    } else { // for now use preffered / work address only
+                    } else { // for now use preferred/work address only
                         continue;
                     }
                 }
@@ -123,44 +133,60 @@ public class VCard {
                         serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
                     }
                 }
-                
-                Communications communications = contact.getCommunications();
-                if (UtilValidate.isNotEmpty(communications)) {
-                    for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
-                        EmailAddress emailAddress = (EmailAddressImpl) iter.next();
-                        if (communications.isPreferredEmailAddress(emailAddress)) {
-                            email = emailAddress.getAddress();
-                            break;
-                        } else {
-                            email = emailAddress.getAddress();
-                            break;
-                        }
-                    }
-                    if (UtilValidate.isNotEmpty(email)) {
-                        serviceCtx.put("emailAddress", email);
-                    }
-                    for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
-                        PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
-                        if (phoneNumber.isPreferred()) {
-                            phone = phoneNumber.getNumber();
-                            break;
-                        } else if (phoneNumber.isWork()) {
-                            phone = phoneNumber.getNumber();
-                            break;
-                        } else { // for now use only preffered / work phone numbers
-                            continue;
-                        }
-                    }
-                    if (UtilValidate.isNotEmpty(phone)) {
-                        String[] numberParts = phone.split("\\D");
-                        String telNumber = "";
-                        for (String number: numberParts) {
-                            if (number != "") {
-                                telNumber =  telNumber + number;
+
+                if (!isGroup) {
+                    Communications communications = contact.getCommunications();
+                    if (UtilValidate.isNotEmpty(communications)) {
+                        for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
+                            EmailAddress emailAddress = (EmailAddressImpl) iter.next();
+                            if (communications.isPreferredEmailAddress(emailAddress)) {
+                                email = emailAddress.getAddress();
+                                break;
+                            } else {
+                                email = emailAddress.getAddress();
+                                break;
                             }
                         }
-                        serviceCtx.put("areaCode", telNumber.substring(0, 3));
-                        serviceCtx.put("contactNumber", telNumber.substring(3));
+                        if (UtilValidate.isNotEmpty(email)) {
+                            serviceCtx.put("emailAddress", email);
+                        }
+                        for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
+                            PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
+                            if (phoneNumber.isPreferred()) {
+                                phone = phoneNumber.getNumber();
+                                break;
+                            } else if (phoneNumber.isWork()) {
+                                phone = phoneNumber.getNumber();
+                                break;
+                            } else { // for now use only preferred/work phone numbers
+                                continue;
+                            }
+                        }
+                        if (UtilValidate.isNotEmpty(phone)) {
+                            String[] numberParts = phone.split("\\D");
+                            String telNumber = "";
+                            for (String number: numberParts) {
+                                if (number != "") {
+                                    telNumber =  telNumber + number;
+                                }
+                            }
+                            serviceCtx.put("areaCode", telNumber.substring(0, 3));
+                            serviceCtx.put("contactNumber", telNumber.substring(3));
+                        }
+                    }
+                }
+                OrganizationalIdentity  oid = contact.getOrganizationalIdentity();                
+                // Useful when creating a contact with more than OOTB
+                if (!isGroup) { 
+                    serviceCtx.put("personalTitle", oid.getTitle());
+                }
+
+                // Needed when creating an account (a PartyGroup)
+                if (isGroup) {
+                    //serviceCtx.put("partyRole", oid.getRole()); // not used yet,maybe useful later
+                    if (oid.hasOrganization()) { 
+                        Organization org = oid.getOrganization();
+                        serviceCtx.put("groupName", org.getName());
                     }
                 }
 
