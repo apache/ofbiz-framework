@@ -25,6 +25,7 @@ under the License.
     <screen name="FindExample">
         <section>
             <actions>
+                <set field="headerItem" value="ExampleMenuItem"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
                 <set field="exampleCtx" from-field="parameters"/>
             </actions>
