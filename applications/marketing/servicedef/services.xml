@@ -480,6 +480,7 @@ under the License.
     <service name="importVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="importVCard">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+        <attribute name="partyType" type="String" mode="IN" optional="true"/>
         <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
         <attribute name="serviceName" type="String" mode="IN" optional="false"/>
     </service>
