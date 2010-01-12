@@ -57,26 +57,20 @@ import org.w3c.dom.Element;
  * (see the <a href="#xmlToProperties(java.io.InputStream,%20java.util.Locale,%20java.util.Properties)">xmlToProperties</a>
  * method).</p>
  */
-@SuppressWarnings("serial")
-public class UtilProperties implements java.io.Serializable {
+public class UtilProperties {
 
     public static final String module = UtilProperties.class.getName();
-
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each Properties instance is keyed by the resource String.
      */
-    protected static UtilCache<String, Properties> resourceCache = UtilCache.createUtilCache("properties.UtilPropertiesResourceCache");
-
+    protected static final UtilCache<String, Properties> resourceCache = UtilCache.createUtilCache("properties.UtilPropertiesResourceCache");
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each Properties instance is keyed by the file's URL.
      */
-    protected static UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
-
-    public static final Locale LOCALE_ROOT = new Locale("", "", "");
-
-    protected static Locale fallbackLocale = null;
-    protected static Set<Locale> defaultCandidateLocales = null;
-    protected static Set<String> propertiesNotFound = FastSet.newInstance();
+    protected static final UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
+    protected static final Set<String> propertiesNotFound = FastSet.newInstance();
+    protected static final Locale fallbackLocale = createFallbackLocale();
+    protected static final Set<Locale> defaultCandidateLocales = createDefaultCandidateLocales();
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
@@ -606,21 +600,16 @@ public class UtilProperties implements java.io.Serializable {
      * <code>general.properties</code>.
      * @return The configured fallback locale
      */
-    public static Locale getFallbackLocale() {
-        if (fallbackLocale == null) {
-            synchronized (UtilProperties.class) {
-                if (fallbackLocale == null) {
-                    String locale = getPropertyValue("general", "locale.properties.fallback");
-                    if (UtilValidate.isNotEmpty(locale)) {
-                        fallbackLocale = UtilMisc.parseLocale(locale);
-                    }
-                    if (fallbackLocale == null) {
-                        fallbackLocale = UtilMisc.parseLocale("en");
-                    }
-                }
-            }
+    protected static Locale createFallbackLocale() {
+        String locale = getPropertyValue("general", "locale.properties.fallback");
+        Locale result = null;
+        if (UtilValidate.isNotEmpty(locale)) {
+            result = UtilMisc.parseLocale(locale);
         }
-        return fallbackLocale;
+        if (result == null) {
+            result = UtilMisc.parseLocale("en");
+        }
+        return result;
     }
 
     /** Converts a Locale instance to a candidate Locale list. The list
@@ -647,19 +636,12 @@ public class UtilProperties implements java.io.Serializable {
      * the <code>LOCALE_ROOT</code> (empty) locale - in that order.
      * @return A list of default candidate locales.
      */
-    public static Set<Locale> getDefaultCandidateLocales() {
-        if (defaultCandidateLocales == null) {
-            synchronized (UtilProperties.class) {
-                if (defaultCandidateLocales == null) {
-                    defaultCandidateLocales = FastSet.newInstance();
-                    defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
-                    // Change to Locale.ROOT in Java 6
-                    defaultCandidateLocales.add(LOCALE_ROOT);
-                    defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
-                }
-            }
-        }
-        return defaultCandidateLocales;
+    protected static Set<Locale> createDefaultCandidateLocales() {
+        Set<Locale> result = FastSet.newInstance();
+        result.addAll(localeToCandidateList(Locale.getDefault()));
+        result.addAll(localeToCandidateList(fallbackLocale));
+        result.add(Locale.ROOT);
+        return result;
     }
 
     /** Returns a list of candidate locales based on a supplied locale.
@@ -671,12 +653,12 @@ public class UtilProperties implements java.io.Serializable {
      */
     public static List<Locale> getCandidateLocales(Locale locale) {
         // Java 6 conformance
-        if (LOCALE_ROOT.equals(locale)) {
+        if (Locale.ROOT.equals(locale)) {
             return UtilMisc.toList(locale);
         }
         Set<Locale> localeSet = FastSet.newInstance();
         localeSet.addAll(localeToCandidateList(locale));
-        localeSet.addAll(getDefaultCandidateLocales());
+        localeSet.addAll(defaultCandidateLocales);
         List<Locale> localeList = FastList.newInstance();
         localeList.addAll(localeSet);
         return localeList;
