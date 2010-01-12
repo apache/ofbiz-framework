@@ -73,7 +73,7 @@ under the License.
             screen and decorator. -->
         <section>
             <actions>
-                <set field="headerItem" value="Example"/>
+                <set field="headerItem" value="ExampleMenuItem"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
                 <entity-one entity-name="Example" value-field="example"/>
             </actions>
