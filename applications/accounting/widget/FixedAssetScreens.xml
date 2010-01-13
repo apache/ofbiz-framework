@@ -522,6 +522,8 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
+                                    <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <platform-specific>
                                         <html><html-template location="component://accounting/webapp/accounting/fixedasset/DepreciationReport.ftl"/></html>
                                     </platform-specific>

@@ -577,4 +577,38 @@ under the License.
          </field>
          <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="AddFixedAssetDepMethod" type="single" target="createFixedAssetDepMethod" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createFixedAssetDepMethod" default-field-type="edit"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="depreciationCustomMethodId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                    <entity-constraint name="customMethodTypeId" operator="equals" value="DEPRECIATION_FORMULA"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFixedAssetDepMethods" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="FixedAssetDepMethod" list="fixedAssetDepMethods">
+                <condition-expr field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="FixedAssetDepMethod" default-field-type="display"/>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="depreciationCustomMethodId">
+            <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteFixedAssetDepMethod" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="depreciationCustomMethodId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>

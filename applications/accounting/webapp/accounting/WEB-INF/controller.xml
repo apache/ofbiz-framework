@@ -2307,6 +2307,24 @@ under the License.
         <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
+    <request-map uri="createFixedAssetDepMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createFixedAssetDepMethod"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetDepMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteFixedAssetDepMethod"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
+    <request-map uri="updateFixedAssetDepMethod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateFixedAssetDepMethod"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
 
     <!-- Commented out for now WIP
     <request-map uri="taxAuthorityVATReport">

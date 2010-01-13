@@ -46,12 +46,7 @@ under the License.
     <!-- Formulae -->
     <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
     <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
-    <CustomMethodType customMethodTypeId="DEPRECIATION_FORMULA" description="Formula for calculating depreciatiion for fixed asset"/>
 
-    <!--Depreciation Formulae-->
-    <CustomMethod customMethodId="STR_LINE_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="straightLineDepreciation" description="Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)"/>
-    <CustomMethod customMethodId="DBL_DECL_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="doubleDecliningBalanceDepreciation" description="Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)"/>
-    
     <WebSite webSiteId="MANUFACTURING" siteName="Manufacturing Manager" visualThemeSetId="BACKOFFICE"/>
 
 </entity-engine-xml>
