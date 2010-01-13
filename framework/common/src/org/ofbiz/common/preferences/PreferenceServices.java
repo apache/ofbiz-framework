@@ -144,7 +144,7 @@ public class PreferenceServices {
         Map generalProperties = UtilProperties.getProperties("general");
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry) it.next();
-            if (pairs.getValue().equals("DEFAULT")) {
+            if ("DEFAULT".equals(pairs.getValue())) {
                 if (UtilValidate.isNotEmpty(generalProperties.get(pairs.getKey()))) {
                     userPrefMap.put((String) pairs.getKey(), generalProperties.get(pairs.getKey()));
                 }
