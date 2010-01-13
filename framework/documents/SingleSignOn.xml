@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>OFBiz Single Sign On using CAS and LDAP</title>
+    <section>
+        <title>Setup the Java Key Store</title>
+        <para>
+            From the directory in which you want to create the keystore, run keytool with the following parameters. 
+        </para>
+        <orderedlist>
+            <listitem>
+                <para>
+                    Generate the server certificate.
+                    <programlisting>
+                        $ keytool -genkey -alias tomcat -keyalg RSA -keypass changeit -storepass changeit -keystore keystore.jks 
+                    </programlisting>
+                    When you press Enter, keytool prompts you to enter the server name, organizational unit, organization, locality, state, and country code. Note that you must enter the server name in response to keytool's first prompt, in which it asks for first and last names. For testing purposes, this can be localhost.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Export the generated server certificate in keystore.jks into the file server.cer.
+                    <programlisting>
+                        $ keytool -export -alias tomcat -storepass changeit -file server.cer -keystore keystore.jks 
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    To create the trust-store file cacerts.jks and add the server certificate to the trust-store, run keytool from the directory where you created the keystore and server certificate. Use the following parameters:
+                    <programlisting>
+                        $ keytool -import -v -trustcacerts -alias tomcat -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit 
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Information on the certificate, such as that shown next, will display.
+                    <programlisting>
+                        $ keytool -import -v -trustcacerts -alias tomcat -file server.cer -keystore cacerts.jks -keypass changeit -storepass changeit
+
+                        Owner: CN=localhost, OU=Sun Micro, O=Docs, L=Santa Clara, ST=CA, C=US
+                        Issuer: CN=localhost, OU=Sun Micro, O=Docs, L=Santa Clara, ST=CA, C=US
+                        Serial number: 3e932169
+                        Valid from: Tue Apr 08
+                        Certificate fingerprints:
+                        MD5: 52:9F:49:68:ED:78:6F:39:87:F3:98:B3:6A:6B:0F:90 
+                        SHA1: EE:2E:2A:A6:9E:03:9A:3A:1C:17:4A:28:5E:97:20:78:3F:
+                        Trust this certificate? [no]: 
+                    </programlisting>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Enter yes, and then press the Enter or Return key. The following information displays:
+                    <programlisting>
+                        Certificate was added to keystore
+                        [Saving cacerts.jks] 
+                    </programlisting>
+                </para>
+            </listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>CAS Server</title>
+        <para>
+            <orderedlist>
+                <listitem>
+                    <para>
+                        Download CAS server from <link xl:href="http://www.jasig.org/cas">the CAS web site</link>.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Deploy cas-server-webapp-[version].war to Tomcat
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Set key store file to Tomcat
+                        <programlisting>
+                            keystoreFile="path/to/keystore.jks"
+                        </programlisting>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>
+                        Start Tomcat
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </section>
+    <section>
+        <title>OFBiz Certificate</title>
+        <para>
+            Set trust store's file to Java Virtual Machine (JVM) before start OFBiz.
+            <programlisting>
+                -Djavax.net.ssl.trustStore=path/to/cacerts.jks
+            </programlisting>
+        </para>
+    </section>
+    <section>
+        <title>LDAP Component</title>
+        <para>
+            OFBiz uses the LDAP component in the specialpurpose to check the security in a web application. OFBiz disabled LDAP component as default, you can enable this component by take the comment out from specialpurpose/component-load.xml file.
+        </para>
+        <section>
+            <title>LDAP Properties</title>
+            <para>
+                LDAP properties file is specialpurpose/ldap/config/ldap.xml. You can change a filter condition you want.
+            </para>
+            <section>
+                <title>Attributes</title>
+                <para>
+                    <orderedlist>
+                        <listitem>
+                            <para>
+                                Attribute : LDAP attbitue for filter e.g. uid=%u
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                AuthenType : LDAP authentication method e.g. simple
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                AuthenticaionHandler : CAS handler class e.g. org.ofbiz.ldap.cas.OFBizCasAuthenticationHandler
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                AutoPartyId : Party's id for user login e.g. admin
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                AutoSecurityGroupId : Security group's id for user login e.g. FULLADMIN
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                BaseDN : The top level ofbiz LDAP directory tree e.g. dc=example,dc=com
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Filter : LDAP search filter e.g. (objectclass=*)
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Scope : LDAP search scope parameter e.g. sub,one, etc.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                URL : LDAP server's url e.g. ldap://localhost:389
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                UserOFBizLoginWhenLDAPFail : indicate that if LDAP fail then login with normal OFBiz's user or not. (true/false)
+                            </para>
+                        </listitem>
+                    </orderedlist>
+                </para>
+            </section>
+            <section>
+                <title>CAS</title>
+                <para>
+                    <orderedlist>
+                        <listitem>
+                            <para>
+                                CasLoginUri : URI to CAS login e.g. /login
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                CasLogoutUri : URI to CAS logout  e.g. /logout
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                CasUrl : CAS Server's URL e.g. https://localhost:8443/cas
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                CasValidateUri : URI to CAS validate e.g. /validate
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                CasLdapHandler : LDAP hanlder class e.g. org.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                CasTGTCookieName : CAS TGT's cookie name e.g. CASTGC
+                            </para>
+                        </listitem>
+                    </orderedlist>
+                </para>
+            </section>
+        </section>
+    </section>
+    <section>
+        <title>OpenLDAP</title>
+        <para>
+            The LDAP component need data from LDAP server (OpenLDAP). The server needs to install, configure and populate OpenLDAP: see at <link xl:href="http://www.openldap.org">the OpenLDAP web site</link>.
+        </para>
+    </section>
+    <section>
+        <title>Web Application Security Mapping</title>
+        <para>
+            Every web application you need to use LDAP (single sign on) feature, you need to change the event's path of some the security request mappings to org.ofbiz.ldap.LdapLoginWorker class.
+        </para>
+        <section>
+            <title>checkLogin</title>
+            <para>
+                <programlisting>
+                    &lt;request-map uri="checkLogin" edit="false"&gt;
+                        &lt;description&gt;Verify a user is logged in.&lt;/description&gt;
+                        &lt;security https="true" auth="false"/> 
+                        &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="checkLogin"/&gt;
+                        &lt;response name="success" type="view" value="main"/&gt;
+                        &lt;response name="error" type="view" value="login"/&gt;
+                    &lt;/request-map&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>login</title>
+            <para>
+                <programlisting>
+                    &lt;request-map uri="login"&gt;
+                        &lt;security https="true" auth="false"/&gt;
+                        &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="login"/&gt;
+                        &lt;response name="success" type="view" value="main"/&gt;
+                        &lt;response name="requirePasswordChange" type="view" value="requirePasswordChange"/&gt;
+                        &lt;response name="error" type="view" value="login"/&gt;
+                    &lt;/request-map&gt;
+                </programlisting>
+            </para>
+        </section>
+        <section>
+            <title>logout</title>
+            <para>
+                <programlisting>
+                    &lt;request-map uri="logout"&gt;
+                            &lt;security https="true" auth="true"/&gt;
+                            &lt;event type="java" path="org.ofbiz.ldap.LdapLoginWorker" invoke="logout"/&gt;
+                            &lt;response name="success" type="request-redirect" value="main"/&gt;
+                            &lt;response name="error" type="view" value="main"/&gt;
+                    &lt;/request-map&gt;
+                </programlisting>
+            </para>
+        </section>
+    </section>
+</chapter>
