@@ -175,7 +175,7 @@ public class ArtifactInfoFactory {
                     try {
                         modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
                     } catch (Exception exc) {
-                        throw new GeneralException(exc.getMessage());
+                        throw new GeneralException(exc.toString(), exc);
                     }
                     for (String screenName : modelScreenMap.keySet()) {
                         this.getScreenWidgetArtifactInfo(screenName, screenLocation);
@@ -192,7 +192,7 @@ public class ArtifactInfoFactory {
                     try {
                         modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
                     } catch (Exception exc) {
-                        throw new GeneralException(exc.getMessage());
+                        throw new GeneralException(exc.toString(), exc);
                     }
                     for (String formName : modelFormMap.keySet()) {
                         this.getFormWidgetArtifactInfo(formName, formLocation);
