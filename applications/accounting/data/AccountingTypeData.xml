@@ -211,9 +211,6 @@ under the License.
             |
             |___> ASSET
             |         |_________> LONGTERM_ASSET
-            |         |                       |____> ACCUM_DEPRECIATION
-            |         |                       |
-            |         |                       |____> ACCUM_AMORTIZATION
             |         |
             |         |_________> CURRENT_ASSET
             |                                 |____> CASH_EQUIVALENT
@@ -236,6 +233,11 @@ under the License.
                                               |____> INVENTORY_ADJUST
 
         CREDIT
+            |___> CONTRA_ASSET
+            |              |___> ACCUM_DEPRECIATION
+            |              |
+            |              |___> ACCUM_AMORTIZATION
+            |
             |___> REVENUE
             |
             |___> INCOME
@@ -285,12 +287,13 @@ under the License.
     <GlAccountClass description="Non-Cash Expense" glAccountClassId="NON_CASH_EXPENSE" parentClassId="EXPENSE"/>
     <GlAccountClass description="Depreciation" glAccountClassId="DEPRECIATION" parentClassId="NON_CASH_EXPENSE"/>
     <GlAccountClass description="Amortization" glAccountClassId="AMORTIZATION" parentClassId="NON_CASH_EXPENSE"/>
-    <!-- a special class for non-cash inventory adjustment expenses to avoid duplicating opearting cash flow adjustments for inventory
+    <!-- a special class for non-cash inventory adjustment expenses to avoid duplicating operating cash flow adjustments for inventory
          account transactions, which adjust operating cash flows -->
     <GlAccountClass description="Inventory Adjustment" glAccountClassId="INVENTORY_ADJUST" parentClassId="NON_CASH_EXPENSE"/>
-    <!-- same idea: these avoid double counting of depreciaton & amortization -->
-    <GlAccountClass description="Accumulated Depreciation" glAccountClassId="ACCUM_DEPRECIATION" parentClassId="LONGTERM_ASSET"/>
-    <GlAccountClass description="Accumulated Amortization" glAccountClassId="ACCUM_AMORTIZATION" parentClassId="LONGTERM_ASSET"/>
+    <!-- same idea: these avoid double counting of depreciation & amortization -->
+    <GlAccountClass description="Contra Asset" glAccountClassId="CONTRA_ASSET" parentClassId="CREDIT"/>
+    <GlAccountClass description="Accumulated Depreciation" glAccountClassId="ACCUM_DEPRECIATION" parentClassId="CONTRA_ASSET"/>
+    <GlAccountClass description="Accumulated Amortization" glAccountClassId="ACCUM_AMORTIZATION" parentClassId="CONTRA_ASSET"/>
     <GlAccountClass description="Non-Posting" glAccountClassId="NON_POSTING" parentClassId="DEBIT"/>
 
     <GlAccountType description="Accounts Receivable" glAccountTypeId="ACCOUNTS_RECEIVABLE" hasTable="N" parentTypeId=""/>

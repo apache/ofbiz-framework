@@ -44,6 +44,8 @@ partyIds.add(organizationPartyId);
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
 GenericValue assetGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "ASSET"), true);
 List assetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(assetGlAccountClass);
+GenericValue contraAssetGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CONTRA_ASSET"), true);
+List contraAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(contraAssetGlAccountClass);
 GenericValue liabilityGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "LIABILITY"), true);
 List liabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(liabilityGlAccountClass);
 GenericValue equityGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "EQUITY"), true);
@@ -68,6 +70,7 @@ if (!fromDate) {
 GenericValue lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.lastClosedTimePeriod;
 // Get the opening balances of all the accounts
 Map assetOpeningBalances = [:];
+Map contraAssetOpeningBalances = [:];
 Map currentAssetOpeningBalances = [:];
 Map longtermAssetOpeningBalances = [:];
 Map liabilityOpeningBalances = [:];
@@ -83,6 +86,16 @@ if (lastClosedTimePeriod) {
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
         Map accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "D", lastTimePeriodHistory.getBigDecimal("postedDebits"), "C", lastTimePeriodHistory.getBigDecimal("postedCredits"));
         assetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap);
+    }
+    timePeriodAndExprs = FastList.newInstance();
+    timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraAssetAccountClassIds));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("endingBalance", EntityOperator.NOT_EQUAL, BigDecimal.ZERO));
+    timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
+    lastTimePeriodHistories = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false);
+    lastTimePeriodHistories.each { lastTimePeriodHistory ->
+        Map accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "D", lastTimePeriodHistory.getBigDecimal("postedDebits"), "C", lastTimePeriodHistory.getBigDecimal("postedCredits"));
+        contraAssetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap);
     }
     timePeriodAndExprs = FastList.newInstance();
     timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
@@ -252,6 +265,45 @@ accountBalanceList.each { accountBalance ->
 }
 context.longtermAssetBalanceTotal = balanceTotal;
 balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssets", "balance", balanceTotal));
+
+// CONTRA ASSETS
+// account balances
+accountBalanceList = [];
+transactionTotals = [];
+balanceTotal = BigDecimal.ZERO;
+List contraAssetAndExprs = FastList.newInstance(mainAndExprs);
+contraAssetAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraAssetAccountClassIds));
+transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(contraAssetAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+
+transactionTotalsMap = [:];
+transactionTotalsMap.putAll(contraAssetOpeningBalances);
+transactionTotals.each { transactionTotal ->
+    Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId);
+    if (!accountMap) {
+        accountMap = UtilMisc.makeMapWritable(transactionTotal);
+        accountMap.remove("debitCreditFlag");
+        accountMap.remove("amount");
+        accountMap.put("D", BigDecimal.ZERO);
+        accountMap.put("C", BigDecimal.ZERO);
+        accountMap.put("balance", BigDecimal.ZERO);
+    }
+    UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount);
+    BigDecimal debitAmount = (BigDecimal)accountMap.get("D");
+    BigDecimal creditAmount = (BigDecimal)accountMap.get("C");
+    // contra assets are accounts of class CREDIT: the balance is given by credits minus debits
+    BigDecimal balance = creditAmount.subtract(debitAmount);
+    accountMap.put("balance", balance);
+    transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
+}
+accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
+accountBalanceList.each { accountBalance ->
+    balanceTotal = balanceTotal + accountBalance.balance;
+}
+//context.contraAssetAccountBalanceList = accountBalanceList;
+context.assetAccountBalanceList.addAll(accountBalanceList);
+context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL ACCUMULATED DEPRECIATION", "balance", balanceTotal));
+context.contraAssetBalanceTotal = balanceTotal;
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssetsAtCost", "balance", (context.longtermAssetBalanceTotal - context.contraAssetBalanceTotal)));
 
 // LIABILITY
 // account balances

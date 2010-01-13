@@ -306,28 +306,6 @@ under the License.
         <attribute name="totalNetIncome" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="glAccountTotalsMap" type="Map" mode="OUT" optional="true"/>
     </service>
-    <service name="prepareBalanceSheet" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareBalanceSheet" auth="true">
-        <description>Prepare the data for the Balance Sheet</description>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="glFiscalTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="assetBalancesList" type="List" mode="OUT" optional="true"/>
-        <attribute name="liabilityBalancesList" type="List" mode="OUT" optional="true"/>
-        <attribute name="equityBalancesList" type="List" mode="OUT" optional="true"/>
-    </service>
-    <service name="prepareComparativeBalanceSheet" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareComparativeBalanceSheet" auth="true">
-        <description>Prepare the data for the Balance Sheet</description>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="period1ThruDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="period1GlFiscalTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="period2ThruDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="period2GlFiscalTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="assetBalancesList" type="List" mode="OUT" optional="true"/>
-        <attribute name="liabilityBalancesList" type="List" mode="OUT" optional="true"/>
-        <attribute name="equityBalancesList" type="List" mode="OUT" optional="true"/>
-    </service>
 
     <!-- Miscellaneous Ledger-related services -->
     <service name="getGlAccountFromAccountType" engine="simple"
