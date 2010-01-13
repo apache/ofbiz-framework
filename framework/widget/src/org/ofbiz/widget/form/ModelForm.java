@@ -209,7 +209,12 @@ public class ModelForm extends ModelWidget {
         super(formElement);
         this.entityModelReader = entityModelReader;
         this.dispatchContext = dispatchContext;
-        initForm(formElement);
+        try {
+            initForm(formElement);
+        } catch (RuntimeException e) {
+            Debug.logError(e, "Error parsing form [" + formElement.getAttribute("name") + "]: " + e.toString(), module);
+            throw e;
+        }
     }
 
     public ModelForm(Element formElement) {
