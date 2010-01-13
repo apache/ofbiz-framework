@@ -204,11 +204,6 @@ under the License.
         DEBIT
             |___> NON_POSTING
             |
-            |___> DISTRIBUTION
-            |               |___> RETURN_OF_CAPITAL
-            |               |
-            |               |___> DIVIDEND
-            |
             |___> ASSET
             |         |_________> LONGTERM_ASSET
             |         |
@@ -216,6 +211,11 @@ under the License.
             |                                 |____> CASH_EQUIVALENT
             |                                 |
             |                                 |____> INVENTORY_ASSET
+            |
+            |___> DISTRIBUTION
+            |               |___> RETURN_OF_CAPITAL
+            |               |
+            |               |___> DIVIDEND
             |
             |___> EXPENSE
                       |_________> CASH_EXPENSE
@@ -238,22 +238,22 @@ under the License.
             |              |
             |              |___> ACCUM_AMORTIZATION
             |
-            |___> REVENUE
-            |
-            |___> INCOME
-            |          |_______> CASH_INCOME
-            |          |
-            |          |_______> NON_CASH_INCOME
+            |___> LIABILITY
+            |         |_________> CURRENT_LIABILITY
+            |         |
+            |         |_________> LONGTERM_LIABILITY
             |
             |___> EQUITY
             |         |_________> OWNERS_EQUITY
             |         |
             |         |_________> RETAINED_EARNINGS
             |
-            |___> LIABILITY
-                      |_________> CURRENT_LIABILITY
-                      |
-                      |_________> LONGTERM_LIABILITY
+            |___> REVENUE
+            |
+            |___> INCOME
+                       |________> CASH_INCOME
+                       |
+                       |________> NON_CASH_INCOME
 
         RESOURCE
 
