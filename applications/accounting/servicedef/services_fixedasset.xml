@@ -249,6 +249,23 @@ under the License.
     </service>
 
     <!-- Fixed Asset Depreciation Services -->
+    <service name="createFixedAssetDepMethod" default-entity-name="FixedAssetDepMethod" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Fixed Asset Depreciation Method</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteFixedAssetDepMethod" default-entity-name="FixedAssetDepMethod" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Fixed Asset Depreciation Method</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateFixedAssetDepMethod" default-entity-name="FixedAssetDepMethod" engine="entity-auto" invoke="update" auth="true">
+        <description>Create a Fixed Asset Depreciation Method</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="fixedAssetDepCalcInterface" engine="interface">
         <description>Interface to describe base parameters for Depreciation Calculation Services</description>
         <attribute name="expEndOfLifeYear" type="Integer" mode="IN" optional="false"/>
