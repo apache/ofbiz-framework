@@ -32,7 +32,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyHelpUrls" map-name="helpUrlsMap" global="true"/>
 
@@ -65,7 +64,6 @@ under the License.
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="Person" value-field="lookupPerson"/>
                 <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
-                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
