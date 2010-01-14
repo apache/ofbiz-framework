@@ -738,7 +738,7 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="workEffortPurposeTypeId"/>
       <relation type="one" fk-name="WK_EFFRT_PTYPE_PAR" title="Parent" rel-entity-name="WorkEffortPurposeType">
-        <key-map field-name="parentTypeId" rel-field-name="WorkEffortPurposeType"/>
+        <key-map field-name="parentTypeId" rel-field-name="workEffortPurposeTypeId"/>
       </relation>
     </entity>
     <entity entity-name="WorkEffortReview" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Review Entity">

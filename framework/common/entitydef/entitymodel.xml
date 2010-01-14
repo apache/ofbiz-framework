@@ -453,6 +453,22 @@ under the License.
         <key-map field-name="uomTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="UomAndGroup"
+            package-name="org.ofbiz.common.uom"
+            title="Unit Of Measure and Group/Type View Entity">
+        <member-entity entity-alias="UOMGP" entity-name="UomGroup"/>
+        <member-entity entity-alias="UOM" entity-name="Uom"/>        
+        <member-entity entity-alias="UOMTP" entity-name="UomType"/>
+        <alias-all entity-alias="UOMGP"/>
+        <alias-all entity-alias="UOM"/>        
+        <alias-all entity-alias="UOMTP" prefix="type"/>                       
+        <view-link entity-alias="UOMGP" rel-entity-alias="UOM">
+            <key-map field-name="uomId"/>
+        </view-link>
+        <view-link entity-alias="UOM" rel-entity-alias="UOMTP">
+            <key-map field-name="uomTypeId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="UomAndType"
             package-name="org.ofbiz.common.uom"
             title="Unit Of Measure and Type View Entity">
@@ -512,7 +528,19 @@ under the License.
       <relation type="one" fk-name="UOMD_PURPOSE_ENUM" title="Purpose" rel-entity-name="Enumeration">
         <key-map field-name="purposeEnumId" rel-field-name="enumId"/>
       </relation>
-    </entity>
+    </entity>    
+    <entity entity-name="UomGroup"
+            package-name="org.ofbiz.common.uom"
+            default-resource-name="CommonEntityLabels"
+            title="Unit Of Measure Group Entity">
+      <field name="uomGroupId" type="id-ne"></field>
+      <field name="uomId" type="id-ne"></field>
+      <prim-key field="uomGroupId"/>
+      <prim-key field="uomId"/>
+      <relation type="one" fk-name="UOM_GROUP_UOM" rel-entity-name="Uom">
+        <key-map field-name="uomId"/>
+      </relation>
+    </entity>    
     <entity entity-name="UomType"
             package-name="org.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
