@@ -592,7 +592,7 @@ under the License.
                         </calcop>
                     </calculate>
                     <calculate field="depreciationTotal">
-                        <calcop operator="sum">
+                        <calcop operator="add">
                             <calcop operator="get" field="depreciationTotal"/>
                             <calcop operator="get" field="depreciation"/>
                         </calcop>
@@ -677,7 +677,7 @@ under the License.
                         </calcop>
                     </calculate>
                     <calculate field="depreciationTotal">
-                        <calcop operator="sum">
+                        <calcop operator="add">
                             <calcop operator="get" field="depreciationTotal"/>
                             <calcop operator="get" field="depreciation"/>
                         </calcop>
