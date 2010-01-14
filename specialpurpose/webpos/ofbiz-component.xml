@@ -26,7 +26,8 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
 
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPosData.xml"/>
-
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/WebPosSecurityData.xml"/>
+    
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_manager.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_payment.xml"/>
@@ -37,6 +38,7 @@ under the License.
         server="default-server"
         menu-name="secondary"
         location="webapp/webpos"
+        base-permission="WEBPOS"
         mount-point="/webpos"
         app-bar-display="true"/>
 </ofbiz-component>
