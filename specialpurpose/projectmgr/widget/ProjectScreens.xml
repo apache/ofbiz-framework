@@ -452,10 +452,8 @@ under the License.
                 <set field="phases" from-field="result.phaseList"/>
             </actions>
             <widgets>
-                <screenlet>
-                    <screenlet title="${uiLabelMap.ProjectMgrPhases}">
-                        <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                    </screenlet>
+                <screenlet title="${uiLabelMap.ProjectMgrPhases}">
+                    <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
