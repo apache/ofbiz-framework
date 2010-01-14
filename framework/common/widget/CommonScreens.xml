@@ -182,7 +182,7 @@ under the License.
                         </section>
                     </widgets>
                     <fail-widgets>
-                        <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/>
+                        <!-- better to just not include this, the CommonAppBarMenu doesn't show anything by default if the user isn't logged in, causing a funny empty menu: <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/> -->
                     </fail-widgets>
                 </section>
 
