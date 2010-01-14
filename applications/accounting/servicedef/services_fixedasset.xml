@@ -275,6 +275,7 @@ under the License.
         <attribute name="usageYears" type="Integer" mode="IN" optional="false"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
+        <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
                 location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
@@ -294,6 +295,7 @@ under the License.
         <attribute name="fixedAssetId" type="String" mode="IN"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
+        <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="false"/>
     </service>
 
     <!-- FixedAssetGeoPoint services -->

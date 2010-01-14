@@ -2303,7 +2303,6 @@ under the License.
     <!-- ================ Depreciation Calculation Report requests ================ -->
     <request-map uri="showFixedAssetDepreciation">
         <security https="true" auth="true"/>
-        <event type="service" invoke="calculateFixedAssetDepreciation"/>
         <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
