@@ -35,7 +35,7 @@ under the License.
         <if-compare field="create_allow_password" operator="not-equals" value="true">
             <set field="parameters.password" from-field="default_user_password"/>
             <set field="parameters.confirmPassword" from-field="default_user_password"/>
-            <set field="parameters.passwordHint" value="No hint set, accout not yet enabled"/>
+            <set field="parameters.passwordHint" value="No hint set, account not yet enabled"/>
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
@@ -310,7 +310,7 @@ under the License.
                     <set-current-user-login value-field="userLoginContext"/>
                 </else>
                 </if-empty>
-            <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
+            <else><!-- if an anonymous visitor is coming back, update the party id in the userLogin object -->
                 <if-compare field="userLogin.userLoginId" value="anonymous" operator="equals">
                     <set field="userLogin.partyId" from-field="partyId"/>
                 </if-compare>
@@ -593,16 +593,16 @@ under the License.
 
            <set field="shippingInstruction" from-field="parameters.shipping_instructions" type="String"/>
            <if-not-empty field="shippingInstruction">
-           <call-object-method obj-field="cart" method-name="setShippingInstructions">
-               <field field="shippingInstruction" type="String"/>
-           </call-object-method>
+               <call-object-method obj-field="cart" method-name="setShippingInstructions">
+                   <field field="shippingInstruction" type="String"/>
+               </call-object-method>
            </if-not-empty>
 
            <set field="correspondingPoId" from-field="parameters.correspondingPoId" type="String"/>
            <if-not-empty field="correspondingPoId">
-           <call-object-method obj-field="cart" method-name="setPoNumber">
-               <field field="correspondingPoId" type="String"/>
-           </call-object-method>
+               <call-object-method obj-field="cart" method-name="setPoNumber">
+                   <field field="correspondingPoId" type="String"/>
+               </call-object-method>
            </if-not-empty>
 
            <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false"/>
@@ -612,9 +612,9 @@ under the License.
 
            <set field="giftMessage" from-field="parameters.gift_message" type="String"/>
            <if-not-empty field="giftMessage">
-           <call-object-method obj-field="cart" method-name="setGiftMessage">
-               <field field="giftMessage" type="String"/>
-           </call-object-method>
+               <call-object-method obj-field="cart" method-name="setGiftMessage">
+                   <field field="giftMessage" type="String"/>
+               </call-object-method>
            </if-not-empty>
        </if-not-empty>
     </simple-method>
