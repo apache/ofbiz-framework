@@ -546,7 +546,7 @@ under the License.
     <target name="create-component"
             description="Creates the layout of an OFBiz component in the hot-deploy folder.">
         <input addproperty="component-name" message="Component name: (e.g. mycomponent)"/>
-        <input addproperty="component-resource-name" message="Component resource name: (e.g. Mycomponent)"/>
+        <input addproperty="component-resource-name" message="Component resource name: (e.g. MyComponent)"/>
         <input addproperty="webapp-name" message="Webapp name: (e.g. mycomponent)"/>
         <input addproperty="base-permission" message="Base permission: (e.g. MYCOMPONENT)"/>
         <echo>The following hot-deploy component will be created:
