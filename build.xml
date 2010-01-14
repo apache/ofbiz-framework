@@ -379,7 +379,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-readers" depends="build"
-            description="This loads data using the command line argument 'readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
+            description="This loads data using the command line argument 'data-readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
         <java jar="ofbiz.jar" fork="true" >
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
