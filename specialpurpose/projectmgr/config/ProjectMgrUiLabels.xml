@@ -19,13 +19,8 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AssignTaskOtherProject">
-        <value xml:lang="de">Verknüpfe Aufgabe mit anderer Projektphase</value>    
-        <value xml:lang="en">Assign Task to other project phase</value>
-        <value xml:lang="nl">Taak overhevelen naar andere projectfase</value>
-    </property>
     <property key="FormFieldTitle_actualHours">
-        <value xml:lang="de">Ist-Stunden</value>    
+        <value xml:lang="de">Ist-Stunden</value>
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="fr">Heures réelles</value>
         <value xml:lang="it">Ore attuali</value>
@@ -33,7 +28,7 @@
         <value xml:lang="zh">实际工时</value>
     </property>
     <property key="FormFieldTitle_actualNonBilledHours">
-        <value xml:lang="de">Nicht fakturierte Ist-Stunden</value>    
+        <value xml:lang="de">Nicht fakturierte Ist-Stunden</value>
         <value xml:lang="en">Actual Non Billed Hours</value>
         <value xml:lang="fr">Heures réelles non facturées</value>
         <value xml:lang="it">Ore attuali non fatturate</value>
@@ -41,7 +36,7 @@
         <value xml:lang="zh">实际非记账工时</value>
     </property>
     <property key="FormFieldTitle_clientBillingPartyId">
-        <value xml:lang="de">Kunden Rechnungsadresse</value>    
+        <value xml:lang="de">Kunden Rechnungsadresse</value>
         <value xml:lang="en">Client Billing Party Id</value>
         <value xml:lang="fr">Réf. de facturation client</value>
         <value xml:lang="it">Soggetto fatturazione</value>
@@ -49,7 +44,7 @@
         <value xml:lang="zh">客户账单会员标识</value>
     </property>
     <property key="FormFieldTitle_complete">
-        <value xml:lang="de">Vollständig</value>    
+        <value xml:lang="de">Vollständig</value>
         <value xml:lang="en">Complete</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completo</value>
@@ -57,12 +52,19 @@
         <value xml:lang="zh">完成</value>
     </property>
     <property key="FormFieldTitle_createdStamp">
-        <value xml:lang="de">Erstellungsdatum</value>    
+        <value xml:lang="de">Erstellungsdatum</value>
         <value xml:lang="en">Created Stamp</value>
         <value xml:lang="fr">Estampille créée</value>
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="nl">Datum aanmaken</value>
         <value xml:lang="zh">创建时间</value>
+    </property>
+    <property key="FormFieldTitle_mailingListEmail">
+        <value xml:lang="de">Mailing List E-Mail</value>
+        <value xml:lang="en">Mailing List E-mail</value>
+        <value xml:lang="fr">Adresse de la liste de diffusion</value>
+        <value xml:lang="nl">Mailinglijst E-mail</value>
+        <value xml:lang="th">E-mail สำหรับ Mailing List</value>
     </property>
     <property key="FormFieldTitle_newTimesheetId">
         <value xml:lang="de">Neue Zeiterfassungs ID</value>
@@ -73,7 +75,7 @@
         <value xml:lang="zh">新的时间表Id</value>
     </property>
     <property key="FormFieldTitle_nonBilledHours">
-        <value xml:lang="de">Nicht fakturierte Stunden</value>    
+        <value xml:lang="de">Nicht fakturierte Stunden</value>
         <value xml:lang="en">Non Billed Hours</value>
         <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="it">Ore non fatturate</value>
@@ -81,14 +83,14 @@
         <value xml:lang="zh">非记账工时</value>
     </property>
     <property key="FormFieldTitle_originalActualHours">
-        <value xml:lang="de">Ursprüngliche Ist-Stunden</value>    
+        <value xml:lang="de">Ursprüngliche Ist-Stunden</value>
         <value xml:lang="en">Original Actual Hours</value>
         <value xml:lang="it">Ore attuali originali</value>
         <value xml:lang="nl">Originele werk. uren</value>
         <value xml:lang="zh">原始实际工时</value>
     </property>
     <property key="FormFieldTitle_parentProjectName">
-        <value xml:lang="de">Name des übergeordneten Projektes</value>    
+        <value xml:lang="de">Name des übergeordneten Projektes</value>
         <value xml:lang="en">Parent Project Name</value>
         <value xml:lang="fr">Nom du projet parent</value>
         <value xml:lang="it">Nome progetto padre</value>
@@ -96,7 +98,7 @@
         <value xml:lang="zh">上级项目名称</value>
     </property>
     <property key="FormFieldTitle_phase">
-        <value xml:lang="de">Phase</value>    
+        <value xml:lang="de">Phase</value>
         <value xml:lang="en">Phase</value>
         <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
@@ -104,7 +106,7 @@
         <value xml:lang="zh">项目阶段</value>
     </property>
     <property key="FormFieldTitle_phaseId">
-        <value xml:lang="de">Phase ID</value>    
+        <value xml:lang="de">Phase ID</value>
         <value xml:lang="en">Phase Id</value>
         <value xml:lang="fr">Réf. de phase</value>
         <value xml:lang="it">Fase</value>
@@ -112,7 +114,7 @@
         <value xml:lang="zh">阶段标识</value>
     </property>
     <property key="FormFieldTitle_phaseName">
-        <value xml:lang="de">Phasenname</value>    
+        <value xml:lang="de">Phasenname</value>
         <value xml:lang="en">Phase Name</value>
         <value xml:lang="fr">Nom de phase</value>
         <value xml:lang="it">Nome fase</value>
@@ -120,7 +122,7 @@
         <value xml:lang="zh">阶段名称</value>
     </property>
     <property key="FormFieldTitle_plannedHours">
-        <value xml:lang="de">Geplante Stunden</value>    
+        <value xml:lang="de">Geplante Stunden</value>
         <value xml:lang="en">Planned Hours</value>
         <value xml:lang="fr">Heures planifiées</value>
         <value xml:lang="it">Orari pianificati</value>
@@ -128,7 +130,7 @@
         <value xml:lang="zh">计划工时</value>
     </property>
     <property key="FormFieldTitle_projectName">
-        <value xml:lang="de">Projektname</value>    
+        <value xml:lang="de">Projektname</value>
         <value xml:lang="en">Project Name</value>
         <value xml:lang="fr">Nom de projet</value>
         <value xml:lang="it">Nome progetto</value>
@@ -136,7 +138,7 @@
         <value xml:lang="zh">项目名称</value>
     </property>
     <property key="FormFieldTitle_relatedTasks">
-        <value xml:lang="de">Verwandte Aufgaben</value>    
+        <value xml:lang="de">Verwandte Aufgaben</value>
         <value xml:lang="en">Related Tasks</value>
         <value xml:lang="fr">Tâches associées</value>
         <value xml:lang="it">Compiti relativi</value>
@@ -144,7 +146,7 @@
         <value xml:lang="zh">相关任务</value>
     </property>
     <property key="FormFieldTitle_task">
-        <value xml:lang="de">Aufgabe</value>    
+        <value xml:lang="de">Aufgabe</value>
         <value xml:lang="en">Task</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
@@ -152,7 +154,7 @@
         <value xml:lang="zh">任务</value>
     </property>
     <property key="FormFieldTitle_taskName">
-        <value xml:lang="de">Aufgabenname</value>    
+        <value xml:lang="de">Aufgabenname</value>
         <value xml:lang="en">Task Name</value>
         <value xml:lang="fr">Nom de tâche</value>
         <value xml:lang="it">Nome compito</value>
@@ -160,21 +162,15 @@
         <value xml:lang="zh">任务名称</value>
     </property>
     <property key="FormFieldTitle_templateId">
-        <value xml:lang="de">Vorlage ID</value>    
+        <value xml:lang="de">Vorlage ID</value>
         <value xml:lang="en">Template Id</value>
         <value xml:lang="fr">Réf. de modèle</value>
         <value xml:lang="it">Template</value>
         <value xml:lang="nl">Template ID</value>
         <value xml:lang="zh">模板Id</value>
     </property>
-    <property key="FormFieldTitle_mailingListEmail">
-        <value xml:lang="de">Mailing List E-Mail</value>    
-        <value xml:lang="en">Mailing List E-mail</value>
-        <value xml:lang="nl">Mailinglijst E-mail</value>
-        <value xml:lang="th">E-mail สำหรับ Mailing List</value>
-    </property>
     <property key="PageTitleAddATimesheet">
-        <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>    
+        <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>
         <value xml:lang="en">Add a new weekly Timesheet</value>
         <value xml:lang="fr">Ajouter une nouvelle feuille d'activité hebdomadaire</value>
         <value xml:lang="it">Aggiungi una nuova timbratura settimanale</value>
@@ -246,7 +242,7 @@
         <value xml:lang="zh">增加项目备注</value>
     </property>
     <property key="PageTitleAddProjectTimeToNewInvoice">
-        <value xml:lang="de">Füge alle gemeldeten/genehmigten Aufgabenzeiten einer neuen Abrechnung hinzu</value>    
+        <value xml:lang="de">Füge alle gemeldeten/genehmigten Aufgabenzeiten einer neuen Abrechnung hinzu</value>
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
         <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture/</value>
         <value xml:lang="it">Aggiungi tutte le timbrature approvate ad una nuova fattura</value>
@@ -254,7 +250,7 @@
         <value xml:lang="zh">把全部已报告/已批准的任务时间添加到一个新的发票</value>
     </property>
     <property key="PageTitleAddResource">
-        <value xml:lang="de">Neue Ressource hinzufügen</value>    
+        <value xml:lang="de">Neue Ressource hinzufügen</value>
         <value xml:lang="en">Add a Resource</value>
         <value xml:lang="fr">Ajouter une ressource</value>
         <value xml:lang="it">Aggiungi una risorsa</value>
@@ -317,7 +313,7 @@
         <value xml:lang="zh">增加任务备注</value>
     </property>
     <property key="PageTitleAddTimesheetEntry">
-        <value xml:lang="de">Zeiterfassungsbuchung hinzufügen</value>    
+        <value xml:lang="de">Zeiterfassungsbuchung hinzufügen</value>
         <value xml:lang="en">Add Timesheet Entry</value>
         <value xml:lang="fr">Ajouter une feuille d'activité</value>
         <value xml:lang="it">Aggiungi voce timbratura</value>
@@ -325,7 +321,7 @@
         <value xml:lang="zh">添加工时单记录</value>
     </property>
     <property key="PageTitleAddTimesheetRole">
-        <value xml:lang="de">Zeiterfassungsfunktion hinzufügen</value>    
+        <value xml:lang="de">Zeiterfassungsfunktion hinzufügen</value>
         <value xml:lang="en">Add Timesheet role</value>
         <value xml:lang="fr">Ajouter un rôle de feuille d'activité</value>
         <value xml:lang="it">Aggiungi ruolo timbratura</value>
@@ -333,7 +329,7 @@
         <value xml:lang="zh">添加工时单角色</value>
     </property>
     <property key="PageTitleCreateTaskbyRequest">
-        <value xml:lang="de">Eine neue Aufgabe für diese Anfrage erstellen</value>    
+        <value xml:lang="de">Eine neue Aufgabe für diese Anfrage erstellen</value>
         <value xml:lang="en">Create a new Task for this Request</value>
         <value xml:lang="fr">Créer une nouvelle tâche pour cette demande</value>
         <value xml:lang="it">Creare un nuovo compito per questa richiesta</value>
@@ -389,6 +385,7 @@
     <property key="PageTitleEditProjectOrder">
         <value xml:lang="de">Projektbestellung editieren</value>
         <value xml:lang="en">Edit Project Order</value>
+        <value xml:lang="fr">Editer les commandes associées au projet</value>
         <value xml:lang="it">Aggiorna progetto ordine</value>
         <value xml:lang="nl">Order wijzigen</value>
         <value xml:lang="zh">编辑项目角色</value>
@@ -429,6 +426,13 @@
         <value xml:lang="th">แก้ไขงาน</value>
         <value xml:lang="zh">编辑任务</value>
     </property>
+    <property key="PageTitleFindMailingList">
+        <value xml:lang="de">Mailing-List suchen</value>
+        <value xml:lang="en">Find Mailing List</value>
+        <value xml:lang="fr">Rechercher une liste de diffusion</value>
+        <value xml:lang="nl">Mailinglijst zoeken</value>
+        <value xml:lang="th">ค้นหาจดหมาย</value>
+    </property>
     <property key="PageTitleFindPhase">
         <value xml:lang="de">Phase suchen</value>
         <value xml:lang="en">Find Phase</value>
@@ -437,12 +441,6 @@
         <value xml:lang="nl">Fase zoeken</value>
         <value xml:lang="th">ค้นหาขั้นตอนการทำงาน</value>
         <value xml:lang="zh">查找项目阶段</value>
-    </property>
-    <property key="PageTitleFindMailingList">
-        <value xml:lang="de">Mailing-List suchen</value>
-        <value xml:lang="en">Find Mailing List</value>
-        <value xml:lang="nl">Mailinglijst zoeken</value>
-        <value xml:lang="th">ค้นหาจดหมาย</value>
     </property>
     <property key="PageTitleFindProject">
         <value xml:lang="de">Projekt suchen</value>
@@ -694,18 +692,23 @@
         <value xml:lang="zh">未分配任务</value>
     </property>
     <property key="PageTitleViewMailingList">
-        <value xml:lang="de">Zeige Mailing-Liste</value>    
+        <value xml:lang="de">Zeige Mailing-Liste</value>
         <value xml:lang="en">View Mailing List</value>
+        <value xml:lang="fr">Afficher la liste de diffusion</value>
         <value xml:lang="nl">Mailinglijst tonen</value>
         <value xml:lang="th">แสดงจดหมาย</value>
     </property>
-    <property key="ProjectMgrCustomerRequestList">
-        <value xml:lang="de">Liste der Kundenanfragen des Projektes</value>    
-        <value xml:lang="en">Project Customer Request list</value>
-        <value xml:lang="nl">Overzicht verzoeken</value>
+    <property key="ProjectMgr">
+        <value xml:lang="de">Projektmanager</value>
+        <value xml:lang="en">Project Manager</value>
+        <value xml:lang="fr">Application de gestion de projet</value>
+        <value xml:lang="it">Gestione progetti</value>
+        <value xml:lang="nl">Projectmanager</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการโปรเจค</value>
+        <value xml:lang="zh">项目管理应用程序</value>
     </property>
     <property key="ProjectMgrAcceptedCustomerRequestList">
-        <value xml:lang="de">Angenommene Kundenanfragen </value>    
+        <value xml:lang="de">Angenommene Kundenanfragen </value>
         <value xml:lang="en">Accepted Customer Request list</value>
         <value xml:lang="fr">Liste des demandes client acceptées</value>
         <value xml:lang="it">Lista richieste accettate dai clienti</value>
@@ -713,7 +716,7 @@
         <value xml:lang="zh">已接受的客户请求列表</value>
     </property>
     <property key="ProjectMgrActualHours">
-        <value xml:lang="de">Ist-Stunden</value>    
+        <value xml:lang="de">Ist-Stunden</value>
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="fr">Heures réelles</value>
         <value xml:lang="it">Ore attuali</value>
@@ -746,15 +749,6 @@
         <value xml:lang="nl">Urenregel toevoegen</value>
         <value xml:lang="th">เพิ่มตารางเวลา</value>
         <value xml:lang="zh">增加时间条目</value>
-    </property>
-    <property key="ProjectMgr">
-        <value xml:lang="de">Projektmanager</value>
-        <value xml:lang="en">Project Manager</value>
-        <value xml:lang="fr">Application de gestion de projet</value>
-        <value xml:lang="it">Gestione progetti</value>
-        <value xml:lang="nl">Projectmanager</value>
-        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการโปรเจค</value>
-        <value xml:lang="zh">项目管理应用程序</value>
     </property>
     <property key="ProjectMgrApplication">
         <value xml:lang="de">Projektmanager Anwendung</value>
@@ -793,7 +787,7 @@
         <value xml:lang="zh">账单</value>
     </property>
     <property key="ProjectMgrCheckComplete">
-        <value xml:lang="de">Markieren wenn Fertiggestellt</value>    
+        <value xml:lang="de">Markieren wenn Fertiggestellt</value>
         <value xml:lang="en">Check Complete</value>
         <value xml:lang="fr">Marqué(e) comme terminé(e)</value>
         <value xml:lang="it">Controllo completato</value>
@@ -801,7 +795,7 @@
         <value xml:lang="zh">是否完成</value>
     </property>
     <property key="ProjectMgrClientContacts">
-        <value xml:lang="de">Kundenkontakt</value>    
+        <value xml:lang="de">Kundenkontakt</value>
         <value xml:lang="en">Client Contacts</value>
         <value xml:lang="fr">Contacts de client</value>
         <value xml:lang="it">Contatti cliente</value>
@@ -809,7 +803,7 @@
         <value xml:lang="zh">客户联系</value>
     </property>
     <property key="ProjectMgrCompanies">
-        <value xml:lang="de">Firmen</value>    
+        <value xml:lang="de">Firmen</value>
         <value xml:lang="en">Companies</value>
         <value xml:lang="fr">Compagnie</value>
         <value xml:lang="it">Aziende</value>
@@ -817,7 +811,7 @@
         <value xml:lang="zh">公司</value>
     </property>
     <property key="ProjectMgrCompanyName">
-        <value xml:lang="de">OFBiz: Projekt</value>    
+        <value xml:lang="de">OFBiz: Projekt</value>
         <value xml:lang="en">OFBiz: Project</value>
         <value xml:lang="fr">OFBiz : projet</value>
         <value xml:lang="it">OFBiz: Progetti</value>
@@ -884,6 +878,12 @@
         <value xml:lang="th">งานคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求的工作任务</value>
     </property>
+    <property key="ProjectMgrCustomerRequestList">
+        <value xml:lang="de">Liste der Kundenanfragen des Projektes</value>
+        <value xml:lang="en">Project Customer Request list</value>
+        <value xml:lang="fr">Liste des demandes client</value>
+        <value xml:lang="nl">Overzicht verzoeken</value>
+    </property>
     <property key="ProjectMgrDependencies">
         <value xml:lang="de">Abhängigkeiten</value>
         <value xml:lang="en">Dependencies</value>
@@ -911,7 +911,7 @@
         <value xml:lang="zh">编辑关联</value>
     </property>
     <property key="ProjectMgrEditAssocDetail">
-        <value xml:lang="de">Verbindungsdetail bearbeiten</value>    
+        <value xml:lang="de">Verbindungsdetail bearbeiten</value>
         <value xml:lang="en">Edit Assoc Detail</value>
         <value xml:lang="fr">Modifier le détail de l'association</value>
         <value xml:lang="it">Aggiorna dettagli associazione</value>
@@ -919,7 +919,7 @@
         <value xml:lang="zh">编辑关联详细信息</value>
     </property>
     <property key="ProjectMgrEditPartySkill">
-        <value xml:lang="de">Bearbeite Qualifikation des Akteurs</value>    
+        <value xml:lang="de">Bearbeite Qualifikation des Akteurs</value>
         <value xml:lang="en">Edit PartySkill</value>
         <value xml:lang="fr">Modifier les compétences de l'acteur</value>
         <value xml:lang="it">Aggiorna abilità soggetto</value>
@@ -946,7 +946,7 @@
         <value xml:lang="zh">编辑任务</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
-        <value xml:lang="de">Kundenanfrage: ${parameters.custRequestId} wurde nicht gefunden</value>    
+        <value xml:lang="de">Kundenanfrage: ${parameters.custRequestId} wurde nicht gefunden</value>
         <value xml:lang="en">Customer Request: ${parameters.custRequestId} not found</value>
         <value xml:lang="fr">Demande client : ${parameters.custRequestId} non trouvée</value>
         <value xml:lang="it">Richiesta cliente: ${parameters.custRequestId} non trovato</value>
@@ -962,7 +962,7 @@
         <value xml:lang="zh">客户请求：${parameters.custRequestId}状态错误，应该是‘已接受’，但是是${status.description}</value>
     </property>
     <property key="ProjectMgrErrorTaskNotFound">
-        <value xml:lang="de">Aufgabe: ${parameters.workEffortId} nicht gefunden</value>    
+        <value xml:lang="de">Aufgabe: ${parameters.workEffortId} nicht gefunden</value>
         <value xml:lang="en">Task: ${parameters.workEffortId} not found</value>
         <value xml:lang="fr">Tâche : ${parameters.workEffortId} non trouvée</value>
         <value xml:lang="it">Compito: ${parameters.workEffortId} non trovato</value>
@@ -1018,8 +1018,8 @@
         <value xml:lang="en">Filter on</value>
         <value xml:lang="fr">Filtre actif</value>
         <value xml:lang="it">Filtra su</value>
-        <value xml:lang="th">Filter on</value>
         <value xml:lang="nl">Filteren op</value>
+        <value xml:lang="th">Filter on</value>
         <value xml:lang="zh">过滤</value>
     </property>
     <property key="ProjectMgrFri">
@@ -1039,21 +1039,30 @@
         <value xml:lang="th">แผนผังคุมการกำหนดงาน</value>
         <value xml:lang="zh">甘特图</value>
     </property>
+    <property key="ProjectMgrListMailingList">
+        <value xml:lang="de">Liste Mailing-List auf</value>
+        <value xml:lang="en">List Mailing List</value>
+        <value xml:lang="fr">Liste des listes de diffusion</value>
+        <value xml:lang="nl">Overzicht mailinlijsten</value>
+        <value xml:lang="th">รายการจดหมาย</value>
+    </property>
     <property key="ProjectMgrListOrder">
-        <value xml:lang="de">Liste Bestellungen auf</value>    
+        <value xml:lang="de">Liste Bestellungen auf</value>
         <value xml:lang="en">List Order</value>
+        <value xml:lang="fr">Liste des commandes</value>
         <value xml:lang="it">Lista Ordini</value>
         <value xml:lang="nl">Orders</value>
         <value xml:lang="zh">订单列表</value>
     </property>
-    <property key="ProjectMgrListMailingList">
-        <value xml:lang="de">Liste Mailing-List auf</value>    
-        <value xml:lang="en">List Mailing List</value>
-        <value xml:lang="nl">Overzicht mailinlijsten</value>
-        <value xml:lang="th">รายการจดหมาย</value>
+    <property key="ProjectMgrMailingList">
+        <value xml:lang="de">Mailing-List</value>
+        <value xml:lang="en">Mailing List</value>
+        <value xml:lang="fr">Liste de diffusion</value>
+        <value xml:lang="nl">Mailinglijst</value>
+        <value xml:lang="th">จดหมาย</value>
     </property>
     <property key="ProjectMgrMon">
-        <value xml:lang="de">Mo</value>    
+        <value xml:lang="de">Mo</value>
         <value xml:lang="en">Mon</value>
         <value xml:lang="fr">lun</value>
         <value xml:lang="it">Lun</value>
@@ -1061,7 +1070,7 @@
         <value xml:lang="zh">周一</value>
     </property>
     <property key="ProjectMgrMyRoleForThisTask">
-        <value xml:lang="de">Meine Funktion für diese Aufgabe</value>    
+        <value xml:lang="de">Meine Funktion für diese Aufgabe</value>
         <value xml:lang="en">My Role For This Task</value>
         <value xml:lang="fr">Mon rôle pour cette tâches</value>
         <value xml:lang="it">Mio ruolo per questo compito</value>
@@ -1144,6 +1153,7 @@
     <property key="ProjectMgrNoProjectsFound">
         <value xml:lang="de">Keine Projekte gefunden</value>
         <value xml:lang="en">no projects found</value>
+        <value xml:lang="fr">Aucun projet trouvé</value>
         <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
         <value xml:lang="nl">Geen project(en) gevonden</value>
         <value xml:lang="zh">没有找到项目</value>
@@ -1237,12 +1247,6 @@
         <value xml:lang="th">รายการของขั้นตอนการทำงานและงาน</value>
         <value xml:lang="zh">项目阶段和任务列表</value>
     </property>
-    <property key="ProjectMgrMailingList">
-        <value xml:lang="de">Mailing-List</value>
-        <value xml:lang="en">Mailing List</value>
-        <value xml:lang="nl">Mailinglijst</value>
-        <value xml:lang="th">จดหมาย</value>
-    </property>
     <property key="ProjectMgrPhases">
         <value xml:lang="de">Phasen</value>
         <value xml:lang="en">Phases</value>
@@ -1270,7 +1274,7 @@
         <value xml:lang="zh">已计划工时</value>
     </property>
     <property key="ProjectMgrPrintableNote">
-        <value xml:lang="de">Druckbare Notiz</value>    
+        <value xml:lang="de">Druckbare Notiz</value>
         <value xml:lang="en">Printable Note</value>
         <value xml:lang="fr">Note imprimable</value>
         <value xml:lang="it">Nota stampabile</value>
@@ -1278,7 +1282,7 @@
         <value xml:lang="zh">可打印的便笺</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
-        <value xml:lang="de">Privat/Öffentlich</value>    
+        <value xml:lang="de">Privat/Öffentlich</value>
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="fr">Privé/Public</value>
         <value xml:lang="it">Privato/Pubblico</value>
@@ -1286,7 +1290,7 @@
         <value xml:lang="zh">私人/公开</value>
     </property>
     <property key="ProjectMgrProjectAndPhaseName">
-        <value xml:lang="de">Projekt- und Phasenname</value>    
+        <value xml:lang="de">Projekt- und Phasenname</value>
         <value xml:lang="en">Project and Phase Name</value>
         <value xml:lang="fr">Nom du projet et de la phase</value>
         <value xml:lang="it">Progetto e nome fase</value>
@@ -1349,15 +1353,15 @@
         <value xml:lang="zh">项目团队</value>
     </property>
     <property key="ProjectMgrProjects">
-        <value xml:lang="de">Projekte</value>    
+        <value xml:lang="de">Projekte</value>
         <value xml:lang="en">Projects</value>
         <value xml:lang="fr">Projets</value>
-        <value xml:lang="nl">Projecten</value>
         <value xml:lang="it">Progetti</value>
+        <value xml:lang="nl">Projecten</value>
         <value xml:lang="zh">项目</value>
     </property>
     <property key="ProjectMgrProviders">
-        <value xml:lang="de">Verantwortliche</value>    
+        <value xml:lang="de">Verantwortliche</value>
         <value xml:lang="en">Providers</value>
         <value xml:lang="fr">Fournisseurs</value>
         <value xml:lang="it">Providers</value>
@@ -1365,7 +1369,7 @@
         <value xml:lang="zh">提供者</value>
     </property>
     <property key="ProjectMgrQuickAssignPartyId">
-        <value xml:lang="de">Schnell verbinden mit Akteur ID</value>    
+        <value xml:lang="de">Schnell verbinden mit Akteur ID</value>
         <value xml:lang="en">Quick Assign Party Id</value>
         <value xml:lang="fr">Affecter rapidement un Réf. d'acteurt</value>
         <value xml:lang="it">Assegnazione veloce soggetto</value>
@@ -1377,8 +1381,8 @@
         <value xml:lang="de">Verechnungs Typ ID</value>
         <value xml:lang="en">Rate Type Id</value>
         <value xml:lang="fr">Réf. du type de taux</value>
-        <value xml:lang="nl">Soort tarief</value>
         <value xml:lang="it">Tipo percentuale</value>
+        <value xml:lang="nl">Soort tarief</value>
         <value xml:lang="zh">费率类型标识</value>
     </property>
     <property key="ProjectMgrRates">
@@ -1391,7 +1395,7 @@
         <value xml:lang="zh">费率</value>
     </property>
     <property key="ProjectMgrRecreateInvoice">
-        <value xml:lang="de">Faktura neuerstellen</value>    
+        <value xml:lang="de">Faktura neuerstellen</value>
         <value xml:lang="en">re-create Invoice</value>
         <value xml:lang="fr">Re-créer la facture</value>
         <value xml:lang="it">re-crea fattura</value>
@@ -1399,7 +1403,7 @@
         <value xml:lang="zh">重新创建发票</value>
     </property>
     <property key="ProjectMgrRelease">
-        <value xml:lang="de">Release</value>    
+        <value xml:lang="de">Release</value>
         <value xml:lang="en">Release</value>
         <value xml:lang="fr">Version</value>
         <value xml:lang="it">Rilascia</value>
@@ -1410,6 +1414,7 @@
     <property key="ProjectMgrRemoveLinkFromProject">
         <value xml:lang="de">Verbindung zu diesem Projekt entfernen</value>
         <value xml:lang="en">Remove Link From The Project</value>
+        <value xml:lang="fr">Retirer du projet</value>
         <value xml:lang="it">Rimuovi legame dal progetto</value>
         <value xml:lang="nl">Link van project verwijderen</value>
         <value xml:lang="zh">从项目删除链接</value>
@@ -1508,7 +1513,7 @@
         <value xml:lang="zh">暂停</value>
     </property>
     <property key="ProjectMgrSetStatusInProgress">
-        <value xml:lang="de">Status auf 'In Bearbeitung' setzen</value>    
+        <value xml:lang="de">Status auf 'In Bearbeitung' setzen</value>
         <value xml:lang="en">Set status to In Progress</value>
         <value xml:lang="fr">Positionner le statut à en cours</value>
         <value xml:lang="it">Imposta stato a in corso</value>
