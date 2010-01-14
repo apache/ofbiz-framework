@@ -569,6 +569,7 @@ under the License.
             </condition>
             <then>
                 <set field="depreciation" value="0.0" type="BigDecimal"/>
+                <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
                 <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
                 <calculate field="depreciation" decimal-scale="2">
                     <calcop operator="divide">
@@ -582,6 +583,7 @@ under the License.
                         </calcop>
                     </calcop>
                 </calculate>
+                <set field="depreciationYear" from-field="assetAcquiredYear" type="BigDecimal"/>
                 <loop count="${intUsageYears}">
                     <calculate field="purchaseCost">
                         <calcop operator="subtract">
@@ -589,8 +591,26 @@ under the License.
                             <calcop operator="get" field="depreciation"/>
                         </calcop>
                     </calculate>
+                    <calculate field="depreciationTotal">
+                        <calcop operator="sum">
+                            <calcop operator="get" field="depreciationTotal"/>
+                            <calcop operator="get" field="depreciation"/>
+                        </calcop>
+                    </calculate>
                     <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
                     <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
+                    <clear-field field="assetDepreciationInfo"/>
+                    <set field="assetDepreciationInfo.year" from-field="depreciationYear"/>
+                    <set field="assetDepreciationInfo.depreciation" from-field="depreciation"/>
+                    <set field="assetDepreciationInfo.depreciationTotal" from-field="depreciationTotal"/>
+                    <set field="assetDepreciationInfo.nbv" from-field="purchaseCost"/>
+                    <field-to-list list="assetDepreciationInfoList" field="assetDepreciationInfo"/>
+                    <calculate field="depreciationYear">
+                        <calcop operator="add">
+                           <calcop operator="get" field="depreciationYear"/>
+                           <number value="1"/>
+                        </calcop>
+                    </calculate>
                 </loop>
             </then>
         </if>
@@ -598,10 +618,16 @@ under the License.
             <set field="depreciation" value="0.0" type="BigDecimal"/>
             <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
             <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
+            <set field="assetDepreciationInfo.year" from-field="assetAcquiredYear"/>
+            <set field="assetDepreciationInfo.depreciation" from-field="depreciation"/>
+            <set field="assetDepreciationInfo.depreciationTotal" from-field="depreciationTotal"/>
+            <set field="assetDepreciationInfo.nbv" from-field="purchaseCost"/>
+            <field-to-list list="assetDepreciationInfoList" field="assetDepreciationInfo"/>
         </if-empty>
         <log level="info" message="Using straight line formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${depreciation}"/>
         <field-to-result field="assetDepreciationTillDate"/>
         <field-to-result field="assetNBVAfterDepreciation"/>
+        <field-to-result field="assetDepreciationInfoList"/>
     </simple-method>
 
     <simple-method method-name="doubleDecliningBalanceDepreciation" short-description="Calculate double declining balance depreciation to Fixed Asset">
@@ -618,6 +644,8 @@ under the License.
                 </and>
             </condition>
             <then>
+                <set field="depreciationYear" from-field="assetAcquiredYear" type="BigDecimal"/>
+                <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
                 <loop count="${intUsageYears}">
                     <set field="depreciation" value="0.0" type="BigDecimal"/>
                     <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
@@ -648,8 +676,26 @@ under the License.
                            <calcop operator="get" field="depreciation"/>
                         </calcop>
                     </calculate>
+                    <calculate field="depreciationTotal">
+                        <calcop operator="sum">
+                            <calcop operator="get" field="depreciationTotal"/>
+                            <calcop operator="get" field="depreciation"/>
+                        </calcop>
+                    </calculate>
                     <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
                     <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
+                    <clear-field field="assetDepreciationInfo"/>
+                    <set field="assetDepreciationInfo.year" from-field="depreciationYear"/>
+                    <set field="assetDepreciationInfo.depreciation" from-field="depreciation"/>
+                    <set field="assetDepreciationInfo.depreciationTotal" from-field="depreciationTotal"/>
+                    <set field="assetDepreciationInfo.nbv" from-field="purchaseCost"/>
+                    <field-to-list list="assetDepreciationInfoList" field="assetDepreciationInfo"/>
+                    <calculate field="depreciationYear">
+                        <calcop operator="add">
+                           <calcop operator="get" field="depreciationYear"/>
+                           <number value="1"/>
+                        </calcop>
+                    </calculate>
                 </loop>
             </then>
         </if>
@@ -657,10 +703,16 @@ under the License.
             <set field="depreciation" value="0.0" type="BigDecimal"/>
             <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
             <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
+            <set field="assetDepreciationInfo.year" from-field="assetAcquiredYear"/>
+            <set field="assetDepreciationInfo.depreciation" from-field="depreciation"/>
+            <set field="assetDepreciationInfo.depreciationTotal" from-field="depreciationTotal"/>
+            <set field="assetDepreciationInfo.nbv" from-field="purchaseCost"/>
+            <field-to-list list="assetDepreciationInfoList" field="assetDepreciationInfo"/>
         </if-empty>
         <log level="info" message="Using double decline formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${assetDepreciationTillDate}"/>
         <field-to-result field="assetDepreciationTillDate"/>
         <field-to-result field="assetNBVAfterDepreciation"/>
+        <field-to-result field="assetDepreciationInfoList"/>
     </simple-method>
 
     <simple-method method-name="calculateFixedAssetDepreciation" short-description="Service to calculate the yearly depreciation from dateAcquired year to current financial year">
@@ -741,11 +793,13 @@ under the License.
             <call-service service-name="${customMethod.customMethodName}" in-map-name="serviceInMap">
                 <result-to-field result-name="assetDepreciationTillDate"/>
                 <result-to-field result-name="assetNBVAfterDepreciation"/>
+                <result-to-field result-name="assetDepreciationInfoList"/>
             </call-service>
             <log level="info" message="Asset's depreciation calculated till date are ${assetDepreciationTillDate}"/>
             <log level="info" message="Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${assetNBVAfterDepreciation}"/>
             <field-to-result field="assetDepreciationTillDate"/>
             <field-to-result field="assetNBVAfterDepreciation"/>
+            <field-to-result field="assetDepreciationInfoList"/>
         <else>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound"/></add-error>
             <check-errors/>

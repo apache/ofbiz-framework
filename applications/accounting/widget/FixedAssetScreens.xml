@@ -513,8 +513,7 @@ under the License.
                 <set field="tabButtonItem" value="FixedAssetDepreciation"/>
                 <set field="labelTitleProperty" value="PageTitleFixedAssetDepreciationReport"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <set field="assetDepreciationTillDate" from-field="parameters.assetDepreciationTillDate"/>
-                <set field="assetNBVAfterDepreciation" from-field="parameters.assetNBVAfterDepreciation"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -524,9 +523,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
                                     <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
-                                    <platform-specific>
-                                        <html><html-template location="component://accounting/webapp/accounting/fixedasset/DepreciationReport.ftl"/></html>
-                                    </platform-specific>
+                                    <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
