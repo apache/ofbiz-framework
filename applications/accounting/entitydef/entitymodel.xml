@@ -1787,6 +1787,7 @@ under the License.
       <alias entity-alias="ATR" name="receiptId"/>
       <alias entity-alias="ATR" name="inventoryItemId"/>
       <alias entity-alias="ATR" name="workEffortId"/>
+      <alias entity-alias="ATR" name="fixedAssetId"/>
       <alias entity-alias="ATR" name="physicalInventoryId"/>
       <alias entity-alias="ATE" name="acctgTransId"/>
       <alias entity-alias="ATE" name="acctgTransEntrySeqId"/>

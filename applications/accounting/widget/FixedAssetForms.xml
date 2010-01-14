@@ -624,4 +624,27 @@ under the License.
         <field name="depreciationTotal"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
         <field name="nbv" title="Net Book Value"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
     </form>
+    <form name="FixedAssetTransactions" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="AcctgTransAndEntries" list="fixedAssetTransactions">
+                <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
+                <order-by field-name="transactionDate"/>
+                <order-by field-name="debitCreditFlag"/>
+            </entity-condition>
+        </actions>
+        <field name="acctgTransId" widget-style="buttontext">
+            <hyperlink target="EditAcctgTrans" description="${acctgTransId}" also-hidden="false">
+                <parameter param-name="acctgTransId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+        <field name="transTypeDescription"><display/></field>
+        <field name="transactionDate"><display/></field>
+        <field name="accountCode"><display/></field>
+        <field name="accountName"><display/></field>
+        <field name="amount"><display type="currency" currency="${currency}"/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="isPosted"><display/></field>
+    </form>
 </forms>
