@@ -30,10 +30,6 @@
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
-    <webapp name="myportal"
-        title="MyPortal"
-        server="default-server"
-        location="webapp/myportal"
-        mount-point="/myportal"
-        app-bar-display="true"/>
+    <webapp name="myportal" title="MyPortal" app-bar-display="true" base-permission="MYPORTALBASE"
+        server="default-server" location="webapp/myportal" mount-point="/myportal"/>
 </ofbiz-component>

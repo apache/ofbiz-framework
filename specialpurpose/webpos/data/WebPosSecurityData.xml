@@ -17,14 +17,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<entity-engine-xml>
+    <!-- Asset Maintenance security -->
+    <SecurityPermission description="ALL Web POS operations." permissionId="WEBPOS_ADMIN"/>
+    <SecurityPermission description="Web POS View permission." permissionId="WEBPOS_VIEW"/>
 
-<ofbiz-component name="cmssite"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/CmsSiteDemoData.xml"/>
-
-    <webapp name="cmssite" title="CMS Site" menu-name="secondary" app-bar-display="false"
-        server="default-server" location="webapp/cmssite" mount-point="/cmssite"/>
-</ofbiz-component>
-
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MYPORTALBASE_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WEBPOS_ADMIN"/>
+</entity-engine-xml>
