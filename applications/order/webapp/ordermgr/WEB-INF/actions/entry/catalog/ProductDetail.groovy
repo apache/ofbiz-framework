@@ -417,6 +417,9 @@ if (product) {
     obsolenscenseProducts = dispatcher.runSync("getAssociatedProducts", [productIdTo : productId, type : "PRODUCT_OBSOLESCENCE", checkViewAllow : true, prodCatalogId : currentCatalogId]);
     context.obsolenscenseProducts = obsolenscenseProducts.assocProducts;
 
+    accessoryProducts = dispatcher.runSync("getAssociatedProducts", [productId : productId, type : "PRODUCT_ACCESSORY", checkViewAllow : true, prodCatalogId : currentCatalogId]);
+    context.accessoryProducts = accessoryProducts.assocProducts;
+
     // get other cross-sell information: product with a common feature
     commonProductFeatureId = "SYMPTOM";
     // does this product have that feature?
