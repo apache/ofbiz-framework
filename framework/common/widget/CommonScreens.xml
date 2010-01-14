@@ -162,22 +162,19 @@ under the License.
                     </condition>
                     <widgets>
                         <section>
-                            <condition>
-                                <if-empty field="applicationMenuName"/>
-                            </condition>
+                            <condition><not><if-empty field="appheaderTemplate"/></not></condition>
                             <widgets>
                                 <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
                                 <section>
-                                    <condition>
-                                        <not><if-empty field="parameters.applicationTitle"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <label style="apptitle">${parameters.applicationTitle}</label>
-                                    </widgets>
+                                    <condition><not><if-empty field="parameters.applicationTitle"/></not></condition>
+                                    <widgets><label style="apptitle">${parameters.applicationTitle}</label></widgets>
                                 </section>
-                                <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/>
+                                <section>
+                                    <condition><not><if-empty field="applicationMenuLocation"/></not></condition>
+                                    <widgets><include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/></widgets>
+                                </section>
                             </fail-widgets>
                         </section>
                     </widgets>
