@@ -45,13 +45,13 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="refresh"
-    	    description="Clean all and rebuild">
+          description="Clean all and rebuild">
         <antcall target="clean-all"/>
         <antcall target="build"/>
     </target>
 
     <target name="clean-all"
-    	    description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
+          description="Clean all DB, Catalina and caches data, logs, and runtime subdirectories and all specific files like .rej, .orig">
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
         <antcall target="clean-output"/>
@@ -64,7 +64,7 @@ under the License.
     </target>
 
     <target name="clean-data"
-    	    description="Clean all DB data (Derby and HSQL) under runtime/data">
+          description="Clean all DB data (Derby and HSQL) under runtime/data">
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -73,28 +73,28 @@ under the License.
     </target>
 
     <target name="clean-logs"
-    	    description="Clean all logs in runtime/logs">
+          description="Clean all logs in runtime/logs">
         <subant target="clean-logs">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="clean-output"
-    	    description="Clean runtime/output directory">
+          description="Clean runtime/output directory">
         <subant target="clean-output">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="clean-xtra"
-    	    description="Clean all other files like .rej, .orig, etc.">
+          description="Clean all other files like .rej, .orig, etc.">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
     </target>
 
     <target name="clean-catalina"
-    	    description="Clean Catalina data in runtime/catalina/work">
+          description="Clean Catalina data in runtime/catalina/work">
         <subant target="clean-catalina">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -108,14 +108,14 @@ under the License.
     </target>
 
     <target name="clean-tempfiles"
-    	    description="Remove files located in runtime/tempfiles (captcha, etc...)">
+          description="Remove files located in runtime/tempfiles (captcha, etc...)">
         <subant target="clean-tempfiles">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
     </target>
 
     <target name="download-selenium" 
-    	    description="Download the selenium files">
+          description="Download the selenium files">
         <subant target="install-seleniumxml">
             <filelist dir="." files="framework/testtools/build.xml"/>
         </subant>
@@ -435,7 +435,7 @@ under the License.
         </java>
     </target>
     <target name="run-tests" depends="build" 
-    	    description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html">
+          description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -472,7 +472,7 @@ under the License.
         </java>
     </target>
     <target name="run-single-test" 
-    	    description="Run a single test">
+          description="Run a single test">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -532,7 +532,7 @@ under the License.
         </taskdef>
         <cobertura-report datafile="runtime/logs/cobertura.dat" destdir="runtime/logs/cobertura-report">
             <dirset dir=".">
-		<include name="*/*/src"/>
+                <include name="*/*/src"/>
             </dirset>
 
             <include name="**/*.java"/>
