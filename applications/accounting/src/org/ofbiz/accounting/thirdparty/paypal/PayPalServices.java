@@ -86,7 +86,7 @@ public class PayPalServices {
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
-    // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the 
+    // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
     private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<TokenWrapper, WeakReference<ShoppingCart>>();
 
@@ -878,7 +878,7 @@ public class PayPalServices {
             // so until further testing proves we should do otherwise I'm just going to return requested void amount
             result.put("releaseAmount", context.get("releaseAmount"));
             result.put("releaseRefNum", decoder.get("AUTHORIZATIONID"));
-        }        
+        }
         return result;
     }
 
@@ -925,7 +925,7 @@ public class PayPalServices {
             result.put("refundResult", true);
             result.put("refundAmount", new BigDecimal(decoder.get("GROSSREFUNDAMT")));
             result.put("refundRefNum", decoder.get("REFUNDTRANSACTIONID"));
-        }        
+        }
         return result;
     }
 

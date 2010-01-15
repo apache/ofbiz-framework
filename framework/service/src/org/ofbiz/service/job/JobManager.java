@@ -82,7 +82,7 @@ public class JobManager {
         jp = new JobPoller(this, enabled);
         JobManager.registeredManagers.put(delegator.getDelegatorName(), this);
     }
-    
+
     public static JobManager getInstance(Delegator delegator, boolean enabled)
     {
         JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());

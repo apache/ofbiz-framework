@@ -347,7 +347,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
             // By default, for a collapsible screenlet, the collapsed/expanded status must be saved
             this.saveCollapsed = !("false".equals(screenletElement.getAttribute("save-collapsed")));
-            
+
             this.padded = !"false".equals(screenletElement.getAttribute("padded"));
             if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
@@ -418,15 +418,15 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public boolean collapsible() {
             return this.collapsible;
         }
-        
+
         //initially-collapsed status, which may be overriden by user preference
         public boolean getInitiallyCollapsed(Map<String, Object> context) {
             String screenletId = this.getId(context) + "_collapsed";
             Map<String, ? extends Object> userPreferences = UtilGenerics.checkMap(context.get("userPreferences"));
             if (userPreferences != null && userPreferences.containsKey(screenletId)) {
-                return Boolean.valueOf((String)userPreferences.get(screenletId)).booleanValue() ; 
+                return Boolean.valueOf((String)userPreferences.get(screenletId)).booleanValue() ;
             }
-            
+
             return this.initiallyCollapsed;
         }
 
@@ -925,7 +925,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
- 
+
             TreeStringRenderer treeStringRenderer = (TreeStringRenderer) context.get("treeStringRenderer");
             if (treeStringRenderer == null) {
                 throw new IllegalArgumentException("Could not find a treeStringRenderer in the context");
@@ -1096,13 +1096,13 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
                 if (UtilValidate.isNotEmpty(mimeTypeId)
                         && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
-                    
-/*                    
+
+/*
                      // this code is not yet working, will update it the next few weeks...(Hans)
                     if (mimeTypeId.equals("application/pdf")) {
                         TransformerFactory tfactory = TransformerFactory.newInstance();
                         try {
-                            
+
                             //
                             //  this part is not working. If somebody can help to make it work?
                             //  currently using only real temp files for debugging purposes.
@@ -1135,11 +1135,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 //                            fw.write(sw.toString());
 //                            fw.close();
 
-                            
-                            FopFactory fopFactory = FopFactory.newInstance();                            
+
+                            FopFactory fopFactory = FopFactory.newInstance();
                             FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
                             // configure foUserAgent as desired
-                    
+
                             // Setup output stream.  Note: Using BufferedOutputStream
                             // for performance reasons (helpful with FileOutputStreams).
 //                            OutputStream out = new FileOutputStream("/tmp/file.pdf");
@@ -1151,16 +1151,16 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                             // Setup JAXP using identity transformer
                             TransformerFactory factory = TransformerFactory.newInstance();
                             Transformer transformer = factory.newTransformer(); // identity transformer
-                            
+
                             // Setup input stream
                             Source src = new StreamSource(new ByteArrayInputStream(sw.toString().getBytes()));
 
                             // Resulting SAX events (the generated FO) must be piped through to FOP
                             Result result = new SAXResult(fop.getDefaultHandler());
-                            
+
                             // Start XSLT transformation and FOP processing
                             transformer.transform(src, result);
-                            
+
                             out.flush();
                             out.close();
                             // to a file for debugging

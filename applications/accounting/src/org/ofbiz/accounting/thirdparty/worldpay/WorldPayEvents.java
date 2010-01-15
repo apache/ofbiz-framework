@@ -55,12 +55,12 @@ import org.ofbiz.service.ModelService;
  * WorldPay Select Junior Integration Events/Services
  */
 public class WorldPayEvents {
-    
+
     public static final String resource = "AccountingUiLabels";
     public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String commonResource = "CommonUiLabels";
     public static final String module = WorldPayEvents.class.getName();
-    
+
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -307,7 +307,7 @@ public class WorldPayEvents {
         }
         return "success";
     }
-    
+
     /** WorldPay notification */
     public static String worldPayNotify(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
@@ -408,7 +408,7 @@ public class WorldPayEvents {
         }
         return "success";
     }
-    
+
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment preferences..", module);
         List<GenericValue> paymentPrefs = null;
@@ -431,7 +431,7 @@ public class WorldPayEvents {
         }
         return true;
     }
-    
+
     private static boolean setPaymentPreference(LocalDispatcher dispatcher, GenericValue userLogin, GenericValue paymentPreference, HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         String paymentStatus = request.getParameter("transStatus");
@@ -474,7 +474,7 @@ public class WorldPayEvents {
         response.set("transactionDate", authDate);
         response.set("gatewayAvsResult", avs);
         response.set("gatewayCvResult", avs.substring(0, 1));
-        
+
         toStore.add(response);
         try {
             delegator.storeAll(toStore);
@@ -500,7 +500,7 @@ public class WorldPayEvents {
         }
         return true;
     }
-    
+
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";
@@ -524,7 +524,7 @@ public class WorldPayEvents {
         }
         return returnValue;
     }
-    
+
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName, String defaultValue) {
         String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);

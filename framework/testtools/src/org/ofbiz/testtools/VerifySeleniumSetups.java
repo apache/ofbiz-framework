@@ -42,9 +42,9 @@ public class VerifySeleniumSetups {
 
     }
 
-    /* prepare lib for selenium test 
+    /* prepare lib for selenium test
      * Check & download selenium-server.jar from http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0-SNAPSHOT-20081126.jar?use_mirror=
-     * Check a change use HTTP as the default at file framework/webapp/config/url.properties  
+     * Check a change use HTTP as the default at file framework/webapp/config/url.properties
      * Check correct the config/seleniumXml.properties and firefox  path
      */
 
@@ -54,7 +54,7 @@ public class VerifySeleniumSetups {
         Map<String,Object> msgMap = FastMap.newInstance();
         Properties urlProps = null;
         try{
-            /* Check and down load selenium-server.jar */ 
+            /* Check and down load selenium-server.jar */
             File file = new File(libPath);
             URL url = new URL(urlSite);
             URLConnection connection = url.openConnection();

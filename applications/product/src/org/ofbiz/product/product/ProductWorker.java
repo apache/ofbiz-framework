@@ -556,7 +556,7 @@ public class ProductWorker {
         }
         return featureTypeFeatures;
     }
-    
+
     /**
      * For a given variant product, returns the list of features that would qualify it for
      * selection from the virtual product
@@ -579,7 +579,7 @@ public class ProductWorker {
         List<GenericValue> standardFeatures = ProductWorker.getProductFeaturesByApplTypeId(variantProduct, "STANDARD_FEATURE");
         List<GenericValue> result = FastList.newInstance();
         for (GenericValue standardFeature : standardFeatures) {
-            // For each standard variant feature check it is also a virtual selectable feature and 
+            // For each standard variant feature check it is also a virtual selectable feature and
             // if a feature of the same type hasn't already been added to the list
             if (selectableTypes.contains(standardFeature.getString("productFeatureTypeId")) && selectableFeatures.contains(standardFeature)) {
                 result.add(standardFeature);
@@ -879,12 +879,12 @@ public class ProductWorker {
         return null;
     }
 
-    /* 
-     * Returns the product's unit weight converted to the desired Uom.  If the weight is null, 
-     * then a check is made for an associated virtual product to retrieve the weight from.  If the 
+    /*
+     * Returns the product's unit weight converted to the desired Uom.  If the weight is null,
+     * then a check is made for an associated virtual product to retrieve the weight from.  If the
      * weight is still null then null is returned.  If a weight is found and a desiredUomId has
-     * been supplied and the product specifies a weightUomId then an attempt will be made to 
-     * convert the value otherwise the weight is returned as is. 
+     * been supplied and the product specifies a weightUomId then an attempt will be made to
+     * convert the value otherwise the weight is returned as is.
      */
     public static BigDecimal getProductWeight(GenericValue product, String desiredUomId, Delegator delegator, LocalDispatcher dispatcher) {
         BigDecimal weight = product.getBigDecimal("weight");

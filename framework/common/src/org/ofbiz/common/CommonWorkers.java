@@ -52,14 +52,14 @@ public class CommonWorkers {
                 Debug.logError(e, "Cannot lookup Geo", module);
             }
         }
-                
+
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
-        List<String> countriesAvailable = StringUtil.split(UtilProperties.getPropertyValue("general.properties", "countries.geo.id.available"), ",");              
+        List<String> countriesAvailable = StringUtil.split(UtilProperties.getPropertyValue("general.properties", "countries.geo.id.available"), ",");
         if (UtilValidate.isNotEmpty(countriesAvailable)) {
             // only available countries (we don't verify the list of geoId in countries.geo.id.available)
             exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));
         }
-        
+
         List<GenericValue> countriesList = FastList.newInstance();
         try {
             countriesList = delegator.findList("Geo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("geoName"), null, true);
@@ -76,7 +76,7 @@ public class CommonWorkers {
                     }
                 }
             }
-            if (removeDefaultGeo) { 
+            if (removeDefaultGeo) {
                 geoList.remove(0); // Remove default country to avoid double rows in drop-down, from 1st place to keep alphabetical order
             }
             geoList.addAll(countriesList);
@@ -103,7 +103,7 @@ public class CommonWorkers {
     public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country) {
         return getAssociatedStateList(delegator, country, null);
     }
-    
+
     /**
      * Returns a list of regional geo associations.
      */
@@ -119,7 +119,7 @@ public class CommonWorkers {
                         EntityCondition.makeCondition("geoTypeId", "STATE"),
                         EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
                         EntityCondition.makeCondition("geoTypeId", "COUNTY")));
-        
+
         if (UtilValidate.isEmpty(listOrderBy)) {
             listOrderBy = "geoId";
         }
@@ -134,11 +134,11 @@ public class CommonWorkers {
 
         return geoList;
     }
-    
+
     /**
      * A generic method to be used on Type enities, e.g. ProductType.  Recurse to the root level in the type hierarchy
      * and checks if the specified type childType has parentType as its parent somewhere in the hierarchy.
-     * 
+     *
      * @param delegator       The Delegator object.
      * @param entityName      Name of the Type entity on which check is performed.
      * @param primaryKey      Primary Key field of the Type entity.
@@ -165,7 +165,7 @@ public class CommonWorkers {
                 }
             }
         }
-        
+
         return false;
     }
 }

@@ -971,7 +971,7 @@ public class GenericDAO {
     public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return selectCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
     }
-    
+
     public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
         if (modelEntity == null) {
             return 0;

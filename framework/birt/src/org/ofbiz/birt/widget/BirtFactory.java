@@ -30,9 +30,9 @@ import org.ofbiz.widget.screen.ScreenFactory;
 import org.xml.sax.SAXException;
 
 public class BirtFactory {
-    
+
     public static final String module = BirtFactory.class.getName();
-    
+
     /**
      * get report inport stream from location
      * @param resourceName
@@ -43,7 +43,7 @@ public class BirtFactory {
      */
     public static InputStream getReportInputStreamFromLocation(String resourceName)
         throws IOException, SAXException, ParserConfigurationException{
-        
+
         InputStream reportInputStream = null;
         synchronized (BirtFactory.class) {
             long startTime = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class BirtFactory {
             double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
             Debug.logInfo("Got report in " + totalSeconds + "s from: " + reportFileUrl.toExternalForm(), module);
         }
-        
+
         if (reportInputStream == null) {
             throw new IllegalArgumentException("Could not find report file with location [" + resourceName + "]");
         }

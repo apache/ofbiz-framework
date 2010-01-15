@@ -179,12 +179,12 @@ public class ControlServlet extends HttpServlet {
         Authorization authz = (Authorization) session.getAttribute("authz");
         if (authz == null) {
             authz = (Authorization) getServletContext().getAttribute("authz");
-        }                
+        }
         if (authz == null) {
             Debug.logError("[ControlServlet] ERROR: authorization not found in ServletContext", module);
         }
         request.setAttribute("authz", authz); // maybe we should also add the value to 'security'
-        
+
         Security security = (Security) session.getAttribute("security");
         if (security == null) {
             security = (Security) getServletContext().getAttribute("security");
@@ -195,7 +195,7 @@ public class ControlServlet extends HttpServlet {
         request.setAttribute("security", security);
 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
-        
+
         ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, BeansWrapper.getDefaultInstance());
         request.setAttribute("ftlServletContext", ftlServletContext);
 

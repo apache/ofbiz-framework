@@ -112,7 +112,7 @@ public class VCard {
                     serviceCtx.put("address1", workAddress.getStreet());
                     serviceCtx.put("city", workAddress.getCity());
                     serviceCtx.put("postalCode", workAddress.getPostalCode());
-                    
+
                     List<GenericValue> countryGeoList = null;
                     List<GenericValue> stateGeoList = null;
                     EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
@@ -175,16 +175,16 @@ public class VCard {
                         }
                     }
                 }
-                OrganizationalIdentity  oid = contact.getOrganizationalIdentity();                
+                OrganizationalIdentity  oid = contact.getOrganizationalIdentity();
                 // Useful when creating a contact with more than OOTB
-                if (!isGroup) { 
+                if (!isGroup) {
                     serviceCtx.put("personalTitle", oid.getTitle());
                 }
 
                 // Needed when creating an account (a PartyGroup)
                 if (isGroup) {
                     //serviceCtx.put("partyRole", oid.getRole()); // not used yet,maybe useful later
-                    if (oid.hasOrganization()) { 
+                    if (oid.hasOrganization()) {
                         Organization org = oid.getOrganization();
                         serviceCtx.put("groupName", org.getName());
                     }
@@ -232,7 +232,7 @@ public class VCard {
             address.setStreet(postalAddress.getString("address1"));
             address.setCity(postalAddress.getString("city"));
 
-            address.setPostalCode(postalAddress.getString("postalCode"));            
+            address.setPostalCode(postalAddress.getString("postalCode"));
             GenericValue state = postalAddress.getRelatedOne("StateProvinceGeo");
             if (UtilValidate.isNotEmpty(state)) {
                 address.setRegion(state.getString("geoName"));

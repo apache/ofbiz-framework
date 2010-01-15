@@ -104,7 +104,7 @@ public class CoreEvents {
      */
     public static String changeDelegator(HttpServletRequest request, HttpServletResponse response) {
         String delegatorName = request.getParameter("delegator");
-        Authorization authz = (Authorization) request.getAttribute("authz");        
+        Authorization authz = (Authorization) request.getAttribute("authz");
         Locale locale = UtilHttp.getLocale(request);
 
         if (!authz.hasPermission(request.getSession(), "ENTITY_MAINT", null)) {
@@ -158,10 +158,10 @@ public class CoreEvents {
      */
     public static String changeDispatcher(HttpServletRequest request, HttpServletResponse response) {
         String dispatcherName = request.getParameter("dispatcher");
-        Authorization authz = (Authorization) request.getAttribute("authz");        
+        Authorization authz = (Authorization) request.getAttribute("authz");
         Locale locale = UtilHttp.getLocale(request);
 
-        if (!authz.hasPermission(request.getSession(), "ENTITY_MAINT", null)) {        
+        if (!authz.hasPermission(request.getSession(), "ENTITY_MAINT", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_use_fct", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
             return "error";
@@ -201,7 +201,7 @@ public class CoreEvents {
      */
     public static String scheduleService(HttpServletRequest request, HttpServletResponse response) {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        Authorization authz = (Authorization) request.getAttribute("authz");        
+        Authorization authz = (Authorization) request.getAttribute("authz");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         //Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
@@ -305,7 +305,7 @@ public class CoreEvents {
         if (locale != null) {
             serviceContext.put("locale", locale);
         }
-        
+
         if (!modelService.export && !authz.hasPermission(request.getSession(), "SERVICE_INVOKE_ANY", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_to_call", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
@@ -527,7 +527,7 @@ public class CoreEvents {
         }
 
         // now do a security check
-        Authorization authz = (Authorization) request.getAttribute("authz");        
+        Authorization authz = (Authorization) request.getAttribute("authz");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         //lookup the service definition to see if this service is externally available, if not require the SERVICE_INVOKE_ANY permission

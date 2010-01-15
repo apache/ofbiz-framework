@@ -47,13 +47,13 @@ public class GoogleCheckoutResponseEvents {
     public static String checkNotification(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-          
+
         GoogleCheckoutHelper helper = new GoogleCheckoutHelper(dispatcher, delegator);
-        
+
         // check and parse the document
         Document document = null;
         try {
-            document = Utils.newDocumentFromInputStream(request.getInputStream());            
+            document = Utils.newDocumentFromInputStream(request.getInputStream());
         } catch (CheckoutException e) {
             Debug.logError(e, module);
             sendResponse(response, null, e);
@@ -61,13 +61,13 @@ public class GoogleCheckoutResponseEvents {
             Debug.logError(e, module);
             sendResponse(response, null, e);
         }
-        
-        // check the document type and process 
+
+        // check the document type and process
         if (document != null) {
             String nodeValue = document.getDocumentElement().getNodeName();
             if ("new-order-notification".equals(nodeValue)) {
                 // handle create new order
-                NewOrderNotification info = new NewOrderNotification(document);               
+                NewOrderNotification info = new NewOrderNotification(document);
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.createOrder(info, ProductStoreWorker.getProductStoreId(request), ProductStoreWorker.getStoreLocale(request));
@@ -93,7 +93,7 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processRiskNotification(info);
-                    sendResponse(response, serialNumber, null);                    
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     sendResponse(response, serialNumber, e);
@@ -104,53 +104,53 @@ public class GoogleCheckoutResponseEvents {
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processAuthNotification(info);
-                    sendResponse(response, serialNumber, null);                    
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     sendResponse(response, serialNumber, e);
                     return null;
-                } 
+                }
             } else if ("charge-amount-notification".equals(nodeValue)) {
                 ChargeAmountNotification info = new ChargeAmountNotification(document);
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processChargeNotification(info);
-                    sendResponse(response, serialNumber, null);                    
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     sendResponse(response, serialNumber, e);
                     return null;
-                }  
+                }
             } else if ("chargeback-amount-notification".equals(nodeValue)) {
                 ChargebackAmountNotification info = new ChargebackAmountNotification(document);
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processChargeBackNotification(info);
-                    sendResponse(response, serialNumber, null);                    
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     sendResponse(response, serialNumber, e);
                     return null;
-                }             
+                }
             } else if ("refund-amount-notification".equals(nodeValue)) {
                 RefundAmountNotification info = new RefundAmountNotification(document);
                 String serialNumber = info.getSerialNumber();
                 try {
                     helper.processRefundNotification(info);
-                    sendResponse(response, serialNumber, null);                    
+                    sendResponse(response, serialNumber, null);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     sendResponse(response, serialNumber, e);
                     return null;
-                }  
+                }
             } else {
                 Debug.logWarning("Unsupported document type submitted by Google; [" + nodeValue + "] has not yet been implemented.", module);
             }
         }
-        
+
         return null;
     }
-            
+
     private static void sendResponse(HttpServletResponse response, String serialNumber, Exception error) {
         if (error != null) {
             try {
@@ -170,5 +170,5 @@ public class GoogleCheckoutResponseEvents {
                 out.close();
             }
         }
-    }                        
+    }
 }

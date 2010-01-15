@@ -103,7 +103,7 @@ public class ServerHitBin {
         for (Map.Entry<String, List<ServerHitBin>> entry  :binMap.entrySet()) {
             if (entry.getValue() != null) {
                 for (ServerHitBin bin: entry.getValue()) {
-                    bin.advanceBin(toTime);                    
+                    bin.advanceBin(toTime);
                 }
             }
         }

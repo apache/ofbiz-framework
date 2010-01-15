@@ -119,8 +119,8 @@ public class PromoServices {
             return ServiceUtil.returnError("Uploaded file not valid or corrupted");
         }
 
-        String encoding = System.getProperty("file.encoding"); 
-        String file = Charset.forName(encoding).decode(fileBytes).toString();         
+        String encoding = System.getProperty("file.encoding");
+        String file = Charset.forName(encoding).decode(fileBytes).toString();
         // get the createProductPromoCode Model
         ModelService promoModel;
         try {

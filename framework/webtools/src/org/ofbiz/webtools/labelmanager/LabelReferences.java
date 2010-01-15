@@ -100,7 +100,7 @@ public class LabelReferences {
         for (String rootFolder : this.rootFolders) {
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "webapp", null, null, null));
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "widget", null, null, null));
-        }        
+        }
         for (File file : fileList) {
             String inFile = FileUtil.readString("UTF-8", file);
             if (inFile.contains("</forms>")) {
@@ -113,7 +113,7 @@ public class LabelReferences {
                 findLabelKeyInElement(inFile, file.getPath(), "set");
                 continue;
             }
-            
+
         }
         // get labels from Ofbiz components files
         getLabelsFromOfbizComponents();

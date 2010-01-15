@@ -73,7 +73,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         Map<String, Object> input = UtilMisc.toMap("key", null);
         environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
-        rendererName = name; 
+        rendererName = name;
     }
 
     private String getNextElementId() {

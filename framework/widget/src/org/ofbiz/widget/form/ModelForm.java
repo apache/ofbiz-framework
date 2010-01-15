@@ -149,7 +149,7 @@ public class ModelForm extends ModelWidget {
     /** This Map is keyed with the field name and has a ModelFormField for the value.
      */
     protected Map<String, ModelFormField> fieldMap = FastMap.newInstance();
-    
+
     /** Keeps track of conditional fields to help ensure that only one is rendered
      */
     protected Set<String> useWhenFields = FastSet.newInstance();
@@ -174,7 +174,7 @@ public class ModelForm extends ModelWidget {
 
     /** Pagination settings and defaults. */
     public static int DEFAULT_PAGE_SIZE = 10;
-    public static int MAX_PAGE_SIZE = 10000;    
+    public static int MAX_PAGE_SIZE = 10000;
     protected int defaultViewSize = DEFAULT_PAGE_SIZE;
     public static String DEFAULT_PAG_INDEX_FIELD = "viewIndex";
     public static String DEFAULT_PAG_SIZE_FIELD = "viewSize";
@@ -300,7 +300,7 @@ public class ModelForm extends ModelWidget {
                 this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
                 this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
                 this.altRowStyles = parent.altRowStyles;
-                
+
                 this.useWhenFields = parent.useWhenFields;
 
                 //these are done below in a special way...
@@ -796,12 +796,12 @@ public class ModelForm extends ModelWidget {
         if ("list".equals(this.type) || "multi".equals(this.type)) {
             this.incrementPaginatorNumber(context);
         }
-        
+
         //if pagination is disabled, update the defualt view size
         if (!getPaginate(context)) {
             setDefaultViewSize(this.MAX_PAGE_SIZE);
         }
-        
+
         // Populate the viewSize and viewIndex so they are available for use during form actions
         context.put("viewIndex", this.getViewIndex(context));
         context.put("viewSize", this.getViewSize(context));
@@ -1442,7 +1442,7 @@ public class ModelForm extends ModelWidget {
                 if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {
                     localContext.put("formUniqueId", "_"+context.get("renderFormSeqNumber"));
                 }
-                
+
                 this.resetBshInterpreter(localContext);
 
                 if (Debug.verboseOn()) Debug.logVerbose("In form got another row, context is: " + localContext, module);
@@ -1939,16 +1939,16 @@ public class ModelForm extends ModelWidget {
             return this.getName();
         }
     }
-    
+
     public String getCurrentContainerId(Map<String, Object> context) {
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "list".equals(this.getType())) {
             return this.getContainerId() + this.getItemIndexSeparator() + itemIndex.intValue();
-        } 
-        
+        }
+
         return this.getContainerId();
     }
-    
+
     public String getContainerStyle() {
         return this.containerStyle;
     }
@@ -2192,7 +2192,7 @@ public class ModelForm extends ModelWidget {
         }
         return field;
     }
-    
+
     public String getMultiPaginateIndexField(Map<String, Object> context) {
         String field = this.paginateIndexField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -2221,7 +2221,7 @@ public class ModelForm extends ModelWidget {
                     }
                 }
             }
-            
+
             // try paginate index field without paginator number
             if (value == null) {
                 field = this.getPaginateIndexField(context);
@@ -2247,7 +2247,7 @@ public class ModelForm extends ModelWidget {
         }
         return field;
     }
-    
+
     public String getMultiPaginateSizeField(Map<String, Object> context) {
         String field = this.paginateSizeField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -2276,7 +2276,7 @@ public class ModelForm extends ModelWidget {
                     }
                 }
             }
-            
+
             // try the page size field without paginator number
             if (value == null) {
                 field = this.getPaginateSizeField(context);
@@ -2377,7 +2377,7 @@ public class ModelForm extends ModelWidget {
             return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
         } else {
             return true;
-        }        
+        }
     }
 
     public boolean getSkipStart() {
@@ -2407,11 +2407,11 @@ public class ModelForm extends ModelWidget {
     public boolean getClientAutocompleteFields() {
         return this.clientAutocompleteFields;
     }
-    
+
     public void setPaginate(boolean val) {
         this.paginate = FlexibleStringExpander.getInstance(Boolean.valueOf(val).toString());
     }
- 
+
     public void setOverridenListSize(boolean overridenListSize) {
         this.overridenListSize = overridenListSize;
     }

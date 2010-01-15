@@ -35,44 +35,44 @@ import org.ofbiz.testtools.seleniumxml.InitJython;
 public class InitJython {
 
 //     public Logger  logger = Logger.getLogger(InitJython.class.getName());
-     
+
      private static PythonInterpreter SINGLETON;
-             
+
      /** Only allow creation through the factory method */
      protected InitJython() {
 //        logger.setLevel(Level.DEBUG);
-     } 
-    
+     }
+
      /**
-      * getInterpreter initializes the Python environment the first time.  It then issues a 
+      * getInterpreter initializes the Python environment the first time.  It then issues a
       * new Interpreter for each request.
       * @return PythonInterpreter
      */
     public static PythonInterpreter getInterpreter() {
-         
+
          if (SINGLETON == null) {
              synchronized (InitJython.class) {
                  Properties props = System.getProperties();
                  //String ofbizHome = props.getProperty("ofbiz.home");
-                    
+
                  Properties pyProps = new Properties();
-                 
+
                  if( props.getProperty("python.home") == null) {
                      //pyProps.setProperty("python.home", "c:/devtools/jython2.2rc2");
                      pyProps.setProperty("python.home", "c:/devtools/Python24");
-                 } 
-                   
+                 }
+
                  //Debug.logInfo(props.toString(), module);
                  ClassLoader loader = Thread.currentThread().getContextClassLoader();
                  PySystemState.initialize(props, pyProps, new String[0], loader);
-                 
+
                  SINGLETON  =  new PythonInterpreter();
-                 
-                 SINGLETON.exec("import sys");  
-                 SINGLETON.exec("sys.path.append(\"c:/dev/ag/seleniumXml/plugins\")");  
+
+                 SINGLETON.exec("import sys");
+                 SINGLETON.exec("sys.path.append(\"c:/dev/ag/seleniumXml/plugins\")");
              }
          }
-         
+
          return SINGLETON;
      }
 }

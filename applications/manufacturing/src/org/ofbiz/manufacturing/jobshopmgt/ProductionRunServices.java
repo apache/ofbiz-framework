@@ -896,7 +896,7 @@ public class ProductionRunServices {
                         } else {
                             Map costMethodResult = dispatcher.runSync(customMethod.getString("customMethodName"), UtilMisc.toMap("productCostComponentCalc", productCostComponentCalc,
                                                                                                                                  "costComponentCalc", costComponentCalc,
-                                                                                                                                 "costComponentTypePrefix", "ACTUAL", 
+                                                                                                                                 "costComponentTypePrefix", "ACTUAL",
                                                                                                                                  "baseCost", totalCost,
                                                                                                                                  "currencyUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"),
                                                                                                                                  "userLogin", userLogin));
@@ -2280,7 +2280,7 @@ public class ProductionRunServices {
                     BigDecimal totalQuantity = (BigDecimal)components.get(componentProductId);
                     componentQuantity = totalQuantity.add(componentQuantity);
                 }
-                
+
                 // check if a bom exists
                 List bomList = null;
                 try {
@@ -2309,7 +2309,7 @@ public class ProductionRunServices {
                     } catch (GenericEntityException e) {
                         return ServiceUtil.returnError("try to create workeffort assoc");
                     }
-                    
+
                 } else {
                     components.put(componentProductId, componentQuantity);
                 }
@@ -2441,7 +2441,7 @@ public class ProductionRunServices {
 
                     String productionRunId = (String)resultService.get("productionRunId");
                     result.put("productionRunId", productionRunId);
-                    
+
                     try {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
                     } catch (GenericEntityException e) {

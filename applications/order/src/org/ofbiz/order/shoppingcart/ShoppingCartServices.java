@@ -302,23 +302,23 @@ public class ShoppingCartServices {
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
             // Debug.logInfo("===================== Load order: orderItemShipGroup=" + orderItemShipGroup, module);
-            
+
             // should be sorted by shipGroupSeqId
             int newShipInfoIndex = cart.addShipInfo();
-            
+
             // shouldn't be gaps in it but allow for that just in case
             String cartShipGroupIndexStr = orderItemShipGroup.getString("shipGroupSeqId");
             int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
-            
+
             if (newShipInfoIndex != (cartShipGroupIndex - 1)) {
                 int groupDiff = cartShipGroupIndex - cart.getShipGroupSize();
                 for (int i = 0; i < groupDiff; i++) {
                     newShipInfoIndex = cart.addShipInfo();
                 }
             }
-            
+
             CartShipInfo cartShipInfo = cart.getShipInfo(newShipInfoIndex);
-            
+
             cartShipInfo.shipAfterDate = orderItemShipGroup.getTimestamp("shipAfterDate");
             cartShipInfo.shipBeforeDate = orderItemShipGroup.getTimestamp("shipByDate");
             cartShipInfo.shipmentMethodTypeId = orderItemShipGroup.getString("shipmentMethodTypeId");
@@ -343,7 +343,7 @@ public class ShoppingCartServices {
                 // get product Id
                 String productId = item.getString("productId");
                 GenericValue product = null;
-                // creates survey responses for Gift cards same as last Order created 
+                // creates survey responses for Gift cards same as last Order created
                 Map surveyResponseResult = null;
                 try {
                     product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
@@ -360,7 +360,7 @@ public class ShoppingCartServices {
                             surveyResponseMap.put("surveyId", surveyId);
                             surveyResponseResult = dispatcher.runSync("createSurveyResponse", surveyResponseMap);
                         }
-                    }    
+                    }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -473,7 +473,7 @@ public class ShoppingCartServices {
                 // flag the item w/ the orderItemSeqId so we can reference it
                 ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
                 cartItem.setOrderItemSeqId(item.getString("orderItemSeqId"));
-                
+
                 // attach surveyResponseId for each item
                 if (UtilValidate.isNotEmpty(surveyResponseResult)){
                     cartItem.setAttribute("surveyResponseId",surveyResponseResult.get("surveyResponseId"));
@@ -534,7 +534,7 @@ public class ShoppingCartServices {
                     }
                 }
             }
-            
+
             // setup the OrderItemShipGroupAssoc records
             if (UtilValidate.isNotEmpty(orderItems)) {
                 int itemIndex = 0;
@@ -548,7 +548,7 @@ public class ShoppingCartServices {
                         if (shipGroupQty == null) {
                             shipGroupQty = BigDecimal.ZERO;
                         }
-                        
+
                         String cartShipGroupIndexStr = sgAssoc.getString("shipGroupSeqId");
                         int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
 
@@ -556,7 +556,7 @@ public class ShoppingCartServices {
                         if (cartShipGroupIndex > 0) {
                             cart.positionItemToGroup(itemIndex, shipGroupQty, 0, cartShipGroupIndex, false);
                         }
-                        
+
                         cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
                     }
                     itemIndex ++;

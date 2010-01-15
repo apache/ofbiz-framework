@@ -807,7 +807,7 @@ public class ServiceDispatcher {
     public Authorization getAuthorization() {
         return this.authz;
     }
-    
+
     /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher

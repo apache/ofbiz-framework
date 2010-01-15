@@ -131,7 +131,7 @@ public class OFBizSecurity implements Security {
      * @see org.ofbiz.security.Security#hasEntityPermission(java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
      */
     public boolean hasEntityPermission(String entity, String action, HttpSession session) {
-        if (session == null) { 
+        if (session == null) {
             return false;
         }
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");

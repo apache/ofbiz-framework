@@ -91,7 +91,7 @@ public class MenuFactory {
             for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
                 ModelMenu modelMenu = new ModelMenu(menuElement, delegator, dispatcher);
                 modelMenu.setMenuLocation(menuLocation);
-                modelMenuMap.put(modelMenu.getName(), modelMenu);                
+                modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
          }
         return modelMenuMap;

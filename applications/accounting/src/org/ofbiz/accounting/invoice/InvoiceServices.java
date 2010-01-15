@@ -819,7 +819,7 @@ public class InvoiceServices {
                     List<String> salesInvoiceRolePartyIds = EntityUtil.getFieldListFromEntityList(delegator.findList("InvoiceRole", EntityCondition.makeCondition(invoiceRoleConds, EntityOperator.AND), null, null, null, false), "partyId", true);
                     if (UtilValidate.isNotEmpty(salesInvoiceRolePartyIds)) {
                         salesRepPartyIds = UtilGenerics.checkList(CollectionUtils.intersection(salesRepPartyIds, salesInvoiceRolePartyIds));
-                    } 
+                    }
                 }
                 invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", salesInvoiceId), false);
                 String invoiceTypeId = invoice.getString("invoiceTypeId");
@@ -1054,7 +1054,7 @@ public class InvoiceServices {
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        
+
         // 1. Find all the orders for this shipment
         // 2. For every order check the invoice
         // 2.a If the invoice is in In-Process status, then move its status to ready and capture the payment.
@@ -1084,7 +1084,7 @@ public class InvoiceServices {
             return ServiceUtil.returnSuccess();
         }
         // The orders can now be placed in separate groups, each for
-        // 1. The group of orders for which payment is already captured. No grouping and action required. 
+        // 1. The group of orders for which payment is already captured. No grouping and action required.
         // 2. The group of orders for which invoice is IN-Process status.
         Map<String, Object> ordersWithInProcessInvoice = FastMap.newInstance();
 
@@ -1260,7 +1260,7 @@ public class InvoiceServices {
             billFields.add(EntityCondition.makeCondition("orderId", orderId));
             billFields.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
             billFields.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
-            
+
             if (dropShipmentFound) {
 
                 // Drop shipments have neither issuances nor receipts, so this check is meaningless

@@ -172,7 +172,7 @@ public class ImageTransform {
 
         // scale original image with new size
         Image newImg = bufImg.getScaledInstance((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), Image.SCALE_SMOOTH);
-        
+
         bufNewImg = ImageTransform.toBufferedImage(newImg, bufImgType);
 
         result.put("responseMessage", "success");
@@ -251,7 +251,7 @@ public class ImageTransform {
         return result;
 
     }
-    
+
     /**
      * toBufferedImage
      * <p>
@@ -263,7 +263,7 @@ public class ImageTransform {
     public static BufferedImage toBufferedImage(Image image) {
         return ImageTransform.toBufferedImage(image, BufferedImage.TYPE_INT_ARGB_PRE);
     }
-     
+
     public static BufferedImage toBufferedImage(Image image, int bufImgType) {
         /** Check if the image isn't already a BufferedImage instance */
         if( image instanceof BufferedImage ) {
@@ -271,18 +271,18 @@ public class ImageTransform {
         } else {
                 /** Full image loading */
                 image = new ImageIcon(image).getImage();
-                
+
                 /** new BufferedImage creation */
                 BufferedImage bufferedImage = new BufferedImage(
                             image.getWidth(null),
                             image.getHeight(null),
                             bufImgType);
-                
+
                 Graphics2D g = bufferedImage.createGraphics();
                 g.drawImage(image,0,0,null);
                 g.dispose();
-                
+
                 return( bufferedImage );
-        } 
+        }
     }
 }

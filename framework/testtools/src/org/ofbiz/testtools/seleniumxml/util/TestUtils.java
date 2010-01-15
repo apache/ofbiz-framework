@@ -33,26 +33,26 @@ public class TestUtils {
                             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r',
                             's','t','u','v','w','x','y','z',
                             '0','1','2','3','4','5','6','7','8','9'};
-    
+
     static public String createUniqueString() {
         long time = System.currentTimeMillis();
-        
+
         return String.valueOf(time);
     }
 
     static public String createRandomString(int size) {
-    
+
         return createRandomString(null, size);
     }
-    
+
     static public String createRandomString(String prefix, String size) {
         return createRandomString(prefix, Integer.valueOf(size).intValue());
     }
-    
+
     static public String createRandomString(String prefix, int size) {
         StringBuffer buff = new StringBuffer(size);
         int startIndx = 0;
-    
+
         if(prefix != null) {
             buff.append(prefix);
             startIndx = prefix.length();
@@ -68,7 +68,7 @@ public class TestUtils {
     public static String readUrlText(String urlString) throws IOException {
         URL url = new URL(urlString);
         InputStream stream = url.openStream();
-    
+
         StringBuilder buf = new StringBuilder();
         BufferedReader in = null;
         try {
@@ -91,7 +91,7 @@ public class TestUtils {
                 }
             }
         }
-        
+
         return buf.toString();
     }
 }

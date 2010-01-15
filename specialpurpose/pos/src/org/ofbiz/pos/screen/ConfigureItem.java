@@ -369,7 +369,7 @@ public class ConfigureItem extends XPage {
         public void buttonClicked() {
             DefaultListModel listModel = new DefaultListModel();
             List<ConfigOption> options = question.getOptions();
-            
+
             for (ConfigOption configoption : options) {
                 listModel.addElement(configoption.getDescription());
                 //Debug.logInfo("Found option " + configoption.getDescription(), module);

@@ -98,7 +98,7 @@ public class UomWorker {
     public static BigDecimal convertUom(BigDecimal originalValue, String uomId, String uomIdTo, LocalDispatcher dispatcher) {
         if (originalValue == null || uomId == null || uomIdTo == null) return null;
         if (uomId.equals(uomIdTo)) return originalValue;
-        
+
         Map<String, Object> svcInMap = FastMap.newInstance();
         svcInMap.put("originalValue", originalValue);
         svcInMap.put("uomId", uomId);

@@ -1145,7 +1145,7 @@ public class CheckOutEvents {
                 Debug.logError(e.getMessage(), module);
             }
         }
-        
+
         String result = createOrder(request, response);
         if ("error".equals(result)) {
             return "error";

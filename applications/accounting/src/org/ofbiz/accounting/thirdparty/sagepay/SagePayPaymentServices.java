@@ -43,19 +43,19 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 public class SagePayPaymentServices {
-    
+
     public static final String module = SagePayPaymentServices.class.getName();
 
     private static Map<String, String> buildCustomerBillingInfo(Map<String, Object> context) {
-        
+
         Debug.logInfo("SagePay - Entered buildCustomerBillingInfo", module);
         Debug.logInfo("SagePay buildCustomerBillingInfo context : " + context, module);
-        
+
         Map<String, String> billingInfo = FastMap.newInstance();
-        
+
         String orderId = null;
         BigDecimal processAmount = null;
-        String currency = null; 
+        String currency = null;
         String cardNumber = null;
         String cardType = null;
         String nameOnCard = null;
@@ -65,7 +65,7 @@ public class SagePayPaymentServices {
         String address = null;
 
         try {
-            
+
             GenericValue opp = (GenericValue) context.get("orderPaymentPreference");
             if (opp != null) {
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
@@ -136,14 +136,14 @@ public class SagePayPaymentServices {
         billingInfo.put("cardNumber", cardNumber);
         billingInfo.put("cardHolder",  nameOnCard);
         billingInfo.put("expiryDate", expireDate);
-        billingInfo.put("cardType", cardType);    
+        billingInfo.put("cardType", cardType);
         billingInfo.put("cv2", securityCode);
         billingInfo.put("billingPostCode", postalCode);
         billingInfo.put("billingAddress", address);
-        
+
         Debug.logInfo("SagePay billingInfo : " + billingInfo, module);
         Debug.logInfo("SagePay - Exiting buildCustomerBillingInfo", module);
-        
+
         return billingInfo;
     }
 
@@ -163,11 +163,11 @@ public class SagePayPaymentServices {
         Debug.logInfo("SagePay - Exiting ccAuth", module);
         return response;
     }
-    
+
 
     private static Map<String, Object> processCardAuthorisationPayment(DispatchContext ctx, Map<String, Object> context) {
-        
-        Map<String, Object> result = ServiceUtil.returnSuccess(); 
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         Map<String, String> billingInfo = buildCustomerBillingInfo(context);
@@ -175,7 +175,7 @@ public class SagePayPaymentServices {
 
         try {
 
-            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentAuthentication", 
+            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentAuthentication",
                     UtilMisc.toMap(
                             "paymentGatewayConfigId", paymentGatewayConfigId,
                             "vendorTxCode", billingInfo.get("orderId"),
@@ -241,14 +241,14 @@ public class SagePayPaymentServices {
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         context.put("authTransaction", authTransaction);
         Map<String, Object> response = processCardCapturePayment(ctx, context);
-        
+
         Debug.logInfo("SagePay ccCapture response : " + response, module);
         Debug.logInfo("SagePay - Exiting ccCapture", module);
-        
+
         return response;
     }
-    
-    
+
+
     private static Map<String, Object> processCardCapturePayment(DispatchContext ctx, Map<String, Object> context) {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -264,7 +264,7 @@ public class SagePayPaymentServices {
 
         try {
 
-            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentAuthorisation", 
+            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentAuthorisation",
                     UtilMisc.toMap(
                             "paymentGatewayConfigId", paymentGatewayConfigId,
                             "vendorTxCode", vendorTxCode,
@@ -282,7 +282,7 @@ public class SagePayPaymentServices {
                 result = SagePayUtil.buildCardCapturePaymentResponse(Boolean.TRUE, txAuthCode, securityKey, amount, vpsTxId, vendorTxCode, statusDetail);
             } else {
                 Debug.logInfo("SagePay - Invalid status " + status + " received for order : " + vendorTxCode, module);
-                result = SagePayUtil.buildCardCapturePaymentResponse(Boolean.FALSE, txAuthCode, securityKey, amount, vpsTxId, vendorTxCode, statusDetail);                
+                result = SagePayUtil.buildCardCapturePaymentResponse(Boolean.FALSE, txAuthCode, securityKey, amount, vpsTxId, vendorTxCode, statusDetail);
             }
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthorisation", module);
@@ -290,7 +290,7 @@ public class SagePayPaymentServices {
         }
         return result;
     }
-    
+
 
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered ccRefund", module);
@@ -333,7 +333,7 @@ public class SagePayPaymentServices {
         yesterday.add(Calendar.DAY_OF_YEAR, -1);
 
         Map<String, Object> response = null;
-        
+
         if (authCal.before(yesterday)) {
             Debug.logInfo("SagePay - Calling Refund for Refund", module);
             response = processCardRefundPayment(ctx, context);
@@ -350,14 +350,14 @@ public class SagePayPaymentServices {
                 response = processCardRefundPayment(ctx, context);
             }
         }
-        
+
         Debug.logInfo("SagePay ccRefund response : " + response, module);
         return response;
     }
 
     private static Map<String, Object> processCardRefundPayment(DispatchContext ctx, Map<String, Object> context) {
 
-        Map<String, Object> result = ServiceUtil.returnSuccess(); 
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
@@ -377,7 +377,7 @@ public class SagePayPaymentServices {
                             "currency", "GBP",
                             "description", orderId,
                             "relatedVPSTxId", captureTransaction.get("referenceNum"),
-                            "relatedVendorTxCode", captureTransaction.get("altReference"), 
+                            "relatedVendorTxCode", captureTransaction.get("altReference"),
                             "relatedSecurityKey", captureTransaction.get("gatewayFlag"),
                             "relatedTxAuthNo", captureTransaction.get("gatewayCode")
                         )
@@ -407,7 +407,7 @@ public class SagePayPaymentServices {
 
     private static Map<String, Object> processCardVoidPayment(DispatchContext ctx, Map<String, Object> context) {
 
-        Map<String, Object> result = ServiceUtil.returnSuccess(); 
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
@@ -416,8 +416,8 @@ public class SagePayPaymentServices {
         String orderId = (String) captureTransaction.get("altReference");
 
         try {
-            
-            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentVoid", 
+
+            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentVoid",
                     UtilMisc.toMap(
                             "paymentGatewayConfigId", paymentGatewayConfigId,
                             "vendorTxCode", captureTransaction.get("altReference"),
@@ -426,7 +426,7 @@ public class SagePayPaymentServices {
                             "txAuthNo", captureTransaction.get("gatewayCode")
                         )
                     );
-            
+
             Debug.logInfo("SagePay - SagePayPaymentVoid result : " + paymentResult, module);
 
             String status = (String) paymentResult.get("status");
@@ -457,7 +457,7 @@ public class SagePayPaymentServices {
 
         Debug.logInfo("SagePay - Entered ccRelease", module);
         Debug.logInfo("SagePay ccRelease context : " + context, module);
-        
+
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
@@ -473,20 +473,20 @@ public class SagePayPaymentServices {
 
     private static Map<String, Object> processCardReleasePayment(DispatchContext ctx, Map<String, Object> context) {
 
-        Map<String, Object> result = ServiceUtil.returnSuccess(); 
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         BigDecimal amount = (BigDecimal) context.get("releaseAmount");
-        
+
         GenericValue authTransaction = (GenericValue) context.get("authTransaction");
         String orderId = (String) authTransaction.get("altReference");
         String refNum = (String) authTransaction.get("referenceNum");
-        
+
         try {
-            
-            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentRelease", 
+
+            Map<String, Object> paymentResult = dispatcher.runSync("SagePayPaymentRelease",
                     UtilMisc.toMap(
                             "paymentGatewayConfigId", paymentGatewayConfigId,
                             "vendorTxCode", orderId,
@@ -498,7 +498,7 @@ public class SagePayPaymentServices {
                     );
 
             Debug.logInfo("SagePay - SagePayPaymentRelease result : " + paymentResult, module);
-            
+
             String status = (String) paymentResult.get("status");
             String statusDetail = (String) paymentResult.get("statusDetail");
 
@@ -517,5 +517,5 @@ public class SagePayPaymentServices {
 
         return result;
     }
-    
+
 }

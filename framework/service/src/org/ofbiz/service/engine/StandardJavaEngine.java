@@ -100,7 +100,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
                 result = m.invoke(null, dctx, context);
             } else {
                 result = m.invoke(c.newInstance(), dctx, context);
-            }            
+            }
         } catch (ClassNotFoundException cnfe) {
             throw new GenericServiceException("Cannot find service [" + modelService.name + "] location class", cnfe);
         } catch (NoSuchMethodException nsme) {

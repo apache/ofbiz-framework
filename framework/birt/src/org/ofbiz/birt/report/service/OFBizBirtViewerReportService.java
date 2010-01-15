@@ -56,19 +56,19 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 public class OFBizBirtViewerReportService extends BirtViewerReportService {
-    
+
     public final static String module = OFBizBirtViewerReportService.class.getName();
 
     public OFBizBirtViewerReportService(ServletContext servletContext) {
         super(servletContext);
         // TODO Auto-generated constructor stub
     }
-    
+
     public String runReport(IViewerReportDesignHandle design,
             String outputDocName, InputOptions runOptions, Map parameters,
             Map displayTexts, List<Exception> errorList) throws ReportServiceException {
         // TODO Auto-generated method stub
-        
+
         if ( design == null || design.getDesignObject( ) == null )
             throw new ReportServiceException( BirtResources.getMessage( ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN ) );
 
@@ -99,7 +99,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             if ( ParameterAccessor.isReportParameterExist( request,
                     ParameterAccessor.PARAM_MAXROWS ) )
                 maxRows = Integer.valueOf( ParameterAccessor.getMaxRows( request ) );
-            
+
             try {
                 // put all app context from Birt Container to Report Engine Service
                 ReportEngineService.getInstance().getEngineConfig().getAppContext().putAll(
@@ -139,12 +139,12 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
         }
         return outputDocName;
     }
-    
+
     /**
      * Run report.
-     * 
+     *
      * @param request
-     * 
+     *
      * @param runnable
      * @param archive
      * @param documentName
@@ -170,7 +170,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             throwDummyException(e);
         }
         runTask.setLocale( locale );
-        
+
         com.ibm.icu.util.TimeZone tz = BirtUtility.toICUTimeZone( timeZone );
         if ( tz != null )
         {
@@ -237,7 +237,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
         }
         return null;
     }
-    
+
     /**
      * @see org.eclipse.birt.report.service.api.IViewerReportService#runAndRenderReport(org.eclipse.birt.report.service.api.IViewerReportDesignHandle,
      *      java.lang.String, org.eclipse.birt.report.service.api.InputOptions,
@@ -293,7 +293,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             throwReportServiceException( e );
         }
     }
-    
+
     /**
      * get connection
      */
@@ -312,7 +312,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
         }
         return connection;
     }
-    
+
     /**
      * @param e
      * @throws DummyRemoteException
@@ -330,7 +330,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
                 .getLocalizedMessage( ), e ) );
         }
     }
-    
+
     /**
      * Temporary method for extracting the exception from the
      * DummyRemoteException and throwing it.

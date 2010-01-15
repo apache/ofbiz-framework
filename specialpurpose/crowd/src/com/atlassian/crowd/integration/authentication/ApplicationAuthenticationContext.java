@@ -47,7 +47,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the credential value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @return credential
      */
     public com.atlassian.crowd.integration.authentication.PasswordCredential getCredential() {
@@ -57,7 +57,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the credential value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @param credential
      */
     public void setCredential(com.atlassian.crowd.integration.authentication.PasswordCredential credential) {
@@ -67,7 +67,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the name value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @return name
      */
     public java.lang.String getName() {
@@ -77,7 +77,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the name value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @param name
      */
     public void setName(java.lang.String name) {
@@ -87,7 +87,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the validationFactors value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @return validationFactors
      */
     public com.atlassian.crowd.integration.authentication.ValidationFactor[] getValidationFactors() {
@@ -97,7 +97,7 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the validationFactors value for this ApplicationAuthenticationContext.
-     * 
+     *
      * @param validationFactors
      */
     public void setValidationFactors(com.atlassian.crowd.integration.authentication.ValidationFactor[] validationFactors) {
@@ -115,14 +115,14 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.credential==null && other.getCredential()==null) || 
+        _equals = true &&
+            ((this.credential==null && other.getCredential()==null) ||
              (this.credential!=null &&
               this.credential.equals(other.getCredential()))) &&
-            ((this.name==null && other.getName()==null) || 
+            ((this.name==null && other.getName()==null) ||
              (this.name!=null &&
               this.name.equals(other.getName()))) &&
-            ((this.validationFactors==null && other.getValidationFactors()==null) || 
+            ((this.validationFactors==null && other.getValidationFactors()==null) ||
              (this.validationFactors!=null &&
               java.util.Arrays.equals(this.validationFactors, other.getValidationFactors())));
         __equalsCalc = null;
@@ -198,10 +198,10 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -210,10 +210,10 @@ public class ApplicationAuthenticationContext  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

@@ -181,7 +181,7 @@ public class PartyServices {
         person = delegator.makeValue("Person", UtilMisc.toMap("partyId", partyId));
         person.setNonPKFields(context);
         toBeStored.add(person);
-        
+
         try {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
@@ -287,7 +287,7 @@ public class PartyServices {
         if (person == null || party == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.not_found", locale));
         }
-        
+
         // update status by separate service
         String oldStatusId = party.getString("statusId");
         if (party.get("statusId") == null) { // old records
@@ -298,7 +298,7 @@ public class PartyServices {
         party.setNonPKFields(context);
 
         party.set("statusId", oldStatusId);
-        
+
         try {
             person.store();
             party.store();
@@ -306,7 +306,7 @@ public class PartyServices {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
         }
-        
+
         if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
             try {
                 dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
@@ -415,7 +415,7 @@ public class PartyServices {
             partyGroup = delegator.makeValue("PartyGroup", UtilMisc.toMap("partyId", partyId));
             partyGroup.setNonPKFields(context);
             partyGroup.create();
-            
+
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
@@ -464,7 +464,7 @@ public class PartyServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        
+
         // update status by separate service
         String oldStatusId = party.getString("statusId");
         partyGroup.setNonPKFields(context);
@@ -1735,8 +1735,8 @@ public class PartyServices {
         }
         return partyId;
     }
-    
-    
+
+
     /**
      * Finds partyId(s) corresponding to a party reference, partyId or a GoodIdentification idValue
      * @param dctx

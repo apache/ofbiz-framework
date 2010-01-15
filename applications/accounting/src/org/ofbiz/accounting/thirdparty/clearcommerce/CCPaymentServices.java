@@ -353,7 +353,7 @@ public class CCPaymentServices {
         Debug.set(Debug.VERBOSE, true);
         //Document reportResponseDoc = null;
         try {
-            //reportResponseDoc = 
+            //reportResponseDoc =
             sendRequest(requestDocument, (String) context.get("paymentConfig"));
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());

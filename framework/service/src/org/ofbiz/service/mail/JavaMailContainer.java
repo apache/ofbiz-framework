@@ -315,7 +315,7 @@ public class JavaMailContainer implements Container {
                     long messageSize = message.getSize();
                     if (message instanceof MimeMessage && messageSize >= maxSize) {
                         Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
-                        
+
                         // set the message as read so it doesn't continue to try to process; but don't delete it
                         message.setFlag(Flags.Flag.SEEN, true);
                     } else {
@@ -323,14 +323,14 @@ public class JavaMailContainer implements Container {
                         if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , module);
                         message.setFlag(Flags.Flag.SEEN, true);
                         if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is marked seen", module);
-                        
+
                         // delete the message after processing
                         if (deleteMail) {
                             if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is being deleted", module);
                             message.setFlag(Flags.Flag.DELETED, true);
                         }
                     }
-                }                
+                }
             }
 
             // expunge and close the folder

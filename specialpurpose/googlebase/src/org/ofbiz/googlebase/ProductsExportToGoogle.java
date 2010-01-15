@@ -405,7 +405,7 @@ public class ProductsExportToGoogle {
                 Element batchElem = UtilXml.addChildElementNSElement(entryElem, "batch:operation", feedDocument, googleBaseBatchUrl);
                 Element batchOperationElem = UtilXml.firstChildElement(batchElem, "batch:operation");
                 batchOperationElem.setAttribute("type", itemActionType);
-                
+
                 Element appControlElem = UtilXml.addChildElementNSElement(entryElem, "app:control", feedDocument, googleBaseAppUrl);
                 Element appControlChildElem = UtilXml.firstChildElement(appControlElem, "app:control");
                 // Add the publishing priority for the product. By default it takes about 24 hours to publish your product if you submit data from Data Feed. By adding publishing priority your data
@@ -437,12 +437,12 @@ public class ProductsExportToGoogle {
                 linkElem.setAttribute("rel", "alternate");
                 linkElem.setAttribute("type", "text/html");
                 linkElem.setAttribute("href", link);
-                
+
                 // item_type is the categories in which your product should belong.
                 UtilXml.addChildElementNSValue(entryElem, "g:item_type", "products", feedDocument, googleBaseNSUrl);
-                
+
                 List<GenericValue> productCategoryMembers = delegator.findList("ProductCategoryMember", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, prod.getString("productId")), null, UtilMisc.toList("productCategoryId"), null, false);
-                
+
                 Iterator<GenericValue> productCategoryMembersIter = productCategoryMembers.iterator();
                 while (productCategoryMembersIter.hasNext()) {
                     GenericValue productCategoryMember = (GenericValue) productCategoryMembersIter.next();
@@ -451,7 +451,7 @@ public class ProductsExportToGoogle {
                     if (UtilValidate.isNotEmpty(productCategoryTypeId) && "GOOGLE_BASE_CATEGORY".equals(productCategoryTypeId)) {
                         String categoryDescription = "";
                         if (UtilValidate.isNotEmpty(productCategory.getString("categoryName"))) {
-                            categoryDescription = productCategory.getString("categoryName");  
+                            categoryDescription = productCategory.getString("categoryName");
                         } else if (UtilValidate.isNotEmpty(productCategory.getString("description"))) {
                             categoryDescription = productCategory.getString("description");
                         } else if (UtilValidate.isNotEmpty(productCategory.getString("longDescription"))) {
@@ -462,7 +462,7 @@ public class ProductsExportToGoogle {
                         }
                     }
                 }
-                
+
                 UtilXml.addChildElementNSValue(entryElem, "g:price", price, feedDocument, googleBaseNSUrl);
 
                 // Might be nicer to load this from the product but for now we'll set it based on the country destination
@@ -470,7 +470,7 @@ public class ProductsExportToGoogle {
 
                 // Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
                 UtilXml.addChildElementNSValue(entryElem, "g:target_country", countryCode, feedDocument, googleBaseNSUrl);
-                if (UtilValidate.isNotEmpty(prod.getString("brandName"))) { 
+                if (UtilValidate.isNotEmpty(prod.getString("brandName"))) {
                     UtilXml.addChildElementNSValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument, googleBaseNSUrl);
                 }
                 try {
@@ -591,11 +591,11 @@ public class ProductsExportToGoogle {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     private static Map<String, Object> buildGoogleBaseConfig(Map<String, Object> context, Delegator delegator) {
         String productStoreId = (String) context.get("productStoreId");
         Map<String, Object> buildGoogleBaseConfigContext = FastMap.newInstance();
-        
+
         if (UtilValidate.isNotEmpty(productStoreId)) {
             GenericValue googleBaseConfig = null;
             try {
@@ -619,5 +619,5 @@ public class ProductsExportToGoogle {
             buildGoogleBaseConfigContext.put("postItemsUrl", UtilProperties.getPropertyValue(configString, "googleBaseExport.postItemsUrl"));
         }
         return buildGoogleBaseConfigContext;
-    }    
+    }
 }

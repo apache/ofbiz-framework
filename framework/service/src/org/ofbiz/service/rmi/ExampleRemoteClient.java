@@ -43,11 +43,11 @@ import org.ofbiz.service.GenericServiceException;
  * javolution.jar
  * jdbm.jar
  * log4j.jar
- * 
+ *
  * Copy the truststore file framework/base/config/ofbizrmi-truststore.jks to the client
- * 
+ *
  * Run the client specifying the path to the client truststore: -Djavax.net.ssl.trustStore=ofbizrmi-truststore.jks
- * 
+ *
  */
 public class ExampleRemoteClient {
 

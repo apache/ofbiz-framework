@@ -164,7 +164,7 @@ public class InvoiceWorker {
     }
 
      /**
-      * 
+      *
       * Return the total amount of the invoice (including tax) using the the invoice GenericValue as input.
       * with the ability to specify if the actual currency is required.
       * @param invoice
@@ -185,12 +185,12 @@ public class InvoiceWorker {
             if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
                 invoiceItems = EntityUtil.filterByAnd(
                         invoiceItems, UtilMisc.toList(
-                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "INV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "INV_SALES_TAX"),
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "ITM_SALES_TAX")));
             } else if (("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))) {
                 invoiceItems = EntityUtil.filterByAnd(
                         invoiceItems, UtilMisc.toList(
-                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PINV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PINV_SALES_TAX"),
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.NOT_EQUAL, "PITM_SALES_TAX")));
             }
         } catch (GenericEntityException e) {
@@ -654,12 +654,12 @@ public class InvoiceWorker {
             if ("SALES_INVOICE".equals(invoice.getString("invoiceTypeId"))) {
                 invoiceItems = EntityUtil.filterByOr(
                         invoiceItems, UtilMisc.toList(
-                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "INV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "INV_SALES_TAX"),
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "ITM_SALES_TAX")));
             } else if (("PURCHASE_INVOICE".equals(invoice.getString("invoiceTypeId")))) {
                 invoiceItems = EntityUtil.filterByOr(
                         invoiceItems, UtilMisc.toList(
-                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PINV_SALES_TAX"), 
+                                EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PINV_SALES_TAX"),
                                 EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.EQUALS, "PITM_SALES_TAX")));
             } else {
                 invoiceItems = null;

@@ -216,7 +216,7 @@ public class OrderListState {
         if (facilityId != null) {
             allConditions.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, facilityId));
         }
-        
+
         if (filterDate != null) {
             List andExprs = new ArrayList();
             andExprs.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)));

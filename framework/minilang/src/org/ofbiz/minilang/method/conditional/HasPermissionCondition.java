@@ -74,7 +74,7 @@ public class HasPermissionCondition implements Conditional {
                 }
             } else {
                 // run hasPermission
-                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap())) {                
+                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap())) {
                     runSubOps = true;
                 }
             }

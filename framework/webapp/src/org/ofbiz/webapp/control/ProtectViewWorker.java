@@ -90,7 +90,7 @@ public class ProtectViewWorker {
                     Long curMaxHits = (Long) hitsByViewAccessed.get(viewNameUserLoginId);
                     if (UtilValidate.isEmpty(curMaxHits)) {
                         hitsByViewAccessed.put(viewNameUserLoginId, one);
-                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000; 
+                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
                         durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
                     } else {
                         Long maxDuration = (Long) durationByViewAccessed.get(viewNameUserLoginId);

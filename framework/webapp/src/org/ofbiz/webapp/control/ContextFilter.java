@@ -131,7 +131,7 @@ public class ContextFilter implements Filter {
         if (disableCachedClassloader == null || !"Y".equalsIgnoreCase(disableCachedClassloader)) {
             Thread.currentThread().setContextClassLoader(localCachedClassLoader);
         }
-               
+
         // set the webSiteId in the session
         httpRequest.getSession().setAttribute("webSiteId", config.getServletContext().getAttribute("webSiteId"));
 
@@ -264,7 +264,7 @@ public class ContextFilter implements Filter {
 
         // we're done checking; continue on
         chain.doFilter(request, response);
-        
+
         // reset thread local security
         AbstractAuthorization.clearThreadLocal();
     }
@@ -341,25 +341,25 @@ public class ContextFilter implements Filter {
     }
 
     protected Authorization getAuthz() {
-        Authorization authz = (Authorization) config.getServletContext().getAttribute("authorization");        
+        Authorization authz = (Authorization) config.getServletContext().getAttribute("authorization");
         if (authz == null) {
             Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
 
             if (delegator != null) {
                 try {
-                    authz = AuthorizationFactory.getInstance(delegator);                    
+                    authz = AuthorizationFactory.getInstance(delegator);
                 } catch (SecurityConfigurationException e) {
                     Debug.logError(e, "[ServiceDispatcher.init] : No instance of authorization implementation found.", module);
                 }
             }
-            config.getServletContext().setAttribute("authz", authz);            
+            config.getServletContext().setAttribute("authz", authz);
             if (authz == null) {
                 Debug.logError("[ContextFilter.init] ERROR: authorization create failed.", module);
-            }            
+            }
         }
         return authz;
     }
-    
+
     @Deprecated
     protected Security getSecurity() {
         Security security = (Security) config.getServletContext().getAttribute("security");

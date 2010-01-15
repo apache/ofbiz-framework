@@ -38,9 +38,9 @@ import org.ofbiz.webapp.webdav.RequestHandlerFactory;
  */
 @SuppressWarnings("serial")
 public class ICalHandlerFactory implements RequestHandlerFactory {
-    
+
     public static final String module = ICalHandlerFactory.class.getName();
-    
+
     protected final Map<String, RequestHandler> handlerMap;
     protected final RequestHandler invalidMethodHandler = new InvalidMethodHandler();
     protected final RequestHandler doNothingHandler = new DoNothingHandler();

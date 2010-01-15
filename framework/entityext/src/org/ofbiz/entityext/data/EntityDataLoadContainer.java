@@ -148,15 +148,15 @@ public class EntityDataLoadContainer implements Container {
                     }
                 } else if ("drop-pks".equalsIgnoreCase(argumentName)) {
                     if (UtilValidate.isEmpty(argumentVal) || "true".equalsIgnoreCase(argumentVal)) {
-                        dropPks = true;                        
+                        dropPks = true;
                     }
                 } else if ("create-pks".equalsIgnoreCase(argumentName)) {
                     if (UtilValidate.isEmpty(argumentVal) || "true".equalsIgnoreCase(argumentVal)) {
                         createPks = true;
-                    } 
+                    }
                 } else if ("drop-constraints".equalsIgnoreCase(argumentName)) {
                     if (UtilValidate.isEmpty(argumentVal) || "true".equalsIgnoreCase(argumentVal)) {
-                        dropConstraints = true;                      
+                        dropConstraints = true;
                     }
                 } else if ("create-constraints".equalsIgnoreCase(argumentName)) {
                     if (UtilValidate.isEmpty(argumentVal) || "true".equalsIgnoreCase(argumentVal)) {
@@ -243,13 +243,13 @@ public class EntityDataLoadContainer implements Container {
             modelEntities = delegator.getModelEntityMapByGroup(groupNameToUse);
         } catch (GenericEntityException e) {
             throw new ContainerException(e.getMessage(), e);
-        }        
-        TreeSet<String> modelEntityNames = new TreeSet<String>(modelEntities.keySet());    
-        
+        }
+        TreeSet<String> modelEntityNames = new TreeSet<String>(modelEntities.keySet());
+
         // check for drop index/fks
-        if (dropConstraints) {                   
+        if (dropConstraints) {
             List<String> messages = FastList.newInstance();
-            
+
             Debug.logImportant("Dropping foreign key indcies...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -257,7 +257,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.deleteForeignKeyIndices(modelEntity, messages);
                 }
             }
-            
+
             Debug.logImportant("Dropping declared indices...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -265,7 +265,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.deleteDeclaredIndices(modelEntity, messages);
                 }
             }
-            
+
             Debug.logImportant("Dropping foreign keys...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -273,7 +273,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages);
                 }
             }
-            
+
             if (messages.size() > 0) {
                 if (Debug.infoOn()) {
                     for (String message : messages) {
@@ -282,18 +282,18 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
-        
+
         // drop pks
         if (dropPks) {
             List<String> messages = FastList.newInstance();
             Debug.logImportant("Dropping primary keys...", module);
             for (String entityName : modelEntityNames) {
-                ModelEntity modelEntity = modelEntities.get(entityName); 
+                ModelEntity modelEntity = modelEntities.get(entityName);
                 if (modelEntity != null) {
                     dbUtil.deletePrimaryKey(modelEntity, messages);
                 }
             }
-            
+
             if (messages.size() > 0) {
                 if (Debug.infoOn()) {
                     for (String message : messages) {
@@ -302,7 +302,7 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
-        
+
         // repair columns
         if (repairColumns) {
             List<String> fieldsToRepair = FastList.newInstance();
@@ -320,7 +320,7 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
-        
+
         // get the reader name URLs first
         List<URL> urlList = null;
         if (readerNames != null) {
@@ -409,7 +409,7 @@ public class EntityDataLoadContainer implements Container {
         // create primary keys
         if (createPks) {
             List<String> messages = FastList.newInstance();
-            
+
             Debug.logImportant("Creating primary keys...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -425,11 +425,11 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
-        
+
         // create constraints
-        if (createConstraints) {                   
+        if (createConstraints) {
             List<String> messages = FastList.newInstance();
-            
+
             Debug.logImportant("Creating foreign keys...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -437,7 +437,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.createForeignKeys(modelEntity, modelEntities, messages);
                 }
             }
-            
+
             Debug.logImportant("Creating foreign key indcies...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -445,7 +445,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.createForeignKeyIndices(modelEntity, messages);
                 }
             }
-            
+
             Debug.logImportant("Creating declared indices...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -453,7 +453,7 @@ public class EntityDataLoadContainer implements Container {
                     dbUtil.createDeclaredIndices(modelEntity, messages);
                 }
             }
-                                    
+
             if (messages.size() > 0) {
                 if (Debug.infoOn()) {
                     for (String message : messages) {
@@ -462,7 +462,7 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
-        
+
         return true;
     }
 

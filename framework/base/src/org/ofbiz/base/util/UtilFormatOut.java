@@ -39,7 +39,7 @@ public class UtilFormatOut {
         }
     }
 
-    // ------------------- price format handlers -------------------    
+    // ------------------- price format handlers -------------------
     static DecimalFormat priceDecimalFormat = new DecimalFormat(UtilProperties.getPropertyValue("general.properties", "currency.decimal.format", "#,##0.00"));
 
     /** Formats a Double representing a price into a string

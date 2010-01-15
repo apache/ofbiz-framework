@@ -43,7 +43,7 @@ public class SOAPAttribute  implements java.io.Serializable {
 
     /**
      * Gets the name value for this SOAPAttribute.
-     * 
+     *
      * @return name
      */
     public java.lang.String getName() {
@@ -53,7 +53,7 @@ public class SOAPAttribute  implements java.io.Serializable {
 
     /**
      * Sets the name value for this SOAPAttribute.
-     * 
+     *
      * @param name
      */
     public void setName(java.lang.String name) {
@@ -63,7 +63,7 @@ public class SOAPAttribute  implements java.io.Serializable {
 
     /**
      * Gets the values value for this SOAPAttribute.
-     * 
+     *
      * @return values
      */
     public java.lang.String[] getValues() {
@@ -73,7 +73,7 @@ public class SOAPAttribute  implements java.io.Serializable {
 
     /**
      * Sets the values value for this SOAPAttribute.
-     * 
+     *
      * @param values
      */
     public void setValues(java.lang.String[] values) {
@@ -91,11 +91,11 @@ public class SOAPAttribute  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.name==null && other.getName()==null) || 
+        _equals = true &&
+            ((this.name==null && other.getName()==null) ||
              (this.name!=null &&
               this.name.equals(other.getName()))) &&
-            ((this.values==null && other.getValues()==null) || 
+            ((this.values==null && other.getValues()==null) ||
              (this.values!=null &&
               java.util.Arrays.equals(this.values, other.getValues())));
         __equalsCalc = null;
@@ -161,10 +161,10 @@ public class SOAPAttribute  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -173,10 +173,10 @@ public class SOAPAttribute  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

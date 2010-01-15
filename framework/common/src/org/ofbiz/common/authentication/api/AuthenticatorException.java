@@ -27,7 +27,7 @@ import org.ofbiz.base.util.GeneralException;
  * AuthenticatorException
  */
 public class AuthenticatorException extends GeneralException {
-    
+
     private static final long serialVersionUID = 2836939874682240962L;
 
     /**

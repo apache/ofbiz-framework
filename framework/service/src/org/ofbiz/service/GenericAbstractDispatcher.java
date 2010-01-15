@@ -221,11 +221,11 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
     /**
      * @see org.ofbiz.service.LocalDispatcher#getAuthorization()
-     */    
+     */
     public Authorization getAuthorization() {
         return dispatcher.getAuthorization();
     }
-    
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#getSecurity()
      */

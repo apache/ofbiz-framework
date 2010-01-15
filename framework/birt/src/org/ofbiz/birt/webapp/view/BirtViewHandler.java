@@ -48,13 +48,13 @@ import org.ofbiz.birt.widget.BirtFactory;
 import org.xml.sax.SAXException;
 
 public class BirtViewHandler implements ViewHandler {
-    
+
     public static final String module = BirtViewHandler.class.getName();
 
     protected ServletContext servletContext = null;
 
     private String name = "birt";
-    
+
     public void init(ServletContext context) throws ViewHandlerException {
         // TODO Auto-generated method stub
         this.servletContext = context;
@@ -84,7 +84,7 @@ public class BirtViewHandler implements ViewHandler {
             } else {
                 design = engine.openReportDesign(servletContext.getRealPath(page));
             }
-            
+
              Map<String, Object> context = FastMap.newInstance();
             // set parameters from request
              Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));

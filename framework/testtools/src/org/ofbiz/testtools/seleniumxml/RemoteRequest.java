@@ -63,20 +63,20 @@ public class RemoteRequest {
 
     public static final String module = RemoteRequest.class.getName();
 
-    /**     
+    /**
      * The default parameters.
      * Instantiated in {@link #setup setup}.
-     */     
+     */
     private static HttpParams defaultParameters = null;
-            
+
     /**
      * The scheme registry.
      * Instantiated in {@link #setup setup}.
-     */         
+     */
     private static SchemeRegistry supportedSchemes;
     final private static String JsonHandleMode = "JSON_HANDLE";
     final private static String HttpHandleMode = "HTTP_HANDLE";
-    
+
     private SeleniumXml parent;
     private SeleniumXml currentTest;
     private List <Element>children;
@@ -85,18 +85,18 @@ public class RemoteRequest {
     private String requestUrl;
     private String host;
     private String responseHandlerMode;
-   
+
     //Login-As parameters
     private String loginAsUrl;
     private String loginAsUserParam;
     private String loginAsPasswordParam;
-    
+
     private int currentRowIndx;
-    
+
     static {
-        
+
         supportedSchemes = new SchemeRegistry();
-        
+
         // Register the "http" protocol scheme, it is required
         // by the default operator to look up socket factories.
         SocketFactory sf = PlainSocketFactory.getSocketFactory();
@@ -112,18 +112,18 @@ public class RemoteRequest {
 
     }
     public RemoteRequest(SeleniumXml parent, List<Element> children, List<Element> loginAs, String requestUrl, String hostString, String responseHandlerMode) {
-   
+
         this(parent, children, requestUrl, hostString, responseHandlerMode);
         if(loginAs != null && !loginAs.isEmpty()) {
             Element elem = loginAs.get(0);
-            
+
             this.loginAsUserParam = elem.getAttributeValue("username-param");
             this.loginAsPasswordParam = elem.getAttributeValue("password-param");
             this.loginAsUrl = elem.getAttributeValue("url");
-            
+
         }
     }
-    
+
     public RemoteRequest(SeleniumXml parent, List<Element> children, String requestUrl, String hostString, String responseHandlerMode) {
         super();
         this.parent = parent;
@@ -137,7 +137,7 @@ public class RemoteRequest {
     }
 
     private void initData() {
-        
+
         this.inMap = FastMap.newInstance();
         this.outMap = FastMap.newInstance();
         String nm, name, value, fieldName = null;
@@ -145,7 +145,7 @@ public class RemoteRequest {
             nm = elem.getName();
             if (nm.equals("param-in")) {
                 name = elem.getAttributeValue("name");
-                value = this.parent.replaceParam(elem.getAttributeValue("value")); 
+                value = this.parent.replaceParam(elem.getAttributeValue("value"));
                 System.out.println("RemoteRequest, param-in, name: " + name + ", value: " + value);
                 this.inMap.put(name, value);
             } else if (nm.equals("param-out")) {
@@ -159,7 +159,7 @@ public class RemoteRequest {
         }
         return;
     }
-    
+
     public void runTest() {
 
         ClientConnectionManager ccm =
@@ -180,17 +180,17 @@ public class RemoteRequest {
             // Create a local instance of cookie store
             CookieStore cookieStore = new BasicCookieStore();
             localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-            
+
             Header sessionHeader = null;
-            
+
             if(this.loginAsUrl != null ) {
-                
+
                 String loginAsUri = this.host + this.loginAsUrl;
                 String loginAsParamString = "?" + this.loginAsUserParam + "&" + this.loginAsPasswordParam;
-                
+
                 HttpGet req2 = new HttpGet ( loginAsUri + loginAsParamString );
                 System.out.println("loginAsUrl:" + loginAsUri + loginAsParamString);
-                
+
                 req2.setHeader("Connection","Keep-Alive");
                 HttpResponse rsp = client.execute(req2, localContext);
 
@@ -208,7 +208,7 @@ public class RemoteRequest {
                 for (int i = 0; i < cookies.size(); i++) {
                     System.out.println("Local cookie(0): " + cookies.get(i));
                 }
-            } 
+            }
             //String paramString2 = "USERNAME=" + this.parent.getUserName()
             //                   + "&PASSWORD=" + this.parent.getPassword();
             //String thisUri2 = this.host + "/eng/control/login?" + paramString2;
@@ -227,20 +227,20 @@ public class RemoteRequest {
             //    System.out.println(headers[i]);
             //    System.out.println(hdr.getName() + " : " + hdr.getValue());
             //}
-            
+
             //List<Cookie> cookies = cookieStore.getCookies();
             //System.out.println("cookies.size(): " + cookies.size());
             //for (int i = 0; i < cookies.size(); i++) {
             //    System.out.println("Local cookie(0): " + cookies.get(i));
             //}
             if (HttpHandleMode.equals(this.responseHandlerMode)) {
-                
+
             } else {
                 responseHandler = new JsonResponseHandler(this);
             }
-            
+
             String paramString = urlEncodeArgs(this.inMap, false);
-            
+
             String thisUri = null;
             if(sessionHeader != null) {
                 String sessionHeaderValue = sessionHeader.getValue();
@@ -259,7 +259,7 @@ public class RemoteRequest {
             //String thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
             //String thisUri = this.host + this.requestUrl + "?"  + paramString;
             System.out.println("thisUri: " + thisUri);
-            
+
             HttpGet req = new HttpGet ( thisUri );
             if(sessionHeader != null) {
                 req.setHeader(sessionHeader);
@@ -301,19 +301,19 @@ public class RemoteRequest {
         }
         return;
     }
-    
+
     private void login(DefaultHttpClient client, BasicHttpContext localContext) throws IOException{
-        
+
         String paramString = "USERNAME=" + this.parent.getUserName()
                            + "&PASSWORD=" + this.parent.getPassword();
         String thisUri = this.host + "/eng/control/login?" + paramString;
         HttpGet req = new HttpGet ( thisUri );
         req.setHeader("Connection","Keep-Alive");
         client.execute(req, localContext);
-        
-        //client.getCredentialsProvider().setCredentials(new AuthScope("localhost", 8080), 
+
+        //client.getCredentialsProvider().setCredentials(new AuthScope("localhost", 8080),
         //        new UsernamePasswordCredentials(this.parent.getUserName(),                        this.parent.getPassword()));
-        
+
         return;
     }
         /** URL Encodes a Map of arguements */
@@ -356,18 +356,18 @@ public class RemoteRequest {
         }
         return buf.toString();
     }
-    
+
     public class JsonResponseHandler extends BasicResponseHandler {
-        
+
         private RemoteRequest parentRemoteRequest;
-        
+
         public JsonResponseHandler(RemoteRequest parentRemoteRequest) {
             super();
             this.parentRemoteRequest = parentRemoteRequest;
         }
-        public String handleResponse(org.apache.http.HttpResponse response) 
+        public String handleResponse(org.apache.http.HttpResponse response)
             throws HttpResponseException, IOException {
-            
+
             String bodyString = super.handleResponse(response);
             JSONObject jsonObject = null;
             try {
@@ -388,6 +388,6 @@ public class RemoteRequest {
             }
             return bodyString;
         }
-        
+
     }
 }

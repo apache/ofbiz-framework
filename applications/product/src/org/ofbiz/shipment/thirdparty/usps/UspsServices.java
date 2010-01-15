@@ -266,7 +266,7 @@ public class UspsServices {
      * 14 - First Class Mail International Flats
      * 15 - First Class Mail International Parcels
      * 16 - Priority Mail Small Flat Rate Box
-     * 21 - PostCards 
+     * 21 - PostCards
      */
     public static Map<String, Object> uspsInternationalRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
@@ -355,7 +355,7 @@ public class UspsServices {
 
             UtilXml.addChildElementValue(packageElement, "Machinable", "False", requestDocument);
             UtilXml.addChildElementValue(packageElement, "MailType", "Package", requestDocument);
-            
+
             // TODO: Add package value so that an insurance fee can be returned
 
             UtilXml.addChildElementValue(packageElement, "Country", destinationCountry, requestDocument);
@@ -1501,7 +1501,7 @@ public class UspsServices {
             certify = true;
         }
         Element rootElement = requestDocument.getDocumentElement();
-        
+
         // Retrieve from/to address and package details
         GenericValue originAddress = null;
         GenericValue originTelecomNumber = null;
@@ -1562,7 +1562,7 @@ public class UspsServices {
         String toPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationTelecomNumber.getString("areaCode") + destinationTelecomNumber.getString("contactNumber");
         UtilXml.addChildElementValue(rootElement, "ToPhone", toPhoneNumber, requestDocument);
         UtilXml.addChildElementValue(rootElement, "NonDeliveryOption", "RETURN", requestDocument);
-        
+
         for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
             Document packageDocument = (Document) requestDocument.cloneNode(true);
             Element packageRootElement = requestDocument.getDocumentElement();
@@ -1570,7 +1570,7 @@ public class UspsServices {
             String fromCustomsReference = shipmentRouteSegment.getString("shipmentId") + ":" + shipmentRouteSegment.getString("shipmentRouteSegmentId");
             fromCustomsReference = StringUtils.join(
                     UtilMisc.toList(
-                            shipmentRouteSegment.get("shipmentId"), 
+                            shipmentRouteSegment.get("shipmentId"),
                             shipmentPackageRouteSeg.get("shipmentPackageSeqId"),
                             shipmentRouteSegment.get("shipmentRouteSegementId")
                    ), ':');
@@ -1611,7 +1611,7 @@ public class UspsServices {
             */
             // According to the docs sending an empty postage tag will cause the postage to be calculated
             UtilXml.addChildElementValue(rootElement, "Postage", "", packageDocument);
-            
+
             BigDecimal packageWeight = shipmentPackage.getBigDecimal("weight");
             String weightUomId = shipmentPackage.getString("weightUomId");
             BigDecimal packageWeightPounds = UomWorker.convertUom(packageWeight, weightUomId, "WT_lb", dispatcher);
@@ -1625,7 +1625,7 @@ public class UspsServices {
             // TODO: Try the different layouts
             UtilXml.addChildElementValue(rootElement, "ImageType", "ALLINONEFILE", packageDocument);
             UtilXml.addChildElementValue(rootElement, "CustomerRefNo", fromCustomsReference, packageDocument);
-            
+
             // Add the shipping contents
             Element shippingContents = UtilXml.addChildElement(rootElement, "ShippingContents", packageDocument);
             for (GenericValue shipmentPackageContent : shipmentPackageContents) {
@@ -1651,7 +1651,7 @@ public class UspsServices {
                 UtilXml.addChildElementValue(itemDetail, "HSTariffNumber", "", packageDocument);
                 UtilXml.addChildElementValue(itemDetail, "CountryOfOrigin", originGeo.getString("geoName"), packageDocument);
             }
-            
+
             // Send the request
             Document responseDocument = null;
             String api = certify ? "PriorityMailIntlCertify" : "PriorityMailIntl";
@@ -1683,7 +1683,7 @@ public class UspsServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            
+
         }
         return ServiceUtil.returnSuccess();
     }
@@ -1775,7 +1775,7 @@ public class UspsServices {
     }
 
     /*
-     * Converts decimal pounds to pounds and ounces as an Integer array, ounces are rounded up to the nearest whole number 
+     * Converts decimal pounds to pounds and ounces as an Integer array, ounces are rounded up to the nearest whole number
      */
     public static Integer[] convertPoundsToPoundsOunces(BigDecimal decimalPounds) {
         if (decimalPounds == null) return null;

@@ -355,7 +355,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&
                                 !ModelService.ERROR_MESSAGE_LIST.equals(resultKey) && !ModelService.ERROR_MESSAGE_MAP.equals(resultKey) &&
                                 !ModelService.SUCCESS_MESSAGE.equals(resultKey) && !ModelService.SUCCESS_MESSAGE_LIST.equals(resultKey)) {
-                            //set the result to request w/ and w/o a suffix to handle both cases: to have the result in each iteration and to prevent its overriding  
+                            //set the result to request w/ and w/o a suffix to handle both cases: to have the result in each iteration and to prevent its overriding
                             request.setAttribute(resultKey + curSuffix, resultValue);
                             request.setAttribute(resultKey, resultValue);
                         }

@@ -182,7 +182,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static void renderContentAsText(LocalDispatcher dispatcher, Delegator delegator, GenericValue content, Appendable out,
             Map<String,Object>templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         // if the content has a service attached run the service
-        
+
         String serviceName = content.getString("serviceName");
         if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
             DispatchContext dctx = dispatcher.getDispatchContext();

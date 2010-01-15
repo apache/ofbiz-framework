@@ -829,7 +829,7 @@ public class ShoppingCart implements Serializable {
             return null;
         }
         return (ShoppingCartItem) cartLines.get(index);
-        
+
     }
 
     public ShoppingCartItem findCartItem(String orderItemSeqId) {
@@ -1977,8 +1977,8 @@ public class ShoppingCart implements Serializable {
             CartShipInfo csi = this.getShipInfo(i);
             csi.shipItemInfo.remove(item);
         }
-        
-        // DEJ20100107: commenting this out because we do NOT want to clear out ship group info since there is information there that will be lost; good enough to clear the item/group association which can be restored later (though questionable, the whole processes using this should be rewritten to not destroy information! 
+
+        // DEJ20100107: commenting this out because we do NOT want to clear out ship group info since there is information there that will be lost; good enough to clear the item/group association which can be restored later (though questionable, the whole processes using this should be rewritten to not destroy information!
         // this.cleanUpShipGroups();
     }
 
@@ -2037,15 +2037,15 @@ public class ShoppingCart implements Serializable {
                 if (quantity.compareTo(item.getQuantity()) > 0) {
                     quantity = item.getQuantity();
                 }
-            
+
 
                 // re-set the ship group's before and after dates based on the item's
                 csi.resetShipBeforeDateIfAfter(item.getShipBeforeDate());
                 csi.resetShipAfterDateIfBefore(item.getShipAfterDate());
-    
+
                 CartShipInfo.CartShipItemInfo csii = csi.setItemInfo(item, quantity);
                 this.checkShipItemInfo(csi, csii);
-            } 
+            }
         }
     }
 
@@ -3166,7 +3166,7 @@ public class ShoppingCart implements Serializable {
      */
     public String addProductPromoCode(String productPromoCodeId, LocalDispatcher dispatcher) {
         if (this.productPromoCodes.contains(productPromoCodeId)) {
-            return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_already_been_entered", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);            
+            return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_already_been_entered", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
         }
         // if the promo code requires it make sure the code is valid
         String checkResult = ProductPromoWorker.checkCanUsePromoCode(productPromoCodeId, this.getPartyId(), this.getDelegator(), locale);
@@ -3807,7 +3807,7 @@ public class ShoppingCart implements Serializable {
         }
         return groups;
     }
-    
+
     public int getShipInfoSize() {
         return this.shipInfo.size();
     }
@@ -4307,19 +4307,19 @@ public class ShoppingCart implements Serializable {
         public Timestamp shipAfterDate = null;
         private String shipGroupSeqId = null;
         public String vendorPartyId = null;
-        
+
         public CartShipInfo() {
             // Debug.logInfo(new Exception(), "Created a new CartShipInfo", module);
         }
 
         public String getOrderTypeId() { return orderTypeId; }
-        
+
         public String getContactMechId() { return internalContactMechId; }
         public void setContactMechId(String contactMechId) {
             this.internalContactMechId = contactMechId;
             // Debug.logInfo(new Exception(), "Set CartShipInfo.contactMechId=" + this.internalContactMechId, module);
         }
-        
+
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
@@ -4330,24 +4330,24 @@ public class ShoppingCart implements Serializable {
             this.shipGroupSeqId = shipGroupSeqId;
             // Debug.logInfo(new Exception(), "============= On CartShipInfo shipGroupSeqId to " + this.shipGroupSeqId, module);
         }
-        
+
         public String getFacilityId() { return facilityId; }
         public void setFacilityId(String facilityId) {
             this.facilityId = facilityId;
             // Debug.logInfo(new Exception(), "============= On CartShipInfo setFacilityId to " + this.facilityId, module);
         }
-        
+
         public String getVendorPartyId() { return vendorPartyId;}
         public void setVendorPartyId(String vendorPartyId) {
             this.vendorPartyId = vendorPartyId;
         }
-        
+
         public void setMaySplit(Boolean maySplit) {
             if (UtilValidate.isNotEmpty(maySplit)) {
                 this.maySplit = maySplit.booleanValue() ? "Y" : "N";
             }
         }
-        
+
 
         public List makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
@@ -4375,7 +4375,7 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
             shipGroup.set("vendorPartyId", vendorPartyId);
             shipGroup.set("facilityId", facilityId);
-            
+
             // Debug.logInfo("=================Creating ship group value: " + shipGroup, module);
 
             // use the cart's default ship before and after dates here

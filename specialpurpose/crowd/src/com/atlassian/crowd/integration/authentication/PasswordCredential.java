@@ -43,7 +43,7 @@ public class PasswordCredential  implements java.io.Serializable {
 
     /**
      * Gets the credential value for this PasswordCredential.
-     * 
+     *
      * @return credential
      */
     public java.lang.String getCredential() {
@@ -53,7 +53,7 @@ public class PasswordCredential  implements java.io.Serializable {
 
     /**
      * Sets the credential value for this PasswordCredential.
-     * 
+     *
      * @param credential
      */
     public void setCredential(java.lang.String credential) {
@@ -63,7 +63,7 @@ public class PasswordCredential  implements java.io.Serializable {
 
     /**
      * Gets the encryptedCredential value for this PasswordCredential.
-     * 
+     *
      * @return encryptedCredential
      */
     public java.lang.Boolean getEncryptedCredential() {
@@ -73,7 +73,7 @@ public class PasswordCredential  implements java.io.Serializable {
 
     /**
      * Sets the encryptedCredential value for this PasswordCredential.
-     * 
+     *
      * @param encryptedCredential
      */
     public void setEncryptedCredential(java.lang.Boolean encryptedCredential) {
@@ -91,11 +91,11 @@ public class PasswordCredential  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.credential==null && other.getCredential()==null) || 
+        _equals = true &&
+            ((this.credential==null && other.getCredential()==null) ||
              (this.credential!=null &&
               this.credential.equals(other.getCredential()))) &&
-            ((this.encryptedCredential==null && other.getEncryptedCredential()==null) || 
+            ((this.encryptedCredential==null && other.getEncryptedCredential()==null) ||
              (this.encryptedCredential!=null &&
               this.encryptedCredential.equals(other.getEncryptedCredential())));
         __equalsCalc = null;
@@ -152,10 +152,10 @@ public class PasswordCredential  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -164,10 +164,10 @@ public class PasswordCredential  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

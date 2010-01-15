@@ -44,13 +44,13 @@ public class NumericKeypad extends XPage
     String originalText;
 
     public NumericKeypad(PosScreen pos) {
-        m_pos = pos;       
+        m_pos = pos;
         m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numerickeypad");
         m_dialog = (XDialog) m_pageSupport;
         m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
         m_edit.setText("");
         m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosVirtualNumPadTitle", Locale.getDefault()));
-        
+
     }
 
     public String openDlg() {
@@ -72,7 +72,7 @@ public class NumericKeypad extends XPage
     public String getText() {
         return m_edit.getText();
     }
-    
+
     //call before openDlg
     public void setMinus(boolean minus) {
         m_minus = minus;
@@ -219,7 +219,7 @@ public class NumericKeypad extends XPage
     {
         cancel();
     }
-    
+
     public void triggerMinus()
     {
         prependUnique('-');
@@ -312,7 +312,7 @@ public class NumericKeypad extends XPage
             return;
         }
     }
-    
+
     private synchronized void append(String c) {
         if (wasMouseClicked()) {
             String text = "";

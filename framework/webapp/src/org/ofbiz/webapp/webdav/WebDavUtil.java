@@ -72,9 +72,9 @@ public class WebDavUtil {
      * checks for the request parameters <code>USERNAME</code> and <code>PASSWORD</code>. If
      * those aren't found, then the request is checked for the HTTP Authorization header.
      * Currently, only Basic authorization is supported.</p>
-     * 
+     *
      * @param request The WebDAV request
-     * @return A <code>Map</code> containing <code>login.username</code> and 
+     * @return A <code>Map</code> containing <code>login.username</code> and
      * <code>login.password</code> elements.
      */
     public static Map<String, Object> getCredentialsFromRequest(HttpServletRequest request) {
@@ -104,6 +104,6 @@ public class WebDavUtil {
         Map<String, Object> result = FastMap.newInstance();
         result.put("login.username", username);
         result.put("login.password", password);
-        return result;        
+        return result;
     }
 }

@@ -63,7 +63,7 @@ public class ProductsExportToEbay {
     private static final String module = ProductsExportToEbay.class.getName();
     private static List<String> productExportSuccessMessageList = FastList.newInstance();
     private static List<String> productExportFailureMessageList = FastList.newInstance();
-    
+
 
     public static Map exportToEbay(DispatchContext dctx, Map context) {
         Locale locale = (Locale) context.get("locale");
@@ -101,7 +101,7 @@ public class ProductsExportToEbay {
                         return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
                     }
                 }
-            } 
+            }
         } catch (Exception e) {
             Debug.logError("Exception in exportToEbay " + e, module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInExportToEbay", locale));
@@ -216,18 +216,18 @@ public class ProductsExportToEbay {
                     if (UtilValidate.isNotEmpty(startPriceValue)) {
                         startPrice = startPriceValue.getString("price");
                         startPriceCurrencyUomId = startPriceValue.getString("currencyUomId");
-                    } 
+                    }
                 }
-                    
-                // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately. 
+
+                // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately.
                 GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));
                 String buyItNowPrice = null;
                 String buyItNowCurrencyUomId = null;
                 if (UtilValidate.isNotEmpty(buyItNowPriceValue)) {
                     buyItNowPrice = buyItNowPriceValue.getString("price");
                     buyItNowCurrencyUomId = buyItNowPriceValue.getString("currencyUomId");
-                } 
-                
+                }
+
                 Element itemElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
                 UtilXml.addChildElementValue(itemElem, "Country", (String)context.get("country"), itemDocument);
                 String location = (String)context.get("location");
@@ -288,15 +288,15 @@ public class ProductsExportToEbay {
                     startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
                 }
                 startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
- 
+
                 if (UtilValidate.isNotEmpty(buyItNowPrice)) {
                     Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
                 if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
                     buyItNowCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
                 }
                 buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
-                }   
-                //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module); 
+                }
+                //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module);
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));
             } catch (Exception e) {
                 Debug.logError("Exception during building data items to eBay: " + e.getMessage(), module);
@@ -464,7 +464,7 @@ public class ProductsExportToEbay {
         if (UtilValidate.isNotEmpty(customXmlFromUI)) {
             customXml = customXmlFromUI;
         } else {
-            customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");   
+            customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");
         }
         if (UtilValidate.isNotEmpty(customXml)) {
             Document customXmlDoc = UtilXml.readXmlDocument(customXml);
@@ -478,7 +478,7 @@ public class ProductsExportToEbay {
             }
         }
     }
-    
+
     public static Map getEbayCategories(DispatchContext dctx, Map context) {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -565,7 +565,7 @@ public class ProductsExportToEbay {
         }
         return results;
     }
-    
+
     private static Map exportToEbayResponse(String msg, GenericValue product) {
         Map result = ServiceUtil.returnSuccess();
         try {

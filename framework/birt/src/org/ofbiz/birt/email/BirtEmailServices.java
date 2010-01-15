@@ -55,14 +55,14 @@ import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
 
 public class BirtEmailServices {
-    
+
     public static final String module = BirtEmailServices.class.getName();
-    
+
     protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
-    
+
     /**
      * send birt mail
-     * 
+     *
      * @param ctx
      * @param context
      * @return
@@ -127,9 +127,9 @@ public class BirtEmailServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
-        
+
         boolean isMultiPart = false;
-        
+
         // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(birtReportLocation)) {
             isMultiPart = true;
@@ -137,7 +137,7 @@ public class BirtEmailServices {
             try {
                 // create the output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                
+
                 Map<String, Object> birtContext = FastMap.newInstance();
                 if (birtLocale == null) {
                     birtLocale = locale;
@@ -218,7 +218,7 @@ public class BirtEmailServices {
                 serviceContext.put("contentType", "text/html");
             }
         }
-        
+
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
         String subject = (String) serviceContext.remove("subject");
         subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
@@ -238,7 +238,7 @@ public class BirtEmailServices {
             String errMsg = "Error send email :" + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } 
+        }
         result.put("body", bodyWriter.toString());
         return result;
     }

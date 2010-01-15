@@ -104,7 +104,7 @@ public class CheckPermission extends MethodOperation {
         // if no user is logged in, treat as if the user does not have permission: do not run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
-            Authorization authz = methodContext.getAuthz();            
+            Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
             if (this.permissionInfo.hasPermission(methodContext, userLogin, authz, security)) {
                 hasPermission = true;
@@ -183,7 +183,7 @@ public class CheckPermission extends MethodOperation {
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {
                 // run hasPermission
-                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap());                
+                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap());
             }
         }
     }

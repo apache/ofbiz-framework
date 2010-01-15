@@ -179,12 +179,12 @@ public class ModelTree extends ModelWidget {
             else
                 expColReq = s1;
         }
-        
-        //append also the request parameters 
+
+        //append also the request parameters
         Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
         if (UtilValidate.isNotEmpty(paramMap)) {
             Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
-            requestParameters.remove(this.getTrailName(context));  
+            requestParameters.remove(this.getTrailName(context));
             if (UtilValidate.isNotEmpty(requestParameters)) {
                 String queryString = UtilHttp.urlEncodeArgs(requestParameters, false);
                 if (expColReq.indexOf("?") < 0) {
@@ -192,10 +192,10 @@ public class ModelTree extends ModelWidget {
                 } else {
                     expColReq += "&amp;";
                 }
-                expColReq += queryString;   
-            }     
+                expColReq += queryString;
+            }
         }
-        
+
         return expColReq;
     }
 

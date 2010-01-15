@@ -50,9 +50,9 @@ public class ShipmentWorker {
 
     /*
      * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances
-     * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by the package 
+     * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by the package
      * content quantity.
-     * Note: No rounding of the calculation is performed so you will need to round it to the accuracy that you require 
+     * Note: No rounding of the calculation is performed so you will need to round it to the accuracy that you require
      */
     public static BigDecimal getShipmentPackageContentValue(GenericValue shipmentPackageContent) {
         BigDecimal quantity = shipmentPackageContent.getBigDecimal("quantity");

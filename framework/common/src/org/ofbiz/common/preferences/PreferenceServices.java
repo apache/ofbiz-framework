@@ -150,7 +150,7 @@ public class PreferenceServices {
                 }
             }
         }
-        
+
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("userPrefMap", userPrefMap);
         return result;

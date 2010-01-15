@@ -2090,8 +2090,8 @@ public class ModelFormField {
                 String isoCode = null;
                 if (this.currency != null && !this.currency.isEmpty()) {
                     isoCode = this.currency.expandString(context);
-                } 
-                
+                }
+
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale, true);
                     retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
@@ -2280,7 +2280,7 @@ public class ModelFormField {
         public boolean getAlsoHidden() {
             return this.alsoHidden;
         }
-        
+
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
@@ -2296,12 +2296,12 @@ public class ModelFormField {
                 return getConfirmationMsg(context);
             }
             return "";
-        }       
-        
+        }
+
         public String getConfirmationMsg(Map<String, Object> context) {
             return this.confirmationMsgExdr.expandString(context);
-        }       
-        
+        }
+
         public String getLinkType() {
             return this.linkType;
         }
@@ -2362,11 +2362,11 @@ public class ModelFormField {
         public void setTarget(String string) {
             this.target = FlexibleStringExpander.getInstance(string);
         }
-       
+
         public void setRequestConfirmation(boolean val) {
             this.requestConfirmation = val;
         }
-        
+
         public void setConfirmationMsg(String val) {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }
@@ -2402,7 +2402,7 @@ public class ModelFormField {
 
             this.modelFormField = modelFormField;
         }
-        
+
         public String getLinkStyle() {
             return this.linkStyle;
         }
@@ -2451,15 +2451,15 @@ public class ModelFormField {
                 return "";
             }
         }
-        
+
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
-        
+
         public String getConfirmationMsg(Map<String, Object> context) {
             return this.confirmationMsgExdr.expandString(context);
         }
-        
+
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message)) {
@@ -2471,8 +2471,8 @@ public class ModelFormField {
                 return getConfirmationMsg(context);
             }
             return "";
-        }       
-        
+        }
+
         public ModelFormField getModelFormField() {
             return this.modelFormField;
         }
@@ -2540,12 +2540,12 @@ public class ModelFormField {
          */
         public void setUseWhen(String string) {
             this.useWhen = FlexibleStringExpander.getInstance(string);
-        } 
-        
+        }
+
         public void setRequestConfirmation(boolean val) {
             this.requestConfirmation = val;
         }
-        
+
         public void setConfirmationMsg(String val) {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }
@@ -3202,7 +3202,7 @@ public class ModelFormField {
             this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element.getAttribute("background-submit-refresh-target"));
             setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             setConfirmationMsg(element.getAttribute("confirmation-message"));
-        }        
+        }
 
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -3215,16 +3215,16 @@ public class ModelFormField {
 
         public String getImageLocation() {
             return imageLocation;
-        }        
+        }
 
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
-        
+
         public String getConfirmationMsg(Map<String, Object> context) {
             return this.confirmationMsgExdr.expandString(context);
         }
-        
+
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message)) {
@@ -3236,8 +3236,8 @@ public class ModelFormField {
                 return getConfirmationMsg(context);
             }
             return "";
-        }       
-        
+        }
+
         /**
          * @param string
          */
@@ -3254,12 +3254,12 @@ public class ModelFormField {
 
         public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
             return this.backgroundSubmitRefreshTargetExdr.expandString(context);
-        }        
-        
+        }
+
         public void setRequestConfirmation(boolean val) {
             this.requestConfirmation = val;
         }
-        
+
         public void setConfirmationMsg(String val) {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }
@@ -3369,7 +3369,7 @@ public class ModelFormField {
             if(element.hasAttribute("default-option")) {
                 this.defaultOption = element.getAttribute("default-option");
             } else {
-            	this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "like");
+                this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "like");
             }
             this.hideOptions = "true".equals(element.getAttribute("hide-options")) ||
                 "options".equals(element.getAttribute("hide-options")) ? true : false;
@@ -3663,7 +3663,7 @@ public class ModelFormField {
         }
 
     }
-    
+
     public static class ContainerField extends FieldInfo {
         protected String id;
 

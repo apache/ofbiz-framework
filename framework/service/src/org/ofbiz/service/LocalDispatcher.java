@@ -324,7 +324,7 @@ public interface LocalDispatcher {
      * @return Authorization object associated with this dispatcher
      */
     public Authorization getAuthorization();
-    
+
     /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher

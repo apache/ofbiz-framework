@@ -189,7 +189,7 @@ public class ServiceEcaRule implements java.io.Serializable {
             return false;
         }
     }
-    
+
     @Override
     public String toString() {
         return "ServiceEcaRule:" + this.serviceName + ":" + this.eventName + ":runOnError=" + this.runOnError + ":runOnFailure=" + this.runOnFailure + ":enabled=" + this.enabled + ":conditions=" + this.conditions + ":actionsAndSets=" + this.actionsAndSets;

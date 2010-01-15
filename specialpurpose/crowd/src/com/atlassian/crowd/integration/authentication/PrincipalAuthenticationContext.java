@@ -51,7 +51,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the application value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @return application
      */
     public java.lang.String getApplication() {
@@ -61,7 +61,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the application value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @param application
      */
     public void setApplication(java.lang.String application) {
@@ -71,7 +71,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the credential value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @return credential
      */
     public com.atlassian.crowd.integration.authentication.PasswordCredential getCredential() {
@@ -81,7 +81,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the credential value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @param credential
      */
     public void setCredential(com.atlassian.crowd.integration.authentication.PasswordCredential credential) {
@@ -91,7 +91,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the name value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @return name
      */
     public java.lang.String getName() {
@@ -101,7 +101,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the name value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @param name
      */
     public void setName(java.lang.String name) {
@@ -111,7 +111,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Gets the validationFactors value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @return validationFactors
      */
     public com.atlassian.crowd.integration.authentication.ValidationFactor[] getValidationFactors() {
@@ -121,7 +121,7 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
 
     /**
      * Sets the validationFactors value for this PrincipalAuthenticationContext.
-     * 
+     *
      * @param validationFactors
      */
     public void setValidationFactors(com.atlassian.crowd.integration.authentication.ValidationFactor[] validationFactors) {
@@ -139,17 +139,17 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.application==null && other.getApplication()==null) || 
+        _equals = true &&
+            ((this.application==null && other.getApplication()==null) ||
              (this.application!=null &&
               this.application.equals(other.getApplication()))) &&
-            ((this.credential==null && other.getCredential()==null) || 
+            ((this.credential==null && other.getCredential()==null) ||
              (this.credential!=null &&
               this.credential.equals(other.getCredential()))) &&
-            ((this.name==null && other.getName()==null) || 
+            ((this.name==null && other.getName()==null) ||
              (this.name!=null &&
               this.name.equals(other.getName()))) &&
-            ((this.validationFactors==null && other.getValidationFactors()==null) || 
+            ((this.validationFactors==null && other.getValidationFactors()==null) ||
              (this.validationFactors!=null &&
               java.util.Arrays.equals(this.validationFactors, other.getValidationFactors())));
         __equalsCalc = null;
@@ -235,10 +235,10 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -247,10 +247,10 @@ public class PrincipalAuthenticationContext  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

@@ -261,7 +261,7 @@ public class UtilAccounting {
     public static boolean isExpenseAccount(GenericValue account) throws GenericEntityException {
         return isAccountClass(account, "EXPENSE");
     }
-    
+
     /**
      * Recurses up invoice type tree via parentTypeId to see if input invoice type ID is in tree.
      */
@@ -280,7 +280,7 @@ public class UtilAccounting {
         // otherwise, we have to go to the grandparent (recurse)
         return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType"), inputTypeId);
     }
-    
+
     /**
      * Checks if a invoice is of a specified InvoiceType.invoiceTypeId. Return false if invoice is null. It's better to use
      * more specific calls like isPurchaseInvoice().

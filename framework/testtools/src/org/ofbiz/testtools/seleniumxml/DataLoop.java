@@ -40,16 +40,16 @@ public class DataLoop {
     private SeleniumXml parent;
     private SeleniumXml currentTest;
     private List<Element> children;
-    
+
     private int currentRowIndx;
-    
+
     public DataLoop(String dataListName, SeleniumXml parent, List<Element> children) {
         super();
         this.dataListName = dataListName;
         this.parent = parent;
         this.children = children;
     }
-    
+
     public void runTest() throws TestCaseException {
 
         this.currentTest = new SeleniumXml(this.parent);

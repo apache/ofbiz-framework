@@ -65,34 +65,34 @@ public final class XslTransform {
      */
     public static String renderTemplate(String template, String data)
     throws TransformerException {
-		String result = null;
-    	TransformerFactory tfactory = TransformerFactory.newInstance();
-    	if (tfactory.getFeature(SAXSource.FEATURE)) {
-    		// setup for xml data file preprocessing to be able to xinclude
-    		SAXParserFactory pfactory= SAXParserFactory.newInstance();
-    		pfactory.setNamespaceAware(true);
-    		pfactory.setValidating(false);
-    		pfactory.setXIncludeAware(true);
-    		XMLReader reader = null;
-    		try {
-    			reader = pfactory.newSAXParser().getXMLReader();
+        String result = null;
+        TransformerFactory tfactory = TransformerFactory.newInstance();
+        if (tfactory.getFeature(SAXSource.FEATURE)) {
+            // setup for xml data file preprocessing to be able to xinclude
+            SAXParserFactory pfactory= SAXParserFactory.newInstance();
+            pfactory.setNamespaceAware(true);
+            pfactory.setValidating(false);
+            pfactory.setXIncludeAware(true);
+            XMLReader reader = null;
+            try {
+                reader = pfactory.newSAXParser().getXMLReader();
             } catch (Exception e) {
                 throw new TransformerException("Error creating SAX parser/reader", e);
             }
             // do the actual preprocessing
-    		SAXSource source = new SAXSource(reader, new InputSource(data));
-    		// compile the xsl template
-    		Transformer transformer = tfactory.newTransformer(new StreamSource(template));
-    		// and apply the xsl template to the source document and save in a result string
-   			StringWriter sw = new StringWriter();
-   			StreamResult sr = new StreamResult(sw);
-   			transformer.transform(source, sr);
-   			result = sw.toString();
-    	} else {
-    		Debug.logError("tfactory does not support SAX features!", module);
-    	}
-    	return result;
-   	}
+            SAXSource source = new SAXSource(reader, new InputSource(data));
+            // compile the xsl template
+            Transformer transformer = tfactory.newTransformer(new StreamSource(template));
+            // and apply the xsl template to the source document and save in a result string
+            StringWriter sw = new StringWriter();
+            StreamResult sr = new StreamResult(sw);
+            transformer.transform(source, sr);
+            result = sw.toString();
+        } else {
+            Debug.logError("tfactory does not support SAX features!", module);
+        }
+        return result;
+    }
 
     /*
      *  it does not look like the rest of this file is working or used..........better set it to depreciated

@@ -66,7 +66,7 @@ public class ModelTestSuite {
 
         this.originalDispatcherName = mainElement.getAttribute("dispatcher-name");
         if (UtilValidate.isEmpty(this.originalDispatcherName)) this.originalDispatcherName = "test-dispatcher";
-        
+
         String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
 
         this.delegator = DelegatorFactory.getDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
@@ -150,12 +150,12 @@ public class ModelTestSuite {
     Delegator getDelegator() {
         return this.delegator;
     }
-    
+
     List<Test> getTestList() {
         return testList;
     }
-    
-    
+
+
     public TestSuite makeTestSuite() {
         TestSuite suite = new TestSuite();
         suite.setName(this.getSuiteName());
@@ -166,7 +166,7 @@ public class ModelTestSuite {
 
         return suite;
     }
-    
+
     private void prepareTest(Test test)
     {
         if (test instanceof TestSuite) {

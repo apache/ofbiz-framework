@@ -1195,14 +1195,14 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermTypeIsRequired", locale));
             return "error";
         }
-        
+
         try {
             termType = delegator.findOne("TermType", UtilMisc.toMap("termTypeId", termTypeId), false);
         } catch (GenericEntityException gee) {
             request.setAttribute("_ERROR_MESSAGE_", gee.getMessage());
             return "error";
         }
-        
+
         if (("FIN_PAYMENT_TERM".equals(termTypeId) && UtilValidate.isEmpty(termDaysStr)) || (UtilValidate.isNotEmpty(termType) && "FIN_PAYMENT_TERM".equals(termType.get("parentTypeId")) && UtilValidate.isEmpty(termDaysStr))) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderOrderTermDaysIsRequired", locale));
             return "error";
@@ -1356,15 +1356,15 @@ public class ShoppingCartEvents {
                 shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
                 List<GenericValue> duplicateAdjustmentList = new ArrayList<GenericValue>();
                 for (GenericValue adjustment: (List<GenericValue>)orderAdjustmentList) {
-                    if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) { 
+                    if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) {
                         cart.addAdjustment(adjustment);
                     }
                     if ("SALES_TAX".equals(adjustment.get("orderAdjustmentTypeId"))) {
-                        if (adjustment.get("description") != null 
+                        if (adjustment.get("description") != null
                                     && ((String)adjustment.get("description")).startsWith("Tax adjustment due")) {
                                 cart.addAdjustment(adjustment);
                             }
-                        if ( adjustment.get("comments") != null 
+                        if ( adjustment.get("comments") != null
                                 && ((String)adjustment.get("comments")).startsWith("Added manually by")) {
                             cart.addAdjustment(adjustment);
                         }
@@ -1392,9 +1392,9 @@ public class ShoppingCartEvents {
         session.setAttribute("productStoreId", cart.getProductStoreId());
         session.setAttribute("orderMode", cart.getOrderType());
         session.setAttribute("orderPartyId", cart.getOrderPartyId());
-        
+
         // Since we only need the cart items, so set the order id as null
-        cart.setOrderId(null); 
+        cart.setOrderId(null);
         return "success";
     }
 

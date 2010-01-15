@@ -45,26 +45,26 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 public class AIMPaymentServices {
-    
+
     public static final String module = AIMPaymentServices.class.getName();
-    
+
     // The list of refund failure response codes that would cause the ccRefund service
     // to attempt to void the refund's associated authorization transaction.  This list
     // contains the responses where the voiding does not need to be done within a certain
     // time limit
     private static final List<String> VOIDABLE_RESPONSES_NO_TIME_LIMIT = UtilMisc.toList("50");
-    
+
     // A list of refund failure response codes that would cause the ccRefund service
     // to first check whether the refund's associated authorization transaction has occurred
     // within a certain time limit, and if so, cause it to void the transaction
     private static final List<String> VOIDABLE_RESPONSES_TIME_LIMIT = UtilMisc.toList("54");
-    
+
     // The number of days in the time limit when one can safely consider an unsettled
     // transaction to be still valid
     private static final int TIME_LIMIT_VERIFICATION_DAYS = 120;
-    
+
     private static Properties AIMProperties = null;
-    
+
     // A routine to check whether a given refund failure response code will cause the
     // ccRefund service to attempt to void the refund's associated authorization transaction
     private static boolean isVoidableResponse(String responseCode) {
@@ -72,7 +72,7 @@ public class AIMPaymentServices {
             VOIDABLE_RESPONSES_NO_TIME_LIMIT.contains(responseCode) ||
             VOIDABLE_RESPONSES_TIME_LIMIT.contains(responseCode);
     }
-    
+
     public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -96,7 +96,7 @@ public class AIMPaymentServices {
         processAuthTransResult(reply, results);
         return results;
     }
-    
+
     public static Map<String, Object> ccCapture(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -141,7 +141,7 @@ public class AIMPaymentServices {
         }
         return results;
     }
-    
+
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -222,7 +222,7 @@ public class AIMPaymentServices {
         }
         return results;
     }
-    
+
     public static Map<String, Object> ccRelease(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
@@ -238,7 +238,7 @@ public class AIMPaymentServices {
         results.putAll(processReleaseTransResult(reply));
         return results;
     }
-    
+
     private static Map<String, Object> voidTransaction(GenericValue authTransaction, Map<String, Object> context, Delegator delegator) {
         context.put("authTransaction", authTransaction);
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -257,14 +257,14 @@ public class AIMPaymentServices {
         }
         return processCard(request, props);
     }
-    
+
     public static Map<String, Object> ccCredit(DispatchContext ctx, Map<String, Object> context) {
         Map<String, Object> results = FastMap.newInstance();
         results.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         results.put(ModelService.ERROR_MESSAGE, "Authorize.net ccCredit unsupported with version 3.1");
         return results;
     }
-    
+
     public static Map<String, Object> ccAuthCapture(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -292,7 +292,7 @@ public class AIMPaymentServices {
         }
         return results;
     }
-    
+
     private static Map<String, Object> processCard(Map<String, Object> request, Properties props) {
         Map<String, Object> result = FastMap.newInstance();
         String url = props.getProperty("url");
@@ -328,11 +328,11 @@ public class AIMPaymentServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
-    
+
     private static boolean isTestMode() {
         return "true".equalsIgnoreCase((String)AIMProperties.get("testReq"));
     }
-    
+
     private static Properties buildAIMProperties(Map<String, Object> context, Delegator delegator) {
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         String configStr = (String) context.get("paymentConfig");
@@ -395,7 +395,7 @@ public class AIMPaymentServices {
         }
         return props;
     }
-    
+
     private static void buildMerchantInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         AIMRequest.put("x_Login", props.getProperty("login"));
         String trankey = props.getProperty("trankey");
@@ -405,12 +405,12 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Password",props.getProperty("password"));
         AIMRequest.put("x_Version", props.getProperty("ver"));
     }
-    
+
     private static void buildGatewayResponeConfig(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
         AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
     }
-    
+
     private static void buildCustomerBillingInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         try {
             // this would be used in the case of a capture, where one of the parameters is an OrderPaymentPreference
@@ -456,7 +456,7 @@ public class AIMPaymentServices {
             return;
         }
     }
-    
+
     private static void buildEmailSettings(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue ea = (GenericValue)params.get("billToEmail");
         AIMRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
@@ -465,14 +465,14 @@ public class AIMPaymentServices {
             AIMRequest.put("x_Email", UtilFormatOut.checkNull(ea.getString("infoString")));
         }
     }
-    
+
     private static void buildInvoiceInfo(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         String description = UtilFormatOut.checkNull(props.getProperty("transDescription"));
         String orderId = UtilFormatOut.checkNull((String)params.get("orderId"));
         AIMRequest.put("x_Invoice_Num", "Order " + orderId);
         AIMRequest.put("x_Description", description);
     }
-    
+
     private static void buildAuthTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         String currency = (String) params.get("currency");
@@ -490,7 +490,7 @@ public class AIMPaymentServices {
             AIMRequest.put("x_card_code", cardSecurityCode);
         }
     }
-    
+
     private static void buildCaptureTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         GenericValue cc = (GenericValue) params.get("creditCard");
@@ -507,7 +507,7 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
     }
-    
+
     private static void buildRefundTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         GenericValue cc = (GenericValue) params.get("creditCard");
@@ -525,7 +525,7 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
         Debug.logInfo("buildCaptureTransaction. " + at.toString(), module);
     }
-    
+
     private static void buildVoidTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         GenericValue at = (GenericValue) params.get("authTransaction");
         String currency = (String) params.get("currency");
@@ -536,13 +536,13 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
         Debug.logInfo("buildVoidTransaction. " + at.toString(), module);
     }
-    
+
     private static Map<String, Object> validateRequest(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
         Map<String, Object> result = FastMap.newInstance();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
-    
+
     private static void processAuthTransResult(Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean authResult = (Boolean) reply.get("authResult");
@@ -562,7 +562,7 @@ public class AIMPaymentServices {
         }
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
     }
-    
+
     private static void processCaptureTransResult(Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean captureResult = (Boolean) reply.get("authResult");
@@ -578,7 +578,7 @@ public class AIMPaymentServices {
         }
         Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
     }
-    
+
     private static Map<String, Object> processRefundTransResult(Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
@@ -596,7 +596,7 @@ public class AIMPaymentServices {
         Debug.logInfo("processRefundTransResult: " + results.toString(),module);
         return results;
     }
-    
+
     private static Map<String, Object> processReleaseTransResult(Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
@@ -614,7 +614,7 @@ public class AIMPaymentServices {
         Debug.logInfo("processReleaseTransResult: " + results.toString(),module);
         return results;
     }
-    
+
     private static void processAuthCaptureTransResult(Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean authResult = (Boolean) reply.get("authResult");
@@ -638,7 +638,7 @@ public class AIMPaymentServices {
         }
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
     }
-    
+
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";

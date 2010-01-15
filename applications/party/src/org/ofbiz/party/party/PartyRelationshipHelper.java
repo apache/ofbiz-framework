@@ -41,13 +41,13 @@ import org.ofbiz.entity.condition.EntityOperator;
 public class PartyRelationshipHelper {
 
     public static final String module = PartyRelationshipHelper.class.getName();
-    
+
     /** Return A List of the active Party Relationships (ie with valid from and thru dates)
      *@param delegator needed Delegator
      *@param partyRelationshipValues Map containing the input parameters (primaries keys + partyRelationshipTypeId)
      *@return List of the active Party Relationships
      */
-    public static List<GenericValue> getActivePartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {        
+    public static List<GenericValue> getActivePartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {
         String partyIdFrom = (String) partyRelationshipValues.get("partyIdFrom") ;
         String partyIdTo = (String) partyRelationshipValues.get("partyIdTo") ;
         String roleTypeIdFrom = (String) partyRelationshipValues.get("roleTypeIdFrom") ;
@@ -64,11 +64,11 @@ public class PartyRelationshipHelper {
         condList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, fromDate));
         EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("thruDate", null),
-                EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, fromDate)), 
+                EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, fromDate)),
                 EntityOperator.OR);
         condList.add(thruCond);
         EntityCondition condition = EntityCondition.makeCondition(condList);
-    
+
         List<GenericValue> partyRelationships = null;
         try {
             partyRelationships = delegator.findList("PartyRelationship", condition, null, null, null, false);
@@ -81,5 +81,5 @@ public class PartyRelationshipHelper {
         } else {
             return null;
         }
-    }    
+    }
 }

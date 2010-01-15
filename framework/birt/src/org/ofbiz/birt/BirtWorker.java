@@ -42,17 +42,17 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 public class BirtWorker {
-    
+
     public final static String module = BirtWorker.class.getName();
-    
+
     public final static String BIRT_PARAMETERS = "birtParameters";
     public final static String REPORT_ENGINE = "reportEngine";
     public final static String BIRT_LOCALE = "birtLocale";
     public final static String BIRT_IMAGE_DIRECTORY = "birtImageDirectory";
     public final static String BIRT_CONTENT_TYPE = "birtContentType";
-    
+
     private static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
-    
+
     /**
      * export report
      * @param design
@@ -65,7 +65,7 @@ public class BirtWorker {
      */
     public static void exportReport(IReportRunnable design, Map<String, ? extends Object> context, String contentType, OutputStream output)
         throws EngineException, GeneralException, SQLException {
-    
+
         Locale birtLocale = (Locale)context.get(BIRT_LOCALE);
         String birtImageDirectory = (String)context.get(BIRT_IMAGE_DIRECTORY);
 
@@ -77,7 +77,7 @@ public class BirtWorker {
         }
         Debug.logInfo("Get report engine", module);
         IReportEngine engine = BirtContainer.getReportEngine();
-    
+
         /*
         --- DISABLE JDBC FEATURE
         // set the jdbc connection
@@ -85,23 +85,23 @@ public class BirtWorker {
         Delegator delegator = BirtContainer.getDelegator();
         Debug.logInfo("Get the JDBC connection from group helper's name:" + delegatorGroupHelperName, module);
         String helperName = delegator.getGroupHelperName(delegatorGroupHelperName);    // gets the helper (localderby, localmysql, localpostgres, etc.) for your entity group org.ofbiz
-        Connection connection = ConnectionFactory.getConnection(helperName); 
+        Connection connection = ConnectionFactory.getConnection(helperName);
         engine.getConfig().getAppContext().put("OdaJDBCDriverPassInConnection", connection);
         */
-        
+
         IRunAndRenderTask task = engine.createRunAndRenderTask(design);
         if (birtLocale != null) {
             Debug.logInfo("Set birt locale:" + birtLocale, module);
             task.setLocale(birtLocale);
         }
-        
+
         // set parameters if exists
         Map<String, Object> parameters = UtilGenerics.cast(context.get(BirtWorker.BIRT_PARAMETERS));
         if (parameters != null) {
             Debug.logInfo("Set birt parameters:" + parameters, module);
             task.setParameterValues(parameters);
         }
-         
+
         // set output options
         RenderOption options = new RenderOption();
         if ("text/html".equalsIgnoreCase(contentType)) {
@@ -117,7 +117,7 @@ public class BirtWorker {
         } else {
             throw new GeneralException("Unknown content type : " + contentType);
         }
-        
+
         if (options.getOutputFormat().equalsIgnoreCase(RenderOption.OUTPUT_FORMAT_HTML)) {
             // set html render options
             HTMLRenderOption htmlOptions = new HTMLRenderOption(options);
@@ -131,10 +131,10 @@ public class BirtWorker {
         } else if (options.getOutputFormat().equalsIgnoreCase("xls")) {
             // set excel render options
             EXCELRenderOption excelOptions = new EXCELRenderOption(options);
-        } 
+        }
         options.setOutputStream(output);
         task.setRenderOption(options);
-        
+
         // run report
         Debug.logInfo("Birt's locale is: " + task.getLocale(), module);
         Debug.logInfo("Run report's task", module);
