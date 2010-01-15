@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /** Temporal expression abstract class. */
+@SuppressWarnings("serial")
 public abstract class TemporalExpression implements Serializable, Comparable<TemporalExpression> {
     protected TemporalExpression() {}
 

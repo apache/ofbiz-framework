@@ -89,7 +89,7 @@ public class TemporalExpressions implements Serializable {
             }
             try {
                 return this.expressionSet.equals(((Union) obj).expressionSet);
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -206,7 +206,7 @@ public class TemporalExpressions implements Serializable {
             }
             try {
                 return this.expressionSet.equals(((Intersection) obj).expressionSet);
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -336,7 +336,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 Difference that = (Difference) obj;
                 return this.included.equals(that.included) && this.excluded.equals(that.excluded);
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -411,6 +411,10 @@ public class TemporalExpressions implements Serializable {
     public static class DateRange extends TemporalExpression {
         protected final org.ofbiz.base.util.DateRange range;
 
+        public DateRange(Date date) {
+            this(date, date);
+        }
+
         public DateRange(Date start, Date end) {
             this.sequence = 1000;
             this.range = new org.ofbiz.base.util.DateRange(start, end);
@@ -426,7 +430,7 @@ public class TemporalExpressions implements Serializable {
             }
             try {
                 return this.range.equals(((DateRange) obj).range);
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -535,7 +539,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 TimeOfDayRange that = (TimeOfDayRange) obj;
                 return this.startStr.equals(that.startStr) && this.endStr.equals(that.endStr);
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -640,6 +644,10 @@ public class TemporalExpressions implements Serializable {
         protected final int start;
         protected final int end;
 
+        public DayOfWeekRange(int dow) {
+            this(dow, dow);
+        }
+
         /**
          * @param start An integer in the range of <code>Calendar.SUNDAY</code>
          * to <code>Calendar.SATURDAY</code>
@@ -670,7 +678,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 DayOfWeekRange that = (DayOfWeekRange) obj;
                 return this.start == that.start && this.end == that.end;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -742,6 +750,10 @@ public class TemporalExpressions implements Serializable {
         protected final int start;
         protected final int end;
 
+        public MonthRange(int month) {
+            this(month, month);
+        }
+
         /**
          * @param start An integer in the range of <code>Calendar.JANUARY</code>
          * to <code>Calendar.UNDECIMBER</code>
@@ -772,7 +784,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 MonthRange that = (MonthRange) obj;
                 return this.start == that.start && this.end == that.end;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -846,6 +858,10 @@ public class TemporalExpressions implements Serializable {
         protected final int start;
         protected final int end;
 
+        public DayOfMonthRange(int dom) {
+            this(dom, dom);
+        }
+
         /**
          * @param start An integer in the range of 1 to 31
          * @param end An integer in the range of 1 to 31
@@ -874,7 +890,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 DayOfMonthRange that = (DayOfMonthRange) obj;
                 return this.start == that.start && this.end == that.end;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -962,7 +978,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 DayInMonth that = (DayInMonth) obj;
                 return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
@@ -1093,7 +1109,7 @@ public class TemporalExpressions implements Serializable {
             try {
                 Frequency that = (Frequency) obj;
                 return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             return false;
         }
 
