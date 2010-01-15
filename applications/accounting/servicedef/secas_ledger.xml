@@ -132,4 +132,11 @@ under the License.
         <condition field-name="statusId" operator="is-not-empty"/>
         <action service="setGlReconciliationStatus" mode="sync"/>
     </eca>
+
+    <!-- If the accounting transaction that is posted is a depreciation transaction for a fixed asset, update the depreciation amount in the FixedAsset entity -->
+    <eca service="postAcctgTrans" event="commit">
+        <condition field-name="verifyOnly" operator="not-equals" value="true"/>
+        <action service="checkUpdateFixedAssetDepreciation" mode="sync"/>
+    </eca>
+
 </service-eca>

@@ -266,6 +266,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="checkUpdateFixedAssetDepreciation" default-entity-name="AcctgTrans" engine="simple"
+              location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="checkUpdateFixedAssetDepreciation" auth="true">
+        <description>If the accounting transaction is a depreciation transaction for a fixed asset, update the depreciation amount in the FixedAsset entity.</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="fixedAssetDepCalcInterface" engine="interface">
         <description>Interface to describe base parameters for Depreciation Calculation Services</description>
         <attribute name="expEndOfLifeYear" type="Integer" mode="IN" optional="false"/>
