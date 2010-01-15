@@ -217,7 +217,7 @@
         </field>
 
         <field name="visualThemeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
                     <entity-constraint name="visualThemeSetId" operator="equals" value="ECOMMERCE"/>
                 </entity-options>
