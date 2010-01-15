@@ -806,4 +806,62 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
+
+    <simple-method method-name="checkUpdateFixedAssetDepreciation" login-required="true"
+        short-description="If the accounting transaction is a depreciation transaction for a fixed asset, update the depreciation amount in the FixedAsset entity.">
+        <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="acctgTrans.acctgTransTypeId" operator="equals" value="DEPRECIATION"/>
+                    <not><if-empty field="acctgTrans.fixedAssetId"/></not>
+                </and>
+            </condition>
+            <then>
+                <get-related-one relation-name="FixedAsset" value-field="acctgTrans" to-value-field="fixedAsset"/>
+                <set field="creditCondition.debitCreditFlag" value="C"/>
+                <get-related relation-name="AcctgTransEntry" value-field="acctgTrans" list="creditTransactions" map="creditCondition"/>
+                <set field="depreciation" value="0.0" type="BigDecimal"/>
+                <iterate list="creditTransactions" entry="creditTransaction">
+                    <if-empty field="fixedAsset.purchaseCostUomId">
+                        <log level="warning" message="Found empty purchaseCostUomId for FixedAsset [${fixedAsset.fixedAssetId}]: setting it to ${creditTransaction.currencyUomId} to match the one used in the gl."/>
+                        <set field="fixedAsset.purchaseCostUomId" from-field="creditTransaction.currencyUomId"/>
+                        <store-value value-field="fixedAsset"/>
+                    </if-empty>
+                    <if-compare-field field="fixedAsset.purchaseCostUomId" operator="equals" to-field="creditTransaction.currencyUomId">
+                        <calculate field="depreciation">
+                            <calcop operator="add">
+                                <calcop operator="get" field="depreciation"/>
+                                <calcop operator="get" field="creditTransaction.amount"/>
+                            </calcop>
+                        </calculate>
+                        <else>
+                            <if-compare-field field="fixedAsset.purchaseCostUomId" operator="equals" to-field="creditTransaction.origCurrencyUomId">
+                                <calculate field="depreciation">
+                                    <calcop operator="add">
+                                        <calcop operator="get" field="depreciation"/>
+                                        <calcop operator="get" field="creditTransaction.origAmount"/>
+                                    </calcop>
+                                </calculate>
+                                <else>
+                                    <log level="warning" message="Found an accounting transaction for depreciation of FixedAsset [${fixedAsset.fixedAssetId}] with a cuurency that doesn't match the currency used in the fixed asset: the depreciation total in the fixed asset will not be updated."/>
+                                    <return/>
+                                </else>
+                            </if-compare-field>
+                        </else>
+                    </if-compare-field>
+                </iterate>
+                <set field="depreciationTotal" from-field="fixedAsset.depreciation" default-value="0.0" type="BigDecimal"/>
+                <calculate field="depreciationTotal">
+                    <calcop operator="add">
+                        <calcop operator="get" field="depreciation"/>
+                        <calcop operator="get" field="depreciationTotal"/>
+                    </calcop>
+                </calculate>
+                <set field="fixedAsset.depreciation" from-field="depreciationTotal"/>
+                <store-value value-field="fixedAsset"/>
+            </then>
+        </if>
+    </simple-method>
+
 </simple-methods>
