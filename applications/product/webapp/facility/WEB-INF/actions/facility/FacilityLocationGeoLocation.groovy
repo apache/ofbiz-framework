@@ -17,19 +17,32 @@
  * under the License.
  */
 
-import org.ofbiz.common.geo.GeoWorker;
+ import org.ofbiz.base.util.*;
+ import org.ofbiz.common.geo.*;
+ import org.ofbiz.entity.*;
 
 facilityId = parameters.facilityId
 locationSeqId = parameters.locationSeqId
 
+uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
+
 if (facilityId && locationSeqId) {
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "FacilityLocationAndGeoPoint", "facilityId", facilityId, "locationSeqId", locationSeqId)
-    context.latestGeoPoint = latestGeoPoint
-    context.facilityId = facilityId
-    context.locationSeqId = locationSeqId
+    context.latestGeoPoint = latestGeoPoint;
 
+    List geoCenter = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "zoom", "13"));
+
+    if (UtilValidate.isNotEmpty(latestGeoPoint) && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
+        List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "facilityId", facilityId,
+                "link", UtilMisc.toMap("url", "EditFacilityLocation?facilityId="+ facilityId + "&locationSeqId=" + locationSeqId,
+                "label", uiLabelMap.ProductFacilityLocation  + " " + uiLabelMap.CommonOf + " " + facilityId + "/" + locationSeqId)));
+
+        Map geoChart = UtilMisc.toMap("width", "500", "height", "450", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints);
+        context.geoChart = geoChart;
+    }
     if (latestGeoPoint && latestGeoPoint.elevationUomId) {
-        elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false)
-        context.elevationUomAbbr = elevationUom.abbreviation
+        elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
+        context.elevationUomAbbr = elevationUom.abbreviation;
     }
 }

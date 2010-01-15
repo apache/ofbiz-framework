@@ -1429,9 +1429,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/FacilityLocationGeoLocation.ftl"/></html>
-                        </platform-specific>
+                        <label>${uiLabelMap.CommonLatitude} ${latestGeoPoint.latitude}</label>
+                        <label>${uiLabelMap.CommonLongitude} ${latestGeoPoint.longitude}</label>
+                        <label>${uiLabelMap.CommonElevation} ${latestGeoPoint.elevation} ${elevationUomAbbr}</label>
+                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
