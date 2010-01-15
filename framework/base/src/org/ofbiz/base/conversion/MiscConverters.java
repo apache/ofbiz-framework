@@ -20,6 +20,7 @@ package org.ofbiz.base.conversion;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.util.Locale;
@@ -67,6 +68,34 @@ public class MiscConverters implements ConverterLoader {
         public Blob convert(byte[] obj) throws ConversionException {
             try {
                 return new javax.sql.rowset.serial.SerialBlob(obj);
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+        }
+    }
+
+    public static class ByteBufferToByteArray extends AbstractConverter<ByteBuffer, byte[]> {
+        public ByteBufferToByteArray() {
+            super(ByteBuffer.class, byte[].class);
+        }
+
+        public byte[] convert(ByteBuffer obj) throws ConversionException {
+            try {
+                return obj.hasArray() ? obj.array() : null;
+            } catch (Exception e) {
+                throw new ConversionException(e);
+            }
+        }
+    }
+
+    public static class ByteArrayToByteBuffer extends AbstractConverter<byte[], ByteBuffer> {
+        public ByteArrayToByteBuffer() {
+            super(byte[].class, ByteBuffer.class);
+        }
+
+        public ByteBuffer convert(byte[] obj) throws ConversionException {
+            try {
+                return ByteBuffer.wrap(obj);
             } catch (Exception e) {
                 throw new ConversionException(e);
             }
