@@ -1511,7 +1511,9 @@ public class ModelForm extends ModelWidget {
                             break;
                         }
 
-                        if (!modelFormField.shouldUse(localContext)) {
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        if (!"list".equals(this.getType()) && !"multi".equals(this.getType()) &&
+                                !modelFormField.shouldUse(localContext)) {
                             continue;
                         }
                         innerDisplayHyperlinkFieldsBegin.add(modelFormField);
@@ -1532,7 +1534,9 @@ public class ModelForm extends ModelWidget {
                             continue;
                         }
 
-                        if (!modelFormField.shouldUse(localContext)) {
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        if (!"list".equals(this.getType()) && !"multi".equals(this.getType()) &&
+                                !modelFormField.shouldUse(localContext)) {
                             continue;
                         }
                         innerFormFields.add(modelFormField);
@@ -1552,7 +1556,9 @@ public class ModelForm extends ModelWidget {
                             continue;
                         }
 
-                        if (!modelFormField.shouldUse(localContext)) {
+                        // if this is a list or multi form don't skip here because we don't want to skip the table cell, will skip the actual field later
+                        if (!"list".equals(this.getType()) && !"multi".equals(this.getType()) &&
+                                !modelFormField.shouldUse(localContext)) {
                             continue;
                         }
                         innerDisplayHyperlinkFieldsEnd.add(modelFormField);
@@ -1613,7 +1619,9 @@ public class ModelForm extends ModelWidget {
             } else {
                 formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
             }
-            modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+            }
             formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
         }
 
@@ -1636,7 +1644,10 @@ public class ModelForm extends ModelWidget {
                     formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
                 }
                 // render field widget
-                modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+                if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                    modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+                }
+                
                 if (separateColumns || modelFormField.getSeparateColumn()) {
                     formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
                 }
@@ -1659,7 +1670,9 @@ public class ModelForm extends ModelWidget {
             } else {
                 formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
             }
-            modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+            }
             formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
         }
 
