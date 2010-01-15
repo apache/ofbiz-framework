@@ -211,10 +211,7 @@ public class JobManager {
         List<GenericValue> crashed = null;
 
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
-        List<String> openStatuses = UtilMisc.toList("SERVICE_PENDING",
-                                                    "SERVICE_QUEUED",
-                                                    "SERVICE_RUNNING");
-        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, openStatuses));
+        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs);
 
         try {
