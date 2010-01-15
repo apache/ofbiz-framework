@@ -34,13 +34,13 @@ import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.location.FlexibleLocation;
 
 public class BirtViewerAttributeBean extends ViewerAttributeBean {
-    
+
     public final static String module = BirtViewerAttributeBean.class.getName();
 
     public BirtViewerAttributeBean(HttpServletRequest request) {
         super(request);
     }
-    
+
     protected void __init( HttpServletRequest request ) throws Exception
     {
         String reportParam = DataUtil.trimString( ParameterAccessor.getParameter( request, ParameterAccessor.PARAM_REPORT ));
@@ -63,7 +63,7 @@ public class BirtViewerAttributeBean extends ViewerAttributeBean {
         if ( this.reportDesignHandle == null )
             throw new ViewerException(
                     ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN );
-        
+
         // Initialize report parameters.
         __initParameters( request );
     }

@@ -57,7 +57,7 @@ import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class EbayHelper { 
+public class EbayHelper {
     private static final String configFileName = "ebayExport.properties";
     private static final String module = EbayHelper.class.getName();
     public static final String resource = "EbayUiLabels";
@@ -91,9 +91,9 @@ public class EbayHelper {
             buildEbayConfigContext.put("compatibilityLevel", UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel"));
             buildEbayConfigContext.put("siteID", UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID"));
             buildEbayConfigContext.put("xmlGatewayUri", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
-        }    
+        }
         return buildEbayConfigContext;
-    }    
+    }
 
     public static void appendRequesterCredentials(Element elem, Document doc, String token) {
         Element requesterCredentialsElem = UtilXml.addChildElement(elem, "RequesterCredentials", doc);
@@ -164,7 +164,7 @@ public class EbayHelper {
         }
         return outputBuilder.toString();
     }
-    
+
     public static void setShipmentMethodType(ShoppingCart cart, String shippingService, String productStoreId, Delegator delegator) {
         String partyId = "_NA_";
         String shipmentMethodTypeId = "NO_SHIPPING";
@@ -180,7 +180,7 @@ public class EbayHelper {
         cart.setCarrierPartyId(partyId);
         cart.setShipmentMethodTypeId(shipmentMethodTypeId);
     }
-    
+
     public static boolean createPaymentFromPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
             String orderId, String externalId, Timestamp orderDate, String partyIdFrom) {
         List<GenericValue> paymentPreferences = null;
@@ -412,7 +412,7 @@ public class EbayHelper {
         return emailContactMechId;
     }
 
-    public static void createEbayCustomer(LocalDispatcher dispatcher, String partyId, String ebayUserIdBuyer, String eias, 
+    public static void createEbayCustomer(LocalDispatcher dispatcher, String partyId, String ebayUserIdBuyer, String eias,
             GenericValue userLogin) {
         Map<String, Object> context = FastMap.newInstance();
         Map<String, Object> summaryResult = FastMap.newInstance();
@@ -578,7 +578,7 @@ public class EbayHelper {
         Debug.logInfo("Unable to find matching postal address for partyId " + partyId + ". Creating a new one.", module);
         return createPartyPhone(dispatcher, partyId, (String) context.get("shippingAddressPhone"), userLogin);
     }
-    
+
     public static String retrieveProductIdFromTitle(Delegator delegator, String title) {
         String productId = "";
         try {
@@ -604,5 +604,5 @@ public class EbayHelper {
             productId = "";
         }
         return productId;
-    }    
+    }
 }

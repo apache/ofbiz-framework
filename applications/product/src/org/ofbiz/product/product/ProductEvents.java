@@ -1072,7 +1072,7 @@ public class ProductEvents {
     public static String addProductToComparisonList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        
+
         String productId = request.getParameter("productId");
         GenericValue product = null;
         if (UtilValidate.isNotEmpty(productId)) {
@@ -1082,15 +1082,15 @@ public class ProductEvents {
                 Debug.logError(e, module);
             }
         }
-        
+
         if (product == null) {
             String errMsg = UtilProperties.getMessage(resource, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId), UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        
+
         List<GenericValue> compareList = getProductCompareList(request);
-        boolean alreadyInList = false; 
+        boolean alreadyInList = false;
         for (GenericValue compProduct : compareList) {
             if (product.getString("productId").equals(compProduct.getString("productId"))) {
                 alreadyInList = true;
@@ -1110,7 +1110,7 @@ public class ProductEvents {
     public static String removeProductFromComparisonList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        
+
         String productId = request.getParameter("productId");
         GenericValue product = null;
         if (UtilValidate.isNotEmpty(productId)) {
@@ -1121,13 +1121,13 @@ public class ProductEvents {
                 Debug.logError(e, module);
             }
         }
-        
+
         if (product == null) {
             String errMsg = UtilProperties.getMessage(resource, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId), UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        
+
         List<GenericValue> compareList = getProductCompareList(request);
         Iterator<GenericValue> it = compareList.iterator();
         while (it.hasNext()) {
@@ -1151,7 +1151,7 @@ public class ProductEvents {
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";
     }
-    
+
     /**
      * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
      * in fields where BigDecimal display. Blank meaning null, vs. 0 which means 0

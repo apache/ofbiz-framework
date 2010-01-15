@@ -120,7 +120,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
         Debug.log("Print Report Requested", module);
         String[] report = this.readReportTemplate(resource);
-        
+
         if (report != null) {
             for (int i = 0; i < report.length; i++) {
                 if (report[i] != null) {

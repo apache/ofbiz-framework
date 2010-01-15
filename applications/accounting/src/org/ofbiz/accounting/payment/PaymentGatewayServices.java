@@ -122,16 +122,16 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError("Problems getting required information: orderPaymentPreference [" + orderPaymentPreferenceId + "]");
         }
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        
+
         // get the total remaining
         BigDecimal totalRemaining = orh.getOrderGrandTotal();
-        
+
         // get the process attempts so far
         Long procAttempt = orderPaymentPreference.getLong("processAttempt");
         if (procAttempt == null) {
             procAttempt = Long.valueOf(0);
         }
-        
+
         // update the process attempt count
         orderPaymentPreference.set("processAttempt", Long.valueOf(procAttempt.longValue() + 1));
         try {
@@ -496,7 +496,7 @@ public class PaymentGatewayServices {
 
         // Check if the order is a replacement order
         boolean replacementOrderFlag = isReplacementOrder(orderHeader);
-        
+
         // don't authorized more then what is required
         if (!replacementOrderFlag && processAmount.compareTo(totalRemaining) > 0) {
             processAmount = totalRemaining;
@@ -759,7 +759,7 @@ public class PaymentGatewayServices {
 
         return result;
     }
-    
+
     public static Map<String, Object> processCreditResult(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -837,7 +837,7 @@ public class PaymentGatewayServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     /**
      *
      * Releases authorization for a single OrderPaymentPreference through service calls to the defined processing service for the ProductStore/PaymentMethodType
@@ -950,7 +950,7 @@ public class PaymentGatewayServices {
         }
         return result;
     }
-    
+
     public static Map<String, Object> processReleaseResult(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -993,7 +993,7 @@ public class PaymentGatewayServices {
                 savePgr(dctx, respMsg);
             }
         }
-        
+
         if (releaseResponse != null && releaseResponse.booleanValue()) {
             paymentPref.set("statusId", "PAYMENT_CANCELLED");
             try {
@@ -1029,7 +1029,7 @@ public class PaymentGatewayServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     /**
      * Captures payments through service calls to the defined processing service for the ProductStore/PaymentMethodType
      * @return COMPLETE|FAILED|ERROR for complete processing of ALL payment methods.
@@ -1398,7 +1398,7 @@ public class PaymentGatewayServices {
             // create the new payment preference
             delegator.create(newPref);
 
-            // PayPal requires us to reuse the existing authorization, so we'll 
+            // PayPal requires us to reuse the existing authorization, so we'll
             // fake it and copy the existing auth with the remaining amount
             if ("EXT_PAYPAL".equals(paymentPref.get("paymentMethodTypeId"))) {
                 String newAuthId = delegator.getNextSeqId("PaymentGatewayResponse");
@@ -1601,7 +1601,7 @@ public class PaymentGatewayServices {
             }
             paymentConfig = paymentSettings.getString("paymentPropertiesPath");
             paymentGatewayConfigId = paymentSettings.getString("paymentGatewayConfigId");
-            
+
             if (serviceName == null) {
                 Debug.logError("Service name is null for payment setting; cannot process", module);
                 return null;
@@ -2294,7 +2294,7 @@ public class PaymentGatewayServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     public static Map<String, Object> refundOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -2322,7 +2322,7 @@ public class PaymentGatewayServices {
         }
         return refundResponse;
     }
-    
+
     public static Map<String, Object> refundPayment(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2344,10 +2344,10 @@ public class PaymentGatewayServices {
         if (orderHeader != null) {
             paymentSettings = getPaymentSettings(orderHeader, paymentPref, REFUND_SERVICE_TYPE, false);
         }
-        
+
         String serviceName = null;
         String paymentGatewayConfigId = null;
-        
+
         if (paymentSettings != null) {
             String customMethodId = paymentSettings.getString("paymentCustomMethodId");
             if (UtilValidate.isNotEmpty(customMethodId)) {
@@ -2358,7 +2358,7 @@ public class PaymentGatewayServices {
             }
             String paymentConfig = paymentSettings.getString("paymentPropertiesPath");
             paymentGatewayConfigId = paymentSettings.getString("paymentGatewayConfigId");
-            
+
             if (serviceName != null) {
                 Map<String, Object> serviceContext = FastMap.newInstance();
                 serviceContext.put("orderPaymentPreference", paymentPref);
@@ -2688,7 +2688,7 @@ public class PaymentGatewayServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+
     public static GenericValue getCaptureTransaction(GenericValue orderPaymentPreference) {
         GenericValue capTrans = null;
         try {
@@ -2702,7 +2702,7 @@ public class PaymentGatewayServices {
         }
         return capTrans;
     }
-    
+
     /**
      * Gets the chronologically latest PaymentGatewayResponse from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
      * or PRDS_PAY_REAUTH.  Used for capturing.
@@ -2712,7 +2712,7 @@ public class PaymentGatewayServices {
     public static GenericValue getAuthTransaction(GenericValue orderPaymentPreference) {
         return EntityUtil.getFirst(getAuthTransactions(orderPaymentPreference));
     }
-    
+
     /**
      * Gets a chronologically ordered list of PaymentGatewayResponses from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
      * or PRDS_PAY_REAUTH.
@@ -2749,7 +2749,7 @@ public class PaymentGatewayServices {
         if (authTime == null) {
             return false;
         }
-        
+
         String reauthDays = null;
 
         GenericValue paymentMethod = null;
@@ -2810,7 +2810,7 @@ public class PaymentGatewayServices {
     }
 
     // safe payment gateway response store
-    
+
     /**
      * Saves either a PaymentGatewayResponse or PaymentGatewayRespMsg value and ensures that the value
      * is persisted even in the event of a rollback.
@@ -2848,7 +2848,7 @@ public class PaymentGatewayServices {
 
         return ServiceUtil.returnSuccess();
     }
-    
+
     // manual auth service
     public static Map<String, Object> processManualCcAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2973,7 +2973,7 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError("Authorization failed");
         }
     }
-    
+
     // manual processing service
     public static Map<String, Object> processManualCcTx(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3058,7 +3058,7 @@ public class PaymentGatewayServices {
         if (paymentService == null || (paymentGatewayConfigId == null && paymentConfig == null)) {
             return ServiceUtil.returnError("Invalid product store payment settings");
         }
-        
+
         if (paymentMethodTypeId.equals("CREDIT_CARD")) {
             GenericValue creditCard = delegator.makeValue("CreditCard");
             creditCard.setAllFields(context, true, null, null);
@@ -3087,7 +3087,7 @@ public class PaymentGatewayServices {
             requestContext.put("referenceCode", referenceCode);
             String currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
             requestContext.put("currency", currency);
-            requestContext.put("creditAmount", context.get("amount")); 
+            requestContext.put("creditAmount", context.get("amount"));
         } else {
             return ServiceUtil.returnError("Payment method type : " + paymentMethodTypeId + " is not yet implemented for manual transactions");
         }
@@ -3131,7 +3131,7 @@ public class PaymentGatewayServices {
         returnResults.put("referenceNum", refNum);
         return returnResults;
     }
-    
+
     // Verify Credit Card (Manually) Service
     public static Map<String, Object>verifyCreditCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -3529,7 +3529,7 @@ public class PaymentGatewayServices {
         result.put("refundMessage", "This is a test refund failure; no money was transferred");
         return result;
     }
-    
+
     public static String getPaymentCustomMethod(Delegator delegator, String customMethodId) {
         String serviceName = null;
         GenericValue customMethod = null;
@@ -3543,10 +3543,10 @@ public class PaymentGatewayServices {
         }
         return serviceName;
     }
-    
+
     public static boolean isReplacementOrder(GenericValue orderHeader) {
         boolean replacementOrderFlag = false;
-        
+
         List<GenericValue> returnItemResponses = FastList.newInstance();
         try {
             returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
@@ -3557,7 +3557,7 @@ public class PaymentGatewayServices {
         if (UtilValidate.isNotEmpty(returnItemResponses)) {
             replacementOrderFlag = true;
         }
-        
+
         return replacementOrderFlag;
     }
 }

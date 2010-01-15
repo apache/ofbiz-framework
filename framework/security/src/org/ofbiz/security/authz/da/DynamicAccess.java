@@ -26,7 +26,7 @@ public interface DynamicAccess {
 
     /**
      * Processes the dynamic permission check
-     * 
+     *
      * @param userId the user's userId
      * @param permission the raw permission string
      * @param context name/value pairs needed for permission lookup
@@ -39,10 +39,10 @@ public interface DynamicAccess {
      * @return permission name
      */
     public String getPermissionName();
-    
+
     /**
      * Method for injecting the delegator object
-     * 
+     *
      * @param delegator the Delegator object to use for the Authorization implementation
      */
     public void setDelegator(Delegator delegator);

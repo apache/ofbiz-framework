@@ -186,14 +186,14 @@ public class CmsEvents {
             // verify the request content is associated with the current website
             int statusCode=-1;
             boolean hasErrorPage=false;
-            
+
             try {
                 statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 throw new GeneralRuntimeException(e.getMessage(), e);
             }
-            
+
             // We try to find a specific Error page for this website concerning the status code
             if (statusCode!=HttpServletResponseWrapper.SC_OK) {
                 List<GenericValue> errorContainers = null;
@@ -209,10 +209,10 @@ public class CmsEvents {
                 if (UtilValidate.isNotEmpty(errorContainers)) {
                     if (Debug.verboseOn()) Debug.logVerbose("Found error containers: " + errorContainers, module);
                     GenericValue errorContainer = EntityUtil.getFirst(errorContainers);
-                    
+
                     List<GenericValue> errorPages = null;
                     try {
-                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey",""+statusCode));    
+                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey",""+statusCode));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
@@ -240,11 +240,11 @@ public class CmsEvents {
                         }
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
-                    }                    
+                    }
                 }
 
             }
-            
+
             if (statusCode==HttpServletResponseWrapper.SC_OK || hasErrorPage) {
                 // create the template map
                 MapStack<String> templateMap = MapStack.create();
@@ -258,7 +258,7 @@ public class CmsEvents {
                 templateMap.put("_REQUEST_HANDLER_", rh);
 
                 response.setStatus(statusCode);
-                
+
                 // NOTE DEJ20080817: this is done in the ContentMapFacade class now to avoid problems with the jsessionid being in the middle of the URL and such
                 //String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
                 //templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);

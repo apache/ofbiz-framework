@@ -216,7 +216,7 @@ public class JobInvoker implements Runnable {
         this.thread.interrupt();
         this.thread = null;
     }
-        
+
     public synchronized void run() {
         while (run) {
             Job job = jp.next();
@@ -270,7 +270,7 @@ public class JobInvoker implements Runnable {
                 // increment the count
                 count++;
                 if (Debug.verboseOn()) Debug.logVerbose("Invoker: " + thread.getName() + " (" + count + ") total.", module);
-                
+
                 // reset thread local security
                 AbstractAuthorization.clearThreadLocal();
             }

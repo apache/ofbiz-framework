@@ -104,7 +104,7 @@ public class EmailServices {
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
         subject = FlexibleStringExpander.expandString(subject, context);
-        
+
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
         List<Map<String, Object>> bodyParts = UtilGenerics.checkList(context.get("bodyParts"));
@@ -301,7 +301,7 @@ public class EmailServices {
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             return results;
         }
-        
+
         Transport trans = null;
         try {
             trans = session.getTransport("smtp");
@@ -356,14 +356,14 @@ public class EmailServices {
      *@param rcontext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {        
+    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
         // pretty simple, get the content and then call the sendMail method below
         Map<String, Object> sendMailContext = UtilMisc.makeMapWritable(rcontext);
         String bodyUrl = (String) sendMailContext.remove("bodyUrl");
         Map<String, Object> bodyUrlParameters = UtilGenerics.checkMap(sendMailContext.remove("bodyUrlParameters"));
 
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        
+
         URL url = null;
 
         try {
@@ -382,7 +382,7 @@ public class EmailServices {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError("Error getting content: " + e.toString());
         }
-                
+
         sendMailContext.put("body", body);
         Map<String, Object> sendMailResult;
         try {
@@ -391,7 +391,7 @@ public class EmailServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+
         // just return the same result; it contains all necessary information
         return sendMailResult;
     }
@@ -576,7 +576,7 @@ public class EmailServices {
         if (ServiceUtil.isError(sendMailResult)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendMailResult));
         }
-        
+
         result.put("messageWrapper", sendMailResult.get("messageWrapper"));
         result.put("body", bodyWriter.toString());
         result.put("subject", subject);

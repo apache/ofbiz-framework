@@ -93,7 +93,7 @@ public class PartyRelationshipServices {
         return result;
     }
 
-    /** Creates and updates a PartyRelationship creating related PartyRoles if needed. 
+    /** Creates and updates a PartyRelationship creating related PartyRoles if needed.
      *  A side of the relationship is checked to maintain history
      *@param ctx The DispatchContext that this service is operating in
      *@param context Map containing the input parameters
@@ -102,10 +102,10 @@ public class PartyRelationshipServices {
     public static Map<String, Object> createUpdatePartyRelationshipAndRoles(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();               
-        
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+
         try {
-            List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context); 
+            List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context);
             if (UtilValidate.isEmpty(partyRelationShipList)) { // If already exists and active nothing to do: keep the current one
                 String partyId = (String) context.get("partyId") ;
                 String partyIdFrom = (String) context.get("partyIdFrom") ;
@@ -116,28 +116,28 @@ public class PartyRelationshipServices {
 
                 // Before creating the partyRelationShip, create the partyRoles if they don't exist
                 GenericValue partyToRole = null;
-                partyToRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyIdTo, "roleTypeId", roleTypeIdTo), false);                    
+                partyToRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyIdTo, "roleTypeId", roleTypeIdTo), false);
                 if (partyToRole == null) {
                     partyToRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyIdTo, "roleTypeId", roleTypeIdTo));
                     partyToRole.create();
                 }
-                
+
                 GenericValue partyFromRole= null;
                 partyFromRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom), false);
                 if (partyFromRole == null) {
                     partyFromRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom));
                     partyFromRole.create();
-                }                    
+                }
 
                 // Check if there is already a partyRelationship of that type with another party from the side indicated
                 String sideChecked = partyIdFrom.equals(partyId)? "partyIdFrom" : "partyIdTo";
                 partyRelationShipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap(sideChecked, partyId,
-                        "roleTypeIdFrom", roleTypeIdFrom, 
+                        "roleTypeIdFrom", roleTypeIdFrom,
                         "roleTypeIdTo", roleTypeIdTo,
-                        "partyRelationshipTypeId", partyRelationshipTypeId));                    
+                        "partyRelationshipTypeId", partyRelationshipTypeId));
                 // We consider the last one (in time) as sole active (we try to maintain a unique relationship and keep changes history)
-                partyRelationShipList = EntityUtil.filterByDate(partyRelationShipList); 
-                GenericValue oldPartyRelationShip = EntityUtil.getFirst(partyRelationShipList);  
+                partyRelationShipList = EntityUtil.filterByDate(partyRelationShipList);
+                GenericValue oldPartyRelationShip = EntityUtil.getFirst(partyRelationShipList);
                 if (UtilValidate.isNotEmpty(oldPartyRelationShip)) {
                         oldPartyRelationShip.setFields(UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp())); // Current becomes inactive
                         oldPartyRelationShip.store();
@@ -154,6 +154,6 @@ public class PartyRelationshipServices {
             return ServiceUtil.returnError("Could not create party relationship (write failure): " + e.getMessage());
         }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        return result;        
+        return result;
     }
 }

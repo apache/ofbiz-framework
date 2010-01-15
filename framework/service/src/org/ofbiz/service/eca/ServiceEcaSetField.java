@@ -81,7 +81,7 @@ public class ServiceEcaSetField {
             } else if (UtilValidate.isNotEmpty(this.envName) && context.get(this.envName) != null) {
                 newValue = this.format((String) context.get(this.envName), context);
             }
-            
+
             if (newValue != null) {
                 if (UtilValidate.isNotEmpty(this.mapName)) {
                     valueMap.put(this.fieldName, newValue);

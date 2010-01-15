@@ -216,8 +216,8 @@ public class RequestHandler {
                         callRedirect(newUrl, response, request);
                     }
                 }
-            // if this is a new session and forceHttpSession is true and the request is secure but does not 
-            // need to be then we need the session cookie to be created via an http response (rather than https) 
+            // if this is a new session and forceHttpSession is true and the request is secure but does not
+            // need to be then we need the session cookie to be created via an http response (rather than https)
             // so we'll redirect to an unsecure request
             } else if (forceHttpSession && request.isSecure() && session.isNew() && !requestMap.securityHttps) {
                 StringBuilder urlBuf = new StringBuilder();
@@ -823,7 +823,7 @@ public class RequestHandler {
         if (viewNoCache) {
            UtilHttp.setResponseBrowserProxyNoCache(resp);
            if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
-        }        
+        }
 
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);

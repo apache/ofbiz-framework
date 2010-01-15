@@ -366,7 +366,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
         boolean disabled = textField.disabled;
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextField ");
         sr.append("name=\"");
@@ -393,7 +393,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
-        
+
         sr.append(" clientAutocomplete=\"");
         sr.append(clientAutocomplete);
         sr.append("\" ajaxUrl=\"");
@@ -717,7 +717,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         List<String> currentValueList = null;
         if (UtilValidate.isNotEmpty(currentValue) && dropDownField.isAllowMultiple()) {
-            // If currentValue is Array, it will start with [ 
+            // If currentValue is Array, it will start with [
             if (currentValue.startsWith("[")) {
                 currentValueList = StringUtil.toList(currentValue);
             }
@@ -749,7 +749,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                     options.append("");
                 }
             }
-           
+
             options.append("'}");
             if (ajaxEnabled) {
                 count++;
@@ -1106,7 +1106,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String action = modelFormField.getAction(context);
         String event = modelFormField.getEvent();
         String id = modelFormField.getIdName();
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
         sr.append(" name=\"");
@@ -1147,15 +1147,15 @@ public class MacroFormRenderer implements FormStringRenderer {
                 renderHyperlinkTitle(sb, context, modelFormField, titleText);
             }
         }
-        
+
         //check for required field style on single forms
         if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isNotEmpty(requiredStyle)) {
                 style = requiredStyle;
             }
-        }         
-        
+        }
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderFieldTitle ");
         sr.append(" style=\"");
@@ -1283,7 +1283,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         List<ModelFormField> childFieldList = modelForm.getFieldList();
         List<String> columnStyleList = FastList.newInstance();
-        List<String> fieldNameList = FastList.newInstance(); 
+        List<String> fieldNameList = FastList.newInstance();
         for (ModelFormField childField : childFieldList) {
             int childFieldType = childField.getFieldInfo().getFieldType();
             if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
@@ -1882,7 +1882,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String id = modelFormField.getIdName();
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
-        
+
         //add default ajax auto completer to all lookup fields
         if (UtilValidate.isEmpty(updateAreas) && UtilValidate.isNotEmpty(lookupFieldFormName)) {
             String autoCompleterTarget = null;
@@ -1895,17 +1895,17 @@ public class MacroFormRenderer implements FormStringRenderer {
             updateAreas = FastList.newInstance();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }
-        
+
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
         String autocomplete = "";
         if (!lookupField.getClientAutocompleteField() || ajaxEnabled) {
             autocomplete = "off";
         }
-        
+
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);       
+        String action = modelFormField.getAction(context);
         boolean disabled = lookupField.disabled;
-        
+
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         String formName = modelFormField.getModelForm().getCurrentFormName(context);
@@ -1957,7 +1957,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
-        
+
         sr.append(" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" descriptionFieldName=\"");
@@ -1976,7 +1976,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
         executeMacro(sr.toString());
-        
+
         this.addAsterisks(writer, context, modelFormField);
 
         this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
@@ -2020,7 +2020,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         int viewIndex = modelForm.getViewIndex(context);
         int viewSize = modelForm.getViewSize(context);
         int listSize = modelForm.getListSize(context);
-        
+
         int lowIndex = modelForm.getLowIndex(context);
         int highIndex = modelForm.getHighIndex(context);
         int actualPageSize = modelForm.getActualPageSize(context);
@@ -2165,7 +2165,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 selectSizeUrl = rh.makeLink(this.request, this.response, urlPath + linkText);
             }
         }
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderNextPrev ");
         sr.append(" paginateStyle=\"");
@@ -2558,8 +2558,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             StringWriter sr = new StringWriter();
             makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, "", modelFormField, this.request, this.response, context, "");
-            
-            String title = sr.toString().replace("\"", "\'");            
+
+            String title = sr.toString().replace("\"", "\'");
             sr = new StringWriter();
             sr.append("<@renderHyperlinkTitle ");
             sr.append(" name=\"");
@@ -2826,12 +2826,12 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" description=\"");
             sr.append(description);
             sr.append("\" confirmation =\"");
-            sr.append(confirmation );            
+            sr.append(confirmation );
             sr.append("\" />");
             executeMacro(sr.toString());
         }
     }
-    
+
     public void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation , ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
@@ -2863,7 +2863,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" description=\"");
             sr.append(description);
             sr.append("\" confirmation =\"");
-            sr.append(confirmation );            
+            sr.append(confirmation );
             sr.append("\" />");
             executeMacro(sr.toString());
         }
@@ -2901,7 +2901,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" />");
         executeMacro(sr.toString());
     }
-    
+
     public void renderContainerFindField(Appendable writer,
             Map<String, Object> context, ContainerField containerField)
             throws IOException {

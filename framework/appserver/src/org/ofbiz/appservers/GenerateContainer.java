@@ -486,11 +486,11 @@ public class GenerateContainer implements Container {
             try {
                 if (writer != null) {
                     writer.flush();
-                    writer.close();                    
+                    writer.close();
                 }
             } catch (IOException e) {
                 throw new ContainerException(e);
-            }            
+            }
         }
 
     }

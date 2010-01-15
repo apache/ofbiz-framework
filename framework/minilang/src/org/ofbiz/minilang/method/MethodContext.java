@@ -280,7 +280,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public Authorization getAuthz() {
         return this.authz;
     }
-    
+
     public Security getSecurity() {
         return this.security;
     }

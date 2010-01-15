@@ -143,16 +143,16 @@ public class SOAPEventHandler implements EventHandler {
 
         // not a wsdl request; invoke the service
         response.setContentType("text/xml");
-        
+
         // request envelope
         SOAPEnvelope reqEnv = null;
-        
+
         // get the service name and parameters
         try {
             XMLStreamReader xmlReader = StAXUtils.createXMLStreamReader(request.getInputStream());
             StAXSOAPModelBuilder builder = new StAXSOAPModelBuilder(xmlReader);
             reqEnv = (SOAPEnvelope) builder.getDocumentElement();
-            
+
             // log the request message
             if (Debug.verboseOn()) {
                 try {
@@ -164,9 +164,9 @@ public class SOAPEventHandler implements EventHandler {
             sendError(response, "Problem processing the service");
             throw new EventHandlerException("Cannot get the envelope", e);
         }
-        
+
         Debug.logVerbose("[Processing]: SOAP Event", module);
-        
+
         try {
             // each is a different service call
             SOAPBody reqBody = reqEnv.getBody();
@@ -191,7 +191,7 @@ public class SOAPEventHandler implements EventHandler {
                             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
                             StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
                             OMElement resultSer = resultsBuilder.getDocumentElement();
-                            
+
                             // create the response soap
                             SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
                             SOAPEnvelope resEnv = factory.createSOAPEnvelope();
@@ -200,14 +200,14 @@ public class SOAPEventHandler implements EventHandler {
                             resService.addChild(resultSer.getFirstElement());
                             resBody.addChild(resService);
                             resEnv.addChild(resBody);
-                            
+
                             // The declareDefaultNamespace method doesn't work see (https://issues.apache.org/jira/browse/AXIS2-3156)
-                            // so the following doesn't work: 
+                            // so the following doesn't work:
                             // resService.declareDefaultNamespace(ModelService.TNS);
                             // instead, create the xmlns attribute directly:
                             OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
                             resService.addAttribute(defaultNS);
-                            
+
                             // log the response message
                             if (Debug.verboseOn()) {
                                 try {
@@ -230,21 +230,21 @@ public class SOAPEventHandler implements EventHandler {
             sendError(response, e.getMessage());
             throw new EventHandlerException(e.getMessage(), e);
         }
-        
+
         return null;
     }
 
     private void sendError(HttpServletResponse res, String errorMessage) throws EventHandlerException {
         try {
             // setup the response
-        	res.setContentType("text/xml");
+            res.setContentType("text/xml");
             Map<String, Object> results = FastMap.newInstance();
             results.put("errorMessage", errorMessage);
             String xmlResults= XmlSerializer.serialize(results);
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = new StAXOMBuilder(xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
-            
+
             // create the response soap
             SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
             SOAPEnvelope resEnv = factory.createSOAPEnvelope();
@@ -253,7 +253,7 @@ public class SOAPEventHandler implements EventHandler {
             errMsg.addChild(resultSer.getFirstElement());
             resBody.addChild(errMsg);
             resEnv.addChild(resBody);
-            
+
             // log the response message
             if (Debug.verboseOn()) {
                 try {
@@ -261,7 +261,7 @@ public class SOAPEventHandler implements EventHandler {
                 } catch (Throwable t) {
                 }
             }
-            
+
             resEnv.serialize(res.getOutputStream());
             res.getOutputStream().flush();
         } catch (Exception e) {

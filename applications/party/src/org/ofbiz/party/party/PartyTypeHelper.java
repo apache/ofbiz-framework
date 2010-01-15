@@ -33,17 +33,17 @@ import org.ofbiz.entity.util.EntityTypeUtil;
 public class PartyTypeHelper {
 
     public static final String module = PartyTypeHelper.class.getName();
-    
+
     /** Check if a related party is of the right party type (PERSON or PARTY_GROUP)
      *@param delegator needed Delegator
-     *@param partyId a a valid Party Id string 
+     *@param partyId a a valid Party Id string
      *@param checkedPartyType a string in {PERSON, PARTY_GROUP}
      *@return Boolean, false in case of error
-     */    
-    public static Boolean checkPartyType(Delegator delegator, String partyId, String checkedPartyType) {    
+     */
+    public static Boolean checkPartyType(Delegator delegator, String partyId, String checkedPartyType) {
         GenericValue party = null;
         GenericValue partyType = null;
-        GenericValue checkedTypeOfParty = null; 
+        GenericValue checkedTypeOfParty = null;
         try {
             party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
             if (UtilValidate.isNotEmpty(party)) {
@@ -53,8 +53,8 @@ public class PartyTypeHelper {
                 return false;
             }
         } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);            
-        }    
+            Debug.logWarning(e, module);
+        }
         return EntityTypeUtil.isType(partyType, checkedTypeOfParty);
-    }    
+    }
 }

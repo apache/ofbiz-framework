@@ -48,11 +48,11 @@ public class ExpressCheckoutEvents {
     public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String module = ExpressCheckoutEvents.class.getName();
     public static enum CheckoutType {PAYFLOW, STANDARD, NONE};
-    
+
     public static String setExpressCheckout(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        
+
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckoutType checkoutType = determineCheckoutType(request);
         if (!checkoutType.equals(CheckoutType.NONE)) {
@@ -98,7 +98,7 @@ public class ExpressCheckoutEvents {
         }
         return "success";
     }
-    
+
     public static String expressCheckoutUpdate(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         CheckoutType checkoutType = determineCheckoutType(request);
@@ -118,7 +118,7 @@ public class ExpressCheckoutEvents {
     public static String getExpressCheckoutDetails(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        
+
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         CheckoutType checkoutType = determineCheckoutType(request);
         if (!checkoutType.equals(CheckoutType.NONE)) {
@@ -142,10 +142,10 @@ public class ExpressCheckoutEvents {
                 return "error";
             }
         }
-            
+
         return "success";
     }
-    
+
     public static Map<String, Object> doExpressCheckout(String productStoreId, String orderId, GenericValue paymentPref, GenericValue userLogin, Delegator delegator, LocalDispatcher dispatcher) {
         CheckoutType checkoutType = determineCheckoutType(delegator, productStoreId);
         if (!checkoutType.equals(CheckoutType.NONE)) {
@@ -166,7 +166,7 @@ public class ExpressCheckoutEvents {
             }
             return result;
         }
-            
+
         return ServiceUtil.returnSuccess();
     }
 
@@ -205,5 +205,5 @@ public class ExpressCheckoutEvents {
         }
         return CheckoutType.NONE;
     }
-    
+
 }

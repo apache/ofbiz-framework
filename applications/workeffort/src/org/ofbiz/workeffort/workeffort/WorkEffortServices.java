@@ -361,7 +361,7 @@ public class WorkEffortServices {
                     EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
                     EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT")
                     );
-            
+
             if (cancelledCheckAndList != null) {
                 publicEvents.addAll(cancelledCheckAndList);
             }
@@ -436,9 +436,9 @@ public class WorkEffortServices {
      * </ul>
      * </ul>
      */
-   
+
     public static Map<String, Object> getWorkEffortEventsByPeriod(DispatchContext ctx, Map<String, ? extends Object> context) {
-        
+
         /*
          To create testdata for  this function for  fixedasset/facility
 
@@ -447,10 +447,10 @@ public class WorkEffortServices {
         2) enter as productId "PROD_MANUF", quantity 1, start date tomorrow and press the submit button
     `    3) in the next screen, click on the "Confirm" link (top part of the sccreen)
 
-        Now you have a confirmed production run (starting tomorrow) happening in facility "WebStoreWarehouse", 
+        Now you have a confirmed production run (starting tomorrow) happening in facility "WebStoreWarehouse",
         with a task happening in fixed asset "WORKCENTER_COST"
 
-        In the calendars screen, selecting the proper facility you should see the work effort associated to the production run; 
+        In the calendars screen, selecting the proper facility you should see the work effort associated to the production run;
         if you select the proper fixed asset you should see the task.
 
          */
@@ -517,7 +517,7 @@ public class WorkEffortServices {
         List<EntityCondition> cancelledCheckAndList = UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"),
                 EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-        
+
 
         List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
         if (entityExprList == null) {
@@ -526,13 +526,13 @@ public class WorkEffortServices {
 
         // should have at least a start date
         EntityCondition startDateRequired = EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
-                EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),                                
-                EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null)                                
+                EntityCondition.makeCondition("estimatedStartDate", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("actualStartDate", EntityOperator.NOT_EQUAL, null)
         ), EntityJoinOperator.OR);
-        
+
         List<EntityCondition> periodCheckAndlList = UtilMisc.<EntityCondition>toList(
                 startDateRequired,
-                // the startdate should be less than the period end 
+                // the startdate should be less than the period end
                 EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                                 EntityCondition.makeCondition("actualStartDate", EntityOperator.EQUALS, null),
@@ -544,7 +544,7 @@ public class WorkEffortServices {
                                 EntityCondition.makeCondition("actualStartDate", EntityOperator.LESS_THAN_EQUAL_TO, endStamp)
                         ), EntityJoinOperator.AND)
                 ), EntityJoinOperator.OR),
-                // if the completion date is not null then it should be larger than the period start 
+                // if the completion date is not null then it should be larger than the period start
                 EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
                         // can also be empty
                         EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(
@@ -563,7 +563,7 @@ public class WorkEffortServices {
                                 EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp)
                         ), EntityJoinOperator.AND)
                 ), EntityJoinOperator.OR));
-        
+
         entityExprList.addAll(periodCheckAndlList);
 
         // (non cancelled) recurring events
@@ -576,7 +576,7 @@ public class WorkEffortServices {
                 EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
                 EntityCondition.makeCondition(recurringEvents, EntityJoinOperator.AND)
                 ), EntityJoinOperator.OR);
-        
+
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
@@ -585,7 +585,7 @@ public class WorkEffortServices {
                     // Debug.log("=====conditions for party: " + eclTotal);
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
                 } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
-                    EntityConditionList<EntityCondition> ecl = 
+                    EntityConditionList<EntityCondition> ecl =
                         EntityCondition.makeCondition(UtilMisc.toList(
                             eclTotal,
                             EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId)
@@ -595,7 +595,7 @@ public class WorkEffortServices {
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, orderByList, null, false);
                     tempWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", ecl, null, orderByList, null, false)));
                 } else {
-                    EntityConditionList<EntityCondition> ecl = 
+                    EntityConditionList<EntityCondition> ecl =
                         EntityCondition.makeCondition(UtilMisc.toList(
                             eclTotal,
                             EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)

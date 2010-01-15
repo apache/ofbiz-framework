@@ -190,7 +190,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 txt = simpleEncoder.encode(txt);
             }
             writer.append(txt);
-            
+
         }
         if (!menuItem.getMenuItemList().isEmpty()) {
             appendWhitespace(writer);

@@ -40,15 +40,15 @@ public class DataLoader {
     private SeleniumXml parent;
     private SeleniumXml currentTest;
     private List<Element> children;
-    
+
     private int currentRowIndx;
-    
-    
+
+
     //Objects initialized from csvreader script.
     private PyDictionary fieldNameMap;
     private PyList dataList;
     private PyList fieldNames;
-    
+
     public DataLoader(String file, String iterations, SeleniumXml parent, List<Element> children) {
         super();
         this.file = file;
@@ -66,7 +66,7 @@ public class DataLoader {
         Map<String, Object> map = FastMap.newInstance();
         map.put("file", this.file);
         interp.set("params", map);
-    
+
         interp.exec("from csvreader import CSVReader");
         String cmd = "reader = CSVReader('" + this.file + "')";
         interp.exec(cmd);
@@ -75,17 +75,17 @@ public class DataLoader {
         this.fieldNameMap = (PyDictionary) interp.eval("reader.fieldNameMap");
         //interp.execfile("c:/dev/ag/seleniumxml/plugins/csvreader.py");
         //interp.execfile("c:/dev/ag/seleniumxml/plugins/TestCSVReader.py");
-       
+
         //Now get output from script
         //this.dataList = (PyArray) map.get("dataList");
         //this.fieldNames = (PyDictionary) map.get("fieldNames");
-        
+
     }
-    
+
     private void next() {
         this.currentRowIndx = (this.currentRowIndx + 1) % this.dataList.__len__();
     }
-    
+
     private void loadData() {
 
         int size = this.fieldNames.__len__();
@@ -98,9 +98,9 @@ public class DataLoader {
             PyObject value = valueList.__getitem__(convIndx);
             this.currentTest.addParam((String) name.__tojava__(String.class), (String) value.__tojava__(String.class));
         }
-        
+
     }
-    
+
     public void runTest() throws TestCaseException {
 
         //Depending on the iteration instruction repeat the following until complete
@@ -110,13 +110,13 @@ public class DataLoader {
         if(iter == -1) {
             iter = this.dataList.__len__();
         }
-    
+
         this.currentTest = new SeleniumXml(this.parent);
         for( int i=0; i<iter; i++) {
             loadData();
             currentTest.runCommands(this.children);
             next();
         }
-        
+
     }
 }

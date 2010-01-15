@@ -61,7 +61,7 @@ public class AuthenticationComparator implements Comparator<Authenticator> {
      *         second.
      * @throws ClassCastException if the arguments' types prevent them from
      *                            being compared by this Comparator.
-     */    
+     */
     public int compare(Authenticator a1, Authenticator a2) {
         if (a1.getWeight() < a2.getWeight()) {
             return -1;

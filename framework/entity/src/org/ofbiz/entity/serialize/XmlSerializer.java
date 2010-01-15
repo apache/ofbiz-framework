@@ -363,7 +363,7 @@ public class XmlSerializer {
                             Element mapKeyElement = UtilXml.firstChildElement(curElement, "map-Key");
                             Element keyElement = null;
                             Node tempNode = mapKeyElement.getFirstChild();
-                            
+
                             while (tempNode != null) {
                                 if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
                                     keyElement = (Element) tempNode;

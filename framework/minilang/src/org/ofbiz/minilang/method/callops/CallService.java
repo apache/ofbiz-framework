@@ -57,7 +57,7 @@ public class CallService extends MethodOperation {
 
     public static final String module = CallService.class.getName();
     public static final String resource = "MiniLangErrorUiLabels";
-    
+
     protected String serviceName;
     protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
@@ -316,14 +316,14 @@ public class CallService extends MethodOperation {
         String successSuffixStr = successSuffix.getMessage(methodContext.getLoader(), methodContext);
         String messagePrefixStr = messagePrefix.getMessage(methodContext.getLoader(), methodContext);
         String messageSuffixStr = messageSuffix.getMessage(methodContext.getLoader(), methodContext);
-        
+
         String errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, errorPrefixStr, errorSuffixStr);
         if (UtilValidate.isNotEmpty(errorMessage)) {
             errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), 
+                ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()),
                         UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
                 // the old way, makes a mess of messages passed up the stack: methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errorMessage);
                 Debug.logError(new Exception(errorMessage), module);

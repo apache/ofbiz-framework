@@ -273,9 +273,9 @@ public class VerifyPickSession implements Serializable {
 
     public VerifyPickSessionRow getPickRow(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId) {
         for (VerifyPickSessionRow line : this.getPickRows(orderId)) {
-            if (orderItemSeqId.equals(line.getOrderItemSeqId()) && shipGroupSeqId.equals(line.getShipGroupSeqId()) 
+            if (orderItemSeqId.equals(line.getOrderItemSeqId()) && shipGroupSeqId.equals(line.getShipGroupSeqId())
                     && productId.equals(line.getProductId()) && inventoryItemId.equals(line.getInventoryItemId())) {
-                return line; 
+                return line;
             }
         }
         return null;
@@ -398,7 +398,7 @@ public class VerifyPickSession implements Serializable {
         if (UtilValidate.isNotEmpty(orderRoleShipTo)) {
             newShipment.put("partyIdTo", orderRoleShipTo.getString("partyId"));
         }
-        String partyIdFrom = null; 
+        String partyIdFrom = null;
         GenericValue orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", line.getShipGroupSeqId())));
         if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("vendorPartyId"))) {
             partyIdFrom = orderItemShipGroup.getString("vendorPartyId");

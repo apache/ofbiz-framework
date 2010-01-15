@@ -35,8 +35,8 @@ public class ServiceDaHandler implements DynamicAccessHandler {
     private static final String module = ServiceDaHandler.class.getName();
     protected LocalDispatcher dispatcher;
     protected Delegator delegator;
-    
-    public String getPattern() {        
+
+    public String getPattern() {
         return "^service:(.*)$";
     }
 
@@ -46,7 +46,7 @@ public class ServiceDaHandler implements DynamicAccessHandler {
         serviceContext.put("permission", permission);
         serviceContext.put("accessString", accessString);
         serviceContext.put("permissionContext", context);
-        
+
         String serviceName = accessString.substring(8);
         Map<String, Object> result;
         try {
@@ -55,7 +55,7 @@ public class ServiceDaHandler implements DynamicAccessHandler {
             Debug.logError(e, module);
             return false;
         }
-        
+
         if (result != null && !ServiceUtil.isError(result)) {
             Boolean reply = (Boolean) result.get("permissionGranted");
             if (reply == null) {

@@ -25,7 +25,7 @@ import org.ofbiz.service.LocalDispatcher;
 public class OFBizTestCase extends EntityTestCase {
 
     protected LocalDispatcher dispatcher = null;
-    
+
     public LocalDispatcher getDispatcher() {
         return dispatcher;
     }

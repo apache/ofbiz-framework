@@ -78,13 +78,13 @@ public interface Authenticator {
     public float getWeight();
 
     /**
-     * Is the user synchronized back to OFBiz 
+     * Is the user synchronized back to OFBiz
      * @return true if the user record is copied to the OFB database
      */
     public boolean isUserSynchronized();
 
     /**
-     * Is this expected to be the only authenticator, if so errors will be thrown when users cannot be found 
+     * Is this expected to be the only authenticator, if so errors will be thrown when users cannot be found
      * @return true if this is expected to be the only Authenticator
      */
     public boolean isSingleAuthenticator();

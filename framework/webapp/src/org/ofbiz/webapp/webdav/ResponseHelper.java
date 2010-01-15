@@ -49,20 +49,20 @@ public class ResponseHelper {
             response.setStatus(statusCode, statusString);
         }
     }
-    
+
     protected final Document responseDocument;
-    
+
     public ResponseHelper() {
         this.responseDocument = UtilXml.makeEmptyXmlDocument();
     }
-    
+
     public Element createElementSetValue(String elementName, String value) {
         Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, elementName);
         element.appendChild(element.getOwnerDocument().createTextNode(value));
         element.setNodeValue(value);
         return element;
     }
-    
+
     public Element createHrefElement(String hrefUrl) {
         return createElementSetValue("D:href", hrefUrl);
     }
@@ -78,7 +78,7 @@ public class ResponseHelper {
         }
         return element;
     }
-    
+
     public Element createResponseElement() {
         return this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:response");
     }

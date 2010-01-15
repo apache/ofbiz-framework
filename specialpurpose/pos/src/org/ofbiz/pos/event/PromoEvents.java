@@ -60,9 +60,9 @@ public class PromoEvents {
             }
         }
     }
-    
+
     public static synchronized void clientProfile(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.clientProfile(pos);
-    }        
+    }
 }

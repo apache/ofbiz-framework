@@ -97,14 +97,14 @@ public class UserAttributeMapper {
 
     private String getCrowdKey(String name) {
         Properties props = UtilProperties.getProperties("crowd.properties");
-        return (String) props.get("crowd.attribute.map." + name);        
+        return (String) props.get("crowd.attribute.map." + name);
     }
 
     private SOAPAttribute makeAttribute(String name, String value) {
         SOAPAttribute attr = new SOAPAttribute();
         attr.setName(getCrowdKey(name));
-        attr.setValues(new String[] {value});       
-        
+        attr.setValues(new String[] {value});
+
         removeAttributeByName(attr.getName());
         attributes.add(attr);
         return attr;

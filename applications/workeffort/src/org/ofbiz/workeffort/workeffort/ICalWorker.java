@@ -89,7 +89,7 @@ public class ICalWorker {
      * response when a user is logged in, but they don't have the basic CRUD
      * permissions to perform an action. Returning a Forbidden status will
      * prevent the client from trying the operation again.
-     * 
+     *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
      * @return
@@ -102,7 +102,7 @@ public class ICalWorker {
      * response when a user is not logged in, and basic CRUD permissions are
      * needed to perform an action. Returning an Unauthorized status will
      * force the client to authenticate the user, then try the operation again.
-     * 
+     *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
      * @return
@@ -121,7 +121,7 @@ public class ICalWorker {
 
     /** Create an HTTP Partial Content response. The calendar converter will use this
      * response when a calendar is only partially updated.
-     * 
+     *
      * @param statusMessage A message describing which calendar components were
      * not updated
      * @return

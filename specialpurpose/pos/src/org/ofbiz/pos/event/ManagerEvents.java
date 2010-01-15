@@ -377,7 +377,7 @@ public class ManagerEvents {
             pos.refresh();
         }
     }
-    
+
     public static synchronized void SwapKeyboard(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
@@ -387,12 +387,12 @@ public class ManagerEvents {
             if ("N".equalsIgnoreCase(showKeyboardInSaveSale)) {
                 UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "Y");
             } else {
-                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "N");                
+                UtilProperties.setPropertyValueInMemory("parameters.properties", "ShowKeyboardInSaveSale", "N");
             }
         }
     }
-    
-    
+
+
 
     public static synchronized void shutdown(PosScreen pos) {
         if (!mgrLoggedIn) {
@@ -483,24 +483,24 @@ public class ManagerEvents {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
-        
+
             Delegator delegator = pos.getSession().getDelegator();
             List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
                     EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
             EntityListIterator eli = null;
-    
+
             try {
                 eli = delegator.find("OrderHeaderAndPaymentPref", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, null);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-    
+
             Timestamp dayStart = state.getTimestamp("openedDate");
             Timestamp dayEnd = state.getTimestamp("closedDate");
             if (dayEnd == null) {
                 dayEnd = UtilDateTime.nowTimestamp();
             }
-    
+
             if (eli != null) {
                 GenericValue ohpp;
                 while (((ohpp = (GenericValue) eli.next()) != null)) {
@@ -508,7 +508,7 @@ public class ManagerEvents {
                     if (orderDate.after(dayStart) && orderDate.before(dayEnd)) {
                         String pmt = ohpp.getString("paymentMethodTypeId");
                         BigDecimal amt = ohpp.getBigDecimal("maxAmount");
-    
+
                         if ("CASH".equals(pmt)) {
                             cashTotal = cashTotal.add(amt);
                         } else  if ("PERSONAL_CHECK".equals(pmt)) {
@@ -523,12 +523,12 @@ public class ManagerEvents {
                         total = total.add(amt);
                     }
                 }
-    
+
                 try {
                     eli.close();
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, "Trouble closing ELI", module);
-                    pos.showDialog("dialog/error/exception", e.getMessage());                    
+                    pos.showDialog("dialog/error/exception", e.getMessage());
                 }
             }
         } catch (GenericTransactionException e) {
@@ -548,7 +548,7 @@ public class ManagerEvents {
                 pos.showDialog("dialog/error/exception", e.getMessage());
             }
         }
-            
+
 
         Map<String, String> reportMap = FastMap.newInstance();
         String reportTemplate = "totals.txt";

@@ -115,25 +115,25 @@ public class PayPalEvents {
         String itemName = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         String itemNumber = "0";
-        
+
         // get the redirect url
         String redirectUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl", configString, "payment.paypal.redirect");
-        
+
         // get the notify url
         String notifyUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "notifyUrl", configString, "payment.paypal.notify");
-        
+
         // get the return urls
         String returnUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "returnUrl", configString, "payment.paypal.return");
-        
+
         // get the cancel return urls
         String cancelReturnUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cancelReturnUrl", configString, "payment.paypal.cancelReturn");
-        
+
         // get the image url
         String imageUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "imageUrl", configString, "payment.paypal.image");
-        
+
         // get the paypal account
         String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal.business");
-        
+
         if (UtilValidate.isEmpty(redirectUrl)
             || UtilValidate.isEmpty(notifyUrl)
             || UtilValidate.isEmpty(returnUrl)
@@ -242,7 +242,7 @@ public class PayPalEvents {
         } catch (IOException e) {
             Debug.logError(e, "Problems sending verification message", module);
         }
-        
+
         Debug.logInfo("Got verification from PayPal, processing..", module);
         boolean verified = false;
         Set <String> keySet = parametersMap.keySet();
@@ -259,7 +259,7 @@ public class PayPalEvents {
         if (!verified) {
             Debug.logError("###### PayPal did not verify this request, need investigation!", module);
         }
-        
+
         // get the system user
         GenericValue userLogin = null;
         try {
@@ -508,7 +508,7 @@ public class PayPalEvents {
 
         return true;
     }
-    
+
     private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
                                                        String resource, String parameterName) {
         String returnValue = "";

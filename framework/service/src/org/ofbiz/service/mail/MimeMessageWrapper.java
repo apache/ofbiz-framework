@@ -76,14 +76,14 @@ public class MimeMessageWrapper implements java.io.Serializable {
     public void setMessage(MimeMessage message) {
         if (message != null) {
             // serialize the message
-            this.message = message;            
+            this.message = message;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             try {
                 message.writeTo(baos);
                 baos.flush();
                 serializedBytes = baos.toByteArray();
                 this.contentType = message.getContentType();
-                
+
                 // see if this is a multi-part message
                 Object content = message.getContent();
                 if (content instanceof Multipart) {
@@ -121,7 +121,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
         }
         return message;
     }
-    
+
     public String getFirstHeader(String header) {
         String[] headers = getHeader(header);
         if (headers != null && headers.length > 0) {
@@ -139,67 +139,67 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     public Address[] getFrom() {
         MimeMessage message = getMessage();
         try {
             return message.getFrom();
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public Address[] getTo() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.TO);
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public Address[] getCc() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.CC);
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public Address[] getBcc() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.BCC);
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public String getSubject() {
         MimeMessage message = getMessage();
         try {
             return message.getSubject();
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public String getMessageId() {
         MimeMessage message = getMessage();
         try {
             return message.getMessageID();
         } catch (MessagingException e) {
             Debug.logError(e, module);
-            return null; 
+            return null;
         }
     }
-    
+
     public Timestamp getSentDate() {
         MimeMessage message = getMessage();
         try {
@@ -209,7 +209,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     public Timestamp getReceivedDate() {
         MimeMessage message = getMessage();
         try {
@@ -219,15 +219,15 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-            
+
     public String getContentType() {
         return contentType;
     }
-    
+
     public int getMainPartCount() {
         return this.parts;
     }
-    
+
     public int getSubPartCount(int index) {
         BodyPart part = getPart(Integer.toString(index));
         try {
@@ -242,10 +242,10 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return -1;
         }
     }
-    
+
     public List<String> getAttachmentIndexes() {
-        List<String> attachments = FastList.newInstance();        
-        if (getMainPartCount() == 0) { // single part message (no attachments) 
+        List<String> attachments = FastList.newInstance();
+        if (getMainPartCount() == 0) { // single part message (no attachments)
             return attachments;
         } else {
             for (int i = 0; i < getMainPartCount(); i++) {
@@ -253,23 +253,23 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 String idx = Integer.toString(i);
                 if (subPartCount > 0) {
                     for (int si = 0; si < subPartCount; si++) {
-                        String sidx = idx + "." + Integer.toString(si);                        
+                        String sidx = idx + "." + Integer.toString(si);
                         if (getPartDisposition(sidx) != null && (getPartDisposition(sidx).equals(Part.ATTACHMENT) ||
                                 getPartDisposition(sidx).equals(Part.INLINE))) {
-                            attachments.add(sidx);                        
+                            attachments.add(sidx);
                         }
                     }
-                } else {                    
+                } else {
                     if (getPartDisposition(idx) != null && (getPartDisposition(idx).equals(Part.ATTACHMENT) ||
                             getPartDisposition(idx).equals(Part.INLINE))) {
-                        attachments.add(idx);                    
+                        attachments.add(idx);
                     }
                 }
             }
             return attachments;
         }
     }
-    
+
     public String getMessageBody() {
         MimeMessage message = getMessage();
         if (getMainPartCount() == 0) { // single part message
@@ -278,7 +278,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 return getContentText(content);
             } catch (Exception e) {
                 Debug.logError(e, module);
-                return null;   
+                return null;
             }
         } else { // multi-part message
             StringBuffer body = new StringBuffer();
@@ -290,7 +290,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                         String sidx = idx + "." + Integer.toString(si);
                         if (getPartContentType(sidx) != null && getPartContentType(sidx).toLowerCase().startsWith("text")) {
                             if (getPartDisposition(sidx) == null || getPartDisposition(sidx).equals(Part.INLINE)) {
-                                body.append(getPartText(sidx)).append("\n");    
+                                body.append(getPartText(sidx)).append("\n");
                             }
                         }
                     }
@@ -298,15 +298,15 @@ public class MimeMessageWrapper implements java.io.Serializable {
                     if (getPartContentType(idx) != null && getPartContentType(idx).toLowerCase().startsWith("text")) {
                         // make sure the part isn't an attachment
                         if (getPartDisposition(idx) == null || getPartDisposition(idx).equals(Part.INLINE)) {
-                            body.append(getPartText(idx)).append("\n");                        
+                            body.append(getPartText(idx)).append("\n");
                         }
                     }
                 }
             }
             return body.toString();
-        }        
+        }
     }
-    
+
     public String getMessageBodyContentType() {
         String contentType = getContentType();
         if (contentType != null && contentType.toLowerCase().startsWith("text")) {
@@ -320,7 +320,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                         String sidx = idx + "." + Integer.toString(si);
                         if (getPartContentType(sidx) != null && getPartContentType(sidx).toLowerCase().startsWith("text")) {
                             if (getPartDisposition(sidx) == null || getPartDisposition(sidx).equals(Part.INLINE)) {
-                                return getPartContentType(sidx);  
+                                return getPartContentType(sidx);
                             }
                         }
                     }
@@ -328,7 +328,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
                     if (getPartContentType(idx) != null && getPartContentType(idx).toLowerCase().startsWith("text")) {
                         // make sure the part isn't an attachment
                         if (getPartDisposition(idx) == null || getPartDisposition(idx).equals(Part.INLINE)) {
-                            return getPartContentType(idx);                      
+                            return getPartContentType(idx);
                         }
                     }
                 }
@@ -336,21 +336,21 @@ public class MimeMessageWrapper implements java.io.Serializable {
         }
         return "text/html";
     }
-    
+
     public String getMessageRawText() {
         MimeMessage message = getMessage();
         try {
             return getTextFromStream(message.getInputStream());
         } catch (Exception e) {
             Debug.logError(e, module);
-            return null;           
+            return null;
         }
     }
-    
-    public String getPartDescription(String index) {        
+
+    public String getPartDescription(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
-            try {                
+            try {
                 return part.getDescription();
             } catch (MessagingException e) {
                 Debug.logError(e, module);
@@ -358,13 +358,13 @@ public class MimeMessageWrapper implements java.io.Serializable {
             }
         } else {
             return null;
-        }        
+        }
     }
-    
-    public String getPartContentType(String index) {        
+
+    public String getPartContentType(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
-            try {                
+            try {
                 return part.getContentType();
             } catch (MessagingException e) {
                 Debug.logError(e, module);
@@ -372,9 +372,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
             }
         } else {
             return null;
-        }        
+        }
     }
-    
+
     public String getPartDisposition(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
@@ -388,7 +388,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     public String getPartFilename(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
@@ -402,23 +402,23 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     public ByteBuffer getPartByteBuffer(String index) {
         BodyPart part = getPart(index);
-        if (part != null) {            
+        if (part != null) {
             try {
                 InputStream stream = part.getInputStream();
                 return getByteBufferFromStream(stream);
             } catch (Exception e) {
                 Debug.logError(e, module);
                 return null;
-            }                       
+            }
         } else {
             return null;
-        }        
+        }
     }
-    
-    public String getPartText(String index) {                
+
+    public String getPartText(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -431,8 +431,8 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
-    public String getPartRawText(String index) {                
+
+    public String getPartRawText(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -445,15 +445,15 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     public BodyPart getPart(String indexStr) {
-        int mainIndex, subIndex;         
+        int mainIndex, subIndex;
         try {
             if (indexStr.indexOf(".") == -1) {
                 mainIndex = Integer.parseInt(indexStr);
                 subIndex = -1;
             } else {
-                String[] indexSplit = indexStr.split("\\.");               
+                String[] indexSplit = indexStr.split("\\.");
                 mainIndex = Integer.parseInt(indexSplit[0]);
                 subIndex = Integer.parseInt(indexSplit[1]);
             }
@@ -464,7 +464,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             Debug.logError(e, "Illegal index string format. Should be part 'dot' subpart: " + indexStr, module);
             return null;
         }
-        
+
         if (getMainPartCount() > 0 && getMainPartCount() > mainIndex) {
             MimeMessage message = this.getMessage();
             try {
@@ -495,7 +495,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             return null;
         }
     }
-    
+
     protected String getContentText(Object content) {
         if (content == null) return null;
         if (content instanceof String) {
@@ -507,14 +507,14 @@ public class MimeMessageWrapper implements java.io.Serializable {
                 return getTextFromStream(((Message) content).getInputStream());
             } catch (Exception e) {
                 Debug.logError(e, module);
-                return null;       
+                return null;
             }
         } else {
             Debug.logWarning("Content was not a string or a stream; no known handler -- " + content.toString(), module);
             return null;
         }
     }
-    
+
     protected String getTextFromStream(InputStream stream) {
         StringBuilder builder = new StringBuilder();
         byte[] buffer = new byte[4096];
@@ -528,11 +528,11 @@ public class MimeMessageWrapper implements java.io.Serializable {
         }
         return builder.toString();
     }
-    
+
     protected ByteBuffer getByteBufferFromStream(InputStream stream) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[4096];
-        try {            
+        try {
             for (int n; (n = stream.read(buffer)) != -1;) {
                 baos.write(buffer, 0, n);
             }
@@ -540,7 +540,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             Debug.logError(e, module);
             return null;
         }
-        
+
         return ByteBuffer.wrap(baos.toByteArray());
     }
 }

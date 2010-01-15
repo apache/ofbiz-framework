@@ -723,7 +723,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     this.itemType = "PRODUCT_ORDER_ITEM";
                 }
             } else {
-                // NOTE DEJ20100111: it seems safe to assume here that because a product is passed in that even if the product has no type this type of item still applies; thanks to whoever wrote the previous code, that's a couple of hours tracking this down that I wouldn't have minded doing something else with... :) 
+                // NOTE DEJ20100111: it seems safe to assume here that because a product is passed in that even if the product has no type this type of item still applies; thanks to whoever wrote the previous code, that's a couple of hours tracking this down that I wouldn't have minded doing something else with... :)
                 this.itemType = "PRODUCT_ORDER_ITEM";
             }
         } else {

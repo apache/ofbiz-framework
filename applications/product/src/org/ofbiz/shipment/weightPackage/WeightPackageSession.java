@@ -192,7 +192,7 @@ public class WeightPackageSession implements Serializable {
     public String getDimensionUomId() {
         return dimensionUomId;
     }
-    
+
     public void setCarrierPartyId(String carrierPartyId) {
         this.carrierPartyId = carrierPartyId;
     }
@@ -303,7 +303,7 @@ public class WeightPackageSession implements Serializable {
         this.createPackages(orderId);
         // calculate the actual shipping charges according to package(s) weight and dimensions
         BigDecimal actualShippingCost = ZERO;
-        // Check if UPS integration is done 
+        // Check if UPS integration is done
         if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
             // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
             actualShippingCost = this.upsShipmentConfirm();
@@ -331,7 +331,7 @@ public class WeightPackageSession implements Serializable {
     }
 
     public boolean completeShipment(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
-        // Check if UPS integration is done 
+        // Check if UPS integration is done
         if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
             // call upsShipmentAccept service, it will made record(s) in ShipmentPackageRouteSeg entity
             this.upsShipmentAccept();
@@ -528,7 +528,7 @@ public class WeightPackageSession implements Serializable {
     protected void savePackagesInfo(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
         //create the package(s)
         this.createPackages(orderId);
-        // Check if UPS integration is done 
+        // Check if UPS integration is done
         if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
             // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
             this.upsShipmentConfirm();

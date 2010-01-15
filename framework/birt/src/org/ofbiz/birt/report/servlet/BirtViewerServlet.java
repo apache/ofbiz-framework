@@ -39,13 +39,13 @@ import org.ofbiz.birt.report.context.OFBizBirtContext;
 import org.ofbiz.birt.report.service.OFBizBirtViewerReportService;
 
 public class BirtViewerServlet extends ViewerServlet {
-    
+
     public final static String module = BirtViewerServlet.class.getName();
-    
+
     protected void __init(ServletConfig config) {
         BirtReportServiceFactory.init( new OFBizBirtViewerReportService( config
                 .getServletContext( ) ) );
-        
+
         // handle 'frameset' pattern
         viewer = new FramesetFragment( );
         viewer.buildComposite( );

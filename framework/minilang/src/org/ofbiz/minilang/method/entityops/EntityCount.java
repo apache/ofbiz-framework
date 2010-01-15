@@ -106,7 +106,7 @@ public class EntityCount extends MethodOperation {
             }
 
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
-            
+
             // create whereEntityCondition from whereCondition
             EntityCondition whereEntityCondition = null;
             if (this.whereCondition != null) {

@@ -42,7 +42,7 @@ public class Converters {
     /** Null converter used when the source and target java object
      * types are the same. The <code>convert</code> method returns the
      * source object.
-     * 
+     *
      */
     public static final Converter<Object, Object> nullConverter = new NullConverter();
 
@@ -150,7 +150,7 @@ public class Converters {
     /** Null converter used when the source and target java object
      * types are the same. The <code>convert</code> method returns the
      * source object.
-     * 
+     *
      */
     protected static class NullConverter implements Converter<Object, Object> {
         public NullConverter() {

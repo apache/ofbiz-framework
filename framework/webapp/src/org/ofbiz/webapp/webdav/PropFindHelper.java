@@ -33,11 +33,11 @@ import org.w3c.dom.NodeList;
 public class PropFindHelper extends ResponseHelper {
 
     protected final Document requestDocument;
-    
+
     public PropFindHelper(Document requestDocument) {
         this.requestDocument = requestDocument;
     }
-    
+
     public Element createPropElement(List<Element> propList) {
         Element element = this.responseDocument.createElementNS(DAV_NAMESPACE_URI, "D:prop");
         if (UtilValidate.isNotEmpty(propList)) {

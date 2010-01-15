@@ -54,7 +54,7 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
     }
 
     public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
-        
+
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {

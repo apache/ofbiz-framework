@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 public final class Main {
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         Planner<?, ?, ?, ?, ?, ?, ?> planner = new DebugPlanner();
-		List<SQLStatement<?>> statements = new Parser(System.in).SQLFile();
+        List<SQLStatement<?>> statements = new Parser(System.in).SQLFile();
         for (SQLStatement<?> statement: statements) {
             run(statement, planner);
         }
-	}
+    }
 
     private static final void run(SQLStatement statement, Planner planner) {
         System.err.println(statement);

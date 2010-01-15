@@ -30,10 +30,10 @@ public class JythonRunner {
     private String urlName;
     private SeleniumXml parent;
     private SeleniumXml currentTest;
-    
+
     private int currentRowIndx;
-    
-    
+
+
     public JythonRunner(String urlName, SeleniumXml parent) {
         super();
         this.urlName = urlName;
@@ -43,7 +43,7 @@ public class JythonRunner {
     public void runTest() {
 
         PythonInterpreter interp = InitJython.getInterpreter();
-        
+
         Map<String, Object> map = this.parent.getMap();
         map.put("url", this.urlName);
         try {
@@ -55,8 +55,8 @@ public class JythonRunner {
         } catch(IOException e) {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
-        
-        
+
+
     }
-    
+
 }

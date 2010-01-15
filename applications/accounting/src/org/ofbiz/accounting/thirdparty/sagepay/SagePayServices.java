@@ -74,7 +74,7 @@ public class SagePayServices
     {
         Debug.logInfo("SagePay - Entered paymentAuthentication", module);
         Debug.logInfo("SagePay paymentAuthentication context : " + context, module);
-        
+
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -101,7 +101,7 @@ public class SagePayServices
         String billingPhone = (String) context.get("billingPhone");
 
         Boolean isBillingSameAsDelivery = (Boolean) context.get("isBillingSameAsDelivery");
-    
+
         String deliverySurname = (String) context.get("deliverySurname");
         String deliveryFirstnames = (String) context.get("deliveryFirstnames");
         String deliveryAddress = (String) context.get("deliveryAddress");
@@ -116,7 +116,7 @@ public class SagePayServices
         String issueNumber = (String) context.get("issueNumber");
         String basket = (String) context.get("basket");
         String clientIPAddress = (String) context.get("clientIPAddress");
-    
+
         HttpClient httpClient = SagePayUtil.getHttpClient();
         HttpHost host = SagePayUtil.getHost(props);
 
@@ -152,7 +152,7 @@ public class SagePayServices
         if (billingState != null) { parameters.put("BillingState", billingState); }
         if (billingPhone != null) { parameters.put("BillingPhone", billingPhone); }
         //end - billing details
-    
+
         //start - delivery details
         if (isBillingSameAsDelivery != null && isBillingSameAsDelivery) {
             if (billingSurname != null) { parameters.put("DeliverySurname", billingSurname); }
@@ -188,7 +188,7 @@ public class SagePayServices
         //end - authentication parameters
 
         try {
-            
+
             String successMessage = null;
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("authenticationUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
@@ -196,7 +196,7 @@ public class SagePayServices
 
             String status = responseData.get("Status");
             String statusDetail = responseData.get("StatusDetail");
-        
+
             resultMap.put("status", status);
             resultMap.put("statusDetail", statusDetail);
 
@@ -277,7 +277,7 @@ public class SagePayServices
             Debug.logError(ioe, errorMsg, module);
             resultMap = ServiceUtil.returnError(errorMsg);
         } finally {
-            httpClient.getConnectionManager().shutdown();        
+            httpClient.getConnectionManager().shutdown();
         }
         return resultMap;
     }
@@ -286,7 +286,7 @@ public class SagePayServices
     {
         Debug.logInfo("SagePay - Entered paymentAuthorisation", module);
         Debug.logInfo("SagePay paymentAuthorisation context : " + context, module);
-        
+
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -300,7 +300,7 @@ public class SagePayServices
 
         HttpClient httpClient = SagePayUtil.getHttpClient();
         HttpHost host = SagePayUtil.getHost(props);
-    
+
         //start - authorization parameters
         Map<String, String> parameters = new HashMap<String, String>();
 
@@ -319,31 +319,31 @@ public class SagePayServices
 
         Debug.logInfo("authorization parameters -> " + parameters, module);
         //end - authorization parameters
-    
+
         try {
             String successMessage = null;
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("authoriseUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
-            
+
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
             String status = responseData.get("Status");
             String statusDetail = responseData.get("StatusDetail");
-      
+
             resultMap.put("status", status);
             resultMap.put("statusDetail", statusDetail);
-        
+
             //start - payment refunded
             if ("OK".equals(status)) {
                 successMessage = "Payment Released";
             }
             //end - payment refunded
-        
+
             //start - refund request not formed properly or parameters missing
             if ("MALFORMED".equals(status)) {
                 successMessage = "Released request not formed properly or parameters missing";
             }
             //end - refund request not formed properly or parameters missing
-        
+
             //start - invalid information passed in parameters
             if ("INVALID".equals(status)) {
                 successMessage = "Invalid information passed in parameters";
@@ -355,7 +355,7 @@ public class SagePayServices
                 successMessage = "Problem at SagePay";
             }
             //end - problem at Sagepay
-        
+
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
@@ -375,7 +375,7 @@ public class SagePayServices
             Debug.logError(ioe, errorMsg, module);
             resultMap = ServiceUtil.returnError(errorMsg);
         } finally {
-            httpClient.getConnectionManager().shutdown();        
+            httpClient.getConnectionManager().shutdown();
         }
         return resultMap;
     }
@@ -419,7 +419,7 @@ public class SagePayServices
             String successMessage = null;
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("releaseUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
-            
+
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
 
             String status = responseData.get("Status");
@@ -454,7 +454,7 @@ public class SagePayServices
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
-            
+
         }  catch(UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             String errorMsg = "Error occured in encoding parameters for HttpPost (" + uee.getMessage() + ")";
@@ -471,7 +471,7 @@ public class SagePayServices
             Debug.logError(ioe, errorMsg, module);
             resultMap = ServiceUtil.returnError(errorMsg);
         } finally {
-            httpClient.getConnectionManager().shutdown();        
+            httpClient.getConnectionManager().shutdown();
         }
         return resultMap;
     }
@@ -480,7 +480,7 @@ public class SagePayServices
     {
         Debug.logInfo("SagePay - Entered paymentVoid", module);
         Debug.logInfo("SagePay paymentVoid context : " + context, module);
-        
+
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -493,7 +493,7 @@ public class SagePayServices
 
         HttpClient httpClient = SagePayUtil.getHttpClient();
         HttpHost host = SagePayUtil.getHost(props);
-        
+
         //start - void parameters
         Map<String, String> parameters = new HashMap<String, String>();
 
@@ -515,7 +515,7 @@ public class SagePayServices
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("voidUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
-        
+
             String status = responseData.get("Status");
             String statusDetail = responseData.get("StatusDetail");
 
@@ -539,7 +539,7 @@ public class SagePayServices
                 successMessage = "Invalid information passed in parameters";
             }
             //end - invalid information passed in parameters
-        
+
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
                 successMessage = "Problem at SagePay";
@@ -548,7 +548,7 @@ public class SagePayServices
 
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
-            
+
         }  catch(UnsupportedEncodingException uee) {
             //exception in encoding parameters in httpPost
             String errorMsg = "Error occured in encoding parameters for HttpPost (" + uee.getMessage() + ")";
@@ -565,7 +565,7 @@ public class SagePayServices
             Debug.logError(ioe, errorMsg, module);
             resultMap = ServiceUtil.returnError(errorMsg);
         } finally {
-            httpClient.getConnectionManager().shutdown();        
+            httpClient.getConnectionManager().shutdown();
         }
         return resultMap;
     }
@@ -579,12 +579,12 @@ public class SagePayServices
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
-    
+
         String vendorTxCode = (String)context.get("vendorTxCode");
         String amount = (String)context.get("amount");
         String currency = (String)context.get("currency");
         String description = (String)context.get("description");
-    
+
         String relatedVPSTxId = (String) context.get("relatedVPSTxId");
         String relatedVendorTxCode = (String) context.get("relatedVendorTxCode");
         String relatedSecurityKey = (String) context.get("relatedSecurityKey");
@@ -618,12 +618,12 @@ public class SagePayServices
             HttpPost httpPost = SagePayUtil.getHttpPost(props.get("refundUrl"), parameters);
             HttpResponse response = httpClient.execute(host, httpPost);
             Map<String, String> responseData = SagePayUtil.getResponseData(response);
-            
+
             Debug.logInfo("response data -> " + responseData, module);
-        
+
             String status = responseData.get("Status");
             String statusDetail = responseData.get("StatusDetail");
-      
+
             resultMap.put("status", status);
             resultMap.put("statusDetail", statusDetail);
 
@@ -634,7 +634,7 @@ public class SagePayServices
                 successMessage = "Payment Refunded";
             }
             //end - payment refunded
-        
+
             //start - refund not authorized by the acquiring bank
             if ("NOTAUTHED".equals(status)) {
                 successMessage = "Refund not authorized by the acquiring bank";
@@ -652,13 +652,13 @@ public class SagePayServices
                 successMessage = "Invalid information passed in parameters";
             }
             //end - invalid information passed in parameters
-        
+
             //start - problem at Sagepay
             if ("ERROR".equals(status)) {
                 successMessage = "Problem at SagePay";
             }
             //end - problem at Sagepay
-        
+
             resultMap.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             resultMap.put(ModelService.SUCCESS_MESSAGE, successMessage);
 
@@ -678,7 +678,7 @@ public class SagePayServices
             Debug.logError(ioe, errorMsg, module);
             resultMap = ServiceUtil.returnError(errorMsg);
         } finally {
-            httpClient.getConnectionManager().shutdown();        
+            httpClient.getConnectionManager().shutdown();
         }
 
         return resultMap;

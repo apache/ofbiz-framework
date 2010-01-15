@@ -100,7 +100,7 @@ import org.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
- * iCal4J</a> library. 
+ * iCal4J</a> library.
  */
 public class ICalConverter {
 
@@ -111,7 +111,7 @@ public class ICalConverter {
     protected static final String uidPrefix = "ORG-APACHE-OFBIZ-WE-";
     protected static final String workEffortIdXPropName = "X-ORG-APACHE-OFBIZ-WORKEFFORT-ID";
     protected static final String reminderXPropName = "X-ORG-APACHE-OFBIZ-REMINDER-ID";
-    protected static final Map<String, String> fromStatusMap = UtilMisc.toMap("TENTATIVE", "CAL_TENTATIVE", 
+    protected static final Map<String, String> fromStatusMap = UtilMisc.toMap("TENTATIVE", "CAL_TENTATIVE",
             "CONFIRMED", "CAL_CONFIRMED", "CANCELLED", "CAL_CANCELLED", "NEEDS-ACTION", "CAL_NEEDS_ACTION",
             "COMPLETED", "CAL_COMPLETED", "IN-PROCESS", "CAL_ACCEPTED");
     protected static final Map<String, Status> toStatusMap = UtilMisc.toMap("CAL_TENTATIVE", Status.VEVENT_TENTATIVE,
@@ -122,7 +122,7 @@ public class ICalConverter {
             "PRTYASGN_OFFERED", PartStat.TENTATIVE, "PRTYASGN_ASSIGNED", PartStat.ACCEPTED);
     protected static final Map<String, String> fromPartStatusMap = UtilMisc.toMap(
             "TENTATIVE", "PRTYASGN_OFFERED", "ACCEPTED", "PRTYASGN_ASSIGNED");
-    protected static final Map<String, String> fromRoleMap = UtilMisc.toMap("ATTENDEE", "CAL_ATTENDEE", 
+    protected static final Map<String, String> fromRoleMap = UtilMisc.toMap("ATTENDEE", "CAL_ATTENDEE",
             "CONTACT", "CONTACT", "ORGANIZER", "CAL_ORGANIZER");
 
     protected static VAlarm createAlarm(GenericValue workEffortEventReminder) {
@@ -278,7 +278,7 @@ public class ICalConverter {
         }
         return fromStatusMap.get(iCalObj.getValue());
     }
-    
+
     protected static String fromSummary(PropertyList propertyList) {
         Summary iCalObj = (Summary) propertyList.getProperty(Summary.SUMMARY);
         if (iCalObj == null) {
@@ -378,7 +378,7 @@ public class ICalConverter {
         }
     }
 
-    /** Returns a calendar derived from a Work Effort calendar publish point. 
+    /** Returns a calendar derived from a Work Effort calendar publish point.
      * @param workEffortId ID of a work effort with <code>workEffortTypeId</code> equal to
      * <code>PUBLISH_PROPS</code>.
      * @param context The conversion context

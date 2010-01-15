@@ -162,7 +162,7 @@ public class TaxAuthorityServices {
                 if (productStoreId != null) {
                     productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
                 }
-             
+
             } catch (GenericEntityException e) {
                 String errMsg = "Data error getting tax settings: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -176,14 +176,14 @@ public class TaxAuthorityServices {
         else
         {
             try {
-                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);    
+                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
             } catch (GenericEntityException e) {
                 String errMsg = "Data error getting tax settings: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
             }
         }
-     
+
         // Setup the return lists.
         List orderAdjustments = FastList.newInstance();
         List itemAdjustments = FastList.newInstance();
@@ -286,7 +286,7 @@ public class TaxAuthorityServices {
             taxAuthCondOrList.add(taxAuthCond);
         }
         EntityCondition taxAuthoritiesCond = EntityCondition.makeCondition(taxAuthCondOrList, EntityOperator.OR);
-  
+
         try {
             EntityCondition productCategoryCond = null;
             if (product != null) {
@@ -318,14 +318,14 @@ public class TaxAuthorityServices {
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minItemPrice", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minItemPrice", EntityOperator.LESS_THAN_EQUAL_TO, itemPrice)));
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minPurchase", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minPurchase", EntityOperator.LESS_THAN_EQUAL_TO, itemAmount)));
             EntityCondition mainCondition = EntityCondition.makeCondition(mainExprs, EntityOperator.AND);
-    
+
             // create the orderby clause
             List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
 
             // finally ready... do the rate query
             List lookupList = delegator.findList("TaxAuthorityRateProduct", mainCondition, null, orderList, null, false);
             List filteredList = EntityUtil.filterByDate(lookupList, true);
-           
+
             if (filteredList.size() == 0) {
                 Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), module);
                 return adjustments;

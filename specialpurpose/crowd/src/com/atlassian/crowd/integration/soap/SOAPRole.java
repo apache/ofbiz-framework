@@ -71,7 +71,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the ID value for this SOAPRole.
-     * 
+     *
      * @return ID
      */
     public java.lang.Long getID() {
@@ -81,7 +81,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the ID value for this SOAPRole.
-     * 
+     *
      * @param ID
      */
     public void setID(java.lang.Long ID) {
@@ -91,7 +91,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the active value for this SOAPRole.
-     * 
+     *
      * @return active
      */
     public java.lang.Boolean getActive() {
@@ -101,7 +101,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the active value for this SOAPRole.
-     * 
+     *
      * @param active
      */
     public void setActive(java.lang.Boolean active) {
@@ -111,7 +111,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the attributes value for this SOAPRole.
-     * 
+     *
      * @return attributes
      */
     public com.atlassian.crowd.integration.soap.SOAPAttribute[] getAttributes() {
@@ -121,7 +121,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the attributes value for this SOAPRole.
-     * 
+     *
      * @param attributes
      */
     public void setAttributes(com.atlassian.crowd.integration.soap.SOAPAttribute[] attributes) {
@@ -131,7 +131,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the conception value for this SOAPRole.
-     * 
+     *
      * @return conception
      */
     public java.util.Calendar getConception() {
@@ -141,7 +141,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the conception value for this SOAPRole.
-     * 
+     *
      * @param conception
      */
     public void setConception(java.util.Calendar conception) {
@@ -151,7 +151,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the description value for this SOAPRole.
-     * 
+     *
      * @return description
      */
     public java.lang.String getDescription() {
@@ -161,7 +161,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the description value for this SOAPRole.
-     * 
+     *
      * @param description
      */
     public void setDescription(java.lang.String description) {
@@ -171,7 +171,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the directoryID value for this SOAPRole.
-     * 
+     *
      * @return directoryID
      */
     public java.lang.Long getDirectoryID() {
@@ -181,7 +181,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the directoryID value for this SOAPRole.
-     * 
+     *
      * @param directoryID
      */
     public void setDirectoryID(java.lang.Long directoryID) {
@@ -191,7 +191,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the lastModified value for this SOAPRole.
-     * 
+     *
      * @return lastModified
      */
     public java.util.Calendar getLastModified() {
@@ -201,7 +201,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the lastModified value for this SOAPRole.
-     * 
+     *
      * @param lastModified
      */
     public void setLastModified(java.util.Calendar lastModified) {
@@ -211,7 +211,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the members value for this SOAPRole.
-     * 
+     *
      * @return members
      */
     public java.lang.String[] getMembers() {
@@ -221,7 +221,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the members value for this SOAPRole.
-     * 
+     *
      * @param members
      */
     public void setMembers(java.lang.String[] members) {
@@ -231,7 +231,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Gets the name value for this SOAPRole.
-     * 
+     *
      * @return name
      */
     public java.lang.String getName() {
@@ -241,7 +241,7 @@ public class SOAPRole  implements java.io.Serializable {
 
     /**
      * Sets the name value for this SOAPRole.
-     * 
+     *
      * @param name
      */
     public void setName(java.lang.String name) {
@@ -259,32 +259,32 @@ public class SOAPRole  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.ID==null && other.getID()==null) || 
+        _equals = true &&
+            ((this.ID==null && other.getID()==null) ||
              (this.ID!=null &&
               this.ID.equals(other.getID()))) &&
-            ((this.active==null && other.getActive()==null) || 
+            ((this.active==null && other.getActive()==null) ||
              (this.active!=null &&
               this.active.equals(other.getActive()))) &&
-            ((this.attributes==null && other.getAttributes()==null) || 
+            ((this.attributes==null && other.getAttributes()==null) ||
              (this.attributes!=null &&
               java.util.Arrays.equals(this.attributes, other.getAttributes()))) &&
-            ((this.conception==null && other.getConception()==null) || 
+            ((this.conception==null && other.getConception()==null) ||
              (this.conception!=null &&
               this.conception.equals(other.getConception()))) &&
-            ((this.description==null && other.getDescription()==null) || 
+            ((this.description==null && other.getDescription()==null) ||
              (this.description!=null &&
               this.description.equals(other.getDescription()))) &&
-            ((this.directoryID==null && other.getDirectoryID()==null) || 
+            ((this.directoryID==null && other.getDirectoryID()==null) ||
              (this.directoryID!=null &&
               this.directoryID.equals(other.getDirectoryID()))) &&
-            ((this.lastModified==null && other.getLastModified()==null) || 
+            ((this.lastModified==null && other.getLastModified()==null) ||
              (this.lastModified!=null &&
               this.lastModified.equals(other.getLastModified()))) &&
-            ((this.members==null && other.getMembers()==null) || 
+            ((this.members==null && other.getMembers()==null) ||
              (this.members!=null &&
               java.util.Arrays.equals(this.members, other.getMembers()))) &&
-            ((this.name==null && other.getName()==null) || 
+            ((this.name==null && other.getName()==null) ||
              (this.name!=null &&
               this.name.equals(other.getName())));
         __equalsCalc = null;
@@ -429,10 +429,10 @@ public class SOAPRole  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -441,10 +441,10 @@ public class SOAPRole  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

@@ -647,10 +647,10 @@ public class ProductConfigWrapper implements Serializable {
         public String getDescription() {
             return (configOption.getString("description") != null? configOption.getString("description"): "no description");
         }
-        
+
         public String getDescription(Locale locale) {
             return (configOption.getString("description") != null? (String) configOption.get("description", locale): "no description");
-        }        
+        }
 
         public String getId() {
             return configOption.getString("configOptionId");

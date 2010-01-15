@@ -53,7 +53,7 @@ public class SagePayUtil
 
     public static Map<String, Object> buildCardAuthorisationPaymentResponse
     (Boolean authResult, String authCode, String authFlag, BigDecimal processAmount, String authRefNum, String authAltRefNum, String authMessage) {
-        
+
         Map<String, Object> result = FastMap.newInstance();
         if(authResult != null) { result.put("authResult", authResult); }
         if(authCode != null) { result.put("authCode", authCode); }
@@ -64,7 +64,7 @@ public class SagePayUtil
         if(authMessage != null) { result.put("authMessage", authMessage); }
         return result;
     }
-  
+
     public static Map<String, Object> buildCardCapturePaymentResponse
     (Boolean captureResult, String captureCode, String captureFlag, BigDecimal captureAmount, String captureRefNum, String captureAltRefNum, String captureMessage) {
 
@@ -81,7 +81,7 @@ public class SagePayUtil
 
     public static Map<String, Object> buildCardReleasePaymentResponse
     (Boolean releaseResult, String releaseCode, BigDecimal releaseAmount, String releaseRefNum, String releaseAltRefNum, String releaseMessage) {
-    
+
         Map<String, Object> result = FastMap.newInstance();
         if(releaseResult != null) { result.put("releaseResult", releaseResult); }
         if(releaseCode != null) { result.put("releaseCode", releaseCode); }
@@ -103,7 +103,7 @@ public class SagePayUtil
         if(refundMessage != null) { result.put("refundMessage", refundMessage); }
         return result;
     }
-    
+
     public static Map<String, Object> buildCardRefundPaymentResponse
     (Boolean refundResult, String refundCode, BigDecimal refundAmount, String refundRefNum, String refundAltRefNum, String refundMessage) {
 
@@ -129,7 +129,7 @@ public class SagePayUtil
         String port = hostUrl.substring(hostUrl.lastIndexOf(":")+1);
         return getHost(host, Integer.parseInt(port), scheme);
     }
-  
+
     public static HttpHost getHost(String hostName, int port, String scheme) {
         HttpHost host = new HttpHost(hostName, port, scheme);
         return host;
@@ -157,7 +157,7 @@ public class SagePayUtil
     }
 
     public static HttpPost getHttpPost(String uri, Map<String, String> parameters) throws UnsupportedEncodingException {
-        
+
         HttpPost httpPost = new HttpPost(uri);
         httpPost.addHeader("User-Agent", "HTTP Client");
         httpPost.addHeader("Content-type", "application/x-www-form-urlencoded");
@@ -165,14 +165,14 @@ public class SagePayUtil
 
         HttpParams params = new BasicHttpParams();
         httpPost.setParams(params);
-        
+
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         Set<String> keys = parameters.keySet();
         for (String key : keys) {
             String value = parameters.get(key);
             postParameters.add(new BasicNameValuePair(key, value));
         }
-        
+
         Debug.log("SagePay PostParameters - " + postParameters);
 
         HttpEntity postEntity = new UrlEncodedFormEntity(postParameters);

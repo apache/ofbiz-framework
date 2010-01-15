@@ -732,7 +732,7 @@ public class ModelMenuItem {
         public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
         }
-        
+
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message)) {
@@ -745,11 +745,11 @@ public class ModelMenuItem {
             }
             return "";
         }
-        
+
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
-        
+
         public String getConfirmationMsg(Map<String, Object> context) {
             return this.confirmationMsgExdr.expandString(context);
         }
@@ -815,11 +815,11 @@ public class ModelMenuItem {
         public void setImage(Image img) {
             this.image = img;
         }
-        
+
         public void setRequestConfirmation(boolean val) {
             this.requestConfirmation = val;
         }
-        
+
         public void setConfirmationMsg(String val) {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
         }

@@ -38,7 +38,7 @@ import org.ofbiz.birt.report.context.OFBizBirtContext;
 import org.ofbiz.birt.report.service.OFBizBirtViewerReportService;
 
 public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngineServlet {
-    
+
     public final static String module = BirtEngineServlet.class.getName();
 
     protected void __init( ServletConfig config )

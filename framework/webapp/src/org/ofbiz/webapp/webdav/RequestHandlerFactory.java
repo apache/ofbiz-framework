@@ -21,7 +21,7 @@ package org.ofbiz.webapp.webdav;
 public interface RequestHandlerFactory {
     /** Returns a <code>RequestHandler<code> instance appropriate
      * for the WebDAV HTTP method.
-     * 
+     *
      * @param method The WebDAV HTTP method. Implementations MUST
      * provide handlers for the following methods: PROPFIND, PROPPATCH,
      * MKCOL, GET, HEAD, POST, DELETE, PUT, COPY, MOVE, LOCK, UNLOCK.

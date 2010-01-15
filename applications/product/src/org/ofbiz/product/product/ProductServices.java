@@ -477,7 +477,7 @@ public class ProductServices {
 
         try {
             List<GenericValue> productAssocs = null;
-            
+
             List<String> orderBy = FastList.newInstance();
             if (sortDescending) {
                 orderBy.add("sequenceNum DESC");
@@ -488,7 +488,7 @@ public class ProductServices {
             if (bidirectional) {
                 EntityCondition cond = EntityCondition.makeCondition(
                         UtilMisc.toList(
-                                EntityCondition.makeCondition("productId", productId), 
+                                EntityCondition.makeCondition("productId", productId),
                                 EntityCondition.makeCondition("productIdTo", productId)
                        ), EntityJoinOperator.OR);
                 cond = EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type));

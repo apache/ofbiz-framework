@@ -269,9 +269,9 @@ public class Record implements Serializable {
         else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
             if (field.format.equals("EncryptedString")) {
                 String hashType = LoginServices.getHashType();
-                set(name, HashCrypt.getDigestHash(value, hashType));        	
+                set(name, HashCrypt.getDigestHash(value, hashType));
             } else {
-        	set(name, value);
+                set(name, value);
             }
         else if (fieldType.equals("NullTerminatedString")) {
             int terminate = value.indexOf(0x0);

@@ -41,10 +41,10 @@ public class GroovyRunner {
     private String urlName;
     private SeleniumXml parent;
     private SeleniumXml currentTest;
-    
+
     private int currentRowIndx;
-    
-    
+
+
     public GroovyRunner(String urlName, SeleniumXml parent) {
         super();
         this.urlName = urlName;
@@ -68,8 +68,8 @@ public class GroovyRunner {
         } catch(IOException e) {
             System.out.println("Scriptrunner, runTest, IOException error: " + e.getMessage());
         }
-        
-        
+
+
     }
-    
+
 }

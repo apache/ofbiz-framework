@@ -77,7 +77,7 @@ public abstract class AbstractJob implements Job {
      *  Executes the Job.
      */
     public abstract void exec() throws InvalidJobException;
-    
+
     public boolean isQueued() {
         return queued;
     }

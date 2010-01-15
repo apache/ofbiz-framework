@@ -191,7 +191,7 @@ public class WidgetWorker {
             writer.append("</a>");
         }
     }
-    
+
     public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
@@ -213,7 +213,7 @@ public class WidgetWorker {
                 writer.append(modelFormField.getAction(context));
                 writer.append('"');
             }
-            
+
             if (UtilValidate.isNotEmpty(confirmation)){
                 writer.append(" onclick=\"return confirm('");
                 writer.append(confirmation);

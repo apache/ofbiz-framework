@@ -162,7 +162,7 @@ public class ImportOrdersFromEbay {
             }
 
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
-            
+
             StringBuffer completeSaleXml = new StringBuffer();
 
             if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
@@ -357,7 +357,7 @@ public class ImportOrdersFromEbay {
                             String itemId = "";
 
                             Element transactionElement = (Element) transactionElemIter.next();
-                            List<? extends Element> containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");                            
+                            List<? extends Element> containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");
                             if (UtilValidate.isNotEmpty(containingOrders)) {
                                 continue;
                             }

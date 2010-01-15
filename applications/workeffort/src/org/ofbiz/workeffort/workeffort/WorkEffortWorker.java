@@ -167,17 +167,17 @@ public class WorkEffortWorker {
     }
 
     public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId) {
-    	return getLowestLevelWorkEfforts(delegator, workEffortId, workEffortAssocTypeId, "workEffortIdFrom", "workEffortIdTo");
+        return getLowestLevelWorkEfforts(delegator, workEffortId, workEffortAssocTypeId, "workEffortIdFrom", "workEffortIdTo");
     }
-    
+
     public static List<GenericValue> getLowestLevelWorkEfforts(Delegator delegator, String workEffortId, String workEffortAssocTypeId, String left, String right) {
-    	if (left == null) {
-    		left = "workEffortIdFrom";
-    	}
-    	if (right == null) {
-    		right = "workEffortIdTo";
-    	}
-    	
+        if (left == null) {
+            left = "workEffortIdFrom";
+        }
+        if (right == null) {
+            right = "workEffortIdTo";
+        }
+
         List<GenericValue> workEfforts = FastList.newInstance();
         try {
             EntityConditionList exprsLevelFirst = EntityCondition.makeCondition(UtilMisc.toList(

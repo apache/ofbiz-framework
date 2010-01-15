@@ -842,11 +842,11 @@ public class ProductPromoWorker {
             if (UtilValidate.isNotEmpty(condValue)) {
                 BigDecimal amountNeeded = new BigDecimal(condValue);
                 BigDecimal amountAvailable = BigDecimal.ZERO;
-    
+
                 // Debug.logInfo("Doing Amount Not Counted Cond with Value: " + amountNeeded, module);
-    
+
                 Set productIds = ProductPromoWorker.getPromoRuleCondProductIds(productPromoCond, delegator, nowTimestamp);
-    
+
                 List lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
                 Iterator lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator();
                 while (lineOrderedByBasePriceIter.hasNext()) {
@@ -857,14 +857,14 @@ public class ProductPromoWorker {
                     if (!cartItem.getIsPromo() &&
                             (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                             (product == null || !"N".equals(product.getString("includeInPromotions")))) {
-    
+
                         // just count the entire sub-total of the item
                         amountAvailable = amountAvailable.add(cartItem.getItemSubTotal());
                     }
                 }
-    
+
                 // Debug.logInfo("Doing Amount Not Counted Cond with Value after finding applicable cart lines: " + amountNeeded, module);
-    
+
                 compareBase = Integer.valueOf(amountAvailable.compareTo(amountNeeded));
             }
         } else if ("PPIP_PRODUCT_QUANT".equals(inputParamEnumId)) {
@@ -1136,7 +1136,7 @@ public class ProductPromoWorker {
                     } catch (RecurrenceInfoException e) {
                         Debug.logError(e, module);
                     }
-    
+
                     // check the current recurrence
                     if (recurrence != null) {
                         if (recurrence.isValidCurrent()) {

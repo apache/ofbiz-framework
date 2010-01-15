@@ -397,7 +397,7 @@ public class PartyWorker {
         }
         return partyIds;
     }
-    
+
     /**
      * Generic service to find party by id.
      * By default return the party find by partyId

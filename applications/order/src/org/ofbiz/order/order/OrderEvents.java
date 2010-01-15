@@ -96,17 +96,17 @@ public class OrderEvents {
 
         return "success";
     }
-    
+
     public static String cancelSelectedOrderItems(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-    
+
         Map resultMap = FastMap.newInstance();
         String  orderId = request.getParameter("orderId");
         String[] orderItemSeqIds = request.getParameterValues("selectedItem");
-    
+
         if (orderItemSeqIds != null) {
             for (String orderItemSeqId : orderItemSeqIds) {
                 try {
@@ -115,7 +115,7 @@ public class OrderEvents {
                     for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                         GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
                         String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
-                        
+
                         Map contextMap = FastMap.newInstance();
                         contextMap.put("orderId", orderId);
                         contextMap.put("orderItemSeqId", orderItemSeqId);
@@ -123,14 +123,14 @@ public class OrderEvents {
                         contextMap.put("userLogin", userLogin);
                         try {
                             resultMap = dispatcher.runSync("cancelOrderItem", contextMap);
-                            
+
                             if (ServiceUtil.isError(resultMap)) {
                                 String errorMessage = (String) resultMap.get("errorMessage");
                                 Debug.logError(errorMessage, module);
                                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                                 return "error";
                             }
-                            
+
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             request.setAttribute("_ERROR_MESSAGE_", resultMap.get("errorMessage"));
@@ -142,7 +142,7 @@ public class OrderEvents {
                     return "error";
                 }
             }
-            return "success"; 
+            return "success";
         } else {
             request.setAttribute("_ERROR_MESSAGE_", "No order item selected. Please select an order item to cancel");
             return "error";

@@ -244,7 +244,7 @@ public class TestRunContainer implements Container {
             } else {
                 return test.getClass().getName();
             }
-            
+
         }
     }
 }

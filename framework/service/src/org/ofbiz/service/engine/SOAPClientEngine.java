@@ -82,10 +82,10 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         Delegator delegator = dispatcher.getDelegator();
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
-        
+
         ServiceClient client = null;
         QName serviceName = null;
-        
+
         try {
             client = new ServiceClient();
             Options options = new Options();
@@ -95,19 +95,19 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         } catch (AxisFault e) {
             throw new GenericServiceException("RPC service error", e);
         }
-        
+
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
-        
+
         if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
-        
+
         if (UtilValidate.isNotEmpty(modelService.nameSpace)) {
             serviceName = new QName(modelService.nameSpace, modelService.invoke);
         } else {
             serviceName = new QName(modelService.invoke);
         }
-        
+
         int i = 0;
-        
+
         Map<String, Object> parameterMap = FastMap.newInstance();
         for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
@@ -120,7 +120,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         }
 
         OMElement parameterSer = null;
-        
+
         try {
             String xmlParameters = XmlSerializer.serialize(parameterMap);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlParameters));
@@ -129,7 +129,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         } catch (Exception e) {
             Debug.logError(e, module);
         }
-        
+
         Map<String, Object> results = null;
         try {
             OMFactory factory = OMAbstractFactory.getOMFactory();

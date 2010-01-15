@@ -30,18 +30,18 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 
 public class DynamicAccessFactory {
-    
+
     /**
      * Cache to store the DynamicAccess implementations
      */
     private static UtilCache<String,DynamicAccessHandler> dynamicAccessHandlerCache = UtilCache.createUtilCache("security.DynamicAccessHandlerCache");
     private static final String module = DynamicAccessFactory.class.getName();
-    
+
     public static DynamicAccessHandler getDynamicAccessHandler(Delegator delegator, String accessString) {
         if (dynamicAccessHandlerCache.size() == 0) { // should always be at least 1
             loadAccessHandlers(delegator);
         }
-        
+
         Set<? extends String> patterns = dynamicAccessHandlerCache.getCacheLineKeys();
         for (String pattern : patterns) {
             if (!pattern.equals("*")) { // ignore the default pattern for now
@@ -50,14 +50,14 @@ public class DynamicAccessFactory {
                 Matcher m = p.matcher(accessString);
                 if (m.find()) {
                     Debug.logInfo("Pattern [" + pattern + "] matched -- " + accessString, module);
-                    return dynamicAccessHandlerCache.get(pattern); 
+                    return dynamicAccessHandlerCache.get(pattern);
                 }
             }
         }
-        
+
         return dynamicAccessHandlerCache.get("*");
     }
-    
+
     private static void loadAccessHandlers(Delegator delegator) {
         Iterator<DynamicAccessHandler> it = ServiceRegistry.lookupProviders(DynamicAccessHandler.class, DynamicAccessFactory.class.getClassLoader());
         while (it.hasNext()) {
@@ -66,7 +66,7 @@ public class DynamicAccessFactory {
             dynamicAccessHandlerCache.put(handler.getPattern(), handler);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     public static DynamicAccess loadDynamicAccessObject(Delegator delegator, String accessString) {
         DynamicAccess da = null;
@@ -80,20 +80,20 @@ public class DynamicAccessFactory {
             Debug.logError(e, module);
             return null;
         }
-        
+
         if (clazz != null) {
             try {
                 da = clazz.newInstance();
                 da.setDelegator(delegator);
             } catch (InstantiationException e) {
                 Debug.logError(e, module);
-                return null;             
+                return null;
             } catch (IllegalAccessException e) {
                 Debug.logError(e, module);
-                return null; 
+                return null;
             }
         }
-        
+
         return da;
     }
 }

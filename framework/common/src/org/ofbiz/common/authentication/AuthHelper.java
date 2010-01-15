@@ -74,14 +74,14 @@ public class AuthHelper {
     public static void updatePassword(String username, String password, String newPassword) throws AuthenticatorException {
         if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
         for (Authenticator auth : authenticators) {
-            auth.updatePassword(username, password, newPassword);            
+            auth.updatePassword(username, password, newPassword);
         }
     }
 
     public static boolean authenticatorsLoaded() {
         return authenticatorsLoaded;
     }
-    
+
     public static void loadAuthenticators(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
             loadAuthenticators_internal(dispatcher);
@@ -95,7 +95,7 @@ public class AuthHelper {
                 try {
                     Authenticator auth = it.next();
                     if (auth.isEnabled()) {
-                        auth.initialize(dispatcher);                    
+                        auth.initialize(dispatcher);
                         authenticators.add(auth);
                     }
                 } catch (ClassCastException e) {

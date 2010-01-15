@@ -217,7 +217,7 @@ public class CrowdAuthenticator extends CrowdWorker implements Authenticator {
             } catch (GenericEntityException e) {
                 Debug.logError(e, e.getMessage(), module);
             }
-            
+
             // add it to the user if it exists
             if (secGroup != null) {
                 Map<String, Serializable> createSecGrpMap = FastMap.newInstance();
@@ -225,7 +225,7 @@ public class CrowdAuthenticator extends CrowdWorker implements Authenticator {
                 createSecGrpMap.put("groupId", securityGroup);
                 createSecGrpMap.put("fromDate", now);
                 createSecGrpMap.put("userLogin", system);
-    
+
                 Map<String, Object> createSecGrpResult;
                 try {
                     createSecGrpResult = dispatcher.runSync("addUserLoginToSecurityGroup", createSecGrpMap);

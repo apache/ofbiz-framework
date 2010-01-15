@@ -26,13 +26,13 @@ import org.ofbiz.entity.Delegator;
 public class ObjectDaHandler implements DynamicAccessHandler {
 
     private static UtilCache<String,DynamicAccess> dynamicAccessCache = UtilCache.createUtilCache("security.DynamicAccessCache");
-    
+
     protected Delegator delegator;
-    
+
     public void setDelegator(Delegator delegator) {
-        this.delegator = delegator;   
+        this.delegator = delegator;
     }
-    
+
     public String getPattern() {
         // returns "*" as a fall back pattern (catch all)
         // if no other handler comes back this handler will catch
@@ -46,17 +46,17 @@ public class ObjectDaHandler implements DynamicAccessHandler {
         }
         return false;
     }
-    
+
     private DynamicAccess getDynamicAccessObject(String name) {
         DynamicAccess da = dynamicAccessCache.get(name);
-        
+
         if (da == null) {
             da = DynamicAccessFactory.loadDynamicAccessObject(delegator, name);
             if (da != null) {
                 dynamicAccessCache.put(name, da);
             }
         }
-        
+
         return da;
-    }   
+    }
 }

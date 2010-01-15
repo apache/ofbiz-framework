@@ -303,7 +303,7 @@ public class FindServices {
                 }
                 cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
             }
-            
+
             if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
                 tmpOrList = FastList.newInstance();
                 tmpOrList.add(cond);
@@ -384,10 +384,10 @@ public class FindServices {
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, Object> context) {
         Integer viewSize = (Integer) context.get("viewSize");
         if (viewSize == null) viewSize = Integer.valueOf(20);       // default
-		context.put("viewSize", viewSize);
+        context.put("viewSize", viewSize);
         Integer viewIndex = (Integer) context.get("viewIndex");
         if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
-		context.put("viewIndex", viewIndex);
+        context.put("viewIndex", viewIndex);
 
         Map<String, Object> result = performFind(dctx,context);
 
@@ -449,9 +449,9 @@ public class FindServices {
 
         Map<String, Object> prepareResult = null;
         try {
-            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, 
+            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
                                                "inputFields", inputFields, "filterByDate", filterByDate,
-                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin, 
+                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
@@ -461,9 +461,9 @@ public class FindServices {
 
         Map<String, Object> executeResult = null;
         try {
-            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, 
-                                                                             "fieldList", fieldList, "entityConditionList", exprList, 
-                                                                             "noConditionFind", noConditionFind, "distinct", distinct, 
+            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList,
+                                                                             "fieldList", fieldList, "entityConditionList", exprList,
+                                                                             "noConditionFind", noConditionFind, "distinct", distinct,
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
                                                                              "maxRows", maxRows));
         } catch (GenericServiceException gse) {

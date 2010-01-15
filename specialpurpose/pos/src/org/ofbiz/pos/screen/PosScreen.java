@@ -94,7 +94,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
 
         // setup the shared components
         this.session = XuiContainer.getSession();
-        this.output = new Output(this);        
+        this.output = new Output(this);
         this.input = new InputWithPassword(this);
         this.journal = new Journal(this);
         this.operator = new Operator(this);

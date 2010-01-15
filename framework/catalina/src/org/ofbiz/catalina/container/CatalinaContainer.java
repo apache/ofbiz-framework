@@ -536,7 +536,7 @@ public class CatalinaContainer implements Container {
         } else {
             sessionMgr = new StandardManager();
         }
-        
+
         // create the web application context
         StandardContext context = (StandardContext) embedded.createContext(mount, location);
         context.setJ2EEApplication(J2EE_APP);

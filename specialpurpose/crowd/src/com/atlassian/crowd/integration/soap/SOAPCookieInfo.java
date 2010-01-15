@@ -43,7 +43,7 @@ public class SOAPCookieInfo  implements java.io.Serializable {
 
     /**
      * Gets the domain value for this SOAPCookieInfo.
-     * 
+     *
      * @return domain
      */
     public java.lang.String getDomain() {
@@ -53,7 +53,7 @@ public class SOAPCookieInfo  implements java.io.Serializable {
 
     /**
      * Sets the domain value for this SOAPCookieInfo.
-     * 
+     *
      * @param domain
      */
     public void setDomain(java.lang.String domain) {
@@ -63,7 +63,7 @@ public class SOAPCookieInfo  implements java.io.Serializable {
 
     /**
      * Gets the secure value for this SOAPCookieInfo.
-     * 
+     *
      * @return secure
      */
     public java.lang.Boolean getSecure() {
@@ -73,7 +73,7 @@ public class SOAPCookieInfo  implements java.io.Serializable {
 
     /**
      * Sets the secure value for this SOAPCookieInfo.
-     * 
+     *
      * @param secure
      */
     public void setSecure(java.lang.Boolean secure) {
@@ -91,11 +91,11 @@ public class SOAPCookieInfo  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.domain==null && other.getDomain()==null) || 
+        _equals = true &&
+            ((this.domain==null && other.getDomain()==null) ||
              (this.domain!=null &&
               this.domain.equals(other.getDomain()))) &&
-            ((this.secure==null && other.getSecure()==null) || 
+            ((this.secure==null && other.getSecure()==null) ||
              (this.secure!=null &&
               this.secure.equals(other.getSecure())));
         __equalsCalc = null;
@@ -152,10 +152,10 @@ public class SOAPCookieInfo  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -164,10 +164,10 @@ public class SOAPCookieInfo  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

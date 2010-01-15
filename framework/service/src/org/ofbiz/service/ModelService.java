@@ -1205,7 +1205,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             throw new WSDLException("can not create WSDL", module);
         }
         def.setTypes(this.getTypes(document, def));
-        
+
         // set the IN parameters
         Input input = def.createInput();
         Set<String> inParam = this.getInParamNames();
@@ -1325,7 +1325,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         SOAPOperation soapOperation = new SOAPOperationImpl();
         // soapAction should be set to the location of the SOAP URI, or Visual Studio won't construct the correct SOAP message
-        soapOperation.setSoapActionURI(locationURI); 
+        soapOperation.setSoapActionURI(locationURI);
         // this is the RPC/literal style.  See http://www.ibm.com/developerworks/webservices/library/ws-whichwsdl/
         // this parameter is necessary or Apache Synapse won't recognize the WSDL
         soapOperation.setStyle("rpc");
@@ -1350,7 +1350,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         service.addPort(port);
         def.addService(service);
     }
-    
+
     public Types getTypes(Document document, Definition def) {
         Types types = def.createTypes();
         /* Schema */
@@ -1360,7 +1360,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /*-----------------------------------*/
         /*--------- Standard Objects --------*/
         /*-----------------------------------*/
-        
+
         /* std-String Element */
         Element stdStringElement = document.createElement("xsd:element");
         stdStringElement.setAttribute("name", "std-String");
@@ -1442,7 +1442,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /*-----------------------------------*/
         /*----------- SQL Objects -----------*/
         /*-----------------------------------*/
-        
+
         /* sql-Timestamp Element */
         Element sqlTimestampElement = document.createElement("xsd:element");
         sqlTimestampElement.setAttribute("name", "sql-Timestamp");
@@ -1480,7 +1480,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /*-----------------------------------*/
         /*----------- List Objects -----------*/
         /*-----------------------------------*/
-        
+
         /* col-ArrayList Element */
         Element colArrayListElement = document.createElement("xsd:element");
         colArrayListElement.setAttribute("name", "col-ArrayList");
@@ -1516,11 +1516,11 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         colCollectionElement.setAttribute("name", "col-Collection");
         colCollectionElement.setAttribute("type", "tns:col-Collection");
         schema.appendChild(colCollectionElement);
-        
+
         /*-----------------------------------*/
         /*----------- Map Objects -----------*/
         /*-----------------------------------*/
-        
+
         /* map-TreeMap Element */
         Element mapTreeMapElement = document.createElement("xsd:element");
         mapTreeMapElement.setAttribute("name", "map-TreeMap");
@@ -1590,7 +1590,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /*-----------------------------------*/
         /*----------- Custom Objects -----------*/
         /*-----------------------------------*/
-        
+
         /* cus-obj Element */
         Element cusObjElement = document.createElement("xsd:element");
         cusObjElement.setAttribute("name", "cus-obj");
@@ -1604,7 +1604,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         /*-----------------------------------*/
         /*---------- Complex Types ----------*/
         /*-----------------------------------*/
-        
+
         /* map-Map Complex Type */
         Element mapMapComplexType = document.createElement("xsd:complexType");
         mapMapComplexType.setAttribute("name", "map-Map");
@@ -1774,7 +1774,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         mapValueComplexType25.setAttribute("maxOccurs", "1");
         mapValueComplexType0.appendChild(mapValueComplexType25);
         schema.appendChild(mapValueComplexType);
-        
+
         /* col-Collection Complex Type */
         Element colCollectionComplexType = document.createElement("xsd:complexType");
         colCollectionComplexType.setAttribute("name", "col-Collection");
@@ -1906,7 +1906,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         colCollectionComplexType25.setAttribute("maxOccurs", "unbounded");
         colCollectionComplexType0.appendChild(colCollectionComplexType25);
         schema.appendChild(colCollectionComplexType);
-        
+
         types.setDocumentationElement(schema);
         return types;
     }

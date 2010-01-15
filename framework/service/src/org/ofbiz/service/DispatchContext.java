@@ -252,7 +252,7 @@ public class DispatchContext implements Serializable {
     public Authorization getAuthorization() {
         return dispatcher.getAuthorization();
     }
-    
+
     /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher
