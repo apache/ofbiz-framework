@@ -224,36 +224,28 @@ public class JobManager {
             try {
                 int rescheduled = 0;
                 for (GenericValue job: crashed) {
-                    long runtime = job.getTimestamp("runTime").getTime();
-                    RecurrenceInfo ri = JobManager.getRecurrenceInfo(job);
-                    if (ri != null) {
-                        long next = ri.next();
-                        if (next <= runtime) {
-                            Timestamp now = UtilDateTime.nowTimestamp();
-                            // only re-schedule if there is no new recurrences since last run
-                            Debug.log("Scheduling Job : " + job, module);
+                    Timestamp now = UtilDateTime.nowTimestamp();
+                    Debug.log("Scheduling Job : " + job, module);
 
-                            String pJobId = job.getString("parentJobId");
-                            if (pJobId == null) {
-                                pJobId = job.getString("jobId");
-                            }
-                            GenericValue newJob = GenericValue.create(job);
-                            newJob.set("statusId", "SERVICE_PENDING");
-                            newJob.set("runTime", now);
-                            newJob.set("previousJobId", job.getString("jobId"));
-                            newJob.set("parentJobId", pJobId);
-                            newJob.set("startDateTime", null);
-                            newJob.set("runByInstanceId", null);
-                            delegator.createSetNextSeqId(newJob);
-
-                            // set the cancel time on the old job to the same as the re-schedule time
-                            job.set("statusId", "SERVICE_CRASHED");
-                            job.set("cancelDateTime", now);
-                            delegator.store(job);
-
-                            rescheduled++;
-                        }
+                    String pJobId = job.getString("parentJobId");
+                    if (pJobId == null) {
+                        pJobId = job.getString("jobId");
                     }
+                    GenericValue newJob = GenericValue.create(job);
+                    newJob.set("statusId", "SERVICE_PENDING");
+                    newJob.set("runTime", now);
+                    newJob.set("previousJobId", job.getString("jobId"));
+                    newJob.set("parentJobId", pJobId);
+                    newJob.set("startDateTime", null);
+                    newJob.set("runByInstanceId", null);
+                    delegator.createSetNextSeqId(newJob);
+
+                    // set the cancel time on the old job to the same as the re-schedule time
+                    job.set("statusId", "SERVICE_CRASHED");
+                    job.set("cancelDateTime", now);
+                    delegator.store(job);
+
+                    rescheduled++;
                 }
 
                 if (Debug.infoOn()) Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
