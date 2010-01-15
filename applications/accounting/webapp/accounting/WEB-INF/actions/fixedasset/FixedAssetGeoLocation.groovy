@@ -17,15 +17,27 @@
  * under the License.
  */
 
-import org.ofbiz.common.geo.GeoWorker;
+import org.ofbiz.base.util.*;
+import org.ofbiz.common.geo.*;
+import org.ofbiz.entity.*;
 
-fixedAssetId = parameters.fixedAssetId
+fixedAssetId = parameters.fixedAssetId;
+fa = delegator.findByPrimaryKey("FixedAsset", UtilMisc.toMap("fixedAssetId", fixedAssetId));
+uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale);
 
 if (fixedAssetId) {
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "FixedAssetAndGeoPoint", "fixedAssetId", fixedAssetId, null, null);
     context.latestGeoPoint = latestGeoPoint;
-    context.fixedAssetId = fixedAssetId;
 
+    List geoCenter = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "zoom", "13"));
+
+    if (UtilValidate.isNotEmpty(latestGeoPoint) && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
+        List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "fixedAssetId", fixedAssetId,
+                "link", UtilMisc.toMap("url", "EditFixedAsset?fixedAssetId="+ fixedAssetId, "label", uiLabelMap.AccountingFixedAsset + " " + fa.fixedAssetName)));
+
+        Map geoChart = UtilMisc.toMap("width", "500", "height", "450", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints);
+        context.geoChart = geoChart;
+    }
     if (latestGeoPoint && latestGeoPoint.elevationUomId) {
         elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
         context.elevationUomAbbr = elevationUom.abbreviation;

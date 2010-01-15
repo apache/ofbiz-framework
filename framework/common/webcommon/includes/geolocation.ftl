@@ -33,9 +33,18 @@ under the License.
             <#else>
               map.setCenter(new GLatLng(37.4419, -122.1419), 12);
             </#if>
-            map.setUIToDefault();
+            <#if geoChart.controlUI?has_content && geoChart.controlUI == "small">
+              map.addControl(new GSmallMapControl());
+            <#else>
+              map.setUIToDefault();
+            </#if>
             <#list geoChart.points as point>
+              marker = new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c}));
+              map.addOverlay(marker);
               map.addOverlay(new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c})));
+              <#if point.link?has_content>
+                marker.openInfoWindowHtml("<div style=\"width:210px; padding-right:10px;\"><a href=${point.link.url}>${point.link.label}</a></div>");
+              </#if>
             </#list>
           }
         </script>

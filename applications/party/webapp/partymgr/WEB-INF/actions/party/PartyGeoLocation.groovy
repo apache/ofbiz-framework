@@ -17,7 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.common.geo.GeoWorker;
+import org.ofbiz.common.geo.*;
+import org.ofbiz.base.util.*;
+
+uiLabelMap = UtilProperties.getResourceBundleMap("PartyUiLabels", locale);
+uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
 partyId = parameters.partyId ?: parameters.party_id;
 userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
@@ -31,9 +35,20 @@ if (!partyId && userLoginId) {
 context.partyId = partyId;
 
 latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
-context.latestGeoPoint = latestGeoPoint;
+if (latestGeoPoint) {
+    context.latestGeoPoint = latestGeoPoint;
 
-if (latestGeoPoint && latestGeoPoint.elevationUomId) {
-    elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
-    context.elevationUomAbbr = elevationUom.abbreviation;
+    List geoCenter = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "zoom", "13"));
+  
+    if (UtilValidate.isNotEmpty(latestGeoPoint) && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
+        List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "partyId", partyId,
+              "link", UtilMisc.toMap("url", "viewprofile?partyId="+ partyId, "label", uiLabelMap.PartyProfile + " " + uiLabelMap.CommonOf + " " + partyId)));
+
+        Map geoChart = UtilMisc.toMap("width", "500", "height", "450", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints);
+        context.geoChart = geoChart;
+    }
+    if (latestGeoPoint && latestGeoPoint.elevationUomId) {
+        elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
+        context.elevationUomAbbr = elevationUom.abbreviation;
+    }
 }
