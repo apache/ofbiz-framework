@@ -606,10 +606,10 @@ public class TemporalExpressions implements Serializable {
          * @param end An integer in the range of 0 to 59.
          */
         public MinuteRange(int start, int end) {
-            if (start < 0 || start > 23) {
+            if (start < 0 || start > 59) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
-            if (end < 0 || end > 23) {
+            if (end < 0 || end > 59) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
             this.start = start;
