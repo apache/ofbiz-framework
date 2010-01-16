@@ -24,7 +24,7 @@
     <PartyRole partyId="USA_IRS" roleTypeId="TAX_AUTHORITY"/>
     
     <Party partyId="CA_BOE" partyTypeId="PARTY_GROUP"/>
-    <PartyGroup partyId="CA_BOE" groupName="State of Calilfornia Board of Equalization"/>
+    <PartyGroup partyId="CA_BOE" groupName="State of California Board of Equalization"/>
     <ContactMech contactMechId="CA_BOE_0" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="CA_BOE_0" toName="Board of Equalization" address1="P O BOX 942879" city="Sacramento" stateProvinceGeoId="CA" postalCode="94279" countryGeoId="USA"/>
     <PartyContactMech partyId="CA_BOE" contactMechId="CA_BOE_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
