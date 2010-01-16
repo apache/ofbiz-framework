@@ -4307,9 +4307,22 @@ public class ShoppingCart implements Serializable {
         public Timestamp shipAfterDate = null;
         private String shipGroupSeqId = null;
         public String vendorPartyId = null;
+        public Map<String, Object> attributes = FastMap.newInstance();
 
         public CartShipInfo() {
             // Debug.logInfo(new Exception(), "Created a new CartShipInfo", module);
+        }
+
+        public void setAttribute(String name, Object value) {
+            this.attributes.put(name, value);
+        }
+
+        public void removeAttribute(String name) {
+            this.attributes.remove(name);
+        }
+
+        public Object getAttribute(String name) {
+            return this.attributes.get(name);
         }
 
         public String getOrderTypeId() { return orderTypeId; }
