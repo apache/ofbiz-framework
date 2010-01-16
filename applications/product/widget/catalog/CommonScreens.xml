@@ -92,8 +92,8 @@ under the License.
 
                                         <!-- add Create Product and View Product (in ecommerce) links -->
                                         <container style="button-bar">
-                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
-                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
+                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext create"/>
+                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext create"/>
                                             <link target="/ecommerce/control/product" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext">
                                                 <parameter param-name="product_id" from-field="productId"/>
                                             </link>
