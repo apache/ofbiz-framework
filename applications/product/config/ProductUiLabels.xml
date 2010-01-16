@@ -2900,6 +2900,7 @@
     </property>
     <property key="FormFieldTitle_printPickSheet">
         <value xml:lang="en">Print Pick Sheet</value>
+        <value xml:lang="fr">Liste de prélevement</value>
         <value xml:lang="it">Stampa lista di prelievo</value>
     </property>
     <property key="FormFieldTitle_printPickSheetFirst">

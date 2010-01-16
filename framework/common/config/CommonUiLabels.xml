@@ -5892,6 +5892,10 @@
         <value xml:lang="it">Rimuovi il portlet</value>
         <value xml:lang="zh">删除Portlet</value>
     </property>
+    <property key="CommonReport">
+        <value xml:lang="en">Report</value>
+        <value xml:lang="fr">Etat</value>
+    </property>
     <property key="CommonReports">
         <value xml:lang="ar">تقارير</value>
         <value xml:lang="de">Berichte</value>
@@ -6469,7 +6473,7 @@
         <value xml:lang="de">Bericht als E-Mail versenden</value>
         <value xml:lang="en">Send Report By Mail</value>
         <value xml:lang="es">Enviar informe por correo</value>
-        <value xml:lang="fr">Envoyé l'état par courriel</value>
+        <value xml:lang="fr">Envoyer l'état par courriel</value>
         <value xml:lang="hi_IN">रिपोर्ट मेल से भेजें</value>
         <value xml:lang="it">Invio stampa per email</value>
         <value xml:lang="pt">Enviar Relatório por Mail</value>

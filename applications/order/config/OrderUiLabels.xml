@@ -660,7 +660,7 @@
         <value xml:lang="de">Angebot Position Seq. ID</value>
         <value xml:lang="en">Quote Item Seq Id</value>
         <value xml:lang="es">Nº sec. ítem de presupuesto</value>
-        <value xml:lang="fr">Réf. séq. de ligne de devis</value>
+        <value xml:lang="fr">Réf. ligne de devis</value>
         <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
         <value xml:lang="nl">Volgende Offerte Itemnr Id</value>
         <value xml:lang="ro">Numar Secventa Linie Preventiv</value>
@@ -1650,6 +1650,7 @@
     </property>
     <property key="OrderBackToOrder">
         <value xml:lang="en">Back to order</value>
+        <value xml:lang="fr">Retour à la commande</value>
         <value xml:lang="it">Torna indietro all'ordine</value>
     </property>
     <property key="OrderBacktoShoppingCart">
@@ -1796,6 +1797,7 @@
     </property>
     <property key="OrderCancelSelectedItems">
         <value xml:lang="en">Cancel Selected Items</value>
+        <value xml:lang="fr">Annuler les articles sélectionnés</value>
         <value xml:lang="it">Cancella righe selezionate</value>
     </property>
     <property key="OrderCancelled">
@@ -2213,7 +2215,7 @@
         <value xml:lang="de">Offerte kopieren</value>
         <value xml:lang="en">Duplicate Quote</value>
         <value xml:lang="es">Duplicar presupuesto</value>
-        <value xml:lang="fr">Devis dupliqué</value>
+        <value xml:lang="fr">Duplication du devis</value>
         <value xml:lang="it">Duplicare Preventivo</value>
         <value xml:lang="nl">Offerte kopiëren</value>
         <value xml:lang="ro">Duplicare Preventiv</value>
@@ -3352,6 +3354,7 @@
     </property>
     <property key="OrderHistoryNotAvailable">
         <value xml:lang="en">History not available</value>
+        <value xml:lang="fr">Historique non disponible</value>
         <value xml:lang="it">Storia non disponibile</value>
     </property>
     <property key="OrderHold">
@@ -4009,6 +4012,7 @@
     </property>
     <property key="OrderMarkViewed">
         <value xml:lang="en">Mark Viewed</value>
+        <value xml:lang="fr">Marquer comme vu</value>
         <value xml:lang="it">Marca come visionato</value>
     </property>
     <property key="OrderMarketingPackageComposedBy">
@@ -4286,6 +4290,7 @@
     </property>
     <property key="OrderNewShippingAddress">
         <value xml:lang="en">New Shipping Address</value>
+        <value xml:lang="fr">Nouvelle adresse d'expedition</value>
         <value xml:lang="it">Nuovo indirizzo di spedizione</value>
     </property>
     <property key="OrderNewShoppingList">
@@ -5107,6 +5112,7 @@
     </property>
     <property key="OrderOrderHistory">
         <value xml:lang="en">Order History</value>
+        <value xml:lang="fr">Historique de la commande</value>
         <value xml:lang="it">Storia ordine</value>
     </property>
     <property key="OrderOrderId">
@@ -5592,7 +5598,7 @@
         <value xml:lang="de">Offerte Ausgabedatum</value>
         <value xml:lang="en">Quote Issue Date</value>
         <value xml:lang="es">Fecha de emisión</value>
-        <value xml:lang="fr">Date d'émissions du devis</value>
+        <value xml:lang="fr">Date d'émission du devis</value>
         <value xml:lang="it">Data emissione</value>
         <value xml:lang="nl">Offerte-datum</value>
         <value xml:lang="ro">Data Emisie</value>
@@ -6997,6 +7003,7 @@
     </property>
     <property key="OrderQuantityHistory">
         <value xml:lang="en">Item Quantity History</value>
+        <value xml:lang="fr">Historique quantité d'article</value>
         <value xml:lang="it">Storia quantità riga</value>
     </property>
     <property key="OrderQuantityInShipGroup">
@@ -8998,6 +9005,7 @@
     </property>
     <property key="OrderShipmentMethodHistory">
         <value xml:lang="en">Shipment Method History</value>
+        <value xml:lang="fr">Historique de l'expedition</value>
         <value xml:lang="it">Storia metodi di spedizione</value>
     </property>
     <property key="OrderShipmentReceived">
@@ -9743,6 +9751,7 @@
     </property>
     <property key="OrderUnitPriceHistory">
         <value xml:lang="en">Item Unit Price History</value>
+        <value xml:lang="fr">Historique prix unitaire d'article</value>
         <value xml:lang="it">Storia prezzo unitario riga</value>
     </property>
     <property key="OrderUnitsPieces">
@@ -9971,6 +9980,7 @@
     </property>
     <property key="OrderViewOrderHistory">
         <value xml:lang="en">View Order History</value>
+        <value xml:lang="fr">Voir l'historique de la commande</value>
         <value xml:lang="it">Mostra storia ordine</value>
         <value xml:lang="nl">Bekijk eerdere bestellingen</value>
     </property>
@@ -10685,5 +10695,32 @@
         <value xml:lang="ru">Просмотреть запрос</value>
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
+    </property>
+    <property key="ProjectMgrActualHours">
+        <value xml:lang="de">Ist-Stunden</value>
+        <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="fr">Heures réelles</value>
+        <value xml:lang="it">Ore attuali</value>
+        <value xml:lang="nl">Werk. uren</value>
+        <value xml:lang="th">ชั่วโมงจริง</value>
+        <value xml:lang="zh">实际工时</value>
+    </property>
+    <property key="ProjectMgrPlannedHours">
+        <value xml:lang="de">Geplante Stunden</value>
+        <value xml:lang="en">Planned Hours</value>
+        <value xml:lang="fr">Heures planifiées</value>
+        <value xml:lang="it">Ore pianificate</value>
+        <value xml:lang="nl">Gepl. uren</value>
+        <value xml:lang="th">ชั่วโมงที่วางแผน</value>
+        <value xml:lang="zh">已计划工时</value>
+    </property>
+    <property key="ProjectMgrProjectName">
+        <value xml:lang="de">Projektname</value>
+        <value xml:lang="en">Project Name</value>
+        <value xml:lang="fr">Nom du projet</value>
+        <value xml:lang="it">Nome progetto</value>
+        <value xml:lang="nl">Naam</value>
+        <value xml:lang="th">ชื่อโปรเจค</value>
+        <value xml:lang="zh">项目名称</value>
     </property>
 </resource>
