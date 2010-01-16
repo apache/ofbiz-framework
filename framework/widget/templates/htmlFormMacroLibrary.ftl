@@ -450,7 +450,7 @@ ${item.description}</div>
   <option <#if viewSize == ps>selected="selected" </#if> value="${ps}">${ps}</option>
 </#list>
 </select> ${paginateViewSizeLabel}</li></#if>
-<li>${commonDisplaying}</li>
+<li class="nav-displaying">${commonDisplaying}</li>
 </ul></div><br/>
 </#if>
 </#macro>
