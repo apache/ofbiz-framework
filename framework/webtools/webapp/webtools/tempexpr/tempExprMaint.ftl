@@ -44,8 +44,12 @@ under the License.
       <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "FREQUENCY">
       <@Frequency formName="updateExpression" fromDate=temporalExpression.date1 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
-    <#elseif temporalExpression.tempExprTypeId == "MONTH_RANGE">
-      <@MonthRange fromMonth=temporalExpression.integer1 toMonth=temporalExpression.integer2/>
+    <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">
+      <@DayOfWeekRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
+    <#elseif temporalExpression.tempExprTypeId == "HOUR_RANGE">
+      <@HourOfDayRange fromHour=temporalExpression.integer1 toHour=temporalExpression.integer2/>
+    <#elseif temporalExpression.tempExprTypeId == "MINUTE_RANGE">
+      <@MinuteRange fromMinute=temporalExpression.integer1 toMinute=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "TIME_OF_DAY_RANGE">
       <@TimeOfDayRange fromTime=temporalExpression.string1 toTime=temporalExpression.string2 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
     <#elseif "INTERSECTION.UNION.DIFFERENCE"?contains(temporalExpression.tempExprTypeId)>
@@ -99,6 +103,10 @@ under the License.
   <@CreateForm "DAY_OF_WEEK_RANGE" DayOfWeekRange/>
   <hr/>
   <@CreateForm "FREQUENCY" Frequency/>
+  <hr/>
+  <@CreateForm "HOUR_RANGE" HourOfDayRange/>
+  <hr/>
+  <@CreateForm "MINUTE_RANGE" MinuteRange/>
   <hr/>
   <@CreateForm "MONTH_RANGE" MonthRange/>
   <hr/>

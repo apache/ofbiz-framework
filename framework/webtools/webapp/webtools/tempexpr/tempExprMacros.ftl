@@ -78,6 +78,17 @@ your template file:
   </tr>
 </#macro>
 
+<#macro HourOfDayRange fromHour=1 toHour=31>
+  <tr>
+    <td class="label">${uiLabelMap.CommonFrom}</td>
+    <td><@HourOfDayField fieldName="integer1" fieldValue=fromHour/></td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.CommonTo}</td>
+    <td><@HourOfDayField fieldName="integer2" fieldValue=toHour/></td>
+  </tr>
+</#macro>
+
 <#macro DayOfWeekRange fromDay=firstDayOfWeek toDay=lastDayOfWeek>
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
@@ -115,6 +126,17 @@ your template file:
         </#list>
       </select>
     </td>
+  </tr>
+</#macro>
+
+<#macro MinuteRange fromMinute=1 toMinute=31>
+  <tr>
+    <td class="label">${uiLabelMap.CommonFrom}</td>
+    <td><@MinuteField fieldName="integer1" fieldValue=fromMinute/></td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.CommonTo}</td>
+    <td><@MinuteField fieldName="integer2" fieldValue=toMinute/></td>
   </tr>
 </#macro>
 
