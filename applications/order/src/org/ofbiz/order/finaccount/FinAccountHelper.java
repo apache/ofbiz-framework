@@ -185,7 +185,6 @@ public class FinAccountHelper {
         BigDecimal decrementTotal = ZERO;  // decrease balance
 
         GenericValue finAccount = delegator.findByPrimaryKeyCache("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
-        String currencyUomId = finAccount.getString("currencyUomId");
 
         // find the sum of all transactions which increase the value
         EntityConditionList incrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
@@ -203,7 +202,6 @@ public class FinAccountHelper {
         EntityConditionList decrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                 EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId),
                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
             EntityOperator.AND);
         transSums = delegator.findList("FinAccountTransSum", decrementConditions, UtilMisc.toSet("amount"), null, null, false);
