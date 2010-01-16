@@ -537,7 +537,7 @@ under the License.
     <service name="createTemporalExpression" default-entity-name="TemporalExpression" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Temporal Expression</description>
         <permission-service service-name="tempExprPermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateTemporalExpression" default-entity-name="TemporalExpression" engine="entity-auto" invoke="update" auth="true">

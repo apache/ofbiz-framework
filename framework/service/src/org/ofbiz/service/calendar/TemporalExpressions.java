@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 
@@ -467,6 +468,246 @@ public class TemporalExpressions implements Serializable {
         }
     }
 
+    /** A temporal expression that represents an hour range. */
+    public static class HourRange extends TemporalExpression {
+        protected final int start;
+        protected final int end;
+
+        /**
+         * @param hour An integer in the range of 0 to 23.
+         */
+        public HourRange(int hour) {
+            this(hour, hour);
+        }
+
+        /**
+         * @param start An integer in the range of 0 to 23.
+         * @param end An integer in the range of 0 to 23.
+         */
+        public HourRange(int start, int end) {
+            if (start < 0 || start > 23) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < 0 || end > 23) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.start = start;
+            this.end = end;
+            this.sequence = 600;
+            this.subSequence = start * 4000;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                HourRange that = (HourRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            if (hour == this.start || hour == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            compareCal.set(Calendar.HOUR_OF_DAY, this.start);
+            while (compareCal.get(Calendar.HOUR_OF_DAY) != this.end) {
+                if (compareCal.get(Calendar.HOUR_OF_DAY) == hour) {
+                    return true;
+                }
+                compareCal.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = (Calendar) cal.clone();
+            while (!includesDate(first)) {
+                first.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return first;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(Calendar.HOUR_OF_DAY, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the starting hour of this range.
+         * @return The starting hour of this range
+         */
+        public int getStartHour() {
+            return this.start;
+        }
+
+        /** Returns the ending hour of this range.
+         * @return The ending hour of this range
+         */
+        public int getEndHour() {
+            return this.end;
+        }
+
+        public Set<Integer> getHourRangeAsSet() {
+            Set<Integer> rangeSet = new TreeSet<Integer>();
+            if (this.start == this.end) {
+                rangeSet.add(this.start);
+            } else {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, this.start);
+                while (cal.get(Calendar.HOUR_OF_DAY) != this.end) {
+                    rangeSet.add(cal.get(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.HOUR_OF_DAY, 1);
+                }
+            }
+            return rangeSet;
+        }
+    }
+
+
+    /** A temporal expression that represents a minute range. */
+    public static class MinuteRange extends TemporalExpression {
+        protected final int start;
+        protected final int end;
+
+        /**
+         * @param hour An integer in the range of 0 to 59.
+         */
+        public MinuteRange(int minute) {
+            this(minute, minute);
+        }
+
+        /**
+         * @param start An integer in the range of 0 to 59.
+         * @param end An integer in the range of 0 to 59.
+         */
+        public MinuteRange(int start, int end) {
+            if (start < 0 || start > 23) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < 0 || end > 23) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.start = start;
+            this.end = end;
+            this.sequence = 600;
+            this.subSequence = start;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                MinuteRange that = (MinuteRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int minute = cal.get(Calendar.MINUTE);
+            if (minute == this.start || minute == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            compareCal.set(Calendar.MINUTE, this.start);
+            while (compareCal.get(Calendar.MINUTE) != this.end) {
+                if (compareCal.get(Calendar.MINUTE) == minute) {
+                    return true;
+                }
+                compareCal.add(Calendar.MINUTE, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = (Calendar) cal.clone();
+            while (!includesDate(first)) {
+                first.add(Calendar.MINUTE, 1);
+            }
+            return first;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(Calendar.MINUTE, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.MINUTE, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the starting minute of this range.
+         * @return The starting minute of this range
+         */
+        public int getStartMinute() {
+            return this.start;
+        }
+
+        /** Returns the ending minute of this range.
+         * @return The ending minute of this range
+         */
+        public int getEndMinute() {
+            return this.end;
+        }
+
+        public Set<Integer> getMinuteRangeAsSet() {
+            Set<Integer> rangeSet = new TreeSet<Integer>();
+            if (this.start == this.end) {
+                rangeSet.add(this.start);
+            } else {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, this.start);
+                while (cal.get(Calendar.HOUR_OF_DAY) != this.end) {
+                    rangeSet.add(cal.get(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.HOUR_OF_DAY, 1);
+                }
+            }
+            return rangeSet;
+        }
+    }
     /** A temporal expression that represents a time of day range. */
     public static class TimeOfDayRange extends TemporalExpression {
         protected final String startStr;

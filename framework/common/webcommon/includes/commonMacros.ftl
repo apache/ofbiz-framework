@@ -53,6 +53,28 @@ your template file:
   </#if>
 </#macro>
 
+<#macro HourOfDayField fieldName="" fieldValue=-1 fieldClass="">
+  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+    <#list 0..23 as i>
+      <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+    </#list>
+  </select>
+  <#if fieldClass == "required">
+    <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+  </#if>
+</#macro>
+
+<#macro MinuteField fieldName="" fieldValue=-1 fieldClass="">
+  <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
+    <#list 0..59 as i>
+      <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+    </#list>
+  </select>
+  <#if fieldClass == "required">
+    <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+  </#if>
+</#macro>
+
 <#macro DayOfWeekField fieldName="" fieldValue=-1 fieldClass="">
   <select name="${fieldName}"<#if fieldClass?has_content> class="${fieldClass}"</#if>>
     <#list dayValueList as dayValue>

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -34,6 +35,8 @@ import org.ofbiz.entity.util.EntityUtil;
 /** TemporalExpression persistence worker. */
 public class TemporalExpressionWorker {
 
+    public final static String module = TemporalExpressionWorker.class.getName();
+
     // Temporal expression constants
     public final static String DateRange = "DATE_RANGE";
     public final static String DayInMonth = "DAY_IN_MONTH";
@@ -41,7 +44,9 @@ public class TemporalExpressionWorker {
     public final static String DayOfWeekRange = "DAY_OF_WEEK_RANGE";
     public final static String Difference = "DIFFERENCE";
     public final static String Frequency = "FREQUENCY";
+    public final static String HourRange = "HOUR_RANGE";
     public final static String Intersection = "INTERSECTION";
+    public final static String MinuteRange = "MINUTE_RANGE";
     public final static String MonthRange = "MONTH_RANGE";
     public final static String TimeOfDayRange = "TIME_OF_DAY_RANGE";
     public final static String Union = "UNION";
@@ -92,11 +97,16 @@ public class TemporalExpressionWorker {
             }
         } else if (Frequency.equals(tempExprTypeId)) {
             return new TemporalExpressions.Frequency(exprValue.getTimestamp("date1"), exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
+        } else if (HourRange.equals(tempExprTypeId)) {
+            return new TemporalExpressions.HourRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
+        } else if (MinuteRange.equals(tempExprTypeId)) {
+            return new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (Intersection.equals(tempExprTypeId)) {
             return new TemporalExpressions.Intersection(getChildExpressions(delegator, tempExprId));
         } else if (MonthRange.equals(tempExprTypeId)) {
             return new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (TimeOfDayRange.equals(tempExprTypeId)) {
+            Debug.logWarning(TimeOfDayRange + " has been deprecated. Use " + HourRange + " and/or " + MinuteRange, module);
             int interval = Calendar.HOUR_OF_DAY;
             int count = 1;
             Long longObj = exprValue.getLong("integer1");
