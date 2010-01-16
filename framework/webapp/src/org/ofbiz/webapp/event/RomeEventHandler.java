@@ -80,7 +80,7 @@ public class RomeEventHandler implements EventHandler {
         }
 
         // invoke the feed generator service (implements rssFeedInterface)
-        String respCode = service.invoke(null, requestMap, request, response);
+        String respCode = service.invoke(event, requestMap, request, response);
 
         // pull out the RSS feed from the request attributes
         WireFeed wireFeed = (WireFeed) request.getAttribute("wireFeed");
