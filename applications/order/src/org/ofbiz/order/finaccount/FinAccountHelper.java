@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
@@ -80,7 +81,7 @@ public class FinAccountHelper {
       * @return
       * @throws GenericEntityException
       */
-     public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List transactions, String fieldName, int decimals, int rounding) throws GenericEntityException {
+     public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, int rounding) throws GenericEntityException {
           if ((transactions != null) && (transactions.size() == 1)) {
               GenericValue firstEntry = (GenericValue) transactions.get(0);
               if (firstEntry.get(fieldName) != null) {
@@ -115,7 +116,7 @@ public class FinAccountHelper {
                  newAccountCode.append(char_pool[r.nextInt(char_pool.length)]);
              }
 
-             List existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));
+             List<GenericValue> existingAccountsWithCode = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", newAccountCode.toString()));
              if (existingAccountsWithCode.size() == 0) {
                  foundUniqueNewCode = true;
              }
@@ -153,7 +154,7 @@ public class FinAccountHelper {
          String encryptedFinAccountCode = encryptedFinAccount.getString("finAccountCode");
 
          // now look for the account
-         List accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode));
+         List<GenericValue> accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode));
          accounts = EntityUtil.filterByDate(accounts);
 
          if (UtilValidate.isEmpty(accounts)) {
@@ -184,10 +185,8 @@ public class FinAccountHelper {
         BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
         BigDecimal decrementTotal = ZERO;  // decrease balance
 
-        GenericValue finAccount = delegator.findByPrimaryKeyCache("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
-
         // find the sum of all transactions which increase the value
-        EntityConditionList incrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
+        EntityConditionList<EntityCondition> incrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                 EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                 EntityCondition.makeCondition(UtilMisc.toList(
@@ -195,11 +194,11 @@ public class FinAccountHelper {
                         EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
                     EntityOperator.OR)),
                 EntityOperator.AND);
-        List transSums = delegator.findList("FinAccountTransSum", incrementConditions, UtilMisc.toSet("amount"), null, null, false);
+        List<GenericValue> transSums = delegator.findList("FinAccountTransSum", incrementConditions, UtilMisc.toSet("amount"), null, null, false);
         incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
 
         // now find sum of all transactions with decrease the value
-        EntityConditionList decrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
+        EntityConditionList<EntityExpr> decrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                 EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                 EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
@@ -225,13 +224,13 @@ public class FinAccountHelper {
         BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
 
         // find sum of all authorizations which are not expired and which were authorized before as of time
-        EntityConditionList authorizationConditions = EntityCondition.makeCondition(UtilMisc.toList(
+        EntityConditionList<EntityCondition> authorizationConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                 EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                 EntityUtil.getFilterByDateExpr(asOfDateTime)),
             EntityOperator.AND);
 
-        List authSums = delegator.findList("FinAccountAuthSum", authorizationConditions, UtilMisc.toSet("amount"), null, null, false);
+        List<GenericValue> authSums = delegator.findList("FinAccountAuthSum", authorizationConditions, UtilMisc.toSet("amount"), null, null, false);
 
         BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
 
