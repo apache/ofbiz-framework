@@ -504,4 +504,21 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="PortalPageScreen">
+        <section>
+            <actions>
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
+                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
+                </entity-and>            
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

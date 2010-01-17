@@ -269,18 +269,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <actions>
-                                <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
-                                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
-                                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                </entity-and>
-                            </actions>
-                            <widgets>
-                                <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
-                            </widgets>
-                        </section>
+                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
