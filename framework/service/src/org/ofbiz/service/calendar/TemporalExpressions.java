@@ -37,50 +37,42 @@ import org.ofbiz.base.util.UtilValidate;
 public class TemporalExpressions implements Serializable {
     public static final String module = TemporalExpressions.class.getName();
     public static final TemporalExpression NullExpression = new Null();
+    // Expressions are evaluated from largest unit of time to smallest.
+    // When unit of time is the same, then they are evaluated from
+    // least ambiguous to most. Frequency should always be first -
+    // since it is the most specific. Date range should always be last.
+    // The idea is to evaluate all other expressions, then check to see
+    // if the result falls within the date range.
+    public static final int SEQUENCE_DATE_RANGE = 10000;
+    public static final int SEQUENCE_DAY_IN_MONTH = 400;
+    public static final int SEQUENCE_DOM_RANGE = 300;
+    public static final int SEQUENCE_DOW_RANGE = 500;
+    public static final int SEQUENCE_FREQ = 100;
+    public static final int SEQUENCE_HOUR_RANGE = 700;
+    public static final int SEQUENCE_MINUTE_RANGE = 800;
+    public static final int SEQUENCE_MONTH_RANGE = 200;
+    public static final int SEQUENCE_TOD_RANGE = 600;
+    
 
-    /** This class represents a null expression. */
-    public static class Null extends TemporalExpression {
-        @Override
-        public Calendar first(Calendar cal) {
-            return null;
-        }
-        @Override
-        public boolean includesDate(Calendar cal) {
-            return false;
-        }
-        @Override
-        public Calendar next(Calendar cal) {
-            return null;
-        }
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-    }
+    /** A temporal expression that represents a range of dates. */
+    public static class DateRange extends TemporalExpression {
+        protected final org.ofbiz.base.util.DateRange range;
 
-    /** This class represents a mathematical union of all of its
-     * member expressions. */
-    public static class Union extends TemporalExpression {
-        protected final Set<TemporalExpression> expressionSet;
+        public DateRange(Date date) {
+            this(date, date);
+        }
 
-        public Union(Set<TemporalExpression> expressionSet) {
-            if (expressionSet == null) {
-                throw new IllegalArgumentException("expressionSet argument cannot be null");
-            }
-            this.expressionSet = expressionSet;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
-            }
-            if (this.expressionSet.size() > 0) {
-                TemporalExpression that = this.expressionSet.iterator().next();
-                if (this.compareTo(that) > 0) {
-                    this.sequence = that.sequence;
-                    this.subSequence = that.subSequence;
-                }
-            }
+        public DateRange(Date start, Date end) {
+            this.sequence = SEQUENCE_DATE_RANGE;
+            this.range = new org.ofbiz.base.util.DateRange(start, end);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -89,49 +81,187 @@ public class TemporalExpressions implements Serializable {
                 return true;
             }
             try {
-                return this.expressionSet.equals(((Union) obj).expressionSet);
+                return this.range.equals(((DateRange) obj).range);
             } catch (ClassCastException e) {}
             return false;
         }
 
         @Override
-        public String toString() {
-            return super.toString() + ", size = " + this.expressionSet.size();
+        public Calendar first(Calendar cal) {
+            return includesDate(cal) ? cal : null;
+        }
+
+        /** Returns the contained <code>org.ofbiz.base.util.DateRange</code>.
+         * @return The contained <code>org.ofbiz.base.util.DateRange</code>
+         */
+        public org.ofbiz.base.util.DateRange getDateRange() {
+            return this.range;
         }
 
         @Override
         public boolean includesDate(Calendar cal) {
-            for (TemporalExpression expression : this.expressionSet) {
-                if (expression.includesDate(cal)) {
-                    return true;
-                }
+            return this.range.includesDate(cal.getTime());
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            return includesDate(cal) ? cal : null;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.range.start() + ", end = " + this.range.end();
+        }
+    }
+
+    /** A temporal expression that represents a day in the month. */
+    public static class DayInMonth extends TemporalExpression {
+        protected final int dayOfWeek;
+        protected final int occurrence;
+
+        /**
+         * @param dayOfWeek An integer in the range of <code>Calendar.SUNDAY</code>
+         * to <code>Calendar.SATURDAY</code>
+         * @param occurrence An integer in the range of -5 to 5, excluding zero
+         */
+        public DayInMonth(int dayOfWeek, int occurrence) {
+            if (dayOfWeek < Calendar.SUNDAY || dayOfWeek > Calendar.SATURDAY) {
+                throw new IllegalArgumentException("Invalid day argument");
             }
+            if (occurrence < -5 || occurrence == 0 || occurrence > 5) {
+                throw new IllegalArgumentException("Invalid occurrence argument");
+            }
+            this.sequence = SEQUENCE_DAY_IN_MONTH;
+            this.subSequence = (occurrence * 7) + dayOfWeek;
+            this.dayOfWeek = dayOfWeek;
+            this.occurrence = occurrence;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        protected Calendar alignDayOfWeek(Calendar cal) {
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            if (this.occurrence > 0) {
+                while (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                cal.add(Calendar.DAY_OF_MONTH, (this.occurrence - 1) * 7);
+            } else {
+                cal.add(Calendar.MONTH, 1);
+                cal.add(Calendar.DAY_OF_MONTH, -1);
+                while (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
+                    cal.add(Calendar.DAY_OF_MONTH, -1);
+                }
+                cal.add(Calendar.DAY_OF_MONTH, (this.occurrence + 1) * 7);
+            }
+            return cal;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                DayInMonth that = (DayInMonth) obj;
+                return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
+            } catch (ClassCastException e) {}
             return false;
         }
 
         @Override
         public Calendar first(Calendar cal) {
-            for (TemporalExpression expression : this.expressionSet) {
-                Calendar first = expression.first(cal);
-                if (first != null && includesDate(first)) {
-                    return first;
+            int month = cal.get(Calendar.MONTH);
+            Calendar first = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
+            if (first.before(cal)) {
+                first.set(Calendar.DAY_OF_MONTH, 1);
+                if (first.get(Calendar.MONTH) == month) {
+                    first.add(Calendar.MONTH, 1);
                 }
+                alignDayOfWeek(first);
             }
-            return null;
+            return first;
+        }
+
+        /** Returns the day of week in this expression.
+         * @return The day of week in this expression
+         */
+        public int getDayOfWeek() {
+            return this.dayOfWeek;
+        }
+
+        /** Returns the occurrence in this expression.
+         * @return The occurrence in this expression
+         */
+        public int getOccurrence() {
+            return this.occurrence;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            if (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
+                return false;
+            }
+            int month = cal.get(Calendar.MONTH);
+            int dom = cal.get(Calendar.DAY_OF_MONTH);
+            Calendar next = (Calendar) cal.clone();
+            alignDayOfWeek(next);
+            return dom == next.get(Calendar.DAY_OF_MONTH) && next.get(Calendar.MONTH) == month;
         }
 
         @Override
         public Calendar next(Calendar cal) {
-            Calendar result = null;
-            for (TemporalExpression expression : this.expressionSet) {
-                Calendar next = expression.next(cal);
-                if (next != null && includesDate(next)) {
-                    if (result == null || next.before(result)) {
-                        result = next;
-                    }
+            int month = cal.get(Calendar.MONTH);
+            Calendar next = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
+            if (next.before(cal) || next.equals(cal)) {
+                next.set(Calendar.DAY_OF_MONTH, 1);
+                if (next.get(Calendar.MONTH) == month) {
+                    next.add(Calendar.MONTH, 1);
                 }
+                alignDayOfWeek(next);
             }
-            return result;
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", dayOfWeek = " + this.dayOfWeek + ", occurrence = " + this.occurrence;
+        }
+    }
+
+    /** A temporal expression that represents a day of month range. */
+    public static class DayOfMonthRange extends TemporalExpression {
+        protected final int end;
+        protected final int start;
+
+        public DayOfMonthRange(int dom) {
+            this(dom, dom);
+        }
+
+        /**
+         * @param start An integer in the range of 1 to 31
+         * @param end An integer in the range of 1 to 31
+         */
+        public DayOfMonthRange(int start, int end) {
+            if (start < 1 || start > end) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < 1 || end > 31) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.sequence = SEQUENCE_DOM_RANGE;
+            this.subSequence = start;
+            this.start = start;
+            this.end = end;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
         }
 
         @Override
@@ -140,41 +270,524 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
-        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
-            Set<Date> rawSet = new TreeSet<Date>();
-            Set<Date> finalSet = new TreeSet<Date>();
-            for (TemporalExpression expression : this.expressionSet) {
-                rawSet.addAll(expression.getRange(range, cal));
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
             }
+            try {
+                DayOfMonthRange that = (DayOfMonthRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = setStartOfDay((Calendar) cal.clone());
+            while (!includesDate(first)) {
+                first.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return first;
+        }
+
+        /** Returns the ending day of this range.
+         * @return The ending day of this range
+         */
+        public int getEndDay() {
+            return this.end;
+        }
+
+        /** Returns the starting day of this range.
+         * @return The starting day of this range
+         */
+        public int getStartDay() {
+            return this.start;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int dom = cal.get(Calendar.DAY_OF_MONTH);
+            return dom >= this.start && dom <= this.end;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = setStartOfDay((Calendar) cal.clone());
+            next.add(Calendar.DAY_OF_MONTH, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+    }
+
+    /** A temporal expression that represents a day of week range. */
+    public static class DayOfWeekRange extends TemporalExpression {
+        protected final int end;
+        protected final int start;
+
+        public DayOfWeekRange(int dow) {
+            this(dow, dow);
+        }
+
+        /**
+         * @param start An integer in the range of <code>Calendar.SUNDAY</code>
+         * to <code>Calendar.SATURDAY</code>
+         * @param end An integer in the range of <code>Calendar.SUNDAY</code>
+         * to <code>Calendar.SATURDAY</code>
+         */
+        public DayOfWeekRange(int start, int end) {
+            if (start < Calendar.SUNDAY || start > Calendar.SATURDAY) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < Calendar.SUNDAY || end > Calendar.SATURDAY) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.sequence = SEQUENCE_DOW_RANGE;
+            this.subSequence = start;
+            this.start = start;
+            this.end = end;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                DayOfWeekRange that = (DayOfWeekRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = (Calendar) cal.clone();
+            while (!includesDate(first)) {
+                first.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return setStartOfDay(first);
+        }
+
+        /** Returns the ending day of this range.
+         * @return The ending day of this range
+         */
+        public int getEndDay() {
+            return this.end;
+        }
+
+        /** Returns the starting day of this range.
+         * @return The starting day of this range
+         */
+        public int getStartDay() {
+            return this.start;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int dow = cal.get(Calendar.DAY_OF_WEEK);
+            if (dow == this.start || dow == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            while (compareCal.get(Calendar.DAY_OF_WEEK) != this.start) {
+                compareCal.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            while (compareCal.get(Calendar.DAY_OF_WEEK) != this.end) {
+                if (compareCal.get(Calendar.DAY_OF_WEEK) == dow) {
+                    return true;
+                }
+                compareCal.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(Calendar.DAY_OF_MONTH, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return setStartOfDay(next);
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+    }
+
+    /** This class represents a difference of two temporal expressions. */
+    public static class Difference extends TemporalExpression {
+        protected final TemporalExpression excluded;
+        protected final TemporalExpression included;
+
+        public Difference(TemporalExpression included, TemporalExpression excluded) {
+            if (included == null) {
+                throw new IllegalArgumentException("included argument cannot be null");
+            }
+            this.included = included;
+            this.excluded = excluded;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
+            }
+            if (this.compareTo(included) > 0) {
+                this.sequence = included.sequence;
+                this.subSequence = included.subSequence;
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        protected boolean containsExpression(TemporalExpression expression) {
+            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                Difference that = (Difference) obj;
+                return this.included.equals(that.included) && this.excluded.equals(that.excluded);
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = this.included.first(cal);
+            while (first != null && this.excluded.includesDate(first)) {
+                first = this.included.next(first);
+            }
+            return first;
+        }
+
+        /** Returns the excluded expression.
+         * @return The excluded <code>TemporalExpression</code>
+         */
+        public TemporalExpression getExcluded() {
+            return this.excluded;
+        }
+
+        /** Returns the included expression.
+         * @return The included <code>TemporalExpression</code>
+         */
+        public TemporalExpression getIncluded() {
+            return this.included;
+        }
+
+        @Override
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
+            Set<Date> finalSet = new TreeSet<Date>();
+            Set<Date> rawSet = this.included.getRange(range, cal);
             Calendar checkCal = (Calendar) cal.clone();
             for (Date date : rawSet) {
                 checkCal.setTime(date);
-                if (includesDate(checkCal)) {
+                if (!this.excluded.includesDate(checkCal)) {
                     finalSet.add(date);
                 }
             }
             return finalSet;
         }
 
-        /** Returns the member expression <code>Set</code>. The
-         * returned set is unmodifiable.
-         * @return The member expression <code>Set</code>
-         */
-        public Set<TemporalExpression> getExpressionSet() {
-            return Collections.unmodifiableSet(this.expressionSet);
+        @Override
+        public boolean includesDate(Calendar cal) {
+            return this.included.includesDate(cal) && !this.excluded.includesDate(cal);
         }
 
         @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            for (TemporalExpression setItem : this.expressionSet) {
-                if (setItem.containsExpression(expression)) {
-                    return true;
-                }
+        public Calendar next(Calendar cal) {
+            Calendar next = this.included.next(cal);
+            while (next != null && this.excluded.includesDate(next)) {
+                next = this.included.next(next);
             }
-            return false;
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", included = " + this.included + ", excluded = " + this.excluded;
         }
     }
 
+    /** A temporal expression that represents a frequency. */
+    public static class Frequency extends TemporalExpression {
+        protected final int freqCount;
+        protected final int freqType;
+        protected final Date start;
+
+        /**
+         * @param start Starting date, defaults to current system time
+         * @param freqType One of the following integer values: <code>Calendar.SECOND
+         * Calendar.MINUTE Calendar.HOUR Calendar.DAY_OF_MONTH Calendar.MONTH
+         * Calendar.YEAR</code>
+         * @param freqCount A positive integer
+         */
+        public Frequency(Date start, int freqType, int freqCount) {
+            if (freqType != Calendar.SECOND && freqType != Calendar.MINUTE
+                    && freqType != Calendar.HOUR && freqType != Calendar.DAY_OF_MONTH
+                    && freqType != Calendar.MONTH && freqType != Calendar.YEAR) {
+                throw new IllegalArgumentException("Invalid freqType argument");
+            }
+            if (freqCount < 1) {
+                throw new IllegalArgumentException("freqCount argument must be a positive integer");
+            }
+            if (start != null) {
+                this.start = start;
+            } else {
+                this.start = new Date();
+            }
+            this.sequence = 100;
+            this.subSequence = freqType;
+            this.freqType = freqType;
+            this.freqCount = freqCount;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                Frequency that = (Frequency) obj;
+                return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = prepareCal(cal);
+            while (first.before(cal)) {
+                first.add(this.freqType, this.freqCount);
+            }
+            return first;
+        }
+
+        /** Returns the frequency count of this expression.
+         * @return The frequency count of this expression
+         */
+        public int getFreqCount() {
+            return this.freqCount;
+        }
+
+        /** Returns the frequency type of this expression.
+         * @return The frequency type of this expression
+         */
+        public int getFreqType() {
+            return this.freqType;
+        }
+
+        /** Returns the start date of this expression.
+         * @return The start date of this expression
+         */
+        public Date getStartDate() {
+            return (Date) this.start.clone();
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            Calendar next = first(cal);
+            return next.equals(cal);
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = first(cal);
+            if (next.equals(cal)) {
+                next.add(this.freqType, this.freqCount);
+            }
+            return next;
+        }
+
+        protected Calendar prepareCal(Calendar cal) {
+            // Performs a "sane" skip forward in time - avoids time consuming loops
+            // like incrementing every second from Jan 1 2000 until today
+            Calendar skip = (Calendar) cal.clone();
+            skip.setTime(this.start);
+            long deltaMillis = cal.getTimeInMillis() - this.start.getTime();
+            if (deltaMillis < 1000) {
+                return skip;
+            }
+            long divisor = deltaMillis;
+            if (this.freqType == Calendar.DAY_OF_MONTH) {
+                divisor = 86400000;
+            } else if (this.freqType == Calendar.HOUR) {
+                divisor = 3600000;
+            } else if (this.freqType == Calendar.MINUTE) {
+                divisor = 60000;
+            } else if (this.freqType == Calendar.SECOND) {
+                divisor = 1000;
+            } else {
+                return skip;
+            }
+            float units = deltaMillis / divisor;
+            units = (units / this.freqCount) * this.freqCount;
+            skip.add(this.freqType, (int)units);
+            while (skip.after(cal)) {
+                skip.add(this.freqType, -this.freqCount);
+            }
+            return skip;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", freqType = " + this.freqType + ", freqCount = " + this.freqCount;
+        }
+    }
+
+
+    /** A temporal expression that represents an hour range. */
+    public static class HourRange extends TemporalExpression {
+        protected final int end;
+        protected final int start;
+
+        /**
+         * @param hour An integer in the range of 0 to 23.
+         */
+        public HourRange(int hour) {
+            this(hour, hour);
+        }
+
+        /**
+         * @param start An integer in the range of 0 to 23.
+         * @param end An integer in the range of 0 to 23.
+         */
+        public HourRange(int start, int end) {
+            if (start < 0 || start > 23) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < 0 || end > 23) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.start = start;
+            this.end = end;
+            this.sequence = SEQUENCE_HOUR_RANGE;
+            this.subSequence = start;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                HourRange that = (HourRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = (Calendar) cal.clone();
+            while (!includesDate(first)) {
+                first.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return first;
+        }
+
+        /** Returns the ending hour of this range.
+         * @return The ending hour of this range
+         */
+        public int getEndHour() {
+            return this.end;
+        }
+
+        public Set<Integer> getHourRangeAsSet() {
+            Set<Integer> rangeSet = new TreeSet<Integer>();
+            if (this.start == this.end) {
+                rangeSet.add(this.start);
+            } else {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, this.start);
+                while (cal.get(Calendar.HOUR_OF_DAY) != this.end) {
+                    rangeSet.add(cal.get(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.HOUR_OF_DAY, 1);
+                }
+            }
+            return rangeSet;
+        }
+
+        /** Returns the starting hour of this range.
+         * @return The starting hour of this range
+         */
+        public int getStartHour() {
+            return this.start;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            if (hour == this.start || hour == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            compareCal.set(Calendar.HOUR_OF_DAY, this.start);
+            while (compareCal.get(Calendar.HOUR_OF_DAY) != this.end) {
+                if (compareCal.get(Calendar.HOUR_OF_DAY) == hour) {
+                    return true;
+                }
+                compareCal.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(Calendar.HOUR_OF_DAY, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.HOUR_OF_DAY, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+    }
     /** This class represents a mathematical intersection of all of its
      * member expressions. */
     public static class Intersection extends TemporalExpression {
@@ -201,6 +814,21 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        protected boolean containsExpression(TemporalExpression expression) {
+            for (TemporalExpression setItem : this.expressionSet) {
+                if (setItem.containsExpression(expression)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -209,21 +837,6 @@ public class TemporalExpressions implements Serializable {
                 return this.expressionSet.equals(((Intersection) obj).expressionSet);
             } catch (ClassCastException e) {}
             return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", size = " + this.expressionSet.size();
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            for (TemporalExpression expression : this.expressionSet) {
-                if (!expression.includesDate(cal)) {
-                    return false;
-                }
-            }
-            return true;
         }
 
         @Override
@@ -242,25 +855,12 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            for (TemporalExpression expression : this.expressionSet) {
-                next = expression.next(next);
-                if (next == null) {
-                    return null;
-                }
-            }
-            if (includesDate(next)) {
-                return next;
-            } else {
-                return null;
-            }
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
+        /** Returns the member expression <code>Set</code>. The
+         * returned set is unmodifiable.
+         * @return The member expression <code>Set</code>
+         */
+        public Set<TemporalExpression> getExpressionSet() {
+            return Collections.unmodifiableSet(this.expressionSet);
         }
 
         @Override
@@ -287,312 +887,42 @@ public class TemporalExpressions implements Serializable {
             return finalSet;
         }
 
-        /** Returns the member expression <code>Set</code>. The
-         * returned set is unmodifiable.
-         * @return The member expression <code>Set</code>
-         */
-        public Set<TemporalExpression> getExpressionSet() {
-            return Collections.unmodifiableSet(this.expressionSet);
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            for (TemporalExpression setItem : this.expressionSet) {
-                if (setItem.containsExpression(expression)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    /** This class represents a difference of two temporal expressions. */
-    public static class Difference extends TemporalExpression {
-        protected final TemporalExpression included;
-        protected final TemporalExpression excluded;
-
-        public Difference(TemporalExpression included, TemporalExpression excluded) {
-            if (included == null) {
-                throw new IllegalArgumentException("included argument cannot be null");
-            }
-            this.included = included;
-            this.excluded = excluded;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
-            }
-            if (this.compareTo(included) > 0) {
-                this.sequence = included.sequence;
-                this.subSequence = included.subSequence;
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                Difference that = (Difference) obj;
-                return this.included.equals(that.included) && this.excluded.equals(that.excluded);
-            } catch (ClassCastException e) {}
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", included = " + this.included + ", excluded = " + this.excluded;
-        }
-
         @Override
         public boolean includesDate(Calendar cal) {
-            return this.included.includesDate(cal) && !this.excluded.includesDate(cal);
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = this.included.first(cal);
-            while (first != null && this.excluded.includesDate(first)) {
-                first = this.included.next(first);
-            }
-            return first;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = this.included.next(cal);
-            while (next != null && this.excluded.includesDate(next)) {
-                next = this.included.next(next);
-            }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
-            Set<Date> finalSet = new TreeSet<Date>();
-            Set<Date> rawSet = this.included.getRange(range, cal);
-            Calendar checkCal = (Calendar) cal.clone();
-            for (Date date : rawSet) {
-                checkCal.setTime(date);
-                if (!this.excluded.includesDate(checkCal)) {
-                    finalSet.add(date);
+            for (TemporalExpression expression : this.expressionSet) {
+                if (!expression.includesDate(cal)) {
+                    return false;
                 }
             }
-            return finalSet;
-        }
-
-        /** Returns the excluded expression.
-         * @return The excluded <code>TemporalExpression</code>
-         */
-        public TemporalExpression getExcluded() {
-            return this.excluded;
-        }
-
-        /** Returns the included expression.
-         * @return The included <code>TemporalExpression</code>
-         */
-        public TemporalExpression getIncluded() {
-            return this.included;
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
-        }
-    }
-
-    /** A temporal expression that represents a range of dates. */
-    public static class DateRange extends TemporalExpression {
-        protected final org.ofbiz.base.util.DateRange range;
-
-        public DateRange(Date date) {
-            this(date, date);
-        }
-
-        public DateRange(Date start, Date end) {
-            this.sequence = 1000;
-            this.range = new org.ofbiz.base.util.DateRange(start, end);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                return this.range.equals(((DateRange) obj).range);
-            } catch (ClassCastException e) {}
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.range.start() + ", end = " + this.range.end();
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            return this.range.includesDate(cal.getTime());
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            return includesDate(cal) ? cal : null;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            return includesDate(cal) ? cal : null;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the contained <code>org.ofbiz.base.util.DateRange</code>.
-         * @return The contained <code>org.ofbiz.base.util.DateRange</code>
-         */
-        public org.ofbiz.base.util.DateRange getDateRange() {
-            return this.range;
-        }
-    }
-
-    /** A temporal expression that represents an hour range. */
-    public static class HourRange extends TemporalExpression {
-        protected final int start;
-        protected final int end;
-
-        /**
-         * @param hour An integer in the range of 0 to 23.
-         */
-        public HourRange(int hour) {
-            this(hour, hour);
-        }
-
-        /**
-         * @param start An integer in the range of 0 to 23.
-         * @param end An integer in the range of 0 to 23.
-         */
-        public HourRange(int start, int end) {
-            if (start < 0 || start > 23) {
-                throw new IllegalArgumentException("Invalid start argument");
-            }
-            if (end < 0 || end > 23) {
-                throw new IllegalArgumentException("Invalid end argument");
-            }
-            this.start = start;
-            this.end = end;
-            this.sequence = 600;
-            this.subSequence = start * 4000;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                HourRange that = (HourRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
-            if (hour == this.start || hour == this.end) {
-                return true;
-            }
-            Calendar compareCal = (Calendar) cal.clone();
-            compareCal.set(Calendar.HOUR_OF_DAY, this.start);
-            while (compareCal.get(Calendar.HOUR_OF_DAY) != this.end) {
-                if (compareCal.get(Calendar.HOUR_OF_DAY) == hour) {
-                    return true;
-                }
-                compareCal.add(Calendar.HOUR_OF_DAY, 1);
-            }
-            return false;
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
-            while (!includesDate(first)) {
-                first.add(Calendar.HOUR_OF_DAY, 1);
-            }
-            return first;
+            return true;
         }
 
         @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
-            next.add(Calendar.HOUR_OF_DAY, 1);
-            while (!includesDate(next)) {
-                next.add(Calendar.HOUR_OF_DAY, 1);
+            for (TemporalExpression expression : this.expressionSet) {
+                next = expression.next(next);
+                if (next == null) {
+                    return null;
+                }
             }
-            return next;
+            if (includesDate(next)) {
+                return next;
+            } else {
+                return null;
+            }
         }
 
         @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the starting hour of this range.
-         * @return The starting hour of this range
-         */
-        public int getStartHour() {
-            return this.start;
-        }
-
-        /** Returns the ending hour of this range.
-         * @return The ending hour of this range
-         */
-        public int getEndHour() {
-            return this.end;
-        }
-
-        public Set<Integer> getHourRangeAsSet() {
-            Set<Integer> rangeSet = new TreeSet<Integer>();
-            if (this.start == this.end) {
-                rangeSet.add(this.start);
-            } else {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, this.start);
-                while (cal.get(Calendar.HOUR_OF_DAY) != this.end) {
-                    rangeSet.add(cal.get(Calendar.HOUR_OF_DAY));
-                    cal.add(Calendar.HOUR_OF_DAY, 1);
-                }
-            }
-            return rangeSet;
+        public String toString() {
+            return super.toString() + ", size = " + this.expressionSet.size();
         }
     }
 
-
     /** A temporal expression that represents a minute range. */
     public static class MinuteRange extends TemporalExpression {
-        protected final int start;
         protected final int end;
+        protected final int start;
 
         /**
          * @param hour An integer in the range of 0 to 59.
@@ -614,11 +944,16 @@ public class TemporalExpressions implements Serializable {
             }
             this.start = start;
             this.end = end;
-            this.sequence = 600;
+            this.sequence = SEQUENCE_MINUTE_RANGE;
             this.subSequence = start;
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -634,56 +969,12 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            int minute = cal.get(Calendar.MINUTE);
-            if (minute == this.start || minute == this.end) {
-                return true;
-            }
-            Calendar compareCal = (Calendar) cal.clone();
-            compareCal.set(Calendar.MINUTE, this.start);
-            while (compareCal.get(Calendar.MINUTE) != this.end) {
-                if (compareCal.get(Calendar.MINUTE) == minute) {
-                    return true;
-                }
-                compareCal.add(Calendar.MINUTE, 1);
-            }
-            return false;
-        }
-
-        @Override
         public Calendar first(Calendar cal) {
             Calendar first = (Calendar) cal.clone();
             while (!includesDate(first)) {
                 first.add(Calendar.MINUTE, 1);
             }
             return first;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            next.add(Calendar.MINUTE, 1);
-            while (!includesDate(next)) {
-                next.add(Calendar.MINUTE, 1);
-            }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the starting minute of this range.
-         * @return The starting minute of this range
-         */
-        public int getStartMinute() {
-            return this.start;
         }
 
         /** Returns the ending minute of this range.
@@ -707,19 +998,190 @@ public class TemporalExpressions implements Serializable {
             }
             return rangeSet;
         }
+
+        /** Returns the starting minute of this range.
+         * @return The starting minute of this range
+         */
+        public int getStartMinute() {
+            return this.start;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int minute = cal.get(Calendar.MINUTE);
+            if (minute == this.start || minute == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            compareCal.set(Calendar.MINUTE, this.start);
+            while (compareCal.get(Calendar.MINUTE) != this.end) {
+                if (compareCal.get(Calendar.MINUTE) == minute) {
+                    return true;
+                }
+                compareCal.add(Calendar.MINUTE, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(Calendar.MINUTE, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.MINUTE, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
     }
-    /** A temporal expression that represents a time of day range. */
+
+    /** A temporal expression that represents a month range. */
+    public static class MonthRange extends TemporalExpression {
+        protected final int end;
+        protected final int start;
+
+        public MonthRange(int month) {
+            this(month, month);
+        }
+
+        /**
+         * @param start An integer in the range of <code>Calendar.JANUARY</code>
+         * to <code>Calendar.UNDECIMBER</code>
+         * @param end An integer in the range of <code>Calendar.JANUARY</code>
+         * to <code>Calendar.UNDECIMBER</code>
+         */
+        public MonthRange(int start, int end) {
+            if (start < Calendar.JANUARY || start > Calendar.UNDECIMBER) {
+                throw new IllegalArgumentException("Invalid start argument");
+            }
+            if (end < Calendar.JANUARY || end > Calendar.UNDECIMBER) {
+                throw new IllegalArgumentException("Invalid end argument");
+            }
+            this.sequence = SEQUENCE_MONTH_RANGE;
+            this.subSequence = start;
+            this.start = start;
+            this.end = end;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                MonthRange that = (MonthRange) obj;
+                return this.start == that.start && this.end == that.end;
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = (Calendar) cal.clone();
+            first.set(Calendar.DAY_OF_MONTH, 1);
+            while (!includesDate(first)) {
+                first.add(Calendar.MONTH, 1);
+            }
+            return first;
+        }
+
+        /** Returns the ending month of this range.
+         * @return The ending month of this range
+         */
+        public int getEndMonth() {
+            return this.end;
+        }
+
+        /** Returns the starting month of this range.
+         * @return The starting month of this range
+         */
+        public int getStartMonth() {
+            return this.start;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            int month = cal.get(Calendar.MONTH);
+            if (month == this.start || month == this.end) {
+                return true;
+            }
+            Calendar compareCal = (Calendar) cal.clone();
+            while (compareCal.get(Calendar.MONTH) != this.start) {
+                compareCal.add(Calendar.MONTH, 1);
+            }
+            while (compareCal.get(Calendar.MONTH) != this.end) {
+                if (compareCal.get(Calendar.MONTH) == month) {
+                    return true;
+                }
+                compareCal.add(Calendar.MONTH, 1);
+            }
+            return false;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.set(Calendar.DAY_OF_MONTH, 1);
+            next.add(Calendar.MONTH, 1);
+            while (!includesDate(next)) {
+                next.add(Calendar.MONTH, 1);
+            }
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        }
+    }
+
+    /** This class represents a null expression. */
+    public static class Null extends TemporalExpression {
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+        @Override
+        public Calendar first(Calendar cal) {
+            return null;
+        }
+        @Override
+        public boolean includesDate(Calendar cal) {
+            return false;
+        }
+        @Override
+        public Calendar next(Calendar cal) {
+            return null;
+        }
+    }
+
+    /** A temporal expression that represents a time of day range.
+     * @deprecated 
+     */
+    @Deprecated
     public static class TimeOfDayRange extends TemporalExpression {
-        protected final String startStr;
+        protected final int count;
+        protected final int endHrs;
+        protected final int endMins;
+        protected final int endSecs;
         protected final String endStr;
         protected final int interval;
-        protected final int count;
-        protected final int startSecs;
-        protected final int startMins;
         protected final int startHrs;
-        protected final int endSecs;
-        protected final int endMins;
-        protected final int endHrs;
+        protected final int startMins;
+        protected final int startSecs;
+        protected final String startStr;
 
         /**
          * @param start A time String in the form of hh:mm:ss (24 hr clock)
@@ -765,11 +1227,16 @@ public class TemporalExpressions implements Serializable {
             if (this.endHrs > 23 || this.endMins > 59 || this.endSecs > 59) {
                 throw new IllegalArgumentException("Invalid end time argument");
             }
-            this.sequence = 600;
-            this.subSequence = (this.startHrs * 4000) + (this.startMins * 60) + this.startSecs;
+            this.sequence = SEQUENCE_TOD_RANGE;
+            this.subSequence = this.startHrs;
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -785,44 +1252,11 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr
-            + ", interval = " + this.interval + ", count = " + this.count;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            long millis = cal.getTimeInMillis();
-            Calendar startCal = setStart(cal);
-            Calendar endCal = setEnd(startCal);
-            if (endCal.before(startCal)) {
-                endCal.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            long startMillis = startCal.getTimeInMillis();
-            long endMillis = endCal.getTimeInMillis();
-            return millis >= startMillis && millis <= endMillis;
-        }
-
-        @Override
         public Calendar first(Calendar cal) {
             if (includesDate(cal)) {
                 return cal;
             }
             return next(cal);
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            next.add(this.interval, this.count);
-            if (!includesDate(next)) {
-                Calendar last = next;
-                next = setStart(next);
-                if (next.before(last)) {
-                    next.add(Calendar.DAY_OF_MONTH, 1);
-                }
-            }
-            return next;
         }
 
         public int getCount() {
@@ -858,8 +1292,30 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
+        public boolean includesDate(Calendar cal) {
+            long millis = cal.getTimeInMillis();
+            Calendar startCal = setStart(cal);
+            Calendar endCal = setEnd(startCal);
+            if (endCal.before(startCal)) {
+                endCal.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            long startMillis = startCal.getTimeInMillis();
+            long endMillis = endCal.getTimeInMillis();
+            return millis >= startMillis && millis <= endMillis;
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = (Calendar) cal.clone();
+            next.add(this.interval, this.count);
+            if (!includesDate(next)) {
+                Calendar last = next;
+                next = setStart(next);
+                if (next.before(last)) {
+                    next.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
+            return next;
         }
 
         protected Calendar setCalendar(Calendar cal, int hrs, int mins, int secs) {
@@ -871,150 +1327,59 @@ public class TemporalExpressions implements Serializable {
             return newCal;
         }
 
+        protected Calendar setEnd(Calendar cal) {
+            return setCalendar(cal, this.endHrs, this.endMins, this.endSecs);
+        }
+
         protected Calendar setStart(Calendar cal) {
             return setCalendar(cal, this.startHrs, this.startMins, this.startSecs);
         }
 
-        protected Calendar setEnd(Calendar cal) {
-            return setCalendar(cal, this.endHrs, this.endMins, this.endSecs);
+        @Override
+        public String toString() {
+            return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr
+            + ", interval = " + this.interval + ", count = " + this.count;
         }
     }
 
-    /** A temporal expression that represents a day of week range. */
-    public static class DayOfWeekRange extends TemporalExpression {
-        protected final int start;
-        protected final int end;
+    /** This class represents a mathematical union of all of its
+     * member expressions. */
+    public static class Union extends TemporalExpression {
+        protected final Set<TemporalExpression> expressionSet;
 
-        public DayOfWeekRange(int dow) {
-            this(dow, dow);
-        }
-
-        /**
-         * @param start An integer in the range of <code>Calendar.SUNDAY</code>
-         * to <code>Calendar.SATURDAY</code>
-         * @param end An integer in the range of <code>Calendar.SUNDAY</code>
-         * to <code>Calendar.SATURDAY</code>
-         */
-        public DayOfWeekRange(int start, int end) {
-            if (start < Calendar.SUNDAY || start > Calendar.SATURDAY) {
-                throw new IllegalArgumentException("Invalid start argument");
+        public Union(Set<TemporalExpression> expressionSet) {
+            if (expressionSet == null) {
+                throw new IllegalArgumentException("expressionSet argument cannot be null");
             }
-            if (end < Calendar.SUNDAY || end > Calendar.SATURDAY) {
-                throw new IllegalArgumentException("Invalid end argument");
+            this.expressionSet = expressionSet;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
             }
-            this.sequence = 500;
-            this.subSequence = start;
-            this.start = start;
-            this.end = end;
+            if (this.expressionSet.size() > 0) {
+                TemporalExpression that = this.expressionSet.iterator().next();
+                if (this.compareTo(that) > 0) {
+                    this.sequence = that.sequence;
+                    this.subSequence = that.subSequence;
+                }
+            }
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
         }
 
         @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                DayOfWeekRange that = (DayOfWeekRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
-            return false;
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            int dow = cal.get(Calendar.DAY_OF_WEEK);
-            if (dow == this.start || dow == this.end) {
-                return true;
-            }
-            Calendar compareCal = (Calendar) cal.clone();
-            while (compareCal.get(Calendar.DAY_OF_WEEK) != this.start) {
-                compareCal.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            while (compareCal.get(Calendar.DAY_OF_WEEK) != this.end) {
-                if (compareCal.get(Calendar.DAY_OF_WEEK) == dow) {
+        protected boolean containsExpression(TemporalExpression expression) {
+            for (TemporalExpression setItem : this.expressionSet) {
+                if (setItem.containsExpression(expression)) {
                     return true;
                 }
-                compareCal.add(Calendar.DAY_OF_MONTH, 1);
             }
             return false;
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
-            while (!includesDate(first)) {
-                first.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            return setStartOfDay(first);
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            next.add(Calendar.DAY_OF_MONTH, 1);
-            while (!includesDate(next)) {
-                next.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            return setStartOfDay(next);
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the starting day of this range.
-         * @return The starting day of this range
-         */
-        public int getStartDay() {
-            return this.start;
-        }
-
-        /** Returns the ending day of this range.
-         * @return The ending day of this range
-         */
-        public int getEndDay() {
-            return this.end;
-        }
-    }
-
-    /** A temporal expression that represents a month range. */
-    public static class MonthRange extends TemporalExpression {
-        protected final int start;
-        protected final int end;
-
-        public MonthRange(int month) {
-            this(month, month);
-        }
-
-        /**
-         * @param start An integer in the range of <code>Calendar.JANUARY</code>
-         * to <code>Calendar.UNDECIMBER</code>
-         * @param end An integer in the range of <code>Calendar.JANUARY</code>
-         * to <code>Calendar.UNDECIMBER</code>
-         */
-        public MonthRange(int start, int end) {
-            if (start < Calendar.JANUARY || start > Calendar.UNDECIMBER) {
-                throw new IllegalArgumentException("Invalid start argument");
-            }
-            if (end < Calendar.JANUARY || end > Calendar.UNDECIMBER) {
-                throw new IllegalArgumentException("Invalid end argument");
-            }
-            this.sequence = 200;
-            this.subSequence = start;
-            this.start = start;
-            this.end = end;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
         }
 
         @Override
@@ -1023,420 +1388,74 @@ public class TemporalExpressions implements Serializable {
                 return true;
             }
             try {
-                MonthRange that = (MonthRange) obj;
-                return this.start == that.start && this.end == that.end;
+                return this.expressionSet.equals(((Union) obj).expressionSet);
             } catch (ClassCastException e) {}
             return false;
         }
 
         @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        public Calendar first(Calendar cal) {
+            for (TemporalExpression expression : this.expressionSet) {
+                Calendar first = expression.first(cal);
+                if (first != null && includesDate(first)) {
+                    return first;
+                }
+            }
+            return null;
+        }
+
+        /** Returns the member expression <code>Set</code>. The
+         * returned set is unmodifiable.
+         * @return The member expression <code>Set</code>
+         */
+        public Set<TemporalExpression> getExpressionSet() {
+            return Collections.unmodifiableSet(this.expressionSet);
+        }
+
+        @Override
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
+            Set<Date> rawSet = new TreeSet<Date>();
+            Set<Date> finalSet = new TreeSet<Date>();
+            for (TemporalExpression expression : this.expressionSet) {
+                rawSet.addAll(expression.getRange(range, cal));
+            }
+            Calendar checkCal = (Calendar) cal.clone();
+            for (Date date : rawSet) {
+                checkCal.setTime(date);
+                if (includesDate(checkCal)) {
+                    finalSet.add(date);
+                }
+            }
+            return finalSet;
         }
 
         @Override
         public boolean includesDate(Calendar cal) {
-            int month = cal.get(Calendar.MONTH);
-            if (month == this.start || month == this.end) {
-                return true;
-            }
-            Calendar compareCal = (Calendar) cal.clone();
-            while (compareCal.get(Calendar.MONTH) != this.start) {
-                compareCal.add(Calendar.MONTH, 1);
-            }
-            while (compareCal.get(Calendar.MONTH) != this.end) {
-                if (compareCal.get(Calendar.MONTH) == month) {
+            for (TemporalExpression expression : this.expressionSet) {
+                if (expression.includesDate(cal)) {
                     return true;
                 }
-                compareCal.add(Calendar.MONTH, 1);
             }
             return false;
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
-            first.set(Calendar.DAY_OF_MONTH, 1);
-            while (!includesDate(first)) {
-                first.add(Calendar.MONTH, 1);
-            }
-            return first;
         }
 
         @Override
         public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            next.set(Calendar.DAY_OF_MONTH, 1);
-            next.add(Calendar.MONTH, 1);
-            while (!includesDate(next)) {
-                next.add(Calendar.MONTH, 1);
+            Calendar result = null;
+            for (TemporalExpression expression : this.expressionSet) {
+                Calendar next = expression.next(cal);
+                if (next != null && includesDate(next)) {
+                    if (result == null || next.before(result)) {
+                        result = next;
+                    }
+                }
             }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the starting month of this range.
-         * @return The starting month of this range
-         */
-        public int getStartMonth() {
-            return this.start;
-        }
-
-        /** Returns the ending month of this range.
-         * @return The ending month of this range
-         */
-        public int getEndMonth() {
-            return this.end;
-        }
-    }
-
-    /** A temporal expression that represents a day of month range. */
-    public static class DayOfMonthRange extends TemporalExpression {
-        protected final int start;
-        protected final int end;
-
-        public DayOfMonthRange(int dom) {
-            this(dom, dom);
-        }
-
-        /**
-         * @param start An integer in the range of 1 to 31
-         * @param end An integer in the range of 1 to 31
-         */
-        public DayOfMonthRange(int start, int end) {
-            if (start < 1 || start > end) {
-                throw new IllegalArgumentException("Invalid start argument");
-            }
-            if (end < 1 || end > 31) {
-                throw new IllegalArgumentException("Invalid end argument");
-            }
-            this.sequence = 300;
-            this.subSequence = start;
-            this.start = start;
-            this.end = end;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                DayOfMonthRange that = (DayOfMonthRange) obj;
-                return this.start == that.start && this.end == that.end;
-            } catch (ClassCastException e) {}
-            return false;
+            return result;
         }
 
         @Override
         public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            int dom = cal.get(Calendar.DAY_OF_MONTH);
-            return dom >= this.start && dom <= this.end;
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = setStartOfDay((Calendar) cal.clone());
-            while (!includesDate(first)) {
-                first.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            return first;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = setStartOfDay((Calendar) cal.clone());
-            next.add(Calendar.DAY_OF_MONTH, 1);
-            while (!includesDate(next)) {
-                next.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the starting day of this range.
-         * @return The starting day of this range
-         */
-        public int getStartDay() {
-            return this.start;
-        }
-
-        /** Returns the ending day of this range.
-         * @return The ending day of this range
-         */
-        public int getEndDay() {
-            return this.end;
-        }
-    }
-
-    /** A temporal expression that represents a day in the month. */
-    public static class DayInMonth extends TemporalExpression {
-        protected final int dayOfWeek;
-        protected final int occurrence;
-
-        /**
-         * @param dayOfWeek An integer in the range of <code>Calendar.SUNDAY</code>
-         * to <code>Calendar.SATURDAY</code>
-         * @param occurrence An integer in the range of -5 to 5, excluding zero
-         */
-        public DayInMonth(int dayOfWeek, int occurrence) {
-            if (dayOfWeek < Calendar.SUNDAY || dayOfWeek > Calendar.SATURDAY) {
-                throw new IllegalArgumentException("Invalid day argument");
-            }
-            if (occurrence < -5 || occurrence == 0 || occurrence > 5) {
-                throw new IllegalArgumentException("Invalid occurrence argument");
-            }
-            this.sequence = 400;
-            this.subSequence = dayOfWeek;
-            this.dayOfWeek = dayOfWeek;
-            this.occurrence = occurrence;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                DayInMonth that = (DayInMonth) obj;
-                return this.dayOfWeek == that.dayOfWeek && this.occurrence == that.occurrence;
-            } catch (ClassCastException e) {}
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", dayOfWeek = " + this.dayOfWeek + ", occurrence = " + this.occurrence;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            if (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
-                return false;
-            }
-            int month = cal.get(Calendar.MONTH);
-            int dom = cal.get(Calendar.DAY_OF_MONTH);
-            Calendar next = (Calendar) cal.clone();
-            alignDayOfWeek(next);
-            return dom == next.get(Calendar.DAY_OF_MONTH) && next.get(Calendar.MONTH) == month;
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            int month = cal.get(Calendar.MONTH);
-            Calendar first = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
-            if (first.before(cal)) {
-                first.set(Calendar.DAY_OF_MONTH, 1);
-                if (first.get(Calendar.MONTH) == month) {
-                    first.add(Calendar.MONTH, 1);
-                }
-                alignDayOfWeek(first);
-            }
-            return first;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            int month = cal.get(Calendar.MONTH);
-            Calendar next = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
-            if (next.before(cal) || next.equals(cal)) {
-                next.set(Calendar.DAY_OF_MONTH, 1);
-                if (next.get(Calendar.MONTH) == month) {
-                    next.add(Calendar.MONTH, 1);
-                }
-                alignDayOfWeek(next);
-            }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the day of week in this expression.
-         * @return The day of week in this expression
-         */
-        public int getDayOfWeek() {
-            return this.dayOfWeek;
-        }
-
-        /** Returns the occurrence in this expression.
-         * @return The occurrence in this expression
-         */
-        public int getOccurrence() {
-            return this.occurrence;
-        }
-
-        protected Calendar alignDayOfWeek(Calendar cal) {
-            cal.set(Calendar.DAY_OF_MONTH, 1);
-            if (this.occurrence > 0) {
-                while (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
-                    cal.add(Calendar.DAY_OF_MONTH, 1);
-                }
-                cal.add(Calendar.DAY_OF_MONTH, (this.occurrence - 1) * 7);
-            } else {
-                cal.add(Calendar.MONTH, 1);
-                cal.add(Calendar.DAY_OF_MONTH, -1);
-                while (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
-                    cal.add(Calendar.DAY_OF_MONTH, -1);
-                }
-                cal.add(Calendar.DAY_OF_MONTH, (this.occurrence + 1) * 7);
-            }
-            return cal;
-        }
-    }
-
-    /** A temporal expression that represents a frequency. */
-    public static class Frequency extends TemporalExpression {
-        protected final Date start;
-        protected final int freqType;
-        protected final int freqCount;
-
-        /**
-         * @param start Starting date, defaults to current system time
-         * @param freqType One of the following integer values: <code>Calendar.SECOND
-         * Calendar.MINUTE Calendar.HOUR Calendar.DAY_OF_MONTH Calendar.MONTH
-         * Calendar.YEAR</code>
-         * @param freqCount A positive integer
-         */
-        public Frequency(Date start, int freqType, int freqCount) {
-            if (freqType != Calendar.SECOND && freqType != Calendar.MINUTE
-                    && freqType != Calendar.HOUR && freqType != Calendar.DAY_OF_MONTH
-                    && freqType != Calendar.MONTH && freqType != Calendar.YEAR) {
-                throw new IllegalArgumentException("Invalid freqType argument");
-            }
-            if (freqCount < 1) {
-                throw new IllegalArgumentException("freqCount argument must be a positive integer");
-            }
-            if (start != null) {
-                this.start = start;
-            } else {
-                this.start = new Date();
-            }
-            this.sequence = 100;
-            this.subSequence = freqType;
-            this.freqType = freqType;
-            this.freqCount = freqCount;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, module);
-            }
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            try {
-                Frequency that = (Frequency) obj;
-                return this.start.equals(that.start) && this.freqType == that.freqType && this.freqCount == that.freqCount;
-            } catch (ClassCastException e) {}
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + ", start = " + this.start + ", freqType = " + this.freqType + ", freqCount = " + this.freqCount;
-        }
-
-        @Override
-        public boolean includesDate(Calendar cal) {
-            Calendar next = first(cal);
-            return next.equals(cal);
-        }
-
-        @Override
-        public Calendar first(Calendar cal) {
-            Calendar first = prepareCal(cal);
-            while (first.before(cal)) {
-                first.add(this.freqType, this.freqCount);
-            }
-            return first;
-        }
-
-        @Override
-        public Calendar next(Calendar cal) {
-            Calendar next = first(cal);
-            if (next.equals(cal)) {
-                next.add(this.freqType, this.freqCount);
-            }
-            return next;
-        }
-
-        @Override
-        public void accept(TemporalExpressionVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        /** Returns the start date of this expression.
-         * @return The start date of this expression
-         */
-        public Date getStartDate() {
-            return (Date) this.start.clone();
-        }
-
-        /** Returns the frequency type of this expression.
-         * @return The frequency type of this expression
-         */
-        public int getFreqType() {
-            return this.freqType;
-        }
-
-        /** Returns the frequency count of this expression.
-         * @return The frequency count of this expression
-         */
-        public int getFreqCount() {
-            return this.freqCount;
-        }
-
-        protected Calendar prepareCal(Calendar cal) {
-            // Performs a "sane" skip forward in time - avoids time consuming loops
-            // like incrementing every second from Jan 1 2000 until today
-            Calendar skip = (Calendar) cal.clone();
-            skip.setTime(this.start);
-            long deltaMillis = cal.getTimeInMillis() - this.start.getTime();
-            if (deltaMillis < 1000) {
-                return skip;
-            }
-            long divisor = deltaMillis;
-            if (this.freqType == Calendar.DAY_OF_MONTH) {
-                divisor = 86400000;
-            } else if (this.freqType == Calendar.HOUR) {
-                divisor = 3600000;
-            } else if (this.freqType == Calendar.MINUTE) {
-                divisor = 60000;
-            } else if (this.freqType == Calendar.SECOND) {
-                divisor = 1000;
-            } else {
-                return skip;
-            }
-            float units = deltaMillis / divisor;
-            units = (units / this.freqCount) * this.freqCount;
-            skip.add(this.freqType, (int)units);
-            while (skip.after(cal)) {
-                skip.add(this.freqType, -this.freqCount);
-            }
-            return skip;
+            return super.toString() + ", size = " + this.expressionSet.size();
         }
     }
 }
