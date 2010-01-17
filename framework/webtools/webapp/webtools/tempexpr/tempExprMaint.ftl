@@ -29,7 +29,7 @@ under the License.
       <td class="label">${uiLabelMap.TemporalExpressionType}</td>
       <td>${uiLabelMap.get("TemporalExpression_" + temporalExpression.tempExprTypeId)}</td>
     </tr>
-    <#if !"INTERSECTION.UNION.DIFFERENCE"?contains(temporalExpression.tempExprTypeId)>
+    <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
       <form name="updateExpression" method="post" action="<@ofbizUrl>updateTemporalExpression</@ofbizUrl>">
         <input type="hidden" name="tempExprId" value="${temporalExpression.tempExprId}"/>
         <input type="hidden" name="tempExprTypeId" value="${temporalExpression.tempExprTypeId}"/>
@@ -52,7 +52,7 @@ under the License.
       <@MinuteRange fromMinute=temporalExpression.integer1 toMinute=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "TIME_OF_DAY_RANGE">
       <@TimeOfDayRange fromTime=temporalExpression.string1 toTime=temporalExpression.string2 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
-    <#elseif "INTERSECTION.UNION.DIFFERENCE"?contains(temporalExpression.tempExprTypeId)>
+    <#elseif "INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
       <#assign candidateIdList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getCandidateIncludeIds(delegator, temporalExpression.tempExprId)/>
       <#if "INTERSECTION.UNION"?contains(temporalExpression.tempExprTypeId)>
         <tr>
@@ -60,13 +60,15 @@ under the License.
           <td><@CreateExprAssocForm formName="includeExpression"/></td>
         </tr>
       <#else>
-        <#assign hasInclude = false hasExclude = false/>
+        <#assign hasInclude = false hasExclude = false hasSubstitution = false/>
         <#if childExpressionList?has_content>
           <#list childExpressionList as childExpression>
             <#if childExpression.exprAssocType == "INCLUDE">
               <#assign hasInclude = true/>
             <#elseif childExpression.exprAssocType == "EXCLUDE">
               <#assign hasExclude = true/>
+            <#elseif childExpression.exprAssocType == "SUBSTITUTION">
+              <#assign hasSubstitution = true/>
             </#if>
           </#list>
         </#if>
@@ -82,9 +84,15 @@ under the License.
             <td><@CreateExprAssocForm formName="excludeExpression" exprAssocType="EXCLUDE"/></td>
           </tr>
         </#if>
+        <#if !hasSubstitution>
+          <tr>
+            <td class="label">${uiLabelMap.TemporalExpression_SUBSTITUTION}</td>
+            <td><@CreateExprAssocForm formName="substitutionExpression" exprAssocType="SUBSTITUTION"/></td>
+          </tr>
+        </#if>
       </#if>
     </#if>
-    <#if !"INTERSECTION.UNION.DIFFERENCE"?contains(temporalExpression.tempExprTypeId)>
+    <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
         <tr>
           <td>&nbsp;</td>
           <td><input type="submit" name="submitBtn" value="${uiLabelMap.CommonSave}"/></td>
@@ -117,6 +125,8 @@ under the License.
   <@CreateForm "UNION"/>
   <hr/>
   <@CreateForm "DIFFERENCE"/>
+  <hr/>
+  <@CreateForm "SUBSTITUTION"/>
 </#if>
 
 <#macro CreateForm expressionTypeId="" formContents=NullMacro>

@@ -180,6 +180,11 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     public void visit(Null expr) {}
 
     @Override
+    public void visit(Substitution expr) {
+        // iCalendar format does not support substitutions. Do nothing for now.
+    }
+
+    @Override
     public void visit(TemporalExpressions.DateRange expr) {
         if (this.state.isExcluded) {
             throw new IllegalStateException("iCalendar does not support excluded date ranges");
@@ -276,7 +281,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         this.state.addRecur(recur);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "deprecation" })
     @Override
     public void visit(TimeOfDayRange expr) {
         int startHr = expr.getStartHours();

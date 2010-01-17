@@ -48,10 +48,11 @@ public class TemporalExpressionWorker {
     public final static String Intersection = "INTERSECTION";
     public final static String MinuteRange = "MINUTE_RANGE";
     public final static String MonthRange = "MONTH_RANGE";
+    public final static String Substitution = "SUBSTITUTION";
     public final static String TimeOfDayRange = "TIME_OF_DAY_RANGE";
     public final static String Union = "UNION";
     public final static String ExpressionTypeList[] = {DateRange, DayInMonth, DayOfMonthRange, DayOfWeekRange,
-        Difference, Frequency, Intersection, MonthRange, TimeOfDayRange, Union};
+        Difference, Frequency, HourRange, Intersection, MinuteRange, MonthRange, TimeOfDayRange, Substitution, Union};
 
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator
@@ -78,6 +79,7 @@ public class TemporalExpressionWorker {
      * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>
      * @throws GenericEntityException
      */
+    @SuppressWarnings("deprecation")
     public static TemporalExpression makeTemporalExpression(Delegator delegator, GenericValue exprValue) throws GenericEntityException {
         String tempExprId = exprValue.getString("tempExprId");
         String tempExprTypeId = exprValue.getString("tempExprTypeId");
@@ -99,12 +101,19 @@ public class TemporalExpressionWorker {
             return new TemporalExpressions.Frequency(exprValue.getTimestamp("date1"), exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (HourRange.equals(tempExprTypeId)) {
             return new TemporalExpressions.HourRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
-        } else if (MinuteRange.equals(tempExprTypeId)) {
-            return new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (Intersection.equals(tempExprTypeId)) {
             return new TemporalExpressions.Intersection(getChildExpressions(delegator, tempExprId));
+        } else if (MinuteRange.equals(tempExprTypeId)) {
+            return new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (MonthRange.equals(tempExprTypeId)) {
             return new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
+        } else if (Substitution.equals(tempExprTypeId)) {
+            GenericValue inclAssoc = EntityUtil.getFirst(delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition(EntityCondition.makeCondition("fromTempExprId", tempExprId), EntityCondition.makeCondition("exprAssocType", "INCLUDE")), null, null, null, true));
+            GenericValue exclAssoc = EntityUtil.getFirst(delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition(EntityCondition.makeCondition("fromTempExprId", tempExprId), EntityCondition.makeCondition("exprAssocType", "EXCLUDE")), null, null, null, true));
+            GenericValue substAssoc = EntityUtil.getFirst(delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition(EntityCondition.makeCondition("fromTempExprId", tempExprId), EntityCondition.makeCondition("exprAssocType", "SUBSTITUTION")), null, null, null, true));
+            if (inclAssoc != null && exclAssoc != null && substAssoc != null) {
+                return new TemporalExpressions.Substitution(getTemporalExpression(delegator, inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, substAssoc.getString("toTempExprId")));
+            }
         } else if (TimeOfDayRange.equals(tempExprTypeId)) {
             Debug.logWarning(TimeOfDayRange + " has been deprecated. Use " + HourRange + " and/or " + MinuteRange, module);
             int interval = Calendar.HOUR_OF_DAY;
