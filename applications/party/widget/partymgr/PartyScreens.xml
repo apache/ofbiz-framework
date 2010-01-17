@@ -59,18 +59,7 @@ under the License.
     <screen name="viewprofile">
         <section>
             <actions>
-                <entity-one value-field="portalPage" entity-name="PortalPage">
-                    <field-map field-name="portalPageId" value="PartyProfile"/>
-                </entity-one>
-                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
-                    <field-map field-name="portalPageId" value="PartyProfile"/>
-                    <order-by field-name="columnSeqId"/>
-                </entity-and>
-                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
-                    <field-map field-name="portalPageId" value="PartyProfile"/>
-                    <order-by field-name="columnSeqId"/>
-                    <order-by field-name="sequenceNum"/>
-                </entity-and>
+                <set field="parameters.portalPageId" value="PartyProfile"/>
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="headerItem" value="find"/>
@@ -146,7 +135,7 @@ under the License.
                                 </section>
                                 <section>
                                     <widgets>
-                                        <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
                                     </widgets>
                                 </section>
                             </widgets>
