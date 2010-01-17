@@ -50,6 +50,19 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      */
     public abstract boolean includesDate(Calendar cal);
 
+    /** Returns true if this expression is a candidate for substitution
+     * using the expression <code>expressionToTest</code> for the date
+     * <code>cal</code>. A <code>Substitution</code> object will call this
+     * method when it needs to know if this expression could have produced
+     * the date <code>cal</code> based on the expression
+     * <code>expressionToTest</code>.
+     * @param cal A date to evaluate
+     * @param expressionToTest An expression to evaluate
+     * @return true if this expression could have produced the date
+     * <code>cal</code> using the expression <code>expressionToTest</code>
+     */
+    public abstract boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest);
+
     /** Returns a date representing the first occurrence of this expression
      * on or after a specified date. Returns <code>null</code> if there
      * is no matching date.

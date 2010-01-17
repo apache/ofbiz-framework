@@ -156,7 +156,11 @@ under the License.
             title="Temporal Expression Association">
       <field name="fromTempExprId" type="id-ne"><description>The "parent" expression</description></field>
       <field name="toTempExprId" type="id-ne"><description>The "child" expression</description></field>
-      <field name="exprAssocType" type="id"><description>Expression association type. Applies to DIFFERENCE expression types only. Valid values are INCLUDED or EXCLUDED.</description></field>
+      <field name="exprAssocType" type="id"><description>Expression association type.
+         When applied to DIFFERENCE expression types, valid values are INCLUDED or EXCLUDED.
+         When applied to SUBSTITUTION expression types, valid values are INCLUDED, EXCLUDED, or SUBSTITUTE.
+         </description>
+      </field>
       <prim-key field="fromTempExprId"/>
       <prim-key field="toTempExprId"/>
       <relation type="one" fk-name="TEMP_EXPR_FROM" rel-entity-name="TemporalExpression" title="From">

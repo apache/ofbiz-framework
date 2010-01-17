@@ -51,6 +51,7 @@ public class TemporalExpressions implements Serializable {
     public static final int SEQUENCE_HOUR_RANGE = 700;
     public static final int SEQUENCE_MINUTE_RANGE = 800;
     public static final int SEQUENCE_MONTH_RANGE = 200;
+    public static final int SEQUENCE_SUBSTITUTION = 9000;
     public static final int SEQUENCE_TOD_RANGE = 600;
     
 
@@ -100,6 +101,11 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean includesDate(Calendar cal) {
+            return this.range.includesDate(cal.getTime());
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
             return this.range.includesDate(cal.getTime());
         }
 
@@ -216,6 +222,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
             Calendar next = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
@@ -308,6 +327,19 @@ public class TemporalExpressions implements Serializable {
         public boolean includesDate(Calendar cal) {
             int dom = cal.get(Calendar.DAY_OF_MONTH);
             return dom >= this.start && dom <= this.end;
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            }
+            return false;
         }
 
         @Override
@@ -417,6 +449,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.DAY_OF_MONTH, -1);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(Calendar.DAY_OF_MONTH, 1);
@@ -517,6 +562,11 @@ public class TemporalExpressions implements Serializable {
         @Override
         public boolean includesDate(Calendar cal) {
             return this.included.includesDate(cal) && !this.excluded.includesDate(cal);
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            return this.included.isSubstitutionCandidate(cal, expressionToTest) && !this.excluded.isSubstitutionCandidate(cal, expressionToTest);
         }
 
         @Override
@@ -621,6 +671,19 @@ public class TemporalExpressions implements Serializable {
         public boolean includesDate(Calendar cal) {
             Calendar next = first(cal);
             return next.equals(cal);
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(this.freqType, -this.freqCount);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(this.freqType, -this.freqCount);
+            }
+            return false;
         }
 
         @Override
@@ -774,6 +837,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.HOUR_OF_DAY, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.HOUR_OF_DAY, -1);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(Calendar.HOUR_OF_DAY, 1);
@@ -891,6 +967,16 @@ public class TemporalExpressions implements Serializable {
         public boolean includesDate(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 if (!expression.includesDate(cal)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            for (TemporalExpression expression : this.expressionSet) {
+                if (!expression.isSubstitutionCandidate(cal, expressionToTest)) {
                     return false;
                 }
             }
@@ -1024,6 +1110,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.MINUTE, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.MINUTE, -1);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(Calendar.MINUTE, 1);
@@ -1131,6 +1230,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(Calendar.MONTH, -1);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(Calendar.MONTH, -1);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.set(Calendar.DAY_OF_MONTH, 1);
@@ -1162,8 +1274,142 @@ public class TemporalExpressions implements Serializable {
             return false;
         }
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            return false;
+        }
+        @Override
         public Calendar next(Calendar cal) {
             return null;
+        }
+    }
+
+    /** An expression that provides a substitution for an excluded temporal expression. */
+    public static class Substitution extends TemporalExpression {
+        protected final TemporalExpression excluded;
+        protected final TemporalExpression included;
+        protected final TemporalExpression substitute;
+
+        public Substitution(TemporalExpression included, TemporalExpression excluded, TemporalExpression substitute) {
+            if (included == null) {
+                throw new IllegalArgumentException("included argument cannot be null");
+            }
+            if (excluded == null) {
+                throw new IllegalArgumentException("excluded argument cannot be null");
+            }
+            if (substitute == null) {
+                throw new IllegalArgumentException("substitute argument cannot be null");
+            }
+            this.included = included;
+            this.excluded = excluded;
+            this.substitute = substitute;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
+            }
+            if (this.compareTo(included) > 0) {
+                this.sequence = included.sequence;
+                this.subSequence = included.subSequence;
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Created " + this, module);
+            }
+        }
+
+        @Override
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        protected boolean containsExpression(TemporalExpression expression) {
+            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            try {
+                Substitution that = (Substitution) obj;
+                return this.included.equals(that.included) && this.excluded.equals(that.excluded) && this.substitute.equals(that.substitute);
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public Calendar first(Calendar cal) {
+            Calendar first = this.included.first(cal);
+            if (first != null && this.excluded.includesDate(first)) {
+                first = this.substitute.first(first);
+            }
+            return first;
+        }
+
+        /** Returns the excluded expression.
+         * @return The excluded <code>TemporalExpression</code>
+         */
+        public TemporalExpression getExcluded() {
+            return this.excluded;
+        }
+
+        /** Returns the included expression.
+         * @return The included <code>TemporalExpression</code>
+         */
+        public TemporalExpression getIncluded() {
+            return this.included;
+        }
+
+        @Override
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
+            Set<Date> finalSet = new TreeSet<Date>();
+            Set<Date> rawSet = this.included.getRange(range, cal);
+            Calendar checkCal = (Calendar) cal.clone();
+            for (Date date : rawSet) {
+                checkCal.setTime(date);
+                if (this.excluded.includesDate(checkCal)) {
+                    Calendar substCal = this.excluded.first(checkCal);
+                    if (substCal != null) {
+                        finalSet.add(substCal.getTime());
+                    }
+                } else {
+                    finalSet.add(checkCal.getTime());
+                }
+            }
+            return finalSet;
+        }
+
+        /** Returns the substitute expression.
+         * @return The substitute <code>TemporalExpression</code>
+         */
+        public TemporalExpression getSubstitute() {
+            return this.substitute;
+        }
+
+        @Override
+        public boolean includesDate(Calendar cal) {
+            if (this.included.includesDate(cal)) {
+                return true;
+            }
+            return this.substitute.isSubstitutionCandidate(cal, this.excluded);
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            return this.substitute.isSubstitutionCandidate(cal, expressionToTest);
+        }
+
+        @Override
+        public Calendar next(Calendar cal) {
+            Calendar next = this.included.next(cal);
+            if (next != null && this.excluded.includesDate(next)) {
+                next = this.substitute.next(next);
+            }
+            return next;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + ", included = " + this.included + ", excluded = " + this.excluded + ", substitute = " + this.substitute;
         }
     }
 
@@ -1305,6 +1551,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            Calendar checkCal = (Calendar) cal.clone();
+            checkCal.add(this.interval, -this.count);
+            while (!includesDate(checkCal)) {
+                if (expressionToTest.includesDate(checkCal)) {
+                    return true;
+                }
+                checkCal.add(this.interval, -this.count);
+            }
+            return false;
+        }
+
+        @Override
         public Calendar next(Calendar cal) {
             Calendar next = (Calendar) cal.clone();
             next.add(this.interval, this.count);
@@ -1433,6 +1692,16 @@ public class TemporalExpressions implements Serializable {
         public boolean includesDate(Calendar cal) {
             for (TemporalExpression expression : this.expressionSet) {
                 if (expression.includesDate(cal)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            for (TemporalExpression expression : this.expressionSet) {
+                if (expression.isSubstitutionCandidate(cal, expressionToTest)) {
                     return true;
                 }
             }

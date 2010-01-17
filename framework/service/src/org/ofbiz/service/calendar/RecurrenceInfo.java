@@ -376,5 +376,9 @@ public class RecurrenceInfo {
         }
         @Override
         public void accept(TemporalExpressionVisitor visitor) {}
+        @Override
+        public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
+            return false;
+        }
     }
 }
