@@ -1678,42 +1678,42 @@ under the License.
 
     <request-map uri="getCountryList">
         <security https="true" auth="false"/>
-        <event type="jsonservice" invoke="getCountryList"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getCountryList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="getAssociatedStateList">
         <security https="true" auth="false"/>
-        <event type="jsonservice" invoke="getAssociatedStateList"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getAssociatedStateList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="createUpdateShippingAddress">
         <security https="true" auth="false"/>
-        <event type="jsonsimple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateCustomerAndShippingAddress"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateCustomerAndShippingAddress"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="getShipOptions">
         <security https="true" auth="false"/>
-        <event type="jsonsimple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="getShipOptions"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="getShipOptions"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="setShippingOption">
         <security https="true" auth="false"/>
-        <event type="jsonsimple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="setShippingOption"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="setShippingOption"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="createUpdateBillingAndPayment">
         <security https="true" auth="false"/>
-        <event type="jsonsimple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateBillingAndPayment"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateBillingAndPayment"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="cartItemQtyUpdate">
@@ -1724,22 +1724,22 @@ under the License.
     </request-map>
     <request-map uri="silentAddPromoCode">
         <security https="true" auth="false"/>
-        <event type="jsonjava" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="getCartData">
         <security https="true" auth="false"/>
-        <event type="jsonservice" invoke="getShoppingCartData"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getShoppingCartData"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="getShoppingCartItemIndex">
         <security https="false" auth="false"/>
-        <event type="jsonservice" invoke="getShoppingCartItemIndex"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="getShoppingCartItemIndex"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="onePageProcessOrder">
@@ -1812,16 +1812,16 @@ under the License.
 
     <request-map uri="createPartyPostalAddress">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createPostalAddressAndPurposes"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="createPostalAddressAndPurposes"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="updatePartyPostalAddress">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="updateContactMechAndPurposes"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="updateContactMechAndPurposes"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <request-map uri="deletePostalAddress">
@@ -1833,16 +1833,16 @@ under the License.
 
     <request-map uri="updatePartyEmailAddress">
         <security https="true" auth="true"/>
-        <event type="jsonservice" invoke="createUpdatePartyEmailAddress"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="service" invoke="createUpdatePartyEmailAddress"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
    <request-map uri="getConfigDetailsEvent">
         <security https="false" auth="false"/>
-        <event type="jsonjava" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     
     <!--  Old request that calls the services written in Minilang -->
