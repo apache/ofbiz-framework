@@ -265,8 +265,10 @@ under the License.
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
     <view-map name="CreateExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#CreateExampleFormOnly"/>
     <view-map name="printExampleFOPFonts" type="screenfop" page="component://example/widget/example/FormWidgetExampleScreens.xml#printExampleFOPFonts" content-type="application/pdf"  encoding="none"/>
+    <!-- Commenting these out because commonext is an application component and shouldn't be referred to from the framework
     <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
     <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
+    -->
 
     <view-map name="ExampleGeoLocationPointSet1" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet1"/>
     <view-map name="ExampleGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet2"/>
