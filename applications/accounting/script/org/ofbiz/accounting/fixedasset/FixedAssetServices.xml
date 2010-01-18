@@ -733,8 +733,8 @@ under the License.
                 <field field="endIndex" type="int"/>
             </call-object-method>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingExpEndOfLifeIsEmpty"/></add-error>
-            <check-errors/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingExpEndOfLifeIsEmpty" field="successMessageList[]"/>
+            <return/>
         </else>
         </if-not-empty>
 
@@ -747,8 +747,8 @@ under the License.
                 <field field="endIndex" type="int"/>
             </call-object-method>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDateAcquiredIsEmpty"/></add-error>
-            <check-errors/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingDateAcquiredIsEmpty" field="successMessageList[]"/>
+            <return/>
         </else>
         </if-not-empty>
 
@@ -801,8 +801,8 @@ under the License.
             <field-to-result field="assetNBVAfterDepreciation"/>
             <field-to-result field="assetDepreciationInfoList"/>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound"/></add-error>
-            <check-errors/>
+            <property-to-field resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound" field="successMessageList[]"/>
+            <return/>
         </else>
         </if-not-empty>
     </simple-method>
