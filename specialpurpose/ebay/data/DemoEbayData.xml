@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
 -->
 
 <entity-engine-xml>
     <ProductStore productStoreId="9000"/>
     <WebSite webSiteId="EBAY" siteName="eBay" standardContentPrefix="http://demo.ofbiz.org" productStoreId="9000"/>
-    <EbayConfig productStoreId="9000" devId="ppodkYk34Kh-279a-6khr-a07c-06fd1d65824b" appId="ApacheOFB-bf44-4c32-ac45-3e099a32b675" certId="99ca5f9f-dd5c-3de-9a4c-13b247ieidfg" compatibilityLevel="635" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll" apiServerUrl="https://api.sandbox.ebay.com/wsapi" webSiteId="EBAY">
+    <EbayConfig productStoreId="9000" devId="ppodkYk34Kh-279a-6khr-a07c-06fd1d65824b" appId="ApacheOFB-bf44-4c32-ac45-3e099a32b675" certId="99ca5f9f-dd5c-3de-9a4c-13b247ieidfg" compatibilityLevel="635" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll" webSiteId="EBAY">
         <token><![CDATA[APACHEeerer**AQresT**aOFBIZ**Dddddg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFddddddddsssererdafjk23232uy+seQ**IzABAA**AAMAAA**6kOEMXRyvyVRLt7vAL7W+5dfjdkfjkldfjlkdjfldj121219fjlkdfjldjf+oRU0d07B0jfdFxJj6OolPHiQN5c0qmVNDRsSKaOucPjXTHSBmVm62p7M9/YmRCag/Mz1DjvDTFyS1kaBinGH2lwd9AjcBSBUbD9tSZVTdKn5PQBh3kkCh5Fe+UK5fyq9OeikM/Bdfafja377dkdkBddDDll+zPbG8pYL13cBgCGj8/zzMSGX2ugZkbU01bCLKkTzLOSqIcxj9xgJ4uDHxhjjizyWlHd2ovFKP8mmc/bEjLANUqS1z0vhR0NHydU/izZR8eYAruTvX6eYzSfsZA85sVOpIAjVEYX9M4CqgXazYxDFAT+y7E4+oM9N+tx8+/dkdkfdoTTKdHhdlKwVmgdULRhW0nP04BMugLpRCQrITSVpSJ1mfkwwb4JEQRNwSSUOe/1P3t21JhUBj3OJjpwC1ds84DSh9nlyykxF3X+EfFxtE4rTKUO+fODRDD5FBDO2+TD3AROz/3u/OWOvTWUm13u2kxMiiEQ3DNkuxN4g7Gj5xhKk7uNMIRRM8YoxoDoiJnbvuLQctBtpn1vibjUJsxTlnq92PLOhsgkp2NfhcxzS1JJfDKX1snOkmWfiluqyW5oDayJoZnrHIVKD0RkYNd2h+U5DOyOJ2/YXYIAPJAcWloGLpKO7k]]></token>
         <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
     </EbayConfig>
-    
+
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="USPSPriority" productStoreId="9000" amount="20.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPSGround" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPS3rdDay" productStoreId="9000" amount="0.00" carrierPartyId="UPS" shipmentMethodTypeId="THIRD_DAY"/>
@@ -36,32 +36,5 @@
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="ShippingMethodStandard" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="StandardInternational" productStoreId="9000" amount="0.00" carrierPartyId="USPS" shipmentMethodTypeId="INT_EXPRESS"/>
     <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="LocalDelivery" productStoreId="9000" amount="0.00" carrierPartyId="_NA_" shipmentMethodTypeId="STANDARD"/>
-    
-    
-    <!-- Ebay Store Demo Data -->
-    <RoleType roleTypeId="EBAY_ACCOUNT" hasTable="N" description="eBay Account"/>
-    <Party partyId="esandbox10543" partyTypeId="PERSON"/>
-    <Person partyId="esandbox10543" firstName="Demo ebay account" lastName="USA"/>
-    <PartyRole partyId="esandbox10543" roleTypeId="EBAY_ACCOUNT"/>
-    <UserLogin userLoginId="esandbox10543" partyId="esandbox10543" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
-    <ProductStore productStoreId="esandbox10543_store" storeName="OFBiz Ebay Store-USA" companyName="Apache OFBiz" title="Test esandbox10543 store"
-        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="esandbox10543" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
-        inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
-        defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="EBAY_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
-        headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
-        itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" orderNumberPrefix="WS"
-        authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
-        authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
-        authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
-        storeCreditValidDays="90" storeCreditAccountEnumId="FIN_ACCOUNT"
-        visualThemeId="EC_DEFAULT" prodSearchExcludeVariants="Y" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
-    <ProductStoreRole partyId="esandbox10543" roleTypeId="EBAY_ACCOUNT" productStoreId="esandbox10543_store" fromDate="2010-01-01 16:19:47.058"/>
-    <ProductStoreCatalog productStoreId="esandbox10543_store" prodCatalogId="eBayCatalog" fromDate="2010-01-01 16:19:47.058"/>
-    
-    <WebSite webSiteId="EBAY" siteName="eBay" standardContentPrefix="http://demo.ofbiz.org" productStoreId="esandbox10543_store"/>
-    <EbayConfig productStoreId="esandbox10543_store" devId="f3586481-93c7-4aaf-ab87-d383d56b71b1" appId="antwebc0f-9bf9-4829-998b-e5e8fb773ac" certId="7f363bc0-11d6-489a-a54d-4a44de82f790" compatibilityLevel="643" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll"  apiServerUrl="https://api.sandbox.ebay.com/wsapi"  webSiteId="EBAY">
-        <token><![CDATA[AgAAAA**AQAAAA**aAAAAA**PC5MSw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wJnY+lCZiGoA2dj6x9nY+seQ**0jgBAA**AAMAAA**YxqcpdWbgFwYg1G+3AhOonR2/yllz3IJ5VoJyU75texuETwabGgsN4f6OfeBGWejUx10heCKG7wcM4JI+Fqk8Zg64L51JL3/Vm7dYo8VHd8wfixWIdMmhheYFwOdBtxcTb93NLeJa6uxvBJYrSS7O0RcQ3KPhOVJvt7KfVT009o2/02tuX7vbMoHV+Meszli4eVAnB9Fbt6ag2nq46+2/AzMIO4rZE23ozLfh6c4W+QkD6BcaFzLmhVE+7Ni9y7y26QHfUUdjBOEF6ewLpZJsSIoQZC9y4J/yF15Ann9NiamtmFj5IeX4uNIKegEt8EwFSqtpxjgVngcAmMaM8/hk9uQVnFKHTjhK3koUrT7zu/+tk2twJfGF9odb+/5uTVJZ8Lywl/LwEdadv2wjpTdQqHF2bV84cSRhOKrlsYr9xFqgqNDpnmCFXkQKGhycWzMzxcBmiRT5VXJfBjbTGGdmfAf7TVcoU/4C3F3kvzEJhcxU9WbMvj58TmW+VvYS7oy4kOyTiyr3alkz/+HJYGIuttnkzqsIVIPaSXyyuFNWQmQL+0GlJ1n7EoKCevuVsTYgayQEN39TPeXg8ADmf5Pf19BlPxRFNkKvANxE0k3ac+whUwpkfBgx6lApOcwKQMXioi7NrN3MROL/1qrO2+N5sl4kr9nbuvEk9mPDJnmNdB7lzgoESo+se3ZmY9KJ6v08uQ02N1/SjHtmeiojayaR/DqeJiFSoAnU4winzA5GQGNjzEHUpSf1Kj+IZudhT9r]]></token>
-        <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
-    </EbayConfig>
-    
+
 </entity-engine-xml>

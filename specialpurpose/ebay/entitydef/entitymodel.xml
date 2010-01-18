@@ -51,7 +51,6 @@ under the License.
         <field name="compatibilityLevel" type="id"></field>
         <field name="siteId" type="id"></field>
         <field name="xmlGatewayUri" type="value"></field>
-        <field name="apiServerUrl" type="value"></field>
         <field name="customXml" type="very-long"></field>
         <field name="webSiteId" type="id-ne"></field>
         <prim-key field="productStoreId"/>      

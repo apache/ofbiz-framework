@@ -24,8 +24,5 @@ under the License.
     <ProductContentType productContentTypeId="EBAY_DESCRIPTION" description="Detail Page for eBay Auctions"/>
 
     <EnumerationType description="Ebay Ship Types" enumTypeId="EBAY_SHIP_TYPE" hasTable="N" parentTypeId=""/>
-    <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="EBAY_FLAT_RATE" sequenceId="01" enumTypeId="EBAY_SHIP_TYPE"/>
-
-    <RoleType roleTypeId="COMMENTATOR" hasTable="N" description="Commentator"/>
-    <RoleType roleTypeId="EBAY_ORGANIZATION" hasTable="N" description="eBay Organization"/> 
+    <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="EBAY_FLAT_RATE" sequenceId="01" enumTypeId="EBAY_SHIP_TYPE"/>    
 </entity-engine-xml>
