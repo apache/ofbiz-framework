@@ -171,10 +171,6 @@
     <classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/ebay/lib/attributes.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/ebay/lib/ebaycalls.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/ebay/lib/ebaysdkcore.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/ebay/lib/helper.jar"/>
     <classpathentry kind="src" path="applications/accounting/src" excluding="org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**|org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java|org/ofbiz/accounting/thirdparty/orbital/**"/>
     <classpathentry kind="src" path="applications/content/src" excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/"/>
     <classpathentry kind="src" path="applications/manufacturing/src"/>

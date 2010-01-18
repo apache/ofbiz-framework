@@ -153,56 +153,6 @@ under the License.
         <response name="success" type="view" value="EditEbayConfiguration"/>
         <response name="error" type="view" value="EditEbayConfiguration"/>
     </request-map>
-    
-    <!-- Export categories selected to Ebay store -->
-    <request-map uri="exportCategoryEbayStore">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="exportCategoryEbayStore"/>
-        <response name="error" type="view" value="exportCategoryEbayStore"/>
-    </request-map>
-    
-    <request-map uri="exportCategoriesSelectedToEbayStore">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="exportCategoriesSelectedToEbayStore"/>
-        <response name="success" type="view" value="exportCategoryEbayStore"/>
-        <response name="error" type="view" value="exportCategoryEbayStore"/>
-    </request-map>
-    
-    <request-map uri="newEbayAccount">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="NewEbayAccount"/>
-    </request-map>
-    <request-map uri="createEbayAccount">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createEbayAccount"/>
-        <response name="error" type="view" value="NewEbayAccount"/>
-        <response name="success" type="view" value="EditEbayConfiguration"/>
-    </request-map>
-    
-    <!-- Store output -->
-    <request-map uri="ebayStores">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ebayStores"/>
-        <response name="error" type="view" value="ebayStores"/>
-    </request-map>
-    <request-map uri="getStoreDetail">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="getEbayStoreOutput"/>
-        <response name="success" type="view" value="ebayStoreDetail"/>
-        <response name="error" type="view" value="ebayStoreDetail"/>
-    </request-map>
-    <request-map uri="loadStoreLogo">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="retrieveAdvancedThemeArray"/>
-        <response name="success" type="view" value="ebayStoreDetail"/>
-        <response name="error" type="view" value="ebayStoreDetail"/>
-    </request-map>
-    <request-map uri="retrieveThemeColorSchemeByThemeId">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebay.EbayStoreOptions" invoke="retrieveThemeColorSchemeByThemeId"/>
-        <response name="success" type="view" value="ebayStoreDetail"/>
-        <response name="error" type="view" value="ebayStoreDetail"/>
-    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -216,12 +166,5 @@ under the License.
     <view-map name="FindEbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#FindEbayConfigurations"/>
     <view-map name="EbayShippingMethods" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayShippingMethods"/>
     <view-map name="EditEbayConfiguration" type="screen" page="component://ebay/widget/EbayScreens.xml#EditEbayConfiguration"/>
-    <view-map name="exportCategoryEbayStore" type="screen" page="component://ebay/widget/EbayScreens.xml#exportCategoryEbayStore"/>
-    
-    <!-- store output -->
-    <view-map name="NewEbayAccount" type="screen" page="component://ebay/widget/EbayScreens.xml#NewEbayAccount"/>
-    <view-map name="ebayStores" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayStores"/>
-    <view-map name="ebayStoreDetail" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayStoreDetail"/>
-    
     <!-- end of view mappings -->
 </site-conf>
