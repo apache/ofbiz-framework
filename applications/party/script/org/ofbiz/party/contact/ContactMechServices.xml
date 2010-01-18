@@ -102,6 +102,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="PostalAddress" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
+        <set field="context.contactMechId" from-field="parameters.contactMechId"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
@@ -165,6 +166,7 @@ under the License.
     <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
         <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
+        <set field="context.contactMechId" from-field="parameters.contactMechId"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
