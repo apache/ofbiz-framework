@@ -164,4 +164,116 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <service name="createEbayAccount" engine="simple"
+        location="component://ebay/script/org/ofbiz/ebay/ebay/EbayServices.xml" invoke="createEbayAccount" auth="true">
+        <attribute name="salutation" mode="IN" type="String" optional="true"/>
+        <attribute name="firstName" mode="IN" type="String" optional="false"/>
+        <attribute name="middleName" mode="IN" type="String" optional="true"/>
+        <attribute name="lastName" mode="IN" type="String" optional="false"/>
+        <attribute name="gender" mode="IN" type="String" optional="true"/>
+        <attribute name="userLoginId" mode="IN" type="String" optional="false"/>
+        <attribute name="currentPassword" mode="IN" type="String" optional="false"/>
+        <attribute name="currentPasswordVerify" mode="IN" type="String" optional="false"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+        <attribute name="productStoreId" mode="OUT" type="String" optional="false"/>
+    </service>
+    
+    <service name="exportCategoriesSelectedToEbayStore" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebay.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
+        <description>Export categories in store to eBay store</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentMethods" type="String" mode="IN" optional="false"/>
+        <attribute name="listingDuration" type="String" mode="IN" optional="false"/>
+        <attribute name="location" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- Store output -->
+    <service name="getEbayStoreOutput" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="getEbayStoreOutput" auth="true">
+        <description>get ebay store description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="ebayStore" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrievePredesignedLogoOption" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrievePredesignedLogoOption" auth="true">
+        <description>get ebay store logos description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeLogoOptList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveBasicThemeArray" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveBasicThemeArray" auth="true">
+        <description>get ebay store Basic theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveAdvancedThemeArray" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveAdvancedThemeArray" auth="true">
+        <description>get ebay store Advanced theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
+        <attribute name="storeAdvancedThemeColorOptList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveStoreFontTheme" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveStoreFontTheme" auth="true">
+        <description>get ebay store Advanced theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="advanceFontTheme" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="setEbayStoreInput" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayStore" invoke="setEbayStoreInput" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="themeType" mode="IN" type="String" optional="false"/>
+        <attribute name="storeName" mode="IN" type="String" optional="false"/>
+        <attribute name="storeDesc" mode="IN" type="String" optional="false"/>
+        <attribute name="storeUrl" mode="IN" type="String" optional="false"/>
+        <attribute name="storeLogoId" mode="IN" type="String" optional="true"/>
+        <attribute name="storeLogoName" mode="IN" type="String" optional="true"/>
+        <attribute name="storeLogoURL" mode="IN" type="String" optional="true"/>
+        <attribute name="storeAdvancedTheme" mode="IN" type="String" optional="true"/>
+        <attribute name="storeAdvancedThemeColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeBasicTheme" mode="IN" type="String" optional="true"/>
+        <attribute name="storePrimaryColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeSecondaryColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeAccentColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeNameFont" mode="IN" type="String" optional="true"/>
+        <attribute name="storeNameFontSize" mode="IN" type="String" optional="true"/>
+        <attribute name="storeNameFontColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeTitleFont" mode="IN" type="String" optional="true"/>
+        <attribute name="storeTitleFontSize" mode="IN" type="String" optional="true"/>
+        <attribute name="storeTitleFontColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeDescFont" mode="IN" type="String" optional="true"/>
+        <attribute name="storeDescFontSize" mode="IN" type="String" optional="true"/>
+        <attribute name="storeDescFontColor" mode="IN" type="String" optional="true"/>
+        <attribute name="storeCustomHeaderLayout" mode="IN" type="String" optional="false"/>
+        <attribute name="storeCustomHeader" mode="IN" type="String" optional="false"/>
+        <attribute name="storeHeaderStyle" mode="IN" type="String" optional="false"/>
+        <attribute name="storeItemLayout" mode="IN" type="String" optional="false"/>
+        <attribute name="storeItemSortOrder" mode="IN" type="String" optional="false"/>
+        <attribute name="storeMerchDisplay" mode="IN" type="String" optional="false"/>
+        <attribute name="storeSubscriptionDisplay" mode="IN" type="String" optional="false"/>
+        <attribute name="ebayStore" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <!-- ebay account -->
+    <service name="getEbayStoreUser" engine="java" location="org.ofbiz.ebay.EbayStore" invoke="getEbayStoreUser" auth="true" transaction-timeout="3600">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="userLoginId" mode="OUT" type="String" optional="true"/>
+    </service>
+    <service name="getEbayUser" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayAccount" invoke="getEbayUser" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="email" mode="OUT" type="String" optional="true"/>
+        <attribute name="registrationAddress" mode="OUT" type="Map" optional="true"/>
+        <attribute name="status" mode="OUT" type="String" optional="true"/>
+    </service>
+    <service name="getEbayAccount" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayAccount" invoke="getEbayAccount" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="accountList" mode="OUT" type="List" optional="true"/>
+    </service>
+    <service name="getEbayUserPreference" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayAccount" invoke="getEbayUserPreference" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="userPreferenceList" mode="OUT" type="List" optional="true"/>
+    </service>
 </services>

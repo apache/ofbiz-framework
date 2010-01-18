@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
     <screen name="main-decorator">
         <section>
             <actions>
@@ -45,7 +45,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-
+                
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <set field="productName" from-field="product.productName"/>
@@ -67,7 +67,7 @@ under the License.
                                             <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
                                         </container>
-
+                                        
                                         <!-- add Create Product and View Product (in ecommerce) links -->
                                         <container style="button-bar">
                                             <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -82,7 +82,7 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-
+                                
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -94,7 +94,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="permission-decorator">
         <section>
             <actions>
@@ -107,6 +107,27 @@ under the License.
                                 <if-has-permission permission="EBAY" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                <container>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="parameters.productStoreId"/></not>
+                                        </condition>
+                                        <actions>
+                                            <service service-name="getEbayStoreUser" result-map="result">
+                                                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            </service>
+                                            <set field="userLoginId" from-field="result.userLoginId"/>
+                                            <entity-one value-field="ebayUser" entity-name="UserLogin">
+                                                <field-map field-name="userLoginId" from-field="result.userLoginId"/>
+                                            </entity-one>
+                                            <set field="parameters.partyId" from-field="ebayUser.partyId" global="true"/>
+                                        </actions>
+                                        <widgets>
+                                            <label text="${uiLabelMap.EbayAccount} : ${userLoginId}" style="h1"></label>
+                                            <include-menu name="EbayStoreFunctionTabBar"  location="component://ebay/widget/EbayMenus.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -118,7 +139,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="CommonEbayConfigDecorator">
         <section>
             <actions>
@@ -148,7 +169,7 @@ under the License.
                             </fail-widgets>
                         </section>
                     </decorator-section>
-               </decorator-screen>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
