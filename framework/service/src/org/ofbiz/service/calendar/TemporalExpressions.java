@@ -477,7 +477,7 @@ public class TemporalExpressions implements Serializable {
         }
     }
 
-    /** This class represents a difference of two temporal expressions. */
+    /** A temporal expression that represents a difference of two temporal expressions. */
     public static class Difference extends TemporalExpression {
         protected final TemporalExpression excluded;
         protected final TemporalExpression included;
@@ -611,7 +611,7 @@ public class TemporalExpressions implements Serializable {
             } else {
                 this.start = new Date();
             }
-            this.sequence = 100;
+            this.sequence = SEQUENCE_FREQ;
             this.subSequence = freqType;
             this.freqType = freqType;
             this.freqCount = freqCount;
@@ -864,7 +864,7 @@ public class TemporalExpressions implements Serializable {
             return super.toString() + ", start = " + this.start + ", end = " + this.end;
         }
     }
-    /** This class represents a mathematical intersection of all of its
+    /** A temporal expression that represents a mathematical intersection of all of its
      * member expressions. */
     public static class Intersection extends TemporalExpression {
         protected final Set<TemporalExpression> expressionSet;
@@ -1259,7 +1259,7 @@ public class TemporalExpressions implements Serializable {
         }
     }
 
-    /** This class represents a null expression. */
+    /** A temporal expression that represents a null expression. */
     public static class Null extends TemporalExpression {
         @Override
         public void accept(TemporalExpressionVisitor visitor) {
@@ -1283,7 +1283,7 @@ public class TemporalExpressions implements Serializable {
         }
     }
 
-    /** An expression that provides a substitution for an excluded temporal expression. */
+    /** A temporal expression that provides a substitution for an excluded temporal expression. */
     public static class Substitution extends TemporalExpression {
         protected final TemporalExpression excluded;
         protected final TemporalExpression included;
@@ -1601,7 +1601,7 @@ public class TemporalExpressions implements Serializable {
         }
     }
 
-    /** This class represents a mathematical union of all of its
+    /** A temporal expression that represents a mathematical union of all of its
      * member expressions. */
     public static class Union extends TemporalExpression {
         protected final Set<TemporalExpression> expressionSet;
