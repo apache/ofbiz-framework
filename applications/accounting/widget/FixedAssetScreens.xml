@@ -514,16 +514,37 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleFixedAssetDepreciationReport"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset" auto-field-map="true"/>
+                <service service-name="calculateFixedAssetDepreciation" result-map="assetDepreciationResultMap">
+                    <field-map field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                </service>
+                <set field="assetDepreciationInfoList" from-field="assetDepreciationResultMap.assetDepreciationInfoList"/>
+                <set field="assetDepreciationResultMessages" from-field="assetDepreciationResultMap.successMessageList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
+                                <screenlet title="${uiLabelMap.FixedAssetDepMethod}">
                                     <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
-                                    <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="assetDepreciationInfoList"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
+                                        <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
+                                            <label style="h3">${assetDepreciationResultMessages}</label>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                                <screenlet title="${uiLabelMap.AccountingTransactions}">
                                     <include-form name="FixedAssetTransactions" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
                             </widgets>

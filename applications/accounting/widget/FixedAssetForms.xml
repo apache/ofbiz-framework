@@ -613,11 +613,6 @@ under the License.
     </form>
     <form name="ListFixedAssetDepreciations" type="list" list-name="assetDepreciationInfoList" default-map-name="assetDepreciationInfo"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <actions>
-            <service service-name="calculateFixedAssetDepreciation" result-map-list="assetDepreciationInfoList">
-                <field-map field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
-            </service>
-        </actions>
         <field name="index"><display description="${itemIndex + 1}"/></field>
         <field name="year"><display/></field>
         <field name="depreciation"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>

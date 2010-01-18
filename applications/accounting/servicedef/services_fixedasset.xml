@@ -299,9 +299,9 @@ under the License.
                 location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
         <description>Select the depreciation method according to the entry in FixedAssetDepMethod</description>
         <attribute name="fixedAssetId" type="String" mode="IN"/>
-        <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
-        <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
-        <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="false"/>
+        <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="true"/>
+        <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="true"/>
+        <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="true"/>
     </service>
 
     <!-- FixedAssetGeoPoint services -->
