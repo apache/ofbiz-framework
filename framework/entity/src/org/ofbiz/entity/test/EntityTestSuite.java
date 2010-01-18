@@ -403,7 +403,7 @@ public class EntityTestSuite extends EntityTestCase {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
-            EntityListIterator iterator = delegator.find("Testing", EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T2-%"), null, null, null, null);
+            EntityListIterator iterator = delegator.find("Testing", EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T2-%"), null, null, UtilMisc.toList("testingId"), null);
             assertTrue("Test if EntityListIterator was created: ", iterator != null);
 
             int i = 0;
