@@ -164,4 +164,60 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <service name="createEbayAccount" engine="simple"
+        location="component://ebay/script/org/ofbiz/ebay/ebay/EbayServices.xml" invoke="createEbayAccount" auth="true">
+        <attribute name="salutation" mode="IN" type="String" optional="true"/>
+        <attribute name="firstName" mode="IN" type="String" optional="false"/>
+        <attribute name="middleName" mode="IN" type="String" optional="true"/>
+        <attribute name="lastName" mode="IN" type="String" optional="false"/>
+        <attribute name="gender" mode="IN" type="String" optional="true"/>
+        <attribute name="userLoginId" mode="IN" type="String" optional="false"/>
+        <attribute name="currentPassword" mode="IN" type="String" optional="false"/>
+        <attribute name="currentPasswordVerify" mode="IN" type="String" optional="false"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+        <attribute name="productStoreId" mode="OUT" type="String" optional="false"/>
+    </service>
+    
+    <service name="exportCategoriesSelectedToEbayStore" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebay.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
+        <description>Export categories in store to eBay store</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentMethods" type="String" mode="IN" optional="false"/>
+        <attribute name="listingDuration" type="String" mode="IN" optional="false"/>
+        <attribute name="location" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <!-- Store output -->
+    <service name="getEbayStoreOutput" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="getEbayStoreOutput" auth="true">
+        <description>get ebay store description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="ebayStore" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrievePredesignedLogoOption" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrievePredesignedLogoOption" auth="true">
+        <description>get ebay store logos description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeLogoOptList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveBasicThemeArray" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveBasicThemeArray" auth="true">
+        <description>get ebay store Basic theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveAdvancedThemeArray" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveAdvancedThemeArray" auth="true">
+        <description>get ebay store Advanced theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeThemeList" type="List" mode="OUT" optional="true"/>
+        <attribute name="storeAdvancedThemeColorOptList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveStoreFontTheme" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStore" invoke="retrieveStoreFontTheme" auth="true">
+        <description>get ebay store Advanced theme Array  description</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="advanceFontTheme" type="Map" mode="OUT" optional="true"/>
+    </service>
 </services>

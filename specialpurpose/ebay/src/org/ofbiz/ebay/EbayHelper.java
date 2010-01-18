@@ -57,7 +57,13 @@ import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class EbayHelper {
+import com.ebay.sdk.ApiAccount;
+import com.ebay.sdk.ApiContext;
+import com.ebay.sdk.ApiCredential;
+import com.ebay.sdk.ApiLogging;
+import com.ebay.soap.eBLBaseComponents.SiteCodeType;
+
+public class EbayHelper { 
     private static final String configFileName = "ebayExport.properties";
     private static final String module = EbayHelper.class.getName();
     public static final String resource = "EbayUiLabels";
@@ -75,13 +81,14 @@ public class EbayHelper {
                 return ServiceUtil.returnError(errMsg);
             }
             if (UtilValidate.isNotEmpty(eBayConfig)) {
-                buildEbayConfigContext.put("devID", eBayConfig.getString("devId"));
+                buildEbayConfigContext.put("devId", eBayConfig.getString("devId"));
                 buildEbayConfigContext.put("appID", eBayConfig.getString("appId"));
                 buildEbayConfigContext.put("certID", eBayConfig.getString("certId"));
                 buildEbayConfigContext.put("token", eBayConfig.getString("token"));
                 buildEbayConfigContext.put("compatibilityLevel", eBayConfig.getString("compatibilityLevel"));
                 buildEbayConfigContext.put("siteID", eBayConfig.getString("siteId"));
                 buildEbayConfigContext.put("xmlGatewayUri", eBayConfig.getString("xmlGatewayUri"));
+                buildEbayConfigContext.put("apiServerUrl", eBayConfig.getString("apiServerUrl"));
             }
         } else {
             buildEbayConfigContext.put("devID", UtilProperties.getPropertyValue(configFileName, "eBayExport.devID"));
@@ -91,7 +98,8 @@ public class EbayHelper {
             buildEbayConfigContext.put("compatibilityLevel", UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel"));
             buildEbayConfigContext.put("siteID", UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID"));
             buildEbayConfigContext.put("xmlGatewayUri", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
-        }
+            buildEbayConfigContext.put("apiServerUrl", UtilProperties.getPropertyValue(configFileName, "eBayExport.apiServerUrl"));
+        }    
         return buildEbayConfigContext;
     }
 
@@ -604,5 +612,72 @@ public class EbayHelper {
             productId = "";
         }
         return productId;
+    }
+    
+	public static ApiContext getApiContext(String productStoreId,Locale locale, Delegator delegator){
+		Map<String, Object> context = FastMap.newInstance();
+		context.put("locale", locale);
+		context.put("productStoreId", productStoreId);
+		Map<String, Object> config = buildEbayConfig(context, delegator);
+		ApiCredential apiCredential = new ApiCredential();
+		ApiLogging apiLogging = new ApiLogging();
+		apiLogging.setEnableLogging(false);
+		apiLogging.setLogExceptions(false);
+		apiLogging.setLogSOAPMessages(false);
+
+		String devID = (String)config.get("devId");
+        String appID = (String)config.get("appID");
+        String certID = (String)config.get("certID");
+        String token = (String)config.get("token");
+        String apiServerUrl = (String)config.get("apiServerUrl");
+
+		if(token != null){
+			apiCredential.seteBayToken(token);
+		}else if(devID != null && appID != null && certID != null){
+			ApiAccount apiAccount = new ApiAccount();
+			apiAccount.setApplication(appID);
+			apiAccount.setCertificate(certID);
+			apiAccount.setDeveloper(devID);
+			apiCredential.setApiAccount(apiAccount);
+		}
+		ApiContext apiContext = new ApiContext();
+		apiContext.setApiCredential(apiCredential);
+		apiContext.setApiServerUrl(apiServerUrl);
+		apiContext.setApiLogging(apiLogging); 
+		apiContext.setErrorLanguage("en_US");
+		return apiContext;
+	}
+	public static SiteCodeType getSiteCodeType(String productStoreId,Locale locale, Delegator delegator){
+        Map<String, Object> context = FastMap.newInstance();
+        context.put("locale", locale);
+        context.put("productStoreId", productStoreId);
+        Map<String, Object> config = buildEbayConfig(context, delegator);
+        String siteId = (String)config.get("siteID");
+        if(siteId.equals("0")) return SiteCodeType.US;
+        if(siteId.equals("2")) return SiteCodeType.CANADA;
+        if(siteId.equals("3")) return SiteCodeType.UK;
+        if(siteId.equals("15")) return SiteCodeType.AUSTRALIA;
+        if(siteId.equals("16")) return SiteCodeType.AUSTRIA;
+        if(siteId.equals("23")) return SiteCodeType.BELGIUM_FRENCH;
+        if(siteId.equals("71")) return SiteCodeType.FRANCE;
+        if(siteId.equals("77")) return SiteCodeType.GERMANY;
+        if(siteId.equals("100")) return SiteCodeType.E_BAY_MOTORS;
+        if(siteId.equals("101")) return SiteCodeType.ITALY;
+        if(siteId.equals("123")) return SiteCodeType.BELGIUM_DUTCH;
+        if(siteId.equals("146")) return SiteCodeType.NETHERLANDS;
+        if(siteId.equals("189")) return SiteCodeType.SPAIN;
+        if(siteId.equals("193")) return SiteCodeType.SWITZERLAND;
+        if(siteId.equals("196")) return SiteCodeType.TAIWAN;
+        if(siteId.equals("201")) return SiteCodeType.HONG_KONG;
+        if(siteId.equals("203")) return SiteCodeType.INDIA;
+        if(siteId.equals("205")) return SiteCodeType.IRELAND;
+        if(siteId.equals("207")) return SiteCodeType.MALAYSIA;
+        if(siteId.equals("210")) return SiteCodeType.CANADA_FRENCH;
+        if(siteId.equals("211")) return SiteCodeType.PHILIPPINES;
+        if(siteId.equals("212")) return SiteCodeType.POLAND;
+        if(siteId.equals("216")) return SiteCodeType.SINGAPORE;
+        if(siteId.equals("218")) return SiteCodeType.SWEDEN;
+        if(siteId.equals("223")) return SiteCodeType.CHINA;
+        return SiteCodeType.US;
     }
 }

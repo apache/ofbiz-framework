@@ -177,7 +177,7 @@ public class ProductsExportToEbay {
         return result;
     }
 
-    private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token, GenericValue prod) {
+    public static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token, GenericValue prod) {
         Locale locale = (Locale)context.get("locale");
         try {
             Delegator delegator = dctx.getDelegator();
@@ -264,22 +264,25 @@ public class ProductsExportToEbay {
                 }
                 setPaymentMethodAccepted(itemDocument, itemElem, context);
                 setMiscDetails(itemDocument, itemElem, context, delegator);
-                String primaryCategoryId = "";
-                String categoryCode = (String)context.get("ebayCategory");
-                if (categoryCode != null) {
-                    String[] params = categoryCode.split("_");
+                String primaryCategoryId = (String)context.get("primaryCategoryId");
+                if (UtilValidate.isEmpty(primaryCategoryId)) {
+                    String categoryCode = (String)context.get("ebayCategory");
+                    if (categoryCode != null) {
+                        String[] params = categoryCode.split("_");
 
-                    if (params == null || params.length != 3) {
-                        ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
+                        if (params == null || params.length != 3) {
+                            ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
+                        } else {
+                            primaryCategoryId = params[1];
+                        }
                     } else {
-                        primaryCategoryId = params[1];
-                    }
-                } else {
-                    GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
-                    if (UtilValidate.isNotEmpty(productCategoryValue)) {
-                        primaryCategoryId = productCategoryValue.getString("categoryName");
+                        GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")))));
+                        if (UtilValidate.isNotEmpty(productCategoryValue)) {
+                            primaryCategoryId = productCategoryValue.getString("categoryName");
+                        }
                     }
                 }
+                
                 Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
                 UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
 
@@ -590,5 +593,13 @@ public class ProductsExportToEbay {
             return ServiceUtil.returnFailure();
         }
         return result;
+    }
+    
+    public static List<String> getProductExportSuccessMessageList(){
+    	return productExportSuccessMessageList;
+    }
+    
+    public static List<String> getproductExportFailureMessageList(){
+    	return productExportFailureMessageList;
     }
 }
