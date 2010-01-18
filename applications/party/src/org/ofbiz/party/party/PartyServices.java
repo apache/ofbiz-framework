@@ -481,7 +481,7 @@ public class PartyServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        if (!context.get("statusId").equals(oldStatusId)) {
+        if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
             try {
                 dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
             } catch (GenericServiceException e) {
