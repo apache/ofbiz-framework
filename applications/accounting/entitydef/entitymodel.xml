@@ -613,14 +613,6 @@ under the License.
     <!-- org.ofbiz.accounting.fixedasset -->
     <!-- ========================================================= -->
 
-    <entity entity-name="DepreciationMethod"
-            package-name="org.ofbiz.accounting.fixedasset"
-            title="Depreciation Method Entity">
-      <field name="depreciationMethodId" type="id-ne"></field>
-      <field name="description" type="description"></field>
-      <field name="formula" type="long-varchar"></field>
-      <prim-key field="depreciationMethodId"/>
-    </entity>
     <entity entity-name="FixedAsset" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Entity">
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="fixedAssetTypeId" type="id"></field>
