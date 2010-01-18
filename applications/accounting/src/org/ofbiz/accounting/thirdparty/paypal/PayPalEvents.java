@@ -85,6 +85,7 @@ public class PayPalEvents {
 
         // get the order total
         String orderTotal = orderHeader.getBigDecimal("grandTotal").toPlainString();
+        String currencyUom = orderHeader.getString("currencyUom");
 
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
@@ -153,6 +154,7 @@ public class PayPalEvents {
         parameters.put("invoice", orderId);
         parameters.put("custom", userLogin.getString("userLoginId"));
         parameters.put("amount", orderTotal);
+        parameters.put("currency_code", currencyUom);
         parameters.put("return", returnUrl);
         if (UtilValidate.isNotEmpty(cancelReturnUrl)) parameters.put("cancel_return", cancelReturnUrl);
         parameters.put("notify_url", notifyUrl);
