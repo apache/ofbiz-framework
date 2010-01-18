@@ -83,5 +83,26 @@ under the License.
         objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_eBayOrders.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="EBAY_EbayOrders" contentTypeId="DOCUMENT" contentName="Ebay orders import" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_EbayOrders" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_EbayOrders" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_FindEbayOrders"/>
+    <!-- ebay store -->
+    
+    <DataResource dataResourceId="EBAY_ebayStores" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_EbayStore.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ebayStores" contentTypeId="DOCUMENT" contentName="EBay store" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ebayStores" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_ebayStores" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_ebayStores"/>
+    
+    <DataResource dataResourceId="EBAY_NewEbayAccount" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_NewEbayAccount.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_NewEbayAccount" contentTypeId="DOCUMENT" contentName="EBay store new ebay Account" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_NewEbayAccount" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_NewEbayAccount" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_NewEbayAccount"/>
+    
+    <DataResource dataResourceId="EBAY_StoreSetting" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_StoreSetting.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_StoreSetting" contentTypeId="DOCUMENT" contentName="EBay store setting" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_StoreSetting" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_StoreSetting" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_ebayStoreDetail"/>
+    
+    <DataResource dataResourceId="EBAY_ExpCatToEbay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_ExportCategoriesToEbay.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ExpCatToEbay" contentTypeId="DOCUMENT" contentName="EBay export categories to store" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ExpCatToEbay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_ExpCatToEbay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_exportCategoryEbayStore"/>
     
 </entity-engine-xml>

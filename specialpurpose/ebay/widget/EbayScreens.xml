@@ -288,4 +288,108 @@ under the License.
         </section>
     </screen>
 
+    <screen name="exportCategoryEbayStore">
+    <section>
+        <actions>
+            <set field="titleProperty" value="EbayExportAllCategoryToEbayStore"/>
+            <set field="headerItem" value="ebayStore"/>
+            <set field="tabButtonItem" value="ebayExportAllCategoryToEbayStore"/>
+            <set field="productStoreId" value="${parameters.productStoreId}"/>
+        </actions>
+        <widgets>
+        <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+            <decorator-section name="body">
+                    <screenlet title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
+                        <include-form name="ListCurrentStores" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ebayStores">
+        <section>
+            <actions>
+                <set field="titleProperty" value="${uiLabelMap.EbayStore}"/>
+                <set field="headerItem" value="ebayStore"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="EbaySubTabBar" location="component://ebay/widget/EbayMenus.xml"/>
+                        <screenlet title="Ebay Accounts">
+                            <include-form name="EbayAccountList" location="component://ebay/widget/EbayStoreForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ebayStoreDetail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="${uiLabelMap.EbayStoreSetting}"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="ebayStoreSetting"/>
+                
+                <script  location="component://ebay/webapp/ebay/WEB-INF/actions/store/RetrieveStoreOptions.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayStoreSetting}">
+                            <platform-specific>
+                                <html><html-template location="component://ebay/webapp/ebay/store/StoreSetting.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!-- ebay account -->
+    <screen name="NewEbayAccount">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="NewEbayAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="New Ebay Account">
+                            <include-form name="NewEbayAccount" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EbayAccount">
+        <section>
+            <actions>
+                <entity-one value-field="portalPage" entity-name="PortalPage">
+                    <field-map field-name="portalPageId" value="EbayAccount"/>
+                </entity-one>
+                <entity-and entity-name="PortalPageColumn" list="portalPageColumns">
+                    <field-map field-name="portalPageId" value="EbayAccount"/>
+                    <order-by field-name="columnSeqId"/>
+                </entity-and>
+                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                    <field-map field-name="portalPageId" value="EbayAccount"/>
+                    <order-by field-name="columnSeqId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
+                <set field="tabButtonItem" value="ebayAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://common/webcommon/portal/showPortalPage.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

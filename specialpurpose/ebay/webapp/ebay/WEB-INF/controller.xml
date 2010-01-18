@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
-
+    
     <description>eBay Component Site Configuration File</description>
-
+    
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-
+    
     <request-map uri="ProductsExportToEbay">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductsExportToEbay"/>
     </request-map>
-
+    
     <request-map uri="PostProductsToEbay">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="exportToEbay"/>
         <response name="success" type="view" value="ProductsExportToEbay"/>
         <response name="error" type="view" value="ProductsExportToEbay"/>
     </request-map>
-
+    
     <request-map uri="ManageOrdersFromEbay">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-
+    
     <request-map uri="ImportOrdersSearchFromEbay">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importOrdersSearchFromEbay"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-
+    
     <request-map uri="ImportOrderFromEbay">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="importOrderFromEbay"/>
@@ -61,7 +61,7 @@ under the License.
         <response name="error" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-
+    
     <request-map uri="setEbayOrderToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="setEbayOrderToComplete"/>
@@ -124,14 +124,14 @@ under the License.
         <response name="success" type="view" value="FindEbayOrders"/>
         <response name="failure" type="view" value="FindEbayOrders"/>
     </request-map>
-
+    
     <request-map uri="GetEbayOrders">
         <security https="true" auth="true"/>
         <event type="service" invoke="getEbayOrders"/>
         <response name="success" type="view" value="EbayOrders"/>
         <response name="failure" type="view" value="EbayOrders"/>
     </request-map>
-
+    
     <request-map uri="importEbayOrders">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="importEbayOrders"/>
@@ -139,7 +139,7 @@ under the License.
         <response name="failure" type="view" value="FindEbayOrders"/>
         <response name="error" type="view" value="FindEbayOrders"/>
     </request-map>
-
+    
     <request-map uri="updatedEbayOrders">
         <security https="true" auth="true"/>
         <event type="groovy" path="component://ebay/webapp/ebay/WEB-INF/actions/find/" invoke="updatedEbayOrders.groovy"/>
@@ -147,14 +147,70 @@ under the License.
         <response name="failure" type="view" value="FindEbayOrders"/>
         <response name="error" type="view" value="FindEbayOrders"/>
     </request-map>
-
+    
     <request-map uri="EditEbayConfiguration">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEbayConfiguration"/>
         <response name="error" type="view" value="EditEbayConfiguration"/>
     </request-map>
+    
+    <!-- Export categories selected to Ebay store -->
+    <request-map uri="exportCategoryEbayStore">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
+    
+    <request-map uri="exportCategoriesSelectedToEbayStore">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="exportCategoriesSelectedToEbayStore"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
+    <!-- new ebay account in ofbiz -->
+    <request-map uri="newEbayAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewEbayAccount"/>
+    </request-map>
+    <request-map uri="createEbayAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEbayAccount"/>
+        <response name="error" type="view" value="NewEbayAccount"/>
+        <response name="success" type="view" value="EditEbayConfiguration"/>
+    </request-map>
+    <request-map uri="ebayAccount">
+        <security https="true" auth="true"/>
+        <response name="error" type="view" value="EbayAccount"/>
+        <response name="success" type="view" value="EbayAccount"/>
+    </request-map>
+    
+    <!-- Store output -->
+    <request-map uri="ebayStores">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStores"/>
+        <response name="error" type="view" value="ebayStores"/>
+    </request-map>
+    <request-map uri="getStoreDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayStoreOutput"/>
+        <response name="success" type="view" value="ebayStoreDetail"/>
+        <response name="error" type="view" value="ebayStoreDetail"/>
+    </request-map>
+    <request-map uri="editEbayStoreDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setEbayStoreInput"/>
+        <response name="success" type="view" value="ebayStoreDetail"/>
+        <response name="error" type="view" value="ebayStoreDetail"/>
+    </request-map>
+    <request-map uri="retrieveThemeColorSchemeByThemeId">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.ebay.EbayStoreOptions" invoke="retrieveThemeColorSchemeByThemeId"/>
+        <response name="success" type="view" value="ebayStoreDetail"/>
+        <response name="error" type="view" value="ebayStoreDetail"/>
+    </request-map>
+    
     <!-- end of request mappings -->
-
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://ebay/widget/EbayScreens.xml#advancedsearch"/>
     <view-map name="advancedsearch" type="screen" page="component://ebay/widget/EbayScreens.xml#advancedsearch"/>
@@ -166,5 +222,14 @@ under the License.
     <view-map name="FindEbayConfigurations" type="screen" page="component://ebay/widget/EbayScreens.xml#FindEbayConfigurations"/>
     <view-map name="EbayShippingMethods" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayShippingMethods"/>
     <view-map name="EditEbayConfiguration" type="screen" page="component://ebay/widget/EbayScreens.xml#EditEbayConfiguration"/>
+    <view-map name="exportCategoryEbayStore" type="screen" page="component://ebay/widget/EbayScreens.xml#exportCategoryEbayStore"/>
+    
+    
+    <!-- store output -->
+    <view-map name="ebayStores" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayStores"/>
+    <view-map name="ebayStoreDetail" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayStoreDetail"/>
+    <!-- ebay account -->
+    <view-map name="NewEbayAccount" type="screen" page="component://ebay/widget/EbayScreens.xml#NewEbayAccount"/>
+    <view-map name="EbayAccount" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayAccount"/>
     <!-- end of view mappings -->
 </site-conf>
