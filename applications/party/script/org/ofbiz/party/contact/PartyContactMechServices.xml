@@ -260,7 +260,7 @@ under the License.
             <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
-        
+
         <!-- if e-mail address already exists simply return -->
         <entity-condition list="partyAndContactMechs" entity-name="PartyAndContactMech">
             <condition-list combine="and">
@@ -645,4 +645,23 @@ under the License.
         </if-empty>
         <field-to-result field="contactMechId"/>
     </simple-method>
+
+    <simple-method method-name="createUpdatePartyPostalAddress" short-description="Create or update postal address" login-required="false">
+        <if-empty field="parameters.contactMechId">
+            <set-service-fields service-name="createPartyPostalAddress" map="parameters" to-map="postalAddressContext"/>
+            <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext">
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
+            </call-service>
+            <log level="info" message="Postal address created, contactMechId is ${contactMechId}"></log>
+            <else>
+                <set-service-fields service-name="createPartyPostalAddress" map="parameters" to-map="postalAddressContext"/>
+                <call-service service-name="updatePartyPostalAddress" in-map-name="postalAddressContext">
+                    <result-to-field result-name="contactMechId" field="contactMechId"/>
+                </call-service>
+                <log level="info" message="Postal address contact updated, contactMechId is ${contactMechId}"></log>
+            </else>
+        </if-empty>
+        <field-to-result field="contactMechId"/>
+    </simple-method>
+
 </simple-methods>
