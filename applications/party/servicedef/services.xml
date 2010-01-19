@@ -1281,6 +1281,16 @@ under the License.
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="createUpdatePartyPostalAddress" engine="simple"
+        location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createUpdatePartyPostalAddress" auth="false">
+        <description>Create or Update a postal address</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+    </service>
 
      <!--  bounced message processing -->
     <service name="processBouncedMessage" engine="java"
