@@ -2336,6 +2336,23 @@ under the License.
         <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
+    <request-map uri="FixedAssetTypeGlAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetTypeGlAccounts"/>
+        <response name="error" type="view" value="FixedAssetTypeGlAccounts"/>
+    </request-map>
+    <request-map uri="createFixedAssetTypeGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createFixedAssetTypeGlAccount"/>
+        <response name="success" type="view" value="FixedAssetTypeGlAccounts"/>
+        <response name="error" type="view" value="FixedAssetTypeGlAccounts"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetTypeGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteFixedAssetTypeGlAccount"/>
+        <response name="success" type="view" value="FixedAssetTypeGlAccounts"/>
+        <response name="error" type="view" value="FixedAssetTypeGlAccounts"/>
+    </request-map>
     <!-- Commented out for now WIP
     <request-map uri="taxAuthorityVATReport">
         <security https="true" auth="true"/>
@@ -2725,6 +2742,7 @@ under the License.
     <view-map name="EditVarianceReasonGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditVarianceReasonGlAccounts"/>
     <view-map name="EditCreditCardTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditCreditCardTypeGlAccounts"/>
     <view-map name="EditOrganizationTaxAuthorityGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditOrganizationTaxAuthorityGlAccounts"/>
+    <view-map name="FixedAssetTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#FixedAssetTypeGlAccounts"/>
     <view-map name="ListGlAccountOrgPdf" type="screenfop" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgPdf" content-type="application/pdf" encoding="none"/>
     <view-map name="ListGlAccountOrgCsv" type="screencsv" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrgCsv" content-type="text/csv" encoding="none"/>
 
