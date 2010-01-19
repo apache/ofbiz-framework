@@ -84,7 +84,7 @@ under the License.
             <td><@CreateExprAssocForm formName="excludeExpression" exprAssocType="EXCLUDE"/></td>
           </tr>
         </#if>
-        <#if !hasSubstitution>
+        <#if !hasSubstitution && temporalExpression.tempExprTypeId == "SUBSTITUTION">
           <tr>
             <td class="label">${uiLabelMap.TemporalExpression_SUBSTITUTION}</td>
             <td><@CreateExprAssocForm formName="substitutionExpression" exprAssocType="SUBSTITUTION"/></td>

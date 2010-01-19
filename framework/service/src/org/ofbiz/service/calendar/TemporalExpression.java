@@ -27,41 +27,32 @@ import java.util.TreeSet;
 /** Temporal expression abstract class. */
 @SuppressWarnings("serial")
 public abstract class TemporalExpression implements Serializable, Comparable<TemporalExpression> {
-    protected TemporalExpression() {}
-
     /** Field used to sort expressions. Expression evaluation depends
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
     protected int sequence = Integer.MAX_VALUE;
 
-    /** Field used to sort expressions. Expression evaluation depends
-     * on correct ordering. Expressions are evaluated from lowest value
-     * to highest value. */
-    protected int subSequence = Integer.MAX_VALUE;
-
     /** A unique ID for this expression. This field is intended to be used by
      * persistence classes. */
     protected String id = null;
 
-    /** Returns true if this expression includes the specified date.
-     * @param cal A date to evaluate
-     * @return true if this expression includes the date represented by
-     * <code>cal</code>
-     */
-    public abstract boolean includesDate(Calendar cal);
+    protected TemporalExpression() {}
 
-    /** Returns true if this expression is a candidate for substitution
-     * using the expression <code>expressionToTest</code> for the date
-     * <code>cal</code>. A <code>Substitution</code> object will call this
-     * method when it needs to know if this expression could have produced
-     * the date <code>cal</code> based on the expression
-     * <code>expressionToTest</code>.
-     * @param cal A date to evaluate
-     * @param expressionToTest An expression to evaluate
-     * @return true if this expression could have produced the date
-     * <code>cal</code> using the expression <code>expressionToTest</code>
+    /** Handles a <code>TemporalExpressionVisitor</code> visit.
+     * @param visitor
      */
-    public abstract boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest);
+    public abstract void accept(TemporalExpressionVisitor visitor);
+
+    public int compareTo(TemporalExpression obj) {
+        if (this.equals(obj) || obj.sequence == this.sequence) {
+            return 0;
+        }
+         return obj.sequence < this.sequence ? 1 : -1;
+    }
+
+    protected boolean containsExpression(TemporalExpression expression) {
+        return false;
+    }
 
     /** Returns a date representing the first occurrence of this expression
      * on or after a specified date. Returns <code>null</code> if there
@@ -72,30 +63,11 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      */
     public abstract Calendar first(Calendar cal);
 
-    /** Returns a date representing the next occurrence of this expression
-     * after a specified date. Returns <code>null</code> if there
-     * is no matching date.
-     * @param cal A date to evaluate
-     * @return A Calendar instance representing the first matching date,
-     * or <code>null</code> if no matching date is found
+    /** Returns this expression's ID.
+     * @return Expression ID String
      */
-    public abstract Calendar next(Calendar cal);
-
-    /** Handles a <code>TemporalExpressionVisitor</code> visit.
-     * @param visitor
-     */
-    public abstract void accept(TemporalExpressionVisitor visitor);
-
-    public int compareTo(TemporalExpression obj) {
-        if (this.equals(obj)) {
-            return 0;
-        }
-        if (obj.sequence < this.sequence) {
-            return 1;
-        } else if (obj.sequence > this.sequence) {
-            return -1;
-        }
-        return obj.subSequence < this.subSequence ? 1 : -1;
+    public String getId() {
+        return this.id;
     }
 
     /** Returns a range of dates matching this expression. Returns an
@@ -119,12 +91,38 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         return set;
     }
 
-    /** Returns this expression's ID.
-     * @return Expression ID String
+    /** Returns true if this expression includes the specified date.
+     * @param cal A date to evaluate
+     * @return true if this expression includes the date represented by
+     * <code>cal</code>
      */
-    public String getId() {
-        return this.id;
+    public abstract boolean includesDate(Calendar cal);
+
+    /** Returns true if this expression is a candidate for substitution
+     * using the expression <code>expressionToTest</code> for the date
+     * <code>cal</code>. A <code>Substitution</code> object will call this
+     * method when it needs to know if this expression could have produced
+     * the date <code>cal</code> based on the expression
+     * <code>expressionToTest</code>.
+     * @param cal A date to evaluate
+     * @param expressionToTest An expression to evaluate
+     * @return true if this expression could have produced the date
+     * <code>cal</code> using the expression <code>expressionToTest</code>
+     */
+    public abstract boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest);
+
+    /** Returns a date representing the next occurrence of this expression
+     * after a specified date. Returns <code>null</code> if there
+     * is no matching date.
+     * @param cal A date to evaluate
+     * @return A Calendar instance representing the first matching date,
+     * or <code>null</code> if no matching date is found
+     */
+    public Calendar next(Calendar cal) {
+        return next(cal, new ExpressionContext());
     }
+
+    protected abstract Calendar next(Calendar cal, ExpressionContext context);
 
     /** Sets this expression's ID.
      * @param id Expression ID String
@@ -133,15 +131,14 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         this.id = id;
     }
 
-    protected boolean containsExpression(TemporalExpression expression) {
-        return false;
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " [" + this.id + "]";
     }
 
-    protected Calendar setStartOfDay(Calendar cal) {
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal;
+    protected class ExpressionContext {
+        public boolean hourBumped = false;
+        public boolean dayBumped = false;
+        public boolean monthBumped = false;
     }
 }
