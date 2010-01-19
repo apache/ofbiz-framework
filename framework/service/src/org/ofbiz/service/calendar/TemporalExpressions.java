@@ -43,6 +43,10 @@ public class TemporalExpressions implements Serializable {
     // since it is the most specific. Date range should always be last.
     // The idea is to evaluate all other expressions, then check to see
     // if the result falls within the date range.
+    // Difference: adopts the sequence of its include expression
+    // Intersection: aggregates member expression sequence values
+    // Substitution: adopts the sequence of its include expression
+    // Union: adopts the sequence of its first member expression
     public static final int SEQUENCE_DATE_RANGE = 800;
     public static final int SEQUENCE_DAY_IN_MONTH = 460;
     public static final int SEQUENCE_DOM_RANGE = 400;
@@ -877,11 +881,13 @@ public class TemporalExpressions implements Serializable {
                 throw new IllegalArgumentException("recursive expression");
             }
             if (this.expressionSet.size() > 0) {
+                // Aggregate member expression sequences in a way that will
+                // ensure the proper evaluation sequence for the entire collection
                 int result = 0;
                 TemporalExpression[] exprArray = this.expressionSet.toArray(new TemporalExpression[this.expressionSet.size()]);
                 for (int i = exprArray.length - 1; i >= 0; i--) {
-                    result += exprArray[i].sequence;
                     result *= 10;
+                    result += exprArray[i].sequence;
                 }
                 this.sequence = result;
             }
