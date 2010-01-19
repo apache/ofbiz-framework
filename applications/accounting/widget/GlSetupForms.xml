@@ -1114,5 +1114,104 @@ under the License.
         <field name="amountPercentage"><text/></field>
         <field name="submit" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-
+    <form name="AddFixedAssetTypeGlAccount" type="single" target="createFixedAssetTypeGlAccount" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createFixedAssetTypeGlAccount" default-field-type="edit"/>
+        <field name="fixedAssetId">
+            <drop-down allow-empty="false">
+                <option key="_NA_" description="${uiLabelMap.CommonAll}"/>
+                <entity-options entity-name="FixedAsset" description="${fixedAssetId} - ${fixedAssetName}">
+                    <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="fixedAssetId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fixedAssetTypeId">
+            <drop-down allow-empty="false">
+                <option key="_NA_" description="${uiLabelMap.CommonAll}"/>
+                <entity-options entity-name="FixedAssetType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="assetGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="LONGTERM_ASSET"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="accDepGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="ACCUM_DEPRECIATION"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="ACCUM_AMORTIZATION"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="depGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="DEPRECIATION"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="AMORTIZATION"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="profitGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="CASH_INCOME"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="lossGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" value="SGA_EXPENSE"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FixedAssetTypeGlAccounts" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="FixedAssetTypeGlAccount" list="fixedAssetTypeGlAccounts">
+                <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
+            </entity-condition>
+        </actions>
+        <field name="fixedAssetTypeId"><display-entity entity-name="FixedAssetType"/></field>
+        <field name="fixedAssetId"><display-entity entity-name="FixedAsset" description="${fixedAssetId} ${fixedAssetName}"/></field>
+        <field name="assetGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
+        <field name="accDepGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
+        <field name="depGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
+        <field name="profitGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
+        <field name="lossGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteFixedAssetTypeGlAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetTypeId"/>
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="organizationPartyId"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>

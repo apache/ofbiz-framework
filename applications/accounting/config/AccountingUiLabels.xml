@@ -4213,6 +4213,10 @@
         <value xml:lang="th">ราคามาตรฐาน</value>
         <value xml:lang="zh">标准费用</value>
     </property>
+    <property key="AccountingFixedAssetTypeGlAccounts">
+        <value xml:lang="en">Fixed Asset Type Gl Mappings</value>
+        <value xml:lang="it">Mapping Contabili Per Cespiti</value>
+    </property>
     <property key="AccountingFixedAssetTypeId">
         <value xml:lang="ar">نوع الأصل</value>
         <value xml:lang="de">Anlagenart</value>
