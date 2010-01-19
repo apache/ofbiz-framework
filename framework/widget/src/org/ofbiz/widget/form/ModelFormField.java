@@ -3462,12 +3462,20 @@ public class ModelFormField {
         protected String descriptionFieldName;
         protected String targetParameter;
         protected SubHyperlink subHyperlink;
+        protected String lookupPresentation;
+        protected String lookupWidth;
+        protected String lookupHeight;
+        protected String lookupPosition;
 
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
             this.descriptionFieldName = element.getAttribute("description-field-name");
             this.targetParameter = element.getAttribute("target-parameter");
+            this.lookupPresentation = element.getAttribute("lookup-presentation");
+            this.lookupHeight = element.getAttribute("lookup-height");
+            this.lookupWidth = element.getAttribute("lookup-width");
+            this.lookupPosition = element.getAttribute("lookup-position");
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
@@ -3514,6 +3522,38 @@ public class ModelFormField {
         @Override
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
+        }
+
+        public String getLookupPresentation() {
+            return this.lookupPresentation;
+        }
+
+        public void setLookupPresentation(String str) {
+            this.lookupPresentation = str;
+        }
+
+        public String getLookupWidth() {
+            return this.lookupWidth;
+        }
+
+        public void setLookupWidth(String str) {
+            this.lookupWidth = str;
+        }
+
+        public String getLookupHeight() {
+            return this.lookupHeight;
+        }
+
+        public void setLookupHeight(String str) {
+            this.lookupHeight = str;
+        }
+
+        public String getLookupPosition() {
+            return this.lookupPosition;
+        }
+
+        public void setLookupPosition(String str) {
+            this.lookupPosition = str;
         }
     }
 

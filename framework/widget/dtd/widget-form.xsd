@@ -903,6 +903,34 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="lookup-presentation" default="window">
+            <xs:annotation><xs:documentation>Shows the lookup as moveable and resizable layer or window. For layer lookups use the 'LookupLayerPopupDecorator'</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="layer"/>
+                    <xs:enumeration value="window"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="lookup-height">
+            <xs:annotation><xs:documentation>Only layer height. I.e. 250px, 12%</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="lookup-width">
+            <xs:annotation><xs:documentation>Only layer width. I.e. 250px, 12%</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="lookup-position" default="normal">
+            <xs:annotation><xs:documentation>Only layer position. Normal sets the layer under the target field.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="normal"/>
+                    <xs:enumeration value="center"/>
+                    <xs:enumeration value="left"/>
+                    <xs:enumeration value="right"/>
+                    <xs:enumeration value="topleft"/>
+                    <xs:enumeration value="topright"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="password" substitutionGroup="AllFields">
         <xs:complexType>

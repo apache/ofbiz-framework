@@ -193,6 +193,7 @@ under the License.
     <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
 
     <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
+    <request-map uri="LookupPartyNameExamplePopup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyNameExamplePopup"/></request-map>
 
     <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
     <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
@@ -260,6 +261,8 @@ under the License.
     <view-map name="FormWidgetExamples" type="screen" page="component://example/widget/example/FormWidgetExampleScreens.xml#FormWidgetExamples"/>
 
     <view-map name="LookupExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#LookupExampleFeature"/>
+    <view-map name="LookupPartyNameExamplePopup" type="screen" page="component://example/widget/example/FormWidgetExampleLookupScreens.xml#LookupPartyName"/>
+
     <!-- ajax view mappings -->
     <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
@@ -290,6 +293,6 @@ under the License.
         application/vnd.ms-word
         application/vnd.ms-powerpoint
      -->
-   
-    <!-- end of view mappings -->   
+
+    <!-- end of view mappings -->
 </site-conf>

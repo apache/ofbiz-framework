@@ -78,6 +78,13 @@ under the License.
                                     </container>
                                     <include-form name="FOPFontsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                 </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFields}</label></container>
+                                    <container style="screenlet-body">
+                                        <label>${uiLabelMap.ExampleLookupFields}</label>
+                                    </container>
+                                    <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
