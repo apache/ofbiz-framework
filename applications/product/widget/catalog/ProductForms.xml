@@ -1887,13 +1887,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductAttribute"/>
         <field name="productId"><hidden/></field>
-        <field name="attrName">
-            <drop-down>
-                <entity-options description="${attrName}" entity-name="ProductTypeAttr">
-                    <entity-constraint name="productTypeId" operator="equals" value="${product.productTypeId}"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="attrName"></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes"
