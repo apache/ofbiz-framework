@@ -303,6 +303,20 @@ under the License.
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="true"/>
         <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="true"/>
     </service>
+    <service name="createFixedAssetTypeGlAccount" engine="simple" default-entity-name="FixedAssetTypeGlAccount"
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetTypeGlAccount" auth="true">
+        <description>Create a Fixed Asset Type Gl Account Mapping</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="fixedAssetTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteFixedAssetTypeGlAccount" default-entity-name="FixedAssetTypeGlAccount" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Fixed Asset Type Gl Account Mapping</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 
     <!-- FixedAssetGeoPoint services -->
     <service name="createFixedAssetGeoPoint" default-entity-name="FixedAssetGeoPoint" engine="entity-auto" invoke="create" auth="true">

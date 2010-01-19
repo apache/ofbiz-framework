@@ -544,6 +544,13 @@ under the License.
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
+                                <screenlet title="GL Mappings">
+                                    <include-form name="AddFixedAssetTypeGlAccount" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <label style="h3">Fixed Asset Mappings</label>
+                                    <include-form name="FixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                    <label style="h3">Global Mappings</label>
+                                    <include-form name="GlobalFixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                </screenlet>
                                 <screenlet title="${uiLabelMap.AccountingTransactions}">
                                     <include-form name="FixedAssetTransactions" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>

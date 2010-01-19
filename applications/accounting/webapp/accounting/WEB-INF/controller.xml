@@ -2324,7 +2324,18 @@ under the License.
         <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
         <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
     </request-map>
-
+    <request-map uri="createFixedAssetTypeGlAccountForFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createFixedAssetTypeGlAccount"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
+    <request-map uri="deleteFixedAssetTypeGlAccountForFixedAsset">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteFixedAssetTypeGlAccount"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
     <!-- Commented out for now WIP
     <request-map uri="taxAuthorityVATReport">
         <security https="true" auth="true"/>
