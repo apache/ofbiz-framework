@@ -40,10 +40,17 @@ under the License.
         <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="workEffortTypeId">
+        <field name="workEffortTypeId" use-when="parentTypeId!=void">
             <drop-down no-current-selected-key="MEETING">
                 <entity-options entity-name="WorkEffortType" description="${description}">
-                    <entity-constraint name="parentTypeId" value="${parameters.parentTypeId}"/>
+                    <entity-constraint name="parentTypeId" env-name="parentTypeId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortTypeId" use-when="parentTypeId==void">
+            <drop-down>
+                <entity-options entity-name="WorkEffortType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
