@@ -59,7 +59,7 @@
     <property key="FormFieldTitle_applicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
         <value xml:lang="en">Application Id</value>
-        <value xml:lang="fr">Réf. de demande d'emploi</value>
+        <value xml:lang="fr">Demande d'emploi</value>
         <value xml:lang="it">Numero Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
         <value xml:lang="zh">应聘申请编号</value>
@@ -67,10 +67,14 @@
     <property key="FormFieldTitle_applyingPartyId">
         <value xml:lang="de">Anwendungsteilnehmer ID</value>
         <value xml:lang="en">Applying Party Id</value>
-        <value xml:lang="fr">Réf. d'acteur en demande</value>
+        <value xml:lang="fr">Acteur en demande</value>
         <value xml:lang="it">Soggetto Applicato</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">应聘申请人</value>
+    </property>
+    <property key="FormFieldTitle_approverPartyId">
+        <value xml:lang="en">Approver Party</value>
+        <value xml:lang="fr">Approbateur</value>
     </property>
     <property key="FormFieldTitle_bankName">
         <value xml:lang="en">Bank Name</value>
@@ -88,14 +92,14 @@
     </property>
     <property key="FormFieldTitle_budgetId">
         <value xml:lang="en">Budget Id</value>
-        <value xml:lang="fr">Réf. de budget</value>
+        <value xml:lang="fr">Budget</value>
         <value xml:lang="it">Codice Budget</value>
         <value xml:lang="th">รหัสงบประมาณ</value>
         <value xml:lang="zh">预算编号</value>
     </property>
     <property key="FormFieldTitle_budgetItemSeqId">
         <value xml:lang="en">Budget Item Seq Id</value>
-        <value xml:lang="fr">Réf. séq. de ligne budgétaire</value>
+        <value xml:lang="fr">Ligne budgétaire</value>
         <value xml:lang="it">Numero Seq. Riga Budget</value>
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
         <value xml:lang="zh">预算项目序号</value>
@@ -109,7 +113,7 @@
     </property>
     <property key="FormFieldTitle_budgetTypeId">
         <value xml:lang="en">Budget Type Id</value>
-        <value xml:lang="fr">Réf. de budget type</value>
+        <value xml:lang="fr">Type de budget</value>
         <value xml:lang="it">Tipo Budget</value>
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
         <value xml:lang="zh">预算类型编号</value>
@@ -138,17 +142,21 @@
         <value xml:lang="th">รหัสประเภทการหักลบ</value>
         <value xml:lang="zh">扣除类型编号</value>
     </property>
+    <property key="FormFieldTitle_emplLeaveReasonTypeId">
+        <value xml:lang="en">Leave Reason Type</value>
+        <value xml:lang="fr">Raison du congé</value>
+    </property>
     <property key="FormFieldTitle_emplPositionId">
         <value xml:lang="de">Anstellungspositions-ID</value>
         <value xml:lang="en">Empl Position Id</value>
-        <value xml:lang="fr">Réf. de la position de l'employé</value>
+        <value xml:lang="fr">Position de l'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">雇员职位编号</value>
     </property>
     <property key="FormFieldTitle_emplPositionIdManagedBy">
         <value xml:lang="en">Empl Position Id Managed By</value>
-        <value xml:lang="fr">Réf. de la position de l'employé contrôlé par</value>
+        <value xml:lang="fr">Position de l'employé contrôlé par</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">โดยการจัดการรหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">该职位管理人</value>
@@ -160,7 +168,7 @@
     </property>
     <property key="FormFieldTitle_employeePartyId">
         <value xml:lang="en">Employee Party Id</value>
-        <value xml:lang="fr">Réf. de l'employé</value>
+        <value xml:lang="fr">Employé</value>
         <value xml:lang="it">Soggetto Impiegato</value>
         <value xml:lang="th">รหัสกลุ่มพนักงาน</value>
         <value xml:lang="zh">雇员编号</value>
@@ -175,7 +183,7 @@
     <property key="FormFieldTitle_employmentAppSourceTypeId">
         <value xml:lang="de">Quelle der Anstellungsanwendungs-ID</value>
         <value xml:lang="en">Employment App Source Type Id</value>
-        <value xml:lang="fr">Réf. de type d'origine de demande d'emploi</value>
+        <value xml:lang="fr">Type d'origine de demande d'emploi</value>
         <value xml:lang="it">Tipo Origine Applicazione Impiegato</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาการจ้างงาน</value>
         <value xml:lang="zh">应聘求职信息获取来源</value>
@@ -215,12 +223,20 @@
         <value xml:lang="th">เครื่องหมายเต็มเวลา</value>
         <value xml:lang="zh">是否为全职</value>
     </property>
+    <property key="FormFieldTitle_jobRequisitionId">
+        <value xml:lang="en">Job Requisition Id</value>
+        <value xml:lang="fr">Demande d'emploi</value>
+    </property>
     <property key="FormFieldTitle_justification">
         <value xml:lang="en">Justification</value>
         <value xml:lang="fr">Justification</value>
         <value xml:lang="it">Giustificazione</value>
         <value xml:lang="th">การให้เหตุผล</value>
         <value xml:lang="zh">预算用途</value>
+    </property>
+    <property key="FormFieldTitle_leaveStatus">
+        <value xml:lang="en">Leave Status</value>
+        <value xml:lang="fr">Etat de congé</value>
     </property>
     <property key="FormFieldTitle_leaveTypeId">
         <value xml:lang="en">Leave Type Id</value>
@@ -230,27 +246,27 @@
     </property>
     <property key="FormFieldTitle_managerPartyId">
         <value xml:lang="en">Manager Party Id</value>
-        <value xml:lang="fr">Réf. de directeur</value>
+        <value xml:lang="fr">Directeur</value>
         <value xml:lang="it">Manager</value>
         <value xml:lang="th">การจัดการรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">该雇员经理</value>
     </property>
     <property key="FormFieldTitle_managerRoleTypeId">
         <value xml:lang="en">Manager Role Type Id</value>
-        <value xml:lang="fr">Réf. de type de rôle directeur</value>
+        <value xml:lang="fr">Type de rôle directeur</value>
         <value xml:lang="it">Tipo Ruolo Manager</value>
         <value xml:lang="th">การจัดการประเภทสถานะ</value>
         <value xml:lang="zh">经理角色类型编号</value>
     </property>
     <property key="FormFieldTitle_partyQualTypeId">
         <value xml:lang="en">Party Qual Type Id</value>
-        <value xml:lang="fr">Réf. de type de qualification</value>
+        <value xml:lang="fr">Type de qualification</value>
         <value xml:lang="it">Tipo qualifica soggetto</value>
         <value xml:lang="zh">会员资质类型</value>
     </property>
     <property key="FormFieldTitle_payGradeId">
         <value xml:lang="en">Pay Grade Id</value>
-        <value xml:lang="fr">Réf. de catégorie de salaire</value>
+        <value xml:lang="fr">Catégorie de salaire</value>
         <value xml:lang="it">Grado Paga</value>
         <value xml:lang="th">รหัสระดับการจ่าย</value>
         <value xml:lang="zh">薪水等级编号</value>
@@ -285,14 +301,14 @@
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdFrom">
         <value xml:lang="en">Pay History Role Type Id From</value>
-        <value xml:lang="fr">Réf. de type de rôle depuis</value>
+        <value xml:lang="fr">Type de rôle depuis</value>
         <value xml:lang="it">Storia Tipo Ruolo Pagamento Da</value>
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลจาก</value>
         <value xml:lang="zh">历史薪水来自（角色）</value>
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdTo">
         <value xml:lang="en">Pay History Role Type Id To</value>
-        <value xml:lang="fr">Réf. de type de rôle vers</value>
+        <value xml:lang="fr">Type de rôle vers</value>
         <value xml:lang="it">Storia Tipo Ruolo Pagamento A</value>
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลถึง</value>
         <value xml:lang="zh">历史薪水去向（角色）</value>
@@ -304,7 +320,7 @@
     </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
-        <value xml:lang="fr">Réf. d'évaluation des performances</value>
+        <value xml:lang="fr">Évaluation des performances</value>
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
         <value xml:lang="zh">绩效评定标识</value>
@@ -353,7 +369,7 @@
     </property>
     <property key="FormFieldTitle_responsibilityTypeId">
         <value xml:lang="en">Responsibility Type Id</value>
-        <value xml:lang="fr">Réf. de type de responsabilité</value>
+        <value xml:lang="fr">Type de responsabilité</value>
         <value xml:lang="it">Tipo Responsibilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่</value>
         <value xml:lang="zh">责任类型编号</value>
@@ -366,7 +382,7 @@
     </property>
     <property key="FormFieldTitle_resumeId">
         <value xml:lang="en">Resume Id</value>
-        <value xml:lang="fr">Réf. de CV</value>
+        <value xml:lang="fr">CV</value>
         <value xml:lang="it">Rif. curriculum vitae</value>
         <value xml:lang="zh">简历编号</value>
     </property>
@@ -405,7 +421,7 @@
     </property>
     <property key="FormFieldTitle_skillTypeId">
         <value xml:lang="en">Skill Type Id</value>
-        <value xml:lang="fr">Réf. de compétence</value>
+        <value xml:lang="fr">Compétence</value>
         <value xml:lang="it">Codice Tipo Abilità</value>
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="zh">技能类型编号</value>
@@ -427,21 +443,21 @@
     </property>
     <property key="FormFieldTitle_terminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
-        <value xml:lang="fr">Réf. de motif de la fin de contrat</value>
+        <value xml:lang="fr">Motif de la fin de contrat</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止原因编号</value>
     </property>
     <property key="FormFieldTitle_terminationTypeId">
         <value xml:lang="en">Termination Type Id</value>
-        <value xml:lang="fr">Réf. de type de fin de contrat</value>
+        <value xml:lang="fr">Type de fin de contrat</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止类型编号</value>
     </property>
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>
-        <value xml:lang="fr">Réf. de type de formation</value>
+        <value xml:lang="fr">Type de formation</value>
         <value xml:lang="it">Tipo classe corso</value>
         <value xml:lang="zh">培训课程类型编号</value>
     </property>
@@ -454,14 +470,14 @@
     </property>
     <property key="FormFieldTitle_unemploymentClaimId">
         <value xml:lang="en">Unemployment Claim Id</value>
-        <value xml:lang="fr">Réf. de date de demande du chômage</value>
+        <value xml:lang="fr">Date de demande du chômage</value>
         <value xml:lang="it">Reclamo Disoccupazione</value>
         <value xml:lang="th">รหัสจำนวนผู้ว่างงานเรียกร้อง</value>
         <value xml:lang="zh">解除雇佣关系声明编号</value>
     </property>
     <property key="FormFieldTitle_verifStatusId">
         <value xml:lang="en">Verif Status Id</value>
-        <value xml:lang="fr">Réf. de vérification de statut</value>
+        <value xml:lang="fr">Vérification de statut</value>
         <value xml:lang="it">Stato verifica</value>
         <value xml:lang="zh">审核状态</value>
     </property>
@@ -597,21 +613,21 @@
     <property key="HumanResApplicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
         <value xml:lang="en">Application Id</value>
-        <value xml:lang="fr">Réf. de demande d'emploi</value>
+        <value xml:lang="fr">Demande d'emploi</value>
         <value xml:lang="it">Codice Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
         <value xml:lang="zh">应聘申请编号</value>
     </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
-        <value xml:lang="fr">Réf. de budget</value>
+        <value xml:lang="fr">Budget</value>
         <value xml:lang="it">Codice Budget</value>
         <value xml:lang="th">รหัสงบประมาณ</value>
         <value xml:lang="zh">预算编号</value>
     </property>
     <property key="HumanResBudgetItemSeqId">
         <value xml:lang="en">Budget Item Id</value>
-        <value xml:lang="fr">Réf. de ligne budgétaire</value>
+        <value xml:lang="fr">Ligne budgétaire</value>
         <value xml:lang="it">Riga Budget</value>
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
         <value xml:lang="zh">预算项目编号</value>
@@ -644,11 +660,13 @@
     </property>
     <property key="HumanResEditEmplLeave">
         <value xml:lang="en">Edit Empl Leave</value>
+        <value xml:lang="fr">Editer une demande de congé</value>
         <value xml:lang="it">Aggiorna licenziamento impiegato</value>
         <value xml:lang="zh">编辑雇员请假</value>
     </property>
     <property key="HumanResEditEmplLeaveType">
         <value xml:lang="en">Edit Empl Leave Type</value>
+        <value xml:lang="fr">Editer un type de congé</value>
         <value xml:lang="it">Aggiorna tipo licenziamento impiegato</value>
         <value xml:lang="zh">编辑雇员请假类型</value>
     </property>
@@ -776,28 +794,28 @@
     </property>
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
-        <value xml:lang="fr">Réf. de position des employés</value>
+        <value xml:lang="fr">Position des employés</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">雇员职位编号</value>
     </property>
     <property key="HumanResEmplPositionIdManagedBy">
         <value xml:lang="en">EmplPosition Id ManagedBy</value>
-        <value xml:lang="fr">Réf. de position "dirigée par"</value>
+        <value xml:lang="fr">Position "dirigée par"</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">การจัดการโดยรหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">职位管理人</value>
     </property>
     <property key="HumanResEmplPositionIdReportingFrom">
         <value xml:lang="en">EmplPosition Id ReportingFrom</value>
-        <value xml:lang="fr">Réf. de position "rapportant depuis"</value>
+        <value xml:lang="fr">Position "rapportant depuis"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato A</value>
         <value xml:lang="th">รายงานจากรหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">职位下级</value>
     </property>
     <property key="HumanResEmplPositionIdReportingTo">
         <value xml:lang="en">EmplPosition Id ReportingTo</value>
-        <value xml:lang="fr">Réf. de position "rapportant à"</value>
+        <value xml:lang="fr">Position "rapportant à"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato Da</value>
         <value xml:lang="th">ถึงรายงานรหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">职位上级</value>
@@ -862,14 +880,14 @@
     </property>
     <property key="HumanResEmployeePositionId">
         <value xml:lang="en">EmployeePosition Id</value>
-        <value xml:lang="fr">Réf. de position d'employé</value>
+        <value xml:lang="fr">Position d'employé</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="zh">职位编号</value>
     </property>
     <property key="HumanResEmployeePositionTypeId">
         <value xml:lang="en">EmployeePosition Type Id</value>
-        <value xml:lang="fr">Réf. de type de position d'employé</value>
+        <value xml:lang="fr">Type de position d'employé</value>
         <value xml:lang="it">Codice Tipo Posizione Impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
         <value xml:lang="zh">职位类型编号</value>
@@ -1116,7 +1134,7 @@
     </property>
     <property key="HumanResLookupPayGradeId">
         <value xml:lang="en">Lookup PayGrade Id</value>
-        <value xml:lang="fr">Consultation de réf. de catégorie de salaire</value>
+        <value xml:lang="fr">Consultation de catégorie de salaire</value>
         <value xml:lang="it">Ricerca Codice Grado Paga</value>
         <value xml:lang="th">ค้นหารหัสการจ่ายข้อมูล</value>
         <value xml:lang="zh">薪水等级编号查询</value>
@@ -1147,7 +1165,7 @@
     </property>
     <property key="HumanResLookupResumeId">
         <value xml:lang="en">Lookup ResumeId</value>
-        <value xml:lang="fr">Consultation de réf. de CV</value>
+        <value xml:lang="fr">Consultation de CV</value>
         <value xml:lang="it">Ricerca riassunto</value>
         <value xml:lang="zh">履历编号查询</value>
     </property>
@@ -1381,14 +1399,14 @@
     </property>
     <property key="HumanResPartyIdFrom">
         <value xml:lang="en">Party Id From</value>
-        <value xml:lang="fr">Réf. de l'acteur de</value>
+        <value xml:lang="fr">Acteur de</value>
         <value xml:lang="it">Codice Soggetto Da</value>
         <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员编号（来自）</value>
     </property>
     <property key="HumanResPartyIdTo">
         <value xml:lang="en">Party Id To</value>
-        <value xml:lang="fr">Réf. de l'acteur à</value>
+        <value xml:lang="fr">Acteur à</value>
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员编号（去往）</value>
@@ -1504,7 +1522,7 @@
     </property>
     <property key="HumanResResponsibilityTypeId">
         <value xml:lang="en">Responsibility TypeId</value>
-        <value xml:lang="fr">Réf. de type de responsabilité</value>
+        <value xml:lang="fr">Type de responsabilité</value>
         <value xml:lang="it">Tipo Responsabilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่ที่ต้องรับผิดชอบ</value>
         <value xml:lang="zh">职责类型编号</value>
@@ -1512,7 +1530,7 @@
     <property key="HumanResResumeId">
         <value xml:lang="de">Lebenslauf ID</value>
         <value xml:lang="en">Resume Id</value>
-        <value xml:lang="fr">Réf. de CV</value>
+        <value xml:lang="fr">CV</value>
         <value xml:lang="it">Verifica</value>
         <value xml:lang="zh">简历编号</value>
     </property>
@@ -1588,7 +1606,7 @@
     <property key="HumanResSkillTypeId">
         <value xml:lang="de">Fähigkeitsart ID</value>
         <value xml:lang="en">Skill Type Id</value>
-        <value xml:lang="fr">Réf. de compétence</value>
+        <value xml:lang="fr">Compétence</value>
         <value xml:lang="it">Codice Tipo Abilità</value>
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="zh">技能类型编号</value>
@@ -1609,7 +1627,7 @@
     </property>
     <property key="HumanResTerminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
-        <value xml:lang="fr">Réf. des raisons de fin de contrat</value>
+        <value xml:lang="fr">Raisons de fin de contrat</value>
         <value xml:lang="it">Codice Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止原因编号</value>
@@ -1617,7 +1635,7 @@
     <property key="HumanResTerminationTypeId">
         <value xml:lang="de">Entlassungsart</value>
         <value xml:lang="en">Termination Type Id</value>
-        <value xml:lang="fr">Réf. de types de fin de contrat</value>
+        <value xml:lang="fr">Types de fin de contrat</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止类型编号</value>
@@ -1767,12 +1785,15 @@
     </property>
     <property key="HumanResAddJobInterviewType">
         <value xml:lang="en">Add Job Interview Type</value>
+        <value xml:lang="fr">Ajouter un type d'entretien</value>
     </property>
     <property key="HumanResEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
+        <value xml:lang="fr">Editer un status d'approbation</value>
     </property>
     <property key="HumanResEditJobInterview">
         <value xml:lang="en">Edit Job Interview</value>
+        <value xml:lang="en">Modifier un entretien</value>
     </property>
     <property key="HumanResEditJobRequisition">
         <value xml:lang="en">Edit Job Requisition</value>
@@ -1782,21 +1803,26 @@
     </property>
     <property key="HumanResInternalJobPosting">
         <value xml:lang="en">Internal Job Posting</value>
+        <value xml:lang="fr">Offre d'emploi interne</value>
     </property>
     <property key="HumanResJobInterview">
         <value xml:lang="en">Job Interview</value>
+        <value xml:lang="fr">Entretien</value>
     </property>
     <property key="HumanResApproval">
         <value xml:lang="en">Approval</value>
+        <value xml:lang="fr">Approbation</value>
     </property>
     <property key="HumanResRelocation">
         <value xml:lang="en">Relocation</value>
     </property>
     <property key="HumanResJobInterviewType">
         <value xml:lang="en">Job Interview Type</value>
+        <value xml:lang="fr">Type d'entretien</value>
     </property>
     <property key="HumanResJobRequisition">
         <value xml:lang="en">Job Requisition</value>
+        <value xml:lang="fr">Demande de poste</value>
     </property>
     <property key="LookupJobInterview">
         <value xml:lang="en">LookUp Job Interview</value>
@@ -1806,15 +1832,19 @@
     </property>
     <property key="HumanResNewInternalJobPosting">
         <value xml:lang="en">New Internal Job Posting</value>
+        <value xml:lang="fr">Nouvelle offre d'emploi interne</value>
     </property>
     <property key="HumanResNewJobInterview">
         <value xml:lang="en">New Job Interview</value>
+        <value xml:lang="fr">Nouvel entretien</value>
     </property>
     <property key="HumanResNewJobRequisition">
         <value xml:lang="en">New Job Requisition</value>
+        <value xml:lang="fr">Nouvelle demande de poste</value>
     </property>
     <property key="HumanResRecruitment">
         <value xml:lang="en">Recruitment</value>
+        <value xml:lang="fr">Recrutement</value>
     </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
@@ -1833,12 +1863,15 @@
     </property>
     <property key="PageTitleFindApprovals">
         <value xml:lang="en">Find Approvals</value>
+        <value xml:lang="fr">Rechercher des approbations</value>
     </property>
     <property key="PageTitleFindInternalJobPosting">
         <value xml:lang="en">Find Internal Job Posting</value>
+        <value xml:lang="fr">Rechercher des offres d'emploi internes</value>
     </property>
     <property key="PageTitleFindJobInterviewDetails">
         <value xml:lang="en">Find Interview Details</value>
+        <value xml:lang="fr">Rechercher des détails d'entretiens</value>
     </property>
     <property key="PageTitleFindJobRequisition">
         <value xml:lang="en">Find Job Requisition</value>
@@ -1878,9 +1911,11 @@
     </property>
     <property key="HumanResAddEmplLeaveReasonType"> 
         <value xml:lang="en">Add Employee Leave Reason</value>
+        <value xml:lang="fr">Ajouter un type de congé</value>
     </property>
     <property key="HumanResLeaveApproval"> 
         <value xml:lang="en">Leave Approval</value>
+        <value xml:lang="fr">Approbation de congés</value>
     </property>
     <property key="HumanResEditLeaveApprovalStatus"> 
         <value xml:lang="en">Edit Leave Approval Status</value>
@@ -1890,6 +1925,7 @@
     </property>
     <property key="HumanResEmployeeLeave"> 
         <value xml:lang="en">Employee Leave</value>
+        <value xml:lang="fr">Congés d'employés</value>
     </property>
     <property key="HumanResEmployeeLeaveType"> 
         <value xml:lang="en">Leave Type</value>
