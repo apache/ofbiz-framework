@@ -372,39 +372,6 @@ public class InvoiceWorker {
         return contactMech;
     }
 
-    private static GenericValue getAddressFromParty(GenericValue party, String purposeTypeId) {
-        if (party == null) return null;
-
-        GenericValue contactMech = null;
-        GenericValue postalAddress = null;
-        try {
-            List mecs = party.getRelated("PartyContactMechPurpose",
-                UtilMisc.toMap("contactMechPurposeTypeId", purposeTypeId), null);
-            if (mecs != null) {
-                List filteredMecs = EntityUtil.filterByDate(mecs);
-                GenericValue mecPurpose = EntityUtil.getFirst(filteredMecs);
-                if (mecPurpose != null)
-                    contactMech = mecPurpose.getRelatedOne("ContactMech");
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting current ContactMech for Party/Purpose", module);
-        }
-
-        if (contactMech != null) {
-            if (contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS")) {
-                try {
-                    postalAddress = contactMech.getRelatedOne("PostalAddress");
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Trouble getting PostalAddress from ContactMech", module);
-                }
-            }
-        }
-
-        if (postalAddress != null)
-            return postalAddress;
-        return null;
-    }
-
     /**
      * Method to return the total amount of an invoice which is not yet applied to a payment
      * @param invoice GenericValue object of the Invoice
