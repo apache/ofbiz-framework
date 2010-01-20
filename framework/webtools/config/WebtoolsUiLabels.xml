@@ -90,6 +90,7 @@
     </property>
     <property key="FormFieldTitle_keepRemoveInfoHours">
         <value xml:lang="en">Keep Remove Info Hours</value>
+        <value xml:lang="de">Info-Stunden beibehalten/entfernen</value>
         <value xml:lang="fr">Maintenir le retrait des heures d'information</value>
         <value xml:lang="it">Mantieni gli orari delle informazioni eliminate</value>
         <value xml:lang="ro">Mentine Orariul  Informatii Sterse </value>
@@ -1214,9 +1215,6 @@
         <value xml:lang="zh">浏览实体 </value>
     </property>
     <property key="WebtoolsEntityXMLRepresentation">
-        <value xml:lang="en">Entity XML Representation</value>
-    </property>
-    <property key="WebtoolsEntityXMLRepresentation">
         <value xml:lang="de">XML Repräsentation der Entität</value>
         <value xml:lang="en">Entity XML Representation</value>
     </property>
@@ -1927,6 +1925,7 @@
         <value xml:lang="zh">更新和保存到XML文件的标签</value>
     </property>
     <property key="WebtoolsLabelManagerUpdateFile">
+        <value xml:lang="de">Datei ansehen</value>
         <value xml:lang="en">Update Labels Files</value>
         <value xml:lang="fr">Mettre à jour les fichiers de traduction</value>
         <value xml:lang="it">Aggiorna files delle labels</value>
@@ -1938,11 +1937,13 @@
         <value xml:lang="zh">浏览文件</value>
     </property>
     <property key="WebtoolsLabelManagerViewReferences">
+        <value xml:lang="de">Labelreferenzen ansehen</value>
         <value xml:lang="en">View Labels References</value>
         <value xml:lang="it">Mostra referenze labels</value>
         <value xml:lang="zh">浏览标签引用</value>
     </property>
     <property key="WebtoolsLabelManagerWarningMessage">
+        <value xml:lang="de">Einige der Labels haben mehr als eine Übersetzung für eine Sprache</value>
         <value xml:lang="en">There are some labels with more than one translation for the same language</value>
         <value xml:lang="fr">Il y a des traduction dupliquées pour le même langage</value>
         <value xml:lang="it">Ci sono alcune label con più di una traduzione per la stessa lingua</value>
