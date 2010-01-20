@@ -125,7 +125,7 @@ under the License.
                     <#list orderItemStatuses as orderItemStatus>
                       <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
                       <div>
-                        ${orderItemStatus.statusDatetime.toString()}&nbsp;&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
+                        ${(orderItemStatus.statusDatetime.toString())?if_exists}&nbsp;&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
                       </div>
                     </#list>
                     <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
