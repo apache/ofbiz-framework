@@ -1931,26 +1931,6 @@ public class MacroFormRenderer implements FormStringRenderer {
             ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
         }
 
-        String lookupPresentation = lookupField.getLookupPresentation();
-        if(UtilValidate.isEmpty(lookupPresentation)){
-            lookupPresentation = "";
-        }
-
-        String lookupHeight = lookupField.getLookupHeight();
-        if(UtilValidate.isEmpty(lookupHeight)){
-            lookupHeight = "";
-        }
-
-        String lookupWidth = lookupField.getLookupWidth();
-        if(UtilValidate.isEmpty(lookupWidth)){
-            lookupWidth = "";
-        }
-
-        String lookupPosition = lookupField.getLookupPosition();
-        if(UtilValidate.isEmpty(lookupPosition)){
-            lookupPosition = "";
-        }
-
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -1994,15 +1974,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(ajaxUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
-        sr.append(" lookupPresentation=\"");
-        sr.append(lookupPresentation);
-        sr.append("\" lookupHeight=\"");
-        sr.append(lookupHeight);
-        sr.append("\" lookupWidth=\"");
-        sr.append(lookupWidth);
-        sr.append("\" lookupPosition=\"");
-        sr.append(lookupPosition);
-        sr.append("\" />");
+        sr.append(" />");
         executeMacro(sr.toString());
 
         this.addAsterisks(writer, context, modelFormField);
