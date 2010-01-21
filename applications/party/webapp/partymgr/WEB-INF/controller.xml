@@ -898,9 +898,9 @@ under the License.
     </request-map>
     <request-map uri="createCommunicationEventRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEventRole"/>
-        <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <event type="simple" invoke="createCommunicationEventRole" path="component://party/script/org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <response name="success" type="view-home" value="EditCommunicationEvent"/>
+        <response name="error" type="view-home" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="RemoveCommunicationEventRole">
         <security https="true" auth="true"/>
