@@ -268,7 +268,7 @@ public class UtilHttp {
             if (val instanceof java.sql.Timestamp) {
                 val = val.toString();
             }
-            if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List) {
+            if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List || val instanceof Boolean) {
                 if (Debug.verboseOn()) Debug.logVerbose("Adding attribute to JSON output: " + key, module);
                 returnMap.put(key, val);
             }
