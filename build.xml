@@ -160,7 +160,8 @@ under the License.
         <delete dir="tools/build"/>
     </target>
 
-    <target name="svninfo">
+    <target name="svninfo"
+        description="Update the Release-revision info in the footer. Note that you need a valid Internet connection and Subversion connected to the OFBiz repository for that ">
         <echo message="Creating svninfo..."/>
         <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
             <arg value="info"/>
