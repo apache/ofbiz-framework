@@ -2094,6 +2094,12 @@ public class UpsServices {
         Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
         Element shipperAddrElement = UtilXml.addChildElement(shipperElement, "Address", rateRequestDoc);
         UtilXml.addChildElementValue(shipperAddrElement, "PostalCode", shipFromAddress.getString("postalCode"), rateRequestDoc);
+        try {
+            //If the warehouse you are shipping from its located in a country other than US, you need to supply its country code to UPS
+            UtilXml.addChildElementValue(shipperAddrElement, "CountryCode", shipFromAddress.getRelatedOneCache("CountryGeo").getString("geoCode"), rateRequestDoc);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
 
         // ship-to info - (sub of shipment)
         Element shiptoElement = UtilXml.addChildElement(shipmentElement, "ShipTo", rateRequestDoc);
@@ -2159,7 +2165,7 @@ public class UpsServices {
             Debug.logError(e, ioeErrMsg, module);
             return ServiceUtil.returnFailure(ioeErrMsg);
         }
-
+        
         // prepare the access/inquire request string
         StringBuilder xmlString = new StringBuilder();
         xmlString.append(accessRequestString);
