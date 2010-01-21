@@ -25,7 +25,7 @@ under the License.
     <DataResource dataResourceId="OFBIZ_FOOT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL" mimeTypeId="text/html" objectInfo="component://ofbiz/template/Footer.ftl"/>
     <DataResource dataResourceId="OFBIZ_HOME_EN" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
     <DataResource dataResourceId="OFBIZ_HOME_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
-    
+
     <Content contentId="OFBIZ_POINT" contentTypeId="WEB_SITE_PUB_PT" contentName="OFBiz Site Publish Point" description=""/>
     <Content contentId="OFBIZ_DEC" contentTypeId="DECORATOR" contentName="OFBiz main decorator" dataResourceId="OFBIZ_DEC"/>
     <Content contentId="OFBIZ_HHEAD" contentTypeId="DOCUMENT" contentName="OFBiz HTML Head" dataResourceId="OFBIZ_HHEAD"/>
@@ -33,47 +33,45 @@ under the License.
     <Content contentId="OFBIZ_FOOT" contentTypeId="DECORATOR" contentName="OFBiz footer" dataResourceId="OFBIZ_FOOT"/>
     <Content contentId="OFBIZ_HOME_EN" localeString="en" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_EN"/>
     <Content contentId="OFBIZ_HOME_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_NL"/>
-    
+
     <WebSite webSiteId="OFBIZ" siteName="OFBiz Website"/>
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_POINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2009-04-27 13:33:05.29"/>
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
-    
+
     <ContentPurpose contentId="OFBIZ_DEC" contentPurposeTypeId="SECTION"/>
     <ContentPurpose contentId="OFBIZ_HHEAD" contentPurposeTypeId="SECTION"/>
     <ContentPurpose contentId="OFBIZ_HEAD" contentPurposeTypeId="SECTION"/>
     <ContentPurpose contentId="OFBIZ_FOOT" contentPurposeTypeId="SECTION"/>
     <ContentPurpose contentId="OFBIZ_HOME_EN" contentPurposeTypeId="SECTION"/>
     <ContentPurpose contentId="OFBIZ_HOME_NL" contentPurposeTypeId="SECTION"/>
-        
-    <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_HHEAD" contentAssocTypeId="SUB_CONTENT" fromDate="2009-03-16 10:49:33.238" mapKey="htmlHead" createdDate="2009-03-16 10:49:33.238" createdByUserLogin="admin" lastModifiedDate="2009-03-16 10:49:33.238" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-20 09:26:56.285" lastUpdatedTxStamp="2009-03-20 09:26:56.015" createdStamp="2009-03-20 09:26:56.285" createdTxStamp="2009-03-20 09:26:56.015"/>
+
+    <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_HHEAD" contentAssocTypeId="SUB_CONTENT" fromDate="2009-03-16 10:49:33.238" mapKey="htmlHead"/>
     <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_HEAD" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2001-01-01 00:00:00"/>
     <ContentAssoc contentId="OFBIZ_DEC" contentIdTo="OFBIZ_FOOT" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
     <ContentAssoc contentId="OFBIZ_POINT" contentIdTo="OFBIZ_HOME_EN" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="Home"/>
-   	
-   	<!-- Alternate Locale -->
-    <ContentAssoc contentId="OFBIZ_HOME_EN" contentIdTo="OFBIZ_HOME_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201" createdDate="2009-03-24 09:07:40.628" createdByUserLogin="admin" lastModifiedDate="2009-03-24 09:07:40.628" lastModifiedByUserLogin="admin" lastUpdatedStamp="2009-03-25 09:50:22.807" lastUpdatedTxStamp="2009-03-25 09:50:22.455" createdStamp="2009-03-24 09:07:40.629" createdTxStamp="2009-03-24 09:07:40.412"/>
-   
-   
+
+     <!-- Alternate Locale -->
+    <ContentAssoc contentId="OFBIZ_HOME_EN" contentIdTo="OFBIZ_HOME_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201"/>
+
     <!-- Website -->
     <WebSite webSiteId="OFBIZ" siteName="OFBiz Website"/>
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_POINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2009-04-27 13:33:05.29"/>
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_HOME_EN" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
-    
-    
-    
+
     <!-- ElectronicText English -->  
     <ElectronicText dataResourceId="OFBIZ_HOME_EN">
         <textData><![CDATA[
 <body id="home">
-	<div id="wrap">
-	<!--header -->
+  <div id="wrap">
+  <!--header -->
     <div id="header">
         <div id="logo">
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
         <div id="language">
-            Language: NL
-            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.jpeg"/></a>
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/ofbiz/images/us.png"/></a>
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.png"/></a>
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/ofbiz/images/fr.png"/></a>
         </div>
         <!-- Coming Soon...
         <div id="controls">
@@ -94,78 +92,35 @@ under the License.
            <form method="post" action="http://cwiki.apache.org/confluence/dosearchsite.action" name="searchForm">
                <input name="quickSearch" value="true" type="hidden">
                <input name="searchQuery.spaceKey" value="conf_global" type="hidden">
-                  <input id="searchDocs" value="Search..." class="class1 class2 hint" accesskey="s" name="searchQuery.queryString" type="text">
+               <input id="searchDocs" value="${uiLabelMap.OfbizSearch}" class="class1 class2 hint" accesskey="s" name="searchQuery.queryString" type="text">
            </form>
         </div>
         <div id="slides">
             <div class="slideshow" id="mantleSlides">
                 <div style="display: none;" id="slide1">
-                    <div class="callout">
-                        The best things in life<br>
-                        are FREE.<br>
-                    </div>
-                    <div class="description">
-                        Apache Open For Business (OFBiz) is a community-driven open source project. That means, no licensing fees.
-                        For many, OFBiz is also the best e-commerce and enterprise resource planning (ERP) software available.
-                    </div>
-                    <div class="mantle">
-                        <img src="/ofbiz/images/mantle.png">
-                    </div>
+                    <div class="callout">${uiLabelMap.OfbizCallout1}</div>
+                    <div class="description">${uiLabelMap.OfbizMantle1}</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle.png"></div>
                 </div>
                 <div id="slide2" style="display: none;">
-                    <div class="callout">
-                        Lower Costs,<br>
-                        Higher Margins.<br>
-                    </div>
-                    <div class="description">
-                        Achieve a system that is as good or better than those available
-                        from major proprietary ERPs at a significantly lower total project cost.
-                        You can budget for custom features and added value rather than license and maintenance fees.
-                    </div>
-                    <div class="mantle">
-                        <img src="/ofbiz/images/mantle2.png">
-                    </div>
+                    <div class="callout">${uiLabelMap.OfbizCallout2}</div>
+                    <div class="description">${uiLabelMap.OfbizMantle2}</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle2.png"></div>
                 </div>
                 <div id="slide3" style="">
-                    <div class="callout">
-                        OPEN yourself up to all<br>
-                        of the possibilities<br>
-                    </div>
-                    <div class="description">
-                        Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal
-                        resources and/or any of the dozens of organizations offering quality OFBiz
-                        implementation and support services.
-                    </div>
-                    <div class="mantle">
-                        <img src="/ofbiz/images/mantle3.png">
-                    </div>
+                    <div class="callout">${uiLabelMap.OfbizCallout3}</div>
+                    <div class="description">${uiLabelMap.OfbizMantle3}</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle3.png"></div>
                 </div>
                 <div id="slide4" style="display: none;">
-                    <div class="callout">
-                        We have<br>
-                        street cred.<br>
-                    </div>
-                    <div class="description">
-                       OFBiz users can rely on the organizational, legal, and financial stability
-                       that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).
-                    </div>
-                    <div class="mantle">
-                        <img src="/ofbiz/images/mantle4.png">
-                    </div>
+                    <div class="callout">${uiLabelMap.OfbizCallout4}</div>
+                    <div class="description">${uiLabelMap.OfbizMantle4}</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle4.png"></div>
                 </div>
                 <div id="slide5" style="display: none;">
-                    <div class="callout">
-                        Just like muscles,<br>
-                        e-commerce should<br>
-                        be flexible.
-                    </div>
-                    <div class="description">
-                        Because you will have complete access to source code, you will eliminate "proprietary system" limitations.
-                        The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.
-                    </div>
-                    <div class="mantle">
-                        <img src="/ofbiz/images/mantle5.png">
-                    </div>
+                    <div class="callout">${uiLabelMap.OfbizCallout5}</div>
+                    <div class="description">${uiLabelMap.OfbizMantle5}</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle5.png"></div>
                 </div>
             </div>
             <div class="controls">
@@ -175,22 +130,15 @@ under the License.
               <a class="stop" id="stop" title="Stop" href="#">Stop</a>
             </div>
         </div>
-
         <script type="text/javascript">
           function StartSlides() {
             new Slides('mantleSlides');
           }
           document.observe ('dom:loaded', StartSlides);
         </script>
-
     </div>
-    <!--header ends-->
-
-
-    <!-- content-wrap starts -->
     <div id="content-wrap" class="clearfix">
         <div id="main">
-
             <h2>What is Apache OFBiz?</h2>
             <h3>Learn more about the project</h3>
         <div class="highlights">
@@ -361,7 +309,7 @@ under the License.
         <!-- sidebar -->
       </div>
       <!-- content-wrap -->
-	</div>
+  </div>
             ]]></textData>
     </ElectronicText>
 

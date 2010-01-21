@@ -20,8 +20,8 @@ under the License.
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <title>OFBiz, The Apache Open For Business Project - Open Source E-Business / E-Commerce, ERP, CRM, POS</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>${uiLabelMap.OfbizTitle}</title>
     <link rel="shortcut icon" href="/ofbiz/images/favicon.ico">
     <script language="javascript" src="/images/prototypejs/prototype.js" type="text/javascript"></script>
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
