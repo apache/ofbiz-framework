@@ -47,4 +47,6 @@ under the License.
     <waitForPageToLoad value="50000" />
     <click locator="link=Communications" />
     <waitForPageToLoad value="50000" />
+    <captureEntirePageScreenshot value="CommEventCreateOpportunity"/>
+    <closeBrowser/>
 </testcase>
