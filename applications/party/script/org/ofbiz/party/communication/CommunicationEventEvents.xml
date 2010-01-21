@@ -29,6 +29,7 @@ under the License.
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
+
         <if-empty field="formInput.formInput.contentId">
             <if-empty field="formInput.imageFileName">
                 <add-error><fail-message message="Upload file is missing..."/></add-error>
@@ -85,6 +86,10 @@ under the License.
         <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>
         <call-service service-name="createPartyContent" in-map-name="partycontent"/>
 
+        <!-- save header fields -->
+        <set-service-fields service-name="updateCommunicationEvent" map="formInput.formInput" to-map="updateMap"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
+
         <!-- Create communication event and content association -->
         <set-service-fields service-name="createCommEventContentAssoc"
             map="formInput.formInput" to-map="contentAssoc"/>
@@ -94,10 +99,6 @@ under the License.
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
             <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
-
-        <!-- save header fields -->
-        <set-service-fields service-name="updateCommunicationEvent" map="formInput.formInput" to-map="updateMap"/>
-        <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
 
         <!-- create ContentAssoc-->
         <set-service-fields service-name="createContentAssoc" map="formInput.formInput" to-map="contentMap"/>
@@ -118,6 +119,24 @@ under the License.
 
         <!-- Return to request -->
         <field-to-request field="formInput.formInput.communicationEventId" request-name="communicationEventId"/>
+        <set field="my" value="My"/>
+        <field-to-request field="my"/>
+    </simple-method>
+
+    <simple-method method-name="createCommunicationEventRole"
+        short-description="Add a role to a communictaion event and save communication event itseld">
+
+        <!-- save header fields -->
+        <set-service-fields service-name="updateCommunicationEvent" map="formInput" to-map="updateMap"/>
+        <set field="updateMap.communicationEventId" from-field="parameters.communicationEventId"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="updateMap"/>
+
+        <!-- add role -->
+        <set-service-fields service-name="createCommunicationEventRole" to-map="createRole" map="parameters"/>
+        <call-service service-name="createCommunicationEventRole" in-map-name="createRole"/>
+
+        <!-- Return to request -->
+        <field-to-request field="parameters.communicationEventId" request-name="communicationEventId"/>
         <set field="my" value="My"/>
         <field-to-request field="my"/>
     </simple-method>
