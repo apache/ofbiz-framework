@@ -105,14 +105,14 @@ public class Iterate extends MethodOperation {
                 }
             }
         } else if (objList instanceof Collection) {
-            Collection<Object> theList = UtilGenerics.checkList(objList);
+            Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
 
-            if (theList.size() == 0) {
-                if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
+            if (theCollection.size() == 0) {
+                if (Debug.verboseOn()) Debug.logVerbose("Collection with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
                 return true;
             }
 
-            for (Object theEntry: theList) {
+            for (Object theEntry: theCollection) {
                 entryAcsr.put(methodContext, theEntry);
 
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
