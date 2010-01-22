@@ -24,7 +24,7 @@ under the License.
             <#assign content = pContent.getRelatedOne("Content")>
             <#assign contentType = content.getRelatedOneCache("ContentType")>
             <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
-            <#assign status = content.getRelatedOneCache("StatusItem")>
+            <#assign status = content.getRelatedOneCache("StatusItem")?if_exists>
             <#assign pcType = pContent.getRelatedOne("PartyContentType")>
             <tr>
               <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
