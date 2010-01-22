@@ -151,9 +151,11 @@ case "$1" in
 			if [ -r "/etc/ofbiz/debconf.cfg" ]; then
 				chown root:ofbiz "/etc/ofbiz/debconf.cfg"
 			fi
-			if ! dpkg-statoverride --list "/var/lib/ofbiz" > /dev/null; then
-				dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
-			fi
+			for dir in "/var/lib/ofbiz" "/var/lib/ofbiz/runtime/uploads"; do
+				if ! dpkg-statoverride --list "$dir" > /dev/null; then
+					dpkg-statoverride --update --add ofbiz ofbiz 755 "$dir"
+				fi
+			done
 		fi
 	;;
 esac

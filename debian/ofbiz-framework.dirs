@@ -1,5 +1,5 @@
 usr/share/ofbiz/support
 etc/ofbiz
 var/cache/ofbiz
-var/lib/ofbiz
+var/lib/ofbiz/runtime/uploads
 var/log/ofbiz
