@@ -598,13 +598,12 @@ public class StringUtil {
      * Translates various HTML characters in a string so that the string can be displayed in a browser safely
      * <p>
      * This function is useful in preventing user-supplied text from containing HTML markup, such as in a message board or
-     * guest book application. The optional arguments doubleQuotes and singleQuotes allow the control of the substitution of
-     * the quote characters.  The default is to translate them with the HTML equivalent.
+     * guest book application.
      * </p>
      * The translations performed are: <ol>
      *    <li>'&' (ampersand) becomes '&amp;'
-     *    <li>'"' (double quote) becomes '&quot;' when doubleQuotes is true.
-     *    <li>''' (single quote) becomes '&#039;' when singleQuotes is true.
+     *    <li>'"' (double quote) becomes '&quot;'
+     *    <li>''' (single quote) becomes '&#039;'
      *    <li>'<' (less than) becomes '&lt;'
      *    <li>'>' (greater than) becomes '&gt;'
      *    <li>\n (Carriage Return) becomes '&lt;br&gt;gt;'
@@ -613,25 +612,15 @@ public class StringUtil {
      * @deprecated Use StringUtil.htmlEncoder instead.
      */
     @Deprecated
-    public static String htmlSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
+    public static String htmlSpecialChars(String html) {
         html = StringUtil.replaceString(html, "&", "&amp;");
         html = StringUtil.replaceString(html, "<", "&lt;");
         html = StringUtil.replaceString(html, ">", "&gt;");
-        if (doubleQuotes) {
-            html = StringUtil.replaceString(html, "\"", "&quot;");
-        }
-        if (singleQuotes) {
-            html = StringUtil.replaceString(html, "'", "&#039");
-        }
-        if (insertBR) {
-            html = StringUtil.replaceString(html, "\n", "<br>");
-        }
+        html = StringUtil.replaceString(html, "\"", "&quot;");
+        html = StringUtil.replaceString(html, "'", "&#039");
+        html = StringUtil.replaceString(html, "\n", "<br>");
 
         return html;
-    }
-
-    public static String htmlSpecialChars(String html) {
-        return htmlSpecialChars(html, true, true, true);
     }
 
     /**
