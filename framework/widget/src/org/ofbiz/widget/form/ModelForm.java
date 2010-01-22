@@ -3008,14 +3008,6 @@ public class ModelForm extends ModelWidget {
                             allRequestsUsed.addAll(controllerLocAndRequestSet);
                         }
                     }
-                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DropDownField) {
-                    ModelFormField.DropDownField parentField = (ModelFormField.DropDownField) modelFormField.getFieldInfo();
-                    if (parentField.subHyperlink != null) {
-                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
-                        if (controllerLocAndRequestSet != null) {
-                            allRequestsUsed.addAll(controllerLocAndRequestSet);
-                        }
-                    }
                 }
             }
         }
