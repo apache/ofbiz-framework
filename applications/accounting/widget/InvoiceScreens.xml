@@ -33,6 +33,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
+                            <widgets>
+                               <include-menu name="InvoiceApplTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
                             <condition>
                                 <and>
                                     <if-service-permission service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
@@ -71,7 +76,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="FindInvoices">
         <section>
             <actions>
