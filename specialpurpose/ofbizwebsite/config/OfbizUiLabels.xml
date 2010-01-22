@@ -54,6 +54,26 @@
         <value xml:lang="fr">Communauté</value>
         <value xml:lang="nl">Gemeenschap</value>
     </property>
+    <property key="OfbizDescription1">
+        <value xml:lang="en">The Apache Open For Business Project is an open source enterprise automation software project licensed under the Apache License Version 2.0. By open source enterprise automation we mean: Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM, and so on.</value>
+        <value xml:lang="fr">Apache OFBiz sert à la fois de fondation et de point de départ pour une solution de gestion d'entreprise. OFBiz peut être utilisé directement après avoir été téléchargé, mais ce n'est pas le but premier du projet.</value>
+        <value xml:lang="nl">Het Apache Open For Business Project is een open source bedrijfsinformatie systeem met de Apache Licentie Version 2.0. die het gratis gebruik toelaat in elke vorm. Met een bedrijfsinformatiesysteem bedoelen we Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM, en zo verder.</value>
+    </property>
+    <property key="OfbizDescription2">
+        <value xml:lang="en">Apache OFBiz is a foundation and starting point for reliable, secure and scalable enterprise solutions. Use it out-of-the-box (OOTB) or customize to suite even your most challenging business needs. With OFBiz in place, you can get started right away and then grow your operations as your business grows, without the huge deployment and maintenance costs of traditional enterprise automation systems.</value>
+        <value xml:lang="fr">En effet, OFBiz est destiné à servir de socle pour créer d'autres applications qui seront, elles, utilisées directement. OFBiz est aussi destiné aux structures qui recherchent une solution pour accompagner leurs projets. Si vous désirez plus que ce qu'un logiciel "en version boîte" va offrir, et que les coûts de déploiement et de maintenance d'un système informatique traditionnel vous semblent injustifiés, alors OFBiz est la solution qu'il vous faut.</value>
+        <value xml:lang="nl">Apache OFBiz is a foundation and starting point for reliable, secure and scalable enterprise solutions. Use it out-of-the-box (OOTB) or customize to suite even your most challenging business needs. With OFBiz in place, you can get started right away and then grow your operations as your business grows, without the huge deployment and maintenance costs of traditional enterprise automation systems.</value>
+    </property>
+    <property key="OfbizDescription3">
+        <value xml:lang="en">Being open source under the Apache 2.0 license and driven by a community Apache OFBiz offers both flexibility by design and by access to code, and a solution where you're not alone but rather can work with many others to get things done.</value>
+        <value xml:lang="fr">Sous licence Apache 2.0, et géré par une communauté de contributeurs et utilisateurs, OFBiz propose à tous une grande flexibilité par l'accès complet au code source et la grande. La communauté autour d'OFBiz permet de ne pas rester seul, mais de travailler avec beaucoup d'autres afin de faire avancer les projets.</value>
+        <value xml:lang="nl">Being open source under the Apache 2.0 license and driven by a community Apache OFBiz offers both flexibility by design and by access to code, and a solution where you're not alone but rather can work with many others to get things done.</value>
+    </property>
+    <property key="OfbizDescription4">
+        <value xml:lang="en">For answers to your questions you might find the following documents useful:</value>
+        <value xml:lang="fr">Pour plus de détails et avoir des réponses à vos interrogations, vous pouvez consulter les documents suivants :</value>
+        <value xml:lang="nl">For answers to your questions you might find the following documents useful:</value>
+    </property>
     <property key="OfbizDocumentation">
         <value xml:lang="en">Documentation</value>
         <value xml:lang="fr">Documents</value>
@@ -108,5 +128,25 @@
         <value xml:lang="en">OFBiz, The Apache Open For Business Project - Open Source E-Business / E-Commerce, ERP, CRM, POS</value>
         <value xml:lang="fr">OFBiz : Apache Open For Business - Solution open source business / eCommerce / ERP / CRM / POS</value>
         <value xml:lang="nl">OFBiz, The Apache Open For Business Project - Open Source E-Business / E-Commerce, ERP, CRM, POS</value>
+    </property>
+    <property  key="OfbizWhoIsUsing">
+        <value xml:lang="en">Who is Using Apache OFBiz?</value>
+        <value xml:lang="fr">Qui utilise Apache OFBiz ?</value>
+        <value xml:lang="nl">Who is Using Apache OFBiz?</value>
+    </property>
+    <property  key="OfbizWhoIsUsing1">
+        <value xml:lang="en">It's hard to say who and how many organizations are using Apache OFBiz because you don't have to tell us when you use it, but there are lots of public sites and we've listed some of them for you here.</value>
+        <value xml:lang="fr">Il est difficile de dire qui et combien de sociétés utilisent actuellement Apache OFBiz, car rien ne vous oblige à le dire, mais certains sont connus, et nous les avons listé ci-dessous.</value>
+        <value xml:lang="nl">It's hard to say who and how many organizations are using Apache OFBiz because you don't have to tell us when you use it, but there are lots of public sites and we've listed some of them for you here.</value>
+    </property>
+    <property  key="OfbizWhoIsUsing2">
+        <value xml:lang="en">A selection of public sites (mostly, but not all, ecommerce) using Apache OFBiz:</value>
+        <value xml:lang="fr">Une sélection de site basés sur Apache OFBiz (dont une grande partie sont des sites de e-commerce) :</value>
+        <value xml:lang="nl">A selection of public sites (mostly, but not all, ecommerce) using Apache OFBiz:</value>
+    </property>
+    <property  key="OfbizWhoIsUsing3">
+        <value xml:lang="en">Products based on Apache OFBiz:</value>
+        <value xml:lang="fr">Produits basés sur Apache OFBiz :</value>
+        <value xml:lang="nl">Products based on Apache OFBiz:</value>
     </property>
 </resource>

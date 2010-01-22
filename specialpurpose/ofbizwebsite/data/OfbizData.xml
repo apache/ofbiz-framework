@@ -159,24 +159,10 @@ under the License.
             <li>and much more all in an open source package!</li>
           </ul>
         </div>
-
-        <p>The Apache Open For Business Project is an open source enterprise
-        automation software project licensed under the Apache License Version 2.0. By open source enterprise automation we mean:
-        Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP,
-        Open Source CMMS/EAM, and so on.</p>
-
-        <p>Apache OFBiz is a foundation and starting point for reliable, secure and
-        scalable enterprise solutions. Use it out-of-the-box (OOTB) or customize
-        to suite even your most challenging business needs. With OFBiz in place,
-        you can get started right away and then grow your operations as your
-        business grows, without the huge deployment and maintenance costs of
-        traditional enterprise automation systems.
-
-        </p>
-        <p>Being open source under the Apache 2.0 license and driven by a community Apache OFBiz offers both flexibility by design and by access to code, and a solution where you're not alone but rather can work with many others to get things done.
-        </p>
-
-        <p>For answers to your questions you might find the following documents useful:
+        <p>${uiLabelMap.OfbizDescription1}</p>
+        <p>${uiLabelMap.OfbizDescription2}</p>
+        <p>${uiLabelMap.OfbizDescription3}</p>
+        <p>${uiLabelMap.OfbizDescription4}
             <a href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Getting+Started">Apache OFBiz Getting Started</a>,
             <a href="http://cwiki.apache.org/confluence/x/DAFk">Main New Features</a>,
             <a href="http://cwiki.apache.org/confluence/x/UgFk">Is Apache OFBiz for Me?</a>,
@@ -184,10 +170,9 @@ under the License.
 
         <p>For more technical information, see the <a href="http://cwiki.apache.org/confluence/x/GoB2">Documentation</a> page.</p>
 
-        <h2>Who is Using Apache OFBiz?</h2>
-            <p>It's hard to say who and how many organizations are using Apache OFBiz because you don't have to tell us when you use it, but there are lots of public sites and we've listed some of them for you here.</p>
-
-            <p>A selection of public sites (mostly, but not all, ecommerce) using Apache OFBiz:<br>
+        <h2>${uiLabelMap.OfbizWhoIsUsing}</h2>
+            <p>${uiLabelMap.OfbizWhoIsUsing1}</p>
+            <p>${uiLabelMap.OfbizWhoIsUsing2}<br>
                 <a name="users"></a>
                 <a href="http://www.1800flowers.com/" target="_blank">1-800-Flowers.com | </a>
                 <a href="http://www.actionenvelope.com/" target="_blank">Action Envelope | </a>
@@ -213,7 +198,7 @@ under the License.
                 <!--a href="http://www.undersunconsulting.com/control/home.html" target="_blank">Undersun Consulting | </a-->
                 <!-- a href="http://store.xinit.com/ecommerce/control/main" target="_blank">Xinit Systems</a-->
             </p>
-            <p>Products based on Apache OFBiz:<br>
+            <p>${uiLabelMap.OfbizWhoIsUsing3}<br>
                 <a href="http://www.codesquare.com/products.html" target="_blank">Codesquare Helix | </a>
                 <a href="http://www.myaffiliateprogram.com/u/mvelopes/t.asp?id=1138" target="_blank">Mvelopes (FREE TRIAL!) (Commercial-Service) | </a>
                 <a href="http://www.atlassian.com/software/jira/default.jsp" target="_blank">Atlassian JIRA (Commercial) | </a>
@@ -226,9 +211,6 @@ under the License.
                 <a href="http://www.allinsoftware.com/" target="_blank">ALL-IN Software (Commercial for Jewelry Store)</a>                 
             </p>
             <p>For a more complete list of sites see the <a href="http://cwiki.apache.org/confluence/x/IQFk">Apache OFBiz User List</a> page.</p>
-
-
-
             <h2>In the News</h2>
               <ul>
                   <li><a href="http://opensourceerpguru.com/2009/05/12/apache-ofbiz-revamps-website/" target="_blank">Apache OFBiz Revamps Website</a> on <a href="http://opensourceerpguru.com/" target="_blank">Open Source ERP Guru</a></li>
@@ -248,11 +230,8 @@ under the License.
               </ul>
     </div>
         <!-- main ends -->
-
-
         <!-- sidebar starts -->
         <div id="sidebar">
-
             <div class="downloadNow"><a href="http://build.ofbiz.org/"><img src="/ofbiz/images/download.jpg"></a></div>
             <div class="downloadLinks clearfix"><span class="docs"><a href="http://cwiki.apache.org/confluence/x/uABk">Documentation</a></span><span class="previousVersions"><a href="http://build.ofbiz.org">Previous Versions</a></span></div>
             <h3>Resources &amp; Tools</h3>
