@@ -349,15 +349,6 @@ public class UtilXml {
         return document;
     }
 
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public static Document readXmlDocument(InputStream is)
-            throws SAXException, ParserConfigurationException, java.io.IOException {
-        return readXmlDocument(is, true, null);
-    }
-
     public static Document readXmlDocument(InputStream is, String docDescription)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, docDescription);
