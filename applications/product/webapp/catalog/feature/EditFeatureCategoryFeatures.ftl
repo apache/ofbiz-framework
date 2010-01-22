@@ -21,7 +21,9 @@ under the License.
         <h3>${uiLabelMap.ProductEditFeaturesForFeatureCategory} "${(curProductFeatureCategory.description)?if_exists}"</h3>
     </div>
     <div class="screenlet-body">
-        <a href="<@ofbizUrl>CreateFeature?productFeatureCategoryId=${productFeatureCategoryId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewFeature}</a>
+        <div class="button-bar">
+          <a href="<@ofbizUrl>CreateFeature?productFeatureCategoryId=${productFeatureCategoryId?if_exists}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductCreateNewFeature}</a>
+        </div>
         <br>
         <form action="<@ofbizUrl>QuickAddProductFeatures</@ofbizUrl>" method="post">
           <div>

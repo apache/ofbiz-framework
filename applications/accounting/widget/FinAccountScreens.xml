@@ -127,9 +127,11 @@ under the License.
                                 <not><if-empty field="finAccountId"/></not>
                             </condition>
                             <widgets>
+                                <container style="button-bar">
+                                    <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext create"/>
+                                </container>
                                 <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"></label>
                                 <screenlet id="EditFinAccountPanel" collapsible="true">
-                                    <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext"/>
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                             </widgets>

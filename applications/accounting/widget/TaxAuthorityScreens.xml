@@ -78,8 +78,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar">
+                            <link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext create"/>
+                        </container>
                         <screenlet title="${uiLabelMap.PageTitleFindTaxAuthority}">
-                            <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
                             <include-form name="FindTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                         </screenlet>
                     </decorator-section>
