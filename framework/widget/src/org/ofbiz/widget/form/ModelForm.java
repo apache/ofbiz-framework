@@ -1647,7 +1647,7 @@ public class ModelForm extends ModelWidget {
                 if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
                     modelFormField.renderFieldString(writer, localContext, formStringRenderer);
                 }
-                
+
                 if (separateColumns || modelFormField.getSeparateColumn()) {
                     formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
                 }
