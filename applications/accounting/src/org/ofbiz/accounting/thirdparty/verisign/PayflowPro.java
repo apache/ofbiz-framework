@@ -730,6 +730,10 @@ public class PayflowPro {
             Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("authResult", Boolean.FALSE);
             result.put("authRefNum", respCode);
+        } else if (codeInt == 0) {
+            Debug.logWarning("In PayflowPro approved, but invalid flags; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
+            result.put("authResult", Boolean.TRUE);
+            result.put("authCode", parameters.get("AUTHCODE"));
         } else {
             // other error
             Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
