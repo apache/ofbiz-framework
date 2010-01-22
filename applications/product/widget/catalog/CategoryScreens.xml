@@ -55,9 +55,9 @@ under the License.
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
                                         </container>
 
-                                        <container>
-                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
-                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext">
+                                        <container style="button-bar">
+                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
+                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext create">
                                                 <parameter param-name="productCategoryId"/>
                                             </link>
                                             <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext">

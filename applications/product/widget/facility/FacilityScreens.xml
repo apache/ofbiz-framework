@@ -56,7 +56,7 @@ under the License.
                                                     </condition>
                                                     <widgets>
                                                         <container style="button-bar">
-                                                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                                                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                                                             <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
                                                                 <parameter param-name="facilityId"/>
                                                                 <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
@@ -88,10 +88,12 @@ under the License.
                                                 <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
                                             </condition>
                                             <widgets>
-                                                <container style="button-bar"><link target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}" style="buttontext"/></container>
+                                                <container style="button-bar"><link target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}" style="buttontext create"/></container>
                                             </widgets>
                                         </section>
-                                        <include-form name="FindFacility10" location="component://product/widget/facility/FacilityForms.xml"/>
+                                        <screenlet>
+                                            <include-form name="FindFacility10" location="component://product/widget/facility/FacilityForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                                 <section>

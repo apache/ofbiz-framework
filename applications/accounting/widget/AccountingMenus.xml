@@ -157,7 +157,7 @@ under the License.
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" widget-style="buttontext create">
             <link target="newInvoice"/>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
@@ -393,7 +393,7 @@ under the License.
         <actions>
             <set field="isDisbursement" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}"/>
         </actions>
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" widget-style="buttontext create" >
             <condition>
                 <not><if-empty field="payment.paymentId"/></not>
             </condition>
@@ -501,7 +501,7 @@ under the License.
     
     <menu name="PaymentGroupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
             menu-container-style="button-bar button-style-2">
-        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewPaymentGroup}">
+        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewPaymentGroup}" widget-style="buttontext create">
             <condition>
                 <not><if-empty field="paymentGroup"/></not>
             </condition>
