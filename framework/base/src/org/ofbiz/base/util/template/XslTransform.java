@@ -95,9 +95,10 @@ public final class XslTransform {
     }
 
     /*
-     *  it does not look like the rest of this file is working or used..........better set it to depreciated
+     *  it does not look like the rest of this file is working or used..........better set it to deprecated
      *  @deprecated
      */
+    @Deprecated
     public static Document transform(Map<String, Object> context, Map<String, Object> params)
         throws GeneralException, IOException, TransformerConfigurationException, TransformerException {
         Document outputDocument = null;
@@ -144,9 +145,10 @@ public final class XslTransform {
     }
 
     /*
-     *  it does not look like the rest of this file is working or used..........better set it to depreciated
+     *  it does not look like the rest of this file is working or used..........better set it to deprecated
      *  @deprecated
      */
+    @Deprecated
     private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws GeneralException, IOException {
         Source source = null;
         if (inputDocument != null) {
