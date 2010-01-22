@@ -78,11 +78,6 @@ public class ConnectionFactory {
         return con;
     }
 
-    @Deprecated
-    public static Connection tryGenericConnectionSources(String helperName, Element inlineJdbcElement) throws SQLException, GenericEntityException {
-        return getManagedConnectionFactory().getConnection(helperName, inlineJdbcElement);
-    }
-
     public static ConnectionFactoryInterface getManagedConnectionFactory() {
         if (_factory == null) { // don't want to block here
             synchronized (TransactionFactory.class) {
