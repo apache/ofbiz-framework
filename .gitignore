@@ -79,3 +79,4 @@ debian/ofbiz.substvars
 debian/ofbiz/
 debian/stamps/
 debian/orig-work
+.pc
