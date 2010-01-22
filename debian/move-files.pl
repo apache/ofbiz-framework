@@ -107,7 +107,7 @@ while (<FIND>) {
 	my $type = undef;
 	if ($_ eq 'framework/entity/config/entityengine.xml') {
 		$type = 'ucf';
-	} elsif (m,(^|.*/)[^/]+\.css$,) {
+	} elsif (-f m,(^|.*/)[^/]+\.css$,) {
 		$type = 'conffile';
 	} elsif (m,^$appDirsRe/[^/]+/webapp/.*/WEB-INF/(controller|web|regions)\.xml$,) {
 		$type = 'conffile';
