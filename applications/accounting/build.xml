@@ -52,9 +52,12 @@ under the License.
     </path>
 
     <target name="init">
+        <condition property="verisign-exclude" value="org/ofbiz/accounting/thirdparty/verisign/**">
+            <not><available file="lib/payflow.jar"/></not>
+        </condition>
         <patternset id="src.exc.set">
             <!-- exclude the payment processor packages; comment this out to not exclude if you have libs -->
-            <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>
+            <exclude name="${verisign-exclude}"/>
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
