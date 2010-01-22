@@ -41,7 +41,7 @@ Date.prototype.toFormattedString = function(include_time){
 /* mod for OFBiz Date Field */
   Date.prototype.toFormattedString_ofbiz_default = function(include_time){
   var hour, str;
-  str = this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + Date.padded2(this.getDate());
+  str = this.getFullYear() + "-" + Date.padded2(this.getMonth() + 1) + "-" + Date.padded2(this.getDate());
 
   if (include_time) { hour=this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + ":" + this.getSeconds() + "." + this.getMilliseconds() }
   return str;
