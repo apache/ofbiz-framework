@@ -407,7 +407,7 @@ under the License.
     <screen name="forgotPassword">
         <section>
             <widgets>
-                <decorator-screen name="login-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://common/webcommon/forgotPassword.ftl"/></html>
