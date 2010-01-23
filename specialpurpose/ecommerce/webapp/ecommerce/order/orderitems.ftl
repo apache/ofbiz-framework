@@ -30,26 +30,69 @@ under the License.
       ${uiLabelMap.OrderOrderItems}
   </h3>
   <table>
+    <thead>
     <tr>
-      <td>${uiLabelMap.OrderProduct}</td>
+      <th>${uiLabelMap.OrderProduct}</th>
       <#if maySelectItems?default("N") == "Y">
-        <td>${uiLabelMap.OrderQtyOrdered}</td>
-        <td>${uiLabelMap.OrderQtyPicked}</td>
-        <td>${uiLabelMap.OrderQtyShipped}</td>
-        <td>${uiLabelMap.OrderQtyCanceled}</td>
+        <th>${uiLabelMap.OrderQtyOrdered}</th>
+        <th>${uiLabelMap.OrderQtyPicked}</th>
+        <th>${uiLabelMap.OrderQtyShipped}</th>
+        <th>${uiLabelMap.OrderQtyCanceled}</th>
       <#else>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>${uiLabelMap.OrderQtyOrdered}</td>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>${uiLabelMap.OrderQtyOrdered}</th>
       </#if>
-      <td >${uiLabelMap.EcommerceUnitPrice}</td>
-      <td >${uiLabelMap.OrderAdjustments}</td>
-      <td >${uiLabelMap.CommonSubtotal}</td>
+      <th >${uiLabelMap.EcommerceUnitPrice}</th>
+      <th >${uiLabelMap.OrderAdjustments}</th>
+      <th >${uiLabelMap.CommonSubtotal}</th>
       <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
-        <td colspan="3"></td>
+        <th colspan="3"></th>
       </#if>
     </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <th colspan="7">${uiLabelMap.CommonSubtotal}</th>
+      <td><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>
+      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
+    </tr>
+    <#list headerAdjustmentsToShow as orderHeaderAdjustment>
+      <tr>
+        <th colspan="7">${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</th>
+        <td><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></td>
+        <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
+      </tr>
+    </#list>
+    <tr>
+      <th colspan="7">${uiLabelMap.OrderShippingAndHandling}</th>
+      <td><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></td>
+      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
+    </tr>
+    <tr>
+      <th colspan="7">${uiLabelMap.OrderSalesTax}</th>
+      <td><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></td>
+      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
+    </tr>
+    <tr>
+      <td colspan="3"></td>
+      <#if maySelectItems?default("N") == "Y">
+        <td colspan="${numColumns - 6}"></td>
+        <td colspan="3"></td>
+      <#else>
+        <td colspan="${numColumns - 3}"></td>
+      </#if>
+    </tr>
+    <tr>
+      <th colspan="7">${uiLabelMap.OrderGrandTotal}</th>
+      <td>
+        <@ofbizCurrency amount=orderGrandTotal isoCode=currencyUomId/>
+      </td>
+      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
+    </tr>
+    </tfoot>
+    <tbody>
     <#list orderItems as orderItem>
       <#-- get info from workeffort and calculate rental quantity, if it was a rental item -->
       <#assign rentalQuantity = 1> <#-- no change if no rental item -->
@@ -243,43 +286,6 @@ under the License.
       <tr><td colspan="${numColumns}">${uiLabelMap.OrderSalesOrderLookupFailed}</td></tr>
     </#if>
     <tr><td colspan="${numColumns}"></td></tr>
-    <tr>
-      <td colspan="7">${uiLabelMap.CommonSubtotal}</td>
-      <td><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>
-      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
-    </tr>
-    <#list headerAdjustmentsToShow as orderHeaderAdjustment>
-      <tr>
-        <td colspan="7">${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</td>
-        <td><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></td>
-        <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
-      </tr>
-    </#list>
-    <tr>
-      <td colspan="7">${uiLabelMap.OrderShippingAndHandling}</td>
-      <td><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></td>
-      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
-    </tr>
-    <tr>
-      <td colspan="7">${uiLabelMap.OrderSalesTax}</td>
-      <td><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></td>
-      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
-    </tr>
-    <tr>
-      <td colspan="3"></td>
-      <#if maySelectItems?default("N") == "Y">
-        <td colspan="${numColumns - 6}"></td>
-        <td colspan="3"></td>
-      <#else>
-        <td colspan="${numColumns - 3}"></td>
-      </#if>
-    </tr>
-    <tr>
-      <td colspan="7">${uiLabelMap.OrderGrandTotal}</td>
-      <td>
-        <@ofbizCurrency amount=orderGrandTotal isoCode=currencyUomId/>
-      </td>
-      <#if maySelectItems?default("N") == "Y"><td colspan="3"></td></#if>
-    </tr>
+    </tbody>
   </table>
 </div>
