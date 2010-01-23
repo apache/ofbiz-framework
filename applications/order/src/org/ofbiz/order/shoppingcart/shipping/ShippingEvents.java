@@ -229,7 +229,10 @@ public class ShippingEvents {
 
         // call the external shipping service
         try {
-            BigDecimal externalAmt = getExternalShipEstimate(dispatcher, storeShipMethod, serviceFields);
+            BigDecimal externalAmt = null;
+            if (UtilValidate.isNotEmpty(shippingContactMechId)) {
+                externalAmt = getExternalShipEstimate(dispatcher, storeShipMethod, serviceFields);
+            }
             if (externalAmt != null) {
                 shippingTotal = shippingTotal.add(externalAmt);
             }
