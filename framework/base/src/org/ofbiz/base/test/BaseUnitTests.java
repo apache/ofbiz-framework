@@ -92,6 +92,10 @@ public class BaseUnitTests extends TestCase {
         assertTrue("overlaps range", range1.overlaps(overlapTest));
         assertTrue("overlaps range", range2.overlaps(overlapTest));
         assertFalse("does not overlap range", range1.overlaps(range2));
+        try {
+            ComparableRange<java.util.Date> range3 = new ComparableRange<java.util.Date>(new java.util.Date(), new java.sql.Timestamp(System.currentTimeMillis()));
+            assertTrue("mismatched classes", range3 != null);
+        } catch (IllegalArgumentException e) {}
     }
 
     public void testDateTimeConverters() {
