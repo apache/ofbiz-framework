@@ -32,6 +32,9 @@ public class ComparableRange<T> implements Range<T> {
 
     @SuppressWarnings("unchecked")
     public ComparableRange(Comparable<T> start, Comparable<T> end) {
+        if (start.getClass() != end.getClass()) {
+            throw new IllegalArgumentException("start Class and end Class must be the same");
+        }
         if (end.compareTo((T) start) >= 0) {
             this.start = (T) start;
             this.end = (T) end;
