@@ -108,15 +108,13 @@ public class MiscConverters implements ConverterLoader {
         }
 
         public String convert(Clob obj) throws ConversionException {
-            StringBuilder strBuf = new StringBuilder();
-            char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
-            int charsRead = 0;
+            char[] charBuffer = null;
             Reader clobReader = null;
             try {
-                clobReader =  obj.getCharacterStream();
-                while ((charsRead = clobReader.read(inCharBuffer, 0, CHAR_BUFFER_SIZE)) > 0) {
-                    strBuf.append(inCharBuffer, 0, charsRead);
-                }
+                int clobLength = (int) obj.length();
+                charBuffer = new char[clobLength];
+                clobReader = obj.getCharacterStream();
+                clobReader.read(charBuffer, 0, clobLength);
             } catch (Exception e) {
                 throw new ConversionException(e);
             }
@@ -127,7 +125,7 @@ public class MiscConverters implements ConverterLoader {
                     } catch (IOException e) {}
                 }
             }
-            return strBuf.toString();
+            return new String(charBuffer);
         }
     }
 
