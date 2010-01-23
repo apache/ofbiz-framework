@@ -91,7 +91,7 @@ public class BaseUnitTests extends TestCase {
         ComparableRange<Integer> overlapTest = new ComparableRange<Integer>(2, 5);
         assertTrue("overlaps range", range1.overlaps(overlapTest));
         assertTrue("overlaps range", range2.overlaps(overlapTest));
-        assertFalse("overlaps range", range1.overlaps(range2));
+        assertFalse("does not overlap range", range1.overlaps(range2));
     }
 
     public void testDateTimeConverters() {
