@@ -21,6 +21,7 @@ package org.ofbiz.base.test;
 import junit.framework.TestCase;
 
 import org.ofbiz.base.conversion.*;
+import org.ofbiz.base.util.ComparableRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
@@ -70,6 +71,27 @@ public class BaseUnitTests extends TestCase {
     }
     public void testIsFloat_2() {
         assertTrue(UtilValidate.isFloat("10.000", true, true, 3, 3));
+    }
+
+    public void testComparableRange() {
+        ComparableRange<Integer> pointTest = new ComparableRange<Integer>(1, 1);
+        assertTrue("isPoint", pointTest.isPoint());
+        assertTrue("equality", pointTest.equals(new ComparableRange<Integer>(1, 1)));
+        ComparableRange<Integer> range1 = new ComparableRange<Integer>(3, 1);
+        ComparableRange<Integer> range2 = new ComparableRange<Integer>(4, 6);
+        assertTrue("after range", range2.after(range1));
+        assertTrue("before range", range1.before(range2));
+        assertFalse("excludes value", range1.includes(0));
+        assertTrue("includes value", range1.includes(1));
+        assertTrue("includes value", range1.includes(2));
+        assertTrue("includes value", range1.includes(3));
+        assertFalse("excludes value", range1.includes(4));
+        assertTrue("includes range", range1.includes(pointTest));
+        assertFalse("excludes range", range1.includes(range2));
+        ComparableRange<Integer> overlapTest = new ComparableRange<Integer>(2, 5);
+        assertTrue("overlaps range", range1.overlaps(overlapTest));
+        assertTrue("overlaps range", range2.overlaps(overlapTest));
+        assertFalse("overlaps range", range1.overlaps(range2));
     }
 
     public void testDateTimeConverters() {
