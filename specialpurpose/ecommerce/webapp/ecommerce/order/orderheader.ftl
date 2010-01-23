@@ -24,7 +24,9 @@ under the License.
   <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
 </#if>
 
+<div id="orderHeader">
 <#-- left side -->
+<div class="columnLeft">
 <div class="screenlet">
   <h3>
     <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
@@ -227,8 +229,9 @@ under the License.
     </ul>
   </#if>
 </div>
+</div>
 <#-- right side -->
-<div class="screenlet">
+<div class="screenlet columnRight">
   <#if orderItemShipGroups?has_content>
     <h3>${uiLabelMap.OrderShippingInformation}</h3>
     <#-- shipping address -->
@@ -356,4 +359,7 @@ under the License.
       <#assign groupIdx = groupIdx + 1>
     </#list><#-- end list of orderItemShipGroups -->
   </#if>
+</div>
+
+<div class="clearBoth"></div>
 </div>
