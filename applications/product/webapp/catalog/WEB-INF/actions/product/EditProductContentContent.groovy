@@ -134,6 +134,12 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     context.contentFormName = "EditProductContentSimpleText";
     context.textData = textData;
 }
+if (productContentTypeId) {
+    productContentType = delegator.findOne("ProductContentType", [productContentTypeId : productContentTypeId], false);
+    if (productContentType && "DIGITAL_DOWNLOAD".equals(productContentType.parentTypeId)) {
+        context.contentFormName = "EditProductContentDownload";
+    }
+}
 
 context.productContentData = productContentData;
 context.content = content;
