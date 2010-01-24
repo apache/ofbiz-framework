@@ -29,7 +29,7 @@ public interface Range<T> {
     boolean after(Range<T> range);
 
     /** Returns <code>true</code> if this range occurs after <code>value</code>.
-     * @param date
+     * @param value The value to test
      * @return <code>true</code> if this range occurs after <code>value</code>
      */
     boolean after(T value);
