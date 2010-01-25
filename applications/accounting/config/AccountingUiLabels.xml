@@ -13984,4 +13984,12 @@
         <value xml:lang="en">Could not update credit card (write failure) : </value>
         <value xml:lang="it">Non è possibile aggiornare la carta di credito (fallimento in scrittura) : </value>
     </property>
+    <property key="NoChangesMadeNotUpdatingCreditCard">
+        <value xml:lang="de">Keine ÃƒÆ’Ã¢â‚¬Å¾nderungen, Keditkarteninformationen werden nicht aktualisiert</value>
+        <value xml:lang="en">No changes made, not updating credit card</value>
+    </property>
+    <property key="NoChangesMadeNotUpdatingEftAccount">
+        <value xml:lang="de">Keine ÃƒÆ’Ã¢â‚¬Å¾nderungen, EFT Account wurde nicht aktualisiert</value>
+        <value xml:lang="en">No changes made, not updating EFT Account</value>
+    </property>
 </resource>
