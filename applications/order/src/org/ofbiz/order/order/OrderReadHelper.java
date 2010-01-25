@@ -2391,6 +2391,9 @@ public class OrderReadHelper {
             BigDecimal amount = orderSubTotal.multiply(percent).multiply(percentage);
             adjustment = adjustment.add(amount);
         }
+        if ("SALES_TAX".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
+            return adjustment.setScale(taxCalcScale, taxRounding);
+        }
         return adjustment.setScale(scale, rounding);
     }
 
