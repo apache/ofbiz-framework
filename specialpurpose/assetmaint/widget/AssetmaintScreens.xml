@@ -66,7 +66,9 @@
                                                 <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
                                             </condition>
                                             <widgets>
-                                                <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                                                <container style="button-bar">
+                                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create"/>
+                                                </container>
                                             </widgets>
                                         </section>
                                     </decorator-section>
@@ -121,7 +123,7 @@
                             <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
+                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create">
                                         <parameter param-name="fixedAssetId"/>
                                     </link>
                                     <link target="printFixedAssetMaint.pdf" text="${uiLabelMap.CommonPrint}" style="buttontext">
@@ -185,7 +187,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts" style="buttontext"  text="${uiLabelMap.CommonNew}">
+                                            <link target="EditWorkEfforts" style="buttontext create"  text="${uiLabelMap.CommonNew}">
                                                 <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                                 <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
                                                 <parameter param-name="workEffortId"/>
@@ -209,7 +211,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts" style="buttontext" text="${uiLabelMap.CommonNew}">
+                                            <link target="EditWorkEfforts" style="buttontext create" text="${uiLabelMap.CommonNew}">
                                             <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                             <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
                                               <parameter param-name="workEffortId"/>

@@ -44,12 +44,14 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WorkEffortMyCurrentTimesheets}">
-                            <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek" style="buttontext">
-                                <parameter param-name="partyId" from-field="userLogin.partyId"/>
-                            </link>
-                            <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext">
-                                <parameter param-name="partyId" from-field="userLogin.partyId"/>
-                            </link>
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek" style="buttontext">
+                                    <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                                </link>
+                                <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext">
+                                    <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                                </link>
+                            </container>
                             <iterate-section entry="currentTimesheet" list="currentTimesheetList">
                                 <section>
                                     <actions>
@@ -141,7 +143,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleFindTimesheet}">
-                                    <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext create"/>
+                                    </container>
                                     <include-form name="FindTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleFindTimesheet}">
@@ -181,7 +185,9 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditTimesheet}">
-                                    <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext create"/>
+                                    </container>
                                     <include-form name="EditTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleAddTimesheetToInvoice}">
@@ -215,7 +221,9 @@ under the License.
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditTimesheetRoles}">
-                            <container><link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext"/></container>
+                            <container style="button-bar">
+                                <link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext create"/>
+                            </container>
                             <include-form name="ListTimesheetRoles" location="component://workeffort/widget/TimesheetForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddTimesheetRoles}">

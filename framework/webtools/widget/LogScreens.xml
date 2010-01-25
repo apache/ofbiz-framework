@@ -114,7 +114,7 @@ under the License.
                      <decorator-section name="body">
                          <screenlet title="${uiLabelMap.WebtoolsViewLog}">
                              <container style="button-bar">
-                                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext"/>
+                                 <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext refresh"/>
                              </container>
                              <container style="button-bar">
                                  <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>

@@ -21,8 +21,10 @@ under the License.
       <div class="h3">${uiLabelMap.WebtoolsStatsMainPageTitle}</div>
     </div>
     <div class="screenlet-body">
-      <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
-      <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
+      <div class="button-bar">
+        <a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsStatsClearSince}</a>
+        <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="buttontext refresh">${uiLabelMap.WebtoolsStatsReloadPage}</a>
+      </div>
       <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${nowTimestamp}</p>
     </div>
 </div>

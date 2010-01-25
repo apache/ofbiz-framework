@@ -105,10 +105,9 @@ under the License.
                                 <if-empty field="workEffort"/>
                             </condition>
                             <widgets>
-                                <container style="h1">
-                                    <label text="${uiLabelMap.PageTitleAddWorkEffort}"/>
-                                </container>
-                                <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <screenlet title="${uiLabelMap.PageTitleAddWorkEffort}">
+                                    <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <container style="button-bar">
@@ -116,7 +115,9 @@ under the License.
                                         <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                     </link>
                                 </container>
-                                <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <screenlet>
+                                    <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                </screenlet>
                             </fail-widgets>
                         </section>
                         <screenlet title="${uiLabelMap.WorkEffortDuplicateWorkEffort}">
