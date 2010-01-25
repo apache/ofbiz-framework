@@ -392,4 +392,116 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- ebay feedback -->
+    <screen name="EbayFeedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="tabButtonItem" value="feedback"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu location="component://ebay/widget/EbayMenus.xml" name="EbayFeedbackTabBar"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="Feedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="eBayTabButtonItem" value="Feedback"/>
+                <service service-name="loadFeedback"> 
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <service service-name="getItemsAwaitingFeedback" result-map="results"> 
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="itemsAwaitingFeedbackList" from-field="results.itemsAwaitingFeedback"/>
+                <script location="component://ebay/webapp/ebay/WEB-INF/actions/feedback/FeedbackList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayFeedback" >
+                    <decorator-section name="body">
+                        <screenlet>
+                            <screenlet navigation-form-name="ItemsAwaitingFeedback" title="Items Awaiting Feedback">
+                                <include-form name="ItemsAwaitingFeedback" location="component://ebay/widget/EbayForms.xml"/>
+                            </screenlet>
+                        </screenlet>
+                        <screenlet>
+                            <screenlet navigation-form-name="RecentFeedback" title="Recent Feedback">
+                                <include-form name="RecentFeedback" location="component://ebay/widget/EbayForms.xml"/>
+                            </screenlet>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LeaveFeedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="eBayTabButtonItem" value="LeaveFeedback"/>
+                <set field="role" from-field="parameters.role" default-value="all"/>
+                <service service-name="getItemsAwaitingFeedback" result-map="results"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayFeedback" >
+                    <decorator-section name="body">
+                        <screenlet>
+                            <screenlet title="${uiLabelMap.EbayLeaveFeedback}">
+                                <include-menu location="component://ebay/widget/EbayMenus.xml" name="EbayFeedbackSubTabBar"/>
+                                <platform-specific>
+                                    <html><html-template location="component://ebay/webapp/ebay/feedback/LeaveFeedback.ftl"/></html>
+                                </platform-specific>
+                            </screenlet>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name="EbayAutomationPreferences">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="automationPreferences"/>
+                <service service-name="getEbayStoreUser" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+                <script location="component://ebay/webapp/ebay/WEB-INF/actions/automationPreferences/GetEbayJobsandbox.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                        <include-screen name="AutomationRelistSoldItems"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AutomationRelistSoldItems">
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.EbayAutomationRelistItems}">
+                    <include-form name="EditAutomationRelistSoldItems"  location="component://ebay/widget/EbayForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

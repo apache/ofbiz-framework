@@ -688,4 +688,25 @@
     <property key="EbayUserPreference">
         <value xml:lang="en">User Preference</value>
     </property>
+    <property key="EbayAutomationRelistItems">
+        <value xml:lang="en">Automation Re-list Items</value>
+    </property>
+    
+    <property key="EbayBoughtLeaveFeedback">
+        <value xml:lang="en">Bought</value>
+    </property>
+    
+    <property key="EbayFeedback">
+        <value xml:lang="en">Feedback</value>
+        <value xml:lang="th">ผลตอบรับ</value>
+    </property>
+    <property key="EbayFeedbackStore">
+        <value xml:lang="en">Feedback Store</value>
+    </property>
+    <property key="EbayLeaveFeedback">
+        <value xml:lang="en">Leave Feedback</value>
+    </property>
+    <property key="EbaySoldLeaveFeedback">
+        <value xml:lang="en">Sold</value>
+    </property>
 </resource>

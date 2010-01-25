@@ -105,4 +105,20 @@ under the License.
     <Content contentId="EBAY_ExpCatToEbay" contentTypeId="DOCUMENT" contentName="EBay export categories to store" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ExpCatToEbay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_ExpCatToEbay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_exportCategoryEbayStore"/>
     
+    <!-- ebay feedback -->
+    <DataResource dataResourceId="EBAY_LeaveFeedback" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_LeaveFeedback.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_LeaveFeedback" contentTypeId="DOCUMENT" contentName="EBay Leave Feedback" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_LeaveFeedback" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_LeaveFeedback" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_LeaveFeedback"/>
+    
+    <DataResource dataResourceId="EBAY_Feedback" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_Feedback.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_Feedback" contentTypeId="DOCUMENT" contentName="EBay Feedback" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_Feedback" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_Feedback" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_Feedback"/>
+    
+    <DataResource dataResourceId="EBAY_AutoPref" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_AutoPref.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_AutoPref" contentTypeId="DOCUMENT" contentName="EBay Automation Preferences" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_AutoPref" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_AutoPref" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_AutomationPreferences"/>
+    
 </entity-engine-xml>

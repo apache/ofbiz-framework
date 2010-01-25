@@ -208,7 +208,40 @@
         <response name="success" type="view" value="ebayStoreDetail"/>
         <response name="error" type="view" value="ebayStoreDetail"/>
     </request-map>
+    <!-- Feedback -->
+    <request-map uri="Feedback">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Feedback"/>
+    </request-map>
+    <request-map uri="LeaveFeedback">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LeaveFeedback"/>
+    </request-map>
+    <request-map uri="sendLeaveFeedback">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.ebay.EbayEvents" invoke="sendLeaveFeedback"/>
+        <response name="success" type="view" value="LeaveFeedback"/>
+        <response name="error" type="view" value="LeaveFeedback"/>
+    </request-map>
     
+    
+    <!-- Automation Preferences -->
+    <request-map uri="automationPreferences">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="createEbayAutomaticRelistItems">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayAutomaticRelistItems"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayAutomaticRelistItems">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayAutomaticRelistItems"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- end of request mappings -->
     
     <!-- View Mappings -->
@@ -231,5 +264,13 @@
     <!-- ebay account -->
     <view-map name="NewEbayAccount" type="screen" page="component://ebay/widget/EbayScreens.xml#NewEbayAccount"/>
     <view-map name="EbayAccount" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayAccount"/>
+  
+    <!-- feedback -->
+    <view-map name="FeedbackStore" type="screen" page="component://ebay/widget/EbayScreens.xml#FeedbackStore"/>
+    <view-map name="Feedback" type="screen" page="component://ebay/widget/EbayScreens.xml#Feedback"/>    
+    <view-map name="LeaveFeedback" type="screen" page="component://ebay/widget/EbayScreens.xml#LeaveFeedback"/> 
+    
+    <!-- AutomationPreferences -->
+    <view-map name="AutomationPreferences" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayAutomationPreferences"/>
     <!-- end of view mappings -->
 </site-conf>

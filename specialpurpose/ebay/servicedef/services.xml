@@ -276,4 +276,53 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="userPreferenceList" mode="OUT" type="List" optional="true"/>
     </service>
+    <!-- eBay Feedback -->
+    <service name="loadFeedback" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayFeedback" invoke="loadFeedback" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="getItemsAwaitingFeedback" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayFeedback" invoke="getItemsAwaitingFeedback" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemsAwaitingFeedback" mode="OUT" type="List" optional="true"/>
+    </service>
+    <service name="leaveFeedback" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayFeedback" invoke="leaveFeedback" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="transactionId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemId" mode="IN" type="String" optional="false"/>
+        <attribute name="targetUser" mode="IN" type="String" optional="false"/>
+        <attribute name="commentingUser" mode="IN" type="String" optional="false"/>
+        <attribute name="role" mode="IN" type="String" optional="false"/>
+        <attribute name="commentType" mode="IN" type="String" optional="false"/>
+        <attribute name="commentText" mode="IN" type="String" optional="false"/>
+        <attribute name="ratingItem" mode="IN" type="String" optional="true"/>
+        <attribute name="ratingComm" mode="IN" type="String" optional="true"/>
+        <attribute name="ratingShip" mode="IN" type="String" optional="true"/>
+        <attribute name="ratingShipHand" mode="IN" type="String" optional="true"/>
+        <attribute name="AqItemAsDescribedId" mode="IN" type="String" optional="true"></attribute>
+    </service>
+    <service name="getEbayActiveItems" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayStore" invoke="getEbayActiveItems" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="activeItems" mode="OUT" type="List" optional="true"/>
+    </service>
+    <service name="getEbaySoldItems" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayStore" invoke="getEbaySoldItems" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="soldItems" mode="OUT" type="List" optional="true"/>
+    </service>
+    <service name="automaticEbayRelistSoldItems" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayStore" invoke="automaticEbayRelistSoldItems" auth="true">
+    </service>   
+    <service name="createEbayAutomaticRelistItems" engine="entity-auto" default-entity-name="JobSandbox" invoke="create">
+        <description>create eBay automatic re-list items</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
+    <service name="updateEbayAutomaticRelistItems" engine="entity-auto" default-entity-name="JobSandbox" invoke="update">
+        <description>create eBay automatic re-list items</description>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
 </services>
