@@ -331,9 +331,6 @@ under the License.
       <div class="button-bar">
         <#assign isfirst=true>
         <#list serviceNamesAlphaList as alpha>
-          <#if !isfirst>
-            |
-          </#if>
           <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>'>${alpha}</a>
           <#assign isfirst=false>
         </#list>
