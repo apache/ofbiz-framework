@@ -412,7 +412,7 @@ public class PaymentMethodServices {
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             if (contactMechId == null || !contactMechId.equals("_NEW_")) {
-                result.put(ModelService.SUCCESS_MESSAGE, "No changes made, not updating credit card");
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingCreditCard", locale));
             }
 
             return result;
@@ -524,6 +524,7 @@ public class PaymentMethodServices {
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -627,7 +628,7 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, "No changes made, not updating EFT Account");
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
@@ -742,6 +743,7 @@ public class PaymentMethodServices {
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -851,7 +853,7 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, "No changes made, not updating EFT Account");
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
