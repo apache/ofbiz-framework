@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
+        <if-not-empty field="Week">
+            <!--<set field="year" from-field="Year" type="Integer"/>-->
+            <!--<set field="week1" from-field="Week" type="Integer"/>-->
+            <set field="year" value="2009" type="Integer"/>
+            <set field="week1" value="49" type="Integer"/>
+            <calculate field="week2" type="Integer">
+                <calcop field="week1" operator="subtract">
+                    <number value="1"/>
+                </calcop>
+            </calculate>
+            <calculate field="week3" type="Integer">
+                <calcop field="week1" operator="subtract">
+                    <number value="2"/>
+                </calcop>
+            </calculate>
+            <calculate field="week4" type="Integer">
+                <calcop field="week1" operator="subtract">
+                    <number value="3"/>
+                </calcop>
+            </calculate>
+            <if-not-empty field="productStoreId">
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week1"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week2"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week3"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week4"/>
+                        </condition-list>
+                        <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
+                        <condition-expr field-name="orderDateYearName" operator="equals" from-field="year"/>
+                    </condition-list>
+                </entity-condition>
+            </if-not-empty>
+            <if-empty field="productStoreId">
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week1"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week2"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week3"/>
+                            <condition-expr field-name="orderDateWeekOfYear" operator="equals" from-field="week4"/>
+                        </condition-list>
+                        <condition-expr field-name="orderDateYearName" operator="equals" from-field="year"/>
+                    </condition-list>
+                </entity-condition>
+            </if-empty>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>

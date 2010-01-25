@@ -22,26 +22,26 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
-        <if-not-empty field="fromDate">
+        <if-not-empty field="DateMonth">
+            <set field="DateYear" value="2009"/>
+            <set field="DateMonth" value="12"/>
+            <set field="mount1" from-field="DateMonth" type="Integer"/>
+            <calculate field="mount2" type="Integer">
+                <calcop field="mount1" operator="subtract">
+                    <number value="1"/>
+                </calcop>
+            </calculate>
             <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
                 <condition-list combine="and">
-                    <condition-expr field-name="orderDateYearMonthDay" operator="greater-equals" from-field="fromDate"/>
-                    <condition-expr field-name="orderDateYearMonthDay" operator="less" from-field="thruDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
+                        <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
+                        <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="mount2"/>
                     </condition-list>
+                    <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
+                    <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
                 </condition-list>
             </entity-condition>
         </if-not-empty>
-        <if-empty field="fromDate">
-            <entity-condition list="starschemas" entity-name="SalesOrderItemStarSchema">
-                <condition-list combine="or">
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
-                </condition-list>
-            </entity-condition>
-        </if-empty>
     </simple-method>
     
 </simple-methods>

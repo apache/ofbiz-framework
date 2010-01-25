@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -22,26 +22,15 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
-        <if-not-empty field="fromDate">
-            <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+        <set field="DateDay" value="2009-12-03"/>
+        <if-not-empty field="DateDay">
+            <entity-condition entity-name="SalesOrderItemStarSchema" list="Date_starschemas">
                 <condition-list combine="and">
-                    <condition-expr field-name="orderDateYearMonthDay" operator="greater-equals" from-field="fromDate"/>
-                    <condition-expr field-name="orderDateYearMonthDay" operator="less" from-field="thruDate"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
-                    </condition-list>
+                    <condition-expr field-name="orderDateYearMonthDay" operator="equals" from-field="DateDay"/>
+                    <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
                 </condition-list>
             </entity-condition>
         </if-not-empty>
-        <if-empty field="fromDate">
-            <entity-condition list="starschemas" entity-name="SalesOrderItemStarSchema">
-                <condition-list combine="or">
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
-                </condition-list>
-            </entity-condition>
-        </if-empty>
     </simple-method>
     
 </simple-methods>

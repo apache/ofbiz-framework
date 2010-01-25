@@ -39,12 +39,14 @@ under the License.
         <field name="origCurrencyDimId" type="id-ne"></field>
         <field name="billToCustomerDimId" type="id-ne"></field> <!-- TODO: implement the dimension -->
         
+        <field name="productStoreId" type="id-ne"></field>  	
         <field name="salesChannelEnumId" type="id-ne"></field>
         <field name="saleChannel" type="description"></field>
         <field name="orderStatus" type="description"></field>
         <field name="visitId" type="id-ne"></field>
         <field name="initialReferrer" type="url"></field>
         <field name="productPromoCode" type="id"></field>
+        <field name="categoryName" type="id"></field>
         
         <field name="quantity" type="fixed-point">
             <description>Quantity order. From OrderItem.quantity</description>
@@ -93,6 +95,14 @@ under the License.
         </field>
         <field name="OtherFree" type="currency-precise">
             <description>Others: other fee which calculation is just a percentage of GrossSales.</description>
+        </field>
+        
+        <field name="NBO" type="currency-precise">
+            <description>NBO: NBO which calculation is GrossProfit minus all the fees (eBay,RRC and Others).</description>
+        </field>
+        
+        <field name="CountDate" type="currency-precise">
+            <description>CountDate: Count of date.</description>
         </field>
 <!--        <field name="AverageMerchandizeProfit" type="currency-precise">
             <description>Average Merchandize Profit</description>
@@ -201,23 +211,28 @@ under the License.
             <exclude field="productDimId"/>
             <exclude field="origCurrencyDimId"/>
             <exclude field="billToCustomerDimId"/>
+            <exclude field="productStoreId"/>
             <exclude field="salesChannelEnumId"/>
             <exclude field="saleChannel"/>
             <exclude field="orderStatus"/>
 	    	<exclude field="visitId"/>
 	    	<exclude field="initialReferrer"/>
             <exclude field="productPromoCode"/>
+            <exclude field="categoryName"/>
         </alias-all>
         <alias entity-alias="SOIF" name="orderId" group-by="true">
             <description>Order id</description>
         </alias>
+
         <alias entity-alias="SOIF" name="orderItemSeqId" group-by="true"/>
+        <alias entity-alias="SOIF" name="productStoreId" group-by="true"/>
         <alias entity-alias="SOIF" name="salesChannelEnumId" group-by="true"/>
         <alias entity-alias="SOIF" name="saleChannel" group-by="true"/>
         <alias entity-alias="SOIF" name="orderStatus" group-by="true"/>
         <alias entity-alias="SOIF" name="visitId" group-by="true"/>
         <alias entity-alias="SOIF" name="initialReferrer" group-by="true"/>
         <alias entity-alias="SOIF" name="productPromoCode" group-by="true"/>
+        <alias entity-alias="SOIF" name="categoryName" group-by="true"/>
 
         <view-link entity-alias="SOIF" rel-entity-alias="ODD">
             <key-map field-name="orderDateDimId" rel-field-name="dimensionId"/>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
+        <if-not-empty field="DateMonth">
+            <set field="DateYear" value="2009"/>
+            <set field="DateMonth" value="12"/>
+            <entity-condition entity-name="SalesOrderItemStarSchema" list="countdates" distinct="true">
+                <condition-list combine="and">  	
+                    <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
+                    <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
+                    <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
+                </condition-list>
+                <select-field field-name="orderDateYearMonthDay"/>
+                <select-field field-name="salesChannelEnumId"/>
+            </entity-condition>
+            <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas" distinct="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
+                    <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
+                    <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
+                </condition-list>
+                <select-field field-name="orderDateMonthName"/>
+                <select-field field-name="salesChannelEnumId"/>
+                <select-field field-name="NBO"/>
+            </entity-condition>
+            <entity-condition entity-name="SalesOrderItemStarSchema" list="saleschannels" distinct="true">
+                <condition-list combine="and">  	
+                    <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
+                    <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
+                    <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
+                </condition-list>
+                <select-field field-name="salesChannelEnumId"/>
+            </entity-condition>
+        </if-not-empty>
+        
+        <set field="count1" value="-1"/>
+        <iterate entry="saleschannel" list="saleschannels">
+            <calculate field="count1">
+                <calcop field="count1" operator="add">
+                    <number value="1"/>
+                </calcop>
+            </calculate>
+            <set field="salesChannelId" from-field="saleschannel.salesChannelEnumId"/>
+            <set field="salesChannelMap.salesChannelList[]" from-field="salesChannelId"/>
+        </iterate>
+        
+        <set field="count2" value="0"/>
+        <iterate entry="countdate" list="countdates">
+            <set field="checksalesChannel1" from-field="salesChannelMap.salesChannelList[count2]"/>
+            <if-compare-field field="countdate.salesChannelEnumId" to-field="checksalesChannel1" operator="equals"> 
+                <calculate field="countdateMap.countsalesChannel[count2]">
+                    <calcop operator="add" field="countdateMap.countsalesChannel[count2]">
+                        <number value="1"/>
+                    </calcop>
+                </calculate>
+            </if-compare-field> 
+            <if-compare-field field="countdate.salesChannelEnumId" to-field="checksalesChannel1" operator="not-equals"> 
+                <calculate field="count2">
+                    <calcop field="count2" operator="add">
+                        <number value="1"/>
+                    </calcop>
+                </calculate>
+                <calculate field="countdateMap.countsalesChannel[count2]">
+                    <calcop operator="add" field="countdateMap.countsalesChannel[count2]">
+                        <number value="1"/>
+                    </calcop>
+                </calculate>
+            </if-compare-field> 
+        </iterate>
+
+        <set field="count3" value="-1"/>
+        <set field="count4" value="0"/>
+        <iterate entry="starschema" list="starschemas">
+            <calculate field="count3">
+                <calcop field="count3" operator="add">
+                    <number value="1"/>
+                </calcop>
+            </calculate>
+            <calculate field="count4">
+                <calcop field="count4" operator="add">
+                    <number value="1"/>
+                </calcop>
+            </calculate>
+            <set field="checksalesChannel2" from-field="salesChannelMap.salesChannelList[count3]"/>
+            <if-compare-field field="starschema.salesChannelEnumId" to-field="checksalesChannel2" operator="equals">
+                <set field="starschemacountdate" from-field="countdateMap.countsalesChannel[count4]"/>
+                <set field="starschema.CountDate" from-field="starschemacountdate"/>
+            </if-compare-field> 
+        </iterate>
+    </simple-method>
+    
+</simple-methods>

@@ -75,5 +75,25 @@
         		This report lists promotions, total orders, percent of total orders, total orders amount, percent of total orders amount and shipping amounts.
 	    	</para>
 	    </section>
+    	<section>
+    		<title>6. Sales Report</title>
+    		<para>
+    			This Sales report contains paid and unpaid sales orders.
+    		</para>
+    	</section>
+    	<section>
+    		<title>7. Net Before Overhead Report</title>
+    		<para>
+    			Net Before Overhead Report is the profit calculation of paid-shipped orders and all the occurred fee excluding the overhead cost.
+    			They are grouped by Product Store Id.(Demo data for Net Before Overhead Report have in Product Store Id "B2CStore")
+    		</para>
+    	</section>
+    	<section>
+    		<title>8. Product Demand Report</title>
+    		<para>
+    			Product Demand Report is the report to show us which product sells good and which product doesn’t sell good or not selling at all in one account as well as for all accounts in last 4 weeks.
+    			They are grouped by Product Store Id.(Demo data for Product Demand Report have in Product Store Id "B2CStore")
+    		</para>
+    	</section>
     </section>
 </section>

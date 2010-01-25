@@ -231,21 +231,48 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="NetBeforeOverheadReport" type="single" target="NetBeforeOverheadReport.pdf" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ProductDemandReport" type="single" target="ProductDemandReport.pdf" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
     <form name="OrderByReferrer" type="single" target="OrderByReferrer.pdf" target-window="_BLANK">
-    	<!--field name="referrerUrl"><text-find default-option="contains"/></field-->
-    	<field name="referrerUrl" title="${uiLabelMap.CommonEmptyHeader}"><display description="All Referrer"></display></field>
-    	<field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+        <!--field name="referrerUrl"><text-find default-option="contains"/></field-->
+        <field name="referrerUrl" title="${uiLabelMap.CommonEmptyHeader}"><display description="All Referrer"></display></field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
     <form name="SaleOrdersByChannel" type="single" target="OrdersByChannel.pdf" target-window="_BLANK">
-    	<field name="saleChannel">
-    		<drop-down allow-empty="false">
-    			<option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-    			<entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
-    				<entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
-    			</entity-options>
-    		</drop-down>
-    	</field>
-    	<field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
+        <field name="saleChannel">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
+                    <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonRun}"><submit button-type="button"/></field>
     </form>
     <form name="SaleOrderDiscountCode" type="single" target="OrderDiscountCode.pdf" target-window="_BLANK">
         <field name="discountCodeUrl" title="${uiLabelMap.CommonEmptyHeader}"><display description="All order items with discount code"></display></field>
