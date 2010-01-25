@@ -1704,10 +1704,12 @@
     </property>
     <property key="AccountingCancelCheckRun">
         <value xml:lang="en">Cancel Check Run</value>
+        <value xml:lang="fr">Annuler le traitement du chèque</value>
         <value xml:lang="hi_IN">चेक/हुंडी रद्द करे</value>
     </property>
     <property key="AccountingCancelTransactionStatus">
         <value xml:lang="en">Cancel Transaction Status</value>
+        <value xml:lang="fr">Annuler le statut de la transaction</value>
         <value xml:lang="hi_IN">लेन-देन की स्थिति रद्द करे</value>
     </property>
     <property key="AccountingCannotCreateIncomingPaymentError">
@@ -1817,14 +1819,17 @@
     </property>
 	<property key="AccountingCashBalance">
         <value xml:lang="en">Cash Balance</value>
+        <value xml:lang="fr">Solde de trésorerie</value>
         <value xml:lang="hi_IN">à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
     </property>
     <property key="AccountingCashFlowStatement">
         <value xml:lang="en">Cash Flow Statement</value>
+        <value xml:lang="fr">Tableau des flux de trésorerie</value>
         <value xml:lang="hi_IN">रोकड प्रवाह विवरण</value>
     </property>
     <property key="AccountingChartOfAcctsFor">
         <value xml:lang="en">Chart of accounts for</value>
+        <value xml:lang="fr">Plan comptable pour</value>
         <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
     </property>
     <property key="AccountingChartOfAcctsMenu">
@@ -1857,10 +1862,12 @@
     </property>
     <property key="AccountingCheckIsAlreadyIssued">
         <value xml:lang="en">Check Is Already Issued</value>
+        <value xml:lang="fr">Vérifie si déjà sorti</value>
         <value xml:lang="hi_IN">जांच पहले से ही निर्गत किया जाता है</value>
     </property>
     <property key="AccountingCheckNumber">
         <value xml:lang="en">Check Number</value>
+        <value xml:lang="fr">Vérifie nombre</value>
         <value xml:lang="hi_IN">चेक/हुंडी नम्बर</value>
     </property>
     <property key="AccountingCheckGiftCard">
@@ -1893,6 +1900,7 @@
     </property>
     <property key="AccountingApPaymentGroupMenu">
         <value xml:lang="en">AP Payment Groups</value>
+        <value xml:lang="fr">Groupes de paiement AP</value>
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="de">Abgeschlossener Buchungszeitraum</value>
@@ -1906,6 +1914,7 @@
     </property>
     <property key="AccountingClosingCashBalance">
         <value xml:lang="en">Closing Cash Balance</value>
+        <value xml:lang="fr">Solde de clôture de trésorerie</value>
         <value xml:lang="hi_IN">बंद नकदी शेष</value>
     </property>
     <property key="AccountingComments">
@@ -1925,16 +1934,19 @@
     <property key="AccountingCommissionAmount">
         <value xml:lang="de">Provisionsbetrag</value>
         <value xml:lang="en">Commission Amount</value>
+        <value xml:lang="fr">Montant Commission</value>
         <value xml:lang="hi_IN">दलाली राशी</value>
     </property>
     <property key="AccountingCommissionRun">
         <value xml:lang="de">Provisionslauf</value>
         <value xml:lang="en">Commission Run</value>
+        <value xml:lang="fr">Traitement Commission</value>
         <value xml:lang="hi_IN">दलाली भुगतान</value>
     </property>
     <property key="AccountingCommissionReport">
         <value xml:lang="de">Provisionsbericht</value>
         <value xml:lang="en">Commission Report</value>
+        <value xml:lang="fr">Journal Commission</value>
         <value xml:lang="hi_IN">दलाली विवरण</value>
     </property>
     <property key="AccountingCompanies">
@@ -2056,11 +2068,13 @@
     </property>
     <property key="AccountingComparativeCashFlowStatement">
         <value xml:lang="en">Comparative Cash Flow Statement</value>
+        <value xml:lang="fr">Tableau comparatif de flux de trésorerie</value>
         <value xml:lang="hi_IN">तुलनात्मक रोकड प्रवाह विवरण</value>
     </property>
     <property key="AccountingComparativeIncomeStatement">
         <value xml:lang="de">Vergleichs-Ertragsrechnung</value>
         <value xml:lang="en">Comparative Income Statement</value>
+        <value xml:lang="fr">Comparatif Compte de résultat</value>
         <value xml:lang="it">Conto Economico Comparativo</value>
         <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
     </property>
@@ -2286,10 +2300,12 @@
     <property key="AccountingCreateNewFinAccount">
         <value xml:lang="de">Neues Finanzkonto erstellen</value>
         <value xml:lang="en">Create New Financial Account</value>
+        <value xml:lang="fr">Créer un nouveau compte financier</value>
         <value xml:lang="hi_IN">नया  वित्तीय खाता बनाएँ</value>
     </property>
     <property key="AccountingCreateNewFinAccountReconciliations">
         <value xml:lang="en">Create New Financial Account Reconciliations</value>
+        <value xml:lang="fr">Créer un nouveau compte financier de rapprochement</value>
     </property>
     <property key="AccountingCreateNewGiftCard">
         <value xml:lang="de">Neuen Gutschein erstellen</value>
@@ -2316,6 +2332,7 @@
     </property>
     <property key="AccountingCreateNewPaymentGroup">
         <value xml:lang="en">Create New Payment Group</value>
+        <value xml:lang="fr">Créer un groupe de paiement</value>
         <value xml:lang="hi_IN">नया  भुगतान समूह बनाएँ</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
@@ -2498,7 +2515,8 @@
         <value xml:lang="zh">币种</value>
     </property>
     <property key="AccountingCurrentAsset">
-        <value xml:lang="en">Currennt Asset</value>
+        <value xml:lang="en">Current Asset</value>
+        <value xml:lang="en">Actif circulant</value>
         <value xml:lang="hi_IN">à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥à¤ªà¤¤à¥à¤¤à¤¿</value>
     </property>
     <property key="AccountingCurrentBalance">
@@ -2531,6 +2549,7 @@
     </property>
     <property key="AccountingCurrentBankReconciliation">
         <value xml:lang="en">Current Bank Reconciliation</value>
+        <value xml:lang="fr">Rapprochement bancaire courant</value>
         <value xml:lang="hi_IN">वर्तमान बैन्क मिलाप</value>
     </property>
     <property key="AccountingCurrentCustomTimePeriod">
@@ -2726,29 +2745,36 @@
     </property>
     <property key="AccountingDeposit">
         <value xml:lang="en">Deposit</value>
+        <value xml:lang="fr">Dépôt</value>
         <value xml:lang="hi_IN">जमा</value>
     </property>
     <property key="AccountingDepositPaymentInFinAccount">
         <value xml:lang="en">Deposit Payment in: ${finAccount.finAccountName}</value>
+        <value xml:lang="fr">Dépôt du paiement dans: ${finAccount.finAccountName}</value>
         <value xml:lang="hi_IN">वित्तीय खाते में जमा करे: ${finAccount.finAccountName}</value>
     </property>
     <property key="AccountingDepositSlip">
         <value xml:lang="en">Deposit Slip</value>
+        <value xml:lang="fr">Récépissé de dépôt</value>
         <value xml:lang="hi_IN">जमा पर्ची</value>
     </property>
     <property key="AccountingDepositSlipId">
         <value xml:lang="en">Deposit Slip Id</value>
+        <value xml:lang="fr">Réf. récépissé de dépôt</value>
     </property>
     <property key="AccountingDepositSlips">
         <value xml:lang="en">Deposit Slips</value>
+        <value xml:lang="fr">Récépissés de dépôt</value>
         <value xml:lang="hi_IN">जमा पर्चीयां</value>
     </property>
     <property key="AccountingDepositWithdraw">
         <value xml:lang="en">Deposit/Withdraw</value>
+        <value xml:lang="en">Dépôt/Retrait</value>
         <value xml:lang="hi_IN">जमा/वापस</value>
     </property>
     <property key="AccountingDepositOrWithdrawPayments">
         <value xml:lang="en">Deposit Or Withdraw Payments for Financial Account: ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="fr">Dépôt ou retrait de paiements pour compte financier: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाते के लिए जमा भुगतान या भुगतान वापस करे</value>
     </property>
     <property key="AccountingDescr">
@@ -2933,18 +2959,22 @@
     </property>
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="en">Edit Payment Group</value>
+        <value xml:lang="fr">Editer groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupFor">
         <value xml:lang="en">Edit Payment Group For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="fr">Editer groupe de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMember">
         <value xml:lang="en">Edit Payment Group Member</value>
+        <value xml:lang="fr">Editer membre du grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य को सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMemberFor">
         <value xml:lang="en">Edit Payment Group Member For ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="fr">Editer membre du grp. de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य  को ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
@@ -3015,10 +3045,12 @@
     </property>
     <property key="AccountingEndingBalance">
         <value xml:lang="en">Ending Balance</value>
+        <value xml:lang="fr">Solde de clôture</value>
         <value xml:lang="hi_IN">अंतिम शेष</value>
     </property>
     <property key="AccountingEndingCashBalance">
         <value xml:lang="en">Ending Cash Balance</value>
+        <value xml:lang="fr">Trésorerie de clôture</value>
         <value xml:lang="hi_IN">अंतिम नकदी शेष</value>
     </property>
     <property key="AccountingEnterGiftCardLink">
@@ -3400,10 +3432,12 @@
     </property>
     <property key="AccountingFindPaymentGroup">
         <value xml:lang="en">Find Payment Group</value>
+        <value xml:lang="fr">Recherche de groupes de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह खोजें</value>
     </property>
     <property key="AccountingFindPurchaseInvoices">
         <value xml:lang="en">Find Purchase Invoices</value>
+        <value xml:lang="fr">Recherche de factures d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान खोजें</value>
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
@@ -4554,10 +4588,12 @@
     </property>
     <property key="AccountingGroupInOneTransaction">
         <value xml:lang="en">Group in one Transaction</value>
+        <value xml:lang="fr">Groupe en une transaction</value>
         <value xml:lang="hi_IN">लेन-देन एक समूह में</value>
     </property>
     <property key="AccountingGroupMembers">
         <value xml:lang="en">Group Members</value>
+        <value xml:lang="fr">Membres du groupe</value>
         <value xml:lang="hi_IN">समूह सदस्य</value>
     </property>
     <property key="AccountingHideFields">
@@ -6064,6 +6100,7 @@
     </property>
     <property key="AccountingNewPaymentGroup">
         <value xml:lang="en">New Payment Group</value>
+        <value xml:lang="fr">Nouv. grp. de paiement</value>
         <value xml:lang="hi_IN">नया भुगतान समूह</value>
     </property>
     <property key="AccountingNewPaymentIncoming">
@@ -6589,6 +6626,7 @@
     <property key="AccountingOrgGlSettings">
         <value xml:lang="de">Hauptbuch-Einstellungen des Unternehmens</value>
         <value xml:lang="en">Organization GL Settings</value>
+        <value xml:lang="fr">Configurations internes du GL</value>
         <value xml:lang="hi_IN">संगठन जीएल(Gl) सेटिंग्स</value>
         <value xml:lang="nl">Organisatie grootboek instellingen</value>		
         <value xml:lang="zh">组织机构总账设置</value>
@@ -7153,6 +7191,7 @@
     <property key="AccountingPaymentGatewayApprove">
         <value xml:lang="de">Genehmigen</value>
         <value xml:lang="en">Approve</value>
+        <value xml:lang="fr">Approuver</value>
         <value xml:lang="hi_IN">स्वीकृत</value>
         <value xml:lang="it">Approva</value>
         <value xml:lang="zh">批准</value>
@@ -7160,6 +7199,7 @@
     <property key="AccountingPaymentGatewayConfigId">
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Id</value>
         <value xml:lang="en">Payment Gateway Config Id</value>
+        <value xml:lang="fr">Réf. config. passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास क्रमांक</value>
         <value xml:lang="it">Codice configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置标识</value>
@@ -7167,6 +7207,7 @@
     <property key="AccountingPaymentGatewayConfigDescription">
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Description</value>
+        <value xml:lang="fr">Description de la configuration de passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास वर्णन</value>
         <value xml:lang="it">Descrizione configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置描述</value>
@@ -7174,6 +7215,7 @@
     <property key="AccountingPaymentGatewayConfigTypeDescription">
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Type Description</value>
+        <value xml:lang="fr">Description des types de configuration de passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार वर्णन</value>
         <value xml:lang="it">Descrizione tipo configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型描述</value>
@@ -7181,6 +7223,7 @@
     <property key="AccountingPaymentGatewayConfigTypeId">
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Nr.</value>
         <value xml:lang="en">Payment Gateway Config Type Id</value>
+        <value xml:lang="fr">Type de configuration de passerelle de paiment</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型标识</value>
@@ -7188,6 +7231,7 @@
     <property key="AccountingPaymentGatewayConfig">
         <value xml:lang="de">Zahlungs-Gateway-Konfiguration</value>
         <value xml:lang="en">Payment Gateway Config</value>
+        <value xml:lang="fr">Configuration de la passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास(PaymentGatewayConfig)</value>
         <value xml:lang="it">Configurazioni gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置</value>
@@ -7195,6 +7239,7 @@
     <property key="AccountingPaymentGatewayConfigTypes">
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Arten</value>
         <value xml:lang="en">Payment Gateway Config Types</value>
+        <value xml:lang="fr">Types de configuration de passerelle de paiment</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार</value>
         <value xml:lang="it">Tipi configurazione gateway pagamenti</value>
         <value xml:lang="zh">支付网关配置类型</value>
@@ -7202,6 +7247,7 @@
     <property key="AccountingPaymentGatewayDecline">
         <value xml:lang="de">Ablehnung</value>
         <value xml:lang="en">Decline</value>
+        <value xml:lang="fr">Décliner</value>
         <value xml:lang="hi_IN">अस्वीकृत</value>
         <value xml:lang="it">Rifiutare</value>
         <value xml:lang="zh">否决</value>
@@ -7209,6 +7255,7 @@
     <property key="AccountingPaymentGatewayProduction">
         <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Production</value>
+        <value xml:lang="fr">Production</value>
         <value xml:lang="hi_IN">उत्पादन</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="zh">生成</value>
@@ -7216,6 +7263,7 @@
     <property key="AccountingPaymentGatewayRandom">
         <value xml:lang="de">Zufall</value>
         <value xml:lang="en">Random</value>
+        <value xml:lang="fr">Aléatoire</value>
         <value xml:lang="hi_IN">क्रमरहित</value>
         <value xml:lang="it">Casuale</value>
         <value xml:lang="zh">随机</value>
@@ -7236,29 +7284,35 @@
     <property key="AccountingPaymentGroup">
         <value xml:lang="de">Zahlungsgruppe</value>
         <value xml:lang="en">Payment Group</value>
+        <value xml:lang="fr">Groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह</value>
     </property>
     <property key="AccountingPaymentGroupId">
         <value xml:lang="de">Zahlungsgruppen-Nr.</value>
         <value xml:lang="en">Payment Group Id</value>
+        <value xml:lang="fr">Réf. grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह क्रमांक</value>
     </property>
     <property key="AccountingPaymentGroupMembers">
         <value xml:lang="en">Payment Group Members</value>
+        <value xml:lang="fr">Membres du groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य</value>
     </property>
     <property key="AccountingPaymentGroupName">
         <value xml:lang="de">Name der Zahlungsgruppe</value>
         <value xml:lang="en">Payment Group Name</value>
+        <value xml:lang="fr">Nom grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह नाम</value>
     </property>
     <property key="AccountingPaymentGroupOverview">
         <value xml:lang="de">Überblick Zahlungsgruppen</value>
         <value xml:lang="en">Payment Group Overview</value>
+        <value xml:lang="fr">Aperçu grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह विवरण</value>
     </property>
     <property key="AccountingPaymentGroupOverviewFor">
         <value xml:lang="en">Payment Group Overview For</value>
+        <value xml:lang="fr">Aperçu du groupe de paiement pour </value>
         <value xml:lang="hi_IN">भुगतान समूह के लिए विवरण</value>
     </property>
     <property key="AccountingPaymentHeader">
@@ -9647,6 +9701,10 @@
         <value xml:lang="th">สรุป</value>
         <value xml:lang="zh">总览</value>
     </property>
+    <property key="FormFieldTitle_accDepGlAccountId">
+        <value xml:lang="en">Accelerated depreciation GL account</value>
+        <value xml:lang="fr">Compte d'amortissement dégressif</value>
+    </property>
     <property key="FormFieldTitle_accountCode">
         <value xml:lang="ar">رمز الحساب</value>
         <value xml:lang="en">Account Code</value>
@@ -9981,6 +10039,10 @@
         <value xml:lang="th">ประยุกต์ใช้</value>
         <value xml:lang="zh">应用</value>
     </property>
+    <property key="FormFieldTitle_assetGlAccountId">
+        <value xml:lang="en">Asset GL account</value>
+        <value xml:lang="fr">Compte d'actif immobilisé</value>
+    </property>  
     <property key="FormFieldTitle_authorizationDate">
         <value xml:lang="en">Authorization Date</value>
         <value xml:lang="fr">Date d'autorisation</value>
@@ -10336,12 +10398,20 @@
         <value xml:lang="th">รหัสค่าเริ่มตันบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">缺省总账账户标识</value>
     </property>
+    <property key="FormFieldTitle_depGlAccountId">
+        <value xml:lang="en">Depreciation GL account</value>
+        <value xml:lang="fr">Compte d'amortissment</value>
+    </property>
     <property key="FormFieldTitle_depreciation">
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="hi_IN">मूल्यह्रास</value>
         <value xml:lang="it">Deprecazione</value>
         <value xml:lang="zh">折旧</value>
+    </property>
+    <property key="FormFieldTitle_depreciationCustomMethodId">
+        <value xml:lang="en">Depreciation custom method</value>
+        <value xml:lang="fr">Méthode d'amortissement personnalisé</value>
     </property>
     <property key="FormFieldTitle_dueDate">
         <value xml:lang="ar">تاريخ الإنتهاء</value>
@@ -10532,6 +10602,7 @@
     </property>
     <property key="FormFieldTitle_finAccountType">
         <value xml:lang="en">Fin Account Type</value>
+        <value xml:lang="fr">Type de compte financier</value>
         <value xml:lang="hi_IN">वित्तीय खाते का प्रकार </value>
     </property>
     <property key="FormFieldTitle_finAccountTypeId">
@@ -10546,6 +10617,7 @@
     </property>
     <property key="FormFieldTitle_findGlAccountCategory">
         <value xml:lang="en">Find Gl Account Category</value>
+        <value xml:lang="fr">Recherche d'une catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी खोजें</value>
     </property>
     <property key="FormFieldTitle_fiscalYearStartDay">
@@ -10695,7 +10767,28 @@
     </property>
     <property key="FormFieldTitle_glAccountCategory">
         <value xml:lang="en">GL Account Category</value>
+        <value xml:lang="fr">Catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryId">
+        <value xml:lang="en">GL Account Category Id</value>
+        <value xml:lang="fr">Réf. de catégorie de cpt. GL</value>
+        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी क्रमांक</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryMember">
+        <value xml:lang="en">GL Account Category Member</value>
+        <value xml:lang="fr">Membre de la catégorie compte GL</value>
+        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी सदस्य</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryType">
+        <value xml:lang="en">GL Account Category Type</value>
+        <value xml:lang="fr">Type de catégorie de compte GL</value>
+        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार</value>
+    </property>
+    <property key="FormFieldTitle_glAccountCategoryTypeId">
+        <value xml:lang="en">GL Account Category Type Id</value>
+        <value xml:lang="fr">Réf. de ype de catégorie de compte GL</value>
+        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
     </property>
     <property key="FormFieldTitle_glAccountClassId">
         <value xml:lang="ar">دليل صنف الحساب المحاسبي</value>
@@ -10725,6 +10818,7 @@
     </property>
     <property key="FormFieldTitle_glAccountType">
         <value xml:lang="en">Gl Account Type</value>
+        <value xml:lang="fr">Type de compte GL</value>
         <value xml:lang="hi_IN">सामान्य बही खाते का प्रकार</value>
     </property>
     <property key="FormFieldTitle_glAccountTypeId">
@@ -10804,6 +10898,10 @@
         <value xml:lang="ru">Код типа ресурсов ГК</value>
         <value xml:lang="th">รหัสประเภททรัพยากรทั่วไป</value>
         <value xml:lang="zh">总账资源类型标识</value>
+    </property>
+    <property key="FormFieldTitle_glTransactions">
+        <value xml:lang="en">Gl Transactions</value>
+        <value xml:lang="fr">Transactions GL</value>
     </property>
     <property key="FormFieldTitle_glXbrlClassId">
         <value xml:lang="en">Gl Xbrl Class Id</value>
@@ -11153,6 +11251,10 @@
         <value xml:lang="it">Livello dei log</value>
         <value xml:lang="zh">日志级别</value>
     </property>
+    <property key="FormFieldTitle_lossGlAccountId">
+        <value xml:lang="en">Loss GL account</value>
+        <value xml:lang="fr">Compte de charges</value>
+    </property>
     <property key="FormFieldTitle_maintHistSeqId">
         <value xml:lang="en">Maint Hist Seq Id</value>
         <value xml:lang="es">Id Sec Hist Mant</value>
@@ -11249,25 +11351,6 @@
         <value xml:lang="ru">Название</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
-    </property>
-    <property key="FormFieldTitle_glAccountCategoryId">
-        <value xml:lang="en">GL Account Category Id</value>
-        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी क्रमांक</value>
-    </property>
-    <property key="FormFieldTitle_glAccountCategoryMember">
-        <value xml:lang="en">GL Account Category Member</value>
-        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी सदस्य</value>
-    </property>
-    <property key="FormFieldTitle_glAccountCategoryType">
-        <value xml:lang="en">GL Account Category Type</value>
-        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार</value>
-    </property>
-    <property key="FormFieldTitle_glAccountCategoryTypeId">
-        <value xml:lang="en">GL Account Category Type Id</value>
-        <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
-    </property>
-    <property key="FormFieldTitle_glTransactions">
-        <value xml:lang="en">Gl Transactions</value>
     </property>
     <property key="FormFieldTitle_newGlAccountCategory">
         <value xml:lang="en">New GL Account Category</value>
@@ -11477,12 +11560,14 @@
     </property>
     <property key="FormFieldTitle_partner">
         <value xml:lang="en">Partner</value>
+        <value xml:lang="fr">Partenaire</value>
         <value xml:lang="hi_IN">भागीदार/साझेदार</value>
         <value xml:lang="it">Partner</value>
         <value xml:lang="zh">合作伙伴</value>
     </property>
     <property key="FormFieldTitle_paymentApplicationId">
         <value xml:lang="en">Payment Application Id</value>
+        <value xml:lang="fr">Réf. de l'application de paiement</value>
         <value xml:lang="hi_IN">भुगतान अनुप्रयोग क्रमांक</value>
     </property>
     <property key="FormFieldTitle_paymentApplied">
@@ -11523,18 +11608,22 @@
     </property>
     <property key="FormFieldTitle_paymentGroupId">
         <value xml:lang="en">Payment Group Id</value>
+        <value xml:lang="fr">Réf. du groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह क्रमांक</value>
     </property>
     <property key="FormFieldTitle_paymentGroupName">
         <value xml:lang="en">Payment Group Name</value>
+        <value xml:lang="fr">Nom du groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह का नाम</value>
     </property>
     <property key="FormFieldTitle_paymentGroupType">
         <value xml:lang="en">Payment Group Type</value>
+        <value xml:lang="fr">Type de groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह का प्रकार</value>
     </property>
     <property key="FormFieldTitle_paymentGroupTypeId">
         <value xml:lang="en">Payment Group Type Id</value>
+        <value xml:lang="fr">Réf. du type de groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह प्रकार क्रमांक</value>
     </property>
     <property key="FormFieldTitle_paymentId">
@@ -11811,6 +11900,10 @@
         <value xml:lang="ru">Код продукта</value>
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品编号</value>
+    </property>
+    <property key="FormFieldTitle_profitGlAccountId">
+        <value xml:lang="en">Profit GL account</value>
+        <value xml:lang="fr">Compte de produits</value>
     </property>
     <property key="FormFieldTitle_proxyAddress">
         <value xml:lang="en">Proxy Address</value>
@@ -13257,6 +13350,10 @@
         <value xml:lang="th">ค้นหาภาษี</value>
         <value xml:lang="zh">查找税务机关</value>
     </property>
+    <property key="PageTitleFixedAssetDepreciationMethod">
+        <value xml:lang="en">Fixed Asset Depreciation Method</value>
+        <value xml:lang="fr">Méthode de dépréciation d'immobilisation</value>
+    </property>
     <property key="PageTitleFixedAssetDepreciationReport">
         <value xml:lang="en">Fixed Asset Depreciation Report</value>
         <value xml:lang="fr">Rapport de dépréciation d'immobilisation</value>
@@ -13271,6 +13368,14 @@
         <value xml:lang="fr">Géolocalisation de l'actif immobilisé</value>
         <value xml:lang="hi_IN">अचल संपत्ति भू स्थान</value>
         <value xml:lang="zh">固定资产地理位置</value>
+    </property>
+    <property key="PageTitleFixedAssetGlobalMappings">
+        <value xml:lang="en">Global Mappings</value>
+        <value xml:lang="fr">Correspondances globales des immobilisations</value>
+    </property>
+    <property key="PageTitleFixedAssetMappings">
+        <value xml:lang="en">Fixed Asset Mappings</value>
+        <value xml:lang="fr">Correspondances des immobilisations</value>
     </property>
     <property key="PageTitleInventoryIssueSummary">
         <value xml:lang="en">Inventory Issue Summary</value>
