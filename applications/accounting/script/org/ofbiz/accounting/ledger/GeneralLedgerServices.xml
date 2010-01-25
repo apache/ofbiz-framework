@@ -1946,6 +1946,10 @@ under the License.
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+            <call-class-method method-name="getInvoiceTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                    ret-field="invoiceTaxTotal">
+                <field field="invoice" type="GenericValue"/>
+            </call-class-method>
             <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add">
                     <calcop operator="get" field="totalOrigAmount"/>
