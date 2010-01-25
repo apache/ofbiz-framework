@@ -2384,14 +2384,11 @@ public class OrderReadHelper {
         BigDecimal adjustment = ZERO;
 
         if (orderAdjustment.get("amount") != null) {
-            // round amount to best precision (taxCalcScale) because db value of 0.825 is pulled as 0.8249999...
-            BigDecimal amount = orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding);
+            BigDecimal amount = orderAdjustment.getBigDecimal("amount");
             adjustment = adjustment.add(amount);
-        }
-        else if (orderAdjustment.get("sourcePercentage") != null) {
-            // round amount to best precision (taxCalcScale) because db value of 0.825 is pulled as 0.8249999...
-            BigDecimal percent = orderAdjustment.getBigDecimal("sourcePercentage").setScale(taxCalcScale,taxRounding);
-            BigDecimal amount = orderSubTotal.multiply(percent).multiply(percentage).setScale(taxCalcScale, taxRounding);
+        } else if (orderAdjustment.get("sourcePercentage") != null) {
+            BigDecimal percent = orderAdjustment.getBigDecimal("sourcePercentage");
+            BigDecimal amount = orderSubTotal.multiply(percent).multiply(percentage);
             adjustment = adjustment.add(amount);
         }
         return adjustment.setScale(scale, rounding);
