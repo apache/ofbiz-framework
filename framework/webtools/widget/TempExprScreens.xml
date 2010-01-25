@@ -64,7 +64,9 @@ under the License.
                                         <if-service-permission service-name="tempExprPermissionCheck" main-action="CREATE"/>
                                     </condition>
                                     <widgets>
-                                        <container style="button-bar"><link target="editTemporalExpression" text="${uiLabelMap.CommonCreate}" style="buttontext"/></container>
+                                        <container style="button-bar">
+                                            <link target="editTemporalExpression" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
+                                        </container>
                                     </widgets>
                                 </section>
                             </decorator-section>

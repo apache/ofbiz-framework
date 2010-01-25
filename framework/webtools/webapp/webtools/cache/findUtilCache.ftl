@@ -19,10 +19,10 @@ under the License.
 
 <#macro displayButtonBar>
     <div class="button-bar">
-        <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsReloadCacheList}</a>
-        <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsClearAllCaches}</a>
-        <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
-        <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsRunGC}</a>
+        <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext refresh">${uiLabelMap.WebtoolsReloadCacheList}</a>
+        <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearAllCaches}</a>
+        <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
+        <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsRunGC}</a>
     </div>
 </#macro>
 <div class="screenlet">

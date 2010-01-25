@@ -53,8 +53,8 @@ under the License.
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${configItem.configItemName} [${uiLabelMap.CommonId}:${configItemId}]  ${${extraFunctionName}}</label>
                                         </container>
-                                        <container>
-                                            <link target="EditProductConfigItem" text="[${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigItem}]" style="buttontext"/>
+                                        <container style="button-bar">
+                                            <link target="EditProductConfigItem" text="[${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigItem}]" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -81,7 +81,7 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                    <link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
