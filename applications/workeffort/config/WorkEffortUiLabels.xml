@@ -493,7 +493,7 @@
         <value xml:lang="en">Work Effort Id</value>
         <value xml:lang="es">Código del esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
-        <value xml:lang="it">Impegno di Lavoro</value>
+        <value xml:lang="it">Impegno di lavoro</value>
         <value xml:lang="nl">Activiteit Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
         <value xml:lang="ru">Код задачи</value>
@@ -504,7 +504,7 @@
         <value xml:lang="en">Work Effort Id From</value>
         <value xml:lang="es">Código del esfuerzo de trabajo desde</value>
         <value xml:lang="fr">Tâche depuis</value>
-        <value xml:lang="it">Impegno di Lavoro Da</value>
+        <value xml:lang="it">Impegno di lavoro da</value>
         <value xml:lang="nl">Actie Id van</value>
         <value xml:lang="ro">Sarcina de Lucru De la</value>
         <value xml:lang="th">จากรหัสงาน</value>
@@ -514,7 +514,7 @@
         <value xml:lang="en">Work Effort Id To</value>
         <value xml:lang="es">Código del esfuerzo de trabajo para</value>
         <value xml:lang="fr">Tâche vers</value>
-        <value xml:lang="it">Impegno di Lavoro A</value>
+        <value xml:lang="it">Impegno di lavoro a</value>
         <value xml:lang="nl">Activiteit Id To</value>
         <value xml:lang="ro">Sarcina de Lucru La</value>
         <value xml:lang="th">ถึงรหัสงาน</value>
@@ -524,7 +524,7 @@
         <value xml:lang="en">Work Effort Name</value>
         <value xml:lang="es">Nombre del esfuerzo de trabajo</value>
         <value xml:lang="fr">Nom de la tâche</value>
-        <value xml:lang="it">Nome Impegno di Lavoro</value>
+        <value xml:lang="it">Nome impegno di lavoro</value>
         <value xml:lang="nl">Actie naam</value>
         <value xml:lang="ro">Nume Sarcina de Lucru </value>
         <value xml:lang="th">ชื่องาน</value>
@@ -534,7 +534,7 @@
         <value xml:lang="en">Work Effort Parent Id</value>
         <value xml:lang="es">Código del esfuerzo de trabajo precursor</value>
         <value xml:lang="fr">Tâche parente</value>
-        <value xml:lang="it">Codice Padre Impegno di Lavoro</value>
+        <value xml:lang="it">Codice impegno di lavoro padre</value>
         <value xml:lang="nl">Activiteit Parent Id</value>
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
         <value xml:lang="th">รหัสกลุ่มงาน</value>
@@ -543,7 +543,7 @@
     <property key="FormFieldTitle_workEffortPurposeTypeId">
         <value xml:lang="en">Work Effort Purpose Type Id</value>
         <value xml:lang="fr">Type de but de la tâche</value>
-        <value xml:lang="it">Tipo Funzione Impegno di Lavoro</value>
+        <value xml:lang="it">Tipo funzione impegno di lavoro</value>
         <value xml:lang="nl">Soort actie doel Id</value>
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทเป้าหมายงาน</value>
@@ -552,7 +552,7 @@
     <property key="FormFieldTitle_workEffortTypeId">
         <value xml:lang="en">Work Effort Type Id</value>
         <value xml:lang="fr">Type de tâche</value>
-        <value xml:lang="it">Tipo Impegno di Lavoro</value>
+        <value xml:lang="it">Tipo impegno di lavoro</value>
         <value xml:lang="nl">Actie type Id</value>
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทงาน</value>
@@ -618,7 +618,7 @@
         <value xml:lang="en">Add Work Effort</value>
         <value xml:lang="es">Crear esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une tâche</value>
-        <value xml:lang="it">Aggiungi Impegno di Lavoro</value>
+        <value xml:lang="it">Aggiungi impegno di lavoro</value>
         <value xml:lang="nl">Nieuwe actie</value>
         <value xml:lang="ro">Adauga Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มงาน</value>
@@ -1671,7 +1671,7 @@
         <value xml:lang="en">Create Work Effort</value>
         <value xml:lang="es">Crear esfuerzo de trabajo</value>
         <value xml:lang="fr">Créer une tâche</value>
-        <value xml:lang="it">Creato Impegno di Lavoro</value>
+        <value xml:lang="it">Nuovo impegno di lavoro</value>
         <value xml:lang="nl">Nieuw actie</value>
         <value xml:lang="ro">Creat Sarcina de Lucru</value>
         <value xml:lang="th">สร้าง</value>

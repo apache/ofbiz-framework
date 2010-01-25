@@ -308,7 +308,7 @@
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
         <value xml:lang="fr">Page de maintenance des caches</value>
-        <value xml:lang="it">Pagina manutenzione cache</value>
+        <value xml:lang="it">Manutenzione cache</value>
         <value xml:lang="ro">Pagina Intretinere Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษา</value>
         <value xml:lang="zh">缓存维护页面</value>
@@ -622,7 +622,7 @@
         <value xml:lang="de">Alle auswählen</value>
         <value xml:lang="en">Check All</value>
         <value xml:lang="fr">Sélectionner tout</value>
-        <value xml:lang="it">Controlla tutti</value>
+        <value xml:lang="it">Seleziona tutto</value>
         <value xml:lang="th">ตรวจสอบทั้งหมด</value>
         <value xml:lang="zh">检查全部</value>
     </property>
