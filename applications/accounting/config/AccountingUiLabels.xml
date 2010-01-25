@@ -1817,7 +1817,7 @@
         <value xml:lang="th">ประเภทบัตร</value>
         <value xml:lang="zh">卡类型</value>
     </property>
-	<property key="AccountingCashBalance">
+  <property key="AccountingCashBalance">
         <value xml:lang="en">Cash Balance</value>
         <value xml:lang="fr">Solde de trésorerie</value>
         <value xml:lang="hi_IN">à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
@@ -6244,6 +6244,16 @@
         <value xml:lang="ru">По этому счету условий нет.</value>
         <value xml:lang="th">เวลาที่กำหนดยอดรวมของบัญชีไม่มี</value>
         <value xml:lang="zh">不存在账单账户条件。</value>
+    </property>
+    <property key="AccountingNoChangesMadeNotUpdatingCreditCard">
+        <value xml:lang="de">Keine Änderungen, Keditkarteninformationen werden nicht aktualisiert</value>
+        <value xml:lang="en">No changes made, not updating credit card</value>
+        <value xml:lang="fr">Aucun changement effectué, pas de mise à jour de la carte de crédit</value>
+    </property>
+    <property key="AccountingNoChangesMadeNotUpdatingEftAccount">
+        <value xml:lang="de">Keine Änderungen, EFT Account wurde nicht aktualisiert</value>
+        <value xml:lang="en">No changes made, not updating EFT Account</value>
+        <value xml:lang="en">Aucun changement effectué, pas de mise à jour du compte de virement électronique</value>
     </property>
     <property key="AccountingNoChildPeriodsFound">
         <value xml:lang="de">Keine untergeordneten Zeiträume gefunden</value>
@@ -13983,13 +13993,5 @@
     <property key="AccountingCreditCardUpdateWriteFailure">
         <value xml:lang="en">Could not update credit card (write failure) : </value>
         <value xml:lang="it">Non è possibile aggiornare la carta di credito (fallimento in scrittura) : </value>
-    </property>
-    <property key="NoChangesMadeNotUpdatingCreditCard">
-        <value xml:lang="de">Keine ÃƒÆ’Ã¢â‚¬Å¾nderungen, Keditkarteninformationen werden nicht aktualisiert</value>
-        <value xml:lang="en">No changes made, not updating credit card</value>
-    </property>
-    <property key="NoChangesMadeNotUpdatingEftAccount">
-        <value xml:lang="de">Keine ÃƒÆ’Ã¢â‚¬Å¾nderungen, EFT Account wurde nicht aktualisiert</value>
-        <value xml:lang="en">No changes made, not updating EFT Account</value>
     </property>
 </resource>

@@ -412,7 +412,7 @@ public class PaymentMethodServices {
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
             if (contactMechId == null || !contactMechId.equals("_NEW_")) {
-                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingCreditCard", locale));
+                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "AccountingNoChangesMadeNotUpdatingCreditCard", locale));
             }
 
             return result;
@@ -628,7 +628,7 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingEftAccount", locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
@@ -853,7 +853,7 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "NoChangesMadeNotUpdatingEftAccount", locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
