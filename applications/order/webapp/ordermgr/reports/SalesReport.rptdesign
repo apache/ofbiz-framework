@@ -141,81 +141,86 @@
                 </structure>
                 <structure>
                     <property name="position">2</property>
-                    <property name="name">orderDateMonthName</property>
+                    <property name="name">orderDateMonthOfYear</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">orderDateWeekOfYear</property>
+                    <property name="name">orderDateMonthName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">orderDateDayName</property>
+                    <property name="name">orderDateWeekOfYear</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">orderDateDescription</property>
+                    <property name="name">orderDateDayName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">6</property>
+                    <property name="name">orderDateDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
                     <property name="name">quantity</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">7</property>
+                    <property name="position">8</property>
                     <property name="name">GrossSales</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">8</property>
+                    <property name="position">9</property>
                     <property name="name">GrossMerchandizeSales</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">9</property>
+                    <property name="position">10</property>
                     <property name="name">GrossMerchandizeProfit</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">10</property>
+                    <property name="position">11</property>
                     <property name="name">GrossShippingProfit</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">12</property>
                     <property name="name">GrossProfit</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">13</property>
                     <property name="name">AverageMerchandizeProfit</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">14</property>
                     <property name="name">AverageGrossProfit</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">15</property>
                     <property name="name">AccountType</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">16</property>
                     <property name="name">Pod</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">17</property>
                     <property name="name">Account</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">18</property>
                     <property name="name">SalesChannel</property>
                     <property name="dataType">string</property>
                 </structure>
@@ -289,6 +294,10 @@
                     <property name="columnName">orderDateYearName</property>
                     <property name="displayName">orderDateYearName</property>
                 </structure>
+                <structure>
+                    <property name="columnName">orderDateMonthOfYear</property>
+                    <property name="displayName">orderDateMonthOfYear</property>
+                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
@@ -299,81 +308,86 @@
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">orderDateMonthName</property>
+                        <property name="name">orderDateMonthOfYear</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">orderDateWeekOfYear</property>
+                        <property name="name">orderDateMonthName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">orderDateDayName</property>
+                        <property name="name">orderDateWeekOfYear</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">orderDateDescription</property>
+                        <property name="name">orderDateDayName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">6</property>
+                        <property name="name">orderDateDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
                         <property name="name">quantity</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">7</property>
+                        <property name="position">8</property>
                         <property name="name">GrossSales</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">8</property>
+                        <property name="position">9</property>
                         <property name="name">GrossMerchandizeSales</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">9</property>
+                        <property name="position">10</property>
                         <property name="name">GrossMerchandizeProfit</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">10</property>
+                        <property name="position">11</property>
                         <property name="name">GrossShippingProfit</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">11</property>
+                        <property name="position">12</property>
                         <property name="name">GrossProfit</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">13</property>
                         <property name="name">AverageMerchandizeProfit</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
+                        <property name="position">14</property>
                         <property name="name">AverageGrossProfit</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">15</property>
                         <property name="name">AccountType</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">16</property>
                         <property name="name">Pod</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">17</property>
                         <property name="name">Account</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">18</property>
                         <property name="name">SalesChannel</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -405,20 +419,20 @@ catch (e)
 
 currentRow = 0;
 totalRows = 0;
-account_type1 = "VV";
+account_type1 = "B2C";
 account_type2 = "B2B";
 pod1 = "English Pod";
 pod2 = "Latin Pod";
-account_VV_AU = "VV-AU";
-account_VV_CA = "VV-CA";
-account_VV_IE = "VV-IE";
-account_VV_SG = "VV-SG";
-account_VV_UK = "VV-UK";
-account_VV_US = "VV-US";
-account_VV_DE = "VV-DE";
-account_VV_ES = "VV-ES";
-account_VV_FR = "VV-FR";
-account_VV_IT = "VV-IT";
+account_B2C_AU = "B2C-AU";
+account_B2C_CA = "B2C-CA";
+account_B2C_IE = "B2C-IE";
+account_B2C_SG = "B2C-SG";
+account_B2C_UK = "B2C-UK";
+account_B2C_US = "B2C-US";
+account_B2C_DE = "B2C-DE";
+account_B2C_ES = "B2C-ES";
+account_B2C_FR = "B2C-FR";
+account_B2C_IT = "B2C-IT";
 account_B2B_AU = "B2B-AU";
 account_B2B_CA = "B2B-CA";
 account_B2B_IE = "B2B-IE";
@@ -444,6 +458,7 @@ if (starschemas)
 	orderDateYearName = starschema.getString("orderDateYearName");
 	orderDateWeekOfYear = starschema.getString("orderDateWeekOfYear");
 	orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
+	orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
 	
 	quantity = starschema.getString("quantity");
 	GrossSales = starschema.getString("GrossSales");
@@ -455,13 +470,14 @@ if (starschemas)
 	salesChannelEnumId = starschema.getString("salesChannelEnumId");
 	saleChannel = starschema.getString("saleChannel");
 	
-	if (salesChannelEnumId == "VV_AU_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_AU;
+		row["Account"] = account_B2C_AU;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -473,13 +489,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_CA_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_CA;
+		row["Account"] = account_B2C_CA;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -491,13 +508,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_IE_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_IE;
+		row["Account"] = account_B2C_IE;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -509,13 +527,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_SG_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_SG;
+		row["Account"] = account_B2C_SG;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -527,13 +546,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_UK_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_UK;
+		row["Account"] = account_B2C_UK;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -545,13 +565,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_US_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod1;
-		row["Account"] = account_VV_US;
+		row["Account"] = account_B2C_US;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -563,13 +584,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_DE_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod2;
-		row["Account"] = account_VV_DE;
+		row["Account"] = account_B2C_DE;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -581,13 +603,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_ES_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod2;
-		row["Account"] = account_VV_ES;
+		row["Account"] = account_B2C_ES;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -599,13 +622,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_FR_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod2;
-		row["Account"] = account_VV_FR;
+		row["Account"] = account_B2C_FR;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -617,13 +641,14 @@ if (starschemas)
 		row["GrossShippingProfit"] = GrossShippingProfit;
 		row["GrossProfit"] = GrossProfit;
 	}
-	if (salesChannelEnumId == "VV_IT_SALES_CHANNEL")
+	if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
 	{
 		row["AccountType"] = account_type1;
 		row["Pod"] = pod2;
-		row["Account"] = account_VV_IT;
+		row["Account"] = account_B2C_IT;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -642,6 +667,7 @@ if (starschemas)
 		row["Account"] = account_B2B_AU;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -660,6 +686,7 @@ if (starschemas)
 		row["Account"] = account_B2B_CA;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -678,6 +705,7 @@ if (starschemas)
 		row["Account"] = account_B2B_IE;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -696,6 +724,7 @@ if (starschemas)
 		row["Account"] = account_B2B_SG;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -714,6 +743,7 @@ if (starschemas)
 		row["Account"] = account_B2B_UK;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -732,6 +762,7 @@ if (starschemas)
 		row["Account"] = account_B2B_US;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -750,6 +781,7 @@ if (starschemas)
 		row["Account"] = account_B2B_DE;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -768,6 +800,7 @@ if (starschemas)
 		row["Account"] = account_B2B_ES;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -786,6 +819,7 @@ if (starschemas)
 		row["Account"] = account_B2B_FR;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -804,6 +838,7 @@ if (starschemas)
 		row["Account"] = account_B2B_IT;
 		row["SalesChannel"] = salesChannelEnumId;
 		row["orderDateYearName"] = orderDateYearName;
+		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
 		row["orderDateMonthName"] = orderDateMonthName;
 		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
 		row["orderDateDayName"] = orderDateDayName;
@@ -834,6 +869,14 @@ return true;]]></method>
                                 <tabular-level name="orderDateYearName" id="1815">
                                     <property name="dataType">string</property>
                                     <property name="columnName">orderDateYearName</property>
+                                </tabular-level>
+                                <tabular-level name="orderDateMonthOfYear" id="2023">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderDateMonthOfYear</property>
+                                </tabular-level>
+                                <tabular-level name="orderDateMonthName" id="2019">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderDateMonthName</property>
                                 </tabular-level>
                                 <tabular-level name="orderDateWeekOfYear" id="1475">
                                     <property name="dataType">string</property>
@@ -974,10 +1017,10 @@ return true;]]></method>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="type">us-legal</property>
             <property name="orientation">landscape</property>
-            <property name="topMargin">1in</property>
-            <property name="leftMargin">1.25in</property>
-            <property name="bottomMargin">1in</property>
-            <property name="rightMargin">1.25in</property>
+            <property name="topMargin">0.25in</property>
+            <property name="leftMargin">0.25in</property>
+            <property name="bottomMargin">0.25in</property>
+            <property name="rightMargin">0.25in</property>
             <page-footer>
                 <text id="3">
                     <property name="contentType">html</property>
@@ -987,12 +1030,14 @@ return true;]]></method>
         </simple-master-page>
     </page-setup>
     <body>
-        <text id="194">
-            <property name="contentType">html</property>
-            <text-property name="content"><![CDATA[<CENTER>
-<H4><B>Sale Report<B></H4>
-</CENTER>]]></text-property>
-        </text>
+        <label id="2018">
+            <property name="fontSize">xx-large</property>
+            <property name="fontWeight">normal</property>
+            <property name="paddingTop">1pt</property>
+            <property name="paddingBottom">20pt</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Sales Report</text-property>
+        </label>
         <extended-item extensionName="Crosstab" id="1483">
             <property name="emptyCellValue">0</property>
             <property name="measures">
@@ -1012,9 +1057,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1969">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1970">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">quantity_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1022,18 +1068,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1985">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1986">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">quantity_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2001">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2002">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">quantity_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1067,9 +1115,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1971">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1972">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossSales_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1077,18 +1126,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1987">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1988">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossSales_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2003">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2004">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossSales_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1121,9 +1172,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1973">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1974">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeSales_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1131,18 +1183,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1989">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1990">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeSales_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2005">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2006">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeSales_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1175,9 +1229,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1975">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1976">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeProfit_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1185,18 +1240,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1991">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1992">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeProfit_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2007">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2008">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossMerchandizeProfit_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1229,9 +1286,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1977">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1978">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossShippingProfit_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1239,18 +1297,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1993">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1994">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossShippingProfit_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2009">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2010">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossShippingProfit_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1283,9 +1343,10 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1979">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1980">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossProfit_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1293,18 +1354,20 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1995">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1996">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossProfit_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2011">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2012">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
                                     <property name="resultSetColumn">GrossProfit_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1328,6 +1391,10 @@ return true;]]></method>
                         <extended-item extensionName="CrosstabCell" id="1525">
                             <property name="content">
                                 <data name="AverageMerchandizeProfit" id="1527">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageMerchandizeProfit</property>
                                 </data>
                             </property>
@@ -1337,9 +1404,14 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1981">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1982">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageMerchandizeProfit_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1347,18 +1419,28 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1997">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="1998">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageMerchandizeProfit_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2013">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2014">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageMerchandizeProfit_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1382,6 +1464,11 @@ return true;]]></method>
                         <extended-item extensionName="CrosstabCell" id="1530">
                             <property name="content">
                                 <data name="AverageGrossProfit" id="1532">
+                                    <property name="marginTop">0pt</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageGrossProfit</property>
                                 </data>
                             </property>
@@ -1391,9 +1478,14 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1983">
                             <property name="aggregationOnRow">Account/AccountType</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#BFBFBF</property>
                             <property name="content">
                                 <data id="1984">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageGrossProfit_Account/AccountType_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1401,18 +1493,28 @@ return true;]]></method>
                         <extended-item extensionName="AggregationCell" id="1999">
                             <property name="aggregationOnRow">Account/Pod</property>
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#E5E5E5</property>
                             <property name="content">
                                 <data id="2000">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageGrossProfit_Account/Pod_Date/orderDateDescription</property>
                                 </data>
                             </property>
                         </extended-item>
                         <extended-item extensionName="AggregationCell" id="2015">
                             <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                             <property name="content">
                                 <data id="2016">
-                                    <property name="fontWeight">bold</property>
+                                    <property name="fontWeight">normal</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
                                     <property name="resultSetColumn">AverageGrossProfit_Date/orderDateDescription</property>
                                 </data>
                             </property>
@@ -1442,7 +1544,7 @@ return true;]]></method>
                                     <text-property name="text">Grand Total</text-property>
                                 </label>
                             </property>
-                            <property name="backgroundColor">#FFFFFF</property>
+                            <property name="backgroundColor">#7F7F7F</property>
                         </extended-item>
                     </property>
                     <property name="views">
@@ -1460,6 +1562,8 @@ return true;]]></method>
                                                     <property name="resultSetColumn">AccountType</property>
                                                 </data>
                                             </property>
+                                            <property name="verticalAlign">middle</property>
+                                            <property name="paddingTop">1pt</property>
                                         </extended-item>
                                     </property>
                                     <property name="aggregationHeader">
@@ -1471,7 +1575,7 @@ return true;]]></method>
                                                     <text-property name="text">Total</text-property>
                                                 </label>
                                             </property>
-                                            <property name="backgroundColor">#FFFFFF</property>
+                                            <property name="backgroundColor">#BFBFBF</property>
                                         </extended-item>
                                     </property>
                                 </extended-item>
@@ -1486,6 +1590,7 @@ return true;]]></method>
                                                     <property name="resultSetColumn">Pod</property>
                                                 </data>
                                             </property>
+                                            <property name="verticalAlign">middle</property>
                                         </extended-item>
                                     </property>
                                     <property name="aggregationHeader">
@@ -1497,7 +1602,7 @@ return true;]]></method>
                                                     <text-property name="text">Total</text-property>
                                                 </label>
                                             </property>
-                                            <property name="backgroundColor">#FFFFFF</property>
+                                            <property name="backgroundColor">#E5E5E5</property>
                                         </extended-item>
                                     </property>
                                 </extended-item>
@@ -1535,6 +1640,20 @@ return true;]]></method>
                                                     <property name="fontWeight">bold</property>
                                                     <property name="textAlign">center</property>
                                                     <property name="resultSetColumn">orderDateYearName</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View6" id="2024">
+                                    <property name="level">Date/orderDateMonthOfYear</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="2025">
+                                            <property name="content">
+                                                <data name="orderDateMonthOfYear" id="2026">
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">orderDateMonthOfYear</property>
                                                 </data>
                                             </property>
                                         </extended-item>
@@ -2532,6 +2651,11 @@ return true;]]></method>
                 <structure>
                     <property name="name">orderDateDescription</property>
                     <expression name="expression">dimension["Date"]["orderDateDescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderDateMonthOfYear</property>
+                    <expression name="expression">dimension["Date"]["orderDateMonthOfYear"]</expression>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>

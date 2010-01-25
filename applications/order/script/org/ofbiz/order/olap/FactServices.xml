@@ -121,6 +121,7 @@ under the License.
                 </if-not-empty>
                 <!-- TODO -->
                 <set field="fact.billToCustomerDimId" value="_NA_"/>
+               
                 <create-value value-field="fact"/>
             </if-empty>
             <!-- =============== -->
@@ -234,6 +235,11 @@ under the License.
                 </calcop>
             </calculate>
             
+            <!-- Product Store -->
+            <if-not-empty field="orderHeader.productStoreId">
+                <set field="fact.productStoreId" from-field="orderHeader.productStoreId"/>
+            </if-not-empty>
+            
             <!-- Sale Channel -->
             <if-not-empty field="orderHeader.salesChannelEnumId">
                 <entity-one entity-name="Enumeration" value-field="enumeration">
@@ -292,7 +298,7 @@ under the License.
                     <calcop field="fact.extStorageCost" operator="get"/>
                     <calcop field="fact.extDistributionCost" operator="get"/>
                 </calcop>
-                </calculate>-->
+            </calculate>-->
             
             <!-- eBay -->
             <set field="fact.eBay" value="7"/>
@@ -302,6 +308,41 @@ under the License.
             
             <!-- Others -->
             <set field="fact.OtherFree" value="5"/>
+            
+            <!-- Others -->
+            <calculate field="fees">
+                <calcop operator="add">
+                    <calcop operator="get" field="fact.eBay"/>
+                    <calcop operator="get" field="fact.RRC"/>
+                    <calcop operator="get" field="fact.OtherFree"/>
+                </calcop>
+            </calculate>
+            
+            <!-- NBO -->
+            <calculate field="NBO" type="BigDecimal">
+                <calcop operator="subtract">
+                    <calcop operator="get" field="fact.GrossProfit"></calcop>
+                    <calcop operator="get" field="fees"></calcop>
+                </calcop>
+            </calculate>
+            <set field="fact.NBO" from-field="NBO"/>
+            
+            <!-- CountDate -->
+            <set field="fact.CountDate" value="1"/>
+            
+            <!-- Category -->
+            <if-not-empty field="orderItem.productId">
+                <clear-field field="defaultTopCategoryId"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="orderItem.productId"/>
+                </entity-one>
+                <set field="defaultTopCategoryId.topCategory" from-field="product.primaryProductCategoryId"/>
+                <call-service service-name="getAllCategories" in-map-name="defaultTopCategoryId">
+                    <result-to-field result-name="categories" field="categories"/>
+                </call-service>
+                <first-from-list entry="category" list="categories"/>
+                <set field="fact.categoryName" from-field="category.categoryName"/>
+            </if-not-empty>
 
             <store-value value-field="fact"/>
         </if-compare>
