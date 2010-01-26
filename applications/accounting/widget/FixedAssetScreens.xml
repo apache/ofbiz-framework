@@ -527,6 +527,14 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationHistory}">
+                                    <label style="h3">${uiLabelMap.FixedAssetPurchaseCost}: ${fixedAsset.purchaseCost}</label>
+                                    <label style="h3">${uiLabelMap.FixedAssetDepreciation}: ${fixedAsset.depreciation}</label>
+                                    <label style="h3">${uiLabelMap.FixedAssetSalvageValue}: ${fixedAsset.salvageValue}</label>
+                                    <label style="h3">${uiLabelMap.FixedAssetDateAcquired}: ${fixedAsset.dateAcquired}</label>
+                                    <label style="h3">${uiLabelMap.FixedAssetExpectedEndOfLife}: ${fixedAsset.expectedEndOfLife}</label>
+                                    <label style="h3">${uiLabelMap.FixedAssetNextDepreciationAmount}: ${assetDepreciationResultMap.nextDepreciationAmount}</label>
+                                </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationMethod}">
                                     <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
@@ -537,7 +545,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationReport}">
-                                        <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
+                                            <include-form name="ListFixedAssetDepreciations" location="component://accounting/widget/FixedAssetForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
