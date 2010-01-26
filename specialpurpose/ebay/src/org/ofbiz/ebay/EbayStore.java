@@ -113,10 +113,7 @@ import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
 
 public class EbayStore {
 	private static final String resource = "EbayUiLabels";
-	private static final String configFileName = "ebayExport.properties";
 	private static final String module = ProductsExportToEbay.class.getName();
-	private static List<String> productExportSuccessMessageList = FastList.newInstance();
-	private static List<String> productExportFailureMessageList = FastList.newInstance();
 	public static ProductsExportToEbay productExportEbay = new ProductsExportToEbay();
 
 	private static void appendRequesterCredentials(Element elem, Document doc, String token) {
@@ -182,8 +179,6 @@ public class EbayStore {
 	public static Map exportCategoriesSelectedToEbayStore(DispatchContext dctx, Map context) {
 		Locale locale = (Locale) context.get("locale");
 		Delegator delegator = dctx.getDelegator();
-		productExportSuccessMessageList.clear();
-		productExportFailureMessageList.clear();
 		Map<String, Object> result = FastMap.newInstance();
 		Map response = null;
 		Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
@@ -195,13 +190,8 @@ public class EbayStore {
 				response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataStoreXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetStore", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
 				String successMessage = (String)response.get("successMessage");
 				if (successMessage != null) {
-					//returnResult = readEbayGetStoreCategoriesResponse(successMessage, locale);
 					String isSuccess = readEbayResponse(successMessage, context.get("productStoreId").toString());
 					if (isSuccess == "success"){
-						GenericValue catalogStore = null;
-						if(UtilValidate.isNotEmpty(context.get("productStoreId"))){
-							catalogStore = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog",UtilMisc.toMap("productStoreId", context.get("productStoreId").toString(), "prodCatalogId", context.get("prodCatalogId").toString())));
-						}
 						List<GenericValue> catalogCategories = null;
 						if(UtilValidate.isNotEmpty(context.get("prodCatalogId"))){
 							catalogCategories = delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", context.get("prodCatalogId").toString()));
@@ -223,114 +213,6 @@ public class EbayStore {
 									}
 								}
 							}
-							// Get categories list from GetStore
-							Map<String, Object> returnResult = FastMap.newInstance();
-							StringBuffer dataGetStoreXml = new StringBuffer();
-							Map resultStoreMap = buildGetStoreXml(context, dataGetStoreXml, eBayConfigResult.get("token").toString(), eBayConfigResult.get("siteID").toString());
-							if (!ServiceUtil.isFailure(resultStoreMap)) {
-								response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataGetStoreXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetStore", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-								String successStoreMessage = (String)response.get("successMessage");
-								if (successStoreMessage != null) {
-									returnResult = readEbayGetStoreCategoriesResponse(successStoreMessage, locale);
-								}
-							}
-							if (returnResult.size() > 0){
-								List catetoriesList = FastList.newInstance();
-								catetoriesList = (List) returnResult.get("categories");
-								Iterator categoriesIter = catetoriesList.iterator();
-								while (categoriesIter.hasNext()) {
-									Map category = (Map) categoriesIter.next();
-									String CategoryID = category.get("CategoryID").toString();
-									String CategoryName = category.get("CategoryName").toString();
-									String CategorySeq = category.get("CategorySeq").toString();
-
-									context.put("webSiteUrl", "http://demo.ofbiz.org");
-									context.put("primaryCategoryId", CategoryID);
-									//context.put("listingDuration", "Days_1");
-									context.put("country", "US");
-									context.put("location",context.get("location").toString());
-									String paymentMethods = context.get("paymentMethods").toString();
-									context.put(""+paymentMethods, "on");
-									context.put("Currency", "USD");
-									context.put("UseTaxTable", "false");
-									context.put("DispatchTimeMax", "3");
-
-									GenericValue categoryFound = EntityUtil.getFirst(delegator.findByAnd("ProductCategory", UtilMisc.toMap("categoryName", CategoryName)));
-
-									if (UtilValidate.isNotEmpty(categoryFound)){
-										GenericValue catalogCategory = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", context.get("prodCatalogId").toString(), "productCategoryId", categoryFound.get("productCategoryId").toString())));
-										List<GenericValue> categoryMemberList = null;
-
-										if (UtilValidate.isNotEmpty(catalogCategory)){
-											categoryMemberList = delegator.findByAnd("ProductCategoryMember",UtilMisc.toMap("productCategoryId", catalogCategory.get("productCategoryId").toString()));
-											if ((categoryMemberList == null) || (categoryMemberList.size() < 1)){
-
-												GenericValue getChildCategory = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryRollup",UtilMisc.toMap("parentProductCategoryId", catalogCategory.get("productCategoryId").toString())));
-												if (UtilValidate.isNotEmpty(getChildCategory)){
-													categoryMemberList = delegator.findByAnd("ProductCategoryMember",UtilMisc.toMap("productCategoryId", getChildCategory.get("productCategoryId").toString()));
-												}
-											}
-										}
-
-										if (categoryMemberList != null){
-											Iterator categoryMemberListIter = categoryMemberList.iterator();
-											while (categoryMemberListIter.hasNext()) {
-												// build AddItem request ***
-												StringBuffer dataItemsXml = new StringBuffer();
-												GenericValue productCategoryMem = (GenericValue) categoryMemberListIter.next();
-												GenericValue product = productCategoryMem.getRelatedOne("Product");
-												GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"))));
-												if (UtilValidate.isEmpty(startPriceValue)) {
-													String startPriceMissingMsg = "Unable to find a starting price for auction of product with id (" + product.getString("productId") + "), So Ignoring the export of this product to eBay.";
-													return ServiceUtil.returnFailure(startPriceMissingMsg);
-													// Ignore the processing of product having no start price value
-												}else{
-													context.put("startPrice", startPriceValue.get("price").toString());
-												}
-
-
-												Map resultItem = productExportEbay.buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString(), product);
-												if (!ServiceUtil.isFailure(resultItem)) {
-													response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-													String successMessage4 = (String)response.get("successMessage");
-													if (successMessage4 != null) {
-														isSuccess2 = readEbayResponse(successMessage4, context.get("productStoreId").toString());
-													}
-													if (UtilValidate.isNotEmpty(response)) {
-														// build ReviseItem request ***
-														String itemID = exportItemIDResponse((String) response.get("successMessage"));
-														if (itemID != ""){
-															StringBuffer dataRevItemsXml = new StringBuffer();
-															Map resultRevItem = buildReviseItemXml(dctx, context, dataRevItemsXml, eBayConfigResult.get("token").toString(), eBayConfigResult.get("siteID").toString(), itemID, CategoryID);
-															if (!ServiceUtil.isFailure(resultRevItem)) {
-																response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataRevItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "ReviseItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-																String successMessage3 = (String)response.get("successMessage");
-																if (successMessage3 != null) {
-																	isSuccess2 = readEbayResponse(successMessage3, context.get("productStoreId").toString());
-																}
-																if (ServiceUtil.isFailure(response)) {
-																	return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(response));
-																}
-															}
-															if (UtilValidate.isNotEmpty(productExportEbay.getProductExportSuccessMessageList())) {
-																result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-																result.put(ModelService.SUCCESS_MESSAGE_LIST, productExportEbay.getProductExportSuccessMessageList());
-															}
-															if (UtilValidate.isNotEmpty(productExportEbay.getproductExportFailureMessageList())) {
-																result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
-																result.put(ModelService.ERROR_MESSAGE_LIST, productExportEbay.getproductExportFailureMessageList());
-															}
-														}
-													}
-												} else {
-													return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultItem));
-												}
-											}
-										}
-									}
-									//buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml, String token, GenericValue prod) {
-								}
-							}
 						}
 					}
 				} else {
@@ -339,7 +221,7 @@ public class EbayStore {
 			} else {
 				return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
 			}
-			//result =  ServiceUtil.returnSuccess();
+			 result.put(ModelService.SUCCESS_MESSAGE, "Export categories success...");
 		} catch (Exception e) {
 			Debug.logError("Exception in exportCategoriesSelectedToEbayStore : " + e, module);
 			return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInGetEbayCategories", locale));
@@ -414,32 +296,7 @@ public class EbayStore {
 		}
 		return result;
 	}
-//	--- GetStoreOptions request method -------------- //
-	public static Map buildGetStoreOptionsXml(Map context, StringBuffer dataStoreXml, String token) {
-		Locale locale = (Locale)context.get("locale");
-		try {
-			StringUtil.SimpleEncoder encoder = StringUtil.getEncoder("xml");
 
-			// Get the list of products to be exported to eBay
-			try {
-				Document storeDocument = UtilXml.makeEmptyXmlDocument("GetStoreOptionsRequest");
-				Element storeRequestElem = storeDocument.getDocumentElement();
-				storeRequestElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
-				appendRequesterCredentials(storeRequestElem, storeDocument, token);
-				dataStoreXml.append(UtilXml.writeXmlDocument(storeDocument));
-
-			} catch (Exception e) {
-				Debug.logError("Exception during building data to eBay: " + e.getMessage(), module);
-				return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
-			}
-		} catch (Exception e) {
-			Debug.logError("Exception during building data to eBay: " + e.getMessage(), module);
-			return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
-		}
-		return ServiceUtil.returnSuccess();
-	}
-
-	// --- GetStore request method -------------- //
 	public static Map buildGetStoreXml(Map context, StringBuffer dataStoreXml, String token, String siteID) {
 		Locale locale = (Locale)context.get("locale");
 		try {
@@ -466,7 +323,6 @@ public class EbayStore {
 		return ServiceUtil.returnSuccess();
 	}
 
-	// --- SetStoreCategoriesRequest method -------------- //
 	public static Map buildSetStoreCategoriesXml(DispatchContext dctx, Map context, StringBuffer dataStoreXml, String token, String siteID, String productCategoryId) {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale)context.get("locale");
@@ -498,40 +354,6 @@ public class EbayStore {
 				UtilXml.addChildElementValue(customCategoryElem, "Name", categoryName, storeDocument);
 
 				dataStoreXml.append(UtilXml.writeXmlDocument(storeDocument));
-
-			} catch (Exception e) {
-				Debug.logError("Exception during building data to eBay: " + e.getMessage(), module);
-				return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
-			}
-		} catch (Exception e) {
-			Debug.logError("Exception during building data to eBay: " + e.getMessage(), module);
-			return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionDuringBuildingDataItemsToEbay", locale));
-		}
-		return ServiceUtil.returnSuccess();
-	}
-
-	public static Map buildReviseItemXml(DispatchContext dctx, Map context, StringBuffer dataStoreXml, String token, String siteID, String productId, String primaryCategoryId) {
-		Delegator delegator = dctx.getDelegator();
-		Locale locale = (Locale)context.get("locale");
-		try {
-			StringUtil.SimpleEncoder encoder = StringUtil.getEncoder("xml");
-
-			// Get the list of products to be exported to eBay
-			try {
-				Document itemDocument = UtilXml.makeEmptyXmlDocument("ReviseItemRequest");
-				Element itemRequestElem = itemDocument.getDocumentElement();
-				itemRequestElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
-				appendRequesterCredentials(itemRequestElem, itemDocument, token);
-
-				UtilXml.addChildElementValue(itemRequestElem, "Version", "643", itemDocument);
-				UtilXml.addChildElementValue(itemRequestElem, "ErrorLanguage", "en_US", itemDocument);
-				UtilXml.addChildElementValue(itemRequestElem, "WarningLevel", "High", itemDocument);
-				Element ItemCategoriesElem = UtilXml.addChildElement(itemRequestElem, "Item", itemDocument);
-				UtilXml.addChildElementValue(ItemCategoriesElem, "ItemID", productId, itemDocument);
-				Element customCategoryElem = UtilXml.addChildElement(ItemCategoriesElem, "PrimaryCategory", itemDocument);
-				UtilXml.addChildElementValue(customCategoryElem, "CategoryID", primaryCategoryId, itemDocument);
-
-				dataStoreXml.append(UtilXml.writeXmlDocument(itemDocument));
 
 			} catch (Exception e) {
 				Debug.logError("Exception during building data to eBay: " + e.getMessage(), module);
@@ -595,32 +417,6 @@ public class EbayStore {
 		return results;
 	}
 
-	public static String exportItemIDResponse(String msg) {
-		String itemID = "";
-		try {
-			Document docResponse = UtilXml.readXmlDocument(msg, true);
-			Element elemResponse = docResponse.getDocumentElement();
-			String ack = UtilXml.childElementValue(elemResponse, "Ack", "Failure");
-			if (ack != null && "Failure".equals(ack)) {
-				String errorMessage = "";
-				List errorList = UtilXml.childElementList(elemResponse, "Errors");
-				Iterator errorElemIter = errorList.iterator();
-				while (errorElemIter.hasNext()) {
-					Element errorElement = (Element) errorElemIter.next();
-					errorMessage = UtilXml.childElementValue(errorElement, "LongMessage");
-				}
-				return "";
-			} else {
-				itemID = UtilXml.childElementValue(elemResponse, "ItemID");
-				String productSuccessfullyExportedMsg = "Product successfully exported with ID (" + itemID + ").";
-				return itemID;
-			}
-		} catch (Exception e) {
-			Debug.logError("Error in processing xml string" + e.getMessage(), module);
-			return "";
-		}
-	}
-
 	public static Map<String, Object> getEbayStoreUser(DispatchContext dctx, Map<String, ? extends Object> context){
 		Map<String, Object>result = FastMap.newInstance();
 		String errorMsg = null;
@@ -671,7 +467,6 @@ public class EbayStore {
 					}
 					
 				}
-				
 			} catch (GenericEntityException e1) {
 				e1.printStackTrace();
 			}
@@ -680,7 +475,7 @@ public class EbayStore {
 			//call.setSite(EbayHelper.getSiteCodeType((String)context.get("productStoreId"), locale, delegator));
 			call.setCategoryStructureOnly(false);
 			call.setUserID(userLoginId);
-			
+
 			try {
 				resp = (GetStoreResponseType)call.execute(req);
 				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
