@@ -183,9 +183,6 @@ under the License.
         <description>Export categories in store to eBay store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
-        <attribute name="paymentMethods" type="String" mode="IN" optional="false"/>
-        <attribute name="listingDuration" type="String" mode="IN" optional="false"/>
-        <attribute name="location" type="String" mode="IN" optional="false"/>
     </service>
     
     <!-- Store output -->

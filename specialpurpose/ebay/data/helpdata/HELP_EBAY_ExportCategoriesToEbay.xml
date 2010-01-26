@@ -20,7 +20,7 @@
     <title>Ebay Store Export categories to ebay store screen.</title>
     <para>
 The screen allow user to export categories and product to eBay store. 
-First you should select catalog,add your location that product located, select your default payment methods for your product and your listing duration days.
+First you should select catalog and click on Export to eBay store button to complete function.
 When you click Export to eBay store button, this function will add your categories that in catalog selected to eBay store also add product to categories too.</para>
 
 </section>

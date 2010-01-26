@@ -82,7 +82,7 @@ public class EbayHelper {
                 return ServiceUtil.returnError(errMsg);
             }
             if (UtilValidate.isNotEmpty(eBayConfig)) {
-                buildEbayConfigContext.put("devId", eBayConfig.getString("devId"));
+                buildEbayConfigContext.put("devID", eBayConfig.getString("devId"));
                 buildEbayConfigContext.put("appID", eBayConfig.getString("appId"));
                 buildEbayConfigContext.put("certID", eBayConfig.getString("certId"));
                 buildEbayConfigContext.put("token", eBayConfig.getString("token"));

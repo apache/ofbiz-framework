@@ -287,30 +287,6 @@ under the License.
                     </entity-options-->
             </drop-down>
         </field>
-        <field name="location"><text size="40"></text></field>
-        <field name="paymentMethods" title="Default Payment Methods">
-            <drop-down>
-                <option key="paymentPayPal" description="${uiLabelMap.FormFieldTitle_paymentPayPal}"/>
-                <option key="paymentVisaMC" description="${uiLabelMap.FormFieldTitle_paymentVisaMC}"/>
-                <option key="paymentAmEx" description="${uiLabelMap.FormFieldTitle_paymentAmEx}"/>
-                <option key="paymentDiscover" description="${uiLabelMap.FormFieldTitle_paymentDiscover}"/>
-                <option key="paymentMOCC" description="${uiLabelMap.FormFieldTitle_paymentMOCC}"/>
-                <option key="paymentPersonalCheck" description="${uiLabelMap.FormFieldTitle_paymentPersonalCheck}"/>
-                <option key="paymentCCAccepted" description="${uiLabelMap.FormFieldTitle_paymentCCAccepted}"/>
-                <option key="paymentCashInPerson" description="${uiLabelMap.FormFieldTitle_paymentCashInPerson}"/>
-                <option key="paymentCashOnPickup" description="${uiLabelMap.FormFieldTitle_paymentCashOnPickup}"/>
-                <option key="paymentCOD" description="${uiLabelMap.FormFieldTitle_paymentCOD}"/>
-                <option key="paymentCODPrePayDelivery" description="${uiLabelMap.FormFieldTitle_paymentCODPrePayDelivery}"/>
-                <option key="paymentMoneyXferAccepted" description="${uiLabelMap.FormFieldTitle_paymentMoneyXferAccepted}"/>
-            </drop-down>
-        </field>
-        <field name="listingDuration">
-            <drop-down>
-                <option key="Days_1" description="1 ${uiLabelMap.CommonDay}"/>
-                <option key="Days_3" description="3 ${uiLabelMap.CommonDays}"/>
-                <option key="Days_7" description="7 ${uiLabelMap.CommonDays}"/>
-            </drop-down>
-        </field>
         <field name="submitButton" title="${uiLabelMap.EbayExportToEbayStore}"><submit button-type="button"/></field>
     </form>
     <form name="NewEbayAccount" type="single"  target="createEbayAccount">
