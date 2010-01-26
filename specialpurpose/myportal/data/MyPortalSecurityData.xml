@@ -26,6 +26,7 @@ under the License.
     
     <SecurityPermission permissionId="MYPORTAL_EMPLOYEE" description="Use the employee screens in myportal."/>
     <SecurityGroup description="Employee user of myportal, Limited access to the projectmgr, comms,custRequests" groupId="MYPORTAL_EMPLOYEE"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="MYPORTALBASE_ADMIN"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="MYPORTAL_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPLOYEE" permissionId="PROJECTMGR_ROLE_VIEW"/>
@@ -51,6 +52,7 @@ under the License.
 
     <SecurityPermission permissionId="MYPORTAL_EMPL-NOEML" description="Usage of the employee screens in MYPORTAL: projectmanager and internal notes."/>
     <SecurityGroup description="Employee user of MYPORTAL, Limited access to the projectmgr and comms, custReq, no email" groupId="MYPORTAL_EMPL-NOEML"/>
+    <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="MYPORTALBASE_ADMIN"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="MYPORTAL_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PROJECTMGR_ROLE_VIEW"/>
@@ -71,6 +73,7 @@ under the License.
     
     <SecurityPermission permissionId="MYPORTAL_CUSTOMER" description="Use the customer screens in MYPORTAL."/>
     <SecurityGroup description="Customer user of MYPORTAL, Limited access to own custRequests, and project" groupId="MYPORTAL_CUSTOMER"/>
+    <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="MYPORTALBASE_ADMIN"/>
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME-NOTE_CREATE"/><!-- allow customer to read/write internal notes -->
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="MYPORTAL_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
