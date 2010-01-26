@@ -911,7 +911,7 @@ under the License.
         <response name="error" type="view" value="billsetting"/>
     </request-map>
     <request-map uri="processorder">
-        <security https="false" auth="true"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
         <response name="sales_order" type="request" value="checkBlackList"/>
         <response name="work_order" type="request" value="checkBlackList"/>
