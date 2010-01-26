@@ -50,6 +50,8 @@ under the License.
       <@HourOfDayRange fromHour=temporalExpression.integer1 toHour=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "MINUTE_RANGE">
       <@MinuteRange fromMinute=temporalExpression.integer1 toMinute=temporalExpression.integer2/>
+    <#elseif temporalExpression.tempExprTypeId == "MONTH_RANGE">
+      <@MonthRange fromMonth=temporalExpression.integer1 toMonth=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "TIME_OF_DAY_RANGE">
       <@TimeOfDayRange fromTime=temporalExpression.string1 toTime=temporalExpression.string2 freqType=temporalExpression.integer1 freqValue=temporalExpression.integer2/>
     <#elseif "INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
