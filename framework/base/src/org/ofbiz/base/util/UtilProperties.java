@@ -118,6 +118,15 @@ public class UtilProperties implements java.io.Serializable {
             return value;
     }
 
+    public static double getPropertyNumber(String resource, String name, Double defaultValue) {
+        double value = getPropertyNumber(resource, name);
+         if(value == 0.00000){
+             return defaultValue;
+         }
+
+        return value;
+    }
+
     public static double getPropertyNumber(String resource, String name) {
         String str = getPropertyValue(resource, name);
         double strValue = 0.00000;
