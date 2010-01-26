@@ -1925,6 +1925,18 @@ under the License.
                     <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                     <set field="creditEntry.partyId" from-field="taxAuthPartyId"/>
                     <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                    <clear-field field="taxAuthorityGlAccount"/>
+                    <entity-one entity-name="TaxAuthorityGlAccount" value-field="taxAuthorityGlAccount">
+                        <field-map field-name="organizationPartyId" from-field="creditEntry.organizationPartyId"/>
+                        <field-map field-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                        <field-map field-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                    </entity-one>
+                    <if-not-empty field="taxAuthorityGlAccount">
+                        <set field="creditEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/>
+                        <else>
+                            <set field="creditEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
+                        </else>
+                    </if-not-empty>
                     <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
                 </iterate>
             </iterate-map>
