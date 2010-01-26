@@ -57,6 +57,9 @@ under the License.
             <field-map field-name="shipmentId"/>
         </entity-and>
         <first-from-list entry="acctgTrans" list="acctgTransList"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
         <set field="productFilter.productId" from-field="productId"/>
         <filter-list-by-and list="acctgTransEntryList" map="productFilter" to-list="acctgTransEntryList"/>
@@ -115,6 +118,9 @@ under the License.
         </entity-one>
         <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList"/>
         <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -156,6 +162,9 @@ under the License.
         </entity-one>
         <get-related value-field="payment" relation-name="AcctgTrans" list="acctgTransList"/>
         <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -220,6 +229,9 @@ under the License.
             <order-by field-name="-postedDate"/>
         </entity-condition>
         <first-from-list entry="acctgTrans" list="acctgTransList"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related list="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -291,6 +303,9 @@ under the License.
         <set field="acctgTransFilter.acctgTransTypeId" value="SALES_INVOICE"/>
         <filter-list-by-and to-list="salesAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
         <first-from-list entry="salesAcctgTrans" list="salesAcctgTransList"/>
+
+        <assert><if-compare field="salesAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related value-field="salesAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -312,6 +327,9 @@ under the License.
         <set field="acctgTransFilter.acctgTransTypeId" value="PAYMENT_APPL"/>
         <filter-list-by-and to-list="paymentAcctgTransList" list="acctgTransList" map="acctgTransFilter"/>
         <first-from-list entry="paymentAcctgTrans" list="paymentAcctgTransList"/>
+
+        <assert><if-compare field="paymentAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <get-related value-field="paymentAcctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
         <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
@@ -367,6 +385,8 @@ under the License.
             <field-map field-name="acctgTransTypeId" value="INCOMING_PAYMENT"/>
         </entity-and>
         <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="paymentAcctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
 
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
 
@@ -494,6 +514,8 @@ under the License.
         <assert><not><if-empty field="acctgTransList"/></not></assert>
 
         <iterate list="acctgTransList" entry="acctgTrans">
+            <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
             <get-related list="acctgTransEntryList" relation-name="AcctgTransEntry" value-field="acctgTrans"/>
             <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
             <iterate list="acctgTransEntryList" entry="acctgTransEntry">
@@ -564,6 +586,8 @@ under the License.
         </entity-condition>
         <assert><not><if-empty field="acctgTransList"></if-empty></not></assert>
         <iterate list="acctgTransList" entry="acctgTrans">
+            <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
             <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
             <iterate list="acctgTransEntryList" entry="acctgTransEntry">
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
@@ -625,6 +649,10 @@ under the License.
             <if-compare field="acctgTransEntry.origAmount" operator="equals" value="168.00" type="BigDecimal"/>
         </assert>
 
+        <!-- Check the AcctgTrans itself -->
+        <get-related-one to-value-field="acctgTrans" relation-name="AcctgTrans" value-field="acctgTransEntry"/>
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
         <!-- For debit entry -->
         <entity-and entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <field-map field-name="productId" value="PROD_MANUF"/>
@@ -666,4 +694,5 @@ under the License.
             <if-compare-field field="debitTotal" operator="equals" to-field="creditTotal" type="BigDecimal"/>
         </assert>
     </simple-method>
+
 </simple-methods>
