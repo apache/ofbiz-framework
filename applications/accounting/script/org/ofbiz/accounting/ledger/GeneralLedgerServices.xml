@@ -1941,17 +1941,20 @@ under the License.
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
-            <clear-field field="creditEntry"/>
-            <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
-            <set field="creditEntry.debitCreditFlag" value="C"/>
-            <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
             <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
-            <set field="creditEntry.origAmount" from-field="taxAmount"/>
-            <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
-            <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            <if-compare field="taxAmount" operator="not-equals" value="0" type="BigDecimal">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <set field="creditEntry.glAccountTypeId" value="TAX_ACCOUNT"/>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </if-compare>
 
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
