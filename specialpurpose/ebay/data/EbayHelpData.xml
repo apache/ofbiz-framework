@@ -121,4 +121,9 @@ under the License.
     <Content contentId="EBAY_AutoPref" contentTypeId="DOCUMENT" contentName="EBay Automation Preferences" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_AutoPref" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
     <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_AutoPref" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_AutomationPreferences"/>
     
+    <!-- block out of stock  -->
+    <DataResource dataResourceId="EBAY_BlockItem" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_BlockItemOutStock.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_BlockItem" contentTypeId="DOCUMENT" contentName="Block item that out of stock on eBay" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_BlockItem" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_BlockItem" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_blockItemOutOfStock"/>
 </entity-engine-xml>

@@ -709,4 +709,7 @@
     <property key="EbaySoldLeaveFeedback">
         <value xml:lang="en">Sold</value>
     </property>
+    <property key="EbayBlockItemOutOfStock">
+        <value xml:lang="en">Block items out of stock</value>
+    </property>
 </resource>

@@ -341,4 +341,10 @@ under the License.
         <field name="submit" use-when="job!=null" title="${uiLabelMap.CommonApply}"><submit/></field>
         <field name="submit" use-when="job==null" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
+    <!-- block out of stock items -->
+    <form name="blockItemsOutOfStock"  type="single" target="runBlockItemOutOfStock">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="productStore" entry-name="parameters.productStoreId" ><display-entity entity-name="ProductStore" description="${storeName} [${productStoreId}]" key-field-name="productStoreId" ></display-entity></field>
+        <field name="submitButton" title="${uiLabelMap.BlockItemsOutOfStock}"><submit button-type="button"/></field>
+    </form>
 </forms>
