@@ -242,6 +242,19 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <!-- Block item out of stock -->
+    <request-map uri="blockItemOutOfStock">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="blockItemOutOfStock"/>
+        <response name="error" type="view" value="blockItemOutOfStock"/>
+    </request-map>
+    <request-map uri="runBlockItemOutOfStock">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getSellingInventory"/>
+        <response name="success" type="view" value="blockItemOutOfStock"/>
+        <response name="error" type="view" value="blockItemOutOfStock"/>
+    </request-map>
+    
     <!-- end of request mappings -->
     
     <!-- View Mappings -->
@@ -272,5 +285,7 @@
     
     <!-- AutomationPreferences -->
     <view-map name="AutomationPreferences" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayAutomationPreferences"/>
+    <!-- block out of stock -->
+    <view-map name="blockItemOutOfStock" type="screen" page="component://ebay/widget/EbayScreens.xml#blockItemOutOfStock"/>
     <!-- end of view mappings -->
 </site-conf>

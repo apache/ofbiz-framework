@@ -73,11 +73,20 @@ import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.*;
 import com.ebay.soap.eBLBaseComponents.AbstractRequestType;
+import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateRequestType;
+import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateResponseType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreOptionsRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreOptionsResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsArrayType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsType;
 import com.ebay.soap.eBLBaseComponents.SetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.SetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.StoreColorSchemeType;
@@ -1399,5 +1408,72 @@ public class EbayStore {
 		}
 		return ServiceUtil.returnSuccess();
 	}
+	
+	/* ebay store block out of stock items */
+	public static Map<String,Object> getSellingInventory(DispatchContext dctx, Map<String,Object> context){
+	       Locale locale = (Locale) context.get("locale");
+	       Delegator delegator = dctx.getDelegator();
+	       Map<String,Object> result = FastMap.newInstance();
+	       GetSellingManagerInventoryRequestType req = new GetSellingManagerInventoryRequestType();
+	       GetSellingManagerInventoryResponseType resp =  null;
 
+	       if(context.get("productStoreId") != null){
+	           GetSellingManagerInventoryCall call = new GetSellingManagerInventoryCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+
+	           try {
+	        	   Map<String,Object> ebayResp = FastMap.newInstance();
+	               SellingManagerProductType[] returnedSellingManagerProductType = null;
+	               resp = (GetSellingManagerInventoryResponseType)call.execute(req);
+	               if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+	                   returnedSellingManagerProductType  = resp.getSellingManagerProduct();
+	                   //result = ServiceUtil.returnSuccess("load store data success..");
+	                   for (int i=0;i<returnedSellingManagerProductType.length;i++){
+	                      SellingManagerProductInventoryStatusType sellingProductInventory = returnedSellingManagerProductType[i].getSellingManagerProductInventoryStatus();
+	                      SellingManagerProductDetailsType prodDetailType = returnedSellingManagerProductType[i].getSellingManagerProductDetails();
+	                      Long productID = (Long)prodDetailType.getProductID();
+	                      int qty = prodDetailType.getQuantityAvailable();
+
+	                      if (qty == 0){
+	                    	  SellingManagerTemplateDetailsArrayType sellingTempArr =  returnedSellingManagerProductType[i].getSellingManagerTemplateDetailsArray();
+	                          SellingManagerTemplateDetailsType[] selllingTempType = null;
+	                          if (UtilValidate.isNotEmpty(sellingTempArr)){
+	                        	  selllingTempType = sellingTempArr.getSellingManagerTemplateDetails();
+	                          }
+
+	                          if (selllingTempType.length > 0){
+	                        	  for (int j=0;j<selllingTempType.length;j++){
+	                                  Long longTemplete = Long.parseLong(selllingTempType[j].getSaleTemplateID());
+	                                  DeleteSellingManagerTemplateCall tcall = new DeleteSellingManagerTemplateCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+	                                  DeleteSellingManagerTemplateRequestType treq = new DeleteSellingManagerTemplateRequestType();
+	                                  DeleteSellingManagerTemplateResponseType tresp =  null;
+	                                  treq.setSaleTemplateID(longTemplete);
+
+	                                  tresp = (DeleteSellingManagerTemplateResponseType) tcall.execute(treq);
+	                                  if(tresp != null && "SUCCESS".equals(tresp.getAck().toString())){
+	                                      ebayResp.put("TemplateID", tresp.getDeletedSaleTemplateID());
+	                                      ebayResp.put("TemplateName", tresp.getDeletedSaleTemplateName());
+	                                      result.put("itemBlocked", ebayResp);
+	                                  }
+	                              }
+	                          }
+	                      }
+	                   }
+	                   result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+	                   if (UtilValidate.isNotEmpty(ebayResp.get("TemplateID"))){
+	                	   result.put(ModelService.SUCCESS_MESSAGE, "block "+ebayResp.get("TemplateID")+" out of stock success..");
+	                   }else{
+	                	   result.put(ModelService.SUCCESS_MESSAGE, "no item out of stock");
+	                   }
+
+	               }
+	           } catch (ApiException e) {
+	               e.printStackTrace();
+	           } catch (SdkSoapException e) {
+	               e.printStackTrace();
+	           } catch (SdkException e) {
+	               e.printStackTrace();
+	           }
+	       }
+	       return result;
+	   }
 }

@@ -322,4 +322,10 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
     </service>
+    <!-- block out of stock items -->
+    <service name="getSellingInventory" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebay.EbayStore" invoke="getSellingInventory" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemBlocked" type="Map" mode="OUT" optional="true"/>
+    </service>
 </services>

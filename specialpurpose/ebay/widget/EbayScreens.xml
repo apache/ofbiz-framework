@@ -381,6 +381,7 @@ under the License.
                     <order-by field-name="columnSeqId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
+                <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="ebayAccount"/>
             </actions>
             <widgets>
@@ -397,6 +398,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="feedback"/>
             </actions>
             <widgets>
@@ -423,6 +425,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
                 <set field="eBayTabButtonItem" value="Feedback"/>
                 <service service-name="loadFeedback"> 
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
@@ -455,6 +458,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
                 <set field="eBayTabButtonItem" value="LeaveFeedback"/>
                 <set field="role" from-field="parameters.role" default-value="all"/>
                 <service service-name="getItemsAwaitingFeedback" result-map="results"/>
@@ -478,6 +482,7 @@ under the License.
     <screen name="EbayAutomationPreferences">
         <section>
             <actions>
+                <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="automationPreferences"/>
                 <service service-name="getEbayStoreUser" result-map="result">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
@@ -497,10 +502,34 @@ under the License.
     </screen>
     <screen name="AutomationRelistSoldItems">
         <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="automationPreferences"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.EbayAutomationRelistItems}">
                     <include-form name="EditAutomationRelistSoldItems"  location="component://ebay/widget/EbayForms.xml"/>
                 </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- block out of stock  -->
+    <screen name="blockItemOutOfStock">
+        <section>
+            <actions>
+                <set field="titleProperty" value="Block items out of stock on eBay"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="blockItemOutOfStock"/>
+                <set field="productStoreId" value="${parameters.productStoreId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.BlockItemsOutOfStock}">
+                            <include-form name="blockItemsOutOfStock" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
