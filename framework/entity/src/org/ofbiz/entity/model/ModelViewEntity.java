@@ -75,7 +75,7 @@ public class ModelViewEntity extends ModelEntity {
     protected List<ModelMemberEntity> allModelMemberEntities = FastList.newInstance();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
-    protected Map<String, ModelEntity> memberModelEntities = null;
+    protected Map<String, String> memberModelEntities = null;
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
     protected List<ModelAliasAll> aliasAlls = FastList.newInstance();
@@ -194,7 +194,8 @@ public class ModelViewEntity extends ModelEntity {
             this.memberModelEntities = FastMap.newInstance();
             populateFields(this.getModelReader());
         }
-        return this.memberModelEntities.get(alias);
+        String entityName = this.memberModelEntities.get(alias);
+        return entityName != null ? this.getModelReader().getModelEntityNoCheck(entityName) : null;
     }
 
     public void addMemberModelMemberEntity(ModelMemberEntity modelMemberEntity) {
@@ -315,9 +316,10 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
-        for (Map.Entry<String, ModelEntity> memberEntityEntry: this.memberModelEntities.entrySet()) {
-            if (memberEntityEntry.getValue() instanceof ModelViewEntity) {
-                ModelViewEntity memberViewEntity = (ModelViewEntity) memberEntityEntry.getValue();
+        for (Map.Entry<String, String> memberEntityEntry: this.memberModelEntities.entrySet()) {
+            ModelEntity modelEntity = this.getModelReader().getModelEntityNoCheck(memberEntityEntry.getValue());
+            if (modelEntity instanceof ModelViewEntity) {
+                ModelViewEntity memberViewEntity = (ModelViewEntity) modelEntity;
                 entityAliasStack.add(memberEntityEntry.getKey());
                 memberViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, entityAliasStack);
                 entityAliasStack.remove(entityAliasStack.size() - 1);
@@ -407,7 +409,7 @@ public class ModelViewEntity extends ModelEntity {
             if (aliasedEntity == null) {
                 continue;
             }
-            memberModelEntities.put(entry.getKey(), aliasedEntity);
+            memberModelEntities.put(entry.getKey(), aliasedEntityName);
             Iterator<ModelField> aliasedFieldIterator = aliasedEntity.getFieldsIterator();
             while (aliasedFieldIterator.hasNext()) {
                 ModelField aliasedModelField = aliasedFieldIterator.next();
