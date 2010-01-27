@@ -106,7 +106,7 @@ public class ModelServiceReader implements Serializable {
         getModelServices();
     }
 
-    public Map<String, ModelService> getModelServices() {
+    private Map<String, ModelService> getModelServices() {
         if (modelServices == null) { // don't want to block here
             synchronized (ModelServiceReader.class) {
                 // must check if null again as one of the blocked threads can still enter
@@ -226,7 +226,7 @@ public class ModelServiceReader implements Serializable {
      * @param serviceName The serviceName of the Service definition to use.
      * @return An Service object describing the specified service of the specified descriptor file.
      */
-    public ModelService getModelService(String serviceName) {
+    private ModelService getModelService(String serviceName) {
         Map<String, ModelService> ec = getModelServices();
 
         if (ec != null)
@@ -239,7 +239,7 @@ public class ModelServiceReader implements Serializable {
      * Creates a Iterator with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Iterator of serviceName Strings
      */
-    public Iterator<String> getServiceNamesIterator() {
+    private Iterator<String> getServiceNamesIterator() {
         Collection<String> collection = getServiceNames();
 
         if (collection != null) {
@@ -253,13 +253,13 @@ public class ModelServiceReader implements Serializable {
      * Creates a Collection with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Collection of serviceName Strings
      */
-    public Collection<String> getServiceNames() {
+    private Collection<String> getServiceNames() {
         Map<String, ModelService> ec = getModelServices();
 
         return ec.keySet();
     }
 
-    protected ModelService createModelService(Element serviceElement, String resourceLocation) {
+    private ModelService createModelService(Element serviceElement, String resourceLocation) {
         ModelService service = new ModelService();
 
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
@@ -363,7 +363,7 @@ public class ModelServiceReader implements Serializable {
         return service;
     }
 
-    protected String getCDATADef(Element baseElement, String tagName) {
+    private String getCDATADef(Element baseElement, String tagName) {
         String value = "";
         NodeList nl = baseElement.getElementsByTagName(tagName);
 
@@ -381,7 +381,7 @@ public class ModelServiceReader implements Serializable {
         return value;
     }
 
-    protected void createNotification(Element baseElement, ModelService model) {
+    private void createNotification(Element baseElement, ModelService model) {
         List<? extends Element> n = UtilXml.childElementList(baseElement, "notification");
         // default notification groups
         ModelNotification nSuccess = new ModelNotification();
@@ -409,7 +409,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createPermission(Element baseElement, ModelService model) {
+    private void createPermission(Element baseElement, ModelService model) {
         Element e = UtilXml.firstChildElement(baseElement, "permission-service");
         if (e != null) {
             model.permissionServiceName = e.getAttribute("service-name");
@@ -419,7 +419,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createPermGroups(Element baseElement, ModelService model) {
+    private void createPermGroups(Element baseElement, ModelService model) {
         for (Element element: UtilXml.childElementList(baseElement, "required-permissions")) {
             ModelPermGroup group = new ModelPermGroup();
             group.joinType = element.getAttribute("join-type");
@@ -428,7 +428,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createGroupPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
+    private void createGroupPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
         // create the simple permissions
         for (Element element: UtilXml.childElementList(baseElement, "check-permission")) {
             ModelPermission perm = new ModelPermission();
@@ -453,7 +453,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createGroupDefs(Element baseElement, ModelService service) {
+    private void createGroupDefs(Element baseElement, ModelService service) {
         List<? extends Element> group = UtilXml.childElementList(baseElement, "group");
         if (UtilValidate.isNotEmpty(group)) {
             Element groupElement = group.get(0);
@@ -464,7 +464,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createImplDefs(Element baseElement, ModelService service) {
+    private void createImplDefs(Element baseElement, ModelService service) {
         for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
@@ -474,13 +474,13 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createAutoAttrDefs(Element baseElement, ModelService service) {
+    private void createAutoAttrDefs(Element baseElement, ModelService service) {
         for (Element element: UtilXml.childElementList(baseElement, "auto-attributes")) {
             createAutoAttrDef(element, service);
         }
     }
 
-    protected void createAutoAttrDef(Element autoElement, ModelService service) {
+    private void createAutoAttrDef(Element autoElement, ModelService service) {
         // get the entity name; first from the auto-attributes then from the service def
         String entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
         if (UtilValidate.isEmpty(entityName)) {
@@ -556,7 +556,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void createAttrDefs(Element baseElement, ModelService service) {
+    private void createAttrDefs(Element baseElement, ModelService service) {
         // Add in the defined attributes (override the above defaults if specified)
         for (Element attribute: UtilXml.childElementList(baseElement, "attribute")) {
             ModelParam param = new ModelParam();
@@ -680,7 +680,7 @@ public class ModelServiceReader implements Serializable {
         service.addParam(def);
     }
 
-    protected void createOverrideDefs(Element baseElement, ModelService service) {
+    private void createOverrideDefs(Element baseElement, ModelService service) {
         for (Element overrideElement: UtilXml.childElementList(baseElement, "override")) {
             String name = UtilXml.checkEmpty(overrideElement.getAttribute("name"));
             ModelParam param = service.getParam(name);
@@ -745,7 +745,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected void addValidators(Element attribute, ModelParam param) {
+    private void addValidators(Element attribute, ModelParam param) {
         List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
         if (UtilValidate.isNotEmpty(validateElements)) {
             // always clear out old ones; never append
@@ -770,7 +770,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    protected Document getDocument(URL url) {
+    private Document getDocument(URL url) {
         if (url == null)
             return null;
         Document document = null;
