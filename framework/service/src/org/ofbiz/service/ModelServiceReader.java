@@ -88,7 +88,7 @@ public class ModelServiceReader implements Serializable {
         return reader.getModelServices();
     }
 
-    protected ModelServiceReader(URL readerURL, DispatchContext dctx) {
+    private ModelServiceReader(URL readerURL, DispatchContext dctx) {
         this.isFromURL = true;
         this.readerURL = readerURL;
         this.handler = null;
@@ -97,7 +97,7 @@ public class ModelServiceReader implements Serializable {
         getModelServices();
     }
 
-    protected ModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
+    private ModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
         this.isFromURL = false;
         this.readerURL = null;
         this.handler = handler;
