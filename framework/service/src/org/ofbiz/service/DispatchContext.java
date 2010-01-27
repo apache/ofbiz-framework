@@ -21,6 +21,7 @@ package org.ofbiz.service;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -275,6 +276,7 @@ public class DispatchContext implements Serializable {
                                 serviceMap.putAll(readerServiceMap);
                             }
                         }
+                        serviceMap = new HashMap<String, ModelService>(serviceMap);
                     }
                     if (serviceMap != null) {
                         modelServiceMapByDispatcher.put(name, serviceMap);
