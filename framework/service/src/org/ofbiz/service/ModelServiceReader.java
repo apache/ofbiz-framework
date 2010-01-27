@@ -93,8 +93,6 @@ public class ModelServiceReader implements Serializable {
         this.readerURL = readerURL;
         this.handler = null;
         this.dctx = dctx;
-        // preload models...
-        getModelServices();
     }
 
     private ModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
@@ -102,16 +100,9 @@ public class ModelServiceReader implements Serializable {
         this.readerURL = null;
         this.handler = handler;
         this.dctx = dctx;
-        // preload models...
-        getModelServices();
     }
 
     private Map<String, ModelService> getModelServices() {
-        if (modelServices == null) { // don't want to block here
-            synchronized (ModelServiceReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                if (modelServices == null) { // now it's safe
-                    modelServices = FastMap.newInstance();
 
                     UtilTimer utilTimer = new UtilTimer();
 
@@ -122,7 +113,6 @@ public class ModelServiceReader implements Serializable {
                         document = getDocument(readerURL);
 
                         if (document == null) {
-                            modelServices = null;
                             return null;
                         }
                     } else {
@@ -135,13 +125,13 @@ public class ModelServiceReader implements Serializable {
                         }
                     }
 
+                    Map<String, ModelService> modelServices = FastMap.newInstance();
                     if (this.isFromURL) {// utilTimer.timerString("Before getDocumentElement in file " + readerURL);
                     } else {// utilTimer.timerString("Before getDocumentElement in " + handler);
                     }
 
                     Element docElement = document.getDocumentElement();
                     if (docElement == null) {
-                        modelServices = null;
                         return null;
                     }
 
@@ -215,9 +205,6 @@ public class ModelServiceReader implements Serializable {
                             Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
                         }
                     }
-                }
-            }
-        }
         return modelServices;
     }
 
