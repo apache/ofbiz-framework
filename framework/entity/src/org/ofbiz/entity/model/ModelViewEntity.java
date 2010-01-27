@@ -145,6 +145,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public ModelViewEntity(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
+        super(modelReader);
         this.entityName = dynamicViewEntity.getEntityName();
         this.packageName = dynamicViewEntity.getPackageName();
         this.title = dynamicViewEntity.getTitle();
