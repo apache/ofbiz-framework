@@ -138,9 +138,15 @@ under the License.
                     <set from-field="priceCost.lastPrice" field="inputMap.originalValue"/>
                     <set from-field="priceCost.currencyUomId" field="inputMap.uomId"/>
                     <set from-field="parameters.currencyUomId" field="inputMap.uomIdTo"/>
-                    <call-service service-name="convertUom" in-map-name="inputMap">
+                    
+                    <call-service service-name="convertUom" in-map-name="inputMap" require-new-transaction="true" break-on-error="false">
                         <result-to-field result-name="convertedValue" field="productCost"/>
                     </call-service>
+
+                    <!-- if currency conversion fails then a 0 cost will be returned -->
+                    <if-empty field="productCost">
+                        <set field="productCost" value="0" type="BigDecimal"/>
+                    </if-empty>
                 </if-not-empty>
             </if-compare>
         </if-compare>
