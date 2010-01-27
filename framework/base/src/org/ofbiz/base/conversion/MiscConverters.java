@@ -23,7 +23,11 @@ import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.Clob;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 import org.ofbiz.base.util.UtilMisc;
 
@@ -165,6 +169,86 @@ public class MiscConverters implements ConverterLoader {
             } else {
                 throw new ConversionException("Could not convert " + obj + " to Locale: ");
             }
+        }
+    }
+
+    public static class DecimalFormatToString extends AbstractConverter<DecimalFormat, String> {
+        public DecimalFormatToString() {
+            super(DecimalFormat.class, String.class);
+        }
+
+        public String convert(DecimalFormat obj) throws ConversionException {
+            return obj.toPattern();
+        }
+    }
+
+    public static class StringToDecimalFormat extends AbstractConverter<String, DecimalFormat> {
+        public StringToDecimalFormat() {
+            super(String.class, DecimalFormat.class);
+        }
+
+        public DecimalFormat convert(String obj) throws ConversionException {
+            return new DecimalFormat(obj);
+        }
+    }
+
+    public static class SimpleDateFormatToString extends AbstractConverter<SimpleDateFormat, String> {
+        public SimpleDateFormatToString() {
+            super(SimpleDateFormat.class, String.class);
+        }
+
+        public String convert(SimpleDateFormat obj) throws ConversionException {
+            return obj.toPattern();
+        }
+    }
+
+    public static class StringToSimpleDateFormat extends AbstractConverter<String, SimpleDateFormat> {
+        public StringToSimpleDateFormat() {
+            super(String.class, SimpleDateFormat.class);
+        }
+
+        public SimpleDateFormat convert(String obj) throws ConversionException {
+            return new SimpleDateFormat(obj);
+        }
+    }
+
+    public static class UUIDToString extends AbstractConverter<UUID, String> {
+        public UUIDToString() {
+            super(UUID.class, String.class);
+        }
+
+        public String convert(UUID obj) throws ConversionException {
+            return obj.toString();
+        }
+    }
+
+    public static class StringToUUID extends AbstractConverter<String, UUID> {
+        public StringToUUID() {
+            super(String.class, UUID.class);
+        }
+
+        public UUID convert(String obj) throws ConversionException {
+            return UUID.fromString(obj);
+        }
+    }
+
+    public static class RegexPatternToString extends AbstractConverter<Pattern, String> {
+        public RegexPatternToString() {
+            super(Pattern.class, String.class);
+        }
+
+        public String convert(Pattern obj) throws ConversionException {
+            return obj.toString();
+        }
+    }
+
+    public static class StringToRegexPattern extends AbstractConverter<String, Pattern> {
+        public StringToRegexPattern() {
+            super(String.class, Pattern.class);
+        }
+
+        public Pattern convert(String obj) throws ConversionException {
+            return Pattern.compile(obj);
         }
     }
 

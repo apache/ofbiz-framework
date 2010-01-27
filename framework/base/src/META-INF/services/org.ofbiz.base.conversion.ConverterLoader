@@ -19,5 +19,6 @@ org.ofbiz.base.conversion.BooleanConverters
 org.ofbiz.base.conversion.CollectionConverters
 org.ofbiz.base.conversion.DateTimeConverters
 org.ofbiz.base.conversion.MiscConverters
+org.ofbiz.base.conversion.NetConverters
 org.ofbiz.base.conversion.NumberConverters
 
