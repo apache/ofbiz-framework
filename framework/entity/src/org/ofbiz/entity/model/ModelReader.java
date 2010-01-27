@@ -20,6 +20,7 @@ package org.ofbiz.entity.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -200,7 +201,7 @@ public class ModelReader implements Serializable {
                     numRelations = 0;
                     numAutoRelations = 0;
 
-                    entityCache = FastMap.newInstance();
+                    entityCache = new HashMap<String, ModelEntity>();
                     List<ModelViewEntity> tempViewEntityList = FastList.newInstance();
                     List<Element> tempExtendEntityElementList = FastList.newInstance();
 
@@ -224,7 +225,6 @@ public class ModelReader implements Serializable {
                         Element docElement = document.getDocumentElement();
 
                         if (docElement == null) {
-                            entityCache = null;
                             return null;
                         }
                         docElement.normalize();
