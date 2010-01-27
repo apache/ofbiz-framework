@@ -79,25 +79,18 @@ public class ModelServiceReader implements Serializable {
             return null;
         }
 
-        ModelServiceReader reader = new ModelServiceReader(readerURL, dctx);
+        ModelServiceReader reader = new ModelServiceReader(true, readerURL, null, dctx);
         return reader.getModelServices();
     }
 
     public static Map<String, ModelService> getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
-        ModelServiceReader reader = new ModelServiceReader(handler, dctx);
+        ModelServiceReader reader = new ModelServiceReader(false, null, handler, dctx);
         return reader.getModelServices();
     }
 
-    private ModelServiceReader(URL readerURL, DispatchContext dctx) {
-        this.isFromURL = true;
+    private ModelServiceReader(boolean isFromURL, URL readerURL, ResourceHandler handler, DispatchContext dctx) {
+        this.isFromURL = isFromURL;
         this.readerURL = readerURL;
-        this.handler = null;
-        this.dctx = dctx;
-    }
-
-    private ModelServiceReader(ResourceHandler handler, DispatchContext dctx) {
-        this.isFromURL = false;
-        this.readerURL = null;
         this.handler = handler;
         this.dctx = dctx;
     }
