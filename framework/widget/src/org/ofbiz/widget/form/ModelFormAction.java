@@ -355,7 +355,12 @@ public abstract class ModelFormAction {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
 
-                Map<String, Object> result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = null;
+                if (this.ignoreError) {
+                    result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext, -1, true);
+                } else {
+                    result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
+                }
 
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
