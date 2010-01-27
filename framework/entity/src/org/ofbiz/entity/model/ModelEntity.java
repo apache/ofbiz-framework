@@ -32,6 +32,7 @@ import java.util.TimeZone;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -101,7 +102,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     protected List<ModelIndex> indexes = FastList.newInstance();
 
     /** map of ModelViewEntities that references this model */
-    protected Map<String, ModelViewEntity> viewEntities = FastMap.newInstance();
+    protected Set<String> viewEntities = FastSet.newInstance();
 
     /** An indicator to specify if this entity requires locking for updates */
     protected boolean doLock = false;
@@ -760,29 +761,25 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.viewEntities.size();
     }
 
-    public ModelViewEntity getViewEntity(String viewEntityName) {
-        return this.viewEntities.get(viewEntityName);
-    }
-
-    public Iterator<Map.Entry<String, ModelViewEntity>> getViewConvertorsIterator() {
-        return this.viewEntities.entrySet().iterator();
+    public Iterator<String> getViewConvertorsIterator() {
+        return this.viewEntities.iterator();
     }
 
     public void addViewEntity(ModelViewEntity view) {
-        this.viewEntities.put(view.getEntityName(), view);
+        this.viewEntities.add(view.getEntityName());
     }
 
     public List<? extends Map<String, Object>> convertToViewValues(String viewEntityName, GenericEntity entity) {
         if (entity == null || entity == GenericEntity.NULL_ENTITY || entity == GenericValue.NULL_VALUE) return UtilMisc.toList(entity);
-        ModelViewEntity view = this.viewEntities.get(viewEntityName);
+        ModelViewEntity view = (ModelViewEntity) entity.getDelegator().getModelEntity(viewEntityName);
         return view.convert(getEntityName(), entity);
     }
 
-    public ModelViewEntity removeViewEntity(String viewEntityName) {
+    public boolean removeViewEntity(String viewEntityName) {
         return this.viewEntities.remove(viewEntityName);
     }
 
-    public ModelViewEntity removeViewEntity(ModelViewEntity viewEntity) {
+    public boolean removeViewEntity(ModelViewEntity viewEntity) {
        return removeViewEntity(viewEntity.getEntityName());
     }
 

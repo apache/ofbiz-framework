@@ -165,10 +165,9 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
             //Debug.logInfo("In storeHook calling sub-storeHook for entity name [" + entityName + "] for the oldEntity: " + oldEntity, module);
         }
         storeHook(entityName, isPK, UtilMisc.toList(oldEntity), UtilMisc.toList(newEntity));
-        Iterator<Map.Entry<String, ModelViewEntity>> it = model.getViewConvertorsIterator();
+        Iterator<String> it = model.getViewConvertorsIterator();
         while (it.hasNext()) {
-            Map.Entry<String, ModelViewEntity> entry = it.next();
-            String targetEntityName = entry.getKey();
+            String targetEntityName = it.next();
             storeHook(targetEntityName, isPK, convert(isPK, targetEntityName, oldEntity), convert(false, targetEntityName, newEntity));
         }
     }
