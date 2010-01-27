@@ -126,11 +126,19 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** Default Constructor */
     public ModelEntity() {}
 
+    protected ModelEntity(ModelReader reader) {
+        this.modelReader = reader;
+    }
+
+    protected ModelEntity(ModelReader reader, ModelInfo def) {
+        super(def);
+        this.modelReader = reader;
+    }
+
     /** XML Constructor */
     protected ModelEntity(ModelReader reader, Element entityElement, ModelInfo def) {
-        super(def);
+        this(reader, def);
         populateFromAttributes(entityElement);
-        this.modelReader = reader;
     }
 
     /** XML Constructor */
