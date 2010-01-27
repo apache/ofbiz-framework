@@ -31,8 +31,6 @@ under the License.
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <property-map resource="AccountingHelpUrls" map-name="helpUrlsMap" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AccountingCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,

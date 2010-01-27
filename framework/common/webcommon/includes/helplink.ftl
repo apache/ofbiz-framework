@@ -18,25 +18,9 @@ under the License.
 -->
 
   <#assign helpTopic = webSiteId + "_" + requestAttributes._CURRENT_VIEW_ />
-  <#assign helpUrlPrefix = "" />
-  <#assign helpUrlSuffix = "" />
-
 
 <#-- uncomment this to show the current screen help topic key (this is usefull to cut and paste in the help link resources files
 ${helpTopic}
 -->
-  <#if Static["org.ofbiz.base.component.ComponentConfig"].componentExists("content")>
-    <#assign helpContent = "Y"/>
-    <#assign pageAvail = delegator.findByAnd("ContentAssoc", {"mapKey" : helpTopic})/>
-  </#if>
-  
-  <#-- content in confluence --> 
-  <#if helpUrlsMap["Prefix"] != "Prefix">
-    <#assign helpUrlPrefix = helpUrlsMap["Prefix"] />
-  </#if>
-  <#if helpUrlsMap["Suffix"] != "Suffix">
-    <#assign helpUrlSuffix = helpUrlsMap["Suffix"] />
-  </#if>
-  <#if helpUrlsMap[helpTopic] != helpTopic >
-    <#assign helpUrlTopic = helpUrlsMap[helpTopic] />
-  </#if>
+  <#assign pageAvail = delegator.findByAnd("ContentAssoc", {"mapKey" : helpTopic})/>
+ 

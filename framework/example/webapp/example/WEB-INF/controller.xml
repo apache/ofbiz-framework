@@ -202,10 +202,6 @@ under the License.
       <response name="success" type="view" value="printExampleFOPFonts"/>
     </request-map>
 
-    <request-map uri="showHelp">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="showHelp"/>
-    </request-map>
     <request-map uri="views">
         <security https="true" auth="false"/>
         <response name="success" type="request" value="main"/>
@@ -244,7 +240,6 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/CommonScreens.xml#main"/>
-    <view-map name="help" type="screen" page="component://example/widget/example/ExampleScreens.xml#help"/>
 
     <view-map name="FindExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#FindExample"/>
     <view-map name="EditExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExample"/>
@@ -265,10 +260,6 @@ under the License.
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
     <view-map name="CreateExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#CreateExampleFormOnly"/>
     <view-map name="printExampleFOPFonts" type="screenfop" page="component://example/widget/example/FormWidgetExampleScreens.xml#printExampleFOPFonts" content-type="application/pdf"  encoding="none"/>
-    <!-- Commenting these out because commonext is an application component and shouldn't be referred to from the framework
-    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
-    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
-    -->
 
     <view-map name="ExampleGeoLocationPointSet1" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet1"/>
     <view-map name="ExampleGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet2"/>
