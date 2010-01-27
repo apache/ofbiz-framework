@@ -32,8 +32,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <property-map resource="ProjectMgrHelpUrls" map-name="helpUrlsMap" global="true"/>
-
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
 

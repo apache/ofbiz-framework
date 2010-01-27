@@ -34,26 +34,6 @@
         <value xml:lang="fr">Dernière date de changement</value>
         <value xml:lang="it">Data ultimo cambiamento</value>
     </property>
-    <property key="CommonExtHelpDefinition">
-        <value xml:lang="en">Definition, what is it?</value>
-        <value xml:lang="it">Definizione, che cose'è ?</value>
-    </property>
-    <property key="CommonExtHelpTitle">
-        <value xml:lang="en">Help screen.</value>
-        <value xml:lang="it">Videata di aiuto.</value>
-    </property>
-    <property key="CommonExtHelpUsedFor">
-        <value xml:lang="en">What is it used for?</value>
-        <value xml:lang="it">Per cosa verrà usato ?</value>
-    </property>
-    <property key="CommonExtHelpOnScreen">
-        <value xml:lang="en">What's on the screen?</value>
-        <value xml:lang="it">Che cosa ci sarà in questa videata ?</value>
-    </property>
-    <property key="CommonExtIndex">
-        <value xml:lang="en">Index</value>
-        <value xml:lang="it">Indice</value>
-    </property>
     <property key="CommonExtSystemInfoNote">
         <value xml:lang="en">System Info Note</value>
         <value xml:lang="fr">Message d'information système</value>

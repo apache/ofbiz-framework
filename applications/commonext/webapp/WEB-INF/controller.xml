@@ -24,15 +24,6 @@ under the License.
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
     <!-- Request Mappings -->
-    <request-map uri="view">
-        <security https="false" auth="false"/>
-        <response name="success" type="request" value="main"/>
-    </request-map>
-    <request-map uri="views">
-        <security https="true" auth="false"/>
-        <response name="success" type="request" value="main"/>
-    </request-map>
-    
     <request-map uri="deleteAllSystemNotes">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteAllSystemNotes"/>
@@ -44,13 +35,5 @@ under the License.
         <event type="service" invoke="createSystemInfoNote"/>
         <response name="success" type="view-last"/>
     </request-map>
-    
-    <request-map uri="showHelp">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="showHelp"/>
-    </request-map>
-
-    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
-    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
     
 </site-conf>

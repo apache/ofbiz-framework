@@ -96,6 +96,14 @@ under the License.
         <response name="success" type="view" value="forgotPassword"/>
         <response name="error" type="view" value="forgotPassword"/>
     </request-map>
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+    <request-map uri="views">
+        <security https="true" auth="false"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
 
     <!-- Common Mappings used for locales and timezones -->
     <request-map uri="LookupLocales"><security https="true" auth="false"/><response name="success" type="view" value="LookupLocales" save-last-view="true"/></request-map>
@@ -177,6 +185,11 @@ under the License.
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
         <response name="success" type="none"/>
     </request-map>
+    
+    <request-map uri="showHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showHelp"/>
+    </request-map>
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
@@ -194,6 +207,8 @@ under the License.
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 
     <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
+    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
+    <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
     <view-map name="geoLocation" type="screen" page="component://common/widget/CommonScreens.xml#geoLocation"/>
 
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
