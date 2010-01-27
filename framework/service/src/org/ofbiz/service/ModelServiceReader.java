@@ -221,44 +221,6 @@ public class ModelServiceReader implements Serializable {
         return modelServices;
     }
 
-    /**
-     * Gets an Service object based on a definition from the specified XML Service descriptor file.
-     * @param serviceName The serviceName of the Service definition to use.
-     * @return An Service object describing the specified service of the specified descriptor file.
-     */
-    private ModelService getModelService(String serviceName) {
-        Map<String, ModelService> ec = getModelServices();
-
-        if (ec != null)
-            return ec.get(serviceName);
-        else
-            return null;
-    }
-
-    /**
-     * Creates a Iterator with the serviceName of each Service defined in the specified XML Service Descriptor file.
-     * @return A Iterator of serviceName Strings
-     */
-    private Iterator<String> getServiceNamesIterator() {
-        Collection<String> collection = getServiceNames();
-
-        if (collection != null) {
-            return collection.iterator();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Creates a Collection with the serviceName of each Service defined in the specified XML Service Descriptor file.
-     * @return A Collection of serviceName Strings
-     */
-    private Collection<String> getServiceNames() {
-        Map<String, ModelService> ec = getModelServices();
-
-        return ec.keySet();
-    }
-
     private ModelService createModelService(Element serviceElement, String resourceLocation) {
         ModelService service = new ModelService();
 
