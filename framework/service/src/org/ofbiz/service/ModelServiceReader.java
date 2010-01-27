@@ -265,7 +265,11 @@ public class ModelServiceReader implements Serializable {
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
         Wrap<GenericInvoker> wrap = new Wrap<GenericInvoker>().fileName(resourceLocation + '#' + service.name).wrappedClass(GenericInvokerImpl.class);
         for (Method method: GenericInvokerImpl.class.getDeclaredMethods()) {
-            wrap.wrap(method);
+            if (method.getName().startsWith("run")) {
+                wrap.wrap(method);
+            } else if (method.getName().startsWith("send")) {
+                wrap.wrap(method);
+            }
         }
         Object startLine = serviceElement.getUserData("startLine");
         if (startLine != null) {
@@ -806,23 +810,21 @@ public class ModelServiceReader implements Serializable {
         }
 
         public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
-            engine.runAsync(localName, modelService, context, requester, persist);
+            if (requester != null) {
+                engine.runAsync(localName, modelService, context, requester, persist);
+            } else {
+                engine.runAsync(localName, modelService, context, persist);
+            }
         }
 
-        public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, boolean persist) throws GenericServiceException {
-            engine.runAsync(localName, modelService, context, persist);
-        }
-
-        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, int mode) throws GenericServiceException {
-            engine.sendCallbacks(modelService, context, mode);
-        }
-
-        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
-            engine.sendCallbacks(modelService, context, result, mode);
-        }
-
-        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
-            engine.sendCallbacks(modelService, context, t, mode);
+        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, Throwable t, int mode) throws GenericServiceException {
+            if (t != null) {
+                engine.sendCallbacks(modelService, context, t, mode);
+            } else if (result != null) {
+                engine.sendCallbacks(modelService, context, result, mode);
+            } else {
+                engine.sendCallbacks(modelService, context, mode);
+            }
         }
 
         public GenericInvokerImpl copy(ModelService modelService) {
