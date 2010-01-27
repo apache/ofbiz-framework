@@ -64,17 +64,6 @@ public interface GenericInvoker extends Invoker {
         throws GenericServiceException;
 
     /**
-     * Run the service asynchronously and IGNORE the result.
-     *
-     * @param localName Name of the LocalDispatcher.
-     * @param engine GenericEngine object.
-     * @param context Map of name, value pairs composing the context.
-     * @param persist True for store/run; False for run.
-     * @throws GenericServiceException
-     */
-    public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, boolean persist) throws GenericServiceException;
-
-    /**
      * Send the service callbacks
      * @param engine GenericEngine object
      * @param context Map of name, value pairs composing the context
@@ -82,9 +71,7 @@ public interface GenericInvoker extends Invoker {
      * @param mode Service mode (sync or async)
      * @throws GenericServiceException
      */
-    public void sendCallbacks(GenericEngine engine, Map<String, Object> context, int mode) throws GenericServiceException;
-    public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException;
-    public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException;
+    public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, Throwable t, int mode) throws GenericServiceException;
     public GenericInvoker copy(ModelService modelService);
 }
 
