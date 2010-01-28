@@ -2154,3 +2154,72 @@ Webtools
 margin:0.75em 0 0.09em 0;
 text-transform:uppercase;
 }
+
+/***********************************************
+Lookups
+***********************************************/
+ .fieldLookup{
+    background: #ffffff;
+    border-right: 2px solid #999;
+    border-left: 2px solid #999;
+    border-bottom: 3px solid #999;
+    position: absolute;
+    padding: 3px 1 1 1;
+    overflow: visible;
+    z-index: 1000;
+    visibility: visible;
+ }
+
+ .fieldLookupHeader{
+    border-bottom: 1px solid #aaa;
+    border-top: 1px solid #999;
+    margin: 0;
+    height: 18px;
+    font-size: 12px;
+    padding: 3px 0;
+    color: #333;
+    background-image: url(../images/header_bg.gif);
+    cursor: move;
+ }
+
+ .fieldLookupHeader span{
+     text-align: right;
+     cursor: pointer;
+ }
+
+ .fieldLookupHeader span div{
+     background-image: url(../images/header_close_button.png);
+     float: right;
+     width: 16px;
+     height: 16px;
+ }
+
+ #fieldLookupContent{
+     background-color: #ffffff;
+     margin: 0;
+     padding: 0;
+     border: 0;
+     overflow: auto;
+     width:100%;
+     height:95%;
+ }
+
+/* overwrite */
+ #fieldLookupContent ul li a{
+     display: inherit;
+     padding: 2px 3px 2px 3px;
+     margin: 0;
+     cursor: pointer;
+
+ }
+
+ #fieldLookupContent td a{
+     display: inherit;
+     cursor: pointer;
+     background-image: none;
+ }
+
+/* overwrite*/
+ #findScreenlet{
+     margin-top: 0;
+ }

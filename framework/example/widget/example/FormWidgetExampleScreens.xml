@@ -54,6 +54,10 @@ under the License.
                                     <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                 </container>
                                 <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFields}</label></container>
+                                    <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                </container>
+                                <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">${uiLabelMap.ExampleGroupFields}</label></container>
                                     <container style="screenlet-body">
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
