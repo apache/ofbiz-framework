@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.collections.MapContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -122,81 +123,163 @@ public class ConfigXMLReader {
         }
 
         public String getErrorpage() {
-            return errorpage;
+            if (errorpage != null) {
+                return errorpage;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String errorpage = controllerConfig.getErrorpage();
+                if (errorpage != null) {
+                    return errorpage;
+                }
+            }
+            return null;
         }
 
         public String getProtectView() {
-            return protectView;
+            if (protectView != null) {
+                return protectView;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String protectView = controllerConfig.getProtectView();
+                if (protectView != null) {
+                    return protectView;
+                }
+            }
+            return null;
         }
 
         public String getOwner() {
-            return owner;
+            if (owner != null) {
+                return owner;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String owner = controllerConfig.getOwner();
+                if (owner != null) {
+                    return owner;
+                }
+            }
+            return null;
         }
 
         public String getSecurityClass() {
-            return securityClass;
+            if (securityClass != null) {
+                return securityClass;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String securityClass = controllerConfig.getSecurityClass();
+                if (securityClass != null) {
+                    return securityClass;
+                }
+            }
+            return null;
         }
 
         public String getDefaultRequest() {
-            return defaultRequest;
+            if (defaultRequest != null) {
+                return defaultRequest;
+            }
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                String defaultRequest = controllerConfig.getDefaultRequest();
+                if (defaultRequest != null) {
+                    return defaultRequest;
+                }
+            }
+            return null;
         }
 
         public Map<String, Event> getFirstVisitEventList() {
-            return firstVisitEventList;
+            MapContext<String, Event> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getFirstVisitEventList());
+            }
+            result.push(firstVisitEventList);
+            return result;
         }
 
         public Map<String, Event> getPreprocessorEventList() {
-            return preprocessorEventList;
+            MapContext<String, Event> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getPreprocessorEventList());
+            }
+            result.push(preprocessorEventList);
+            return result;
         }
 
         public Map<String, Event> getPostprocessorEventList() {
-            return postprocessorEventList;
+            MapContext<String, Event> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getPostprocessorEventList());
+            }
+            result.push(postprocessorEventList);
+            return result;
         }
 
         public Map<String, Event> getAfterLoginEventList() {
-            return afterLoginEventList;
+            MapContext<String, Event> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getAfterLoginEventList());
+            }
+            result.push(afterLoginEventList);
+            return result;
         }
 
         public Map<String, Event> getBeforeLogoutEventList() {
-            return beforeLogoutEventList;
+            MapContext<String, Event> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getBeforeLogoutEventList());
+            }
+            result.push(beforeLogoutEventList);
+            return result;
         }
 
         public Map<String, String> getEventHandlerMap() {
-            return eventHandlerMap;
+            MapContext<String, String> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getEventHandlerMap());
+            }
+            result.push(eventHandlerMap);
+            return result;
         }
 
         public Map<String, String> getViewHandlerMap() {
-            return viewHandlerMap;
+            MapContext<String, String> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getViewHandlerMap());
+            }
+            result.push(viewHandlerMap);
+            return result;
         }
 
         public Map<String, RequestMap> getRequestMapMap() {
-            return requestMapMap;
+            MapContext<String, RequestMap> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getRequestMapMap());
+            }
+            result.push(requestMapMap);
+            return result;
         }
 
         public Map<String, ViewMap> getViewMapMap() {
-            return viewMapMap;
-        }
-
-        protected void absorbControllerConfig(ControllerConfig controllerConfig) {
-            // copy/add all data except the url
-
-            this.errorpage = controllerConfig.errorpage;
-            this.protectView = controllerConfig.protectView;
-            this.owner = controllerConfig.owner;
-            this.securityClass = controllerConfig.securityClass;
-            this.defaultRequest = controllerConfig.defaultRequest;
-
-            this.firstVisitEventList.putAll(controllerConfig.firstVisitEventList);
-            this.preprocessorEventList.putAll(controllerConfig.preprocessorEventList);
-            this.postprocessorEventList.putAll(controllerConfig.postprocessorEventList);
-            this.afterLoginEventList.putAll(controllerConfig.afterLoginEventList);
-            this.beforeLogoutEventList.putAll(controllerConfig.beforeLogoutEventList);
-
-            this.eventHandlerMap.putAll(controllerConfig.eventHandlerMap);
-            this.viewHandlerMap.putAll(controllerConfig.viewHandlerMap);
-
-            this.requestMapMap.putAll(controllerConfig.requestMapMap);
-            this.viewMapMap.putAll(controllerConfig.viewMapMap);
+            MapContext<String, ViewMap> result = MapContext.getMapContext();
+            for (URL includeLocation: includes) {
+                ControllerConfig controllerConfig = getControllerConfig(includeLocation);
+                result.push(controllerConfig.getViewMapMap());
+            }
+            result.push(viewMapMap);
+            return result;
         }
 
         protected void loadIncludes(Element rootElement) {
@@ -204,8 +287,9 @@ public class ConfigXMLReader {
                 String includeLocation = includeElement.getAttribute("location");
                 if (UtilValidate.isNotEmpty(includeLocation)) {
                     try {
-                        ControllerConfig controllerConfig = getControllerConfig(FlexibleLocation.resolveLocation(includeLocation));
-                        this.absorbControllerConfig(controllerConfig);
+                        URL urlLocation = FlexibleLocation.resolveLocation(includeLocation);
+                        includes.add(urlLocation);
+                        ControllerConfig controllerConfig = getControllerConfig(urlLocation);
                     } catch (MalformedURLException mue) {
                         Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                     }
