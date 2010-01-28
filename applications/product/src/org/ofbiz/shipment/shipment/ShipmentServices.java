@@ -139,6 +139,7 @@ public class ShipmentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Problem removing entity or related entities (" + e.toString() + ")");
         }
+        /* Commented out this code because QuantityBreak may be used by other records
         try {
             if (estimate.get("weightBreakId") != null) {
                 delegator.removeRelated("WeightQuantityBreak", estimate);
@@ -160,6 +161,7 @@ public class ShipmentServices {
         } catch (GenericEntityException e) {
             Debug.logInfo("Not removing PriceQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
         }
+        */
         return ServiceUtil.returnSuccess();
     }
 
