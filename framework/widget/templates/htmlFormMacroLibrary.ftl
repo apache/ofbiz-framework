@@ -414,7 +414,7 @@ ${item.description}</div>
 <li><#if lookupPresentation?has_content && lookupPresentation == "layer">
  <a href="javascript:call_fieldlookupLayer(document.${formName?html}.${name?html},'${lookupFieldFormName}','${lookupWidth}','${lookupHeight}','${lookupPosition}'<#rt/>
 <#elseif descriptionFieldName?has_content>
- <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},'${descriptionFieldName}','${lookupFieldFormName}'<#rt/>
+ <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html}, document.${formName?html}.${descriptionFieldName},'${lookupFieldFormName}'<#rt/>
 <#else>
  <a href="javascript:call_fieldlookup2(document.${formName}.${name},'${lookupFieldFormName}'<#rt/>
 </#if>
