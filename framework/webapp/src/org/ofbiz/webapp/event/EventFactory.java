@@ -59,7 +59,7 @@ public class EventFactory {
     }
 
     private void preLoadAll() throws EventHandlerException {
-        Set<String> handlers = this.requestHandler.getControllerConfig().eventHandlerMap.keySet();
+        Set<String> handlers = this.requestHandler.getControllerConfig().getEventHandlerMap().keySet();
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadEventHandler(type));
@@ -96,7 +96,7 @@ public class EventFactory {
 
     private EventHandler loadEventHandler(String type) throws EventHandlerException {
         EventHandler handler = null;
-        String handlerClass = this.requestHandler.getControllerConfig().eventHandlerMap.get(type);
+        String handlerClass = this.requestHandler.getControllerConfig().getEventHandlerMap().get(type);
         if (handlerClass == null) {
             throw new EventHandlerException("Unknown handler type: " + type);
         }
@@ -121,7 +121,7 @@ public class EventFactory {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         RequestHandler handler = (RequestHandler) application.getAttribute("_REQUEST_HANDLER_");
         ConfigXMLReader.ControllerConfig controllerConfig = handler.getControllerConfig();
-        ConfigXMLReader.RequestMap requestMap = controllerConfig.requestMapMap.get(requestUri);
+        ConfigXMLReader.RequestMap requestMap = controllerConfig.getRequestMapMap().get(requestUri);
         return handler.runEvent(request, response, requestMap.event, requestMap, "unknown");
     }
 }

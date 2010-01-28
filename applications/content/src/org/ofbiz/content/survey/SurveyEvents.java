@@ -43,7 +43,7 @@ public class SurveyEvents {
         RequestHandler rh = (RequestHandler) request.getAttribute("_REQUEST_HANDLER_");
         ConfigXMLReader.ControllerConfig controllerConfig = rh.getControllerConfig();
         String requestUri = (String) request.getAttribute("thisRequestUri");
-        RequestMap requestMap = controllerConfig.requestMapMap.get(requestUri);
+        RequestMap requestMap = controllerConfig.getRequestMapMap().get(requestUri);
         String eventResponse = null;
         try {
             eventResponse = rh.runEvent(request, response, createSurveyResponseEvent, requestMap, null);

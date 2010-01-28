@@ -208,14 +208,14 @@ public class ArtifactInfoFactory {
                         throw new GeneralException(mue.getMessage());
                     }
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-                    for (String requestUri: cc.requestMapMap.keySet()) {
+                    for (String requestUri: cc.getRequestMapMap().keySet()) {
                         try {
                             this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
                         } catch (GeneralException e) {
                             Debug.logWarning(e.getMessage(), module);
                         }
                     }
-                    for (String viewUri: cc.viewMapMap.keySet()) {
+                    for (String viewUri: cc.getViewMapMap().keySet()) {
                         try {
                             this.getControllerViewArtifactInfo(controllerUrl, viewUri);
                         } catch (GeneralException e) {
@@ -255,12 +255,12 @@ public class ArtifactInfoFactory {
     }
 
     public ConfigXMLReader.RequestMap getControllerRequestMap(URL controllerXmlUrl, String requestUri) {
-        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMapMap.get(requestUri);
+        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).getRequestMapMap().get(requestUri);
     }
 
     public ConfigXMLReader.ViewMap getControllerViewMap(URL controllerXmlUrl, String viewUri) {
         ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerXmlUrl);
-        return cc.viewMapMap.get(viewUri);
+        return cc.getViewMapMap().get(viewUri);
     }
 
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {

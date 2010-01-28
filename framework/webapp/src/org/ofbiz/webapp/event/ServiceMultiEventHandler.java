@@ -161,7 +161,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         //  event should be wrapped in a transaction
         String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
         ConfigXMLReader.ControllerConfig controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
-        boolean eventGlobalTransaction = controllerConfig.requestMapMap.get(requestUri).event.globalTransaction;
+        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).event.globalTransaction;
 
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 

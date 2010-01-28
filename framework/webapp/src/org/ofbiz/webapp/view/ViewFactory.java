@@ -57,7 +57,7 @@ public class ViewFactory {
     }
 
     private void preLoadAll() throws ViewHandlerException {
-        Set<String> handlers = this.requestHandler.getControllerConfig().viewHandlerMap.keySet();
+        Set<String> handlers = this.requestHandler.getControllerConfig().getViewHandlerMap().keySet();
         if (handlers != null) {
             for (String type: handlers) {
                 this.handlers.put(type, this.loadViewHandler(type));
@@ -111,7 +111,7 @@ public class ViewFactory {
 
     private ViewHandler loadViewHandler(String type) throws ViewHandlerException {
         ViewHandler handler = null;
-        String handlerClass = this.requestHandler.getControllerConfig().viewHandlerMap.get(type);
+        String handlerClass = this.requestHandler.getControllerConfig().getViewHandlerMap().get(type);
         if (handlerClass == null) {
             throw new ViewHandlerException("Unknown handler type: " + type);
         }

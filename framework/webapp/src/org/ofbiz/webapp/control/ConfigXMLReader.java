@@ -81,23 +81,24 @@ public class ConfigXMLReader {
     public static class ControllerConfig {
         public URL url;
 
-        public String errorpage;
-        public String protectView;
-        public String owner;
-        public String securityClass;
-        public String defaultRequest;
+        private String errorpage;
+        private String protectView;
+        private String owner;
+        private String securityClass;
+        private String defaultRequest;
 
-        public Map<String, Event> firstVisitEventList = FastMap.newInstance();
-        public Map<String, Event> preprocessorEventList = FastMap.newInstance();
-        public Map<String, Event> postprocessorEventList = FastMap.newInstance();
-        public Map<String, Event> afterLoginEventList = FastMap.newInstance();
-        public Map<String, Event> beforeLogoutEventList = FastMap.newInstance();
+        private List<URL> includes = FastList.newInstance();
+        private Map<String, Event> firstVisitEventList = FastMap.newInstance();
+        private Map<String, Event> preprocessorEventList = FastMap.newInstance();
+        private Map<String, Event> postprocessorEventList = FastMap.newInstance();
+        private Map<String, Event> afterLoginEventList = FastMap.newInstance();
+        private Map<String, Event> beforeLogoutEventList = FastMap.newInstance();
 
-        public Map<String, String> eventHandlerMap = FastMap.newInstance();
-        public Map<String, String> viewHandlerMap = FastMap.newInstance();
+        private Map<String, String> eventHandlerMap = FastMap.newInstance();
+        private Map<String, String> viewHandlerMap = FastMap.newInstance();
 
-        public Map<String, RequestMap> requestMapMap = FastMap.newInstance();
-        public Map<String, ViewMap> viewMapMap = FastMap.newInstance();
+        private Map<String, RequestMap> requestMapMap = FastMap.newInstance();
+        private Map<String, ViewMap> viewMapMap = FastMap.newInstance();
 
         public ControllerConfig(URL url) {
             this.url = url;
@@ -118,6 +119,62 @@ public class ConfigXMLReader {
                     Debug.logInfo("controller loaded: " + totalSeconds + "s, " + this.requestMapMap.size() + " requests, " + this.viewMapMap.size() + " views in " + locString, module);
                 }
             }
+        }
+
+        public String getErrorpage() {
+            return errorpage;
+        }
+
+        public String getProtectView() {
+            return protectView;
+        }
+
+        public String getOwner() {
+            return owner;
+        }
+
+        public String getSecurityClass() {
+            return securityClass;
+        }
+
+        public String getDefaultRequest() {
+            return defaultRequest;
+        }
+
+        public Map<String, Event> getFirstVisitEventList() {
+            return firstVisitEventList;
+        }
+
+        public Map<String, Event> getPreprocessorEventList() {
+            return preprocessorEventList;
+        }
+
+        public Map<String, Event> getPostprocessorEventList() {
+            return postprocessorEventList;
+        }
+
+        public Map<String, Event> getAfterLoginEventList() {
+            return afterLoginEventList;
+        }
+
+        public Map<String, Event> getBeforeLogoutEventList() {
+            return beforeLogoutEventList;
+        }
+
+        public Map<String, String> getEventHandlerMap() {
+            return eventHandlerMap;
+        }
+
+        public Map<String, String> getViewHandlerMap() {
+            return viewHandlerMap;
+        }
+
+        public Map<String, RequestMap> getRequestMapMap() {
+            return requestMapMap;
+        }
+
+        public Map<String, ViewMap> getViewMapMap() {
+            return viewMapMap;
         }
 
         protected void absorbControllerConfig(ControllerConfig controllerConfig) {
