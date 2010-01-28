@@ -408,14 +408,16 @@ ${item.description}</div>
 </#if>
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled>
+<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled lookupPresentation lookupWidth lookupHeight lookupPosition>
 <div class="field-lookup"><ul>
 <li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></li>
-<li><#if descriptionFieldName?has_content>
- <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html}, document.${formName?html}.${descriptionFieldName},<#rt/>
- <#else>
- <a href="javascript:call_fieldlookup2(document.${formName}.${name},<#rt/>
-</#if>'${lookupFieldFormName}'<#rt>
+<li><#if lookupPresentation?has_content && lookupPresentation == "layer">
+ <a href="javascript:call_fieldlookupLayer(document.${formName?html}.${name?html},'${lookupFieldFormName}','${lookupWidth}','${lookupHeight}','${lookupPosition}'<#rt/>
+<#elseif descriptionFieldName?has_content>
+ <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},'${descriptionFieldName}','${lookupFieldFormName}'<#rt/>
+<#else>
+ <a href="javascript:call_fieldlookup2(document.${formName}.${name},'${lookupFieldFormName}'<#rt/>
+</#if>
 <#if targetParameterIter?exists>
  <#list targetParameterIter as item>
   ,document.${formName}.${item}.value<#rt>
