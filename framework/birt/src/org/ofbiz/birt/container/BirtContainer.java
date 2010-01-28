@@ -65,7 +65,6 @@ public class BirtContainer implements Container {
 
     public void init(String[] args, String configFile)
             throws ContainerException {
-        // TODO Auto-generated method stub
         this.configFile = configFile;
     }
 
@@ -73,8 +72,6 @@ public class BirtContainer implements Container {
      * start container
      */
     public boolean start() throws ContainerException {
-        // TODO Auto-generated method stub
-
         Debug.logInfo("Start birt container", module);
 
         // make sure the subclass sets the config name
@@ -165,8 +162,6 @@ public class BirtContainer implements Container {
     }
 
     public void stop() throws ContainerException {
-        // TODO Auto-generated method stub
-
     }
 
     public String getContainerConfigName() {

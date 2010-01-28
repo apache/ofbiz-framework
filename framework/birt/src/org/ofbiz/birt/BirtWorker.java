@@ -19,7 +19,6 @@
 package org.ofbiz.birt;
 
 import java.io.OutputStream;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Map;
@@ -38,8 +37,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.container.BirtContainer;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 public class BirtWorker {
 

@@ -18,26 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.birt.report.servlet;
 
-import java.io.IOException;
-
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.core.exception.BirtException;
-import org.eclipse.birt.report.IBirtConstants;
 import org.eclipse.birt.report.context.IContext;
-import org.eclipse.birt.report.presentation.aggregation.IFragment;
 import org.eclipse.birt.report.presentation.aggregation.layout.FramesetFragment;
 import org.eclipse.birt.report.presentation.aggregation.layout.RunFragment;
 import org.eclipse.birt.report.service.BirtReportServiceFactory;
-import org.eclipse.birt.report.servlet.BirtSoapMessageDispatcherServlet;
 import org.eclipse.birt.report.servlet.ViewerServlet;
-import org.eclipse.birt.report.utility.BirtUtility;
 import org.ofbiz.birt.report.context.OFBizBirtContext;
 import org.ofbiz.birt.report.service.OFBizBirtViewerReportService;
 
+@SuppressWarnings("serial")
 public class BirtViewerServlet extends ViewerServlet {
 
     public final static String module = BirtViewerServlet.class.getName();

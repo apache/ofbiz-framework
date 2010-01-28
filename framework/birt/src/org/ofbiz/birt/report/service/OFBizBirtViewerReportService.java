@@ -61,13 +61,11 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
 
     public OFBizBirtViewerReportService(ServletContext servletContext) {
         super(servletContext);
-        // TODO Auto-generated constructor stub
     }
 
     public String runReport(IViewerReportDesignHandle design,
             String outputDocName, InputOptions runOptions, Map parameters,
             Map displayTexts, List<Exception> errorList) throws ReportServiceException {
-        // TODO Auto-generated method stub
 
         if ( design == null || design.getDesignObject( ) == null )
             throw new ReportServiceException( BirtResources.getMessage( ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN ) );
