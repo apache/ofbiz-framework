@@ -57,6 +57,7 @@
         visualThemeId="EC_DEFAULT" prodSearchExcludeVariants="Y" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
     <ProductStoreRole partyId="esandbox10543" roleTypeId="EBAY_ACCOUNT" productStoreId="esandbox10543_store" fromDate="2010-01-01 16:19:47.058"/>
     <ProductStoreCatalog productStoreId="esandbox10543_store" prodCatalogId="eBayCatalog" fromDate="2010-01-01 16:19:47.058"/>
+    <ProductStoreFacility productStoreId="esandbox10543_store" facilityId="WebStoreWarehouse" fromDate="2010-01-01 16:19:47.058"/>
     
     <WebSite webSiteId="EBAY" siteName="eBay" standardContentPrefix="http://demo.ofbiz.org" productStoreId="esandbox10543_store"/>
     <EbayConfig productStoreId="esandbox10543_store" devId="f3586481-93c7-4aaf-ab87-d383d56b71b1" appId="antwebc0f-9bf9-4829-998b-e5e8fb773ac" certId="7f363bc0-11d6-489a-a54d-4a44de82f790" compatibilityLevel="643" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll"  apiServerUrl="https://api.sandbox.ebay.com/wsapi"  webSiteId="EBAY">

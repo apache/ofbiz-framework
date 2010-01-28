@@ -254,6 +254,25 @@
         <response name="success" type="view" value="blockItemOutOfStock"/>
         <response name="error" type="view" value="blockItemOutOfStock"/>
     </request-map>
+    <!-- Store inventory -->
+    <request-map uri="ebayStoreInventory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStoreInventory"/>
+    </request-map>
+    <request-map uri="reserveEbayProductInventory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="reserveEbayProductInventory"/>
+    </request-map>
+    <request-map uri="reserveProductInventory">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="reserveEbayStoreInventory"/>
+        <response name="success" type="view" value="reserveEbayProductInventory"/>
+    </request-map>
+    <request-map uri="updateEbayStoreInventory">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEbayStoreInventory"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
     
     <!-- end of request mappings -->
     
@@ -287,5 +306,9 @@
     <view-map name="AutomationPreferences" type="screen" page="component://ebay/widget/EbayScreens.xml#EbayAutomationPreferences"/>
     <!-- block out of stock -->
     <view-map name="blockItemOutOfStock" type="screen" page="component://ebay/widget/EbayScreens.xml#blockItemOutOfStock"/>
+    <!-- store Inventory -->
+    <view-map name="ebayStoreInventory" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayStoreInventory"/>
+    <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebay/widget/EbayScreens.xml#ebayLoadStoreInventory"/>
+    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebay/widget/EbayScreens.xml#reserveEbayProductInventory"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -78,6 +78,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="inventory" title="${uiLabelMap.ProductProduct} ${uiLabelMap.ProductInventory}">
+            <link target="ebayStoreInventory">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
         <menu-item name="blockItemOutOfStock" title="${uiLabelMap.EbayBlockItemOutOfStock}">
             <link target="blockItemOutOfStock">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
