@@ -2117,7 +2117,6 @@ public class ShoppingCart implements Serializable {
     }
 
     public void cleanUpShipGroups() {
-        Debug.logInfo(new Exception(), "==================== Call of cleanUpShipGroups!", module);
         for (CartShipInfo csi : this.shipInfo) {
             Iterator<ShoppingCartItem> si = csi.shipItemInfo.keySet().iterator();
             while (si.hasNext()) {
@@ -4309,10 +4308,6 @@ public class ShoppingCart implements Serializable {
         public String vendorPartyId = null;
         public Map<String, Object> attributes = FastMap.newInstance();
 
-        public CartShipInfo() {
-            // Debug.logInfo(new Exception(), "Created a new CartShipInfo", module);
-        }
-
         public void setAttribute(String name, Object value) {
             this.attributes.put(name, value);
         }
@@ -4330,7 +4325,6 @@ public class ShoppingCart implements Serializable {
         public String getContactMechId() { return internalContactMechId; }
         public void setContactMechId(String contactMechId) {
             this.internalContactMechId = contactMechId;
-            // Debug.logInfo(new Exception(), "Set CartShipInfo.contactMechId=" + this.internalContactMechId, module);
         }
 
         public String getCarrierPartyId() { return carrierPartyId; }
@@ -4341,13 +4335,11 @@ public class ShoppingCart implements Serializable {
         public String getShipGroupSeqId() { return shipGroupSeqId; }
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
-            // Debug.logInfo(new Exception(), "============= On CartShipInfo shipGroupSeqId to " + this.shipGroupSeqId, module);
         }
 
         public String getFacilityId() { return facilityId; }
         public void setFacilityId(String facilityId) {
             this.facilityId = facilityId;
-            // Debug.logInfo(new Exception(), "============= On CartShipInfo setFacilityId to " + this.facilityId, module);
         }
 
         public String getVendorPartyId() { return vendorPartyId;}
@@ -4388,8 +4380,6 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
             shipGroup.set("vendorPartyId", vendorPartyId);
             shipGroup.set("facilityId", facilityId);
-
-            // Debug.logInfo("=================Creating ship group value: " + shipGroup, module);
 
             // use the cart's default ship before and after dates here
             if ((shipBeforeDate == null) && (cart.getDefaultShipBeforeDate() != null)) {
