@@ -712,4 +712,16 @@
     <property key="EbayBlockItemOutOfStock">
         <value xml:lang="en">Block items out of stock</value>
     </property>
+    
+    <!-- ebay inventory -->
+    <property key="EbayReserveProductFrom">
+        <value xml:lang="en">Reserve Product From</value>
+    </property>
+    <property key="EbayReserveProductInventory">
+        <value xml:lang="en">Reserve Product Inventory</value>
+    </property>
+    <property key="EbayUpdateInventory">
+        <value xml:lang="en">Update To Ebay Inventory</value>
+    </property>
+    
 </resource>

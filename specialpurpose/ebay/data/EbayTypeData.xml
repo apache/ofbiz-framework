@@ -29,5 +29,8 @@ under the License.
     <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="EBAY_FLAT_RATE" sequenceId="01" enumTypeId="EBAY_SHIP_TYPE"/>
         
     <RoleType roleTypeId="COMMENTATOR" hasTable="N" description="Commentator"/>
-    <RoleType roleTypeId="EBAY_ORGANIZATION" hasTable="N" description="eBay Organization"/> 
+    <RoleType roleTypeId="EBAY_ORGANIZATION" hasTable="N" description="eBay Organization"/>
+    
+    <EnumerationType description="Inventory Reservation For Ebay Store" enumTypeId="EBAY_INV_RESERVE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
 </entity-engine-xml>

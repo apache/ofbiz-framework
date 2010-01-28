@@ -533,4 +533,186 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Store reserve inventory -->
+    <screen name="ebayStoreInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilityList">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-and>
+                <set  field="check"  value="${groovy: 
+                    check= &quot;false&quot;;
+                    if(productStoreFacilityList!=null &amp;&amp; productStoreFacilityList.size()== 1)  check = &quot;true&quot;;
+                    return check;
+                    }" type="String"/>
+                <set field="facilityId"  value="${groovy:
+                    if(check.equals(&quot;true&quot;)) facility = productStoreFacilityList.get(0);
+                    if(facility!=null) facilityId = facility.facilityId;
+                    return facilityId;}" type="String"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare field="check" operator="equals" value="true"/>
+                    </condition>
+                    <widgets>
+                        <section>
+                            <actions>
+                                <set field="parameters.facilityId" value="${facilityId}"/>
+                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
+                                <service service-name="getFolderInEbayStoreInventory" result-map="result">
+                                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                </service>
+                                <set field="parameters.folderId" value="${result.folderId}"/>
+                            </actions>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="parameters.folderId"/></not>
+                                    </condition>
+                                    <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
+                                    <fail-widgets><include-screen name="ebayStoreInventoryFail"/></fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </widgets>
+                    <fail-widgets>
+                        <section>
+                            <actions>
+                                <set field="parameters.facilityId" value="${facilityId}"/>
+                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
+                            </actions>
+                            <widgets>
+                                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                                    <decorator-section name="body">
+                                        <screenlet>
+                                            <include-form name="EbayStoreFacilityList" location="component://ebay/widget/EbayInventoryForms.xml"/>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen> 
+    <screen name="ebayLoadStoreInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilityList">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <section>
+                            <actions>
+                                <set field="facilityId" value="parameters.facilityId"/>
+                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
+                                <set field="folderId" value="parameters.folderId"/>
+                            </actions>
+                            <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
+                        </section>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewInventoryItemDetail">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditInventoryItem"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-field="productStore">
+                    <field-map field-name="productStoreId" from-field="productStoreId"/>
+                    <select-field field-name="storeName"/>
+                </entity-one>
+                <entity-one entity-name="Facility" value-field="facility">
+                    <field-map field-name="facilityId" from-field="facilityId"/>
+                    <select-field field-name="facilityName"/>
+                </entity-one>
+                <entity-and entity-name="EbayProductStoreInventory" list="ebayProductStoreInventoryList">
+                    <field-map field-name="productStoreId"  from-field="productStoreId"/>
+                    <field-map field-name="facilityId"  from-field="facilityId"/>
+                </entity-and>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.ProductStoreNameId} : ${productStore.storeName}[${productStore.productStoreId}] ${uiLabelMap.FacilityFacility} : ${facility.facilityName}">
+                            <link target="reserveEbayProductInventory"  style="buttontext" text="${uiLabelMap.EbayReserveProductInventory}">
+                                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>
+                            <include-form name="ListEbayProductInventoryDetail" location="component://ebay/widget/EbayInventoryForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="reserveEbayProductInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="Facility" value-field="facility">
+                    <field-map field-name="facilityId"  value="${parameters.facilityId}"/>
+                    <select-field field-name="facilityName"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayReserveProductFrom} : ${facility.facilityName}">
+                            <include-form name="reserveEbayProductInventory" location="component://ebay/widget/EbayInventoryForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ebayStoreInventoryFail">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="notes">
+                            <label style="label" text="Please subscribed to Selling Manager Pro before you use this function because ebay product inventory will open when you start selling manager pro on ebay site."></label>
+                            <label text="- To subscribe for production site"></label>
+                            <link target="link : http://pages.ebay.com/selling_manager_pro" text="http://pages.ebay.com/selling_manager_pro"  target-window="_BLANK" url-mode="plain"></link>
+                            <label text="- To upgrade store level sandbox site"></label>
+                            <link target="link : http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings" target-window="_BLANK" url-mode="plain" text="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings"></link>
+                        </screenlet>
+                        <screenlet title="How to upgrade sandbox store level?">
+                            <label text="- Click on the link &quot;To upgrade store level for sandbox site&quot;"></label>
+                            <label text="- Go to &quot;Selling Related links&quot; section"></label>
+                            <label text="- Click on &quot;Edit my eBay store&quot;"></label>
+                            <label text="- Page Manage my eBay store will show up"></label>
+                            <label text="- Go to &quot;Store Usage Information&quot; section"></label>
+                            <label text="- Click upgrade at &quot;Subscription level&quot; then select &quot;Premium Store&quot; and &quot;Selling Manager Pro&quot; then submit."></label>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

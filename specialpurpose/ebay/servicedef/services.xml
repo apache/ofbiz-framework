@@ -328,4 +328,43 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemBlocked" type="Map" mode="OUT" optional="true"/>
     </service>
+    <!-- ebay inventory -->
+    <service name="reserveEbayStoreInventory" engine="simple"
+        location="component://ebay/script/org/ofbiz/ebay/ebay/EbayServices.xml" invoke="reserveEbayStoreInventory">
+        <description>Reserve Inventory in a Product Store</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="quantity"  type="BigDecimal" mode="IN" optional="false"></attribute>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"></attribute>
+    </service>
+    <service name="reserveEbayProductInventoryByStoreFacility" engine="simple"
+        location="component://ebay/script/org/ofbiz/ebay/ebay/EbayServices.xml" invoke="reserveEbayProductInventory" auth="true">
+        <description>Reserve Inventory for a Product By Facility
+            If requireInventory is Y the quantity not reserved is returned, if N then a negative
+            availableToPromise will be used to track quantity ordered beyond what is in stock.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateEbayStoreInventory" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebay.EbayStoreInventoryServices" invoke="updateEbayStoreInventory" auth="true">
+        <description>update  Inventory on ebay store inventory</description>
+        <attribute name="productStoreId" type="String" mode="INOUT" optional="false"></attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="folderId" type="String" mode="INOUT" optional="false"></attribute>
+        <attribute name="facilityId" type="String" mode="INOUT" optional="false"></attribute>
+    </service>
+    <service name="getFolderInEbayStoreInventory" engine="java" transaction-timeout="7200"  
+        location="org.ofbiz.ebay.EbayStoreInventoryServices" invoke="getFolderInEbayStoreInventory" auth="true">
+        <description>get ebay folder in ebay store inventory</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="folderId" type="String" mode="OUT" optional="false"></attribute>
+    </service>
 </services>
