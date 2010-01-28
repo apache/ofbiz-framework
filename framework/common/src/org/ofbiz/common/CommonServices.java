@@ -134,12 +134,6 @@ public class CommonServices {
         return CommonServices.testService(dctx, context);
     }
 
-    public static Map<String, Object> testWorkflowCondition(DispatchContext dctx, Map<String, ?> context) {
-        Map<String, Object> result = FastMap.newInstance();
-        result.put("evaluationResult", Boolean.TRUE);
-        return result;
-    }
-
     public static Map<String, Object> testRollbackListener(DispatchContext dctx, Map<String, ?> context) {
         ServiceXaWrapper xar = new ServiceXaWrapper(dctx);
         xar.setRollbackService("testScv", context);
