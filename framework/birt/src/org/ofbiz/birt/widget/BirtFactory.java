@@ -34,7 +34,7 @@ public class BirtFactory {
     public static final String module = BirtFactory.class.getName();
 
     /**
-     * get report inport stream from location
+     * get report input stream from location
      * @param resourceName
      * @return
      * @throws IOException

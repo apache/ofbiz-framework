@@ -19,16 +19,12 @@
 package org.ofbiz.birt.report.context;
 
 import java.net.URL;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.eclipse.birt.report.IBirtConstants;
 import org.eclipse.birt.report.context.ViewerAttributeBean;
 import org.eclipse.birt.report.exception.ViewerException;
-import org.eclipse.birt.report.resource.BirtResources;
 import org.eclipse.birt.report.resource.ResourceConstants;
-import org.eclipse.birt.report.utility.BirtUtility;
 import org.eclipse.birt.report.utility.DataUtil;
 import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.location.FlexibleLocation;
