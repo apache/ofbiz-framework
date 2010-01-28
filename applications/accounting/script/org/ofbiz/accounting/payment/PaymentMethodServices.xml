@@ -21,37 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-<!-- DEJ20050428 Commenting out for now, does not appear to be used anywhere
-    <simple-method method-name="captureAll" short-description="Capture Payments for Orders" login-required="false">
-        <field-to-field field-name="orderStatusId" map-name="parameters" to-map-name="orderLookup"/>
-        <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams"/>
-        <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup"/>
-        <find-by-and entity-name="OrderHeaderAndPaymentPref" map="orderLookup" list="orderHeaderAndPaymentPrefs"/>
-        <iterate entry="orderHeaderAndPaymentPref" list="orderHeaderAndPaymentPrefs" >
-            <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams"/>
-            <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
-                <result-to-field map-name="captureResult" result-name="responseMessage"/>
-            </call-service>
-            <if-compare operator="equals" field="captureResult.responseMessage" value="error">
-                <field-to-list map-name="orderHeaderAndPaymentPref" field="orderId" list="badOrders"/>
-            </if-compare>
-        </iterate>
-        <if-not-empty field="badOrders">
-            <string-to-field string="mail.smtp.host" field-name="sendType" map-name="emailParams"/>
-
-            <property-to-field resource="payment" property="mailhost" field="sendVia" map-name="emailParams"/>
-            <property-to-field resource="payment" property="sendTo" field="sendTo" map-name="emailParams"/>
-            <property-to-field resource="payment" property="sendFrom" field="sendFrom" map-name="emailParams"/>
-            <property-to-field resource="payment" property="subject" field="subject" map-name="emailParams"/>
-            <call-bsh><![CDATA[
-            String body = "Bad orders: " + org.ofbiz.base.util.StringUtils.join(badOrders, ", ");
-            emailParams.put("body", body);
-            ]]></call-bsh>
-            <call-service service-name="sendMail" in-map-name="emailParams"/>
-        </if-not-empty>
-    </simple-method>
--->
-
     <simple-method method-name="setPaymentMethodAddress" short-description="Set the initial payment method address">
         <make-value value-field="lookupPKMap" entity-name="PaymentMethod"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
