@@ -83,6 +83,23 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.7-rc-2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/chartengineapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/chartitemapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/coreapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/crosstabcoreapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/dataadapterapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/dataaggregationapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/dataextraction.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/dteapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/emitterconfig.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/engineapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/jaxrpc.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/modelapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/modelodaapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/odadesignapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/saaj.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/scriptapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/viewservlets.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-ha.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-tribes.jar"/>
@@ -187,6 +204,7 @@
     <classpathentry kind="src" path="framework/appserver/src"/>
     <classpathentry kind="src" path="framework/base/src" excluding="org/ofbiz/base/config/CoberturaInstrumenter.java"/>
     <classpathentry kind="src" path="framework/bi/src"/>
+    <classpathentry kind="src" path="framework/birt/src"/>
     <classpathentry kind="src" path="framework/catalina/src"/>
     <classpathentry kind="src" path="framework/common/src"/>
     <classpathentry kind="src" path="framework/datafile/src"/>
