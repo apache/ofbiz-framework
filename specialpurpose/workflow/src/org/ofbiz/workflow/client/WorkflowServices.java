@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -509,6 +511,12 @@ public class WorkflowServices {
             Debug.logWarning(e, module);
         }
         return null;
+    }
+
+    public static Map<String, Object> testWorkflowCondition(DispatchContext dctx, Map<String, ?> context) {
+        Map<String, Object> result = FastMap.newInstance();
+        result.put("evaluationResult", Boolean.TRUE);
+        return result;
     }
 
 }
