@@ -258,14 +258,21 @@ public class UtilProperties implements java.io.Serializable {
             return value;
     }
 
-    public static double getPropertyNumber(URL url, String name) {
+    public static double getPropertyNumber(URL url, String name, double defaultValue) {
         String str = getPropertyValue(url, name);
-        double strValue = 0.00000;
+        if (str == null) {
+            return defaultValue;
+        }
 
         try {
-            strValue = Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {}
-        return strValue;
+            return Double.parseDouble(str);
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    public static double getPropertyNumber(URL url, String name) {
+        return getPropertyNumber(url, name, 0.00000);
     }
 
     /** Returns the value of the specified property name from the specified resource/properties file
