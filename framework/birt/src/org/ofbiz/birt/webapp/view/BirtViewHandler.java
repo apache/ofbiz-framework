@@ -56,24 +56,20 @@ public class BirtViewHandler implements ViewHandler {
     private String name = "birt";
 
     public void init(ServletContext context) throws ViewHandlerException {
-        // TODO Auto-generated method stub
         this.servletContext = context;
     }
 
     public String getName() {
-        // TODO Auto-generated method stub
         return name;
     }
 
     public void setName(String name) {
-        // TODO Auto-generated method stub
         this.name = name;
     }
 
     public void render(String name, String page, String info,
             String contentType, String encoding, HttpServletRequest request,
             HttpServletResponse response) throws ViewHandlerException {
-        // TODO Auto-generated method stub
         try {
             IReportEngine engine = BirtContainer.getReportEngine();
             // open report design
