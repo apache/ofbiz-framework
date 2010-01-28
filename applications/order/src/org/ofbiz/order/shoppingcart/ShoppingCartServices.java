@@ -301,8 +301,6 @@ public class ShoppingCartServices {
 
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
-            // Debug.logInfo("===================== Load order: orderItemShipGroup=" + orderItemShipGroup, module);
-
             // should be sorted by shipGroupSeqId
             int newShipInfoIndex = cart.addShipInfo();
 
