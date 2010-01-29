@@ -275,7 +275,7 @@ under the License.
         <li>
           <ul>
             <li>
-              ${uiLabelMap.OrderMethod}
+              ${uiLabelMap.OrderMethod}:
               <#if orderHeader?has_content>
                 <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
                 <#assign carrierPartyId = shipGroup.carrierPartyId?if_exists>
@@ -316,7 +316,7 @@ under the License.
             <#assign maySplit = cart.getMaySplit(groupIdx)?default("N")>
           </#if>
           <li>
-            ${uiLabelMap.OrderSplittingPreference}
+            ${uiLabelMap.OrderSplittingPreference}:
             <#if maySplit?default("N") == "N">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</#if>
             <#if maySplit?default("N") == "Y">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</#if>
           </li>
