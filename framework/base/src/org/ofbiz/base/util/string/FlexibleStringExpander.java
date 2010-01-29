@@ -21,7 +21,6 @@ package org.ofbiz.base.util.string;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -51,126 +50,13 @@ import bsh.EvalError;
  * nested expressions.</p>
  */
 @SuppressWarnings("serial")
-public class FlexibleStringExpander implements Serializable {
+public abstract class FlexibleStringExpander implements Serializable {
 
     public static final String module = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
     protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
-    protected static final FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
-    protected final String orig;
-    protected final List<StrElem> strElems;
-    protected int hint = 20;
-
-    /**
-     * @param original
-     */
-    protected FlexibleStringExpander(String original) {
-        this.orig = original;
-        if (original != null && original.contains(openBracket)) {
-            this.strElems = getStrElems(original);
-            if (original.length() > this.hint) {
-                this.hint = original.length();
-            }
-        } else {
-            this.strElems = null;
-        }
-    }
-
-    public boolean isEmpty() {
-        return this.orig == null || this.orig.length() == 0;
-    }
-
-    public String getOriginal() {
-        return this.orig;
-    }
-
-    /** This expands the pre-parsed String given the context passed in. A
-     * null context argument will return the original String.
-     * @param context A context Map containing the variable values
-     * @return The original String expanded by replacing varaible place holders.
-     */
-    public String expandString(Map<String, ? extends Object> context) {
-        return this.expandString(context, null, null);
-    }
-
-    /** This expands the pre-parsed String given the context passed in. A
-     * null context argument will return the original String.
-     * @param context A context Map containing the variable values
-     * @param locale the current set locale
-     * @return The original String expanded by replacing varaible place holders.
-     */
-    public String expandString(Map<String, ? extends Object> context, Locale locale) {
-        return this.expandString(context, null, locale);
-    }
-
-    /** This expands the pre-parsed String given the context passed in. A
-     * null context argument will return the original String.
-     * @param context A context Map containing the variable values
-     * @param timeZone the current set time zone
-     * @param locale the current set locale
-     * @return The original String expanded by replacing varaible place holders.
-     */
-    public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (this.strElems == null || context == null) {
-            return this.orig == null ? "" : this.orig;
-        }
-        if (locale == null) {
-            locale = (Locale) context.get("locale");
-            if (locale == null && context.containsKey("autoUserLogin")) {
-                Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
-                locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
-            }
-            if (locale == null) {
-                locale = Locale.getDefault();
-            }
-        }
-        if (timeZone == null) {
-            timeZone = (TimeZone) context.get("timeZone");
-            if (timeZone == null && context.containsKey("autoUserLogin")) {
-                Map<String, String> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
-                timeZone = UtilDateTime.toTimeZone(autoUserLogin.get("lastTimeZone"));
-            }
-            if (timeZone == null) {
-                timeZone = TimeZone.getDefault();
-            }
-        }
-        StringBuilder buffer = new StringBuilder(this.hint);
-        for (StrElem elem : this.strElems) {
-            elem.append(buffer, context, timeZone, locale);
-        }
-        if (buffer.length() > this.hint) {
-            synchronized(this) {
-                this.hint = buffer.length();
-            }
-        }
-        return buffer.toString();
-    }
-
-    /** Returns a FlexibleStringExpander instance.
-     * @param original The original String expression
-     * @return A FlexibleStringExpander instance
-     */
-    public static FlexibleStringExpander getInstance(String original) {
-        if (UtilValidate.isEmpty(original)) {
-            return nullExpr;
-        }
-        // Remove the next three lines to cache all expressions
-        if (!original.contains(openBracket)) {
-            return new FlexibleStringExpander(original);
-        }
-        FlexibleStringExpander fse = exprCache.get(original);
-        if (fse == null) {
-            synchronized (exprCache) {
-                fse = exprCache.get(original);
-                if (fse == null) {
-                    fse = new FlexibleStringExpander(original);
-                    exprCache.put(original, fse);
-                }
-            }
-        }
-        return fse;
-    }
+    protected static final FlexibleStringExpander nullExpr = new ConstElem("");
 
     /** Does on-the-fly parsing and expansion of the original String using
      * variable values from the passed context. A null context argument will
@@ -209,21 +95,48 @@ public class FlexibleStringExpander implements Serializable {
         return fse.expandString(context, timeZone, locale);
     }
 
+    /** Returns a FlexibleStringExpander instance.
+     * @param original The original String expression
+     * @return A FlexibleStringExpander instance
+     */
+    public static FlexibleStringExpander getInstance(String original) {
+        if (UtilValidate.isEmpty(original)) {
+            return nullExpr;
+        }
+        // Remove the next three lines to cache all expressions
+        if (!original.contains(openBracket)) {
+            return new ConstElem(original);
+        }
+        FlexibleStringExpander fse = exprCache.get(original);
+        if (fse == null) {
+            synchronized (exprCache) {
+                FlexibleStringExpander[] strElems = getStrElems(original);
+                if (strElems.length == 1) {
+                    fse = strElems[0];
+                } else {
+                    fse = new Elements(original, strElems);
+                }
+                exprCache.put(original, fse);
+            }
+        }
+        return fse;
+    }
+
     /** Protected helper method.
      * @param original
      * @return a list of parsed string elements
      */
-    protected static List<StrElem> getStrElems(String original) {
+    protected static FlexibleStringExpander[] getStrElems(String original) {
         if (UtilValidate.isEmpty(original)) {
             return null;
         }
         int origLen = original.length();
-        ArrayList<StrElem> strElems = new ArrayList<StrElem>();
+        ArrayList<FlexibleStringExpander> strElems = new ArrayList<FlexibleStringExpander>();
         int start = original.indexOf(openBracket);
         if (start == -1) {
             strElems.add(new ConstElem(original));
             strElems.trimToSize();
-            return strElems;
+            return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
         }
         int currentInd = 0;
         int end = -1;
@@ -279,31 +192,82 @@ public class FlexibleStringExpander implements Serializable {
             strElems.add(new ConstElem(original.substring(currentInd)));
         }
         strElems.trimToSize();
-        return strElems;
+        return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
     }
 
-    protected static interface StrElem extends Serializable {
-        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
+    // Note: a character array is used instead of a String to
+    // keep the memory footprint small.
+    protected final char[] orig;
+    protected int hint = 20;
+
+    protected FlexibleStringExpander(String original) {
+        this.orig = original.toCharArray();
     }
 
-    protected static class ConstElem implements StrElem {
-        protected final String str;
-        protected ConstElem(String value) {
-            this.str = value.intern();
+    protected abstract void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
+
+    public String expandString(Map<String, ? extends Object> context) {
+        return this.expandString(context, null, null);
+    }
+
+    public String expandString(Map<String, ? extends Object> context, Locale locale) {
+        return this.expandString(context, null, locale);
+    }
+
+    public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        if (context == null) {
+            return this.toString();
         }
-        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            buffer.append(this.str);
+        if (locale == null) {
+            locale = (Locale) context.get("locale");
+            if (locale == null && context.containsKey("autoUserLogin")) {
+                Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
+                locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
+            }
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
         }
+        if (timeZone == null) {
+            timeZone = (TimeZone) context.get("timeZone");
+            if (timeZone == null && context.containsKey("autoUserLogin")) {
+                Map<String, String> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
+                timeZone = UtilDateTime.toTimeZone(autoUserLogin.get("lastTimeZone"));
+            }
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
+            }
+        }
+        StringBuilder buffer = new StringBuilder(this.hint);
+        this.append(buffer, context, timeZone, locale);
+        if (buffer.length() > this.hint) {
+            synchronized(this) {
+                this.hint = buffer.length();
+            }
+        }
+        return buffer.toString();
     }
 
-    protected static class BshElem implements StrElem {
-        protected final String str;
-        protected BshElem(String scriptlet) {
-            this.str = scriptlet;
+    public String getOriginal() {
+        return new String(this.orig);
+    }
+
+    public boolean isEmpty() {
+        return this.orig == null || this.orig.length == 0;
+    }
+
+    @Override
+    public String toString() {
+        return new String(this.orig);
+    }
+
+    protected static class BshElem extends FlexibleStringExpander {
+        protected BshElem(String original) {
+            super(original);
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = BshUtil.eval(this.str, UtilMisc.makeMapWritable(context));
+                Object obj = BshUtil.eval(new String(this.orig), UtilMisc.makeMapWritable(context));
                 if (obj != null) {
                     try {
                         buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
@@ -312,58 +276,42 @@ public class FlexibleStringExpander implements Serializable {
                     }
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("BSH scriptlet evaluated to null [" + this.str + "], got no return so inserting nothing.", module);
+                        Debug.logVerbose("BSH scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
                     }
                 }
             } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this.str + "], inserting nothing; error was: " + e, module);
+                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this + "], inserting nothing; error was: " + e, module);
             }
         }
     }
 
-    protected static class GroovyElem implements StrElem {
-        protected final String originalString;
-        protected final Class<?> parsedScript;
-        protected GroovyElem(String script) {
-            this.originalString = script;
-            this.parsedScript = GroovyUtil.parseClass(script);
+    protected static class ConstElem extends FlexibleStringExpander {
+        protected ConstElem(String original) {
+            super(original);
         }
+        @Override
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            try {
-                // this approach will re-parse the script each time: Object obj = GroovyUtil.eval(this.str, UtilMisc.makeMapWritable(context));
-                Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
-                if (obj != null) {
-                    try {
-                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
-                    } catch (Exception e) {
-                        buffer.append(obj);
-                    }
-                } else {
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this.originalString + "], got no return so inserting nothing.", module);
-                    }
-                }
-            } catch (CompilationFailedException e) {
-                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.originalString + "], inserting nothing; error was: " + e, module);
-            } catch (Exception e) {
-                // handle other things, like the groovy.lang.MissingPropertyException
-                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.originalString + "], inserting nothing; error was: " + e, module);
-            }
+            buffer.append(this.orig);
+        }
+        @Override
+        public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            return new String(this.orig);
         }
     }
 
-    protected static class CurrElem implements StrElem {
-        protected final String valueStr;
+    protected static class CurrElem extends FlexibleStringExpander {
+        protected final char[] valueStr;
         protected final FlexibleStringExpander codeExpr;
         protected CurrElem(String original) {
+            super(original);
             int currencyPos = original.indexOf("?currency(");
             int closeParen = original.indexOf(")", currencyPos + 10);
             this.codeExpr = FlexibleStringExpander.getInstance(original.substring(currencyPos + 10, closeParen));
-            this.valueStr = openBracket + original.substring(0, currencyPos) + closeBracket;
+            this.valueStr = openBracket.concat(original.substring(0, currencyPos)).concat(closeBracket).toCharArray();
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = UelUtil.evaluate(context, this.valueStr);
+                Object obj = UelUtil.evaluate(context, new String(this.valueStr));
                 if (obj != null) {
                     String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
                     buffer.append(UtilFormatOut.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale));
@@ -378,33 +326,67 @@ public class FlexibleStringExpander implements Serializable {
         }
     }
 
-    protected static class NestedVarElem implements StrElem {
-        protected final List<StrElem> strElems;
-        protected int hint = 20;
+    protected static class Elements extends FlexibleStringExpander {
+        protected final FlexibleStringExpander[] childElems;
+        protected Elements(String original, FlexibleStringExpander[] childElems) {
+            super(original);
+            this.childElems = childElems;
+        }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            for (FlexibleStringExpander child : this.childElems) {
+                child.append(buffer, context, timeZone, locale);
+            }
+        }
+    }
+
+    protected static class GroovyElem extends FlexibleStringExpander {
+        protected final Class<?> parsedScript;
+        protected GroovyElem(String script) {
+            super(script);
+            this.parsedScript = GroovyUtil.parseClass(script);
+        }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            try {
+                Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
+                if (obj != null) {
+                    try {
+                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+                    } catch (Exception e) {
+                        buffer.append(obj);
+                    }
+                } else {
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
+                    }
+                }
+            } catch (CompilationFailedException e) {
+                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
+            } catch (Exception e) {
+                // handle other things, like the groovy.lang.MissingPropertyException
+                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
+            }
+        }
+    }
+
+    protected static class NestedVarElem extends FlexibleStringExpander {
+        protected final FlexibleStringExpander[] childElems;
         protected NestedVarElem(String original) {
-            this.strElems = getStrElems(original);
+            super(original);
+            this.childElems = getStrElems(original);
             if (original.length() > this.hint) {
                 this.hint = original.length();
             }
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            if (strElems == null) {
-                return;
-            }
             StringBuilder expr = new StringBuilder(this.hint);
-            for (StrElem elem : this.strElems) {
-                elem.append(expr, context, timeZone, locale);
+            for (FlexibleStringExpander child : this.childElems) {
+                child.append(expr, context, timeZone, locale);
             }
             if (expr.length() == 0) {
                 return;
             }
-            if (expr.length() > this.hint) {
-                synchronized(this) {
-                    this.hint = expr.length();
-                }
-            }
             try {
-                Object obj = UelUtil.evaluate(context, openBracket + expr.toString() + closeBracket);
+                Object obj = UelUtil.evaluate(context, openBracket.concat(expr.toString()).concat(closeBracket));
                 if (obj != null) {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
                 }
@@ -418,36 +400,37 @@ public class FlexibleStringExpander implements Serializable {
         }
     }
 
-    protected static class VarElem implements StrElem {
-        protected final String original;
-        protected final String bracketedOriginal;
+    protected static class VarElem extends FlexibleStringExpander {
+        protected final char[] bracketedOriginal;
         protected VarElem(String original) {
-            this.original = original;
-            this.bracketedOriginal = openBracket + UelUtil.prepareExpression(original) + closeBracket;
+            super(original);
+            this.bracketedOriginal = openBracket.concat(UelUtil.prepareExpression(original)).concat(closeBracket).toCharArray();
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;
             try {
-                obj = UelUtil.evaluate(context, this.bracketedOriginal);
+                obj = UelUtil.evaluate(context, new String(this.bracketedOriginal));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Error evaluating expression " + this.original + ": " + e, module);
+                    Debug.logVerbose("Error evaluating expression " + this + ": " + e, module);
                 }
             } catch (Exception e) {
-                Debug.logError("Error evaluating expression " + this.original + ": " + e, module);
-            }
-            if (obj == null) {
-                if (this.original.startsWith("env.")) {
-                    Debug.logWarning("${env...} expression syntax deprecated, use ${sys:getProperty(String)} instead", module);
-                    obj = System.getProperty(this.original.substring(4));
-                }
+                Debug.logError("Error evaluating expression " + this + ": " + e, module);
             }
             if (obj != null) {
+                try {
+                    // Check for runtime nesting
+                    String str = (String) obj;
+                    if (str.contains(openBracket)) {
+                        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(str);
+                        fse.append(buffer, context, timeZone, locale);
+                        return;
+                    }
+                } catch (ClassCastException e) {}
                 try {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
                 } catch (Exception e) {}
             }
         }
     }
-
 }
