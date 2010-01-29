@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.test;
 
+import java.util.HashMap;
+import java.util.Map;
 import junit.framework.TestCase;
 
 import org.ofbiz.base.conversion.*;
@@ -25,6 +27,7 @@ import org.ofbiz.base.util.ComparableRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 
 public class BaseUnitTests extends TestCase {
 
@@ -97,6 +100,32 @@ public class BaseUnitTests extends TestCase {
             ComparableRange<java.util.Date> range3 = new ComparableRange<java.util.Date>(new java.util.Date(), new java.sql.Timestamp(System.currentTimeMillis()));
             fail("mismatched classes");
         } catch (IllegalArgumentException e) {}
+    }
+
+    public void testFlexibleStringExpander() {
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(null);
+        assertTrue("null FlexibleStringExpander", fse.isEmpty());
+        String compare = "Hello World!";
+        fse = FlexibleStringExpander.getInstance(compare);
+        assertEquals("null context", compare, fse.expandString(null));
+        Map<String, Object> testMap = new HashMap<String, Object>();
+        testMap.put("var", "World");
+        fse = FlexibleStringExpander.getInstance("Hello ${var}!");
+        assertTrue("simple replacement", compare.equals(fse.expandString(testMap)));
+        testMap.put("nested", "Hello ${var}");
+        fse = FlexibleStringExpander.getInstance("${nested}!");
+        assertTrue("hidden (runtime) nested replacement", compare.equals(fse.expandString(testMap)));
+        fse = FlexibleStringExpander.getInstance("${'Hello ${var}'}!");
+        assertTrue("visible nested replacement", compare.equals(fse.expandString(testMap)));
+        fse = FlexibleStringExpander.getInstance("${bsh:return \"Hello \" + var + \"!\";}");
+        assertTrue("bsh: script", compare.equals(fse.expandString(testMap)));
+        fse = FlexibleStringExpander.getInstance("${groovy:return \"Hello \" + var + \"!\";}");
+        assertTrue("groovy: script", compare.equals(fse.expandString(testMap)));
+        // It is assumed the UEL library will have its own unit tests, but we
+        // will do one UEL expression test to check the UEL integration.
+        testMap.put("testMap", testMap);
+        fse = FlexibleStringExpander.getInstance("Hello ${testMap.var}!");
+        assertTrue("UEL integration", compare.equals(fse.expandString(testMap)));
     }
 
     public void testDateTimeConverters() {
