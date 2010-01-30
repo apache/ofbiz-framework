@@ -3020,7 +3020,7 @@
         <value xml:lang="en">Interaction Type</value>
         <value xml:lang="es">Código Tipo de interacción</value>
         <value xml:lang="fr">Type d'interaction</value>
-        <value xml:lang="it">Tipo interattivo</value>
+        <value xml:lang="it">Tipo di interazione</value>
         <value xml:lang="zh">交互类型</value>
     </property>
     <property key="FormFieldTitle_productFeatureId">
@@ -3029,7 +3029,7 @@
         <value xml:lang="en">Product Feature Id</value>
         <value xml:lang="es">Código Característica de producto</value>
         <value xml:lang="fr">Réf. de caractéristique d'article</value>
-        <value xml:lang="it">Codice Caratteristica Prodotto</value>
+        <value xml:lang="it">Codice caratteristica prodotto</value>
         <value xml:lang="nl">ID productkenmerk</value>
         <value xml:lang="ro">Cod Caracteristica Produs</value>
         <value xml:lang="ru">Особенность продукта</value>
@@ -3047,7 +3047,7 @@
         <value xml:lang="en">Product Feature Type Id</value>
         <value xml:lang="es">Código Tipo de característica de producto</value>
         <value xml:lang="fr">Réf. de type de caractéristique d'article</value>
-        <value xml:lang="it">Tipo Caratteristica Prodotto</value>
+        <value xml:lang="it">Tipo caratteristica prodotto</value>
         <value xml:lang="ro">Tip Caracteristica Produs</value>
         <value xml:lang="ru">Код типа особенности продукта</value>
         <value xml:lang="th">รหัสประเภทลักษณะสินค้า</value>
@@ -3068,7 +3068,7 @@
         <value xml:lang="en">Product Id</value>
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Réf. produit</value>
-        <value xml:lang="it">Codice Prodotto</value>
+        <value xml:lang="it">Codice prodotto</value>
         <value xml:lang="nl">Product ID</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="ru">Код продукта</value>
@@ -3080,7 +3080,7 @@
         <value xml:lang="en">Product Maint Type Id</value>
         <value xml:lang="es">Código Tipo de mantenimiento de producto</value>
         <value xml:lang="fr">Réf. de type maintenance de produit</value>
-        <value xml:lang="it">Tipo Manutenzione Prodotto</value>
+        <value xml:lang="it">Tipo manutenzione prodotto</value>
         <value xml:lang="ro">Tip Intretinere Produs</value>
         <value xml:lang="ru">Код типа поддержки прод</value>
         <value xml:lang="th">รหัสประเภทการบำรุงรักษาสินค้า</value>
@@ -4408,7 +4408,7 @@
         <value xml:lang="en">Add Feature InterAction</value>
         <value xml:lang="es">Añadir interacción de característica</value>
         <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
-        <value xml:lang="it">Aggiungi caratteristica interattiva</value>
+        <value xml:lang="it">Aggiungi interazione tra caratteristiche</value>
         <value xml:lang="zh">添加特征交互</value>
     </property>
     <property key="PageTitleAddFeaturePrice">
@@ -5045,7 +5045,7 @@
     <property key="PageTitleEditFeatureInterAction">
         <value xml:lang="en">Edit Feature InterAction</value>
         <value xml:lang="fr">Modifier l'interactions entre caractéristiques</value>
-        <value xml:lang="it">Aggiorna caratteristica interattiva</value>
+        <value xml:lang="it">Aggiorna interazione tra caratteristiche</value>
         <value xml:lang="zh">编辑特征交互</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
@@ -5053,7 +5053,7 @@
         <value xml:lang="en">Edit Feature InterActions</value>
         <value xml:lang="es">Editar características</value>
         <value xml:lang="fr">Modifier les interactions entre caractéristiques</value>
-        <value xml:lang="it">Aggiorna caratteristiche interattive</value>
+        <value xml:lang="it">Aggiorna interazioni tra caratteristiche</value>
         <value xml:lang="zh">编辑特征交互</value>
     </property>
     <property key="PageTitleEditFeaturePrice">
@@ -5324,7 +5324,7 @@
         <value xml:lang="en">Edit Product Feature Interactions</value>
         <value xml:lang="es">Editar interacciones de características</value>
         <value xml:lang="fr">Modifier les interactions entre caractéristiques de produit</value>
-        <value xml:lang="it">Aggiorna caratteristica interattiva prodotto</value>
+        <value xml:lang="it">Aggiorna le interazioni tra caratteristiche prodotto</value>
         <value xml:lang="zh">编辑产品特征交互</value>
     </property>
     <property key="PageTitleEditProductFeatures">
@@ -6077,7 +6077,7 @@
         <value xml:lang="en">List Product Feature Interactions</value>
         <value xml:lang="es">Listar interacciones de características</value>
         <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
-        <value xml:lang="it">Lista caratteristiche interattive prodotto</value>
+        <value xml:lang="it">Lista interazioni tra caratteristiche prodotto</value>
         <value xml:lang="zh">产品特征交互列表</value>
     </property>
     <property key="PageTitleListProductFeatureApplAttrs">
@@ -6892,7 +6892,7 @@
         <value xml:lang="en">Add Feature Interaction</value>
         <value xml:lang="es">Añadir interacción de caraterísticas</value>
         <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
-        <value xml:lang="it">Aggiungi caratteristica interattiva</value>
+        <value xml:lang="it">Aggiungi interazione tra caratteristiche</value>
         <value xml:lang="zh">添加特征交互</value>
     </property>
     <property key="ProductAddFeatureToCategory">
@@ -9464,7 +9464,7 @@
         <value xml:lang="en">Create New Product Store</value>
         <value xml:lang="es">Crear Nueva Tienda de Productos</value>
         <value xml:lang="fr">Création d'un nouveau centre de profit</value>
-        <value xml:lang="it">Creare Nuovo Negozio</value>
+        <value xml:lang="it">Nuovo negozio</value>
         <value xml:lang="nl">Aanmaken nieuwe winkel</value>    
         <value xml:lang="ro">Creare Nou Magazin</value>
         <value xml:lang="ru">Создать новый склад</value>
@@ -9528,7 +9528,7 @@
         <value xml:lang="en">Create Product in Category</value>
         <value xml:lang="es">Crear Producto en Categoría</value>
         <value xml:lang="fr">Création d'un article dans la catégorie</value>
-        <value xml:lang="it">Creare Prodotto nella Categoria</value>
+        <value xml:lang="it">Nuovo prodotto in categoria</value>
         <value xml:lang="ro">Creare Produs in Categoria</value>
         <value xml:lang="ru">Создать продукт в категории</value>
         <value xml:lang="th">สร้างสินค้าในหมวดหมู่</value>
@@ -11154,7 +11154,7 @@
         <value xml:lang="en">Feature Interaction</value>
         <value xml:lang="es">Interacción de características</value>
         <value xml:lang="fr">Interaction entre caractéristiques</value>
-        <value xml:lang="it">Caratteristica interattiva</value>
+        <value xml:lang="it">Interazione tra caratteristiche</value>
         <value xml:lang="zh">特征交互</value>
     </property>
     <property key="ProductFeatureMessage">
@@ -12939,7 +12939,7 @@
         <value xml:lang="en">List Feature Interactions</value>
         <value xml:lang="es">Listar interacciones de características</value>
         <value xml:lang="fr">Liste des interactions entre caractéristiques</value>
-        <value xml:lang="it">Lista caratteristiche interattive</value>
+        <value xml:lang="it">Lista interazioni tra caratteristiche</value>
         <value xml:lang="zh">特征交互列表</value>
     </property>
     <property key="ProductListPrice">
@@ -13796,11 +13796,15 @@
         <value xml:lang="th">ที่ตั้งคลังสินค้าใหม่</value>
         <value xml:lang="zh">新建场所位置</value>
     </property>
+    <property key="ProductNewFeatureCategory">
+        <value xml:lang="en">New Feature Category</value>
+        <value xml:lang="it">Nuova categoria di caratteristiche</value>
+    </property>
     <property key="ProductNewFeatureInterAction">
         <value xml:lang="de">Neue Merkmalsinteraktion</value>
         <value xml:lang="en">New Feature InterAction</value>
         <value xml:lang="fr">Nouvelle interaction entre caractéristiques</value>
-        <value xml:lang="it">Nuova caratteristica interattiva</value>
+        <value xml:lang="it">Nuova interazione tra caratteristiche</value>
         <value xml:lang="zh">新特征交互</value>
     </property>
     <property key="ProductNewFeatureType">
@@ -18338,7 +18342,7 @@
         <value xml:lang="en">Search feature interAction</value>
         <value xml:lang="es">Buscar interacción de características</value>
         <value xml:lang="fr">Rechercher les interaction de la caractéristique</value>
-        <value xml:lang="it">Ricerca caratteristica interattiva</value>
+        <value xml:lang="it">Ricerca interazioni tra caratteristiche</value>
         <value xml:lang="zh">搜索特征交互</value>
     </property>
     <property key="ProductSearchFeatureType">
