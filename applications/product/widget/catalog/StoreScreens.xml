@@ -36,8 +36,8 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductProductStoreList}">
-                            <container>
-                                <link target="EditProductStore" text="${uiLabelMap.ProductCreateNewProductStore}" style="buttontext"/>
+                            <container style="button-bar">
+                                <link target="EditProductStore" text="${uiLabelMap.ProductCreateNewProductStore}" style="buttontext create"/>
                             </container>
                             <include-form name="FindProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                         </screenlet>
