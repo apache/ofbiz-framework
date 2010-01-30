@@ -60,10 +60,10 @@ under the License.
                                             <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext create">
                                                 <parameter param-name="productCategoryId"/>
                                             </link>
-                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext">
+                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext search">
                                                 <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
                                             </link>
-                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext">
+                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext website">
                                                 <parameter param-name="category_id" from-field="productCategoryId"/>
                                             </link>
                                         </container>
