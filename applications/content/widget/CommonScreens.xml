@@ -334,7 +334,7 @@ under the License.
                             <widgets>
                                 <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${${extraFunctionName}}"/>
                                 <container style="button-bar">
-                                    <link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext create"/>
+                                    <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
                                 </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
