@@ -20,7 +20,7 @@
     <classpathentry kind="lib" path="framework/base/lib/httpclient-4.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpcore-4.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpunit.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-beta5.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/icu4j-4_2_1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/javolution-5.2.3.jar"/>
