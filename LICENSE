@@ -23,7 +23,7 @@ ofbiz/trunk/framework/base/lib/batik-all-1.7.jar
 ofbiz/trunk/framework/base/lib/barcode4j-fop-ext-complete-2.0.jar
 ofbiz/trunk/framework/base/lib/jakarta-regexp-1.5.jar
 ofbiz/trunk/framework/base/lib/jpim-0.1.jar
-ofbiz/trunk/framework/base/lib/juel-2.1.1.jar
+ofbiz/trunk/framework/base/lib/juel-2.2.1.jar
 ofbiz/trunk/framework/base/lib/log4j-1.2.15.jar
 ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar

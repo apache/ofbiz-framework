@@ -28,7 +28,7 @@
     <classpathentry kind="lib" path="framework/base/lib/jdbm-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/juel-2.1.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/juel-2.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/junit.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/junitperf.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/log4j-1.2.15.jar"/>
