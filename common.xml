@@ -136,6 +136,7 @@ under the License.
                 </fileset>
             </classpath>
         </taskdef>
+        <delete file="${build.dir}/test-results/cobertura.dat"/>
         <cobertura-instrument datafile="${build.dir}/test-results/cobertura.dat" todir="${build.dir}/cobertura-lib">
             <fileset dir="${build.dir}/lib">
                 <include name="*.jar"/>
