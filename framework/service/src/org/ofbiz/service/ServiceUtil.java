@@ -414,8 +414,11 @@ public class ServiceUtil {
                     beganTx1 = TransactionUtil.begin();
 
                     EntityListIterator foundJobs = delegator.find("JobSandbox", mainCond, null, null, null, findOptions);
-                    curList = foundJobs.getPartialList(1, 1000);
-                    foundJobs.close();
+                    try {
+                        curList = foundJobs.getPartialList(1, 1000);
+                    } finally {
+                        foundJobs.close();
+                    }
 
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot obtain job data from datasource", module);
