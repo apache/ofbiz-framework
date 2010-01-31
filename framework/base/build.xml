@@ -40,10 +40,8 @@ under the License.
     <filelist id="test.classes" dir="${src.dir}">
         <file name="org/ofbiz/base/test/BaseUnitTests.java"/>
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
-    	<!--
 	    <file name="org/ofbiz/base/concurrent/test/SyncTTLObjectTest.java"/>
 	    <file name="org/ofbiz/base/concurrent/test/AsyncTTLObjectTest.java"/>
-	    -->
     </filelist>
 
     <target name="init">
