@@ -91,7 +91,7 @@ public class ContextAccessor<T> {
     }
 
     /** Based on name remove from Map or from List in Map */
-    public T remove(Map<String, Object> theMap, MethodContext methodContext) {
+    public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         return fma.remove(theMap);
     }
 
