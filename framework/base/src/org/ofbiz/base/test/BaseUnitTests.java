@@ -22,15 +22,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import junit.framework.TestCase;
 
-import org.ofbiz.base.conversion.*;
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.DateTimeConverters;
 import org.ofbiz.base.util.ComparableRange;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 
 public class BaseUnitTests extends TestCase {
 
@@ -147,7 +151,6 @@ public class BaseUnitTests extends TestCase {
         fma.put(testMap, "World");
         fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
         assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
-
     }
 
     public void testDateTimeConverters() {
@@ -206,4 +209,11 @@ public class BaseUnitTests extends TestCase {
             fail(e.getMessage());
         }
     }
+
+    public void testStringUtil() {
+        byte[] testArray = {-1};
+        byte[] result = StringUtil.fromHexString(StringUtil.toHexString(testArray));
+        assertEquals("Hex onversions", testArray[0], result[0]);
+    }
+
 }
