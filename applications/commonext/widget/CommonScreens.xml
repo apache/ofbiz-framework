@@ -35,7 +35,8 @@ under the License.
                 <set field="line.urlText" value="[${userLogin.userLoginId}]"/>
                 <set field="line.url" value="/partymgr/control/viewprofile?partyId=${userLogin.partyId}"/>
                 <set field="layoutSettings.topLines[]" from-field="line" global="true"/>
-                <script location="component://commonext/script/changeOrgPartyId.groovy"/>
+                <script location="component://commonext/webapp/ofbizsetup/organization/changeOrgPartyId.groovy"/><!-- to see ofbizsetup needs to be displayed -->
+                <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
                 <!-- system info notes -->
                 <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
                 <set field="linkStart" value="/myportal/control/showPortletDecorator?portalPortletId="/>
@@ -66,6 +67,13 @@ under the License.
                         <set field="dropdown.selectedKey" value="${defaultOrganizationPartyId}"/>
                         <set field="dropdown.textEnd" value="[${defaultOrganizationPartyId}]"/>
                         <set field="layoutSettings.topLines[]" from-field="dropdown" global="true"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition><if-empty field="PartyAcctgPrefAndGroupList"/></condition>
+                    <actions>
+                       <set field="layoutSettings.suppressTab" value=""/><!-- enable ofbiz setup -->
                     </actions>
                     <widgets/>
                 </section>
