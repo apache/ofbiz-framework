@@ -107,7 +107,7 @@ under the License.
 
     <target name="tests" depends="jar">
         <mkdir dir="${build.dir}/test-results"/>
-        <junit>
+        <junit fork="on" haltonfailure="on" forkmode="once">
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
@@ -142,7 +142,7 @@ under the License.
             </fileset>
         </cobertura-instrument>
         <mkdir dir="${build.dir}/test-results"/>
-        <junit fork="yes" haltonerror="yes">
+        <junit fork="on" haltonfailure="on" forkmode="once">
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
