@@ -155,9 +155,9 @@ public class ArtifactInfoFactory {
         for (ComponentConfig componentConfig: componentConfigs) {
             String componentName = componentConfig.getGlobalName();
             String rootComponentPath = componentConfig.getRootLocation();
-            List<File> screenFiles = null;
-            List<File> formFiles = null;
-            List<File> controllerFiles = null;
+            List<File> screenFiles;
+            List<File> formFiles;
+            List<File> controllerFiles;
             try {
                 screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
                 formFiles = FileUtil.findXmlFiles(rootComponentPath, null, "forms", "widget-form.xsd");
@@ -165,62 +165,56 @@ public class ArtifactInfoFactory {
             } catch (IOException ioe) {
                 throw new GeneralException(ioe.getMessage());
             }
-            if (screenFiles != null) {
-                for (File screenFile: screenFiles) {
-                    String screenFilePath = screenFile.getAbsolutePath();
-                    screenFilePath = screenFilePath.replace('\\', '/');
-                    String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
-                    String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
-                    Map<String, ModelScreen> modelScreenMap = null;
-                    try {
-                        modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
-                    } catch (Exception exc) {
-                        throw new GeneralException(exc.toString(), exc);
-                    }
-                    for (String screenName : modelScreenMap.keySet()) {
-                        this.getScreenWidgetArtifactInfo(screenName, screenLocation);
-                    }
+            for (File screenFile: screenFiles) {
+                String screenFilePath = screenFile.getAbsolutePath();
+                screenFilePath = screenFilePath.replace('\\', '/');
+                String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
+                String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
+                Map<String, ModelScreen> modelScreenMap = null;
+                try {
+                    modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
+                } catch (Exception exc) {
+                    throw new GeneralException(exc.toString(), exc);
+                }
+                for (String screenName : modelScreenMap.keySet()) {
+                    this.getScreenWidgetArtifactInfo(screenName, screenLocation);
                 }
             }
-            if (formFiles != null) {
-                for (File formFile: formFiles) {
-                    String formFilePath = formFile.getAbsolutePath();
-                    formFilePath = formFilePath.replace('\\', '/');
-                    String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
-                    String formLocation = "component://" + componentName + "/" + formFileRelativePath;
-                    Map<String, ModelForm> modelFormMap = null;
-                    try {
-                        modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
-                    } catch (Exception exc) {
-                        throw new GeneralException(exc.toString(), exc);
-                    }
-                    for (String formName : modelFormMap.keySet()) {
-                        this.getFormWidgetArtifactInfo(formName, formLocation);
-                    }
+            for (File formFile: formFiles) {
+                String formFilePath = formFile.getAbsolutePath();
+                formFilePath = formFilePath.replace('\\', '/');
+                String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
+                String formLocation = "component://" + componentName + "/" + formFileRelativePath;
+                Map<String, ModelForm> modelFormMap = null;
+                try {
+                    modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
+                } catch (Exception exc) {
+                    throw new GeneralException(exc.toString(), exc);
+                }
+                for (String formName : modelFormMap.keySet()) {
+                    this.getFormWidgetArtifactInfo(formName, formLocation);
                 }
             }
-            if (controllerFiles != null) {
-                for (File controllerFile: controllerFiles) {
-                    URL controllerUrl = null;
+            for (File controllerFile: controllerFiles) {
+                URL controllerUrl = null;
+                try {
+                    controllerUrl = controllerFile.toURI().toURL();
+                } catch (MalformedURLException mue) {
+                    throw new GeneralException(mue.getMessage());
+                }
+                ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+                for (String requestUri: cc.getRequestMapMap().keySet()) {
                     try {
-                        controllerUrl = controllerFile.toURI().toURL();
-                    } catch (MalformedURLException mue) {
-                        throw new GeneralException(mue.getMessage());
+                        this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
+                    } catch (GeneralException e) {
+                        Debug.logWarning(e.getMessage(), module);
                     }
-                    ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-                    for (String requestUri: cc.getRequestMapMap().keySet()) {
-                        try {
-                            this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
-                        } catch (GeneralException e) {
-                            Debug.logWarning(e.getMessage(), module);
-                        }
-                    }
-                    for (String viewUri: cc.getViewMapMap().keySet()) {
-                        try {
-                            this.getControllerViewArtifactInfo(controllerUrl, viewUri);
-                        } catch (GeneralException e) {
-                            Debug.logWarning(e.getMessage(), module);
-                        }
+                }
+                for (String viewUri: cc.getViewMapMap().keySet()) {
+                    try {
+                        this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+                    } catch (GeneralException e) {
+                        Debug.logWarning(e.getMessage(), module);
                     }
                 }
             }
