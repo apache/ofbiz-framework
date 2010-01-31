@@ -11,6 +11,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import junit.framework.TestCase;
 
@@ -19,6 +21,22 @@ import junit.framework.TestCase;
 public abstract class GenericTestCaseBase extends TestCase {
     protected GenericTestCaseBase(String name) {
         super(name);
+    }
+
+    public static <V, E extends Exception> void assertFuture(String label, Future<V> future, V wanted, boolean interruptable, Class<E> thrownClass, String thrownMessage) {
+        try {
+            assertEquals(label + ": future return", wanted, future.get());
+        } catch (InterruptedException e) {
+            assertTrue(label + ": expected interruption", interruptable);
+        } catch (ExecutionException e) {
+            assertNotNull(label + ": expecting an exception", thrownClass);
+            Throwable caught = e.getCause();
+            assertNotNull(label + ": captured exception", caught);
+            assertEquals(label + ": correct thrown class", thrownClass, caught.getClass());
+            if (thrownMessage != null) {
+                assertEquals(label + ": exception message", thrownMessage, caught.getMessage());
+            }
+        }
     }
 
     public static <T> void assertEquals(List<T> wanted, Object got) {
