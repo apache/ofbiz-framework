@@ -110,7 +110,7 @@ under the License.
         <prim-key field="productStoreId"/>
         <prim-key field="facilityId"/>
         <prim-key field="productId"/>
-        <relation type="one" fk-name="EBYSM_PRD_STRE" rel-entity-name="ProductStore">
+        <relation type="one" fk-name="EBYPSI_PRD_STRE" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>
