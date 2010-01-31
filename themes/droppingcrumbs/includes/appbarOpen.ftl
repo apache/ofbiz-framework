@@ -90,13 +90,10 @@ under the License.
                 <#if thisApp != "/">
                   <#assign thisURL = thisURL + "/control/main">
                 </#if>
-                <#-- Show OFBiz Setup component menu bar when the system not have an organization -->
-                <#if thisApp.equals("/ofbizsetup")>
-                    <#if PartyAcctgPrefAndGroupList.size() == 0>
-                        <li><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
-                    </#if>
+                <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
+                  <!-- do not display this component-->
                 <#else>
-                    <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
+                  <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
                 </#if>
               </#if>
             </#list>
