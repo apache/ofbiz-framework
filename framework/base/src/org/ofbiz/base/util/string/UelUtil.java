@@ -120,9 +120,11 @@ public class UelUtil {
     }
 
     protected static class BasicContext extends ELContext {
+        protected final Map<String, Object> variables;
         protected final VariableMapper variableMapper;
         public BasicContext(Map<String, ? extends Object> context) {
-            this.variableMapper = new BasicVariableMapper(context, this);
+            this.variableMapper = new BasicVariableMapper(this);
+            this.variables = UtilGenerics.cast(context);
         }
         @Override
         public ELResolver getELResolver() {
@@ -139,11 +141,9 @@ public class UelUtil {
     }
 
     protected static class BasicVariableMapper extends VariableMapper {
-        protected final ELContext elContext;
-        protected final Map<String, Object> variables;
-        protected BasicVariableMapper(Map<String, ? extends Object> context, ELContext parentContext) {
-            this.variables = UtilGenerics.cast(context);
-            this.elContext = parentContext;
+        protected final BasicContext elContext;
+        protected BasicVariableMapper(BasicContext elContext) {
+            this.elContext = elContext;
         }
 
         /**
@@ -154,24 +154,90 @@ public class UelUtil {
          */
         @Override
         public ValueExpression resolveVariable(String variable) {
-            Object obj = UelUtil.resolveVariable(variable, this.variables, null);
+            Object obj = UelUtil.resolveVariable(variable, this.elContext.variables, null);
             if (obj != null) {
-                return new BasicValueExpression(obj);
+                return new BasicValueExpression(variable, this.elContext);
             }
             return null;
         }
         @Override
         public ValueExpression setVariable(String variable, ValueExpression expression) {
-            return new BasicValueExpression(this.variables.put(variable, expression.getValue(this.elContext)));
+            Object originalObj = this.elContext.variables.put(variable, expression.getValue(this.elContext));
+            if (originalObj == null) {
+                return null;
+            }
+            return new ReadOnlyExpression(originalObj);
         }
     }
 
     @SuppressWarnings("serial")
-    protected static class BasicValueExpression extends ValueExpression {
-        protected Object object;
-        public BasicValueExpression(Object object) {
-            super();
+    protected static class ReadOnlyExpression extends ValueExpression {
+        protected final Object object;
+        protected ReadOnlyExpression(Object object) {
             this.object = object;
+        }
+
+        @Override
+        public Class<?> getExpectedType() {
+            return this.object.getClass();
+        }
+
+        @Override
+        public Class<?> getType(ELContext context) {
+            return this.getExpectedType();
+        }
+
+        @Override
+        public Object getValue(ELContext context) {
+            return this.object;
+        }
+
+        @Override
+        public boolean isReadOnly(ELContext context) {
+            return true;
+        }
+
+        @Override
+        public void setValue(ELContext context, Object value) {
+            throw new PropertyNotWritableException();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            try {
+                ReadOnlyExpression other = (ReadOnlyExpression) obj;
+                return this.object.equals(other.object);
+            } catch (ClassCastException e) {}
+            return false;
+        }
+
+        @Override
+        public String getExpressionString() {
+            return null;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.object.hashCode();
+        }
+
+        @Override
+        public boolean isLiteralText() {
+            return false;
+        }
+        
+    }
+
+    @SuppressWarnings("serial")
+    protected static class BasicValueExpression extends ValueExpression {
+        protected final BasicContext elContext;
+        protected final String varName;
+        public BasicValueExpression(String varName, BasicContext elContext) {
+            this.elContext = elContext;
+            this.varName = varName;
         }
         @Override
         public boolean equals(Object obj) {
@@ -180,20 +246,17 @@ public class UelUtil {
             }
             try {
                 BasicValueExpression other = (BasicValueExpression) obj;
-                if (this.object == other.object) {
-                    return true;
-                }
-                return this.object.equals(other.object);
-            } catch (Exception e) {}
+                return this.varName.equals(other.varName);
+            } catch (ClassCastException e) {}
             return false;
         }
         @Override
         public int hashCode() {
-            return this.object == null ? 0 : this.object.hashCode();
+            return this.varName.hashCode();
         }
         @Override
         public Object getValue(ELContext context) {
-            return this.object;
+            return this.elContext.variables.get(this.varName);
         }
         @Override
         public String getExpressionString() {
@@ -205,7 +268,7 @@ public class UelUtil {
         }
         @Override
         public Class<?> getType(ELContext context) {
-            return this.object == null ? null : this.object.getClass();
+            return this.getExpectedType();
         }
         @Override
         public boolean isReadOnly(ELContext context) {
@@ -213,15 +276,16 @@ public class UelUtil {
         }
         @Override
         public void setValue(ELContext context, Object value) {
-            this.object = value;
+            this.elContext.variables.put(this.varName, value);
         }
         @Override
         public String toString() {
-            return "ValueExpression(" + this.object + ")";
+            return "ValueExpression(" + this.varName + ")";
         }
         @Override
         public Class<?> getExpectedType() {
-            return this.object == null ? null : this.object.getClass();
+            Object obj = this.elContext.variables.get(this.varName);
+            return obj == null ? null : obj.getClass();
         }
     }
 
@@ -236,11 +300,11 @@ public class UelUtil {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("ExtendedCompositeResolver.setValue: base = " + base + ", property = " + property + ", value = " + val, module);
                 }
-                ValueExpression ve = new BasicValueExpression(val);
-                VariableMapper vm = context.getVariableMapper();
-                vm.setVariable(property.toString(), ve);
-                context.setPropertyResolved(true);
-                return;
+                try {
+                    BasicContext elContext = (BasicContext) context;
+                    elContext.variables.put(property.toString(), val);
+                    context.setPropertyResolved(true);
+                } catch (ClassCastException e) {}
             }
         }
     }

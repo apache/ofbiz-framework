@@ -18,7 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import junit.framework.TestCase;
 
@@ -28,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 
 public class BaseUnitTests extends TestCase {
 
@@ -121,11 +124,30 @@ public class BaseUnitTests extends TestCase {
         assertTrue("bsh: script", compare.equals(fse.expandString(testMap)));
         fse = FlexibleStringExpander.getInstance("${groovy:return \"Hello \" + var + \"!\";}");
         assertTrue("groovy: script", compare.equals(fse.expandString(testMap)));
-        // It is assumed the UEL library will have its own unit tests, but we
-        // will do one UEL expression test to check the UEL integration.
         testMap.put("testMap", testMap);
         fse = FlexibleStringExpander.getInstance("Hello ${testMap.var}!");
-        assertTrue("UEL integration", compare.equals(fse.expandString(testMap)));
+        assertTrue("UEL integration: Map", compare.equals(fse.expandString(testMap)));
+        List<String> testList = new ArrayList<String>();
+        testList.add("World");
+        testMap.put("testList", testList);
+        fse = FlexibleStringExpander.getInstance("Hello ${testList[0]}!");
+        assertTrue("UEL integration: List", compare.equals(fse.expandString(testMap)));
+    }
+
+    // These tests rely upon FlexibleStringExpander, so they
+    // should follow the FlexibleStringExpander tests.
+    public void testFlexibleMapAccessor() {
+        String compare = "Hello World!";
+        Map<String, Object> testMap = new HashMap<String, Object>();
+        FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance("parameters.var");
+        fma.put(testMap, "World");
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance("Hello ${parameters.var}!");
+        assertTrue("UEL auto-vivify Map", compare.equals(fse.expandString(testMap)));
+        fma = FlexibleMapAccessor.getInstance("parameters.someList[+0]");
+        fma.put(testMap, "World");
+        fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
+        assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
+
     }
 
     public void testDateTimeConverters() {
