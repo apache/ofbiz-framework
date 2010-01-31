@@ -82,7 +82,7 @@ public class UelUtil {
      */
     @SuppressWarnings("unchecked")
     public static Object evaluate(Map<String, ? extends Object> context, String expression, Class expectedType) {
-        ELContext elContext = new BasicContext(context);
+        ELContext elContext = new ReadOnlyContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
         return ve.getValue(elContext);
     }
@@ -122,8 +122,29 @@ public class UelUtil {
     protected static class BasicContext extends ELContext {
         protected final Map<String, Object> variables;
         protected final VariableMapper variableMapper;
-        public BasicContext(Map<String, ? extends Object> context) {
+        public BasicContext(Map<String, Object> context) {
             this.variableMapper = new BasicVariableMapper(this);
+            this.variables = context;
+        }
+        @Override
+        public ELResolver getELResolver() {
+            return defaultResolver;
+        }
+        @Override
+        public FunctionMapper getFunctionMapper() {
+            return UelFunctions.getFunctionMapper();
+        }
+        @Override
+        public VariableMapper getVariableMapper() {
+            return this.variableMapper;
+        }
+    }
+
+    protected static class ReadOnlyContext extends ELContext {
+        protected final Map<String, ? extends Object> variables;
+        protected final VariableMapper variableMapper;
+        public ReadOnlyContext(Map<String, ? extends Object> context) {
+            this.variableMapper = new ReadOnlyVariableMapper(this);
             this.variables = UtilGenerics.cast(context);
         }
         @Override
@@ -137,6 +158,24 @@ public class UelUtil {
         @Override
         public VariableMapper getVariableMapper() {
             return this.variableMapper;
+        }
+        protected static class ReadOnlyVariableMapper extends VariableMapper {
+            protected final ReadOnlyContext elContext;
+            protected ReadOnlyVariableMapper(ReadOnlyContext elContext) {
+                this.elContext = elContext;
+            }
+            @Override
+            public ValueExpression resolveVariable(String variable) {
+                Object obj = UelUtil.resolveVariable(variable, this.elContext.variables, null);
+                if (obj != null) {
+                    return new ReadOnlyExpression(obj);
+                }
+                return null;
+            }
+            @Override
+            public ValueExpression setVariable(String variable, ValueExpression expression) {
+                throw new PropertyNotWritableException();
+            }
         }
     }
 
@@ -449,7 +488,7 @@ public class UelUtil {
         return result;
     }
 
-    public static Object resolveVariable(String variable, Map<String, Object> variables, Locale locale) {
+    public static Object resolveVariable(String variable, Map<String, ? extends Object> variables, Locale locale) {
         Object obj = null;
         String createObjectType = null;
         String name = variable;
