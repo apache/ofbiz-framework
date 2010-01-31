@@ -170,7 +170,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
      * @param base the Map to remove from
      * @return the object removed
      */
-    public T remove(Map<String, ? extends Object> base) {
+    public T remove(Map<String, Object> base) {
         if (this.isEmpty()) {
             return null;
         }
@@ -179,8 +179,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             return null;
         }
         try {
-            Map<String, Object> writableMap = UtilGenerics.cast(base);
-            UelUtil.removeValue(writableMap, getExpression(base));
+            UelUtil.removeValue(base, getExpression(base));
         } catch (Exception e) {
             Debug.logError("UEL exception while removing value: " + e + ", original = " + this.original, module);
         }
