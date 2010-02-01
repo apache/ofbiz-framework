@@ -26,7 +26,8 @@ else
 fi
 
 find_jar() {
-	set -- framework/base/lib/ant-launcher-*.jar
+	top="$(cd "$(dirname "$0")"; echo "$PWD")"
+	set -- "$top"/framework/base/lib/ant-launcher-*.jar
 	if [ $# = 1 ] && [ -e "$1" ]; then
 		echo "$1"
 	else
