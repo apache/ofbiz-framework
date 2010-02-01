@@ -519,9 +519,9 @@ under the License.
         <entity-one entity-name="Party" value-field="party"/>
         <entity-one entity-name="Person" value-field="person"/>
         <assert>
-            <not><if-empty field="party"></if-empty></not>
+            <not><if-empty field="party"/></not>
             <if-compare field="party.partyTypeId" operator="equals" value="PERSON"/>
-            <not><if-empty field="person"></if-empty></not>
+            <not><if-empty field="person"/></not>
             <if-compare-field field="person.firstName" operator="equals" to-field="firstName"/>
             <if-compare-field field="person.lastName" operator="equals" to-field="lastName"/>
         </assert>
