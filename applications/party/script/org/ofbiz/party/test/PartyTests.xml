@@ -375,16 +375,26 @@ under the License.
         </assert>
         <check-errors/>
      </simple-method>
-    <simple-method method-name="testAddRole" short-description="test to add a new role to a party" login-required="false">
-        <log level="info" message="====================Add a new role to a party test case=========================================="/>
-        <set field="addRoleMap.partyId" value="DemoCustomer"/>
-        <set field="addRoleMap.roleTypeId" value="SUPPLIER"/>
-        <entity-one entity-name="UserLogin" value-field="addRoleMap.userLogin">
+
+    <simple-method method-name="testCreatePartyRole" short-description="A test to add a role to a party" login-required="false">
+        <set field="partyId" value="DemoCustomer"/>
+        <set field="roleTypeId" value="SUPPLIER"/>
+        <set field="serviceCtx.partyId" from-field="partyId"/>
+        <set field="serviceCtx.roleTypeId" from-field="roleTypeId"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <call-service service-name="createPartyRole" in-map-name="addRoleMap"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyRole" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyRole" value-field="partyRole"/>
+        <assert>
+            <not><if-empty field="partyRole"/></not>
+            <if-compare-field field="partyRole.partyId" operator="equals" to-field="partyId"/>
+            <if-compare-field field="partyRole.roleTypeId" operator="equals" to-field="roleTypeId"/>
+        </assert>
         <check-errors/>
     </simple-method>
+
     <simple-method method-name="testCreateNewCommEvent" short-description="test to create a new communication event" login-required="false">
         <log level="info" message="====================Create a new communication event test case=========================================="/>
         <set field="createNewCommEventMap.communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
