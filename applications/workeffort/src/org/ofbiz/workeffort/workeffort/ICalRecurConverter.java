@@ -86,6 +86,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         Set<Integer> monthDayList = FastSet.newInstance();
         Set<WeekDay> weekDayList = FastSet.newInstance();
         Set<Integer> hourList = FastSet.newInstance();
+        Set<Integer> minuteList = FastSet.newInstance();
         String freq = null;
         int freqCount = 0;
         for (Recur recur : recurList) {
@@ -93,7 +94,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             monthDayList.addAll(recur.getMonthDayList());
             weekDayList.addAll(recur.getDayList());
             hourList.addAll(recur.getHourList());
-            if (recur.getInterval() != 0 && freq == null) {
+            minuteList.addAll(recur.getMinuteList());
+            if (recur.getInterval() != 0) {
                 freq = recur.getFrequency();
                 freqCount = recur.getInterval();
             }
@@ -104,6 +106,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             freq = Recur.DAILY;
         } else if (freq == null && hourList.size() > 0) {
             freq = Recur.HOURLY;
+        } else if (freq == null && minuteList.size() > 0) {
+            freq = Recur.MINUTELY;
         }
         if (freq == null) {
             throw new IllegalStateException("Unable to convert intersection");
@@ -116,6 +120,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         newRecur.getMonthDayList().addAll(monthDayList);
         newRecur.getDayList().addAll(weekDayList);
         newRecur.getHourList().addAll(hourList);
+        newRecur.getMinuteList().addAll(minuteList);
         return newRecur;
     }
 
