@@ -574,4 +574,41 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreatePartyTelecomNumber" short-description="Test case for service createPartyTelecomNumber" login-required="false">
+        <set field="serviceCtx.partyId" value="DemoEmployee"/>
+        <set field="serviceCtx.areaCode" value="801"/>
+        <set field="serviceCtx.contactNumber" value="888-8899"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createPartyTelecomNumber" in-map-name="serviceCtx">
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
+        <entity-one entity-name="TelecomNumber" value-field="telecomNumber"/>
+        <entity-and entity-name="PartyContactMech" list="pcmList" filter-by-date="true">
+            <field-map field-name="contactMechId"/>
+        </entity-and>
+        <first-from-list  list="pcmList" entry="pcm"/>
+        <first-from-list list="partyContactMechList" entry="partyContactMech"/>
+        <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
+            <field-map field-name="contactMechId"/>
+        </entity-and>
+        <first-from-list list="pcmpList" entry="pcmp"/>
+        <assert>
+            <not><if-empty field="contactMech"/></not>
+            <not><if-empty field="telecomNumber"/></not>
+            <if-compare field="telecomNumber.areaCode" operator="equals" value="801"/>
+            <if-compare field="telecomNumber.contactNumber" operator="equals" value="888-8899"/>
+            <not><if-empty field="pcmList"/></not>
+            <if-compare field="pcm.partyId" operator="equals" value="DemoEmployee"/>
+            <not><if-empty field="pcmpList"/></not>
+             <if-compare field="pcmp.partyId" operator="equals" value="DemoEmployee"/>
+             <if-compare field="pcmp.contactMechPurposeTypeId" operator="equals" value="PRIMARY_PHONE"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
