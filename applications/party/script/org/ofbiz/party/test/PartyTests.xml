@@ -537,4 +537,41 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreatePartyEmailAddress" short-description="Test case for service createPartyEmailAddress" login-required="false">
+        <set field="partyId" value="DemoEmployee"/>
+        <set field="emailAddress" value="demo.employee@gmail.com"/>
+        <set field="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.partyId" from-field="partyId"/>
+        <set field="serviceCtx.emailAddress" from-field="emailAddress"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" from-field="contactMechPurposeTypeId"/>
+        <call-service service-name="createPartyEmailAddress" in-map-name="serviceCtx">
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
+        <entity-condition entity-name="PartyContactMech" list="pcmList" filter-by-date="true">
+            <condition-expr field-name="contactMechId" from-field="contactMechId"/>
+            <order-by field-name="fromDate"/>
+        </entity-condition>
+        <first-from-list list="pcmList" entry="pcm"/>
+        <entity-condition entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
+            <condition-expr field-name="contactMechId" from-field="contactMechId"/>
+            <order-by field-name="fromDate"/>
+        </entity-condition>
+        <first-from-list list="pcmpList" entry="pcmp"/>
+        <assert>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="contactMech.infoString" operator="equals" to-field="emailAddress"/>
+            <not><if-empty field="pcmList"/></not>
+            <if-compare-field field="pcm.partyId" operator="equals" to-field="partyId"/>
+            <not><if-empty field="pcmpList"/></not>
+            <if-compare-field field="pcmp.partyId" operator="equals" to-field="partyId"/>
+            <if-compare-field field="pcmp.contactMechPurposeTypeId" operator="equals" to-field="contactMechPurposeTypeId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
