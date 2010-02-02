@@ -38,6 +38,7 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.html.HtmlTreeRenderer;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateModelException;
@@ -94,6 +95,7 @@ public class ScreenWidgetViewHandler extends AbstractViewHandler {
             // this is the object used to render forms from their definitions
             FreeMarkerWorker.getSiteParameters(request, screens.getContext());
             screens.getContext().put("formStringRenderer", new HtmlFormRenderer(request, response));
+            screens.getContext().put("treeStringRenderer", new HtmlTreeRenderer());
             screens.getContext().put("simpleEncoder", StringUtil.htmlEncoder);
             htmlScreenRenderer.renderScreenBegin(writer, screens.getContext());
             screens.render(page);
