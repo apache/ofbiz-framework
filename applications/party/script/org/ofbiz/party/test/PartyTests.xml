@@ -611,4 +611,25 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreateUpdatePersonWithCreate" short-description="Test the service to create a person" login-required="false">
+        <set field="serviceCtx.partyId" value="DemoPerson1"/>
+        <set field="serviceCtx.firstName" value="Demo"/>
+        <set field="serviceCtx.lastName" value="Person1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createUpdatePerson" in-map-name="serviceCtx">
+            <result-to-field result-name="partyId"/>
+        </call-service>
+        <entity-one entity-name="Party" value-field="party"/>
+        <entity-one entity-name="Person" value-field="person"/>
+        <assert>
+            <not><if-empty field="party"/></not>
+            <if-compare field="person.firstName" operator="equals" value="Demo"/>
+            <if-compare field="person.lastName" operator="equals" value="Person1"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
