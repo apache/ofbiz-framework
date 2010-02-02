@@ -62,4 +62,6 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas_test.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_cdyne.xml"/>
     <service-resource type="mca" loader="main" location="servicedef/smcas_test.xml"/>
+
+    <test-suite loader="main" location="testdef/UserLoginTests.xml"/>
 </ofbiz-component>
