@@ -1067,16 +1067,16 @@ under the License.
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
         <check-errors/>
         <set field="partyId" from-field="parameters.partyId"/>
+        <entity-one entity-name="Party" value-field="party"/>
+        <set field="personContext.partyId" from-field="partyId"/>
         <set-service-fields service-name="createPerson" map="personMap" to-map="personContext"/>
-        <if-empty field="partyId">
+        <if-empty field="party">
             <call-service service-name="createPerson" in-map-name="personContext">
                 <result-to-field result-name="partyId" field="partyId"/>
             </call-service>
-        <else><!-- If partyId already exists. -->
-            <set field="personContext.partyId" from-field="partyId"/>
+        <else><!-- If party object already exist, update the person record. -->
             <set field="personContext.userLogin" from-field="parameters.userLogin"/>
             <call-service service-name="updatePerson" in-map-name="personContext"/>
-            <log level="info" message="Party Updated partyId is ${partyId}"/>
         </else>
         </if-empty>
         <field-to-result field="partyId"/>
