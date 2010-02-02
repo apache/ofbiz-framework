@@ -2462,8 +2462,6 @@ ofbiz/trunk/framework/birt/lib/platform/plugins/org.eclipse.update.configurator_
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.w3c.css.sac_1.3.0.v200805290154.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.w3c.dom.smil_1.0.0.v200806040011.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.w3c.dom.svg_1.1.0.v200806040011.jar
-ofbiz/trunk/framework/birt/lib/platform/plugins/com.lowagie.itext_1.5.4.v20090608/lib/itext_1.5.4.jar
-ofbiz/trunk/framework/birt/lib/platform/plugins/com.lowagie.itext_1.5.4.v20090608/lib/itextasian-1.5.2.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.200.v20090429-1800/runtime_registry_compatibility.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.mozilla.rhino_1.7.1.v20090608/lib/js.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.w3c.sac_1.3.0.v20090608/lib/flute.jar

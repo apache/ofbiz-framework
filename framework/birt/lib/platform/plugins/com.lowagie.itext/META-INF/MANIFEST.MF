@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-SymbolicName: com.lowagie.itext
+Eclipse-ExtensibleAPI: true
+Bundle-Version: 1.5.4.v20090305
+Bundle-ClassPath: ../../../../../webapp/lib/itext-2.0.1.jar
+Export-Package: com.lowagie.bc.asn1,com.lowagie.text,com.lowagie.text.
+ html,com.lowagie.text.html.simpleparser,com.lowagie.text.markup,com.l
+ owagie.text.pdf,com.lowagie.text.pdf.codec,com.lowagie.text.pdf.codec
+ .wmf,com.lowagie.text.pdf.crypto,com.lowagie.text.pdf.events,com.lowa
+ gie.text.pdf.fonts,com.lowagie.text.pdf.hyphenation,com.lowagie.text.
+ rtf,com.lowagie.text.rtf.direct,com.lowagie.text.rtf.document,com.low
+ agie.text.rtf.document.output,com.lowagie.text.rtf.field,com.lowagie.
+ text.rtf.graphic,com.lowagie.text.rtf.headerfooter,com.lowagie.text.r
+ tf.list,com.lowagie.text.rtf.style,com.lowagie.text.rtf.table,com.low
+ agie.text.rtf.text,com.lowagie.text.xml,com.lowagie.text.xml.xmp,com.
+ lowagie.tools
+Bundle-ManifestVersion: 2
+Bundle-Copyright: Copyright 2001-2009 The Apache Software Foundation
