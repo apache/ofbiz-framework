@@ -406,10 +406,8 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
         @Override
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {}
-        @Override
-        public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            return null;
-        }
+        /** Returns null to maintain backward compatibility.
+         */
         @Override
         public String getOriginal() {
             return null;
