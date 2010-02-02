@@ -520,6 +520,22 @@ under the License.
       </view-link>
     </view-entity>
 
+    <view-entity entity-name="WorkEffortProductGoods" package-name="org.ofbiz.workeffort.workeffort"
+            title="WorkEffort and related WorkEffortGoodStandard with Product">
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"/>
+        <member-entity entity-alias="PROD" entity-name="Product"/>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="WEGS"/>
+        <alias-all entity-alias="PROD"/>
+        <view-link rel-entity-alias="WEGS" entity-alias="WE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link rel-entity-alias="PROD" entity-alias="WEGS">
+            <key-map field-name="productId"/>
+        </view-link>
+    </view-entity>
+    
     <view-entity entity-name="WorkEffortAndContentDataResource" package-name="org.ofbiz.workeffort.workeffort"
          title="WorkEffort and Content and DataResource View Entity">
         <member-entity entity-alias="WECO" entity-name="WorkEffortContent"/>
