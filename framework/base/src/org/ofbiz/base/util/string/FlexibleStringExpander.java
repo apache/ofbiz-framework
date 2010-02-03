@@ -56,7 +56,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
     protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
-    protected static final FlexibleStringExpander nullExpr = new NullElem();
+    protected static final FlexibleStringExpander nullExpr = new ConstElem("");
 
     /** Does on-the-fly parsing and expansion of the original String using
      * variable values from the passed context. A null context argument will
@@ -397,24 +397,6 @@ public abstract class FlexibleStringExpander implements Serializable {
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression: " + e, module);
             }
-        }
-    }
-
-    protected static class NullElem extends FlexibleStringExpander {
-        protected NullElem() {
-            super("");
-        }
-        @Override
-        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {}
-        /** Returns null to maintain backward compatibility.
-         */
-        @Override
-        public String getOriginal() {
-            return null;
-        }
-        @Override
-        public boolean isEmpty() {
-            return true;
         }
     }
 
