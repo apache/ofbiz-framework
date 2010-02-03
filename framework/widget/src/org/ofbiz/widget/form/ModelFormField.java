@@ -277,7 +277,7 @@ public class ModelFormField {
             this.fieldName = overrideFormField.fieldName;
         if (UtilValidate.isNotEmpty(overrideFormField.attributeName))
             this.attributeName = overrideFormField.attributeName;
-        if (overrideFormField.title != null && overrideFormField.title.getOriginal() != null) // title="" can be used to override the original value
+        if (overrideFormField.title != null && !overrideFormField.title.isEmpty()) // title="" can be used to override the original value
             this.title = overrideFormField.title;
         if (overrideFormField.tooltip != null && !overrideFormField.tooltip.isEmpty())
             this.tooltip = overrideFormField.tooltip;
@@ -860,7 +860,7 @@ public class ModelFormField {
     }
 
     public String getAction(Map<String, ? extends Object> context) {
-        if (this.action != null && this.action.getOriginal() != null) {
+        if (this.action != null && !this.action.isEmpty()) {
             return action.expandString(context);
         } else {
             return null;
@@ -991,7 +991,7 @@ public class ModelFormField {
     }
 
     public String getTitle(Map<String, Object> context) {
-        if (this.title != null && this.title.getOriginal() != null) {
+        if (this.title != null && !this.title.isEmpty()) {
             return title.expandString(context);
         } else {
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId

@@ -2935,22 +2935,22 @@ public class ModelForm extends ModelWidget {
         }
         if (this.actions != null) {
             for (ModelFormAction modelFormAction: this.actions) {
-                if (modelFormAction instanceof ModelFormAction.Service) {
-                    String serviceName = ((ModelFormAction.Service) modelFormAction).serviceNameExdr.getOriginal();
-                    if (serviceName != null) {
-                        allServiceNamesUsed.add(serviceName);
+                try {
+                    ModelFormAction.Service service = (ModelFormAction.Service) modelFormAction;
+                    if (!service.serviceNameExdr.isEmpty()) {
+                        allServiceNamesUsed.add(service.serviceNameExdr.toString());
                     }
-                }
+                } catch (ClassCastException e) {}
             }
         }
         if (this.rowActions != null) {
             for (ModelFormAction modelFormAction: this.rowActions) {
-                if (modelFormAction instanceof ModelFormAction.Service) {
-                    String serviceName = ((ModelFormAction.Service) modelFormAction).serviceNameExdr.getOriginal();
-                    if (serviceName != null) {
-                        allServiceNamesUsed.add(serviceName);
+                try {
+                    ModelFormAction.Service service = (ModelFormAction.Service) modelFormAction;
+                    if (!service.serviceNameExdr.isEmpty()) {
+                        allServiceNamesUsed.add(service.serviceNameExdr.toString());
                     }
-                }
+                } catch (ClassCastException e) {}
             }
         }
         for (ModelFormField modelFormField: this.fieldList) {
