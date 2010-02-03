@@ -36,7 +36,7 @@
     <!-- Party Identification numbers-->
     <Party partyId="DemoSupplier"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
-    <PartyIdentificationType partyIdentificationTypeId="SIRET" description="french company identification number"/>
+    <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
     <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
 
     <!-- email from an unknown party -->
