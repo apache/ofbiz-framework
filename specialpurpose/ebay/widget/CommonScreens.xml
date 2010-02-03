@@ -41,6 +41,30 @@
         </section>
     </screen>
     
+    <screen name="permission-decorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="CommonProductDecorator">
         <section>
             <actions>
@@ -94,52 +118,6 @@
             </widgets>
         </section>
     </screen>
-    
-    <screen name="permission-decorator">
-        <section>
-            <actions>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="EBAY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <container>
-                                    <section>
-                                        <condition>
-                                            <not><if-empty field="parameters.productStoreId"/></not>
-                                        </condition>
-                                        <actions>
-                                            <service service-name="getEbayStoreUser" result-map="result">
-                                                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-                                            </service>
-                                            <set field="userLoginId" from-field="result.userLoginId"/>
-                                            <entity-one value-field="ebayUser" entity-name="UserLogin">
-                                                <field-map field-name="userLoginId" from-field="result.userLoginId"/>
-                                            </entity-one>
-                                            <set field="parameters.partyId" from-field="ebayUser.partyId" global="true"/>
-                                        </actions>
-                                        <widgets>
-                                            <label text="${uiLabelMap.EbayAccount} : ${userLoginId}" style="h1"></label>
-                                            <include-menu name="EbayStoreFunctionTabBar"  location="component://ebay/widget/EbayMenus.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="CommonEbayConfigDecorator">
         <section>
             <actions>

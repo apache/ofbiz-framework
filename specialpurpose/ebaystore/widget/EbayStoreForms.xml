@@ -43,7 +43,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton" ><submit button-type="button"/></field>
     </form>
-	<form name="ListCurrentStores" type="single" target="exportCategoriesSelectedToEbayStore"
+    <form name="ListCurrentStores" type="single" target="exportCategoriesSelectedToEbayStore"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ProductStoreCatalog" list="storeCatalog">

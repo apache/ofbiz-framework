@@ -51,7 +51,6 @@ under the License.
         <field name="compatibilityLevel" type="id"></field>
         <field name="siteId" type="id"></field>
         <field name="xmlGatewayUri" type="value"></field>
-        <field name="apiServerUrl" type="value"></field>
         <field name="customXml" type="very-long"></field>
         <field name="webSiteId" type="id-ne"></field>
         <prim-key field="productStoreId"/>      
@@ -89,31 +88,6 @@ under the License.
             <key-map field-name="shipmentMethodTypeId"/>
         </relation>
     </entity>
-    
-    <entity entity-name="EbayProductStoreInventory"
-        package-name="org.ofbiz.ebay.store"
-        title="Ebay store product inventory and status of listing">
-        <field name="productStoreId" type="id-ne"></field>
-        <field name="facilityId" type="id-ne"></field>
-        <field name="productId" type="id-ne"></field>
-        <field name="folderId" type="id-ne"></field>
-        <field name="ebayProductId" type="numeric"></field>
-        <field name="quantityReserved" type="fixed-point"></field>
-        <field name="availableToPromiseListing" type="fixed-point"></field>
-        <field name="scheduled" type="fixed-point"></field>
-        <field name="activeListing" type="fixed-point"></field>
-        <field name="sold" type="fixed-point"></field>
-        <field name="unSold" type="fixed-point"></field>
-        <field name="successRatio" type="floating-point"></field>
-        <field name="avgSellingPrice" type="floating-point"></field>
-        <field name="reservedDate" type="date-time"></field>
-        <prim-key field="productStoreId"/>
-        <prim-key field="facilityId"/>
-        <prim-key field="productId"/>
-        <relation type="one" fk-name="EBYPSI_PRD_STRE" rel-entity-name="ProductStore">
-            <key-map field-name="productStoreId"/>
-        </relation>
-    </entity>
-    
+
 </entitymodel>    
     

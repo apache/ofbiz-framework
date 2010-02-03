@@ -1,4 +1,4 @@
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -46,7 +46,7 @@ public class EbayFeedback {
 		Locale locale = (Locale) context.get("locale");
 		String productStoreId = (String) context.get("productStoreId");
 		
-		ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+		ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 		try {
 			Map<String, Object> inMap = FastMap.newInstance();
 			inMap.put("productStoreId", productStoreId);
@@ -55,7 +55,7 @@ public class EbayFeedback {
 			String userID = (String)resultUser.get("userLoginId");
 			GetFeedbackCall feedbackCall = new GetFeedbackCall();
 			feedbackCall.setApiContext(apiContext);
-			SiteCodeType SiteCodeType = EbayHelper.getSiteCodeType(productStoreId,locale, delegator);
+			SiteCodeType SiteCodeType = EbayStoreHelper.getSiteCodeType(productStoreId,locale, delegator);
 			feedbackCall.setSite(SiteCodeType.US);
 			feedbackCall.setUserID(userID);
 			DetailLevelCodeType[] detailLevelCodeType = {DetailLevelCodeType.RETURN_ALL};
@@ -192,7 +192,7 @@ public class EbayFeedback {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
 		String productStoreId = (String) context.get("productStoreId");
-		ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+		ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 		List itemsResult = FastList.newInstance();
 		try{
 			GetItemsAwaitingFeedbackCall awaitingFeedbackCall = new GetItemsAwaitingFeedbackCall();
@@ -246,7 +246,7 @@ public class EbayFeedback {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
 		String productStoreId = (String) context.get("productStoreId");
-		ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+		ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 		
 		String itemId = (String) context.get("itemId");
 		String targetUser = (String) context.get("targetUser");

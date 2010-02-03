@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+   
+    <form name="EbayStoreFacilityList" type="single" list-name="productStoreFacilityList"  target="ebayStoreInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isFacilityId"><hidden value="Y"/></field>
+        <field name="facilityId" >
+            <drop-down current="selected" >
+                <list-options list-name="productStoreFacilityList" description="${facilityId}" key-name="facilityId"/>                
+            </drop-down>
+        </field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    
+    <form name="reserveEbayProductInventory" type="single" list-name=""  target="reserveProductInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display description="${parameters.productStoreId}"></display></field>
+        <field name="facilityId"><display description="${parameters.facilityId}"></display></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"></lookup></field>
+        <field name="quantity"><text></text></field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListEbayProductInventoryDetail" type="multi" use-row-submit="true"  target="updateEbayStoreInventory" title=""  list-name="ebayProductStoreInventoryList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><hidden/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="folderId"><hidden value="${parameters.folderId}"/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="productId"><display></display></field>
+        <field name="productName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productName}"></display-entity>
+        </field>
+        <field name="quantityReserved"><display></display></field>
+        <field name="availableToPromiseListing"><display></display></field>
+        <field name="scheduled"><display></display></field>
+        <field name="ebayProductId"><display></display></field>
+        <field name="activeListing"><display></display></field>
+        <field name="sold"><display></display></field>
+        <field name="unSold"><display></display></field>
+        <field name="reservedDate"><display></display></field>
+        <field name="updateButton" title="${uiLabelMap.EbayUpdateInventory}"><submit button-type="button"/></field>
+    </form>
+</forms>

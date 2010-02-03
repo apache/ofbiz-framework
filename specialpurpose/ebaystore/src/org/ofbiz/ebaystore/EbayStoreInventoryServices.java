@@ -1,4 +1,4 @@
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import java.util.Locale;
 import java.util.Map;
@@ -62,7 +62,7 @@ public class EbayStoreInventoryServices {
 			String folderId = (String)context.get("folderId");
 			// start upload/update products which selected  to an ebay inventory 
 			if(folderId != null){
-				GetSellingManagerInventoryCall invenCall = new GetSellingManagerInventoryCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetSellingManagerInventoryCall invenCall = new GetSellingManagerInventoryCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				invenReq = new GetSellingManagerInventoryRequestType();
 				invenResp = (GetSellingManagerInventoryResponseType) invenCall.execute(invenReq);
 				if(invenResp != null && "SUCCESS".equals(invenResp.getAck().toString())){
@@ -118,7 +118,7 @@ public class EbayStoreInventoryServices {
 			if(context.get("productStoreId") != null && context.get("productId")!=null && context.get("folderId")!=null){
 				String productId = (String)context.get("productId");
 				String folderId = (String)context.get("folderId");
-				AddSellingManagerProductCall productCall = new AddSellingManagerProductCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				AddSellingManagerProductCall productCall = new AddSellingManagerProductCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				productReq = new AddSellingManagerProductRequestType();
 				productReq.setFolderID(new Long(folderId));
 				SellingManagerProductDetailsType  sellingManagerProductDetailsType = new SellingManagerProductDetailsType();
@@ -164,7 +164,7 @@ public class EbayStoreInventoryServices {
 			if(context.get("productStoreId") != null && context.get("productId")!=null && context.get("folderId")!=null){
 				String productId = (String)context.get("productId");
 				String folderId = (String)context.get("folderId");
-				ReviseSellingManagerProductCall call = new ReviseSellingManagerProductCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				ReviseSellingManagerProductCall call = new ReviseSellingManagerProductCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new ReviseSellingManagerProductRequestType();
 				SellingManagerProductDetailsType  sellingManagerProductDetailsType = new SellingManagerProductDetailsType();
 				GenericValue ebayProductStoreInventory = delegator.findByPrimaryKey("EbayProductStoreInventory", UtilMisc.toMap("productId", productId,"facilityId",context.get("facilityId"),"productStoreId",context.get("productStoreId")));
@@ -216,7 +216,7 @@ public class EbayStoreInventoryServices {
 
 		try {
 			if(context.get("productStoreId") != null){
-				GetSellingManagerInventoryFolderCall  call = new GetSellingManagerInventoryFolderCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetSellingManagerInventoryFolderCall  call = new GetSellingManagerInventoryFolderCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetSellingManagerInventoryFolderRequestType();
 				resp = (GetSellingManagerInventoryFolderResponseType) call.execute(req);
 				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
@@ -260,7 +260,7 @@ public class EbayStoreInventoryServices {
 
 		try {
 			if(context.get("productStoreId") != null){
-				AddSellingManagerInventoryFolderCall call = new AddSellingManagerInventoryFolderCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				AddSellingManagerInventoryFolderCall call = new AddSellingManagerInventoryFolderCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new AddSellingManagerInventoryFolderRequestType();
 				req.setFolderName(defaultFolderName);//req.setComment(value);//req.setParentFolderID(value)
 				resp = (AddSellingManagerInventoryFolderResponseType) call.execute(req);

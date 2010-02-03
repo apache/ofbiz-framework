@@ -1,4 +1,4 @@
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import java.util.Map;
 

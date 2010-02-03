@@ -22,7 +22,7 @@
     <PortalPortlet portalPortletId="EbayPersonalInfo"
         portletName="Ebay Personal Information"
         screenName="EbayPersonalInformation"
-        screenLocation="component://ebay/widget/EbayAccountScreens.xml"
+        screenLocation="component://ebaystore/widget/EbayAccountScreens.xml"
         description="Ebay Personan Information"/>
     <PortletPortletCategory portalPortletId="EbayPersonalInfo" portletCategoryId="PROFILE"/>
     
