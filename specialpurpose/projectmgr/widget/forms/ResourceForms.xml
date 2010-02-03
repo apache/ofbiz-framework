@@ -36,7 +36,7 @@
             </hyperlink>
         </field>
         <field name="roleTypeId"><hidden/></field>
-        <field name="emailAddess" title="${uiLabelMap.PartyEmailAddress}">
+        <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}">
             <hyperlink target="/partymgr/control/EditCommunicationEvent" description="${emailResult.emailAddress}" target-type="inter-app">
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="partyIdTo" from-field="partyId"/>
@@ -45,8 +45,7 @@
                 <parameter param-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </hyperlink>
         </field>
-        <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
-        <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
+        <field name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}${groovy:telResult.get(&quot;extension&quot;)!=null?&quot; Ext:&quot;:&quot; &quot;}${telResult.extension}"/></field>
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
             <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove}">
