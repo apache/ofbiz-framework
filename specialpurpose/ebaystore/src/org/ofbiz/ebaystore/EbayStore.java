@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -120,8 +120,11 @@ import com.ebay.soap.eBLBaseComponents.PaginatedItemArrayType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
 
+import org.ofbiz.ebay.ProductsExportToEbay;
+import org.ofbiz.ebay.EbayHelper;
+
 public class EbayStore {
-	private static final String resource = "EbayUiLabels";
+	private static final String resource = "EbayStoreUiLabels";
 	private static final String module = ProductsExportToEbay.class.getName();
 	public static ProductsExportToEbay productExportEbay = new ProductsExportToEbay();
 
@@ -480,7 +483,7 @@ public class EbayStore {
 				e1.printStackTrace();
 			}
 			Debug.log("userLoginId is "+userLoginId+" and productStoreId is "+context.get("productStoreId"));
-			GetStoreCall call = new GetStoreCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+			GetStoreCall call = new GetStoreCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 			//call.setSite(EbayHelper.getSiteCodeType((String)context.get("productStoreId"), locale, delegator));
 			call.setCategoryStructureOnly(false);
 			call.setUserID(userLoginId);
@@ -726,7 +729,7 @@ public class EbayStore {
 			if(context.get("productStoreId") != null){
 				String themeId = (String)context.get("themeId");
 
-				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
@@ -789,7 +792,7 @@ public class EbayStore {
 		GetStoreOptionsResponseType resp  = null;
 		try {
 			if(context.get("productStoreId") != null){
-				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
@@ -830,7 +833,7 @@ public class EbayStore {
 		GetStoreOptionsResponseType resp  = null;
 		try {
 			if(context.get("productStoreId") != null){
-				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
@@ -880,7 +883,7 @@ public class EbayStore {
 		GetStoreOptionsResponseType resp  = null;
 		try {
 			if(context.get("productStoreId") != null){
-				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
@@ -936,7 +939,7 @@ public class EbayStore {
 		GetStoreOptionsResponseType resp  = null;
 		try {
 			if(context.get("productStoreId") != null){
-				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
@@ -1059,7 +1062,7 @@ public class EbayStore {
 		StoreType storeType = null;
 		try {
 			if(context.get("productStoreId") != null){
-				SetStoreCall  call = new SetStoreCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+				SetStoreCall  call = new SetStoreCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new SetStoreRequestType();
 
 				storeType = new StoreType();
@@ -1188,7 +1191,7 @@ public class EbayStore {
 			inMap.put("userLogin", userLogin);
 			Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
 			String userID = (String)resultUser.get("userLoginId");
-			ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 			GetMyeBaySellingCall getMyeBaySellingCall = new GetMyeBaySellingCall(apiContext);
 			ItemListCustomizationType activeList = new ItemListCustomizationType();
 			getMyeBaySellingCall.setActiveList(activeList );
@@ -1259,7 +1262,7 @@ public class EbayStore {
 			inMap.put("userLogin", userLogin);
 			Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
 			String userID = (String)resultUser.get("userLoginId");
-			ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 			GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
 			sellingManagerSoldListings.getSellingManagerSoldListings();
 			SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getReturnedSaleRecord();
@@ -1385,7 +1388,7 @@ public class EbayStore {
 								inMap.put("userLogin", userLogin);
 								Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
 								String userID = (String)resultUser.get("userLoginId");
-								ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+								ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 								for(int itemRelist=0;itemRelist<itemsToRelist.size();itemRelist++){
 									RelistItemCall relistItemCall = new RelistItemCall(apiContext);
 									ItemType itemToBeRelisted = new ItemType();
@@ -1418,7 +1421,7 @@ public class EbayStore {
 	       GetSellingManagerInventoryResponseType resp =  null;
 
 	       if(context.get("productStoreId") != null){
-	           GetSellingManagerInventoryCall call = new GetSellingManagerInventoryCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+	           GetSellingManagerInventoryCall call = new GetSellingManagerInventoryCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 
 	           try {
 	        	   Map<String,Object> ebayResp = FastMap.newInstance();
@@ -1443,7 +1446,7 @@ public class EbayStore {
 	                          if (selllingTempType.length > 0){
 	                        	  for (int j=0;j<selllingTempType.length;j++){
 	                                  Long longTemplete = Long.parseLong(selllingTempType[j].getSaleTemplateID());
-	                                  DeleteSellingManagerTemplateCall tcall = new DeleteSellingManagerTemplateCall(EbayHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+	                                  DeleteSellingManagerTemplateCall tcall = new DeleteSellingManagerTemplateCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 	                                  DeleteSellingManagerTemplateRequestType treq = new DeleteSellingManagerTemplateRequestType();
 	                                  DeleteSellingManagerTemplateResponseType tresp =  null;
 	                                  treq.setSaleTemplateID(longTemplete);

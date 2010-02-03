@@ -1,4 +1,4 @@
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -51,7 +51,7 @@ public class EbayStoreOptions {
 	    	   if(paramMap.get("productStoreId") != null){
 	    		   String themeId = (String)paramMap.get("themeId");
 	    		   
-	    		   GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayHelper.getApiContext((String)paramMap.get("productStoreId"), locale, delegator));
+	    		   GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)paramMap.get("productStoreId"), locale, delegator));
 	    		   req = new GetStoreOptionsRequestType();
 
 	    		   resp = (GetStoreOptionsResponseType) call.execute(req);

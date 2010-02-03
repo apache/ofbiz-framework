@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.ebay;
+package org.ofbiz.ebaystore;
 
 import java.util.Locale;
 import java.util.Map;
@@ -67,7 +67,7 @@ public class EbayAccount {
 		
 		try{
 			Map<String, Object>infoMap = FastMap.newInstance();
-			ApiContext apiContext = EbayHelper.getApiContext(productStoreId, locale, delegator);
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 			GetUserCall getUserCall  = new GetUserCall(apiContext);
 			DetailLevelCodeType[] detailLevel = {DetailLevelCodeType.RETURN_ALL};
 			getUserCall.setDetailLevel(detailLevel);

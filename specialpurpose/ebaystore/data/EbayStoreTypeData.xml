@@ -19,10 +19,9 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <ProductPricePurpose productPricePurposeId="EBAY" description="eBay Auction"/>
-    <ProductCategoryType productCategoryTypeId="EBAY_CATEGORY" description="eBay" hasTable="N" parentTypeId=""/>
-    <ProductContentType productContentTypeId="EBAY_DESCRIPTION" description="Detail Page for eBay Auctions"/>
-
-    <EnumerationType description="Ebay Ship Types" enumTypeId="EBAY_SHIP_TYPE" hasTable="N" parentTypeId=""/>
-    <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="EBAY_FLAT_RATE" sequenceId="01" enumTypeId="EBAY_SHIP_TYPE"/>
+    <RoleType roleTypeId="EBAY_ACCOUNT" hasTable="N" description="eBay Account"/>
+    <RoleType roleTypeId="COMMENTATOR" hasTable="N" description="Commentator"/>
+    
+    <EnumerationType description="Inventory Reservation For Ebay Store" enumTypeId="EBAY_INV_RESERVE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
 </entity-engine-xml>

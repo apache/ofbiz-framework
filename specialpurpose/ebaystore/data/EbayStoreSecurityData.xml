@@ -19,10 +19,13 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <ProductPricePurpose productPricePurposeId="EBAY" description="eBay Auction"/>
-    <ProductCategoryType productCategoryTypeId="EBAY_CATEGORY" description="eBay" hasTable="N" parentTypeId=""/>
-    <ProductContentType productContentTypeId="EBAY_DESCRIPTION" description="Detail Page for eBay Auctions"/>
+    <!-- eBay component security -->
+    <SecurityPermission description="All operations in the eBay Store application." permissionId="EBAYSTORE_ADMIN"/>
+    <SecurityPermission description="View operations in the eBay Store application." permissionId="EBAYSTORE_VIEW"/>
 
-    <EnumerationType description="Ebay Ship Types" enumTypeId="EBAY_SHIP_TYPE" hasTable="N" parentTypeId=""/>
-    <Enumeration description="Flat Rate Shipping" enumCode="FLAT_RATE" enumId="EBAY_FLAT_RATE" sequenceId="01" enumTypeId="EBAY_SHIP_TYPE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBAYSTORE_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="EBAYSTORE_ADMIN"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="EBAYSTORE_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="EBAYSTORE_VIEW"/>
+
 </entity-engine-xml>

@@ -24,7 +24,6 @@
         <menu-item name="export" title="${uiLabelMap.EbayExportToEbay}"><link target="advancedsearch"/></menu-item>
         <menu-item name="importOrders" title="${uiLabelMap.EbayImportSingleTransactionFromEbay}"><link target="ManageOrdersFromEbay"/></menu-item>
         <menu-item name="eBayOrders" title="${uiLabelMap.EbayEBayOrders}"><link target="eBayOrders"/></menu-item>
-        <menu-item name="ebayStore" title="${uiLabelMap.EbayStore}"><link target="ebayStores"></link></menu-item>
     </menu>
     <menu name="EbayConfigTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
@@ -54,89 +53,6 @@
                 <not><if-empty field="ebayConfig"/></not>
             </condition>
             <link target="EditEbayConfiguration"/>
-        </menu-item>
-    </menu>
-    <menu name="EbaySubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-        menu-container-style="button-bar button-style-2">
-        <menu-item name="NewEbayAccount" title="New Ebay Account">
-            <link target="newEbayAccount"/>
-        </menu-item>
-    </menu>
-    <menu name="EbayStoreFunctionTabBar"  extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ebayAccount" title="${uiLabelMap.EbayAccount}">
-            <link target="ebayAccount">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="ebayStoreSetting" title="${uiLabelMap.EbayStore}">
-            <link target="getStoreDetail">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="ebayExportAllCategoryToEbayStore" title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
-            <link target="exportCategoryEbayStore">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="inventory" title="${uiLabelMap.ProductProduct} ${uiLabelMap.ProductInventory}">
-            <link target="ebayStoreInventory">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="blockItemOutOfStock" title="${uiLabelMap.EbayBlockItemOutOfStock}">
-            <link target="blockItemOutOfStock">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="feedback" title="${uiLabelMap.EbayFeedback}">
-            <link target="Feedback">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="automationPreferences" title="Automation Preferences">
-            <link target="automationPreferences">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-    </menu>
-    <menu name="EbayFeedbackTabBar" selected-menuitem-context-field-name="eBayTabButtonItem" type="simple" 
-        default-selected-style="selected" menu-container-style="button-bar button-style-2">
-        <menu-item name="Feedback">
-            <condition>
-                <not><if-empty  field="parameters.productStoreId"/></not>
-            </condition>
-            <link target="Feedback" text="${uiLabelMap.EbayFeedback}">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="LeaveFeedback">
-            <condition>
-                <not><if-empty  field="parameters.productStoreId"/></not>
-            </condition>
-            <link target="LeaveFeedback" text="${uiLabelMap.EbayLeaveFeedback}">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-    </menu>
-    <menu name="EbayFeedbackSubTabBar"  extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-        menu-container-style="button-bar button-style-2" selected-menuitem-context-field-name="role">
-        <menu-item name="all" title="${uiLabelMap.CommonAll}">
-            <link target="LeaveFeedback">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-                <parameter param-name="role" value="all"/>
-            </link>
-        </menu-item>
-        <menu-item name="seller" title="${uiLabelMap.EbayBoughtLeaveFeedback}">
-            <link target="LeaveFeedback">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-                <parameter param-name="role" value="seller"/>
-            </link>
-        </menu-item>
-        <menu-item name="buyer" title="${uiLabelMap.EbaySoldLeaveFeedback}">
-            <link target="LeaveFeedback">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-                <parameter param-name="role" value="buyer"/>
-            </link>
         </menu-item>
     </menu>
 </menus>
