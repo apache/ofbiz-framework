@@ -544,9 +544,11 @@
     <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list="projectResources">
-                <condition-expr field-name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
-                <select-field field-name="partyId"/>
+            <entity-condition entity-name="PartyRoleAndPartyDetail" distinct="true" list="projectResources">
+                   <condition-list combine="and">
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    </condition-list>                <select-field field-name="partyId"/>
                 <select-field field-name="lastName"/>
                 <select-field field-name="firstName"/>
                 <select-field field-name="groupName"/>
