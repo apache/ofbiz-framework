@@ -83,4 +83,5 @@ under the License.
         objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_eBayOrders.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="EBAY_EbayOrders" contentTypeId="DOCUMENT" contentName="Ebay orders import" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_EbayOrders" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_EbayOrders" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_FindEbayOrders"/>
+    
 </entity-engine-xml>

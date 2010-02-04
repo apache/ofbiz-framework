@@ -82,7 +82,6 @@ public class EbayHelper {
                 buildEbayConfigContext.put("compatibilityLevel", eBayConfig.getString("compatibilityLevel"));
                 buildEbayConfigContext.put("siteID", eBayConfig.getString("siteId"));
                 buildEbayConfigContext.put("xmlGatewayUri", eBayConfig.getString("xmlGatewayUri"));
-                buildEbayConfigContext.put("apiServerUrl", UtilProperties.getPropertyValue(configFileName, "eBayExport.apiServerUrl"));
             }
         } else {
             buildEbayConfigContext.put("devID", UtilProperties.getPropertyValue(configFileName, "eBayExport.devID"));
@@ -92,7 +91,6 @@ public class EbayHelper {
             buildEbayConfigContext.put("compatibilityLevel", UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel"));
             buildEbayConfigContext.put("siteID", UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID"));
             buildEbayConfigContext.put("xmlGatewayUri", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
-            buildEbayConfigContext.put("apiServerUrl", UtilProperties.getPropertyValue(configFileName, "eBayExport.apiServerUrl"));
         }
         return buildEbayConfigContext;
     }
