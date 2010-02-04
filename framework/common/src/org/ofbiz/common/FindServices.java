@@ -78,6 +78,7 @@ public class FindServices {
         entityOperators.put("lessThan", EntityOperator.LESS_THAN);
         entityOperators.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
         entityOperators.put("like", EntityOperator.LIKE);
+        entityOperators.put("notLike", EntityOperator.NOT_LIKE);
         entityOperators.put("not", EntityOperator.NOT);
         entityOperators.put("notEqual", EntityOperator.NOT_EQUAL);
     }
@@ -238,6 +239,8 @@ public class FindServices {
             if (opString != null) {
                 if (opString.equals("contains")) {
                     fieldOp = EntityOperator.LIKE;
+                } else if (opString.equals("not-contains")) {
+                    fieldOp = EntityOperator.NOT_LIKE;
                 } else if (opString.equals("empty")) {
                     fieldOp = EntityOperator.EQUALS;
                 } else {
@@ -251,10 +254,13 @@ public class FindServices {
             if (fieldValue == null) {
                 continue;
             }
-
+            
             if (opString != null) {
                 if (opString.equals("contains")) {
                     fieldOp = EntityOperator.LIKE;
+                    fieldValue = "%" + fieldValue + "%";
+                } else if ("not-contains".equals(opString) || "notContains".equals(opString)) {
+                    fieldOp = EntityOperator.NOT_LIKE;
                     fieldValue = "%" + fieldValue + "%";
                 } else if (opString.equals("empty")) {
                     fieldOp = EntityOperator.EQUALS;
@@ -262,6 +268,9 @@ public class FindServices {
                     ignoreCase = null;
                 } else if (opString.equals("like")) {
                     fieldOp = EntityOperator.LIKE;
+                    fieldValue = fieldValue + "%";
+                } else if ("not-like".equals(opString) || "notLike".equals(opString)) {
+                    fieldOp = EntityOperator.NOT_LIKE;
                     fieldValue = fieldValue + "%";
                 } else if (opString.equals("greaterThanFromDayStart")) {
                     fieldValue = dayStart((String) fieldValue, 0);
@@ -326,6 +335,8 @@ public class FindServices {
             if (opString != null) {
                 if (opString.equals("contains")) {
                     fieldOp = EntityOperator.LIKE;
+                } else if ("not-contains".equals(opString) || "notContains".equals(opString)) {
+                    fieldOp = EntityOperator.LIKE;
                 } else if (opString.equals("empty")) {
                     fieldOp = EntityOperator.EQUALS;
                 } else {
@@ -339,9 +350,9 @@ public class FindServices {
             if (fieldValue == null) {
                 continue;
             }
-            if (opString.equals("like")) {
+            if ("like".equals(opString) || "not-like".equals(opString) || "notLike".equals(opString)) {
                 fieldValue = fieldValue + "%";
-            } else if (opString.equals("contains")) {
+            } else if ("contains".equals(opString) || "not-contains".equals(opString) || "notContains".equals(opString)) {
                 fieldValue = fieldValue + "%" + fieldValue + "%";
             } else if (opString.equals("empty")) {
                 fieldOp = EntityOperator.EQUALS;
