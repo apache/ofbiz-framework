@@ -39,6 +39,7 @@ under the License.
     <service-resource type="mca" loader="main" location="servicedef/mcas.xml"/>
     
     <test-suite loader="main" location="testdef/PartyTests.xml"/>
+    <test-suite loader="main" location="testdef/PartyContactMechTests.xml"/>
 
     <webapp name="party"
         title="Party"
