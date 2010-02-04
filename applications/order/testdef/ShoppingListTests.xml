@@ -22,7 +22,7 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <test-case case-name="loadShoppingListData">
+    <test-case case-name="loadShoppingListTestData">
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/ShoppingListTestData.xml"/>
     </test-case>
 
