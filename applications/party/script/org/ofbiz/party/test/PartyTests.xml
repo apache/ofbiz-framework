@@ -99,7 +99,6 @@ under the License.
             <result-to-field result-name="paymentMethodId"/>
             <result-to-field result-name="oldPaymentMethodId"/>
         </call-service>
-        <log level="info" message="====== paymentMethodId [${paymentMethodId}] ======"/>
         <clear-field field="paymentMethodAndCreditCard"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-field="paymentMethodAndCreditCard"/>
         <assert>
@@ -121,7 +120,6 @@ under the License.
             <result-to-field result-name="paymentMethodId"/>
             <result-to-field result-name="oldPaymentMethodId"/>
         </call-service>
-        <log level="info" message="====== New paymentMethodId [${paymentMethodId}] created for party [${serviceCtx.partyId}] ======"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-field="paymentMethodAndCreditCard"/>
         <assert>
             <not><if-empty field="paymentMethodAndCreditCard"/></not>
@@ -203,7 +201,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testCreateNewCommEvent" short-description="test to create a new communication event" login-required="false">
-        <log level="info" message="====================Create a new communication event test case=========================================="/>
         <set field="createNewCommEventMap.communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
         <set field="createNewCommEventMap.statusId" value="COM_ENTERED"/>
         <set field="createNewCommEventMap.partyIdFrom" value="DemoCustomer"/>
@@ -229,7 +226,6 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="inlineUpdateCommEvent" short-description="test to update communication event" login-required="false">
-        <log level="info" message="====================Update communication event test case=========================================="/>
         <set field="updateCommEventMap.communicationEventId" from-field="commEventMap.communicationEventId"/>
         <set field="updateCommEventMap.communicationEventTypeId" value="AUTO_EMAIL_COMM"/>
         <set field="updateCommEventMap.statusId" value="COM_COMPLETE"/>
@@ -242,7 +238,6 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="testCreateNewRequest" short-description="create a new request" login-required="false">
-        <log level="info" message="====================Create a new request test case=========================================="/>
         <set field="createNewRequestMap.custRequestTypeId" value="RF_PROPOSAL"/>
         <set field="createNewRequestMap.statusId" value="CRQ_SUBMITTED"/>
         <set field="createNewRequestMap.priority" value="1L" type="Long"/>
@@ -268,7 +263,6 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="inlineUpdateRequest" short-description="update a request" login-required="false">
-        <log level="info" message="====================Update a request test case=========================================="/>
         <set field="updateRequestMap.custRequestId" from-field="requestMap.custRequestId"/>
         <set field="updateRequestMap.custRequestTypeId" value="RF_INFO"/>
         <set field="updateRequestMap.statusId" value="CRQ_ACCEPTED"/>

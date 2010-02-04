@@ -48,7 +48,6 @@ under the License.
         <call-service service-name="updatePartyEmailAddress" in-map-name="serviceCtx">
             <result-to-field result-name="contactMechId"/>
         </call-service>
-        <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -63,7 +62,6 @@ under the License.
         <call-service service-name="updatePartyEmailAddress" in-map-name="serviceCtx">
             <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
-        <log level="info" message="====== New contactMechId [${newContactMechId}] for email address is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
@@ -103,7 +101,6 @@ under the License.
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
            <result-to-field result-name="contactMechId"/>
         </call-service>
-        <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -126,7 +123,6 @@ under the License.
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
            <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
-        <log level="info" message="====== New contactMechId [${newContactMechId}] for TelecomNumber is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
@@ -172,7 +168,6 @@ under the License.
         <call-service service-name="updatePartyPostalAddress" in-map-name="serviceCtx">
             <result-to-field result-name="contactMechId"/>
         </call-service>
-        <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -197,7 +192,6 @@ under the License.
         <call-service service-name="updatePartyPostalAddress" in-map-name="serviceCtx">
            <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
-        <log level="info" message="====== New contactMechId [${newContactMechId}] for PostalAddress is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
@@ -288,5 +282,4 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-
 </simple-methods>
