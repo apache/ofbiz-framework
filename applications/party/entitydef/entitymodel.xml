@@ -2120,7 +2120,7 @@ under the License.
   </view-entity>
   <entity entity-name="PartyNameHistory"
         package-name="org.ofbiz.party.party"
-        title="Party Note Entity">
+        title="Party Name History Entity">
         <field name="partyId" type="id-ne"></field>
         <field name="changeDate" type="date-time"></field>
         <field name="groupName" type="name"><description>For Party Groups only</description></field>
