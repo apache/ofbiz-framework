@@ -44,8 +44,10 @@ under the License.
                 <td><b>${uiLabelMap.ProductLocation}</b></td>
                 <td><b>${uiLabelMap.ProductLotId}</b></td>
                 <td><b>${uiLabelMap.ProductBinNum}</b></td>
-                <td><b>${uiLabelMap.ProductPerUnitPrice}</b></td>
-                <td><b>${uiLabelMap.ProductAtpQohSerial}</b></td>
+                <td align="right"><b>${uiLabelMap.ProductPerUnitPrice}</b></td>
+                <td>&nbsp;</td>
+                <td align="right"><b>${uiLabelMap.ProductInventoryItemInitialQuantity}</b></td>
+                <td align="right"><b>${uiLabelMap.ProductAtpQohSerial}</b></td>
             </tr>
             <#assign rowClass = "2">
             <#list productInventoryItems as inventoryItem>
@@ -56,6 +58,7 @@ under the License.
                     <#assign curStatusItem = inventoryItem.getRelatedOneCache("StatusItem")?if_exists>
                     <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation")?if_exists>
                     <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists>
+                    <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate")))?if_exists>
                     <#if curInventoryItemType?exists>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)?if_exists}${externalKeyParam}" class="buttontext">${(inventoryItem.inventoryItemId)?if_exists}</a></td>
@@ -86,18 +89,25 @@ under the License.
                             <td><a href="/facility/control/EditFacilityLocation?facilityId=${(inventoryItem.facilityId)?if_exists}&locationSeqId=${(inventoryItem.locationSeqId)?if_exists}${externalKeyParam}" class="linktext"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)?if_exists}]</a></td>
                             <td>&nbsp;${(inventoryItem.lotId)?if_exists}</td>
                             <td>&nbsp;${(inventoryItem.binNumber)?if_exists}</td>
-                            <td align="right">&nbsp;<@ofbizCurrency amount=inventoryItem.unitCost isoCode=inventoryItem.currencyUomId/></td>
+                            <td align="right"><@ofbizCurrency amount=inventoryItem.unitCost isoCode=inventoryItem.currencyUomId/></td>
+                            <td>
+                                <#if inventoryItemDetailFirst?exists && inventoryItemDetailFirst.workEffortId?exists>
+                                    <b>${uiLabelMap.ProductionRunId}</b> ${inventoryItemDetailFirst.workEffortId}
+                                <#elseif inventoryItemDetailFirst?exists && inventoryItemDetailFirst.orderId?exists>
+                                    <b>${uiLabelMap.OrderId}</b> ${inventoryItemDetailFirst.orderId}
+                                </#if>
+                            </td>
+                            <td align="right">${inventoryItemDetailFirst?if_exists.quantityOnHandDiff?if_exists}</td>
                             <#if inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM">
-                                <td>
+                                <td align="right">
                                     <div>${(inventoryItem.availableToPromiseTotal)?default("NA")}
                                     / ${(inventoryItem.quantityOnHandTotal)?default("NA")}</div>
                                 </td>
                             <#elseif inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM">
-                                <td>&nbsp;${(inventoryItem.serialNumber)?if_exists}</td>
+                                <td align="right">&nbsp;${(inventoryItem.serialNumber)?if_exists}</td>
                             <#else>
-                                <td style="color: red;">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)?if_exists} ${uiLabelMap.ProductUnknownSerialNumber} (${(inventoryItem.serialNumber)?if_exists})
+                                <td align="right" style="color: red;">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)?if_exists} ${uiLabelMap.ProductUnknownSerialNumber} (${(inventoryItem.serialNumber)?if_exists})
                                     ${uiLabelMap.ProductAndQuantityOnHand} (${(inventoryItem.quantityOnHandTotal)?if_exists} ${uiLabelMap.CommonSpecified}</td>
-                                <td>&nbsp;</td>
                             </#if>
                         </tr>
                     </#if>
