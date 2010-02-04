@@ -289,7 +289,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditProjectTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true"
+    <form name="EditProjectTasks" target="updateProjectTask" title="" list-name="tasks" type="list" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map="result">
@@ -307,7 +307,7 @@
             </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"></display-entity></field>
-        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field name="plannedHours" parameter-name="estimatedDuration" title="${uiLabelMap.ProjectMgrPlannedHours}"><text/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="false">

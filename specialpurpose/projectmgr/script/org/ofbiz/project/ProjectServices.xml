@@ -179,6 +179,23 @@
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="updateTaskAndRelatedInfo" short-description="Update the task and when info is provided update the related information too">
+        <set-service-fields service-name="updateWorkEffort" to-map="updateWorkeffort" map="parameters"/>
+        <call-service service-name="updateWorkEffort" in-map-name="updateWorkeffort"/>
+        <if-not-empty field="parameters.estimatedDuration">
+            <set-service-fields service-name="updateWorkEffortSkillStandard" to-map="updateWorkEffortSkillStandard" map="parameters"/>
+            <if-empty field="parameters.skillTypeId">
+                <entity-and list="workEffortSkillStandards" entity-name="WorkEffortSkillStandard">
+                    <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                </entity-and>
+                <first-from-list entry="workEffortSkillStandard" list="workEffortSkillStandards"/>
+                <set field="updateWorkEffortSkillStandard.skillTypeId" from-field="workEffortSkillStandard.skillTypeId"/>
+            </if-empty>
+            <call-service service-name="updateWorkEffortSkillStandard" in-map-name="updateWorkEffortSkillStandard"/>
+        </if-not-empty>
+        <!-- if required can update more task related info here -->
+    </simple-method>
+    
     <simple-method method-name="updateTaskAssigment"
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
         <field-to-result field="parameters.workEffortId" result-name="workEffortId"/>
