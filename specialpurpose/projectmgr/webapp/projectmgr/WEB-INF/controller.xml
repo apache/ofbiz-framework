@@ -237,9 +237,9 @@
         <response name="success" type="view" value="Dependencies"/>
         <response name="error" type="view" value="Dependencies"/>
     </request-map>
-    <request-map uri="updateProjectTaskOrPhase">
+    <request-map uri="updateProjectTask">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffort"/>
+        <event type="service" invoke="updateTaskAndRelatedInfo"/>
         <response name="success" type="view" value="EditProjectTasks"/>
         <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
@@ -391,6 +391,10 @@
     <request-map uri="FindTimeSheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindTimeSheet" save-home-view="true"/>
+    </request-map>
+    <request-map uri="ListWorkEffortPartyAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListWorkEffortPartyAssigns" save-home-view="true"/>
     </request-map>
     <request-map uri="EditTimeSheet">
         <security https="true" auth="true"/>
