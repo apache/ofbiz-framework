@@ -134,7 +134,6 @@ under the License.
 
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <field-to-result field="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
-            <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
             <create-value value-field="newEntity"/>
 
             <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">

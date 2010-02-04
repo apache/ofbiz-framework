@@ -111,7 +111,7 @@ under the License.
             location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
         <description>Create a shopping list item</description>
         <implements service="shoppingListItemInterface"/>
-        <attribute name="shoppingListId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
