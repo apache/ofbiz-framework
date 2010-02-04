@@ -240,6 +240,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         try {
             newItem.setQuantity(quantity, dispatcher, cart, true, false);
+            cart.setItemShipGroupQty(newItem, quantity, 0);
         } catch (CartItemModifyException e) {
             cart.removeCartItem(cart.getItemIndex(newItem), dispatcher);
             cart.clearItemShipInfo(newItem);
