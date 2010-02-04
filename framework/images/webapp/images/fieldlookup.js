@@ -179,7 +179,7 @@ function key_event(evt) {
 var FieldLookupPopup = Class.create({
     initialize: function (target, viewName, lookupWidth, lookupHeight, position) {
         if (isEmpty(target) || isEmpty(viewName)) {
-            return lookup_error("Lookup can't be created, variables missing");
+            return lookup_error("Lookup can't be created, one of these variables is missing" + target + viewName);
         }
         
         //removes a existing Lookup
@@ -259,61 +259,20 @@ var FieldLookupPopup = Class.create({
         
         lookupDiv.style.display = "none";
         //creates the div as child of the form element (parent --> input field; parentNode --> form)
-        var pn = parent.parentNode;
-        
-        //set layer position
-        var bdy = document.body;
-        if (this.position == "center") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
-            lookupTop = ((bdy.offsetHeight / 2) - (dimensions.height / 2)) + window.pageYOffset;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "right") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            lookupTop = (bdy.offsetHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "left") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            lookupTop = (bdy.offsetHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topright") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            lookupTop = 5;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topleft") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            lookupTop = 5;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else {
-            //for 'normal', empty etc.
-            if (pn != null) {
-                // IE Fix
-                pn.appendChild(lookupDiv);
-            }
-        }
+        this.pn = parent.parentNode;
+
+        //set the layer position
+        this.setPosition(lookupDiv);
+
         this.divRef = lookupDiv;
-        
+
         //make layer draggable
         this.makeDraggable(lookupDiv);
-        
+
         //make the window resiable
         this.makeResizeable(lookupDiv);
     },
-    
+
     loadContent: function (lookupDiv) {
         new Ajax.Request(this.viewName, {
             onSuccess: function (transport) {
@@ -325,7 +284,70 @@ var FieldLookupPopup = Class.create({
             }
         });
     },
-    
+
+    setPosition: function(lookupDiv){
+        //set layer position
+        var bdy = document.body;
+        if (this.position == "center") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "right") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "left") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = 5;
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topright") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topleft") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = 5;
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topcenter") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        }else {
+            //for 'normal', empty etc.
+            if (this.pn != null) {
+                // IE Fix
+                this.pn.appendChild(lookupDiv);
+            }
+        }
+    },
+
     makeDraggable: function (lookupDiv) {
         this.loopupDrag = new Draggable(lookupDiv, {
             handle: 'fieldLookupHeader', revert: false, ghosting: false
@@ -365,10 +387,11 @@ var FieldLookupPopup = Class.create({
 */
 var FieldLookupPopup2 = Class.create({
     initialize: function (target, target2, viewName, lookupWidth, lookupHeight, position) {
-        if (isEmpty(target) || isEmpty(target2) || isEmpty(viewName)) {
-            return lookup_error("Lookup can't be created, variables missing");
-        }
         
+        if (isEmpty(target) || isEmpty(target2) || isEmpty(viewName)) {
+            return lookup_error("Lookup can't be created, one of these variables is missing" + target + target2 + viewName);
+        }
+
         //removes a existing Lookup
         if (CURRENT_LOOKUP != null) {
             CURRENT_LOOKUP.removeLayer();
@@ -445,60 +468,20 @@ var FieldLookupPopup2 = Class.create({
         
         lookupDiv.style.display = "none";
         //creates the div as child of the form element (parent --> input field; parentNode --> form)
-        var pn = parent.parentNode;
-        
-        //set layer position
-        var bdy = document.body;
-        if (this.position == "center") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
-            lookupTop = ((bdy.offsetHeight / 2) - (dimensions.height / 2)) + window.pageYOffset;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "right") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            lookupTop = (bdy.offsetHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "left") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            lookupTop = (bdy.offsetHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topright") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            lookupTop = 5;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topleft") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            lookupTop = 5;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else {
-            //for 'normal', empty etc.
-            if(pn != null){ // IE Fix
-                pn.appendChild(lookupDiv);
-            }
-        }
+        this.pn = parent.parentNode;
+
+        //set the layer position
+        this.setPosition(lookupDiv);
+
         this.divRef = lookupDiv;
-        
+
         //make layer draggable
         this.makeDraggable(lookupDiv);
-        
+
         //make the window resiable
         this.makeResizeable(lookupDiv);
     },
-    
+
     loadContent: function (lookupDiv) {
         new Ajax.Request(this.viewName, {
             onSuccess: function (transport) {
@@ -508,7 +491,70 @@ var FieldLookupPopup2 = Class.create({
             }
         });
     },
-    
+
+    setPosition: function(lookupDiv){
+        //set layer position
+        var bdy = document.body;
+        if (this.position == "center") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "right") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "left") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = 5;
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topright") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topleft") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = 5;
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        } else if (this.position == "topcenter") {
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            lookupTop = 5 + scrollOffY;
+            lookupDiv.style.left = lookupLeft + "px";
+            lookupDiv.style.top = lookupTop + "px";
+        }else {
+            //for 'normal', empty etc.
+            if (this.pn != null) {
+                // IE Fix
+                this.pn.appendChild(lookupDiv);
+            }
+        }
+    },
+
     makeDraggable: function (lookupDiv) {
         this.loopupDrag = new Draggable(lookupDiv, {
             handle: 'fieldLookupHeader', revert: false, ghosting: false
