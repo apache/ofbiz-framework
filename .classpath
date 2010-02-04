@@ -227,6 +227,7 @@
     <classpathentry kind="src" path="framework/widget/src"/>
     <classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
     <classpathentry kind="src" path="specialpurpose/ebay/src"/>
+    <classpathentry kind="src" path="specialpurpose/ebaystore/src"/>
     <classpathentry kind="src" path="specialpurpose/ecommerce/src"/>
     <classpathentry kind="src" path="specialpurpose/googlebase/src"/>
     <classpathentry kind="src" path="specialpurpose/googlecheckout/src"/>

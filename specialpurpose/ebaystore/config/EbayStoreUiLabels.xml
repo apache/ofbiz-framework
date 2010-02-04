@@ -183,4 +183,7 @@
     <property key="EbayUpdateInventory">
         <value xml:lang="en">Update To Ebay Inventory</value>
     </property>
+    <property key="EbayUpdateInventoryStatus">
+        <value xml:lang="en">Update Inventory Status</value>
+    </property>
 </resource>
