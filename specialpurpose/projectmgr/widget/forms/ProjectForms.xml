@@ -306,7 +306,7 @@
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"></display-entity></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
