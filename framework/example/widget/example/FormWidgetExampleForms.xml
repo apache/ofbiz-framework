@@ -37,8 +37,8 @@ under the License.
         <!-- ***   field9  *** -->
         <!-- ***************** -->
         <field name="field9"
-               title="${uiLabelMap.ExampleDateField9Title}"
-               tooltip="${uiLabelMap.ExampleDateField9Tooltip}">
+            title="${uiLabelMap.ExampleDateField9Title}" tooltip="${uiLabelMap.ExampleDateField9Tooltip}">
+            <!--tooltip="${uiLabelMap.ExampleDateField9Tooltip}"-->
             <date-time default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <!-- ***************** -->
