@@ -175,7 +175,6 @@ under the License.
         <field name="compatibilityLevel"><text default-value="${ebayConfig.compatibilityLevel}" size="5"/></field>
         <field name="siteId"><text default-value="${ebayConfig.siteId}" size="5"/></field>
         <field name="xmlGatewayUri"><text size="40"/></field>
-        <field name="apiServerUrl"><text size="40"/></field>
         <field name="customXml"><textarea cols="60" rows="5"/></field> 
         <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
             <drop-down>
@@ -269,82 +268,5 @@ under the License.
         </field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-
-    <form name="ListCurrentStores" type="single" target="exportCategoriesSelectedToEbayStore"
-        header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-and entity-name="ProductStoreCatalog" list="storeCatalog">
-                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-            </entity-and>
-        </actions>
-        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
-        <field name="prodCatalogId">
-            <drop-down>
-                <list-options list-name="storeCatalog" key-name="prodCatalogId" description="${prodCatalogId}"/>
-                <!--entity-options entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId">
-                    <entity-order-by field-name="catalogName"/>
-                    </entity-options-->
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.EbayExportToEbayStore}"><submit button-type="button"/></field>
-    </form>
-    <form name="NewEbayAccount" type="single"  target="createEbayAccount">
-        <auto-fields-service service-name="createEbayAccount"/>
-        <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
-        <field name="gender">
-            <drop-down allow-empty="true">
-                <option key="M" description="${uiLabelMap.CommonMale}"/>
-                <option key="F" description="${uiLabelMap.CommonFemale}"/>
-            </drop-down>
-        </field>
-        <field name="currentPassword"><password/></field>
-        <field name="currentPasswordVerify"><password/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
-    </form>
-    <!-- feedback -->
-    <form name="ItemsAwaitingFeedback" type="list" list-name="itemsAwaitingFeedbackList"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <set field="leave"  value="${commentType}"/>
-        </row-actions>
-        <field name="itemID"><display description="${itemID} - ${title}"/></field>
-        <field name="userID"><display description="${userID}"/></field>
-        <field name="actions" use-when="&quot;${commentType}&quot; == &quot;&quot;">
-            <hyperlink target="LeaveFeedback" description="Leave Feedback">
-                <parameter param-name="itemId" value="${itemID}"/>
-                <parameter param-name="transactionId" value="${transactionID}"/>
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-                <parameter param-name="targetUser" value="${userID}"/>
-                <parameter param-name="commentingUser" value="${commentingUser}"/>
-                <parameter param-name="role" value="${role}"/>
-            </hyperlink>
-        </field>
-    </form>
-    <form name="RecentFeedback" type="list" list-name="recentFeedbackList"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <field name="contentId" title="Feedback Id"><display/></field>
-        <field name="dataResourceId" title="Comment Text">
-            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"/>
-        </field>
-        <field name="commentator" title="Commentator"><display/></field>
-        <field name="createdDate"><display type="date"/></field>
-    </form>
-    <form name="EditAutomationRelistSoldItems" target="createEbayAutomaticRelistItems" type="single">
-        <alt-target use-when="job!=null" target="updateEbayAutomaticRelistItems"/>
-        <field name="jobId" use-when="job!=null"><hidden value="${job.jobId}"/></field>
-        <field name="jobId" use-when="job==null"><hidden value="${jobId}"/></field>
-        <field name="authUserLoginId"><hidden value="${userLoginId}"/></field>
-        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
-        <field name="startDateTime"><date-time default-value="${job.startDateTime}"/></field>
-        <field name="finishDateTime"><date-time default-value="${job.finishDateTime}"/></field>
-        <field name="submit" use-when="job!=null" title="${uiLabelMap.CommonApply}"><submit/></field>
-        <field name="submit" use-when="job==null" title="${uiLabelMap.CommonCreate}"><submit/></field>
-    </form>
-    <!-- block out of stock items -->
-    <form name="blockItemsOutOfStock"  type="single" target="runBlockItemOutOfStock">
-        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
-        <field name="productStore" entry-name="parameters.productStoreId" ><display-entity entity-name="ProductStore" description="${storeName} [${productStoreId}]" key-field-name="productStoreId" ></display-entity></field>
-        <field name="submitButton" title="${uiLabelMap.BlockItemsOutOfStock}"><submit button-type="button"/></field>
     </form>
 </forms>

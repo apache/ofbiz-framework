@@ -88,6 +88,5 @@ under the License.
             <key-map field-name="shipmentMethodTypeId"/>
         </relation>
     </entity>
-
 </entitymodel>    
     
