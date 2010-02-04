@@ -3472,10 +3472,10 @@ public class ModelFormField {
             this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
             this.descriptionFieldName = element.getAttribute("description-field-name");
             this.targetParameter = element.getAttribute("target-parameter");
-            this.lookupPresentation = element.getAttribute("lookup-presentation");
-            this.lookupHeight = element.getAttribute("lookup-height");
-            this.lookupWidth = element.getAttribute("lookup-width");
-            this.lookupPosition = element.getAttribute("lookup-position");
+            this.lookupPresentation = element.getAttribute("presentation");
+            this.lookupHeight = element.getAttribute("height");
+            this.lookupWidth = element.getAttribute("width");
+            this.lookupPosition = element.getAttribute("position");
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
