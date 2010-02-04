@@ -139,12 +139,31 @@
     </request-map>
     <request-map uri="reserveProductInventory">
         <security https="true" auth="true"/>
-        <event type="service" invoke="reserveEbayStoreInventory"/>
+        <event type="service" invoke="reserveEbayProductInventory"/>
         <response name="success" type="view" value="reserveEbayProductInventory"/>
     </request-map>
     <request-map uri="updateEbayStoreInventory">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateEbayStoreInventory"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateEbayStoreInventory">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEbayStoreInventory"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateEbayInventoryStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEbayInventoryStatus"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateQuantityReserved">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="updateQuantityReserved"/>
+    </request-map>
+    <request-map uri="updateProductQuantityReserved">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEbayProductQtyReserved"/>
         <response name="success" type="view" value="ebayLoadStoreInventory"/>
     </request-map>
 	<!-- end of request mappings -->
@@ -172,5 +191,6 @@
     <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStoreInventory"/>
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayLoadStoreInventory"/>
     <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#reserveEbayProductInventory"/>
+    <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#updateQuantityReserved"/>
     <!-- end of view mappings -->
 </site-conf>

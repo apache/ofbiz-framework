@@ -466,14 +466,14 @@ public class EbayStore {
 		
 		String userLoginId = null;
 		String password = null;
-		if(context.get("productStoreId") != null){
+		if (context.get("productStoreId") != null) {
 			String partyId = null;
 			try {
 				List<GenericValue> productStoreRoles = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", context.get("productStoreId").toString(),"roleTypeId","EBAY_ACCOUNT"));
-				if(productStoreRoles!=null){
+				if (productStoreRoles!=null) {
 					partyId=  (String)productStoreRoles.get(0).get("partyId");
 					List<GenericValue> userLogin = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-					if(userLogin!=null){
+					if (userLogin!=null) {
 						userLoginId = (String)userLogin.get(0).get("userLoginId");
 						password = (String)userLogin.get(0).get("currentPassword");
 					}
@@ -490,10 +490,10 @@ public class EbayStore {
 
 			try {
 				resp = (GetStoreResponseType)call.execute(req);
-				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+				if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
 					returnedStoreType  = resp.getStore();
 					result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-					result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "EbayStoreLoadSuccess", locale));
+					//result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "EbayStoreLoadSuccess", locale));
 					// update product store in ofbiz
 					updateProductStore(dctx, context,returnedStoreType,(String)context.get("productStoreId"));
 					Map<String,Object> ebayResp = FastMap.newInstance();
@@ -501,7 +501,7 @@ public class EbayStore {
 					ebayResp.put("storeUrl", returnedStoreType.getURL());
 					ebayResp.put("storeUrlPath", returnedStoreType.getURLPath());
 					String desc = returnedStoreType.getDescription();
-					if(desc!=null) desc  =  desc.trim();
+					if (desc!=null) desc  =  desc.trim();
 					ebayResp.put("storeDesc", desc);
 
 					StoreLogoType logoType = returnedStoreType.getLogo();
@@ -526,13 +526,13 @@ public class EbayStore {
 					ebayResp.put("storeNameColor",fontType.getNameColor());
 					ebayResp.put("storeTitleColor",fontType.getTitleColor());
 
-					if(fontType!=null){// basic & advance theme
+					if (fontType!=null) {// basic & advance theme
 						String themeId = themeType.getThemeID().toString().concat("-").concat(colorSchemeType.getColorSchemeID().toString());
 						context.put("themeId", themeId);
 						Map<String,Object> results = retrieveThemeColorSchemeByThemeId(dctx,context);
-						if(results!=null){
+						if (results!=null) {
 							Map<String,Object> storeFontScheme = (Map<String,Object>)results.get("storeFontScheme");
-							if(storeFontScheme!=null){
+							if (storeFontScheme!=null) {
 								ebayResp.put("storeDescFontFace",storeFontScheme.get("storeFontTypeFontDescValue"));
 								ebayResp.put("storeDescSizeCode", storeFontScheme.get("storeDescSizeValue"));
 
@@ -548,10 +548,10 @@ public class EbayStore {
 					StoreHeaderStyleCodeType storeHeaderStyleCodeType = returnedStoreType.getHeaderStyle();
 					ebayResp.put("storeHeaderStyle", storeHeaderStyleCodeType.value());
 					StoreHeaderStyleCodeType[] storeHeaderStyleCodeList =  storeHeaderStyleCodeType.values();
-					if(storeHeaderStyleCodeList != null){
+					if (storeHeaderStyleCodeList != null) {
 						List<Map<String,Object>> storeHeaderStyleList  = FastList.newInstance();
 						int i=0;
-						while(i<storeHeaderStyleCodeList.length){
+						while (i<storeHeaderStyleCodeList.length) {
 							Map<String,Object> storeHeaderStyleMap = FastMap.newInstance();
 							StoreHeaderStyleCodeType storeHeaderStyleCode = storeHeaderStyleCodeList[i];
 							storeHeaderStyleMap.put("storeHeaderStyleName",storeHeaderStyleCode.name());
@@ -567,10 +567,10 @@ public class EbayStore {
 					StoreItemListLayoutCodeType storeItemListLayoutCodeType = returnedStoreType.getItemListLayout();
 					ebayResp.put("storeItemLayoutSelected", storeItemListLayoutCodeType.value());
 					StoreItemListLayoutCodeType[] storeItemListLayoutCodeTypeList = storeItemListLayoutCodeType.values();
-					if(storeItemListLayoutCodeTypeList!=null){
+					if (storeItemListLayoutCodeTypeList!=null) {
 						List<Map<String,Object>> storeItemListLayoutCodeList  = FastList.newInstance();
 						int i=0;
-						while(i<storeItemListLayoutCodeTypeList.length){
+						while (i<storeItemListLayoutCodeTypeList.length) {
 							Map<String,Object> storeItemListLayoutCodeMap = FastMap.newInstance();
 							StoreItemListLayoutCodeType storeItemListLayoutCode = storeItemListLayoutCodeTypeList[i];
 							storeItemListLayoutCodeMap.put("storeItemLayoutName",storeItemListLayoutCode.name());
@@ -583,10 +583,10 @@ public class EbayStore {
 					StoreItemListSortOrderCodeType storeItemListSortOrderCodeType = returnedStoreType.getItemListSortOrder();
 					ebayResp.put("storeItemSortOrderSelected", storeItemListSortOrderCodeType.value());
 					StoreItemListSortOrderCodeType[] storeItemListSortOrderCodeTypeList = storeItemListSortOrderCodeType.values();
-					if(storeItemListSortOrderCodeTypeList!=null){
+					if (storeItemListSortOrderCodeTypeList!=null) {
 						List<Map<String,Object>> storeItemSortOrderCodeList  = FastList.newInstance();
 						int i=0;
-						while(i<storeItemListSortOrderCodeTypeList.length){
+						while (i<storeItemListSortOrderCodeTypeList.length) {
 							Map<String,Object> storeItemSortOrderCodeMap = FastMap.newInstance();
 							StoreItemListSortOrderCodeType storeItemListLayoutCode = storeItemListSortOrderCodeTypeList[i];
 							storeItemSortOrderCodeMap.put("storeItemSortLayoutName",storeItemListLayoutCode.name());
@@ -601,10 +601,10 @@ public class EbayStore {
 					StoreCustomHeaderLayoutCodeType storeCustomHeaderLayoutCodeType = returnedStoreType.getCustomHeaderLayout();
 					ebayResp.put("storeCustomHeaderLayout",storeCustomHeaderLayoutCodeType.value());
 					StoreCustomHeaderLayoutCodeType[] storeCustomHeaderLayoutCodeTypeList = storeCustomHeaderLayoutCodeType.values();
-					if(storeCustomHeaderLayoutCodeTypeList!=null){
+					if (storeCustomHeaderLayoutCodeTypeList!=null) {
 						List<Map<String,Object>> storeCustomHeaderLayoutList  = FastList.newInstance();
 						int i=0;
-						while(i<storeCustomHeaderLayoutCodeTypeList.length){
+						while (i<storeCustomHeaderLayoutCodeTypeList.length) {
 							Map<String,Object> storeCustomHeaderLayoutMap = FastMap.newInstance();
 							StoreCustomHeaderLayoutCodeType StoreCustomHeaderLayoutCode = storeCustomHeaderLayoutCodeTypeList[i];
 							storeCustomHeaderLayoutMap.put("storeCustomHeaderLayoutName",StoreCustomHeaderLayoutCode.name());
@@ -616,7 +616,7 @@ public class EbayStore {
 					}
 
 					StoreCustomListingHeaderType storeCustomListingHeaderType = returnedStoreType.getCustomListingHeader();
-					if(storeCustomListingHeaderType!=null){
+					if (storeCustomListingHeaderType!=null) {
 						StoreCustomListingHeaderDisplayCodeType storeCustomListingHeaderDisplayCodeType = storeCustomListingHeaderType.getDisplayType();
 						ebayResp.put("isLogo",storeCustomListingHeaderType.isLogo());
 						ebayResp.put("isSearchBox",storeCustomListingHeaderType.isSearchBox());
@@ -626,10 +626,10 @@ public class EbayStore {
 						ebayResp.put("storeCustomListingHeaderDisplayName",storeCustomListingHeaderDisplayCodeType.name());
 						ebayResp.put("storeCustomListingHeaderDisplayValue",storeCustomListingHeaderDisplayCodeType.value());
 						StoreCustomListingHeaderDisplayCodeType[] storeCustomListingHeaderDisplayCodeTypeList = storeCustomListingHeaderDisplayCodeType.values();
-						if(storeCustomListingHeaderDisplayCodeTypeList != null){
+						if (storeCustomListingHeaderDisplayCodeTypeList != null) {
 							List<Map<String,Object>> storeCustomListingHeaderDisplayCodeList  = FastList.newInstance();
 							int i=0;
-							while(i<storeCustomListingHeaderDisplayCodeTypeList.length){
+							while (i<storeCustomListingHeaderDisplayCodeTypeList.length) {
 								Map<String,Object> storeCustomListingHeaderDisplayCodeMap = FastMap.newInstance();
 								StoreCustomListingHeaderDisplayCodeType storeCustomListingHeaderDisplayCode = storeCustomListingHeaderDisplayCodeTypeList[i];
 								storeCustomListingHeaderDisplayCodeMap.put("storeCustomHeaderLayoutName",storeCustomListingHeaderDisplayCode.name());
@@ -645,10 +645,10 @@ public class EbayStore {
 					MerchDisplayCodeType merchDisplayCodeType = returnedStoreType.getMerchDisplay();
 					ebayResp.put("storeMerchDisplay",merchDisplayCodeType.value());
 					MerchDisplayCodeType[] merchDisplayCodeTypeList = merchDisplayCodeType.values();
-					if(merchDisplayCodeTypeList!=null){
+					if (merchDisplayCodeTypeList!=null) {
 						List<Map<String,Object>> merchDisplayCodeList = FastList.newInstance();
 						int i=0;
-						while(i<merchDisplayCodeTypeList.length){
+						while (i<merchDisplayCodeTypeList.length) {
 							Map<String,Object> merchDisplayCodeMap = FastMap.newInstance();
 							MerchDisplayCodeType merchDisplayCode = merchDisplayCodeTypeList[i];
 							merchDisplayCodeMap.put("merchDisplayCodeName",merchDisplayCode.name());
@@ -663,10 +663,10 @@ public class EbayStore {
 					ebayResp.put("storeLastOpenedTime", calendar.getTime().toString());
 					ebayResp.put("storeSubscriptionLevel",returnedStoreType.getSubscriptionLevel().value());
 					StoreSubscriptionLevelCodeType[] storeSubscriptionlevelList = returnedStoreType.getSubscriptionLevel().values();
-					if(storeSubscriptionlevelList!=null){
+					if (storeSubscriptionlevelList!=null) {
 						List<Map<String,Object>> storeSubscriptionLevelCodeList = FastList.newInstance();
 						int i=0;
-						while(i<storeSubscriptionlevelList.length){
+						while (i<storeSubscriptionlevelList.length) {
 							Map<String,Object> storeSubscriptionLevelCodeMap = FastMap.newInstance();
 							StoreSubscriptionLevelCodeType storeSubscriptionLevelCode= storeSubscriptionlevelList[i];
 							storeSubscriptionLevelCodeMap.put("storeSubscriptionLevelCodeName", storeSubscriptionLevelCode.name());
@@ -678,7 +678,7 @@ public class EbayStore {
 					}
 
 					result.put("ebayStore", ebayResp);
-				}else{
+				} else {
 					result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
 					result.put(ModelService.ERROR_MESSAGE,resp.getAck().toString()+":"+resp.getMessage());
 				}
@@ -698,7 +698,6 @@ public class EbayStore {
 	
 	public static void updateProductStore(DispatchContext dctx,Map<String,Object> context,StoreType returnStoreType,String productStoreId){
 		LocalDispatcher dispatcher = dctx.getDispatcher();
-		Delegator delegator = dctx.getDelegator();
 		try{
 			Map<String,Object> inMap = FastMap.newInstance();
 			if(returnStoreType != null){
@@ -723,17 +722,16 @@ public class EbayStore {
 		GetStoreOptionsRequestType req = null;
 		GetStoreOptionsResponseType resp  = null;
 		StoreThemeArrayType returnedBasicThemeArray = null;
-		StoreThemeArrayType returnedAdvanceThemeArray = null;
 
 		try {
-			if(context.get("productStoreId") != null){
+			if (context.get("productStoreId") != null) {
 				String themeId = (String)context.get("themeId");
 
 				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
-				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+				if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
 
 					returnedBasicThemeArray = resp.getBasicThemeArray();
 					StoreThemeType[] storeBasicTheme = returnedBasicThemeArray.getTheme();
@@ -743,14 +741,12 @@ public class EbayStore {
 					themeId = themeId.substring(0,themeId.indexOf("-"));
 
 					Map<String,Object> storeColorSchemeMap = null;
-					boolean flag = false;
-					while(i<storeBasicTheme.length){
-
+					while (i<storeBasicTheme.length) {
 						StoreThemeType storeThemeType = (StoreThemeType)storeBasicTheme[i];
-						if(themeId.equals(storeThemeType.getThemeID().toString())){
+						if (themeId.equals(storeThemeType.getThemeID().toString())) {
 							StoreColorSchemeType colorSchemeType = storeThemeType.getColorScheme();
-							if(colorSchemeType!=null){
-								if(colorSchemeId.equals(colorSchemeType.getColorSchemeID().toString())){
+							if (colorSchemeType!=null) {
+								if (colorSchemeId.equals(colorSchemeType.getColorSchemeID().toString())) {
 									// get font,size and color 
 									storeColorSchemeMap = FastMap.newInstance();
 									StoreFontType storeFontType = colorSchemeType.getFont();
@@ -762,7 +758,6 @@ public class EbayStore {
 
 									storeColorSchemeMap.put("storeFontTypeFontDescValue",storeFontType.getDescFace().value());
 									storeColorSchemeMap.put("storeDescSizeValue",storeFontType.getDescSize().value());
-									flag=true;
 									break;
 								}
 							}
@@ -791,18 +786,18 @@ public class EbayStore {
 		StoreLogoArrayType returnedLogoArray = null;
 		GetStoreOptionsResponseType resp  = null;
 		try {
-			if(context.get("productStoreId") != null){
+			if (context.get("productStoreId") != null) {
 				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
 
-				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+				if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
 					returnedLogoArray = resp.getLogoArray();
 
 					int i=0;
 					List<Map<String,Object>> logoList = FastList.newInstance();
-					while(i<returnedLogoArray.getLogoLength()){
+					while (i<returnedLogoArray.getLogoLength()) {
 						Map<String,Object> logo  = FastMap.newInstance();
 						StoreLogoType storeLogoType = (StoreLogoType)returnedLogoArray.getLogo(i);
 						logo.put("storeLogoId", storeLogoType.getLogoID());
@@ -832,18 +827,18 @@ public class EbayStore {
 		StoreThemeArrayType returnedBasicThemeArray = null;
 		GetStoreOptionsResponseType resp  = null;
 		try {
-			if(context.get("productStoreId") != null){
+			if (context.get("productStoreId") != null) {
 				GetStoreOptionsCall  call = new GetStoreOptionsCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 				req = new GetStoreOptionsRequestType();
 
 				resp = (GetStoreOptionsResponseType) call.execute(req);
 
 				StoreColorSchemeType storeFontColorSchemeType = null;
-				if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+				if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
 					returnedBasicThemeArray = resp.getBasicThemeArray();
 					int i=0;
 					List<Map<String,Object>> themeList = FastList.newInstance();
-					while(i<returnedBasicThemeArray.getThemeLength()){
+					while (i<returnedBasicThemeArray.getThemeLength()) {
 						Map<String,Object> basictheme  = FastMap.newInstance();
 						StoreThemeType storeBasicThemeType = (StoreThemeType)returnedBasicThemeArray.getTheme(i);
 						basictheme.put("storeThemeId", storeBasicThemeType.getThemeID());
@@ -853,10 +848,9 @@ public class EbayStore {
 						basictheme.put("storeColorSchemeId",storeColorSchemeType.getColorSchemeID());
 						basictheme.put("storeColorSchemeName",storeColorSchemeType.getName());
 
-						if(storeFontColorSchemeType == null){
+						if (storeFontColorSchemeType == null) {
 							storeFontColorSchemeType = storeBasicThemeType.getColorScheme();
 						}
-
 						themeList.add(basictheme);
 						i++;
 					}

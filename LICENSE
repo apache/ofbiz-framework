@@ -1990,10 +1990,10 @@ The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
 ofbiz/trunk/framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
 ofbiz/trunk/framework/base/lib/mail.jar
-ofbiz/trunk/specialpurpose/ebay/lib/attributes.jar
-ofbiz/trunk/specialpurpose/ebay/lib/ebaysdkcore.jar
-ofbiz/trunk/specialpurpose/ebay/lib/helper.jar
-ofbiz/trunk/specialpurpose/ebay/lib/ebaycalls.jar
+ofbiz/trunk/specialpurpose/ebaystore/lib/attributes.jar
+ofbiz/trunk/specialpurpose/ebaystore/lib/ebaysdkcore.jar
+ofbiz/trunk/specialpurpose/ebaystore/lib/helper.jar
+ofbiz/trunk/specialpurpose/ebaystore/lib/ebaycalls.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
 

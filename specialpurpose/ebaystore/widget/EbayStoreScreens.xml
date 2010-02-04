@@ -297,12 +297,12 @@ under the License.
                                 <service service-name="getFolderInEbayStoreInventory" result-map="result">
                                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                                 </service>
-                                <set field="parameters.folderId" value="${result.folderId}"/>
+                                <set field="ebayfolderId" value="${result.folderId}"/>
                             </actions>
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="parameters.folderId"/></not>
+                                        <not><if-empty field="ebayfolderId"/></not>
                                     </condition>
                                     <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
                                     <fail-widgets><include-screen name="ebayStoreInventoryFail"/></fail-widgets>
@@ -345,9 +345,9 @@ under the License.
                     <widgets>
                         <section>
                             <actions>
-                                <set field="facilityId" value="parameters.facilityId"/>
-                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
-                                <set field="folderId" value="parameters.folderId"/>
+                                <set field="facilityId" from-field="parameters.facilityId"/>
+                                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                                <set field="ebayfolderId" from-field="parameters.folderId"/>
                             </actions>
                             <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
                         </section>
@@ -384,10 +384,18 @@ under the License.
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.ProductStoreNameId} : ${productStore.storeName}[${productStore.productStoreId}] ${uiLabelMap.FacilityFacility} : ${facility.facilityName}">
-                            <link target="reserveEbayProductInventory"  style="buttontext" text="${uiLabelMap.EbayReserveProductInventory}">
-                                <parameter param-name="productStoreId" from-field="productStoreId"/>
-                                <parameter param-name="facilityId" from-field="facilityId"/>
-                            </link>
+                            <section>
+                                <widgets>
+                                    <link name="updateEbayInventoryStatus" secure="true" target="updateEbayInventoryStatus"  style="buttontext" text="${uiLabelMap.EbayUpdateInventoryStatus}">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
+                                    <link name="reserveEbayProductInventory" target="reserveEbayProductInventory"  style="buttontext" text="${uiLabelMap.EbayReserveProductInventory}">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
+                                </widgets>
+                            </section>
                             <include-form name="ListEbayProductInventoryDetail" location="component://ebaystore/widget/EbayInventoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -429,10 +437,11 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="notes">
                             <label style="label" text="Please subscribed to Selling Manager Pro before you use this function because ebay product inventory will open when you start selling manager pro on ebay site."></label>
+                            <label style="label" text="if you subscribed already then still can not use, please check you internet connection."></label>
                             <label text="- To subscribe for production site"></label>
-                            <link target="link : http://pages.ebay.com/selling_manager_pro" text="http://pages.ebay.com/selling_manager_pro"  target-window="_BLANK" url-mode="plain"></link>
+                            <link target="http://pages.ebay.com/selling_manager_pro" text="http://pages.ebay.com/selling_manager_pro"  target-window="_BLANK" url-mode="plain"></link>
                             <label text="- To upgrade store level sandbox site"></label>
-                            <link target="link : http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings" target-window="_BLANK" url-mode="plain" text="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings"></link>
+                            <link target="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings" target-window="_BLANK" url-mode="plain" text="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings"></link>
                         </screenlet>
                         <screenlet title="How to upgrade sandbox store level?">
                             <label text="- Click on the link &quot;To upgrade store level for sandbox site&quot;"></label>
@@ -441,6 +450,28 @@ under the License.
                             <label text="- Page Manage my eBay store will show up"></label>
                             <label text="- Go to &quot;Store Usage Information&quot; section"></label>
                             <label text="- Click upgrade at &quot;Subscription level&quot; then select &quot;Premium Store&quot; and &quot;Selling Manager Pro&quot; then submit."></label>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="updateQuantityReserved">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="inventory"/>
+                <entity-one entity-name="EbayProductStoreInventory" value-field="ebayProductStoreInventory">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Inventory Quantities">
+                            <include-form name="updateQuantityReserved" location="component://ebaystore/widget/EbayInventoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

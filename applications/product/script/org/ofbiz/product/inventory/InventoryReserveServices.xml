@@ -166,6 +166,8 @@ under the License.
                             <calculate field="createDetailMap.availableToPromiseDiff">
                                 <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
+                            
+                            <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
 
@@ -233,6 +235,7 @@ under the License.
                             <calculate field="createDetailMap.availableToPromiseDiff">
                                 <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
+                            <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
 
@@ -410,6 +413,12 @@ under the License.
                 </if-compare>
             </if-compare>
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+                <!-- check reasonenumId reserve for ebay inventory  -->
+                <if-not-empty field="parameters.reserveReasonEnumId">
+                    <if-compare field="parameters.reserveReasonEnumId" value="EBAY_INV_RES" operator="equals">
+                        <set field="ebayReserveReasonEnumId" from-field="parameters.reserveReasonEnumId"/>
+                    </if-compare>
+                </if-not-empty>
                 <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
                 <if>
                     <condition>
@@ -435,26 +444,28 @@ under the License.
                         <calculate field="createDetailMap.availableToPromiseDiff">
                             <calcop field="parameters.deductAmount" operator="negative"/>
                         </calculate>
+                        <if-not-empty field="ebayReserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>
 
-                        <!-- create OrderItemShipGrpInvRes record -->
-                        <call-simple-method method-name="getPromisedDateTime"/>
-                        <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
-                        <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
-                        <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
-                        <set from-field="inventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
-                        <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
-                        <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
-                        <set from-field="parameters.deductAmount" field="reserveOisgirMap.quantity" type="BigDecimal"/>
-                        <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
-                        <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
-                        <if-not-empty field="parameters.sequenceId">
-                            <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
-                        </if-not-empty>
-                        <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                        <clear-field field="reserveOisgirMap"/>
-
+                        <!-- create OrderItemShipGrpInvRes record  and check for reserved from ebay don't need shipgroup-->
+                        <if-empty field="ebayReserveReasonEnumId">
+                            <call-simple-method method-name="getPromisedDateTime"/>
+                            <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
+                            <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
+                            <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
+                            <set from-field="inventoryItem.inventoryItemId" field="reserveOisgirMap.inventoryItemId"/>
+                            <set from-field="parameters.reserveOrderEnumId" field="reserveOisgirMap.reserveOrderEnumId"/>
+                            <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
+                            <set from-field="parameters.deductAmount" field="reserveOisgirMap.quantity" type="BigDecimal"/>
+                            <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
+                            <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
+                            <if-not-empty field="parameters.sequenceId">
+                                <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
+                            </if-not-empty>
+                            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+                            <clear-field field="reserveOisgirMap"/>
+                        </if-empty>
                         <calculate field="parameters.quantityNotReserved">
                             <calcop operator="subtract" field="parameters.quantityNotReserved">
                                 <calcop operator="get" field="parameters.deductAmount"/>

@@ -44,15 +44,22 @@
     
     <form name="ListEbayProductInventoryDetail" type="multi" use-row-submit="true"  target="updateEbayStoreInventory" title=""  list-name="ebayProductStoreInventoryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="productStoreId"><hidden/></field>
         <field name="facilityId"><hidden/></field>
-        <field name="folderId"><hidden value="${parameters.folderId}"/></field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="folderId" use-when="ebayfolderId != null"><hidden value="${ebayfolderId}"/></field>
+        <field name="folderId" use-when="ebayfolderId == null"><hidden value="${folderId}"/></field>
         <field name="productId"><display></display></field>
         <field name="productName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productName}"></display-entity>
         </field>
-        <field name="quantityReserved"><display></display></field>
+        <field name="quantityReserved" >
+            <hyperlink  target="updateQuantityReserved" description="${quantityReserved}">
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="facilityId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
         <field name="availableToPromiseListing"><display></display></field>
         <field name="scheduled"><display></display></field>
         <field name="ebayProductId"><display></display></field>
@@ -61,5 +68,23 @@
         <field name="unSold"><display></display></field>
         <field name="reservedDate"><display></display></field>
         <field name="updateButton" title="${uiLabelMap.EbayUpdateInventory}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="updateQuantityReserved" type="single"  target="updateProductQuantityReserved" default-entity-name="EbayProductStoreInventory" default-map-name="ebayProductStoreInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display></display></field>
+        <field name="facilityId"><display></display></field>
+        <field name="productId"><display></display></field>
+        <field name="productName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productName}"></display-entity>
+        </field>
+        <field name="quantity" required-field="true"><text default-value="${ebayProductStoreInventory.quantityReserved}"></text></field>
+        <field name="actionType">
+            <drop-down allow-empty="false">
+                <option key="ADD" description="Add"/>
+                <option key="REMOVE" description="Remove"/>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit button-type="button"/></field>
     </form>
 </forms>
