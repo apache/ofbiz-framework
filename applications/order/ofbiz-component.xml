@@ -52,6 +52,7 @@ under the License.
 
     <test-suite loader="main" location="testdef/OrderTest.xml"/>
     <test-suite loader="main" location="testdef/quotetests.xml"/>
+    <test-suite loader="main" location="testdef/ShoppingListTests.xml"/>
 
     <webapp name="order"
         title="Order"
