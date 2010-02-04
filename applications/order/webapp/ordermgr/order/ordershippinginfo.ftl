@@ -600,7 +600,6 @@ under the License.
                  </form>
                </#if>
              <#else>
-               <#if (orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT")>
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                <#if facilities?has_content>
                    <div>
@@ -635,7 +634,6 @@ under the License.
                         <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED">
                         <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
                     </form>
-               </#if>
                </#if>
              </#if>
             </td>
