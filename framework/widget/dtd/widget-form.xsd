@@ -928,6 +928,7 @@ under the License.
                     <xs:enumeration value="right"/>
                     <xs:enumeration value="topleft"/>
                     <xs:enumeration value="topright"/>
+                    <xs:enumeration value="topcenter"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
