@@ -228,7 +228,8 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="parentProjectId" title="${uiLabelMap.ProjectMgrParentProjectName}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}" key-field-name="workEffortId">
@@ -545,10 +546,11 @@
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="PartyRoleAndPartyDetail" distinct="true" list="projectResources">
-                   <condition-list combine="and">
-                       <condition-expr field-name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
-                       <condition-expr field-name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
-                   </condition-list>                <select-field field-name="partyId"/>
+                <condition-list combine="and">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
+                </condition-list>                
+                <select-field field-name="partyId"/>
                 <select-field field-name="lastName"/>
                 <select-field field-name="firstName"/>
                 <select-field field-name="middleName"/>
@@ -676,20 +678,20 @@
         <field name="actualHours" widget-area-style="centered"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
         <hyperlink target="updateResourcesTaskAssigment"  description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="workEffortId"/>
-                <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId"/>
-                <parameter param-name="fromDate"/>
-                <parameter param-name="statusId" value="PAS_ENDED"/>
-            </hyperlink>
+            <parameter param-name="workEffortId"/>
+            <parameter param-name="partyId"/>
+            <parameter param-name="roleTypeId"/>
+            <parameter param-name="fromDate"/>
+            <parameter param-name="statusId" value="PAS_ENDED"/>
+        </hyperlink>
         </field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
-            <hyperlink target="updateResourcesTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
-                <parameter param-name="workEffortId"/>
-                <parameter param-name="partyId"/>
-                <parameter param-name="roleTypeId"/>
-                <parameter param-name="fromDate"/>
-                <parameter param-name="statusId" value="PAS_COMPLETED"/>
+        <hyperlink target="updateResourcesTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
+            <parameter param-name="workEffortId"/>
+            <parameter param-name="partyId"/>
+            <parameter param-name="roleTypeId"/>
+            <parameter param-name="fromDate"/>
+            <parameter param-name="statusId" value="PAS_COMPLETED"/>
         </hyperlink>
     </field>
     </form>
