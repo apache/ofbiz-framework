@@ -136,6 +136,8 @@ public class BaseUnitTests extends TestCase {
         testMap.put("testList", testList);
         fse = FlexibleStringExpander.getInstance("Hello ${testList[0]}!");
         assertTrue("UEL integration: List", compare.equals(fse.expandString(testMap)));
+        fse = FlexibleStringExpander.getInstance("This is an \\${escaped} expression");
+        assertTrue("Escaped expression", "This is an ${escaped} expression".equals(fse.expandString(testMap)));
     }
 
     // These tests rely upon FlexibleStringExpander, so they
