@@ -83,7 +83,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field="product"/></not></condition>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
                                     <widgets>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
@@ -107,7 +109,20 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-                                <decorator-section-include name="body"/>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <not><if-empty field="product"/></not>
+                                            <if-empty field="productId"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h3">${uiLabelMap.ProductNoExistingProductsFound}</label>
+                                    </fail-widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
