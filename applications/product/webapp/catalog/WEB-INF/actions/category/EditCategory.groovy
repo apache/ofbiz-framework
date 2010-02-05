@@ -42,7 +42,7 @@ context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
-filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
 context.imageNameCategory = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "category", id : productCategoryId]);
 context.imageNameLinkOne  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkOne", id : productCategoryId]);
 context.imageNameLinkTwo  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkTwo", id : productCategoryId]);
