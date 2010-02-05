@@ -285,7 +285,7 @@ var FieldLookupPopup = Class.create({
         });
     },
 
-    setPosition: function(lookupDiv){
+    setPosition: function (lookupDiv) {
         //set layer position
         var bdy = document.body;
         if (this.position == "center") {
@@ -294,7 +294,7 @@ var FieldLookupPopup = Class.create({
             lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "right") {
@@ -303,7 +303,7 @@ var FieldLookupPopup = Class.create({
             lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "left") {
@@ -312,7 +312,7 @@ var FieldLookupPopup = Class.create({
             lookupLeft = 5;
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "topright") {
@@ -339,7 +339,7 @@ var FieldLookupPopup = Class.create({
             lookupTop = 5 + scrollOffY;
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
-        }else {
+        } else {
             //for 'normal', empty etc.
             if (this.pn != null) {
                 // IE Fix
@@ -492,7 +492,7 @@ var FieldLookupPopup2 = Class.create({
         });
     },
 
-    setPosition: function(lookupDiv){
+    setPosition: function (lookupDiv) {
         //set layer position
         var bdy = document.body;
         if (this.position == "center") {
@@ -501,7 +501,7 @@ var FieldLookupPopup2 = Class.create({
             lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "right") {
@@ -510,7 +510,7 @@ var FieldLookupPopup2 = Class.create({
             lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "left") {
@@ -519,7 +519,7 @@ var FieldLookupPopup2 = Class.create({
             lookupLeft = 5;
             var scrollOffY = document.viewport.getScrollOffsets().top;
             var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight/2) - (dimensions.height/2);
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
         } else if (this.position == "topright") {
@@ -546,7 +546,7 @@ var FieldLookupPopup2 = Class.create({
             lookupTop = 5 + scrollOffY;
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
-        }else {
+        } else {
             //for 'normal', empty etc.
             if (this.pn != null) {
                 // IE Fix
