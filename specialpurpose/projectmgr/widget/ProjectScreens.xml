@@ -143,6 +143,7 @@ under the License.
                     <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
                     <field-map field-name="workEffortTypeId" value="PHASE"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
