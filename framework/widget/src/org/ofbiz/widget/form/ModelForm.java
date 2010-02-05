@@ -1608,18 +1608,38 @@ public class ModelForm extends ModelWidget {
 
         // render row formatting open
         formStringRenderer.renderFormatItemRowOpen(writer, localContext, this);
+        Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIter = innerDisplayHyperlinkFieldsBegin.iterator();
+        Map<String, Integer> fieldCount = FastMap.newInstance();
+        while(innerDisplayHyperlinkFieldsBeginIter.hasNext()){
+            ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIter.next();
+            if(fieldCount.containsKey(modelFormField.getFieldName())){
+                fieldCount.put(modelFormField.getFieldName(), fieldCount.get(modelFormField.getFieldName())+1);
+            }
+            else{
+                fieldCount.put(modelFormField.getFieldName(), 1);
+            }
+        }
 
         // do the first part of display and hyperlink fields
         Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
         while (innerDisplayHyperlinkFieldIter.hasNext()) {
             ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
             // span columns only if this is the last column in the row (not just in this first list)
-            if (innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size()) {
-                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
-            } else {
-                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+            if( fieldCount.get(modelFormField.getName()) < 2 ){
+                if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                } else {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                }
             }
-            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) { 
+                    if(( fieldCount.get(modelFormField.getName()) > 1 )){
+                        if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
+                            formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                        } else {
+                            formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                        }
+                    }
                 modelFormField.renderFieldString(writer, localContext, formStringRenderer);
             }
             formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
