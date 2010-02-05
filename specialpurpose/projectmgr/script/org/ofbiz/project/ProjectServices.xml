@@ -188,10 +188,24 @@
                 <entity-and list="workEffortSkillStandards" entity-name="WorkEffortSkillStandard">
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
-                <first-from-list entry="workEffortSkillStandard" list="workEffortSkillStandards"/>
-                <set field="updateWorkEffortSkillStandard.skillTypeId" from-field="workEffortSkillStandard.skillTypeId"/>
+                <if-not-empty field="workEffortSkillStandards">
+                    <first-from-list entry="workEffortSkillStandard" list="workEffortSkillStandards"/>
+                    <set field="updateWorkEffortSkillStandard.skillTypeId" from-field="workEffortSkillStandard.skillTypeId"/>
+                    <else>
+                        <set field="updateWorkEffortSkillStandard.skillTypeId" value="_NA_"/>
+                    </else>
+                </if-not-empty>
             </if-empty>
-            <call-service service-name="updateWorkEffortSkillStandard" in-map-name="updateWorkEffortSkillStandard"/>
+            <entity-one value-field="workEffortSkillStandard" entity-name="WorkEffortSkillStandard">
+                <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+                <field-map field-name="skillTypeId" from-field="updateWorkEffortSkillStandard.skillTypeId"/>
+            </entity-one>
+            <if-not-empty field="workEffortSkillStandard">
+                <call-service service-name="updateWorkEffortSkillStandard" in-map-name="updateWorkEffortSkillStandard"/>
+                <else>
+                    <call-service service-name="createWorkEffortSkillStandard" in-map-name="updateWorkEffortSkillStandard"/>
+                </else>
+            </if-not-empty>
         </if-not-empty>
         <!-- if required can update more task related info here -->
     </simple-method>
