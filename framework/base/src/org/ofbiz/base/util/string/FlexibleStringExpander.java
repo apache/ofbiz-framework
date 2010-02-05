@@ -42,10 +42,11 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 
 import bsh.EvalError;
 
-/** Expands String values that contain Unified Expression Language syntax.
- * Also supports the execution of bsh scripts by using the 'bsh:' prefix.
+/** Expands String values that contain Unified Expression Language (JSR 245)
+ * syntax. This class also supports the execution of bsh scripts by using the
+ * 'bsh:' prefix, and Groovy scripts by using the 'groovy:' prefix.
  * Further it is possible to control the output by specifying the suffix
- * '?currency(XXX)' to format the output according the current locale
+ * '?currency(XXX)' to format the output according to the supplied locale
  * and specified (XXX) currency.<p>This class extends the UEL by allowing
  * nested expressions.</p>
  */
@@ -58,126 +59,163 @@ public abstract class FlexibleStringExpander implements Serializable {
     protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
     protected static final FlexibleStringExpander nullExpr = new ConstElem("");
 
-    /** Does on-the-fly parsing and expansion of the original String using
-     * variable values from the passed context. A null context argument will
-     * return the original String.
-     * @param original The original String that will be expanded
-     * @param context A context Map containing the variable values
-     * @return The original String expanded by replacing varaible place holders.
+    /** Evaluate an expression and return the result as a <code>String</code>.
+     * Null expressions return <code>null</code>.
+     * A null <code>context</code> argument will return the original expression.
+     * <p>Note that the behavior of this method is not the same as using
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context)</code>
+     * because it returns <code>null</code> when given a null <code>expression</code>
+     * argument, and
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context)</code>
+     * returns an empty <code>String</code>.</p>
+     * 
+     * @param expression The original expression
+     * @param context The evaluation context
+     * @return The original expression's evaluation result as a <code>String</code>
      */
-    public static String expandString(String original, Map<String, ? extends Object> context) {
-        return expandString(original, context, null, null);
+    public static String expandString(String expression, Map<String, ? extends Object> context) {
+        return expandString(expression, context, null, null);
     }
 
-    /** Does on-the-fly parsing and expansion of the original String using
-     * variable values from the passed context. A null context argument will
-     * return the original String.
-     * @param original The original String that will be expanded
-     * @param context A context Map containing the variable values
-     * @return The original String expanded by replacing varaible place holders.
+    /** Evaluate an expression and return the result as a <code>String</code>.
+     * Null expressions return <code>null</code>.
+     * A null <code>context</code> argument will return the original expression.
+     * <p>Note that the behavior of this method is not the same as using
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context, locale)</code>
+     * because it returns <code>null</code> when given a null <code>expression</code>
+     * argument, and
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context, locale)</code>
+     * returns an empty <code>String</code>.</p>
+     * 
+     * @param expression The original expression
+     * @param context The evaluation context
+     * @param locale The locale to be used for localization
+     * @return The original expression's evaluation result as a <code>String</code>
      */
-    public static String expandString(String original, Map<String, ? extends Object> context, Locale locale) {
-        return expandString(original, context, null, locale);
+    public static String expandString(String expression, Map<String, ? extends Object> context, Locale locale) {
+        return expandString(expression, context, null, locale);
     }
 
-    /** Does on-the-fly parsing and expansion of the original String using
-     * variable values from the passed context. A null context argument will
-     * return the original String.
-     * @param original The original String that will be expanded
-     * @param context A context Map containing the variable values
-     * @return The original String expanded by replacing varaible place holders.
+    /** Evaluate an expression and return the result as a <code>String</code>.
+     * Null expressions return <code>null</code>.
+     * A null <code>context</code> argument will return the original expression.
+     * <p>Note that the behavior of this method is not the same as using
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context, timeZone locale)</code>
+     * because it returns <code>null</code> when given a null <code>expression</code>
+     * argument, and
+     * <code>FlexibleStringExpander.getInstance(expression).expandString(context, timeZone, locale)</code>
+     * returns an empty <code>String</code>.</p>
+     * 
+     * @param expression The original expression
+     * @param context The evaluation context
+     * @param timeZone The time zone to be used for localization
+     * @param locale The locale to be used for localization
+     * @return The original expression's evaluation result as a <code>String</code>
      */
-    public static String expandString(String original, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (context == null || original == null || !original.contains(openBracket)) {
-            return original;
+    public static String expandString(String expression, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        if (context == null || expression == null || !expression.contains(openBracket)) {
+            return expression;
         }
-        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(original);
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(expression);
         return fse.expandString(context, timeZone, locale);
     }
 
-    /** Returns a FlexibleStringExpander instance.
-     * @param original The original String expression
-     * @return A FlexibleStringExpander instance
+    /** Returns a <code>FlexibleStringExpander</code> object. <p>A null or
+     * empty argument will return a <code>FlexibleStringExpander</code>
+     * object that represents an empty expression. That object is a shared
+     * singleton, so there is no memory or performance penalty in using it.</p>
+     * <p>If the method is passed a <code>String</code> argument that doesn't
+     * contain an expression, the <code>FlexibleStringExpander</code> object
+     * that is returned does not perform any evaluations on the original
+     * <code>String</code> - any methods that return a <code>String</code>
+     * will return the original <code>String</code>. The object returned by
+     * this method is very compact - taking less memory than the original
+     * <code>String</code>.</p>
+     * 
+     * @param expression The original expression
+     * @return A <code>FlexibleStringExpander</code> instance
      */
-    public static FlexibleStringExpander getInstance(String original) {
-        if (UtilValidate.isEmpty(original)) {
+    public static FlexibleStringExpander getInstance(String expression) {
+        if (UtilValidate.isEmpty(expression)) {
             return nullExpr;
         }
         // Remove the next three lines to cache all expressions
-        if (!original.contains(openBracket)) {
-            return new ConstElem(original);
+        if (!expression.contains(openBracket)) {
+            return new ConstElem(expression);
         }
-        FlexibleStringExpander fse = exprCache.get(original);
+        FlexibleStringExpander fse = exprCache.get(expression);
         if (fse == null) {
             synchronized (exprCache) {
-                FlexibleStringExpander[] strElems = getStrElems(original);
+                FlexibleStringExpander[] strElems = getStrElems(expression);
                 if (strElems.length == 1) {
                     fse = strElems[0];
                 } else {
-                    fse = new Elements(original, strElems);
+                    fse = new Elements(expression, strElems);
                 }
-                exprCache.put(original, fse);
+                exprCache.put(expression, fse);
             }
         }
         return fse;
     }
 
-    /** Protected helper method.
-     * @param original
-     * @return a list of parsed string elements
+    /** Parses an expression and returns an array of <code>FlexibleStringExpander</code>
+     * instances.
+     * @param expression The expression to be parsed
+     * @return An array of <code>FlexibleStringExpander</code>
+     * instances
      */
-    protected static FlexibleStringExpander[] getStrElems(String original) {
-        if (UtilValidate.isEmpty(original)) {
+    protected static FlexibleStringExpander[] getStrElems(String expression) {
+        if (UtilValidate.isEmpty(expression)) {
             return null;
         }
-        int origLen = original.length();
+        int origLen = expression.length();
         ArrayList<FlexibleStringExpander> strElems = new ArrayList<FlexibleStringExpander>();
-        int start = original.indexOf(openBracket);
+        int start = expression.indexOf(openBracket);
         if (start == -1) {
-            strElems.add(new ConstElem(original));
+            strElems.add(new ConstElem(expression));
             strElems.trimToSize();
             return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
         }
         int currentInd = 0;
         int end = -1;
         while (start != -1) {
-            end = original.indexOf(closeBracket, start);
+            end = expression.indexOf(closeBracket, start);
             if (end == -1) {
-                Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
+                Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + expression, module);
                 break;
             }
             // Check for escaped expression
-            boolean escapedExpression = (start - 1 >= 0 && original.charAt(start - 1) == '\\');
+            boolean escapedExpression = (start - 1 >= 0 && expression.charAt(start - 1) == '\\');
             if (start > currentInd) {
                 // append everything from the current index to the start of the expression
-                strElems.add(new ConstElem(original.substring(currentInd, escapedExpression ? start -1 : start)));
+                strElems.add(new ConstElem(expression.substring(currentInd, escapedExpression ? start -1 : start)));
             }
-            if (original.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
+            if (expression.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "bsh:", if so treat the rest of the expression as a bsh scriptlet
-                strElems.add(new BshElem(original.substring(start + 6, end)));
-            } else if (original.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
+                strElems.add(new BshElem(expression.substring(start + 6, end)));
+            } else if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
-                strElems.add(new GroovyElem(original.substring(start + 9, end)));
+                strElems.add(new GroovyElem(expression.substring(start + 9, end)));
             } else {
                 // Scan for matching closing bracket
-                int ptr = original.indexOf(openBracket, start + 2);
+                int ptr = expression.indexOf(openBracket, start + 2);
                 while (ptr != -1 && end != -1 && ptr < end) {
-                    end = original.indexOf(closeBracket, end + 1);
-                    ptr = original.indexOf(openBracket, ptr + 2);
+                    end = expression.indexOf(closeBracket, end + 1);
+                    ptr = expression.indexOf(openBracket, ptr + 2);
                 }
                 if (end == -1) {
                     end = origLen;
                 }
-                String expression = original.substring(start + 2, end);
+                String subExpression = expression.substring(start + 2, end);
                 // Evaluation sequence is important - do not change it
                 if (escapedExpression) {
-                    strElems.add(new ConstElem(original.substring(start, end + 1)));
-                } else if (expression.contains("?currency(")) {
+                    strElems.add(new ConstElem(expression.substring(start, end + 1)));
+                } else if (subExpression.contains("?currency(")) {
                     strElems.add(new CurrElem(expression));
-                } else if (expression.contains(openBracket)) {
-                    strElems.add(new NestedVarElem(expression));
+                } else if (subExpression.contains(openBracket)) {
+                    strElems.add(new NestedVarElem(subExpression));
                 } else {
-                    strElems.add(new VarElem(expression));
+                    strElems.add(new VarElem(subExpression));
                 }
             }
             // reset the current index to after the expression, and the start to the beginning of the next expression
@@ -185,18 +223,16 @@ public abstract class FlexibleStringExpander implements Serializable {
             if (currentInd > origLen) {
                 currentInd = origLen;
             }
-            start = original.indexOf(openBracket, currentInd);
+            start = expression.indexOf(openBracket, currentInd);
         }
         // append the rest of the original string, ie after the last expression
         if (currentInd < origLen) {
-            strElems.add(new ConstElem(original.substring(currentInd)));
+            strElems.add(new ConstElem(expression.substring(currentInd)));
         }
-        strElems.trimToSize();
         return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
     }
 
-    // Note: a character array is used instead of a String to
-    // keep the memory footprint small.
+    // Note: a character array is used instead of a String to keep the memory footprint small.
     protected final char[] orig;
     protected int hint = 20;
 
@@ -204,16 +240,47 @@ public abstract class FlexibleStringExpander implements Serializable {
         this.orig = original.toCharArray();
     }
 
+    /** Appends this object's expression result to <code>buffer</code>.
+     * 
+     * @param buffer The buffer to append to
+     * @param context The evaluation context
+     * @param timeZone The time zone to be used for localization
+     * @param locale The locale to be used for localization
+     */
     protected abstract void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
 
+    /** Evaluate this object's expression and return the result as a <code>String</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     * 
+     * @param context The evaluation context
+     * @return This object's expression result as a <code>String</code>
+     */
     public String expandString(Map<String, ? extends Object> context) {
         return this.expandString(context, null, null);
     }
 
+    /** Evaluate this object's expression and return the result as a <code>String</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     * 
+     * @param context The evaluation context
+     * @param locale The locale to be used for localization
+     * @return This object's expression result as a <code>String</code>
+     */
     public String expandString(Map<String, ? extends Object> context, Locale locale) {
         return this.expandString(context, null, locale);
     }
 
+    /** Evaluate this object's expression and return the result as a <code>String</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     * 
+     * @param context The evaluation context
+     * @param timeZone The time zone to be used for localization
+     * @param locale The locale to be used for localization
+     * @return This object's expression result as a <code>String</code>
+     */
     public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
         if (context == null) {
             return this.toString();
@@ -248,19 +315,34 @@ public abstract class FlexibleStringExpander implements Serializable {
         return buffer.toString();
     }
 
+    /** Returns a copy of the original expression.
+     * 
+     * @return The original expression
+     */
     public String getOriginal() {
         return new String(this.orig);
     }
 
+    /** Returns <code>true</code> if the original expression is empty
+     * or <code>null</code>.
+     * 
+     * @return <code>true</code> if the original expression is empty
+     * or <code>null</code>
+     */
     public boolean isEmpty() {
         return this.orig == null || this.orig.length == 0;
     }
 
+    /** Returns a copy of the original expression.
+     * 
+     * @return The original expression
+     */
     @Override
     public String toString() {
         return new String(this.orig);
     }
 
+    /** An object that represents a <code>${bsh:}</code> expression. */
     protected static class BshElem extends FlexibleStringExpander {
         protected BshElem(String original) {
             super(original);
@@ -285,6 +367,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** An object that represents a <code>String</code> constant portion of an expression. */
     protected static class ConstElem extends FlexibleStringExpander {
         protected ConstElem(String original) {
             super(original);
@@ -299,6 +382,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** An object that represents a currency portion of an expression. */
     protected static class CurrElem extends FlexibleStringExpander {
         protected final char[] valueStr;
         protected final FlexibleStringExpander codeExpr;
@@ -326,6 +410,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** A container object that contains expression fragments. */
     protected static class Elements extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
         protected Elements(String original, FlexibleStringExpander[] childElems) {
@@ -339,6 +424,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** An object that represents a <code>${groovy:}</code> expression. */
     protected static class GroovyElem extends FlexibleStringExpander {
         protected final Class<?> parsedScript;
         protected GroovyElem(String script) {
@@ -368,6 +454,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** An object that represents a nested expression. */
     protected static class NestedVarElem extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
         protected NestedVarElem(String original) {
@@ -400,6 +487,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
+    /** An object that represents a simple, non-nested expression. */
     protected static class VarElem extends FlexibleStringExpander {
         protected final char[] bracketedOriginal;
         protected VarElem(String original) {
