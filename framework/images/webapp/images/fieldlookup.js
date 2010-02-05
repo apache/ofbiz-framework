@@ -168,6 +168,13 @@ function key_event(evt) {
     }
 }
 
+//checks if a lookup can be closed if the mouse is clicking beside the lookup layer
+function close_on_click(evt) {
+    if (! Event.element(evt).descendantOf(CURRENT_LOOKUP.divRef)) {
+        lookupHide();
+    }
+}
+
 /**
 * Class to create a lookup layer
 * target - target where the value should be passed
@@ -203,6 +210,7 @@ var FieldLookupPopup = Class.create({
         this.position = position;
         
         this.createElement();
+        Event.observe(document, "mousedown", close_on_click);
         CURRENT_LOOKUP = this;
     },
     
@@ -370,6 +378,7 @@ var FieldLookupPopup = Class.create({
     removeLayer: function () {
         this.loopupDrag.destroy();
         Element.stopObserving(document, "keypress");
+        Element.stopObserving(document, "mousedown");
         CURRENT_LOOKUP.divRef.parentNode.removeChild(CURRENT_LOOKUP.divRef);
         CURRENT_LOOKUP = null;
         this.target = null;
@@ -414,6 +423,7 @@ var FieldLookupPopup2 = Class.create({
         this.position = position;
         
         this.createElement();
+        Event.observe(document, "mousedown", close_on_click);
         CURRENT_LOOKUP = this;
     },
     
@@ -577,6 +587,7 @@ var FieldLookupPopup2 = Class.create({
     removeLayer: function () {
         this.loopupDrag.destroy();
         Element.stopObserving(document, "keypress");
+        Element.stopObserving(document, "mousedown");
         CURRENT_LOOKUP.divRef.parentNode.removeChild(CURRENT_LOOKUP.divRef);
         CURRENT_LOOKUP = null;
         this.target = null;
