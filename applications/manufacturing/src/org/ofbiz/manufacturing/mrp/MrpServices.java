@@ -322,33 +322,33 @@ public class MrpServices {
         parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
-            Debug.logError(e, "Error : parameters = "+parameters,module);
-            return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
-        }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
-            if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
-                "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
-                "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
-                continue;
-            }
-            String productId =  genericResult.getString("productId");
-            BigDecimal eventQuantityTmp = genericResult.getBigDecimal("estimatedQuantity").negate();
-            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedStartDate");
-            if (estimatedShipDate == null) {
-                estimatedShipDate = now;
-            }
+            iteratorResult = resultList.iterator();
+            while (iteratorResult.hasNext()) {
+                genericResult = (GenericValue) iteratorResult.next();
+                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
+                    "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
+                    "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
+                    continue;
+                }
+                String productId =  genericResult.getString("productId");
+                // get the inventory already consumed
+                BigDecimal consumedInventoryTotal = BigDecimal.ZERO;
+                List<GenericValue> consumedInventoryItems = delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", genericResult.getString("workEffortId"), "productId", productId));
+                for (GenericValue consumedInventoryItem : consumedInventoryItems) {
+                    consumedInventoryTotal = consumedInventoryTotal.add(consumedInventoryItem.getBigDecimal("quantity"));
+                }
+                BigDecimal eventQuantityTmp = consumedInventoryTotal.subtract(genericResult.getBigDecimal("estimatedQuantity"));
+                Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedStartDate");
+                if (estimatedShipDate == null) {
+                    estimatedShipDate = now;
+                }
 
-            parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_REQ");
-            try {
+                parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_REQ");
                 String eventName = (UtilValidate.isEmpty(genericResult.getString("workEffortParentId"))? genericResult.getString("workEffortId"): genericResult.getString("workEffortParentId") + "-" + genericResult.getString("workEffortId"));
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, eventName, false, delegator);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError("Problem initializing the MrpEvent entity (MRP_REQUIREMENT)");
             }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("MRP was unable to initialize events for production run components: " + e.getMessage());
         }
 
         // ----------------------------------------
@@ -359,44 +359,38 @@ public class MrpServices {
         parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
-            Debug.logError(e, "Error : parameters = "+parameters,module);
-            return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
-        }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
-            if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
-                "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
-                "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
-                continue;
-            }
-            BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
-            if (qtyToProduce == null) {
-                qtyToProduce = BigDecimal.ZERO;
-            }
-            BigDecimal qtyProduced = genericResult.getBigDecimal("quantityProduced");
-            if (qtyProduced == null) {
-                qtyProduced = BigDecimal.ZERO;
-            }
-            if (qtyProduced.compareTo(qtyToProduce) >= 0) {
-                continue;
-            }
-            BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
-            String productId =  genericResult.getString("productId");
-            BigDecimal eventQuantityTmp = qtyDiff;
-            Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
-            if (estimatedShipDate == null) {
-                estimatedShipDate = now;
-            }
+            iteratorResult = resultList.iterator();
+            while (iteratorResult.hasNext()) {
+                genericResult = (GenericValue) iteratorResult.next();
+                if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
+                    "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
+                    "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
+                    continue;
+                }
+                BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
+                if (qtyToProduce == null) {
+                    qtyToProduce = BigDecimal.ZERO;
+                }
+                BigDecimal qtyProduced = genericResult.getBigDecimal("quantityProduced");
+                if (qtyProduced == null) {
+                    qtyProduced = BigDecimal.ZERO;
+                }
+                if (qtyProduced.compareTo(qtyToProduce) >= 0) {
+                    continue;
+                }
+                BigDecimal qtyDiff = qtyToProduce.subtract(qtyProduced);
+                String productId =  genericResult.getString("productId");
+                BigDecimal eventQuantityTmp = qtyDiff;
+                Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedCompletionDate");
+                if (estimatedShipDate == null) {
+                    estimatedShipDate = now;
+                }
 
-            parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_RECP");
-            try {
+                parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_RECP");
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"), false, delegator);
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError("Problem initializing the MrpEvent entity (MANUF_ORDER_RECP)");
             }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("MRP was unable to initialize events for products produced by production runs: " + e.getMessage());
         }
 
         // ----------------------------------------
