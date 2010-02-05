@@ -30,7 +30,7 @@ context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
-filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
 context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString([size : 'small', configItemId : configItemId]);
 
 // Start ProdConfItemContent stuff
