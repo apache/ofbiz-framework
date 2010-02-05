@@ -330,6 +330,11 @@ public class MrpServices {
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
+            if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
+                "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
+                "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
+                continue;
+            }
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("estimatedQuantity").negate();
             Timestamp estimatedShipDate = genericResult.getTimestamp("estimatedStartDate");
@@ -362,7 +367,9 @@ public class MrpServices {
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
-            if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId"))) {
+            if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
+                "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
+                "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
                 continue;
             }
             BigDecimal qtyToProduce = genericResult.getBigDecimal("quantityToProduce");
