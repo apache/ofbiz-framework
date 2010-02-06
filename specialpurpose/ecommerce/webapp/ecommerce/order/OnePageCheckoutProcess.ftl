@@ -226,10 +226,8 @@ under the License.
                   <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${shipToContactMechId?if_exists}" />
                   <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${billToContactMechId?if_exists}" />
                   <input type="hidden" id="shipToPartyId" name="partyId" value="${partyId?if_exists}" />
-                  <input type="hidden" id="shipToPhoneContactMechId" name="shipToPhoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}" />
+                  <input type="hidden" id="shipToPhoneContactMechId" name="phoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}" />
                   <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
-                  <input type="hidden" name="roleTypeId" value="CUSTOMER" />
-                  <input type="hidden" id="shipToPhoneContactMechPurposeTypeId" name="contactMechPurposeTypeId" value="PHONE_SHIPPING" />
                   <#if userLogin?exists>
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultShipping" value="Y" />
@@ -346,7 +344,7 @@ under the License.
                             <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*
                                 <span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span>
                             </label>
-                            <select name="countryGeoId" id="shipToCountryGeoId">
+                            <select name="shipToCountryGeoId" id="shipToCountryGeoId">
                               <#if shipToCountryGeoId?exists>
                                 <option value="${shipToCountryGeoId?if_exists}">${shipToCountryProvinceGeo?default(shipToCountryGeoId?if_exists)}</option>
                               </#if>
@@ -453,9 +451,7 @@ under the License.
                   <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="${paymentMethodTypeId?default("CREDIT_CARD")}" />
                   <input type="hidden" id="billToPartyId" name="partyId" value="${parameters.partyId?if_exists}" />
                   <input type="hidden" name="expireDate" value="${expireDate?if_exists}" />
-                  <input type="hidden" name="roleTypeId" value="CUSTOMER" />
-                  <input type="hidden" id="billToPhoneContactMechPurposeTypeId" name="contactMechPurposeTypeId" value="PHONE_BILLING" />
-                  <input type="hidden" id="billToPhoneContactMechId" name="billToPhoneContactMechId" value="${(billToTelecomNumber.contactMechId)?if_exists}" />
+                  <input type="hidden" id="billToPhoneContactMechId" name="phoneContactMechId" value="${(billToTelecomNumber.contactMechId)?if_exists}" />
                   <#if userLogin?exists>
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultBilling" value="Y" />
@@ -607,7 +603,7 @@ under the License.
                               <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*
                                 <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span>
                               </label>
-                              <select name="countryGeoId" id="billToCountryGeoId">
+                              <select name="billToCountryGeoId" id="billToCountryGeoId">
                                 <#if billToCountryGeoId?exists>
                                   <option value='${billToCountryGeoId?if_exists}'>${billToCountryProvinceGeo?default(billToCountryGeoId?if_exists)}</option>
                                 </#if>

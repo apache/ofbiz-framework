@@ -257,8 +257,8 @@ function createUpdateCustomerAndShippingAddress() {
                 // Process Shipping data response.
                 $('shipToPartyId').value = data.partyId;
                 $('billToPartyId').value = data.partyId;
-                $('shipToContactMechId').value = data.shipToContactMechId;
-                $('shipToPhoneContactMechId').value = data.shipToPhoneContactMechId;
+                $('shipToContactMechId').value = data.contactMechId;
+                $('shipToPhoneContactMechId').value = data.phoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
                 //$('completedShippingMethod').update(data.shippingDescription);
                 updateShippingSummary();
@@ -367,9 +367,9 @@ function processBillingAndPayment() {
             } else {
                 Effect.Fade('billingFormServerError');
                 isBillStepValidate = true;
-                $('billToContactMechId').value = data.billToContactMechId;
+                $('billToContactMechId').value = data.contactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
-                $('billToPhoneContactMechId').value = data.billToPhoneContactMechId;
+                $('billToPhoneContactMechId').value = data.phoneContactMechId;
                 updateBillingSummary();
                 result = true;
             }

@@ -1692,7 +1692,7 @@ under the License.
 
     <request-map uri="createUpdateShippingAddress">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateCustomerAndShippingAddress"/>
+        <event type="service" invoke="createUpdateCustomerAndShippingAddress"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
@@ -1711,7 +1711,7 @@ under the License.
 
     <request-map uri="createUpdateBillingAndPayment">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateBillingAndPayment"/>
+        <event type="service" invoke="createUpdateBillingAddressAndPaymentMethod"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>

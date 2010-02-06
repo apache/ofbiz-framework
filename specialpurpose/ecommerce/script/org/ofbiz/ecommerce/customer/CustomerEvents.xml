@@ -848,115 +848,6 @@ under the License.
     </simple-method>
 
     <!-- One page checkout process  -->
-    <simple-method method-name="createUpdateCustomerAndShippingAddress"
-            short-description="Create/Update Customer, Shipping Address and other contact details." login-required="false">
-        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
-        <set field="partyId" from-field="parameters.partyId"/>
-        <if-not-empty field="userLogin">
-            <if-empty field="partyId">
-                <set field="partyId" from-field="userLogin.partyId"/>
-            </if-empty>
-        </if-not-empty>
-        <set field="parameters.shipToCountryGeoId" from-field="parameters.countryGeoId"/>
-        <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
-
-        <if-empty field="shoppingCart">
-            <session-to-field field="shoppingCart"/>
-        </if-empty>
-        <if-not-empty field="partyId">
-            <!-- If userLogin is empty set anonymous userLogin or if anonymous user is coming back update userLogin -->
-            <call-simple-method method-name="setAnonUserLogin"/>
-        </if-not-empty>
-
-        <!-- Create Update Person -->
-        <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonCtx"/>
-        <set field="createUpdatePersonCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
-        <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
-            <result-to-request result-name="partyId"/>
-            <result-to-field result-name="partyId" field="parameters.partyId"/>
-        </call-service>
-        <set field="partyId" from-field="parameters.partyId"/>
-
-        <if-empty field="userLogin">
-            <!-- If new anonymous user set anonymous userLogin -->
-            <call-simple-method method-name="setAnonUserLogin"/>
-        </if-empty>
-
-        <set field="partyRoleContext.partyId" from-field="partyId"/>
-        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="partyRoleContext.userLogin" from-field="userLogin"/>
-        <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
-
-        <!-- Create Update Shipping address -->
-        <set-service-fields service-name="createUpdateShippingAddress" map="parameters" to-map="shipToAddressCtx"/>
-        <set field="shipToAddressCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createUpdateShippingAddress" in-map-name="shipToAddressCtx">
-            <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
-        </call-service>
-        <field-to-request field="parameters.shipToContactMechId" request-name="shipToContactMechId"/>
-
-        <!-- Create Update Shipping Telecom Number -->
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
-                processor-name="phoneNumber" in-map-name="parameters" out-map-name="shipToPhoneContext"/>
-        <check-errors/>
-
-        <set-service-fields service-name="createUpdatePartyTelecomNumber" map="shipToPhoneContext" to-map="createUpdatePartyTelecomNumberCtx"/>
-        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.shipToPhoneContactMechId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
-        <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field="parameters.shipToPhoneContactMechId"/>
-        </call-service>
-        <field-to-request field="parameters.shipToPhoneContactMechId" request-name="shipToPhoneContactMechId"/>
-
-        <if-not-empty field="parameters.shipToPhoneContactMechId">
-            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
-                <string value="PHONE_SHIPPING"/>
-                <field field="parameters.shipToPhoneContactMechId"/>
-            </call-object-method>
-       </if-not-empty>
-
-        <!-- Create Update email address -->
-        <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
-                processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
-        <check-errors/>
-
-        <set-service-fields service-name="createUpdatePartyEmailAddress" map="emailAddressContext" to-map="createUpdatePartyEmailCtx"/>
-        <set field="createUpdatePartyEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-        <set field="createUpdatePartyEmailCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdatePartyEmailCtx.partyId" from-field="parameters.partyId"/>
-        <call-service service-name="createUpdatePartyEmailAddress" in-map-name="createUpdatePartyEmailCtx">
-            <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
-        </call-service>
-        <field-to-request field="parameters.emailContactMechId" request-name="emailContactMechId"/>
-
-        <if-not-empty field="parameters.emailContactMechId">
-            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
-                <string value="ORDER_EMAIL"/>
-                <field field="parameters.emailContactMechId"/>
-            </call-object-method>
-       </if-not-empty>
-        <!-- Set partyId, in shoppingCart -->
-        <call-object-method obj-field="shoppingCart" method-name="setUserLogin">
-            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
-        </call-object-method>
-        <call-object-method obj-field="shoppingCart" method-name="addContactMech">
-            <string value="SHIPPING_LOCATION"/>
-            <field field="parameters.shipToContactMechId"/>
-        </call-object-method>
-        <call-object-method obj-field="shoppingCart" method-name="setShippingContactMechId">
-            <field field="parameters.shipToContactMechId"/>
-        </call-object-method>
-        <log level="info" message="updated shopping cart shipToContactMechId ${parameters.shipToContactMechId}"/>
-        <call-object-method obj-field="shoppingCart" method-name="setOrderPartyId">
-            <field field="partyId"/>
-        </call-object-method>
-    </simple-method>
-
     <simple-method method-name="createUpdateUserLogin" short-description="Create and update a user login" login-required="false">
         <if-empty field="parameters.partyId">
             <request-to-field request-name="partyId" field="parameters.partyId"/>
@@ -1181,106 +1072,15 @@ under the License.
         <log level="info" message="Total sale tax is : ${parameters.totalSalesTax}"/>
     </simple-method>
 
-    <simple-method method-name="createUpdateBillingAndPayment" short-description="Create/update billing address and payment information" login-required="false">
-        <set field="partyId" from-field="parameters.partyId"/>
-        <if-not-empty field="userLogin">
-            <if-empty field="partyId">
-                <set field="partyId" from-field="userLogin.partyId"/>
-            </if-empty>
-        </if-not-empty>
-        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
-        <set field="parameters.billToCountryGeoId" from-field="parameters.countryGeoId"/>
-        <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
-        <if-empty field="shoppingCart">
-            <session-to-field field="shoppingCart"/>
-        </if-empty>
-        <if-not-empty field="shoppingCart">
-            <if-empty field="partyId">
-                <call-object-method obj-field="shoppingCart" method-name="getPartyId" ret-field="partyId"/>
-            </if-empty>
-            <if-empty field="userLogin">
-                <call-object-method obj-field="shoppingCart" method-name="getUserLogin" ret-field="userLogin"/>
-                <if-not-empty field="userLogin">
-                    <set-current-user-login value-field="userLogin"/>
-                </if-not-empty>
-            </if-empty>
-            <if-empty field="shipToContactMechId">
-                <call-object-method obj-field="shoppingCart" method-name="getShippingContactMechId" ret-field="shipToContactMechId"/>
-            </if-empty>
-        </if-not-empty>
-        <if-not-empty field="partyId">
-            <!-- If userLogin is empty set anonymous userLogin or if anonymous user is coming back update userLogin -->
-            <call-simple-method method-name="setAnonUserLogin"/>
-        </if-not-empty>
-
-        <!-- Create Update Billing address -->
-        <set-service-fields service-name="createUpdateBillingAddress" map="parameters" to-map="billToAddressCtx"/>
-        <set field="billToAddressCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createUpdateBillingAddress" in-map-name="billToAddressCtx">
-            <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
-        </call-service>
-        <field-to-request field="parameters.billToContactMechId" request-name="billToContactMechId"/>
-        <if-not-empty field="parameters.billToContactMechId">
-            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
-                <string value="BILLING_LOCATION"/>
-                <field field="parameters.billToContactMechId"/>
-            </call-object-method>
-        </if-not-empty>
-
-        <!-- Create Update Billing Telecom Number -->
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
-                processor-name="phoneNumber" in-map-name="parameters" out-map-name="billToPhoneContext"/>
-        <check-errors/>
-
-        <set-service-fields service-name="createUpdatePartyTelecomNumber" map="billToPhoneContext" to-map="createUpdatePartyTelecomNumberCtx"/>
-        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.billToPhoneContactMechId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
-        <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field="parameters.billToPhoneContactMechId"/>
-        </call-service>
-        <field-to-request field="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>
-        <if-not-empty field="parameters.billToPhoneContactMechId">
-            <call-object-method obj-field="shoppingCart" method-name="addContactMech">
-                <string value="PHONE_BILLING"/>
-                <field field="parameters.billToPhoneContactMechId"/>
-            </call-object-method>
-        </if-not-empty>
-
-        <!-- Create Update credit card -->
-        <set-service-fields service-name="createUpdateCreditCard" map="parameters" to-map="creditCardContext"/>
-        <set field="creditCardContext.contactMechId" from-field="parameters.billToContactMechId"/>
-        <call-service service-name="createUpdateCreditCard" in-map-name="creditCardContext">
-            <result-to-field result-name="paymentMethodId" field="parameters.paymentMethodId"/>
-        </call-service>
-
-        <!--============== Set Payment Method ================-->
-        <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
-        <set field="cardSecurityCode" from-field="parameters.cardSecurityCode"/>
-        <field-to-session field="userLogin" session-name="userLogin"/>
-        <field-to-request field="parameters.paymentMethodId" request-name="paymentMethodId"/>
-        <call-bsh>
-            <![CDATA[
-                import org.ofbiz.order.shoppingcart.ShoppingCart;
-                checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
-                callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false);
-                ShoppingCart.CartPaymentInfo cpi = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true);
-                cpi.securityCode = cardSecurityCode;
-            ]]>
-        </call-bsh>
-    </simple-method>
-
     <simple-method method-name="createCustomerProfile" short-description="create a customer profile" login-required="false">
         <!-- Process all map -->
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personCtx"/>
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressCtx"/>
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
                 processor-name="shipToPhone" in-map-name="parameters" out-map-name="shipToTelecomNumberCtx"/>
         <check-errors/>
 
@@ -1334,7 +1134,7 @@ under the License.
 
         <!-- Create billing address -->
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
-            <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+            <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
                     processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
             <set field="billToAddressCtx.partyId" from-field="parameters.partyId"/>
             <set field="billToAddressCtx.userLogin" from-field="parameters.userLogin"/>
@@ -1349,7 +1149,7 @@ under the License.
         </else>
         </if-compare>
         <!-- create billing telecom number  -->
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
                 processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
         <set field="billToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
         <set field="billToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
