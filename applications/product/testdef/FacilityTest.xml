@@ -29,7 +29,7 @@ under the License.
     </test-case>
     <!-- Physical Inventory Adjustment test -->
     <test-case case-name="physicalInventoryAdjustment-test">
-        <simple-method-test location="component://product/script/org/ofbiz/shipment/test/FacilityTests.xml" name="testPhysicalInventoryAdjustment"/>
+        <simple-method-test location="component://product/script/org/ofbiz/product/test/InventoryTests.xml" name="testPhysicalInventoryAdjustment"/>
     </test-case>
 
     <test-case case-name="shipment-tests">
