@@ -20,14 +20,14 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="LookupPartyName">
+    <screen name="LookupParty">
         <section>
             <condition>
                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
+                <set field="title" value="${uiLabelMap.PartyLookupParty}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -60,7 +60,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="LookupPartyNameByName">
+    <screen name="LookupPartyByName">
         <section>
             <condition>
                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
