@@ -28,7 +28,7 @@
 			</actions>
 				<widgets>
 					<screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
-						<include-form location="component://ebay/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
+						<include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
 					</screenlet>
 				</widgets>
 			</section>

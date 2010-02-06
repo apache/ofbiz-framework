@@ -40,6 +40,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -139,4 +140,100 @@ public class EbayStoreHelper {
         }
         return SiteCodeType.US;
     }
+   
+   public static boolean validatePartyAndRoleType(Delegator delegator,String partyId){
+	   GenericValue partyRole = null;
+	   try {
+		   if (partyId == null) {
+			   Debug.logError("Require field partyId.",module);
+			   return false;
+		   }
+		   partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId,"roleTypeId","EBAY_ACCOUNT"));
+		   if (partyRole == null) {
+			   Debug.logError("Party Id ".concat(partyId).concat("not have roleTypeId EBAY_ACCOUNT"),module);
+			   return false;
+		   }
+	   } catch (GenericEntityException e) {
+		   Debug.logError(e.getMessage(), module);
+		   return false;
+	   }
+	   return true;
+   }
+   public static String retriveEbayCategoryIdByPartyId(Delegator delegator,String productCategoryId,String partyId){
+	   String ebayCategoryId = null;
+	   List<GenericValue> productCategoryRoles = null;
+	   try {
+		   if (partyId == null) {
+			   Debug.logError("Require field partyId.",module);
+			   return ebayCategoryId;
+		   }
+		   productCategoryRoles = delegator.findByAnd("ProductCategoryRole", UtilMisc.toMap("productCategoryId",productCategoryId,"partyId", partyId,"roleTypeId","EBAY_ACCOUNT"));
+		   if (productCategoryRoles != null && productCategoryRoles.size()>0) {
+			   for (GenericValue productCategoryRole : productCategoryRoles) {
+				   ebayCategoryId = productCategoryRole.getString("comments");
+			   }
+		   } else {
+			   Debug.logInfo("Party Id ".concat(partyId).concat(" Not found productCategoryRole with productCategoryId "+productCategoryId),module);
+			   return ebayCategoryId;
+		   }
+	   } catch (GenericEntityException e) {
+		   Debug.logError(e.getMessage(), module);
+	   }
+	   return ebayCategoryId;
+   }
+   public static boolean createEbayCategoryIdByPartyId(Delegator delegator,String productCategoryId,String partyId,String ebayCategoryId){
+	   
+	   try {
+		   if (partyId == null && ebayCategoryId != null) {
+			   Debug.logError("Require field partyId and ebayCategoryId.",module);
+			   return false;
+		   }
+		   GenericValue productCategoryRole = delegator.makeValue("ProductCategoryRole");
+		   productCategoryRole.put("productCategoryId",productCategoryId);
+		   productCategoryRole.put("partyId", partyId);
+		   productCategoryRole.put("roleTypeId","EBAY_ACCOUNT");
+		   productCategoryRole.put("fromDate",UtilDateTime.nowTimestamp());
+		   productCategoryRole.put("comments",ebayCategoryId);
+		   productCategoryRole.create();
+
+	   } catch (GenericEntityException e) {
+		   Debug.logError(e.getMessage(), module);
+		   return false;
+	   }
+	   return true;
+   }
+   public static boolean veriflyCategoryInCatalog(Delegator delegator,List<GenericValue> catalogCategories,String productCategoryId){
+	   boolean flag = false;
+	   try {
+		   for (GenericValue catalogCategory : catalogCategories) {
+			   // check in productCatalogCategory first level 0
+			   if (catalogCategory.containsValue(productCategoryId)) {
+				   flag = true;
+				   break;
+			   } else {
+				   // check from child category level 1
+				   List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",catalogCategory.getString("productCategoryId")));
+				   for (GenericValue productCategoryRollup : productCategoryRollupList) {
+					   if (productCategoryRollup.containsValue(productCategoryId)) {
+						   flag = true;
+						   break;
+					   } else {
+						   // check from level 2
+						   List<GenericValue> prodCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategoryRollup.getString("productCategoryId")));
+						   for (GenericValue prodCategoryRollup : prodCategoryRollupList) {
+							   if (prodCategoryRollup.containsValue(productCategoryId)) {
+								   flag = true;
+								   break;
+							   }
+						   }
+					   }
+				   }
+			   }
+		   }
+	   } catch (GenericEntityException e) {
+		   Debug.logError(e.getMessage(), module);
+		   return false;
+	   }
+	   return flag;
+   }
 }

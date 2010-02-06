@@ -175,6 +175,7 @@ under the License.
         <field name="compatibilityLevel"><text default-value="${ebayConfig.compatibilityLevel}" size="5"/></field>
         <field name="siteId"><text default-value="${ebayConfig.siteId}" size="5"/></field>
         <field name="xmlGatewayUri"><text size="40"/></field>
+        <field name="apiServerUrl"><text size="40"/></field>
         <field name="customXml"><textarea cols="60" rows="5"/></field> 
         <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
             <drop-down>
