@@ -45,7 +45,6 @@ under the License.
                 <!--set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/-->
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="EXAMPLE"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
-                <script location="component://commonext/webapp/ofbizsetup/organization/changeOrgPartyId.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
