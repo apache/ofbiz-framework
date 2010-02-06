@@ -1234,26 +1234,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- Test Physical Inventory Adjustment -->
-    <simple-method method-name="testPhysicalInventoryAdjustment" short-description="Test to create physical inventory and variance" login-required="false">
-        <log level="info" message="====================Create physical inventory and variance test case================================"/>
-        <set field="createPhysicalInventoryAndVarianceMap.inventoryItemId" value="9024"/>
-        <set field="createPhysicalInventoryAndVarianceMap.varianceReasonId" value="VAR_LOST"/>
-        <entity-one entity-name="UserLogin" value-field="createPhysicalInventoryAndVarianceMap.userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <call-service service-name="createPhysicalInventoryAndVariance" in-map-name="createPhysicalInventoryAndVarianceMap">
-            <result-to-field result-name="physicalInventoryId" field="physicalInventoryId"/>
-        </call-service>
-        <assert>
-            <not>
-                <if-empty field="physicalInventoryId">
-                    <log level="info" message="========physicalInventoryId ${physicalInventoryId} found null============================"/>
-                </if-empty>
-            </not>
-        </assert>
-        <check-errors/>
-    </simple-method>
     <simple-method method-name="changeOwnerUponIssuance" short-description="If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.">
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
