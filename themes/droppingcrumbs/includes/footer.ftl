@@ -21,7 +21,7 @@ under the License.
 
 <div id="footer">
   <p>${nowTimestamp?datetime?string.short} -
-  <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
+  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
   </p>
   <p><a href="http://jigsaw.w3.org/css-validator/"><img src="<@ofbizContentUrl>/images/vcss.gif</@ofbizContentUrl>" alt="Valid CSS!"/></a>
   <a href="http://validator.w3.org/check?uri=referer"><img src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a></p>

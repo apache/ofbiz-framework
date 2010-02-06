@@ -176,9 +176,9 @@ under the License.
           </#if>
           <ul id="preferences-menu">
             <!-- <li class="first"><a href="<@ofbizUrl>Preferences</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li> -->
-            <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
+            <li class="first"><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
             <#if userLogin?exists>
-              <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
+              <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
             </#if>
             <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
               <#include "component://common/webcommon/includes/helplink.ftl" />

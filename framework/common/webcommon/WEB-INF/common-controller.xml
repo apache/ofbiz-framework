@@ -106,14 +106,14 @@ under the License.
     </request-map>
 
     <!-- Common Mappings used for locales and timezones -->
-    <request-map uri="LookupLocales"><security https="true" auth="false"/><response name="success" type="view" value="LookupLocales" save-last-view="true"/></request-map>
+    <request-map uri="ListLocales"><security https="true" auth="false"/><response name="success" type="view" value="ListLocales" save-last-view="true"/></request-map>
     <request-map uri="setSessionLocale">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
-    <request-map uri="LookupTimezones"><security https="true" auth="false"/><response name="success" type="view" value="LookupTimezones" save-last-view="true"/></request-map>
+    <request-map uri="ListTimezones"><security https="true" auth="false"/><response name="success" type="view" value="ListTimezones" save-last-view="true"/></request-map>
     <request-map uri="setSessionTimeZone">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
@@ -147,9 +147,9 @@ under the License.
     </request-map>
 
     <!-- Visual theme mapping -->
-    <request-map uri="LookupVisualThemes">
+    <request-map uri="ListVisualThemes">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupVisualThemes"/>
+        <response name="success" type="view" value="ListVisualThemes"/>
     </request-map>
 
     <request-map uri="main">
@@ -199,10 +199,10 @@ under the License.
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
 
-    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
+    <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales"/>
     <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration"/>
-    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
-    <view-map name="LookupVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#LookupVisualThemes"/>
+    <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
+    <view-map name="ListVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#ListVisualThemes"/>
 
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 

@@ -47,7 +47,7 @@ under the License.
     </screen>
 
     <!-- Locales Lookup Screen -->
-    <screen name="LookupLocales">
+    <screen name="ListLocales">
         <section>
             <actions>
                 <set field="title" value="${uiLabelMap.CommonChooseLanguage}"/>
@@ -67,7 +67,7 @@ under the License.
     </screen>
 
     <!-- Timezones Lookup Screen -->
-    <screen name="LookupTimezones">
+    <screen name="ListTimezones">
         <section>
             <actions>
                 <set field="title" value="${uiLabelMap.CommonTime}"/>
@@ -87,7 +87,7 @@ under the License.
     </screen>
 
     <!-- Visual Themes Lookup Screen -->
-    <screen name="LookupVisualThemes">
+    <screen name="ListVisualThemes">
         <section>
             <actions>
                 <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
