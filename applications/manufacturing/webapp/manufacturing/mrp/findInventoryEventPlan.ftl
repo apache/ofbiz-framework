@@ -66,7 +66,7 @@ function lookupInventory() {
                         <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
                         <span>
                           <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
-                            <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                            <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                           </a>
                         </span>
                         <input type='text' size='25' readonly name='productId_description' value=''/>
