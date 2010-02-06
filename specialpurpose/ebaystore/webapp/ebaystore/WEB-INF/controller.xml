@@ -29,13 +29,17 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-   	<!-- Export categories selected to Ebay store -->
+    <!-- Export categories selected to Ebay store -->
     <request-map uri="exportCategoryEbayStore">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="exportCategoryEbayStore"/>
         <response name="error" type="view" value="exportCategoryEbayStore"/>
     </request-map>
-    
+    <request-map uri="getChildCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
     <request-map uri="exportCategoriesSelectedToEbayStore">
         <security https="true" auth="true"/>
         <event type="service" invoke="exportCategoriesSelectedToEbayStore"/>

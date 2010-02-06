@@ -62,19 +62,83 @@ under the License.
         </section>
     </screen>
     <screen name="exportCategoryEbayStore">
-    	<section>
-	        <actions>
-	            <set field="titleProperty" value="EbayExportAllCategoryToEbayStore"/>
-	            <set field="headerItem" value="ebayStore"/>
-	            <set field="tabButtonItem" value="ebayExportAllCategoryToEbayStore"/>
-	            <set field="productStoreId" value="${parameters.productStoreId}"/>
-	        </actions>
-	        <widgets>
-       	 	<decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
-            	<decorator-section name="body">
-                    <screenlet title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
-                        <include-form name="ListCurrentStores" location="component://ebaystore/widget/EbayStoreForms.xml"/>
-                        </screenlet>
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayExportAllCategoryToEbayStore"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="ebayExportAllCategoryToEbayStore"/>
+                <set field="productStoreId" value="${parameters.productStoreId}"/>
+                <entity-and entity-name="ProdCatalogCategory" list="categoriesList">
+                    <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
+                    <order-by field-name="productCategoryId"/>
+                </entity-and>
+                <entity-one entity-name="ProdCatalog" value-field="prodCatalog">
+                    <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
+                    <select-field field-name="catalogName"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field="parameters.productCategoryId"/>
+                                </not>
+                            </condition>
+                            <actions>
+                                <entity-and entity-name="ProductCategoryRollup" list="categoriesRollupList">
+                                    <field-map field-name="parentProductCategoryId" from-field="parameters.productCategoryId"/>
+                                    <order-by field-name="productCategoryId"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not>
+                                            <if-empty field="categoriesRollupList"/>
+                                        </not>
+                                    </condition>
+                                    <actions>
+                                        <set field="categoriesList" from-field="nullField"/>
+                                        <set field="categoriesList" from-field="categoriesRollupList"/>
+                                    </actions>
+                                    <widgets>
+                                        <screenlet>
+                                            <screenlet title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
+                                                <include-form name="ListCurrentStores" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                            </screenlet>
+                                            <screenlet navigation-form-name="ListCategories" title="List category in ${prodCatalog.catalogName}">
+                                                <include-form name="ListCategories" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                            </screenlet>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
+                                            <include-form name="ListCurrentStores" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                        </screenlet>
+                                        <screenlet navigation-form-name="ListCategories" title="List category in ${prodCatalog.catalogName}">
+                                            <label text="Not found child category"/>
+                                        </screenlet>    
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <screenlet title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
+                                        <include-form name="ListCurrentStores" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                    </screenlet>
+                                    <screenlet navigation-form-name="ListCategories" title="List category in ${prodCatalog.catalogName}">
+                                        <include-form name="ListCategories" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                    </screenlet>
+                                    <link name="exportCategoriesSelectedToEbayStore" target="exportCategoriesSelectedToEbayStore"  style="buttontext" text="${uiLabelMap.EbayExportToEbayStore}">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                    </link>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

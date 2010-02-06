@@ -87,10 +87,15 @@ import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsArrayType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsType;
+import com.ebay.soap.eBLBaseComponents.SetStoreCategoriesRequestType;
+import com.ebay.soap.eBLBaseComponents.SetStoreCategoriesResponseType;
 import com.ebay.soap.eBLBaseComponents.SetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.SetStoreResponseType;
+import com.ebay.soap.eBLBaseComponents.StoreCategoryUpdateActionCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreColorSchemeType;
 import com.ebay.soap.eBLBaseComponents.StoreColorType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryArrayType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomHeaderLayoutCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderDisplayCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderLinkCodeType;
@@ -108,6 +113,8 @@ import com.ebay.soap.eBLBaseComponents.StoreSubscriptionLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
 import com.ebay.soap.eBLBaseComponents.StoreType; 
+import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
+
 import java.sql.Timestamp;
 import java.util.TimeZone;
  
@@ -187,56 +194,209 @@ public class EbayStore {
 		}
 		return outputBuilder.toString();
 	}
-
-	public static Map exportCategoriesSelectedToEbayStore(DispatchContext dctx, Map context) {
+	/* add/update/delete  categories and child into your ebay store category */  
+	public static Map<String,Object> exportCategoriesSelectedToEbayStore(DispatchContext dctx, Map<String,? extends Object>  context) {
 		Locale locale = (Locale) context.get("locale");
 		Delegator delegator = dctx.getDelegator();
 		Map<String, Object> result = FastMap.newInstance();
-		Map response = null;
-		Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
-		StringBuffer dataStoreXml = new StringBuffer();
+		SetStoreCategoriesRequestType req = null;
+		StoreCustomCategoryArrayType categoryArrayType = null;
+		
+		List<GenericValue> catalogCategories = null;
+		
+		if (UtilValidate.isEmpty(context.get("prodCatalogId")) || UtilValidate.isEmpty(context.get("productStoreId")) || UtilValidate.isEmpty(context.get("partyId"))) {
+			return ServiceUtil.returnError("Please set catalogId and  productStoreId.");
+		}
+		if (!EbayStoreHelper.validatePartyAndRoleType(delegator,context.get("partyId").toString())){
+			return ServiceUtil.returnError("Party ".concat(context.get("partyId").toString()).concat(" no roleTypeId EBAY_ACCOUNT for export categories to ebay store."));
+		}
 		try {
-			// GetStore //
-			Map resultMap = buildGetStoreXml(context, dataStoreXml, eBayConfigResult.get("token").toString(), eBayConfigResult.get("siteID").toString());
-			if (!ServiceUtil.isFailure(resultMap)) {
-				response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataStoreXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "GetStore", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-				String successMessage = (String)response.get("successMessage");
-				if (successMessage != null) {
-					String isSuccess = readEbayResponse(successMessage, context.get("productStoreId").toString());
-					if (isSuccess == "success"){
-						List<GenericValue> catalogCategories = null;
-						if(UtilValidate.isNotEmpty(context.get("prodCatalogId"))){
-							catalogCategories = delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", context.get("prodCatalogId").toString()));
-						}
-						if (catalogCategories != null){
-							String isSuccess2 = "";
-							Iterator categoriesListIter = catalogCategories.iterator();
-							while (categoriesListIter.hasNext()) {
-								GenericValue catalogCategory = (GenericValue) categoriesListIter.next();
-								String prodCategoryId = catalogCategory.getString("productCategoryId").toString();
+			
+			SetStoreCategoriesCall  call = new SetStoreCategoriesCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
 
-								StringBuffer dataCategoriesXml = new StringBuffer();
-								Map resultCategoriesMap = buildSetStoreCategoriesXml(dctx, context, dataCategoriesXml, eBayConfigResult.get("token").toString(), eBayConfigResult.get("siteID").toString(), prodCategoryId);
-								if (!ServiceUtil.isFailure(resultCategoriesMap)) {
-									response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataCategoriesXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "SetStoreCategories", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
-									String successMessage2 = (String)response.get("successMessage");
-									if (successMessage2 != null) {
-										isSuccess2 = readEbayResponse(successMessage2, context.get("productStoreId").toString());
+			catalogCategories = delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", context.get("prodCatalogId").toString(),"prodCatalogCategoryTypeId","PCCT_EBAY_ROOT"),UtilMisc.toList("sequenceNum ASC"));
+			if (catalogCategories != null && catalogCategories.size()>0) {
+				List<StoreCustomCategoryType> listAdd = FastList.newInstance();
+				List<StoreCustomCategoryType> listEdit = FastList.newInstance();
+				//start at level 0 of categories
+				for (GenericValue catalogCategory : catalogCategories) {
+					GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+					if (productCategory != null) {
+						String ebayCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
+						StoreCustomCategoryType categoryType = new StoreCustomCategoryType();
+						if (ebayCategoryId == null) {
+							categoryType.setName(productCategory.getString("categoryName"));
+							listAdd.add(categoryType);
+						} else {
+							categoryType.setCategoryID(new Long(ebayCategoryId));
+							categoryType.setName(productCategory.getString("categoryName"));
+							listEdit.add(categoryType);
+						}
+					}
+				}
+				if (listAdd.size()>0) {
+					req = new SetStoreCategoriesRequestType();
+					categoryArrayType = new StoreCustomCategoryArrayType();
+					categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listAdd));
+					req.setStoreCategories(categoryArrayType);
+					result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.ADD,delegator,context.get("partyId").toString(),catalogCategories);
+				}
+				if (listEdit.size()>0) {
+					req = new SetStoreCategoriesRequestType();
+					categoryArrayType = new StoreCustomCategoryArrayType();
+					categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listEdit));
+					req.setStoreCategories(categoryArrayType);
+					result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.RENAME,delegator,context.get("partyId").toString(),catalogCategories);
+				}
+
+				//start at level 1 of categories
+				listAdd = FastList.newInstance();
+				listEdit = FastList.newInstance();
+				for (GenericValue catalogCategory : catalogCategories) {
+					GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+					if (productCategory != null) {
+						String ebayParentCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
+						if (ebayParentCategoryId != null) {
+							List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategory.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"));
+							for (GenericValue productCategoryRollup : productCategoryRollupList) {
+								productCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryRollup.getString("productCategoryId")));
+								StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
+								String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
+								if (ebayChildCategoryId == null) {
+									childCategoryType.setName(productCategory.getString("categoryName"));
+									listAdd.add(childCategoryType);
+								} else {
+									childCategoryType.setCategoryID(new Long(ebayChildCategoryId));
+									childCategoryType.setName(productCategory.getString("categoryName"));
+									listEdit.add(childCategoryType);
+								}
+							} 
+						}
+						if (listAdd.size()>0) {
+							req = new SetStoreCategoriesRequestType();
+							categoryArrayType = new StoreCustomCategoryArrayType();
+							categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listAdd));
+							req.setStoreCategories(categoryArrayType);
+							req.setDestinationParentCategoryID(new Long(ebayParentCategoryId));
+							result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.ADD,delegator,context.get("partyId").toString(),catalogCategories);
+						}
+						if (listEdit.size()>0) {
+							req = new SetStoreCategoriesRequestType();
+							categoryArrayType = new StoreCustomCategoryArrayType();
+							categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listEdit));
+							req.setStoreCategories(categoryArrayType);
+							req.setDestinationParentCategoryID(new Long(ebayParentCategoryId));
+							result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.RENAME,delegator,context.get("partyId").toString(),catalogCategories);
+						}	
+					}
+				}
+				//start at level 2 of categories
+				listAdd = FastList.newInstance();
+				listEdit = FastList.newInstance();
+				for (GenericValue catalogCategory : catalogCategories) {
+					GenericValue productCategory = catalogCategory.getRelatedOne("ProductCategory");
+					if (productCategory != null) {
+						
+							List<GenericValue> productParentCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productCategory.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"));
+							for (GenericValue productParentCategoryRollup : productParentCategoryRollupList) {
+								String ebayParentCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productParentCategoryRollup.getString("productCategoryId"),context.get("partyId").toString());
+								if (ebayParentCategoryId != null) {
+									List<GenericValue> productChildCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productParentCategoryRollup.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"));
+									for (GenericValue productChildCategoryRollup : productChildCategoryRollupList) {
+										productCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productChildCategoryRollup.getString("productCategoryId")));
+										StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
+										String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
+										if (ebayChildCategoryId == null) {
+											childCategoryType.setName(productCategory.getString("categoryName"));
+											listAdd.add(childCategoryType);
+										} else {
+											childCategoryType.setCategoryID(new Long(ebayChildCategoryId));
+											childCategoryType.setName(productCategory.getString("categoryName"));
+											listEdit.add(childCategoryType);
+										}
 									}
+									if (listAdd.size()>0) {
+										req = new SetStoreCategoriesRequestType();
+										categoryArrayType = new StoreCustomCategoryArrayType();
+										categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listAdd));
+										req.setStoreCategories(categoryArrayType);
+										req.setDestinationParentCategoryID(new Long(ebayParentCategoryId));
+										result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.ADD,delegator,context.get("partyId").toString(),catalogCategories);
+									}
+									if (listEdit.size()>0) {
+										req = new SetStoreCategoriesRequestType();
+										categoryArrayType = new StoreCustomCategoryArrayType();
+										categoryArrayType.setCustomCategory(toStoreCustomCategoryTypeArray(listEdit));
+										req.setStoreCategories(categoryArrayType);
+										req.setDestinationParentCategoryID(new Long(ebayParentCategoryId));
+										result = excuteExportCategoryToEbayStore(call,req,StoreCategoryUpdateActionCodeType.RENAME,delegator,context.get("partyId").toString(),catalogCategories);
+									}	
+								}
+							} 
+					}
+				}
+			} else {
+				return ServiceUtil.returnError("Not found product Category type EBAY_ROOT in catalog "+context.get("prodCatalogId"));
+			}
+		} catch (GenericEntityException e) {
+			result = ServiceUtil.returnFailure(e.getMessage());
+		}
+		if (result.get("responseMessage")!=null && result.get("responseMessage").equals("fail")) result = ServiceUtil.returnError(result.get("errorMessage").toString());
+		return result;
+	}
+	public static StoreCustomCategoryType[] toStoreCustomCategoryTypeArray(List<StoreCustomCategoryType> list) {
+		StoreCustomCategoryType[] storeCustomCategoryTypeArry = null;
+		try {
+			if (list !=null && list.size()>0) {
+				storeCustomCategoryTypeArry = new StoreCustomCategoryType[list.size()];
+				int i=0;
+				for (StoreCustomCategoryType val : list) {
+					storeCustomCategoryTypeArry[i] = val;
+				}
+			}
+		} catch (Exception e){
+			Debug.logError(e.getMessage(), module);
+		}
+		return storeCustomCategoryTypeArry; 
+	}
+	public static Map<String, Object> excuteExportCategoryToEbayStore(SetStoreCategoriesCall  call,SetStoreCategoriesRequestType req,StoreCategoryUpdateActionCodeType actionCode,Delegator delegator,String partyId,List<GenericValue> catalogCategories) {
+		Map<String, Object> result = FastMap.newInstance();
+		SetStoreCategoriesResponseType resp = null;
+		try {
+			if (req != null && actionCode != null) {
+				req.setAction(actionCode);
+				resp = (SetStoreCategoriesResponseType) call.execute(req);
+				if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
+					long returnTaskId = resp.getTaskID() == null? 0: resp.getTaskID().longValue();
+					TaskStatusCodeType returnedStatus = resp.getStatus();
+					StoreCustomCategoryArrayType returnedCustomCategory = resp.getCustomCategory();
+					if (actionCode.equals(StoreCategoryUpdateActionCodeType.ADD) && returnedCustomCategory != null) {
+						StoreCustomCategoryType[] returnCategoryTypeList = returnedCustomCategory.getCustomCategory();
+						for (StoreCustomCategoryType returnCategoryType : returnCategoryTypeList) {
+							List<GenericValue> productCategoryList = delegator.findByAnd("ProductCategory", UtilMisc.toMap("categoryName",returnCategoryType.getName(),"productCategoryTypeId","EBAY_CATEGORY"));
+							for (GenericValue productCategory : productCategoryList) {
+								if (EbayStoreHelper.veriflyCategoryInCatalog(delegator,catalogCategories,productCategory.getString("productCategoryId"))) {
+									if (EbayStoreHelper.createEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),partyId,String.valueOf(returnCategoryType.getCategoryID()))) {
+										Debug.logInfo("Create new ProductCategoryRollup with partyId "+partyId+" categoryId "+productCategory.getString("productCategoryId")+ " and ebayCategoryId "+String.valueOf(returnCategoryType.getCategoryID()), module);
+									}
+									break;
 								}
 							}
 						}
 					}
-				} else {
-					ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(response));
+					result = ServiceUtil.returnSuccess("Export categories to ebay store".concat(" success."));
+				}else{
+					result = ServiceUtil.returnError("Fail to export categories to an ebay store ".concat(resp.getMessage()));
 				}
-			} else {
-				return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
 			}
-			 result.put(ModelService.SUCCESS_MESSAGE, "Export categories success...");
-		} catch (Exception e) {
-			Debug.logError("Exception in exportCategoriesSelectedToEbayStore : " + e, module);
-			return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.exceptionInGetEbayCategories", locale));
+		} catch (ApiException e) {
+			result = ServiceUtil.returnFailure(e.getMessage());
+		} catch (SdkSoapException e) {
+			result = ServiceUtil.returnFailure(e.getMessage());
+		} catch (SdkException e) {
+			result = ServiceUtil.returnFailure(e.getMessage());
+		} catch (GenericEntityException e) {
+			result = ServiceUtil.returnFailure(e.getMessage());
 		}
 		return result;
 	}

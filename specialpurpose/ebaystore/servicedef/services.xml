@@ -42,6 +42,7 @@ under the License.
         location="org.ofbiz.ebaystore.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
         <description>Export categories in store to eBay store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
     </service>
     
