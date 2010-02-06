@@ -22,7 +22,12 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.PartyShoppingLists}</li>
-      <li><a href="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>?partyId=${partyId?if_exists}">${uiLabelMap.CommonCreateNew}</a></li>
+      <li>
+        <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
+          <input type="hidden" name="partyId" value="${partyId?if_exists}" />
+          <a href="javascript:$('createEmptyShoppingList').submit();"" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+        </form>
+      </li>      
     </ul>
     <br class="clear"/>
   </div>
