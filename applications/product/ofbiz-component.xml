@@ -67,6 +67,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
 
     <!-- test suite -->
+    <test-suite loader="main" location="testdef/CatalogTests.xml"/>
     <test-suite loader="main" location="testdef/FacilityTest.xml"/>
 
     <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
