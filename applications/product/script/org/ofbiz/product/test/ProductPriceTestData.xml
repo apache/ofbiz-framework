@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Product productId="DemoProduct" productTypeId="FINISHED_GOOD" productName="Demo Product" internalName="Test Product" isVirtual="Y" isVariant="N" createdDate="2006-03-23 23:05:32.915" />
+
+    <Product productId="DemoProduct-1" productTypeId="FINISHED_GOOD" productName="Demo Product 1" isVirtual="N" isVariant="Y" createdDate="2006-03-23 23:05:32.915" />
+    <Product productId="DemoProduct-2" productTypeId="FINISHED_GOOD" productName="Demo Product 2" isVirtual="N" isVariant="Y" createdDate="2006-03-23 23:05:32.915" salesDiscontinuationDate="2007-03-23 23:05:32.915"/>
+    <Product productId="DemoProduct-3" productTypeId="FINISHED_GOOD" productName="Demo Product 3" isVirtual="N" isVariant="Y" createdDate="2006-03-23 23:05:32.915" />
+
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0" reason=""/>
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-2" quantity="1.0" reason=""/>
+    <ProductAssoc fromDate="2006-05-13 12:00:00.0" productAssocTypeId="PRODUCT_VARIANT" productId="DemoProduct" productIdTo="DemoProduct-3" quantity="1.0" reason=""/>
+
+    <ProductPrice productId="DemoProduct-1" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2006-05-13 12:00:00.0" price="15.00" createdDate="2006-05-13 12:00:00.0"  lastModifiedDate="2006-05-13 12:00:00.0"/>
+    <ProductPrice productId="DemoProduct-2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2006-05-13 12:00:00.0" price="5.00" createdDate="2006-05-13 12:00:00.0"  lastModifiedDate="2006-05-13 12:00:00.0"/>
+    <ProductPrice productId="DemoProduct-3" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2006-05-13 12:00:00.0" price="10.00" createdDate="2006-05-13 12:00:00.0"  lastModifiedDate="2006-05-13 12:00:00.0"/>
+</entity-engine-xml>
