@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
@@ -1633,4 +1634,123 @@ public class EbayStore {
 	       }
 	       return result;
 	   }
+    public static Map<String, Object> exportProductsFromEbayStore(DispatchContext dctx, Map context){
+        Map<String,Object> result = FastMap.newInstance();
+        Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
+        Map response = null;
+        try{
+            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId",context.get("productId").toString()));
+            int intAtp = 1;
+            String facilityId = "";
+            if (UtilValidate.isNotEmpty(context.get("requireEbayInventory")) && "on".equals(context.get("requireEbayInventory").toString())) {
+                GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", context.get("productStoreId").toString(), "productId", context.get("productId")))));
+                if (UtilValidate.isNotEmpty(ebayProductStore)) {
+                    facilityId = ebayProductStore.getString("facilityId");
+                    BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
+                    intAtp = atp.intValue();
+                    if (intAtp == 0) {
+                        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+                        result.put(ModelService.ERROR_MESSAGE, "ATP is not enough, can not create listing.");
+                    }
+                }
+            }
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (UtilValidate.isNotEmpty(context.get("productCategoryId"))) {
+                GenericValue prodCategoryMember = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", context.get("productCategoryId"),"productId", context.get("productId")))));
+                if (UtilValidate.isNotEmpty(prodCategoryMember)) {
+                    GenericValue prodCategoryRole = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRole", UtilMisc.toMap("productCategoryId", prodCategoryMember.get("productCategoryId").toString(), "partyId", userLogin.get("partyId"),"roleTypeId", "EBAY_ACCOUNT"))));
+                    if (UtilValidate.isNotEmpty(prodCategoryRole)) {
+                        context.put("ebayCategory", prodCategoryRole.get("comments"));
+                    } else {
+                        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+                        result.put(ModelService.ERROR_MESSAGE, "Category not found for this product on ebay.");
+                    }
+                }
+            } else {
+                List<GenericValue> prodCategoryMember = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", context.get("productId"))));
+                Iterator prodCategoryMemberIter = prodCategoryMember.iterator();
+                while (prodCategoryMemberIter.hasNext()) {
+                    GenericValue prodCategory = (GenericValue) prodCategoryMemberIter.next();
+                    GenericValue prodCatalogCategory = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", context.get("prodCatalogId"), "productCategoryId", prodCategory.get("productCategoryId").toString()))));
+                    if (UtilValidate.isNotEmpty(prodCatalogCategory)) {
+                        GenericValue prodCategoryRole = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRole", UtilMisc.toMap("productCategoryId", prodCatalogCategory.get("productCategoryId").toString(), "partyId", userLogin.get("partyId"),"roleTypeId", "EBAY_ACCOUNT"))));
+                        if (UtilValidate.isNotEmpty(prodCategoryRole)) {
+                            context.put("ebayCategory", prodCategoryRole.get("comments"));
+                        } else {
+                            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+                            result.put(ModelService.ERROR_MESSAGE, "Category not found for this product on ebay.");
+                        }
+                    }
+                }
+            }
+
+            if (intAtp != 0) {
+                if (UtilValidate.isNotEmpty(context.get("listingTypeAuc")) && "on".equals(context.get("listingTypeAuc").toString())) {
+                    context.put("listingFormat", "Chinese");
+                    context.put("listingDuration",  context.get("listingDurationAuc").toString());
+                    
+                    StringBuffer dataItemsXml = new StringBuffer();
+                    Map resultMap = ProductsExportToEbay.buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString(), product);
+                    if (!ServiceUtil.isFailure(resultMap)) {
+                        response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                        if (ServiceUtil.isFailure(response)) {
+                            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(response));
+                        }
+                        if (UtilValidate.isNotEmpty(response)) {
+                            ProductsExportToEbay.exportToEbayResponse((String) response.get("successMessage"), product);
+                        }
+                    } else {
+                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
+                    }
+                }
+
+                if (UtilValidate.isNotEmpty(context.get("listingTypeFixed")) && "on".equals(context.get("listingTypeFixed").toString())) {
+                    context.put("listingFormat", "FixedPriceItem");
+                    context.put("listingDuration", context.get("listingDurationFixed").toString());
+                    
+                    StringBuffer dataItemsXml = new StringBuffer();
+                    Map resultMap = ProductsExportToEbay.buildDataItemsXml(dctx, context, dataItemsXml, eBayConfigResult.get("token").toString(), product);
+                    if (!ServiceUtil.isFailure(resultMap)) {
+                        response = postItem(eBayConfigResult.get("xmlGatewayUri").toString(), dataItemsXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "AddItem", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+                        if (ServiceUtil.isFailure(response)) {
+                            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(response));
+                        }
+                        if (UtilValidate.isNotEmpty(response)) {
+                            ProductsExportToEbay.exportToEbayResponse((String) response.get("successMessage"), product);
+                        }
+                    } else {
+                        return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(resultMap));
+                    }
+                }
+            }
+
+            
+            if (UtilValidate.isNotEmpty(productExportEbay.getProductExportSuccessMessageList())) {
+                if ((facilityId != "")  && (intAtp != 0)) {
+                    int newAtp = intAtp - 1;
+                    Map<String,Object> inMap = FastMap.newInstance();
+                    inMap.put("productStoreId", context.get("productStoreId").toString());
+                    inMap.put("facilityId", facilityId);
+                    inMap.put("productId",context.get("productId"));
+                    inMap.put("availableToPromiseListing", new BigDecimal(newAtp));
+                    inMap.put("userLogin",context.get("userLogin"));
+                    dispatcher.runSync("updateEbayProductStoreInventory", inMap);
+                }
+                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                result.put(ModelService.SUCCESS_MESSAGE, "Export products listing success..");
+            }
+
+            if (UtilValidate.isNotEmpty(productExportEbay.getproductExportFailureMessageList())) {
+                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_FAIL);
+                result.put(ModelService.ERROR_MESSAGE_LIST, productExportEbay.getproductExportFailureMessageList());
+            }
+
+        }catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
 }

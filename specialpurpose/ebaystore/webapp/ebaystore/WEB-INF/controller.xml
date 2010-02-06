@@ -170,6 +170,22 @@
         <event type="service" invoke="updateEbayProductQtyReserved"/>
         <response name="success" type="view" value="ebayLoadStoreInventory"/>
     </request-map>
+    <request-map uri="exportProductListing">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="exportProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="productsearch">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="productsearch"/>
+        <response name="error" type="view" value="productsearch"/>
+    </request-map>
+    <request-map uri="exportProductsFromEbayStore">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="exportProductsFromEbayStore"/>
+        <response name="success" type="view" value="exportProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
 	<!-- end of request mappings -->
     
     <!-- View Mappings -->
@@ -196,5 +212,8 @@
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayLoadStoreInventory"/>
     <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#reserveEbayProductInventory"/>
     <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#updateQuantityReserved"/>
+    
+    <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
+    <view-map name="productsearch" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#productsearchexport"/>
     <!-- end of view mappings -->
 </site-conf>
