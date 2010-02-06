@@ -26,7 +26,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" >
             <drop-down current="selected" >
-                <list-options list-name="ebayStoreList" description="${storeName} [${productStoreId}]" key-name="productStoreId"/>                
+                <list-options list-name="ebayStoreList" description="${storeName} [${productStoreId}]" key-name="productStoreId"/>
             </drop-down>
         </field>
         <field name="submitButton" ><submit button-type="button"/></field>
@@ -38,7 +38,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </actions>
         <field name="productStoreId" title="Account" >
             <drop-down current="selected">
-                <list-options list-name="stores"  description="${firstName} ${lastName}" key-name="productStoreId"/>                
+                <list-options list-name="stores"  description="${firstName} ${lastName}" key-name="productStoreId"/>
             </drop-down>
         </field>
         <field name="submitButton" ><submit button-type="button"/></field>

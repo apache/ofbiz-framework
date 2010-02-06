@@ -172,7 +172,7 @@
     <property key="EbayBlockItemOutOfStock">
         <value xml:lang="en">Block items out of stock</value>
     </property>
-    
+
     <!-- ebay inventory -->
     <property key="EbayReserveProductFrom">
         <value xml:lang="en">Reserve Product From</value>
@@ -185,5 +185,18 @@
     </property>
     <property key="EbayUpdateInventoryStatus">
         <value xml:lang="en">Update Inventory Status</value>
+    </property>
+    <property key="FormFieldTitle_buyItNowPrice">
+        <value xml:lang="en">Buy It Now price</value>
+        <value xml:lang="th">ราคาสุทธิ</value>
+    </property>
+    <property key="eBayOnlineAuction">
+        <value xml:lang="en">Online Auction</value>
+    </property>
+    <property key="eBayFixedPrice">
+        <value xml:lang="en">Fixed Price</value>
+    </property>
+    <property key="requireEbayInventory">
+        <value xml:lang="en">Require eBay Inventory</value>
     </property>
 </resource>

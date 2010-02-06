@@ -63,6 +63,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="exportProductListing" title="Export Product Listing">
+            <link target="exportProductListing">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="EbayFeedbackTabBar" selected-menuitem-context-field-name="eBayTabButtonItem" type="simple" 
         default-selected-style="selected" menu-container-style="button-bar button-style-2">

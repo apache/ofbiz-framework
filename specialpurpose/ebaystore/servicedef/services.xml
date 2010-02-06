@@ -252,5 +252,41 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"></attribute>
         <attribute name="actionType" type="String" mode="IN" optional="false"></attribute>
     </service>
+    <service name="exportProductsFromEbayStore" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="exportProductsFromEbayStore" auth="true">
+        <description>Export categories in store to eBay store</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
+        <attribute name="requireEbayInventory" type="String" mode="IN" optional="true"/>
+        <attribute name="listingTypeAuc" type="String" mode="IN" optional="true"/>
+        <attribute name="listingDurationAuc" type="String" mode="IN" optional="true"/>
+        <attribute name="listingTypeFixed" type="String" mode="IN" optional="true"/>
+        <attribute name="listingDurationFixed" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="String" mode="IN" optional="false"/>
+        <attribute name="country" type="String" mode="IN" optional="false"/>
+        <attribute name="location" type="String" mode="IN" optional="false"/>
+        <attribute name="payPalEmail" type="String" mode="IN" optional="true"/>
+        <attribute name="customXml" type="String" mode="IN" optional="false"  allow-html="any"/>
+        <attribute type="String" mode="IN" name="prodCatalogId" optional="true"/>
+        <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentPayPal" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentVisaMC" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentAmEx" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentDiscover" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentCCAccepted" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentCashInPerson" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentCashOnPickup" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentCOD" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentCODPrePayDelivery" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentMOCC" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentMoneyXferAccepted" optional="true"/>
+        <attribute type="String" mode="IN" name="paymentPersonalCheck" optional="true"/>
+    </service>
     
+    <service name="updateEbayProductStoreInventory" default-entity-name="EbayProductStoreInventory" engine="entity-auto" invoke="update" auth="true">
+        <description>Update EbayProductStoreInventory entity</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>
