@@ -69,7 +69,7 @@ function lookupInventory() {
                             <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                           </a>
                         </span>
-                        <input type='text' size='25' readonly name='productId_description' value=''/>
+                        <input type='text' size='25' readonly name='productId_description' value=''/>${uiLabelMap.CommonDescription}
                      </td>
                   </tr>
                   <tr>
