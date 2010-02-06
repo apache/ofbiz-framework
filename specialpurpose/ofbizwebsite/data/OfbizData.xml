@@ -58,7 +58,7 @@ under the License.
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_POINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2009-04-27 13:33:05.29"/>
     <WebSiteContent webSiteId="OFBIZ" contentId="OFBIZ_HOME_EN" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
 
-    <!-- ElectronicText English -->  
+    <!-- ElectronicText English -->
     <ElectronicText dataResourceId="OFBIZ_HOME_EN">
         <textData><![CDATA[
 <body id="home">
@@ -139,24 +139,24 @@ under the License.
     </div>
     <div id="content-wrap" class="clearfix">
         <div id="main">
-            <h2>What is Apache OFBiz?</h2>
-            <h3>Learn more about the project</h3>
+            <h2>${uiLabelMap.OfbizHighlightsTitle1}</h2>
+            <h3>${uiLabelMap.OfbizHighlightsTitle2}</h3>
         <div class="highlights">
-          <h4>Apache OFBiz offers a great deal of functionality, including:</h4>
+          <h4>${uiLabelMap.OfbizHighlights1}</h4>
           <ul>
-            <li>advanced e-commerce</li>
-            <li>catalog management</li>
-            <li>promotion &amp; pricing management</li>
-            <li>order management (sales &amp; purchase)</li>
-            <li>customer management (part of general party management)</li>
-            <li>warehouse management</li>
-            <li>fulfillment (auto stock moves, batched pick, pack &amp; ship)</li>
-            <li>accounting (invoice, payment &amp; billing accounts, fixed assets)</li>
-            <li>manufacturing management</li>
-            <li>general work effort management (events, tasks, projects, requests, etc)</li>
-            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
-            <li>a maturing Point Of Sales (POS) module using <b><a href="http://www.xoetrope.com/xui" target="_blank">XUI</a></b> as rich client interface</li>
-            <li>and much more all in an open source package!</li>
+            <li>${uiLabelMap.OfbizHighlights2}</li>
+            <li>${uiLabelMap.OfbizHighlights3}</li>
+            <li>${uiLabelMap.OfbizHighlights4}</li>
+            <li>${uiLabelMap.OfbizHighlights5}</li>
+            <li>${uiLabelMap.OfbizHighlights6}</li>
+            <li>${uiLabelMap.OfbizHighlights7}</li>
+            <li>${uiLabelMap.OfbizHighlights8}</li>
+            <li>${uiLabelMap.OfbizHighlights9}</li>
+            <li>${uiLabelMap.OfbizHighlights10}</li>
+            <li>${uiLabelMap.OfbizHighlights11}</li>
+            <li>${uiLabelMap.OfbizHighlights12}</li>
+            <li>${uiLabelMap.OfbizHighlights13}</li>
+            <li>${uiLabelMap.OfbizHighlights14}</li>
           </ul>
         </div>
         <p>${uiLabelMap.OfbizDescription1}</p>
@@ -167,9 +167,7 @@ under the License.
             <a href="http://cwiki.apache.org/confluence/x/DAFk">Main New Features</a>,
             <a href="http://cwiki.apache.org/confluence/x/UgFk">Is Apache OFBiz for Me?</a>,
         </p>
-
-        <p>For more technical information, see the <a href="http://cwiki.apache.org/confluence/x/GoB2">Documentation</a> page.</p>
-
+        <p>${uiLabelMap.OfbizHighlights15}</p>
         <h2>${uiLabelMap.OfbizWhoIsUsing}</h2>
             <p>${uiLabelMap.OfbizWhoIsUsing1}</p>
             <p>${uiLabelMap.OfbizWhoIsUsing2}<br>
@@ -208,7 +206,7 @@ under the License.
                 <a href="http://www.neulion.com" target="_blank">NeuLion SAVANNA | </a>
                 <!--a href="http://www.mietta.info" target="_blank">XtraMind Mietta 2 | </a-->
                 <a href="http://www.c-libre.net/cms/showcontenttree?currentMenuId=Web_Accueil&amp;nodeTrailCsv=Web_Accueil" target="_blank">Entente Oya (French) | </a>
-                <a href="http://www.allinsoftware.com/" target="_blank">ALL-IN Software (Commercial for Jewelry Store)</a>                 
+                <a href="http://www.allinsoftware.com/" target="_blank">ALL-IN Software (Commercial for Jewelry Store)</a>
             </p>
             <p>For a more complete list of sites see the <a href="http://cwiki.apache.org/confluence/x/IQFk">Apache OFBiz User List</a> page.</p>
             <h2>In the News</h2>
@@ -418,7 +416,7 @@ under the License.
         </script>
 
     </div>
-            
+
     <!-- content-wrap starts -->
     <div id="content-wrap" class="clearfix">
         <div id="main">
@@ -449,17 +447,17 @@ under the License.
            </ul>
         </div>
 
-        <p>   Het Apache Open For Business Project is een open source bedrijfsinformatie systeem met de Apache Licentie Version 2.0. 
-        die het gratis gebruik toelaat in elke vorm. Met een bedrijfsinformatiesysteem bedoelen we Open Source ERP, Open Source CRM, 
+        <p>   Het Apache Open For Business Project is een open source bedrijfsinformatie systeem met de Apache Licentie Version 2.0.
+        die het gratis gebruik toelaat in elke vorm. Met een bedrijfsinformatiesysteem bedoelen we Open Source ERP, Open Source CRM,
         Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM, en zo verder.
         </p>
         <h2>Deze site.</h2>
-        <p>Deze site is een initiatief van <a href="http://www.antwebsystems.com">AntWebsystems</a> en is grotendeels een verwijzing naar de Engelstalige site op ofbiz.org 
+        <p>Deze site is een initiatief van <a href="http://www.antwebsystems.com">AntWebsystems</a> en is grotendeels een verwijzing naar de Engelstalige site op ofbiz.org
         maar wil u graag ook Nederlandse infomatie geven die op de engelse hoofdsite niet aanwezig is
         </p>
         <h2>Support</h2>
         <p>
-        De volgende Nederlandstalige bedrijven geven support bij de hosting/installatie, introductie en aanpassingen aan het systeem. 
+        De volgende Nederlandstalige bedrijven geven support bij de hosting/installatie, introductie en aanpassingen aan het systeem.
         Als u wilt dat uw bedrijf hier ook vermeld wordt en u reeds OFBiz klanten van dienst bent geweest stuur dan een email met
         referenties naar <a href="mailto:support@a-net.nl">support@a-net.nl</a> Ondersteuning gevende bedrijven:
         </p>
