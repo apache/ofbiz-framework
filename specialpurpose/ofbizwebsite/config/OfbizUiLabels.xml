@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -8,9 +8,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -89,6 +89,74 @@
         <value xml:lang="fr">Utilsations</value>
         <value xml:lang="nl">Kenmerk</value>
     </property>
+    <property key="OfbizHighlights1">
+        <value xml:lang="en">Apache OFBiz offers a great deal of functionality, including:</value>
+        <value xml:lang="fr">Les fonctionnalités offertes par Apache OFBiz sont nombreuses, et l'on pourra citer :</value>
+    </property>
+    <property key="OfbizHighlights2">
+        <value xml:lang="en">advanced e-commerce</value>
+        <value xml:lang="fr">une plate-forme avancée e-commerce</value>
+    </property>
+    <property key="OfbizHighlights3">
+        <value xml:lang="en">catalog management</value>
+        <value xml:lang="fr">une gestion de catalogues</value>
+    </property>
+    <property key="OfbizHighlights4">
+        <value xml:lang="en">promotion &amp; pricing management</value>
+        <value xml:lang="fr">une gestion des prix et des promotions</value>
+    </property>
+    <property key="OfbizHighlights5">
+        <value xml:lang="en">order management (sales &amp; purchase)</value>
+        <value xml:lang="fr">une gestion des commandes (d'achat et de vente)</value>
+    </property>
+    <property key="OfbizHighlights6">
+        <value xml:lang="en">customer management (part of general party management)</value>
+        <value xml:lang="fr">une gestion des clients (qui fait partie de la gestion des acteurs)</value>
+    </property>
+    <property key="OfbizHighlights7">
+        <value xml:lang="en">warehouse management</value>
+        <value xml:lang="fr">une gestion d'entrepôt</value>
+    </property>
+    <property key="OfbizHighlights8">
+        <value xml:lang="en">fulfillment (auto stock moves, batched pick, pack &amp; ship)</value>
+        <value xml:lang="fr">une gestion des mouvements de stocks, prélèvements, colisages et expéditions</value>
+    </property>
+    <property key="OfbizHighlights9">
+        <value xml:lang="en">accounting (invoice, payment &amp; billing accounts, fixed assets))</value>
+        <value xml:lang="fr">comptabilité (facturation, comptes, titres)</value>
+    </property>
+    <property key="OfbizHighlights10">
+        <value xml:lang="en">manufacturing management</value>
+        <value xml:lang="fr">une gestion de la production</value>
+    </property>
+    <property key="OfbizHighlights11">
+        <value xml:lang="en">general work effort management (events, tasks, projects, requests, etc)</value>
+        <value xml:lang="fr">une gestion des tâches (évènements, tâches, projets, demandes, etc...)</value>
+    </property>
+    <property key="OfbizHighlights12">
+        <value xml:lang="en">content management (for product content, web sites, general content, blogging, forums, etc)</value>
+        <value xml:lang="fr">une gestion de contenu (pour du contenu lié aux produits, sites Web, blog, forums, etc...)</value>
+    </property>
+    <property key="OfbizHighlights13">
+        <value xml:lang="en">a maturing Point Of Sales (POS) module using &lt;b&gt;&lt;a href="http://www.xoetrope.com/xui" target="_blank"&gt;XUI&lt;/a&gt;&lt;/b&gt; as rich client interface</value>
+        <value xml:lang="fr">une gestion de point de vente (POS) basée sur XUI pour l'interface</value>
+    </property>
+    <property key="OfbizHighlights14">
+        <value xml:lang="en">and much more all in an open source package!</value>
+        <value xml:lang="fr">et beaucoup d'autres modules, tous inclus dans le même logiciel open-source !</value>
+    </property>
+    <property key="OfbizHighlights15">
+        <value xml:lang="en">For more technical information, see the &lt;a href=&quot;http://cwiki.apache.org/confluence/x/GoB2&quot;&gt;Documentation&lt;/a&gt; page.</value>
+        <value xml:lang="fr">Pour plus d'informations techniques, allez sur la page &lt;a href=&quot;http://cwiki.apache.org/confluence/x/GoB2&quot;&gt;Documentation&lt;/a&gt;</value>
+    </property>
+    <property  key="OfbizHighlightsTitle1">
+        <value xml:lang="en">What is Apache OFBiz?</value>
+        <value xml:lang="fr">Qu'est-ce qu'Apache OFBiz ?</value>
+    </property>
+    <property  key="OfbizHighlightsTitle2">
+        <value xml:lang="en">Learn more about the project</value>
+        <value xml:lang="fr">Apprenez plus sur le projet</value>
+    </property>
     <property  key="OfbizHome">
         <value xml:lang="en">Home</value>
         <value xml:lang="fr">Accueil</value>
@@ -97,26 +165,24 @@
     <property key="OfbizMantle1">
         <value xml:lang="en">Apache Open For Business (OFBiz) is a community-driven open source project. That means, no licensing fees. For many, OFBiz is also the best e-commerce and enterprise resource planning (ERP) software available.</value>
         <value xml:lang="fr">Apache Open For Business (OFBiz) est un projet Open-Source piloté par sa communauté. Ce qui veut dire, entre autres, pas de frais de licence. Pour beaucoup, OFBiz est aussi le meilleur outil e-commerce et ERP disponible.</value>
-        <value xml:lang="nl"></value>
     </property>
     <property key="OfbizMantle2">
         <value xml:lang="en">Achieve a system that is as good or better than those available from major proprietary ERPs at a significantly lower total project cost. You can budget for custom features and added value rather than license and maintenance fees.</value>
         <value xml:lang="fr">Obtenez un système aussi bon voire meilleur que n'importe quel ERP propriétaire pour un coût moins important. Ainsi vous pourrez ajouter vos fonctionnalités plutôt que d'investir dans des licences et des frais de maintenance.</value>
-        <value xml:lang="nl"></value>
     </property>
     <property key="OfbizMantle3">
         <value xml:lang="en">Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal resources and/or any of the dozens of organizations offering quality OFBiz implementation and support services.</value>
-        <value xml:lang="fr">Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal resources and/or any of the dozens of organizations offering quality OFBiz implementation and support services.</value>
+        <value xml:lang="fr">Profitez de la liberté sans aucun verrou, avec OFBiz, vous pouvez utiliser vos ressources internes, ou profiter des douzaines de sociétés offrant des prestations de qualité sur OFBiz.</value>
         <value xml:lang="nl">Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal resources and/or any of the dozens of organizations offering quality OFBiz implementation and support services.</value>
     </property>
     <property key="OfbizMantle4">
         <value xml:lang="en">OFBiz users can rely on the organizational, legal, and financial stability that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).</value>
-        <value xml:lang="fr">OFBiz users can rely on the organizational, legal, and financial stability that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).</value>
+        <value xml:lang="fr">Les utilisateurs d'OFBiz peuvent s'appuyer sur les assurances de qualité, organisationnelle, légale qui vient avec tout projet de la fondation Apache (ASF).</value>
         <value xml:lang="nl">OFBiz users can rely on the organizational, legal, and financial stability that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).</value>
     </property>
     <property key="OfbizMantle5">
         <value xml:lang="en">Because you will have complete access to source code, you will eliminate "proprietary system" limitations. The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.</value>
-        <value xml:lang="fr">Because you will have complete access to source code, you will eliminate "proprietary system" limitations. The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.</value>
+        <value xml:lang="fr">Comme vous avez accès au code source complet, vous pouvez supprimer les limites du système propriétaire. La communauté entière a tout intérêt à garder OFBiz clair, flexible et le plus réutilisable possible.</value>
         <value xml:lang="nl">Because you will have complete access to source code, you will eliminate "proprietary system" limitations. The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.</value>
     </property>
     <property key="OfbizSearch">
