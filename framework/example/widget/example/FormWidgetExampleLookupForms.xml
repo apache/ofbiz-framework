@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupPartyName" target="LookupPartyNameExamplePopup" type="single"
+    <form name="lookupPartyName" target="LookupPartyExamplePopup" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -57,7 +57,7 @@ under the License.
     </form>
 
     <!-- Lookup By Name -->
-    <form name="lookupPartyNameByName" target="LookupPartyNameExamplePopupByName" type="single"
+    <form name="lookupPartyNameByName" target="LookupPartyExamplePopupByName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>

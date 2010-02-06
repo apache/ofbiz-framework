@@ -239,7 +239,7 @@ under the License.
 
         <!-- a nice combination of the lookup option and the auto-complete, but unfortunately still requires a custom companion controller.xml request to handle AJAX data retreival -->
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
-            <lookup target-form-name="LookupExampleFeature"/>
+            <lookup presentation="layer" position="center" target-form-name="LookupExampleFeature"/>
             <on-field-event-update-area event-type="change" area-id="AddExampleFeatureAppl_exampleFeatureId" area-target="findExampleFeatures"/>
         </field>
         <!-- basic example of server-side AJAX enabled option, requires use of custom companion request in controller.xml file to get data for drop-down -->

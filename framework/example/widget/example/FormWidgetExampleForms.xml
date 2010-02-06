@@ -282,8 +282,8 @@ under the License.
 
     <!-- Lookup Layer Example -->
     <form name="ExampleLookupFields" type="single" title="">
-        <field name="partyIdFrom" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyNameExamplePopup" description-field-name="LookupPartyNameExamplePopup" presentation="layer" position="normal"/></field>
-        <field name="partyIdTo" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyNameExamplePopupByName" presentation="layer" position="center" height="580px" width="450px"/></field>
+        <field name="partyIdFrom" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyExamplePopup" presentation="layer" position="normal"/></field>
+        <field name="partyIdTo" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyExamplePopupByName" presentation="layer" position="center" height="500px" width="600px"/></field>
     </form>
 
     <form name="SelectionBoxesExampleForm" type="single">
