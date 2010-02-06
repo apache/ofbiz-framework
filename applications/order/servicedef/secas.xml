@@ -408,4 +408,7 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="loadSalesOrderFact" mode="sync" run-as-user="system"/>
     </eca>
+    <eca service="createUpdateCustomerAndShippingAddress" event="invoke">
+        <action service="setAnonUserLogin" mode="sync"/>
+    </eca>
 </service-eca>

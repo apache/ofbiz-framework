@@ -21,7 +21,8 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="getOrderedSummaryInformation" short-description="Get Summary Information About Orders for a Customer">
-        <if>
+        <!-- The permission checking is commented out to make this service work also when triggered from ecommerce -->
+        <!--if>
             <condition>
                 <and>
                     <not><if-has-permission permission="ORDERMGR" action="_VIEW"/></not>
@@ -33,7 +34,7 @@ under the License.
             </then>
         </if>
         <check-errors/>
-
+       -->
         <if-not-empty field="monthsToInclude">
             <now-timestamp field="nowTimestamp"/>
             <!-- TODO: Change this to use the <set-calendar> operation -->
@@ -919,7 +920,7 @@ under the License.
 
     <simple-method method-name="createUpdateShippingAddress" short-description="create and update Shipping address" login-required="false">
         <set field="keepAddressBook" from-field="parameters.keepAddressBook" default-value="Y"/>
-        <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+        <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
         <check-errors/>
         <set field="shipToAddressCtx.partyId" from-field="parameters.partyId"/>
@@ -937,6 +938,7 @@ under the License.
                 <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                 <set-nonpk-fields map="shipToAddressCtx" value-field="newValue"/>
                 <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
+                    <set field="shipToAddressCtx.contactMechId" from-field="nullField"/>
                     <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
                         <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
                     </call-service>
@@ -994,6 +996,7 @@ under the License.
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         </if-not-empty>
                         <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+                        <set field="shipToAddressCtx.contactMechId" from-field="nullField"/>
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
                             <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
                         </call-service>
@@ -1017,7 +1020,7 @@ under the License.
 
         <set field="keepAddressBook" from-field="parameters.keepAddressBook" default-value="Y"/>
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
-            <call-map-processor xml-resource="component://ecommerce/script/org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+            <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
                 processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
         </if-compare>
         <check-errors/>
@@ -1075,6 +1078,7 @@ under the License.
                 <log level="info" message="Billing address created with contactmechId ${parameters.billToContactMechId}"/>
             <else>
                 <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
+                    <set field="billToAddressCtx.contactMechId" from-field="nullField"/>
                     <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
                         <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                     </call-service>
@@ -1093,6 +1097,7 @@ under the License.
                             <field-map field-name="contactMechId" from-field="billToAddressCtx.contactMechId"/>
                         </entity-one>
                         <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
+                            <set field="billToAddressCtx.contactMechId" from-field="nullField"/>
                             <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
                                 <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                             </call-service>
@@ -1135,7 +1140,6 @@ under the License.
                     <set field="partyProfileDefaultsCtx.partyId" from-field="userLogin.partyId"/>
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
-
             </else>
             </if-empty>
         </if-compare>
