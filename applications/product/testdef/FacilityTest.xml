@@ -28,8 +28,8 @@ under the License.
         <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
     </test-case>
     <!-- Physical Inventory Adjustment test -->
-    <test-case case-name="physicalInventoryAdjustment-test">
-        <simple-method-test location="component://product/script/org/ofbiz/product/test/InventoryTests.xml" name="testPhysicalInventoryAdjustment"/>
+    <test-case case-name="inventory-tests">
+        <simple-method-test location="component://product/script/org/ofbiz/product/test/InventoryTests.xml"/>
     </test-case>
 
     <test-case case-name="shipment-tests">

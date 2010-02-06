@@ -22,22 +22,17 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- Test Physical Inventory Adjustment -->
-    <simple-method method-name="testPhysicalInventoryAdjustment" short-description="Test to create physical inventory and variance" login-required="false">
-        <log level="info" message="====================Create physical inventory and variance test case================================"/>
-        <set field="createPhysicalInventoryAndVarianceMap.inventoryItemId" value="9024"/>
-        <set field="createPhysicalInventoryAndVarianceMap.varianceReasonId" value="VAR_LOST"/>
-        <entity-one entity-name="UserLogin" value-field="createPhysicalInventoryAndVarianceMap.userLogin">
+    <simple-method method-name="testCreatePhysicalInventoryAndVariance" short-description="Test to create physical inventory and variance" login-required="false">
+        <set field="serviceCtx.inventoryItemId" value="9024"/>
+        <set field="serviceCtx.varianceReasonId" value="VAR_LOST"/>
+        <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <call-service service-name="createPhysicalInventoryAndVariance" in-map-name="createPhysicalInventoryAndVarianceMap">
+        <call-service service-name="createPhysicalInventoryAndVariance" in-map-name="serviceCtx">
             <result-to-field result-name="physicalInventoryId" field="physicalInventoryId"/>
         </call-service>
         <assert>
-            <not>
-                <if-empty field="physicalInventoryId">
-                    <log level="info" message="========physicalInventoryId ${physicalInventoryId} found null============================"/>
-                </if-empty>
-            </not>
+            <not><if-empty field="physicalInventoryId"/></not>
         </assert>
         <check-errors/>
     </simple-method>
