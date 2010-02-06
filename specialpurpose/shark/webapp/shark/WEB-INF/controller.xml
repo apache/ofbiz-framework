@@ -84,13 +84,13 @@ under the License.
         <response name="success" type="request" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
-    <request-map uri="LookupLocales">
+    <request-map uri="ListLocales">
         <security https="true" auth="false"/>
-        <response name="success" type="view" value="LookupLocales"/>
+        <response name="success" type="view" value="ListLocales"/>
     </request-map>
-    <request-map uri="LookupTimezones">
+    <request-map uri="ListTimezones">
         <security https="true" auth="false"/>
-        <response name="success" type="view" value="LookupTimezones"/>
+        <response name="success" type="view" value="ListTimezones"/>
     </request-map>
 
     <!-- Request Mappings -->
@@ -140,8 +140,8 @@ under the License.
     <view-map name="main" type="screen" page="component://shark/widget/CommonScreens.xml#main"/>
     <view-map name="login" type="screen" page="component://shark/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://shark/widget/CommonScreens.xml#requirePasswordChange"/>
-    <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
-    <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
+    <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales"/>
+    <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
 
     <view-map name="repository" type="screen" page="component://shark/widget/RepositoryScreens.xml#showRepository"/>
     <view-map name="processList" type="screen" page="component://shark/widget/ProcessScreens.xml#processList"/>
