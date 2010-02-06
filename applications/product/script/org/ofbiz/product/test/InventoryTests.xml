@@ -21,6 +21,20 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
+    <simple-method method-name="testGetInventoryAvailableByFacility" short-description="Test case for service getInventoryAvailableByFacility" login-required="false">
+        <set field="serviceCtx.productId" value="GZ-2644"/>
+        <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
+        <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceCtx">
+            <result-to-field result-name="quantityOnHandTotal"/>
+            <result-to-field result-name="availableToPromiseTotal"/>
+        </call-service>
+        <assert>
+            <if-compare field="quantityOnHandTotal" operator="equals" value="509" type="BigDecimal"/>
+            <if-compare field="availableToPromiseTotal" operator="equals" value="509" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
     <!-- Test Physical Inventory Adjustment -->
     <simple-method method-name="testCreatePhysicalInventoryAndVariance" short-description="Test to create physical inventory and variance" login-required="false">
         <set field="serviceCtx.inventoryItemId" value="9024"/>
