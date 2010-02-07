@@ -163,17 +163,8 @@ under the License.
 
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
-
-        <if-compare field="parameters.quantity" operator="equals" value="0" type="BigDecimal">
-          <!-- if we're setting quantity to 0.0 then remove the item -->
-            <set-service-fields service-name="removeShoppingListItem" map="parameters" to-map="removeParams"/>
-            <call-service service-name="removeShoppingListItem" in-map-name="removeParams"/>
-        <else>
-          <!-- otherwise, just update shopping list item in place -->
-            <set-nonpk-fields map="parameters" value-field="shoppingListItem"/>
-            <store-value value-field="shoppingListItem"/>
-        </else>
-        </if-compare>
+        <set-nonpk-fields map="parameters" value-field="shoppingListItem"/>
+        <store-value value-field="shoppingListItem"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp field="shoppingList.lastAdminModified"/>

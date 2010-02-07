@@ -140,7 +140,7 @@ under the License.
             <field-map field-name="shoppingListItemSeqId" value="00003"/>
         </entity-one>
         <assert>
-            <if-empty field="shoppingListItem"/>
+            <not><if-empty field="shoppingListItem"/></not>
         </assert>
         <check-errors/>
     </simple-method>
