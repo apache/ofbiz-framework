@@ -35,7 +35,7 @@
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <link target="EditPerfReview" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
+                                    <link target="EditPerfReview" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext create"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">

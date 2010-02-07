@@ -45,7 +45,7 @@ under the License.
                                             </condition>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditJobRequisition" text="${uiLabelMap.HumanResNewJobRequisition}" style="buttontext"/>
+                                                    <link target="EditJobRequisition" text="${uiLabelMap.HumanResNewJobRequisition}" style="buttontext create"/>
                                                 </container>
                                             </widgets>
                                         </section>
@@ -115,7 +115,7 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditInternalJobPosting" text="${uiLabelMap.HumanResNewInternalJobPosting}" style="buttontext"/>
+                                                    <link target="EditInternalJobPosting" text="${uiLabelMap.HumanResNewInternalJobPosting}" style="buttontext create"/>
                                                 </container>
                                             </widgets>
                                         </section>
@@ -178,7 +178,7 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditJobInterview" text="${uiLabelMap.HumanResNewJobInterview}" style="buttontext"/>
+                                                    <link target="EditJobInterview" text="${uiLabelMap.HumanResNewJobInterview}" style="buttontext create"/>
                                                 </container>
                                             </widgets>
                                         </section>

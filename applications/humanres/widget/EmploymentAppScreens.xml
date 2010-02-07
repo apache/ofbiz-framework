@@ -34,7 +34,9 @@
                             <decorator-section name="menu-bar">
                                 <section>
                                     <widgets>
-                                        <container style="button-bar"><link target="NewEmploymentApp" text="${uiLabelMap.HumanResNewEmploymentApp}" style="buttontext"/></container>
+                                        <container style="button-bar">
+                                            <link target="NewEmploymentApp" text="${uiLabelMap.HumanResNewEmploymentApp}" style="buttontext create"/>
+                                        </container>
                                     </widgets>
                                 </section>
                             </decorator-section>

@@ -40,7 +40,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
+                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>
