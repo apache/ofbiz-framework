@@ -38,7 +38,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="NewPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
+                                            <link target="NewPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>

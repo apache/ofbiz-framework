@@ -36,7 +36,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="NewPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                            <link target="NewPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>

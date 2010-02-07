@@ -51,7 +51,7 @@
                                         <section>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditEmplLeave" text="${uiLabelMap.HumanResNewLeave}" style="buttontext"/>
+                                                    <link target="EditEmplLeave" text="${uiLabelMap.HumanResNewLeave}" style="buttontext create"/>
                                                 </container>
                                             </widgets>
                                         </section>

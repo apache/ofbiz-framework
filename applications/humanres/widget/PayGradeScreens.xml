@@ -37,7 +37,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext"/>
+                                            <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>

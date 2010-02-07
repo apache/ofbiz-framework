@@ -34,7 +34,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
+                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>
