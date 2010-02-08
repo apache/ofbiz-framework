@@ -152,8 +152,9 @@ under the License.
             <td width="15%">${uiLabelMap.CommonDate}</td>
             <td width="10%">${uiLabelMap.OrderOrder} #</td>
             <td width="10%">${uiLabelMap.OrderOrderType}</td>
-            <td width="15%">${uiLabelMap.OrderOrderBillFromParty}</td>
-            <td width="15%">${uiLabelMap.OrderOrderBillToParty}</td>
+            <td width="10%">${uiLabelMap.OrderOrderBillFromParty}</td>
+            <td width="10%">${uiLabelMap.OrderOrderBillToParty}</td>
+            <td width="10%">${uiLabelMap.OrderProductStore}</td>
             <td width="10%">${uiLabelMap.CommonAmount}</td>
             <td width="10%">${uiLabelMap.OrderTrackingCode}</td>
             <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')>
@@ -180,6 +181,7 @@ under the License.
             <#else>
               <#assign billFrom = ''/>
             </#if>
+            <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")>
             <tr>
               <td>${orderHeader.orderDate.toString()}</td>
               <td>
@@ -188,6 +190,7 @@ under the License.
               <td>${orderHeader.getRelatedOneCache("OrderType").get("description",locale)}</td>
               <td>${billFrom?if_exists}</td>
               <td>${billTo?if_exists}</td>
+              <td><#if productStore?has_content>${productStore.storeName?default(productStore.productStoreId)}</#if></td>
               <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></td>
               <td>
                 <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>

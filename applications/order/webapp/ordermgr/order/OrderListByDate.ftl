@@ -35,9 +35,10 @@ under the License.
     <#if orderHeaderList?has_content>
       <table class="basic-table hover-bar" cellspacing='0'>
         <tr class="header-row">
-          <td width="20%">${uiLabelMap.OrderOrder} #</td>
-          <td width="25%">${uiLabelMap.OrderOrderBillToParty}</td>
-          <td width="15%">${uiLabelMap.CommonAmount}</td>
+          <td width="10%">${uiLabelMap.OrderOrder} #</td>
+          <td width="15%">${uiLabelMap.OrderOrderBillToParty}</td>
+          <td width="25%">${uiLabelMap.OrderProductStore}</td>
+          <td width="10%">${uiLabelMap.CommonAmount}</td>
           <td width="20%">${uiLabelMap.OrderTrackingCode}</td>
           <td width="20%">${uiLabelMap.CommonStatus}</td>
         </tr>
@@ -50,10 +51,12 @@ under the License.
             <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
             <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
           </#if>
+          <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")>
           <tr<#if alt_row> class="alternate-row"</#if>>
             <#assign alt_row = !alt_row>
             <td><a href="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" class="buttontext">${orderHeader.orderId}</a></td>
             <td>${billTo?if_exists}</td>
+            <td><#if productStore?has_content>${productStore.storeName?default(productStore.productStoreId)}</#if></td>
             <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></td>
             <td>
               <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
