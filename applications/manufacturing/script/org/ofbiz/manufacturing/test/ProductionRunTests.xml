@@ -56,8 +56,8 @@ under the License.
             <if-compare-field field="productionRunHeader.facilityId" operator="equals" to-field="facilityId"/>
             <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CREATED"/>
             <if-compare-field field="productionRunHeader.quantityToProduce" operator="equals" to-field="quantity"/>
-            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunStartDate"/>
-            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="less" to-field="productionRunHeader.estimatedCompletionDate"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunStartDate" type="Timestamp"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="less" to-field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </assert>
 
         <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
@@ -84,8 +84,8 @@ under the License.
             <if-compare field="productionRunTask.fixedAssetId" operator="equals" value="WORKCENTER_COST"/>
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CREATED"/>
             <if-compare-field field="productionRunTask.quantityToProduce" operator="equals" to-field="quantity"/>
-            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunTask.estimatedStartDate"/>
-            <if-compare-field field="productionRunHeader.estimatedCompletionDate" operator="equals" to-field="productionRunTask.estimatedCompletionDate"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunTask.estimatedStartDate" type="Timestamp"/>
+            <if-compare-field field="productionRunHeader.estimatedCompletionDate" operator="equals" to-field="productionRunTask.estimatedCompletionDate" type="Timestamp"/>
             <if-compare field="productionRunTask.estimatedSetupMillis" operator="equals" value="600000.00" type="BigDecimal"/>
             <if-compare field="productionRunTask.estimatedMilliSeconds" operator="equals" value="300000.00" type="BigDecimal"/>
         </assert>
@@ -113,7 +113,6 @@ under the License.
 
         <check-errors/>
     </simple-method>
-
 
     <simple-method method-name="testProductionRunScheduleConfirm" short-description="Test the production run status change to scheduled and confirmed" login-required="false">
         <set field="productId" value="PROD_MANUF"/>
@@ -195,6 +194,67 @@ under the License.
         <assert>
             <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_DOC_PRINTED"/>
             <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_DOC_PRINTED"/>
+        </assert>
+
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testProductionRunDateChange" short-description="Test the production run start date change" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="5.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_SCHEDULED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+
+        <!-- the tests -->
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="originalProductionRunEstimatedTime">
+            <field field="productionRunHeader.estimatedStartDate" type="Timestamp"/>
+            <field field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
+        </call-class-method>
+
+        <set-calendar field="productionRunNewStartDate" from-field="nowTimestamp" days="8"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.estimatedStartDate" from-field="productionRunNewStartDate"/>
+        <call-service service-name="updateProductionRun" in-map-name="serviceCtx"/>
+
+        <refresh-value value-field="productionRunHeader"/>
+        <refresh-value value-field="productionRunTask"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getInterval" ret-field="newProductionRunEstimatedTime">
+            <field field="productionRunHeader.estimatedStartDate" type="Timestamp"/>
+            <field field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
+        </call-class-method>
+        <assert>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunNewStartDate" type="Timestamp"/>
+            <if-compare-field field="productionRunTask.estimatedStartDate" operator="equals" to-field="productionRunNewStartDate" type="Timestamp"/>
+            <if-compare-field field="originalProductionRunEstimatedTime" operator="equals" to-field="newProductionRunEstimatedTime" type="Double"/>
         </assert>
 
         <check-errors/>
