@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testProductionRunCreation" short-description="Test the creation of a production run" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="5.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <!-- the service that we are going to test -->
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+
+        <!-- the tests -->
+        <assert><not><if-empty field="productionRunId"/></not></assert>
+        <check-errors/>
+        
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+
+        <assert>
+            <if-compare field="productionRunHeader.workEffortTypeId" operator="equals" value="PROD_ORDER_HEADER"/>
+            <if-compare-field field="productionRunHeader.facilityId" operator="equals" to-field="facilityId"/>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+            <if-compare-field field="productionRunHeader.quantityToProduce" operator="equals" to-field="quantity"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunStartDate"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="less" to-field="productionRunHeader.estimatedCompletionDate"/>
+        </assert>
+
+        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
+
+        <assert>
+            <not><if-empty field="productionRunProduct"/></not>
+            <if-compare-field field="productionRunProduct.productId" operator="equals" to-field="productId"/>
+            <if-compare field="productionRunProduct.workEffortGoodStdTypeId" operator="equals" value="PRUN_PROD_DELIV"/>
+            <if-compare-field field="productionRunProduct.estimatedQuantity" operator="equals" to-field="quantity"/>
+        </assert>
+
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <assert>
+            <not><if-empty field="productionRunTask"/></not>
+            <if-compare field="productionRunTask.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK"/>
+            <if-compare-field field="productionRunTask.facilityId" operator="equals" to-field="facilityId"/>
+            <if-compare field="productionRunTask.fixedAssetId" operator="equals" value="WORKCENTER_COST"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+            <if-compare-field field="productionRunTask.quantityToProduce" operator="equals" to-field="quantity"/>
+            <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunTask.estimatedStartDate"/>
+            <if-compare-field field="productionRunHeader.estimatedCompletionDate" operator="equals" to-field="productionRunTask.estimatedCompletionDate"/>
+            <if-compare field="productionRunTask.estimatedSetupMillis" operator="equals" value="600000.00" type="BigDecimal"/>
+            <if-compare field="productionRunTask.estimatedMilliSeconds" operator="equals" value="300000.00" type="BigDecimal"/>
+        </assert>
+
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_A_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialA" list="productionRunMaterials"/>
+        <assert>
+            <not><if-empty field="productionRunMaterialA"/></not>
+            <if-compare field="productionRunMaterialA.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
+            <if-compare field="productionRunMaterialA.estimatedQuantity" operator="equals" value="${quantity * 2}" type="BigDecimal"/>
+        </assert>
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_B_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialB" list="productionRunMaterials"/>
+        <assert>
+            <not><if-empty field="productionRunMaterialB"/></not>
+            <if-compare field="productionRunMaterialB.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
+            <if-compare field="productionRunMaterialB.estimatedQuantity" operator="equals" value="${quantity * 3}" type="BigDecimal"/>
+        </assert>
+
+        <check-errors/>
+    </simple-method>
+</simple-methods>
