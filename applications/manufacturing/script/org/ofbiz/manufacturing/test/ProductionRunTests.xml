@@ -260,4 +260,83 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <simple-method method-name="testProductionRunCancelled" short-description="Test the process of cancelling a production run" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="5.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_SCHEDULED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <call-service service-name="cancelProductionRun" in-map-name="serviceCtx"/>
+
+        <!-- the tests -->
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CANCELLED"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CANCELLED"/>
+        </assert>
+
+        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
+
+        <assert>
+            <not><if-empty field="productionRunProduct"/></not>
+            <if-compare field="productionRunProduct.workEffortGoodStdTypeId" operator="equals" value="PRUN_PROD_DELIV"/>
+            <if-compare field="productionRunProduct.statusId" operator="equals" value="WEGS_CANCELLED"/>
+        </assert>
+
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_A_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialA" list="productionRunMaterials"/>
+        <assert>
+            <not><if-empty field="productionRunMaterialA"/></not>
+            <if-compare field="productionRunMaterialA.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
+            <if-compare field="productionRunMaterialA.statusId" operator="equals" value="WEGS_CANCELLED"/>
+        </assert>
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_B_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialB" list="productionRunMaterials"/>
+        <assert>
+            <not><if-empty field="productionRunMaterialB"/></not>
+            <if-compare field="productionRunMaterialB.workEffortGoodStdTypeId" operator="equals" value="PRUNT_PROD_NEEDED"/>
+            <if-compare field="productionRunMaterialB.statusId" operator="equals" value="WEGS_CANCELLED"/>
+        </assert>
+
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
