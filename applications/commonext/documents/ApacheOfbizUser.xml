@@ -52,7 +52,7 @@
     <xi:include href="../../../applications/humanres/documents/Humanres.xml"/>
     <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
     <xi:include href="../../../specialpurpose/ebay/documents/Ebay.xml"/>
-    <xi:include href="../../../specialpurpose/ebay/documents/EbayStore.xml"/>
+    <xi:include href="../../../specialpurpose/ebaystore/documents/EbayStore.xml"/>
     
     <appendix>
         <title>New features recently added</title>
