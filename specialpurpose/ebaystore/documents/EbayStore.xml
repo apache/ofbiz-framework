@@ -32,7 +32,7 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_StoreSetting.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ExportCategoriesToEbay.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_LeaveFeedback.xml"/>
-    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/data/helpdata/HELP_EBAY_Feedback.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_Feedback.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_AutoPref.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ProductInventory.xml"/>
 	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ReserveProduct.xml"/>
