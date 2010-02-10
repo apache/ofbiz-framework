@@ -18,13 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.json.JSON;
+import org.ofbiz.base.json.JSONWriter;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -52,7 +56,13 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public String convert(List<T> obj) throws ConversionException {
-            return obj.toString();
+            StringWriter sw = new StringWriter();
+            try {
+                new JSONWriter(sw).write(obj);
+            } catch (IOException e) {
+                throw new ConversionException(e);
+            }
+            return sw.toString();
         }
     }
 
@@ -86,51 +96,62 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public String convert(Map<K, V> obj) throws ConversionException {
-            return obj.toString();
+            StringWriter sw = new StringWriter();
+            try {
+                new JSONWriter(sw).write(obj);
+            } catch (IOException e) {
+                throw new ConversionException(e);
+            }
+            return sw.toString();
         }
     }
 
-    public static class StringToList extends AbstractConverter<String, List<String>> {
+    public static class StringToList extends AbstractConverter<String, List<Object>> {
         public StringToList() {
             super(String.class, List.class);
         }
 
-        public List<String> convert(String obj) throws ConversionException {
-            if (obj.startsWith("[") && obj.endsWith("]")) {
-                return StringUtil.toList(obj);
-            } else {
-                List<String> tempList = FastList.newInstance();
-                tempList.add(obj);
-                return tempList;
+        public List<Object> convert(String obj) throws ConversionException {
+            try {
+                return new JSON(new StringReader(obj)).JSONArray();
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new ConversionException(e);
             }
         }
     }
 
-    public static class StringToMap extends AbstractConverter<String, Map<String, String>> {
+    public static class StringToMap extends AbstractConverter<String, Map<String, Object>> {
         public StringToMap() {
             super(String.class, Map.class);
         }
 
-        public Map<String, String> convert(String obj) throws ConversionException {
-            if (obj.startsWith("{") && obj.endsWith("}")) {
-                return StringUtil.toMap(obj);
+        public Map<String, Object> convert(String obj) throws ConversionException {
+            try {
+                return new JSON(new StringReader(obj)).JSONObject();
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new ConversionException(e);
             }
-            throw new ConversionException("Could not convert " + obj + " to Map: ");
         }
     }
 
-    public static class StringToSet extends AbstractConverter<String, Set<String>> {
+    public static class StringToSet extends AbstractConverter<String, Set<Object>> {
         public StringToSet() {
             super(String.class, Set.class);
         }
 
-        public Set<String> convert(String obj) throws ConversionException {
-            if (obj.startsWith("[") && obj.endsWith("]")) {
-                return StringUtil.toSet(obj);
-            } else {
-                Set<String> tempSet = FastSet.newInstance();
-                tempSet.add(obj);
-                return tempSet;
+        public Set<Object> convert(String obj) throws ConversionException {
+            try {
+                Set<Object> set = FastSet.newInstance();
+                set.addAll(new JSON(new StringReader(obj)).JSONArray());
+                return set;
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new ConversionException(e);
             }
         }
     }
