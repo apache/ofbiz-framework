@@ -271,17 +271,25 @@ public final class UtilIO {
     }
 
     public static Object readObject(File file) throws ClassNotFoundException, IOException {
-        return readObject(new FileInputStream(file));
+        return readObject(new FileInputStream(file), false);
+    }
+
+    public static Object readObject(File file, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
+        return readObject(new FileInputStream(file), allowJsonResolve);
     }
 
     public static Object readObject(InputStream in) throws ClassNotFoundException, IOException {
+        return readObject(in, false);
+    }
+
+    public static Object readObject(InputStream in, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         IOUtils.copy(in, baos);
         in.close();
         byte[] bytes = baos.toByteArray();
         try {
             char[] buffer = StringUtils.chomp(readString(bytes)).toCharArray();
-            return parseObject(buffer, 0, buffer.length);
+            return parseObject(buffer, 0, buffer.length, allowJsonResolve);
         } catch (Exception e) {
         }
         ObjectInputStream oin = new ObjectInputStream(new ByteArrayInputStream(bytes));
@@ -291,14 +299,14 @@ public final class UtilIO {
     }
 
     public static Object readObject(char[] buffer) throws ClassNotFoundException, IOException {
-        return parseObject(buffer, 0, buffer.length);
+        return parseObject(buffer, 0, buffer.length, false);
     }
 
     public static Object readObject(char[] buffer, int offset, int length) throws ClassNotFoundException, IOException {
-        return parseObject(buffer, offset, length);
+        return parseObject(buffer, offset, length, false);
     }
 
-    private static Object parseObject(char[] buffer, int offset, int length) throws ClassNotFoundException, IOException {
+    private static Object parseObject(char[] buffer, int offset, int length, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
         try {
             int i;
             for (i = offset; i < length && buffer[i] != ':'; i++);
@@ -314,7 +322,7 @@ public final class UtilIO {
         } catch (Exception e) {
         }
         try {
-            return new JSON(new StringReader(new String(buffer, offset, length))).JSONValue();
+            return new JSON(new StringReader(new String(buffer, offset, length))).allowResolve(allowJsonResolve).JSONValue();
         } catch (Error e) {
         } catch (Exception e) {
         }
@@ -322,13 +330,21 @@ public final class UtilIO {
     }
 
     public static void writeObject(File file, Object value) throws IOException {
-        writeObject(new FileOutputStream(file), value);
+        writeObject(new FileOutputStream(file), value, false);
+    }
+
+    public static void writeObject(File file, Object value, boolean allowJsonResolve) throws IOException {
+        writeObject(new FileOutputStream(file), value, allowJsonResolve);
     }
 
     public static void writeObject(OutputStream out, Object value) throws IOException {
+        writeObject(out, value, false);
+    }
+
+    public static void writeObject(OutputStream out, Object value, boolean allowJsonResolve) throws IOException {
         try {
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, UTF8));
-            if (encodeObject(writer, value)) {
+            if (encodeObject(writer, value, allowJsonResolve)) {
                 writer.println();
                 writer.close();
                 return;
@@ -341,7 +357,7 @@ public final class UtilIO {
         out.close();
     }
 
-    private static boolean encodeObject(Writer writer, Object value) throws Exception {
+    private static boolean encodeObject(Writer writer, Object value, boolean allowJsonResolve) throws Exception {
         Converter converter = Converters.getConverter(value.getClass(), String.class);
         if (converter != null) {
             Class clz = converter.getSourceClass();
@@ -357,7 +373,12 @@ public final class UtilIO {
         } else {
             StringWriter sw = new StringWriter();
             IndentingWriter indenting = new IndentingWriter(writer, true, false);
-            JSONWriter jsonWriter = new JSONWriter(indenting);
+            JSONWriter jsonWriter;
+            if (allowJsonResolve) {
+                jsonWriter = new JSONWriter(indenting, JSONWriter.ResolvingFallbackHandler);
+            } else {
+                jsonWriter = new JSONWriter(indenting);
+            };
             jsonWriter.write(value);
             writer.write(sw.toString());
             return true;
@@ -365,9 +386,13 @@ public final class UtilIO {
     }
 
     public static void writeObject(StringBuilder sb, Object value) throws IOException {
+        writeObject(sb, value, false);
+    }
+
+    public static void writeObject(StringBuilder sb, Object value, boolean allowJsonResolve) throws IOException {
         try {
             StringWriter writer = new StringWriter();
-            if (encodeObject(writer, value)) {
+            if (encodeObject(writer, value, allowJsonResolve)) {
                 sb.append(writer.toString());
                 return;
             }
