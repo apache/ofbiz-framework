@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 
 /** Miscellaneous Converter classes. */
@@ -131,6 +132,58 @@ public class MiscConverters implements ConverterLoader {
                 }
             }
             return new String(charBuffer);
+        }
+    }
+
+    public static class EnumToString implements Converter<Enum, String> {
+        public EnumToString() {
+            Converters.registerConverter(this, Enum.class, String.class);
+        }
+
+        public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
+            return sourceClass.isAssignableFrom(Enum.class) && targetClass.isAssignableFrom(String.class);
+        }
+
+        public String convert(Enum obj) throws ConversionException {
+            return obj.name();
+        }
+
+        public String convert(Class<?> targetClass, Enum obj) throws ConversionException {
+            return convert(obj);
+        }
+
+        public Class<?> getSourceClass() {
+            return null;
+        }
+
+        public Class<?> getTargetClass() {
+            return String.class;
+        }
+    }
+
+    public static class StringToEnum implements Converter<String, Enum> {
+        public StringToEnum() {
+            Converters.registerConverter(this, String.class, Enum.class);
+        }
+
+        public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
+            return sourceClass.isAssignableFrom(String.class) && targetClass.isAssignableFrom(Enum.class);
+        }
+
+        public Enum convert(String obj) throws ConversionException {
+            throw new UnsupportedOperationException();
+        }
+
+        public Enum convert(Class<?> targetClass, String obj) throws ConversionException {
+            return Enum.valueOf(UtilGenerics.<Class<? extends Enum>>cast(targetClass), obj);
+        }
+
+        public Class<?> getSourceClass() {
+            return String.class;
+        }
+
+        public Class<?> getTargetClass() {
+            return null;
         }
     }
 
