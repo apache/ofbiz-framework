@@ -26,9 +26,9 @@
         <para>
             The overall purpose of the Marketing application is the support to select
             leads from parties obtained from a certain source or marketing
-            segment
-            to convert to opportunities by contacting these parties via a
+            segment to convert to opportunities by contacting these parties via a
             contact-list related to a marketing campaign.
+            (contact-list generation support not yet implemented)
         </para>
         <para>
             The first option of the marketing application is the definition of a
