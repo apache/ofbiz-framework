@@ -19,6 +19,7 @@
 package org.ofbiz.base.conversion;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
@@ -139,6 +140,103 @@ public class NumberConverters implements ConverterLoader {
 
         public BigDecimal convert(Double obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
+        }
+    }
+
+    public static class BigIntegerToDouble extends AbstractConverter<BigInteger, Double> {
+        public BigIntegerToDouble() {
+            super(BigInteger.class, Double.class);
+        }
+
+        public Double convert(BigInteger obj) throws ConversionException {
+            return obj.doubleValue();
+        }
+    }
+
+    public static class BigIntegerToFloat extends AbstractConverter<BigInteger, Float> {
+        public BigIntegerToFloat() {
+            super(BigInteger.class, Float.class);
+        }
+
+        public Float convert(BigInteger obj) throws ConversionException {
+            return obj.floatValue();
+        }
+    }
+
+    public static class BigIntegerToInteger extends AbstractConverter<BigInteger, Integer> {
+        public BigIntegerToInteger() {
+            super(BigInteger.class, Integer.class);
+        }
+
+        public Integer convert(BigInteger obj) throws ConversionException {
+            return obj.intValue();
+        }
+    }
+
+    public static class BigIntegerToList extends AbstractConverter<BigInteger, List<BigInteger>> {
+        public BigIntegerToList() {
+            super(BigInteger.class, List.class);
+        }
+
+        public List<BigInteger> convert(BigInteger obj) throws ConversionException {
+            List<BigInteger> tempList = FastList.newInstance();
+            tempList.add(obj);
+            return tempList;
+        }
+    }
+
+    public static class BigIntegerToLong extends AbstractConverter<BigInteger, Long> {
+        public BigIntegerToLong() {
+            super(BigInteger.class, Long.class);
+        }
+
+        public Long convert(BigInteger obj) throws ConversionException {
+            return obj.longValue();
+        }
+    }
+
+    public static class BigIntegerToSet extends AbstractConverter<BigInteger, Set<BigInteger>> {
+        public BigIntegerToSet() {
+            super(BigInteger.class, Set.class);
+        }
+
+        public Set<BigInteger> convert(BigInteger obj) throws ConversionException {
+            Set<BigInteger> tempSet = FastSet.newInstance();
+            tempSet.add(obj);
+            return tempSet;
+        }
+    }
+
+    public static class BigIntegerToString extends AbstractToNumberConverter<BigInteger, String> {
+        public BigIntegerToString() {
+            super(BigInteger.class, String.class);
+        }
+
+        public String convert(BigInteger obj) throws ConversionException {
+            return obj.toString();
+        }
+
+        public String convert(BigInteger obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+            return nf.format(obj.doubleValue());
+        }
+    }
+
+    public static class StringToBigInteger extends AbstractToNumberConverter<String, BigInteger> {
+        public StringToBigInteger() {
+            super(String.class, BigInteger.class);
+        }
+
+        public BigInteger convert(String obj) throws ConversionException {
+            return new BigInteger(obj);
+        }
+
+        public BigInteger convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return BigInteger.valueOf(fromString(trimStr, locale).longValue());
         }
     }
 
