@@ -919,6 +919,7 @@ public class ProductionRunServices {
                             BigDecimal productCostAdjustment = (BigDecimal)costMethodResult.get("productCostAdjustment");
                             totalCost = totalCost.add(productCostAdjustment);
                             Map inMap = UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId);
+                            inMap.put("costComponentCalcId", costComponentCalc.getString("costComponentCalcId"));
                             inMap.put("costComponentTypeId", "ACTUAL_" + productCostComponentCalc.getString("costComponentTypeId"));
                             inMap.put("costUomId", (String)partyAccountingPreference.get("baseCurrencyUomId"));
                             inMap.put("cost", productCostAdjustment);
