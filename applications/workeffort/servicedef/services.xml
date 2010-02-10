@@ -521,7 +521,7 @@ under the License.
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"
         invoke="deleteWorkEffortContent"
         default-entity-name="WorkEffortContent" auth="true">
-        <description>Update a Work Effort Content</description>
+        <description>Delete a Work Effort Content</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
