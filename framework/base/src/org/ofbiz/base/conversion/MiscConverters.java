@@ -21,6 +21,7 @@ package org.ofbiz.base.conversion;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.text.DecimalFormat;
@@ -209,6 +210,26 @@ public class MiscConverters implements ConverterLoader {
 
         public SimpleDateFormat convert(String obj) throws ConversionException {
             return new SimpleDateFormat(obj);
+        }
+    }
+
+    public static class CharsetToString extends AbstractConverter<Charset, String> {
+        public CharsetToString() {
+            super(Charset.class, String.class);
+        }
+
+        public String convert(Charset obj) throws ConversionException {
+            return obj.name();
+        }
+    }
+
+    public static class StringToCharset extends AbstractConverter<String, Charset> {
+        public StringToCharset() {
+            super(String.class, Charset.class);
+        }
+
+        public Charset convert(String obj) throws ConversionException {
+            return Charset.forName(obj);
         }
     }
 
