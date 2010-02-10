@@ -152,7 +152,7 @@ public class UtilIOTests extends GenericTestCaseBase {
         checkBasicReadWriteObject(BigDecimal.valueOf(500.5), "java.math.BigDecimal:500.5\n");
         checkBasicReadWriteObject(BigInteger.valueOf(500), "java.math.BigInteger:500\n");
         checkBasicReadWriteObject("1", "java.lang.String:1\n");
-        //checkBasicReadWriteObject(Arrays.asList(new Object[] {"a", UtilMisc.toMap("b", Long.valueOf(1))}), "[ \"a\", { \"b\": 1 } ]\n");
+        checkBasicReadWriteObject(Arrays.asList(new Object[] {"a", UtilMisc.toMap("b", Long.valueOf(1))}), "java.util.List:[\n \"a\",\n {\n  \"b\": 1\n }\n]\n");
         checkBasicReadWriteObject(MemoryType.HEAP, "java.lang.management.MemoryType:HEAP\n");
         checkBasicReadWriteObject(MemoryType.NON_HEAP, "java.lang.management.MemoryType:NON_HEAP\n");
         checkBasicReadWriteObject(UtilIO.UTF8, "java.nio.charset.Charset:UTF-8\n");
