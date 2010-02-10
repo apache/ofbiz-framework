@@ -94,8 +94,9 @@ public class Converters {
                     }
                     // Null converter must be checked last
                     if (nullConverter.canConvert(sourceClass, targetClass)) {
-                        converterMap.put(key, nullConverter);
-                        return UtilGenerics.cast(nullConverter);
+                        Converter passThruConverter = new PassThruConverter<S>(sourceClass);
+                        converterMap.put(key, passThruConverter);
+                        return UtilGenerics.cast(passThruConverter);
                     }
                     noConversions.add(key);
                     Debug.logWarning("*** No converter found, converting from " +
@@ -173,6 +174,35 @@ public class Converters {
 
         public Class<?> getTargetClass() {
             return Object.class;
+        }
+    }
+
+    /** Pass thru converter used when the source and target java object
+     * types are the same. The <code>convert</code> method returns the
+     * source object.
+     *
+     */
+    protected static class PassThruConverter<T> implements Converter<T, T> {
+        private final Class<T> clz;
+
+        public PassThruConverter(Class<T> clz) {
+            this.clz = clz;
+        }
+
+        public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
+            return sourceClass == clz && targetClass == clz;
+        }
+
+        public T convert(T obj) throws ConversionException {
+            return obj;
+        }
+
+        public Class<?> getSourceClass() {
+            return clz;
+        }
+
+        public Class<?> getTargetClass() {
+            return clz;
         }
     }
 }
