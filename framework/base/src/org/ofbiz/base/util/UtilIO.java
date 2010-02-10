@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
@@ -46,6 +47,8 @@ import org.apache.commons.lang.StringUtils;
 import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
+import org.ofbiz.base.json.JSON;
+import org.ofbiz.base.json.JSONWriter;
 
 public final class UtilIO {
     public static final Charset UTF8 = Charset.forName("UTF-8");
@@ -310,6 +313,11 @@ public final class UtilIO {
             }
         } catch (Exception e) {
         }
+        try {
+            return new JSON(new StringReader(new String(buffer, offset, length))).JSONValue();
+        } catch (Error e) {
+        } catch (Exception e) {
+        }
         throw new IOException("Can't read (" + new String(buffer, offset, length) + ")");
     }
 
@@ -347,7 +355,12 @@ public final class UtilIO {
             writer.write(str);
             return true;
         } else {
-            return false;
+            StringWriter sw = new StringWriter();
+            IndentingWriter indenting = new IndentingWriter(writer, true, false);
+            JSONWriter jsonWriter = new JSONWriter(indenting);
+            jsonWriter.write(value);
+            writer.write(sw.toString());
+            return true;
         }
     }
 
