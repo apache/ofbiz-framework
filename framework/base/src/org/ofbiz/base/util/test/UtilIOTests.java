@@ -127,6 +127,13 @@ public class UtilIOTests extends GenericTestCaseBase {
         assertEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
     }
 
+    protected void checkBasicReadObject(Object value, String text) throws Exception {
+        byte[] bytes = text.getBytes("UTF-8");
+        assertEquals("read bytes " + value.getClass().getName(), value, UtilIO.readObject(new ByteArrayInputStream(bytes)));
+        assertEquals("read chars " + value.getClass().getName(), value, UtilIO.readObject(text.toCharArray()));
+        assertEquals("read chars offset " + value.getClass().getName(), value, UtilIO.readObject(text.toCharArray(), 0, text.length()));
+    }
+
     protected void checkBasicReadWriteObject(Object value, String text) throws Exception {
         byte[] bytes = text.getBytes("UTF-8");
         assertEquals("read bytes " + value.getClass().getName(), value, UtilIO.readObject(new ByteArrayInputStream(bytes)));
@@ -152,7 +159,7 @@ public class UtilIOTests extends GenericTestCaseBase {
         checkBasicReadWriteObject(BigDecimal.valueOf(500.5), "java.math.BigDecimal:500.5\n");
         checkBasicReadWriteObject(BigInteger.valueOf(500), "java.math.BigInteger:500\n");
         checkBasicReadWriteObject("1", "java.lang.String:1\n");
-        checkBasicReadWriteObject(Arrays.asList(new Object[] {"a", UtilMisc.toMap("b", Long.valueOf(1))}), "java.util.List:[\n \"a\",\n {\n  \"b\": 1\n }\n]\n");
+        checkBasicReadObject(Arrays.asList(new Object[] {"a", UtilMisc.toMap("b", Long.valueOf(1))}), "[\n \"a\",\n {\n  \"b\": 1\n }\n]\n");
         checkBasicReadWriteObject(MemoryType.HEAP, "java.lang.management.MemoryType:HEAP\n");
         checkBasicReadWriteObject(MemoryType.NON_HEAP, "java.lang.management.MemoryType:NON_HEAP\n");
         checkBasicReadWriteObject(UtilIO.UTF8, "java.nio.charset.Charset:UTF-8\n");
