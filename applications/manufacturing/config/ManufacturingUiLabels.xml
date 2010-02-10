@@ -1487,6 +1487,10 @@
         <value xml:lang="th">จากวันที่</value>
         <value xml:lang="zh">开始日期</value>
     </property>
+    <property key="ManufacturingGenerateProductionRuns">
+        <value xml:lang="en">Generate Production Runs</value>
+        <value xml:lang="it">Genera ordini di produzione</value>
+    </property>
     <property key="ManufacturingImplosion">
         <value xml:lang="de">Zusammenfalten</value>
         <value xml:lang="en">Implosion</value>

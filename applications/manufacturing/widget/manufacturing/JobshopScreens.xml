@@ -577,7 +577,7 @@ under the License.
                                         </link>
                                     </widgets>
                                     <fail-widgets>
-                                        <link text="${uiLabelMap.ManufacturingCreateProductionRun}" style="buttontext" target="createProductionRunsForShipment">
+                                        <link text="${uiLabelMap.ManufacturingGenerateProductionRuns}" style="buttontext" target="createProductionRunsForShipment">
                                             <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
                                         </link>
                                         <link text="${uiLabelMap.ManufacturingShipmentPlanStockReport}" style="buttontext" target="ShipmentPlanStockReport.pdf">
