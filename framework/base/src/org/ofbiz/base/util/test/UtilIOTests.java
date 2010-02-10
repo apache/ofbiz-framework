@@ -21,8 +21,20 @@ package org.ofbiz.base.util.test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.management.MemoryType;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.InetAddress;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.UUID;
 
 import org.ofbiz.base.util.UtilIO;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class UtilIOTests extends GenericTestCaseBase {
@@ -113,5 +125,45 @@ public class UtilIOTests extends GenericTestCaseBase {
         baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, UtilIO.UTF8, toWrite);
         assertEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
+    }
+
+    protected void checkBasicReadWriteObject(Object value, String text) throws Exception {
+        byte[] bytes = text.getBytes("UTF-8");
+        assertEquals("read bytes " + value.getClass().getName(), value, UtilIO.readObject(new ByteArrayInputStream(bytes)));
+        assertEquals("read chars " + value.getClass().getName(), value, UtilIO.readObject(text.toCharArray()));
+        assertEquals("read chars offset " + value.getClass().getName(), value, UtilIO.readObject(text.toCharArray(), 0, text.length()));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        UtilIO.writeObject(baos, value);
+        assertEquals("write stream " + value.getClass().getName(), text, new String(baos.toByteArray(), "UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        UtilIO.writeObject(sb, value);
+        sb.append('\n');
+        assertEquals("write builder " + value.getClass().getName(), text, sb.toString());
+    }
+
+    public void testReadWriteObject() throws Exception {
+        checkBasicReadWriteObject(Boolean.TRUE, "java.lang.Boolean:true\n");
+        checkBasicReadWriteObject(Byte.valueOf("1"), "java.lang.Byte:1\n");
+        checkBasicReadWriteObject(Double.valueOf("1.0"), "java.lang.Double:1.0\n");
+        checkBasicReadWriteObject(Float.valueOf("1.0"), "java.lang.Float:1.0\n");
+        checkBasicReadWriteObject(Integer.valueOf("1"), "java.lang.Integer:1\n");
+        checkBasicReadWriteObject(Long.valueOf("1"), "java.lang.Long:1\n");
+        checkBasicReadWriteObject(Short.valueOf("1"), "java.lang.Short:1\n");
+        checkBasicReadWriteObject(BigDecimal.valueOf(500.5), "java.math.BigDecimal:500.5\n");
+        checkBasicReadWriteObject(BigInteger.valueOf(500), "java.math.BigInteger:500\n");
+        checkBasicReadWriteObject("1", "java.lang.String:1\n");
+        //checkBasicReadWriteObject(Arrays.asList(new Object[] {"a", UtilMisc.toMap("b", Long.valueOf(1))}), "[ \"a\", { \"b\": 1 } ]\n");
+        checkBasicReadWriteObject(MemoryType.HEAP, "java.lang.management.MemoryType:HEAP\n");
+        checkBasicReadWriteObject(MemoryType.NON_HEAP, "java.lang.management.MemoryType:NON_HEAP\n");
+        checkBasicReadWriteObject(UtilIO.UTF8, "java.nio.charset.Charset:UTF-8\n");
+        checkBasicReadWriteObject(InetAddress.getByAddress("localhost", new byte[] {127, 0, 0, 1}), "java.net.InetAddress:localhost\n");
+        //checkBasicReadWriteObject(Pattern.compile("^([a-z]{3}.*?):$"), "java.util.regex.Pattern:^([a-z]{3}.*?):$\n");
+        checkBasicReadWriteObject(Time.valueOf("12:34:56"), "java.sql.Time:12:34:56\n");
+        //checkBasicReadWriteObject(new Timestamp(1234567890), "java.sql.Timestamp:1234567890 00:00:00\n");
+        //checkBasicReadWriteObject(new java.util.Date(1234567890), "java.util.Date:1234567890\n");
+        checkBasicReadWriteObject(UUID.fromString("c3241927-9f77-43e1-be16-bd71d245ef64"), "java.util.UUID:c3241927-9f77-43e1-be16-bd71d245ef64\n");
+        checkBasicReadWriteObject(TimeZone.getTimeZone("America/Chicago"), "java.util.TimeZone:America/Chicago\n");
+        checkBasicReadWriteObject(new SimpleDateFormat("MM/dd/yyyy hh:mm a"), "java.text.SimpleDateFormat:MM/dd/yyyy hh:mm a\n");
+        checkBasicReadWriteObject(new Locale("en", "us"), "java.util.Locale:en_US\n");
     }
 }
