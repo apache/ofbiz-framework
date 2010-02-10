@@ -137,7 +137,23 @@ public class Converters {
      * @param converter The <code>Converter</code> instance to register
      */
     public static <S, T> void registerConverter(Converter<S, T> converter) {
-        String key = converter.getSourceClass().getName().concat(DELIMITER).concat(converter.getTargetClass().getName());
+        registerConverter(converter, converter.getSourceClass(), converter.getTargetClass());
+    }
+
+    public static <S, T> void registerConverter(Converter<S, T> converter, Class<?> sourceClass, Class<?> targetClass) {
+        StringBuilder sb = new StringBuilder();
+        if (sourceClass != null) {
+            sb.append(sourceClass.getName());
+        } else {
+            sb.append("<null>");
+        }
+        sb.append(DELIMITER);
+        if (targetClass != null) {
+            sb.append(targetClass.getName());
+        } else {
+            sb.append("<null>");
+        }
+        String key = sb.toString();
         if (converterMap.get(key) == null) {
             synchronized (converterMap) {
                 converterMap.put(key, converter);
