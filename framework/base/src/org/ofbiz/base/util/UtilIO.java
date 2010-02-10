@@ -20,10 +20,15 @@ package org.ofbiz.base.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
@@ -190,5 +195,60 @@ public final class UtilIO {
             }
         }
         return sb;
+    }
+
+    /** Convert a \n string to a platform encoding.  This uses a default
+     * {@link Charset UTF-8} charset.
+     *
+     * @param file where to write the converted bytes to
+     * @param value the value to write
+     */
+    public static void writeString(File file, String value) throws IOException {
+        writeString(new FileOutputStream(file), UTF8, value);
+    }
+
+    /** Convert a \n string to a platform encoding.  This uses a default
+     * {@link Charset UTF-8} charset.
+     *
+     * @param out where to write the converted bytes to
+     * @param value the value to write
+     */
+    public static void writeString(OutputStream out, String value) throws IOException {
+        writeString(out, UTF8, value);
+    }
+
+    /** Convert a \n string to a platform encoding.  This uses the
+     * specified charset to extract the raw bytes.
+     *
+     * @param out where to write the converted bytes to
+     * @param charset the charset to use to convert the raw bytes
+     * @param value the value to write
+     */
+    public static void writeString(OutputStream out, String charset, String value) throws IOException {
+        writeString(out, Charset.forName(charset), value);
+    }
+
+    /** Convert a \n string to a platform encoding.  This uses the
+     * specified charset to extract the raw bytes.
+     *
+     * @param out where to write the converted bytes to
+     * @param charset the charset to use to convert the raw bytes
+     * @param value the value to write
+     */
+    public static void writeString(OutputStream out, Charset charset, String value) throws IOException {
+        Writer writer = new OutputStreamWriter(out, charset);
+        String nl = System.getProperty("line.separator");
+        int r = 0;
+        while (r < value.length()) {
+            int i = value.indexOf("\n", r);
+            if (i == -1) {
+                break;
+            }
+            writer.write(value.substring(r, i));
+            writer.write(nl);
+            r = i + 1;
+        }
+        writer.write(value.substring(r));
+        writer.close();
     }
 }

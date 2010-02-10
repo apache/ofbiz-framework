@@ -84,4 +84,34 @@ public class UtilIOTests extends GenericTestCaseBase {
         assertEquals("readString stream UTF-8:" + label, wanted, UtilIO.readString(new ByteArrayInputStream(toRead), "UTF-8"));
         assertEquals("readString stream UTF8:" + label, wanted, UtilIO.readString(new ByteArrayInputStream(toRead), UtilIO.UTF8));
     }
+
+    public void testWriteString() throws Exception {
+        writeStringTest_0("unix line ending", "\n", new byte[] { 0x0A });
+        writeStringTest_0("mac line ending", "\r", new byte[] { 0x0D });
+        writeStringTest_0("windows line ending", "\r\n", new byte[] { 0x0D, 0x0A });
+    }
+
+    private static void writeStringTest_0(String label, String lineSeparator, byte[] extra) throws IOException {
+        String originalLineSeparator = System.getProperty("line.separator");
+        try {
+            System.getProperties().put("line.separator", lineSeparator);
+            writeStringTest_1(label + ":mark", join(trademarkBytes), "\u2122");
+            writeStringTest_1(label + ":mark NL", join(trademarkBytes, extra), "\u2122\n");
+            writeStringTest_1(label + ":NL mark", join(extra, trademarkBytes), "\n\u2122");
+        } finally {
+            System.getProperties().put("line.separator", originalLineSeparator);
+        }
+    }
+
+    private static void writeStringTest_1(String label, byte[] wanted, String toWrite) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        UtilIO.writeString(baos, toWrite);
+        assertEquals("writeString default:" + label, wanted, baos.toByteArray());
+        baos = new ByteArrayOutputStream();
+        UtilIO.writeString(baos, "UTF-8", toWrite);
+        assertEquals("writeString UTF-8:" + label, wanted, baos.toByteArray());
+        baos = new ByteArrayOutputStream();
+        UtilIO.writeString(baos, UtilIO.UTF8, toWrite);
+        assertEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
+    }
 }
