@@ -222,6 +222,12 @@ under the License.
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="less-equals" value="-0.01" type="BigDecimal">
             <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
         </if-compare>
+        <if-compare field="trialBalanceResultMap.debitTotal" operator="equals" value="0.00" type="BigDecimal">
+            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because debit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+        </if-compare>
+        <if-compare field="trialBalanceResultMap.creditTotal" operator="equals" value="0.00" type="BigDecimal">
+            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because credit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+        </if-compare>
 
         <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" from-field="parameters.acctgTransId"/>
