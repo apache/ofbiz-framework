@@ -38,6 +38,7 @@ under the License.
     </path>
 
     <filelist id="test.classes" dir="${src.dir}">
+        <file name="org/ofbiz/base/util/test/IndentingWriterTests.java"/>
         <file name="org/ofbiz/base/conversion/test/MiscTests.java"/>
         <file name="org/ofbiz/base/util/test/UtilIOTests.java"/>
         <file name="org/ofbiz/base/test/BaseUnitTests.java"/>
