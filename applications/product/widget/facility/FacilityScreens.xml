@@ -1468,4 +1468,33 @@ under the License.
         </section>
     </screen>
 
+    <screen name="EditFacilityContent">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="EditFacilityContent"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
+                <entity-and entity-name="FacilityContentDetail" list="facilityContentDetails" filter-by-date="true">
+                    <field-map field-name="facilityId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.PageTitleEditFacilityContent}"/>  
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1">${title}</label>
+                        </container>
+                        <screenlet id="add-facility-content" title="${uiLabelMap.ProductAddFacilityContent}" collapsible="true">
+                            <include-form name="AddFacilityContent" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListFacilityContent" location="component://product/widget/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
 </screens>

@@ -324,4 +324,79 @@ under the License.
         </call-service>
         <check-errors/>
     </simple-method>
+
+   <simple-method method-name="createGenericContent" short-description="Create Generic Content">
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
+            method-name="uploadImageAndParameters" ret-field="formInput">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="dataResourceName"/>
+        </call-class-method>
+
+        <!-- Check input parameters -->
+        <if>
+            <condition>
+                <and>
+                    <if-empty field="formInput.formInput.contentId"/>
+                    <if-empty field="formInput.imageFileName"/>
+                </and>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-message message="Content Id or Upload file is missing."/>
+                </add-error>
+            </then>
+        </if>
+        <check-errors/>
+        <!-- Create new content form upload file / set content from Existing content -->
+        <if-empty field="formInput.formInput.contentId">
+                <if>
+                    <condition>
+                        <or>
+                            <!-- Compare MimeType between upload file and selected MimeType -->
+                            <if-compare-field field="formInput.uploadMimeType" operator="equals" to-field="formInput.formInput.mimeTypeId"/>
+                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals" value="application/octet-stream"/>
+                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals" value=""/>
+                        </or>
+                    </condition>
+                    <then>
+                        <!-- Create new content from upload file -->
+                        <set-service-fields service-name="createContentFromUploadedFile"
+                            map="formInput.formInput" to-map="inMap"/>
+                        <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+                        <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+                        <set field="inMap._uploadedFile_contentType" from-field="formInput.uploadMimeType"/>
+                        <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
+                            <result-to-field result-name="contentId" field="context.contentId"/>
+                        </call-service>
+                    </then>
+                    <else>
+                        <add-error>
+                            <fail-message message="Upload file type not match your selected."/>
+                        </add-error>
+                    </else>
+                </if>
+                <check-errors/>
+            <else>
+                <!--set content from Existing content-->
+                <set field="context.contentId" from-field="formInput.formInput.contentId"/>
+            </else>
+        </if-empty>
+        
+        <!-- create ContentAssoc-->
+        <set-service-fields service-name="createContentAssoc" map="formInput.formInput" to-map="contentMap"/>
+        <if-not-empty field="formInput.formInput.contentIdFrom">
+            <set field="contentMap.contentAssocTypeId" value="SUB_CONTENT"/>
+            <set field="contentMap.contentIdFrom" from-field="formInput.formInput.contentIdFrom"/>
+            <set field="contentMap.contentId" from-field="formInput.formInput.contentIdFrom"/>
+            <set field="contentMap.contentIdTo" from-field="context.contentId"/>
+            <now-timestamp field="contentMap.fromDate"/>
+            <entity-and entity-name="ContentAssoc" list="contentAssoList">
+                <field-map field-name="contentId" from-field="contentMap.contentId"/>
+                <field-map field-name="contentIdTo" from-field="contentMap.contentIdTo"/>
+            </entity-and>
+            <if-empty field="contentAssonList">
+                <call-service service-name="createContentAssoc" in-map-name="contentMap"/>           
+            </if-empty>
+        </if-not-empty>   
+    </simple-method>        
 </simple-methods>

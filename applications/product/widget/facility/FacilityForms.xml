@@ -884,4 +884,49 @@ under the License.
         <field name="report" title="Export Report" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <!--Facility Content-->
+    <form name="AddFacilityContent" type="upload" focus-field-name="contentId" 
+        header-row-style="header-row" default-table-style="basic-table" target="createFacilityContent?facilityId=${facilityId}">
+        <field name="facilityId"><hidden/></field>
+        <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+        <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}">
+            <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
+                <entity-options description="${description}" entity-name="ContentType"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupContent"/></field>
+        <field name="createButton"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListFacilityContent" type="list" list-name="facilityContentDetails" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="facilityId"><hidden/></field>
+        <field name="contentId" title="${uiLabelMap.CommonView}">
+            <hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" target-type="inter-app">
+                <parameter param-name="contentId"/>
+            </hyperlink>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="mimeTypeId"><display/></field>
+        <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}"><display-entity entity-name="ContentType" also-hidden="false"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteFacilityContent">
+                <parameter param-name="facilityId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="fromDate"/>
+           </hyperlink>
+        </field>   
+    </form>
 </forms>
