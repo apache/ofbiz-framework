@@ -47,7 +47,7 @@ public class BaseUnitTests extends TestCase {
         assertTrue(Debug.verboseOn());
 
         Debug.set(Debug.VERBOSE, false);
-        assertTrue(!Debug.verboseOn());
+        assertFalse(Debug.verboseOn());
 
         Debug.set(Debug.INFO, true);
         assertTrue(Debug.infoOn());
@@ -102,11 +102,15 @@ public class BaseUnitTests extends TestCase {
         assertTrue("overlaps range", range1.overlaps(overlapTest));
         assertTrue("overlaps range", range2.overlaps(overlapTest));
         assertFalse("does not overlap range", range1.overlaps(range2));
+        IllegalArgumentException caught = null;
         try {
             @SuppressWarnings("unused")
             ComparableRange<java.util.Date> range3 = new ComparableRange<java.util.Date>(new java.util.Date(), new java.sql.Timestamp(System.currentTimeMillis()));
-            fail("mismatched classes");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+            caught = e;
+        } finally {
+            assertNotNull("expected exception", caught);
+        }
     }
 
     public void testFlexibleStringExpander() {
@@ -155,60 +159,46 @@ public class BaseUnitTests extends TestCase {
         assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
     }
 
-    public void testDateTimeConverters() {
+    public void testDateTimeConverters() throws Exception {
         // Source class = java.util.Date
         java.util.Date utilDate = new java.util.Date();
         long dateMillis = utilDate.getTime();
         Converter<java.util.Date, Long> dateToLong = new DateTimeConverters.DateToLong();
-        try {
+        {
             Long target = dateToLong.convert(utilDate);
             assertEquals("DateToLong", dateMillis, target.longValue());
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         Converter<java.util.Date, java.sql.Date> dateToSqlDate = new DateTimeConverters.DateToSqlDate();
-        try {
+        {
             java.sql.Date target = dateToSqlDate.convert(utilDate);
             assertEquals("DateToSqlDate", dateMillis, target.getTime());
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         Converter<java.util.Date, String> dateToString = new DateTimeConverters.DateToString();
-        try {
+        {
             String target = dateToString.convert(utilDate);
             assertEquals("DateToString", utilDate.toString(), target);
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         Converter<java.util.Date, java.sql.Timestamp> dateToTimestamp = new DateTimeConverters.DateToTimestamp();
-        try {
+        {
             java.sql.Timestamp timestamp = dateToTimestamp.convert(utilDate);
             assertEquals("DateToTimestamp", dateMillis, timestamp.getTime());
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         // Source class = java.sql.Date
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
         Converter<java.sql.Date, java.util.Date> sqlDateToDate = new DateTimeConverters.SqlDateToDate();
-        try {
+        {
             java.util.Date target = sqlDateToDate.convert(sqlDate);
             assertEquals("SqlDateToDate", sqlDate.getTime(), target.getTime());
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         Converter<java.sql.Date, String> sqlDateToString = new DateTimeConverters.SqlDateToString();
-        try {
+        {
             String target = sqlDateToString.convert(sqlDate);
             assertEquals("SqlDateToString", sqlDate.toString(), target);
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
         Converter<java.sql.Date, java.sql.Timestamp> sqlDateToTimestamp = new DateTimeConverters.SqlDateToTimestamp();
-        try {
+        {
             java.sql.Timestamp target = sqlDateToTimestamp.convert(sqlDate);
             assertEquals("SqlDateToTimestamp", sqlDate.getTime(), target.getTime());
-        } catch (ConversionException e) {
-            fail(e.getMessage());
         }
     }
 
