@@ -34,6 +34,10 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T> {
         Converters.registerConverter(this);
     }
 
+    public T convert(Class<?> targetClass, S obj) throws ConversionException {
+        return convert(obj);
+    }
+
     public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
         return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && ObjectType.instanceOf(targetClass, this.getTargetClass());
     }

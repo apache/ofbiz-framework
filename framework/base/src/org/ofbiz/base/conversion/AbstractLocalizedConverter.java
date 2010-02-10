@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
 import org.ofbiz.base.util.ObjectType;
 
 /** Abstract LocalizedConverter class. This class handles converter registration
@@ -32,6 +35,18 @@ public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConve
         this.sourceClass = sourceClass;
         this.targetClass = targetClass;
         Converters.registerConverter(this);
+    }
+
+    public T convert(Class<?> targetClass, S obj) throws ConversionException {
+        return convert(obj);
+    }
+
+    public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException {
+        return convert(obj, locale, timeZone);
+    }
+
+    public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+        return convert(obj, locale, timeZone, formatString);
     }
 
     public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {

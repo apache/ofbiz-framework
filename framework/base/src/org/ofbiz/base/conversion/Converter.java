@@ -45,6 +45,15 @@ public interface Converter<S, T> {
      */
     public T convert(S obj) throws ConversionException;
 
+    /** Converts <code>obj</code> to <code>T</code>.
+     *
+     * @param targetClass The <code>Class</code> to convert to
+     * @param obj The source <code>Object</code> to convert
+     * @return The converted <code>Object</code>
+     * @throws ConversionException
+     */
+    public T convert(Class<?> targetClass, S obj) throws ConversionException;
+
     /** Returns the source <code>Class</code> for this converter.
      *
      * @return The source <code>Class</code> for this converter
