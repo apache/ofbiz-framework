@@ -222,6 +222,85 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static class ByteToDouble extends AbstractConverter<Byte, Double> {
+        public ByteToDouble() {
+            super(Byte.class, Double.class);
+        }
+
+        public Double convert(Byte obj) throws ConversionException {
+            return obj.doubleValue();
+        }
+    }
+
+    public static class ByteToFloat extends AbstractConverter<Byte, Float> {
+        public ByteToFloat() {
+            super(Byte.class, Float.class);
+        }
+
+        public Float convert(Byte obj) throws ConversionException {
+            return obj.floatValue();
+        }
+    }
+
+    public static class ByteToInteger extends AbstractConverter<Byte, Integer> {
+        public ByteToInteger() {
+            super(Byte.class, Integer.class);
+        }
+
+        public Integer convert(Byte obj) throws ConversionException {
+            return obj.intValue();
+        }
+    }
+
+    public static class ByteToList extends AbstractConverter<Byte, List<Byte>> {
+        public ByteToList() {
+            super(Byte.class, List.class);
+        }
+
+        public List<Byte> convert(Byte obj) throws ConversionException {
+            List<Byte> tempList = FastList.newInstance();
+            tempList.add(obj);
+            return tempList;
+        }
+    }
+
+    public static class ByteToLong extends AbstractConverter<Byte, Long> {
+        public ByteToLong() {
+            super(Byte.class, Long.class);
+        }
+
+        public Long convert(Byte obj) throws ConversionException {
+            return obj.longValue();
+        }
+    }
+
+    public static class ByteToSet extends AbstractConverter<Byte, Set<Byte>> {
+        public ByteToSet() {
+            super(Byte.class, Set.class);
+        }
+
+        public Set<Byte> convert(Byte obj) throws ConversionException {
+            Set<Byte> tempSet = FastSet.newInstance();
+            tempSet.add(obj);
+            return tempSet;
+        }
+    }
+
+    public static class ByteToString extends AbstractToNumberConverter<Byte, String> {
+        public ByteToString() {
+            super(Byte.class, String.class);
+        }
+
+        public String convert(Byte obj) throws ConversionException {
+            return obj.toString();
+        }
+
+        public String convert(Byte obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+            return nf.format(obj.floatValue());
+        }
+    }
+
     public static class StringToBigInteger extends AbstractToNumberConverter<String, BigInteger> {
         public StringToBigInteger() {
             super(String.class, BigInteger.class);
@@ -398,6 +477,16 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static class IntegerToByte extends AbstractConverter<Integer, Byte> {
+        public IntegerToByte() {
+            super(Integer.class, Byte.class);
+        }
+
+        public Byte convert(Integer obj) throws ConversionException {
+            return obj.byteValue();
+        }
+    }
+
     public static class IntegerToDouble extends AbstractConverter<Integer, Double> {
         public IntegerToDouble() {
             super(Integer.class, Double.class);
@@ -484,6 +573,16 @@ public class NumberConverters implements ConverterLoader {
 
         public BigDecimal convert(Long obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
+        }
+    }
+
+    public static class LongToByte extends AbstractConverter<Long, Byte> {
+        public LongToByte() {
+            super(Long.class, Byte.class);
+        }
+
+        public Byte convert(Long obj) throws ConversionException {
+            return obj.byteValue();
         }
     }
 
@@ -660,6 +759,16 @@ public class NumberConverters implements ConverterLoader {
                 return null;
             }
             return BigDecimal.valueOf(fromString(trimStr, locale).doubleValue());
+        }
+    }
+
+    public static class StringToByte extends AbstractConverter<String, Byte> {
+        public StringToByte() {
+            super(String.class, Byte.class);
+        }
+
+        public Byte convert(String obj) throws ConversionException {
+            return Byte.valueOf(obj);
         }
     }
 
