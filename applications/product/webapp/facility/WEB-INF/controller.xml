@@ -835,6 +835,28 @@ under the License.
         <response name="success" type="view" value="ShipmentManifest.pdf"/>
     </request-map>
 
+    <!-- Facility Content -->
+    <request-map uri="EditFacilityContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFacilityContent"/>
+    </request-map>
+    <request-map uri="createFacilityContent">
+        <security auth="true" https="true"/>
+        <event path="component://product/script/org/ofbiz/product/storage/FacilityEvents.xml" type="simple" invoke="createFacilityContent"/>
+        <response name="success" type="request-redirect" value="EditFacilityContent">
+            <redirect-parameter name="facilityId"/>
+        </response>
+        <response name="error" type="view" value="EditFacilityContent"/>
+    </request-map>
+    <request-map uri="deleteFacilityContent">
+        <security auth="true" https="true"/>
+        <event invoke="deleteFacilityContent" type="service"/>
+        <response name="success" type="request-redirect" value="EditFacilityContent">
+            <redirect-parameter name="facilityId"/>
+        </response>
+        <response name="error" type="view" value="EditFacilityContent"/>
+    </request-map>
+
     <!-- ================ Shipment Scheduling Requests ================= -->
     <request-map uri="Scheduling">
         <security https="true" auth="true"/>
@@ -1328,6 +1350,7 @@ under the License.
     <request-map uri="LookupProductInventoryLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductInventoryLocation"/></request-map>
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupInventoryItem"><security https="true" auth="true"/><response name="success" type="view" value="LookupInventoryItem"/></request-map>
+    <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1393,6 +1416,8 @@ under the License.
     <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
     <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels" content-type="application/pdf" encoding="none"/>
 
+    <view-map name="EditFacilityContent" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityContent"/>
+
     <view-map name="FindShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#FindShipment"/>
     <view-map name="ViewShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipment"/>
     <view-map name="EditShipment" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipment"/>
@@ -1426,7 +1451,8 @@ under the License.
     <view-map name="LookupProductInventoryLocation" page="component://product/widget/facility/LookupScreens.xml#LookupProductInventoryLocation" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupInventoryItem" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupInventoryItem"/>
-    
+    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
+
     <!-- Shipment Gateway Config -->
     <view-map name="FindShipmentGatewayConfig" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#FindShipmentGatewayConfig" type="screen"/>
     <view-map name="EditShipmentGatewayConfig" page="component://product//widget/facility/ShipmentGatewayConfigScreens.xml#EditShipmentGatewayConfig" type="screen"/>

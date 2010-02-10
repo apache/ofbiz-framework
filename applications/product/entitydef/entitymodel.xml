@@ -1299,6 +1299,36 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
+    <entity entity-name="FacilityContent" package-name="org.ofbiz.product.facility" title="Facility Content Entity">
+        <field name="facilityId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="facilityId"/>
+        <prim-key field="contentId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FAC_CNT_FAC" rel-entity-name="Facility">
+            <key-map field-name="facilityId"/>
+        </relation>
+        <relation type="one" fk-name="FAC_CNT_CNT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+    </entity>      
+    <view-entity entity-name="FacilityContentDetail" package-name="org.ofbiz.product.facility" title="Facility Content Detail View Entity">
+        <member-entity entity-alias="FCT" entity-name="FacilityContent"/>
+        <member-entity entity-alias="CNT" entity-name="Content"/>
+        <alias-all entity-alias="FCT"/>
+        <alias-all entity-alias="CNT"/>
+        <view-link entity-alias="FCT" rel-entity-alias="CNT">
+            <key-map field-name="contentId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="DataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContentType">
+            <key-map field-name="contentTypeId"/>
+        </relation>
+    </view-entity>
     <entity entity-name="FacilityType" package-name="org.ofbiz.product.facility" default-resource-name="ProductEntityLabels"
         title="Facility Type Entity">
         <field name="facilityTypeId" type="id-ne"></field>

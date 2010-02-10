@@ -151,6 +151,11 @@ under the License.
                 <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
+        <menu-item name="EditFacilityContent" title="${uiLabelMap.ProductContent}">
+            <link target="EditFacilityContent">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="InventoryItemLabelsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="FindInventoryItemLabels">

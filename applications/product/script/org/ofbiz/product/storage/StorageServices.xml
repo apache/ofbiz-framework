@@ -221,4 +221,21 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
+    <simple-method method-name="createFacilityContent" short-description="Create Facility Content"> 
+        <make-value entity-name="FacilityContent" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="newEntity.fromDate"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="deleteFacilityContent" short-description="Delete Content From Facility">
+        <make-value value-field="lookupPKMap" entity-name="FacilityContent"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key entity-name="FacilityContent" map="lookupPKMap" value-field="lookedUpValue"/>
+        <now-timestamp field="lookedUpValue.thruDate"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

@@ -4933,6 +4933,9 @@
         <value xml:lang="th">แก้ไขวิธีการติดต่อคลังสินค้า</value>
         <value xml:lang="zh">编辑场所联系方式</value>
     </property>
+    <property key="PageTitleEditFacilityContent">
+        <value xml:lang="en">Edit Facility Content for ${facility.facilityName} [${facility.facilityId}]</value>
+    </property>    
     <property key="PageTitleEditFacilityGroup">
         <value xml:lang="de">Einrichtungsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Facility Group</value>
@@ -6875,6 +6878,9 @@
         <value xml:lang="ru">Добавить роль участника объекта</value>
         <value xml:lang="th">เพิ่มสถานะกลุ่มผู้ใช้คลังสินค้า</value>
         <value xml:lang="zh">添加场所会员角色</value>
+    </property>
+    <property key="ProductAddFacilityContent">
+        <value xml:lang="en">Add Facility Content</value>
     </property>
     <property key="ProductAddFeature">
         <value xml:lang="de">Merkmal hinzufügen</value>
