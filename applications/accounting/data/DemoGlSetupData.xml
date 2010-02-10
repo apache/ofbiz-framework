@@ -200,6 +200,7 @@ under the License.
     <PaymentMethodType paymentMethodTypeId="EXT_PAYPAL" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_WORLDPAY" defaultGlAccountId="122000"/>
 
+    <CostComponentCalc costComponentCalcId="GEN_COST_CALC" costGlAccountTypeId="OPERATING_EXPENSE"/>
     <CostComponentCalc costComponentCalcId="TASK_COST_CALC" costGlAccountTypeId="OPERATING_EXPENSE"/>
 
     <!-- General Ledger Setup for the "Company" organization for "Company" -->
