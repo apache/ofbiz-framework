@@ -184,6 +184,10 @@ public class Converters {
             return obj;
         }
 
+        public Object convert(Class<?> targetClass, Object obj) throws ConversionException {
+            return obj;
+        }
+
         public Class<?> getSourceClass() {
             return Object.class;
         }
@@ -210,6 +214,10 @@ public class Converters {
         }
 
         public T convert(T obj) throws ConversionException {
+            return obj;
+        }
+
+        public T convert(Class<?> targetClass, T obj) throws ConversionException {
             return obj;
         }
 
