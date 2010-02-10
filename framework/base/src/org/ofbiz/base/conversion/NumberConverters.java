@@ -452,6 +452,16 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static class IntegerToShort extends AbstractConverter<Integer, Short> {
+        public IntegerToShort() {
+            super(Integer.class, Short.class);
+        }
+
+        public Short convert(Integer obj) throws ConversionException {
+            return obj.shortValue();
+        }
+    }
+
     public static class IntegerToString extends AbstractToNumberConverter<Integer, String> {
         public IntegerToString() {
             super(Integer.class, String.class);
@@ -531,6 +541,16 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static class LongToShort extends AbstractConverter<Long, Short> {
+        public LongToShort() {
+            super(Long.class, Short.class);
+        }
+
+        public Short convert(Long obj) throws ConversionException {
+            return obj.shortValue();
+        }
+    }
+
     public static class LongToString extends AbstractToNumberConverter<Long, String> {
         public LongToString() {
             super(Long.class, String.class);
@@ -543,6 +563,85 @@ public class NumberConverters implements ConverterLoader {
         public String convert(Long obj, Locale locale, TimeZone timeZone) throws ConversionException {
             NumberFormat nf = NumberFormat.getNumberInstance(locale);
             return nf.format(obj.longValue());
+        }
+    }
+
+    public static class ShortToDouble extends AbstractConverter<Short, Double> {
+        public ShortToDouble() {
+            super(Short.class, Double.class);
+        }
+
+        public Double convert(Short obj) throws ConversionException {
+            return obj.doubleValue();
+        }
+    }
+
+    public static class ShortToFloat extends AbstractConverter<Short, Float> {
+        public ShortToFloat() {
+            super(Short.class, Float.class);
+        }
+
+        public Float convert(Short obj) throws ConversionException {
+            return obj.floatValue();
+        }
+    }
+
+    public static class ShortToInteger extends AbstractConverter<Short, Integer> {
+        public ShortToInteger() {
+            super(Short.class, Integer.class);
+        }
+
+        public Integer convert(Short obj) throws ConversionException {
+            return obj.intValue();
+        }
+    }
+
+    public static class ShortToList extends AbstractConverter<Short, List<Short>> {
+        public ShortToList() {
+            super(Short.class, List.class);
+        }
+
+        public List<Short> convert(Short obj) throws ConversionException {
+            List<Short> tempList = FastList.newInstance();
+            tempList.add(obj);
+            return tempList;
+        }
+    }
+
+    public static class ShortToLong extends AbstractConverter<Short, Long> {
+        public ShortToLong() {
+            super(Short.class, Long.class);
+        }
+
+        public Long convert(Short obj) throws ConversionException {
+            return obj.longValue();
+        }
+    }
+
+    public static class ShortToSet extends AbstractConverter<Short, Set<Short>> {
+        public ShortToSet() {
+            super(Short.class, Set.class);
+        }
+
+        public Set<Short> convert(Short obj) throws ConversionException {
+            Set<Short> tempSet = FastSet.newInstance();
+            tempSet.add(obj);
+            return tempSet;
+        }
+    }
+
+    public static class ShortToString extends AbstractToNumberConverter<Short, String> {
+        public ShortToString() {
+            super(Short.class, String.class);
+        }
+
+        public String convert(Short obj) throws ConversionException {
+            return obj.toString();
+        }
+
+        public String convert(Short obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+            return nf.format(obj.floatValue());
         }
     }
 
@@ -633,6 +732,16 @@ public class NumberConverters implements ConverterLoader {
                 return null;
             }
             return fromString(trimStr, locale).longValue();
+        }
+    }
+
+    public static class StringToShort extends AbstractConverter<String, Short> {
+        public StringToShort() {
+            super(String.class, Short.class);
+        }
+
+        public Short convert(String obj) throws ConversionException {
+            return Short.valueOf(obj);
         }
     }
 
