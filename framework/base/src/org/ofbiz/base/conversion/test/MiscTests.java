@@ -20,6 +20,7 @@ package org.ofbiz.base.conversion.test;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +36,30 @@ import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.collections.LRUMap;
 
 public class MiscTests extends GenericTestCaseBase {
 
     public MiscTests(String name) {
         super(name);
+    }
+
+    public void testExtendsImplements() throws Exception {
+        List<String> arraysList = Arrays.asList("a", "b", "c");
+        Converter converter = Converters.getConverter(arraysList.getClass(), String.class);
+        assertEquals("", "[a, b, c]", converter.convert(arraysList));
+        Exception caught = null;
+        try {
+            Converters.getConverter(MiscTests.class, String.class);
+        } catch (ClassNotFoundException e) {
+            caught = e;
+        } finally {
+            assertNotNull("ClassNotFoundException thrown for MiscTests.class", caught);
+        }
+        LRUMap<String, String> map = new LRUMap<String, String>();
+        map.put("a", "1");
+        converter = Converters.getConverter(LRUMap.class, String.class);
+        assertEquals("", "{a=1}", converter.convert(map));
     }
 
     public void testPassthru() throws Exception {
