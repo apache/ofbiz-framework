@@ -47,7 +47,7 @@ public class MiscTests extends GenericTestCaseBase {
     public void testExtendsImplements() throws Exception {
         List<String> arraysList = Arrays.asList("a", "b", "c");
         Converter converter = Converters.getConverter(arraysList.getClass(), String.class);
-        assertEquals("", "[a, b, c]", converter.convert(arraysList));
+        assertEquals("", "[\n \"a\",\n \"b\",\n \"c\"\n]", converter.convert(arraysList));
         Exception caught = null;
         try {
             Converters.getConverter(MiscTests.class, String.class);
@@ -59,7 +59,7 @@ public class MiscTests extends GenericTestCaseBase {
         LRUMap<String, String> map = new LRUMap<String, String>();
         map.put("a", "1");
         converter = Converters.getConverter(LRUMap.class, String.class);
-        assertEquals("", "{a=1}", converter.convert(map));
+        assertEquals("", "{\n \"a\": \"1\"\n}", converter.convert(map));
     }
 
     public void testPassthru() throws Exception {
