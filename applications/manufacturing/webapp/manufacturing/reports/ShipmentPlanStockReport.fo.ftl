@@ -40,25 +40,11 @@ under the License.
                     <fo:block font-size="14pt">${uiLabelMap.ManufacturingComponentsOfShipmentPlan}</fo:block>
                     <fo:block><fo:leader/></fo:block>
                     <fo:block space-after.optimum="10pt" font-size="10pt"/>
-                    <fo:table>
-                        <fo:table-column column-width="200pt"/>
-                        <fo:table-column column-width="200pt"/>
-                        <fo:table-column column-width="200pt"/>
-                        <fo:table-header>
-                            <fo:table-row font-weight="bold">
-                                <fo:table-cell padding="2pt">
-                                    <fo:block>${uiLabelMap.ManufacturingShipmentId}: ${shipmentIdPar}</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2pt">
-                                    <fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}: <#if estimatedReadyDatePar?has_content>${estimatedReadyDatePar}</#if></fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2pt">
-                                    <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}: <#if estimatedShipDatePar?has_content>${estimatedShipDatePar}</#if></fo:block>
-                                </fo:table-cell>
-                            </fo:table-row>
-                        </fo:table-header>
-                        <fo:table-body/>
-                    </fo:table>
+
+                    <fo:block>${uiLabelMap.ManufacturingShipmentId}: ${shipmentIdPar}</fo:block>
+                    <fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}: <#if estimatedReadyDatePar?has_content>${estimatedReadyDatePar}</#if></fo:block>
+                    <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}: <#if estimatedShipDatePar?has_content>${estimatedShipDatePar}</#if></fo:block>
+
                     <fo:block space-after.optimum="10pt" font-size="10pt"/>
                     <fo:table>
                         <fo:table-column column-width="120pt"/>
@@ -81,21 +67,12 @@ under the License.
                                     <fo:block>${uiLabelMap.ManufacturingNeedQuantity}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
-                                    <fo:block>${uiLabelMap.ManufacturingOnHandQuantity}</fo:block>
+                                    <fo:block>${uiLabelMap.ProductQoh}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-header>
-                        <fo:table-body/>
-                    </fo:table>
-                    <#list records as record>
-                        <fo:table>
-                            <fo:table-column column-width="120pt"/>
-                            <fo:table-column column-width="120pt"/>
-                            <fo:table-column column-width="120pt"/>
-                            <fo:table-column column-width="120pt"/>
-                            <fo:table-column column-width="120pt"/>
-                            <fo:table-header/>
-                            <fo:table-body>
+                        <fo:table-body>
+                            <#list records as record>
                                 <fo:table-row>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
@@ -146,9 +123,9 @@ under the License.
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
-                            </fo:table-body>
-                        </fo:table>
-                    </#list>
+                            </#list>
+                        </fo:table-body>
+                    </fo:table>
                 </fo:flow>
             </fo:page-sequence>
         <#else>

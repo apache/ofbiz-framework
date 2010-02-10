@@ -27,7 +27,7 @@ shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
 context.shipmentIdPar = shipment.shipmentId;
 context.estimatedReadyDatePar = shipment.estimatedReadyDate;
 context.estimatedShipDatePar = shipment.estimatedShipDate;
-
+records = [];
 if (shipment) {
     shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
     shipmentPlans.each { shipmentPlan ->
@@ -50,11 +50,10 @@ if (shipment) {
 
         result = [:];
         result = dispatcher.runSync("getNotAssembledComponents",inputPar);
-        if (result)
+        if (result) {
             components = (List)result.get("notAssembledComponents");
-        componentsIt = components.iterator();
-        while (componentsIt) {
-            oneComponent = (org.ofbiz.manufacturing.bom.BOMNode)componentsIt.next();
+        }
+        components.each { oneComponent ->
             record = new HashMap(recordGroup);
             record.componentId = oneComponent.getProduct().productId;
             record.componentName = oneComponent.getProduct().internalName;
@@ -66,11 +65,11 @@ if (shipment) {
                     serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId];
                     serviceOutput = dispatcher.runSync("getInventoryAvailableByFacility",serviceInput);
                     qha = serviceOutput.quantityOnHandTotal ?: 0.0;
-                    inventoryStock.oneComponent.getProduct().productId = qha;
+                    inventoryStock.put(oneComponent.getProduct().productId, qha);
                 }
                 qty = inventoryStock[oneComponent.getProduct().productId];
                 qty = qty - oneComponent.getQuantity();
-                inventoryStock.oneComponent.getProduct().productId = qty;
+                inventoryStock.put(oneComponent.getProduct().productId, qty);
             }
             record.componentOnHand = qty;
             // Now we get the products qty already reserved by production runs
