@@ -272,7 +272,7 @@
         <value xml:lang="zh">缺少(旧)密码。</value>
     </property>
     <property key="loginmapprocs.password_not_equal_verfiy_password">
-        <value xml:lang="de">Das neue Passwort ist identisch mit dem Bestätigungspasswort</value>
+        <value xml:lang="de">Das neue Passwort ist nicht identisch mit dem Bestätigungspasswort</value>
         <value xml:lang="en">New Password does not equal Verify Password</value>
         <value xml:lang="es">Los passwords no concuerdan</value>
         <value xml:lang="fr">Le nouveau mot de passe ne correspond pas à la vérification de ce nouveau mot de passe</value>
