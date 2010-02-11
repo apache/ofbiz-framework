@@ -41,7 +41,7 @@ under the License.
 
 <#macro renderField text><#if text?exists>${text}</#if></#macro>
 
-<#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
+<#macro renderDisplayField type imageLocation idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
 <@makeBlock class description />
 </#macro>
 <#macro renderHyperlinkField></#macro>
