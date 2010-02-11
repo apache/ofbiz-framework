@@ -342,4 +342,224 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <simple-method method-name="testProductionRunQuickIssueAndProduce" short-description="Test the production run quick issuance of materials and production of finished product" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="2.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <!-- production run -->
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <call-service service-name="quickStartAllProductionRunTasks" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+        <call-service service-name="calculateProductCosts" in-map-name="serviceCtx"/>
+
+        <!-- the tests -->
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_A_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialA" list="productionRunMaterials"/>
+        <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_B_COST"/>
+        </entity-and>
+        <first-from-list entry="productionRunMaterialB" list="productionRunMaterials"/>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+        <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+        <set field="serviceCtx.lotId" value="LOT12345"/>
+        <set field="componentLocationMap.failIfItemsAreNotAvailable" from-field="Y"/>
+        <set field="componentLocationMap.locationSeqId" value=""/>
+        <set field="componentLocationMap.secondaryLocationSeqId" value=""/>
+        <set field="componentsLocationMap.${productionRunMaterialA}" from-field="componentLocationMap"/>
+        <set field="componentsLocationMap.${productionRunMaterialB}" from-field="componentLocationMap"/>
+        <set field="serviceCtx.componentsLocationMap" from-field="componentsLocationMap"/>
+        <set field="serviceCtx.quantity" value="1.0" type="BigDecimal"/>
+        <call-service service-name="productionRunDeclareAndProduce" in-map-name="serviceCtx"/>
+        <refresh-value value-field="productionRunHeader"/>
+        <refresh-value value-field="productionRunTask"/>
+
+        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_A_COST"/>
+        </entity-and>
+        <set field="materialAConsumedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="consumedMaterials" entry="consumedMaterial">
+            <set field="materialAConsumedTotal" value="${materialAConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
+        </iterate>
+        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_B_COST"/>
+        </entity-and>
+        <set field="materialBConsumedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="consumedMaterials" entry="consumedMaterial">
+            <set field="materialBConsumedTotal" value="${materialBConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
+        </iterate>
+        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+            <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
+        </entity-and>
+        <set field="materialProducedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="producedMaterials" entry="producedMaterial">
+            <set field="materialProducedTotal" value="${materialProducedTotal + producedMaterial.quantityOnHandTotal}" type="BigDecimal"/>
+            <assert>
+                <if-compare field="producedMaterial.lotId" operator="equals" value="LOT12345"/>
+                <if-compare field="producedMaterial.unitCost" operator="equals" value="84.00" type="BigDecimal"/>
+                <if-compare field="producedMaterial.currencyUomId" operator="equals" value="USD"/>
+            </assert>
+        </iterate>
+
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_RUNNING"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_RUNNING"/>
+            <if-compare field="materialAConsumedTotal" operator="equals" value="2.0" type="BigDecimal"/>
+            <if-compare field="materialBConsumedTotal" operator="equals" value="3.0" type="BigDecimal"/>
+            <if-compare field="materialProducedTotal" operator="equals" value="1.0" type="BigDecimal"/>
+            <if-compare field="productionRunHeader.quantityProduced" operator="equals" value="1.0" type="BigDecimal"/>
+        </assert>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+        <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+        <set field="serviceCtx.lotId" value="LOT12345"/>
+        <set field="componentLocationMap.failIfItemsAreNotAvailable" from-field="Y"/>
+        <set field="componentLocationMap.locationSeqId" value=""/>
+        <set field="componentLocationMap.secondaryLocationSeqId" value=""/>
+        <set field="componentsLocationMap.${productionRunMaterialA}" from-field="componentLocationMap"/>
+        <set field="componentsLocationMap.${productionRunMaterialB}" from-field="componentLocationMap"/>
+        <set field="serviceCtx.componentsLocationMap" from-field="componentsLocationMap"/>
+        <set field="serviceCtx.quantity" value="1.0" type="BigDecimal"/>
+        <call-service service-name="productionRunDeclareAndProduce" in-map-name="serviceCtx"/>
+
+        <refresh-value value-field="productionRunHeader"/>
+        <refresh-value value-field="productionRunTask"/>
+        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_A_COST"/>
+        </entity-and>
+        <set field="totalMaterialCost" value="0.0" type="BigDecimal"/>
+        <set field="materialAConsumedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="consumedMaterials" entry="consumedMaterial">
+            <set field="materialAConsumedTotal" value="${materialAConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
+            <set field="totalMaterialCost" value="${totalMaterialCost + consumedMaterial.unitCost * consumedMaterial.quantity}" type="BigDecimal"/>
+        </iterate>
+        <entity-and list="consumedMaterials" entity-name="WorkEffortAndInventoryAssign">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+            <field-map field-name="productId" value="MAT_B_COST"/>
+        </entity-and>
+        <set field="materialBConsumedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="consumedMaterials" entry="consumedMaterial">
+            <set field="materialBConsumedTotal" value="${materialBConsumedTotal + consumedMaterial.quantity}" type="BigDecimal"/>
+            <set field="totalMaterialCost" value="${totalMaterialCost + consumedMaterial.unitCost * consumedMaterial.quantity}" type="BigDecimal"/>
+        </iterate>
+        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+            <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
+        </entity-and>
+        <set field="materialProducedTotal" value="0.0" type="BigDecimal"/>
+        <iterate list="producedMaterials" entry="producedMaterial">
+            <set field="materialProducedTotal" value="${materialProducedTotal + producedMaterial.quantityOnHandTotal}" type="BigDecimal"/>
+            <assert>
+                <if-compare field="producedMaterial.lotId" operator="equals" value="LOT12345"/>
+                <if-compare field="producedMaterial.unitCost" operator="equals" value="84.00" type="BigDecimal"/>
+                <if-compare field="producedMaterial.currencyUomId" operator="equals" value="USD"/>
+            </assert>
+        </iterate>
+
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_RUNNING"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_RUNNING"/>
+            <if-compare field="materialAConsumedTotal" operator="equals" value="4.0" type="BigDecimal"/>
+            <if-compare field="materialBConsumedTotal" operator="equals" value="6.0" type="BigDecimal"/>
+            <if-compare field="materialProducedTotal" operator="equals" value="2.0" type="BigDecimal"/>
+            <if-compare field="productionRunHeader.quantityProduced" operator="equals" value="2.0" type="BigDecimal"/>
+        </assert>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_COMPLETED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <refresh-value value-field="productionRunHeader"/>
+        <refresh-value value-field="productionRunTask"/>
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+        </assert>
+
+        <entity-and list="costComponents" entity-name="CostComponent">
+            <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
+        </entity-and>
+        <iterate list="costComponents" entry="costComponent">
+            <if-compare field="costComponent.costComponentTypeId" operator="equals" value="ACTUAL_GEN_COST">
+                <assert>
+                    <if-compare field="costComponent.costUomId" operator="equals" value="USD"/>
+                    <if-compare field="costComponent.costComponentCalcId" operator="equals" value="GEN_COST_CALC"/>
+                    <if-compare field="costComponent.cost" operator="equals" value="6.7835" type="BigDecimal"/>
+                </assert>
+            </if-compare>
+        </iterate>
+
+        <entity-and list="costComponents" entity-name="CostComponent">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
+        </entity-and>
+        <iterate list="costComponents" entry="costComponent">
+            <if-compare field="costComponent.costComponentTypeId" operator="equals" value="ACTUAL_MAT_COST">
+                <assert>
+                    <if-compare field="costComponent.costUomId" operator="equals" value="USD"/>
+                    <if-compare field="costComponent.cost" operator="equals" value="78.00" type="BigDecimal"/>
+                </assert>
+            </if-compare>
+            <if-compare field="costComponent.costComponentTypeId" operator="equals" value="ACTUAL_ROUTE_COST">
+                <assert>
+                    <if-compare field="costComponent.costUomId" operator="equals" value="USD"/>
+                    <if-compare field="costComponent.fixedAssetId" operator="equals" value="WORKCENTER_COST"/>
+                    <if-compare field="costComponent.cost" operator="equals" value="16.67" type="BigDecimal"/>
+                </assert>
+            </if-compare>
+            <if-compare field="costComponent.costComponentTypeId" operator="equals" value="ACTUAL_OTHER_COST">
+                <assert>
+                    <if-compare field="costComponent.costUomId" operator="equals" value="USD"/>
+                    <if-compare field="costComponent.costComponentCalcId" operator="equals" value="TASK_COST_CALC"/>
+                    <if-compare field="costComponent.cost" operator="equals" value="41.00" type="BigDecimal"/>
+                </assert>
+            </if-compare>
+        </iterate>
+
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
