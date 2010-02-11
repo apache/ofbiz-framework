@@ -3727,6 +3727,7 @@
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] nécessite que vous y soyez associé par un compte ou une adresse courriel ce qui n'est pas le cas</value>
     </property>
     <property key="productpromoworker.promotion_code_not_valid">
+        <value xml:lang="de">Der eingegebene Gutscheincode [${productPromoCodeId}] ist ungültig.</value>
         <value xml:lang="en">The promotion code [${productPromoCodeId}] is not valid.</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] n'existe pas.</value>
     </property>
