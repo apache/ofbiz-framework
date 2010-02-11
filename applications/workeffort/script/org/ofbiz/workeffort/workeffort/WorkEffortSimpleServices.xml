@@ -192,6 +192,7 @@ under the License.
         <remove-related value-field="lookedUpValue" relation-name="RecurrenceInfo"/>
         <remove-related value-field="lookedUpValue" relation-name="RuntimeData"/>
         <remove-related value-field="lookedUpValue" relation-name="WorkEffortPartyAssignment"/>
+        <remove-related value-field="lookedUpValue" relation-name="WorkEffortFixedAssetAssign"/>
         <remove-related value-field="lookedUpValue" relation-name="WorkEffortStatus"/>
 
         <!-- Delete actual main entity last -->
