@@ -23,22 +23,27 @@ under the License.
     </#if>
 </#macro>
 
-<#macro renderDisplayField idName description class alert inPlaceEditorUrl="" inPlaceEditorParams="">
-    <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
-        <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
-    </#if>
-    <#if description?has_content>
-        ${description?replace("\n", "<br/>")}<#t/>
+<#macro renderDisplayField type imageLocation idName description class alert inPlaceEditorUrl="" inPlaceEditorParams="">
+    <#if type?has_content && type=="image">
+        <img src="${imageLocation}"><#lt/>
     <#else>
-        &nbsp;<#t/>
-    </#if>
-    <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
-        </span><#lt/>
-    </#if>
-    <#if inPlaceEditorUrl?has_content && idName?has_content>
-        <script language="JavaScript" type="text/javascript"><#lt/>
-        ajaxInPlaceEditDisplayField('${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
-        </script><#lt/>
+        <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
+            <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
+        </#if>
+        
+        <#if description?has_content>
+            ${description?replace("\n", "<br/>")}<#t/>
+        <#else>
+            &nbsp;<#t/>
+        </#if>
+        <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
+            </span><#lt/>
+        </#if>
+        <#if inPlaceEditorUrl?has_content && idName?has_content>
+            <script language="JavaScript" type="text/javascript"><#lt/>
+            ajaxInPlaceEditDisplayField('${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
+            </script><#lt/>
+        </#if>
     </#if>
 </#macro>
 <#macro renderHyperlinkField></#macro>

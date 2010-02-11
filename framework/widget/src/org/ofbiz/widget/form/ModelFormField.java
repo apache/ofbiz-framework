@@ -2035,6 +2035,7 @@ public class ModelFormField {
         protected boolean alsoHidden = true;
         protected FlexibleStringExpander description;
         protected String type;  // matches type of field, currently text or currency
+        protected String imageLocation;
         protected FlexibleStringExpander currency;
         protected FlexibleStringExpander date;
         protected InPlaceEditor inPlaceEditor;
@@ -2054,6 +2055,7 @@ public class ModelFormField {
         public DisplayField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.type = element.getAttribute("type");
+            this.imageLocation = element.getAttribute("image-location");
             this.setCurrency(element.getAttribute("currency"));
             this.setDescription(element.getAttribute("description"));
             this.setDate(element.getAttribute("date"));
@@ -2072,6 +2074,13 @@ public class ModelFormField {
 
         public boolean getAlsoHidden() {
             return alsoHidden;
+        }
+        public String getType(){
+        	return this.type;
+        }
+
+        public String getImageLocation(){
+        	return this.imageLocation;
         }
 
         public String getDescription(Map<String, Object> context) {
