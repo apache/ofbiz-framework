@@ -605,6 +605,8 @@ under the License.
       <alias entity-alias="II" name="productId"></alias>
       <alias entity-alias="II" name="currencyUomId"></alias>
       <alias entity-alias="II" name="unitCost"></alias>
+      <alias entity-alias="II" name="lotId"></alias>
+      <alias entity-alias="II" name="quantityOnHandTotal"></alias>
       <view-link entity-alias="WEIP" rel-entity-alias="II">
         <key-map field-name="inventoryItemId"></key-map>
       </view-link>
