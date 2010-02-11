@@ -809,8 +809,7 @@
         <value xml:lang="it">ERRORE : Non è possibile ottenere OrderHeader da ReturnItem</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea OrderHeader din ReturnItem</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить шапку заказа из позиции возврата</value>
-        <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถเรียกหัวข้อใบคำสั่งซื้อจากการคืนค่ารายการ
-</value>
+        <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถเรียกหัวข้อใบคำสั่งซื้อจากการคืนค่ารายการ</value>
         <value xml:lang="zh">错误：无法从退货明细获得订单头</value>
     </property>
     <property key="OrderErrorUnableToGetOrderInformation">
@@ -1585,8 +1584,7 @@
         <value xml:lang="it">Problemi creazione entità ReturnItemResponse</value>
         <value xml:lang="ro">Probleme creare entitate ReturnItemResponse</value>
         <value xml:lang="ru">Проблемы создания объекта ReturnItemResponse</value>
-        <value xml:lang="th">ปัญหาการสร้างเอนทิตี ReturnItemResponse
-</value>
+        <value xml:lang="th">ปัญหาการสร้างเอนทิตี ReturnItemResponse</value>
         <value xml:lang="zh">创建退货明细回答实体时出现问题</value>
     </property>
     <property key="OrderProblemsGettingContactMechFromOrderContactMech">
@@ -3711,32 +3709,31 @@
     <property key="productpromoworker.promotion_code_already_been_entered">
         <value xml:lang="en">The promotion code [${productPromoCodeId}] has already been entered.</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] a déjà été utilisé.</value>
-    </property>    
+    </property>
     <property key="productpromoworker.promotion_code_is_expired_at">
         <value xml:lang="en">The promotion code [${productPromoCodeId}] has expired at: ${thruDate}</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] s'est achevé le ${thruDate}</value>
-    </property>    
+    </property>
     <property key="productpromoworker.promotion_code_error_lookup">
         <value xml:lang="en">Error looking up promotion code [${productPromoCodeId}]: {errorMsg}</value>
         <value xml:lang="fr">Erreur lors de la recherche du code de promotion [${productPromoCodeId}]: {errorMsg}</value>
-    </property>        
+    </property>
     <property key="productpromoworker.promotion_code_maximum_limit">
         <value xml:lang="en">This promotion code (${productPromoCodeId}) has reached it's maximum use limit for you and can no longer be used.</value>
         <value xml:lang="fr">Ce code de promotion (${productPromoCodeId}) a atteint sa limite d'usage pour vous et ne plus être utilisé.</value>
-    </property>        
+    </property>
     <property key="productpromoworker.promotion_code_no_account_or_email">
         <value xml:lang="en">The promotion code [${productPromoCodeId}] requires you to be associated with it by account or email address and you are not associated with it.</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] nécessite que vous y soyez associé par un compte ou une adresse courriel ce qui n'est pas le cas</value>
-    </property>    
+    </property>
     <property key="productpromoworker.promotion_code_not_valid">
         <value xml:lang="en">The promotion code [${productPromoCodeId}] is not valid.</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] n'existe pas.</value>
     </property>
-    
     <property key="productpromoworker.promotion_code_will_be_activated_at">
         <value xml:lang="en">The promotion code [${productPromoCodeId}] will be activated  at: {fromDate}</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] sera activé le ${fromDate}</value>
-    </property>        
+    </property>
     <property key="product.no_longer_for_sale">
         <value xml:lang="de">Sie haben versucht, das Produkt {0} (Produkt ID: {1}) zu bestellen. Dieses Produkt wird nicht mehr verkauft. Bitte entfernen Sie es aus dem Warenkorb.</value>
         <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
