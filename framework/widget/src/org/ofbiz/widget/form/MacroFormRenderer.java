@@ -180,6 +180,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             idName += "_" + modelForm.getRowCount();
         }
         String description = displayField.getDescription(context);
+        String type = displayField.getType();
+        String imageLocation = displayField.getImageLocation();
         description = encode(description, modelFormField, context);
 
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
@@ -187,7 +189,11 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderDisplayField ");
-        sr.append("idName=\"");
+        sr.append("type=\"");
+        sr.append(type);
+        sr.append("\" imageLocation=\"");
+        sr.append(imageLocation);
+        sr.append("\" idName=\"");
         sr.append(idName);
         sr.append("\" description=\"");
         sr.append(description);

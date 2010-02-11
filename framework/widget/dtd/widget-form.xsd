@@ -664,11 +664,17 @@ under the License.
                     <xs:enumeration value="date-time">
                         <xs:annotation><xs:documentation>Display only the date and hours:minutes part of a timestamp field</xs:documentation></xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="image">
+                        <xs:annotation><xs:documentation>Display the image specified in image-location</xs:documentation></xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="currency">
             <xs:annotation><xs:documentation>Specifies the currency uom ID used to format context value, should generally use the ${} syntax to retrieve value.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="image-location">
+            <xs:annotation><xs:documentation>Specifies the image to display.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="display-entity" substitutionGroup="AllFields">
