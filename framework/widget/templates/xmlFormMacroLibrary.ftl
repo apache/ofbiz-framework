@@ -35,12 +35,7 @@ under the License.
 
 <#macro renderFormatSingleWrapperClose formName></${formName}Export></#macro>
 
-
-
-
-
-
-<#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
+<#macro renderDisplayField type imageLocation idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
 <@renderField description/>
 </#macro>
 <#macro renderHyperlinkField></#macro>
