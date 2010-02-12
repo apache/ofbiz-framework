@@ -151,13 +151,6 @@ function lookup_error(str_message) {
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
-
-//init KeyListener
-window.onload = function () {
-    //Observe
-    Event.observe(document, "keypress", key_event);
-}
-
 //if ESC is pressed, remove draged portlet + hoverDiv
 function key_event(evt) {
     if (evt.keyCode == 27) {
@@ -210,6 +203,7 @@ var FieldLookupPopup = Class.create({
         this.position = position;
         
         this.createElement();
+        Event.observe(document, "keypress", key_event);
         Event.observe(document, "mousedown", close_on_click);
         CURRENT_LOOKUP = this;
     },
@@ -423,6 +417,7 @@ var FieldLookupPopup2 = Class.create({
         this.position = position;
         
         this.createElement();
+        Event.observe(document, "keypress", key_event);
         Event.observe(document, "mousedown", close_on_click);
         CURRENT_LOOKUP = this;
     },
