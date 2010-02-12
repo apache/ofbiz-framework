@@ -110,6 +110,13 @@ public class LoginServices {
             errMsg = UtilProperties.getMessage(resource,"loginservices.password_missing", locale);
         } else {
 
+            if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase"))) {
+                username = username.toLowerCase();
+            }
+            if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase"))) {
+                password = password.toLowerCase();
+            }
+
             boolean repeat = true;
             // starts at zero but it incremented at the beggining so in the first pass passNumber will be 1
             int passNumber = 0;
