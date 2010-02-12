@@ -26,6 +26,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.URL;
 import java.util.List;
 import java.util.Set;
@@ -71,6 +73,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.thoughtworks.xstream.XStream;
+
 /**
  * Utilities methods to simplify dealing with JAXP & DOM XML parsing
  *
@@ -78,6 +82,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class UtilXml {
 
     public static final String module = UtilXml.class.getName();
+    protected static final XStream xstream = new XStream();
 
     // ----- DOM Level 3 Load and Save Methods -- //
 
@@ -226,7 +231,63 @@ public class UtilXml {
         transformDomDocument(transformer, node, os);
     }
 
-    // ------------------------------------ //
+    // ----- Java Object Marshalling/Unmarshalling ----- //
+
+    /** Deserialize an object from an <code>InputStream</code>.
+     * 
+     * @param input The <code>InputStream</code>
+     * @return The deserialized <code>Object</code>
+     */
+    public static Object fromXml(InputStream input) {
+        return xstream.fromXML(input);
+    }
+
+    /** Deserialize an object from a <code>Reader</code>.
+     * 
+     * @param reader The <code>Reader</code>
+     * @return The deserialized <code>Object</code>
+     */
+    public static Object fromXml(Reader reader) {
+        return xstream.fromXML(reader);
+    }
+
+    /** Deserialize an object from a <code>String</code>.
+     * 
+     * @param str The <code>String</code>
+     * @return The deserialized <code>Object</code>
+     */
+    public static Object fromXml(String str) {
+        return xstream.fromXML(str);
+    }
+
+    /** Serialize an object to an XML <code>String</code>.
+     * 
+     * @param obj The object to serialize
+     * @return An XML <code>String</code>
+     */
+    public static String toXml(Object obj) {
+        return xstream.toXML(obj);
+    }
+
+    /** Serialize an object to an <code>OutputStream</code>.
+     * 
+     * @param obj The object to serialize
+     * @param output The <code>OutputStream</code>
+     */
+    public static void toXml(Object obj, OutputStream output) {
+        xstream.toXML(obj, output);
+    }
+
+    /** Serialize an object to a <code>Writer</code>.
+     * 
+     * @param obj The object to serialize
+     * @param writer The <code>Writer</code>
+     */
+    public static void toXml(Object obj, Writer writer) {
+        xstream.toXML(obj, writer);
+    }
+
+    // ------------------------------------------------- //
 
     public static String writeXmlDocument(Node node) throws java.io.IOException {
         if (node == null) {
