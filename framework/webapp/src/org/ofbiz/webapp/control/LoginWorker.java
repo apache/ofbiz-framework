@@ -239,18 +239,11 @@ public class LoginWorker {
 
         if (userLogin == null) {
             // check parameters
-            if (username == null) username = request.getParameter("USERNAME");
-            if (password == null) password = request.getParameter("PASSWORD");
+            username = request.getParameter("USERNAME");
+            password = request.getParameter("PASSWORD");
             // check session attributes
             if (username == null) username = (String) session.getAttribute("USERNAME");
             if (password == null) password = (String) session.getAttribute("PASSWORD");
-
-            if ((username != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
-                username = username.toLowerCase();
-            }
-            if ((password != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase")))) {
-                password = password.toLowerCase();
-            }
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if ((username == null) || (password == null) || ("error".equals(login(request, response)))) {
@@ -321,14 +314,6 @@ public class LoginWorker {
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
             return "error";
-        }
-
-
-        if ((username != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
-            username = username.toLowerCase();
-        }
-        if ((password != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase")))) {
-            password = password.toLowerCase();
         }
 
         String requirePasswordChange = request.getParameter("requirePasswordChange");
