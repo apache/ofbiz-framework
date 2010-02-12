@@ -69,6 +69,7 @@ under the License.
     <!-- test suite -->
     <test-suite loader="main" location="testdef/CatalogTests.xml"/>
     <test-suite loader="main" location="testdef/FacilityTest.xml"/>
+    <test-suite loader="main" location="testdef/CostTests.xml"/>
 
     <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
         base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
