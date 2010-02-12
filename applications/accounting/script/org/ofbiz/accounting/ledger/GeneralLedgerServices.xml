@@ -1385,6 +1385,14 @@ under the License.
                <first-from-list list="workEffortGoodStandards" entry="workEffortGoodStandard"/>
             </if-not-empty>
         </if-compare>
+        <if-compare field="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_HEADER">
+            <entity-and entity-name="WorkEffortGoodStandard" list="workEffortGoodStandards">
+                <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
+                <field-map field-name="workEffortGoodStdTypeId" value="PRUN_PROD_DELIV"/>
+                <order-by field-name="-fromDate"/>
+            </entity-and>
+           <first-from-list list="workEffortGoodStandards" entry="workEffortGoodStandard"/>
+        </if-compare>
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>

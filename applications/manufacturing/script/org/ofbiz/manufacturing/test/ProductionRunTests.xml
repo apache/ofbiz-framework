@@ -610,6 +610,7 @@ under the License.
                         <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
                         <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
                         <if-compare field="acctgTransEntry.amount" operator="equals" value="6.78" type="BigDecimal"/>
+                        <if-compare-field field="acctgTransEntry.productId" operator="equals" to-field="productId"/>
                     </assert>
                 </else>
                 </if-compare>
