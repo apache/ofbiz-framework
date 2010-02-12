@@ -483,6 +483,8 @@ ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
 ofbiz/trunk/framework/base/lib/javacc/javacc-4.1.jar
 ofbiz/trunk/framework/base/lib/javolution-5.4.3.jar
 ofbiz/trunk/framework/base/lib/junitperf.jar
+ofbiz/trunk/framework/base/lib/xpp3_min-1.1.4c.jar
+ofbiz/trunk/framework/base/lib/xstream-1.3.1.jar
 ofbiz/trunk/framework/base/lib/owasp-esapi-full-java-1.4.jar
 ofbiz/trunk/framework/base/lib/scripting/antlr-2.7.6.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-3.2.jar
