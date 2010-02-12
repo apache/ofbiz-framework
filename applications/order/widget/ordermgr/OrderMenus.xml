@@ -296,7 +296,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
-                    <if-compare field="custRequest" operator="equals" value="RF_QUOTE"/>
+                    <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_QUOTE"/>
                 </and>
             </condition>
             <link target="createQuoteFromCustRequest">
