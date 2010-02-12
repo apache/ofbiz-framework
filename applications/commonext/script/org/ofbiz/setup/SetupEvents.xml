@@ -382,6 +382,7 @@
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
         <first-from-list entry="partyPostalAddress" list="listPartyPostalAddress"/>
+        <sequenced-id sequence-name="ContactMech" field="partyPostalAddress.contactMechId"/>
         <set-service-fields service-name="createPostalAddress" map="partyPostalAddress" to-map="addressContext"/>
         <call-service service-name="createPostalAddress" in-map-name="addressContext">
             <result-to-field result-name="contactMechId" field="contactMechId"/>
