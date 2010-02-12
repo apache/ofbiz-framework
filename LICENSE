@@ -2784,7 +2784,7 @@ The DocBook XSL stylesheets are maintained by Norman Walsh,
 <ndw@nwalsh.com>, and members of the DocBook Project,
 <docbook-developers@sf.net>
 ===============================================================
-The docbook schemas in te file docbook.xsd, docbook.dtd xlink.xsd
+The docbook schemas in the files docbook.xsd, docbook.dtd xlink.xsd
 and xml.xsd are distributed under the GNU Free Documentation License
 GNU Free Documentation License
 It was allowed by the author to use the docbook files within the 
