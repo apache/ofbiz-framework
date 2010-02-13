@@ -432,11 +432,15 @@
         <value xml:lang="en">Fields groups</value>
         <value xml:lang="it">Gruppi campi</value>
         <value xml:lang="zh">数据项组</value>
-    </property>
+    </property>    
     <property key="ExampleLongDescription">
         <value xml:lang="en">Long Description</value>
         <value xml:lang="it">Descrizione lunga</value>
         <value xml:lang="zh">详细描述</value>
+    </property>
+    <property key="ExampleLookupFields">
+        <value xml:lang="en">Examples Lookup Fields</value>
+        <value xml:lang="fr">Exemples de champs de recherche</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
