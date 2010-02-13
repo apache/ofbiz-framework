@@ -29,6 +29,9 @@ import junit.framework.TestCase;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -102,6 +105,31 @@ public class EntityTestSuite extends EntityTestCase {
             testValue = delegator.findOne("TestingType", false, "testingTypeId", "TEST-1");
             TestCase.assertEquals("Retrieved value has the correct description", testValue.getString("description"), "New Testing Type #1");
 
+        } catch (GenericEntityException ex) {
+            TestCase.fail(ex.getMessage());
+        }
+    }
+
+    /*
+     * Tests XML serialization by serializing/deserializing a GenericValue
+     */
+    public void testXmlSerialization() throws Exception {
+        try {
+            // Must use the default delegator because the deserialized GenericValue can't
+            // find the randomized one.
+            Delegator localDelegator = DelegatorFactory.getDelegator("default");
+            boolean transBegin = TransactionUtil.begin();
+            localDelegator.create("TestingType", "testingTypeId", "TEST-5", "description", "Testing Type #5");
+            GenericValue testValue = localDelegator.findOne("TestingType", false, "testingTypeId", "TEST-5");
+            TestCase.assertEquals("Retrieved value has the correct description", testValue.getString("description"), "Testing Type #5");
+            String newValueStr = UtilXml.toXml(testValue);
+            GenericValue newValue = (GenericValue) UtilXml.fromXml(newValueStr);
+            TestCase.assertEquals("Retrieved value has the correct description", newValue.getString("description"), "Testing Type #5");
+            newValue.put("description", "XML Testing Type #5");
+            newValue.store();
+            newValue = localDelegator.findOne("TestingType", false, "testingTypeId", "TEST-5");
+            TestCase.assertEquals("Retrieved value has the correct description", newValue.getString("description"), "XML Testing Type #5");
+            TransactionUtil.rollback(transBegin, null, null);
         } catch (GenericEntityException ex) {
             TestCase.fail(ex.getMessage());
         }
