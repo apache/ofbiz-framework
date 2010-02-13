@@ -141,7 +141,7 @@ public class MiscConverters implements ConverterLoader {
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return sourceClass.isAssignableFrom(Enum.class) && targetClass.isAssignableFrom(String.class);
+            return Enum.class.isAssignableFrom(sourceClass) && String.class.isAssignableFrom(targetClass);
         }
 
         public String convert(Enum obj) throws ConversionException {
@@ -167,7 +167,7 @@ public class MiscConverters implements ConverterLoader {
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return sourceClass.isAssignableFrom(String.class) && targetClass.isAssignableFrom(Enum.class);
+            return String.class.isAssignableFrom(sourceClass) && Enum.class.isAssignableFrom(targetClass);
         }
 
         public Enum convert(String obj) throws ConversionException {
