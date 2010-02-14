@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ofbiz.base.util.IndentingWriter;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilIO;
 
 public class JSONWriter {
@@ -177,9 +178,9 @@ public class JSONWriter {
         } else if (o instanceof String) {
             return write((String) o);
         } else if (o instanceof Map) {
-            return write((Map) o);
+            return write(UtilGenerics.<Map<?, ?>>cast(o));
         } else if (o instanceof Collection) {
-            return write((Collection) o);
+            return write(UtilGenerics.<Collection<?>>cast(o));
         } else if (o instanceof Byte) {
             return write(((Byte) o).byteValue());
         } else if (o instanceof Character) {

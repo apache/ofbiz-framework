@@ -170,8 +170,9 @@ public class MiscConverters implements ConverterLoader {
             throw new UnsupportedOperationException();
         }
 
+        @SuppressWarnings("unchecked")
         public Enum convert(Class<? extends Enum> targetClass, String obj) throws ConversionException {
-            return Enum.valueOf(UtilGenerics.<Class<? extends Enum>>cast(targetClass), obj);
+            return Enum.valueOf(targetClass, obj);
         }
 
         public Class<? super Enum> getTargetClass() {

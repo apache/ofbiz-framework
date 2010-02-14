@@ -35,6 +35,7 @@ import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.LRUMap;
 
@@ -44,10 +45,15 @@ public class MiscTests extends GenericTestCaseBase {
         super(name);
     }
 
+    private static <S, T> void assertConversion(String label, String wanted, Class<T> targetClass, Object source, Class<S> sourceClass) throws Exception {
+        Converter<S, T> converter = Converters.getConverter(sourceClass, targetClass);
+        assertTrue(label + " can convert", converter.canConvert(sourceClass, targetClass));
+        assertEquals(label, wanted, converter.convert(UtilGenerics.<S>cast(source)));
+    }
+
     public void testExtendsImplements() throws Exception {
         List<String> arraysList = Arrays.asList("a", "b", "c");
-        Converter converter = Converters.getConverter(arraysList.getClass(), String.class);
-        assertEquals("", "[\n \"a\",\n \"b\",\n \"c\"\n]", converter.convert(arraysList));
+        assertConversion("", "[\n \"a\",\n \"b\",\n \"c\"\n]", String.class, arraysList, arraysList.getClass());
         Exception caught = null;
         try {
             Converters.getConverter(MiscTests.class, String.class);
@@ -58,8 +64,19 @@ public class MiscTests extends GenericTestCaseBase {
         }
         LRUMap<String, String> map = new LRUMap<String, String>();
         map.put("a", "1");
-        converter = Converters.getConverter(LRUMap.class, String.class);
-        assertEquals("", "{\n \"a\": \"1\"\n}", converter.convert(map));
+        assertConversion("", "{\n \"a\": \"1\"\n}", String.class, map, LRUMap.class);
+    }
+
+    public static <S> void assertPassThru(Object wanted, Class<S> sourceClass) throws Exception {
+        Converter<S, S> converter = Converters.getConverter(sourceClass, sourceClass);
+        S result = converter.convert(UtilGenerics.<S>cast(wanted));
+        assertEquals("pass thru convert", wanted, result);
+        assertTrue("pass thru exact equals", wanted == result);
+        assertTrue("pass thru can convert", converter.canConvert(wanted.getClass(), wanted.getClass()));
+        assertFalse("pass thru can't convert to object", converter.canConvert(wanted.getClass(), Object.class));
+        assertFalse("pass thru can't convert from object", converter.canConvert(Object.class, wanted.getClass()));
+        assertEquals("pass thru source class", wanted.getClass(), converter.getSourceClass());
+        assertEquals("pass thru target class", result.getClass(), converter.getTargetClass());
     }
 
     public void testPassthru() throws Exception {
@@ -86,15 +103,7 @@ public class MiscTests extends GenericTestCaseBase {
             fastMap,
         };
         for (Object testObject: testObjects) {
-            Converter converter = Converters.getConverter(testObject.getClass(), testObject.getClass());
-            Object result = converter.convert(testObject);
-            assertEquals("pass thru convert", testObject, result);
-            assertTrue("pass thru exact equals", testObject == result);
-            assertTrue("pass thru can convert", converter.canConvert(testObject.getClass(), testObject.getClass()));
-            assertFalse("pass thru can't convert to object", converter.canConvert(testObject.getClass(), Object.class));
-            assertFalse("pass thru can't convert from object", converter.canConvert(Object.class, testObject.getClass()));
-            assertEquals("pass thru source class", testObject.getClass(), converter.getSourceClass());
-            assertEquals("pass thru target class", result.getClass(), converter.getTargetClass());
+            assertPassThru(testObject, testObject.getClass());
         }
     }
 }

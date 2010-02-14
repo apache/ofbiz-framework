@@ -63,7 +63,7 @@ public class JSON {
 
 PARSER_END(JSON)
 TOKEN_MGR_DECLS: {
-    protected LinkedList stateStack = new LinkedList();
+    protected LinkedList<Integer> stateStack = new LinkedList<Integer>();
     protected StringBuilder statePrefix = new StringBuilder();
 
     protected void pushState(int state) {
@@ -74,7 +74,7 @@ TOKEN_MGR_DECLS: {
     }
 
     protected void popState() {
-        int oldState = (Integer) stateStack.removeLast();
+        int oldState = stateStack.removeLast();
         statePrefix.setLength(statePrefix.length() - 1);
         //System.err.println(statePrefix + "pop: " + lexStateNames[curLexState] + " -> " + lexStateNames[oldState]);
         SwitchTo(oldState);
@@ -282,7 +282,7 @@ void JSONObjectEntry(Map<String, Object> map):
   { map.put(key, value); }
 }
 
-List JSONArray():
+List<Object> JSONArray():
 {
   ArrayList<Object> list = new ArrayList<Object>();
   Object value;
