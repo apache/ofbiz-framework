@@ -85,8 +85,7 @@ public class Converters {
         if (result == null) {
             if (!noConversions.contains(key)) {
                 synchronized (converterMap) {
-                    Collection<Converter<?, ?>> values = converterMap.values();
-                    for (Converter<?, ?> value : values) {
+                    for (Converter<?, ?> value : converterMap.values()) {
                         if (value.canConvert(sourceClass, targetClass)) {
                             converterMap.put(key, value);
                             return UtilGenerics.cast(value);
