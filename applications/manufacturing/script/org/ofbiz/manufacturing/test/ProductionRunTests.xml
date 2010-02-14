@@ -566,7 +566,7 @@ under the License.
             <result-to-field result-name="totalCost"/>
         </call-service>
         <assert>
-            <if-compare field="totalCost" operator="equals" value="135.67" type="BigDecimal"/>
+            <if-compare field="totalCost" operator="equals" value="142.4535" type="BigDecimal"/>
         </assert>
 
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
@@ -719,4 +719,115 @@ under the License.
         <check-errors/>
     </simple-method>
 
+    <simple-method method-name="testQuickRunProductionRun" short-description="Test the quick execution of a production run" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="1.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <!-- production run -->
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <call-service service-name="quickRunAllProductionRunTasks" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+        <call-service service-name="getProductionRunCost" in-map-name="serviceCtx">
+            <result-to-field result-name="totalCost"/>
+        </call-service>
+        <assert>
+            <if-compare field="totalCost" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+        
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testQuickCloseProductionRun" short-description="Test the quick finalization of a production run" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <set field="facilityId" value="WebStoreWarehouse"/>
+        <set field="quantity" value="1.0" type="BigDecimal"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set-calendar field="productionRunStartDate" from-field="nowTimestamp" days="1"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.pRQuantity" from-field="quantity"/>
+        <set field="serviceCtx.startDate" from-field="productionRunStartDate"/>
+        <set field="serviceCtx.facilityId" from-field="facilityId"/>
+
+        <!-- production run -->
+        <call-service service-name="createProductionRun" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRunId"/>
+        </call-service>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_CLOSED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+        <call-service service-name="getProductionRunCost" in-map-name="serviceCtx">
+            <result-to-field result-name="totalCost"/>
+        </call-service>
+        <assert>
+            <if-compare field="totalCost" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <assert>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CLOSED"/>
+            <if-compare-field field="productionRunHeader.quantityProduced" operator="equals" to-field="quantity"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CLOSED"/>
+            <if-compare-field field="productionRunTask.quantityProduced" operator="equals" to-field="quantity"/>
+        </assert>
+
+        <check-errors/>
+    </simple-method>
 </simple-methods>
