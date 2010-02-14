@@ -559,6 +559,16 @@ under the License.
             </if-compare>
         </iterate>
 
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.workEffortId" from-field="productionRunId"/>
+        <call-service service-name="getProductionRunCost" in-map-name="serviceCtx">
+            <result-to-field result-name="totalCost"/>
+        </call-service>
+        <assert>
+            <if-compare field="totalCost" operator="equals" value="135.67" type="BigDecimal"/>
+        </assert>
+
         <set field="postedTotalAmount" value="0.0" type="BigDecimal"/>
         <entity-and list="acctgTransList" entity-name="AcctgTrans">
             <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
