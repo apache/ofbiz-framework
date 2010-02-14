@@ -48,7 +48,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.serialize.XmlSerializer;
+import org.ofbiz.service.engine.SoapSerializer;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -176,7 +176,7 @@ public class SOAPEventHandler implements EventHandler {
                 if (serviceObj instanceof OMElement) {
                     OMElement serviceElement = (OMElement) serviceObj;
                     String serviceName = serviceElement.getLocalName();
-                    Map<String, Object> parameters = UtilGenerics.cast(XmlSerializer.deserialize(serviceElement.toString(), delegator));
+                    Map<String, Object> parameters = UtilGenerics.cast(SoapSerializer.deserialize(serviceElement.toString(), delegator));
                     try {
                         // verify the service is exported for remote execution and invoke it
                         ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
@@ -187,7 +187,7 @@ public class SOAPEventHandler implements EventHandler {
 
                             // setup the response
                             Debug.logVerbose("[EventHandler] : Setting up response message", module);
-                            String xmlResults = XmlSerializer.serialize(results);
+                            String xmlResults = SoapSerializer.serialize(results);
                             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
                             StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
                             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -240,7 +240,7 @@ public class SOAPEventHandler implements EventHandler {
             res.setContentType("text/xml");
             Map<String, Object> results = FastMap.newInstance();
             results.put("errorMessage", errorMessage);
-            String xmlResults= XmlSerializer.serialize(results);
+            String xmlResults= SoapSerializer.serialize(results);
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = new StAXOMBuilder(xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();

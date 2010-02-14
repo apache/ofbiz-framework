@@ -58,8 +58,8 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
- * <p><b>Title:</b> XmlSerializer
- * <p><b>Description:</b> Simple XML serialization/deserialization routines with embedded type information
+ * XmlSerializer class. This class is deprecated - new code should use the
+ * Java object marshalling/unmarshalling methods in <code>UtilXml.java</code>.
  *
  */
 public class XmlSerializer {
@@ -80,21 +80,24 @@ public class XmlSerializer {
         // readXmlDocument with false second parameter to disable validation
         Document document = UtilXml.readXmlDocument(content, false);
         if (document != null) {
-            Element rootElement = document.getDocumentElement();
-            // find the first element below the root element, that should be the object
-            Node curChild = rootElement.getFirstChild();
-
-            while (curChild != null && curChild.getNodeType() != Node.ELEMENT_NODE) {
-                curChild = curChild.getNextSibling();
-            }
-            if (curChild == null) return null;
-            Element element = (Element) curChild;
-
-            return deserializeSingle(element, delegator);
+            return deserialize(document, delegator);
         } else {
             Debug.logWarning("Serialized document came back null", module);
             return null;
         }
+    }
+
+    public static Object deserialize(Document document, Delegator delegator) throws SerializeException {
+        Element rootElement = document.getDocumentElement();
+        // find the first element below the root element, that should be the object
+        Node curChild = rootElement.getFirstChild();
+        while (curChild != null && curChild.getNodeType() != Node.ELEMENT_NODE) {
+            curChild = curChild.getNextSibling();
+        }
+        if (curChild == null) {
+            return null;
+        }
+        return deserializeSingle((Element) curChild, delegator);
     }
 
     public static Element serializeSingle(Object object, Document document) throws SerializeException {

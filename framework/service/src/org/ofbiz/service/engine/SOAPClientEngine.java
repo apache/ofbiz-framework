@@ -40,7 +40,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
@@ -122,7 +121,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         OMElement parameterSer = null;
 
         try {
-            String xmlParameters = XmlSerializer.serialize(parameterMap);
+            String xmlParameters = SoapSerializer.serialize(parameterMap);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlParameters));
             StAXOMBuilder builder = new StAXOMBuilder(reader);
             parameterSer = builder.getDocumentElement();
@@ -136,7 +135,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             OMElement payload = factory.createOMElement(serviceName);
             payload.addChild(parameterSer.getFirstElement());
             OMElement respOMElement = client.sendReceive(payload);
-            results = UtilGenerics.cast(XmlSerializer.deserialize(respOMElement.toString(), delegator));
+            results = UtilGenerics.cast(SoapSerializer.deserialize(respOMElement.toString(), delegator));
         } catch (Exception e) {
             Debug.logError(e, module);
         }
