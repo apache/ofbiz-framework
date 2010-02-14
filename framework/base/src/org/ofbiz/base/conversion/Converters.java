@@ -38,6 +38,7 @@ public class Converters {
     protected static final String module = Converters.class.getName();
     protected static final String DELIMITER = "->";
     protected static final FastMap<String, Converter<?, ?>> converterMap = FastMap.newInstance();
+    protected static final FastSet<ConverterCreater> creaters = FastSet.newInstance();
     protected static final FastSet<String> noConversions = FastSet.newInstance();
     /** Null converter used when the source and target java object
      * types are the same. The <code>convert</code> method returns the
@@ -48,6 +49,7 @@ public class Converters {
 
     static {
         converterMap.setShared(true);
+        registerCreater(new PassThruConverterCreater());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Iterator<ConverterLoader> converterLoaders = ServiceRegistry.lookupProviders(ConverterLoader.class, loader);
         while (converterLoaders.hasNext()) {
@@ -97,11 +99,12 @@ OUTER:
                     continue OUTER;
                 }
             }
-            // Null converter must be checked last
-            if (nullConverter.canConvert(sourceClass, targetClass)) {
-                Converter passThruConverter = new PassThruConverter<S>(sourceClass);
-                converterMap.putIfAbsent(key, passThruConverter);
-                continue;
+            for (ConverterCreater value : creaters) {
+                result = createConverter(value, sourceClass, targetClass);
+                if (result != null) {
+                    converterMap.putIfAbsent(key, result);
+                    continue OUTER;
+                }
             }
             if (noConversions.add(key)) {
                 Debug.logWarning("*** No converter found, converting from " +
@@ -111,6 +114,10 @@ OUTER:
             }
             throw new ClassNotFoundException("No converter found for " + key);
         } while (true);
+    }
+
+    private static <S, SS extends S, T, TT extends T> Converter<SS, TT> createConverter(ConverterCreater creater, Class<SS> sourceClass, Class<TT> targetClass) {
+        return creater.createConverter(sourceClass, targetClass);
     }
 
     /** Load all classes that implement <code>Converter</code> and are
@@ -141,6 +148,18 @@ OUTER:
                 Debug.logError(e, module);
             }
         }
+    }
+
+    /** Registers a <code>ConverterCreater</code> instance to be used by the
+     * {@link org.ofbiz.base.conversion.Converters#getConverter(Class, Class)}
+     * method, when a converter can't be found.
+     *
+     * @param <S> The source object type
+     * @param <T> The target object type
+     * @param creater The <code>ConverterCreater</code> instance to register
+     */
+    public static <S, T> void registerCreater(ConverterCreater creater) {
+        creaters.add(creater);
     }
 
     /** Registers a <code>Converter</code> instance to be used by the
@@ -206,6 +225,19 @@ OUTER:
 
         public Class<?> getTargetClass() {
             return Object.class;
+        }
+    }
+
+    protected static class PassThruConverterCreater implements ConverterCreater{
+        protected PassThruConverterCreater() {
+        }
+
+        public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
+            if (sourceClass == targetClass) {
+                return UtilGenerics.cast(new PassThruConverter<T>(targetClass));
+            } else {
+                return null;
+            }
         }
     }
 
