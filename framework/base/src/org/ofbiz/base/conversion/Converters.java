@@ -37,8 +37,8 @@ import org.ofbiz.base.util.UtilGenerics;
 public class Converters {
     protected static final String module = Converters.class.getName();
     protected static final String DELIMITER = "->";
-    protected static final Map<String, Converter<?, ?>> converterMap = FastMap.newInstance();
-    protected static final Set<String> noConversions = FastSet.newInstance();
+    protected static final FastMap<String, Converter<?, ?>> converterMap = FastMap.newInstance();
+    protected static final FastSet<String> noConversions = FastSet.newInstance();
     /** Null converter used when the source and target java object
      * types are the same. The <code>convert</code> method returns the
      * source object.
@@ -47,6 +47,7 @@ public class Converters {
     public static final Converter<Object, Object> nullConverter = new NullConverter();
 
     static {
+        converterMap.setShared(true);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Iterator<ConverterLoader> converterLoaders = ServiceRegistry.lookupProviders(ConverterLoader.class, loader);
         while (converterLoaders.hasNext()) {
@@ -81,36 +82,40 @@ public class Converters {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Getting converter: " + key, module);
         }
-        Converter<?, ?> result = converterMap.get(key);
-        if (result == null) {
-            if (!noConversions.contains(key)) {
-                synchronized (converterMap) {
-                    for (Converter<?, ?> value : converterMap.values()) {
-                        if (value.canConvert(sourceClass, targetClass)) {
-                            converterMap.put(key, value);
-                            return UtilGenerics.cast(value);
-                        }
-                    }
-                    result = checkExtendsImplements(sourceClass, targetClass);
-                    if (result != null) {
-                        return UtilGenerics.cast(result);
-                    }
-                    // Null converter must be checked last
-                    if (nullConverter.canConvert(sourceClass, targetClass)) {
-                        Converter passThruConverter = new PassThruConverter<S>(sourceClass);
-                        converterMap.put(key, passThruConverter);
-                        return UtilGenerics.cast(passThruConverter);
-                    }
-                    noConversions.add(key);
-                    Debug.logWarning("*** No converter found, converting from " +
-                            sourceClass.getName() + " to " + targetClass.getName() +
-                            ". Please report this message to the developer community so " +
-                            "a suitable converter can be created. ***", module);
+OUTER:
+        do {
+            Converter<?, ?> result = converterMap.get(key);
+            if (result != null) {
+                return UtilGenerics.cast(result);
+            }
+            if (noConversions.contains(key)) {
+                throw new ClassNotFoundException("No converter found for " + key);
+            }
+            for (Converter<?, ?> value : converterMap.values()) {
+                if (value.canConvert(sourceClass, targetClass)) {
+                    converterMap.putIfAbsent(key, value);
+                    continue OUTER;
                 }
             }
+            result = checkExtendsImplements(sourceClass, targetClass);
+            if (result != null) {
+                converterMap.putIfAbsent(key, result);
+                continue;
+            }
+            // Null converter must be checked last
+            if (nullConverter.canConvert(sourceClass, targetClass)) {
+                Converter passThruConverter = new PassThruConverter<S>(sourceClass);
+                converterMap.putIfAbsent(key, passThruConverter);
+                continue;
+            }
+            if (noConversions.add(key)) {
+                Debug.logWarning("*** No converter found, converting from " +
+                        sourceClass.getName() + " to " + targetClass.getName() +
+                        ". Please report this message to the developer community so " +
+                        "a suitable converter can be created. ***", module);
+            }
             throw new ClassNotFoundException("No converter found for " + key);
-        }
-        return UtilGenerics.cast(result);
+        } while (true);
     }
 
     private static <S, T> Converter<S, T> checkExtendsImplements(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
@@ -187,10 +192,7 @@ public class Converters {
             sb.append("<null>");
         }
         String key = sb.toString();
-        if (converterMap.get(key) == null) {
-            synchronized (converterMap) {
-                converterMap.put(key, converter);
-            }
+        if (converterMap.putIfAbsent(key, converter) == null) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
             }
