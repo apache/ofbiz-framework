@@ -27,18 +27,9 @@ import org.ofbiz.base.util.ObjectType;
  * and it implements the <code>canConvert</code>, <code>getSourceClass</code>,
  * and <code>getTargetClass</code> methods.
  */
-public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConverter<S, T> {
-    private final Class<? super S> sourceClass;
-    private final Class<? super T> targetClass;
-
+public abstract class AbstractLocalizedConverter<S, T> extends AbstractConverter<S, T> implements LocalizedConverter<S, T> {
     protected AbstractLocalizedConverter(Class<? super S> sourceClass, Class<? super T> targetClass) {
-        this.sourceClass = sourceClass;
-        this.targetClass = targetClass;
-        Converters.registerConverter(this);
-    }
-
-    public T convert(Class<?> targetClass, S obj) throws ConversionException {
-        return convert(obj);
+        super(sourceClass, targetClass);
     }
 
     public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException {
@@ -47,17 +38,5 @@ public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConve
 
     public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
         return convert(obj, locale, timeZone, formatString);
-    }
-
-    public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-        return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && ObjectType.instanceOf(targetClass, this.getTargetClass());
-    }
-
-    public final Class<? super S> getSourceClass() {
-        return sourceClass;
-    }
-
-    public final Class<? super T> getTargetClass() {
-        return targetClass;
     }
 }
