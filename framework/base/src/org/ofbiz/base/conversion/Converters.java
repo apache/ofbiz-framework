@@ -151,11 +151,10 @@ public class Converters {
      * @param containerClass
      */
     public static void loadContainedConverters(Class<?> containerClass) {
-        Class<?>[] classArray = containerClass.getClasses();
-        for (int i = 0; i < classArray.length; i++) {
+        for (Class<?> clz: containerClass.getClasses()) {
             try {
-                if ((classArray[i].getModifiers() & Modifier.ABSTRACT) == 0) {
-                    classArray[i].newInstance();
+                if ((clz.getModifiers() & Modifier.ABSTRACT) == 0) {
+                    clz.newInstance();
                 }
             } catch (Exception e) {
                 Debug.logError(e, module);
