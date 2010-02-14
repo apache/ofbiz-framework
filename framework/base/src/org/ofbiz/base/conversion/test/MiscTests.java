@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
+import org.ofbiz.base.conversion.JSONResult;
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -45,15 +46,15 @@ public class MiscTests extends GenericTestCaseBase {
         super(name);
     }
 
-    private static <S, T> void assertConversion(String label, String wanted, Class<T> targetClass, Object source, Class<S> sourceClass) throws Exception {
+    private static <S, T extends JSONResult.Indenting> void assertConversion(String label, String wanted, Class<T> targetClass, Object source, Class<S> sourceClass) throws Exception {
         Converter<S, T> converter = Converters.getConverter(sourceClass, targetClass);
         assertTrue(label + " can convert", converter.canConvert(sourceClass, targetClass));
-        assertEquals(label, wanted, converter.convert(UtilGenerics.<S>cast(source)));
+        assertEquals(label, wanted, converter.convert(UtilGenerics.<S>cast(source)).getResult());
     }
 
     public void testExtendsImplements() throws Exception {
         List<String> arraysList = Arrays.asList("a", "b", "c");
-        assertConversion("", "[\n \"a\",\n \"b\",\n \"c\"\n]", String.class, arraysList, arraysList.getClass());
+        assertConversion("", "[\n \"a\",\n \"b\",\n \"c\"\n]", JSONResult.Indenting.class, arraysList, arraysList.getClass());
         Exception caught = null;
         try {
             Converters.getConverter(MiscTests.class, String.class);
@@ -64,7 +65,7 @@ public class MiscTests extends GenericTestCaseBase {
         }
         LRUMap<String, String> map = new LRUMap<String, String>();
         map.put("a", "1");
-        assertConversion("", "{\n \"a\": \"1\"\n}", String.class, map, LRUMap.class);
+        assertConversion("", "{\n \"a\": \"1\"\n}", JSONResult.Indenting.class, map, LRUMap.class);
     }
 
     public static <S> void assertPassThru(Object wanted, Class<S> sourceClass) throws Exception {
