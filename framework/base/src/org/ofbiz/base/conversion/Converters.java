@@ -124,11 +124,17 @@ OUTER:
             try {
                 // non-abstract, which means no interfaces or abstract classes
                 if ((clz.getModifiers() & Modifier.ABSTRACT) == 0) {
+                    Object value;
                     try {
-                        clz.getConstructor().newInstance();
+                        value = clz.getConstructor().newInstance();
                     } catch (NoSuchMethodException e) {
                         // ignore this, as this class might be some other helper class,
                         // with a non-pubilc constructor
+                        continue;
+                    }
+                    if (value instanceof ConverterLoader) {
+                        ConverterLoader loader = (ConverterLoader) value;
+                        loader.loadConverters();
                     }
                 }
             } catch (Exception e) {
