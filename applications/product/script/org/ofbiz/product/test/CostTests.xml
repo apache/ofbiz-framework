@@ -68,4 +68,23 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="testGetProductCost" short-description="Test case for service getProductCost" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.currencyUomId" value="USD"/>
+        <set field="serviceCtx.costComponentTypePrefix" value="EST_STD"/>
+        <call-service service-name="getProductCost" in-map-name="serviceCtx">
+            <result-to-field result-name="productCost"/>
+        </call-service>
+
+        <assert>
+            <if-compare field="productCost" operator="equals" value="84.00" type="BigDecimal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
