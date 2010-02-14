@@ -37,7 +37,7 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T>, Conver
         Converters.registerConverter(this);
     }
 
-    public T convert(Class<?> targetClass, S obj) throws ConversionException {
+    public T convert(Class<? extends T> targetClass, S obj) throws ConversionException {
         return convert(obj);
     }
 

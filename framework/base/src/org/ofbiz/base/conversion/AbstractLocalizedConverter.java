@@ -32,11 +32,11 @@ public abstract class AbstractLocalizedConverter<S, T> extends AbstractConverter
         super(sourceClass, targetClass);
     }
 
-    public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException {
+    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException {
         return convert(obj, locale, timeZone);
     }
 
-    public T convert(Class<?> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+    public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
         return convert(obj, locale, timeZone, formatString);
     }
 }
