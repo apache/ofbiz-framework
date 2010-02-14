@@ -52,7 +52,7 @@ public interface Converter<S, T> {
      * @return The converted <code>Object</code>
      * @throws ConversionException
      */
-    public T convert(Class<?> targetClass, S obj) throws ConversionException;
+    public T convert(Class<? extends T> targetClass, S obj) throws ConversionException;
 
     /** Returns the source <code>Class</code> for this converter.
      *

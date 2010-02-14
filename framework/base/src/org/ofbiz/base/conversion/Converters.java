@@ -196,7 +196,7 @@ OUTER:
             return obj;
         }
 
-        public Object convert(Class<?> targetClass, Object obj) throws ConversionException {
+        public Object convert(Class<? extends Object> targetClass, Object obj) throws ConversionException {
             return obj;
         }
 
@@ -229,7 +229,7 @@ OUTER:
             return obj;
         }
 
-        public T convert(Class<?> targetClass, T obj) throws ConversionException {
+        public T convert(Class<? extends T> targetClass, T obj) throws ConversionException {
             return obj;
         }
 
