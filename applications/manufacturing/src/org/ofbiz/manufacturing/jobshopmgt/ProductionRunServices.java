@@ -986,9 +986,12 @@ public class ProductionRunServices {
             List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", workEffortId), UtilMisc.toList("workEffortId"));
             Iterator tasksIt = tasks.iterator();
             BigDecimal totalCost = ZERO;
+            Map outputMap = dispatcher.runSync("getWorkEffortCosts", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", workEffortId));
+            BigDecimal productionRunHeaderCost = (BigDecimal)outputMap.get("totalCost");
+            totalCost = totalCost.add(productionRunHeaderCost);
             while (tasksIt.hasNext()) {
                 GenericValue task = (GenericValue)tasksIt.next();
-                Map outputMap = dispatcher.runSync("getWorkEffortCosts", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
+                outputMap = dispatcher.runSync("getWorkEffortCosts", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
                 BigDecimal taskCost = (BigDecimal)outputMap.get("totalCost");
                 totalCost = totalCost.add(taskCost);
             }
