@@ -326,6 +326,12 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
+    public static class NotAConverter {
+        protected NotAConverter() {
+            throw new Error("Should not be loaded");
+        }
+    }
+
     public void loadConverters() {
         Converters.loadContainedConverters(MiscConverters.class);
     }

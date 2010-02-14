@@ -119,10 +119,17 @@ OUTER:
      * @param containerClass
      */
     public static void loadContainedConverters(Class<?> containerClass) {
+        // This only returns -public- classes and interfaces
         for (Class<?> clz: containerClass.getClasses()) {
             try {
+                // non-abstract, which means no interfaces or abstract classes
                 if ((clz.getModifiers() & Modifier.ABSTRACT) == 0) {
-                    clz.newInstance();
+                    try {
+                        clz.getConstructor().newInstance();
+                    } catch (NoSuchMethodException e) {
+                        // ignore this, as this class might be some other helper class,
+                        // with a non-pubilc constructor
+                    }
                 }
             } catch (Exception e) {
                 Debug.logError(e, module);
