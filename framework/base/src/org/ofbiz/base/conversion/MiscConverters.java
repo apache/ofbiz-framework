@@ -135,9 +135,9 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class EnumToString implements Converter<Enum, String> {
+    public static class EnumToString extends AbstractConverter<Enum, String> {
         public EnumToString() {
-            Converters.registerConverter(this, Enum.class, String.class);
+            super(Enum.class, String.class);
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
@@ -152,18 +152,14 @@ public class MiscConverters implements ConverterLoader {
             return convert(obj);
         }
 
-        public Class<?> getSourceClass() {
+        public Class<? super Enum> getSourceClass() {
             return null;
-        }
-
-        public Class<?> getTargetClass() {
-            return String.class;
         }
     }
 
-    public static class StringToEnum implements Converter<String, Enum> {
+    public static class StringToEnum extends AbstractConverter<String, Enum> {
         public StringToEnum() {
-            Converters.registerConverter(this, String.class, Enum.class);
+            super(String.class, Enum.class);
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
@@ -178,11 +174,7 @@ public class MiscConverters implements ConverterLoader {
             return Enum.valueOf(UtilGenerics.<Class<? extends Enum>>cast(targetClass), obj);
         }
 
-        public Class<?> getSourceClass() {
-            return String.class;
-        }
-
-        public Class<?> getTargetClass() {
+        public Class<? super Enum> getTargetClass() {
             return null;
         }
     }
