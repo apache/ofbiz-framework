@@ -97,11 +97,6 @@ OUTER:
                     continue OUTER;
                 }
             }
-            result = checkExtendsImplements(sourceClass, targetClass);
-            if (result != null) {
-                converterMap.putIfAbsent(key, result);
-                continue;
-            }
             // Null converter must be checked last
             if (nullConverter.canConvert(sourceClass, targetClass)) {
                 Converter passThruConverter = new PassThruConverter<S>(sourceClass);
@@ -116,37 +111,6 @@ OUTER:
             }
             throw new ClassNotFoundException("No converter found for " + key);
         } while (true);
-    }
-
-    private static <S, T> Converter<S, T> checkExtendsImplements(Class<S> sourceClass, Class<T> targetClass) throws ClassNotFoundException {
-        if (targetClass == null || sourceClass == null) {
-            return null;
-        }
-        String key = sourceClass.getName().concat(DELIMITER).concat(targetClass.getName());
-        Converter<?, ?> result = converterMap.get(key);
-        if (result == null) {
-            result = checkExtendsImplements(sourceClass, targetClass.getSuperclass());
-            if (result == null) {
-                for (Class<?> intf: targetClass.getInterfaces()) {
-                    result = checkExtendsImplements(sourceClass, intf);
-                    if (result != null) {
-                        break;
-                    }
-                }
-                if (result == null) {
-                    result = checkExtendsImplements(sourceClass.getSuperclass(), targetClass);
-                    if (result == null) {
-                        for (Class<?> intf: sourceClass.getInterfaces()) {
-                            result = checkExtendsImplements(intf, targetClass);
-                            if (result != null) {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return UtilGenerics.cast(result);
     }
 
     /** Load all classes that implement <code>Converter</code> and are
