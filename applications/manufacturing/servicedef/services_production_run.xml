@@ -24,20 +24,7 @@ under the License.
     <version>1.0</version>
 
     <!-- Job Shop Management services -->
-    <service name="createProductionRunsForProductBom" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
-        <description>Explodes a product id and creates all the needed production runs.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" optional="true" mode="IN" type="BigDecimal"/>
-        <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="routingId" type="String" mode="IN" optional="true"/>
-        <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
-        <attribute name="description" type="String" mode="IN" optional="true"/>
-        <attribute name="productionRuns" optional="true" mode="OUT" type="java.util.List"/><!-- TODO -->
-        <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
-    </service>
-
+    <!-- creation of production runs -->
     <service name="createProductionRun" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRun" auth="true">
         <description>Create a Production Run</description>
@@ -51,6 +38,59 @@ under the License.
         <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
+    <service name="createProductionRunsForProductBom" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
+        <description>Explodes a product id and creates all the needed production runs.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" optional="true" mode="IN" type="BigDecimal"/>
+        <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="routingId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="productionRuns" optional="true" mode="OUT" type="java.util.List"/><!-- TODO -->
+        <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createProductionRunsForOrder" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForOrder" auth="true">
+        <description>Explodes a product id and creates all the needed production runs; if an order id is also provided, it links the production runs to the sales order.</description>
+        <attribute mode="IN" name="orderId" optional="false" type="String"/>
+        <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
+        <attribute mode="IN" name="shipmentId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productionRuns" type="java.util.List"/>
+    </service>
+    <service name="createProductionRunFromRequirement" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunFromRequirement" auth="true">
+        <description>Creates a production run from a requirement.</description>
+        <attribute mode="IN" name="requirementId" optional="false" type="String"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="OUT" name="productionRunId" optional="true" type="String"/>
+    </service>
+    <service name="createProductionRunFromConfiguration" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunFromConfiguration" auth="true">
+        <description>Creates a production run from a product configuration.</description>
+        <attribute mode="IN" name="facilityId" optional="false" type="String"/>
+        <attribute mode="IN" name="configId" optional="true" type="String"/>
+        <attribute mode="IN" name="config" optional="true" type="org.ofbiz.product.config.ProductConfigWrapper"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="orderId" optional="true" type="String"/>
+        <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productionRunId" optional="false" type="String"/>
+    </service>
+    <service name="createProductionRunForMktgPkg" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunForMktgPkg" auth="true">
+        <description>Creates a production run for a marketing package when the product is out of stock (ATP quantity less than zero.)
+                Attempts to produce enough to bring total ATP quantity of the product back up to zero, but will only produce what is
+                available based on the components required.</description>
+        <attribute mode="IN" name="orderId" optional="false" type="String"/>
+        <attribute mode="IN" name="orderItemSeqId" optional="false" type="String"/>
+        <attribute mode="IN" name="facilityId" optional="false" type="String"/>
+        <attribute mode="OUT" name="productionRunId" optional="true" type="String"/>
+    </service>
+
+    
     <service name="updateProductionRun" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRun" auth="true">
         <description>Update a Production Run</description>
@@ -301,44 +341,6 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="startDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="reservedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
-    </service>
-    <service name="createProductionRunsForOrder" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForOrder" auth="true">
-        <description>Explodes a product id and creates all the needed production runs; if an order id is also provided, it links the production runs to the sales order.</description>
-        <attribute mode="IN" name="orderId" optional="false" type="String"/>
-        <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
-        <attribute mode="IN" name="fromDate" optional="true" type="String"/>
-        <attribute mode="IN" name="shipmentId" optional="true" type="String"/>
-        <attribute mode="OUT" name="productionRuns" type="java.util.List"/>
-    </service>
-    <service name="createProductionRunFromRequirement" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunFromRequirement" auth="true">
-        <description>Creates a production run from a requirement.</description>
-        <attribute mode="IN" name="requirementId" optional="false" type="String"/>
-        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
-        <attribute mode="OUT" name="productionRunId" optional="true" type="String"/>
-    </service>
-    <service name="createProductionRunFromConfiguration" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunFromConfiguration" auth="true">
-        <description>Creates a production run from a product configuration.</description>
-        <attribute mode="IN" name="facilityId" optional="false" type="String"/>
-        <attribute mode="IN" name="configId" optional="true" type="String"/>
-        <attribute mode="IN" name="config" optional="true" type="org.ofbiz.product.config.ProductConfigWrapper"/>
-        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
-        <attribute mode="IN" name="orderId" optional="true" type="String"/>
-        <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
-        <attribute mode="OUT" name="productionRunId" optional="false" type="String"/>
-    </service>
-    <service name="createProductionRunForMktgPkg" engine="java"
-            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunForMktgPkg" auth="true">
-        <description>Creates a production run for a marketing package when the product is out of stock (ATP quantity less than zero.)
-                Attempts to produce enough to bring total ATP quantity of the product back up to zero, but will only produce what is
-                available based on the components required.</description>
-        <attribute mode="IN" name="orderId" optional="false" type="String"/>
-        <attribute mode="IN" name="orderItemSeqId" optional="false" type="String"/>
-        <attribute mode="IN" name="facilityId" optional="false" type="String"/>
-        <attribute mode="OUT" name="productionRunId" optional="true" type="String"/>
     </service>
     <service name="getWorkEffortCosts" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="getWorkEffortCosts" auth="true">
