@@ -54,7 +54,6 @@ public class IndentingWriterTests extends GenericTestCaseBase {
         iw.pop();
         iw.write("e");
         iw.close();
-        System.err.println("wanted(" + wanted.replaceAll(" ", "-") + ") got(" + sw.toString().replaceAll(" ", "-") + ")");
         assertEquals(label, wanted, sw.toString());
     }
 
