@@ -306,18 +306,22 @@ public final class UtilIO {
         return parseObject(buffer, offset, length, false);
     }
 
+    private static <S, T> T convertObject(Class<S> sourceClass, S value, Class<T> targetClass) throws Exception {
+        Converter<S, T> converter = Converters.getConverter(sourceClass, targetClass);
+        return converter.convert(targetClass, value);
+    }
+
     private static Object parseObject(char[] buffer, int offset, int length, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
         try {
             int i;
             for (i = offset; i < length && buffer[i] != ':'; i++);
             if (i > offset && i < length) {
                 String className = new String(buffer, offset, i);
-                Class type = ClassLoaderContainer.getClassLoader().loadClass(className);
-                Converter converter = Converters.getConverter(String.class, type);
+                Class<?> type = ClassLoaderContainer.getClassLoader().loadClass(className);
                 if (buffer[length - 1] == '\n') {
                     length--;
                 }
-                return converter.convert(type, new String(buffer, i + 1, length - i - 1));
+                return convertObject(String.class, new String(buffer, i + 1, length - i - 1), type);
             }
         } catch (Exception e) {
         }
