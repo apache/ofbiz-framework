@@ -28,10 +28,10 @@ import org.ofbiz.base.util.ObjectType;
  * and <code>getTargetClass</code> methods.
  */
 public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConverter<S, T> {
-    private final Class<S> sourceClass;
-    private final Class<T> targetClass;
+    private final Class<? super S> sourceClass;
+    private final Class<? super T> targetClass;
 
-    protected AbstractLocalizedConverter(Class<S> sourceClass, Class<T> targetClass) {
+    protected AbstractLocalizedConverter(Class<? super S> sourceClass, Class<? super T> targetClass) {
         this.sourceClass = sourceClass;
         this.targetClass = targetClass;
         Converters.registerConverter(this);
@@ -53,11 +53,11 @@ public abstract class AbstractLocalizedConverter<S, T> implements LocalizedConve
         return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && ObjectType.instanceOf(targetClass, this.getTargetClass());
     }
 
-    public final Class<S> getSourceClass() {
+    public final Class<? super S> getSourceClass() {
         return sourceClass;
     }
 
-    public final Class<T> getTargetClass() {
+    public final Class<? super T> getTargetClass() {
         return targetClass;
     }
 }
