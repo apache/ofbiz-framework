@@ -151,7 +151,7 @@ SKIP:
   <WHITESPACE: [" ", "\r", "\n", "\t"]>
 }
 
-<*>
+<DEFAULT,RESOLVE>
 MORE:
 {
   <COMMENT_START: "/*"> { if (curLexState != IN_COMMENT) pushState(IN_COMMENT); }
@@ -266,7 +266,6 @@ Map<String, Object> JSONObject():
 }
 {
   <OBJECT_BEGIN>
-  (<ITEM_SEP>)*
   (JSONObjectEntry(map))? (<ITEM_SEP> (JSONObjectEntry(map))?)*
   <OBJECT_END>
   { return map; }
