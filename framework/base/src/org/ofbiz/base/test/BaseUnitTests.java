@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converter;
-import org.ofbiz.base.conversion.DateTimeConverters;
 import org.ofbiz.base.util.ComparableRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -157,49 +156,6 @@ public class BaseUnitTests extends TestCase {
         fma.put(testMap, "World");
         fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
         assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
-    }
-
-    public void testDateTimeConverters() throws Exception {
-        // Source class = java.util.Date
-        java.util.Date utilDate = new java.util.Date();
-        long dateMillis = utilDate.getTime();
-        Converter<java.util.Date, Long> dateToLong = new DateTimeConverters.DateToLong();
-        {
-            Long target = dateToLong.convert(utilDate);
-            assertEquals("DateToLong", dateMillis, target.longValue());
-        }
-        Converter<java.util.Date, java.sql.Date> dateToSqlDate = new DateTimeConverters.DateToSqlDate();
-        {
-            java.sql.Date target = dateToSqlDate.convert(utilDate);
-            assertEquals("DateToSqlDate", dateMillis, target.getTime());
-        }
-        Converter<java.util.Date, String> dateToString = new DateTimeConverters.DateToString();
-        {
-            String target = dateToString.convert(utilDate);
-            assertEquals("DateToString", utilDate.toString(), target);
-        }
-        Converter<java.util.Date, java.sql.Timestamp> dateToTimestamp = new DateTimeConverters.DateToTimestamp();
-        {
-            java.sql.Timestamp timestamp = dateToTimestamp.convert(utilDate);
-            assertEquals("DateToTimestamp", dateMillis, timestamp.getTime());
-        }
-        // Source class = java.sql.Date
-        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-        Converter<java.sql.Date, java.util.Date> sqlDateToDate = new DateTimeConverters.SqlDateToDate();
-        {
-            java.util.Date target = sqlDateToDate.convert(sqlDate);
-            assertEquals("SqlDateToDate", sqlDate.getTime(), target.getTime());
-        }
-        Converter<java.sql.Date, String> sqlDateToString = new DateTimeConverters.SqlDateToString();
-        {
-            String target = sqlDateToString.convert(sqlDate);
-            assertEquals("SqlDateToString", sqlDate.toString(), target);
-        }
-        Converter<java.sql.Date, java.sql.Timestamp> sqlDateToTimestamp = new DateTimeConverters.SqlDateToTimestamp();
-        {
-            java.sql.Timestamp target = sqlDateToTimestamp.convert(sqlDate);
-            assertEquals("SqlDateToTimestamp", sqlDate.getTime(), target.getTime());
-        }
     }
 
     public void testStringUtil() {
