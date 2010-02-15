@@ -78,6 +78,7 @@ public class OrderTestServices {
         String productStoreId = (String) context.get("productStoreId");
         String currencyUomId = (String) context.get("currencyUomId");
         String partyId = (String) context.get("partyId");
+        String productId = (String) context.get("productId");
         Integer numberOfOrders = (Integer) context.get("numberOfOrders");
         Integer numberOfProductsPerOrder = (Integer) context.get("numberOfProductsPerOrder");
         String salesChannel = (String) context.get("salesChannel");
@@ -85,19 +86,22 @@ public class OrderTestServices {
             salesChannel = "WEB_SALES_CHANNEL";
         }
 
-        int numberOfProductsPerOrderInt = numberOfProductsPerOrder.intValue();
-
         List productsList = FastList.newInstance();
         try {
-            Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
-            if (result.get("categoryMembers") != null) {
-                List productCategoryMembers = (List)result.get("categoryMembers");
-                if (productCategoryMembers != null) {
-                    Iterator i = productCategoryMembers.iterator();
-                    while (i.hasNext()) {
-                        GenericValue prodCatMemb = (GenericValue) i.next();
-                        if (prodCatMemb != null) {
-                            productsList.add(prodCatMemb.getString("productId"));
+            if (UtilValidate.isNotEmpty(productId)) {
+                productsList.add(productId);
+                numberOfProductsPerOrder = Integer.valueOf(1);
+            } else {
+                Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
+                if (result.get("categoryMembers") != null) {
+                    List productCategoryMembers = (List)result.get("categoryMembers");
+                    if (productCategoryMembers != null) {
+                        Iterator i = productCategoryMembers.iterator();
+                        while (i.hasNext()) {
+                            GenericValue prodCatMemb = (GenericValue) i.next();
+                            if (prodCatMemb != null) {
+                                productsList.add(prodCatMemb.getString("productId"));
+                            }
                         }
                     }
                 }
@@ -125,6 +129,7 @@ public class OrderTestServices {
         } catch (Exception exc) {
             Debug.logWarning("Error setting userLogin in the cart: " + exc.getMessage(), module);
         }
+        int numberOfProductsPerOrderInt = numberOfProductsPerOrder.intValue();
         for (int j = 1; j <= numberOfProductsPerOrderInt; j++) {
             // get a product
             int k = r.nextInt(productsList.size());
