@@ -205,7 +205,7 @@ public class BaseUnitTests extends TestCase {
     public void testStringUtil() {
         byte[] testArray = {-1};
         byte[] result = StringUtil.fromHexString(StringUtil.toHexString(testArray));
-        assertEquals("Hex onversions", testArray[0], result[0]);
+        assertEquals("Hex conversions", testArray[0], result[0]);
     }
 
 }
