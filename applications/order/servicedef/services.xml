@@ -866,6 +866,7 @@ under the License.
         location="org.ofbiz.order.test.OrderTestServices" invoke="createTestSalesOrderSingle">
         <description>Bulk create test sales orders. Note that default-values depend on demo data in ecommerce/data.</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="true" default-value="100"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true" default-value="9000"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true" default-value="USD"/>
         <attribute name="partyId" type="String" mode="IN" optional="true" default-value="DemoCustomer"/>
