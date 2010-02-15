@@ -2548,6 +2548,7 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError("Error reading the OrderItems: " + gee.getMessage());
             }
         }
+        ArrayList productionRuns = new ArrayList();
         for (int i = 0; i < orderItems.size(); i++) {
             GenericValue orderItem = (GenericValue)orderItems.get(i);
             if (orderItem.get("productId") == null) {
@@ -2579,12 +2580,11 @@ public class ProductionRunServices {
                 tree.setRootQuantity(quantity);
                 tree.setRootAmount(amount);
                 tree.print(components);
-                tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin);
+                productionRuns.add(tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin));
             } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
             }
         }
-        ArrayList productionRuns = new ArrayList();
         result.put("productionRuns" , productionRuns);
         return result;
     }

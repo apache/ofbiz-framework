@@ -830,4 +830,69 @@ under the License.
 
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testCreateProductionRunForOrder" short-description="Test the creation of a production run for a specified sales order" login-required="false">
+        <set field="productId" value="PROD_MANUF"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <call-service service-name="createTestSalesOrderSingle" in-map-name="serviceCtx">
+            <result-to-field result-name="orderId"/>
+        </call-service>
+        <assert><not><if-empty field="orderId"/></not></assert>
+        <check-errors/>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.orderId" from-field="orderId"/>
+        <call-service service-name="createProductionRunsForOrder" in-map-name="serviceCtx">
+            <result-to-field result-name="productionRuns"/>
+        </call-service>
+        <first-from-list entry="productionRunId" list="productionRuns"/>
+        <assert><not><if-empty field="productionRunId"/></not></assert>
+        <check-errors/>
+
+        <entity-one entity-name="WorkEffort" value-field="productionRunHeader">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-one>
+        <entity-and list="productionRunTasks" entity-name="WorkEffort">
+            <field-map field-name="workEffortParentId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunTask" list="productionRunTasks"/>
+
+        <assert>
+            <if-compare field="productionRunHeader.workEffortTypeId" operator="equals" value="PROD_ORDER_HEADER"/>
+            <if-compare field="productionRunHeader.facilityId" operator="equals" value="WebStoreWarehouse"/>
+            <if-compare field="productionRunHeader.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+            <if-compare field="productionRunTask.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+            <if-compare field="productionRunHeader.quantityToProduce" operator="equals" value="1.0" type="BigDecimal"/>
+        </assert>
+
+        <entity-and list="productionRunProducts" entity-name="WorkEffortGoodStandard">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+        </entity-and>
+        <first-from-list entry="productionRunProduct" list="productionRunProducts"/>
+
+        <assert>
+            <not><if-empty field="productionRunProduct"/></not>
+            <if-compare-field field="productionRunProduct.productId" operator="equals" to-field="productId"/>
+            <if-compare field="productionRunProduct.workEffortGoodStdTypeId" operator="equals" value="PRUN_PROD_DELIV"/>
+            <if-compare field="productionRunProduct.estimatedQuantity" operator="equals" value="1.0" type="BigDecimal"/>
+        </assert>
+
+        <entity-and list="workOrderItemFulfillments" entity-name="WorkOrderItemFulfillment">
+            <field-map field-name="workEffortId" from-field="productionRunId"/>
+            <field-map field-name="orderId" from-field="orderId"/>
+        </entity-and>
+        <first-from-list entry="workOrderItemFulfillment" list="workOrderItemFulfillments"/>
+        <assert>
+            <not><if-empty field="workOrderItemFulfillment"/></not>
+            <not><if-empty field="workOrderItemFulfillment.orderItemSeqId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
