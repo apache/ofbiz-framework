@@ -30,7 +30,8 @@ public class DateTimeTests extends GenericTestCaseBase {
     }
 
     public static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target) throws Exception {
-        assertEquals(label, target, converter.convert(source));
+        assertTrue(label + " can convert", converter.canConvert(source.getClass(), target.getClass()));
+        assertEquals(label + " converted", target, converter.convert(source));
     }
 
     public void testDateTimeConverters() throws Exception {
