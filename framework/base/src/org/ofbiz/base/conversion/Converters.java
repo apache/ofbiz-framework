@@ -233,8 +233,8 @@ OUTER:
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (sourceClass == targetClass) {
-                return UtilGenerics.cast(new PassThruConverter<T>(targetClass));
+            if (sourceClass == targetClass || targetClass == Object.class || ObjectType.instanceOf(sourceClass, targetClass)) {
+                return new PassThruConverter<S, T>(sourceClass, targetClass);
             } else {
                 return null;
             }
@@ -246,31 +246,35 @@ OUTER:
      * source object.
      *
      */
-    protected static class PassThruConverter<T> implements Converter<T, T> {
-        private final Class<T> clz;
+    protected static class PassThruConverter<S, T> implements Converter<S, T> {
+        private final Class<S> sourceClass;
+        private final Class<T> targetClass;
 
-        public PassThruConverter(Class<T> clz) {
-            this.clz = clz;
+        public PassThruConverter(Class<S> sourceClass, Class<T> targetClass) {
+            this.sourceClass = sourceClass;
+            this.targetClass = targetClass;
         }
 
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return sourceClass == clz && targetClass == clz;
+            return this.sourceClass == sourceClass && this.targetClass == targetClass;
         }
 
-        public T convert(T obj) throws ConversionException {
-            return obj;
+        @SuppressWarnings("unchecked")
+        public T convert(S obj) throws ConversionException {
+            return (T) obj;
         }
 
-        public T convert(Class<? extends T> targetClass, T obj) throws ConversionException {
-            return obj;
+        @SuppressWarnings("unchecked")
+        public T convert(Class<? extends T> targetClass, S obj) throws ConversionException {
+            return (T) obj;
         }
 
         public Class<?> getSourceClass() {
-            return clz;
+            return sourceClass;
         }
 
         public Class<?> getTargetClass() {
-            return clz;
+            return targetClass;
         }
     }
 }
