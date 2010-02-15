@@ -24,17 +24,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.TimeZone;
-
-import org.ofbiz.base.util.StringUtil;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 /** Net Converter classes. */
 public class NetConverters implements ConverterLoader {

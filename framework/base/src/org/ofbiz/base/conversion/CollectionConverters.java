@@ -18,17 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.StringUtil;
-
 import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.StringUtil;
 
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {

@@ -19,10 +19,7 @@
 package org.ofbiz.base.conversion;
 
 import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 import javax.imageio.spi.ServiceRegistry;
 
