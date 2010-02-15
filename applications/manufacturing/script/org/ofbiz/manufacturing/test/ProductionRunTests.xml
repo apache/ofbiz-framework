@@ -845,6 +845,25 @@ under the License.
         <assert><not><if-empty field="orderId"/></not></assert>
         <check-errors/>
 
+        <entity-and list="orderItems" entity-name="OrderItem">
+            <field-map field-name="orderId" from-field="orderId"/>
+            <field-map field-name="productId" from-field="productId"/>
+        </entity-and>
+        <first-from-list entry="orderItem" list="orderItems"/>
+        <assert>
+            <not><if-empty field="orderItem"/></not>
+        </assert>
+        <check-errors/>
+        <entity-and list="orderItemShipGrpInvRess" entity-name="OrderItemShipGrpInvRes">
+            <field-map field-name="orderId" from-field="orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+        </entity-and>
+        <first-from-list entry="originalOrderItemShipGrpInvRes" list="orderItemShipGrpInvRess"/>
+        <assert>
+            <not><if-empty field="originalOrderItemShipGrpInvRes"/></not>
+        </assert>
+        <check-errors/>
+
         <clear-field field="serviceCtx"/>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
         <set field="serviceCtx.orderId" from-field="orderId"/>
@@ -893,6 +912,35 @@ under the License.
             <not><if-empty field="workOrderItemFulfillment.orderItemSeqId"/></not>
         </assert>
         <check-errors/>
+
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_DOC_PRINTED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+        <clear-field field="serviceCtx"/>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.statusId" value="PRUN_CLOSED"/>
+        <call-service service-name="quickChangeProductionRunStatus" in-map-name="serviceCtx"/>
+
+        <entity-and list="producedMaterials" entity-name="WorkEffortAndInventoryProduced">
+            <field-map field-name="workEffortId" from-field="productionRunHeader.workEffortId"/>
+        </entity-and>
+        <first-from-list entry="producedMaterial" list="producedMaterials"/>
+
+        <entity-and list="orderItemShipGrpInvRess" entity-name="OrderItemShipGrpInvRes">
+            <field-map field-name="orderId" from-field="orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+        </entity-and>
+        <first-from-list entry="newOrderItemShipGrpInvRes" list="orderItemShipGrpInvRess"/>
+        <assert>
+            <not><if-empty field="newOrderItemShipGrpInvRes"/></not>
+            <not><if-compare-field field="newOrderItemShipGrpInvRes.inventoryItemId" operator="equals" to-field="originalOrderItemShipGrpInvRes.inventoryItemId"/></not>
+            <if-compare-field field="producedMaterial.inventoryItemId" operator="equals" to-field="newOrderItemShipGrpInvRes.inventoryItemId"/>
+            <not><if-compare-field field="producedMaterial.inventoryItemId" operator="equals" to-field="newOrderItemShipGrpInvRes.inventoryItemId"/></not>
+        </assert>
+        
     </simple-method>
 
 </simple-methods>
