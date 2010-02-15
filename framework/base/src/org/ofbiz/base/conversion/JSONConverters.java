@@ -18,18 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-import java.io.StringReader;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.json.JSON;
-import org.ofbiz.base.json.JSONWriter;
-
-import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.json.JSON;
+import org.ofbiz.base.util.UtilGenerics;
 
 /** JSON Converter classes. */
 public class JSONConverters implements ConverterLoader {
