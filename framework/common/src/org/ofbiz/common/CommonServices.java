@@ -45,6 +45,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 
 import static org.ofbiz.base.util.UtilGenerics.checkList;
@@ -54,6 +55,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelRelation;
+import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -534,5 +537,42 @@ public class CommonServices {
             return ServiceUtil.returnError("Invalid count returned from database");
         }
     }
+    
+    public static Map<String, Object> cascadeDelete(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        String entityName = (String) context.get("entityName");
+        Map<String, Object> pkFields = UtilGenerics.checkMap(context.get("pkFields"));
+        
+        try {
+            GenericValue value = delegator.findByPrimaryKey(entityName, pkFields);
+            ModelEntity modelEntity = delegator.getModelEntity(entityName);
+            List<ModelRelation> relations = modelEntity.getRelationsManyList();
+            
+            if (value == null || modelEntity instanceof ModelViewEntity) {             
+                return ServiceUtil.returnSuccess();
+            }
+            
+            for (ModelRelation relation : relations) {
+                String combinedName = relation.getCombinedName();
+                List<GenericValue> relatedValues = value.getRelated(combinedName);
+                for (GenericValue relatedValue : relatedValues) {
+                    pkFields = relatedValue.getPrimaryKey().getAllFields();
+                    entityName = relatedValue.getEntityName();
+                    Map<String, Object> newContext = UtilMisc.toMap("entityName", entityName, "pkFields", pkFields);
+                    Map<String, Object>result = CommonServices.cascadeDelete(dctx, newContext);
+                    if (ServiceUtil.isError(result)) {
+                        return result;
+                    }
+                }
+            }
+            
+            Debug.logInfo("Removing value: " + value , module);
+            delegator.removeValue(value);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+ 
+        return ServiceUtil.returnSuccess();
+    }    
 
 }

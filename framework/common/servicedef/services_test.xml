@@ -210,4 +210,11 @@ under the License.
         <description>Test Ping Service</description>
         <attribute name="message" type="String" mode="INOUT" optional="true"/>
     </service>
+
+    <service name="cascadeDelete" engine="java"
+        location="org.ofbiz.common.CommonServices" invoke="cascadeDelete">
+        <description>Remove generic value and its related values</description>
+        <attribute name="entityName" type="String" mode="IN"/>
+        <attribute name="pkFields" type="Map" mode="IN"/>
+    </service>    
 </services>
