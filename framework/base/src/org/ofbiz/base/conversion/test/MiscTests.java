@@ -69,15 +69,18 @@ public class MiscTests extends GenericTestCaseBase {
     }
 
     public static <S> void assertPassThru(Object wanted, Class<S> sourceClass) throws Exception {
-        Converter<S, S> converter = Converters.getConverter(sourceClass, sourceClass);
-        S result = converter.convert(UtilGenerics.<S>cast(wanted));
+        assertPassThru(wanted, sourceClass, sourceClass);
+    }
+
+    public static <S> void assertPassThru(Object wanted, Class<S> sourceClass, Class<? super S> targetClass) throws Exception {
+        Converter<S, ? super S> converter = Converters.getConverter(sourceClass, targetClass);
+        Object result = converter.convert(UtilGenerics.<S>cast(wanted));
         assertEquals("pass thru convert", wanted, result);
         assertTrue("pass thru exact equals", wanted == result);
-        assertTrue("pass thru can convert", converter.canConvert(wanted.getClass(), wanted.getClass()));
-        assertFalse("pass thru can't convert to object", converter.canConvert(wanted.getClass(), Object.class));
-        assertFalse("pass thru can't convert from object", converter.canConvert(Object.class, wanted.getClass()));
+        assertTrue("pass thru can convert wanted", converter.canConvert(wanted.getClass(), targetClass));
+        assertTrue("pass thru can convert source", converter.canConvert(sourceClass, targetClass));
         assertEquals("pass thru source class", wanted.getClass(), converter.getSourceClass());
-        assertEquals("pass thru target class", result.getClass(), converter.getTargetClass());
+        assertEquals("pass thru target class", targetClass, converter.getTargetClass());
     }
 
     public void testPassthru() throws Exception {
@@ -106,5 +109,8 @@ public class MiscTests extends GenericTestCaseBase {
         for (Object testObject: testObjects) {
             assertPassThru(testObject, testObject.getClass());
         }
+        assertPassThru(fastList, fastList.getClass(), List.class);
+        assertPassThru(fastMap, fastMap.getClass(), Map.class);
+        assertPassThru(hashMap, hashMap.getClass(), Map.class);
     }
 }
