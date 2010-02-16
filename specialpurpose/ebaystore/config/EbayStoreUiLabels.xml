@@ -196,6 +196,9 @@
     <property key="eBayFixedPrice">
         <value xml:lang="en">Fixed Price</value>
     </property>
+    <property key="EbayStoreOpenUnpaidItemDispute">
+        <value xml:lang="en">Open unpaid item dispute</value>
+    </property>
     <property key="requireEbayInventory">
         <value xml:lang="en">Require eBay Inventory</value>
     </property>

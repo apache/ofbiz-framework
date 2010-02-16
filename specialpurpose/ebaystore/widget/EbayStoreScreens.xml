@@ -595,4 +595,52 @@ under the License.
             </widgets>
         </section>
     </screen>
+	<screen name="EbaySoldListing">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="soldListing"/>                
+            </actions>
+            <widgets>
+               <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    	<decorator-section-include name="body"/>
+                	</decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SoldListing">
+    	<section>
+    		<actions>
+    			<service service-name="getEbaySoldItems" result-map="result">
+                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                	<field-map field-name="status" from-field="parameters.status"/>
+                	<field-map field-name="period" from-field="parameters.period"/>
+                </service>
+                <set field="soldItemList" from-field="result.soldItems"/>
+    		</actions>
+    		<widgets>
+    			<decorator-screen name="EbaySoldListing">
+    				<decorator-section name="body">
+                   		<screenlet title="Sold Listing">
+                   			<include-form location="component://ebaystore/widget/EbayStoreForms.xml" name="SoldItemList"/>
+                   		</screenlet>
+    				</decorator-section>
+    			</decorator-screen>
+    		</widgets>
+    	</section>
+    </screen>
+    <screen name="OpenUnpaid">
+    	<section>
+    		<widgets>
+    			<decorator-screen name="EbaySoldListing">
+    				<decorator-section name="body">
+    					<screenlet title="Open Unpaid">
+                   			<include-form location="component://ebaystore/widget/EbayStoreForms.xml" name="OpenUnpaid"/>
+                   		</screenlet>
+                   	</decorator-section>
+    			</decorator-screen>
+    		</widgets>
+    	</section>
+    </screen>
 </screens>

@@ -53,6 +53,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="soldListing" title="${uiLabelMap.EbayStoreOpenUnpaidItemDispute}">
+            <link target="soldListing">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
         <menu-item name="feedback" title="${uiLabelMap.EbayFeedback}">
             <link target="Feedback">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
