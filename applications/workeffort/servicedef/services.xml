@@ -308,7 +308,7 @@ under the License.
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortGoodStandard">
         <description>
             Create a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
-            for routing it's the link between Manafactured Product with its routings
+            for routing it's the link between Manufactured Product with its routings
         </description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -319,7 +319,7 @@ under the License.
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortGoodStandard">
         <description>
             Update a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
-            for routing it's the link between Manafactured Product with its routings
+            for routing it's the link between Manufactured Product with its routings
         </description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -328,7 +328,7 @@ under the License.
     <service name="removeWorkEffortGoodStandard" engine="simple" default-entity-name="WorkEffortGoodStandard"
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="removeWorkEffortGoodStandard">
         <description>Remove a WorkEffort - Product Assoc, for linking WorkEffort to In or Out  Product,
-            for routing it's the link between Manafactured Product with its routings
+            for routing it's the link between Manufactured Product with its routings
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
