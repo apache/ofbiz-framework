@@ -1,0 +1,387 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* This CSS file is used to reverse the style direction for rtl languages. */
+/* It is intended to be cascaded with maincss.css. */
+
+/* ===== Resets/Browser Normalization ===== */
+
+body, caption, th {
+text-align: right;
+}
+
+/* ===== Legacy Styles ===== */
+
+.boxlink {
+float: left;
+}
+
+DIV.boxhead-left {
+float: right;
+}
+
+DIV.boxhead-right {
+float: left;
+}
+
+.submenutextinfo {
+border-right: none;
+border-left: 0.1em solid #5886C6;
+}
+
+.submenutext, A.submenutext, A.submenutext:visited,
+.submenutextdisabled, A.submenutextdisabled {
+border-right: none;
+border-left: 0.1em solid #5886C6;
+padding-left: 0.5em;
+padding-right: 0.2em;
+}
+
+.submenutextinforight, .submenutextright, A.submenutextright,
+.submenutextrightdisabled, A.submenutextrightdisabled {
+padding-left: none;
+padding-right: 0.2em;
+}
+
+/* ===== Product Summary Styles ===== */
+.product-prevnext {
+text-align: left;
+}
+
+.productsummary .smallimage {
+float: right;
+margin: 0 0 0.5em 0.5em;
+}
+.productsummary .productbuy {
+float: left;
+text-align: left;
+}
+
+.productsummary .productinfo {
+text-align: right;
+}
+
+.treeWrapper {
+border-left: none;
+border-right: 0.1em solid #000000;
+margin-left: 0;
+margin-right: 1.2em;
+text-align: right;
+}
+
+.lefthalf{
+float: right;
+left: auto;
+right: 0;
+margin: 0 0 1% 1%;
+}
+
+.righthalf {
+float: left;
+margin: 0 1% 1% 0;
+right: auto;
+left: 0;
+}
+
+.leftclear{
+clear: right;
+}
+
+/* ==== Styles Copied From tabstyles.css === */
+
+.treewrapper {
+margin-left: 0;
+margin-right: 1em;
+}
+
+DIV.col {
+float: right;
+}
+
+DIV.col-right {
+float: left;
+}
+
+DIV.simple-right-small, DIV.simple-right-half {
+float: left;
+text-align: left;
+}
+
+#column-container .left {
+float: right;
+margin-right: 0;
+margin-left: 1em;
+}
+
+.left-border {
+float: right;
+margin-right: 0;
+margin-left: 1em;
+border-right: none;
+border-left: 0.5px dotted #ccc;
+}
+
+#column-container .right {
+float: left;
+margin-left: 0;
+margin-right: 1em;
+}
+
+#column-container .leftonly {
+margin-left: 0;
+margin-right: 23em;
+}
+
+#column-container .rightonly {
+margin-right: 0;
+margin-left: 23em;
+}
+
+DIV.column-left-wide {
+float: right;
+}
+
+/* ===== New Styles ===== */
+
+.label {
+padding-right: 0;
+padding-left: 1.1em;
+text-align: left;
+}
+
+/* ================================== */
+/* ===== Used to align elements ===== */
+/* ================================== */
+
+.align-float {
+float: left;
+}
+
+.align-text {
+text-align: left;
+}
+
+/* ==================================== */
+/* ===== Masthead (Header) Styles ===== */
+/* ==================================== */
+
+#masthead ul li {
+float: right;
+}
+
+#masthead ul .opposed,
+#masthead ul .control-area {
+float: left;
+text-align: left;
+}
+
+/* ================================================== */
+/* ===== Main Navigation (App Menu) Styles ========== */
+/* ================================================== */
+
+#main-navigation ul {
+direction: rtl;
+}
+
+#main-navigation ul li {
+background-image: url(/images/rtl/main_uns_right.gif);
+background-position: top right;
+float: right;
+}
+
+#main-navigation ul a {
+background-image: url(/images/rtl/main_uns_left.gif);
+background-position: top left;
+}
+
+#main-navigation ul .selected,
+#main-navigation ul li:hover {
+background-image: url(/images/rtl/main_sel_right.gif);
+background-position: top right;
+float: right;
+}
+
+#main-navigation ul a:hover,
+#main-navigation ul .selected a,
+#main-navigation ui .selected a:hover {
+background-image: url(/images/rtl/main_sel_left.gif);
+background-position: top left;
+}
+
+/* ========================================================= */
+/* ===== Component Navigation (App Header) Styles ========== */
+/* ========================================================= */
+
+#app-navigation {
+background-image: url(/images/rtl/gradient_main.gif);
+background-position: top right;
+}
+
+#app-navigation ul li {
+border-right: none;
+border-left: 0.1em solid #69a9d9;
+float: right;
+}
+
+#app-navigation .opposed li,
+#app-navigation ul .opposed,
+#app-navigation ul .col-right {
+border-right: 0.1em solid #69a9d9;
+border-left: none;
+float: left;
+}
+
+/* ================================================= */
+/* ===== Screenlet Title Bar/Navigation Styles ===== */
+/* ================================================= */
+
+.screenlet-title-bar ul li {
+border-left: none;
+border-right: 0.1em solid #5f9fcf;
+float: left;
+}
+
+.screenlet-title-bar ul h1,
+.screenlet-title-bar ul h2,
+.screenlet-title-bar ul h3,
+.screenlet-title-bar ul .head1,
+.screenlet-title-bar ul .head2,
+.screenlet-title-bar ul .head3 {
+/* h1 - h3 deprecated, fails validation */
+border-right: none;
+float: right;
+}
+
+/* login screenlet decorator */
+.login-screenlet {
+margin-left: 0;
+margin-right: 38%;
+}
+
+/* ======================================================= */
+/* ===== Basic Navigation (Vertical Menu) Style ========== */
+/* ======================================================= */
+
+.basic-nav {
+padding-left: 0;
+padding-right: 1em;
+}
+
+/* ======================================== */
+/* ===== Button Bar Navigation Styles ===== */
+/* ======================================== */
+
+.button-bar ul li,
+.tabContainer ul li {
+float: right;
+}
+
+.button-bar ul .opposed {
+float: left;
+}
+
+/* ===== Button bar decorators ===== */
+
+.tab-bar {
+margin-left: 0;
+margin-right: -1em;
+}
+
+.tab-bar ul li {
+border-right: none;
+border-left: 0.1em solid #69a9d9;
+}
+
+#app-navigation .opposed li,
+#app-navigation ul .opposed {
+border-right: 0.1em solid #69a9d9;
+border-left: none;
+}
+
+/* ======================== */
+/* ===== Table Styles ===== */
+/* ======================== */
+
+.basic-table tr .label,
+.basic-table tr .group-label {
+/* field labels for forms */
+text-align: left;
+padding-right: 0;
+padding-left: 1.5em;
+}
+
+.basic-table tr .group-label {
+padding: 2em 0 0 1.5em;
+}
+
+.basic-table tr th,
+.basic-table .header-row {
+text-align: right;
+}
+
+.basic-table tr .button-col a {
+float: right;
+}
+
+/* ======================= */
+/* ===== Tree Styles ===== */
+/* ======================= */
+
+.basic-tree ul, .basic-tree li {
+padding-left: 0;
+padding-right: 1em;
+}
+
+.basic-tree li .expanded {
+background: url(/images/collapse.gif) no-repeat right center;
+padding-right: 0;
+padding-left: 1em;
+}
+
+.basic-tree li .collapsed {
+background: url(/images/expand.gif) no-repeat right center;
+padding-right: 0;
+padding-left: 1em;
+}
+
+/* ======================== */
+/* ===== Form Styles ===== */
+/* ======================== */
+
+.basic-form table tr .label,
+.basic-form table tr .group-label {
+text-align: left;
+padding-right: 0;
+padding-left: 1.5em;
+}
+
+.basic-form table tr .group-label {
+/* "header" for field label groups */
+font-size: 1.2em;
+padding: 2em 0 0 1.5em ;
+}
+
+.basic-form table tr th,
+.basic-form table .header-row {
+text-align: right;
+}
+
+.nav-pager ul li {
+float: right;
+}
