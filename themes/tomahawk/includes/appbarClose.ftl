@@ -1,0 +1,90 @@
+<#--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
+<#if person?has_content>
+  <#assign userName = person.firstName?if_exists + " " + person.middleName?if_exists + " " + person.lastName?if_exists>
+<#elseif partyGroup?has_content>
+  <#assign userName = partyGroup.groupName?if_exists>
+<#elseif userLogin?exists>
+  <#assign userName = userLogin.userLoginId>
+<#else>
+  <#assign userName = "">
+</#if>
+<#if defaultOrganizationPartyGroupName?has_content>
+  <#assign orgName = " - " + defaultOrganizationPartyGroupName?if_exists>
+<#else>
+  <#assign orgName = "">
+</#if>
+
+<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+  <#if headerItem!="main">
+    <div class="breadcrumbs-sep">
+      ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
+    </div>
+  </#if>
+</#if>
+
+<div id="control-area">
+  <ul id="preferences-menu">
+    <#if userLogin?exists>
+      <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+        <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
+          <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
+            <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+            <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER"/>
+            <input type="hidden" name="userPrefValue" value="N"/>
+          </form>
+        </li>
+      <#else>
+        <li class="expanded"><a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;</a>
+          <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
+            <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+            <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER"/>
+            <input type="hidden" name="userPrefValue" value="Y"/>
+          </form>
+        </li>
+      </#if>
+    </#if>
+    <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
+      <#include "component://common/webcommon/includes/helplink.ftl" />
+      <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title=${uiLabelMap.CommonHelp}></a></li>
+    </#if>
+    <#if userLogin?exists>
+      <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+      <li><a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
+    <#else>
+      <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+    </#if>
+    <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
+    <#if userLogin?exists>
+      <#if orgName?has_content>
+        <li class="org">${orgName}</li>
+      </#if>
+      <#if userLogin.partyId?exists>
+        <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}${externalKeyParam?if_exists}">${userName}</a></li>
+      <#else>
+        <li class="user">${userName}</li>
+      </#if>
+    </#if>
+  </ul>
+</div>
+</div>
+</div>
+<div class="clear">
+</div>

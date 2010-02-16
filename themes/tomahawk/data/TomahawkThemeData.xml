@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <VisualTheme visualThemeId="TOMAHAWK" visualThemeSetId="BACKOFFICE" description="Tomahawk: "/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAME" resourceValue="TOMAHAWK" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/tomahawk/css/style.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/tomahawk/css/help.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/tomahawk/webapp/tomahawk/css/docbook.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/tomahawk/js/dropdown.js" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://tomahawk/includes/header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://tomahawk/includes/appbarOpen.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://tomahawk/includes/appbarClose.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/tomahawk/screenshot.jpg" sequenceId="01"/>
+</entity-engine-xml>
