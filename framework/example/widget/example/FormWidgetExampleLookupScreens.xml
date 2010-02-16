@@ -41,6 +41,10 @@ under the License.
                 <!-- it might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
 
+                <!--  when set Y the auto-completer will search value using "fieldValue%"(statrWith operation)-->
+                <!--  the default behavior is "%fieldValue%" (contains operation) -->
+                <set field="searchTypeStartWith" value="Y"/>
+
                 <!-- optional: fields to display in the given order, default is searchFields -->
                 <set field="displayFields" value="[firstName, lastName, groupName]"/>
 
@@ -106,24 +110,24 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
                 <set field="queryString" from-field="result.queryString"/>
-                
+
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
-                
+
                 <!-- entries needed for lookup ajax auto completer -->
                 <!-- required: entity to search in -->
                 <set field="entityName" value="PartyNameView"/>
-                
+
                 <!-- required: fields to search a match -->
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
-                
+
                 <!-- optional: field to return after user selection, default is first element of searchFields -->
                 <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
                 <set field="returnField" value="partyId"/>
-                
+
                 <!-- optional: fields to display, default are searchFields -->
                 <set field="displayFields" value="[firstName, lastName]"/>
-                
+
             </actions>
             <widgets>
                 <decorator-screen name="LookupLayerPopupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -136,6 +140,6 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
-    
+    </screen>
+
 </screens>
