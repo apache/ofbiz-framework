@@ -2295,7 +2295,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if (this.getSelectedAmount() != selectedAmount) {
+        if (selectedAmount != null && this.selectedAmount.compareTo(selectedAmount) != 0) {
             return false;
         }
 
@@ -2306,11 +2306,11 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if (this.reservLength != reservLength) {
+        if (reservLength != null && this.reservLength.compareTo(reservLength) != 0) {
             return false;
         }
 
-        if (this.reservPersons != reservPersons) {
+        if (reservPersons != null && this.reservPersons.compareTo(reservPersons) != 0) {
             return false;
         }
 
