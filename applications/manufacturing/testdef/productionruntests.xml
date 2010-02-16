@@ -21,11 +21,9 @@
 <test-suite suite-name="productionruntests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
-<!--
     <test-case case-name="manufacturing-tests-data-load">
         <entity-xml action="load" entity-xml-url="component://manufacturing/testdef/data/ManufacturingTestsData.xml"/>
     </test-case>
--->
 
     <test-case case-name="production-run-tests">
         <simple-method-test location="component://manufacturing/script/org/ofbiz/manufacturing/test/ProductionRunTests.xml"/>
