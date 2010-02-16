@@ -30,9 +30,9 @@ import org.ofbiz.base.util.UtilGenerics;
 
 /** JSON Converter classes. */
 public class JSONConverters implements ConverterLoader {
-    public static class ObjectToJSONResultCreator<R extends JSONResult> implements ConverterCreater, ConverterLoader {
+    public static class ObjectToJSONResultCreator<R extends JSONResult> implements ConverterCreator, ConverterLoader {
         public void loadConverters() {
-            Converters.registerCreater(this);
+            Converters.registerCreator(this);
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
