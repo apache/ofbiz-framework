@@ -57,7 +57,7 @@ under the License.
                         <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                         </entity-one>
-                        <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="defaultCurrencyUomId" global="true"/>
+                        <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="${defaultCurrencyUomId}" global="true"/>
                         <set field="defaultOrganizationPartyGroupName" from-field="orgParty.groupName" global="true"/>
                         <set field="dropdown.hiddenFieldList" from-field="hiddenFields" global="true"/>
                         <set field="dropdown.action" value="setUserPreference"/>
