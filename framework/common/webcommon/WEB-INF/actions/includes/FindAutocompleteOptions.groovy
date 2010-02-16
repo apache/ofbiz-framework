@@ -32,7 +32,10 @@ searchFields = context.searchFields;
 displayFields = context.displayFields ?: searchFields;
 searchValueFieldName = parameters.searchValueField;
 fieldValue = parameters.get(searchValueFieldName);
- 
+searchTypeStartWith = context.searchTypeStartWith;
+if( searchTypeStartWith == null){
+    searchTypeStartWith = "N";
+}
 if (searchFields && fieldValue) {
     searchFieldsList = StringUtil.toList(searchFields);
     displayFieldsSet = StringUtil.toSet(displayFields);
@@ -40,20 +43,26 @@ if (searchFields && fieldValue) {
     displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
     context.returnField = returnField;
     context.displayFieldsSet = displayFieldsSet;
-    searchFieldsList.each { fieldName -> 
-        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
+    if("Y".equals(searchTypeStartWith.toUpperCase())){
+    	searchValue = fieldValue.toUpperCase() + "%";
+    }
+    else{
+    	searchValue = "%" + fieldValue.toUpperCase() + "%";
+    }
+    searchFieldsList.each { fieldName ->
+        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
     }
 }
-
+System.out.println(andExprs);
 if (andExprs && entityName && displayFieldsSet) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.OR);
-    
-    //if there is an extra condition, add it to main condition 
+
+    //if there is an extra condition, add it to main condition
     if (context.andCondition && context.andCondition  instanceof EntityCondition) {
         entityConditionList = EntityCondition.makeCondition(context.andCondition, entityConditionList);
     }
-    
-    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);     
+
+    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);
     EntityFindOptions findOptions = new EntityFindOptions();
     findOptions.setMaxRows(autocompleterViewSize);
     autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false);
