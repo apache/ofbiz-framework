@@ -154,4 +154,80 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="productStore" entry-name="parameters.productStoreId" ><display-entity entity-name="ProductStore" description="${storeName} [${productStoreId}]" key-field-name="productStoreId" ></display-entity></field>
         <field name="submitButton" title="${uiLabelMap.BlockItemsOutOfStock}"><submit button-type="button"/></field>
     </form>
+    <!-- Sold Items List -->
+	<form name="SoldItemList" type="list"  target="doAction" list-name="soldItemList"
+    	odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+    	<row-actions>
+    		<script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/SoldAction.groovy"/>
+    	</row-actions>
+    	<field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+    	<field name="itemId"><display description="${itemId} - ${title}"/></field>
+    	<field name="listingType"><display description="${listingType}"/></field>
+    	<field name="quantity"><display description="${quantity}"/></field>
+    	<field name="transactionId"><display description="${transactionId}"/></field>
+    	<field name="salePrice"><display description="${salePrice}"/></field>
+    	<field name="totalAmount"><display description="${totalAmount}"/></field>
+    	<field name="creationTime"><display description="${creationTime}" type="date"/></field>
+    	<field name="paidTime"><display description="${paidTime}" type="date"/></field>
+    	<field name="checkoutStatus"><display description="${checkoutStatus}"/></field>
+    	<field name="unpaidItemStatus"><display description="${unpaidItemStatus}"/></field>
+    	<field name="action" use-when="&quot;${hasAction}&quot;==&quot;true&quot;">
+    		<drop-down>
+    			<list-options key-name="action" list-name="actionList" description="${actionName}"/>
+    		</drop-down>
+    	</field>
+    	<field name="submitButton"  use-when="&quot;${hasAction}&quot;==&quot;true&quot;" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
+    <form name="OpenUnpaid" type="single" target="addDispute">
+    	<field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+    	<field name="itemId"><hidden value="${parameters.itemId}"/></field>
+    	<field name="item"><text disabled="true" default-value="${parameters.itemId} - ${parameters.title}"/></field>
+    	<field name="listingType"><text disabled="true" default-value="${parameters.listingType}"/></field>
+    	<field name="quantity"><text disabled="true" default-value="${parameters.quantity}"/></field>
+    	<field name="salePrice"><text disabled="true" default-value="${parameters.salePrice}"/></field>
+    	<field name="transactionId"><hidden value="${parameters.transactionId}"/></field>
+    	<field name="transaction"><text disabled="true" default-value="${parameters.transactionId}"/></field>
+    	<field name="disputeReasonCodeType">
+    		<radio no-current-selected-key="TransactionMutuallyCanceled">
+    			<option key="BUYER_HAS_NOT_PAID" description="The buyer has not paid for the item"/>
+    			<option key="TRANSACTION_MUTUALLY_CANCELED" description="We have both agreed not to complete the transaction"/>
+    		</radio>
+    	</field>
+   		<field name="disputeExplanationCodeType">
+    		<drop-down>
+    			<option key="" description="- - Select One - -"/>
+    			<option key="BUYER_PURCHASING_MISTAKE" description="Buyer purchased item by mistake or changed mind"/>
+    			<option key="BUYER_RETURNED_ITEM_FOR_REFUND" description="Buyer is returning item for a refund"/>
+    			<option key="UNABLE_TO_RESOLVE_TERMS" description="Buyer and I disagreed over terms"/>
+    			<option key="BUYER_HAS_NOT_RESPONDED" description="Buyer is unresponsive"/>
+    			<option key="PAYMENT_METHOD_NOT_SUPPORTED" description="Buyer's payment hasn't been received or hasn't cleared"/>
+    			<option key="SHIPPING_ADDRESS_NOT_CONFIRMED" description="Buyer requested shipment to an unconfirmed address"/>
+    			<option key="SHIP_COUNTRY_NOT_SUPPORTED" description="Seller doesn't ship to the country requested by buyer"/>
+ 	  			<option key="OTHER_EXPLANATION" description="Other reason"/>
+    		</drop-down>
+    	</field>
+    	<field name="submitButton" title="${uiLabelMap.CommonSubmit}" position="1"><submit/></field>
+    	<field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" position="2">
+    		<hyperlink target="soldListing" description="${uiLabelMap.CommonCancel}">
+    			<parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+    		</hyperlink>
+    	</field>
+	</form>
+    <form name="MakeSecondChanceOffer" type="single" target="addEbaySecondChanceOffer">
+    	<auto-fields-service service-name="addEbaySecondChanceOffer"/>
+    	<field name="duration">
+    		<drop-down>
+    			<option key="DAYS_1" description="a day"/>
+    			<option key="DAYS_3" description="3 days"/>
+    			<option key="DAYS_5" description="5 days"/>
+    			<option key="DAYS_7" description="7 days"/>
+    		</drop-down>
+    	</field>
+    	<field name="recipientBidderUserId">
+    		<drop-down>
+    			<list-options key-name="userId" list-name="bidders" description="${userId}"/>
+    		</drop-down>
+    	</field>
+    	<field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>   
 </forms>
