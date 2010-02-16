@@ -35,4 +35,12 @@ under the License.
     <Person partyId="TestManufAdmin" firstName="Manufacturing" lastName="Admin"/>
     <UserLogin partyId="TestManufAdmin" userLoginId="TestManufAdmin"/>
     <UserLoginSecurityGroup userLoginId="TestManufAdmin" groupId="MANUFADMIN" fromDate="2001-05-13 00:00:00"/>
+    <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks."/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
+    <Party partyId="TestSupplyAdmin" partyTypeId="PERSON"/>
+    <Person partyId="TestSupplyAdmin" firstName="Supply" lastName="Admin"/>
+    <UserLogin partyId="TestSupplyAdmin" userLoginId="TestSupplyAdmin"/>
+    <UserLoginSecurityGroup userLoginId="TestSupplyAdmin" groupId="SUPPLYADMIN" fromDate="2001-05-13 00:00:00"/>
 </entity-engine-xml>
