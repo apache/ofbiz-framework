@@ -85,7 +85,7 @@ function insertImageName(type,nameValue) {
                     <td align="right" class="label">${uiLabelMap.ProductProductCategoryId}</td>
                     <td>&nbsp;</td>
                     <td>
-                      <b>${productCategoryId}</b> (${uiLabelMap.ProductNotModificationRecrationCategory}.)
+                      <b>${productCategoryId}</b> (${uiLabelMap.ProductNotModificationRecreationCategory}.)
                     </td>
                 </tr>
 </#if>
@@ -101,12 +101,12 @@ function insertImageName(type,nameValue) {
                     </td>
                 </tr>
                 <tr>
-                    <td width="26%" align="right" class="label">${uiLabelMap.ProductName}</td>
+                    <td width="26%" align="right" class="label">${uiLabelMap.ProductProductCategoryName}</td>
                     <td>&nbsp;</td>
                     <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
-                    <td width="26%" align="right" class="label">${uiLabelMap.ProductProductDescription}</td>
+                    <td width="26%" align="right" class="label">${uiLabelMap.ProductProductCategoryDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%"><textarea name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)?if_exists}</#if></textarea></td>
                 </tr>

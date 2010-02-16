@@ -14472,7 +14472,7 @@
         <value xml:lang="th">ไม่สามารถพบสินค้าด้วยรหัส</value>
         <value xml:lang="zh">没有找到产品，标识</value>
     </property>
-    <property key="ProductNotModificationRecrationCategory">
+    <property key="ProductNotModificationRecreationCategory">
         <value xml:lang="de">Kann nicht geändert werden ohne die Kategorie erneut zu erstellen</value>
         <value xml:lang="en">This cannot be changed without re-creating the category</value>
         <value xml:lang="es">No se puede cambiar esto sin volver a crear la categoría</value>
@@ -16102,6 +16102,12 @@
         <value xml:lang="ru">Категория продуктов</value>
         <value xml:lang="th">หมวดหมู่สินค้า</value>
         <value xml:lang="zh">产品分类</value>
+    </property>
+    <property key="ProductProductCategoryName">
+        <value xml:lang="en">Product Category Name</value>
+    </property>
+    <property key="ProductProductCategoryDescription">
+        <value xml:lang="en">Product Category Description</value>
     </property>
     <property key="ProductProductCategoryId">
         <value xml:lang="de">Produktkategorie ID</value>
