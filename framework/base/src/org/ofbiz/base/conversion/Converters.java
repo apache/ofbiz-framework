@@ -35,7 +35,7 @@ public class Converters {
     protected static final String module = Converters.class.getName();
     protected static final String DELIMITER = "->";
     protected static final FastMap<String, Converter<?, ?>> converterMap = FastMap.newInstance();
-    protected static final FastSet<ConverterCreater> creaters = FastSet.newInstance();
+    protected static final FastSet<ConverterCreator> creators = FastSet.newInstance();
     protected static final FastSet<String> noConversions = FastSet.newInstance();
     /** Null converter used when the source and target java object
      * types are the same. The <code>convert</code> method returns the
@@ -46,7 +46,7 @@ public class Converters {
 
     static {
         converterMap.setShared(true);
-        registerCreater(new PassThruConverterCreater());
+        registerCreator(new PassThruConverterCreator());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Iterator<ConverterLoader> converterLoaders = ServiceRegistry.lookupProviders(ConverterLoader.class, loader);
         while (converterLoaders.hasNext()) {
@@ -96,7 +96,7 @@ OUTER:
                     continue OUTER;
                 }
             }
-            for (ConverterCreater value : creaters) {
+            for (ConverterCreator value : creators) {
                 result = createConverter(value, sourceClass, targetClass);
                 if (result != null) {
                     converterMap.putIfAbsent(key, result);
@@ -113,7 +113,7 @@ OUTER:
         } while (true);
     }
 
-    private static <S, SS extends S, T, TT extends T> Converter<SS, TT> createConverter(ConverterCreater creater, Class<SS> sourceClass, Class<TT> targetClass) {
+    private static <S, SS extends S, T, TT extends T> Converter<SS, TT> createConverter(ConverterCreator creater, Class<SS> sourceClass, Class<TT> targetClass) {
         return creater.createConverter(sourceClass, targetClass);
     }
 
@@ -155,8 +155,8 @@ OUTER:
      * @param <T> The target object type
      * @param creater The <code>ConverterCreater</code> instance to register
      */
-    public static <S, T> void registerCreater(ConverterCreater creater) {
-        creaters.add(creater);
+    public static <S, T> void registerCreator(ConverterCreator creator) {
+        creators.add(creator);
     }
 
     /** Registers a <code>Converter</code> instance to be used by the
@@ -225,8 +225,8 @@ OUTER:
         }
     }
 
-    protected static class PassThruConverterCreater implements ConverterCreater{
-        protected PassThruConverterCreater() {
+    protected static class PassThruConverterCreator implements ConverterCreator{
+        protected PassThruConverterCreator() {
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {

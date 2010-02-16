@@ -157,9 +157,9 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToEnumConverterCreator implements ConverterCreater, ConverterLoader {
+    public static class StringToEnumConverterCreator implements ConverterCreator, ConverterLoader {
         public void loadConverters() {
-            Converters.registerCreater(this);
+            Converters.registerCreator(this);
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {

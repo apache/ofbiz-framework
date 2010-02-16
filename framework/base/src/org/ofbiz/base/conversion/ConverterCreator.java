@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-/** ConverterCreater interface. Classes implement this interface to create a
+/** ConverterCreator interface. Classes implement this interface to create a
  * converter that can convert one Java object type to another.
  */
-public interface ConverterCreater {
+public interface ConverterCreator {
     /** Creates a Converter that can convert the <code>sourceClass</code> to
      * the <code>targetClass</code>. Returns <code>null</code> if this creater
      * doesn't support the class pair.
