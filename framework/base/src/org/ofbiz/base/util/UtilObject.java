@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.lang.reflect.Array;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -179,6 +180,14 @@ public final class UtilObject {
 
     public static int doHashCode(Object o1) {
         if (o1 == null) return 0;
+        if (o1.getClass().isArray()) {
+            int length = Array.getLength(o1);
+            int result = 0;
+            for (int i = 0; i < length; i++) {
+                result += doHashCode(Array.get(o1, i));
+            }
+            return result;
+        }
         return o1.hashCode();
     }
 
