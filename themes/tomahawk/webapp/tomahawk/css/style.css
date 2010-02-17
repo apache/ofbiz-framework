@@ -1457,6 +1457,15 @@ padding:6px 10px 6px 30px;
 background: url(../images/ptrn_hot_refresh.png) no-repeat;
 }
 
+.button-bar ul a.search,.button-bar a.search {
+background: url(../images/ptrn_search.png) no-repeat;
+padding:6px 10px 6px 30px;
+}
+
+.button-bar ul a.search:hover,.button-bar a.search:hover {
+background: url(../images/ptrn_hot_search.png) no-repeat;
+}
+
 .button-bar ul a:hover,.button-bar a:hover {
 color:#25292c;
 background-image:url(../images/ptrn_button_hover.gif);
