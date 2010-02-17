@@ -533,7 +533,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         String timeDropdown = dateTimeField.getInputMethod();
         String timeDropdownParamName = "";
         String classString = "";
-        StringBuilder calGif = new StringBuilder();
         boolean isTwelveHour = false ;
         String timeHourName = "";
         int hour2 = 0, hour1 = 0, minutes = 0;
@@ -554,7 +553,6 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             timeDropdownParamName = tempParamName;
             defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
-            this.appendContentUrl(calGif, "/images/cal.gif");
         }
 
         // if we have an input method of time-dropdown, then render two
@@ -627,8 +625,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(timeDropdownParamName);
         sr.append("\" defaultDateTimeString=\"");
         sr.append(defaultDateTimeString);
-        sr.append("\" calGif=\"");
-        sr.append(calGif.toString());
         sr.append("\" localizedIconTitle=\"");
         sr.append(localizedIconTitle);
         sr.append("\" timeDropdown=\"");
