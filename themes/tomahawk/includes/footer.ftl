@@ -26,7 +26,7 @@ under the License.
       ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> <#include "../../../runtime/svninfo.ftl" />
     </li>
     <li class="opposed">${nowTimestamp?datetime?string.short} -
-  <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
+  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
     </li>
   </ul>
 </div>
