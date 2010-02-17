@@ -36,25 +36,25 @@ public class UtilObject {
 
     public static byte[] getBytes(InputStream is) {
         byte[] buffer = new byte[4 * 1024];
-        ByteArrayOutputStream bos = null;
         byte[] data = null;
         try {
-            bos = new ByteArrayOutputStream();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            try {
 
-            int numBytesRead;
-            while ((numBytesRead = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, numBytesRead);
+                int numBytesRead;
+                while ((numBytesRead = is.read(buffer)) != -1) {
+                    bos.write(buffer, 0, numBytesRead);
+                }
+                data = bos.toByteArray();
+            } finally {
+                bos.close();
             }
-            data = bos.toByteArray();
         } catch (IOException e) {
             Debug.logError(e, module);
         } finally {
             try {
                 if (is != null) {
                     is.close();
-                }
-                if (bos != null) {
-                    bos.close();
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -66,28 +66,27 @@ public class UtilObject {
 
     /** Serialize an object to a byte array */
     public static byte[] getBytes(Object obj) {
-        ByteArrayOutputStream bos = null;
-        ObjectOutputStream oos = null;
         byte[] data = null;
         try {
-            bos = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(bos);
-            oos.writeObject(obj);
-            data = bos.toByteArray();
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        } finally {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
             try {
-                if (oos != null) {
+                ObjectOutputStream oos = new ObjectOutputStream(bos);
+                try {
+                    oos.writeObject(obj);
+                    data = bos.toByteArray();
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                } finally {
                     oos.flush();
                     oos.close();
                 }
-                if (bos != null) {
-                    bos.close();
-                }
             } catch (IOException e) {
                 Debug.logError(e, module);
+            } finally {
+                bos.close();
             }
+        } catch (IOException e) {
+            Debug.logError(e, module);
         }
 
         return data;
@@ -115,31 +114,28 @@ public class UtilObject {
 
     /** Deserialize a byte array back to an object */
     public static Object getObject(byte[] bytes) {
-        ByteArrayInputStream bis = null;
-        ObjectInputStream ois = null;
         Object obj = null;
-
         try {
-            bis = new ByteArrayInputStream(bytes);
-            ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
-            obj = ois.readObject();
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        } finally {
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
             try {
-                if (ois != null) {
+                ObjectInputStream ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
+                try {
+                    obj = ois.readObject();
+                } catch (ClassNotFoundException e) {
+                    Debug.logError(e, module);
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                } finally {
                     ois.close();
-                }
-                if (bis != null) {
-                    bis.close();
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
+            } finally {
+                bis.close();
             }
+        } catch (IOException e) {
+            Debug.logError(e, module);
         }
-
         return obj;
     }
 
