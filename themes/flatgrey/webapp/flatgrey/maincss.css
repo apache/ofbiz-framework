@@ -1932,9 +1932,20 @@ margin: 0;
 /* ================================= */
 /* ===== Visual Embellishments ===== */
 /* ================================= */
+.view-calendar ul{
+height: 22px;
+}
 
-.view-calendar {
+.view-calendar ul li{
+float: left;
+}
+
+.view-calendar ul li a{
 background: url(/images/cal.gif) no-repeat;
+display: block;
+margin: 3px 10px 0px 4px;
+width:16px;
+height:16px;
 }
 
 .field-lookup ul li {
