@@ -294,35 +294,25 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         if (millis == 0) {
             return ZeroTimeDuration;
         }
-        TimeDuration duration = new TimeDuration();
-        boolean isNegative = false;
-        if (millis < 0) {
-            isNegative = true;
-            millis = 0 - millis;
-        }
         long units = millis / 0x757B12C00L;
-        duration.years = (int) units;
-        millis -= 0x757B12C00L * (long) duration.years;
+        int years = (int) units;
+        millis -= 0x757B12C00L * (long) years;
         units = millis / 0x9CA41900L;
-        duration.months = (int) units;
-        millis -= 0x9CA41900L * (long) duration.months;
+        int months = (int) units;
+        millis -= 0x9CA41900L * (long) months;
         units = millis / 86400000;
-        duration.days = (int) units;
-        millis -= 86400000 * (long) duration.days;
+        int days = (int) units;
+        millis -= 86400000 * (long) days;
         units = millis / 3600000;
-        duration.hours = (int) units;
-        millis -= 3600000 * (long) duration.hours;
+        int hours = (int) units;
+        millis -= 3600000 * (long) hours;
         units = millis / 60000;
-        duration.minutes = (int) units;
-        millis -= 60000 * (long) duration.minutes;
+        int minutes = (int) units;
+        millis -= 60000 * (long) minutes;
         units = millis / 1000;
-        duration.seconds = (int) units;
-        millis -= 1000 * (long) duration.seconds;
-        duration.millis = (int) millis;
-        if (isNegative) {
-            duration.makeNegative();
-        }
-        return duration;
+        int seconds = (int) units;
+        millis -= 1000 * (long) seconds;
+        return new TimeDuration(years, months, days, hours, minutes, seconds, (int) millis);
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>Number</code>
