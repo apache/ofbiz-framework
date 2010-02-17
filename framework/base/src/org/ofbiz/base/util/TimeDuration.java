@@ -47,6 +47,9 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @param millis The number of milliseconds in this duration
      */
     public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int millis) {
+        if (years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0) {
+            isNegative = true;
+        }
         this.millis = millis;
         this.seconds = seconds;
         this.minutes = minutes;
@@ -54,9 +57,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         this.days = days;
         this.months = months;
         this.years = years;
-        if (years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0) {
-            makeNegative();
-        }
     }
 
     /** Elapsed time constructor. The time duration will be computed from the
@@ -68,12 +68,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         // set up Calendar objects
         Calendar calStart;
         Calendar calEnd;
-        boolean isNegative = false;
+        int factor;
         if (cal1.before(cal2)) {
+            factor = 1;
             calStart = (Calendar) cal1.clone();
             calEnd = (Calendar) cal2.clone();
         } else {
-            isNegative = true;
+            factor = -1;
             calStart = (Calendar) cal2.clone();
             calEnd = (Calendar) cal1.clone();
         }
@@ -90,43 +91,41 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         if (deltaMillis == 0) {
             return;
         }
+        this.isNegative = factor == -1;
 
         // compute elapsed years
         long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
-        this.years = advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
+        this.years = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed months
         long monthMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_MONTH);
         units = deltaMillis / monthMillis;
-        this.months = advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
+        this.months = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed days
         units = deltaMillis / 86400000;
-        this.days = advanceCalendar(calStart, calEnd, (int) units, Calendar.DAY_OF_MONTH);
+        this.days = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.DAY_OF_MONTH);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed hours
         units = deltaMillis / 3600000;
-        this.hours = advanceCalendar(calStart, calEnd, (int) units, Calendar.HOUR);
+        this.hours = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.HOUR);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed minutes
         units = deltaMillis / 60000;
-        this.minutes = advanceCalendar(calStart, calEnd, (int) units, Calendar.MINUTE);
+        this.minutes = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.MINUTE);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed seconds
         units = deltaMillis / 1000;
-        this.seconds = advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
+        this.seconds = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
-        this.millis = (int) deltaMillis;
-        if (isNegative) {
-            makeNegative();
-        }
+        this.millis = factor * (int) deltaMillis;
     }
 
     private static long computeDeltaMillis(long start, long end) {
@@ -267,17 +266,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         cal.add(Calendar.MONTH, this.months);
         cal.add(Calendar.YEAR, this.years);
         return cal;
-    }
-
-    protected void makeNegative() {
-        this.millis = Math.min(this.millis, -this.millis);
-        this.seconds = Math.min(this.seconds, -this.seconds);
-        this.minutes = Math.min(this.minutes, -this.minutes);
-        this.hours = Math.min(this.hours, -this.hours);
-        this.days = Math.min(this.days, -this.days);
-        this.months = Math.min(this.months, -this.months);
-        this.years = Math.min(this.years, -this.years);
-        this.isNegative = true;
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>long</code>
