@@ -182,9 +182,13 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
             calEnd = (Calendar) cal1.clone();
         }
 
-        // this will be used to speed up time comparisons
+        /* Strategy: Using millisecond arithmetic alone will produce inaccurate results.
+         * Using a Calendar alone will take too long. So, we use millisecond arithmetic
+         * to get near the correct result, then zero in on the correct result using a
+         * Calendar.
+         */
         long targetMillis = calEnd.getTimeInMillis();
-        long deltaMillis = targetMillis - calStart.getTimeInMillis();
+        long deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // shortcut for equal dates
         if (deltaMillis == 0) {
@@ -195,38 +199,45 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
         this.years = advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed months
         long monthMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_MONTH);
         units = deltaMillis / monthMillis;
         this.months = advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed days
         units = deltaMillis / 86400000;
         this.days = advanceCalendar(calStart, calEnd, (int) units, Calendar.DAY_OF_MONTH);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed hours
         units = deltaMillis / 3600000;
         this.hours = advanceCalendar(calStart, calEnd, (int) units, Calendar.HOUR);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed minutes
         units = deltaMillis / 60000;
         this.minutes = advanceCalendar(calStart, calEnd, (int) units, Calendar.MINUTE);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed seconds
         units = deltaMillis / 1000;
         this.seconds = advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
-        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         this.millis = (int) deltaMillis;
         if (isNegative) {
             makeNegative();
         }
+    }
+
+    protected long computeDeltaMillis(long start, long end) {
+        if (start < 0) {
+            return end + (-start);
+        }
+        return end - start;
     }
 
     protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
