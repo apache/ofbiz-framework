@@ -22,6 +22,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="basetests">
         <junit-test-suite class-name="org.ofbiz.base.util.test.IndentingWriterTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.TimeDurationTests"/>
         <junit-test-suite class-name="org.ofbiz.base.conversion.test.DateTimeTests.java"/>
         <junit-test-suite class-name="org.ofbiz.base.conversion.test.MiscTests.java"/>

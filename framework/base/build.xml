@@ -39,6 +39,7 @@ under the License.
 
     <filelist id="test.classes" dir="${src.dir}">
         <file name="org/ofbiz/base/util/test/IndentingWriterTests.java"/>
+        <file name="org/ofbiz/base/util/test/UtilObjectTests.java"/>
         <file name="org/ofbiz/base/util/test/TimeDurationTests.java"/>
         <file name="org/ofbiz/base/json/test/JSONTests.java"/>
         <file name="org/ofbiz/base/conversion/test/DateTimeTests.java"/>
