@@ -83,11 +83,18 @@ public final class UtilObject {
                     oos.close();
                 }
             } catch (IOException e) {
+                // I don't know how to force an error during flush or
+                // close of ObjectOutputStream; since OOS is wrapping
+                // BAOS, and BAOS does not throw IOException during
+                // write, I don't think this can happen.
                 Debug.logError(e, module);
             } finally {
                 bos.close();
             }
         } catch (IOException e) {
+            // How could this ever happen?  BAOS.close() is listed as
+            // throwing the exception, but I don't understand why this
+            // is.
             Debug.logError(e, module);
         }
 
@@ -136,6 +143,9 @@ public final class UtilObject {
                 bis.close();
             }
         } catch (IOException e) {
+            // How could this ever happen?  BAIS.close() is listed as
+            // throwing the exception, but I don't understand why this
+            // is.
             Debug.logError(e, module);
         }
         return obj;
