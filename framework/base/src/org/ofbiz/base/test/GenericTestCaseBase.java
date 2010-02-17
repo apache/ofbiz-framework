@@ -41,6 +41,14 @@ public abstract class GenericTestCaseBase extends TestCase {
         super(name);
     }
 
+    public static void assertComparison(String label, int wanted, int result) {
+        if (wanted == 0) {
+            assertEquals(label, wanted, result);
+        } else {
+            assertEquals(label, wanted, result / Math.abs(result));
+        }
+    }
+
     public static <V, E extends Exception> void assertFuture(String label, Future<V> future, V wanted, boolean interruptable, Class<E> thrownClass, String thrownMessage) {
         try {
             assertEquals(label + ": future return", wanted, future.get());
