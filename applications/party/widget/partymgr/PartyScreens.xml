@@ -1053,6 +1053,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
+                <set field="tabButtonItem" value="PartyGeoLocation"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
