@@ -28,8 +28,9 @@ under the License.
     <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_FORKLIFT_02" instanceOfProductId="FORKLIFT_BATTERY" fixedAssetName="Forklift #2" fixedAssetTypeId="EQUIPMENT" purchaseCost="2000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    <FixedAsset fixedAssetId="DEMO_VEHICLE_01" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Pickup Truck" fixedAssetTypeId="VEHICLE" purchaseCost="45000" purchaseCostUomId="USD"/>
+    <FixedAsset fixedAssetId="DEMO_VEHICLE_01" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Pickup Truck" fixedAssetTypeId="VEHICLE" purchaseCost="45000" purchaseCostUomId="USD" partyId="Company" roleTypeId="OWNER" dateAcquired="2009-01-01 00:00:00.000" expectedEndOfLife="2015-12-31"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAssetDepMethod fixedAssetId="DEMO_VEHICLE_01" depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fromDate="2009-01-01 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_VEHICLE_02" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Delivery Van" fixedAssetTypeId="VEHICLE" purchaseCost="25000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_HVAC_01" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - First Floor" fixedAssetTypeId="EQUIPMENT" purchaseCost="6000" purchaseCostUomId="USD"/>
