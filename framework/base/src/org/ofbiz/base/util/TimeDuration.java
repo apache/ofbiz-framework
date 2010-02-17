@@ -317,7 +317,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         boolean isZero = true;
         int[] intArray = {0, 0, 0, 0, 0, 0, 0};
         int i = intArray.length - 1;
-        String[] strArray = duration.split(":");
+        String[] strArray = duration.split(":", -1);
         for (int s = strArray.length - 1; s >= 0; s--) {
             if (UtilValidate.isNotEmpty(strArray[s])) {
                 intArray[i] = Integer.parseInt(strArray[s].trim());

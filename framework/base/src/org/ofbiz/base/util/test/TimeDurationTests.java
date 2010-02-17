@@ -75,12 +75,12 @@ public class TimeDurationTests extends GenericTestCaseBase {
     private static TimeDuration assertDurationLoop(String label, Calendar right, int years, int months, int days, int hours, int minutes, int seconds, int milliseconds, TimeDuration lastString, boolean isNegative) {
         StringBuilder sb = new StringBuilder();
         sb.append(years != 0 ? years : "");
-        sb.append(':').append(months != 0 || sb.length() > 0 ? months : "");
-        sb.append(':').append(days != 0 || sb.length() > 1 ? days : "");
-        sb.append(':').append(hours != 0 || sb.length() > 2 ? hours : "");
-        sb.append(':').append(minutes != 0 || sb.length() > 3 ? minutes : "");
-        sb.append(':').append(seconds != 0 || sb.length() > 4 ? seconds : "");
-        sb.append(':').append(milliseconds != 0 || sb.length() > 5 ? milliseconds : "");
+        sb.append(':').append(months != 0 ? months : "");
+        sb.append(':').append(days != 0 ? days : "");
+        sb.append(':').append(hours != 0 ? hours : "");
+        sb.append(':').append(minutes != 0 ? minutes : "");
+        sb.append(':').append(seconds != 0 ? seconds : "");
+        sb.append(':').append(milliseconds != 0 ? milliseconds : "");
         String durationString = years + ":" + months + ":" + days + ":" + hours + ":" + minutes + ":" + seconds + ":" + milliseconds;
         TimeDuration stringDuration = TimeDuration.parseDuration(sb.toString());
         right.setTimeInMillis(0);
