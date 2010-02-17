@@ -57,7 +57,7 @@ public class TimeDurationTests extends GenericTestCaseBase {
         assertEquals(label + ".hours()", hours, duration.hours());
         assertEquals(label + ".minutes()", minutes, duration.minutes());
         assertEquals(label + ".seconds()", seconds, duration.seconds());
-        assertEquals(label + ".milliseconds()", milliseconds, duration.millis());
+        assertEquals(label + ".milliseconds()", milliseconds, duration.milliseconds());
         assertEquals(label + ".isNegative()", isNegative, duration.isNegative());
         assertEquals(label + ".toString()", string, duration.toString());
         assertEquals(label + ".equals(from/to long)", duration, TimeDuration.fromLong(TimeDuration.toLong(duration)));

@@ -27,7 +27,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
-    protected final int millis;
+    protected final int milliseconds;
     protected final int seconds;
     protected final int minutes;
     protected final int hours;
@@ -42,10 +42,10 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @param hours The number of hours in this duration
      * @param minutes The number of minutes in this duration
      * @param seconds The number of years in this duration
-     * @param millis The number of milliseconds in this duration
+     * @param milliseconds The number of milliseconds in this duration
      */
-    public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int millis) {
-        this.millis = millis;
+    public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int milliseconds) {
+        this.milliseconds = milliseconds;
         this.seconds = seconds;
         this.minutes = minutes;
         this.hours = hours;
@@ -84,7 +84,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
 
         // shortcut for equal dates
         if (deltaMillis == 0) {
-            this.years = this.months = this.days = this.hours = this.minutes = this.seconds = this.millis = 0;
+            this.years = this.months = this.days = this.hours = this.minutes = this.seconds = this.milliseconds = 0;
             return;
         }
 
@@ -120,7 +120,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         this.seconds = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
-        this.millis = factor * (int) deltaMillis;
+        this.milliseconds = factor * (int) deltaMillis;
     }
 
     private static long computeDeltaMillis(long start, long end) {
@@ -172,7 +172,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
             TimeDuration that = (TimeDuration) obj;
             return this.years == that.years && this.months == that.months && this.days == that.days
             && this.hours == that.hours && this.minutes == that.minutes && this.seconds == that.seconds
-            && this.millis == that.millis;
+            && this.milliseconds == that.milliseconds;
         } catch (Exception e) {}
         return false;
     }
@@ -182,9 +182,10 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      */
     @Override
     public String toString() {
-        return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.millis;
+        return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.milliseconds;
     }
 
+    @Override
     public int compareTo(TimeDuration arg0) {
         if (this == arg0) {
             return 0;
@@ -213,7 +214,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         if (r != 0) {
             return r;
         }
-        return this.millis - arg0.millis;
+        return this.milliseconds - arg0.milliseconds;
     }
 
     /** Returns <code>true</code> if this duration is negative.
@@ -221,7 +222,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>true</code> if this duration is negative
      */
     public boolean isNegative() {
-        return years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0;
+        return years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || milliseconds < 0;
     }
 
     /** Returns <code>true</code> if this duration is zero.
@@ -229,14 +230,14 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>true</code> if this duration is zero
      */
     public boolean isZero() {
-        return this.millis == 0 && this.seconds == 0 &&
+        return this.milliseconds == 0 && this.seconds == 0 &&
                 this.minutes == 0 && this.hours == 0 && this.days == 0 &&
                 this.months == 0 && this.years == 0;
     }
 
     /** Returns the milliseconds in this time duration. */
-    public int millis() {
-        return this.millis;
+    public int milliseconds() {
+        return this.milliseconds;
     }
 
     /** Returns the seconds in this time duration. */
@@ -275,7 +276,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>cal</code>
      */
     public Calendar addToCalendar(Calendar cal) {
-        cal.add(Calendar.MILLISECOND, this.millis);
+        cal.add(Calendar.MILLISECOND, this.milliseconds);
         cal.add(Calendar.SECOND, this.seconds);
         cal.add(Calendar.MINUTE, this.minutes);
         cal.add(Calendar.HOUR, this.hours);
@@ -292,32 +293,32 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * method should not be used to calculate elapsed time - use the elapsed
      * time constructor instead.</p>
      *
-     * @param millis A millisecond value
+     * @param milliseconds A millisecond value
      * @return A <code>TimeDuration</code> instance
      */
-    public static TimeDuration fromLong(long millis) {
-        if (millis == 0) {
+    public static TimeDuration fromLong(long milliseconds) {
+        if (milliseconds == 0) {
             return ZeroTimeDuration;
         }
-        long units = millis / 0x757B12C00L;
+        long units = milliseconds / 0x757B12C00L;
         int years = (int) units;
-        millis -= 0x757B12C00L * (long) years;
-        units = millis / 0x9CA41900L;
+        milliseconds -= 0x757B12C00L * (long) years;
+        units = milliseconds / 0x9CA41900L;
         int months = (int) units;
-        millis -= 0x9CA41900L * (long) months;
-        units = millis / 86400000;
+        milliseconds -= 0x9CA41900L * (long) months;
+        units = milliseconds / 86400000;
         int days = (int) units;
-        millis -= 86400000 * (long) days;
-        units = millis / 3600000;
+        milliseconds -= 86400000 * (long) days;
+        units = milliseconds / 3600000;
         int hours = (int) units;
-        millis -= 3600000 * (long) hours;
-        units = millis / 60000;
+        milliseconds -= 3600000 * (long) hours;
+        units = milliseconds / 60000;
         int minutes = (int) units;
-        millis -= 60000 * (long) minutes;
-        units = millis / 1000;
+        milliseconds -= 60000 * (long) minutes;
+        units = milliseconds / 1000;
         int seconds = (int) units;
-        millis -= 1000 * (long) seconds;
-        return new TimeDuration(years, months, days, hours, minutes, seconds, (int) millis);
+        milliseconds -= 1000 * (long) seconds;
+        return new TimeDuration(years, months, days, hours, minutes, seconds, (int) milliseconds);
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>Number</code>
@@ -373,7 +374,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         (3600000 * (long) duration.hours) +
         (60000 * (long) duration.minutes) +
         (1000 * (long) duration.seconds) +
-        duration.millis;
+        duration.milliseconds;
     }
 
     protected static class NullDuration extends TimeDuration {
