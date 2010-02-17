@@ -53,7 +53,7 @@ under the License.
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
-                                        <container>
+                                        <container style="button-bar">
                                             <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
                                         </container>
                                     </widgets>
@@ -87,8 +87,8 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductPromotionCode}">
-                            <container>
-                                <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
+                            <container style="button-bar">
+                                <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext create"/>
                             </container>
                             <container>
                                 <label style="label">${uiLabelMap.CommonView}</label>
