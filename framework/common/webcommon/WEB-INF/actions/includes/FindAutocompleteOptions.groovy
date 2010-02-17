@@ -43,17 +43,16 @@ if (searchFields && fieldValue) {
     displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
     context.returnField = returnField;
     context.displayFieldsSet = displayFieldsSet;
-    if("Y".equals(searchTypeStartWith.toUpperCase())){
-    	searchValue = fieldValue.toUpperCase() + "%";
-    }
-    else{
-    	searchValue = "%" + fieldValue.toUpperCase() + "%";
+    if ("Y".equals(searchTypeStartWith.toUpperCase())) {
+        searchValue = fieldValue.toUpperCase() + "%";
+    } else {
+        searchValue = "%" + fieldValue.toUpperCase() + "%";
     }
     searchFieldsList.each { fieldName ->
         andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
     }
 }
-System.out.println(andExprs);
+
 if (andExprs && entityName && displayFieldsSet) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.OR);
 
