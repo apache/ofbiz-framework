@@ -34,7 +34,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     protected final int days;
     protected final int months;
     protected final int years;
-    protected final boolean isNegative;
 
     /**
      * @param years The number of years in this duration
@@ -46,11 +45,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @param millis The number of milliseconds in this duration
      */
     public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int millis) {
-        if (years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0) {
-            isNegative = true;
-        } else {
-            isNegative = false;
-        }
         this.millis = millis;
         this.seconds = seconds;
         this.minutes = minutes;
@@ -91,10 +85,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         // shortcut for equal dates
         if (deltaMillis == 0) {
             this.years = this.months = this.days = this.hours = this.minutes = this.seconds = this.millis = 0;
-            this.isNegative = false;
             return;
         }
-        this.isNegative = factor == -1;
 
         // compute elapsed years
         long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
@@ -207,7 +199,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * @return <code>true</code> if this duration is negative
      */
     public boolean isNegative() {
-        return this.isNegative;
+        return years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0;
     }
 
     /** Returns <code>true</code> if this duration is zero.
