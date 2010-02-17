@@ -229,14 +229,14 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         return cal;
     }
 
-    protected long computeDeltaMillis(long start, long end) {
+    private static long computeDeltaMillis(long start, long end) {
         if (start < 0) {
             return end + (-start);
         }
         return end - start;
     }
 
-    protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
+    private static int advanceCalendar(Calendar start, Calendar end, int units, int type) {
         if (units >= 1) {
             // Bother, the below needs explanation.
             //
