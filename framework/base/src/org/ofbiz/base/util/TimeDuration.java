@@ -322,10 +322,10 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>Number</code>
      * instance. If <code>number</code> is <code>null</code>,
-     * returns a zero <code>TimeDuration</code>. <p>The years and months portions of the
-     * returned object are based on a Gregorian calendar. <b>Note:</b> this
-     * method should not be used to calculate elapsed time - use the elapsed
-     * time constructor instead.</p>
+     * returns a zero <code>TimeDuration</code>.<p>This is a convenience method
+     * intended to be used with entity engine fields. Some duration fields are
+     * stored as a <code>Long</code>, while others are stored as a
+     * <code>Double</code>. This method will decode both types.</p>
      *
      * @param number A <code>Number</code> instance, can be <code>null</code>
      * @return A <code>TimeDuration</code> instance
