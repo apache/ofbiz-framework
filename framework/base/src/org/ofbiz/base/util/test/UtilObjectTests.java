@@ -276,6 +276,9 @@ public class UtilObjectTests extends GenericTestCaseBase {
         UtilObject.doHashCode(this);
         UtilObject.doHashCode(null);
         UtilObject.doHashCode(0);
+        UtilObject.doHashCode(new Object[] { this, Object.class });
+        UtilObject.doHashCode(new Object[] { null, Object.class });
+        UtilObject.doHashCode(new int[] { 1, 3 });
     }
 
     public interface TestFactoryIntf extends Factory<Object, Set<String>> {
