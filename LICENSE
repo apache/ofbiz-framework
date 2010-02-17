@@ -555,7 +555,7 @@ The following libraries distributed with Apache OFBiz are licensed under the
 Mozilla Public License Version 1.1:
 ofbiz/trunk/framework/guiapp/lib/XuiCoreSwing-v3.2rc2b.jar
 ofbiz/trunk/framework/guiapp/lib/XuiOptional-v3.2rc2b.jar
-ofbiz/trunk/framework/webapp/lib/itext-2.0.1.jar
+ofbiz/trunk/framework/webapp/lib/itext-2.1.7.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
                                 Version 1.1
@@ -2789,6 +2789,6 @@ The DocBook XSL stylesheets are maintained by Norman Walsh,
 The docbook schemas in the files docbook.xsd, docbook.dtd xlink.xsd
 and xml.xsd are distributed under the GNU Free Documentation License
 GNU Free Documentation License
-It was allowed by the author to use the docbook files within the 
-Apache OFBiz system in an email to H.Bakker from N.Walsh dd     
-Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT) 
+It was allowed by the author to use the docbook files within the
+Apache OFBiz system in an email to H.Bakker from N.Walsh dd
+Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT)
