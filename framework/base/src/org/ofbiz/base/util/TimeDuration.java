@@ -27,15 +27,14 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
-    protected int millis;
-    protected int seconds;
-    protected int minutes;
-    protected int hours;
-    protected int days;
-    protected int months;
-    protected int years;
-    protected boolean isNegative;
-    protected TimeDuration() {}
+    protected final int millis;
+    protected final int seconds;
+    protected final int minutes;
+    protected final int hours;
+    protected final int days;
+    protected final int months;
+    protected final int years;
+    protected final boolean isNegative;
 
     /**
      * @param years The number of years in this duration
@@ -49,6 +48,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int millis) {
         if (years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0) {
             isNegative = true;
+        } else {
+            isNegative = false;
         }
         this.millis = millis;
         this.seconds = seconds;
@@ -89,6 +90,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
 
         // shortcut for equal dates
         if (deltaMillis == 0) {
+            this.years = this.months = this.days = this.hours = this.minutes = this.seconds = this.millis = 0;
+            this.isNegative = false;
             return;
         }
         this.isNegative = factor == -1;
@@ -360,7 +363,9 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     }
 
     protected static class NullDuration extends TimeDuration {
-        protected NullDuration() {}
+        protected NullDuration() {
+            super(0, 0, 0, 0, 0, 0, 0);
+        }
         @Override
         public Calendar addToCalendar(Calendar cal) {
             return cal;
