@@ -173,7 +173,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
             return this.years == that.years && this.months == that.months && this.days == that.days
             && this.hours == that.hours && this.minutes == that.minutes && this.seconds == that.seconds
             && this.milliseconds == that.milliseconds;
-        } catch (Exception e) {}
+        } catch (ClassCastException e) {}
         return false;
     }
 
