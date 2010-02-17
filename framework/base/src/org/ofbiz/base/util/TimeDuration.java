@@ -27,14 +27,14 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
-    protected int millis = 0;
-    protected int seconds = 0;
-    protected int minutes = 0;
-    protected int hours = 0;
-    protected int days = 0;
-    protected int months = 0;
-    protected int years = 0;
-    protected boolean isNegative = false;
+    protected int millis;
+    protected int seconds;
+    protected int minutes;
+    protected int hours;
+    protected int days;
+    protected int months;
+    protected int years;
+    protected boolean isNegative;
     protected TimeDuration() {}
 
     /**
@@ -66,8 +66,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      */
     public TimeDuration(Calendar cal1, Calendar cal2) {
         // set up Calendar objects
-        Calendar calStart = null;
-        Calendar calEnd = null;
+        Calendar calStart;
+        Calendar calEnd;
         boolean isNegative = false;
         if (cal1.before(cal2)) {
             calStart = (Calendar) cal1.clone();
