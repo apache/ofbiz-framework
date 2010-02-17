@@ -286,39 +286,38 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         return cal;
     }
 
-    /** Returns a <code>TimeDuration</code> instance derived from a <code>long</code>
-     * value. This method is intended to be used in tandem with the
-     * <code>toLong</code> method. <p>The years and months portions of the
-     * returned object are based on a Gregorian calendar. <b>Note:</b> this
+    /** Returns a <code>TimeDuration</code> instance derived from an encoded
+     * <code>long</code> value. This method is intended to be used in tandem with the
+     * <code>toLong</code> method. <b>Note:</b> this
      * method should not be used to calculate elapsed time - use the elapsed
-     * time constructor instead.</p>
+     * time constructor instead.
      *
-     * @param milliseconds A millisecond value
+     * @param duration An encoded duration
      * @return A <code>TimeDuration</code> instance
      */
-    public static TimeDuration fromLong(long milliseconds) {
-        if (milliseconds == 0) {
+    public static TimeDuration fromLong(long duration) {
+        if (duration == 0) {
             return ZeroTimeDuration;
         }
-        long units = milliseconds / 0x757B12C00L;
+        long units = duration / 0x757B12C00L;
         int years = (int) units;
-        milliseconds -= 0x757B12C00L * (long) years;
-        units = milliseconds / 0x9CA41900L;
+        duration -= 0x757B12C00L * (long) years;
+        units = duration / 0x9CA41900L;
         int months = (int) units;
-        milliseconds -= 0x9CA41900L * (long) months;
-        units = milliseconds / 86400000;
+        duration -= 0x9CA41900L * (long) months;
+        units = duration / 86400000;
         int days = (int) units;
-        milliseconds -= 86400000 * (long) days;
-        units = milliseconds / 3600000;
+        duration -= 86400000 * (long) days;
+        units = duration / 3600000;
         int hours = (int) units;
-        milliseconds -= 3600000 * (long) hours;
-        units = milliseconds / 60000;
+        duration -= 3600000 * (long) hours;
+        units = duration / 60000;
         int minutes = (int) units;
-        milliseconds -= 60000 * (long) minutes;
-        units = milliseconds / 1000;
+        duration -= 60000 * (long) minutes;
+        units = duration / 1000;
         int seconds = (int) units;
-        milliseconds -= 1000 * (long) seconds;
-        return new TimeDuration(years, months, days, hours, minutes, seconds, (int) milliseconds);
+        duration -= 1000 * (long) seconds;
+        return new TimeDuration(years, months, days, hours, minutes, seconds, (int) duration);
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>Number</code>
