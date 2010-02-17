@@ -19,6 +19,7 @@
 package org.ofbiz.base.test;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,6 +40,14 @@ import junit.framework.TestCase;
 public abstract class GenericTestCaseBase extends TestCase {
     protected GenericTestCaseBase(String name) {
         super(name);
+    }
+
+    public static void assertStaticHelperClass(Class<?> clz) throws Exception {
+        Constructor<?>[] constructors = clz.getDeclaredConstructors();
+        assertEquals(clz.getName() + " constructor count", 1, constructors.length);
+        assertEquals(clz.getName() + " private declared constructor", 1 << Constructor.DECLARED, constructors[0].getModifiers() & ~(1 << Constructor.PUBLIC) & (1 << Constructor.DECLARED));
+        constructors[0].setAccessible(true);
+        constructors[0].newInstance();
     }
 
     public static void assertComparison(String label, int wanted, int result) {
