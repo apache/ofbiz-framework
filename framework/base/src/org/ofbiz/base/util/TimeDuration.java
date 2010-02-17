@@ -189,9 +189,31 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         if (this == arg0) {
             return 0;
         }
-        Long thisLong = toLong(this);
-        Long thatLong = toLong(arg0);
-        return thisLong.compareTo(thatLong);
+        int r = this.years - arg0.years;
+        if (r != 0) {
+            return r;
+        }
+        r = this.months - arg0.months;
+        if (r != 0) {
+            return r;
+        }
+        r = this.days - arg0.days;
+        if (r != 0) {
+            return r;
+        }
+        r = this.hours - arg0.hours;
+        if (r != 0) {
+            return r;
+        }
+        r = this.minutes - arg0.minutes;
+        if (r != 0) {
+            return r;
+        }
+        r = this.seconds - arg0.seconds;
+        if (r != 0) {
+            return r;
+        }
+        return this.millis - arg0.millis;
     }
 
     /** Returns <code>true</code> if this duration is negative.
