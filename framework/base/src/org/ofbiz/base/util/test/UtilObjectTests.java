@@ -48,6 +48,10 @@ public class UtilObjectTests extends GenericTestCaseBase {
         super.tearDown();
     }
 
+    public void testStaticHelperClass() throws Exception {
+        assertStaticHelperClass(UtilObject.class);
+    }
+
     public static final class ErrorInjector extends FilterInputStream {
         private int after;
         private final boolean onClose;
