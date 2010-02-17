@@ -32,9 +32,14 @@ if (!partyId && userLoginId) {
         partyId = thisUserLogin.partyId;
     }
 }
+geoPointId = parameters.geoPointId;
 context.partyId = partyId;
 
-latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
+if (!geoPointId) {
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
+} else {
+    latestGeoPoint = delegator.findByPrimaryKey("GeoPoint", [geoPointId : geoPointId]);
+}
 if (latestGeoPoint) {
     context.latestGeoPoint = latestGeoPoint;
 
