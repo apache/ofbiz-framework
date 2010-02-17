@@ -107,11 +107,9 @@ public class TimeDurationTests extends GenericTestCaseBase {
         assertDurationFields(label + "(parseString[0])", years, months, days, hours, minutes, seconds, milliseconds, durationString, TimeDuration.parseDuration(durationString), isNegative, false);
         assertDurationFields(label + "(parseString)", years, months, days, hours, minutes, seconds, milliseconds, durationString, stringDuration, isNegative, false);
         assertDurationFields(label + "(cal)", years, months, days, hours, minutes, seconds, milliseconds, durationString, calDuration, isNegative, false);
-        if (!isNegative) {
-            Calendar added = calDuration.addToCalendar((Calendar) zero.clone());
-            TimeDuration addDuration = new TimeDuration(zero, added);
-            assertDurationFields(label + "(cal[add])", years, months, days, hours, minutes, seconds, milliseconds, durationString, addDuration, isNegative, false);
-        }
+        Calendar added = calDuration.addToCalendar((Calendar) zero.clone());
+        TimeDuration addDuration = new TimeDuration(zero, added);
+        assertDurationFields(label + "(cal[add])", years, months, days, hours, minutes, seconds, milliseconds, durationString, addDuration, isNegative, false);
         assertEquals(label + ".compareTo(string, cal)", 0, doCompare(stringDuration, calDuration));
         assertEquals(label + ".compareTo(string, string)", 0, doCompare(stringDuration, stringDuration));
         assertEquals(label + ".compareTo(cal, cal)", 0, doCompare(calDuration, calDuration));
