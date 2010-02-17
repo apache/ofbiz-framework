@@ -156,5 +156,16 @@ public class TimeDurationTests extends GenericTestCaseBase {
         assertDuration("day",  0, 0, 1, 0, 0, 0, 0);
         assertDuration("month", 0, 1, 0, 0, 0, 0, 0);
         assertDuration("year", 1, 0, 0, 0, 0, 0, 0);
+        Calendar start = new com.ibm.icu.util.GregorianCalendar(1967, 1, 1, 0, 0, 0);
+        start.set(Calendar.MILLISECOND, 0);
+        Calendar end = (Calendar) start.clone();
+        end.add(Calendar.MILLISECOND, 1);
+        end.add(Calendar.SECOND, 1);
+        end.add(Calendar.MINUTE, 1);
+        end.add(Calendar.HOUR_OF_DAY, 1);
+        end.add(Calendar.DAY_OF_MONTH, 1);
+        end.add(Calendar.MONTH, 1);
+        end.add(Calendar.YEAR, 1);
+        assertDurationFields("pre-epoch elapsed time", 1, 1, 1, 1, 1, 1, 1, "1:1:1:1:1:1:1", new TimeDuration(start, end), false, false);
     }
 }
