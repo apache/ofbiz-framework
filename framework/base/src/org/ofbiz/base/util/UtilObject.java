@@ -30,7 +30,9 @@ import javax.imageio.spi.ServiceRegistry;
  * UtilObject
  *
  */
-public class UtilObject {
+public final class UtilObject {
+    private UtilObject() {
+    }
 
     public static final String module = UtilObject.class.getName();
 
