@@ -502,8 +502,21 @@ width:16px;
 height:16px;
 }
 
-.view-calendar {
-	background: url(/images/cal.gif) no-repeat;
+.view-calendar ul{
+height: 22px;
+}
+
+.view-calendar ul li{
+float: left;
+margin: 0px;
+}
+
+.view-calendar ul li a{
+background: url(/images/cal.gif) no-repeat;
+display: block;
+margin: 3px 10px 0px 4px;
+width:16px;
+height:16px;
 }
 
 .calendar {

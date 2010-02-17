@@ -82,20 +82,24 @@ under the License.
 </#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString calGif localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName>
-    <input type="text" name="${name}" <@renderClass className alert /><#rt/>
+<div class="view-calendar"><ul>
+<li><input type="text" name="${name}" <@renderClass className alert /><#rt/>
 <#if title?has_content> title="${title}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#rt/>
-<#if maxlength?has_content>  maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if>/><#rt/>
+<#if maxlength?has_content>  maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if>/><#rt/></li>
 <#if dateType!="time" >
+<li>
 <#if shortDateInput?exists && shortDateInput>
  <a href="javascript:call_cal_notime(document.<#rt/>
 <#else>
  <a href="javascript:call_cal(document.<#rt/>
 </#if>
-${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if><#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);"><#rt/>
-<#if calGif?has_content><img src="${calGif}" width="16" height="16" border="0" alt="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>" title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"/><#rt/></#if>
+${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if><#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);" 
+title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"<#rt/>
 </a><#rt/>
+</li>
 </#if>
 <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
+<li>
  <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
  <#if isTwelveHour>
 <#assign x=11>
@@ -113,15 +117,20 @@ ${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if
 <#list 0..x as i>
 <option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
 </#list>
-</select><#rt/>
+</select></li>
+<#rt/>
 <#if isTwelveHour>
+<li>
  <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
  <option value="AM" ${amSelected}>AM</option><#rt/>
  <option value="PM" ${pmSelected}>PM</option><#rt/>
- </select><#rt/>
+ </select>
+</li><#rt/>
 </#if>
+</ul>
 <input type="hidden" name="${compositeType}" value="Timestamp"/>
 </#if>
+</div>
 </#macro>
 
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch>
@@ -339,16 +348,20 @@ ${item.description}</div>
 </#macro>
 
 <#macro renderDateFindField className alert name localizedInputTitle value size maxlength dateType formName defaultDateTimeString imgSrc localizedIconTitle titleStyle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty>
-<input type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
+<div class="view-calendar"><ul>
+<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/></li><#rt/>
 <#if dateType != "time">
+<li>
 <#if dateType == "date">
 <a href="javascript:call_cal_notime(document.<#rt/>
 <#else>
 <a href="javascript:call_cal(document.<#rt/>
 </#if>
-<#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld0_value,</#if>'<#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');"><#rt/>
-<img src="${imgSrc}" width="16" height="16" border="0" alt="${localizedIconTitle}" title="${localizedIconTitle}" /></a><#rt/>
+<#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld0_value,</#if>'<#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');" title="${localizedIconTitle}"><#rt/>
+</a><#rt/>
+</li>
 </#if>
+<li>
 <#if titleStyle?has_content>
 <span class="${titleStyle}"><#rt/>
 </#if>
@@ -361,17 +374,21 @@ ${item.description}</div>
 <#if titleStyle?has_content>
  </span><#rt/>
 </#if>
-<br/><#rt/>
-<input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle?exists> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
+</li></ul>
+<ul><#rt/>
+<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle?exists> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/></li><#rt/>
 <#if dateType != "time">
+<li>
 <#if dateType == "date">
 <a href="javascript:call_cal_notime(document.<#rt/>
 <#else>
 <a href="javascript:call_cal(document.<#rt/>
 </#if>
-<#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld1_value,'</#if><#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');"><#rt/>
-<img src="${imgSrc}" width="16" height="16" border="0" alt="${localizedIconTitle}" title="${localizedIconTitle}" /></a><#rt/>
+<#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld1_value,'</#if><#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');" title="${localizedIconTitle}"><#rt/>
+</a><#rt/>
 </#if>
+</li>
+<li>
 <#if titleStyle?has_content>
  <span class="${titleStyle}"><#rt/>
 </#if>
@@ -384,6 +401,7 @@ ${item.description}</div>
 <#if titleStyle?has_content>
 </span>
 </#if>
+</li></ul>
 </#macro>
 
 <#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru>

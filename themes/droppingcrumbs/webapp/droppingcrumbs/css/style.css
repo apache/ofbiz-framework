@@ -1871,7 +1871,23 @@ padding: 0 30px 0 30px;
 }
 
 .view-calendar {
+display: inline;
+}
+
+.view-calendar ul{
+height: 25px;
+}
+
+.view-calendar ul li{
+float: left;
+}
+
+.view-calendar ul li a{
 background: url(/images/cal.gif) no-repeat;
+display: block;
+margin: 3px 10px 0px 4px;
+width:22px;
+height:22px;
 }
 
 .field-lookup ul li {
