@@ -231,10 +231,32 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
 
     protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
         if (units >= 1) {
-            start.add(type, units);
-            while (start.after(end)) {
-                start.add(type, -1);
+            // Bother, the below needs explanation.
+            //
+            // If start has a day value of 31, and you add to the month,
+            // and the target month is not allowed to have 31 as the day
+            // value, then the day will be changed to a value that is in
+            // range.  But, when the code needs to then subtract 1 from
+            // the month, because it has advanced to far, the day is *not*
+            // set back to the original value of 31.
+            //
+            // This bug can be triggered by having a duration of -1 day,
+            // then adding this duration to a calendar that represents 0
+            // milliseconds, then creating a new duration by using the 2
+            // Calendar constructor, with cal1 being 0, and cal2 being the
+            // new calendar that you added the duration to.
+            //
+            // To solve this problem, we make a temporary copy of the
+            // start calendar, and only modify it if we actually have to.
+            Calendar tmp = (Calendar) start.clone();
+            int tmpUnits = units;
+            tmp.add(type, tmpUnits);
+            while (tmp.after(end)) {
+                tmp.add(type, -1);
                 units--;
+            }
+            if (units != 0) {
+                start.add(type, units);
             }
         }
         return units;
