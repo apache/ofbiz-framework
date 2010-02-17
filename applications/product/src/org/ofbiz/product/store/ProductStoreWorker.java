@@ -513,7 +513,7 @@ public class ProductStoreWorker {
                     try {
                         categoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", surveyAppl.get("productCategoryId")));
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, "Unable to get ProductCategoryMemebr records for survey application : " + surveyAppl, module);
+                        Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, module);
                     }
                     if (categoryMembers != null) {
                         for (GenericValue member: categoryMembers) {
