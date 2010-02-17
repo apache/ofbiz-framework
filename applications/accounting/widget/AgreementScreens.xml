@@ -133,7 +133,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
+                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext create"/>
                                 </container>
                             </widgets>
                         </section>
@@ -164,7 +164,7 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext">
+                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext create">
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                             </link>
                         </container>
@@ -193,7 +193,7 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext">
+                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext create">
                                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
                             </link>
                         </container>

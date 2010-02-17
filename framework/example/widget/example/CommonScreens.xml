@@ -106,7 +106,7 @@ under the License.
                                     <widgets>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
                                         <container style="button-bar">
-                                            <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/>
+                                            <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/>
                                             <link target="ExampleReportHtml" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext">
                                                 <parameter param-name="exampleId"/>
                                             </link>
