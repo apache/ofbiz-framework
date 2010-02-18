@@ -94,7 +94,7 @@ under the License.
  <a href="javascript:call_cal(document.<#rt/>
 </#if>
 ${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if><#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);" 
-title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"<#rt/>
+title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"><#rt/>
 </a><#rt/>
 </li>
 </#if>
@@ -127,9 +127,9 @@ title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"<#rt/>
  </select>
 </li><#rt/>
 </#if>
-</ul>
 <input type="hidden" name="${compositeType}" value="Timestamp"/>
 </#if>
+</ul>
 </div>
 </#macro>
 
@@ -401,7 +401,7 @@ ${item.description}</div>
 <#if titleStyle?has_content>
 </span>
 </#if>
-</li></ul>
+</li></ul></div>
 </#macro>
 
 <#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru>
