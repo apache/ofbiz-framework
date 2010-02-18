@@ -4527,7 +4527,7 @@
         <value xml:lang="zh_CN">没有元素找到</value>
     </property>
     <property key="CommonNoGeolocationAvailable">
-        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profil)</value>
+        <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profile)</value>
         <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
         <value xml:lang="hi_IN">भू स्थान उपलब्ध नहीं है (एक डेमो के लिए आप DemoCustomer पार्टी प्रोफ़ाइल का उपयोग करने का प्रयास कर सकते हैं)</value>
         <value xml:lang="it">Nessuna locazione geografica disponibile (per un dimostrazione tu puoi usare il soggetto DemoCustomer)</value>
