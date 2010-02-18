@@ -481,4 +481,59 @@ under the License.
         <log level="info" message="AFTER RUNNING VOID PAYMENT : GENERAL CHECKING ACCOUNT ;debitTotal :${undepositedDebitTotal} ; creditTotal:${undepositedCreditTotal} ; debitCreditDifference : ${undepositedDebitCreditDifference}"/>
     </simple-method>
 
+    <simple-method method-name="disabled-testUpdatePaymentMethodAddress" short-description="Creates a new postal address for Company and then calls updatePaymentMethodAddress with the new contactMechId" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="flexadmin"/>
+        </entity-one>
+        <!-- Create a new Postal Address, set the bare minimum necessary, this test isn't about the postal address -->
+        <set field="createPartyPostalAddress.userLogin" from-field="userLogin"/>
+        <set field="createPartyPostalAddress.address1" value="2003 Open Blvd"/>
+        <set field="createPartyPostalAddress.city" value="2003 Open Blvd"/>
+        <set field="createPartyPostalAddress.postalCode" value="999999"/>
+        <call-service service-name="createPartyPostalAddress" in-map-name="createPartyPostalAddress">
+            <result-to-field result-name="contactMechId"/>
+        </call-service>
+
+        <!-- Count the number of EftAccounts and CreditCards associated to the oldContactMechId, use to verify at the end -->
+        <entity-count count-field="noEftAccounts9000Before" entity-name="EftAccount">
+            <condition-expr field-name="contactMechId" value="9000"/>
+        </entity-count>
+        <entity-count count-field="noCreditCards9000Before" entity-name="CreditCard">
+            <condition-expr field-name="contactMechId" value="9000"/>
+        </entity-count>
+
+        <!-- Run the actual service to be tested -->
+        <set field="updatePaymentMethodAddress.userLogin" from-field="userLogin"/>
+        <set field="updatePaymentMethodAddress.oldContactMechId" value="9000"/>
+        <set field="updatePaymentMethodAddress.contactMechId" from-field="contactMechId"/>
+        <call-service service-name="updatePaymentMethodAddress" in-map-name="updatePaymentMethodAddress"/>
+
+        <!-- Count the number EftAccounts and CreditCards now associated with the oldContactMechId (should be zero for both)-->
+        <entity-count count-field="noEftAccounts9000After" entity-name="EftAccount">
+            <condition-expr field-name="contactMechId" value="9000"/>
+        </entity-count>
+        <entity-count count-field="noCreditCards9000After" entity-name="CreditCard">
+            <condition-expr field-name="contactMechId" value="9000"/>
+        </entity-count>
+
+        <!-- Count the number of EftAccounts and CreditCards associated to the oldContactMechId, use to verify at the end -->
+        <entity-count count-field="noEftAccountsNewContactMech" entity-name="EftAccount">
+            <condition-expr field-name="contactMechId" from-field="contactMechId"/>
+        </entity-count>
+        <entity-count count-field="noCreditCardsNewContactMech" entity-name="CreditCard">
+            <condition-expr field-name="contactMechId" from-field="contactMechId"/>
+        </entity-count>
+
+        <!-- Verify the results -->
+        <assert>
+            <!-- New contactMech should have the same number of payment methods as the old did -->
+            <if-compare-field field="noEftAccountsNewContactMech" operator="equals" to-field="noEftAccounts9000Before" type="Long"/>
+            <if-compare-field field="noCreditCardsNewContactMech" operator="equals" to-field="noCreditCards9000Before" type="Long"/>
+            <!-- Old contactMech should no longer have any payment methods associated to it -->
+            <if-compare field="noEftAccounts9000After" operator="equals" value="0" type="Long"/>
+            <if-compare field="noCreditCards9000After" operator="equals" value="0" type="Long"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
