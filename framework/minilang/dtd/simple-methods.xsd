@@ -2575,6 +2575,7 @@ under the License.
     <xs:element name="entity-count" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
+                Returns a long presenting the number of results found matching the specified condition.
                 The entity-count is very  similar to the entity-condition.
 
                 Specify the entity-name, optionally the delgator-name if you want to override that,
