@@ -2040,8 +2040,6 @@ width: 23px;
 height:25px;
 }
 
-
-
 .nav-pager ul .nav-pagesize {
 padding: 0 30px 0 30px;
 }
@@ -2059,6 +2057,18 @@ background: url(../images/cal.png) no-repeat;
 display: block;
 margin: 3px 10px 0px 4px;
 width:22px;
+height:22px;
+}
+
+.field-lookup ul li {
+float: left;
+}
+
+.field-lookup ul li a{
+background: url(../images/fieldlookup.png) no-repeat 0 0;
+display: block;
+margin: 3px 10px 0px 4px;
+width:35px;
 height:22px;
 }
 
