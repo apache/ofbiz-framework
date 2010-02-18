@@ -38,14 +38,18 @@ under the License.
             <#else>
               map.setUIToDefault();
             </#if>
-            <#list geoChart.points as point>
-              marker = new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c}));
-              map.addOverlay(marker);
-              map.addOverlay(new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c})));
-              <#if point.link?has_content>
-                marker.openInfoWindowHtml("<div style=\"width:210px; padding-right:10px;\"><a href=${point.link.url}>${point.link.label}</a></div>");
-              </#if>
-            </#list>
+            <#if geoChart.points?has_content>
+                <#list geoChart.points as point>
+                  var marker_${point_index} = new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c}));
+                  map.addOverlay(marker_${point_index});
+                  //map.addOverlay(new GMarker(new GLatLng(${point.lat?c}, ${point.lon?c})));
+                  <#if point.link?has_content>
+                      GEvent.addListener(marker_${point_index}, "click", function() {
+                          marker_${point_index}.openInfoWindowHtml("<div style=\"width:210px; padding-right:10px;\"><a href=${point.link.url}>${point.link.label}</a></div>");
+                      });
+                  </#if>
+                </#list>
+            </#if>
           }
         </script>
       <#elseif  geoChart.dataSourceId == "GEOPT_YAHOO">
