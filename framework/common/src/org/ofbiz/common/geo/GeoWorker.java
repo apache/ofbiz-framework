@@ -121,17 +121,17 @@ public class GeoWorker {
         return geoList.contains(geo);
     }
 
-    public static GenericValue findLatestGeoPoint(Delegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
+    public static GenericValue findLatestGeoPoint(Delegator delegator, String entityName, String mainId, String mainValueId, String secondId, String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
             try {
-                gptList = delegator.findByAnd(Entity, UtilMisc.toMap(mainId, mainValueId, secondId, secondValueId), UtilMisc.toList("-fromDate"));
+                gptList = delegator.findByAnd(entityName, UtilMisc.toMap(mainId, mainValueId, secondId, secondValueId), UtilMisc.toList("-fromDate"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), module);
             }
         } else {
             try {
-                gptList = delegator.findByAnd(Entity, UtilMisc.toMap(mainId, mainValueId), UtilMisc.toList("-fromDate"));
+                gptList = delegator.findByAnd(entityName, UtilMisc.toMap(mainId, mainValueId), UtilMisc.toList("-fromDate"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] " + e.toString(), module);
             }
