@@ -46,8 +46,8 @@
         <attribute name="mapKey" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
-
     </service>
 
     <service name="createTextAndUploadedContent" engine="simple" auth="true"

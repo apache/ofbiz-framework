@@ -422,6 +422,7 @@ under the License.
     <ProductPriceType description="Competitive Price" productPriceTypeId="COMPETITIVE_PRICE"/>
     <ProductPriceType description="Wholesale Price" productPriceTypeId="WHOLESALE_PRICE"/>
     <ProductPriceType description="Special Promo Price" productPriceTypeId="SPECIAL_PROMO_PRICE"/>
+    <ProductPriceType description="Box Price" productPriceTypeId="BOX_PRICE"/>
 
     <ProductPricePurpose description="Purchase/Initial" productPricePurposeId="PURCHASE"/>
     <ProductPricePurpose description="Recurring Charge" productPricePurposeId="RECURRING_CHARGE"/>

@@ -540,6 +540,7 @@ under the License.
             title="Content Purpose Entity">
       <field name="contentId" type="id-ne"></field>
       <field name="contentPurposeTypeId" type="id-ne"></field>
+      <field name="sequenceNum" type="numeric"></field>
       <prim-key field="contentId"/>
       <prim-key field="contentPurposeTypeId"/>
       <relation type="one" fk-name="CONTENT_PRP" rel-entity-name="Content">
@@ -1618,4 +1619,15 @@ under the License.
             <key-map field-name="webSiteId"/>
         </relation>
     </entity>
+    <view-entity entity-name="ContentAssocAndContentPurpose"
+            package-name="org.ofbiz.content.compdoc"
+            title="ContentAssoc and ContentPurpose View Entity">
+        <member-entity entity-alias="CNTA" entity-name="ContentAssoc"/>
+        <member-entity entity-alias="CNTP" entity-name="ContentPurpose"/>
+        <alias-all entity-alias="CNTA"/>
+        <alias-all entity-alias="CNTP"/>
+        <view-link entity-alias="CNTA" rel-entity-alias="CNTP">
+            <key-map field-name="contentIdTo" rel-field-name="contentId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>

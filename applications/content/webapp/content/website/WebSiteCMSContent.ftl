@@ -127,6 +127,9 @@
     <#if (!contentRoot?has_content)>
         <#assign contentRoot = parameters.contentRoot/>
     </#if>
+    <#if (currentPurposes?has_content)>
+        <#assign currentPurpose = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(currentPurposes) />
+    </#if>
     <#if (content?has_content)>
         <#assign actionPrefix = "/update"/>
     <#else>
@@ -191,8 +194,8 @@
             <td class="label">${uiLabelMap.CommonPurpose}</td>
             <td>
                 <select name="contentPurposeTypeId">
-                    <#if (currentPurposes?has_content)>
-                        <#assign purpose = currentPurposes[0].getRelatedOne("ContentPurposeType")/>
+                    <#if (currentPurpose?has_content)>
+                        <#assign purpose = currentPurpose.getRelatedOne("ContentPurposeType")/>
                         <option value="${purpose.contentPurposeTypeId}">${purpose.description?default(purpose.contentPurposeTypeId)}</option>
                         <option value="${purpose.contentPurposeTypeId}">----</option>
                     <#else>
@@ -203,6 +206,12 @@
                         <option value="${type.contentPurposeTypeId}">${type.description}</option>
                     </#list>
                 </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.CommonSequenceNum}</td>
+            <td>
+              <input type="text" name="sequenceNum" value="${(currentPurpose.sequenceNum)?if_exists}" size="5" />
             </td>
           </tr>
           <tr>
@@ -247,7 +256,7 @@
                     <#if (content?has_content)>
                         <#if (content.templateDataResourceId?has_content && content.templateDataResourceId != "NONE")>
                             <#assign template = content.getRelatedOne("TemplateDataResource")/>
-                            <option value="${template.dataResourceId}">${template.dataResourceName}</option>
+                            <option value="${template.dataResourceId}">${template.dataResourceName?if_exists}</option>
                             <option value="${template.dataResourceId}">----</option>
                         </#if>
                     </#if>

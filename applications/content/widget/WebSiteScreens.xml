@@ -221,6 +221,7 @@ under the License.
                 <entity-one entity-name="ElectronicText" value-field="dataText">
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
+                <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <entity-one entity-name="ContentAssoc" value-field="assoc">
                     <field-map field-name="contentId" from-field="parameters.contentIdFrom"/>
                     <field-map field-name="contentIdTo" from-field="parameters.contentId"/>
