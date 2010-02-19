@@ -112,7 +112,7 @@ under the License.
   <hr/>
   <@CreateForm "DAY_OF_WEEK_RANGE" DayOfWeekRange/>
   <hr/>
-  <@CreateForm "FREQUENCY" Frequency/>
+  <@CreateForm "FREQUENCY" CreateFrequency/>
   <hr/>
   <@CreateForm "HOUR_RANGE" HourOfDayRange/>
   <hr/>
@@ -153,6 +153,10 @@ under the License.
 
 <#macro CreateDateRange>
   <@DateRange formName="DATE_RANGE"/>
+</#macro>
+
+<#macro CreateFrequency>
+  <@Frequency formName="FREQUENCY"/>
 </#macro>
 
 <#macro CreateExprAssocForm formName="" exprAssocType="">
