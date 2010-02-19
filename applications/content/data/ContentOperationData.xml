@@ -68,6 +68,7 @@ under the License.
     <ContentPurposeType contentPurposeTypeId="USER" description="User"/>
     <ContentPurposeType contentPurposeTypeId="FAQ" description="FAQ"/>
     <ContentPurposeType contentPurposeTypeId="SOURCE" description="General Source"/>
+    <ContentPurposeType contentPurposeTypeId="LANDING_PAGE_IMAGE" description="Landing Page Image"/>
 
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
