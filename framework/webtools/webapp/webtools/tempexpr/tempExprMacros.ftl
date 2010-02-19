@@ -42,7 +42,7 @@ your template file:
   <tr>
     <td class="label">${uiLabelMap.CommonTo}</td>
     <td>
-      <@DateField formName=currentForm fieldName="date2" fieldValue=toDate/>
+      <@DateField formName=formName fieldName="date2" fieldValue=toDate/>
     </td>
   </tr>
 </#macro>
