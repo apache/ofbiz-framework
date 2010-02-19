@@ -43,28 +43,8 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
-        <menu-item name="inventory" title="${uiLabelMap.ProductProduct} ${uiLabelMap.ProductInventory}">
-            <link target="ebayStoreInventory">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
         <menu-item name="blockItemOutOfStock" title="${uiLabelMap.EbayBlockItemOutOfStock}">
             <link target="blockItemOutOfStock">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="soldListing" title="${uiLabelMap.EbayStoreOpenUnpaidItemDispute}">
-            <link target="soldListing">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="feedback" title="${uiLabelMap.EbayFeedback}">
-            <link target="Feedback">
-                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
-            </link>
-        </menu-item>
-        <menu-item name="automationPreferences" title="Automation Preferences">
-            <link target="automationPreferences">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
@@ -73,8 +53,44 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="sellingManager" title="${uiLabelMap.EbaySellingManager}">
+        	<link target="sellingManager">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
     </menu>
-    <menu name="EbayFeedbackTabBar" selected-menuitem-context-field-name="eBayTabButtonItem" type="simple" 
+    <menu name="EbaySellingManagerTabBar" selected-menuitem-context-field-name="sellingManagerItem" type="simple" 
+        default-selected-style="selected" menu-container-style="button-bar button-style-2">
+        <menu-item name="inventory" title="${uiLabelMap.ProductProduct} ${uiLabelMap.ProductInventory}">
+            <link target="ebayStoreInventory">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="soldListing" title="${uiLabelMap.EbaySold}">
+            <link target="soldListing">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="automationPreferences" title="Automation Preferences">
+            <link target="automationPreferences">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="EbayAccountTabBar" selected-menuitem-context-field-name="accountItem" type="simple" 
+        default-selected-style="selected" menu-container-style="button-bar button-style-2">
+        <menu-item name="personalInformation" title="${uiLabelMap.EbayPersonalInformation}">
+            <link target="personalInformation">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="feedback" title="${uiLabelMap.EbayFeedback}">
+            <link target="Feedback">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="EbayFeedbackTabBar" selected-menuitem-context-field-name="feedbackItem" type="simple" 
         default-selected-style="selected" menu-container-style="button-bar button-style-2">
         <menu-item name="Feedback">
             <condition>

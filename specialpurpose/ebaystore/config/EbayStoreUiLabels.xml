@@ -40,6 +40,9 @@
         <value xml:lang="en">Export To eBay Store</value>
         <value xml:lang="th">การส่งออกไปยังคลังสินค้าอีเบย์</value>
     </property>
+     <property key="EbaySellingManager">
+        <value xml:lang="en">Selling Manager</value>
+    </property>
     <property key="EbayStore">
         <value xml:lang="en">Ebay Store</value>
         <value xml:lang="th">คลังสินค้าอีเบย์</value>
@@ -166,7 +169,7 @@
     <property key="EbayLeaveFeedback">
         <value xml:lang="en">Leave Feedback</value>
     </property>
-    <property key="EbaySoldLeaveFeedback">
+    <property key="EbaySold">
         <value xml:lang="en">Sold</value>
     </property>
     <property key="EbayBlockItemOutOfStock">
