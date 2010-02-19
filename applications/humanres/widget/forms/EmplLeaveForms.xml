@@ -110,7 +110,7 @@
         <field name="thruDate" tooltip="${uiLabelMap.CommonRequired}"><date-time type="timestamp"></date-time></field>
         <field name="leaveStatus"><hidden value="LEAVE_CREATED"/></field>
         <field name="submitButton" use-when="leaveApp==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="submitButton" use-when="leaveApp!=null" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="leaveApp!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
    <form name="FindLeaveApprovals" target="FindLeaveApprovals" type="single">
         <auto-fields-entity entity-name="EmplLeave" default-field-type="find"/>
@@ -178,6 +178,6 @@
             </drop-down>
         </field>
         <field name="leaveStatus" use-when="leaveApp!=null&amp;&amp;leaveApp.getString(&quot;leaveStatus&quot;).equals(&quot;LEAVE_REJECTED&quot;)"><display></display></field>
-        <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
