@@ -162,6 +162,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     	</row-actions>
     	<field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
     	<field name="itemId"><display description="${itemId} - ${title}"/></field>
+    	<field name="buyer"><display description="${buyer}"/></field>
     	<field name="listingType"><display description="${listingType}"/></field>
     	<field name="quantity"><display description="${quantity}"/></field>
     	<field name="transactionId"><display description="${transactionId}"/></field>

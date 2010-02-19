@@ -63,6 +63,11 @@
         <response name="error" type="view" value="EbayAccount"/>
         <response name="success" type="view" value="EbayAccount"/>
     </request-map>
+    <request-map uri="personalInformation">
+        <security https="true" auth="true"/>
+        <response name="error" type="view" value="EbayAccount"/>
+        <response name="success" type="view" value="EbayAccount"/>
+    </request-map>
     
     <!-- Store output -->
     <request-map uri="ebayStores">
@@ -186,6 +191,12 @@
         <response name="success" type="view" value="exportProductListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
+    <!-- Selling Manager -->
+    <request-map uri="sellingManager">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStoreInventory"/>
+        <response name="error" type="view" value="ebayStoreInventory"/>
+    </request-map>
 	<!-- Active -->
     <request-map uri="activeListing">
     	<security auth="true" https="true"/>
@@ -238,29 +249,29 @@
     <view-map name="ebayStoreDetail" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStoreDetail"/>
     <!-- ebay account -->
     <view-map name="NewEbayAccount" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#NewEbayAccount"/>
-    <view-map name="EbayAccount" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#EbayAccount"/>
+    <view-map name="EbayAccount" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#EbayPersonalInformation"/>
     <!-- feedback -->
-    <view-map name="FeedbackStore" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#FeedbackStore"/>
-    <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#Feedback"/>    
-    <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#LeaveFeedback"/> 
+    <view-map name="FeedbackStore" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#FeedbackStore"/>
+    <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#Feedback"/>    
+    <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/> 
    <!-- AutomationPreferences -->
-    <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#EbayAutomationPreferences"/>
+    <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
     <!-- block out of stock -->
     <view-map name="blockItemOutOfStock" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#blockItemOutOfStock"/>
     <!-- store Inventory -->
-    <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStoreInventory"/>
-    <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayLoadStoreInventory"/>
-    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#reserveEbayProductInventory"/>
-    <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#updateQuantityReserved"/>
+    <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayStoreInventory"/>
+    <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>
+    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml.xml#reserveEbayProductInventory"/>
+    <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#updateQuantityReserved"/>
     
     <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
     <view-map name="productsearch" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#productsearchexport"/>
 	<!-- Active -->    
-	<view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#EbayActiveListing"/>
-	<view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#AssignAutomaticRule"/>
+	<view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayActiveListing"/>
+	<view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#AssignAutomaticRule"/>
 	<!-- Sold -->    
-	<view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#SoldListing"/>
-	<view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#OpenUnpaid"/>
-	<view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#MakeSecondChanceOffer"/>
+	<view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#SoldListing"/>
+	<view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OpenUnpaid"/>
+	<view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
     <!-- end of view mappings -->
 </site-conf>

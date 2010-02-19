@@ -637,10 +637,10 @@ public class EbayStore {
 			String partyId = null;
 			try {
 				List<GenericValue> productStoreRoles = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", context.get("productStoreId").toString(),"roleTypeId","EBAY_ACCOUNT"));
-				if (productStoreRoles!=null) {
+				if (productStoreRoles.size() != 0) {
 					partyId=  (String)productStoreRoles.get(0).get("partyId");
 					List<GenericValue> userLogin = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-					if (userLogin!=null) {
+					if (userLogin.size() != 0) {
 						userLoginId = (String)userLogin.get(0).get("userLoginId");
 						password = (String)userLogin.get(0).get("currentPassword");
 					}
@@ -1439,10 +1439,34 @@ public class EbayStore {
 							SellingManagerSoldTransactionType sellingManagerSoldTransaction = sellingManagerSoldTransactions[j];
 							entry.put("itemId",sellingManagerSoldTransaction.getItemID());
 							entry.put("title",sellingManagerSoldTransaction.getItemTitle());
-							entry.put("transactionId",sellingManagerSoldTransaction.getTransactionID());
+							entry.put("transactionId", sellingManagerSoldTransaction.getTransactionID().toString());
 							entry.put("quantity",sellingManagerSoldTransaction.getQuantitySold());
 							entry.put("listingType",sellingManagerSoldTransaction.getListingType().value());
-
+							
+							String buyer = null;
+							if (sellingManagerSoldOrder.getBuyerID() != null) {
+								buyer  = sellingManagerSoldOrder.getBuyerID();
+							}
+							entry.put("buyer", buyer);
+							GetItemCall api = new GetItemCall(apiContext);
+							api.setItemID(sellingManagerSoldTransaction.getItemID());
+							DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+							          DetailLevelCodeType.RETURN_ALL,
+							          DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+							          DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+							      };
+							api.setDetailLevel(detailLevels);
+							ItemType itemType = api.getItem();
+							String itemUrl = null;
+							if (itemType.getListingDetails() != null) {
+								itemUrl  = itemType.getListingDetails().getViewItemURL();
+							}
+							entry.put("itemUrl", itemUrl);
+							String itemUrlNatural = null;
+							if (itemType.getListingDetails() != null) {
+								itemUrlNatural  = itemType.getListingDetails().getViewItemURLForNaturalSearch();
+							}
+							entry.put("itemUrlNatural", itemUrlNatural);
 							String unpaidItemStatus = null;
 							if (sellingManagerSoldOrder.getUnpaidItemStatus() != null) {
 								unpaidItemStatus  = sellingManagerSoldOrder.getUnpaidItemStatus().value();
