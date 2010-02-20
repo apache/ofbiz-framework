@@ -53,12 +53,6 @@ public class EntityWhereString extends EntityCondition {
 
     protected EntityWhereString() {}
 
-    /** @deprecated Use EntityCondition.makeConditionWhere() instead */
-    @Deprecated
-    public EntityWhereString(String sqlString) {
-        init(sqlString);
-    }
-
     public void init(String sqlString) {
         this.sqlString = sqlString;
     }
