@@ -189,7 +189,6 @@ public class EntityExpr extends EntityCondition {
         visitor.acceptEntityExpr(this);
     }
 
-    @SuppressWarnings("deprecation")
     public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
         if (this.rhs == null || this.rhs == GenericEntity.NULL_FIELD || modelEntity == null) return;
 
