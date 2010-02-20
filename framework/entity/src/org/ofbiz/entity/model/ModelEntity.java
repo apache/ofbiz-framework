@@ -465,14 +465,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.pks.size();
     }
 
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public ModelField getPk(int index) {
-        return this.pks.get(index);
-    }
-
     public ModelField getOnlyPk() {
         if (this.pks.size() == 1) {
             return this.pks.get(0);
@@ -512,14 +504,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.nopks.size();
     }
 
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public ModelField getNopk(int index) {
-        return this.nopks.get(index);
-    }
-
     public Iterator<ModelField> getNopksIterator() {
         return this.nopks.iterator();
     }
@@ -532,14 +516,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public int getFieldsSize() {
         return this.fields.size();
-    }
-
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public ModelField getField(int index) {
-        return this.fields.get(index);
     }
 
     public Iterator<ModelField> getFieldsIterator() {
