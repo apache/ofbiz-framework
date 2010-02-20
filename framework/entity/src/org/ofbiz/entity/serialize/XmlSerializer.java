@@ -75,11 +75,26 @@ public class XmlSerializer {
         return UtilXml.writeXmlDocument(document);
     }
 
+    /** Deserialize a Java object from an XML string. <p>This method should be used with caution.
+     * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
+     * then it is possible to unintentionally corrupt the database.</p>
+     * 
+     * @param content
+     * @param delegator
+     * @return
+     * @throws SerializeException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws IOException
+     */
     public static Object deserialize(String content, Delegator delegator)
         throws SerializeException, SAXException, ParserConfigurationException, IOException {
         // readXmlDocument with false second parameter to disable validation
         Document document = UtilXml.readXmlDocument(content, false);
         if (document != null) {
+            if (!"ofbiz-ser".equals(document.getDocumentElement().getTagName())) {
+                return UtilXml.fromXml(content);
+            }
             return deserialize(document, delegator);
         } else {
             Debug.logWarning("Serialized document came back null", module);
@@ -87,6 +102,16 @@ public class XmlSerializer {
         }
     }
 
+    /** Deserialize a Java object from a DOM <code>Document</code>.
+     * <p>This method should be used with caution. If the DOM <code>Document</code>
+     * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
+     * then it is possible to unintentionally corrupt the database.</p>
+     * 
+     * @param document
+     * @param delegator
+     * @return
+     * @throws SerializeException
+     */
     public static Object deserialize(Document document, Delegator delegator) throws SerializeException {
         Element rootElement = document.getDocumentElement();
         // find the first element below the root element, that should be the object
