@@ -32,7 +32,7 @@ import org.ofbiz.entity.model.ModelEntity;
 /**
  * <p>Encapsulates SQL expressions used for where clause snippets.
  *  NOTE: This is UNSAFE and BREAKS the idea behind the Entity Engine where
- *  you avoid directly specifying SQL. So, KEEP IT MINIMAL and preferrably replace
+ *  you avoid directly specifying SQL. So, KEEP IT MINIMAL and preferably replace
  *  it when the feature you are getting at is implemented in a more automatic way for you.</p>
  *
  * <p>By minimal I mean use this in conjunction with other EntityConditions like the
