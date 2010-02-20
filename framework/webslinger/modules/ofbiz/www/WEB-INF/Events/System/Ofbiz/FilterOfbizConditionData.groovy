@@ -17,8 +17,6 @@
  * under the License.
  *******************************************************************************/
 import org.ofbiz.entity.condition.EntityCondition
-import org.ofbiz.entity.condition.EntityConditionList
-import org.ofbiz.entity.condition.EntityExpr
 import org.ofbiz.entity.condition.EntityOperator
 
 def buildCondition
@@ -35,7 +33,7 @@ buildCondition = { item ->
             }
             return EntityCondition.makeCondition(conditions, EntityOperator.lookup(item.operator))
         case "EntityExpr":
-            return new EntityExpr(getValue(item.left), EntityOperator.lookup(item.operator), getValue(item.right))
+            return EntityCondition.makeCondition(getValue(item.left), EntityOperator.lookup(item.operator), getValue(item.right))
         case "Include":
             return webslinger.event(item.path)
         default:
