@@ -62,31 +62,6 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return list;
     }
 
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public <L,R,V> EntityFieldMap(EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp, V... keysValues) {
-        this.init(compOp, joinOp, keysValues);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public <L,R,V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<L,R> compOp, EntityJoinOperator joinOp) {
-        this.init(fieldMap, compOp, joinOp);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public EntityFieldMap(EntityJoinOperator operator, Object... keysValues) {
-        this.init(EntityOperator.EQUALS, operator, keysValues);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
-        this.init(fieldMap, EntityOperator.EQUALS, operator);
-    }
-
     public <V> void init(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         super.init(makeConditionList(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
         this.fieldMap = EntityUtil.makeFields(keysValues);
