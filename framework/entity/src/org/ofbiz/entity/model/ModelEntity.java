@@ -59,9 +59,10 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, Serializable {
 
+    @SuppressWarnings("hiding")
     public static final String module = ModelEntity.class.getName();
 
-    /** The name of the time stamp field for locking/syncronization */
+    /** The name of the time stamp field for locking/synchronization */
     public static final String STAMP_FIELD = "lastUpdatedStamp";
     public static final String STAMP_TX_FIELD = "lastUpdatedTxStamp";
     public static final String CREATE_STAMP_FIELD = "createdStamp";
@@ -1116,7 +1117,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 returnString.append(ModelUtil.upperFirstChar(keyMap.fieldName));
                 returnString.append("() + \"&\" + ");
             } else {
-                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + ((ModelField) flds.get(i)).name + " related entity: " + relation.relEntityName + " main entity: " + relation.mainEntity.entityName + " type: " + relation.type, module);
+                Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).name + " related entity: " + relation.relEntityName + " main entity: " + relation.mainEntity.entityName + " type: " + relation.type, module);
             }
         }
         ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).name);
@@ -1132,7 +1133,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             returnString.append(ModelUtil.upperFirstChar(keyMap.fieldName));
             returnString.append("()");
         } else {
-            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + ((ModelField) flds.get(i)).name + " related entity: " + relation.relEntityName + " main entity: " + relation.mainEntity.entityName + " type: " + relation.type, module);
+            Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + flds.get(i).name + " related entity: " + relation.relEntityName + " main entity: " + relation.mainEntity.entityName + " type: " + relation.type, module);
         }
         return returnString.toString();
     }
