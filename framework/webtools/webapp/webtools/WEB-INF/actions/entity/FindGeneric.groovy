@@ -85,8 +85,9 @@ String curFindString = "entityName=" + entityName + "&find=" + find;
 
 GenericEntity findByEntity = delegator.makeValue(entityName);
 List errMsgList = FastList.newInstance();
-for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
-    ModelField field = modelEntity.getField(fnum);
+Iterator fieldIterator = modelEntity.getFieldsIterator();
+while (fieldIterator.hasNext()) {
+    ModelField field = fieldIterator.next();
     String fval = parameters.get(field.getName());
     if (fval != null) {
         if (fval.length() > 0) {
@@ -206,8 +207,9 @@ viewIndexLast = (int) (arraySize/viewSize);
 context.viewIndexLast = viewIndexLast;
 
 List fieldList = FastList.newInstance();
-for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
-    ModelField field = modelEntity.getField(fnum);
+fieldIterator = modelEntity.getFieldsIterator();
+while (fieldIterator.hasNext()) {
+    ModelField field = fieldIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
 
     Map fieldMap = FastMap.newInstance();
