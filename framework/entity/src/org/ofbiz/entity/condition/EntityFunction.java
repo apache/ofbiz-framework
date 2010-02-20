@@ -96,7 +96,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LENGTH, value);
         }
-    };
+    }
 
     public static class TRIM extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
@@ -117,7 +117,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.TRIM, value);
         }
-    };
+    }
 
     public static class UPPER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
@@ -138,7 +138,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.UPPER, value);
         }
-    };
+    }
 
     public static class LOWER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
@@ -159,7 +159,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LOWER, value);
         }
-    };
+    }
 
     protected SQLFunction function;
     protected EntityConditionValue nested = null;
