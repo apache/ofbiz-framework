@@ -33,7 +33,7 @@ buildCondition = { item ->
             for (conditionDef in item.list) {
                 conditions.add(buildCondition(conditionDef))
             }
-            return new EntityConditionList(conditions, EntityOperator.lookup(item.operator))
+            return EntityCondition.makeCondition(conditions, EntityOperator.lookup(item.operator))
         case "EntityExpr":
             return new EntityExpr(getValue(item.left), EntityOperator.lookup(item.operator), getValue(item.right))
         case "Include":
