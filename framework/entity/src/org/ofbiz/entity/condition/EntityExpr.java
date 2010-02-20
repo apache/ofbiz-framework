@@ -58,32 +58,6 @@ public class EntityExpr extends EntityCondition {
 
     protected EntityExpr() {}
 
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public <L,R> EntityExpr(L lhs, EntityComparisonOperator<L,R> operator, R rhs) {
-        this.init(lhs, operator, rhs);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public <R> EntityExpr(String lhs, EntityComparisonOperator<String,R> operator, R rhs) {
-        this.init(lhs, operator, rhs);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public <L,R> EntityExpr(L lhs, boolean leftUpper, EntityComparisonOperator<L,R> operator, R rhs, boolean rightUpper) {
-        L l = leftUpper ? UtilGenerics.<L>cast(EntityFunction.UPPER_FIELD((String)lhs)) : lhs;
-        R r = rightUpper ? UtilGenerics.<R>cast(EntityFunction.UPPER(rhs)) : rhs;
-        this.init(l, operator, r);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public EntityExpr(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
-        this.init(lhs, operator, rhs);
-    }
-
     public <L,R,LL,RR> void init(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
@@ -135,28 +109,6 @@ public class EntityExpr extends EntityCondition {
         this.lhs = null;
         this.operator = null;
         this.rhs = null;
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public void setLUpper(boolean upper) {
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public boolean isLUpper() {
-        return lhs instanceof EntityFunction.UPPER;
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public boolean isRUpper() {
-        return rhs instanceof EntityFunction.UPPER;
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public void setRUpper(boolean upper) {
     }
 
     public Object getLhs() {
