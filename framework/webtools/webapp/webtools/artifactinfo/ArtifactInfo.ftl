@@ -86,7 +86,7 @@ under the License.
         <div><a href="<@ofbizUrl>FindGeneric?entityName=${artifactInfo.modelEntity.getEntityName()}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>">All Entity Data</a></div>
         <h2>Entity Fields</h2>
         <table>
-        <#list artifactInfo.modelEntity.getFieldsCopy() as modelField>
+        <#list artifactInfo.modelEntity.getFieldsUnmodifiable() as modelField>
             <tr><td>${modelField.getName()}<#if modelField.getIsPk()>*</#if></td><td>${modelField.getType()}</td><td>${modelField.getDescription()?if_exists}</td></tr>
         </#list>
         </table>
