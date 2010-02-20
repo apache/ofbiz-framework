@@ -221,10 +221,11 @@ while (pkIterator.hasNext()) {
 context.put("newFieldPkList", newFieldPkList);
 
 List newFieldNoPkList = FastList.newInstance();
-for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
+Iterator noPkIterator = entity.getNopksIterator();
+while (noPkIterator.hasNext()) {
     Map mapField = FastMap.newInstance();
 
-    ModelField field = entity.getNopk(fnum);
+    ModelField field = noPkIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
     String fieldValue = "";
