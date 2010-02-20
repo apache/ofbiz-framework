@@ -465,6 +465,14 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.pks.size();
     }
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
+    public ModelField getPk(int index) {
+        return this.pks.get(index);
+    }
+
     public ModelField getOnlyPk() {
         if (this.pks.size() == 1) {
             return this.pks.get(0);
@@ -475,6 +483,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public Iterator<ModelField> getPksIterator() {
         return this.pks.iterator();
+    }
+
+    /**
+     * @deprecated Use getPkFieldsUnmodifiable instead.
+     */
+    @Deprecated
+    public List<ModelField> getPksCopy() {
+        List<ModelField> newList = FastList.newInstance();
+        newList.addAll(this.pks);
+        return newList;
     }
 
     public List<ModelField> getPkFieldsUnmodifiable() {
@@ -494,6 +512,14 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.nopks.size();
     }
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
+    public ModelField getNopk(int index) {
+        return this.nopks.get(index);
+    }
+
     public Iterator<ModelField> getNopksIterator() {
         return this.nopks.iterator();
     }
@@ -508,8 +534,26 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.fields.size();
     }
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
+    public ModelField getField(int index) {
+        return this.fields.get(index);
+    }
+
     public Iterator<ModelField> getFieldsIterator() {
         return this.fields.iterator();
+    }
+
+    /**
+     * @deprecated Use getFieldsUnmodifiable instead.
+     */
+    @Deprecated
+    public List<ModelField> getFieldsCopy() {
+        List<ModelField> newList = FastList.newInstance();
+        newList.addAll(this.fields);
+        return newList;
     }
 
     public List<ModelField> getFieldsUnmodifiable() {
