@@ -93,12 +93,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             }
         };
         protected LENGTH() {}
-        /** @deprecated Use EntityCondition.LENGTH() instead */
-        @Deprecated
-        public LENGTH(EntityConditionValue nested) { init(nested); }
-        /** @deprecated Use EntityCondition.LENGTH() instead */
-        @Deprecated
-        public LENGTH(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LENGTH, value);
         }
@@ -120,12 +114,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             }
         };
         protected TRIM() {}
-        /** @deprecated Use EntityCondition.TRIM() instead */
-        @Deprecated
-        public TRIM(EntityConditionValue nested) { init(nested); }
-        /** @deprecated Use EntityCondition.TRIM() instead */
-        @Deprecated
-        public TRIM(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.TRIM, value);
         }
@@ -147,12 +135,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             }
         };
         protected UPPER() {}
-        /** @deprecated Use EntityCondition.UPPER() instead */
-        @Deprecated
-        public UPPER(EntityConditionValue nested) { init(nested); }
-        /** @deprecated Use EntityCondition.UPPER() instead */
-        @Deprecated
-        public UPPER(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.UPPER, value);
         }
@@ -174,12 +156,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             }
         };
         protected LOWER() {}
-        /** @deprecated Use EntityCondition.LOWER() instead */
-        @Deprecated
-        public LOWER(EntityConditionValue nested) { init(nested); }
-        /** @deprecated Use EntityCondition.LOWER() instead */
-        @Deprecated
-        public LOWER(Object value) { init(value); }
         public void init(Object value) {
             super.init(FETCHER, SQLFunction.LOWER, value);
         }
