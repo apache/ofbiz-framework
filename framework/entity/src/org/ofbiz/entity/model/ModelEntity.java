@@ -1429,7 +1429,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         Iterator<ModelRelation> relIter = this.getRelationsIterator();
         while (relIter != null && relIter.hasNext()) {
             ModelRelation rel = relIter.next();
-
+            root.appendChild(rel.toXmlElement(document));
         }
 
         // append index elements
