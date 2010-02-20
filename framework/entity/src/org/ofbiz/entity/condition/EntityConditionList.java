@@ -19,7 +19,6 @@
 package org.ofbiz.entity.condition;
 
 import java.util.Iterator;
-import java.util.List;
 
 import javolution.context.ObjectFactory;
 
@@ -39,18 +38,6 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
 
     protected EntityConditionList() {
         super();
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public EntityConditionList(EntityJoinOperator operator, T... conditionList) {
-        init(operator, conditionList);
-    }
-
-    /** @deprecated Use EntityCondition.makeCondition() instead */
-    @Deprecated
-    public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
-        init(conditionList, operator);
     }
 
     @Override
