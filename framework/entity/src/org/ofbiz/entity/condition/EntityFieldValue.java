@@ -72,12 +72,6 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     protected EntityFieldValue() {}
 
-    /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
-    @Deprecated
-    public EntityFieldValue(String fieldName) {
-        this.init(fieldName, null, null, null);
-    }
-
     public void init(String fieldName, String entityAlias, List<String> entityAliasStack, ModelViewEntity modelViewEntity) {
         this.fieldName = fieldName;
         this.entityAlias = entityAlias;
