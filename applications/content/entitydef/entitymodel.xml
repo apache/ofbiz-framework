@@ -1624,8 +1624,15 @@ under the License.
             title="ContentAssoc and ContentPurpose View Entity">
         <member-entity entity-alias="CNTA" entity-name="ContentAssoc"/>
         <member-entity entity-alias="CNTP" entity-name="ContentPurpose"/>
-        <alias-all entity-alias="CNTA"/>
-        <alias-all entity-alias="CNTP"/>
+        <alias entity-alias="CNTA" name="contentId"/>
+        <alias entity-alias="CNTA" name="contentIdTo"/>
+        <alias entity-alias="CNTA" name="contentAssocTypeId"/>
+        <alias entity-alias="CNTA" name="fromDate"/>
+        <alias entity-alias="CNTA" name="thruDate"/>
+        <alias entity-alias="CNTA" name="dataSourceId"/>
+        <alias entity-alias="CNTA" name="mapKey"/>
+        <alias entity-alias="CNTP" name="contentPurposeTypeId"/>
+        <alias entity-alias="CNTP" name="sequenceNum"/>
         <view-link entity-alias="CNTA" rel-entity-alias="CNTP">
             <key-map field-name="contentIdTo" rel-field-name="contentId"/>
         </view-link>
