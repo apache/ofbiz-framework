@@ -718,11 +718,12 @@ under the License.
             <set field="type" value="PHONE_SHIPPING"/><field-to-list field="type" list="types"/>
             <set field="type" value="PHONE_SHIP_ORIG"/><field-to-list field="type" list="types"/>
             <else>
-                <set field="type" from-field="parameters.contactMechPurposeTypeId"/><field-to-list field="type" list="types"/>
+                <set field="type" from-field="parameters.contactMechPurposeTypeId"/>
+                <field-to-list field="type" list="types"/>
             </else>
         </if-empty>
         <set field="findMap.contactMechTypeId" value="TELECOM_NUMBER"/>
-        <find-by-and entity-name="PartyContactDetailByPurpose" map="findMap" list="telephoneAll1"></find-by-and>
+        <find-by-and entity-name="PartyContactDetailByPurpose" map="findMap" list="telephoneAll1"/>
         <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list="telephoneAll2" to-list="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
@@ -753,7 +754,7 @@ under the License.
                 <find-by-and entity-name="PartyAndContactMech" map="findMap" list="telephoneAll1"/>
                 <filter-list-by-date list="telephoneAll1" to-list="telephoneAll2"/>
                 <first-from-list entry="telephone" list="telephoneAll2"/>
-                <field-to-result field="telephone.contactMechId" result-name="contactMechId"/>                
+                <field-to-result field="telephone.contactMechId" result-name="contactMechId"/>
                 <if-not-empty field="telephone.tnCountryCode">
                     <field-to-result field="telephone.tnCountryCode" result-name="countryCode"/>
                 </if-not-empty>
