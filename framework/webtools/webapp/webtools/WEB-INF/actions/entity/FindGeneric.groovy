@@ -230,8 +230,9 @@ if (resultPartialList != null) {
 
         GenericValue value = (GenericValue)resultPartialIter.next();
         String findString = "entityName=" + entityName;
-        for (int pknum = 0; pknum < modelEntity.getPksSize(); pknum++) {
-            ModelField pkField = modelEntity.getPk(pknum);
+        Iterator pkIterator = modelEntity.getPksIterator();
+        while (pkIterator.hasNext()) {
+            ModelField pkField = pkIterator.next();
             ModelFieldType type = delegator.getEntityFieldType(modelEntity, pkField.getType());
             findString += "&" + pkField.getName() + "=" + value.get(pkField.getName());
         }

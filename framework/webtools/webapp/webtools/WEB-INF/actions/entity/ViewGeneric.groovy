@@ -65,8 +65,9 @@ context.put("hasDeletePermission" , hasDeletePermission);
 boolean useValue = true;
 String curFindString = "entityName=" + entityName;
 GenericPK findByPK = delegator.makePK(entityName);
-for(int fnum = 0; fnum < entity.getPksSize(); fnum++) {
-    ModelField field = entity.getPk(fnum);
+Iterator pkIterator = entity.getPksIterator();
+while (pkIterator.hasNext()) {
+    ModelField field = pkIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
     String fval = parameters.get(field.getName());
     if (UtilValidate.isNotEmpty(fval)) {
@@ -143,10 +144,11 @@ if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_E
 context.put("useValue", useValue);
 
 List newFieldPkList = FastList.newInstance();
-for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
+Iterator pkIterator = entity.getPksIterator();
+while (pkIterator.hasNext()) {
     Map mapField = FastMap.newInstance();
 
-    ModelField field = entity.getPk(fnum);
+    ModelField field = pkIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
     String fieldValue = "";

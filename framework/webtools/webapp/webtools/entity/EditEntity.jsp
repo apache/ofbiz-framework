@@ -104,8 +104,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
       relation.setMainEntity(entity);
       entity.addRelation(relation);
       if ("one".equals(type) || "one-nofk".equals(type)) {
-        for (int pk = 0; pk < relEntity.getPksSize(); pk++) {
-          ModelField pkf = relEntity.getPk(pk);
+        Iterator<ModelField> pkIterator = relEntity.getPksIterator();
+        while (pkIterator.hasNext()) {
+          ModelField pkf = pkIterator.next();
           ModelKeyMap keyMap = new ModelKeyMap();
           keyMap.setFieldName(pkf.getName());
           keyMap.setRelFieldName(pkf.getName());

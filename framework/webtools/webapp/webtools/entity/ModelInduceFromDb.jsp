@@ -122,8 +122,9 @@ under the License.
       %><validate name="<%=valName%>"/><%
     }%></field><%
   }
-  for (int y = 0; y < entity.getPksSize(); y++) {
-    ModelField field = entity.getPk(y);%>
+  Iterator<ModelField> pkIterator = entity.getPksIterator();
+  while (pkIterator.hasNext()) {
+    ModelField field = pkIterator.next();%>
       <prim-key field="<%=field.getName()%>"/><%
   }
   if (entity.getRelationsSize() > 0) {
