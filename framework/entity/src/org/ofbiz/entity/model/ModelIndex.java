@@ -94,19 +94,6 @@ public class ModelIndex extends ModelChild {
         this.unique = unique;
     }
 
-    /** @deprecated
-      * the main entity of this relation */
-    @Deprecated
-    public ModelEntity getMainEntity() {
-        return getModelEntity();
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public void setMainEntity(ModelEntity mainEntity) {
-        setModelEntity(mainEntity);
-    }
-
     public Iterator<String> getIndexFieldsIterator() {
         return this.fieldNames.iterator();
     }
