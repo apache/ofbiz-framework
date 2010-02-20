@@ -44,12 +44,6 @@ public class EntityDateFilterCondition extends EntityCondition {
 
     protected EntityDateFilterCondition() {}
 
-    /** @deprecated Use EntityCondition.makeConditionDate() instead */
-    @Deprecated
-    public EntityDateFilterCondition(String fromDateName, String thruDateName) {
-        init(fromDateName, thruDateName);
-    }
-
     public void init(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
         this.thruDateName = thruDateName;
