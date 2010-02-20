@@ -167,13 +167,13 @@ under the License.
   EntityExpr entityThruCond = null;
   EntityExpr entityDateCond = null;
   if (UtilValidate.isNotEmpty(entityFrom)) {
-    entityFromCond = new EntityExpr("lastUpdatedTxStamp", EntityComparisonOperator.GREATER_THAN, entityFrom);
+    entityFromCond = EntityCondition.makeCondition("lastUpdatedTxStamp", EntityComparisonOperator.GREATER_THAN, entityFrom);
   }
   if (UtilValidate.isNotEmpty(entityThru)) {
-    entityThruCond = new EntityExpr("lastUpdatedTxStamp", EntityComparisonOperator.LESS_THAN, entityThru);
+    entityThruCond = EntityCondition.makeCondition("lastUpdatedTxStamp", EntityComparisonOperator.LESS_THAN, entityThru);
   }
   if ((entityFromCond!=null) && (entityThruCond!=null)) {
-    entityDateCond = new EntityExpr(entityFromCond, EntityJoinOperator.AND, entityThruCond);
+    entityDateCond = EntityCondition.makeCondition(entityFromCond, EntityJoinOperator.AND, entityThruCond);
   } else if(entityFromCond!=null) {
     entityDateCond = entityFromCond;
   } else if(entityThruCond!=null) {
