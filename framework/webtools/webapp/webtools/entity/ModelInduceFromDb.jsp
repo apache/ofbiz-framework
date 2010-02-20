@@ -113,8 +113,9 @@ under the License.
             author="<%=entity.getAuthor()%>"<%}%><%if(!version.equals(entity.getVersion())){%>
             version="<%=entity.getVersion()%>"<%}%>><%if(!description.equals(entity.getDescription())){%>
       <description><%=entity.getDescription()%></description><%}%><%
-  for (int y = 0; y < entity.getFieldsSize(); y++) {
-    ModelField field = entity.getField(y);%>
+  Iterator<ModelField> fieldIterator = entity.getFieldsIterator();
+  while (fieldIterator.hasNext()) {
+    ModelField field = fieldIterator.next();%>
       <field name="<%=field.getName()%>"<%if(!field.getColName().equals(ModelUtil.javaNameToDbName(field.getName()))){
       %> col-name="<%=field.getColName()%>"<%}%> type="<%=field.getType()%>"><%
     for (int v = 0; v<field.getValidatorsSize(); v++) {

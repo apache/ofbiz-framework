@@ -93,10 +93,11 @@ if (value == null) {
 
 if (value != null) {
     List fieldList = FastList.newInstance();
-    for (int fnum = 0; fnum < entity.getFieldsSize(); fnum++) {
+    Iterator fieldIterator = entity.getFieldsIterator();
+    while (fieldIterator.hasNext()) {
         Map mapField = FastMap.newInstance();
 
-        ModelField field = entity.getField(fnum);
+        ModelField field = fieldIterator.next();
         ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
         String fieldValue = "";
@@ -326,9 +327,10 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 }
 
                 List relatedFieldsList = FastList.newInstance();
-                for (int fnum = 0; fnum < relatedEntity.getFieldsSize(); fnum++) {
+                Iterator relFieldIterator = relEntity.getFieldsIterator();
+                while (relFieldIterator.hasNext()) {
                     Map mapRelatedFields = FastMap.newInstance();
-                    ModelField field = relatedEntity.getField(fnum);
+                    ModelField field = relFieldIterator.next();
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
                     String fieldValue = "";

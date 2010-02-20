@@ -334,8 +334,9 @@ A.listtext:hover {color:red;}
 <B>FIELDS</B>
   <TABLE border='1' cellpadding='2' cellspacing='0'>
     <TR><TD>Field Name</TD><TD>Column Name (Length)</TD><TD>Field Type</TD><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
-    <%for (int f = 0; f < entity.getFieldsSize(); f++) {%>
-      <%ModelField field = entity.getField(f);%>
+    <%Iterator<ModelField> fieldIterator = entity.getFieldsIterator(); %>
+    <%while (fieldIterator.hasNext()) {%>
+      <%ModelField field = fieldIterator.next();%>
       <TR>
         <TD><%=field.getIsPk()?"<B>":""%><%=field.getName()%><%=field.getIsPk()?"</B>":""%></TD>
         <TD><%=field.getColName()%> (<%=field.getColName().length()%>)</TD>
@@ -465,16 +466,18 @@ A.listtext:hover {color:red;}
             <SELECT name='fieldName' class='selectBox'>
               <OPTION selected><%=keyMap.getFieldName()%></OPTION>
               <OPTION>&nbsp;</OPTION>
-              <%for (int fld=0; fld<entity.getFieldsSize(); fld++) {%>
-                <OPTION><%=entity.getField(fld).getName()%></OPTION>
+              <%Iterator<ModelField> fieldIterator = entity.getFieldsIterator(); %>
+              <%while (fieldIterator.hasNext()) {%>
+                <OPTION><%=fieldIterator.next().getName()%></OPTION>
               <%}%>
             </SELECT>
             Related:
             <SELECT name='relFieldName' class='selectBox'>
               <OPTION selected><%=keyMap.getRelFieldName()%></OPTION>
               <OPTION>&nbsp;</OPTION>
-              <%for (int fld=0; fld<relEntity.getFieldsSize(); fld++) {%>
-                <OPTION><%=relEntity.getField(fld).getName()%></OPTION>
+              <%Iterator<ModelField> relFieldIterator = entity.getFieldsIterator(); %>
+              <%while (relFieldIterator.hasNext()) {%>
+                <OPTION><%=relFieldIterator.next().getName()%></OPTION>
               <%}%>
             </SELECT>
           </td>

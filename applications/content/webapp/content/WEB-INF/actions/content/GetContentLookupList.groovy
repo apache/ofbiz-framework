@@ -48,8 +48,9 @@ ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity("ContentAssocViewTo");
 GenericEntity findByEntity = delegator.makeValue("ContentAssocViewTo");
 List errMsgList = FastList.newInstance();
-for (int fnum = 0; fnum <  modelEntity.getFieldsSize(); fnum++) {
-    ModelField field = modelEntity.getField(fnum);
+Iterator fieldIterator = modelEntity.getFieldsIterator();
+while (fieldIterator.hasNext()) {
+    ModelField field = fieldIterator.next();
     String fval = parameters.get(field.getName());
     if (fval != null) {
         if (fval.length() > 0) {
