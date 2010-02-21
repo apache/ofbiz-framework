@@ -932,7 +932,7 @@ width: 100%;
 color: #262626;
 float: left;
 height: 22px;
-background: url(../images/appbar4.gif) no-repeat right;
+background: url(../images/appbar.png) no-repeat right -90px;
 padding: 8px 20px 0px 10px;
 font-size: 1.5em;
 font-weight: bold;
@@ -1095,16 +1095,16 @@ float: right;
 }
 
 #main-navigation {
-background: url(../images/appbar2.gif) no-repeat 100% 0%;
+background: url(../images/appbar.png) no-repeat right -30px;
 }
 .menu_selected #main-navigation {
-background: url(../images/appbar1.gif) no-repeat 100% 0%;
+background: url(../images/appbar.png) no-repeat right 0px;
 }
 #app-navigation {
-background: url(../images/appbar3.gif) no-repeat 100% 0%;
+background: url(../images/appbar.png) no-repeat right -90px;
 }
 .menu_selected #app-navigation {
-background: url(../images/appbar2.gif) no-repeat 100% 0%;
+background: url(../images/appbar.png) no-repeat right -30px;
 }
 
 #main-navigation h2,#app-navigation h2 {
@@ -1979,41 +1979,41 @@ display: block;
 }
 
 .nav-pager ul .nav-first a:hover {
-background: url(../images/resultset_first_hot.png) no-repeat;
+background: url(../images/navigation.png) no-repeat 0px -46px;
 }
 .nav-pager ul .nav-previous a:hover {
-background: url(../images/resultset_previous_hot.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -23px -46px;
 }
 .nav-pager ul .nav-next a:hover {
-background: url(../images/resultset_next_hot.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -46px -46px;
 }
 .nav-pager ul .nav-last a:hover {
-background: url(../images/resultset_last_hot.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -69px -46px;
 }
 
 .nav-pager ul .nav-first a {
-background: url(../images/resultset_first.png) no-repeat;
+background: url(../images/navigation.png) no-repeat 0px -23px;
 }
 .nav-pager ul .nav-previous a {
-background: url(../images/resultset_previous.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -23px -23px;
 }
 .nav-pager ul .nav-next a {
-background: url(../images/resultset_next.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -46px -23px;
 }
 .nav-pager ul .nav-last a {
-background: url(../images/resultset_last.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -69px -23px;
 }
 .nav-pager ul .nav-first-disabled {
-background: url(../images/resultset_first_disabled.png) no-repeat;
+background: url(../images/navigation.png) no-repeat 0px 0px;
 }
 .nav-pager ul .nav-previous-disabled {
-background: url(../images/resultset_previous_disabled.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -23px 0px;
 }
 .nav-pager ul .nav-next-disabled {
-background: url(../images/resultset_next_disabled.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -46px 0px;
 }
 .nav-pager ul .nav-last-disabled {
-background: url(../images/resultset_last_disabled.png) no-repeat;
+background: url(../images/navigation.png) no-repeat -69px 0px;
 }
 
 .nav-pager ul .nav-first a,
@@ -2025,7 +2025,7 @@ background: url(../images/resultset_last_disabled.png) no-repeat;
 .nav-pager ul .nav-next-disabled,
 .nav-pager ul .nav-last-disabled {
 width: 23px;
-height:25px;
+height:23px;
 }
 
 .nav-pager ul .nav-pagesize {
@@ -2131,8 +2131,7 @@ z-index: 999;
 }
 
 .calendar_date_select .cds_footer {
-background-color: #4682B4;
-background-image: url(../images/appbar4.gif);
+background: url(../images/cds_footer.png) repeat-x;
 padding: 3px;
 font-size: 11px;
 color:#23190f;
