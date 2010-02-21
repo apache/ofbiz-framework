@@ -84,13 +84,13 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("currency", "${price?currency(usd)", "${price?currency(usd)");
         // CurrElem doesn't protected itself
         //parserTest("currency", "${?currency(}", "${?currency(}");
-        parserTest("currency", "${?currency()}", "${?currency()}");
+        parserTest("currency", "${?currency()}", "?currency()");
         //parserTest("currency", "${?currency(usd}", "${?currency(usd}");
-        parserTest("currency", "${?currency(usd)}", "${?currency(usd)}");
+        parserTest("currency", "${?currency(usd)}", "?currency(usd)");
         //parserTest("currency", "${price?currency(}", "${price?currency(}");
-        parserTest("currency", "${price?currency()}", "${price?currency()}");
+        parserTest("currency", "${price?currency()}", "price?currency()");
         //parserTest("currency", "${price?currency(usd}", "${price?currency(usd}");
-        parserTest("currency", "${price?currency(usd)}", "${price?currency(usd)}");
+        parserTest("currency", "${price?currency(usd)}", "price?currency(usd)");
         parserTest("currency", "a${price?currency(usd)}b", "a${price?currency(usd)}b");
     }
 
@@ -271,10 +271,10 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("just bad", "${foobar", testMap, "${foobar", false);
         fseTest("constant and bad", "Hello${foobar", testMap, "Hello${foobar", false);
         fseTest("good and bad", "Hello ${var}${foobar", testMap, "Hello World${foobar", false);
-        //fseTest("currency(USD)", "The total is ${amount?currency(${usd})}.", testMap, null, localeToTest, "The total is $1,234,567.89.", false);
-        //fseTest("currency(USD): null", "The total is ${testMap.missing?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
-        //fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
-        //fseTest("currency(USD): exception", "The total is ${throwException.value?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
+        fseTest("currency(USD)", "The total is ${amount?currency(${usd})}.", testMap, null, localeToTest, "The total is $1,234,567.89.", false);
+        fseTest("currency(USD): null", "The total is ${testMap.missing?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
+        fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
+        fseTest("currency(USD): exception", "The total is ${throwException.value?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
         fseTest("null nested", "${${nullVar}}!", testMap, "!", false);
         fseTest("bsh: script", "${bsh:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
         fseTest("bsh: null", "${bsh:return null;}!", testMap, "!", false);
