@@ -37,7 +37,6 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 import bsh.EvalError;
@@ -196,9 +195,6 @@ public abstract class FlexibleStringExpander implements Serializable {
      * instances
      */
     protected static FlexibleStringExpander[] getStrElems(char[] chars, int offset, int length) {
-        if (length == 0) {
-            return null;
-        }
         String expression = new String(chars, 0, length + offset);
         int start = expression.indexOf(openBracket, offset);
         if (start == -1) {
@@ -368,7 +364,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * or <code>null</code>
      */
     public boolean isEmpty() {
-        return this.chars == null || this.length == 0;
+        return this.length == 0;
     }
 
     /** Returns a copy of the original expression.
@@ -490,8 +486,6 @@ public abstract class FlexibleStringExpander implements Serializable {
                         Debug.logVerbose("Groovy scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
                     }
                 }
-            } catch (CompilationFailedException e) {
-                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
             } catch (Exception e) {
                 // handle other things, like the groovy.lang.MissingPropertyException
                 Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
