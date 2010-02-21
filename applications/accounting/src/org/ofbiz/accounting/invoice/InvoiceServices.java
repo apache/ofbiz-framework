@@ -324,8 +324,8 @@ public class InvoiceServices {
                 if (billFromVendor != null) {
                     List<GenericValue> billingContactMechs = billFromVendor.getRelatedOne("Party").getRelatedByAnd("PartyContactMechPurpose",
                             UtilMisc.toMap("contactMechPurposeTypeId", "BILLING_LOCATION"));
-                    if ((billingContactMechs != null) && (billingContactMechs.size() > 0)) {
-                        payToAddress = (GenericValue) billingContactMechs.get(0);
+                    if (UtilValidate.isNotEmpty(billingContactMechs)) {
+                        payToAddress = EntityUtil.getFirst(billingContactMechs);
                     }
                 }
             } else {
@@ -661,7 +661,7 @@ public class InvoiceServices {
             // next do the shipping adjustments.  Note that we do not want to add these to the invoiceSubTotal or orderSubTotal for pro-rating tax later, as that would cause
             // numerator/denominator problems when the shipping is not pro-rated but rather charged all on the first invoice
             for (GenericValue adj : shipAdjustments.keySet()) {
-                BigDecimal adjAlreadyInvoicedAmount = (BigDecimal) shipAdjustments.get(adj);
+                BigDecimal adjAlreadyInvoicedAmount = shipAdjustments.get(adj);
 
                 if ("N".equalsIgnoreCase(prorateShipping)) {
 
@@ -697,7 +697,7 @@ public class InvoiceServices {
                 prorateTaxes = "Y";
             }
             for (GenericValue adj : taxAdjustments.keySet()) {
-                BigDecimal adjAlreadyInvoicedAmount = (BigDecimal) taxAdjustments.get(adj);
+                BigDecimal adjAlreadyInvoicedAmount = taxAdjustments.get(adj);
                 BigDecimal adjAmount = null;
 
                 if ("N".equalsIgnoreCase(prorateTaxes)) {
@@ -983,7 +983,6 @@ public class InvoiceServices {
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                GenericValue invoiceItemAssoc = null;
                 if (ServiceUtil.isError(resMap)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionErrorItem",locale), null, null, resMap);
                 }
@@ -1156,7 +1155,7 @@ public class InvoiceServices {
         return serviceResult;
     }
 
-    public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List<String> shipmentIds = UtilGenerics.checkList(context.get("shipmentIds"));
@@ -1203,7 +1202,7 @@ public class InvoiceServices {
                 // filter out items which have been received but are not actually owned by an internal organization, so they should not be on a purchase invoice
                 Iterator<GenericValue> itemsIter = items.iterator();
                 while (itemsIter.hasNext()) {
-                    GenericValue item = (GenericValue) itemsIter.next();
+                    GenericValue item = itemsIter.next();
                     GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
                     GenericValue ownerPartyRole = delegator.findByPrimaryKeyCache("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"));
                     if (UtilValidate.isEmpty(ownerPartyRole)) {
@@ -1311,7 +1310,7 @@ public class InvoiceServices {
                     issueQty = issue.getBigDecimal("quantity");
                 }
 
-                BigDecimal billAvail = (BigDecimal) itemQtyAvail.get(issue.getString("orderItemSeqId"));
+                BigDecimal billAvail = itemQtyAvail.get(issue.getString("orderItemSeqId"));
                 if (billAvail == null) {
                     List<EntityCondition> lookup = FastList.newInstance();
                     lookup.add(EntityCondition.makeCondition("orderId", orderId));
@@ -1451,7 +1450,7 @@ public class InvoiceServices {
                     // Add an OrderAdjustment to the order for each additional shipping charge
                     for (GenericValue shipment : additionalShippingCharges.keySet()) {
                         String shipmentId = shipment.getString("shipmentId");
-                        BigDecimal additionalShippingCharge = (BigDecimal) additionalShippingCharges.get(shipment);
+                        BigDecimal additionalShippingCharge = additionalShippingCharges.get(shipment);
                         Map<String, Object> createOrderAdjustmentContext = FastMap.newInstance();
                         createOrderAdjustmentContext.put("orderId", orderId);
                         createOrderAdjustmentContext.put("orderAdjustmentTypeId", "SHIPPING_CHARGES");
@@ -1510,7 +1509,7 @@ public class InvoiceServices {
                         List<GenericValue> orderAdjustments = UtilGenerics.checkList(calcTaxResult.get("orderAdjustments"));
 
                         // If we have any OrderAdjustments due to tax on shipping, store them and add them to the total
-                        if (calcTaxResult != null && orderAdjustments != null) {
+                        if (orderAdjustments != null) {
                             for (GenericValue orderAdjustment : orderAdjustments) {
                                 totalAdditionalShippingCharges = totalAdditionalShippingCharges.add(orderAdjustment.getBigDecimal("amount").setScale(DECIMALS, ROUNDING));
                                 orderAdjustment.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
@@ -1618,7 +1617,7 @@ public class InvoiceServices {
 
             String invoiceId = null;
             List<GenericValue> shipmentItemBillings = null;
-            String shipmentId = (String) shipmentIds.get(0);
+            String shipmentId = shipmentIds.get(0);
             try {
                 shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", shipmentId));
             } catch (GenericEntityException e) {
@@ -1898,7 +1897,7 @@ public class InvoiceServices {
                 } else if (itemIssuanceFound) {
                     cancelQuantity = item.getBigDecimal("cancelQuantity");
                 }
-                if (cancelQuantity == null) {cancelQuantity = ZERO;};
+                if (cancelQuantity == null) cancelQuantity = ZERO;
                 BigDecimal actualAmount = returnPrice.multiply(quantity).setScale(DECIMALS, ROUNDING);
                 BigDecimal promisedAmount = returnPrice.multiply(quantity.add(cancelQuantity)).setScale(DECIMALS, ROUNDING);
                 invoiceTotal = invoiceTotal.add(actualAmount).setScale(DECIMALS, ROUNDING);
@@ -2079,23 +2078,21 @@ public class InvoiceServices {
 
         Map<String, BigDecimal> payments = FastMap.newInstance();
         Timestamp paidDate = null;
-        if (paymentAppl != null) {
-            for (GenericValue payAppl : paymentAppl) {
-                payments.put(payAppl.getString("paymentId"), payAppl.getBigDecimal("amountApplied"));
+        for (GenericValue payAppl : paymentAppl) {
+            payments.put(payAppl.getString("paymentId"), payAppl.getBigDecimal("amountApplied"));
 
-                // paidDate will be the last date (chronologically) of all the Payments applied to this invoice
-                Timestamp paymentDate = payAppl.getTimestamp("effectiveDate");
-                if (paymentDate != null) {
-                    if ((paidDate == null) || (paidDate.before(paymentDate))) {
-                        paidDate = paymentDate;
-                    }
+            // paidDate will be the last date (chronologically) of all the Payments applied to this invoice
+            Timestamp paymentDate = payAppl.getTimestamp("effectiveDate");
+            if (paymentDate != null) {
+                if ((paidDate == null) || (paidDate.before(paymentDate))) {
+                    paidDate = paymentDate;
                 }
             }
         }
 
         BigDecimal totalPayments = ZERO;
         for (String paymentId : payments.keySet()) {
-            BigDecimal amount = (BigDecimal) payments.get(paymentId);
+            BigDecimal amount = payments.get(paymentId);
             if (amount == null) amount = ZERO;
             totalPayments = totalPayments.add(amount).setScale(DECIMALS, ROUNDING);
         }
@@ -2321,9 +2318,7 @@ public class InvoiceServices {
 
     public static Map<String, Object> updatePaymentApplicationDefBd(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         if (DECIMALS == -1 || ROUNDING == -1) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingAritmeticPropertiesNotConfigured",locale));
@@ -2511,7 +2506,6 @@ public class InvoiceServices {
 
         // billing account
         GenericValue billingAccount = null;
-        BigDecimal billingAccountApplyAvailable = ZERO;
         if (billingAccountId != null && !billingAccountId.equals("")) {
             try {
                 billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
@@ -2929,7 +2923,7 @@ public class InvoiceServices {
                             // application(s) found, add them all together
                             Iterator<GenericValue> p = paymentApplications.iterator();
                             while (p.hasNext()) {
-                                paymentApplication = (GenericValue) p.next();
+                                paymentApplication = p.next();
                                 alreadyApplied = alreadyApplied.add(paymentApplication.getBigDecimal("amountApplied").setScale(DECIMALS,ROUNDING));
                             }
                             tobeApplied = itemTotal.subtract(alreadyApplied).setScale(DECIMALS,ROUNDING);
@@ -3080,7 +3074,7 @@ public class InvoiceServices {
         if (checkAppls.size() > 0) {
             if (debug) Debug.logInfo(checkAppls.size() + " records already exist", module);
             // 1 record exists just update and if different ID delete other record and add together.
-            GenericValue checkAppl = (GenericValue) checkAppls.get(0);
+            GenericValue checkAppl = checkAppls.get(0);
             // if new record  add to the already existing one.
             if (paymentApplication.get("paymentApplicationId") == null)    {
                 // add 2 amounts together
