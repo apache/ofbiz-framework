@@ -113,7 +113,10 @@ public abstract class FlexibleStringExpander implements Serializable {
      * @return The original expression's evaluation result as a <code>String</code>
      */
     public static String expandString(String expression, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (context == null || expression == null || !expression.contains(openBracket)) {
+        if (expression == null) {
+            return "";
+        }
+        if (context == null || !expression.contains(openBracket)) {
             return expression;
         }
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(expression);

@@ -37,6 +37,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input);
         assertEquals(label, compare, fse.expandString(context));
         assertEquals("isEmpty:" + label, isEmpty, fse.isEmpty());
+        assertEquals("static:" + label, compare, FlexibleStringExpander.expandString(input, context));
     }
 
     public void testFlexibleStringExpander() {
