@@ -209,16 +209,20 @@ public abstract class FlexibleStringExpander implements Serializable {
                 if (end == -1) {
                     end = origLen;
                 }
-                String subExpression = expression.substring(start + 2, end);
                 // Evaluation sequence is important - do not change it
                 if (escapedExpression) {
                     strElems.add(new ConstElem(expression.substring(start, end + 1)));
-                } else if (subExpression.contains("?currency(")) {
-                    strElems.add(new CurrElem(subExpression));
-                } else if (subExpression.contains(openBracket)) {
-                    strElems.add(new NestedVarElem(subExpression));
                 } else {
-                    strElems.add(new VarElem(subExpression));
+                    String subExpression = expression.substring(start + 2, end);
+                    int currencyPos = subExpression.indexOf("?currency(");
+                    int closeParen = currencyPos > 0 ? subExpression.indexOf(")", currencyPos + 10) : -1;
+                    if (closeParen != -1) {
+                        strElems.add(new CurrElem(subExpression));
+                    } else if (subExpression.contains(openBracket)) {
+                        strElems.add(new NestedVarElem(subExpression));
+                    } else {
+                        strElems.add(new VarElem(subExpression));
+                    }
                 }
             }
             // reset the current index to after the expression, and the start to the beginning of the next expression
