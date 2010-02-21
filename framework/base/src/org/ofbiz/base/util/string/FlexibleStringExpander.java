@@ -214,7 +214,7 @@ public abstract class FlexibleStringExpander implements Serializable {
                 if (escapedExpression) {
                     strElems.add(new ConstElem(expression.substring(start, end + 1)));
                 } else if (subExpression.contains("?currency(")) {
-                    strElems.add(new CurrElem(expression));
+                    strElems.add(new CurrElem(subExpression));
                 } else if (subExpression.contains(openBracket)) {
                     strElems.add(new NestedVarElem(subExpression));
                 } else {
