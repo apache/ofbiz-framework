@@ -2075,14 +2075,6 @@ display: none;
 float: left;
 }
 
-.field-	up ul li a{
-background: url(../images/application_view_list.png) no-repeat 0 0;
-display: block;
-margin: 3px 10px 0px 4px;
-width:16px;
-height:16px;
-}
-
 #masthead ul li.last-system-msg{
 color:#FFFFFF;
 padding-left:10px;
