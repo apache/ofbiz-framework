@@ -42,25 +42,25 @@ public class FlexibleStringExpanderTests extends TestCase {
         Map<String, Object> testMap = new HashMap<String, Object>();
         testMap.put("var", "World");
         fse = FlexibleStringExpander.getInstance("Hello ${var}!");
-        assertTrue("simple replacement", compare.equals(fse.expandString(testMap)));
+        assertEquals("simple replacement", compare, fse.expandString(testMap));
         testMap.put("nested", "Hello ${var}");
         fse = FlexibleStringExpander.getInstance("${nested}!");
-        assertTrue("hidden (runtime) nested replacement", compare.equals(fse.expandString(testMap)));
+        assertEquals("hidden (runtime) nested replacement", compare, fse.expandString(testMap));
         fse = FlexibleStringExpander.getInstance("${'Hello ${var}'}!");
-        assertTrue("visible nested replacement", compare.equals(fse.expandString(testMap)));
+        assertEquals("visible nested replacement", compare, fse.expandString(testMap));
         fse = FlexibleStringExpander.getInstance("${bsh:return \"Hello \" + var + \"!\";}");
-        assertTrue("bsh: script", compare.equals(fse.expandString(testMap)));
+        assertEquals("bsh: script", compare, fse.expandString(testMap));
         fse = FlexibleStringExpander.getInstance("${groovy:return \"Hello \" + var + \"!\";}");
-        assertTrue("groovy: script", compare.equals(fse.expandString(testMap)));
+        assertEquals("groovy: script", compare, fse.expandString(testMap));
         testMap.put("testMap", testMap);
         fse = FlexibleStringExpander.getInstance("Hello ${testMap.var}!");
-        assertTrue("UEL integration: Map", compare.equals(fse.expandString(testMap)));
+        assertEquals("UEL integration: Map", compare, fse.expandString(testMap));
         List<String> testList = new ArrayList<String>();
         testList.add("World");
         testMap.put("testList", testList);
         fse = FlexibleStringExpander.getInstance("Hello ${testList[0]}!");
-        assertTrue("UEL integration: List", compare.equals(fse.expandString(testMap)));
+        assertEquals("UEL integration: List", compare, fse.expandString(testMap));
         fse = FlexibleStringExpander.getInstance("This is an \\${escaped} expression");
-        assertTrue("Escaped expression", "This is an ${escaped} expression".equals(fse.expandString(testMap)));
+        assertEquals("Escaped expression", "This is an ${escaped} expression", fse.expandString(testMap));
     }
 }
