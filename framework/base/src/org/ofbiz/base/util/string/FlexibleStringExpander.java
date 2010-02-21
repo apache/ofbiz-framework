@@ -139,8 +139,31 @@ public abstract class FlexibleStringExpander implements Serializable {
      * @return A <code>FlexibleStringExpander</code> instance
      */
     public static FlexibleStringExpander getInstance(String expression) {
+        return getInstance(expression, true);
+    }
+
+    /* Returns a <code>FlexibleStringExpander</code> object. <p>A null or
+     * empty argument will return a <code>FlexibleStringExpander</code>
+     * object that represents an empty expression. That object is a shared
+     * singleton, so there is no memory or performance penalty in using it.</p>
+     * <p>If the method is passed a <code>String</code> argument that doesn't
+     * contain an expression, the <code>FlexibleStringExpander</code> object
+     * that is returned does not perform any evaluations on the original
+     * <code>String</code> - any methods that return a <code>String</code>
+     * will return the original <code>String</code>. The object returned by
+     * this method is very compact - taking less memory than the original
+     * <code>String</code>.</p>
+     *
+     * @param expression The original expression
+     * @param useCache whether to store things into a global cache
+     * @return A <code>FlexibleStringExpander</code> instance
+     */
+    public static FlexibleStringExpander getInstance(String expression, boolean useCache) {
         if (UtilValidate.isEmpty(expression)) {
             return nullExpr;
+        }
+        if (!useCache) {
+            return parse(expression);
         }
         // Remove the next three lines to cache all expressions
         if (!expression.contains(openBracket)) {
@@ -149,16 +172,20 @@ public abstract class FlexibleStringExpander implements Serializable {
         FlexibleStringExpander fse = exprCache.get(expression);
         if (fse == null) {
             synchronized (exprCache) {
-                FlexibleStringExpander[] strElems = getStrElems(expression);
-                if (strElems.length == 1) {
-                    fse = strElems[0];
-                } else {
-                    fse = new Elements(expression, strElems);
-                }
+                fse = parse(expression);
                 exprCache.put(expression, fse);
             }
         }
         return fse;
+    }
+
+    private static FlexibleStringExpander parse(String expression) {
+        FlexibleStringExpander[] strElems = getStrElems(expression);
+        if (strElems.length == 1) {
+            return strElems[0];
+        } else {
+            return new Elements(expression, strElems);
+        }
     }
 
     /** Parses an expression and returns an array of <code>FlexibleStringExpander</code>

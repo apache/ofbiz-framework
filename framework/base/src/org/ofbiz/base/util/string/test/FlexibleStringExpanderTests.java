@@ -46,51 +46,57 @@ public class FlexibleStringExpanderTests extends TestCase {
         super(name);
     }
 
-    private static void parserTest(String label, String input, String toString) {
-        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input);
-        assertEquals(label + ":toString", toString, fse.toString());
+    private static void parserTest(String label, String input, boolean checkCache, String toString) {
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input, false);
+        //System.err.println("fse(" + fse + ").class=" + fse.getClass());
+        assertEquals(label + ":toString(no-cache)", toString, fse.toString());
+        fse = FlexibleStringExpander.getInstance(input, true);
+        assertEquals(label + ":toString(cache)", toString, fse.toString());
+        if (checkCache) {
+            assertEquals(label + ":same-cache", fse, FlexibleStringExpander.getInstance(input, true));
+        }
     }
 
     public void testParsing() {
-        parserTest("visible nested replacement", "${'Hello ${var}'}!", "${'Hello ${var}'}!");
-        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!");
-        parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", "${throwException.value}");
-        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", "a${}${}");
-        parserTest("null", null, "");
-        parserTest("empty", "", "");
-        parserTest("constant-only", "a", "a");
-        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", "a${}${}");
-        parserTest("bsh", "${bsh:}", "");
-        parserTest("groovy", "${groovy:}", "");
+        parserTest("visible nested replacement", "${'Hello ${var}'}!", true, "${'Hello ${var}'}!");
+        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!");
+        parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${throwException.value}");
+        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "a${}${}");
+        parserTest("null", null, true, "");
+        parserTest("empty", "", true, "");
+        parserTest("constant-only", "a", false, "a");
+        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "a${}${}");
+        parserTest("bsh", "${bsh:}", true, "");
+        parserTest("groovy", "${groovy:}", true, "");
 
-        parserTest("escaped", "\\${}", "\\${}");
-        parserTest("constant-escaped", "a\\${}", "a\\${}");
-        parserTest("escaped-bsd", "\\${bsh:}", "\\${bsh:}");
-        parserTest("escaped-groovy", "\\${groovy:}", "\\${groovy:}");
+        parserTest("escaped", "\\${}", true, "\\${}");
+        parserTest("constant-escaped", "a\\${}", true, "a\\${}");
+        parserTest("escaped-bsd", "\\${bsh:}", true, "\\${bsh:}");
+        parserTest("escaped-groovy", "\\${groovy:}", true, "\\${groovy:}");
 
-        parserTest("missing-}", "${", "${");
-        parserTest("nested-constant-missing-}", "${a${}", "a${}");
-        parserTest("nested-constant-nested-nested-missing-}", "${a${${}", "a${${}");
-        parserTest("escaped-missing-}", "\\${", "\\${");
-        parserTest("constant-escaped-missing-}", "a\\${", "a\\${");
+        parserTest("missing-}", "${", true, "${");
+        parserTest("nested-constant-missing-}", "${a${}", true, "a${}");
+        parserTest("nested-constant-nested-nested-missing-}", "${a${${}", true, "a${${}");
+        parserTest("escaped-missing-}", "\\${", true, "\\${");
+        parserTest("constant-escaped-missing-}", "a\\${", true, "a\\${");
 
-        parserTest("currency", "${?currency(", "${?currency(");
-        parserTest("currency", "${?currency()", "${?currency()");
-        parserTest("currency", "${price?currency(", "${price?currency(");
-        parserTest("currency", "${price?currency()", "${price?currency()");
-        parserTest("currency", "${?currency(usd", "${?currency(usd");
-        parserTest("currency", "${?currency(usd)", "${?currency(usd)");
-        parserTest("currency", "${price?currency(usd", "${price?currency(usd");
-        parserTest("currency", "${price?currency(usd)", "${price?currency(usd)");
-        parserTest("currency", "${?currency(}", "?currency(");
-        parserTest("currency", "${?currency()}", "?currency()");
-        parserTest("currency", "${?currency(usd}", "?currency(usd");
-        parserTest("currency", "${?currency(usd)}", "?currency(usd)");
-        parserTest("currency", "${price?currency(}", "price?currency(");
-        parserTest("currency", "${price?currency()}", "price?currency()");
-        parserTest("currency", "${price?currency(usd}", "price?currency(usd");
-        parserTest("currency", "${price?currency(usd)}", "price?currency(usd)");
-        parserTest("currency", "a${price?currency(usd)}b", "a${price?currency(usd)}b");
+        parserTest("currency", "${?currency(", true, "${?currency(");
+        parserTest("currency", "${?currency()", true, "${?currency()");
+        parserTest("currency", "${price?currency(", true, "${price?currency(");
+        parserTest("currency", "${price?currency()", true, "${price?currency()");
+        parserTest("currency", "${?currency(usd", true, "${?currency(usd");
+        parserTest("currency", "${?currency(usd)", true, "${?currency(usd)");
+        parserTest("currency", "${price?currency(usd", true, "${price?currency(usd");
+        parserTest("currency", "${price?currency(usd)", true, "${price?currency(usd)");
+        parserTest("currency", "${?currency(}", true, "?currency(");
+        parserTest("currency", "${?currency()}", true, "?currency()");
+        parserTest("currency", "${?currency(usd}", true, "?currency(usd");
+        parserTest("currency", "${?currency(usd)}", true, "?currency(usd)");
+        parserTest("currency", "${price?currency(}", true, "price?currency(");
+        parserTest("currency", "${price?currency()}", true, "price?currency()");
+        parserTest("currency", "${price?currency(usd}", true, "price?currency(usd");
+        parserTest("currency", "${price?currency(usd)}", true, "price?currency(usd)");
+        parserTest("currency", "a${price?currency(usd)}b", true, "a${price?currency(usd)}b");
     }
 
     private static void fseTest(String label, String input, Map<String, Object> context, Object compare, boolean isEmpty) {
@@ -168,7 +174,7 @@ public class FlexibleStringExpanderTests extends TestCase {
             assertEquals("static expandString(input, null):" + label, input, FlexibleStringExpander.expandString(input, null, locale));
         }
         if (!fse.isEmpty()) {
-            fse = FlexibleStringExpander.getInstance(input);
+            fse = FlexibleStringExpander.getInstance(input, false);
             doFseTest(label, input, fse, context, timeZone, locale, compare, isEmpty);
         }
     }
