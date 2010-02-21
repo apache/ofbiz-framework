@@ -33,30 +33,29 @@ public class FlexibleStringExpanderTests extends TestCase {
         super(name);
     }
 
-    private static void fseTest(String label, String input, Map<String, ? extends Object> context, Object compare) {
+    private static void fseTest(String label, String input, Map<String, ? extends Object> context, Object compare, boolean isEmpty) {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input);
         assertEquals(label, compare, fse.expandString(context));
+        assertEquals("isEmpty:" + label, isEmpty, fse.isEmpty());
     }
 
     public void testFlexibleStringExpander() {
-        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(null);
-        assertTrue("null FlexibleStringExpander", fse.isEmpty());
-        fseTest("null FlexibleStringExpander", null, null, "");
-        fseTest("null context", "Hello World!", null, "Hello World!");
+        fseTest("null FlexibleStringExpander", null, null, "", true);
+        fseTest("null context", "Hello World!", null, "Hello World!", false);
         Map<String, Object> testMap = new HashMap<String, Object>();
         testMap.put("var", "World");
-        fseTest("simple replacement", "Hello ${var}!", testMap, "Hello World!");
+        fseTest("simple replacement", "Hello ${var}!", testMap, "Hello World!", false);
         testMap.put("nested", "Hello ${var}");
-        fseTest("hidden (runtime) nested replacement", "${nested}!", testMap, "Hello World!");
-        fseTest("visible nested replacement", "${'Hello ${var}'}!", testMap, "Hello World!");
-        fseTest("bsh: script", "${bsh:return \"Hello \" + var + \"!\";}", testMap, "Hello World!");
-        fseTest("groovy: script", "${groovy:return \"Hello \" + var + \"!\";}", testMap, "Hello World!");
+        fseTest("hidden (runtime) nested replacement", "${nested}!", testMap, "Hello World!", false);
+        fseTest("visible nested replacement", "${'Hello ${var}'}!", testMap, "Hello World!", false);
+        fseTest("bsh: script", "${bsh:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
+        fseTest("groovy: script", "${groovy:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
         testMap.put("testMap", testMap);
-        fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!");
+        fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
         List<String> testList = new ArrayList<String>();
         testList.add("World");
         testMap.put("testList", testList);
-        fseTest("UEL integration: List", "Hello ${testList[0]}!", testMap, "Hello World!");
-        fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression");
+        fseTest("UEL integration: List", "Hello ${testList[0]}!", testMap, "Hello World!", false);
+        fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
     }
 }
