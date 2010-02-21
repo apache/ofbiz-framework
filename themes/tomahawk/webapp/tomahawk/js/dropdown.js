@@ -18,32 +18,30 @@ under the License.
 */
 
 var DropDownMenu = Class.create();
+
 DropDownMenu.prototype = {
- initialize: function(menuElement) {
+  initialize: function(menuElement) {
     var menuTitle = $A(menuElement.getElementsByTagName("h2")).first();
+
     menuElement.childElements().each(function(node){
-        // if there is a submenu
-        var submenu = $A(node.getElementsByTagName("ul")).first();
-        if(submenu != null){
-            // make sub-menu invisible
-            Element.extend(submenu).setStyle({display: 'none'});
-            // toggle the visibility of the submenu
-            if (menuTitle != null) {
-                menuTitle.onmouseover = menuTitle.onmouseout = function(){Element.toggle(submenu);};
-                menuTitle = null;
-            }
-            node.onmouseover = node.onmouseout = function(){Element.toggle(submenu);};
+      // if there is a submenu
+      var submenu = $A(node.getElementsByTagName("ul")).first();
+      if(submenu != null){
+        // make sub-menu invisible
+        Element.hide(submenu);
+        // toggle the visibility of the submenu
+        if (menuTitle != null) {
+          menuTitle.onmouseover = function(){Element.extend(submenu).setStyle({display: 'block'});};
+          menuTitle.onmouseout = function(){Element.hide(submenu);};
         }
+        node.onmouseover = function(){Element.extend(submenu).setStyle({display: 'block'});};
+        node.onmouseout = function(){Element.hide(submenu);};
+      }
     });
   }
 };
 
-Event.observe(window, "load", function(){
-
-});
-
 document.observe('dom:loaded', function(){
-    var mainmenu = new DropDownMenu($('main-navigation'));
-    var appmenu = new DropDownMenu($('app-navigation'));
+  var mainmenu = new DropDownMenu($('main-navigation'));
+  var appmenu = new DropDownMenu($('app-navigation'));
 });
-

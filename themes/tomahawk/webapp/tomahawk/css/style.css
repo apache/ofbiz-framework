@@ -1149,18 +1149,6 @@ left:204px;
 background-color:#1b1919;
 }
 
-bb#app-navigation ul li ul {
-background-color: #006699;
-border-bottom: solid 5px #003366;
-border-right: solid 4px #003366;
-}
-
-bb.menu_selected #app-navigation ul li ul {
-background-color: #131212;
-border-bottom: solid 5px #131212;
-border-right: solid 4px #131212;
-}
-
 #main-navigation ul li ul li a,
 #app-navigation ul li ul li a {
 display:block;
@@ -1190,6 +1178,11 @@ color:#000000;
 #main-navigation ul li ul li.selected a:hover,
 #app-navigation ul li ul li.selected a:hover {
 background-color:#403f40;
+}
+
+#main-navigation ul.main,
+#app-navigation li ul{
+display:none;
 }
 
 /* ============================ */
