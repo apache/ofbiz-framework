@@ -18,33 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.accounting.payment;
 
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.Collections;
-import java.util.Comparator;
-import java.math.BigDecimal;
 
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -66,15 +63,15 @@ public class BillingAccountWorker {
         if (decimals != -1) ZERO = ZERO.setScale(decimals);
     }
 
-    public static List makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
-        List billingAccountList = FastList.newInstance();
+    public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
+        List<Map<String, Object>> billingAccountList = FastList.newInstance();
 
-        Map agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
+        Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
                 "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));
         if (ServiceUtil.isError(agentResult)) {
             throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: " + ServiceUtil.getErrorMessage(agentResult));
         }
-        List relatedPartyIdList = (List) agentResult.get("relatedPartyIdList");
+        List<String> relatedPartyIdList = UtilGenerics.checkList(agentResult.get("relatedPartyIdList"));
 
         EntityCondition barFindCond = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
@@ -84,9 +81,9 @@ public class BillingAccountWorker {
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
-            Iterator billingAcctIter = billingAccountRoleList.iterator();
+            Iterator<GenericValue> billingAcctIter = billingAccountRoleList.iterator();
             while (billingAcctIter.hasNext()) {
-                GenericValue billingAccountRole = (GenericValue) billingAcctIter.next();
+                GenericValue billingAccountRole = billingAcctIter.next();
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount");
 
                 // skip accounts that have thruDate < nowTimestamp
@@ -96,7 +93,7 @@ public class BillingAccountWorker {
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
                     BigDecimal accountBalance = BillingAccountWorker.getBillingAccountBalance(billingAccountVO);
 
-                    Map billingAccount = new HashMap(billingAccountVO);
+                    Map<String, Object> billingAccount = new HashMap<String, Object>(billingAccountVO);
                     BigDecimal accountLimit = getAccountLimit(billingAccountVO);
 
                     billingAccount.put("accountBalance", accountBalance);
@@ -147,24 +144,24 @@ public class BillingAccountWorker {
         BigDecimal accountLimit = getAccountLimit(billingAccount);
         balance = balance.add(accountLimit);
         // pending (not cancelled, rejected, or received) order payments
-        EntityConditionList whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
+        EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                 EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
                 EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
            ), EntityOperator.AND);
 
-        List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
-            GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
+        List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
+        for (Iterator<GenericValue> oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext();) {
+            GenericValue orderPaymentPreferenceSum = oppsi.next();
             BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
-        List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         // TODO: cancelled payments?
-        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext();) {
-            GenericValue paymentAppl = (GenericValue) pAi.next();
+        for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
+            GenericValue paymentAppl = pAi.next();
             if (paymentAppl.getString("invoiceId") == null) {
                 BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
                 balance = balance.add(amountApplied);
@@ -208,13 +205,13 @@ public class BillingAccountWorker {
     /**
      * Returns list of orders which are currently open against a billing account
      */
-    public static List getBillingAccountOpenOrders(Delegator delegator, String billingAccountId) throws GenericEntityException {
+    public static List<GenericValue> getBillingAccountOpenOrders(Delegator delegator, String billingAccountId) throws GenericEntityException {
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")),
-                EntityJoinOperator.AND);
+                EntityOperator.AND);
         return delegator.findList("OrderHeader", ecl, null, null, null, false);
     }
 
@@ -253,9 +250,9 @@ public class BillingAccountWorker {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
-        List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
-        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext();) {
-            GenericValue paymentAppl = (GenericValue) pAi.next();
+        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
+        for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
+            GenericValue paymentAppl = pAi.next();
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
             GenericValue invoice = paymentAppl.getRelatedOne("Invoice");
             if (invoice != null) {
@@ -285,10 +282,10 @@ public class BillingAccountWorker {
         return accountLimit.subtract(netBalance).setScale(decimals, rounding);
     }
 
-    public static Map calcBillingAccountBalance(DispatchContext dctx, Map context) {
+    public static Map<String, Object> calcBillingAccountBalance(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String billingAccountId = (String) context.get("billingAccountId");
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         try {
             GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
@@ -309,9 +306,9 @@ public class BillingAccountWorker {
         }
     }
 
-    private static class BillingAccountComparator implements Comparator {
-        public int compare(Object billingAccount1, Object billingAccount2) {
-            return ((BigDecimal)((Map)billingAccount1).get("accountBalance")).compareTo((BigDecimal)((Map)billingAccount2).get("accountBalance"));
+    protected static class BillingAccountComparator implements Comparator<Map<String, Object>> {
+        public int compare(Map<String, Object> billingAccount1, Map<String, Object> billingAccount2) {
+            return ((BigDecimal)billingAccount1.get("accountBalance")).compareTo((BigDecimal)billingAccount2.get("accountBalance"));
         }
     }
 }
