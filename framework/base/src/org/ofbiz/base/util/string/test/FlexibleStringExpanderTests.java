@@ -82,14 +82,13 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("currency", "${?currency(usd)", "${?currency(usd)");
         parserTest("currency", "${price?currency(usd", "${price?currency(usd");
         parserTest("currency", "${price?currency(usd)", "${price?currency(usd)");
-        // CurrElem doesn't protected itself
-        //parserTest("currency", "${?currency(}", "${?currency(}");
+        parserTest("currency", "${?currency(}", "?currency(");
         parserTest("currency", "${?currency()}", "?currency()");
-        //parserTest("currency", "${?currency(usd}", "${?currency(usd}");
+        parserTest("currency", "${?currency(usd}", "?currency(usd");
         parserTest("currency", "${?currency(usd)}", "?currency(usd)");
-        //parserTest("currency", "${price?currency(}", "${price?currency(}");
+        parserTest("currency", "${price?currency(}", "price?currency(");
         parserTest("currency", "${price?currency()}", "price?currency()");
-        //parserTest("currency", "${price?currency(usd}", "${price?currency(usd}");
+        parserTest("currency", "${price?currency(usd}", "price?currency(usd");
         parserTest("currency", "${price?currency(usd)}", "price?currency(usd)");
         parserTest("currency", "a${price?currency(usd)}b", "a${price?currency(usd)}b");
     }
