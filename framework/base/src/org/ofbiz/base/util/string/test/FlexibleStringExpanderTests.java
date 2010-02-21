@@ -40,21 +40,21 @@ public class FlexibleStringExpanderTests extends TestCase {
     }
 
     public void testFlexibleStringExpander() {
-        fseTest("null FlexibleStringExpander", null, null, "", true);
-        fseTest("null context", "Hello World!", null, "Hello World!", false);
         Map<String, Object> testMap = new HashMap<String, Object>();
         testMap.put("var", "World");
-        fseTest("simple replacement", "Hello ${var}!", testMap, "Hello World!", false);
         testMap.put("nested", "Hello ${var}");
+        testMap.put("testMap", testMap);
+        List<String> testList = new ArrayList<String>();
+        testList.add("World");
+        testMap.put("testList", testList);
+        fseTest("null FlexibleStringExpander", null, null, "", true);
+        fseTest("null context", "Hello World!", null, "Hello World!", false);
+        fseTest("simple replacement", "Hello ${var}!", testMap, "Hello World!", false);
         fseTest("hidden (runtime) nested replacement", "${nested}!", testMap, "Hello World!", false);
         fseTest("visible nested replacement", "${'Hello ${var}'}!", testMap, "Hello World!", false);
         fseTest("bsh: script", "${bsh:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
         fseTest("groovy: script", "${groovy:return \"Hello \" + var + \"!\";}", testMap, "Hello World!", false);
-        testMap.put("testMap", testMap);
         fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
-        List<String> testList = new ArrayList<String>();
-        testList.add("World");
-        testMap.put("testList", testList);
         fseTest("UEL integration: List", "Hello ${testList[0]}!", testMap, "Hello World!", false);
         fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
     }
