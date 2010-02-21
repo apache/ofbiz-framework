@@ -37,7 +37,7 @@ under the License.
         <h2>${uiLabelMap.CommonApplications}</h2>
         <ul>
           <li>
-            <ul><li><ul class="primary">
+            <ul class="main"><li><ul class="primary">
             <#-- Primary Applications -->
             <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>
