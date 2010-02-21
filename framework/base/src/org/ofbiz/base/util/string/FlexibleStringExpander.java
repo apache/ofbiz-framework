@@ -199,15 +199,13 @@ public abstract class FlexibleStringExpander implements Serializable {
         if (length == 0) {
             return null;
         }
-        int origLen = length;
-        ArrayList<FlexibleStringExpander> strElems = new ArrayList<FlexibleStringExpander>();
         String expression = new String(chars, 0, length + offset);
         int start = expression.indexOf(openBracket, offset);
         if (start == -1) {
-            strElems.add(new ConstElem(chars, offset, length));
-            strElems.trimToSize();
-            return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
+            return new FlexibleStringExpander[] { new ConstElem(chars, offset, length) };
         }
+        int origLen = length;
+        ArrayList<FlexibleStringExpander> strElems = new ArrayList<FlexibleStringExpander>();
         int currentInd = offset;
         int end = -1;
         while (start != -1) {
