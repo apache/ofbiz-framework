@@ -377,7 +377,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      */
     @Override
     public String toString() {
-        return new String(this.chars, this.offset, this.length);
+        return this.getOriginal();
     }
 
     /** An object that represents a <code>${bsh:}</code> expression. */
