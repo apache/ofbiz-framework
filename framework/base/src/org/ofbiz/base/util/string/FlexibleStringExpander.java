@@ -57,7 +57,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
     protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
-    protected static final FlexibleStringExpander nullExpr = new ConstElem("");
+    protected static final FlexibleStringExpander nullExpr = new ConstElem(new char[0], 0, 0);
 
     /** Evaluate an expression and return the result as a <code>String</code>.
      * Null expressions return <code>null</code>.
@@ -167,7 +167,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
         // Remove the next three lines to cache all expressions
         if (!expression.contains(openBracket)) {
-            return new ConstElem(expression);
+            return new ConstElem(expression.toCharArray(), 0, expression.length());
         }
         FlexibleStringExpander fse = exprCache.get(expression);
         if (fse == null) {
@@ -180,11 +180,12 @@ public abstract class FlexibleStringExpander implements Serializable {
     }
 
     private static FlexibleStringExpander parse(String expression) {
-        FlexibleStringExpander[] strElems = getStrElems(expression);
+        char[] chars = expression.toCharArray();
+        FlexibleStringExpander[] strElems = getStrElems(chars, 0, chars.length);
         if (strElems.length == 1) {
             return strElems[0];
         } else {
-            return new Elements(expression, strElems);
+            return new Elements(chars, 0, chars.length, strElems);
         }
     }
 
@@ -194,19 +195,20 @@ public abstract class FlexibleStringExpander implements Serializable {
      * @return An array of <code>FlexibleStringExpander</code>
      * instances
      */
-    protected static FlexibleStringExpander[] getStrElems(String expression) {
-        if (UtilValidate.isEmpty(expression)) {
+    protected static FlexibleStringExpander[] getStrElems(char[] chars, int offset, int length) {
+        if (length == 0) {
             return null;
         }
-        int origLen = expression.length();
+        int origLen = length;
         ArrayList<FlexibleStringExpander> strElems = new ArrayList<FlexibleStringExpander>();
-        int start = expression.indexOf(openBracket);
+        String expression = new String(chars, 0, length + offset);
+        int start = expression.indexOf(openBracket, offset);
         if (start == -1) {
-            strElems.add(new ConstElem(expression));
+            strElems.add(new ConstElem(chars, offset, length));
             strElems.trimToSize();
             return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
         }
-        int currentInd = 0;
+        int currentInd = offset;
         int end = -1;
         while (start != -1) {
             end = expression.indexOf(closeBracket, start);
@@ -218,14 +220,14 @@ public abstract class FlexibleStringExpander implements Serializable {
             boolean escapedExpression = (start - 1 >= 0 && expression.charAt(start - 1) == '\\');
             if (start > currentInd) {
                 // append everything from the current index to the start of the expression
-                strElems.add(new ConstElem(expression.substring(currentInd, escapedExpression ? start -1 : start)));
+                strElems.add(new ConstElem(chars, currentInd, (escapedExpression ? start -1 : start) - currentInd));
             }
             if (expression.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "bsh:", if so treat the rest of the expression as a bsh scriptlet
-                strElems.add(new BshElem(expression.substring(start + 6, end)));
+                strElems.add(new BshElem(chars, start, Math.min(end + 1, start + length) - start, start + 6, end - start - 6));
             } else if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
-                strElems.add(new GroovyElem(expression.substring(start + 9, end)));
+                strElems.add(new GroovyElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
             } else {
                 // Scan for matching closing bracket
                 int ptr = expression.indexOf(openBracket, start + 2);
@@ -238,40 +240,44 @@ public abstract class FlexibleStringExpander implements Serializable {
                 }
                 // Evaluation sequence is important - do not change it
                 if (escapedExpression) {
-                    strElems.add(new ConstElem(expression.substring(start, end + 1)));
+                    strElems.add(new ConstElem(chars, start, end + 1 - start));
                 } else {
                     String subExpression = expression.substring(start + 2, end);
                     int currencyPos = subExpression.indexOf("?currency(");
                     int closeParen = currencyPos > 0 ? subExpression.indexOf(")", currencyPos + 10) : -1;
                     if (closeParen != -1) {
-                        strElems.add(new CurrElem(subExpression));
+                        strElems.add(new CurrElem(chars, start, Math.min(end + 1, start + length) - start, start + 2, end - start - 1));
                     } else if (subExpression.contains(openBracket)) {
-                        strElems.add(new NestedVarElem(subExpression));
+                        strElems.add(new NestedVarElem(chars, start, Math.min(end + 1, start + length) - start, start + 2, Math.min(end - 2, start + length) - start));
                     } else {
-                        strElems.add(new VarElem(subExpression));
+                        strElems.add(new VarElem(chars, start, Math.min(end + 1, start + length) - start, start + 2, Math.min(end - 2, start + length) - start));
                     }
                 }
             }
             // reset the current index to after the expression, and the start to the beginning of the next expression
             currentInd = end + 1;
-            if (currentInd > origLen) {
-                currentInd = origLen;
+            if (currentInd > origLen + offset) {
+                currentInd = origLen + offset;
             }
             start = expression.indexOf(openBracket, currentInd);
         }
         // append the rest of the original string, ie after the last expression
-        if (currentInd < origLen) {
-            strElems.add(new ConstElem(expression.substring(currentInd)));
+        if (currentInd < origLen + offset) {
+            strElems.add(new ConstElem(chars, currentInd, offset + length - currentInd));
         }
         return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
     }
 
     // Note: a character array is used instead of a String to keep the memory footprint small.
-    protected final char[] orig;
+    protected final char[] chars;
+    protected final int offset;
+    protected final int length;
     protected int hint = 20;
 
-    protected FlexibleStringExpander(String original) {
-        this.orig = original.toCharArray();
+    protected FlexibleStringExpander(char[] chars, int offset, int length) {
+        this.chars = chars;
+        this.offset = offset;
+        this.length = length;
     }
 
     /** Appends this object's expression result to <code>buffer</code>.
@@ -354,7 +360,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * @return The original expression
      */
     public String getOriginal() {
-        return new String(this.orig);
+        return new String(this.chars, this.offset, this.length);
     }
 
     /** Returns <code>true</code> if the original expression is empty
@@ -364,7 +370,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * or <code>null</code>
      */
     public boolean isEmpty() {
-        return this.orig == null || this.orig.length == 0;
+        return this.chars == null || this.length == 0;
     }
 
     /** Returns a copy of the original expression.
@@ -373,17 +379,23 @@ public abstract class FlexibleStringExpander implements Serializable {
      */
     @Override
     public String toString() {
-        return new String(this.orig);
+        return new String(this.chars, this.offset, this.length);
     }
 
     /** An object that represents a <code>${bsh:}</code> expression. */
     protected static class BshElem extends FlexibleStringExpander {
-        protected BshElem(String original) {
-            super(original);
+        private final int parseStart;
+        private final int parseLength;
+
+        protected BshElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+            super(chars, offset, length);
+            this.parseStart = parseStart;
+            this.parseLength = parseLength;
         }
+
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = BshUtil.eval(new String(this.orig), UtilMisc.makeMapWritable(context));
+                Object obj = BshUtil.eval(new String(this.chars, this.parseStart, this.parseLength), UtilMisc.makeMapWritable(context));
                 if (obj != null) {
                     try {
                         buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
@@ -403,16 +415,16 @@ public abstract class FlexibleStringExpander implements Serializable {
 
     /** An object that represents a <code>String</code> constant portion of an expression. */
     protected static class ConstElem extends FlexibleStringExpander {
-        protected ConstElem(String original) {
-            super(original);
+        protected ConstElem(char[] chars, int offset, int length) {
+            super(chars, offset, length);
         }
         @Override
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            buffer.append(this.orig);
+            buffer.append(this.chars, this.offset, this.length);
         }
         @Override
         public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            return new String(this.orig);
+            return new String(this.chars, this.offset, this.length);
         }
     }
 
@@ -420,12 +432,13 @@ public abstract class FlexibleStringExpander implements Serializable {
     protected static class CurrElem extends FlexibleStringExpander {
         protected final char[] valueStr;
         protected final FlexibleStringExpander codeExpr;
-        protected CurrElem(String original) {
-            super(original);
-            int currencyPos = original.indexOf("?currency(");
-            int closeParen = original.indexOf(")", currencyPos + 10);
-            this.codeExpr = FlexibleStringExpander.getInstance(original.substring(currencyPos + 10, closeParen));
-            this.valueStr = openBracket.concat(original.substring(0, currencyPos)).concat(closeBracket).toCharArray();
+        protected CurrElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+            super(chars, offset, length);
+            String parse = new String(chars, parseStart, parseLength);
+            int currencyPos = parse.indexOf("?currency(");
+            int closeParen = parse.indexOf(")", currencyPos + 10);
+            this.codeExpr = FlexibleStringExpander.getInstance(parse.substring(currencyPos + 10, closeParen));
+            this.valueStr = openBracket.concat(parse.substring(0, currencyPos)).concat(closeBracket).toCharArray();
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
@@ -447,8 +460,8 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** A container object that contains expression fragments. */
     protected static class Elements extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
-        protected Elements(String original, FlexibleStringExpander[] childElems) {
-            super(original);
+        protected Elements(char[] chars, int offset, int length, FlexibleStringExpander[] childElems) {
+            super(chars, offset, length);
             this.childElems = childElems;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
@@ -461,9 +474,9 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a <code>${groovy:}</code> expression. */
     protected static class GroovyElem extends FlexibleStringExpander {
         protected final Class<?> parsedScript;
-        protected GroovyElem(String script) {
-            super(script);
-            this.parsedScript = GroovyUtil.parseClass(script);
+        protected GroovyElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+            super(chars, offset, length);
+            this.parsedScript = GroovyUtil.parseClass(new String(chars, parseStart, parseLength));
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
@@ -491,11 +504,11 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a nested expression. */
     protected static class NestedVarElem extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
-        protected NestedVarElem(String original) {
-            super(original);
-            this.childElems = getStrElems(original);
-            if (original.length() > this.hint) {
-                this.hint = original.length();
+        protected NestedVarElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+            super(chars, offset, length);
+            this.childElems = getStrElems(chars, parseStart, parseLength);
+            if (length > this.hint) {
+                this.hint = length;
             }
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
@@ -524,9 +537,9 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a simple, non-nested expression. */
     protected static class VarElem extends FlexibleStringExpander {
         protected final char[] bracketedOriginal;
-        protected VarElem(String original) {
-            super(original);
-            this.bracketedOriginal = openBracket.concat(UelUtil.prepareExpression(original)).concat(closeBracket).toCharArray();
+        protected VarElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+            super(chars, offset, length);
+            this.bracketedOriginal = openBracket.concat(UelUtil.prepareExpression(new String(chars, parseStart, parseLength))).concat(closeBracket).toCharArray();
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;

@@ -60,14 +60,14 @@ public class FlexibleStringExpanderTests extends TestCase {
     public void testParsing() {
         parserTest("visible nested replacement", "${'Hello ${var}'}!", true, "${'Hello ${var}'}!");
         parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!");
-        parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${throwException.value}");
-        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "a${}${}");
+        parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${${throwException.value}}");
+        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
         parserTest("null", null, true, "");
         parserTest("empty", "", true, "");
         parserTest("constant-only", "a", false, "a");
-        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "a${}${}");
-        parserTest("bsh", "${bsh:}", true, "");
-        parserTest("groovy", "${groovy:}", true, "");
+        parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
+        parserTest("bsh", "${bsh:}", true, "${bsh:}");
+        parserTest("groovy", "${groovy:}", true, "${groovy:}");
 
         parserTest("escaped", "\\${}", true, "\\${}");
         parserTest("constant-escaped", "a\\${}", true, "a\\${}");
@@ -75,8 +75,8 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("escaped-groovy", "\\${groovy:}", true, "\\${groovy:}");
 
         parserTest("missing-}", "${", true, "${");
-        parserTest("nested-constant-missing-}", "${a${}", true, "a${}");
-        parserTest("nested-constant-nested-nested-missing-}", "${a${${}", true, "a${${}");
+        parserTest("nested-constant-missing-}", "${a${}", true, "${a${}");
+        parserTest("nested-constant-nested-nested-missing-}", "${a${${}", true, "${a${${}");
         parserTest("escaped-missing-}", "\\${", true, "\\${");
         parserTest("constant-escaped-missing-}", "a\\${", true, "a\\${");
 
@@ -88,14 +88,14 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("currency", "${?currency(usd)", true, "${?currency(usd)");
         parserTest("currency", "${price?currency(usd", true, "${price?currency(usd");
         parserTest("currency", "${price?currency(usd)", true, "${price?currency(usd)");
-        parserTest("currency", "${?currency(}", true, "?currency(");
-        parserTest("currency", "${?currency()}", true, "?currency()");
-        parserTest("currency", "${?currency(usd}", true, "?currency(usd");
-        parserTest("currency", "${?currency(usd)}", true, "?currency(usd)");
-        parserTest("currency", "${price?currency(}", true, "price?currency(");
-        parserTest("currency", "${price?currency()}", true, "price?currency()");
-        parserTest("currency", "${price?currency(usd}", true, "price?currency(usd");
-        parserTest("currency", "${price?currency(usd)}", true, "price?currency(usd)");
+        parserTest("currency", "${?currency(}", true, "${?currency(}");
+        parserTest("currency", "${?currency()}", true, "${?currency()}");
+        parserTest("currency", "${?currency(usd}", true, "${?currency(usd}");
+        parserTest("currency", "${?currency(usd)}", true, "${?currency(usd)}");
+        parserTest("currency", "${price?currency(}", true, "${price?currency(}");
+        parserTest("currency", "${price?currency()}", true, "${price?currency()}");
+        parserTest("currency", "${price?currency(usd}", true, "${price?currency(usd}");
+        parserTest("currency", "${price?currency(usd)}", true, "${price?currency(usd)}");
         parserTest("currency", "a${price?currency(usd)}b", true, "a${price?currency(usd)}b");
     }
 
@@ -115,14 +115,14 @@ public class FlexibleStringExpanderTests extends TestCase {
                 assertEquals("expandString(null):" + label, "", fse.expandString(null, timeZone, locale));
             }
         } else {
-            //assertEquals("getOriginal():" + label, input, fse.getOriginal());
-            //assertEquals("toString():" + label, input, fse.toString());
-            //assertEquals("expandString(null):" + label, input, fse.expandString(null));
-            //if (timeZone == null) {
-            //    assertEquals("expandString(null):" + label, input, fse.expandString(null, locale));
-            //} else {
-            //    assertEquals("expandString(null):" + label, input, fse.expandString(null, timeZone, locale));
-            //}
+            assertEquals("getOriginal():" + label, input, fse.getOriginal());
+            assertEquals("toString():" + label, input, fse.toString());
+            assertEquals("expandString(null):" + label, input, fse.expandString(null));
+            if (timeZone == null) {
+                assertEquals("expandString(null):" + label, input, fse.expandString(null, locale));
+            } else {
+                assertEquals("expandString(null):" + label, input, fse.expandString(null, timeZone, locale));
+            }
         }
         if (locale == null) {
             assertEquals(label, compare, fse.expandString(context));
