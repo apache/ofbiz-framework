@@ -9712,7 +9712,7 @@
         <value xml:lang="zh">总览</value>
     </property>
     <property key="FormFieldTitle_accDepGlAccountId">
-        <value xml:lang="en">Accelerated depreciation GL account</value>
+        <value xml:lang="en">Accumulated depreciation GL account</value>
         <value xml:lang="fr">Compte d'amortissement dégressif</value>
     </property>
     <property key="FormFieldTitle_accountCode">
