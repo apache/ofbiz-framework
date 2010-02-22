@@ -145,7 +145,7 @@ if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_E
 context.put("useValue", useValue);
 
 List newFieldPkList = FastList.newInstance();
-Iterator pkIterator = entity.getPksIterator();
+pkIterator = entity.getPksIterator();
 while (pkIterator.hasNext()) {
     Map mapField = FastMap.newInstance();
 
@@ -327,7 +327,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 }
 
                 List relatedFieldsList = FastList.newInstance();
-                Iterator relFieldIterator = relEntity.getFieldsIterator();
+                Iterator relFieldIterator = relatedEntity.getFieldsIterator();
                 while (relFieldIterator.hasNext()) {
                     Map mapRelatedFields = FastMap.newInstance();
                     ModelField field = relFieldIterator.next();
