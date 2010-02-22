@@ -181,7 +181,7 @@ under the License.
             <#else>
               <#assign billFrom = ''/>
             </#if>
-            <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")>
+            <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")?if_exists />
             <tr>
               <td>${orderHeader.orderDate.toString()}</td>
               <td>

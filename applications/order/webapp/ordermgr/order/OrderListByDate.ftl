@@ -51,7 +51,7 @@ under the License.
             <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
             <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
           </#if>
-          <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")>
+          <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")?if_exists />
           <tr<#if alt_row> class="alternate-row"</#if>>
             <#assign alt_row = !alt_row>
             <td><a href="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" class="buttontext">${orderHeader.orderId}</a></td>
