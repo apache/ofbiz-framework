@@ -161,30 +161,40 @@ public abstract class FlexibleStringExpander implements Serializable {
         if (UtilValidate.isEmpty(expression)) {
             return nullExpr;
         }
-        if (!useCache) {
-            return parse(expression);
+        return getInstance(expression, expression.toCharArray(), 0, expression.length(), useCache);
+    }
+
+    private static FlexibleStringExpander getInstance(String expression, char[] chars, int offset, int length, boolean useCache) {
+        if (length == 0) {
+            return nullExpr;
         }
-        // Remove the next three lines to cache all expressions
+        if (!useCache) {
+            return parse(chars, offset, length);
+        }
+        // Remove the next nine lines to cache all expressions
         if (!expression.contains(openBracket)) {
-            return new ConstSimpleElem(expression.toCharArray());
+            if (chars.length == length) {
+                return new ConstSimpleElem(chars);
+            } else {
+                return new ConstOffsetElem(chars, offset, length);
+            }
         }
         FlexibleStringExpander fse = exprCache.get(expression);
         if (fse == null) {
             synchronized (exprCache) {
-                fse = parse(expression);
+                fse = parse(chars, offset, length);
                 exprCache.put(expression, fse);
             }
         }
         return fse;
     }
 
-    private static FlexibleStringExpander parse(String expression) {
-        char[] chars = expression.toCharArray();
-        FlexibleStringExpander[] strElems = getStrElems(chars, 0, chars.length);
+    private static FlexibleStringExpander parse(char[] chars, int offset, int length) {
+        FlexibleStringExpander[] strElems = getStrElems(chars, offset, length);
         if (strElems.length == 1) {
             return strElems[0];
         } else {
-            return new Elements(chars, 0, chars.length, strElems);
+            return new Elements(chars, offset, length, strElems);
         }
     }
 
@@ -472,7 +482,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             String parse = new String(chars, parseStart, parseLength);
             int currencyPos = parse.indexOf("?currency(");
             int closeParen = parse.indexOf(")", currencyPos + 10);
-            this.codeExpr = FlexibleStringExpander.getInstance(parse.substring(currencyPos + 10, closeParen));
+            this.codeExpr = FlexibleStringExpander.getInstance(parse, chars, parseStart + currencyPos + 10, closeParen - currencyPos - 10, true);
             this.valueStr = openBracket.concat(parse.substring(0, currencyPos)).concat(closeBracket).toCharArray();
         }
 
