@@ -209,7 +209,7 @@ public class BOMNode {
 
             // A negative scrap factor is a salvage factor
             BigDecimal bdHundred = new BigDecimal("100");
-            if (percScrapFactor.compareTo(bdHundred.negate()) > 0 && percScrapFactor.compareTo(bdHundred.negate()) < 0) {
+            if (percScrapFactor.compareTo(bdHundred.negate()) > 0 && percScrapFactor.compareTo(bdHundred) < 0) {
                 percScrapFactor = BigDecimal.ONE.add(percScrapFactor.movePointLeft(2));
             } else {
                 Debug.logWarning("A scrap factor of [" + percScrapFactor + "] was ignored", module);
