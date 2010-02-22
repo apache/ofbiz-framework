@@ -183,7 +183,6 @@ under the License.
         <set field="serviceCtx.estimatedStartDate" value="2009-12-18 00:00:00.000" type="Timestamp"/>
         <set field="serviceCtx.estimatedCompletionDate" value="2009-12-18 01:00:00.000" type="Timestamp"/>
         <set field="serviceCtx.actualStartDate" value="2009-12-20 00:00:00.000" type="Timestamp"/>
-        <set field="serviceCtx.actualCompletionDate" value="2009-12-20 02:00:00.000" type="Timestamp"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -201,7 +200,6 @@ under the License.
             <if-compare-field field="workEffort.estimatedStartDate" operator="equals" to-field="serviceCtx.estimatedStartDate"/>
             <if-compare-field field="workEffort.estimatedCompletionDate" operator="equals" to-field="serviceCtx.estimatedCompletionDate"/>
             <if-compare-field field="workEffort.actualStartDate" operator="equals" to-field="serviceCtx.actualStartDate"/>
-            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -215,7 +213,6 @@ under the License.
         <set field="serviceCtx.estimatedStartDate" value="2009-12-18 00:00:00.000" type="Timestamp"/>
         <set field="serviceCtx.estimatedCompletionDate" value="2009-12-18 01:00:00.000" type="Timestamp"/>
         <set field="serviceCtx.actualStartDate" value="2009-12-20 00:00:00.000" type="Timestamp"/>
-        <set field="serviceCtx.actualCompletionDate" value="2009-12-20 02:00:00.000" type="Timestamp"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -236,7 +233,6 @@ under the License.
             <if-compare-field field="workEffort.estimatedStartDate" operator="equals" to-field="serviceCtx.estimatedStartDate"/>
             <if-compare-field field="workEffort.estimatedCompletionDate" operator="equals" to-field="serviceCtx.estimatedCompletionDate"/>
             <if-compare-field field="workEffort.actualStartDate" operator="equals" to-field="serviceCtx.actualStartDate"/>
-            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -246,7 +242,7 @@ under the License.
         <set field="maintHistSeqId" value="00001"/><!-- Sequence created by testCreateFixedAssetMaintUpdateWorkEffortWithProductMaint -->
         <set field="serviceCtx.fixedAssetId" from-field="fixedAssetId"/>
         <set field="serviceCtx.maintHistSeqId" from-field="maintHistSeqId"/>
-        <set field="serviceCtx.actualCompletionDate" value="2009-12-22 01:00:00.000" type="Timestamp"/><!-- Changed actualCompletionDate to test update service -->
+        <set field="serviceCtx.estimatedCompletionDate" value="2009-12-22 01:00:00.000" type="Timestamp"/><!-- Changed estimatedCompletionDate to test update service -->
         <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
         <set field="serviceCtx.workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -261,7 +257,42 @@ under the License.
             <not><if-empty field="fixedAssetMaint"/></not>
             <not><if-empty field="fixedAssetMaint.scheduleWorkEffortId"/></not>
             <not><if-empty field="workEffort"/></not>
-            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="serviceCtx.actualCompletionDate"/>
+            <if-compare-field field="workEffort.estimatedCompletionDate" operator="equals" to-field="serviceCtx.estimatedCompletionDate"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testUpdateFixedAssetMaintAndWorkEffortComplete" short-description="Test case for service updateFixedAssetMaintAndWorkEffort" login-required="false">
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint">
+            <field-map field-name="fixedAssetId" value="DEMO_VEHICLE_01"/>
+            <field-map field-name="maintHistSeqId" value="00001"/>
+        </entity-one>
+        <set field="serviceInMap.fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+        <set field="serviceInMap.maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+        <set field="serviceInMap.scheduleWorkEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+        <set field="serviceInMap.statusId" value="FAM_COMPLETED"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set field="serviceInMap.actualCompletionDate" from-field="nowTimestamp"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceInMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateFixedAssetMaintAndWorkEffort" in-map-name="serviceInMap"/>
+
+        <entity-one entity-name="FixedAssetMaint" value-field="newFixedAssetMaint">
+            <field-map field-name="fixedAssetId" value="DEMO_VEHICLE_01"/>
+            <field-map field-name="maintHistSeqId" value="00001"/>
+        </entity-one>
+        <assert>
+            <if-compare field="newFixedAssetMaint.statusId" operator="equals" value="FAM_COMPLETED"/>
+        </assert>
+        <check-errors/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort">
+            <field-map field-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+        </entity-one>
+        <assert>
+            <if-compare field="workEffort.currentStatusId" operator="equals" value="CAL_COMPLETED"/>
+            <if-compare-field field="workEffort.actualCompletionDate" operator="equals" to-field="nowTimestamp" type="Timestamp"/>
         </assert>
         <check-errors/>
     </simple-method>
