@@ -67,7 +67,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * argument, and
      * <code>FlexibleStringExpander.getInstance(expression).expandString(context)</code>
      * returns an empty <code>String</code>.</p>
-     * 
+     *
      * @param expression The original expression
      * @param context The evaluation context
      * @return The original expression's evaluation result as a <code>String</code>
@@ -85,7 +85,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * argument, and
      * <code>FlexibleStringExpander.getInstance(expression).expandString(context, locale)</code>
      * returns an empty <code>String</code>.</p>
-     * 
+     *
      * @param expression The original expression
      * @param context The evaluation context
      * @param locale The locale to be used for localization
@@ -104,7 +104,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * argument, and
      * <code>FlexibleStringExpander.getInstance(expression).expandString(context, timeZone, locale)</code>
      * returns an empty <code>String</code>.</p>
-     * 
+     *
      * @param expression The original expression
      * @param context The evaluation context
      * @param timeZone The time zone to be used for localization
@@ -133,7 +133,7 @@ public abstract class FlexibleStringExpander implements Serializable {
      * will return the original <code>String</code>. The object returned by
      * this method is very compact - taking less memory than the original
      * <code>String</code>.</p>
-     * 
+     *
      * @param expression The original expression
      * @return A <code>FlexibleStringExpander</code> instance
      */
@@ -275,7 +275,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     }
 
     /** Appends this object's expression result to <code>buffer</code>.
-     * 
+     *
      * @param buffer The buffer to append to
      * @param context The evaluation context
      * @param timeZone The time zone to be used for localization
@@ -286,7 +286,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** Evaluate this object's expression and return the result as a <code>String</code>.
      * Null or empty expressions return an empty <code>String</code>.
      * A <code>null context</code> argument will return the original expression.
-     * 
+     *
      * @param context The evaluation context
      * @return This object's expression result as a <code>String</code>
      */
@@ -297,7 +297,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** Evaluate this object's expression and return the result as a <code>String</code>.
      * Null or empty expressions return an empty <code>String</code>.
      * A <code>null context</code> argument will return the original expression.
-     * 
+     *
      * @param context The evaluation context
      * @param locale The locale to be used for localization
      * @return This object's expression result as a <code>String</code>
@@ -309,7 +309,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** Evaluate this object's expression and return the result as a <code>String</code>.
      * Null or empty expressions return an empty <code>String</code>.
      * A <code>null context</code> argument will return the original expression.
-     * 
+     *
      * @param context The evaluation context
      * @param timeZone The time zone to be used for localization
      * @param locale The locale to be used for localization
@@ -350,7 +350,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     }
 
     /** Returns a copy of the original expression.
-     * 
+     *
      * @return The original expression
      */
     public String getOriginal() {
@@ -359,7 +359,7 @@ public abstract class FlexibleStringExpander implements Serializable {
 
     /** Returns <code>true</code> if the original expression is empty
      * or <code>null</code>.
-     * 
+     *
      * @return <code>true</code> if the original expression is empty
      * or <code>null</code>
      */
@@ -368,7 +368,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     }
 
     /** Returns a copy of the original expression.
-     * 
+     *
      * @return The original expression
      */
     @Override
@@ -413,10 +413,12 @@ public abstract class FlexibleStringExpander implements Serializable {
         protected ConstElem(char[] chars, int offset, int length) {
             super(chars, offset, length);
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             buffer.append(this.chars, this.offset, this.length);
         }
+
         @Override
         public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             return new String(this.chars, this.offset, this.length);
@@ -427,6 +429,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     protected static class CurrElem extends FlexibleStringExpander {
         protected final char[] valueStr;
         protected final FlexibleStringExpander codeExpr;
+
         protected CurrElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
             super(chars, offset, length);
             String parse = new String(chars, parseStart, parseLength);
@@ -435,6 +438,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             this.codeExpr = FlexibleStringExpander.getInstance(parse.substring(currencyPos + 10, closeParen));
             this.valueStr = openBracket.concat(parse.substring(0, currencyPos)).concat(closeBracket).toCharArray();
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
@@ -456,10 +460,12 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** A container object that contains expression fragments. */
     protected static class Elements extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
+
         protected Elements(char[] chars, int offset, int length, FlexibleStringExpander[] childElems) {
             super(chars, offset, length);
             this.childElems = childElems;
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             for (FlexibleStringExpander child : this.childElems) {
@@ -471,10 +477,12 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a <code>${groovy:}</code> expression. */
     protected static class GroovyElem extends FlexibleStringExpander {
         protected final Class<?> parsedScript;
+
         protected GroovyElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
             super(chars, offset, length);
             this.parsedScript = GroovyUtil.parseClass(new String(chars, parseStart, parseLength));
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
@@ -500,6 +508,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a nested expression. */
     protected static class NestedVarElem extends FlexibleStringExpander {
         protected final FlexibleStringExpander[] childElems;
+
         protected NestedVarElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
             super(chars, offset, length);
             this.childElems = getStrElems(chars, parseStart, parseLength);
@@ -507,6 +516,7 @@ public abstract class FlexibleStringExpander implements Serializable {
                 this.hint = length;
             }
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             StringBuilder expr = new StringBuilder(this.hint);
@@ -534,10 +544,12 @@ public abstract class FlexibleStringExpander implements Serializable {
     /** An object that represents a simple, non-nested expression. */
     protected static class VarElem extends FlexibleStringExpander {
         protected final char[] bracketedOriginal;
+
         protected VarElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
             super(chars, offset, length);
             this.bracketedOriginal = openBracket.concat(UelUtil.prepareExpression(new String(chars, parseStart, parseLength))).concat(closeBracket).toCharArray();
         }
+
         @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;
