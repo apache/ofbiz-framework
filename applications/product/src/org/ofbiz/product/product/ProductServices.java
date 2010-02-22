@@ -208,6 +208,7 @@ public class ProductServices {
             return ServiceUtil.returnSuccess();
         }
         List<String> items = FastList.newInstance();
+        List<GenericValue> outOfStockItems = FastList.newInstance();
 
         for (GenericValue variant: variants) {
             String productIdTo = variant.getString("productIdTo");
@@ -263,6 +264,8 @@ public class ProductServices {
                         if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
                             virtualVariant.add(productIdTo);
                         }
+                    } else {
+                        outOfStockItems.add(productTo);
                     }
                 } else {
                     items.add(productIdTo);
@@ -330,6 +333,9 @@ public class ProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
+        if (outOfStockItems.size() > 0) {
+            result.put("unavailableVariants", outOfStockItems);
+        }
         result.put("variantSample", sample);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
 
