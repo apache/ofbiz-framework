@@ -59,15 +59,15 @@
             </service>
         </actions>
         <auto-fields-entity entity-name="EmplLeave" default-field-type="display"/>
-        <field name="partyId" field-name="partyId">
+        <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approverPartyId" field-name="partyId">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}">
+        <field name="approverPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
                     <parameter param-name="approverPartyId" from-field="approverPartyId"/>
                 </sub-hyperlink>
