@@ -2433,3 +2433,11 @@ background-image: none;
 #findScreenlet {
 margin-top: 0;
 }
+
+.row-level-one.alternate-row {
+background-color:#81817F;
+}
+.row-level-two {
+background-color:#D4D0C8;
+}
+
