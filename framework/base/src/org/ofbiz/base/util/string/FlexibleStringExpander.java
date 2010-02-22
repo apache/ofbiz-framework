@@ -328,7 +328,35 @@ public abstract class FlexibleStringExpander implements Serializable {
      * @param timeZone The time zone to be used for localization
      * @param locale The locale to be used for localization
      */
-    protected abstract void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
+    protected abstract Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
+
+    private static Locale getLocale(Locale locale, Map<String, ? extends Object> context) {
+        if (locale == null) {
+            locale = (Locale) context.get("locale");
+            if (locale == null && context.containsKey("autoUserLogin")) {
+                Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
+                locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
+            }
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
+        }
+        return locale;
+    }
+
+    private static TimeZone getTimeZone(TimeZone timeZone, Map<String, ? extends Object> context) {
+        if (timeZone == null) {
+            timeZone = (TimeZone) context.get("timeZone");
+            if (timeZone == null && context.containsKey("autoUserLogin")) {
+                Map<String, String> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
+                timeZone = UtilDateTime.toTimeZone(autoUserLogin.get("lastTimeZone"));
+            }
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
+            }
+        }
+        return timeZone;
+    }
 
     /** Evaluate this object's expression and return the result as a <code>String</code>.
      * Null or empty expressions return an empty <code>String</code>.
@@ -366,34 +394,62 @@ public abstract class FlexibleStringExpander implements Serializable {
         if (context == null) {
             return this.toString();
         }
-        if (locale == null) {
-            locale = (Locale) context.get("locale");
-            if (locale == null && context.containsKey("autoUserLogin")) {
-                Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
-                locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
-            }
-            if (locale == null) {
-                locale = Locale.getDefault();
-            }
-        }
-        if (timeZone == null) {
-            timeZone = (TimeZone) context.get("timeZone");
-            if (timeZone == null && context.containsKey("autoUserLogin")) {
-                Map<String, String> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
-                timeZone = UtilDateTime.toTimeZone(autoUserLogin.get("lastTimeZone"));
-            }
-            if (timeZone == null) {
-                timeZone = TimeZone.getDefault();
-            }
-        }
+        timeZone = getTimeZone(timeZone, context);
+        locale = getLocale(locale, context);
+        Object obj = get(context, timeZone, locale);
         StringBuilder buffer = new StringBuilder(this.hint);
-        this.append(buffer, context, timeZone, locale);
+        try {
+            if (obj != null) {
+                buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+            }
+        } catch (Exception e) {
+            buffer.append(obj);
+        }
         if (buffer.length() > this.hint) {
             synchronized(this) {
                 this.hint = buffer.length();
             }
         }
         return buffer.toString();
+    }
+
+    /** Evaluate this object's expression and return the result as an <code>Object</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     *
+     * @param context The evaluation context
+     * @return This object's expression result as a <code>String</code>
+     */
+    public Object expand(Map<String, ? extends Object> context) {
+        return this.expand(context, null, null);
+    }
+
+    /** Evaluate this object's expression and return the result as an <code>Object</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     *
+     * @param context The evaluation context
+     * @param locale The locale to be used for localization
+     * @return This object's expression result as a <code>String</code>
+     */
+    public Object expand(Map<String, ? extends Object> context, Locale locale) {
+        return this.expand(context, null, locale);
+    }
+
+    /** Evaluate this object's expression and return the result as an <code>Object</code>.
+     * Null or empty expressions return an empty <code>String</code>.
+     * A <code>null context</code> argument will return the original expression.
+     *
+     * @param context The evaluation context
+     * @param timeZone The time zone to be used for localization
+     * @param locale The locale to be used for localization
+     * @return This object's expression result as a <code>String</code>
+     */
+    public Object expand(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        if (context == null) {
+            return null;
+        }
+        return get(context, getTimeZone(timeZone, context), getLocale(locale, context));
     }
 
     /** Returns a copy of the original expression.
@@ -453,15 +509,11 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = BshUtil.eval(new String(this.chars, this.parseStart, this.parseLength), UtilMisc.makeMapWritable(context));
                 if (obj != null) {
-                    try {
-                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
-                    } catch (Exception e) {
-                        buffer.append(obj);
-                    }
+                    return obj;
                 } else {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("BSH scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
@@ -470,6 +522,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             } catch (EvalError e) {
                 Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this + "], inserting nothing; error was: " + e, module);
             }
+            return null;
         }
     }
 
@@ -478,21 +531,25 @@ public abstract class FlexibleStringExpander implements Serializable {
         protected ConstSimpleElem(char[] chars) {
             super(chars);
         }
+
         @Override
         public boolean isEmpty() {
             return this.chars.length == 0;
         }
+
         @Override
         public String getOriginal() {
             return new String(this.chars);
         }
-        @Override
-        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            buffer.append(this.chars);
-        }
+
         @Override
         public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            return new String(this.chars);
+            return getOriginal();
+        }
+
+        @Override
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            return isEmpty() ? null : getOriginal();
         }
     }
 
@@ -503,8 +560,8 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            buffer.append(this.chars, this.offset, this.length);
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            return getOriginal();
         }
 
         @Override
@@ -528,12 +585,12 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = UelUtil.evaluate(context, new String(this.valueStr));
                 if (obj != null) {
                     String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
-                    buffer.append(UtilFormatOut.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale));
+                    return UtilFormatOut.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale);
                 }
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
@@ -542,6 +599,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression: " + e, module);
             }
+            return null;
         }
     }
 
@@ -555,10 +613,12 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            StringBuilder buffer = new StringBuilder();
             for (FlexibleStringExpander child : this.childElems) {
-                child.append(buffer, context, timeZone, locale);
+                buffer.append(child.expandString(context, timeZone, locale));
             }
+            return buffer.toString();
         }
     }
 
@@ -572,15 +632,11 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
                 if (obj != null) {
-                    try {
-                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
-                    } catch (Exception e) {
-                        buffer.append(obj);
-                    }
+                    return obj;
                 } else {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Groovy scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
@@ -590,6 +646,7 @@ public abstract class FlexibleStringExpander implements Serializable {
                 // handle other things, like the groovy.lang.MissingPropertyException
                 Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
             }
+            return null;
         }
     }
 
@@ -606,19 +663,16 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             StringBuilder expr = new StringBuilder(this.hint);
             for (FlexibleStringExpander child : this.childElems) {
-                child.append(expr, context, timeZone, locale);
+                expr.append(child.expandString(context, timeZone, locale));
             }
             if (expr.length() == 0) {
-                return;
+                return "";
             }
             try {
-                Object obj = UelUtil.evaluate(context, openBracket.concat(expr.toString()).concat(closeBracket));
-                if (obj != null) {
-                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
-                }
+                return UelUtil.evaluate(context, openBracket.concat(expr.toString()).concat(closeBracket));
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Error evaluating expression: " + e, module);
@@ -626,6 +680,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             } catch (Exception e) {
                 Debug.logError("Error evaluating expression: " + e, module);
             }
+            return "";
         }
     }
 
@@ -639,7 +694,7 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
 
         @Override
-        protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;
             try {
                 obj = UelUtil.evaluate(context, new String(this.bracketedOriginal));
@@ -656,14 +711,11 @@ public abstract class FlexibleStringExpander implements Serializable {
                     String str = (String) obj;
                     if (str.contains(openBracket)) {
                         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(str);
-                        fse.append(buffer, context, timeZone, locale);
-                        return;
+                        return fse.get(context, timeZone, locale);
                     }
                 } catch (ClassCastException e) {}
-                try {
-                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
-                } catch (Exception e) {}
             }
+            return obj;
         }
     }
 }
