@@ -276,6 +276,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         fseTest("just bad", "${foobar", testMap, "${foobar", false);
         fseTest("constant and bad", "Hello${foobar", testMap, "Hello${foobar", false);
         fseTest("good and bad", "Hello ${var}${foobar", testMap, "Hello World${foobar", false);
+        fseTest("plain-currency(USD)", "${amount?currency(${usd})}", testMap, null, localeToTest, "$1,234,567.89", false);
         fseTest("currency(USD)", "The total is ${amount?currency(${usd})}.", testMap, null, localeToTest, "The total is $1,234,567.89.", false);
         fseTest("currency(USD): null", "The total is ${testMap.missing?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
         fseTest("currency(USD): missing", "The total is ${noList[0]?currency(${usd})}.", testMap, null, localeToTest, "The total is .", false);
