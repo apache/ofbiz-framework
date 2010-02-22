@@ -157,7 +157,7 @@ public abstract class ModelScreenAction implements Serializable {
                     newValue = getInMemoryPersistedFromField(session, context);
                     if (Debug.verboseOn()) Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
-                    newValue = this.valueExdr.expandString(context);
+                    newValue = this.valueExdr.expand(context);
                 }
             } else if (this.fromScope != null && this.fromScope.equals("application")) {
                 if (!this.fromField.isEmpty()) {
@@ -165,20 +165,20 @@ public abstract class ModelScreenAction implements Serializable {
                     newValue = getInMemoryPersistedFromField(servletContext, context);
                     if (Debug.verboseOn()) Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
-                    newValue = this.valueExdr.expandString(context);
+                    newValue = this.valueExdr.expand(context);
                 }
             } else {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
-                    newValue = this.valueExdr.expandString(context);
+                    newValue = this.valueExdr.expand(context);
                 }
             }
 
             // If newValue is still empty, use the default value
             if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
-                newValue = this.defaultExdr.expandString(context);
+                newValue = this.defaultExdr.expand(context);
             }
 
             if (UtilValidate.isNotEmpty(this.type)) {
