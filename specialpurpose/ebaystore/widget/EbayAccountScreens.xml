@@ -19,25 +19,114 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+	<!-- Personal Information -->
 	<screen name="EbayPersonalInformation">
-			<section>
-				<actions>
-					<set field="accountItem" value="personalInformation"/>
-					<service service-name="getEbayUser" result-map="results">
-	            		<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-	            	</service>
-				</actions>
-				<widgets>
+		<section>
+			<actions>
+				<set field="accountItem" value="personalInformation"/>
+				<service service-name="getEbayUser" result-map="results">
+	            	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+	            </service>
+			</actions>
+			<widgets>
 				<decorator-screen name="AccountDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-					<screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
-						<include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
-					</screenlet>
+						<screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
+							<include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
+						</screenlet>
 					</decorator-section>
 				</decorator-screen>
-				</widgets>
-			</section>
-		</screen>
+			</widgets>
+		</section>		
+	</screen>
+    <!-- feedback -->
+    <screen name="EbayFeedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="accountItem" value="feedback"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="AccountDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                            	<screenlet title="${uiLabelMap.EbayFeedback}">
+	                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackTabBar"/>
+	                                <decorator-section-include name="body"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="Feedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="feedbackItem" value="Feedback"/>
+                <service service-name="loadFeedback"> 
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <service service-name="getItemsAwaitingFeedback" result-map="results"> 
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="itemsAwaitingFeedbackList" from-field="results.itemsAwaitingFeedback"/>
+                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/feedback/FeedbackList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayFeedback" >
+                    <decorator-section name="body">
+                        <screenlet>
+                            <screenlet navigation-form-name="ItemsAwaitingFeedback" title="Items Awaiting Feedback">
+                                <include-form name="ItemsAwaitingFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
+                            </screenlet>
+                        </screenlet>
+                        <screenlet>
+                            <screenlet navigation-form-name="RecentFeedback" title="Recent Feedback">
+                                <include-form name="RecentFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
+                            </screenlet>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="LeaveFeedback">
+        <section>
+            <actions>
+                <set field="titleProperty" value="eBay Feedback"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="feedbackItem" value="LeaveFeedback"/>
+                <set field="role" from-field="parameters.role" default-value="all"/>
+                <service service-name="getItemsAwaitingFeedback" result-map="results"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayFeedback" >
+                    <decorator-section name="body">
+                        <screenlet>
+                            <screenlet title="${uiLabelMap.EbayLeaveFeedback}">
+                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackSubTabBar"/>
+                                <platform-specific>
+                                    <html><html-template location="component://ebaystore/webapp/ebaystore/feedback/LeaveFeedback.ftl"/></html>
+                                </platform-specific>
+                            </screenlet>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen> 
     <!-- ebay feedback -->
     <screen name="EbayFeedback">
         <section>
@@ -88,12 +177,12 @@
                     <decorator-section name="body">
                         <screenlet>
                             <screenlet navigation-form-name="ItemsAwaitingFeedback" title="Items Awaiting Feedback">
-                                <include-form name="ItemsAwaitingFeedback" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                <include-form name="ItemsAwaitingFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
                             </screenlet>
                         </screenlet>
                         <screenlet>
                             <screenlet navigation-form-name="RecentFeedback" title="Recent Feedback">
-                                <include-form name="RecentFeedback" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                <include-form name="RecentFeedback" location="component://ebaystore/widget/EbayAccountForms.xml"/>
                             </screenlet>
                         </screenlet>
                     </decorator-section>
