@@ -72,13 +72,13 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
 
-    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference"
+    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-map-name="agregatedPartyAcctgPreference"
             header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <service service-name="getPartyAccountingPreferences" result-map="result">
                 <field-map field-name="organizationPartyId"/>
             </service>
-            <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference" type="NewMap"/>
+            <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference" type="Map"/>
         </actions>
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
