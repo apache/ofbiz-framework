@@ -562,6 +562,7 @@ under the License.
         <call-object-method obj-field="parameters.usageYears" method-name="intValue" ret-field="intUsageYears"/>
 
         <!-- Past depreciation based on standard formula -->
+        <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
         <if>
             <condition>
                 <and>
@@ -571,7 +572,6 @@ under the License.
             </condition>
             <then>
                 <set field="depreciation" value="0.0" type="BigDecimal"/>
-                <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
                 <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
                 <calculate field="depreciation" decimal-scale="2">
                     <calcop operator="divide">
@@ -658,6 +658,7 @@ under the License.
             </then>
         </if>
         <field-to-result field="nextDepreciationAmount"/>
+        <field-to-result field="depreciationTotal" result-name="plannedPastDepreciationTotal"/>
     </simple-method>
 
     <simple-method method-name="doubleDecliningBalanceDepreciation" short-description="Calculate double declining balance depreciation to Fixed Asset">
@@ -698,6 +699,7 @@ under the License.
         <field-to-result field="nextDepreciationAmount"/>
 
         <!-- Past depreciation based on standard formula -->
+        <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
         <if>
             <condition>
                 <and>
@@ -707,7 +709,6 @@ under the License.
             </condition>
             <then>
                 <set field="depreciationYear" from-field="assetAcquiredYear" type="BigDecimal"/>
-                <set field="depreciationTotal" value="0.0" type="BigDecimal"/>
                 <loop count="${intUsageYears}">
                     <set field="depreciation" value="0.0" type="BigDecimal"/>
                     <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
@@ -775,6 +776,7 @@ under the License.
         <field-to-result field="assetDepreciationTillDate"/>
         <field-to-result field="assetNBVAfterDepreciation"/>
         <field-to-result field="assetDepreciationInfoList"/>
+        <field-to-result field="depreciationTotal" result-name="plannedPastDepreciationTotal"/>
     </simple-method>
 
     <simple-method method-name="calculateFixedAssetDepreciation" short-description="Service to calculate the yearly depreciation from dateAcquired year to current financial year">
@@ -857,6 +859,7 @@ under the License.
                 <result-to-field result-name="assetNBVAfterDepreciation"/>
                 <result-to-field result-name="assetDepreciationInfoList"/>
                 <result-to-field result-name="nextDepreciationAmount"/>
+                <result-to-field result-name="plannedPastDepreciationTotal"/>
             </call-service>
             <log level="info" message="Asset's depreciation calculated till date are ${assetDepreciationTillDate}"/>
             <log level="info" message="Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${assetNBVAfterDepreciation}"/>
@@ -864,6 +867,7 @@ under the License.
             <field-to-result field="assetNBVAfterDepreciation"/>
             <field-to-result field="assetDepreciationInfoList"/>
             <field-to-result field="nextDepreciationAmount"/>
+            <field-to-result field="plannedPastDepreciationTotal"/>
         <else>
             <property-to-field resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound" field="successMessageList[]"/>
             <return/>
