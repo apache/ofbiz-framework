@@ -29,11 +29,11 @@ under the License.
                     <td width="80%"><b>${uiLabelMap.ProductRuleName}</b></td>
                     <td width="10%"><b>&nbsp;</b></td>
                 </tr>
-                <#assign rowClass = "2">
+                <#assign ruleClass = "2">
                 <#list productPromoRules as productPromoRule>
                 <#assign productPromoConds = productPromoRule.getRelated("ProductPromoCond")>
                 <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction")>
-                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <tr valign="middle" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
                     <td class="label"><b>${(productPromoRule.productPromoRuleId)?if_exists}</b></td>
                     <td>
                         <form method="post" action="<@ofbizUrl>updateProductPromoRule</@ofbizUrl>">
@@ -53,13 +53,14 @@ under the License.
                         </#if>
                     </td>
                 </tr>
-                <tr valign="top">
+                <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
                     <td align="right" class="label">${uiLabelMap.ProductConditions}</td>
                     <td colspan="2">
                         <table cellspacing="0" class="basic-table">
                         <#assign maxCondSeqId = 1>
+                        <#assign condClass = "2">
                         <#list productPromoConds as productPromoCond>
-                            <tr>
+                            <tr class="row-level-two<#if condClass == "1"> alternate-row</#if>">
                                 <!-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
                                 <#if (productPromoCond.productPromoCondSeqId)?exists>
                                     <#assign curCondSeqId = Static["java.lang.Integer"].valueOf(productPromoCond.getString("productPromoCondSeqId"))>
@@ -208,6 +209,12 @@ under the License.
                                     </form>    
                                 </td>
                             </tr>
+                            <#-- toggle the row color -->
+                            <#if condClass == "2">
+                                <#assign condClass = "1">
+                            <#else>
+                                <#assign condClass = "2">
+                            </#if>
                         </#list>
                             <tr>
                                 <td colspan="3">
@@ -242,12 +249,13 @@ under the License.
                         </table>
                     </td>
                 </tr>
-                <tr valign="top">
+                <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
                     <td align="right" class="label">${uiLabelMap.ProductActions} :</td>
                     <td colspan="2">
                         <table cellspacing="0" class="basic-table">
+                        <#assign actionClass = "2">
                         <#list productPromoActions as productPromoAction>
-                            <tr>
+                            <tr class="row-level-two<#if actionClass == "1"> alternate-row</#if>">
                                 <td class="label"><b>${(productPromoAction.productPromoActionSeqId)?if_exists}</b></td>
                                 <td>
                                     <div>
@@ -362,6 +370,12 @@ under the License.
                                     </form>
                                 </td>
                             </tr>
+                            <#-- toggle the row color -->
+                            <#if actionClass == "2">
+                                <#assign actionClass = "1">
+                            <#else>
+                                <#assign actionClass = "2">
+                            </#if>
                         </#list>
                             <tr>
                                 <td colspan="3">
@@ -388,6 +402,12 @@ under the License.
                         </table>
                     </td>
                 </tr>
+                <#-- toggle the row color -->
+                <#if ruleClass == "2">
+                    <#assign ruleClass = "1">
+                <#else>
+                    <#assign ruleClass = "2">
+                </#if>
                 </#list>
             </table>
         </div>
