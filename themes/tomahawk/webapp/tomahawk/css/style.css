@@ -1096,6 +1096,7 @@ float: right;
 
 #main-navigation {
 background: url(../images/appbar.png) no-repeat right -30px;
+overflow:hidden;
 }
 .menu_selected #main-navigation {
 background: url(../images/appbar.png) no-repeat right 0px;
