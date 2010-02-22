@@ -99,11 +99,11 @@ public class FlexibleStringExpanderTests extends TestCase {
         parserTest("currency", "a${price?currency(usd)}b", true, "a${price?currency(usd)}b");
     }
 
-    private static void fseTest(String label, String input, Map<String, Object> context, Object compare, boolean isEmpty) {
+    private static void fseTest(String label, String input, Map<String, Object> context, String compare, boolean isEmpty) {
         fseTest(label, input, context, null, null, compare, isEmpty);
     }
 
-    private static void doFseTest(String label, String input, FlexibleStringExpander fse, Map<String, Object> context, TimeZone timeZone, Locale locale, Object compare, boolean isEmpty) {
+    private static void doFseTest(String label, String input, FlexibleStringExpander fse, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare, boolean isEmpty) {
         assertEquals("isEmpty:" + label, isEmpty, fse.isEmpty());
         if (input == null) {
             assertEquals("getOriginal():" + label, "", fse.getOriginal());
@@ -162,7 +162,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
-    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale, Object compare, boolean isEmpty) {
+    private static void fseTest(String label, String input, Map<String, Object> context, TimeZone timeZone, Locale locale, String compare, boolean isEmpty) {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input);
         doFseTest(label, input, fse, context, timeZone, locale, compare, isEmpty);
         assertEquals("static expandString:" + label, compare, FlexibleStringExpander.expandString(input, context, timeZone, locale));
