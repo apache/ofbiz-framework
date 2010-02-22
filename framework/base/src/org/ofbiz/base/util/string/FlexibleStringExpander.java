@@ -387,6 +387,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             this.parseLength = parseLength;
         }
 
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = BshUtil.eval(new String(this.chars, this.parseStart, this.parseLength), UtilMisc.makeMapWritable(context));
@@ -434,6 +435,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             this.codeExpr = FlexibleStringExpander.getInstance(parse.substring(currencyPos + 10, closeParen));
             this.valueStr = openBracket.concat(parse.substring(0, currencyPos)).concat(closeBracket).toCharArray();
         }
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = UelUtil.evaluate(context, new String(this.valueStr));
@@ -458,6 +460,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             super(chars, offset, length);
             this.childElems = childElems;
         }
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             for (FlexibleStringExpander child : this.childElems) {
                 child.append(buffer, context, timeZone, locale);
@@ -472,6 +475,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             super(chars, offset, length);
             this.parsedScript = GroovyUtil.parseClass(new String(chars, parseStart, parseLength));
         }
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
                 Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
@@ -503,6 +507,7 @@ public abstract class FlexibleStringExpander implements Serializable {
                 this.hint = length;
             }
         }
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             StringBuilder expr = new StringBuilder(this.hint);
             for (FlexibleStringExpander child : this.childElems) {
@@ -533,6 +538,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             super(chars, offset, length);
             this.bracketedOriginal = openBracket.concat(UelUtil.prepareExpression(new String(chars, parseStart, parseLength))).concat(closeBracket).toCharArray();
         }
+        @Override
         protected void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = null;
             try {
