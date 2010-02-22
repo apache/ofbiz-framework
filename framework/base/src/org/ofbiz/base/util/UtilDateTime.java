@@ -827,7 +827,9 @@ public class UtilDateTime {
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
         tempCal.add(Calendar.DAY_OF_MONTH, daysLater.intValue());
         Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
-        retStamp.setNanos(999999999);
+        retStamp.setNanos(0);
+        //MSSQL datetime field has accuracy of 3 milliseconds and setting the nano seconds cause the date to be rounded to next day
+        //retStamp.setNanos(999999999);
         return retStamp;
     }
 
