@@ -1136,8 +1136,12 @@ clear: none;
 background-color:#131212;
 border-right:4px solid #131212;
 position:absolute;
+opacity:0.96;
 z-index:9999;
 width:200px;
+-moz-opacity:0.96;
+-khtml-opacity: 0.96;
+-ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=96);
 }
 
 #main-navigation ul li ul li ul.secondary{
