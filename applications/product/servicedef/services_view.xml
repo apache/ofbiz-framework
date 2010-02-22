@@ -53,6 +53,7 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="checkInventory" type="Boolean" mode="IN" default-value="true" optional="true"/>
         <attribute name="variantTree" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="unavailableVariants" type="java.util.List" mode="OUT" optional="true"/>
         <attribute name="variantSample" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="virtualVariant" type="java.util.List" mode="OUT" optional="true"/>
     </service>
