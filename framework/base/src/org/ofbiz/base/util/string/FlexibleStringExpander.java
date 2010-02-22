@@ -55,7 +55,7 @@ public abstract class FlexibleStringExpander implements Serializable {
     public static final String module = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
-    protected static final UtilCache<String, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
+    protected static final UtilCache<Key, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
     protected static final FlexibleStringExpander nullExpr = new ConstSimpleElem(new char[0]);
 
     /** Evaluate an expression and return the result as a <code>String</code>.
@@ -179,14 +179,55 @@ public abstract class FlexibleStringExpander implements Serializable {
                 return new ConstOffsetElem(chars, offset, length);
             }
         }
-        FlexibleStringExpander fse = exprCache.get(expression);
+        Key key = chars.length == length ? new SimpleKey(chars) : new OffsetKey(chars, offset, length);
+        FlexibleStringExpander fse = exprCache.get(key);
         if (fse == null) {
             synchronized (exprCache) {
                 fse = parse(chars, offset, length);
-                exprCache.put(expression, fse);
+                exprCache.put(key, fse);
             }
         }
         return fse;
+    }
+
+    private static abstract class Key {
+        public final boolean equals(Object o) {
+            // No class test here, nor null, as this class is only used
+            // internally
+            return toString().equals(o.toString());
+        }
+
+        public final int hashCode() {
+            return toString().hashCode();
+        }
+    }
+
+    private static final class SimpleKey extends Key {
+        private final char[] chars;
+
+        protected SimpleKey(char[] chars) {
+            this.chars = chars;
+        }
+
+        public String toString() {
+            return new String(chars);
+        }
+    }
+
+    private static final class OffsetKey extends Key {
+        private final char[] chars;
+        private final int offset;
+        private final int length;
+
+        protected OffsetKey(char[] chars, int offset, int length) {
+            this.chars = chars;
+            this.offset = offset;
+            this.length = length;
+        }
+
+        public String toString() {
+            return new String(chars, offset, length);
+        }
     }
 
     private static FlexibleStringExpander parse(char[] chars, int offset, int length) {
