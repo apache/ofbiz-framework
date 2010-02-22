@@ -107,7 +107,7 @@ under the License.
 
     <target name="tests" depends="jar">
         <mkdir dir="${build.dir}/test-results"/>
-        <junit fork="on" haltonfailure="on" forkmode="once" showoutput="true" printsummary="true">
+        <junit fork="on" haltonfailure="on" forkmode="once" showoutput="on" printsummary="withOutAndErr">
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
@@ -142,7 +142,7 @@ under the License.
             </fileset>
         </cobertura-instrument>
         <mkdir dir="${build.dir}/test-results"/>
-        <junit fork="on" haltonfailure="on" forkmode="once">
+        <junit fork="on" haltonfailure="on" forkmode="once" showoutput="on" printsummary="withOutAndErr">
             <classpath>
                 <path refid="junit.class.path"/>
                 <path refid="test.class.path"/>
@@ -150,7 +150,6 @@ under the License.
             </classpath>
             <sysproperty key="net.sourceforge.cobertura.datafile" file="${build.dir}/test-results/cobertura.dat" />
             <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
-            <formatter usefile="false" type="plain"/>
             <batchtest>
                 <filelist refid="test.classes"/>
             </batchtest>
