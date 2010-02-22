@@ -283,6 +283,7 @@ under the License.
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
         <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="false"/>
         <attribute name="nextDepreciationAmount" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="plannedPastDepreciationTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
                 location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
@@ -304,6 +305,7 @@ under the License.
         <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="true"/>
         <attribute name="assetDepreciationInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="nextDepreciationAmount" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="plannedPastDepreciationTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="createFixedAssetTypeGlAccount" engine="simple" default-entity-name="FixedAssetTypeGlAccount"
                 location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetTypeGlAccount" auth="true">
