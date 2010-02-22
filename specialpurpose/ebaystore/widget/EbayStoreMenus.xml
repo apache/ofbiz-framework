@@ -123,7 +123,7 @@
                 <parameter param-name="role" value="seller"/>
             </link>
         </menu-item>
-        <menu-item name="buyer" title="${uiLabelMap.EbaySoldLeaveFeedback}">
+        <menu-item name="buyer" title="${uiLabelMap.EbaySold}">
             <link target="LeaveFeedback">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
                 <parameter param-name="role" value="buyer"/>

@@ -20,6 +20,48 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+	<form name="NewEbayAccount" type="single"  target="createEbayAccount">
+        <auto-fields-service service-name="createEbayAccount"/>
+        <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
+        <field name="gender">
+            <drop-down allow-empty="true">
+                <option key="M" description="${uiLabelMap.CommonMale}"/>
+                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+            </drop-down>
+        </field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <!-- feedback -->
+    <form name="ItemsAwaitingFeedback" type="list" list-name="itemsAwaitingFeedbackList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="leave"  value="${commentType}"/>
+        </row-actions>
+        <field name="itemID"><display description="${itemID} - ${title}"/></field>
+        <field name="userID"><display description="${userID}"/></field>
+        <field name="actions" use-when="&quot;${commentType}&quot; == &quot;&quot;">
+            <hyperlink target="LeaveFeedback" description="Leave Feedback">
+                <parameter param-name="itemId" value="${itemID}"/>
+                <parameter param-name="transactionId" value="${transactionID}"/>
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+                <parameter param-name="targetUser" value="${userID}"/>
+                <parameter param-name="commentingUser" value="${commentingUser}"/>
+                <parameter param-name="role" value="${role}"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="RecentFeedback" type="list" list-name="recentFeedbackList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="contentId" title="Feedback Id"><display/></field>
+        <field name="dataResourceId" title="Comment Text">
+            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"/>
+        </field>
+        <field name="commentator" title="Commentator"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
+    </form>
+    <!-- Personal Information -->
     <form name="EbayPersonalInformationForm" type="single" default-map-name="results.registrationAddress" default-table-style="basic-table">
         <field name="firstName"><display/></field>
         <field name="lastName"><display/></field>
