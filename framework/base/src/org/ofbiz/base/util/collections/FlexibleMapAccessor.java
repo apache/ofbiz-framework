@@ -25,6 +25,7 @@ import javax.el.PropertyNotFoundException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -213,10 +214,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         try {
             FlexibleMapAccessor that = (FlexibleMapAccessor) obj;
-            if (this.original == null && that.original == null) {
-                return true;
-            }
-            return this.original.equals(that.original);
+            return UtilObject.equalsHelper(this.original, that.original);
         } catch (Exception e) {}
         return false;
     }
