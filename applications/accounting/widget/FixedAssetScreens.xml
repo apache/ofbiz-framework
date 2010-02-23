@@ -537,15 +537,35 @@ under the License.
                                     <label style="h3">${uiLabelMap.FixedAssetNextDepreciationAmount}: ${assetDepreciationResultMap.nextDepreciationAmount}</label>
                                     <section>
                                         <condition>
-                                            <if-compare-field field-name="assetDepreciationResultMap.plannedPastDepreciationTotal" to-field="depreciation" operator="greater"/>
-                                            <not><if-empty field-name="fixedAsset.partyId"/></not>
+                                            <and>
+                                                <if-compare-field field="assetDepreciationResultMap.plannedPastDepreciationTotal" to-field="depreciation" operator="greater"/>
+                                                <not><if-empty field="fixedAsset.partyId"/></not>
+                                            </and>
                                         </condition>
+                                        <actions>
+                                            <service service-name="getGlAccountFromAccountType" result-map="defaultCreditAccountForDepreciationTransactionResult">
+                                                <field-map field-name="organizationPartyId" from-field="fixedAsset.partyId"/>
+                                                <field-map field-name="acctgTransTypeId" value="DEPRECIATION"/>
+                                                <field-map field-name="fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
+                                                <field-map field-name="debitCreditFlag" value="C"/>
+                                            </service>
+                                            <set field="defaultCreditAccountForDepreciationTransaction" from-field="defaultCreditAccountForDepreciationTransactionResult.glAccountId" default-value=" "/>
+                                            <service service-name="getGlAccountFromAccountType" result-map="defaultDebitAccountForDepreciationTransactionResult">
+                                                <field-map field-name="organizationPartyId" from-field="fixedAsset.partyId"/>
+                                                <field-map field-name="acctgTransTypeId" value="DEPRECIATION"/>
+                                                <field-map field-name="fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
+                                                <field-map field-name="debitCreditFlag" value="D"/>
+                                            </service>
+                                            <set field="defaultDebitAccountForDepreciationTransaction" from-field="defaultDebitAccountForDepreciationTransactionResult.glAccountId" default-value=" "/>
+                                        </actions>
                                         <widgets>
                                             <container>
                                                 <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}: ${assetDepreciationResultMap.plannedPastDepreciationTotal}" style="buttontext" target="CreateAcctgTransAndEntries">
                                                     <parameter param-name="fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
                                                     <parameter param-name="organizationPartyId" from-field="fixedAsset.partyId"/>
                                                     <parameter param-name="acctgTransTypeId" value="DEPRECIATION"/>
+                                                    <parameter param-name="debitGlAccountId" from-field="defaultDebitAccountForDepreciationTransaction"/>
+                                                    <parameter param-name="creditGlAccountId" from-field="defaultCreditAccountForDepreciationTransaction"/>
                                                     <parameter param-name="amount" from-field="assetDepreciationResultMap.plannedPastDepreciationTotal"/>
                                                 </link>
                                             </container>

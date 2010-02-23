@@ -444,6 +444,53 @@ under the License.
                 <return/>
             </if-not-empty>
         </if-compare>
+        <!-- fixed asset depreciation -->
+        <if-compare field="parameters.acctgTransTypeId" operator="equals" value="DEPRECIATION">
+            <if-not-empty field="parameters.fixedAssetId">
+                <entity-condition entity-name="FixedAssetTypeGlAccount" list="fixedAssetTypeGlAccounts">
+                    <condition-expr field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                </entity-condition>
+                <if-empty field="fixedAssetTypeGlAccounts">
+                    <entity-one entity-name="FixedAsset" value-field="fixedAsset" auto-field-map="false">
+                        <field-map field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                    </entity-one>
+                    <entity-condition entity-name="FixedAssetTypeGlAccount" list="fixedAssetTypeGlAccounts">
+                        <condition-list combine="and">
+                            <condition-expr field-name="fixedAssetId" value="_NA_"/>
+                            <condition-list combine="or">
+                                <condition-expr field-name="fixedAssetTypeId" from-field="fixedAsset.fixedAssetTypeId"/>
+                                <condition-expr field-name="fixedAssetTypeId" value="_NA_"/>
+                            </condition-list>
+                        </condition-list>
+                    </entity-condition>
+                </if-empty>
+                <first-from-list list="fixedAssetTypeGlAccounts" entry="fixedAssetTypeGlAccount"/>
+                <if>
+                    <condition>
+                        <and>
+                            <not><if-empty field="fixedAssetTypeGlAccount.accDepGlAccountId"/></not>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="D"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <field-to-result field="fixedAssetTypeGlAccount.accDepGlAccountId" result-name="glAccountId"/>
+                        <return/>
+                    </then>
+                </if>
+                <if>
+                    <condition>
+                        <and>
+                            <not><if-empty field="fixedAssetTypeGlAccount.depGlAccountId"/></not>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="C"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <field-to-result field="fixedAssetTypeGlAccount.depGlAccountId" result-name="glAccountId"/>
+                        <return/>
+                    </then>
+                </if>
+            </if-not-empty>
+        </if-compare>
         <!-- check first if there is a party specific account mapping defined for the account type -->
         <if>
             <condition>
