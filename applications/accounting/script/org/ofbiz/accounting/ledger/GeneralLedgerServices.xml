@@ -80,7 +80,9 @@ under the License.
 
         <!-- first, create the AcctgTrans -->
         <set-service-fields service-name="createAcctgTrans" to-map="createAcctgTransParams" map="parameters"/>
-        <now-timestamp field="createAcctgTransParams.transactionDate"/>
+        <if-empty field="createAcctgTransParams.transactionDate">
+            <now-timestamp field="createAcctgTransParams.transactionDate"/>
+        </if-empty>
         <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransParams">
             <result-to-field result-name="acctgTransId"/>
         </call-service>

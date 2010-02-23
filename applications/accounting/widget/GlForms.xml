@@ -455,7 +455,7 @@ under the License.
         <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="2"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
-        <field name="fixedAssetId">
+        <field name="fixedAssetId" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
                     <entity-order-by field-name="fixedAssetId"/>
@@ -497,6 +497,7 @@ under the License.
             </drop-down>
         </field>
         <field name="amount"><text size="20" maxlength="20"/></field>
+        <field name="transactionDate"><date-time/></field>
         <field name="description"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
