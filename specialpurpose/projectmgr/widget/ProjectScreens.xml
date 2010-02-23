@@ -136,7 +136,9 @@ under the License.
                 <set field="projectId" from-field="parameters.projectId"/>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list="tasks">
                     <field-map field-name="projectId" from-field="parameters.projectId"/>
+                    <order-by field-name="phaseSeqNum"/>
                     <order-by field-name="phaseName"/>
+                    <order-by field-name="sequenceNum"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
                 <entity-and entity-name="WorkEffort" list="phases">
@@ -393,16 +395,16 @@ under the License.
                             <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
                                 <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                             </screenlet>
+                            <include-screen name="SubProjectsInfo"/>
                             <include-screen name="PhasesInfo"/>
-                            <include-screen name="TasksInfo"/>
                         </container>
                         <container style="righthalf">
-                           <include-screen name="SubProjectsInfo"/>
-                           <include-screen name="PartiesInfo"/>
-                           <include-screen name="NoteInfo"/>
-                           <include-screen name="ListProjectContent"/>
+                            <include-screen name="PartiesInfo"/>
+                            <include-screen name="NoteInfo"/>
+                            <include-screen name="ListProjectContent"/>
                             <include-screen name="OrderInfo"/>
                         </container>
+                        <include-screen name="TasksInfo"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

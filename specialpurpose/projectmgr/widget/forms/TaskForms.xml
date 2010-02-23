@@ -34,10 +34,11 @@
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="workEffortParentId" use-when="myTask==void&amp;&amp;projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${projectId}.${sequenceNum} ${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
-                    <entity-order-by field-name="workEffortParentId"/>
+                    <entity-order-by field-name="sequenceNum"/>
+                    <entity-order-by field-name="workEffortName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -64,6 +65,7 @@
                 </entity-options>
             </drop-down>
         </field>
+        <field name="taskSeqId" entry-name="sequenceNum" parameter-name="sequenceNum"><text size="3"/></field>
         <field name="roleTypeId" use-when="myTask!=void" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
             <drop-down current="selected" allow-empty="false">
                     <entity-options entity-name="ProjectIdPartyRoleAndPhase" description="${description}">
@@ -105,7 +107,7 @@
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}" position="1"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}" position="2"><date-time type="date"/></field>
-        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
 
     <form name="AssignTaskOtherProject" type="single" target="updateTask" default-map-name="task">
@@ -129,14 +131,16 @@
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+        <field name="phaseSeqId" entry-name="sequenceNum" parameter-name="sequenceNum"><text size="3"/></field>
+        <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="AddPhase" type="single" target="createProjectPhase">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
+        <field name="sequenceNum"><text size="3"/></field>
         <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>

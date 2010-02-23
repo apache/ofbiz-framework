@@ -302,23 +302,25 @@
         <field name="VIEW_INDEX"><hidden value="${viewIndex}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="projectId"><hidden/></field>
-        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="taskView" description="${workEffortName}">
-                <parameter param-name="workEffortId"/>
-            </hyperlink>
-        </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"></display-entity></field>
-        <field name="plannedHours" parameter-name="estimatedDuration" title="${uiLabelMap.ProjectMgrPlannedHours}"><text/></field>
-        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${projectId}.${sequenceNum} ${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
+                    <entity-order-by field-name="sequenceNum"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field entry-name="sequenceNum" name="taskSeqNum" parameter-name="sequenceNum"><text size="3"/></field>
+        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
+        	<text/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+        	<display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"/>
+         </field>
+        <field name="plannedHours" parameter-name="estimatedDuration" title="${uiLabelMap.ProjectMgrPlannedHours}"><text size="3"/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true">
                 <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
@@ -334,6 +336,9 @@
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
+        <field name="edit" title=" ">
+        	<hyperlink target="EditTask?workEffortId=${workEffortId}" description="${uiLabelMap.CommonEdit}"></hyperlink>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask"
@@ -378,6 +383,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
+        <field name="phaseSeqNum" parameter-name="sequenceNum"><text size="3"/></field>
         <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
@@ -392,7 +398,7 @@
     </form>
     <form name="ListPhaseInfo" type="list" list-name="phases"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="projectId"><hidden value="parameters.projectId"/></field>
+        <field name="wbsId"><display description="${projectId}.${phaseSeqNum}"/></field>
         <field name="phase">
             <hyperlink target="FindPhase" description="${phaseName}">
                 <parameter param-name="projectId"/>
@@ -407,7 +413,7 @@
     </form>
     <form name="ListTaskInfo" type="list" list-name="tasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="projectId"><hidden value="parameters.projectId"/></field>
+        <field name="wbsId"><display description="${projectId}.${phaseSeqNum}.${sequenceNum}"/></field>
         <field name="task">
             <hyperlink target="taskView" description="${workEffortName}">
                 <parameter param-name="workEffortId"/>

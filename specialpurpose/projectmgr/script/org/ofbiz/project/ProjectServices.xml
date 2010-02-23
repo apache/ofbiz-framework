@@ -777,6 +777,7 @@
         <entity-and entity-name="WorkEffort" list="phases">
             <field-map field-name="workEffortTypeId" value="PHASE"/>
             <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
+            <order-by field-name="sequenceNum"/>
             <order-by field-name="workEffortName"/>
         </entity-and>
         <if-not-empty field="phases">
@@ -788,6 +789,7 @@
             <clear-field field="highInfo"/>
             <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
             <set field="highInfo.phaseId" from-field="phase.workEffortId"/>
+            <set field="highInfo.phaseSeqNum" from-field="phase.sequenceNum"/>
             <set field="highInfo.phaseName" from-field="phase.workEffortName"/>
             <set field="highInfo.phaseDescription" from-field="phase.description"/>
             <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
@@ -809,7 +811,7 @@
             <!-- merge estimated and actual dates -->
             <call-simple-method method-name="createDates"/>
 
-            <!-- translate squenceId back into statusId -->
+            <!-- translate sequenceId back into statusId -->
             <entity-and entity-name="StatusItem" list="statusses">
                 <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
                 <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
@@ -851,12 +853,15 @@
         </if-empty>
         <entity-and entity-name="ProjectAndPhaseAndTask" list="tasks">
             <field-map field-name="projectId" from-field="parameters.projectId"/>
+            <order-by field-name="phaseSeqNum"/>
             <order-by field-name="phaseName"/>
+            <order-by field-name="sequenceNum"/>
             <order-by field-name="workEffortName"/>
         </entity-and>
         <if-not-empty field="tasks">
             <iterate entry="lowInfo" list="tasks">
                 <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
+                <set field="highInfo.phaseSeqNum" from-field="lowInfo.phaseSeqNum"/>
                 <call-simple-method method-name="combineInfo"/>
                 <clear-field field="highInfo.sequenceId"/>
                 <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
@@ -864,6 +869,7 @@
                 <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 <set field="highInfo.workEffortId" from-field="lowInfo.workEffortId"/>
                 <set field="highInfo.workEffortName" from-field="lowInfo.workEffortName"/>
+                <set field="highInfo.sequenceNum" from-field="lowInfo.sequenceNum"/>
                 <field-to-list field="highInfo" list="taskList"/>
                 <clear-field field="highInfo"/>
             </iterate>
@@ -878,6 +884,7 @@
             <field-map field-name="workEffortId" from-field="parameters.taskId"/>
         </entity-one>
         <set field="highInfo.taskId" from-field="lowInfo.workEffortId"/>
+        <set field="highInfo.taskSeqNum" from-field="lowInfo.sequenceNum"/>
         <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
         <set field="highInfo.taskDescription" from-field="lowInfo.description"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
