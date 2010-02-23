@@ -74,6 +74,31 @@ public abstract class GenericTestCaseBase extends TestCase {
         }
     }
 
+    public static <T> void assertNotEquals(Object wanted, Object got) {
+        assertNotEquals(null, wanted, got);
+    }
+
+    public static <T> void assertNotEquals(String msg, Object wanted, Object got) {
+        if (wanted == null) {
+            if (got != null) {
+                return;
+            }
+            failEquals(msg, wanted, got);
+        } else if (wanted.equals(got)) {
+            failEquals(msg, wanted, got);
+        }
+    }
+
+    private static void failEquals(String msg, Object wanted, Object got) {
+        StringBuilder sb = new StringBuilder();
+        if (msg != null) {
+            sb.append(msg).append(' ');
+        }
+        sb.append(" expected value: ").append(wanted);
+        sb.append(" actual value: ").append(got);
+        fail(sb.toString());
+    }
+
     public static <T> void assertEquals(List<T> wanted, Object got) {
         assertEquals(null, wanted, got);
     }
