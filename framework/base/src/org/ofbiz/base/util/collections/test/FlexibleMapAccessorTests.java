@@ -34,18 +34,18 @@ public class FlexibleMapAccessorTests extends TestCase {
         super(name);
     }
 
+    private static <T, V> void fmaTest(String label, String fmaText, String fseText, T var, V value) {
+        Map<String, Object> testMap = new HashMap<String, Object>();
+        FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(fmaText);
+        fma.put(testMap, var);
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(fseText);
+        assertEquals(label, value, fse.expandString(testMap));
+
+    }
     // These tests rely upon FlexibleStringExpander, so they
     // should follow the FlexibleStringExpander tests.
     public void testFlexibleMapAccessor() {
-        String compare = "Hello World!";
-        Map<String, Object> testMap = new HashMap<String, Object>();
-        FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance("parameters.var");
-        fma.put(testMap, "World");
-        FlexibleStringExpander fse = FlexibleStringExpander.getInstance("Hello ${parameters.var}!");
-        assertEquals("UEL auto-vivify Map", compare, fse.expandString(testMap));
-        fma = FlexibleMapAccessor.getInstance("parameters.someList[+0]");
-        fma.put(testMap, "World");
-        fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
-        assertEquals("UEL auto-vivify List", compare, fse.expandString(testMap));
+        fmaTest("UEL auto-vivify Map", "parameters.var", "Hello ${parameters.var}!", "World", "Hello World!");
+        fmaTest("UEL auto-vivify List", "parameters.someList[+0]", "Hello ${parameters.someList[0]}!", "World", "Hello World!");
     }
 }
