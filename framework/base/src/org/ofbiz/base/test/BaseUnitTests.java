@@ -32,8 +32,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 
 public class BaseUnitTests extends TestCase {
 
@@ -110,21 +108,6 @@ public class BaseUnitTests extends TestCase {
         } finally {
             assertNotNull("expected exception", caught);
         }
-    }
-
-    // These tests rely upon FlexibleStringExpander, so they
-    // should follow the FlexibleStringExpander tests.
-    public void testFlexibleMapAccessor() {
-        String compare = "Hello World!";
-        Map<String, Object> testMap = new HashMap<String, Object>();
-        FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance("parameters.var");
-        fma.put(testMap, "World");
-        FlexibleStringExpander fse = FlexibleStringExpander.getInstance("Hello ${parameters.var}!");
-        assertTrue("UEL auto-vivify Map", compare.equals(fse.expandString(testMap)));
-        fma = FlexibleMapAccessor.getInstance("parameters.someList[+0]");
-        fma.put(testMap, "World");
-        fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
-        assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
     }
 
     public void testStringUtil() {
