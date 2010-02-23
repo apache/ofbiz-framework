@@ -109,7 +109,7 @@ under the License.
         <attribute name="build.jar" default="${build.dir}/lib/${name}.jar"/>
         <sequential>
             <mkdir dir="${build.dir}/test-results"/>
-            <junit fork="on" haltonfailure="on" forkmode="once" showoutput="on" printsummary="withOutAndErr">
+            <junit fork="on" haltonfailure="on" forkmode="once" showoutput="on" printsummary="off">
                 <classpath>
                     <path refid="junit.class.path"/>
                     <path refid="test.class.path"/>
@@ -117,6 +117,7 @@ under the License.
                 </classpath>
                 <sysproperty key="net.sourceforge.cobertura.datafile" file="${build.dir}/test-results/cobertura.dat" />
                 <sysproperty key="ofbiz.home" value="${ofbiz.home.dir}"/>
+                <formatter usefile="false" type="plain"/>
                 <batchtest>
                     <filelist refid="test.classes"/>
                 </batchtest>
