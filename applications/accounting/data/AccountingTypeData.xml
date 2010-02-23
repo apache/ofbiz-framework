@@ -181,6 +181,12 @@ under the License.
     <StatusItem description="In Process" sequenceId="05" statusCode="IN_PROCESS" statusId="FAM_IN_PROCESS" statusTypeId="FIXEDAST_MNT_STATUS"/>
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="FAM_COMPLETED" statusTypeId="FIXEDAST_MNT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="FAM_CANCELLED" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusValidChange condition="" statusId="FAM_CREATED" statusIdTo="FAM_SCHEDULED" transitionName="Created Maintenance Scheduled"/>
+    <StatusValidChange condition="" statusId="FAM_CREATED" statusIdTo="FAM_IN_PROCESS" transitionName="Created Maintenance In-Process"/>
+    <StatusValidChange condition="" statusId="FAM_CREATED" statusIdTo="FAM_CANCELLED" transitionName="Created Maintenace Cancelled"/>
+    <StatusValidChange condition="" statusId="FAM_SCHEDULED" statusIdTo="FAM_IN_PROCESS" transitionName="Scheduled Maintenace In-Process"/>
+    <StatusValidChange condition="" statusId="FAM_SCHEDULED" statusIdTo="FAM_CANCELLED" transitionName="Scheduled Maintenace Cancelled"/>
+    <StatusValidChange condition="" statusId="FAM_IN_PROCESS" statusIdTo="FAM_COMPLETED" transitionName="In-Process Maintenance Completed"/>
 
     <!-- The following three elements set up a regularly scheduled job that will automatically create
         fixed asset maintenances from ProductMaint time intervals. -->
