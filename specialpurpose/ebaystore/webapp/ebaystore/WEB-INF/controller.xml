@@ -231,6 +231,8 @@
     </request-map>
     <request-map uri="makeSecondChanceOffer">
     	<security auth="true" https="true"/>
+		<event type="service" invoke="verifyEbayAddSecondChanceItem"/>
+		<response name="error" type="view" value="SoldListing"/>
     	<response name="success" type="view" value="MakeSecondChanceOffer"/>
     </request-map>
     <request-map uri="addEbaySecondChanceOffer">

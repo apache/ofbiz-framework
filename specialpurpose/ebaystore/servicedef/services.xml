@@ -308,7 +308,6 @@ under the License.
     <service name="addEbaySecondChanceOffer" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="addEbaySecondChanceOffer" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-        <attribute name="duration" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="duration" mode="IN" type="String" optional="false"/>
         <attribute name="recipientBidderUserId" mode="IN" type="String" optional="false"/>
@@ -320,5 +319,11 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
     	<attribute name="bidders" mode="OUT" type="List" optional="true"/>
+    </service>
+	<service name="verifyEbayAddSecondChanceItem" engine="java"  transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="verifyEbayAddSecondChanceItem" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemId" mode="IN" type="String" optional="false"/>
+        <attribute name="checkVerify" mode="OUT" type="Boolean" optional="false"/>
     </service>
 </services>

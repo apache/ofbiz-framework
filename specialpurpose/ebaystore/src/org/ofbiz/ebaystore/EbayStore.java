@@ -32,11 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -44,7 +39,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -60,26 +54,21 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.event.EventHandlerException;
-import org.ofbiz.product.product.ProductContentWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
-import com.ebay.sdk.ApiAccount;
 import com.ebay.sdk.ApiContext;
-import com.ebay.sdk.ApiCredential;
 import com.ebay.sdk.ApiException;
-import com.ebay.sdk.ApiLogging;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.*;
-import com.ebay.sdk.helper.ui.ControlTagItem;
-import com.ebay.soap.eBLBaseComponents.AbstractRequestType;
+import com.ebay.soap.eBLBaseComponents.AmountType;
+import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateRequestType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateResponseType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
+import com.ebay.soap.eBLBaseComponents.GetAllBiddersModeCodeType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreOptionsRequestType;
@@ -87,6 +76,8 @@ import com.ebay.soap.eBLBaseComponents.GetStoreOptionsResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
+import com.ebay.soap.eBLBaseComponents.OfferType;
+import com.ebay.soap.eBLBaseComponents.SecondChanceOfferDurationCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
@@ -103,8 +94,6 @@ import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomHeaderLayoutCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderDisplayCodeType;
-import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderLinkCodeType;
-import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderLinkType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomListingHeaderType;
 import com.ebay.soap.eBLBaseComponents.StoreFontFaceCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreFontSizeCodeType;
@@ -118,18 +107,15 @@ import com.ebay.soap.eBLBaseComponents.StoreSubscriptionLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
 import com.ebay.soap.eBLBaseComponents.StoreType; 
-import com.ebay.soap.eBLBaseComponents.SummaryFrequencyCodeType;
-import com.ebay.soap.eBLBaseComponents.SummaryWindowPeriodCodeType;
 import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.VerifyAddSecondChanceItemResponseType;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
  
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemArrayType;
 import com.ebay.soap.eBLBaseComponents.ItemListCustomizationType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
-import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
 import com.ebay.soap.eBLBaseComponents.PaginatedItemArrayType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
@@ -1876,5 +1862,116 @@ public class EbayStore {
             return ServiceUtil.returnError(e.getMessage());
 		}
 		return result;
+	}
+	public static Map<String, Object> verifyEbayAddSecondChanceItem(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		boolean checkVerify = false;
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String productStoreId = (String) context.get("productStoreId");
+		String itemID = (String) context.get("itemId"); 
+		ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+		try {
+			DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+		    		DetailLevelCodeType.RETURN_ALL,
+		    		DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+		    		DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+		    	};
+			VerifyAddSecondChanceItemCall verify = new VerifyAddSecondChanceItemCall(apiContext);
+			verify.setItemID(itemID);
+			verify.setDetailLevel(detailLevels);
+		
+			
+			verify.setDuration(SecondChanceOfferDurationCodeType.DAYS_1);
+			Map<String, Object>serviceMap = FastMap.newInstance();
+			serviceMap.put("itemId", itemID);
+			serviceMap.put("productStoreId", productStoreId);
+			serviceMap.put("locale", locale);
+			serviceMap.put("userLogin", userLogin);
+			Map<String, Object>bidderTest = (Map)getEbayAllBidders(dctx, serviceMap); 
+			List<Map>test = (List)bidderTest.get("allBidders");
+			if (test.size() != 0) {
+				verify.setRecipientBidderUserID((String)test.get(0).get("userId"));
+			}
+			VerifyAddSecondChanceItemResponseType verifyResult = verify.verifyAddSecondChanceItem();
+			result.put("checkVerify", true);
+		} catch (Exception e) {
+			result.put("checkVerify", checkVerify);
+			result.put("errorMessage", "This item ( " + itemID + " ) can not add second chance offer.");
+			result.put("responseMessage", "error");
+			return result;
+		}
+		return result;
+	}
+	
+	public static Map<String, Object> getEbayAllBidders(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		List<Map>allBidders = FastList.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String productStoreId = (String) context.get("productStoreId");
+		String itemID = (String) context.get("itemId"); 
+		ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+		try {
+			DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+		    		DetailLevelCodeType.RETURN_ALL,
+		    		DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+		    		DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+		    	};
+			GetAllBiddersCall api = new GetAllBiddersCall(apiContext);
+			api.setDetailLevel(detailLevels);
+		    api.setItemID(itemID);
+		    api.setCallMode(GetAllBiddersModeCodeType.VIEW_ALL);
+		    OfferType[] bidders = api.getAllBidders();
+		      
+		    for (int count=0; count<bidders.length; count++) {
+		    	Map<String, Object>entry = FastMap.newInstance();
+		    	OfferType offer = bidders[count];
+		    	entry.put("userId", offer.getUser().getUserID());
+		    	allBidders.add(entry);
+		      }
+			result.put("allBidders", allBidders);
+		} catch (Exception e) {
+			Debug.logError(e.getMessage(), module);
+			result.put("allBidders", allBidders);
+			return result;
+		}
+		return result;
+	}
+	
+	public static Map<String, Object> addEbaySecondChanceOffer(DispatchContext dctx, Map<String, ? extends Object> context){
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String productStoreId = (String) context.get("productStoreId");
+		String durationString = (String) context.get("duration");
+		String itemID = (String) context.get("itemId");
+		String sellerMessage = (String) context.get("sellerMessage");
+		String recipientBidderUserID = (String) context.get("recipientBidderUserId");
+		try {
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+			AddSecondChanceItemCall api = new AddSecondChanceItemCall(apiContext);
+			SecondChanceOfferDurationCodeType duration = SecondChanceOfferDurationCodeType.valueOf(durationString);
+			api.setDuration(duration);
+			AmountType buyItNowPrice = new AmountType();
+			if (UtilValidate.isNotEmpty((String) context.get("buyItNowPrice"))) {
+				buyItNowPrice.setValue(Double.parseDouble((String) context.get("buyItNowPrice")));
+				buyItNowPrice.setCurrencyID(CurrencyCodeType.USD);
+				api.setBuyItNowPrice(buyItNowPrice);
+			}
+			api.setRecipientBidderUserID(recipientBidderUserID);
+			api.setItemID(itemID);
+			api.setSellerMessage(sellerMessage);
+			api.addSecondChanceItem();
+		} catch (Exception e) {
+			return ServiceUtil.returnError(e.getMessage());
+		}
+		return ServiceUtil.returnSuccess("Add Second Chance Offer Successful.");
 	}
 }
