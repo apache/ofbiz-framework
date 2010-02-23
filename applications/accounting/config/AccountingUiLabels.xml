@@ -100,6 +100,10 @@
         <value xml:lang="th">เลขที่บัญชี</value>
         <value xml:lang="zh">账户号码</value>
     </property>
+    <property key="AccountingAccountNumberMissing">
+        <value xml:lang="de">Kontonummer fehlt</value>
+        <value xml:lang="en">Account Number is missing</value>
+    </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="en">Account Transaction Id</value>
         <value xml:lang="hi_IN">लेखा गतिविधि क्रमांक</value>
@@ -120,6 +124,10 @@
         <value xml:lang="ru">Тип учетной записи</value>
         <value xml:lang="th">ประเภทบัญชี</value>
         <value xml:lang="zh">账户类型</value>
+    </property>
+    <property key="AccountingAccountTypeMissing">
+        <value xml:lang="de">Kontotyp fehlt</value>
+        <value xml:lang="en">Account Type is missing</value>
     </property>
     <property key="AccountingAccounting">
         <value xml:lang="en">Accounting</value>
@@ -1284,6 +1292,10 @@
         <value xml:lang="th">ชื่อธนาคาร</value>
         <value xml:lang="zh">银行名称</value>
     </property>
+    <property key="AccountingBankNameMissing">
+        <value xml:lang="de">Bankname fehlt</value>
+        <value xml:lang="en">Bank Name is missing</value>
+    </property>
     <property key="AccountingBankReconciliation">
         <value xml:lang="en">Bank Reconciliation</value>
         <value xml:lang="hi_IN">बैन्क पुनर्मिलान</value>
@@ -1784,6 +1796,10 @@
         <value xml:lang="th">หมายเลขบัตร</value>
         <value xml:lang="zh">卡号</value>
     </property>
+    <property key="AccountingCardNumberMissing">
+        <value xml:lang="de">Kartennummer fehlt</value>
+        <value xml:lang="en">Card Number is missing</value>
+    </property>
     <property key="AccountingCardSecurityCode">
         <value xml:lang="cs">Bezpečnostní kód karty</value>
         <value xml:lang="de">Sicherheitscode der Karte</value>
@@ -1816,6 +1832,10 @@
         <value xml:lang="ru">Тип карты</value>
         <value xml:lang="th">ประเภทบัตร</value>
         <value xml:lang="zh">卡类型</value>
+    </property>
+    <property key="AccountingCardTypeMissing">
+        <value xml:lang="de">Kartentyp fehlt</value>
+        <value xml:lang="en">Card Type is missing</value>
     </property>
   <property key="AccountingCashBalance">
         <value xml:lang="en">Cash Balance</value>
@@ -2484,6 +2504,10 @@
         <value xml:lang="th">ข้อมูลบัตรเครดิต</value>
         <value xml:lang="zh">信用卡信息</value>
     </property>
+    <property key="AccountingCreditCardPaymentMethodIdMissing">
+        <value xml:lang="de">Kreditkarten-Zahlungsmethoden-Nummer fehlt</value>
+        <value xml:lang="en">Credit Card Payment Method ID is missing</value>
+    </property>
     <property key="AccountingCreditCardManualAuthFailedError">
         <value xml:lang="de">Kreditkarte wurde nicht erstellt. Kreditkarte nicht überprüft, Authentifizierung fehlgeschlagen.</value>
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
@@ -2849,6 +2873,10 @@
         <value xml:lang="ru">Информация по текущему счету</value>
         <value xml:lang="th">ข้อมูลบัญชีธนาคาร</value>
         <value xml:lang="zh">电子资金转账账户信息</value>
+    </property>
+    <property key="AccountingEFTAccountPaymentMethodIdMissing">
+        <value xml:lang="de">Lastschrift-Zahlungsmethoden-Nummer fehlt</value>
+        <value xml:lang="en">EFT Account Payment Method ID is missing</value>
     </property>
     <property key="AccountingEFTNotBelongToYou">
         <value xml:lang="de">Die angegebene Bankverbindung gehört nicht zu Ihnen. Daher dürfen Sie die Infomationen dieser Bankverbindung weder einsehen noch bearbeiten.</value>
@@ -3266,6 +3294,18 @@
         <value xml:lang="th">วันหมดอายุ</value>
         <value xml:lang="zh">有效期</value>
     </property>
+    <property key="AccountingExpirationDateIsBeforeToday">
+        <value xml:lang="de">Ablaufdatum liegt in der Vergangenheit</value>
+        <value xml:lang="en">The expiration date is before today</value>
+    </property>
+    <property key="AccountingExpirationMonthMissing">
+        <value xml:lang="de">Ablaufmonat fehlt</value>
+        <value xml:lang="en">Expiration Month is missing</value>
+    </property>
+    <property key="AccountingExpirationYearMissing">
+        <value xml:lang="de">Ablaufjahr fehlt</value>
+        <value xml:lang="en">Expiration Year is missing</value>
+    </property>
     <property key="AccountingExportAsCsv">
         <value xml:lang="en">Export as CSV</value>
         <value xml:lang="hi_IN">सीएसवी के रूप में करे निर्यात</value>
@@ -3477,6 +3517,10 @@
         <value xml:lang="ru">Имя для карты</value>
         <value xml:lang="th">ชื่อ (บัตร)</value>
         <value xml:lang="zh">卡上姓名的第一组字母</value>
+    </property>
+    <property key="AccountingFirstNameOnCardMissing">
+        <value xml:lang="de">Vorname des Karteninhabers fehlt</value>
+        <value xml:lang="en">First Name on Card is missing</value>
     </property>
     <property key="AccountingFiscalMonth01">
         <value xml:lang="ar">01-يناير</value>
@@ -5511,6 +5555,10 @@
         <value xml:lang="th">นามสกุล (บัตร)</value>
         <value xml:lang="zh">卡上姓名的最后一组字母</value>
     </property>
+    <property key="AccountingLastNameOnCardMissing">
+        <value xml:lang="de">Nachname des Karteninhabers fehlt</value>
+        <value xml:lang="en">Last Name on Card is missing</value>
+    </property>
     <property key="AccountingLeaveEmptyForMaximumAmount">
         <value xml:lang="ar">أترك فارغا من أجل أقصى قيمة</value>
         <value xml:lang="de">Für maximalen Betrag leer lassen</value>
@@ -5858,6 +5906,10 @@
         <value xml:lang="ru">Имя учетной записи</value>
         <value xml:lang="th">ชื่อบนบัญชี</value>
         <value xml:lang="zh">账户名称</value>
+    </property>
+    <property key="AccountingNameOnAccountMissing">
+        <value xml:lang="de">Name des Kontoinhabers fehlt</value>
+        <value xml:lang="en">Name on Account is missing</value>
     </property>
     <property key="AccountingNameOnCard">
         <value xml:lang="cs">Majitel karty</value>
@@ -7452,6 +7504,10 @@
         <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
         <value xml:lang="zh">会计支付方法标识........</value>
     </property>
+    <property key="AccountingPaymentMethodIdMissing">
+        <value xml:lang="de">Zahlungsmethode fehlt</value>
+        <value xml:lang="en">Payment Method ID is missing</value>
+     </property>
     <property key="AccountingPaymentMethodIdPaymentMethodTypeIdNullError">
         <value xml:lang="de">Für 'paymentMethodId' und 'paymentMethodTypeId' wurden keine Werte übergeben. Es wird mindestens 'paymentMethodId' benötigt.</value>
         <value xml:lang="en">No values are passed for paymentMethodId or paymentMethodTypeId. At least pass paymentMethodId.</value>
@@ -8408,6 +8464,10 @@
         <value xml:lang="th">หมายเลข Routing</value>
         <value xml:lang="zh">路由号码</value>
     </property>
+    <property key="AccountingRoutingNumberMissing">
+        <value xml:lang="de">Bankleitzahl fehlt</value>
+        <value xml:lang="en">Routing Number is missing</value>
+  </property>
     <property key="AccountingRunningTotal">
         <value xml:lang="de">Laufender Kontostand</value>
         <value xml:lang="en">Running Total</value>

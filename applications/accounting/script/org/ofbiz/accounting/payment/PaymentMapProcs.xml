@@ -21,7 +21,7 @@ under the License.
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="deletePaymentMethod">
-    <process field="paymentMethodId"><copy/><not-empty><fail-message message="Payment Method ID is missing"/></not-empty></process>
+    <process field="paymentMethodId"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdMissing"/></not-empty></process>
   </simple-map-processor>
 
   <!-- CreditCard map procs -->
@@ -34,22 +34,22 @@ under the License.
     <process field="partyId"><copy/></process>
     <process field="companyNameOnCard"><copy/></process>
     <process field="titleOnCard"><copy/></process>
-    <process field="firstNameOnCard"><copy/><not-empty><fail-message message="First Name on Card is missing"/></not-empty></process>
+    <process field="firstNameOnCard"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingFirstNameOnCardMissing"/></not-empty></process>
     <process field="middleNameOnCard"><copy/></process>
-    <process field="lastNameOnCard"><copy/><not-empty><fail-message message="Last Name on Card is missing"/></not-empty></process>
+    <process field="lastNameOnCard"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingLastNameOnCardMissing"/></not-empty></process>
     <process field="suffixOnCard"><copy/></process>
-    <process field="cardType"><copy/><not-empty><fail-message message="Card Type is missing"/></not-empty></process>
-    <process field="cardNumber"><copy/><not-empty><fail-message message="Card Number is missing"/></not-empty></process>
+    <process field="cardType"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCardTypeMissing"/></not-empty></process>
+    <process field="cardNumber"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCardNumberMissing"/></not-empty></process>
     <process field="contactMechId"><copy/></process>
     <process field="description"><copy/></process>
-    <process field="expMonth"><not-empty><fail-message message="Expiration Month is missing"/></not-empty></process>
-    <process field="expYear"><not-empty><fail-message message="Expiration Year is missing"/></not-empty></process>
+    <process field="expMonth"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationMonthMissing"/></not-empty></process>
+    <process field="expYear"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationYearMissing"/></not-empty></process>
     <process field="expireDate">
         <copy/>
-        <validate-method method="isDateAfterToday"><fail-message message="The expiration date is before today"/></validate-method></process>
+        <validate-method method="isDateAfterToday"><fail-property resource="AccountingUiLabels" property="AccountingExpirationDateIsBeforeToday"/></validate-method></process>
   </simple-map-processor>
   <simple-map-processor name="updateCreditCard">
-    <process field="paymentMethodId"><copy/><not-empty><fail-message message="Credit Card Payment Method ID is missing"/></not-empty></process>
+    <process field="paymentMethodId"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCreditCardPaymentMethodIdMissing"/></not-empty></process>
     <process field="description"><copy/></process>
     <!-- also call createCreditCard after calling updateCreditCard -->
   </simple-map-processor>
@@ -58,16 +58,16 @@ under the License.
   <simple-map-processor name="createEftAccount">
     <process field="partyId"><copy/></process>
     <process field="description"><copy/></process>
-    <process field="bankName"><copy/><not-empty><fail-message message="Bank Name is missing"/></not-empty></process>
-    <process field="routingNumber"><copy/><not-empty><fail-message message="Routing Number is missing"/></not-empty></process>
-    <process field="accountType"><copy/><not-empty><fail-message message="Account Type is missing"/></not-empty></process>
-    <process field="accountNumber"><copy/><not-empty><fail-message message="Account Number is missing"/></not-empty></process>
-    <process field="nameOnAccount"><copy/><not-empty><fail-message message="Name on Account is missing"/></not-empty></process>
+    <process field="bankName"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingBankNameMissing"/></not-empty></process>
+    <process field="routingNumber"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingRoutingNumberMissing"/></not-empty></process>
+    <process field="accountType"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingAccountTypeMissing"/></not-empty></process>
+    <process field="accountNumber"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingAccountNumberMissing"/></not-empty></process>
+    <process field="nameOnAccount"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingNameOnAccountMissing"/></not-empty></process>
     <process field="companyNameOnAccount"><copy/></process>
     <process field="contactMechId"><copy/></process>
   </simple-map-processor>
   <simple-map-processor name="updateEftAccount">
-    <process field="paymentMethodId"><copy/><not-empty><fail-message message="EFT Account Payment Method ID is missing"/></not-empty></process>
+    <process field="paymentMethodId"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingEFTAccountPaymentMethodIdMissing"/></not-empty></process>
     <process field="description"><copy/></process>
     <!-- also call createEftAccount after calling updateEftAccount -->
   </simple-map-processor>
