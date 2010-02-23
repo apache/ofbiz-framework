@@ -93,6 +93,23 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     		</hyperlink>
     	</field>
 	</form>
+    <form name="MakeSecondChanceOffer" type="single" target="addEbaySecondChanceOffer">
+    	<auto-fields-service service-name="addEbaySecondChanceOffer"/>
+    	<field name="duration">
+    		<drop-down>
+    			<option key="DAYS_1" description="a day"/>
+    			<option key="DAYS_3" description="3 days"/>
+    			<option key="DAYS_5" description="5 days"/>
+    			<option key="DAYS_7" description="7 days"/>
+    		</drop-down>
+    	</field>
+    	<field name="recipientBidderUserId">
+    		<drop-down>
+    			<list-options key-name="userId" list-name="allBidders" description="${userId}"/>
+    		</drop-down>
+    	</field>
+    	<field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form> 
     <!-- Inventory -->
     <form name="EbayStoreFacilityList" type="single" list-name="productStoreFacilityList"  target="ebayStoreInventory"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

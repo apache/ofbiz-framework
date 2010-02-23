@@ -23,7 +23,7 @@ import javolution.util.FastMap;
 
 actionList = FastList.newInstance();
 hasAction = false;
-
+//Unpaid Item Dispute
 if (unpaidItemStatus == null && paidTime == null && checkoutStatus != "CheckoutComplete") {
 	inMap = FastMap.newInstance();
 	inMap.put("action","openUnpaid");
@@ -31,5 +31,12 @@ if (unpaidItemStatus == null && paidTime == null && checkoutStatus != "CheckoutC
 	actionList.add(inMap);
 	hasAction = true;
 }
+//Second Chance Offer
+inMap = FastMap.newInstance();
+inMap.put("action","makeSecondChanceOffer");
+inMap.put("actionName","Make Second Chance Offer");
+actionList.add(inMap);
+hasAction = true;
+
 context.actionList = actionList;
 context.hasAction = hasAction;
