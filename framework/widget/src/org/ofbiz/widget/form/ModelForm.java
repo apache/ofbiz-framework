@@ -1105,7 +1105,9 @@ public class ModelForm extends ModelWidget {
 
         int numOfColumns = 0;
         // ===== render header row =====
-        numOfColumns = this.renderHeaderRow(writer, context, formStringRenderer);
+        if (!getHideHeader()) {
+            numOfColumns = this.renderHeaderRow(writer, context, formStringRenderer);
+        }
 
         // ===== render the item rows =====
         this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
