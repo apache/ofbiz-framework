@@ -31,6 +31,11 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
+        <row-actions>
+            <service service-name="calculateFixedAssetDepreciation" result-map="assetDepreciationResultMap">
+                <field-map field-name="fixedAssetId" from-field="fixedAssetId"/>
+            </service>
+        </row-actions>
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset">
                 <parameter param-name="fixedAssetId"/>
@@ -47,6 +52,12 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="dateAcquired"><display/></field>
+        <field name="expectedEndOfLife"><display/></field>
+        <field name="purchaseCost"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="salvageValue"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="depreciation"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="plannedPastDepreciationTotal"><display description="${assetDepreciationResultMap.plannedPastDepreciationTotal}"/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
     </form>
 
