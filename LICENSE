@@ -2731,11 +2731,6 @@ validation.js is Licensed as follows
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 ====================================================================================
-Apache Ofbiz includes jsr166 backport support library from
-http://backport-jsr166.sourceforge.net/
-framework/base/lib/backport-util-concurrent-Java50-3.1.jar
-This file is licensed into the public domain.
-====================================================================================
 Apache Ofbiz includes docbook templates in the /applications/content/template/docbook
 directory with the following licence:
 Copyright
