@@ -124,7 +124,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${initialLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="BIZZNESS_TIME" global="true"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="TOMAHAWK" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
