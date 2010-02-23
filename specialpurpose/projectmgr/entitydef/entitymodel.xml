@@ -28,6 +28,13 @@ under the License.
     <copyright>Copyright 2001-2009 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
+
+  <extend-entity entity-name="WorkEffort">
+      <field name="sequenceNum" type="numeric">
+  		<description>To order the workefforts under a workeffort parent</description>
+      </field>
+  </extend-entity>
+
   <view-entity entity-name="ProjectPartyAndPhase"
     package-name="org.ofbiz.specialpurpose.project"
     title="To listr all the phases of project the logged user is part off">
@@ -42,6 +49,7 @@ under the License.
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <view-link entity-alias="WEPA" rel-entity-alias="WEP">
       <key-map field-name="workEffortId"/>
     </view-link>
@@ -65,6 +73,7 @@ under the License.
     <alias entity-alias="WEP" field="currentStatusId" name="projectStatusId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
     <view-link entity-alias="WEPA" rel-entity-alias="WEP">
       <key-map field-name="workEffortId"/>
@@ -98,6 +107,7 @@ under the License.
     <member-entity entity-alias="WET" entity-name="WorkEffort"/>
     <alias entity-alias="WEPH" field="workEffortParentId" name="projectId"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WET" field="workEffortId" name="taskId"/>
     <alias entity-alias="WEPA" name="partyId"/>
     <alias entity-alias="WEPA" name="roleTypeId"/>
@@ -121,6 +131,7 @@ under the License.
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
     <alias entity-alias="WEPH" field="workEffortParentId" name="projectId"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WEPA" name="partyId"/>
     <alias entity-alias="WEPA" name="roleTypeId"/>
     <alias entity-alias="RT" name="description"/>
@@ -147,6 +158,7 @@ under the License.
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
     <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
@@ -181,6 +193,7 @@ under the License.
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
     <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
@@ -214,6 +227,7 @@ under the License.
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
     <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
     <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
@@ -275,5 +289,5 @@ under the License.
       <key-map field-name="rateTypeId"/>
     </relation>
   </view-entity>
-
+  
   </entitymodel>
