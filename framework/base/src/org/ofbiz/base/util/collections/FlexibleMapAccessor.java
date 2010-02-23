@@ -101,7 +101,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
     }
 
     public boolean isEmpty() {
-         return this.original == null || this.original.length() == 0;
+         return this.original == null;
     }
 
     /** Given the name based information in this accessor, get the value from the passed in Map.
