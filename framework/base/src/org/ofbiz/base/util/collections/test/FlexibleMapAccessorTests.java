@@ -42,10 +42,10 @@ public class FlexibleMapAccessorTests extends TestCase {
         FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance("parameters.var");
         fma.put(testMap, "World");
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance("Hello ${parameters.var}!");
-        assertTrue("UEL auto-vivify Map", compare.equals(fse.expandString(testMap)));
+        assertEquals("UEL auto-vivify Map", compare, fse.expandString(testMap));
         fma = FlexibleMapAccessor.getInstance("parameters.someList[+0]");
         fma.put(testMap, "World");
         fse = FlexibleStringExpander.getInstance("Hello ${parameters.someList[0]}!");
-        assertTrue("UEL auto-vivify List " + fse.expandString(testMap), compare.equals(fse.expandString(testMap)));
+        assertEquals("UEL auto-vivify List", compare, fse.expandString(testMap));
     }
 }
