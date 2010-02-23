@@ -321,6 +321,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
         <attribute name="glAccountId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getInventoryItemOwner" default-entity-name="InventoryItem" engine="simple"
