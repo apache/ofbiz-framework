@@ -452,5 +452,6 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.extend-entity">
         <xs:attribute name="entity-name" type="xs:string" use="required"/>
+        <xs:attribute name="default-resource-name" type="xs:string"/>
     </xs:attributeGroup>
 </xs:schema>
