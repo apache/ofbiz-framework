@@ -37,6 +37,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilTimer;
@@ -304,6 +305,13 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 // this will always be true for now as extend-entity fielsd are always nonpks
                 if (!field.isPk) this.nopks.add(field);
             }
+        }
+        
+        // override the default resource file
+        String defResourceName = StringUtil.internString(extendEntityElement.getAttribute("default-resource-name"));
+        Debug.log("Extended entity - " + extendEntityElement.getAttribute("entity-name") + " new resource name : " + defResourceName, module);
+        if (UtilValidate.isNotEmpty(defResourceName)) {
+            this.setDefaultResourceName(defResourceName);
         }
 
         this.populateRelated(reader, extendEntityElement);
