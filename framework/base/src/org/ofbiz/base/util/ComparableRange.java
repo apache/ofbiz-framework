@@ -78,7 +78,7 @@ public class ComparableRange<T> implements Range<T> {
         }
         try {
             ComparableRange<T> that = (ComparableRange<T>) obj;
-            return this.start.equals(that.start) && this.end.equals(that.end); 
+            return this.start.equals(that.start) && this.end.equals(that.end);
         } catch (ClassCastException e) {}
         return false;
     }
