@@ -19,50 +19,44 @@
 package org.ofbiz.base.util;
 
 /** An immutable range of values. */
-public class ComparableRange<T> implements Range<T> {
-
-    @SuppressWarnings("unchecked")
-    protected static <T> Comparable<T> cast(T value) {
-        return (Comparable<T>) value;
-    }
+public class ComparableRange<T extends Comparable<T>> implements Range<T> {
 
     protected final T start;
     protected final T end;
     protected final boolean isPoint;
 
-    @SuppressWarnings("unchecked")
-    public ComparableRange(Comparable<T> start, Comparable<T> end) {
+    public ComparableRange(T start, T end) {
         if (start.getClass() != end.getClass()) {
             throw new IllegalArgumentException("start Class and end Class must be the same");
         }
-        if (end.compareTo((T) start) >= 0) {
-            this.start = (T) start;
-            this.end = (T) end;
+        if (end.compareTo(start) >= 0) {
+            this.start = start;
+            this.end = end;
         } else {
-            this.start = (T) end;
-            this.end = (T) start;
+            this.start = end;
+            this.end = start;
         }
         this.isPoint = start.equals(end);
     }
 
     @Override
     public boolean after(Range<T> range) {
-        return cast(this.start).compareTo(range.end()) > 0;
+        return this.start.compareTo(range.end()) > 0;
     }
 
     @Override
     public boolean after(T value) {
-        return cast(this.start).compareTo(value) > 0;
+        return this.start.compareTo(value) > 0;
     }
 
     @Override
     public boolean before(Range<T> range) {
-        return cast(this.end).compareTo(range.start()) < 0;
+        return this.end.compareTo(range.start()) < 0;
     }
 
     @Override
     public boolean before(T value) {
-        return cast(this.end).compareTo(value) < 0;
+        return this.end.compareTo(value) < 0;
     }
 
     @Override
@@ -70,14 +64,13 @@ public class ComparableRange<T> implements Range<T> {
         return this.end;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
         try {
-            ComparableRange<T> that = (ComparableRange<T>) obj;
+            ComparableRange that = (ComparableRange) obj;
             return this.start.equals(that.start) && this.end.equals(that.end);
         } catch (ClassCastException e) {}
         return false;
@@ -93,7 +86,7 @@ public class ComparableRange<T> implements Range<T> {
         if (this.isPoint) {
             return value.equals(this.start);
         }
-        return (cast(value).compareTo(this.start) >= 0 && cast(value).compareTo(this.end) <= 0);
+        return (value.compareTo(this.start) >= 0 && value.compareTo(this.end) <= 0);
     }
 
     @Override
