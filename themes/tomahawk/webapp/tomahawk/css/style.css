@@ -1545,7 +1545,7 @@ background-image: url(../images/tab_bar.gif);
 background-repeat:repeat-x;
 padding:5px 10px 0px 10px;
 font-size:1.1em;
-margin: 0px -7px;
+margin: 0px;
 }
 
 .tab-bar ul li {
