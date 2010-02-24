@@ -470,7 +470,7 @@ under the License.
             Map of Lists, where the resourceTypeEnumId is the key and the value
             is a List of resourceValue Strings for that resourceTypeEnumId.
         </description>
-        <attribute name="visualThemeId" type="String" mode="IN" optional="true" default-value="BIZZNESS_TIME"/>
+        <attribute name="visualThemeId" type="String" mode="IN" optional="true"/>
         <attribute name="themeResources" type="Map" mode="IN" optional="true"/>
         <attribute name="themeResources" type="Map" mode="OUT" optional="false"/>
     </service>
