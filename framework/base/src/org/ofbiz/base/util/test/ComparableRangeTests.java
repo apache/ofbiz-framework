@@ -31,7 +31,7 @@ public class ComparableRangeTests extends TestCase {
     public void testComparableRange() {
         ComparableRange<Integer> pointTest = new ComparableRange<Integer>(1, 1);
         assertTrue("isPoint", pointTest.isPoint());
-        assertTrue("equality", pointTest.equals(new ComparableRange<Integer>(1, 1)));
+        assertEquals("equality", pointTest, new ComparableRange<Integer>(1, 1));
         ComparableRange<Integer> range1 = new ComparableRange<Integer>(3, 1);
         ComparableRange<Integer> range2 = new ComparableRange<Integer>(4, 6);
         assertTrue("after range", range2.after(range1));
