@@ -33,6 +33,7 @@ under the License.
 
 <div class="tabbar">
   <div class="breadcrumbs<#if show_last_menu?exists> menu_selected</#if>">
+    <#if userLogin?has_content>
       <div id="main-navigation">
         <h2>${uiLabelMap.CommonApplications}</h2>
         <ul>
@@ -100,4 +101,7 @@ under the License.
             </ul>
           </li>
         </ul>
-      </div>
+      </li>
+    </ul>
+    </div>
+    </#if>
