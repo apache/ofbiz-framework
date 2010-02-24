@@ -18,15 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import junit.framework.TestCase;
 
-import org.ofbiz.base.conversion.ConversionException;
-import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.util.ComparableRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
