@@ -51,6 +51,7 @@
     <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
     <xi:include href="../../../applications/humanres/documents/Humanres.xml"/>
     <xi:include href="../../../specialpurpose/myportal/documents/MyPortal.xml"/>
+    <xi:include href="../../../specialpurpose/projectmgr/documents/ProjectMgr.xml"/>
     <xi:include href="../../../specialpurpose/ebay/documents/Ebay.xml"/>
     <xi:include href="../../../specialpurpose/ebaystore/documents/EbayStore.xml"/>
     
