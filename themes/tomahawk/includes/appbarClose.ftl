@@ -88,3 +88,8 @@ under the License.
 </div>
 <div class="clear">
 </div>
+
+<script>
+  var mainmenu = new DropDownMenu($('main-navigation'));
+  var appmenu = new DropDownMenu($('app-navigation'));
+</script>
