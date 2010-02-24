@@ -46,16 +46,6 @@ under the License.
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
 
-    <menu name="InvoiceApplTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-            default-menu-item-name="viewInvoices">
-        <menu-item name="findInvoices" title="${uiLabelMap.CommonFind}">
-            <link target="findInvoices"/>
-        </menu-item>
-        <menu-item name="commissionRun" title="${uiLabelMap.AccountingCommissionRun}">
-            <link target="CommissionRun"/>
-        </menu-item>
-    </menu>
-
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findInvoices"/>
@@ -154,6 +144,11 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
+        
+        <menu-item name="commissionRun" title="${uiLabelMap.AccountingCommissionRun}">
+            <link target="CommissionRun"/>
+        </menu-item>
+        
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
