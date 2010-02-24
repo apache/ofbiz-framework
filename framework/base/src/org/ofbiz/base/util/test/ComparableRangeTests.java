@@ -18,43 +18,87 @@
  *******************************************************************************/
 package org.ofbiz.base.util.test;
 
-import junit.framework.TestCase;
-
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.ComparableRange;
 
-public class ComparableRangeTests extends TestCase {
+public class ComparableRangeTests extends GenericTestCaseBase {
 
     public ComparableRangeTests(String name) {
         super(name);
     }
 
-    public void testComparableRange() {
-        ComparableRange<Integer> pointTest = new ComparableRange<Integer>(1, 1);
-        assertTrue("isPoint", pointTest.isPoint());
-        assertEquals("equality", pointTest, new ComparableRange<Integer>(1, 1));
-        ComparableRange<Integer> range1 = new ComparableRange<Integer>(3, 1);
-        ComparableRange<Integer> range2 = new ComparableRange<Integer>(4, 6);
-        assertTrue("after range", range2.after(range1));
-        assertTrue("before range", range1.before(range2));
-        assertFalse("excludes value", range1.includes(0));
-        assertTrue("includes value", range1.includes(1));
-        assertTrue("includes value", range1.includes(2));
-        assertTrue("includes value", range1.includes(3));
-        assertFalse("excludes value", range1.includes(4));
-        assertTrue("includes range", range1.includes(pointTest));
-        assertFalse("excludes range", range1.includes(range2));
-        ComparableRange<Integer> overlapTest = new ComparableRange<Integer>(2, 5);
-        assertTrue("overlaps range", range1.overlaps(overlapTest));
-        assertTrue("overlaps range", range2.overlaps(overlapTest));
-        assertFalse("does not overlap range", range1.overlaps(range2));
+    private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
+        new ComparableRange<L>(left, left);
+        new ComparableRange<R>(right, right);
         IllegalArgumentException caught = null;
         try {
-            @SuppressWarnings("unused")
-            ComparableRange<java.util.Date> range3 = new ComparableRange<java.util.Date>(new java.util.Date(), new java.sql.Timestamp(System.currentTimeMillis()));
+            @SuppressWarnings("unchecked")
+            ComparableRange<?> range = new ComparableRange(left, right);
         } catch (IllegalArgumentException e) {
             caught = e;
         } finally {
             assertNotNull("expected exception", caught);
         }
+        caught = null;
+        try {
+            @SuppressWarnings("unchecked")
+            ComparableRange<?> range = new ComparableRange(right, left);
+        } catch (IllegalArgumentException e) {
+            caught = e;
+        } finally {
+            assertNotNull("expected exception", caught);
+        }
+    }
+
+    private static <T extends Comparable<T>, B extends Comparable<B>> void comparableRangeTest(String label, B bad, T a, T b, T c, T d) {
+        comparableRangeConstructorTest(bad, a);
+        assertTrue(label + ":a-isPoint", new ComparableRange<T>(a, a).isPoint());
+        assertTrue(label + ":b-isPoint", new ComparableRange<T>(b, b).isPoint());
+        assertTrue(label + ":c-isPoint", new ComparableRange<T>(c, c).isPoint());
+        ComparableRange<T> first = new ComparableRange<T>(a, b);
+        ComparableRange<T> second = new ComparableRange<T>(c, d);
+        ComparableRange<T> all = new ComparableRange<T>(a, d);
+        assertEquals(label + ":a-b toString", a + " - " + b, first.toString());
+        assertEquals(label + ":c-d toString", c + " - " + d, second.toString());
+        assertEquals(label + ":a-d toString", a + " - " + d, all.toString());
+        assertFalse(label + ":a-b isPoint", first.isPoint());
+        assertFalse(label + ":c-d isPoint", second.isPoint());
+        assertFalse(label + ":a-d isPoint", all.isPoint());
+        assertEquals(label + ":a-b == a-b", first, first);
+        assertEquals(label + ":a-b equals a-b", first, new ComparableRange<T>(a, b));
+        assertEquals(label + ":a-b equals b-a", first, new ComparableRange<T>(b, a));
+        assertNotEquals(label + ":a-b not-equal other", first, ComparableRangeTests.class);
+        assertNotEquals(label + ":a-a != a-b", new ComparableRange<T>(a, a), first);
+        assertNotEquals(label + ":a-a != c-d", new ComparableRange<T>(a, a), second);
+        assertNotEquals(label + ":a-a != a-d", new ComparableRange<T>(a, a), all);
+        assertTrue(label + ":b-c after a-b", second.after(first));
+        assertFalse(label + ":c-d !after c-d", second.after(second));
+        assertTrue(label + ":a-b before c-d", first.before(second));
+        assertFalse(label + ":a-b !before a-b", first.before(first));
+        assertTrue(label + ":a-d includes a-b", all.includes(first));
+        assertTrue(label + ":a-b overlaps b-c", first.overlaps(new ComparableRange<T>(b, c)));
+        assertTrue(label + ":b-c overlaps c-d", new ComparableRange<T>(b, c).overlaps(second));
+        assertTrue(label + ":a-b overlaps a-d", first.overlaps(all));
+        assertTrue(label + ":a-d overlaps a-b", all.overlaps(first));
+        assertTrue(label + ":a-d overlaps b-c", all.overlaps(new ComparableRange<T>(b, c)));
+        assertTrue(label + ":b-c overlaps a-d", new ComparableRange<T>(b, c).overlaps(all));
+        assertFalse(label + ":a-b overlaps c-d", first.overlaps(second));
+        assertFalse(label + ":c-d overlaps a-b", second.overlaps(first));
+        assertTrue(label + ":a-b includes a", first.includes(a));
+        assertTrue(label + ":a-b includes b", first.includes(b));
+        assertFalse(label + ":a-b includes c", first.includes(c));
+        assertFalse(label + ":a includes a-b", new ComparableRange<T>(a, a).includes(first));
+        assertTrue(label + ":c-d after a", second.after(a));
+        assertTrue(label + ":c-d after b", second.after(b));
+        assertFalse(label + ":c-d after c", second.after(c));
+        assertFalse(label + ":c-d after d", second.after(d));
+        assertFalse(label + ":a-b after a", first.before(a));
+        assertFalse(label + ":a-b after b", first.before(b));
+        assertTrue(label + ":a-b after c", first.before(c));
+        assertTrue(label + ":a-b after d", first.before(d));
+    }
+
+    public void testComparableRange() {
+        comparableRangeTest("integer", 20L, 1, 2, 3, 4);
     }
 }
