@@ -284,6 +284,7 @@ public class LoginEvents {
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);
+        bodyParameters.put("productStoreId", productStoreId);
 
         Map<String, Object> serviceContext = FastMap.newInstance();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
