@@ -404,6 +404,7 @@ under the License.
                             <include-screen name="ListProjectContent"/>
                             <include-screen name="OrderInfo"/>
                         </container>
+                        <container style="clear"/>
                         <include-screen name="TasksInfo"/>
                     </decorator-section>
                 </decorator-screen>
