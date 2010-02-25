@@ -272,6 +272,16 @@ under the License.
 
         <create-value value-field="newEntity"/>
     </simple-method>
+    <simple-method method-name="updateProductStoreRole" short-description="Update a ProductStoreRole">
+        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreRole you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreRole"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="removeProductStoreRole" short-description="Remove ProductStoreRole">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreRole you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>

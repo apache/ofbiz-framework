@@ -6000,6 +6000,9 @@
         <value xml:lang="it">Ricerca prodotti in stock</value>
         <value xml:lang="zh">查找产品存货</value>
     </property>
+    <property key="PageTitleFindProductStoreRoles">
+        <value xml:lang="en">Find Product Store Roles</value>
+    </property>
     <property key="PageTitleFindShipmentGatewayConfig">
         <value xml:lang="en">Find Shipment Gateway Config</value>
         <value xml:lang="it">Ricerca configurazione gateway spedizione</value>

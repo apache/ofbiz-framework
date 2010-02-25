@@ -7551,6 +7551,9 @@
         <value xml:lang="th">ไม่พบข้อมูลวิธีการจ่ายเงินบนไฟล์</value>
         <value xml:lang="zh">没有存档的支付方式信息。</value>
     </property>
+    <property key="PartyNoProductStoreFoundForThisParty">
+        <value xml:lang="en">No product store(s) found for this party.</value>
+    </property>
     <property key="PartyNoServerHitsFound">
         <value xml:lang="de">Keine Server Hits für diesen Webseiten Besuch gefunden</value>
         <value xml:lang="en">No Server Hits found for this Visit</value>

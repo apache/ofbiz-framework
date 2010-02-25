@@ -112,8 +112,8 @@ under the License.
                 <parameter param-name="productStoreId"/>
             </link>
         </menu-item>
-        <menu-item name="EditProductStoreRoles" title="${uiLabelMap.PartyRoles}">
-            <link target="EditProductStoreRoles">
+        <menu-item name="FindProductStoreRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="FindProductStoreRoles">
                 <parameter param-name="productStoreId"/>
             </link>
         </menu-item>

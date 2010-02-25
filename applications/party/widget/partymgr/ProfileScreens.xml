@@ -588,4 +588,22 @@
         </section>
     </screen>
 
+    <screen name="ProductStores">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <entity-and entity-name="ProductStoreRole" list="productStoreRoles" filter-by-date="true">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/profileblocks/ProductStores.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -90,6 +90,12 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
+    <service name="updateProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
+            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreRole" auth="true">
+        <description>Update a Product Store Role</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="removeProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
             location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreRole" auth="true">
         <description>Remove ProductStoreRole</description>

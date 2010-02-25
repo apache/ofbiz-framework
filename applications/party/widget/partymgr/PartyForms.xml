@@ -465,6 +465,14 @@ under the License.
         <field use-when="displayPassword!=null" name="CONFIRM_PASSWORD" title="${uiLabelMap.CommonPassword}" tooltip="* ${uiLabelMap.CommonConfirm}" widget-style="required"><password size="15" maxlength="250"/></field>
         <field name="USERNAME" title="${uiLabelMap.CommonUsername}" tooltip="* ${uiLabelMap.PartyTemporaryPassword}"><text size="30" maxlength="250"/></field>
         <!--<field name="RequiredNote" title="${uiLabelMap.CommonEmptyHeader}"><display description="${uiLabelMap.PartyRequiredNote}" also-hidden="false"/></field> -->
+
+        <field name="PRODUCT_STORE_ID" title="Product Store" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down>
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
+                    <entity-order-by field-name="productStoreId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
 
