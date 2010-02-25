@@ -205,4 +205,25 @@
     <property key="requireEbayInventory">
         <value xml:lang="en">Require eBay Inventory</value>
     </property>
+    <property key="EbayAutomationDispute">
+        <value xml:lang="en">Automation Dispute</value>
+    </property>
+    <property key="EbayDisputeCheckoutNotComplete">
+        <value xml:lang="en">Create Dispute if checkout has not been completed</value>
+    </property>
+    <property key="EbayDisputeNotPay">
+        <value xml:lang="en">Create Dispute if checkout has been completed but no payment has been received</value>
+    </property>
+    <property key="EbayAfter">
+        <value xml:lang="en">After</value>
+    </property>
+    <property key="EbayReason">
+        <value xml:lang="en">Reason</value>
+    </property>
+    <property key="EbayExplanation">
+        <value xml:lang="en">Explanation</value>
+    </property>
+    <property key="EbayAddSecondChanceOffer">
+        <value xml:lang="en">Add Second Chance Offer</value>
+    </property>
 </resource>

@@ -58,6 +58,26 @@ under the License.
             <key-map field-name="productStoreId"/>
         </relation>
     </entity>
-    
+    <entity entity-name="EbayProductStorePref" package-name="org.ofbiz.ebay.store"
+         title="Ebay store and Preference">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="autoPrefEnumId" type="id-ne"/>
+        <field name="autoPrefJobId" type="id-ne"/>
+        <field name="enabled" type="indicator"/>
+        <field name="condition1" type="value"/>
+        <field name="condition2" type="value"/>
+        <field name="condition3" type="value"/>
+        <prim-key field="productStoreId"/>
+        <prim-key field="autoPrefEnumId"/>
+        <relation type="one" fk-name="EBY_STR_PREF" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="EBY_STR_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="autoPrefEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="EBY_STR_JOB" rel-entity-name="JobSandbox">
+            <key-map field-name="autoPrefJobId" rel-field-name="jobId"/>
+        </relation>
+    </entity>
 </entitymodel>    
     
