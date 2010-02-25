@@ -105,6 +105,12 @@
         description="Visits of a certain party"
         screenshot="/images/portlets/Visits.png"/>
     <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PROFILE"/>
+    
+    <PortalPortlet portalPortletId="ProductStores" portletName="ProductStores"
+        screenName="ProductStores"
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="ProductStores of a certain party"/>
+    <PortletPortletCategory portalPortletId="ProductStores" portletCategoryId="PROFILE"/>
 
     <PortalPortlet portalPortletId="contact" portletName="Contact"
         screenName="Contact"
@@ -152,6 +158,6 @@
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
-
+    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="ProductStores" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
 
 </entity-engine-xml>

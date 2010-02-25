@@ -1953,21 +1953,27 @@ under the License.
     </request-map>
 
     <!-- ================ ProductStore Role Requests ================= -->
-    <request-map uri="EditProductStoreRoles">
+    <request-map uri="FindProductStoreRoles">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditProductStoreRoles"/>
+        <response name="success" type="view" value="FindProductStoreRoles"/>
     </request-map>
     <request-map uri="storeCreateRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProductStoreRole"/>
-        <response name="success" type="view" value="EditProductStoreRoles"/>
-        <response name="error" type="view" value="EditProductStoreRoles"/>
+        <response name="success" type="view" value="FindProductStoreRoles"/>
+        <response name="error" type="view" value="FindProductStoreRoles"/>
+    </request-map>
+    <request-map uri="storeUpdateRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStoreRole"/>
+        <response name="success" type="view" value="FindProductStoreRoles"/>
+        <response name="error" type="view" value="FindProductStoreRoles"/>
     </request-map>
     <request-map uri="storeRemoveRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeProductStoreRole"/>
-        <response name="success" type="view" value="EditProductStoreRoles"/>
-        <response name="error" type="view" value="EditProductStoreRoles"/>
+        <response name="success" type="view" value="FindProductStoreRoles"/>
+        <response name="error" type="view" value="FindProductStoreRoles"/>
     </request-map>
 
     <!-- ================ ProductStore Payment Requests ================= -->
@@ -2771,7 +2777,7 @@ under the License.
 
     <view-map name="FindProductStore" type="screen" page="component://product/widget/catalog/StoreScreens.xml#FindProductStore"/>
     <view-map name="EditProductStore" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStore"/>
-    <view-map name="EditProductStoreRoles" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreRoles"/>
+    <view-map name="FindProductStoreRoles" type="screen" page="component://product/widget/catalog/StoreScreens.xml#FindProductStoreRoles"/>
     <view-map name="EditProductStoreEmails" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreEmails"/>
     <view-map name="EditProductStorePromos" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStorePromos"/>
     <view-map name="EditProductStoreCatalogs" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreCatalogs"/>

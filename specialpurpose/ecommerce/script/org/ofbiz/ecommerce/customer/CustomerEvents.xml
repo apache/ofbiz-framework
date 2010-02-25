@@ -406,6 +406,16 @@ under the License.
             ]]></call-bsh>
         </if-compare>
 
+        <!-- Associated to Product Store -->
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createProductStoreRoleMap.userLogin" from-field="userLogin"/>
+        <set field="createProductStoreRoleMap.partyId" from-field="tempMap.partyId"/>
+        <set field="createProductStoreRoleMap.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="createProductStoreRoleMap.productStoreId" from-field="parameters.emailProductStoreId"/>
+        <call-service service-name="createProductStoreRole" in-map-name="createProductStoreRoleMap"/>
+
         <!-- send off the registration email -->
         <if-not-empty field="emailContext.emailAddress">
             <set from-field="parameters.emailProductStoreId" field="storeEmailLookup.productStoreId"/>
@@ -1158,7 +1168,17 @@ under the License.
         <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="billToTelecomContactMechId"/>
         </call-service>
+        <!-- Associated to Product Store -->
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createProductStoreRoleMap.userLogin" from-field="userLogin"/>
+        <set field="createProductStoreRoleMap.partyId" from-field="parameters.partyId"/>
+        <set field="createProductStoreRoleMap.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="createProductStoreRoleMap.productStoreId" from-field="parameters.productStoreId"/>
+        <call-service service-name="createProductStoreRole" in-map-name="createProductStoreRoleMap"/>
 
+        <set field="emailAddressCtx.productStoreId" from-field="parameters.productStoreId"/>
         <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailAddressCtx" to-map="serviceInMap"/>
         <call-service-asynch service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
      </simple-method>

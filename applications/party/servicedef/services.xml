@@ -1053,11 +1053,13 @@ under the License.
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="sendCreatePartyEmailNotification" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="sendCreatePartyEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- Email address verification services-->

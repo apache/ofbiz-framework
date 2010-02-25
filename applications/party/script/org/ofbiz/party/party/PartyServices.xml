@@ -955,12 +955,14 @@ under the License.
     <simple-method method-name="sendCreatePartyEmailNotification" short-description="Notification email on party creation" login-required="false">
         <map-to-map map="parameters" to-map="bodyParameters"/>
         <set field="emailType" value="PARTY_REGIS_CONFIRM"/>
-        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
-            <condition-list>
-                <condition-expr field-name="emailType" operator="equals" from-field="emailType"/>
-            </condition-list>
-        </entity-condition>
-        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
+        <set field="productStoreId" from-field="parameters.productStoreId" />
+        <if-empty field="productStoreId">
+            <log level="warning" message="No productStoreId specified."/>
+        </if-empty>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail">
+            <field-map field-name="emailType"/>
+            <field-map field-name="productStoreId"/>
+        </entity-one>
         <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
@@ -986,12 +988,14 @@ under the License.
     <!-- send personal information update email notification -->
     <simple-method method-name="sendUpdatePersonalInfoEmailNotification" short-description="Send the Notification email on personal information updation" login-required="false">
         <map-to-map map="parameters" to-map="bodyParameters"/>
-        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
-            <condition-list>
-                <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
-            </condition-list>
-        </entity-condition>
-        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
+        <set field="productStoreId" from-field="parameters.productStoreId" />
+        <if-empty field="productStoreId">
+            <log level="warning" message="No productStoreId specified."/>
+        </if-empty>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail">
+            <field-map field-name="emailType" value="UPD_PRSNL_INF_CNFRM"/>
+            <field-map field-name="productStoreId"/>
+        </entity-one>
         <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>

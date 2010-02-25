@@ -70,25 +70,32 @@ under the License.
             </widgets>
        </section>
     </screen>
-    <screen name="EditProductStoreRoles">
+    <screen name="FindProductStoreRoles">
        <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditProductStoreRoles"/>
+                <set field="titleProperty" value="PageTitleFindProductStoreRoles"/>
                 <set field="headerItem" value="store"/>
-                <set field="tabButtonItem" value="EditProductStoreRoles"/>
+                <set field="tabButtonItem" value="FindProductStoreRoles"/>
                 <set field="labelTitleProperty" value="ProductProductStoreRoles"/>
-
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-                <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreRoles.groovy"/>
+                <set field="parameters.fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <entity-one entity-name="ProductStoreRole" value-field="productStoreRole" auto-field-map="true"/>
+                <set field="parameters.productStoreId" value="${groovy:parameters.noConditionFind==null || parameters.noConditionFind=='N'?'':parameters.productStoreId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStoreRoles.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductStoreRoles}">
+                            <include-form name="EditProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
+                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="FindProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
