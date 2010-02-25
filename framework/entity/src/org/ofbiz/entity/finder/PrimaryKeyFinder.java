@@ -113,7 +113,13 @@ public class PrimaryKeyFinder extends Finder {
         EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);
         //Debug.logInfo("PrimaryKeyFinder: entityContext=" + entityContext, module);
         // then convert the types...
+        
+        // need the timeZone and locale for conversion, so add here and remove after
+        entityContext.put("locale", context.get("locale"));
+        entityContext.put("timeZone", context.get("timeZone"));
         modelEntity.convertFieldMapInPlace(entityContext, delegator);
+        entityContext.remove("locale");
+        entityContext.remove("timeZone");
 
         // get the list of fieldsToSelect from selectFieldExpanderList
         Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
