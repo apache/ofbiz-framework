@@ -89,6 +89,18 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonPartyDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CommonQuoteDecorator">
         <section>
             <actions>

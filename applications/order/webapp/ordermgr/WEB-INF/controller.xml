@@ -710,7 +710,7 @@ under the License.
     -->
     <request-map uri="quickcheckout">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="quickcheckout"/>
+        <response name="success" type="view" value="quickcheckout" save-home-view="true"/>
     </request-map>
     <request-map uri="updateCheckoutOptions">
         <description>When user selects a shipping method, this automatically reloads quick checkout page with shipping estimates filled in.</description>
