@@ -53,8 +53,10 @@ under the License.
             </td>
             <td align="center">&nbsp;
               <#if !productPriceConds?has_content && !productPriceActions?has_content>
-                  <a href="<@ofbizUrl>deleteProductPriceRule?productPriceRuleId=${productPriceRule.productPriceRuleId}</@ofbizUrl>" class="buttontext">
-                  ${uiLabelMap.CommonDelete}</a>
+                  <form method="post" action="<@ofbizUrl>deleteProductPriceRule</@ofbizUrl>" name="deleteProductPriceRule">
+                      <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
+                      <input type="submit" value="${uiLabelMap.CommonDelete}">
+                  </form>
               </#if>
             </td>
           </tr>
