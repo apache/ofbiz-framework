@@ -159,7 +159,8 @@ under the License.
         <alt-target use-when="agreementItem==null" target="createAgreementItem"/>
         <auto-fields-entity entity-name="AgreementItem" default-field-type="edit"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
-        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display/></field>
+        <field name="agreementItemSeqId" use-when="agreementItem!=null" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display/></field>
+        <field name="agreementItemSeqId" use-when="agreementItem==null" ><ignored/></field>
         <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="AgreementItemType" key-field-name="agreementItemTypeId"/>
