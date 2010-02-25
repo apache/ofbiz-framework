@@ -19,20 +19,8 @@
 
 package org.ofbiz.ebaystore;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -42,21 +30,20 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.party.contact.ContactHelper;
+import org.ofbiz.entity.serialize.SerializeException;
+import org.ofbiz.entity.serialize.XmlSerializer;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.ofbiz.service.calendar.RecurrenceInfo;
+import org.ofbiz.service.calendar.RecurrenceInfoException;
+import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.job.JobManager;
 
 import com.ebay.sdk.ApiAccount;
 import com.ebay.sdk.ApiContext;
@@ -65,6 +52,8 @@ import com.ebay.sdk.ApiLogging;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 
 import org.ofbiz.ebay.EbayHelper;
+
+import sun.net.www.content.text.Generic;
 
 public class EbayStoreHelper {
     private static final String configFileName = "ebayStore.properties";
@@ -236,4 +225,120 @@ public class EbayStoreHelper {
 	   }
 	   return flag;
    }
+	public static Map<String, Object> startEbayAutoPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String productStoreId = (String) context.get("productStoreId");
+		String autoPrefEnumId = (String) context.get("autoPrefEnumId");
+		String serviceName = (String) context.get("serviceName");
+		try{
+			GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
+			String jobId = ebayProductPref.getString("autoPrefJobId");
+			if (UtilValidate.isNotEmpty(jobId)) {
+				GenericValue job = delegator.findByPrimaryKey("JobSandbox", UtilMisc.toMap("jobId", jobId));
+				job = EbayStoreHelper.getCurrentJob(delegator, userLogin, job);
+				if (!job.getString("statusId").equals("SERVICE_PENDING")) {
+					Map<String, Object>inMap = FastMap.newInstance();
+					inMap.put("jobId", jobId);
+					inMap.put("userLogin", userLogin);
+					dispatcher.runSync("resetScheduledJob", inMap);
+				}
+			} 
+			if (UtilValidate.isEmpty(ebayProductPref.getString("autoPrefJobId"))) {
+				if (UtilValidate.isEmpty(serviceName)) return ServiceUtil.returnError("If you add a new job, you have to add serviec name.");
+				/*** RuntimeData ***/
+		        String runtimeDataId = null;
+		        GenericValue runtimeData = delegator.makeValue("RuntimeData");
+		        runtimeData = delegator.createSetNextSeqId(runtimeData);
+		        runtimeDataId = runtimeData.getString("runtimeDataId");
+		        
+				/*** JobSandbox ***/
+				// create the recurrence
+				String infoId = null;
+				String jobName = null;
+				long startTime = UtilDateTime.getNextDayStart(UtilDateTime.nowTimestamp()).getTime();
+				RecurrenceInfo info;
+				// run every day when day start
+				info = RecurrenceInfo.makeInfo(delegator, startTime, 4, 1, -1);
+		        infoId = info.primaryKey();
+		        // set the persisted fields
+		        GenericValue enumeration = delegator.findByPrimaryKey("Enumeration", UtilMisc.toMap("enumId", autoPrefEnumId));
+			        jobName = enumeration.getString("description");
+			        if (jobName == null) {
+			        	jobName = Long.toString((new Date().getTime()));
+			        }
+			        Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", UtilDateTime.nowTimestamp(),
+		                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", runtimeDataId);
+
+		        // set the pool ID
+		        jFields.put("poolId", ServiceConfigUtil.getSendPool());
+
+		        // set the loader name
+		        jFields.put("loaderName", JobManager.dispatcherName);
+		        // create the value and store
+		        GenericValue jobV;
+		        jobV = delegator.makeValue("JobSandbox", jFields);
+		        GenericValue jobSandbox = delegator.createSetNextSeqId(jobV);
+		        
+		        ebayProductPref.set("autoPrefJobId", jobSandbox.getString("jobId"));
+		        ebayProductPref.store();
+		        
+		        Map<String, Object>infoData = FastMap.newInstance();
+		        infoData.put("jobId", jobSandbox.getString("jobId"));
+		        runtimeData.set("runtimeInfo", XmlSerializer.serialize(infoData));
+		        runtimeData.store();
+			}
+		} catch(GenericEntityException e){
+			return ServiceUtil.returnError(e.getMessage());
+		} catch (GenericServiceException e) {
+			return ServiceUtil.returnError(e.getMessage());
+		} catch (SerializeException e) {
+        	return ServiceUtil.returnError(e.getMessage());
+        } catch (IOException e) {
+        	return ServiceUtil.returnError(e.getMessage());
+        }catch (RecurrenceInfoException e) {
+        	return ServiceUtil.returnError(e.getMessage());
+		}
+		return result;
+	}
+	public static Map<String, Object> stopEbayAutoPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		GenericValue userLogin = (GenericValue) context.get("userLogin");
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String productStoreId = (String) context.get("productStoreId");
+		String autoPrefEnumId = (String) context.get("autoPrefEnumId");
+		try{
+			GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
+			String jobId = ebayProductPref.getString("autoPrefJobId");
+			GenericValue job = delegator.findByPrimaryKey("JobSandbox", UtilMisc.toMap("jobId", jobId));
+			job = EbayStoreHelper.getCurrentJob(delegator, userLogin, job);
+			Map<String, Object>inMap = FastMap.newInstance();
+			inMap.put("userLogin", userLogin);
+			inMap.put("jobId", job.getString("jobId"));
+			dispatcher.runSync("cancelScheduledJob", inMap);
+		} catch(GenericEntityException e){
+			return ServiceUtil.returnError(e.getMessage());
+		} catch(GenericServiceException e){
+			return ServiceUtil.returnError(e.getMessage());
+		}
+		return result;
+	}
+	private static GenericValue getCurrentJob(Delegator delegator, GenericValue userLogin, GenericValue job){
+		try {
+			List<GenericValue> jobNew = delegator.findByAnd("JobSandbox", UtilMisc.toMap("previousJobId", job.getString("jobId")));
+			if (jobNew.size() != 0) {
+				job = EbayStoreHelper.getCurrentJob(delegator, userLogin, jobNew.get(0));
+			} else {
+				return job;
+			}
+		} catch (GenericEntityException e) {
+			return null;
+		}
+		return job;
+	}
 }

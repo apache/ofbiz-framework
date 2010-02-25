@@ -24,4 +24,10 @@ under the License.
     
     <EnumerationType description="Inventory Reservation For Ebay Store" enumTypeId="EBAY_INV_RESERVE" hasTable="N" parentTypeId=""/>
     <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
+    
+    <EnumerationType description="Ebay setting auto preferences" enumTypeId="EBAY_AUTO_PREF" hasTable="N" parentTypeId=""/>
+    
+    <Enumeration enumId="EBAY_AUTO_DISPUTE1" description="Automatic Dispute not complete" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
+	<Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
 </entity-engine-xml>

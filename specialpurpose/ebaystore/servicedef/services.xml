@@ -326,4 +326,27 @@ under the License.
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="checkVerify" mode="OUT" type="Boolean" optional="false"/>
     </service>
+    <service name="startEbayAutoPreference" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="startEbayAutoPreference" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="autoPrefEnumId" mode="IN" type="String" optional="false"/>
+        <attribute name="serviceName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="stopEbayAutoPreference" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="stopEbayAutoPreference" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="autoPrefEnumId" mode="IN" type="String" optional="false"/>
+        <attribute name="serviceName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="createEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="create" auth="true">
+    	<auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="serviceName" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="updateEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="update" auth="true" >
+    	<auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <attribute name="enabled" mode="IN" type="String" optional="false" default-value="N"/>
+        <attribute name="serviceName" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

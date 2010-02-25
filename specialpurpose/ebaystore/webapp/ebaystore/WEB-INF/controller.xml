@@ -125,6 +125,18 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <request-map uri="createEbayProductStorePref">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayProductStorePref"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayProductStorePref">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayProductStorePref"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- Block item out of stock -->
     <request-map uri="blockItemOutOfStock">
         <security https="true" auth="true"/>

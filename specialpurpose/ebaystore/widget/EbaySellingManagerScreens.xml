@@ -242,13 +242,13 @@
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </service>
                 <set field="userLoginId" from-field="result.userLoginId"/>
-                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/automationPreferences/GetEbayJobsandbox.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
                         <include-screen name="AutomationRelistSoldItems"/>
+                        <include-screen name="AutomationDispute"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -258,10 +258,47 @@
         <section>
             <actions>
                 <set field="headerItem" value="ebayStore"/>
+                <set field="autoPrefEnumId" value="EBAY_AUTO_RELISTING"/>
+                <set field="serviceName" value="automaticEbayRelistSoldItems"/>
+                <entity-one value-field="ebayPrefRelisting" entity-name="EbayProductStorePref">
+                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                	<field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId"/>
+                </entity-one>
+                 <service service-name="getEbayStoreUser" result-map="result">
+                 	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.EbayAutomationRelistItems}">
+                <screenlet title="${uiLabelMap.EbayAutomationRelistItems}" collapsible="true" name="EbayAutomationRelistItems">
                     <include-form name="EditAutomationRelistSoldItems"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AutomationDispute">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="automaticEbayDisputeItems"/>
+                <set field="autoPrefEnumId1" value="EBAY_AUTO_DISPUTE1"/>
+                <set field="autoPrefEnumId2" value="EBAY_AUTO_DISPUTE2"/>
+                <set field="serviceName1" value="eBayAutomaticDisputeNotComplete"/>
+                <set field="serviceName2" value="eBayAutomaticDisputeNotPay"/>
+                <entity-one value-field="ebayPrefDispute1" entity-name="EbayProductStorePref">
+                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                	<field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId1"/>
+                </entity-one>
+                <entity-one value-field="ebayPrefDispute2" entity-name="EbayProductStorePref">
+                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                	<field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId2"/>
+                </entity-one>
+                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/automationPreferences/GetDisputeInfo.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.EbayAutomaticDispute}" collapsible="true" name="AutomationDispute">
+                    <include-form name="AutomationDisputeNotComplete"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                    <include-form name="AutomationDisputeNotPay"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                 </screenlet>
             </widgets>
         </section>

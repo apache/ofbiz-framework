@@ -23,15 +23,54 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Automation Preference -->
-    <form name="EditAutomationRelistSoldItems" target="createEbayAutomaticRelistItems" type="single">
-        <alt-target use-when="job!=null" target="updateEbayAutomaticRelistItems"/>
-        <field name="jobId" use-when="job!=null"><hidden value="${job.jobId}"/></field>
-        <field name="jobId" use-when="job==null"><hidden value="${jobId}"/></field>
-        <field name="authUserLoginId"><hidden value="${userLoginId}"/></field>
+    <form name="EditAutomationRelistSoldItems" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefRelisting" >
+    	<alt-target use-when="ebayPrefRelisting!=null" target="updateEbayProductStorePref"/>
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
-        <field name="startDateTime"><date-time default-value="${job.startDateTime}"/></field>
-        <field name="finishDateTime"><date-time default-value="${job.finishDateTime}"/></field>
-        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+        <field name="enabled" tooltip="${uiLabelMap.EbayAutoRelisting}" tooltip-style="h3"><check/></field>
+        <field name="condition1"><hidden value="${userLoginId}"/></field>
+        <field name="condition2" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="condition3" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="serviceName"><hidden value="${serviceName}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    <form name="AutomationDisputeNotComplete" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefDispute1">
+        <alt-target use-when="ebayPrefDispute1!=null" target="updateEbayProductStorePref"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="enabled" tooltip="${uiLabelMap.EbayDisputeCheckoutNotComplete}" tooltip-style="h3"><check/></field>
+        <field name="condition1" title="${uiLabelMap.EbayAfter}" tooltip-style="text" tooltip="${uiLabelMap.CommonDays}" ><text default-value="" size="5"/></field>
+        <field name="condition2" title="${uiLabelMap.EbayReason}">
+        	<drop-down >
+        		<list-options key-name="reasonCode" list-name="reasons" description="${value}"/>
+        	</drop-down>
+        </field>
+        <field name="condition3" title="${uiLabelMap.EbayExplanation}">
+			<drop-down >
+        		<list-options key-name="explanationCode" list-name="explanations" description="${value}"/>
+        	</drop-down>        
+        </field>
+        <field name="serviceName"><hidden value="${serviceName1}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId1}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    <form name="AutomationDisputeNotPay" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefDispute2">
+        <alt-target use-when="ebayPrefDispute2!=null" target="updateEbayProductStorePref"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="enabled" tooltip="${uiLabelMap.EbayDisputeNotPay}" tooltip-style="h3"><check/></field>
+        <field name="condition1" title="${uiLabelMap.EbayAfter}" tooltip-style="text" tooltip="${uiLabelMap.CommonDays}" ><text default-value="" size="5"/></field>
+        <field name="condition2" title="${uiLabelMap.EbayReason}">
+        	<drop-down >
+        		<list-options key-name="reasonCode" list-name="reasons" description="${value}"/>
+        	</drop-down>
+        </field>
+        <field name="condition3" title="${uiLabelMap.EbayExplanation}">
+			<drop-down >
+        		<list-options key-name="explanationCode" list-name="explanations" description="${value}"/>
+        	</drop-down>        
+        </field>
+        <field name="serviceName"><hidden value="${serviceName2}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId2}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
     </form>
     <!-- Sold Listing -->
     <form name="SoldItemList" type="list"  target="doAction" list-name="soldItemList"
