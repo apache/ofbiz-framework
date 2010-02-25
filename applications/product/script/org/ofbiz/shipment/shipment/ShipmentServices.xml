@@ -49,7 +49,7 @@ under the License.
             estimatedArrivalDate: estimatedArrivalWorkEffId
         -->
         <if-not-empty field="parameters.estimatedShipDate">
-            <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
+            <set value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Ship" field="shipWorkEffortMap.workEffortName"/>
             <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
             <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
             <set from-field="parameters.estimatedShipDate" field="shipWorkEffortMap.estimatedStartDate"/>
@@ -68,7 +68,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
         <if-not-empty field="parameters.estimatedArrivalDate">
-            <set value="Shipment #${newEntity.shipmentId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
+            <set value="Shipment #${newEntity.shipmentId} ${newEntity.primaryOrderId} Arrival" field="arrivalWorkEffortMap.workEffortName"/>
             <set value="EVENT" field="arrivalWorkEffortMap.workEffortTypeId"/>
             <set value="CAL_TENTATIVE" field="arrivalWorkEffortMap.currentStatusId"/>
             <set from-field="parameters.estimatedArrivalDate" field="arrivalWorkEffortMap.estimatedStartDate"/>
@@ -163,6 +163,15 @@ under the License.
                         <not><if-empty field="parameters.originFacilityId"/></not>
                         <if-compare-field field="parameters.originFacilityId" to-field="lookedUpValue.originFacilityId" operator="not-equals"/>
                     </and>
+                    <and>
+                        <not><if-empty field="parameters.statusId"/></not>
+                        <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals"/>
+                        <or>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_CANCELLED" operator="equals"/>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_PACKED" operator="equals"/>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_SHIPPED" operator="equals"/>
+                        </or>
+                    </and>
                 </or>
             </condition>
             <then>
@@ -173,6 +182,25 @@ under the License.
                     <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedStartDate"/>
                     <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedCompletionDate"/>
                     <set from-field="parameters.originFacilityId" field="estShipWe.facilityId"/>
+                    <if>
+                        <condition>
+                            <and>
+                                <not><if-empty field="parameters.statusId"/></not>
+                                <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_CANCELLED" operator="equals">
+                                <set value="CAL_CANCELLED" field="estShipWe.currentStatusId"/>
+                            </if-compare>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_PACKED" operator="equals">
+                                <set value="CAL_CONFIRMED" field="estShipWe.currentStatusId"/>
+                            </if-compare>
+                            <if-compare field="parameters.statusId" value="SHIPMENT_SHIPPED" operator="equals">
+                                <set value="CAL_COMPLETED" field="estShipWe.currentStatusId"/>
+                            </if-compare>
+                        </then>
+                    </if>
                     <set-service-fields service-name="updateWorkEffort" map="estShipWe" to-map="estShipWeUpdMap"/>
                     <call-service service-name="updateWorkEffort" in-map-name="estShipWeUpdMap"/>
                 </if-not-empty>
