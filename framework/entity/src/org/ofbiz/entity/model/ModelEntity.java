@@ -322,9 +322,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         this.populateRelated(reader, extendEntityElement);
         this.populateIndexes(extendEntityElement);
-        // Begin addon modification : depend-on-inExtend
         this.dependentOn = UtilXml.checkEmpty(extendEntityElement.getAttribute("dependent-on")).intern();
-        // End addon modification : depend-on-inExtend
     }
 
     // ===== GETTERS/SETTERS =====
