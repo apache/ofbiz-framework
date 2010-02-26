@@ -180,7 +180,7 @@ ${item.description?default("")}
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action>
 <#list items as item>
 <div <@renderClass className alert />><#rt/>
-<input type="radio"<#if currentValue?has_content><#if rp.currentValue==item.key> checked="checked"</#if><#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if> name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
+<input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if> name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
 ${item.description}</div>
 </#list>
 </#macro>
