@@ -229,7 +229,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.overrideParameters = model.overrideParameters;
         this.inheritedParameters = model.inheritedParameters();
         this.internalGroup = model.internalGroup;
-        this.invoker = model.invoker.copy(this);
+        if (model.invoker != null) {
+            this.invoker = model.invoker.copy(this);
+        }
 
         List<ModelParam> modelParamList = model.getModelParamList();
         for (ModelParam param: modelParamList) {
