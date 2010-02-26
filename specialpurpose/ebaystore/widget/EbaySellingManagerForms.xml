@@ -216,4 +216,78 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton"><submit button-type="button"/></field>
     </form>
+    <!-- Automatically leave the following positive feedback  -->
+    <form name="autoPositiveFeedbackForBuyers" type="single"  target="autoPrefLeaveFeedbackOptions"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_PIT_FB"/>
+            </entity-one>
+            <set field="isAutoPositiveFeedback"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="feedbackEventCode" type="String" from-field="ebayProductStorePref.condition1"/>
+            <set field="ebayProductStorePref.condition2"  type="String" default-value="none" from-field="ebayProductStorePref.condition2"/>
+            <set field="comment_1"  value="${groovy: 
+                comment_1 = &quot;&quot;;
+                if(ebayProductStorePref.condition2!=null) comment_1 = ebayProductStorePref.condition2;
+                if(comment_1!=null &amp;&amp; comment_1.indexOf(&quot;[,]&quot;)!= -1)  comment_1 = comment_1.substring(0,comment_1.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_1 = comment_1+&quot;[,]&quot;;
+                if(comment_1!=null &amp;&amp; comment_1.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_1,&quot;&quot;);
+                if(comment_1!=null &amp;&amp; comment_1.indexOf(&quot;[,]&quot;)!= -1) comment_1 =comment_1.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_1;
+                }" type="String"/>
+            <set field="comment_2" value="${groovy: 
+                comment_2 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_2 = ebayProductStorePref.condition2;
+                if(comment_2!=null &amp;&amp; comment_2.indexOf(&quot;[,]&quot;)!= -1)  comment_2 = comment_2.substring(0,comment_2.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_2 = comment_2+&quot;[,]&quot;;
+                if(comment_2!=null &amp;&amp; comment_2.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_2,&quot;&quot;);
+                if(comment_2!=null &amp;&amp; comment_2.indexOf(&quot;[,]&quot;)!= -1) comment_2 =comment_2.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_2;
+                }" type="String"/>
+            <set field="comment_3" value="${groovy: 
+                comment_3 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_3 = ebayProductStorePref.condition2;
+                if(comment_3!=null &amp;&amp; comment_3.indexOf(&quot;[,]&quot;)!= -1)  comment_3 = comment_3.substring(0,comment_3.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_3 = comment_3+&quot;[,]&quot;;
+                if(comment_3!=null &amp;&amp; comment_3.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_3,&quot;&quot;);
+                if(comment_3!=null &amp;&amp; comment_3.indexOf(&quot;[,]&quot;)!= -1) comment_3 = comment_3.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_3;
+                }" type="String"/>
+            <set field="comment_4" value="${groovy: 
+                comment_4 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_4 = ebayProductStorePref.condition2;
+                if(comment_4!=null &amp;&amp; comment_4.indexOf(&quot;[,]&quot;)!= -1)  comment_4 = comment_4.substring(0,comment_4.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_4 = comment_4+&quot;[,]&quot;;
+                if(comment_4!=null &amp;&amp; comment_4.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_4,&quot;&quot;);
+                if(comment_4!=null &amp;&amp; comment_4.indexOf(&quot;[,]&quot;)!= -1) comment_4 = comment_4.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_4;
+                }" type="String"/>
+            <set field="comment_5" value="${groovy: 
+                comment_5 = &quot;&quot;;System.out.println(parameters.comments);
+                if( ebayProductStorePref.condition2!=null) comment_5 = ebayProductStorePref.condition2;
+                if(comment_5!=null &amp;&amp; comment_5.indexOf(&quot;[,]&quot;)!= -1)  comment_5 = comment_5.substring(0,comment_5.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_5 = comment_5+&quot;[,]&quot;;
+                if(comment_5!=null &amp;&amp; comment_5.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_5,&quot;&quot;);
+                if(comment_5!=null &amp;&amp; comment_5.indexOf(&quot;[,]&quot;)!= -1) comment_5 = comment_5.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_5;
+                }" type="String"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoPositiveFeedback" position="1" title="${uiLabelMap.EbayIsAutoPositiveFeedback}"><check></check></field>
+        <field name="feedbackEventCode"  position="2" title="${uiLabelMap.EbaySituations}">
+            <radio>
+                <option key="PAYMENT_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceive}"/>
+                <option key="POSITIVE_FEEDBACK_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceiveAndPositive}"/>
+            </radio>
+        </field>
+        <field name="headerLabel" title=" " encode-output="false"><display type="text" description="&lt;br/&gt;&lt;b&gt;Your stored positive feedback comments.&lt;/b&gt;"></display></field>
+        <field name="comment_1" title="comments" position="1"><text size="80"></text></field>
+        <field name="comment_3" title=" " position="2"><text size="50"></text></field>
+        <field name="comment_2" title=" " position="1"><text size="80"></text></field>
+        <field name="comment_5" title=" " position="2"><text size="50"></text></field>
+        <field name="comment_4" title=" " position="1"><text size="80"></text></field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
+    
 </forms>

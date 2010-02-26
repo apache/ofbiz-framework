@@ -205,6 +205,8 @@
     <property key="requireEbayInventory">
         <value xml:lang="en">Require eBay Inventory</value>
     </property>
+
+    <!-- Selling Manager preferences -->
     <property key="EbayAutomationDispute">
         <value xml:lang="en">Automation Dispute</value>
     </property>
@@ -225,5 +227,33 @@
     </property>
     <property key="EbayAddSecondChanceOffer">
         <value xml:lang="en">Add Second Chance Offer</value>
+    </property>
+    <property key="EbayIsAutoPositiveFeedback">
+        <value xml:lang="en">Automatically leave the positive feedback</value>
+    </property>
+    <property key="EbaySituations">
+        <value xml:lang="en">Situations</value>
+    </property>
+    <property key="EbayTxtPaymentReceive">
+        <value xml:lang="en">Buyer has paid for this item.</value>
+    </property>
+    <property key="EbayTxtPaymentReceiveAndPositive">
+        <value xml:lang="en">Buyer has paid for this item and left me positive feedback. </value>
+    </property>
+    <property key="EbayTxtAutoPositiveFeedbackBuyer">
+        <value xml:lang="en">Automated Positive Feedback for Buyers</value>
+    </property>
+    
+    <property key="EbayIsAutoFeedbackReminder">
+        <value xml:lang="en">Automatically send a Feedback Reminder email</value>
+    </property>
+    <property key="EbayIsAutoFeedbackReminderTooltip">
+        <value xml:lang="en">Automatically send a Feedback Reminder email if feedback has not been received</value>
+    </property>
+    <property key="EbayIsSendCopyEmailToSeller">
+        <value xml:lang="en">Copy and Send to Seller</value>
+    </property>
+    <property key="EbayIsSendCopyEmailTooltip">
+        <value xml:lang="en">How many days after shipping you want this email sent?</value>
     </property>
 </resource>
