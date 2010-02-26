@@ -103,6 +103,12 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** indexes on fields/columns in this entity */
     protected List<ModelIndex> indexes = FastList.newInstance();
 
+    /** The reference of the dependentOn entity model */
+    protected ModelEntity specializationOfModelEntity = null;
+
+    /** The list of entities that are specialization of on this entity */
+    protected Map<String, ModelEntity> specializedEntities = FastMap.newInstance();
+
     /** map of ModelViewEntities that references this model */
     protected Set<String> viewEntities = FastSet.newInstance();
 
@@ -316,6 +322,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         this.populateRelated(reader, extendEntityElement);
         this.populateIndexes(extendEntityElement);
+        // Begin addon modification : depend-on-inExtend
+        this.dependentOn = UtilXml.checkEmpty(extendEntityElement.getAttribute("dependent-on")).intern();
+        // End addon modification : depend-on-inExtend
     }
 
     // ===== GETTERS/SETTERS =====
