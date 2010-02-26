@@ -113,6 +113,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   TO BUILD comment out excludes:
     framework/webapp/build.xml:org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java,org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java
     applications/content/build.xml:org/ofbiz/content/report/JREntityListIteratorDataSource.java,org/ofbiz/content/report/JRMapCollectionDataSource.java
+  Also upgrade the itext2.0.1.jar to itext.2.1.7.jar (this will however break the birt report generator.)
 
 - JIMI (used by FOP ):
   http://java.sun.com/products/jimi
