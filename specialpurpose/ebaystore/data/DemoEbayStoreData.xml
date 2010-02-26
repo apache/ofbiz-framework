@@ -23,6 +23,7 @@
     <Party partyId="DemoEbayAccount" partyTypeId="PERSON"/>
     <Person partyId="DemoEbayAccount" firstName="Demo ebay account" lastName="USA"/>
     <PartyRole partyId="DemoEbayAccount" roleTypeId="EBAY_ACCOUNT"/>
+    <PartyRole partyId="DemoEbayAccount" roleTypeId="VENDOR"/>
     <UserLogin userLoginId="esandbox10543" partyId="DemoEbayAccount" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90100" storeName="OFBiz Ebay Store-USA" companyName="Apache Ofbiz" title="Test esandbox10543 store"
         subtitle="Part of the Open For Business Family of Open Source Software" payTopartyId="DemoEbayAccount" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"

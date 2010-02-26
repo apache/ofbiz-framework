@@ -18,9 +18,11 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -40,6 +43,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -48,18 +53,25 @@ import org.ofbiz.service.ServiceUtil;
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
+import com.ebay.sdk.call.AddDisputeCall;
 import com.ebay.sdk.call.GetSellingManagerSoldListingsCall;
 import com.ebay.sdk.call.GetUserCall;
 import com.ebay.sdk.call.LeaveFeedbackCall;
+import com.ebay.sdk.call.RelistItemCall;
 import com.ebay.soap.eBLBaseComponents.AutomatedLeaveFeedbackEventCodeType;
 import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
+import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
+import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
+import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerPaidStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerShippedStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldListingsSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
+import com.ebay.soap.eBLBaseComponents.UserType;
 
 public class EbayStoreAutoPreferences {
 	public static String module = EbayStoreAutoPreferences.class.getName();
@@ -233,7 +245,6 @@ public class EbayStoreAutoPreferences {
 
 		return "success";
 	}
-	
 	/* start automatically service send a Feedback Reminder email if feedback has not been received. and check how many days after shipping you want this email sent? */
 	public static Map<String, Object> autoSendFeedbackReminderEmail(DispatchContext dctx, Map<String, ? extends Object> context) throws ApiException, SdkException, Exception{
 		Delegator delegator = dctx.getDelegator();
@@ -307,6 +318,271 @@ public class EbayStoreAutoPreferences {
 			return ServiceUtil.returnFailure("Problems to connect with ebay site message:"+e);
 		}
 		
+		return ServiceUtil.returnSuccess();
+	}
+	public static Map<String, Object> automaticEbayRelistSoldItems(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String jobId = (String) context.get("jobId");
+		try {
+			GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+			Map<String, Object>serviceMap = FastMap.newInstance();
+			serviceMap.put("userLogin", userLogin);
+			List<GenericValue>stores = delegator.findByAnd("ProductStore", UtilMisc.toMap());
+			//ProductStore
+			List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+			if (productStores.size() != 0) {
+				// get auto preference setting
+				String productStoreId = productStores.get(0).getString("productStoreId");
+				String condition1 = productStores.get(0).getString("condition1");
+				String condition2 = productStores.get(0).getString("condition2");
+				// convert preference setting
+				Timestamp fromDate = UtilDateTime.toTimestamp(condition1);
+				Timestamp thruDate = UtilDateTime.toTimestamp(condition2);
+				Timestamp nowTime = UtilDateTime.nowTimestamp();
+				if (nowTime.after(fromDate) && nowTime.before(thruDate)) {
+					serviceMap.put("productStoreId", productStoreId);
+					Map eBayUserLogin = dispatcher.runSync("getEbayStoreUser", serviceMap);
+					String eBayUserLoginId = (String)eBayUserLogin.get("userLoginId");
+					GenericValue party =  delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", eBayUserLoginId));
+					String partyId = party.getString("partyId");
+					//save sold items to OFbBiz product entity
+					Map resultService = dispatcher.runSync("getEbaySoldItems", serviceMap);
+					List soldItems = (List) resultService.get("soldItems");
+					if (soldItems.size()!=0) {
+						for (int itemCount = 0; itemCount < soldItems.size(); itemCount++) {
+							Map soldItemMap = (Map)soldItems.get(itemCount);
+							if (UtilValidate.isNotEmpty(soldItemMap.get("itemId"))) {
+								GenericValue productCheck = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", soldItemMap.get("itemId")));
+								if (productCheck == null) {
+									Map<String, Object>inMap = FastMap.newInstance();
+									inMap.put("productId", soldItemMap.get("itemId"));
+									inMap.put("productTypeId", "EBAY_ITEM");
+									inMap.put("internalName", "eBay Item " + soldItemMap.get("title"));
+									inMap.put("userLogin", userLogin);
+									dispatcher.runSync("createProduct", inMap);
+									// ProductRole (VENDOR)
+									List productRole = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "productId", soldItemMap.get("itemId"), "roleTypeId", "VENDOR"));
+									if (productRole.size() == 0) {
+										Map<String, Object>addRole = FastMap.newInstance();
+										addRole.put("productId", soldItemMap.get("itemId"));
+										addRole.put("roleTypeId", "VENDOR");
+										addRole.put("partyId", partyId);
+										addRole.put("fromDate", UtilDateTime.nowTimestamp());
+										addRole.put("userLogin", userLogin);
+										dispatcher.runSync("addPartyToProduct", addRole);
+									}
+								}
+							}
+						}
+					}
+					//check active items
+					serviceMap = FastMap.newInstance();
+					serviceMap.put("userLogin", userLogin);
+					serviceMap.put("productStoreId", productStoreId);
+					resultService = dispatcher.runSync("getEbayActiveItems", serviceMap);
+					List activeItems = (List) resultService.get("activeItems");
+					List<String> activeItemMaps = FastList.newInstance();
+					if (activeItems.size() != 0) {
+						for (int itemCount = 0; itemCount < activeItems.size(); itemCount++) {
+							Map activeItemMap = (Map)activeItems.get(itemCount);
+							if (UtilValidate.isNotEmpty(activeItemMap.get("itemId"))) {
+								activeItemMaps.add((String)activeItemMap.get("itemId"));
+							}
+						}
+					}
+					//check product role
+					List<GenericValue>productRoles = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "VENDOR"));
+					List<String>productRoleIds = FastList.newInstance();
+					if (productRoles.size() != 0) {
+						for (int itemCount = 0; itemCount < productRoles.size(); itemCount++) {
+							String productId = productRoles.get(itemCount).getString("productId");
+							productRoleIds.add(productId);
+						}
+					}
+					List andExpr = FastList.newInstance();
+					EntityCondition activeItemCond = EntityCondition.makeCondition("productId", EntityOperator.NOT_IN, activeItemMaps);
+					andExpr.add(activeItemCond);
+					EntityCondition productTypeCond = EntityCondition.makeCondition("productTypeId", EntityOperator.EQUALS, "EBAY_ITEM");
+					andExpr.add(productTypeCond);
+					EntityCondition isVirtualCond = EntityCondition.makeCondition("isVirtual", EntityOperator.NOT_EQUAL, "Y");
+					andExpr.add(isVirtualCond);
+					EntityCondition productRole = EntityCondition.makeCondition("productId", EntityOperator.IN, productRoleIds);
+					andExpr.add(productRole);
+					EntityCondition andCond =  EntityCondition.makeCondition(andExpr, EntityOperator.AND);
+					List itemsToRelist = delegator.findList("Product", andCond, null, null, null, false);
+					if (itemsToRelist.size() != 0) {
+						//re-list sold items and not active
+						Map<String, Object> inMap = FastMap.newInstance();
+						inMap.put("productStoreId", productStoreId);
+						inMap.put("userLogin", userLogin);
+						Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+						String userID = (String) resultUser.get("userLoginId");
+						ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+						for (int itemRelist = 0; itemRelist < itemsToRelist.size(); itemRelist++) {
+							RelistItemCall relistItemCall = new RelistItemCall(apiContext);
+							ItemType itemToBeRelisted = new ItemType();
+							GenericValue product = (GenericValue)itemsToRelist.get(itemRelist);
+							itemToBeRelisted.setItemID(product.getString("productId"));
+							relistItemCall.setItemToBeRelisted(itemToBeRelisted);
+							relistItemCall.relistItem();
+							GenericValue productStore = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", product.getString("productId")));
+							productStore.set("isVirtual", "Y");
+							productStore.store();
+							Debug.logInfo("Relisted Item - " + product.getString("productId"), module);
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			return ServiceUtil.returnError(e.getMessage());
+		}
+		return ServiceUtil.returnSuccess();
+	}
+	public static Map<String, Object> automaticEbayDisputeNotComplete(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String jobId = (String) context.get("jobId");
+		try {
+			GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+			List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+			if (productStores.size() != 0) {
+				// get automatic setting
+				String productStoreId = productStores.get(0).getString("productStoreId");
+				String condition1 = productStores.get(0).getString("condition1");
+				String condition2 = productStores.get(0).getString("condition2");
+				String condition3 = productStores.get(0).getString("condition3");
+				// convert automatic setting for usage
+				int afterDays = 0;
+				if (UtilValidate.isInteger(condition1)) {
+					afterDays = Integer.parseInt(condition1);
+				}
+				DisputeReasonCodeType disputeReason = null;
+				if (UtilValidate.isNotEmpty(condition2)) {
+					disputeReason = DisputeReasonCodeType.valueOf(condition2);
+				}
+				DisputeExplanationCodeType disputeExplanation = null;
+				if (UtilValidate.isNotEmpty(condition3)) {
+					disputeExplanation = DisputeExplanationCodeType.valueOf(condition3);
+				}
+				// get sold items
+				Map<String, Object>serviceMap = FastMap.newInstance();
+				serviceMap.put("productStoreId", productStoreId);
+				serviceMap.put("userLogin", userLogin);
+				Map resultService = dispatcher.runSync("getEbaySoldItems", serviceMap);
+				List soldItems = (List) resultService.get("soldItems");
+				// check items to dispute
+				List<Map>itemsToDispute = FastList.newInstance();
+				for (int itemCount = 0; itemCount < soldItems.size(); itemCount++) {
+					Map item = (Map) soldItems.get(itemCount);
+					String checkoutStatus = (String) item.get("checkoutStatus");
+					Date creationTime = (Date) item.get("creationTime");
+					Date paidTime = (Date) item.get("paidTime");
+					String unpaidItemStatus = (String) item.get("unpaidItemStatus");
+					int checkDays = UtilDateTime.getIntervalInDays(UtilDateTime.toTimestamp(creationTime), UtilDateTime.nowTimestamp());
+					if (checkDays > afterDays && "CheckoutIncomplete".equals(checkoutStatus) && unpaidItemStatus == null && paidTime == null && checkoutStatus != "CheckoutComplete") {
+						itemsToDispute.add(item);
+					}
+				}
+				// Dispute items
+				if (disputeReason != null && disputeExplanation != null && itemsToDispute.size() != 0) {
+					ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+					DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+					          DetailLevelCodeType.RETURN_ALL,
+					          DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+					          DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+					      };
+					for (int count = 0; count < itemsToDispute.size(); count++) {
+						Map<String, Object>item = itemsToDispute.get(count);
+						AddDisputeCall api = new AddDisputeCall(apiContext);
+					    api.setDetailLevel(detailLevels);
+					    api.setItemID((String)item.get("itemId"));
+					    api.setTransactionID((String)item.get("transactionId"));
+					    api.setDisputeExplanation(disputeExplanation);
+					    api.setDisputeReason(disputeReason);
+					    String id = api.addDispute();
+					}
+				}
+			}
+		} catch (Exception e) {
+			return ServiceUtil.returnError(e.getMessage());
+		}
+		return ServiceUtil.returnSuccess();
+	}
+	public static Map<String, Object> automaticEbayDisputeNotPay(DispatchContext dctx, Map<String, ? extends Object> context) {
+		Map<String, Object>result = FastMap.newInstance();
+		LocalDispatcher dispatcher = dctx.getDispatcher();
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		String jobId = (String) context.get("jobId");
+		try {
+			GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+			List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId));
+			if (productStores.size() != 0) {
+				// get automatic setting
+				String productStoreId = productStores.get(0).getString("productStoreId");
+				String condition1 = productStores.get(0).getString("condition1");
+				String condition2 = productStores.get(0).getString("condition2");
+				String condition3 = productStores.get(0).getString("condition3");
+				// convert automatic setting for usage
+				int afterDays = 0;
+				if (UtilValidate.isInteger(condition1)) {
+					afterDays = Integer.parseInt(condition1);
+				}
+				DisputeReasonCodeType disputeReason = null;
+				if (UtilValidate.isNotEmpty(condition2)) {
+					disputeReason = DisputeReasonCodeType.valueOf(condition2);
+				}
+				DisputeExplanationCodeType disputeExplanation = null;
+				if (UtilValidate.isNotEmpty(condition3)) {
+					disputeExplanation = DisputeExplanationCodeType.valueOf(condition3);
+				}
+				// get sold items
+				Map<String, Object>serviceMap = FastMap.newInstance();
+				serviceMap.put("productStoreId", productStoreId);
+				serviceMap.put("userLogin", userLogin);
+				Map resultService = dispatcher.runSync("getEbaySoldItems", serviceMap);
+				List soldItems = (List) resultService.get("soldItems");
+				// check items to dispute
+				List<Map>itemsToDispute = FastList.newInstance();
+				for (int itemCount = 0; itemCount < soldItems.size(); itemCount++) {
+					Map item = (Map) soldItems.get(itemCount);
+					String checkoutStatus = (String) item.get("checkoutStatus");
+					Date creationTime = (Date) item.get("creationTime");
+					Date paidTime = (Date) item.get("paidTime");
+					String unpaidItemStatus = (String) item.get("unpaidItemStatus");
+					int checkDays = UtilDateTime.getIntervalInDays(UtilDateTime.toTimestamp(creationTime), UtilDateTime.nowTimestamp());
+					if (checkDays > afterDays && unpaidItemStatus == null && paidTime == null && checkoutStatus == "CheckoutComplete") {
+						itemsToDispute.add(item);
+					}
+				}
+				// Dispute items
+				if (disputeReason != null && disputeExplanation != null && itemsToDispute.size() != 0) {
+					ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+					DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+					          DetailLevelCodeType.RETURN_ALL,
+					          DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+					          DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+					      };
+					for (int count = 0; count < itemsToDispute.size(); count++) {
+						Map<String, Object>item = itemsToDispute.get(count);
+						AddDisputeCall api = new AddDisputeCall(apiContext);
+					    api.setDetailLevel(detailLevels);
+					    api.setItemID((String)item.get("itemId"));
+					    api.setTransactionID((String)item.get("transactionId"));
+					    api.setDisputeExplanation(disputeExplanation);
+					    api.setDisputeReason(disputeReason);
+					    String id = api.addDispute();
+					}
+				}
+			}
+		} catch (Exception e) {
+			return ServiceUtil.returnError(e.getMessage());
+		}
 		return ServiceUtil.returnSuccess();
 	}
 }

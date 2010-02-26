@@ -48,6 +48,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -63,6 +64,7 @@ import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.*;
 import com.ebay.soap.eBLBaseComponents.AmountType;
+import com.ebay.soap.eBLBaseComponents.CheckoutStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateRequestType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateResponseType;
@@ -108,6 +110,7 @@ import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
 import com.ebay.soap.eBLBaseComponents.StoreType; 
 import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.UserType;
 import com.ebay.soap.eBLBaseComponents.VerifyAddSecondChanceItemResponseType;
 
 import java.sql.Timestamp;
@@ -1494,114 +1497,6 @@ public class EbayStore {
 		}
 		return result;
 	}
-	public static Map<String, Object> automaticEbayRelistSoldItems(DispatchContext dctx, Map<String, ? extends Object> context) {
-		Map<String, Object>result = FastMap.newInstance();
-		LocalDispatcher dispatcher = dctx.getDispatcher();
-		GenericValue userLogin = (GenericValue) context.get("userLogin");
-		Delegator delegator = dctx.getDelegator();
-		Locale locale = (Locale) context.get("locale");
-		try {
-			Map<String, Object>serviceMap = FastMap.newInstance();
-			serviceMap.put("userLogin", userLogin);
-			List<GenericValue>stores = delegator.findByAnd("ProductStore", UtilMisc.toMap());
-			for(int storeCount=0;storeCount<stores.size();storeCount++) {
-				String productStoreId = stores.get(storeCount).getString("productStoreId");
-				serviceMap.put("productStoreId", productStoreId);
-				Map eBayUserLogin = dispatcher.runSync("getEbayStoreUser", serviceMap);
-				String eBayUserLoginId = (String)eBayUserLogin.get("userLoginId");
-				if(eBayUserLoginId != null) {
-					List<GenericValue>jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("authUserLoginId", eBayUserLoginId));
-					if(jobs.size() != 0) {
-						GenericValue job = jobs.get(0);
-						Timestamp startDateTime = (Timestamp)job.get("startDateTime");
-						Timestamp finishDateTime = (Timestamp)job.get("finishDateTime");
-						//check can re-list items by eBay account setting
-						boolean canRelistItems = false;
-						Timestamp nowTime = UtilDateTime.nowTimestamp();
-						if(startDateTime!=null&&finishDateTime!=null) {
-							if(startDateTime.before(nowTime) && finishDateTime.after(nowTime)) {
-								canRelistItems = true;
-							}
-						}else if(startDateTime!=null&&finishDateTime==null) {
-							if(startDateTime.before(nowTime)) {
-								canRelistItems = true;
-							}
-						}
-						if(canRelistItems) {
-							//save sold items to OFbBiz product entity
-							Map resultService = dispatcher.runSync("getEbaySoldItems", serviceMap);
-							List soldItems = (List)resultService.get("soldItems");
-							if(soldItems.size()!=0) {
-								for(int itemCount=0;itemCount<soldItems.size();itemCount++) {
-									Map soldItemMap = (Map)soldItems.get(itemCount);
-									if(UtilValidate.isNotEmpty(soldItemMap.get("itemId"))) {
-										GenericValue productCheck = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", soldItemMap.get("itemId")));
-										if(productCheck == null) {
-											GenericValue product = delegator.makeValue("Product");
-											product.set("productId", soldItemMap.get("itemId"));
-											product.set("internalName", soldItemMap.get("title"));
-											product.set("productTypeId", "EBAY_ITEM");
-											product.create();
-										}
-									}
-								}
-							}
-							//check active items
-							serviceMap = FastMap.newInstance();
-							serviceMap.put("userLogin", userLogin);
-							serviceMap.put("productStoreId", productStoreId);
-							resultService = dispatcher.runSync("getEbayActiveItems", serviceMap);
-							List activeItems = (List)resultService.get("activeItems");
-							List<String> activeItemMaps = FastList.newInstance();
-							if(activeItems.size()!=0) {
-								for(int itemCount=0;itemCount<activeItems.size();itemCount++) {
-									Map activeItemMap = (Map)activeItems.get(itemCount);
-									if(UtilValidate.isNotEmpty(activeItemMap.get("itemId"))) {
-										activeItemMaps.add((String)activeItemMap.get("itemId"));
-									}
-								}
-							}
-							List andExpr = FastList.newInstance();
-							EntityCondition activeItemCond = EntityCondition.makeCondition("productId", EntityOperator.NOT_IN, activeItemMaps);
-							andExpr.add(activeItemCond);
-							EntityCondition productTypeCond = EntityCondition.makeCondition("productTypeId", EntityOperator.EQUALS, "EBAY_ITEM");
-							andExpr.add(productTypeCond);
-							EntityCondition isVirtualCond = EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null);
-							andExpr.add(isVirtualCond);
-							EntityCondition andCond =  EntityCondition.makeCondition(andExpr, EntityOperator.AND);
-				
-							List itemsToRelist = delegator.findList("Product", andCond, null, null, null, false);
-							if(itemsToRelist.size() != 0) {
-								//re-list sold items and not active
-								Map<String, Object> inMap = FastMap.newInstance();
-								inMap.put("productStoreId", productStoreId);
-								inMap.put("userLogin", userLogin);
-								Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
-								String userID = (String)resultUser.get("userLoginId");
-								ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
-								for(int itemRelist=0;itemRelist<itemsToRelist.size();itemRelist++) {
-									RelistItemCall relistItemCall = new RelistItemCall(apiContext);
-									ItemType itemToBeRelisted = new ItemType();
-									GenericValue product = (GenericValue)itemsToRelist.get(itemRelist);
-									itemToBeRelisted.setItemID(product.getString("productId"));
-									relistItemCall.setItemToBeRelisted(itemToBeRelisted);
-									relistItemCall.relistItem();
-									GenericValue productStore = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", product.getString("productId")));
-									productStore.set("isVirtual", "Y");
-									productStore.store();
-									Debug.logInfo("Relisted Item - "+product.getString("productId"), module);
-								}
-							}
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			return ServiceUtil.returnError(e.getMessage());
-		}
-		return ServiceUtil.returnSuccess();
-	}
-	
 	/* ebay store block out of stock items */
 	public static Map<String,Object> getSellingInventory(DispatchContext dctx, Map<String,Object> context) {
 	       Locale locale = (Locale) context.get("locale");
