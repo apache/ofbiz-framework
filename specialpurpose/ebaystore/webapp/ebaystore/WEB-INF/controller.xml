@@ -155,6 +155,12 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <request-map uri="settingCombineOrders">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingCombineOrders"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- Block item out of stock -->
     <request-map uri="blockItemOutOfStock">
         <security https="true" auth="true"/>

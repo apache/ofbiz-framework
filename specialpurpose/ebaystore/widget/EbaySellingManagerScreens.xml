@@ -247,6 +247,7 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
+                        <include-screen name="combinedOrderSetting"/>
                         <include-screen name="AutomationRelistSoldItems"/>
                         <include-screen name="AutomationDispute"/>
                         <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="false" initially-collapsed="true">
@@ -312,11 +313,20 @@
             </widgets>
         </section>
     </screen>
+    <screen name="combinedOrderSetting">
+        <section>
+            <widgets>
+                <screenlet title="Combine Orders Setting">
+                    <include-form name="combineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
     <!-- Sold -->
    	<screen name="EbaySoldListing">
         <section>
             <actions>
-                <set field="sellingManagerItem" value="soldListing"/>                
+                <set field="sellingManagerItem" value="soldListing"/>
             </actions>
             <widgets>
                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
