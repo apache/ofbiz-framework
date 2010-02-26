@@ -259,4 +259,13 @@
     <property key="EbayIsSendCopyEmailTooltip">
         <value xml:lang="en">How many days after shipping you want this email sent?</value>
     </property>
+    <property key="EbayIsAutoSendEmail">
+        <value xml:lang="en">Automatically send email</value>
+    </property>
+    <property key="EbayAutoPaymentReceviedEmail">
+        <value xml:lang="en">Automatically send email when payment has been received</value>
+    </property>
+    <property key="EbayEditEmailTemplate">
+        <value xml:lang="en">Edit Email Template</value>
+    </property>
 </resource>

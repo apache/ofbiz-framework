@@ -85,10 +85,10 @@ public class EbayStoreAutoPreferences {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
 
-		if (UtilValidate.isEmpty(context.get("productStoreId"))){
+		if (UtilValidate.isEmpty(context.get("productStoreId"))&& UtilValidate.isEmpty(context.get("jobId"))){
 			return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
 		}
-
+		String jobId = (String) context.get("jobId");
 		String productStoreId = (String) context.get("productStoreId");
 		String isAutoPositiveFeedback = "N";
 		String feedbackEventCode = null;
@@ -98,10 +98,10 @@ public class EbayStoreAutoPreferences {
 		try {
 			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 			ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId,"autoPrefEnumId","EBAY_AUTO_PIT_FB"));
-			if (UtilValidate.isNotEmpty(ebayProductStorePref)) {
+			if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
 				isAutoPositiveFeedback = ebayProductStorePref.getString("enabled");
 				// if isAutoPositiveFeedback is N that means not start this job run service
-				if ("Y".equals(isAutoPositiveFeedback)) {
+				if ("Y".equals(isAutoPositiveFeedback)&& jobId.equals(ebayProductStorePref.getString("autoPrefJobId"))) {
 					feedbackEventCode = ebayProductStorePref.getString("condition1");
 					String storeComments = ebayProductStorePref.getString("condition2");
 					String comment = null;
@@ -250,10 +250,10 @@ public class EbayStoreAutoPreferences {
 		Delegator delegator = dctx.getDelegator();
 		Locale locale = (Locale) context.get("locale");
 
-		if (UtilValidate.isEmpty(context.get("productStoreId"))){
+		if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))){
 			return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
 		}
-
+		String jobId = (String) context.get("jobId");
 		String productStoreId = (String) context.get("productStoreId");
 		String isAutoFeedbackReminder = "N";
 		int afterDays = 0;
@@ -266,10 +266,10 @@ public class EbayStoreAutoPreferences {
 		try {
 			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
 			ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId,"autoPrefEnumId","EBAY_AUTO_FB_RMD"));
-			if (UtilValidate.isNotEmpty(ebayProductStorePref)) {
+			if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
 				isAutoFeedbackReminder = ebayProductStorePref.getString("enabled");
 				// if isAutoPositiveFeedback is N that means not start this job run service
-				if ("Y".equals(isAutoFeedbackReminder)) {
+				if ("Y".equals(isAutoFeedbackReminder)&& jobId.equals(ebayProductStorePref.getString("autoPrefJobId"))) {
 					afterDays = Integer.parseInt(ebayProductStorePref.getString("condition1"));
 					isAlsoSendCopyToSeller = ebayProductStorePref.getString("condition2");
 
@@ -280,9 +280,8 @@ public class EbayStoreAutoPreferences {
 					if (UtilValidate.isNotEmpty(sellingManagerSoldOrders)) {
 						for(SellingManagerSoldOrderType solditem :sellingManagerSoldOrders){
 							SellingManagerOrderStatusType orderStatus = solditem.getOrderStatus();
-							if (orderStatus != null && !orderStatus.isFeedbackSent()) {
+							if (orderStatus != null) {
 								SellingManagerPaidStatusCodeType  paidStatus = orderStatus.getPaidStatus();
-								CommentTypeCodeType commentType  = orderStatus.getFeedbackReceived();
 								SellingManagerShippedStatusCodeType  shippedStatus = orderStatus.getShippedStatus();
 								
 								//Buyer has paid for this item.  && Seller shipped items but feedback has not been received from buyer more than days condition 
@@ -320,6 +319,7 @@ public class EbayStoreAutoPreferences {
 		
 		return ServiceUtil.returnSuccess();
 	}
+
 	public static Map<String, Object> automaticEbayRelistSoldItems(DispatchContext dctx, Map<String, ? extends Object> context) {
 		Map<String, Object>result = FastMap.newInstance();
 		LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -583,6 +583,70 @@ public class EbayStoreAutoPreferences {
 		} catch (Exception e) {
 			return ServiceUtil.returnError(e.getMessage());
 		}
+		return ServiceUtil.returnSuccess();
+	}
+	/* start automatically service send an email when ebay seller has been received payment from ebay buyer */
+	public static Map<String, Object> autoSendPaymentReceivedEmail(DispatchContext dctx, Map<String, ? extends Object> context) throws ApiException, SdkException, Exception{
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+		GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+		
+		if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))){
+			return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
+		}
+		
+		String jobId = (String) context.get("jobId");
+		String productStoreId = (String) context.get("productStoreId");
+		
+		String isAutoSendEmail = "N";
+		String isAlsoSendCopyToSeller = "N";
+		GenericValue ebayProductStorePref = null;
+		List<String> list = FastList.newInstance();
+		
+		try {
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+			ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId,"autoPrefEnumId","EBAY_AUTO_FB_RMD"));
+			if (UtilValidate.isNotEmpty(ebayProductStorePref) && UtilValidate.isNotEmpty(ebayProductStorePref.getString("autoPrefJobId"))) {
+				isAutoSendEmail = ebayProductStorePref.getString("enabled");
+				// if isAutoPositiveFeedback is N that means not start this job run service
+				if ("Y".equals(isAutoSendEmail) && jobId.equals(ebayProductStorePref.getString("autoPrefJobId"))) {
+					isAlsoSendCopyToSeller = ebayProductStorePref.getString("condition1");
+
+					// start getting sold item list from ebay follow your site
+					GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
+					List<SellingManagerSoldOrderType> items = FastList.newInstance();
+					SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getSellingManagerSoldListings();
+					if (UtilValidate.isNotEmpty(sellingManagerSoldOrders)) {
+						for(SellingManagerSoldOrderType solditem :sellingManagerSoldOrders){
+							SellingManagerOrderStatusType orderStatus = solditem.getOrderStatus();
+							if (orderStatus != null) {
+								SellingManagerPaidStatusCodeType  paidStatus = orderStatus.getPaidStatus();
+								//Buyer has paid for this item. and seller received 
+								if (SellingManagerPaidStatusCodeType.PAID.equals(paidStatus)) {
+									items.add(solditem);
+								}
+							}
+						}
+						
+						// call service send email (get template follow productStoreId)
+						GetUserCall getUserCall = new GetUserCall(apiContext);
+						String sellerUser = getUserCall.getUser().getUserID();
+						for(SellingManagerSoldOrderType item :items){
+							// start leave feedbacks
+							SellingManagerSoldTransactionType[] soldTrans = item.getSellingManagerSoldTransaction();
+							if (UtilValidate.isNotEmpty(soldTrans)) {
+								for(SellingManagerSoldTransactionType soldTran : soldTrans){
+									// call send 
+								}
+							}
+						}
+					}
+				}
+			} 
+		}catch (Exception e) {
+			return ServiceUtil.returnFailure("Problems to connect with ebay site message:"+e);
+		}
+		
 		return ServiceUtil.returnSuccess();
 	}
 }

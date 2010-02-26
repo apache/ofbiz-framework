@@ -311,5 +311,26 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
     </form>
+    <!-- Automatically send Payment Received email when payment has been received -->
+    <form name="autoSendPaymentReceivedEmail" type="single"  target="autoSendPaymentReceivedEmail"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_PR_EMAIL"/>
+            </entity-one>
+            <set field="isAutoSendPayReceivedEmail"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="isSendCopyEmailToSeller" type="String" from-field="ebayProductStorePref.condition1"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoSendPayReceivedEmail" tooltip="${uiLabelMap.EbayAutoPaymentReceviedEmail}" position="1" title="${uiLabelMap.EbayIsAutoSendEmail}"><check></check></field>
+        <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
+        <field name="emailTemplate" title="Email" tooltip="Edit Payment received email template">
+            <hyperlink target="#" description="${uiLabelMap.EbayEditEmailTemplate}">
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
     
 </forms>

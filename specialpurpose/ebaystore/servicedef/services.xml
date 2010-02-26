@@ -337,25 +337,35 @@ under the License.
         <attribute name="serviceName" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoPrefLeaveFeedbackOption" engine="java" transaction-timeout="10800"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOption" auth="true">
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOption" auth="false">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="autoSendFeedbackReminderEmail" engine="java" transaction-timeout="10800"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendFeedbackReminderEmail" auth="true">
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendFeedbackReminderEmail" auth="false">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="automaticEbayRelistSoldItems" engine="java"  transaction-timeout="3600"
+    <service name="automaticEbayRelistSoldItems" engine="java"  transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayRelistSoldItems" auth="false">
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="automaticEbayDisputeNotComplete" engine="java"  transaction-timeout="3600"
+    <service name="automaticEbayDisputeNotComplete" engine="java"  transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotComplete" auth="false">
         <description>Create Dispute if checkout has not been completed</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="automaticEbayDisputeNotPay" engine="java"  transaction-timeout="3600"
+    <service name="automaticEbayDisputeNotPay" engine="java"  transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="automaticEbayDisputeNotPay" auth="false">
         <description>Create Dispute if checkout has been completed but no payment has been received</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="autoSendPaymentReceivedEmail" engine="java"  transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendPaymentReceivedEmail" auth="false">
+        <description>automatically service sending an email when ebay seller has been received payment from ebay buyer</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
 </services>
