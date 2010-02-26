@@ -74,7 +74,7 @@
                                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                                     <decorator-section name="body">
                                         <screenlet>
-                                            <include-form name="EbayStoreFacilityList" location="component://ebaystore/widget/EbayInventoryForms.xml"/>
+                                            <include-form name="EbayStoreFacilityList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                                         </screenlet>
                                     </decorator-section>
                                 </decorator-screen>
@@ -249,6 +249,9 @@
                         <decorator-section-include name="body"/>
                         <include-screen name="AutomationRelistSoldItems"/>
                         <include-screen name="AutomationDispute"/>
+                        <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="false" initially-collapsed="true">
+                            <include-form name="autoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -371,5 +374,5 @@
     			</decorator-screen>
     		</widgets>
     	</section>
-    </screen>
+   	</screen>
 </screens>

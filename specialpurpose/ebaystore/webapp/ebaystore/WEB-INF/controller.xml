@@ -137,6 +137,12 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <request-map uri="autoPrefLeaveFeedbackOptions">
+        <security auth="true" https="true"/>
+        <event type="java" path="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOptions"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- Block item out of stock -->
     <request-map uri="blockItemOutOfStock">
         <security https="true" auth="true"/>
@@ -275,7 +281,7 @@
     <!-- store Inventory -->
     <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayStoreInventory"/>
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>
-    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml.xml#reserveEbayProductInventory"/>
+    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#reserveEbayProductInventory"/>
     <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#updateQuantityReserved"/>
     
     <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
