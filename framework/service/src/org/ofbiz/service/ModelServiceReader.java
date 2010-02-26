@@ -96,108 +96,105 @@ public class ModelServiceReader implements Serializable {
     }
 
     private Map<String, ModelService> getModelServices() {
+        UtilTimer utilTimer = new UtilTimer();
+        Document document;
+        if (this.isFromURL) {
+            // utilTimer.timerString("Before getDocument in file " + readerURL);
+            document = getDocument(readerURL);
 
-                    UtilTimer utilTimer = new UtilTimer();
+            if (document == null) {
+                return null;
+            }
+        } else {
+            // utilTimer.timerString("Before getDocument in " + handler);
+            try {
+                document = handler.getDocument();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, "Error getting XML document from resource", module);
+                return null;
+            }
+        }
 
-                    Document document;
+        Map<String, ModelService> modelServices = FastMap.newInstance();
+        if (this.isFromURL) {// utilTimer.timerString("Before getDocumentElement in file " + readerURL);
+        } else {// utilTimer.timerString("Before getDocumentElement in " + handler);
+        }
 
-                    if (this.isFromURL) {
-                        // utilTimer.timerString("Before getDocument in file " + readerURL);
-                        document = getDocument(readerURL);
+        Element docElement = document.getDocumentElement();
+        if (docElement == null) {
+            return null;
+        }
 
-                        if (document == null) {
-                            return null;
+        docElement.normalize();
+
+        String resourceLocation = handler.getLocation();
+        try {
+            resourceLocation = handler.getURL().toExternalForm();
+        } catch (GenericConfigException e) {
+            Debug.logError(e, "Could not get resource URL", module);
+        }
+
+        int i = 0;
+        Node curChild = docElement.getFirstChild();
+        if (curChild != null) {
+            if (this.isFromURL) {
+                utilTimer.timerString("Before start of service loop in file " + readerURL);
+            } else {
+                utilTimer.timerString("Before start of service loop in " + handler);
+            }
+
+            do {
+                if (curChild.getNodeType() == Node.ELEMENT_NODE && "service".equals(curChild.getNodeName())) {
+                    i++;
+                    Element curServiceElement = (Element) curChild;
+                    String serviceName = UtilXml.checkEmpty(curServiceElement.getAttribute("name"));
+
+                    // check to see if service with same name has already been read
+                    if (modelServices.containsKey(serviceName)) {
+                        Debug.logWarning("WARNING: Service " + serviceName + " is defined more than once, " +
+                            "most recent will over-write previous definition(s)", module);
+                    }
+
+                    // utilTimer.timerString("  After serviceName -- " + i + " --");
+                    ModelService service = createModelService(curServiceElement, resourceLocation);
+
+                    // utilTimer.timerString("  After createModelService -- " + i + " --");
+                    if (service != null) {
+                        modelServices.put(serviceName, service);
+                        // utilTimer.timerString("  After modelServices.put -- " + i + " --");
+                        /*
+                        int reqIn = service.getParameterNames(ModelService.IN_PARAM, false).size();
+                        int optIn = service.getParameterNames(ModelService.IN_PARAM, true).size() - reqIn;
+                        int reqOut = service.getParameterNames(ModelService.OUT_PARAM, false).size();
+                        int optOut = service.getParameterNames(ModelService.OUT_PARAM, true).size() - reqOut;
+
+                        if (Debug.verboseOn()) {
+                            String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
+                                " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
+
+                            Debug.logVerbose(msg, module);
                         }
+                        */
                     } else {
-                        // utilTimer.timerString("Before getDocument in " + handler);
-                        try {
-                            document = handler.getDocument();
-                        } catch (GenericConfigException e) {
-                            Debug.logError(e, "Error getting XML document from resource", module);
-                            return null;
-                        }
+                        Debug.logWarning(
+                            "-- -- SERVICE ERROR:getModelService: Could not create service for serviceName: " +
+                            serviceName, module);
                     }
 
-                    Map<String, ModelService> modelServices = FastMap.newInstance();
-                    if (this.isFromURL) {// utilTimer.timerString("Before getDocumentElement in file " + readerURL);
-                    } else {// utilTimer.timerString("Before getDocumentElement in " + handler);
-                    }
-
-                    Element docElement = document.getDocumentElement();
-                    if (docElement == null) {
-                        return null;
-                    }
-
-                    docElement.normalize();
-
-                    String resourceLocation = handler.getLocation();
-                    try {
-                        resourceLocation = handler.getURL().toExternalForm();
-                    } catch (GenericConfigException e) {
-                        Debug.logError(e, "Could not get resource URL", module);
-                    }
-
-                    int i = 0;
-                    Node curChild = docElement.getFirstChild();
-                    if (curChild != null) {
-                        if (this.isFromURL) {
-                            utilTimer.timerString("Before start of service loop in file " + readerURL);
-                        } else {
-                            utilTimer.timerString("Before start of service loop in " + handler);
-                        }
-
-                        do {
-                            if (curChild.getNodeType() == Node.ELEMENT_NODE && "service".equals(curChild.getNodeName())) {
-                                i++;
-                                Element curServiceElement = (Element) curChild;
-                                String serviceName = UtilXml.checkEmpty(curServiceElement.getAttribute("name"));
-
-                                // check to see if service with same name has already been read
-                                if (modelServices.containsKey(serviceName)) {
-                                    Debug.logWarning("WARNING: Service " + serviceName + " is defined more than once, " +
-                                        "most recent will over-write previous definition(s)", module);
-                                }
-
-                                // utilTimer.timerString("  After serviceName -- " + i + " --");
-                                ModelService service = createModelService(curServiceElement, resourceLocation);
-
-                                // utilTimer.timerString("  After createModelService -- " + i + " --");
-                                if (service != null) {
-                                    modelServices.put(serviceName, service);
-                                    // utilTimer.timerString("  After modelServices.put -- " + i + " --");
-                                    /*
-                                    int reqIn = service.getParameterNames(ModelService.IN_PARAM, false).size();
-                                    int optIn = service.getParameterNames(ModelService.IN_PARAM, true).size() - reqIn;
-                                    int reqOut = service.getParameterNames(ModelService.OUT_PARAM, false).size();
-                                    int optOut = service.getParameterNames(ModelService.OUT_PARAM, true).size() - reqOut;
-
-                                    if (Debug.verboseOn()) {
-                                        String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
-                                            " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
-
-                                        Debug.logVerbose(msg, module);
-                                    }
-                                    */
-                                } else {
-                                    Debug.logWarning(
-                                        "-- -- SERVICE ERROR:getModelService: Could not create service for serviceName: " +
-                                        serviceName, module);
-                                }
-
-                            }
-                        } while ((curChild = curChild.getNextSibling()) != null);
-                    } else {
-                        Debug.logWarning("No child nodes found.", module);
-                    }
-                    if (this.isFromURL) {
-                        utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
-                        Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
-                    } else {
-                        utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
-                        if (Debug.importantOn()) {
-                            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
-                        }
-                    }
+                }
+            } while ((curChild = curChild.getNextSibling()) != null);
+        } else {
+            Debug.logWarning("No child nodes found.", module);
+        }
+        if (this.isFromURL) {
+            utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
+            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
+        } else {
+            utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
+            if (Debug.importantOn()) {
+                Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
+            }
+        }
         return modelServices;
     }
 
