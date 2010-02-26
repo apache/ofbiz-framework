@@ -353,4 +353,8 @@ under the License.
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOption" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="autoSendFeedbackReminderEmail" engine="java" transaction-timeout="10800"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendFeedbackReminderEmail" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

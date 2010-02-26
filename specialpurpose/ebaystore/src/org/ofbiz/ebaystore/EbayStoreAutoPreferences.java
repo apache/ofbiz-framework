@@ -18,6 +18,8 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -31,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -53,6 +56,8 @@ import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerPaidStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerShippedStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerSoldListingsSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
 
@@ -227,5 +232,81 @@ public class EbayStoreAutoPreferences {
 		}
 
 		return "success";
+	}
+	
+	/* start automatically service send a Feedback Reminder email if feedback has not been received. and check how many days after shipping you want this email sent? */
+	public static Map<String, Object> autoSendFeedbackReminderEmail(DispatchContext dctx, Map<String, ? extends Object> context) throws ApiException, SdkException, Exception{
+		Delegator delegator = dctx.getDelegator();
+		Locale locale = (Locale) context.get("locale");
+
+		if (UtilValidate.isEmpty(context.get("productStoreId"))){
+			return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
+		}
+
+		String productStoreId = (String) context.get("productStoreId");
+		String isAutoFeedbackReminder = "N";
+		int afterDays = 0;
+		String isAlsoSendCopyToSeller = "N";
+		GenericValue ebayProductStorePref = null;
+		List<String> list = FastList.newInstance();
+		String dateTimeFormat = UtilDateTime.DATE_TIME_FORMAT;
+		SimpleDateFormat formatter = new SimpleDateFormat(dateTimeFormat);
+		
+		try {
+			ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+			ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId,"autoPrefEnumId","EBAY_AUTO_FB_RMD"));
+			if (UtilValidate.isNotEmpty(ebayProductStorePref)) {
+				isAutoFeedbackReminder = ebayProductStorePref.getString("enabled");
+				// if isAutoPositiveFeedback is N that means not start this job run service
+				if ("Y".equals(isAutoFeedbackReminder)) {
+					afterDays = Integer.parseInt(ebayProductStorePref.getString("condition1"));
+					isAlsoSendCopyToSeller = ebayProductStorePref.getString("condition2");
+
+					// start getting sold item list from ebay follow your site
+					GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
+					List<SellingManagerSoldOrderType> items = FastList.newInstance();
+					SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getSellingManagerSoldListings();
+					if (UtilValidate.isNotEmpty(sellingManagerSoldOrders)) {
+						for(SellingManagerSoldOrderType solditem :sellingManagerSoldOrders){
+							SellingManagerOrderStatusType orderStatus = solditem.getOrderStatus();
+							if (orderStatus != null && !orderStatus.isFeedbackSent()) {
+								SellingManagerPaidStatusCodeType  paidStatus = orderStatus.getPaidStatus();
+								CommentTypeCodeType commentType  = orderStatus.getFeedbackReceived();
+								SellingManagerShippedStatusCodeType  shippedStatus = orderStatus.getShippedStatus();
+								
+								//Buyer has paid for this item.  && Seller shipped items but feedback has not been received from buyer more than days condition 
+								if (SellingManagerPaidStatusCodeType.PAID.equals(paidStatus) && SellingManagerShippedStatusCodeType.SHIPPED.equals(shippedStatus)) {
+									Calendar right_now =  Calendar.getInstance();
+									Calendar shippedTime = orderStatus.getShippedTime();
+									Calendar afterShippedTime = orderStatus.getShippedTime();
+									afterShippedTime.add(afterShippedTime.DAY_OF_MONTH, afterDays);
+									Debug.logInfo("Verify date for send reminder feedback eamil by auto service: buyer "+solditem.getBuyerID()+" seller shippedTime " +
+											""+formatter.format(shippedTime)+" codition days "+afterDays+" after shippedTime :"+formatter.format(afterShippedTime)+" now date"+formatter.format(right_now), module);
+									// if now date is after shipped time follow after days condition would be send reminder email to buyer
+									if (right_now.after(afterShippedTime)) items.add(solditem);
+								}
+							}
+						}
+						
+						// call service send email (get template follow productStoreId)
+						GetUserCall getUserCall = new GetUserCall(apiContext);
+						String sellerUser = getUserCall.getUser().getUserID();
+						for(SellingManagerSoldOrderType item :items){
+							// start leave feedbacks
+							SellingManagerSoldTransactionType[] soldTrans = item.getSellingManagerSoldTransaction();
+							if (UtilValidate.isNotEmpty(soldTrans)) {
+								for(SellingManagerSoldTransactionType soldTran : soldTrans){
+									// call send 
+								}
+							}
+						}
+					}
+				}
+			} 
+		}catch (Exception e) {
+			return ServiceUtil.returnFailure("Problems to connect with ebay site message:"+e);
+		}
+		
+		return ServiceUtil.returnSuccess();
 	}
 }

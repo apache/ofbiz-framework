@@ -23,5 +23,50 @@
     <simple-method method-name="checkEbayAction" short-description="Check eBay Action">
     	<set field="resultResponse" from-field="parameters.action"/>
     	<return response-code="${resultResponse}"/>
-    </simple-method>   
+    </simple-method>
+    <!-- start automatically service send a Feedback Reminder email if feedback has not been received. and check how many days after shipping you want this email sent? -->
+    <simple-method method-name="autoSendFeedbackReminder" login-required="false" short-description="Automatically send a Feedback Reminder email if feedback has not been received">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_FB_RMD"/>
+        </entity-one>
+        <!-- map field from screen -->
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_FB_RMD"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isAutoFeedbackReminder"/>
+        <set field="parameters.condition1" type="Integer" default-value="5" from-field="parameters.afterDays"/>
+        <set field="parameters.condition2" default-value="N" type="String" from-field="parameters.isSendCopyEmailToSeller"/>
+        <if-compare field="parameters.enabled" value="N" type="String" operator="equals">
+            <set field="parameters.condition2"  value="N" type="String" />
+        </if-compare>
+        <set field="parameters.serviceName" default-value="autoSendFeedbackReminderEmail" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+        <!-- create new automatically store preferences -->
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+    </simple-method>
+    
 </simple-methods>

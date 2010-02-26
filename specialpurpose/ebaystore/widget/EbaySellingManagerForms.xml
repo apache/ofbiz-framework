@@ -289,5 +289,28 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="comment_4" title=" " position="1"><text size="80"></text></field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
     </form>
+    <!-- Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent? -->
+    <form name="autoSendFeedbackReminder" type="single"  target="autoSendFeedbackReminder"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_FB_RMD"/>
+            </entity-one>
+            <set field="isAutoFeedbackReminder"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="afterDays" type="String" from-field="ebayProductStorePref.condition1"/>
+            <set field="isSendCopyEmailToSeller" type="String" from-field="ebayProductStorePref.condition2"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoFeedbackReminder" tooltip="${uiLabelMap.EbayIsAutoFeedbackReminderTooltip}" position="1" title="${uiLabelMap.EbayIsAutoFeedbackReminder}"><check></check></field>
+        <field name="afterDays" title="${uiLabelMap.EbayAfter}"  position="1"  tooltip="${uiLabelMap.CommonDays} ${uiLabelMap.EbayIsSendCopyEmailTooltip}" ><text default-value="5" size="5" maxlength="2"></text></field>
+        <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
+        <field name="emailTemplate" title="Email" tooltip="Edit Feedback Reminder email template">
+            <hyperlink target="#" description="Edit Email Template">
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
     
 </forms>

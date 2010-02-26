@@ -252,6 +252,9 @@
                         <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="false" initially-collapsed="true">
                             <include-form name="autoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="false" initially-collapsed="true">
+                            <include-form name="autoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

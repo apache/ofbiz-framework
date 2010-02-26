@@ -143,6 +143,12 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <request-map uri="autoSendFeedbackReminder">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="autoSendFeedbackReminder"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- Block item out of stock -->
     <request-map uri="blockItemOutOfStock">
         <security https="true" auth="true"/>
