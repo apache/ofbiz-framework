@@ -31,5 +31,6 @@ under the License.
     <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
 	<Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_PIT_FB" description="Automatic leave positive feedback when buyer has paid for item" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_FB_RMD" description="Automatic send reminder email if feedback has not been received after day? shipping" enumTypeId="EBAY_AUTO_PREF"/>
     
 </entity-engine-xml>
