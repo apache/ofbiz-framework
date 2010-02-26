@@ -38,6 +38,7 @@ import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -65,6 +66,7 @@ import freemarker.template.utility.StringUtil;
 public class ModelServiceReader implements Serializable {
 
     public static final String module = ModelServiceReader.class.getName();
+    protected static boolean serviceDebugMode = true;
 
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
     protected boolean isFromURL;
@@ -93,6 +95,7 @@ public class ModelServiceReader implements Serializable {
         this.readerURL = readerURL;
         this.handler = handler;
         this.dctx = dctx;
+        serviceDebugMode = "true".equals(UtilProperties.getPropertyValue("service", "servicedispatcher.servicedebugmode", "true"));
     }
 
     private Map<String, ModelService> getModelServices() {
@@ -202,20 +205,21 @@ public class ModelServiceReader implements Serializable {
         ModelService service = new ModelService();
 
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
-        Wrap<GenericInvoker> wrap = new Wrap<GenericInvoker>().fileName(resourceLocation + '#' + service.name).wrappedClass(GenericInvokerImpl.class);
-        for (Method method: GenericInvokerImpl.class.getDeclaredMethods()) {
-            if (method.getName().startsWith("run")) {
-                wrap.wrap(method);
-            } else if (method.getName().startsWith("send")) {
-                wrap.wrap(method);
+        if (serviceDebugMode) {
+            Wrap<GenericInvoker> wrap = new Wrap<GenericInvoker>().fileName(resourceLocation + '#' + service.name).wrappedClass(GenericInvokerImpl.class);
+            for (Method method: GenericInvokerImpl.class.getDeclaredMethods()) {
+                if (method.getName().startsWith("run")) {
+                    wrap.wrap(method);
+                } else if (method.getName().startsWith("send")) {
+                    wrap.wrap(method);
+                }
             }
+            Object startLine = serviceElement.getUserData("startLine");
+            if (startLine != null) {
+                wrap.lineNumber(((Integer) startLine).intValue());
+            }
+            service.invoker = wrap.newInstance(new Class<?>[] {ModelService.class}, new Object[] {service});
         }
-        Object startLine = serviceElement.getUserData("startLine");
-        if (startLine != null) {
-            wrap.lineNumber(((Integer) startLine).intValue());
-        }
-        service.invoker = wrap.newInstance(new Class<?>[] {ModelService.class}, new Object[] {service});
-
         service.definitionLocation = resourceLocation;
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
