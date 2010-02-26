@@ -27,6 +27,10 @@
             <result-to-field result-name="partyId" field="parameters.partyId"/>
         </call-service>
         
+        <set field="parameters.roleTypeId" value="VENDOR" />
+        <set-service-fields service-name="createPartyRole" to-map="newPartyRole" map="parameters"/>
+        <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
+        
         <set field="parameters.storeName" value="${parameters.userLoginId}_store"/>
         <set-service-fields service-name="createProductStore" to-map="newProductStore" map="parameters"/>
         <call-service service-name="createProductStore" in-map-name="newProductStore">

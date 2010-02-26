@@ -289,8 +289,8 @@
                 <set field="tabButtonItem" value="automaticEbayDisputeItems"/>
                 <set field="autoPrefEnumId1" value="EBAY_AUTO_DISPUTE1"/>
                 <set field="autoPrefEnumId2" value="EBAY_AUTO_DISPUTE2"/>
-                <set field="serviceName1" value="eBayAutomaticDisputeNotComplete"/>
-                <set field="serviceName2" value="eBayAutomaticDisputeNotPay"/>
+                <set field="serviceName1" value="automaticEbayDisputeNotComplete"/>
+                <set field="serviceName2" value="automaticEbayDisputeNotPay"/>
                 <entity-one value-field="ebayPrefDispute1" entity-name="EbayProductStorePref">
                 	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 	<field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId1"/>
@@ -302,7 +302,7 @@
                 <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/automationPreferences/GetDisputeInfo.groovy"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.EbayAutomaticDispute}" collapsible="true" name="AutomationDispute">
+                <screenlet title="${uiLabelMap.EbayAutomatiionDisputeItems}" collapsible="true" name="AutomationDispute">
                     <include-form name="AutomationDisputeNotComplete"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                     <include-form name="AutomationDisputeNotPay"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                 </screenlet>

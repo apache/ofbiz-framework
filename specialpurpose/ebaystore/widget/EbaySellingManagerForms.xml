@@ -27,9 +27,8 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     	<alt-target use-when="ebayPrefRelisting!=null" target="updateEbayProductStorePref"/>
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="enabled" tooltip="${uiLabelMap.EbayAutoRelisting}" tooltip-style="h3"><check/></field>
-        <field name="condition1"><hidden value="${userLoginId}"/></field>
-        <field name="condition2" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
-        <field name="condition3" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="condition1" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="condition2" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="serviceName"><hidden value="${serviceName}"/></field>
         <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId}"/></field>
         <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
