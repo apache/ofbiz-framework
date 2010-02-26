@@ -368,4 +368,9 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="runCombineOrders" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="runCombineOrders" auth="true">
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

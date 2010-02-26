@@ -21,19 +21,19 @@ under the License.
 <entity-engine-xml>
     <RoleType roleTypeId="EBAY_ACCOUNT" hasTable="N" description="eBay Account"/>
     <RoleType roleTypeId="COMMENTATOR" hasTable="N" description="Commentator"/>
-    
+
     <EnumerationType description="Inventory Reservation For Ebay Store" enumTypeId="EBAY_INV_RESERVE" hasTable="N" parentTypeId=""/>
     <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
 
     <EnumerationType description="Ebay setting auto preferences" enumTypeId="EBAY_AUTO_PREF" hasTable="N" parentTypeId=""/>
-    
+
     <Enumeration enumId="EBAY_AUTO_DISPUTE1" description="Automatic Dispute not complete" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
-	<Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_PIT_FB" description="Automatic leave positive feedback when buyer has paid for item" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_FB_RMD" description="Automatic send reminder email if feedback has not been received after day? shipping" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_COMB_ORD" description="Automatic combine order" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_PR_EMAIL" description="Automatic send payment received email when has not been received" enumTypeId="EBAY_AUTO_PREF"/>
-    
+
     <ProductType productTypeId="EBAY_ITEM" description="Product From eBay"/>
-    
 </entity-engine-xml>

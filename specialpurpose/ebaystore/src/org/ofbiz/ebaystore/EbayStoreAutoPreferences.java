@@ -22,6 +22,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -53,17 +55,25 @@ import org.ofbiz.service.ServiceUtil;
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
+import com.ebay.sdk.call.AddOrderCall;
 import com.ebay.sdk.call.AddDisputeCall;
 import com.ebay.sdk.call.GetSellingManagerSoldListingsCall;
 import com.ebay.sdk.call.GetUserCall;
 import com.ebay.sdk.call.LeaveFeedbackCall;
+import com.ebay.soap.eBLBaseComponents.AddOrderRequestType;
+import com.ebay.soap.eBLBaseComponents.AddOrderResponseType;
+import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.sdk.call.RelistItemCall;
 import com.ebay.soap.eBLBaseComponents.AutomatedLeaveFeedbackEventCodeType;
+import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
+import com.ebay.soap.eBLBaseComponents.ItemType;
+import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerPaidStatusCodeType;
@@ -71,6 +81,9 @@ import com.ebay.soap.eBLBaseComponents.SellingManagerShippedStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldListingsSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
+import com.ebay.soap.eBLBaseComponents.TradingRoleCodeType;
+import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
+import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.ebay.soap.eBLBaseComponents.UserType;
 
 public class EbayStoreAutoPreferences {
@@ -649,4 +662,187 @@ public class EbayStoreAutoPreferences {
 		
 		return ServiceUtil.returnSuccess();
 	}
+
+
+    public static Map<String, Object> runCombineOrders(DispatchContext dctx, Map<String,Object> context){
+        Map<String, Object>result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String productStoreId = (String) context.get("productStoreId");
+        try {
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
+            SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getSellingManagerSoldListings();
+            if(sellingManagerSoldOrders != null) {
+              int soldOrderLength = sellingManagerSoldOrders.length;
+              GenericValue ebayPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "ENA_COMB_ORD"));
+              if (UtilValidate.isNotEmpty(ebayPref)) {
+
+                Timestamp beginDate = UtilDateTime.toTimestamp("01/01/2001 00:00:00");
+                Long daysCount = Long.parseLong(ebayPref.get("condition1").toString());
+                Hashtable h = new Hashtable();
+
+                for(int i=0; i<soldOrderLength; i++){
+                    SellingManagerSoldOrderType sellingManagerSoldOrder = sellingManagerSoldOrders[i];
+                    String buyerId = sellingManagerSoldOrder.getBuyerID().toString();
+                    List<Map<String, Object>> soldGroupList = FastList.newInstance();
+                    Map<String, Object> mymap = FastMap.newInstance();
+                    mymap.put("group", "");
+                    mymap.put("soldorder", sellingManagerSoldOrder);
+                    if (h.size() > 0) {
+                        Enumeration enums = h.keys();
+                        String key = "";
+                        while (enums.hasMoreElements()) {
+                            key = (String)enums.nextElement();
+                            List<Map<String, Object>> tempList = (List<Map<String, Object>>) h.get(key);
+                            if (key.equals(buyerId)) {
+                                key = buyerId;
+                                tempList.add(mymap);
+                                h.put(buyerId, tempList);
+                            }
+                        }
+                        if (!key.equals(buyerId)) {
+                            soldGroupList.clear();
+                            soldGroupList.add(mymap);
+                            h.put(buyerId, soldGroupList);
+                        }
+                    } else {
+                        soldGroupList.add(mymap);
+                        h.put(buyerId, soldGroupList);
+                    }
+                }
+
+                Enumeration enums = h.keys();
+                while (enums.hasMoreElements()) {
+                    int groupRunning = 0;
+                    String key = (String)enums.nextElement();
+                    List<Map<String, Object>> soldGroupList = (List<Map<String, Object>>) h.get(key);
+                    int maxItems = Integer.parseInt(ebayPref.get("condition2").toString());
+
+                    if (soldGroupList.size() > 1) {
+                        for (int j=0;j<soldGroupList.size();j++) {
+                            Map<String, Object> myMap = (Map<String, Object>) soldGroupList.get(j);
+                            SellingManagerSoldOrderType soldorder = (SellingManagerSoldOrderType) myMap.get("soldorder");
+                            Timestamp createdate = UtilDateTime.toTimestamp(soldorder.getCreationTime().getTime());
+                            if(myMap.get("group").toString().length()==0) beginDate = createdate;
+                            beginDate = findStartDate(beginDate, soldGroupList);
+                             runCheckAndGroup(groupRunning, beginDate, daysCount, soldGroupList);
+                             groupRunning++;
+                        }
+
+                        int x = 0;
+                        while (x<groupRunning) {
+                            OrderType order = new OrderType();
+                            order.setCreatingUserRole(TradingRoleCodeType.SELLER);
+                            BuyerPaymentMethodCodeType[] buyerPayment = new BuyerPaymentMethodCodeType[1];
+                            buyerPayment[0] = BuyerPaymentMethodCodeType.CASH_ON_PICKUP;
+                            order.setPaymentMethods(buyerPayment);
+                            TransactionArrayType transactionArr = new TransactionArrayType();
+                            List translist = FastList.newInstance();
+
+                            AmountType total = new AmountType();
+                            double totalAmt = 0.0;
+                            CurrencyCodeType currencyId = null;
+                            int totalQty = 0;
+
+                            for (int j=0;j<soldGroupList.size();j++) {
+                                Map<String, Object> myMap = (Map<String, Object>) soldGroupList.get(j);
+                                if (UtilValidate.isNotEmpty(myMap.get("group"))) {
+                                    if(x == Integer.parseInt(myMap.get("group").toString())){
+                                        SellingManagerSoldOrderType sellingManagerSoldOrder = (SellingManagerSoldOrderType) myMap.get("soldorder");
+                                        String buyerId = sellingManagerSoldOrder.getBuyerID().toString();
+                                        int qty = sellingManagerSoldOrder.getTotalQuantity();
+                                        totalQty = totalQty + qty;
+                                        if (key.equals(buyerId) && (UtilValidate.isEmpty(sellingManagerSoldOrder.getOrderStatus().getPaidTime()))) {
+                                            double totalAmount = 0.0;
+                                            if (UtilValidate.isNotEmpty(sellingManagerSoldOrder.getTotalAmount())) {
+                                                totalAmount = sellingManagerSoldOrder.getTotalAmount().getValue();
+                                                currencyId = sellingManagerSoldOrder.getTotalAmount().getCurrencyID();
+                                            } else {
+                                                totalAmount = sellingManagerSoldOrder.getSalePrice().getValue();
+                                                currencyId = sellingManagerSoldOrder.getSalePrice().getCurrencyID();
+                                            }
+                                            //Combine
+                                            totalAmt = totalAmt + totalAmount;
+                                            SellingManagerSoldTransactionType[] sellingManagerSoldTransactions = sellingManagerSoldOrder.getSellingManagerSoldTransaction();
+                                            //set transaction
+                                            for (int count=0; count<sellingManagerSoldTransactions.length; count++) {
+                                                SellingManagerSoldTransactionType sellingManagerSoldTransaction = sellingManagerSoldTransactions[count];
+                                                TransactionType transtype = new TransactionType();
+                                                ItemType itemtype = new ItemType();
+                                                if (UtilValidate.isNotEmpty(sellingManagerSoldTransaction.getItemID())) {
+                                                    itemtype.setItemID(sellingManagerSoldTransaction.getItemID());
+                                                    transtype.setItem(itemtype);
+                                                    transtype.setTransactionID(sellingManagerSoldTransaction.getTransactionID().toString());
+                                                    translist.add(transtype);
+                                                }
+                                           }
+                                        }
+                                    }
+                                }
+                            }
+                            if (totalQty < maxItems) {
+                                total.setValue(totalAmt);
+                                total.setCurrencyID(currencyId);
+                                TransactionType[] transArr = new TransactionType[translist.size()];
+                                for (int counter=0; counter<translist.size(); counter++){
+                                    transArr[counter] = (TransactionType)translist.get(counter);
+                                }
+                                transactionArr.setTransaction(transArr);
+                                if (transactionArr.getTransactionLength() > 1) {
+                                    order.setTotal(total);
+                                    order.setTransactionArray(transactionArr);
+                                    AddOrderCall call = new AddOrderCall(apiContext);
+                                    AddOrderRequestType req = new AddOrderRequestType();
+                                    AddOrderResponseType resp = null;
+                                    req.setOrder(order);
+                                    resp = (AddOrderResponseType)call.execute(req);
+                                    if(resp != null && "SUCCESS".equals(resp.getAck().toString())){
+                                       String orderId = resp.getOrderID();
+                                       Debug.log(":: new order id is = "+orderId);
+                                    }
+                                }
+                            }
+                            x++;
+                        }
+                    }
+                }
+              }
+            }
+           result = ServiceUtil.returnSuccess();
+       } catch (GenericServiceException e) {
+                result = ServiceUtil.returnError(e.getMessage());
+       } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+
+    public static Timestamp findStartDate(Timestamp lessStartTimestamp, List<Map<String, Object>> inList) {
+        for (Map<String,Object> inMap : inList){
+            SellingManagerSoldOrderType soldorder = (SellingManagerSoldOrderType) inMap.get("soldorder");
+            Timestamp createTimestamp = UtilDateTime.toTimestamp(soldorder.getCreationTime().getTime());
+            String group = (String) inMap.get("group");
+            if (createTimestamp.before(lessStartTimestamp) && group.length() == 0) {
+                lessStartTimestamp = createTimestamp;
+            }
+        }
+        return lessStartTimestamp;
+    }
+
+    public static void runCheckAndGroup(int groupRunning,Timestamp startTimestamp, long countDays, List<Map<String, Object>> inList) {
+        Timestamp endDate = UtilDateTime.getDayEnd(UtilDateTime.toTimestamp(startTimestamp), countDays);
+        for (Map<String,Object> inMap : inList) {
+            String group = (String) inMap.get("group").toString();
+            SellingManagerSoldOrderType soldorder = (SellingManagerSoldOrderType) inMap.get("soldorder");
+            if (group.length() == 0) {
+                Timestamp createtimestamp = UtilDateTime.toTimestamp(soldorder.getCreationTime().getTime());
+                if (((createtimestamp.equals(startTimestamp)) || (createtimestamp.after(startTimestamp))) && (createtimestamp.before(endDate))) {
+                   inMap.put("group", ""+groupRunning);
+                }
+            }
+        }
+    }
 }
