@@ -288,6 +288,7 @@ public class EbayStoreHelper {
 		        
 		        Map<String, Object>infoData = FastMap.newInstance();
 		        infoData.put("jobId", jobSandbox.getString("jobId"));
+		        infoData.put("productStoreId", ebayProductPref.getString("productStoreId"));
 		        runtimeData.set("runtimeInfo", XmlSerializer.serialize(infoData));
 		        runtimeData.store();
 			}

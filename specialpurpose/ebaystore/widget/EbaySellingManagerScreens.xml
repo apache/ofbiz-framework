@@ -255,6 +255,9 @@
                         <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="false" initially-collapsed="true">
                             <include-form name="autoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoPaymentReceviedEmail}" id="autoSendPaymentReceivedEmail" collapsible="false" initially-collapsed="true">
+                            <include-form name="autoSendPaymentReceivedEmail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
