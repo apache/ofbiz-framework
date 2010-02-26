@@ -508,7 +508,7 @@ public class WorkEffortServices {
             }
         } else {
             // if a facilityId or a fixedAssetId are not specified, don't set a default partyId...
-            if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(fixedAssetId)) {
+            if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(fixedAssetId) && UtilValidate.isNotEmpty(userLogin.getString("partyId"))) {
                 partyIdsToUse.add(userLogin.getString("partyId"));
             }
         }
