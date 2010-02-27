@@ -19,7 +19,7 @@
 package org.ofbiz.base.util.test;
 
 import org.ofbiz.base.test.GenericTestCaseBase;
-import org.ofbiz.base.util.ComparableRange;
+import org.ofbiz.base.lang.ComparableRange;
 
 public class ComparableRangeTests extends GenericTestCaseBase {
 

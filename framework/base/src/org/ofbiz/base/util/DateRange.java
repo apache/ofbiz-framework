@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.ofbiz.base.lang.ComparableRange;
+
 /** An immutable range of dates. This class is here for backward compatibility -
  * new code should use <code>ComparableRange&lt;Date&gt;</code> instead.
  */

@@ -18,7 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
+import org.ofbiz.base.lang.Appender;
 
 public interface InsertSource extends Appender<StringBuilder> {
 }

@@ -25,8 +25,6 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Appender;
-
 public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> implements Collection<I> {
     protected final M source;
 
