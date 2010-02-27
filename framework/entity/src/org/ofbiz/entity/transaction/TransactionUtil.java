@@ -385,7 +385,7 @@ public class TransactionUtil implements Status {
 
     public static Transaction suspend() throws GenericTransactionException {
         try {
-            if (TransactionUtil.getStatus() != TransactionUtil.STATUS_NO_TRANSACTION) {
+            if (TransactionUtil.getStatus() != STATUS_NO_TRANSACTION) {
                 TransactionManager txMgr = TransactionFactory.getTransactionManager();
                 if (txMgr != null) {
                     pushTransactionBeginStackSave(clearTransactionBeginStack());
@@ -668,7 +668,7 @@ public class TransactionUtil implements Status {
         }
 
         for (Map.Entry<Long, Exception> attbsMapEntry : allThreadsTransactionBeginStack.entrySet()) {
-            Long curThreadId = (Long) attbsMapEntry.getKey();
+            Long curThreadId = attbsMapEntry.getKey();
             Exception transactionBeginStack = attbsMapEntry.getValue();
             List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
 
