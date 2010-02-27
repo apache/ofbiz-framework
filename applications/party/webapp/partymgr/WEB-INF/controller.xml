@@ -1253,6 +1253,34 @@ under the License.
         <response name="success" type="view" value="PartyGeoLocation"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
+    
+    <!-- ProductStoreRole -->
+    <request-map uri="ViewProductStoreRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductStoreRoles"/>
+    </request-map>
+    <request-map uri="FindProductStoreRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductStoreRoles"/>
+    </request-map>
+    <request-map uri="storeCreateRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductStoreRole"/>
+        <response name="success" type="view" value="ViewProductStoreRoles"/>
+        <response name="error" type="view" value="ViewProductStoreRoles"/>
+    </request-map>
+    <request-map uri="storeUpdateRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStoreRole"/>
+        <response name="success" type="view" value="ViewProductStoreRoles"/>
+        <response name="error" type="view" value="ViewProductStoreRoles"/>
+    </request-map>
+    <request-map uri="storeRemoveRole">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeProductStoreRole"/>
+        <response name="success" type="view" value="ViewProductStoreRoles"/>
+        <response name="error" type="view" value="ViewProductStoreRoles"/>
+    </request-map>
 
     <!--  external communication event; mark as read using 1px image request -->
     <request-map uri="ceimages" track-serverhit="false" track-visit="false">
@@ -1383,5 +1411,7 @@ under the License.
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
+    
+    <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
     <!-- end of view mappings -->
 </site-conf>

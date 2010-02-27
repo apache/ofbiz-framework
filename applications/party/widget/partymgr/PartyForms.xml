@@ -1081,4 +1081,64 @@ under the License.
         <field name="submit" title="${uiLabelMap.CommonUpdate}" use-when="partyIdentification != null"><submit /></field>
     </form>
     
+    <form name="EditProductStoreRole" type="single" extends="EditProductStoreRole" extends-resource="component://product/widget/catalog/StoreForms.xml">
+        <field name="partyId"><hidden/></field>
+        <field name="productStoreId" use-when="productStoreRole==null" title="${uiLabelMap.ProductStoreId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down>
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
+                    <entity-order-by field-name="productStoreId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productStoreId" use-when="productStoreRole!=null" title="${uiLabelMap.ProductStoreId}"><display/></field>
+    </form>
+    <form name="FindProductStoreRole" type="single" extends="FindProductStoreRole" extends-resource="component://product/widget/catalog/StoreForms.xml">
+        <field name="partyId"><hidden/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName} (${productStoreId})">
+                    <entity-order-by field-name="productStoreId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+    <form name="ListProductStoreRole" type="list" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="ProductStoreRole"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
+            <display-entity entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
+                <sub-hyperlink target="/catalog/control/EditProductStore" target-type="inter-app" description="${storeName} (${productStoreId})" >
+                    <parameter param-name="productStoreId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="sequenceNum"><display/></field>
+        <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
+           <hyperlink target="FindProductStoreRoles" description="${uiLabelMap.CommonEdit}">
+                <parameter param-name="partyId"/>
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="deleteLink" widget-style="buttontext" title="${uiLabelMap.CommonDelete}">
+            <hyperlink target="storeRemoveRole" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="partyId"/>
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>
