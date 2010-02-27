@@ -18,7 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import org.ofbiz.base.util.Appender;
+import org.ofbiz.base.lang.Appender;
 
 public abstract class Atom implements Appender<StringBuilder> {
     public String toString() {

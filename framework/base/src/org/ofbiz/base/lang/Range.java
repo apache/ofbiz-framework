@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.base.util;
+package org.ofbiz.base.lang;
 
 /** A range of values. */
 public interface Range<T> {

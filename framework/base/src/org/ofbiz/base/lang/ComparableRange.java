@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.base.util;
+package org.ofbiz.base.lang;
 
 /** An immutable range of values. */
 public class ComparableRange<T extends Comparable<T>> implements Range<T> {
