@@ -301,13 +301,6 @@ public class TransactionUtil implements Status {
         }
     }
 
-    /** @deprecated */
-    @Deprecated
-    public static void rollback(boolean beganTransaction) throws GenericTransactionException {
-        Debug.logWarning("WARNING: called rollback without debug/error info; it is recommended to always pass this to make otherwise tricky bugs much easier to track down.", module);
-        rollback(beganTransaction, null, null);
-    }
-
     /** Rolls back transaction in the current thread IF transactions are available
      *  AND if beganTransaction is true; if beganTransaction is not true,
      *  setRollbackOnly is called to insure that the transaction will be rolled back
