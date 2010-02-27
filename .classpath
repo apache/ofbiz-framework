@@ -138,7 +138,7 @@
     <classpathentry kind="lib" path="framework/testtools/lib/selenium-java-client-driver.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/DataVision-1.0.0.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
-    <classpathentry kind="lib" path="framework/webapp/lib/iText-2.0.1.jar"/>
+    <classpathentry kind="lib" path="framework/webapp/lib/itext-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/velocity-1.6.1.jar"/>
