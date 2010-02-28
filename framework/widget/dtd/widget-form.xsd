@@ -886,7 +886,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.lookup">
         <xs:attribute type="xs:string" name="target-form-name" use="required"/>
-        <xs:attribute type="xs:positiveInteger" name="size" default="25"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="size" default="25"/>
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
         <xs:attribute type="xs:string" name="description-field-name"/>
