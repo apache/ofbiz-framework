@@ -44,8 +44,8 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static abstract class AbstractToNumberConverter<S, T> extends AbstractLocalizedConverter<S, T> {
-        protected AbstractToNumberConverter(Class<S> sourceClass, Class<T> targetClass) {
+    public static abstract class AbstractNumberConverter<S, T> extends AbstractLocalizedConverter<S, T> {
+        protected AbstractNumberConverter(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
         }
 
@@ -140,7 +140,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToString extends AbstractToNumberConverter<BigDecimal, String> {
+    public static class BigDecimalToString extends AbstractNumberConverter<BigDecimal, String> {
         public BigDecimalToString() {
             super(BigDecimal.class, String.class);
         }
@@ -201,7 +201,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToString extends AbstractToNumberConverter<BigInteger, String> {
+    public static class BigIntegerToString extends AbstractNumberConverter<BigInteger, String> {
         public BigIntegerToString() {
             super(BigInteger.class, String.class);
         }
@@ -252,7 +252,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToString extends AbstractToNumberConverter<Byte, String> {
+    public static class ByteToString extends AbstractNumberConverter<Byte, String> {
         public ByteToString() {
             super(Byte.class, String.class);
         }
@@ -267,7 +267,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToBigInteger extends AbstractToNumberConverter<String, BigInteger> {
+    public static class StringToBigInteger extends AbstractNumberConverter<String, BigInteger> {
         public StringToBigInteger() {
             super(String.class, BigInteger.class);
         }
@@ -315,7 +315,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToString extends AbstractToNumberConverter<Double, String> {
+    public static class DoubleToString extends AbstractNumberConverter<Double, String> {
         public DoubleToString() {
             super(Double.class, String.class);
         }
@@ -370,7 +370,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToString extends AbstractToNumberConverter<Float, String> {
+    public static class FloatToString extends AbstractNumberConverter<Float, String> {
         public FloatToString() {
             super(Float.class, String.class);
         }
@@ -441,7 +441,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToString extends AbstractToNumberConverter<Integer, String> {
+    public static class IntegerToString extends AbstractNumberConverter<Integer, String> {
         public IntegerToString() {
             super(Integer.class, String.class);
         }
@@ -512,7 +512,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToString extends AbstractToNumberConverter<Long, String> {
+    public static class LongToString extends AbstractNumberConverter<Long, String> {
         public LongToString() {
             super(Long.class, String.class);
         }
@@ -563,7 +563,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToString extends AbstractToNumberConverter<Short, String> {
+    public static class ShortToString extends AbstractNumberConverter<Short, String> {
         public ShortToString() {
             super(Short.class, String.class);
         }
@@ -578,7 +578,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToBigDecimal extends AbstractToNumberConverter<String, BigDecimal> {
+    public static class StringToBigDecimal extends AbstractNumberConverter<String, BigDecimal> {
         public StringToBigDecimal() {
             super(String.class, BigDecimal.class);
         }
@@ -606,7 +606,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToDouble extends AbstractToNumberConverter<String, Double> {
+    public static class StringToDouble extends AbstractNumberConverter<String, Double> {
         public StringToDouble() {
             super(String.class, Double.class);
         }
@@ -624,7 +624,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToFloat extends AbstractToNumberConverter<String, Float> {
+    public static class StringToFloat extends AbstractNumberConverter<String, Float> {
         public StringToFloat() {
             super(String.class, Float.class);
         }
@@ -642,7 +642,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToInteger extends AbstractToNumberConverter<String, Integer> {
+    public static class StringToInteger extends AbstractNumberConverter<String, Integer> {
         public StringToInteger() {
             super(String.class, Integer.class);
         }
@@ -660,7 +660,7 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToLong extends AbstractToNumberConverter<String, Long> {
+    public static class StringToLong extends AbstractNumberConverter<String, Long> {
         public StringToLong() {
             super(String.class, Long.class);
         }
