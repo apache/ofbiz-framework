@@ -488,8 +488,7 @@ public class ObjectType {
         try {
             targetClass = loadClass(type);
         } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-            return obj;
+            throw new GeneralException("Conversion from " + sourceClass.getName() + " to " + type + " not currently supported", e);
         }
         if (sourceClass.equals(targetClass)) {
             return obj;
@@ -513,13 +512,13 @@ public class ObjectType {
                 try {
                     return localizedConverter.convert(obj, locale, timeZone, format);
                 } catch (ConversionException e) {
-                    Debug.logError(e, module);
+                    throw new GeneralException(e.getMessage(), e);
                 }
             }
             try {
                 return converter.convert(obj);
             } catch (ConversionException e) {
-                Debug.logError(e, module);
+                throw new GeneralException(e.getMessage(), e);
             }
         }
         if (obj instanceof Node) {
