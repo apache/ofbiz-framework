@@ -399,7 +399,8 @@ public abstract class FlexibleStringExpander implements Serializable {
         Object obj = get(context, timeZone, locale);
         StringBuilder buffer = new StringBuilder(this.hint);
         try {
-            if (obj != null) {
+            if (obj  instanceof String && UtilValidate.isEmpty(obj)) {
+            } else if (obj != null) {
                 buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
             }
         } catch (Exception e) {
