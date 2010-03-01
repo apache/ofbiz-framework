@@ -54,33 +54,71 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToDouble extends AbstractConverter<BigDecimal, Double> {
-        public BigDecimalToDouble() {
-            super(BigDecimal.class, Double.class);
+    public static class GenericNumberToDouble<N extends Number> extends AbstractConverter<N, Double> {
+        public GenericNumberToDouble(Class<N> sourceClass) {
+            super(sourceClass, Double.class);
         }
 
-        public Double convert(BigDecimal obj) throws ConversionException {
+        public Double convert(N obj) throws ConversionException {
             return obj.doubleValue();
         }
     }
 
-    public static class BigDecimalToFloat extends AbstractConverter<BigDecimal, Float> {
-        public BigDecimalToFloat() {
-            super(BigDecimal.class, Float.class);
+    public static class GenericNumberToFloat<N extends Number> extends AbstractConverter<N, Float> {
+        public GenericNumberToFloat(Class<N> sourceClass) {
+            super(sourceClass, Float.class);
         }
 
-        public Float convert(BigDecimal obj) throws ConversionException {
+        public Float convert(N obj) throws ConversionException {
             return obj.floatValue();
         }
     }
 
-    public static class BigDecimalToInteger extends AbstractConverter<BigDecimal, Integer> {
-        public BigDecimalToInteger() {
-            super(BigDecimal.class, Integer.class);
+    public static class GenericNumberToInteger<N extends Number> extends AbstractConverter<N, Integer> {
+        public GenericNumberToInteger(Class<N> sourceClass) {
+            super(sourceClass, Integer.class);
         }
 
-        public Integer convert(BigDecimal obj) throws ConversionException {
+        public Integer convert(N obj) throws ConversionException {
             return obj.intValue();
+        }
+    }
+
+    public static class GenericNumberToLong<N extends Number> extends AbstractConverter<N, Long> {
+        public GenericNumberToLong(Class<N> sourceClass) {
+            super(sourceClass, Long.class);
+        }
+
+        public Long convert(N obj) throws ConversionException {
+            return obj.longValue();
+        }
+    }
+
+    public static class GenericNumberToShort<N extends Number> extends AbstractConverter<N, Short> {
+        public GenericNumberToShort(Class<N> sourceClass) {
+            super(sourceClass, Short.class);
+        }
+
+        public Short convert(N obj) throws ConversionException {
+            return obj.shortValue();
+        }
+    }
+
+    public static class BigDecimalToDouble extends GenericNumberToDouble<BigDecimal> {
+        public BigDecimalToDouble() {
+            super(BigDecimal.class);
+        }
+    }
+
+    public static class BigDecimalToFloat extends GenericNumberToFloat<BigDecimal> {
+        public BigDecimalToFloat() {
+            super(BigDecimal.class);
+        }
+    }
+
+    public static class BigDecimalToInteger extends GenericNumberToInteger<BigDecimal> {
+        public BigDecimalToInteger() {
+            super(BigDecimal.class);
         }
     }
 
@@ -90,13 +128,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToLong extends AbstractConverter<BigDecimal, Long> {
+    public static class BigDecimalToLong extends GenericNumberToLong<BigDecimal> {
         public BigDecimalToLong() {
-            super(BigDecimal.class, Long.class);
-        }
-
-        public Long convert(BigDecimal obj) throws ConversionException {
-            return obj.longValue();
+            super(BigDecimal.class);
         }
     }
 
@@ -131,33 +165,21 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToDouble extends AbstractConverter<BigInteger, Double> {
+    public static class BigIntegerToDouble extends GenericNumberToDouble<BigInteger> {
         public BigIntegerToDouble() {
-            super(BigInteger.class, Double.class);
-        }
-
-        public Double convert(BigInteger obj) throws ConversionException {
-            return obj.doubleValue();
+            super(BigInteger.class);
         }
     }
 
-    public static class BigIntegerToFloat extends AbstractConverter<BigInteger, Float> {
+    public static class BigIntegerToFloat extends GenericNumberToFloat<BigInteger> {
         public BigIntegerToFloat() {
-            super(BigInteger.class, Float.class);
-        }
-
-        public Float convert(BigInteger obj) throws ConversionException {
-            return obj.floatValue();
+            super(BigInteger.class);
         }
     }
 
-    public static class BigIntegerToInteger extends AbstractConverter<BigInteger, Integer> {
+    public static class BigIntegerToInteger extends GenericNumberToInteger<BigInteger> {
         public BigIntegerToInteger() {
-            super(BigInteger.class, Integer.class);
-        }
-
-        public Integer convert(BigInteger obj) throws ConversionException {
-            return obj.intValue();
+            super(BigInteger.class);
         }
     }
 
@@ -167,13 +189,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToLong extends AbstractConverter<BigInteger, Long> {
+    public static class BigIntegerToLong extends GenericNumberToLong<BigInteger> {
         public BigIntegerToLong() {
-            super(BigInteger.class, Long.class);
-        }
-
-        public Long convert(BigInteger obj) throws ConversionException {
-            return obj.longValue();
+            super(BigInteger.class);
         }
     }
 
@@ -198,33 +216,21 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToDouble extends AbstractConverter<Byte, Double> {
+    public static class ByteToDouble extends GenericNumberToDouble<Byte> {
         public ByteToDouble() {
-            super(Byte.class, Double.class);
-        }
-
-        public Double convert(Byte obj) throws ConversionException {
-            return obj.doubleValue();
+            super(Byte.class);
         }
     }
 
-    public static class ByteToFloat extends AbstractConverter<Byte, Float> {
+    public static class ByteToFloat extends GenericNumberToFloat<Byte> {
         public ByteToFloat() {
-            super(Byte.class, Float.class);
-        }
-
-        public Float convert(Byte obj) throws ConversionException {
-            return obj.floatValue();
+            super(Byte.class);
         }
     }
 
-    public static class ByteToInteger extends AbstractConverter<Byte, Integer> {
+    public static class ByteToInteger extends GenericNumberToInteger<Byte> {
         public ByteToInteger() {
-            super(Byte.class, Integer.class);
-        }
-
-        public Integer convert(Byte obj) throws ConversionException {
-            return obj.intValue();
+            super(Byte.class);
         }
     }
 
@@ -234,13 +240,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToLong extends AbstractConverter<Byte, Long> {
+    public static class ByteToLong extends GenericNumberToLong<Byte> {
         public ByteToLong() {
-            super(Byte.class, Long.class);
-        }
-
-        public Long convert(Byte obj) throws ConversionException {
-            return obj.longValue();
+            super(Byte.class);
         }
     }
 
@@ -283,23 +285,15 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToFloat extends AbstractConverter<Double, Float> {
+    public static class DoubleToFloat extends GenericNumberToFloat<Double> {
         public DoubleToFloat() {
-            super(Double.class, Float.class);
-        }
-
-        public Float convert(Double obj) throws ConversionException {
-            return obj.floatValue();
+            super(Double.class);
         }
     }
 
-    public static class DoubleToInteger extends AbstractConverter<Double, Integer> {
+    public static class DoubleToInteger extends GenericNumberToInteger<Double> {
         public DoubleToInteger() {
-            super(Double.class, Integer.class);
-        }
-
-        public Integer convert(Double obj) throws ConversionException {
-            return obj.intValue();
+            super(Double.class);
         }
     }
 
@@ -309,13 +303,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToLong extends AbstractConverter<Double, Long> {
+    public static class DoubleToLong extends GenericNumberToLong<Double> {
         public DoubleToLong() {
-            super(Double.class, Long.class);
-        }
-
-        public Long convert(Double obj) throws ConversionException {
-            return obj.longValue();
+            super(Double.class);
         }
     }
 
@@ -350,23 +340,15 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToDouble extends AbstractConverter<Float, Double> {
+    public static class FloatToDouble extends GenericNumberToDouble<Float> {
         public FloatToDouble() {
-            super(Float.class, Double.class);
-        }
-
-        public Double convert(Float obj) throws ConversionException {
-            return obj.doubleValue();
+            super(Float.class);
         }
     }
 
-    public static class FloatToInteger extends AbstractConverter<Float, Integer> {
+    public static class FloatToInteger extends GenericNumberToInteger<Float> {
         public FloatToInteger() {
-            super(Float.class, Integer.class);
-        }
-
-        public Integer convert(Float obj) throws ConversionException {
-            return obj.intValue();
+            super(Float.class);
         }
     }
 
@@ -376,13 +358,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToLong extends AbstractConverter<Float, Long> {
+    public static class FloatToLong extends GenericNumberToLong<Float> {
         public FloatToLong() {
-            super(Float.class, Long.class);
-        }
-
-        public Long convert(Float obj) throws ConversionException {
-            return obj.longValue();
+            super(Float.class);
         }
     }
 
@@ -427,23 +405,15 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToDouble extends AbstractConverter<Integer, Double> {
+    public static class IntegerToDouble extends GenericNumberToDouble<Integer> {
         public IntegerToDouble() {
-            super(Integer.class, Double.class);
-        }
-
-        public Double convert(Integer obj) throws ConversionException {
-            return obj.doubleValue();
+            super(Integer.class);
         }
     }
 
-    public static class IntegerToFloat extends AbstractConverter<Integer, Float> {
+    public static class IntegerToFloat extends GenericNumberToFloat<Integer> {
         public IntegerToFloat() {
-            super(Integer.class, Float.class);
-        }
-
-        public Float convert(Integer obj) throws ConversionException {
-            return obj.floatValue();
+            super(Integer.class);
         }
     }
 
@@ -453,13 +423,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToLong extends AbstractConverter<Integer, Long> {
+    public static class IntegerToLong extends GenericNumberToLong<Integer> {
         public IntegerToLong() {
-            super(Integer.class, Long.class);
-        }
-
-        public Long convert(Integer obj) throws ConversionException {
-            return obj.longValue();
+            super(Integer.class);
         }
     }
 
@@ -469,13 +435,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToShort extends AbstractConverter<Integer, Short> {
+    public static class IntegerToShort extends GenericNumberToShort<Integer> {
         public IntegerToShort() {
-            super(Integer.class, Short.class);
-        }
-
-        public Short convert(Integer obj) throws ConversionException {
-            return obj.shortValue();
+            super(Integer.class);
         }
     }
 
@@ -514,33 +476,21 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToDouble extends AbstractConverter<Long, Double> {
+    public static class LongToDouble extends GenericNumberToDouble<Long> {
         public LongToDouble() {
-            super(Long.class, Double.class);
-        }
-
-        public Double convert(Long obj) throws ConversionException {
-            return obj.doubleValue();
+            super(Long.class);
         }
     }
 
-    public static class LongToFloat extends AbstractConverter<Long, Float> {
+    public static class LongToFloat extends GenericNumberToFloat<Long> {
         public LongToFloat() {
-            super(Long.class, Float.class);
-        }
-
-        public Float convert(Long obj) throws ConversionException {
-            return obj.floatValue();
+            super(Long.class);
         }
     }
 
-    public static class LongToInteger extends AbstractConverter<Long, Integer> {
+    public static class LongToInteger extends GenericNumberToInteger<Long> {
         public LongToInteger() {
-            super(Long.class, Integer.class);
-        }
-
-        public Integer convert(Long obj) throws ConversionException {
-            return obj.intValue();
+            super(Long.class);
         }
     }
 
@@ -556,13 +506,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToShort extends AbstractConverter<Long, Short> {
+    public static class LongToShort extends GenericNumberToShort<Long> {
         public LongToShort() {
-            super(Long.class, Short.class);
-        }
-
-        public Short convert(Long obj) throws ConversionException {
-            return obj.shortValue();
+            super(Long.class);
         }
     }
 
@@ -581,33 +527,21 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToDouble extends AbstractConverter<Short, Double> {
+    public static class ShortToDouble extends GenericNumberToDouble<Short> {
         public ShortToDouble() {
-            super(Short.class, Double.class);
-        }
-
-        public Double convert(Short obj) throws ConversionException {
-            return obj.doubleValue();
+            super(Short.class);
         }
     }
 
-    public static class ShortToFloat extends AbstractConverter<Short, Float> {
+    public static class ShortToFloat extends GenericNumberToFloat<Short> {
         public ShortToFloat() {
-            super(Short.class, Float.class);
-        }
-
-        public Float convert(Short obj) throws ConversionException {
-            return obj.floatValue();
+            super(Short.class);
         }
     }
 
-    public static class ShortToInteger extends AbstractConverter<Short, Integer> {
+    public static class ShortToInteger extends GenericNumberToInteger<Short> {
         public ShortToInteger() {
-            super(Short.class, Integer.class);
-        }
-
-        public Integer convert(Short obj) throws ConversionException {
-            return obj.intValue();
+            super(Short.class);
         }
     }
 
@@ -617,13 +551,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToLong extends AbstractConverter<Short, Long> {
+    public static class ShortToLong extends GenericNumberToLong<Short> {
         public ShortToLong() {
-            super(Short.class, Long.class);
-        }
-
-        public Long convert(Short obj) throws ConversionException {
-            return obj.longValue();
+            super(Short.class);
         }
     }
 
