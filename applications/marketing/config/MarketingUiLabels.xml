@@ -168,6 +168,7 @@
         <value xml:lang="zh">销售预测标识</value>
     </property>
     <property key="MarketingCampaign">
+        <value xml:lang="de">Marketing Kampagne</value>
         <value xml:lang="en">Marketing Campaign</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagne marketing</value>
@@ -179,6 +180,7 @@
         <value xml:lang="zh">市场攻势</value>
     </property>
     <property key="MarketingCampaignCreate">
+        <value xml:lang="de">Marketing Kampagne erstellen</value>
         <value xml:lang="en">Create Marketing Campaign</value>
         <value xml:lang="es">Crear campaña de marketing</value>
         <value xml:lang="fr">Nouvelle campagne marketing</value>
@@ -190,6 +192,7 @@
         <value xml:lang="zh">新建市场攻势</value>
     </property>
     <property key="MarketingCampaignId">
+        <value xml:lang="de">Marketing Kampagne ID</value>
         <value xml:lang="en">Marketing Campaign Id</value>
         <value xml:lang="es">Campaña</value>
         <value xml:lang="fr">Réf. de campagne marketing</value>
@@ -201,6 +204,7 @@
         <value xml:lang="zh">市场攻势标识</value>
     </property>
     <property key="MarketingCampaignInvalidEmailInput">
+        <value xml:lang="de">Falsche E-Mail-Adresse eingegeben.</value>
         <value xml:lang="en">Invalid email address entered.</value>
         <value xml:lang="fr">Entrée d'adresse courriel irrecevable</value>
         <value xml:lang="it">Indirizzo email inserito invalido.</value>
@@ -210,6 +214,7 @@
         <value xml:lang="zh">输入的电子邮件地址无效。</value>
     </property>
     <property key="MarketingCampaignName">
+        <value xml:lang="de">Kampagnenname</value>
         <value xml:lang="en">Campaign Name</value>
         <value xml:lang="es">Nombre de la campaña</value>
         <value xml:lang="fr">Nom de la campagne</value>
@@ -221,6 +226,7 @@
         <value xml:lang="zh">攻势名称</value>
     </property>
     <property key="MarketingCampaignReportTitle">
+        <value xml:lang="de">Marketing Kampagne Bericht</value>
         <value xml:lang="en">Marketing Campaign Report</value>
         <value xml:lang="es">Informe de campañas de marketing</value>
         <value xml:lang="fr">Rapport des campagnes de marketing</value>
@@ -232,6 +238,7 @@
         <value xml:lang="zh">市场攻势报告</value>
     </property>
     <property key="MarketingCampaignRoleCreate">
+        <value xml:lang="de">Marketing-Kampagnenrolle erstellen</value>
         <value xml:lang="en">Create Marketing Campaign Role</value>
         <value xml:lang="es">Crear rol de campaña de marketing</value>
         <value xml:lang="fr">Créer le rôle de la campagne marketing</value>
@@ -243,6 +250,7 @@
         <value xml:lang="zh">新建市场攻势角色</value>
     </property>
     <property key="MarketingCampaignSummary">
+        <value xml:lang="de">Kampagnenzusammenfassung</value>
         <value xml:lang="en">Campaign Summary</value>
         <value xml:lang="es">Descripción de la campaña</value>
         <value xml:lang="fr">Résumé de la campagne</value>
@@ -254,6 +262,7 @@
         <value xml:lang="zh">攻势摘要</value>
     </property>
     <property key="MarketingCompanyName">
+        <value xml:lang="de">OFBiz: Vermarktungsmanager</value>
         <value xml:lang="en">OFBiz: Marketing Manager</value>
         <value xml:lang="es">OFBiz: Gestión de Marketing</value>
         <value xml:lang="fr">OFBiz: Gestion du Marketing</value>
@@ -281,6 +290,7 @@
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="MarketingContactList">
+        <value xml:lang="de">Kontaktliste</value>
         <value xml:lang="en">Contact List</value>
         <value xml:lang="es">Lista de contactos</value>
         <value xml:lang="fr">Liste de contacts</value>
@@ -394,6 +404,7 @@
         <value xml:lang="zh">查找联系列表</value>
     </property>
     <property key="MarketingContactListIsPublic">
+        <value xml:lang="de">Ist Öffentlich ?</value>
         <value xml:lang="en">Is Public ?</value>
         <value xml:lang="es">Es pública ?</value>
         <value xml:lang="fr">Est publique ?</value>
@@ -405,6 +416,7 @@
         <value xml:lang="zh">公开吗?</value>
     </property>
     <property key="MarketingContactListIsSingleUse">
+        <value xml:lang="de">Einmalige Nutzung ?</value>
         <value xml:lang="en">Is Single Use ?</value>
         <value xml:lang="fr">Est à usage unique ?</value>
         <value xml:lang="it">E' Uso Singolo ?</value>
@@ -425,6 +437,7 @@
         <value xml:lang="zh">无法找到电子邮件列表 [${contactListId}]。</value>
     </property>
     <property key="MarketingContactListOptInVerifyCode">
+        <value xml:lang="de">zusätzlicher Bestätigungscode</value>
         <value xml:lang="en">Opt-In Verify Code</value>
         <value xml:lang="es">Código de verificación Opt-in</value>
         <value xml:lang="fr">Code de vérification d'inscription volontaire (Opt-in)</value>
@@ -436,6 +449,7 @@
         <value xml:lang="zh">兴趣验证码</value>
     </property>
     <property key="MarketingContactListOwnerPartyId">
+        <value xml:lang="de">Ersteller ID</value>
         <value xml:lang="en">Owner Party Id</value>
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Réf. d'acteur propriétaire</value>
@@ -492,6 +506,7 @@
         <value xml:lang="zh">优先使用的联系方式</value>
     </property>
     <property key="MarketingContactListVerifyEmailFrom">
+        <value xml:lang="de">Bestätigungsemail von</value>
         <value xml:lang="en">Verify Email From</value>
         <value xml:lang="es">E-mail de verificación</value>
         <value xml:lang="fr">Adresse courriel de vérification</value>
@@ -503,6 +518,7 @@
         <value xml:lang="zh">验证电子邮件来自</value>
     </property>
     <property key="MarketingContactListVerifyEmailScreen">
+        <value xml:lang="de">Bestätigungsemail Inhalt</value>
         <value xml:lang="en">Verify Email Screen</value>
         <value xml:lang="es">Pantalla de verificación</value>
         <value xml:lang="fr">Ecran de vérification du courriel</value>
@@ -514,6 +530,7 @@
         <value xml:lang="zh">验证电子邮件屏幕</value>
     </property>
     <property key="MarketingContactListVerifyEmailSubject">
+        <value xml:lang="de">Bestätigungsemail Betreff</value>
         <value xml:lang="en">Verify Email Subject</value>
         <value xml:lang="es">Título del mensaje</value>
         <value xml:lang="fr">Sujet du courriel de vérification</value>
@@ -525,6 +542,7 @@
         <value xml:lang="zh">验证电子邮件主题</value>
     </property>
     <property key="MarketingContactListVerifyEmailWebSiteId">
+        <value xml:lang="de">Bestätigungsemail Webseiten ID</value>
         <value xml:lang="en">Verify Email WebSite Id</value>
         <value xml:lang="es">Sitio web de verificación</value>
         <value xml:lang="fr">Réf. du site Internet du courriel de vérification</value>
@@ -536,6 +554,7 @@
         <value xml:lang="zh">验证电子邮件站点标识</value>
     </property>
     <property key="MarketingConversionRate">
+        <value xml:lang="de">Konversationsrate</value>
         <value xml:lang="en">Conversion Rate</value>
         <value xml:lang="es">Factor de conversión</value>
         <value xml:lang="fr">Taux de conversion</value>
@@ -558,6 +577,7 @@
         <value xml:lang="zh">日期范围</value>
     </property>
     <property key="MarketingEmailStatusReport">
+        <value xml:lang="de">E-Mail Statusbericht</value>
         <value xml:lang="en">Email Status Report</value>
         <value xml:lang="pt_BR">Relatório de estado de e-mail</value>
     </property>
@@ -1644,6 +1664,7 @@
         <value xml:lang="zh">查找市场攻势角色</value>
     </property>
     <property key="PageTitleFindSalesForecast">
+        <value xml:lang="de">Finde Verkaufsprognose</value>
         <value xml:lang="en">Find Sales Forecast</value>
         <value xml:lang="fr">Recherche de prévision de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
@@ -1857,6 +1878,7 @@
         <value xml:lang="zh">查找地理</value>
     </property>
     <property key="PageTitleLookupSalesForecast">
+        <value xml:lang="de">Verkaufsprognosen anschauen</value>
         <value xml:lang="en">Lookup Sales Forecast</value>
         <value xml:lang="fr">Consulter la prévision de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
@@ -1893,6 +1915,7 @@
         <value xml:lang="zh">查找跟踪码类型</value>
     </property>
     <property key="PageTitleLookupVisit">
+        <value xml:lang="de">Besuche anschauen</value>
         <value xml:lang="en">Lookup Visit</value>
         <value xml:lang="es">Buscar visita</value>
         <value xml:lang="fr">Consulter la visite</value>
@@ -1903,6 +1926,7 @@
         <value xml:lang="zh">查找访问</value>
     </property>
     <property key="PageTitlePreferredContactMech">
+        <value xml:lang="de">Bevorzugte Kontaktart</value>
         <value xml:lang="en">Preferred Contact Mechanism</value>
         <value xml:lang="es">Mecanismo de contacto preferido</value>
         <value xml:lang="fr">Mécanisme de contact favori</value>
@@ -1913,6 +1937,7 @@
         <value xml:lang="zh">优先使用的联系方式</value>
     </property>
     <property key="SfaAcccounts">
+        <value xml:lang="de">Konten</value>
         <value xml:lang="en">Accounts</value>
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Utenze</value>
@@ -1929,6 +1954,7 @@
         <value xml:lang="zh">账户名称</value>
     </property>
     <property key="SfaAddSalesForecastDetail">
+        <value xml:lang="de">Hinzufügen von Verkaufsprognosen-Details</value>
         <value xml:lang="en">Add Sales Forcast Detail</value>
         <value xml:lang="fr">Ajouter le détail de la prévision de ventes</value>
         <value xml:lang="it">Aggiungi dettagli previsioni di vendita</value>
@@ -1936,11 +1962,13 @@
         <value xml:lang="zh">添加销售预测细节</value>
     </property>
     <property key="SfaAllAccounts">
+        <value xml:lang="de">Alle Konten</value>
         <value xml:lang="en">All Accounts</value>
         <value xml:lang="pt_BR">Todas contas</value>
         <value xml:lang="th">Account ทั้งหมด</value>
     </property>
     <property key="SfaAllContacts">
+        <value xml:lang="de">Alle Kontakte</value>
         <value xml:lang="en">All Contacts</value>
         <value xml:lang="pt_BR">Todos contatos</value>
         <value xml:lang="th">Contact ทั้งหมด</value>
@@ -1951,16 +1979,19 @@
         <value xml:lang="th">Lead ทั้งหมด</value>
     </property>
     <property key="SfaAssignToMe">
+        <value xml:lang="de">Zugewiesen an mich</value>
         <value xml:lang="en">Assign To Me</value>
         <value xml:lang="pt_BR">Designar para mim</value>
         <value xml:lang="th">กำหนดให้ฉัน</value>
     </property>
     <property key="SfaAssignedBy">
+        <value xml:lang="de">Zugewiesen von</value>
         <value xml:lang="en">Assigned by</value>
         <value xml:lang="pt_BR">Designada por</value>
         <value xml:lang="th">กำหนดโดย</value>
     </property>
     <property key="SfaAutoCreateContactByImportingVCard">
+        <value xml:lang="de">Automatisches Erstellen eines neuen Kontaktes bei dem Import einer vCard</value>
         <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau contact par import d'une vCard</value>
         <value xml:lang="it">Creazione automatica di un nuovo contatto importando una vCard</value>
@@ -1976,6 +2007,7 @@
         <value xml:lang="zh">通过导入vCard自动新建线索</value>
     </property>
     <property key="SfaCampaigns">
+        <value xml:lang="de">Kampagne</value>
         <value xml:lang="en">Campaigns</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagnes de ventes</value>
@@ -1984,6 +2016,7 @@
         <value xml:lang="zh">攻势</value>
     </property>
     <property key="SfaCanNotMergeSameContact">
+        <value xml:lang="de">Zusammenführen der Kontakte fehlgeschlagen. Sie haben die gleichen Kontakte zum zusammenführen ausgewählt.</value>
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
         <value xml:lang="fr">Echec à la fusion des contacts. Vous avez choisi le même contact à fusionner.</value>
         <value xml:lang="it">Fallito il merce dei contatti. Tu devi selezionare lo stesso contatto per fare il merge.</value>
@@ -2030,11 +2063,13 @@
         <value xml:lang="zh">竞争者和合作伙伴</value>
     </property>
     <property key="SfaComplete">
+        <value xml:lang="de">Komplett</value>
         <value xml:lang="en">Complete</value>
         <value xml:lang="pt_BR">Completo</value>
         <value xml:lang="th">เสร็จสิ้น</value>
     </property>
     <property key="SfaContact">
+        <value xml:lang="de">Kontakt</value>
         <value xml:lang="en">Contact</value>
         <value xml:lang="fr">Contact</value>
         <value xml:lang="it">Contatto</value>
@@ -2072,6 +2107,7 @@
         <value xml:lang="zh">为线索创建联系</value>
     </property>
     <property key="SfaCreateContactFromVCard">
+        <value xml:lang="de">Erstelle von vCard</value>
         <value xml:lang="en">Create from vCard</value>
         <value xml:lang="fr">Créer depuis une vCard</value>
         <value xml:lang="it">Creare contatto dalla vCard</value>
@@ -2079,6 +2115,7 @@
         <value xml:lang="zh">从vCard创建</value>
     </property>
     <property key="SfaDataSourceLabel">
+        <value xml:lang="de">Quelle</value>
         <value xml:lang="en">Source</value>
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
@@ -2086,6 +2123,7 @@
         <value xml:lang="zh">来源</value>
     </property>
     <property key="SfaDocuments">
+        <value xml:lang="de">Dokumente</value>
         <value xml:lang="en">Documents</value>
         <value xml:lang="fr">Documents</value>
         <value xml:lang="it">Documenti</value>
@@ -2100,6 +2138,7 @@
         <value xml:lang="zh">编辑机会</value>
     </property>
     <property key="SfaEditSalesForecast">
+        <value xml:lang="de">Erstelle/Aktualisiere Verkaufsprognose</value>
         <value xml:lang="en">Create/Update Sales Forecast</value>
         <value xml:lang="fr">Créer/Mise à jour des prévisions de ventes</value>
         <value xml:lang="it">Crea/Aggiorna previsioni di vendita</value>
@@ -2126,11 +2165,13 @@
         <value xml:lang="th">ค้นหา Account Leads</value>
     </property>
     <property key="SfaFindAccounts">
+        <value xml:lang="de">Finde Konten</value>
         <value xml:lang="en">Find Accounts</value>
         <value xml:lang="pt_BR">Buscar contas</value>
         <value xml:lang="th">ค้นหา Accounts</value>
     </property>
     <property key="SfaFindContacts">
+        <value xml:lang="de">Finde Kontakte</value>
         <value xml:lang="en">Find Contacts</value>
         <value xml:lang="fr">Rechercher les contacts</value>
         <value xml:lang="it">Ricerca contatti</value>
@@ -2154,6 +2195,7 @@
         <value xml:lang="zh">查找机会</value>
     </property>
     <property key="SfaFindResults">
+        <value xml:lang="de">Finde Ergebnisse</value>
         <value xml:lang="en">Find Results</value>
         <value xml:lang="es">Buscar resultados</value>
         <value xml:lang="fr">Rechercher les résultats</value>
@@ -2170,10 +2212,12 @@
         <value xml:lang="zh">首选联系方式</value>
     </property>
     <property key="SfaFirstNameLastNameAndCompanyNameMissingError">
+        <value xml:lang="de">Bitte geben Sie den Vornamen, Nachnamen oder Firmennamen ein</value>
         <value xml:lang="en">Please enter Person First name or Last name or Company name</value>
         <value xml:lang="pt_BR">Por favor, digite o nome da pessoa, sobrenome ou nome da empresa</value>
     </property>
     <property key="SfaForecasts">
+        <value xml:lang="de">Prognose</value>
         <value xml:lang="en">Forecast</value>
         <value xml:lang="es">Previsión</value>
         <value xml:lang="fr">Prévision</value>
@@ -2239,13 +2283,14 @@
         <value xml:lang="zh">销售管理应用程序</value>
     </property>
     <property key="SfaManagerApplication">
-        <value xml:lang="en">SFA Manager Application</value>
+        <value xml:lang="en">CRM-Anwendung</value>
         <value xml:lang="fr">Application de gestion des ventes</value>
         <value xml:lang="it">Applicazione gestione forze esterne</value>
         <value xml:lang="pt_BR">Applicação de gestão de automação de equipe de vendas</value>
         <value xml:lang="zh">销售管理应用程序</value>
     </property>
     <property key="SfaManagerWelcome">
+        <value xml:lang="de">Willkommen bei der CRM-Anwendung.</value>
         <value xml:lang="en">Welcome to the Sales Force Automation Manager Application.</value>
         <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes.</value>
         <value xml:lang="it">Benvenuto all'applicazione di gestione delle forze esterne.</value>
@@ -2253,6 +2298,7 @@
         <value xml:lang="zh">欢迎使用销售管理应用程序</value>
     </property>
     <property key="SfaMergeContacts">
+        <value xml:lang="de">Kontakte zusammenführen</value>
         <value xml:lang="en">Merge Contacts</value>
         <value xml:lang="fr">Fusionner les contacts</value>
         <value xml:lang="it">Merge Contatti</value>
@@ -2267,6 +2313,7 @@
         <value xml:lang="zh">合并线索</value>
     </property>
     <property key="SfaMergingFollowing">
+        <value xml:lang="de">Führe folgende zusammen</value>
         <value xml:lang="en">Merging Following</value>
         <value xml:lang="fr">Fusionner les suivants</value>
         <value xml:lang="it">Merge seguendo i</value>
@@ -2274,11 +2321,13 @@
         <value xml:lang="zh">合并跟单</value>
     </property>
     <property key="SfaMyAccounts">
+        <value xml:lang="de">Meine Konten</value>
         <value xml:lang="en">My Accounts</value>
         <value xml:lang="pt_BR">Minhas contas</value>
         <value xml:lang="th">Account ของฉัน</value>
     </property>
     <property key="SfaMyContacts">
+        <value xml:lang="de">Meine Kontakte</value>
         <value xml:lang="en">My Contacts</value>
         <value xml:lang="pt_BR">Meus contatos</value>
         <value xml:lang="th">Contact ของฉัน</value>
@@ -2289,6 +2338,7 @@
         <value xml:lang="th">Lead ของฉัน</value>
     </property>
     <property key="SfaNewSalesForecast">
+        <value xml:lang="de">Neue Verkaufsprognose</value>
         <value xml:lang="en">New Sales Forecast</value>
         <value xml:lang="fr">Nouvelle prévision de vente</value>
         <value xml:lang="it">Nuova Previsioni di vendita</value>
@@ -2297,6 +2347,7 @@
         <value xml:lang="zh">新的销售展望</value>
     </property>
     <property key="SfaNextStep">
+        <value xml:lang="de">Nächster Schritt</value>
         <value xml:lang="en">Next Step</value>
         <value xml:lang="fr">Prochaine étape</value>
         <value xml:lang="it">Passo successivo</value>
@@ -2350,6 +2401,7 @@
         <value xml:lang="zh">机会总览</value>
     </property>
     <property key="SfaProbability">
+        <value xml:lang="de">Wahrscheinlichkeit(%)</value>
         <value xml:lang="en">Probability(%)</value>
         <value xml:lang="fr">Probabilité (%)</value>
         <value xml:lang="it">Probabilità(%)</value>
@@ -2371,6 +2423,7 @@
         <value xml:lang="zh">快速添加线索</value>
     </property>
     <property key="SfaSalesForecast">
+        <value xml:lang="de">Verkaufsprognose</value>
         <value xml:lang="en">Sales Forecast</value>
         <value xml:lang="fr">Prévision de ventes</value>
         <value xml:lang="it">Previsioni di vendita</value>
@@ -2385,6 +2438,7 @@
         <value xml:lang="zh">第二联系方式</value>
     </property>
     <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
+        <value xml:lang="de">Wählen Sie ein existierendes Konto oder lassen Sie es leer um ein neues Konto zu erstellen"</value>
         <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
         <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
         <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
@@ -2396,11 +2450,13 @@
         <value xml:lang="pt_BR">Selecionar donos do Lead</value>
     </property>
     <property key="SfaTaskAssignedByMe">
+        <value xml:lang="de">Öffne Aufgaben die ich zugeteilt habe.</value>
         <value xml:lang="en">Open Tasks Assigned by me.</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่ฉันมอบหมาย</value>
     </property>
     <property key="SfaTaskAssignedToMe">
+        <value xml:lang="de">Öffne Aufgaben die mir zugeteilt sind.</value>
         <value xml:lang="en">Open Tasks Assigned to me.</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
@@ -2414,6 +2470,7 @@
         <value xml:lang="zh">类型</value>
     </property>
     <property key="SfaUploadVCard">
+        <value xml:lang="de">vCard hochladen</value>
         <value xml:lang="en">Upload vCard</value>
         <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
         <value xml:lang="it">Carica vCard</value>
@@ -2421,6 +2478,7 @@
         <value xml:lang="zh">上传vCard</value>
     </property>
     <property key="SfaVCard">
+        <value xml:lang="de">vCard</value>
         <value xml:lang="en">vCard</value>
         <value xml:lang="fr">vCard</value>
         <value xml:lang="it">vCard</value>

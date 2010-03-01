@@ -7552,6 +7552,7 @@
         <value xml:lang="zh">没有存档的支付方式信息。</value>
     </property>
     <property key="PartyNoProductStoreFoundForThisParty">
+        <value xml:lang="de">Kein Laden für diesen Akteur gefunden.</value>
         <value xml:lang="en">No product store(s) found for this party.</value>
     </property>
     <property key="PartyNoServerHitsFound">
@@ -9456,7 +9457,7 @@
         <value xml:lang="zh">分区</value>
     </property>
     <property key="PartySelectContactType">
-        <value xml:lang="de">Auswahl Kontakttyp</value>
+        <value xml:lang="de">Kontakttyp auswählen</value>
         <value xml:lang="en">Select Contact Type</value>
         <value xml:lang="es">Seleccionar tipo de contacto</value>
         <value xml:lang="fr">Sélectionner un type de coordonnées</value>

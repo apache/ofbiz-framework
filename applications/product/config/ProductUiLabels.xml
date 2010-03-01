@@ -864,7 +864,7 @@
         <value xml:lang="zh">授权错误信息</value>
     </property>
     <property key="FormFieldTitle_authFraudMessage">
-        <value xml:lang="de">Abbuchung Betrugsversuch Fehlermeldung</value>
+        <value xml:lang="de">Abbuchung wegen Betrugsversuch / Fehlermeldung</value>
         <value xml:lang="en">Auth Fraud Message</value>
         <value xml:lang="es">Autorización denegada por posible fraude</value>
         <value xml:lang="fr">Message de tentative de fraude à l'autorisation de paiement</value>
@@ -881,7 +881,7 @@
         <value xml:lang="zh">授权的有效天数</value>
     </property>
     <property key="FormFieldTitle_autoApproveInvoice">
-        <value xml:lang="de">Automatische Genehmigung Rechnungen</value>
+        <value xml:lang="de">Automatische Genehmigung der Rechnungen</value>
         <value xml:lang="en">Auto Approve Invoice</value>
         <value xml:lang="es">Aprobar factura automáticamente</value>
         <value xml:lang="fr">Approbation automatique de facture</value>
@@ -891,7 +891,7 @@
         <value xml:lang="zh">自动批准发票</value>
     </property>
     <property key="FormFieldTitle_autoApproveOrder">
-        <value xml:lang="de">Automatische Genehmigung Aufträge</value>
+        <value xml:lang="de">Automatische Genehmigung der Aufträge</value>
         <value xml:lang="en">Auto Approve Order</value>
         <value xml:lang="es">Aprobar pedido automáticamente</value>
         <value xml:lang="fr">Approbation automatique de commande</value>
@@ -923,7 +923,7 @@
         <value xml:lang="zh">给数字明细自动开发票</value>
     </property>
     <property key="FormFieldTitle_autoOrderCcTryExp">
-        <value xml:lang="de">Automatische Bestellungen: Andere Ablaufdatum Kreditkarte versuchen?</value>
+        <value xml:lang="de">Automatische Bestellungen: Anderes Ablaufdatum der Kreditkarte versuchen?</value>
         <value xml:lang="en">Auto Order Cc Try Exp</value>
         <value xml:lang="es">Probar automáticamente si hay expiración</value>
         <value xml:lang="fr">Commandes automatiques : essayer d'autres dates d'expiration de carte de crédit ? </value>
@@ -1669,7 +1669,7 @@
         <value xml:lang="zh">启用自动推荐列表</value>
     </property>
     <property key="FormFieldTitle_enableDigProdUpload">
-        <value xml:lang="de">Digitales Produkt Hochladen zulassen</value>
+        <value xml:lang="de">Hochladen von digitalem Produkt zulassen</value>
         <value xml:lang="en">Enable Digital Product Upload</value>
         <value xml:lang="es">Habilitar carga de productos digitales</value>
         <value xml:lang="fr">Autoriser le téléchargement d'articles numériques vers le serveur</value>
@@ -1944,7 +1944,7 @@
         <value xml:lang="zh">头已否决状态</value>
     </property>
     <property key="FormFieldTitle_headerLogo">
-        <value xml:lang="de">Kopfbereich Logo</value>
+        <value xml:lang="de">Logo im Kopfteil</value>
         <value xml:lang="en">Header Logo</value>
         <value xml:lang="es">Logotipo cabecera</value>
         <value xml:lang="fr">Logo d'entête</value>
@@ -3522,7 +3522,7 @@
         <value xml:lang="zh">需要公司地址</value>
     </property>
     <property key="FormFieldTitle_requireCustomerRole">
-        <value xml:lang="de">Benötigt Rolle Kunde</value>
+        <value xml:lang="de">Benötigt Kundenrolle</value>
         <value xml:lang="en">Require Customer Role</value>
         <value xml:lang="es">Exigir rol de cliente</value>
         <value xml:lang="fr">Nécessite un rôle de client</value>
@@ -3572,7 +3572,7 @@
         <value xml:lang="zh">需要USPS地址</value>
     </property>
     <property key="FormFieldTitle_requirementMethodEnumId">
-        <value xml:lang="de">Bedarf Methode Aufzählung ID</value>
+        <value xml:lang="de">Aufzählung des Bedarfs</value>
         <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Tipo de método de requisito</value>
         <value xml:lang="fr">Méthode retenue pour le réapprovisionnement</value>
@@ -3596,7 +3596,7 @@
         <value xml:lang="zh">预订库存</value>
     </property>
     <property key="FormFieldTitle_reserveOrderEnumId">
-        <value xml:lang="de">Reservation Auftrag Aufzählung ID</value>
+        <value xml:lang="de">Art der Auftragsreservierung</value>
         <value xml:lang="en">Reserve Order Enum Id</value>
         <value xml:lang="es">Orden de reserva</value>
         <value xml:lang="fr">Ordre de réservation</value>
@@ -3821,7 +3821,7 @@
         <value xml:lang="zh">运输明细序号</value>
     </property>
     <property key="FormFieldTitle_shipmentMethodTypeId">
-        <value xml:lang="de">Liefermethode Typ ID</value>
+        <value xml:lang="de">Liefermethodentyp</value>
         <value xml:lang="en">Shipment Method Type Id</value>
         <value xml:lang="es">Código Tipo de método de envío</value>
         <value xml:lang="fr">Réf. de méthode d'expédition</value>
@@ -3957,7 +3957,7 @@
         <value xml:lang="zh">标准交货周期</value>
     </property>
     <property key="FormFieldTitle_storeCreditValidDays">
-        <value xml:lang="de">Kredit gültig Tage speichern</value>
+        <value xml:lang="de">Kreditgültigkeit wieviele Tage speichern</value>
         <value xml:lang="en">Store Credit Valid Days</value>
         <value xml:lang="es">Días de validez de los créditos de tienda</value>
         <value xml:lang="fr">Nombre de jours de validité des crédits dûs au retour</value>
@@ -4194,7 +4194,7 @@
         <value xml:lang="zh">使用技术限制</value>
     </property>
     <property key="FormFieldTitle_useDaysLimit">
-        <value xml:lang="de">Verwendung Anzahl Tage Limite</value>
+        <value xml:lang="de">Verwende Tagesbegrenzung</value>
         <value xml:lang="en">Use Days Limit</value>
         <value xml:lang="es">Usar el límite de días</value>
         <value xml:lang="fr">Limite d'utilisation en jours</value>
@@ -8587,7 +8587,7 @@
         <value xml:lang="zh">需要有把产品添加到“允许采购”分类的权限</value>
     </property>
     <property key="ProductCategoryRollupChildCategories">
-        <value xml:lang="de">Kategorie Rollup : Untergeordnete Kategorien</value>
+        <value xml:lang="de">Kategoriezuweisung : Untergeordnete Kategorien</value>
         <value xml:lang="en">Category Rollup : Child Categories</value>
         <value xml:lang="es">Jerarquía de Categoría: Categorías hijas</value>
         <value xml:lang="fr">Hiérarchie : catégorie fille</value>
@@ -8598,7 +8598,7 @@
         <value xml:lang="zh">分类汇总：下级分类</value>
     </property>
     <property key="ProductCategoryRollupParentCategories">
-        <value xml:lang="de">Kategorie Rollup : Übergeordnete Kategorien</value>
+        <value xml:lang="de">Kategoriezuweisung : Übergeordnete Kategorien</value>
         <value xml:lang="en">Category Rollup : Parent Categories</value>
         <value xml:lang="es">Jerarquía de Categoría: Categorías padre</value>
         <value xml:lang="fr">Hiérarchie : catégorie parente</value>
@@ -9113,7 +9113,7 @@
         <value xml:lang="zh">内容标识</value>
     </property>
     <property key="ProductContentInfoText">
-        <value xml:lang="de">Inhalt Informationen Text</value>
+        <value xml:lang="de">Information über Inhalt</value>
         <value xml:lang="en">Content Info Text</value>
         <value xml:lang="es">Texto de la Información del Contenido</value>
         <value xml:lang="fr">Texte informatif</value>
@@ -9124,7 +9124,7 @@
         <value xml:lang="zh">内容信息文本</value>
     </property>
     <property key="ProductContentPathPrefix">
-        <value xml:lang="de">Inhalt Pfad Präfix</value>
+        <value xml:lang="de">Präfix des Inhaltpfads</value>
         <value xml:lang="en">Content Path Prefix</value>
         <value xml:lang="es">Prefijo de la ruta del Contenido</value>
         <value xml:lang="fr">Préfixe du fichier de mise en place du contenu</value>
@@ -10639,7 +10639,7 @@
         <value xml:lang="zh">存在变型标识</value>
     </property>
     <property key="ProductExpireAllProductMembers">
-        <value xml:lang="de">Alle Produktmitglieder ablaufen lassen (Verfalldatum)</value>
+        <value xml:lang="de">Alle Produktmitglieder ablaufen lassen (Verfallsdatum)</value>
         <value xml:lang="en">Expire All Product Members</value>
         <value xml:lang="es">Expirar todos los miembros de Producto</value>
         <value xml:lang="fr">Mettre à jour la date d'expiration d'appartenance à cette catégorie pour tous les articles</value>
@@ -11318,7 +11318,7 @@
         <value xml:lang="zh">查找产品</value>
     </property>
     <property key="ProductFindProductWithIdValue">
-        <value xml:lang="de">Produkt suchen mit dem ID Wert</value>
+        <value xml:lang="de">Produkt suchen nach Artikel-Nr.</value>
         <value xml:lang="en">Find Product with ID Value</value>
         <value xml:lang="es">Buscar producto con Código</value>
         <value xml:lang="fr">Recherche d'un article avec sa référence</value>
@@ -11741,6 +11741,7 @@
     <property key="ProductHZ">
         <value xml:lang="de">Gefahrgut</value>
         <value xml:lang="en">HZ</value>
+        <value xml:lang="es">Peligroso</value>
         <value xml:lang="fr">Prod. Dang.</value>
         <value xml:lang="it">Pr.Dan.</value>
         <value xml:lang="zh">危险品</value>
@@ -11757,7 +11758,7 @@
         <value xml:lang="zh">操作说明</value>
     </property>
     <property key="ProductHeaderLogo">
-        <value xml:lang="de">Kopfbereich Logo</value>
+        <value xml:lang="de">Logo im Kopfteil</value>
         <value xml:lang="en">Header Logo</value>
         <value xml:lang="es">Logo de encabezado</value>
         <value xml:lang="fr">Logo d'entête</value>
@@ -15447,7 +15448,7 @@
         <value xml:lang="zh">上级组 [标识]</value>
     </property>
     <property key="ProductParentType">
-        <value xml:lang="de">Übergeordnetes Produkt Typ</value>
+        <value xml:lang="de">Übergeordneter Produkttyp</value>
         <value xml:lang="en">Product Parent Type</value>
         <value xml:lang="es">Tipo de Producto padre</value>
         <value xml:lang="fr">Type du parent de l'article</value>
@@ -15490,7 +15491,7 @@
         <value xml:lang="zh">用于免费运输行为的会员标识是提供免费送乎的承运商会员标识 (如果为空，任一承运商会员都可能接收免费送货)。</value>
     </property>
     <property key="ProductPaymentProps">
-        <value xml:lang="de">Zahlung Einstellungen</value>
+        <value xml:lang="de">Zahlungseinstellungen</value>
         <value xml:lang="en">Payment Props</value>
         <value xml:lang="es">Propiedades de Pago</value>
         <value xml:lang="fr">Propriétés du paiement</value>
@@ -17266,7 +17267,7 @@
         <value xml:lang="zh">快速管理</value>
     </property>
     <property key="ProductQuickApplyFeature">
-        <value xml:lang="de">Rasches anwenden Produktmerkmale</value>
+        <value xml:lang="de">Produktmerkmal schnell zuordnen</value>
         <value xml:lang="en">Quick Apply Product Feature</value>
         <value xml:lang="es">Aplicación rápida de características</value>
         <value xml:lang="fr">Appliquer rapidement la caractéristique du produit</value>
@@ -17277,7 +17278,7 @@
         <value xml:lang="zh">快速应用产品特征</value>
     </property>
     <property key="ProductQuickCreateVirtualFromVariants">
-        <value xml:lang="de">Rasches erstellen Virtuelles Produkt von Varianten</value>
+        <value xml:lang="de">Schnelles Erstellen eines Virtuellen Produktes von Varianten</value>
         <value xml:lang="en">Quick Create Virtual from Variants</value>
         <value xml:lang="es">Crear rápido Virtuales a partir de variantes</value>
         <value xml:lang="fr">Créer rapidement un article virtuel depuis des variantes</value>
@@ -18094,7 +18095,7 @@
         <value xml:lang="zh">等待批准的检查</value>
     </property>
     <property key="ProductRollup">
-        <value xml:lang="de">Rollup</value>
+        <value xml:lang="de">Kategoriezuordnung</value>
         <value xml:lang="en">Rollup</value>
         <value xml:lang="es">Jerarquía</value>
         <value xml:lang="fr">Hiérarchie</value>
@@ -18106,7 +18107,7 @@
         <value xml:lang="zh">汇总</value>
     </property>
     <property key="ProductRollups">
-        <value xml:lang="de">Rollups</value>
+        <value xml:lang="de">Kategoriezuordnungen</value>
         <value xml:lang="en">Rollups</value>
         <value xml:lang="es">Jerarquías</value>
         <value xml:lang="fr">Hiérarchies</value>
@@ -20134,7 +20135,7 @@
         <value xml:lang="zh">模板路径</value>
     </property>
     <property key="ProductTemplatePathPrefix">
-        <value xml:lang="de">Template Pfad Prefix</value>
+        <value xml:lang="de">Prefix des Vorlagenpfads</value>
         <value xml:lang="en">Template Path Prefix</value>
         <value xml:lang="es">Prefijo de la ruta de la plantilla</value>
         <value xml:lang="fr">Préfixe du squelette du fichier de mise en place</value>
@@ -20739,7 +20740,7 @@
         <value xml:lang="zh">为产品更新纯文本内容</value>
     </property>
     <property key="ProductUploadCategoryImage">
-        <value xml:lang="de">Bild zur Kategorie hinaufladen</value>
+        <value xml:lang="de">Bild zur Kategorie hochladen</value>
         <value xml:lang="en">Upload Category Image</value>
         <value xml:lang="es">Cargar imagen de categoría</value>
         <value xml:lang="fr">Télécharger l'image de la catégorie vers le serveur</value>
@@ -20750,7 +20751,7 @@
         <value xml:lang="zh">上传分类图像</value>
     </property>
     <property key="ProductUploadImage">
-        <value xml:lang="de">Bild hinaufladen</value>
+        <value xml:lang="de">Bild hochladen</value>
         <value xml:lang="en">Upload Image</value>
         <value xml:lang="es">Cargar imagen</value>
         <value xml:lang="fr">Télécharger l'image vers le serveur</value>
@@ -20761,7 +20762,7 @@
         <value xml:lang="zh">上传图像</value>
     </property>
     <property key="ProductUploadLinkOneImage">
-        <value xml:lang="de">Erstes Link Bild hinaufladen</value>
+        <value xml:lang="de">Erstes Link Bild hochladen</value>
         <value xml:lang="en">Upload Link One Image</value>
         <value xml:lang="es">Cargar la imagen del enlace 1</value>
         <value xml:lang="fr">Télécharger l'image du lien 1 vers le serveur</value>
@@ -20772,7 +20773,7 @@
         <value xml:lang="zh">上传链接一个图像</value>
     </property>
     <property key="ProductUploadLinkTwoImage">
-        <value xml:lang="de">Zweites Link Bild hinaufladen</value>
+        <value xml:lang="de">Zweites Link Bild hochladen</value>
         <value xml:lang="en">Upload Link Two Image</value>
         <value xml:lang="es">Cargar la imagen del enlace 2</value>
         <value xml:lang="fr">Télécharger l'image du lien 2 vers le serveur</value>
@@ -20940,6 +20941,7 @@
         <value xml:lang="zh">是变型产品?</value>
     </property>
     <property key="ProductVariantProductIds">
+        <value xml:lang="de">Produktvarianten IDs</value>
         <value xml:lang="en">Variant Product IDs</value>
         <value xml:lang="es">Código de producto variante</value>
         <value xml:lang="fr">Réf. de variantes</value>
@@ -21115,6 +21117,7 @@
         <value xml:lang="zh">空UPS货运确认</value>
     </property>
     <property key="ProductWarehouseArea">
+        <value xml:lang="de">Lagerbereich</value>
         <value xml:lang="en">Warehouse Area</value>
         <value xml:lang="it">Area di magazzino</value>
     </property>
