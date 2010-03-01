@@ -208,15 +208,15 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         // TZ can never be null, will default to GMT if it can't be parsed(from the javadocs of java.util.TimeZone)
         simpleTypeConvertTestSingleMulti("String->TimeZone", "Pacific/Wake", new String[] {"TimeZone", "java.util.TimeZone"}, localeData.goodTimeZone);
         simpleTypeConvertTestSingleMulti("String->BigDecimal", "78,125E-2", new String[] {"BigDecimal", "java.math.BigDecimal"}, null, localeData, dcml);
-        //BUG simpleTypeConvertTestError("String->error-BigDecimal", "o", new String[] {"BigDecimal", "java.math.BigDecimal"});
+        simpleTypeConvertTestError("String->error-BigDecimal", "o", new String[] {"BigDecimal", "java.math.BigDecimal"});
         simpleTypeConvertTestSingleMulti("String->Double", "78,125E-2", new String[] {"Double", "java.lang.Double"}, null, localeData, dbl);
-        //BUG simpleTypeConvertTestError("String->error-Double", "o", new String[] {"Double", "java.lang.Double"});
+        simpleTypeConvertTestError("String->error-Double", "o", new String[] {"Double", "java.lang.Double"});
         simpleTypeConvertTestSingleMulti("String->Float", "78,125E-2", new String[] {"Float", "java.lang.Float"}, null, localeData, flt);
-        //BUG simpleTypeConvertTestError("String->error-Float", "o", new String[] {"Float", "java.lang.Float"});
+        simpleTypeConvertTestError("String->error-Float", "o", new String[] {"Float", "java.lang.Float"});
         simpleTypeConvertTestSingleMulti("String->Long", "78,125E-2", new String[] {"Long", "java.lang.Long"}, null, localeData, lng);
-        //BUG simpleTypeConvertTestError("String->error-Long", "o", new String[] {"Long", "java.lang.Long"});
+        simpleTypeConvertTestError("String->error-Long", "o", new String[] {"Long", "java.lang.Long"});
         simpleTypeConvertTestSingleMulti("String->Integer", "78,125E-2", new String[] {"Integer", "java.lang.Integer"}, null, localeData, intg);
-        //BUG simpleTypeConvertTestError("String->error-Integer", "o", new String[] {"Integer", "java.lang.Integer"});
+        simpleTypeConvertTestError("String->error-Integer", "o", new String[] {"Integer", "java.lang.Integer"});
 
         simpleTypeConvertTestSingleMulti("String->java.sql.Date", "1969-12-31", new String[] {"Date", "java.sql.Date"}, null, localeData, sqlDt);
         simpleTypeConvertTestSingleMulti("String->java.sql.Date", "1969-12-31", new String[] {"Date", "java.sql.Date"}, "", localeData, sqlDt);
@@ -242,7 +242,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestError("String->Map(error-2)", "one=1, two=2, three=3}", new String[] {"Map", "java.util.Map"});
         simpleTypeConvertTestSingleMulti("String->TimeDuration(number)", "3,661,001", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, null, localeData, duration);
         simpleTypeConvertTestMultiMulti("String->TimeDuration(string)", new String[] {"1:1:1:1"}, new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, duration);
-        //BUG simpleTypeConvertTestError("String->error-TimeDuration", "o", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"});
+        simpleTypeConvertTestError("String->error-TimeDuration", "o", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"});
     }
 
     public void testDouble() throws GeneralException {
