@@ -206,7 +206,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("String->Locale", "en_us", new String[] {"Locale", "java.util.Locale"}, localeData.goodLocale);
         simpleTypeConvertTestError("String->error-Locale", "o", new String[] {"Locale", "java.util.Locale"});
         // TZ can never be null, will default to GMT if it can't be parsed(from the javadocs of java.util.TimeZone)
-        //BUG simpleTypeConvertTestSingleMulti("String->TimeZone", "Pacific/Wake", new String[] {"TimeZone", "java.util.TimeZone"}, localeData.goodTimeZone);
+        simpleTypeConvertTestSingleMulti("String->TimeZone", "Pacific/Wake", new String[] {"TimeZone", "java.util.TimeZone"}, localeData.goodTimeZone);
         simpleTypeConvertTestSingleMulti("String->BigDecimal", "78,125E-2", new String[] {"BigDecimal", "java.math.BigDecimal"}, null, localeData, dcml);
         //BUG simpleTypeConvertTestError("String->error-BigDecimal", "o", new String[] {"BigDecimal", "java.math.BigDecimal"});
         simpleTypeConvertTestSingleMulti("String->Double", "78,125E-2", new String[] {"Double", "java.lang.Double"}, null, localeData, dbl);
