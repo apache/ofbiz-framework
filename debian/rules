@@ -76,6 +76,7 @@ clean-debian:
 clean: clean-debian
 	$(SHELL) ant clean-all
 	debconf-updatepo
+	rm -rf debian/orig-work
 
 build: debian/stamps/build-ofbiz debian/EncryptPassword.class
 build-ofbiz: debian/stamps/build-ofbiz
