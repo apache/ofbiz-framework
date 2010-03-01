@@ -54,6 +54,22 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static abstract class AbstractNumberToStringConverter<N extends Number> extends AbstractNumberConverter<N, String> {
+        public AbstractNumberToStringConverter(Class<N> sourceClass) {
+            super(sourceClass, String.class);
+        }
+
+        public String convert(N obj) throws ConversionException {
+            return obj.toString();
+        }
+
+        public String convert(N obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            return format(obj, NumberFormat.getNumberInstance(locale));
+        }
+
+        protected abstract String format(N obj, NumberFormat nf) throws ConversionException;
+    }
+
     public static class GenericNumberToDouble<N extends Number> extends AbstractConverter<N, Double> {
         public GenericNumberToDouble(Class<N> sourceClass) {
             super(sourceClass, Double.class);
@@ -140,17 +156,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToString extends AbstractNumberConverter<BigDecimal, String> {
+    public static class BigDecimalToString extends AbstractNumberToStringConverter<BigDecimal> {
         public BigDecimalToString() {
-            super(BigDecimal.class, String.class);
+            super(BigDecimal.class);
         }
 
-        public String convert(BigDecimal obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(BigDecimal obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(BigDecimal obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
     }
@@ -201,17 +212,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToString extends AbstractNumberConverter<BigInteger, String> {
+    public static class BigIntegerToString extends AbstractNumberToStringConverter<BigInteger> {
         public BigIntegerToString() {
-            super(BigInteger.class, String.class);
+            super(BigInteger.class);
         }
 
-        public String convert(BigInteger obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(BigInteger obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(BigInteger obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
     }
@@ -252,17 +258,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToString extends AbstractNumberConverter<Byte, String> {
+    public static class ByteToString extends AbstractNumberToStringConverter<Byte> {
         public ByteToString() {
-            super(Byte.class, String.class);
+            super(Byte.class);
         }
 
-        public String convert(Byte obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Byte obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Byte obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
     }
@@ -315,17 +316,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToString extends AbstractNumberConverter<Double, String> {
+    public static class DoubleToString extends AbstractNumberToStringConverter<Double> {
         public DoubleToString() {
-            super(Double.class, String.class);
+            super(Double.class);
         }
 
-        public String convert(Double obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Double obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Double obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
     }
@@ -370,17 +366,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToString extends AbstractNumberConverter<Float, String> {
+    public static class FloatToString extends AbstractNumberToStringConverter<Float> {
         public FloatToString() {
-            super(Float.class, String.class);
+            super(Float.class);
         }
 
-        public String convert(Float obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Float obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Float obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
     }
@@ -441,17 +432,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToString extends AbstractNumberConverter<Integer, String> {
+    public static class IntegerToString extends AbstractNumberToStringConverter<Integer> {
         public IntegerToString() {
-            super(Integer.class, String.class);
+            super(Integer.class);
         }
 
-        public String convert(Integer obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Integer obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Integer obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.intValue());
         }
     }
@@ -512,17 +498,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToString extends AbstractNumberConverter<Long, String> {
+    public static class LongToString extends AbstractNumberToStringConverter<Long> {
         public LongToString() {
-            super(Long.class, String.class);
+            super(Long.class);
         }
 
-        public String convert(Long obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Long obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Long obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.longValue());
         }
     }
@@ -563,17 +544,12 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToString extends AbstractNumberConverter<Short, String> {
+    public static class ShortToString extends AbstractNumberToStringConverter<Short> {
         public ShortToString() {
-            super(Short.class, String.class);
+            super(Short.class);
         }
 
-        public String convert(Short obj) throws ConversionException {
-            return obj.toString();
-        }
-
-        public String convert(Short obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        protected String format(Short obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
     }
