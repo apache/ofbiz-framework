@@ -209,6 +209,19 @@ ofbiz_shutdown() {
 
 wait_for_stop() {
 	wait_for_status 30 "Not Running" "stop"
+	count="10"
+	while :; do
+		if ! start-stop-daemon --pidfile "$PIDFILE" --exec /usr/bin/jsvc --user $USER --signal 0 --quiet --stop; then
+			break
+		fi
+		count=$(($count - 1))
+		if [ "$count" -eq 0 ]; then
+			log_failure_msg "Timeout waiting for stop"
+			exit 1
+		fi
+		log_begin_msg "."
+		sleep 1
+	done
 }
 
 start() {
@@ -252,9 +265,9 @@ stop() {
 		;;
 		(*)
 			ofbiz_shutdown
-			wait_for_stop
 		;;
 	esac
+	wait_for_stop
 	if [ -e "$PIDFILE" ]; then
 		rm "$PIDFILE"
 	fi
