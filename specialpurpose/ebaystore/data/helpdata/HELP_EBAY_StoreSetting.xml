@@ -19,34 +19,34 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Ebay Store Detail screen.</title>
     <para>
-This screen allows the user to manage store display setting (store detail, theme, and font color,logo etc.). you can setting in this screen and submit the system will sent your setting to your ebay store and store will update detail.</para>
-	    <section>
-		<title>Fields Description : </title>
-		<orderedlist>
-		    <listitem><para>Store Name(define 35 charactors)</para></listitem>
-		    <listitem><para>Store Descrption(define 300 charactors)</para></listitem>
-		    <listitem><para>Store Url</para></listitem>
-		    <listitem><para>Store Logo Url(enter your company logo are located at the following URL..)</para></listitem>
-		   <listitem><para> All of your Store’s pages will appear with the theme you choose,On ebay there are two basic types of themes to choose from.</para></listitem>
-		    <listitem><para>Store Advanced Theme (This is predesigned themes offer professionally designed background graphics and color combinations. Use one of these if you want to save time on creating an appealing, consistent look for your Store)</para></listitem>
-		    <listitem><para>Store Advanced Theme Color</para></listitem>
-		    <listitem><para>Store Basic Theme(Easily Customizable themes lend themselves to creating a more custom look. Use one of these if you'd prefer to have more control over the colors in your store)</para></listitem>
-		    <listitem><para><link xl:href="http://developer.ebay.com/DevZone/XML/docs/WebHelp/images/CustomStoreLookAndFeelWithCallouts.jpg">See example layout on ebay</link></para></listitem>
-		    <listitem><para>Primary Color</para></listitem>
-		    <listitem><para>Secondary Color</para></listitem>
-		    <listitem><para>Accent Color</para></listitem>
-		    <listitem><para>Store Name(Font,Size and Color)</para></listitem>
-		    <listitem><para>Store Title(Font,Size and Color)</para></listitem>
-		    <listitem><para>Store Description(Font,Size and Color)</para></listitem>
-		    <listitem><para>Header Display(Select No, do not include additional information in the header.
-	Select Yes, include additional information in the header. (Enter in text area below))</para></listitem>
-		    <listitem><para>Select the eBay header style</para></listitem>
-		    <listitem><para>Item List Display</para></listitem>	 
-		    <listitem><para>Item Sort</para></listitem>
-		    <listitem><para>Store Merch Display</para></listitem>
-		    <listitem><para>Subscription Level</para></listitem>
-		    <listitem><para>Press 'submit' to submit data to your ebay store site</para></listitem>
-		</orderedlist>
-	    </section>
+        This screen allows the user to manage store display setting (store detail, theme, and font color,logo etc.). you can setting in this screen and submit the system will sent your setting to your ebay store and store will update detail.
+    </para>
+    <section>
+        <title>Fields Description : </title>
+        <orderedlist>
+            <listitem><para>Store Name(define 35 charactors)</para></listitem>
+            <listitem><para>Store Descrption(define 300 charactors)</para></listitem>
+            <listitem><para>Store Url</para></listitem>
+            <listitem><para>Store Logo Url(enter your company logo are located at the following URL..)</para></listitem>
+            <listitem><para> All of your Store’s pages will appear with the theme you choose,On ebay there are two basic types of themes to choose from.</para></listitem>
+            <listitem><para>Store Advanced Theme (This is predesigned themes offer professionally designed background graphics and color combinations. Use one of these if you want to save time on creating an appealing, consistent look for your Store)</para></listitem>
+            <listitem><para>Store Advanced Theme Color</para></listitem>
+            <listitem><para>Store Basic Theme(Easily Customizable themes lend themselves to creating a more custom look. Use one of these if you'd prefer to have more control over the colors in your store)</para></listitem>
+            <listitem><para><link xl:href="http://developer.ebay.com/DevZone/XML/docs/WebHelp/images/CustomStoreLookAndFeelWithCallouts.jpg">See example layout on ebay</link></para></listitem>
+            <listitem><para>Primary Color</para></listitem>
+            <listitem><para>Secondary Color</para></listitem>
+            <listitem><para>Accent Color</para></listitem>
+            <listitem><para>Store Name(Font,Size and Color)</para></listitem>
+            <listitem><para>Store Title(Font,Size and Color)</para></listitem>
+            <listitem><para>Store Description(Font,Size and Color)</para></listitem>
+            <listitem><para>Header Display(Select No, do not include additional information in the header.
+                Select Yes, include additional information in the header. (Enter in text area below))</para></listitem>
+            <listitem><para>Select the eBay header style</para></listitem>
+            <listitem><para>Item List Display</para></listitem>     
+            <listitem><para>Item Sort</para></listitem>
+            <listitem><para>Store Merch Display</para></listitem>
+            <listitem><para>Subscription Level</para></listitem>
+            <listitem><para>Press 'submit' to submit data to your ebay store site</para></listitem>
+        </orderedlist>
+    </section>
 </section>
-

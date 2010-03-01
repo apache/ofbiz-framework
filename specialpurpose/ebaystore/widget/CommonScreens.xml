@@ -20,7 +20,6 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
     <screen name="main-decorator">
         <section>
             <actions>
@@ -40,7 +39,6 @@
             </widgets>
         </section>
     </screen>
-    
     <screen name="permission-decorator">
         <section>
             <actions>
@@ -85,7 +83,6 @@
             </widgets>
         </section>
     </screen>
-    
     <screen name="CommonEbayConfigDecorator">
         <section>
             <actions>
@@ -119,7 +116,6 @@
             </widgets>
         </section>
     </screen>
-    
     <screen name="SellingManagerDecorator">
         <section>
             <actions>
@@ -129,17 +125,16 @@
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                        	<widgets>
-                        		<include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbaySellingManagerTabBar"/>
-                        		<decorator-section-include name="body"/>
-                        	</widgets>
+                            <widgets>
+                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbaySellingManagerTabBar"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
     <screen name="AccountDecorator">
         <section>
             <actions>
@@ -149,15 +144,14 @@
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                        	<widgets>
-                        		<include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayAccountTabBar"/>
-                        		<decorator-section-include name="body"/>
-                        	</widgets>
+                            <widgets>
+                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayAccountTabBar"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
 </screens>

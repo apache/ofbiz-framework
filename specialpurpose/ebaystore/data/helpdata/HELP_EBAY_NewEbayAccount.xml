@@ -19,22 +19,22 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>New Ebay Account screen.</title>
     <para>
-This screen allows the user to add new ebay account for access to using their ebay store.
+        This screen allows the user to add new ebay account for access to using their ebay store.
     </para>
     <section>
         <title>Fields Description :</title>
         <orderedlist>
             <listitem><para>Enter  'Salutation' (ex:Mr,miss,Missis)</para></listitem>
-	    <listitem><para>Enter  'First Name' (ex:Demo)</para></listitem>
-	    <listitem><para>Enter  'Middle Name'</para></listitem>
-	    <listitem><para>Enter  'Last Name' (ex: DemoLastName)</para></listitem>
-	    <listitem><para>Enter  'Gender'</para></listitem>
-	    <listitem><para>Enter  'User Login Id' (ex:exbaySandBox123) which you registered on ebay</para></listitem>
-	    <listitem><para>Enter  'Current Password' the same which you registered on ebay</para></listitem>
+            <listitem><para>Enter  'First Name' (ex:Demo)</para></listitem>
+            <listitem><para>Enter  'Middle Name'</para></listitem>
+            <listitem><para>Enter  'Last Name' (ex: DemoLastName)</para></listitem>
+            <listitem><para>Enter  'Gender'</para></listitem>
+            <listitem><para>Enter  'User Login Id' (ex:exbaySandBox123) which you registered on ebay</para></listitem>
+            <listitem><para>Enter  'Current Password' the same which you registered on ebay</para></listitem>
             <listitem><para>Press the 'Create' button.</para></listitem>
         </orderedlist>
     </section>
- <section>
+    <section>
         <title>Note :</title>
         <orderedlist>
             <listitem><para>Go to Party module -> Search your party -> then you can update your profiles</para></listitem>

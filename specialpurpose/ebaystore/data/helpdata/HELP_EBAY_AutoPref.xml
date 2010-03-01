@@ -19,30 +19,30 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Ebay Store Detail screen.</title>
     <para>
-    	This section contains all Auto setting of specify Account.
-	</para>
-	    <section>
-		<title>Fields Description : </title>
-			<section>
-				<title>
-					   Automation Re-list Items
-				</title>
-				<para>
-					Automation Re-list Items is setting when items are sold or quantity empty or don't active and then auto re-listing those items.
-				</para>
-				<section>
-					<orderedlist>
-						<listitem><para>Start Date have to start before today or finish date. Format: yyyy-MM-dd HH:mm:ss.SSS"</para></listitem>
-					</orderedlist>
-					<orderedlist>
-						<listitem><para>Finish Date have to is after start date. Format: yyyy-MM-dd HH:mm:ss.SSS"</para></listitem>
-					</orderedlist>
-				</section>
-				<section>
-					<title>Note :</title>
-					<para>If you don't set finish date Automation Re-list continue to do.</para>
-				</section>
-			</section>
-	    </section>
+        This section contains all Auto setting of specify Account.
+    </para>
+    <section>
+        <title>Fields Description : </title>
+        <section>
+            <title>
+                Automation Re-list Items
+            </title>
+            <para>
+                Automation Re-list Items is setting when items are sold or quantity empty or don't active and then auto re-listing those items.
+            </para>
+            <section>
+                <orderedlist>
+                    <listitem><para>Start Date have to start before today or finish date. Format: yyyy-MM-dd HH:mm:ss.SSS"</para></listitem>
+                </orderedlist>
+                <orderedlist>
+                    <listitem><para>Finish Date have to is after start date. Format: yyyy-MM-dd HH:mm:ss.SSS"</para></listitem>
+                </orderedlist>
+            </section>
+            <section>
+                <title>Note :</title>
+                <para>If you don't set finish date Automation Re-list continue to do.</para>
+            </section>
+        </section>
+    </section>
 </section>
 

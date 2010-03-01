@@ -21,7 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EbayStoreApplication">
         <value xml:lang="en">eBay Store</value>
-    </property>    
+    </property>
     <property key="EbayCompanyName">
         <value xml:lang="en">OFBiz</value>
         <value xml:lang="fr">OFBiz</value>
@@ -63,7 +63,6 @@
         <value xml:lang="en">Save ebay setting success.</value>
         <value xml:lang="th">บันทึกข้อมูลคลังสินค้าอีเบย์เรียบร้อย</value>
     </property>
-    
     <property key="EbayStoreStoreName">
         <value xml:lang="en">Store Name</value>
         <value xml:lang="th">ชื่อร้านค้า</value>
@@ -92,7 +91,6 @@
         <value xml:lang="en">Store Basic Theme</value>
         <value xml:lang="th">ธีมแบบธรรมดา</value>
     </property>
-    
     <property key="EbayStoreStoreColorTheme">
         <value xml:lang="en">Change Color</value>
         <value xml:lang="th">เปลี่ยนสี</value>
@@ -141,7 +139,6 @@
         <value xml:lang="en">Store Subscription Level</value>
         <value xml:lang="th"></value>
     </property>
-    
     <property key="EbayPersonalInformation">
         <value xml:lang="en">Personal Information</value>
     </property>
@@ -157,11 +154,9 @@
     <property key="EbayAutomatiionDisputeItems">
         <value xml:lang="en">Automation Dispute Items</value>
     </property>
-    
     <property key="EbayBoughtLeaveFeedback">
         <value xml:lang="en">Bought</value>
     </property>
-    
     <property key="EbayFeedback">
         <value xml:lang="en">Feedback</value>
         <value xml:lang="th">ผลตอบรับ</value>
@@ -178,7 +173,6 @@
     <property key="EbayBlockItemOutOfStock">
         <value xml:lang="en">Block items out of stock</value>
     </property>
-
     <!-- ebay inventory -->
     <property key="EbayReserveProductFrom">
         <value xml:lang="en">Reserve Product From</value>
@@ -208,7 +202,6 @@
     <property key="requireEbayInventory">
         <value xml:lang="en">Require eBay Inventory</value>
     </property>
-
     <!-- Selling Manager preferences -->
     <property key="EbayAutomationDispute">
         <value xml:lang="en">Automation Dispute</value>
@@ -246,7 +239,6 @@
     <property key="EbayTxtAutoPositiveFeedbackBuyer">
         <value xml:lang="en">Automated Positive Feedback for Buyers</value>
     </property>
-    
     <property key="EbayIsAutoFeedbackReminder">
         <value xml:lang="en">Automatically send a Feedback Reminder email</value>
     </property>

@@ -22,10 +22,10 @@ import org.ofbiz.base.util.*;
 jobSandboxs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("authUserLoginId", userLoginId));
 job = null
 jobId = null;
-if(jobSandboxs){
-	job = jobSandboxs.get(0);
-}else{
-	jobId = delegator.getNextSeqId("JobSandbox");
+if(jobSandboxs) {
+    job = jobSandboxs.get(0);
+} else {
+    jobId = delegator.getNextSeqId("JobSandbox");
 }
 context.jobId = jobId;
 context.job = job;

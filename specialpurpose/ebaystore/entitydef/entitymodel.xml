@@ -20,7 +20,7 @@ under the License.
 
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
-    
+
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
     <!-- ========================================================= -->
@@ -29,11 +29,10 @@ under the License.
     <copyright>Copyright 2001-2009 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
-    
-	<extend-entity entity-name="EbayConfig">
+
+    <extend-entity entity-name="EbayConfig">
         <field name="apiServerUrl" type="value"></field>
     </extend-entity>
-
     <entity entity-name="EbayProductStoreInventory"
         package-name="org.ofbiz.ebay.store"
         title="Ebay store product inventory and status of listing">
@@ -79,5 +78,4 @@ under the License.
             <key-map field-name="autoPrefJobId" rel-field-name="jobId"/>
         </relation>
     </entity>
-</entitymodel>    
-    
+</entitymodel>

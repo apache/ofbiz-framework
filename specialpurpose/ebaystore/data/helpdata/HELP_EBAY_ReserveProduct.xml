@@ -19,14 +19,14 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Reserve Product From Ofbiz Inventory screen.</title>
     <para>
-This screen allows the user to reserve products from ofbiz inventory for create listing and sell on ebay site.</para>
-	    <section>
-		<title>How to reserve product?</title>
-		<orderedlist>
-		    <listitem><para>Go to Reserve Product section</para></listitem>
-		    <listitem><para>Enter field productId (Click "look up" to find product or type in text the system will show list of product)</para></listitem>
-		    <listitem><para>Enter quantity of product you want to reserve.</para></listitem>
-		    <listitem><para>Press "" button</para></listitem>
-		</orderedlist>
-	    </section>
+    This screen allows the user to reserve products from ofbiz inventory for create listing and sell on ebay site.</para>
+    <section>
+        <title>How to reserve product?</title>
+        <orderedlist>
+            <listitem><para>Go to Reserve Product section</para></listitem>
+            <listitem><para>Enter field productId (Click "look up" to find product or type in text the system will show list of product)</para></listitem>
+            <listitem><para>Enter quantity of product you want to reserve.</para></listitem>
+            <listitem><para>Press "" button</para></listitem>
+        </orderedlist>
+    </section>
 </section>

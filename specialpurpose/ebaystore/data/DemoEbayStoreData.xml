@@ -19,7 +19,7 @@
 -->
 
 <entity-engine-xml>
-    <!-- Ebay Store Demo Data -->    
+    <!-- Ebay Store Demo Data -->
     <Party partyId="DemoEbayAccount" partyTypeId="PERSON"/>
     <Person partyId="DemoEbayAccount" firstName="Demo ebay account" lastName="USA"/>
     <PartyRole partyId="DemoEbayAccount" roleTypeId="EBAY_ACCOUNT"/>
@@ -39,11 +39,10 @@
     <ProductStoreRole partyId="DemoEbayAccount" roleTypeId="EBAY_ACCOUNT" productStoreId="90100" fromDate="2010-01-01 16:19:47.058"/>
     <ProductStoreCatalog productStoreId="90100" prodCatalogId="eBayCatalog" fromDate="2010-01-01 16:19:47.058"/>
     <ProductStoreFacility productStoreId="90100" facilityId="WebStoreWarehouse" fromDate="2010-01-01 16:19:47.058"/>
-    
+
     <WebSite webSiteId="EBAY_STORE" siteName="eBay Store" standardContentPrefix="http://demo.ofbiz.org" productStoreId="90100"/>
     <EbayConfig productStoreId="90100" devId="f3586481-93c7-4aaf-ab87-d383d56b71b1" appId="antwebc0f-9bf9-4829-998b-e5e8fb773ac" certId="7f363bc0-11d6-489a-a54d-4a44de82f790" compatibilityLevel="643" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll"  apiServerUrl="https://api.sandbox.ebay.com/wsapi"  webSiteId="EBAY_STORE">
         <token><![CDATA[AgAAAA**AQAAAA**aAAAAA**PC5MSw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wJnY+lCZiGoA2dj6x9nY+seQ**0jgBAA**AAMAAA**YxqcpdWbgFwYg1G+3AhOonR2/yllz3IJ5VoJyU75texuETwabGgsN4f6OfeBGWejUx10heCKG7wcM4JI+Fqk8Zg64L51JL3/Vm7dYo8VHd8wfixWIdMmhheYFwOdBtxcTb93NLeJa6uxvBJYrSS7O0RcQ3KPhOVJvt7KfVT009o2/02tuX7vbMoHV+Meszli4eVAnB9Fbt6ag2nq46+2/AzMIO4rZE23ozLfh6c4W+QkD6BcaFzLmhVE+7Ni9y7y26QHfUUdjBOEF6ewLpZJsSIoQZC9y4J/yF15Ann9NiamtmFj5IeX4uNIKegEt8EwFSqtpxjgVngcAmMaM8/hk9uQVnFKHTjhK3koUrT7zu/+tk2twJfGF9odb+/5uTVJZ8Lywl/LwEdadv2wjpTdQqHF2bV84cSRhOKrlsYr9xFqgqNDpnmCFXkQKGhycWzMzxcBmiRT5VXJfBjbTGGdmfAf7TVcoU/4C3F3kvzEJhcxU9WbMvj58TmW+VvYS7oy4kOyTiyr3alkz/+HJYGIuttnkzqsIVIPaSXyyuFNWQmQL+0GlJ1n7EoKCevuVsTYgayQEN39TPeXg8ADmf5Pf19BlPxRFNkKvANxE0k3ac+whUwpkfBgx6lApOcwKQMXioi7NrN3MROL/1qrO2+N5sl4kr9nbuvEk9mPDJnmNdB7lzgoESo+se3ZmY9KJ6v08uQ02N1/SjHtmeiojayaR/DqeJiFSoAnU4winzA5GQGNjzEHUpSf1Kj+IZudhT9r]]></token>
         <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
     </EbayConfig>
-    
 </entity-engine-xml>

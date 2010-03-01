@@ -21,32 +21,31 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createEbayAccount" short-description="Create Ebay Account">
-        
+
         <set-service-fields service-name="createPersonAndUserLogin" to-map="newPerson" map="parameters"/>
         <call-service service-name="createPersonAndUserLogin" in-map-name="newPerson">
             <result-to-field result-name="partyId" field="parameters.partyId"/>
         </call-service>
-        
+
         <set field="parameters.roleTypeId" value="VENDOR" />
         <set-service-fields service-name="createPartyRole" to-map="newPartyRole" map="parameters"/>
         <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
-        
+
         <set field="parameters.storeName" value="${parameters.userLoginId}_store"/>
         <set-service-fields service-name="createProductStore" to-map="newProductStore" map="parameters"/>
         <call-service service-name="createProductStore" in-map-name="newProductStore">
             <result-to-field result-name="productStoreId" field="parameters.productStoreId"/>
         </call-service>
-        
+
         <set field="parameters.roleTypeId" value="EBAY_ACCOUNT"/>
         <set-service-fields service-name="createPartyRole" to-map="newPartyRole" map="parameters"/>
         <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
-        
+
         <set-service-fields service-name="createProductStoreRole" to-map="newProductStoreRole" map="parameters"/>
         <call-service service-name="createProductStoreRole" in-map-name="newProductStoreRole"/>
         <field-to-result field="parameters.productStoreId" result-name="productStoreId"/>
-        
+
     </simple-method>
-    
     <!-- ebay Store Inventory Services -->
     <simple-method method-name="reserveEbayProductInventory" short-description="Reserve product from ofbiz Store Inventory">
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
@@ -57,7 +56,7 @@
             <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}, not reserving inventory."/></add-error>
             <check-errors/>
         </if-empty>
-        
+
         <!-- if prodCatalog is set to not reserve inventory, break here -->
         <if-compare value="N" operator="equals" field="productStore.reserveInventory">
             <!-- note: if not set, defaults to yes, reserve inventory -->
@@ -65,7 +64,7 @@
             <field-to-result field="parameters.quantity" result-name="quantityNotReserved"/>
             <return response-code="success"/>
         </if-compare>
-        
+
         <set from-field="product.requireInventory" field="requireInventory"/>
         <if-empty field="requireInventory">
             <set from-field="productStore.requireInventory" field="requireInventory"/>
@@ -73,7 +72,7 @@
         <if-empty field="requireInventory">
             <set value="Y" field="requireInventory"/>
         </if-empty>
-        
+
         <set from-field="parameters.facilityId" field="facilityId"/>
         <if-not-empty field="facilityId">
             <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
@@ -99,7 +98,7 @@
                 <add-error><fail-message message="Facility with id ${parameters.facilityId} is not associated to ProductId with id ${parameters.productId}, not reserving inventory."/></add-error>
                 <check-errors/>
             </if-empty>
-            
+
             <set-service-fields map="parameters" to-map="callServiceMap" service-name="reserveEbayProductInventoryByStoreFacility"/>
             <set from-field="facilityId" field="callServiceMap.facilityId"/>
             <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
@@ -110,7 +109,7 @@
                 <result-to-field result-name="quantityNotReserved" field="qtyNotReserve"/>
                 <result-to-field result-name="successMessage" field="returnSuccessMessage"/>
             </call-service>
-            
+
             <set field="defaultReserve" default-value="0"/>
             <!-- if quantityNotReserved greater than 0 then ATP in ofbiz stock not have, it should be return message or log warring-->
             <if-compare-field field="qtyNotReserve" operator="equals"  type="BigDecimal" to-field="defaultReserve">
@@ -129,10 +128,10 @@
                         </calcop>
                     </calculate>
                     <set field="parameters.quantity" from-field="reservedQty"/>
-                    <if-compare-field field="reservedQty" operator="greater" to-field="defaultReserve" >
+                    <if-compare-field field="reservedQty" operator="greater" to-field="defaultReserve">
                         <call-simple-method method-name="editEbayProductStoreInventory"/>
                     </if-compare-field>
-                    
+
                     <!-- then show only qty was already reserved and show  difference value that can not reserve -->
                     <set field="successMessage" value="${returnSuccessMessage} Quantity Reserved : ${reservedQty} Quantity Not Reserved : ${qtyNotReserve} "/>
                     <field-to-result  field="successMessage"/>
@@ -142,7 +141,6 @@
             </if-compare-field>
         </if-not-empty>
     </simple-method>
-    
     <simple-method method-name="editEbayProductStoreInventory" short-description="add qty reserve from ofbiz Store product Inventory and combine with ebay store inventory">
         <entity-one entity-name="EbayProductStoreInventory" value-field="ebayProductStoreInventory" >
             <field-map field-name="productStoreId"  from-field="parameters.productStoreId"/>
@@ -326,5 +324,4 @@
             </if>
         </iterate>
     </simple-method>
-    
 </simple-methods>
