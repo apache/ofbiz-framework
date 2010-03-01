@@ -36,27 +36,15 @@ public class BooleanConverters implements ConverterLoader {
         }
     }
 
-    public static class BooleanToList extends AbstractConverter<Boolean, List<Boolean>> {
+    public static class BooleanToList extends GenericSingletonToList<Boolean> {
         public BooleanToList() {
-            super(Boolean.class, List.class);
-        }
-
-        public List<Boolean> convert(Boolean obj) throws ConversionException {
-            List<Boolean> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Boolean.class);
         }
     }
 
-    public static class BooleanToSet extends AbstractConverter<Boolean, Set<Boolean>> {
+    public static class BooleanToSet extends GenericSingletonToSet<Boolean> {
         public BooleanToSet() {
-            super(Boolean.class, Set.class);
-        }
-
-        public Set<Boolean> convert(Boolean obj) throws ConversionException {
-            Set<Boolean> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Boolean.class);
         }
     }
 
