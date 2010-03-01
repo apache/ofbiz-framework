@@ -199,7 +199,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTest("String->String", "one", "String", "one");
         simpleTypeConvertTest("String->String", "one", "java.lang.String", "one");
         simpleTypeConvertTestSingleMulti("empty-String->anything", "", new String[] {"List", "Map"}, null);
-        //BUG simpleTypeConvertTestSingleMulti("empty-String->bad-class", "", new String[] {"no-class"}, null);
+        simpleTypeConvertTestSingleMulti("empty-String->bad-class", "", new String[] {"no-class"}, null);
         simpleTypeConvertTestError("String->error", "one", new String[] {});
         simpleTypeConvertTestMultiMulti("String->Boolean(true)", new String[] {"true", " true ", " TrUe"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.TRUE);
         simpleTypeConvertTestMultiMulti("String->Boolean(false)", new String[] {"false", " false ", " FaLsE"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.FALSE);

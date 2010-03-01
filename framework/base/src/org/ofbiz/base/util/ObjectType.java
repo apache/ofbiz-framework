@@ -493,6 +493,15 @@ public class ObjectType {
         if (obj instanceof String && UtilValidate.isEmpty(obj)) {
             return null;
         }
+        if (obj instanceof Node) {
+            Node node = (Node) obj;
+            String nodeValue =  node.getTextContent();
+            if ("String".equals(type) || "java.lang.String".equals(type)) {
+                return nodeValue;
+            } else {
+                return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
+            }
+        }
         Class<?> targetClass = null;
         try {
             targetClass = loadClass(type);
@@ -525,15 +534,6 @@ public class ObjectType {
                 return converter.convert(obj);
             } catch (ConversionException e) {
                 throw new GeneralException(e.getMessage(), e);
-            }
-        }
-        if (obj instanceof Node) {
-            Node node = (Node) obj;
-            String nodeValue =  node.getTextContent();
-            if (targetClass.equals(String.class)) {
-                return nodeValue;
-            } else {
-                return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
             }
         }
         // we can pretty much always do a conversion to a String, so do that here
