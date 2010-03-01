@@ -44,6 +44,22 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
+    public static abstract class AbstractStringToNumberConverter<N extends Number> extends AbstractNumberConverter<String, N> {
+        public AbstractStringToNumberConverter(Class<N> targetClass) {
+            super(String.class, targetClass);
+        }
+
+        public N convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            String trimStr = StringUtil.removeSpaces(obj);
+            if (trimStr.length() == 0) {
+                return null;
+            }
+            return convert(fromString(trimStr, locale));
+        }
+
+        protected abstract N convert(Number number) throws ConversionException;
+    }
+
     public static abstract class AbstractNumberConverter<S, T> extends AbstractLocalizedConverter<S, T> {
         protected AbstractNumberConverter(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
@@ -268,21 +284,17 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToBigInteger extends AbstractNumberConverter<String, BigInteger> {
+    public static class StringToBigInteger extends AbstractStringToNumberConverter<BigInteger> {
         public StringToBigInteger() {
-            super(String.class, BigInteger.class);
+            super(BigInteger.class);
         }
 
         public BigInteger convert(String obj) throws ConversionException {
             return new BigInteger(obj);
         }
 
-        public BigInteger convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return BigInteger.valueOf(fromString(trimStr, locale).longValue());
+        protected BigInteger convert(Number number) throws ConversionException {
+            return BigInteger.valueOf(number.longValue());
         }
     }
 
@@ -554,21 +566,17 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToBigDecimal extends AbstractNumberConverter<String, BigDecimal> {
+    public static class StringToBigDecimal extends AbstractStringToNumberConverter<BigDecimal> {
         public StringToBigDecimal() {
-            super(String.class, BigDecimal.class);
+            super(BigDecimal.class);
         }
 
         public BigDecimal convert(String obj) throws ConversionException {
             return BigDecimal.valueOf(Double.valueOf(obj));
         }
 
-        public BigDecimal convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return BigDecimal.valueOf(fromString(trimStr, locale).doubleValue());
+        protected BigDecimal convert(Number number) throws ConversionException {
+            return BigDecimal.valueOf(number.doubleValue());
         }
     }
 
@@ -582,75 +590,59 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToDouble extends AbstractNumberConverter<String, Double> {
+    public static class StringToDouble extends AbstractStringToNumberConverter<Double> {
         public StringToDouble() {
-            super(String.class, Double.class);
+            super(Double.class);
         }
 
         public Double convert(String obj) throws ConversionException {
             return Double.valueOf(obj);
         }
 
-        public Double convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return fromString(trimStr, locale).doubleValue();
+        protected Double convert(Number number) throws ConversionException {
+            return number.doubleValue();
         }
     }
 
-    public static class StringToFloat extends AbstractNumberConverter<String, Float> {
+    public static class StringToFloat extends AbstractStringToNumberConverter<Float> {
         public StringToFloat() {
-            super(String.class, Float.class);
+            super(Float.class);
         }
 
         public Float convert(String obj) throws ConversionException {
             return Float.valueOf(obj);
         }
 
-        public Float convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return fromString(trimStr, locale).floatValue();
+        protected Float convert(Number number) throws ConversionException {
+            return number.floatValue();
         }
     }
 
-    public static class StringToInteger extends AbstractNumberConverter<String, Integer> {
+    public static class StringToInteger extends AbstractStringToNumberConverter<Integer> {
         public StringToInteger() {
-            super(String.class, Integer.class);
+            super(Integer.class);
         }
 
         public Integer convert(String obj) throws ConversionException {
             return Integer.valueOf(obj);
         }
 
-        public Integer convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return fromString(trimStr, locale).intValue();
+        protected Integer convert(Number number) throws ConversionException {
+            return number.intValue();
         }
     }
 
-    public static class StringToLong extends AbstractNumberConverter<String, Long> {
+    public static class StringToLong extends AbstractStringToNumberConverter<Long> {
         public StringToLong() {
-            super(String.class, Long.class);
+            super(Long.class);
         }
 
         public Long convert(String obj) throws ConversionException {
             return Long.valueOf(obj);
         }
 
-        public Long convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
-            String trimStr = StringUtil.removeSpaces(obj);
-            if (trimStr.length() == 0) {
-                return null;
-            }
-            return fromString(trimStr, locale).longValue();
+        protected Long convert(Number number) throws ConversionException {
+            return number.longValue();
         }
     }
 
