@@ -159,7 +159,7 @@ public class LoginEvents {
 
         Map<String, String> messageMap = UtilMisc.toMap("passwordHint", passwordHint);
         errMsg = UtilProperties.getMessage(resource, "loginevents.password_hint_is", messageMap, UtilHttp.getLocale(request));
-        request.setAttribute("_ERROR_MESSAGE_", errMsg);
+        request.setAttribute("_EVENT_MESSAGE_", errMsg);
         return "success";
     }
 
