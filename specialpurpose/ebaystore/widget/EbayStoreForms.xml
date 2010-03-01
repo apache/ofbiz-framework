@@ -74,7 +74,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </entity-and>
             <set  field="ebayCategoryId"  value="${groovy: 
                 ebayCategoryId= &quot;&quot;;
-                if(prodCategoryRoles!=null &amp;&amp; prodCategoryRoles.size()== 1)  ebayCategoryId = prodCategoryRoles.get(0).getString(&quot;comments&quot;);
+                if(prodCategoryRoles!=null &amp;&amp; prodCategoryRoles.size() == 1)  ebayCategoryId = prodCategoryRoles.get(0).getString(&quot;comments&quot;);
                 return ebayCategoryId;
                 }" type="String"/>
             <entity-and entity-name="ProductCategoryRollup" list="prodCategoryRollup">

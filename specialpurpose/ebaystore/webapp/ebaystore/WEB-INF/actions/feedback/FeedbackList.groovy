@@ -31,8 +31,8 @@ inMap.put("userLogin", context.get("userLogin"));
 resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
 ownerUser = resultUser.get("userLoginId");
 userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", ownerUser));
-if(userLogin){
-	partyId = userLogin.get("partyId");
+if (userLogin) {
+    partyId = userLogin.get("partyId");
 }
 expr = []
 cond = null;
@@ -40,25 +40,25 @@ cond = null;
 contentId = request.getParameter("contentId");
 fromDate = request.getParameter("fromDate");
 thruDate = request.getParameter("thruDate");
-if(contentId){
-	expr.add(EntityCondition.makeCondition("contentId",EntityOperator.EQUALS, contentId));
+if (contentId) {
+    expr.add(EntityCondition.makeCondition("contentId",EntityOperator.EQUALS, contentId));
 }
-if(fromDate && thruDate){
-	exprSub = [];
+if (fromDate && thruDate) {
+    exprSub = [];
     condSub = null;
     exprSub.add(EntityCondition.makeCondition("createdDate",EntityOperator.GREATER_THAN, UtilDateTime.getDayStart(Timestamp.valueOf(fromDate + " 00:00:00.000"))));
     exprSub.add(EntityCondition.makeCondition("createdDate",EntityOperator.LESS_THAN, UtilDateTime.getDayEnd(Timestamp.valueOf(thruDate + " 23:59:59.999"))));
     condSub = EntityCondition.makeCondition(exprSub, EntityOperator.AND);
     expr.add(condSub);
-}else if(fromDate && !thruDate){
+} else if (fromDate && !thruDate) {
     expr.add(EntityCondition.makeCondition("createdDate",EntityOperator.GREATER_THAN, UtilDateTime.getDayStart(Timestamp.valueOf(fromDate + " 00:00:00.000"))));
-}else if(!fromDate && thruDate){
+} else if (!fromDate && thruDate) {
     expr.add(EntityCondition.makeCondition("createdDate",EntityOperator.LESS_THAN, UtilDateTime.getDayEnd(Timestamp.valueOf(thruDate + " 23:59:59.999"))));
 }
 contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("roleTypeId","OWNER", "partyId", partyId));
 contentIds = [];
-contentRoles.each{content->
-	contentIds.add(content.getString("contentId"));
+contentRoles.each{ content ->
+    contentIds.add(content.getString("contentId"));
 }
 expr.add(EntityCondition.makeCondition("contentId", EntityOperator.IN, contentIds));
 cond = EntityCondition.makeCondition(expr, EntityOperator.AND);
@@ -67,20 +67,20 @@ contents = delegator.findList("Content", cond, null, null, null, false);
 recentFeedbackList = [];
 ownerUser = null;
 commentator = null;
-contents.each{content->
-	commentatorContents = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId",content.contentId, "roleTypeId","COMMENTATOR"));
-	if(commentatorContents){
-		commentatorPartyId = commentatorContents.get(0).get("partyId");
-		commentatorUsers = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", commentatorPartyId));
-		if(commentatorUsers){
-			commentator = commentatorUsers.get(0).get("userLoginId");
-		}
-	}
-	entry = [contentId : content.contentId,
-	         dataResourceId : content.dataResourceId,
-	         createdDate : content.createdDate,
-	         ownerUser : ownerUser,
-	         commentator : commentator];
-	recentFeedbackList.add(entry);
+contents.each{ content ->
+    commentatorContents = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId",content.contentId, "roleTypeId","COMMENTATOR"));
+    if(commentatorContents){
+        commentatorPartyId = commentatorContents.get(0).get("partyId");
+        commentatorUsers = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", commentatorPartyId));
+        if(commentatorUsers){
+            commentator = commentatorUsers.get(0).get("userLoginId");
+        }
+    }
+    entry = [contentId : content.contentId,
+             dataResourceId : content.dataResourceId,
+             createdDate : content.createdDate,
+             ownerUser : ownerUser,
+             commentator : commentator];
+    recentFeedbackList.add(entry);
 }
 context.recentFeedbackList = recentFeedbackList;

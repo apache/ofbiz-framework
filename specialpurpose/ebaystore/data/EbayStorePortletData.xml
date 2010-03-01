@@ -18,18 +18,16 @@
     under the License.
 -->
 <entity-engine-xml>
-    
     <PortalPortlet portalPortletId="EbayPersonalInfo"
         portletName="Ebay Personal Information"
         screenName="EbayPersonalInformation"
         screenLocation="component://ebaystore/widget/EbayAccountScreens.xml"
         description="Ebay Personan Information"/>
     <PortletPortletCategory portalPortletId="EbayPersonalInfo" portletCategoryId="PROFILE"/>
-    
+
     <PortalPage portalPageId="EbayAccount" sequenceNum="0" portalPageName="Ebay Account Portal Page" description="Ebay Account page using flexible Portal technology" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="EbayAccount" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="EbayAccount" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
-    
+
     <PortalPagePortlet portalPageId="EbayAccount" portalPortletId="EbayPersonalInfo" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
-    
 </entity-engine-xml>

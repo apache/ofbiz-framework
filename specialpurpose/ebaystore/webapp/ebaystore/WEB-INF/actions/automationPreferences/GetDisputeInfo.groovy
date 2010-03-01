@@ -25,19 +25,19 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 public static String makeSpace(String text){
-	String result = "";
-	for (int i=0; i<text.length(); i++) {
-		if (i < text.length()-1) {
-			if (String.valueOf(text.charAt(i+1)).equals(String.valueOf(text.charAt(i+1)).toUpperCase())) {
-				result = result + String.valueOf(text.charAt(i)) + " " ;
-			} else {
-				result = result + String.valueOf(text.charAt(i));
-			} 
-		}else{
-			result = result + String.valueOf(text.charAt(i));
-		}
-	}
-	return result;
+    String result = "";
+    for (int i=0; i<text.length(); i++) {
+        if (i < text.length()-1) {
+            if (String.valueOf(text.charAt(i+1)).equals(String.valueOf(text.charAt(i+1)).toUpperCase())) {
+                result = result + String.valueOf(text.charAt(i)) + " " ;
+            } else {
+                result = result + String.valueOf(text.charAt(i));
+            } 
+        }else{
+            result = result + String.valueOf(text.charAt(i));
+        }
+    }
+    return result;
 }
 reasons = FastList.newInstance();
 explanations = FastList.newInstance();

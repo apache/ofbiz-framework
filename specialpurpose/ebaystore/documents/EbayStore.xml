@@ -24,7 +24,7 @@
     <section>
         <title>Ebay Introduction</title>
         <para>
-             The Ebay component provides an interface to the Ebay website. It is possible to export products from your store into  eBay category  also import an orders from ebay.       
+             The Ebay component provides an interface to the Ebay website. It is possible to export products from your store into  eBay category  also import an orders from ebay.
         </para>
     </section>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_EbayStore.xml"/>
@@ -35,5 +35,5 @@
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_Feedback.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_AutoPref.xml"/>
     <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ProductInventory.xml"/>
-	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ReserveProduct.xml"/>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../data/helpdata/HELP_EBAY_ReserveProduct.xml"/>
 </chapter>

@@ -19,26 +19,26 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-	<!-- Personal Information -->
-	<screen name="EbayPersonalInformation">
-		<section>
-			<actions>
-				<set field="accountItem" value="personalInformation"/>
-				<service service-name="getEbayUser" result-map="results">
-	            	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-	            </service>
-			</actions>
-			<widgets>
-				<decorator-screen name="AccountDecorator" location="${parameters.mainDecoratorLocation}">
+    <!-- Personal Information -->
+    <screen name="EbayPersonalInformation">
+        <section>
+            <actions>
+                <set field="accountItem" value="personalInformation"/>
+                <service service-name="getEbayUser" result-map="results">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+            </actions>
+            <widgets>
+                <decorator-screen name="AccountDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-						<screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
-							<include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
-						</screenlet>
-					</decorator-section>
-				</decorator-screen>
-			</widgets>
-		</section>		
-	</screen>
+                        <screenlet name="" title="${uiLabelMap.EbayPersonalInformation}">
+                            <include-form location="component://ebaystore/widget/EbayAccountForms.xml" name="EbayPersonalInformationForm"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <!-- feedback -->
     <screen name="EbayFeedback">
         <section>
@@ -55,9 +55,9 @@
                                 <if-has-permission permission="EBAY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                            	<screenlet title="${uiLabelMap.EbayFeedback}">
-	                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackTabBar"/>
-	                                <decorator-section-include name="body"/>
+                                <screenlet title="${uiLabelMap.EbayFeedback}">
+                                    <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackTabBar"/>
+                                    <decorator-section-include name="body"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -143,9 +143,9 @@
                                 <if-has-permission permission="EBAY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                            	<screenlet title="${uiLabelMap.EbayFeedback}">
-	                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackTabBar"/>
-	                                <decorator-section-include name="body"/>
+                                <screenlet title="${uiLabelMap.EbayFeedback}">
+                                    <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayFeedbackTabBar"/>
+                                    <decorator-section-include name="body"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -214,5 +214,5 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen> 
+    </screen>
 </screens>

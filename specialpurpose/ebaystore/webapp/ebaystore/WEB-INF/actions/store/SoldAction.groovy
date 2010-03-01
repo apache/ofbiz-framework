@@ -25,11 +25,11 @@ actionList = FastList.newInstance();
 hasAction = false;
 //Unpaid Item Dispute
 if (unpaidItemStatus == null && paidTime == null && checkoutStatus != "CheckoutComplete") {
-	inMap = FastMap.newInstance();
-	inMap.put("action","openUnpaid");
-	inMap.put("actionName","Open Unpaid");
-	actionList.add(inMap);
-	hasAction = true;
+    inMap = FastMap.newInstance();
+    inMap.put("action","openUnpaid");
+    inMap.put("actionName","Open Unpaid");
+    actionList.add(inMap);
+    hasAction = true;
 }
 //Second Chance Offer
 inMap = FastMap.newInstance();

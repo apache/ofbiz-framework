@@ -149,7 +149,6 @@ under the License.
                     <div id="charsleft2"></div>
               </td>
             </tr>
-            
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreURL} :</td>
               <td valign="middle">
@@ -171,7 +170,6 @@ under the License.
                    </div>
               </td>
             </tr>
-            
             <#-- advance Theme -->
              <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreAdvancedTheme} :</td>
@@ -201,7 +199,6 @@ under the License.
               </td>
             </tr>
             </#if>
-            
             <#-- Basic Theme -->
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreBasicTheme} :</td>
@@ -221,7 +218,6 @@ under the License.
                 <div id="loading"></div>
               </td>
             </tr>
-           
             <tr>
               <td  align="right" valign="middle"></td>
               <td valign="middle"><b>${uiLabelMap.EbayStoreStoreColorTheme}</b>
@@ -361,8 +357,6 @@ under the License.
                     </#if>
               </td>
             </tr>
-            
-            
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreHeaderDisplay} :</td>
               <td valign="middle">
@@ -396,7 +390,6 @@ under the License.
                     <input type="text" id="homePage" name="homePage" value="${ebayStore.storeHomePage?if_exists}"/>
               </td>
             </tr-->
-           
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreItemListDesplay} :</td>
               <td valign="middle">
@@ -417,7 +410,6 @@ under the License.
                     </select>
               </td>
             </tr>
-            
             <#--tr>
               <td class="label" align="right" valign="middle">Custom Listing Header Display :</td>
               <td valign="middle">
@@ -462,10 +454,7 @@ under the License.
      </fieldset>
    </form>
   </#if>
-  
-
  <script language="Javascript" type="text/javascript">
-    
     <#if themeType?if_exists == "Basic">
         document.StoreSettingForm.storeAdvancedTheme.disabled = true;
         document.StoreSettingForm.storeAdvancedThemeColor.disabled = true;

@@ -19,13 +19,8 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Ebay Store Export categories to ebay store screen.</title>
     <para>
-The screen allow user to export categories and product to eBay store. 
-First you should select catalog and click on Export to eBay store button to complete function.
-When you click Export to eBay store button, this function will add your categories that in catalog selected to eBay store also add product to categories too.</para>
-
+        The screen allow user to export categories and product to eBay store.
+        First you should select catalog and click on Export to eBay store button to complete function.
+        When you click Export to eBay store button, this function will add your categories that in catalog selected to eBay store also add product to categories too.
+    </para>
 </section>
-
-
-
-
-

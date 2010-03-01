@@ -18,14 +18,12 @@
  */
 
 productStoreId = parameters.productStoreId;
-
 storeThemeId = null;
-if(parameters.ebayStore){
+if (parameters.ebayStore) {
     ebayStore = parameters.get("ebayStore");
     storeThemeId = ebayStore.get("storeThemeId");
 }
-
-if(productStoreId!=null){
+if (productStoreId != null) {
     flag = null;
     storeBasicThemes = null;
     resultsBasicThemes = dispatcher.runSync("retrieveBasicThemeArray",["productStoreId":productStoreId, "userLogin": userLogin]);
@@ -33,25 +31,24 @@ if(productStoreId!=null){
         storeBasicThemes = resultsBasicThemes.get("storeThemeList");
         //check what kind of theme?
         context.put("storeThemeOptList",storeBasicThemes);
-        if(storeThemeId!=null && storeBasicThemes!=null){
+        if (storeThemeId != null && storeBasicThemes != null) {
             storeBasicThemes.each { storeTheme ->
-                if(storeThemeId == storeTheme.storeThemeId){
+                if (storeThemeId == storeTheme.storeThemeId) {
                     flag = "Basic";
                 }
             }
         }
     }
-    
     storeAdvanceThemes = null;
     storeAdvancedThemeColorOptList = null;
     resultsAdvanceThemes = dispatcher.runSync("retrieveAdvancedThemeArray",["productStoreId":productStoreId, "userLogin": userLogin]);
-    if(resultsAdvanceThemes){
+    if (resultsAdvanceThemes) {
         storeAdvanceThemes = resultsAdvanceThemes.get("storeThemeList");
         storeAdvancedThemeColorOptList = resultsAdvanceThemes.get("storeAdvancedThemeColorOptList");
         context.put("storeAdvanceThemeOptList",storeAdvanceThemes);
         context.put("storeAdvancedThemeColorOptList",storeAdvancedThemeColorOptList);
-        
-        if(storeThemeId!=null && storeAdvanceThemes!=null){
+
+        if (storeThemeId != null && storeAdvanceThemes != null) {
             storeAdvanceThemes.each { storeAdvanceTheme ->
                 if(storeThemeId == storeAdvanceTheme.storeThemeId){
                     flag = "Advanced";
@@ -60,10 +57,9 @@ if(productStoreId!=null){
         }
     }
     resultsFontTheme = dispatcher.runSync("retrieveStoreFontTheme",["productStoreId":productStoreId, "userLogin": userLogin]);
-    if(resultsFontTheme){
+    if (resultsFontTheme) {
         storeFontTheme = resultsFontTheme.get("advanceFontTheme");
         context.put("storeFontTheme",storeFontTheme);
     }
     context.put("themeType",flag);
-   
 }

@@ -22,8 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
     <include location="component://ebay/webapp/ebay/WEB-INF/controller.xml"/>
-    
-    
+
     <description>eBay Component Site Configuration File</description>
     <!-- request mappings -->
     <request-map uri="main">
@@ -68,7 +67,6 @@
         <response name="error" type="view" value="EbayAccount"/>
         <response name="success" type="view" value="EbayAccount"/>
     </request-map>
-    
     <!-- Store output -->
     <request-map uri="ebayStores">
         <security https="true" auth="true"/>
@@ -233,56 +231,56 @@
         <response name="success" type="view" value="ebayStoreInventory"/>
         <response name="error" type="view" value="ebayStoreInventory"/>
     </request-map>
-	<!-- Active -->
+    <!-- Active -->
     <request-map uri="activeListing">
-    	<security auth="true" https="true"/>
-    	<response name="success" type="view" value="ActiveListing"/>
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ActiveListing"/>
     </request-map>
     <request-map uri="assignAutomaticRule">
-    	<security auth="true" https="true"/>
-    	<response name="success" type="view" value="AssignAutomaticRule"/>
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AssignAutomaticRule"/>
     </request-map>
     <!-- Sold -->
     <request-map uri="soldListing">
-    	<security auth="true" https="true"/>
-    	<response name="success" type="view" value="SoldListing"/>
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="SoldListing"/>
     </request-map>
     <request-map uri="openUnpaid">
-    	<security auth="true" https="true"/>
-    	<response name="success" type="view" value="OpenUnpaid"/>
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="OpenUnpaid"/>
     </request-map>
     <request-map uri="addDispute">
-    	<security auth="true" https="true"/>
-    	<event type="service" invoke="addEbayDispute"/>
-    	<response name="success" type="request-redirect" value="soldListing">
-    		<redirect-parameter name="productStoreId"/>
-    	</response>
-    	<response name="error" type="view" value="OpenUnpaid"/>
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addEbayDispute"/>
+        <response name="success" type="request-redirect" value="soldListing">
+            <redirect-parameter name="productStoreId"/>
+        </response>
+        <response name="error" type="view" value="OpenUnpaid"/>
     </request-map>
     <request-map uri="doAction">
-    	<security auth="true" https="true"/>
-    	<event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="checkEbayAction"/>
-    	<response name="makeSecondChanceOffer" type="request" value="makeSecondChanceOffer"/>
-    	<response name="openUnpaid" type="request" value="openUnpaid"/>
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="checkEbayAction"/>
+        <response name="makeSecondChanceOffer" type="request" value="makeSecondChanceOffer"/>
+        <response name="openUnpaid" type="request" value="openUnpaid"/>
     </request-map>
     <request-map uri="makeSecondChanceOffer">
-    	<security auth="true" https="true"/>
-		<event type="service" invoke="verifyEbayAddSecondChanceItem"/>
-		<response name="error" type="view" value="SoldListing"/>
-    	<response name="success" type="view" value="MakeSecondChanceOffer"/>
+        <security auth="true" https="true"/>
+        <event type="service" invoke="verifyEbayAddSecondChanceItem"/>
+        <response name="error" type="view" value="SoldListing"/>
+        <response name="success" type="view" value="MakeSecondChanceOffer"/>
     </request-map>
     <request-map uri="addEbaySecondChanceOffer">
-    	<security auth="true" https="true"/>
-    	<event type="service" invoke="addEbaySecondChanceOffer"/>
-    	<response name="error" type="view" value="MakeSecondChanceOffer"/>
-    	<response name="success" type="view" value="SoldListing"/>
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addEbaySecondChanceOffer"/>
+        <response name="error" type="view" value="MakeSecondChanceOffer"/>
+        <response name="success" type="view" value="SoldListing"/>
     </request-map>
-	<!-- end of request mappings -->
-    
+    <!-- end of request mappings -->
+
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStores"/>
     <view-map name="exportCategoryEbayStore" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportCategoryEbayStore"/>
-   	<!-- store output -->
+    <!-- store output -->
     <view-map name="ebayStores" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStores"/>
     <view-map name="ebayStoreDetail" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStoreDetail"/>
     <!-- ebay account -->
@@ -290,9 +288,9 @@
     <view-map name="EbayAccount" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#EbayPersonalInformation"/>
     <!-- feedback -->
     <view-map name="FeedbackStore" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#FeedbackStore"/>
-    <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#Feedback"/>    
-    <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/> 
-   <!-- AutomationPreferences -->
+    <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#Feedback"/>
+    <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/>
+    <!-- AutomationPreferences -->
     <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
     <!-- block out of stock -->
     <view-map name="blockItemOutOfStock" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#blockItemOutOfStock"/>
@@ -301,15 +299,14 @@
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>
     <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#reserveEbayProductInventory"/>
     <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#updateQuantityReserved"/>
-    
     <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
     <view-map name="productsearch" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#productsearchexport"/>
-	<!-- Active -->    
-	<view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayActiveListing"/>
-	<view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#AssignAutomaticRule"/>
-	<!-- Sold -->    
-	<view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#SoldListing"/>
-	<view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OpenUnpaid"/>
-	<view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
+    <!-- Active -->
+    <view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayActiveListing"/>
+    <view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#AssignAutomaticRule"/>
+    <!-- Sold -->
+    <view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#SoldListing"/>
+    <view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OpenUnpaid"/>
+    <view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
     <!-- end of view mappings -->
 </site-conf>

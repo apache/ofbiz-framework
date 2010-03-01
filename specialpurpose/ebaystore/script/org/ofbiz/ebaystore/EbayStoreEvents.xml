@@ -21,9 +21,10 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="checkEbayAction" short-description="Check eBay Action">
-    	<set field="resultResponse" from-field="parameters.action"/>
-    	<return response-code="${resultResponse}"/>
+        <set field="resultResponse" from-field="parameters.action"/>
+        <return response-code="${resultResponse}"/>
     </simple-method>
+
     <!-- start automatically service send a Feedback Reminder email if feedback has not been received. and check how many days after shipping you want this email sent? -->
     <simple-method method-name="autoSendFeedbackReminder" login-required="false" short-description="Automatically send a Feedback Reminder email if feedback has not been received">
         <entity-one entity-name="ProductStore" value-field="productStore" >
@@ -68,6 +69,7 @@
             </else>
         </if-empty>
     </simple-method>
+
     <!-- start automatically service  email when payment has been received.-->
     <simple-method method-name="autoSendPaymentReceivedEmail" login-required="false" short-description="set start service Automatically send an email when payment has been received">
         <entity-one entity-name="ProductStore" value-field="productStore" >
@@ -111,7 +113,7 @@
             </else>
         </if-empty>
     </simple-method>
-    
+
     <simple-method method-name="settingCombineOrders" login-required="false" short-description="Setting Automatic Combine Orders">
         <entity-one entity-name="ProductStore" value-field="productStore" >
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
@@ -155,5 +157,4 @@
             </else>
         </if-empty>
     </simple-method>
-    
 </simple-methods>

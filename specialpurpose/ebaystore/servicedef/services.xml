@@ -23,7 +23,7 @@ under the License.
     <description>eBay Component Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <service name="createEbayAccount" engine="simple"
         location="component://ebaystore/script/org/ofbiz/ebaystore/EbayServices.xml" invoke="createEbayAccount" auth="true">
         <attribute name="salutation" mode="IN" type="String" optional="true"/>
@@ -37,7 +37,6 @@ under the License.
         <attribute name="statusId" mode="IN" type="String" optional="true"/>
         <attribute name="productStoreId" mode="OUT" type="String" optional="false"/>
     </service>
-    
     <service name="exportCategoriesSelectedToEbayStore" engine="java" transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStore" invoke="exportCategoriesSelectedToEbayStore" auth="true">
         <description>Export categories in store to eBay store</description>
@@ -45,7 +44,6 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
     </service>
-    
     <!-- Store output -->
     <service name="getEbayStoreOutput" engine="java" transaction-timeout="7200"  
         location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreOutput" auth="true">
@@ -289,8 +287,8 @@ under the License.
     <service name="checkEbaySecondChanceOffer" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="checkEbaySecondChanceOffer" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"></attribute>
-    	<attribute name="itemId" mode="IN" type="String" optional="false"></attribute>
-    	<attribute name="isSecondChance" mode="OUT" type="Boolean" optional="false"></attribute>
+        <attribute name="itemId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="isSecondChance" mode="OUT" type="Boolean" optional="false"></attribute>
     </service>
     <service name="addEbaySecondChanceOffer" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="addEbaySecondChanceOffer" auth="true">
@@ -298,21 +296,21 @@ under the License.
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="duration" mode="IN" type="String" optional="false"/>
         <attribute name="recipientBidderUserId" mode="IN" type="String" optional="false"/>
-    	<attribute name="buyItNowPrice" mode="IN" type="String" optional="true"/>
-    	<attribute name="sellerMessage" mode="IN" type="String" optional="true"/>
+        <attribute name="buyItNowPrice" mode="IN" type="String" optional="true"/>
+        <attribute name="sellerMessage" mode="IN" type="String" optional="true"/>
     </service>
     <service name="getEbayAllBidders" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayAllBidders" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
-    	<attribute name="bidders" mode="OUT" type="List" optional="true"/>
+        <attribute name="bidders" mode="OUT" type="List" optional="true"/>
     </service>
-	<service name="verifyEbayAddSecondChanceItem" engine="java"  transaction-timeout="3600"
+    <service name="verifyEbayAddSecondChanceItem" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="verifyEbayAddSecondChanceItem" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
         <attribute name="checkVerify" mode="OUT" type="Boolean" optional="false"/>
-	</service>
+    </service>
     <service name="startEbayAutoPreference" engine="java" transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="startEbayAutoPreference" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
@@ -326,12 +324,12 @@ under the License.
         <attribute name="serviceName" mode="IN" type="String" optional="true"/>
     </service>
     <service name="createEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="create" auth="true">
-    	<auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="serviceName" mode="IN" type="String" optional="false"/>
     </service>
     <service name="updateEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="update" auth="true" >
-    	<auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" />
         <attribute name="enabled" mode="IN" type="String" optional="false" default-value="N"/>
         <attribute name="serviceName" mode="IN" type="String" optional="false"/>

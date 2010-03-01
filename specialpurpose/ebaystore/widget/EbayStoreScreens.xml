@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="ebayStores">
         <section>
             <actions>
@@ -45,7 +44,6 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.EbayStoreSetting}"/>
                 <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="ebayStoreSetting"/>
-                
                 <script  location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/RetrieveStoreOptions.groovy"/>
             </actions>
             <widgets>
@@ -119,7 +117,7 @@ under the License.
                                         </screenlet>
                                         <screenlet navigation-form-name="ListCategories" title="List category in ${prodCatalog.catalogName}">
                                             <label text="Not found child category"/>
-                                        </screenlet>    
+                                        </screenlet>
                                     </fail-widgets>
                                 </section>
                             </widgets>

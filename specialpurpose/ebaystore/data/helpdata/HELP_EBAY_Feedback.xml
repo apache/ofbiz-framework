@@ -19,20 +19,21 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>EBay Feedback help screen.</title>
     <para>
-		This screen show 
-	</para>
-	    <section>
-		<title>Items Awaiting Feedback</title>
-			<section>
-				<para>This section list Items, they are sold or bought and have link to Leave Feedback screen.
-					This list you can see itemId, title, user and link to leave feedback to buyer or seller.
-				<link xl:href="http://developer.ebay.com/DevZone/support/knowledgebase/">See more info</link></para>
-			</section>
-	    </section>
-	    <section>
-		<title>Recent Feedback</title>
-			<section>
-				<para>This section list recent feedback message from commentator (buyer) who do transaction with this account.</para>
-			</section>
-	    </section>
+        This screen show 
+    </para>
+    <section>
+        <title>Items Awaiting Feedback</title>
+        <section>
+            <para>This section list Items, they are sold or bought and have link to Leave Feedback screen.
+                This list you can see itemId, title, user and link to leave feedback to buyer or seller.
+                <link xl:href="http://developer.ebay.com/DevZone/support/knowledgebase/">See more info</link>
+            </para>
+        </section>
+    </section>
+    <section>
+        <title>Recent Feedback</title>
+        <section>
+            <para>This section list recent feedback message from commentator (buyer) who do transaction with this account.</para>
+        </section>
+    </section>
 </section>
