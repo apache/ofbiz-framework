@@ -472,12 +472,12 @@
         <value xml:lang="zh">指定的会员标识不能以数字开始，数字标识为自动生成的标识预留</value>
     </property>
     <property key="partytypehelper.NotPersonType">
-        <value xml:lang="en">The party {0} is not a PERSON type party</value>
-        <value xml:lang="fr">L`acteur {0} n'est pas du type personne.</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="en">The party ${0} is not a PERSON type party</value>
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
     </property>
     <property key="partytypehelper.NotGroupType">
-        <value xml:lang="en">The party {0} is not a PARTYGROUP type party</value>
-        <value xml:lang="fr">L`acteur {0} n'est pas du type groupe.</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
     </property>    
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID Von besitzt nicht die angebenene Rolle.</value>
@@ -995,19 +995,19 @@
         <value xml:lang="zh">必须的参数 'email' 不能为空。</value>
     </property>
     <property key="person.create.db_error">
-        <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): {0}</value>
-        <value xml:lang="en">Could not add person info (write failure): {0}</value>
-        <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): {0}</value>
-        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): {0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
-        <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): {0}</value>
-        <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): {0}</value>
-        <value xml:lang="nl">Could not add person info (write failure): {0}</value>
+        <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
+        <value xml:lang="en">Could not add person info (write failure): ${0}</value>
+        <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): ${0}</value>
+        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): ${0}</value>
+        <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): ${0}</value>
+        <value xml:lang="nl">Could not add person info (write failure): ${0}</value>
         <value xml:lang="pt_BR">Não foi possível adicionar dados da pessoa (erro de escrita) ${0}</value>
-        <value xml:lang="pt_PT">Impossível adicionar informação de indivíduo (falha de escrita): {0}</value>
-        <value xml:lang="ro">Nu este posibila adaugarea informatiilor la persoana (scriere falita): {0}</value>
-        <value xml:lang="ru">Невозможно добавить информацию о персоне (ошибка записи): {0}</value>
-        <value xml:lang="th">ไม่สามารถเพิ่มข้อมูลบุคคลได้ (เกิดความผิดพลาดในการเขียน): {0}</value>
-        <value xml:lang="zh">无法添加人员信息 (写失败): {0}</value>
+        <value xml:lang="pt_PT">Impossível adicionar informação de indivíduo (falha de escrita): ${0}</value>
+        <value xml:lang="ro">Nu este posibila adaugarea informatiilor la persoana (scriere falita): ${0}</value>
+        <value xml:lang="ru">Невозможно добавить информацию о персоне (ошибка записи): ${0}</value>
+        <value xml:lang="th">ไม่สามารถเพิ่มข้อมูลบุคคลได้ (เกิดความผิดพลาดในการเขียน): ${0}</value>
+        <value xml:lang="zh">无法添加人员信息 (写失败): ${0}</value>
     </property>
     <property key="person.create.party_exists_not_person_type">
         <value xml:lang="de">Person kann nicht erstellt werden. Ein Akteur mit der angegebenen Akteur ID existiert bereits und ist kein Akteur vom Typ PERSON.</value>
@@ -1055,19 +1055,19 @@
         <value xml:lang="zh">无法更新人员信息 (没有找到人员)</value>
     </property>
     <property key="person.update.read_failure">
-        <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Lesefehler): {0}</value>
-        <value xml:lang="en">Could not update person information (read failure): {0}</value>
-        <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): {0}</value>
-        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): {0}</value><!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
-        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): {0}</value>
-        <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): {0}</value>
-        <value xml:lang="nl">Could not update person information (read failure): {0}</value>
+        <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Lesefehler): ${0}</value>
+        <value xml:lang="en">Could not update person information (read failure): ${0}</value>
+        <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): ${0}</value>
+        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value><!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${0}</value>
+        <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): ${0}</value>
+        <value xml:lang="nl">Could not update person information (read failure): ${0}</value>
         <value xml:lang="pt_BR">Não foi possível atualizar dados da pessoa (erro de leitura): ${0}</value>
-        <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de leitura): {0}</value>
-        <value xml:lang="ro">Nu este posibila Actualizarea informatiilor persoana (citere falita): {0}</value>
-        <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка чтения): {0}</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลบุคคลได้ (ความผิดพลาดในการอ่าน): {0}</value>
-        <value xml:lang="zh">无法更新人员信息 (读失败)：{0}</value>
+        <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de leitura): ${0}</value>
+        <value xml:lang="ro">Nu este posibila Actualizarea informatiilor persoana (citere falita): ${0}</value>
+        <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка чтения): ${0}</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลบุคคลได้ (ความผิดพลาดในการอ่าน): ${0}</value>
+        <value xml:lang="zh">无法更新人员信息 (读失败)：${0}</value>
     </property>
     <property key="person.update.success">
         <value xml:lang="de">Person erfolgreich aktualisiert.</value>
@@ -1085,18 +1085,18 @@
         <value xml:lang="zh">已成功更新人员。</value>
     </property>
     <property key="person.update.write_failure">
-        <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): {0}</value>
-        <value xml:lang="en">Could not update person information (write failure): {0}</value>
-        <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): {0}</value>
-        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): {0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->        
-        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): {0}</value>
-        <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): {0}</value>
-        <value xml:lang="nl">Could not update person information (write failure): {0}</value>
+        <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): ${0}</value>
+        <value xml:lang="en">Could not update person information (write failure): ${0}</value>
+        <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): ${0}</value>
+        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->        
+        <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${0}</value>
+        <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): ${0}</value>
+        <value xml:lang="nl">Could not update person information (write failure): ${0}</value>
         <value xml:lang="pt_BR">Não foi possível atualizar dados da pessoa (erro de escrita): ${0}</value>
-        <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de escrita): {0}</value>
-        <value xml:lang="ro">Nu este posibila Actualizarea informatiilor persoana (scriere falita): {0}</value>
-        <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка записи): {0}</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลส่วนบุคคลได้ (ความผิดพลาดในการเขียน): {0}</value>
-        <value xml:lang="zh">无法更新人员信息 (写失败)：{0}</value>
+        <value xml:lang="pt_PT">Impossível actualizar informação do indivíduo (falha de escrita): ${0}</value>
+        <value xml:lang="ro">Nu este posibila Actualizarea informatiilor persoana (scriere falita): ${0}</value>
+        <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка записи): ${0}</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลส่วนบุคคลได้ (ความผิดพลาดในการเขียน): ${0}</value>
+        <value xml:lang="zh">无法更新人员信息 (写失败)：${0}</value>
     </property>
 </resource>

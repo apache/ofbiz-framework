@@ -14019,26 +14019,32 @@
         <value xml:lang="en">Test</value>
     </property>
     <property key="AccountingCreditCardNumberInvalid">
+        <value xml:lang="de">${cardNumber} ist keine ${cardType}-Kreditkartennummer.</value>
         <value xml:lang="en">${cardNumber} is not a valid ${cardType} credit card number. (It appears to be a ${validCardType}) credit card number)</value>
         <value xml:lang="it">La carta di credito numero ${cardNumber} non è una ${cardType}. (Sembra che sia una ${validCardType})</value>
     </property>
     <property key="AccountingCreditCardExpireDateBeforeToday">
+        <value xml:lang="de">Das Ablaufdatum ${expireDate} ist in der Vergangenheit.</value>
         <value xml:lang="en">The expiration date ${expireDate} is before today.</value>
         <value xml:lang="it">La data di scadenza ${expireDate} della carta di credito è prima di oggi.</value>
     </property>
     <property key="AccountingCreditCardCreateIdGenerationFailure">
+        <value xml:lang="de">Es konnte keine Kreditkarte angelegt werden (ID-Generierungs-Fehler)</value>
         <value xml:lang="en">Could not create credit card (id generation failure)</value>
         <value xml:lang="it">Non è possibile creare la carta di credito (fallimento durante la generazione id)</value>
     </property>
     <property key="AccountingCreditCardCreateWriteFailure">
+        <value xml:lang="de">Es konnte keine Kreditkarte angelegt werden (Schreibfehler) : </value>
         <value xml:lang="en">Could not create credit card (write failure) : </value>
         <value xml:lang="it">Non è possibile creare la carta di credito (fallimento in scrittura) : </value>
     </property>
     <property key="AccountingCreditCardUpdateIdGenerationFailure">
+        <value xml:lang="de">Die Kreditkarte konnte nicht aktualisiert werden (ID-Generierungs-Fehler)</value>
         <value xml:lang="en">Could not update credit card info (id generation failure)</value>
         <value xml:lang="it">Non è possibile aggiornare la carta di credito (fallimento durante la generazione id)</value>
     </property>
     <property key="AccountingCreditCardUpdateReadFailure">
+        <value xml:lang="de">Die zu aktualisierende Kreditkarte konnte nicht gefunden werden (Schreibfehler) : </value>
         <value xml:lang="en">Could not get credit card to update (read error) : </value>
         <value xml:lang="it">Non è possibile leggere la carta di credito (fallimento in lettura) : </value>
     </property>
@@ -14047,10 +14053,12 @@
         <value xml:lang="it">Non è possibile trovare la carta di credito da aggiornare con il metodo di pagamento </value>
     </property>
     <property key="AccountingCreditCardUpdateWithoutPermission">
+        <value xml:lang="de">Benutzer [${partyId}] ist nicht der Besitzer der Zahlungsmethode [${paymentMethodId}] und hat keine Berechtigung diese zu ändern.</value>
         <value xml:lang="en">Party Id [${partyId}] is not the owner of payment method [${paymentMethodId}] and does not have permission to change it.</value>
         <value xml:lang="it">Soggetto [${partyId}] non è il proprietario del metodo di pagamento [${paymentMethodId}] e non ha il permesso di cambiarlo.</value>
     </property>
     <property key="AccountingCreditCardUpdateWriteFailure">
+        <value xml:lang="de">Die Kreditkarte konnte nicht aktualisiert werden (Schreibfehler) : </value>
         <value xml:lang="en">Could not update credit card (write failure) : </value>
         <value xml:lang="it">Non è possibile aggiornare la carta di credito (fallimento in scrittura) : </value>
     </property>

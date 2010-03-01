@@ -32,7 +32,7 @@
         <value xml:lang="zh">访问密码时出错：${errorMessage}。</value>
     </property>
     <property key="loginevents.error_accessing_password_change_history">
-        <value xml:lang="de">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}</value>
+        <value xml:lang="de">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password change history: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="it">Errore di accesso alla storia dei cambi password: ${errorMessage}.</value>
@@ -87,7 +87,7 @@
         <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
     </property>
     <property key="loginevents.new_password_createdandsent_check_email">
-        <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
+        <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
         <value xml:lang="es">Un nuevo password ha sido creado y enviado. Por favor revise su e-mail</value>
         <value xml:lang="fr">Un nouveau mot de passe a été crée et envoyé. Merci de vérifier votre courriel.</value>
@@ -147,7 +147,7 @@
         <value xml:lang="zh">密码提示是：${passwordHint}。</value>
     </property>
     <property key="loginevents.password_was_empty_reenter">
-        <value xml:lang="de">Das angegebene Passwort ist leer</value>
+        <value xml:lang="de">Es wurde kein Passwort eingegeben.</value>
         <value xml:lang="en">password was empty reenter</value>
         <value xml:lang="es">El password no puede ser vacío</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
@@ -224,7 +224,7 @@
         <value xml:lang="zh">没有找到用户名，请重新输入。</value>
     </property>
     <property key="loginevents.username_was_empty_reenter">
-        <value xml:lang="de">Benutzername ist leer, bitte erneut eingeben.</value>
+        <value xml:lang="de">Es wurde kein Benutzername eingegeben.</value>
         <value xml:lang="en">username was empty reenter</value>
         <value xml:lang="es">El usuario no puede ser vacío, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, taper le de nouveau SVP.</value>
@@ -236,7 +236,7 @@
         <value xml:lang="zh">用户名是空的，请重新输入</value>
     </property>
     <property key="loginmapprocs.new_password_missing">
-        <value xml:lang="de">Das neue Passwort fehlt</value>
+        <value xml:lang="de">Das neue Passwort fehlt.</value>
         <value xml:lang="en">New Password is missing.</value>
         <value xml:lang="es">Falta nuevo password</value>
         <value xml:lang="fr">Le nouveau mot de passe manque</value>
@@ -248,7 +248,7 @@
         <value xml:lang="zh">缺少新密码。</value>
     </property>
     <property key="loginmapprocs.new_password_verify_missing">
-        <value xml:lang="de">Das Bestätigungspasswort fehlt</value>
+        <value xml:lang="de">Das Bestätigungspasswort fehlt.</value>
         <value xml:lang="en">New Password Verify is missing</value>
         <value xml:lang="es">Falta verificación de nuevo password</value>
         <value xml:lang="fr">La vérification du nouveau mot de passe manque</value>
@@ -260,7 +260,7 @@
         <value xml:lang="zh">缺少新密码验证</value>
     </property>
     <property key="loginmapprocs.old_password_missing">
-        <value xml:lang="de">Das (alte) Passwort fehlt</value>
+        <value xml:lang="de">Das (alte) Passwort fehlt.</value>
         <value xml:lang="en">The (old) Password is missing.</value>
         <value xml:lang="es">Falta antiguo password</value>
         <value xml:lang="fr">L'ancien mot de passe manque</value>
@@ -284,7 +284,7 @@
         <value xml:lang="zh">新密码不等于验证密码</value>
     </property>
     <property key="loginmapprocs.password_successfully_updated">
-        <value xml:lang="de">Passwort wurde geändert.</value>
+        <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert.</value>
         <value xml:lang="en">Password successfully updated.</value>
         <value xml:lang="es">Password actualizado</value>
         <value xml:lang="fr">Mot de passe mis à jour.</value>
@@ -423,7 +423,7 @@
         <value xml:lang="zh">你必须登录，并且有权限用已存在的会员标识创建用户登录。</value>
     </property>
     <property key="loginservices.new_password_is_equal_to_old_password">
-        <value xml:lang="de">Das neue Passwort darf nicht identisch mit dem alten Passwort sein</value>
+        <value xml:lang="de">Das neue Passwort darf nicht identisch mit dem alten Passwort sein.</value>
         <value xml:lang="en">The new password must be different from the old one.</value>
         <value xml:lang="fr">Le nouveau mot de passe doit être différent de l'ancien.</value>
         <value xml:lang="it">La nuova password deve essere diversa dalla vecchia.</value>
@@ -467,7 +467,7 @@
         <value xml:lang="zh">没有把重新启用列入计划。</value>
     </property>
     <property key="loginservices.old_password_not_correct_reenter">
-        <value xml:lang="de">Das alte Passwort ist falsch, bitte erneut eingeben</value>
+        <value xml:lang="de">Das alte Passwort ist falsch, bitte erneut eingeben.</value>
         <value xml:lang="en">Old Password was not correct, please re-enter.</value>
         <value xml:lang="es">El password antiguo no es correcto, por favor ingreselo nuevamente</value>
         <value xml:lang="fr">L'ancien mot de passe n'est pas correct, réessayez SVP.</value>
@@ -503,7 +503,7 @@
         <value xml:lang="zh">指定的会员标识已存在，你无权使用这个标识创建用户登录。</value>
     </property>
     <property key="loginservices.password_did_not_match_verify_password">
-        <value xml:lang="de">Das Passwort stimmt nicht mit der zweiten Eingabe des Passwortes überein</value>
+        <value xml:lang="de">Das Passwort stimmt nicht mit der zweiten Eingabe des Passwortes überein.</value>
         <value xml:lang="en">Password did not match verify password.</value>
         <value xml:lang="es">Los passwords no concuerdan, verificar</value>
         <value xml:lang="fr">Le nouveau mot de passe ne correspond pas à sa vérification.</value>
@@ -515,7 +515,7 @@
         <value xml:lang="zh">密码与验证密码不一致。</value>
     </property>
     <property key="loginservices.password_hint_may_not_contain_password">
-        <value xml:lang="de">Der Passwort-Hinweis darf nicht das Passwort enthalten</value>
+        <value xml:lang="de">Der Passwort-Hinweis darf nicht das Passwort enthalten.</value>
         <value xml:lang="en">Password hint may not contain the password.</value>
         <value xml:lang="es">Su pista no puede contener el password</value>
         <value xml:lang="fr">L'indication d'aide au mot de passe ne peut pas contenir le mot de passe.</value>
@@ -539,7 +539,7 @@
         <value xml:lang="zh">密码不正确。</value>
     </property>
     <property key="loginservices.password_may_not_equal_username">
-        <value xml:lang="de">Das Passwort darf nicht mit dem Benutzernamen übereinstimmen</value>
+        <value xml:lang="de">Das Passwort darf nicht mit dem Benutzernamen übereinstimmen.</value>
         <value xml:lang="en">Password may not equal the Username.</value>
         <value xml:lang="es">El password no puede ser igual al nombre de usuario</value>
         <value xml:lang="fr">Le mot de passe ne peut pas être identique au nom d'utilisateur.0</value>
@@ -551,7 +551,7 @@
         <value xml:lang="zh">密码不能与用户名一样。</value>
     </property>
     <property key="loginservices.password_missing">
-        <value xml:lang="de">Passwort fehlt</value>
+        <value xml:lang="de">Passwort fehlt.</value>
         <value xml:lang="en">Password missing.</value>
         <value xml:lang="es">Falta password</value>
         <value xml:lang="fr">Le mot de passe manque</value>
@@ -563,7 +563,7 @@
         <value xml:lang="zh">缺少密码。</value>
     </property>
     <property key="loginservices.password_must_be_different_from_last_passwords">
-        <value xml:lang="de">Das Passwort darf nicht eines Ihrer letzen ${passwordChangeHistoryLimit} Passwörter sein</value>
+        <value xml:lang="de">Das Passwort darf nicht eines Ihrer letzen ${passwordChangeHistoryLimit} Passwörter sein.</value>
         <value xml:lang="en">Password cannot be one of your last ${passwordChangeHistoryLimit} passwords.</value>
         <value xml:lang="fr">Le mot de passe ne peut être un de vos derniers ${passwordChangeHistoryLimit} mots de passe.</value>
         <value xml:lang="it">La password non può essere una delle tue ultime ${passwordChangeHistoryLimit} password.</value>
@@ -571,7 +571,7 @@
         <value xml:lang="zh">密码不能是你用过的最近的${passwordChangeHistoryLimit}个密码之一。</value>
     </property>
     <property key="loginservices.password_must_be_least_characters_long">
-        <value xml:lang="de">Das Passwort muß aus mindestens ${minPasswordLength} Zeichen bestehen</value>
+        <value xml:lang="de">Das Passwort muß aus mindestens ${minPasswordLength} Zeichen bestehen.</value>
         <value xml:lang="en">Password must be at least ${minPasswordLength} characters long.</value>
         <value xml:lang="es">El password debe tener al menos ${minPasswordLength} caracteres</value>
         <value xml:lang="fr">Le mot de passe doit être d'au moins ${minPasswordLength} caractères.</value>
@@ -583,7 +583,7 @@
         <value xml:lang="zh">密码必须至少有${minPasswordLength} 个字符。</value>
     </property>
     <property key="loginservices.password_or_verify_missing">
-        <value xml:lang="de">Das Passwort oder zweite Eingabe des Passwortes fehlt</value>
+        <value xml:lang="de">Das Passwort oder zweite Eingabe des Passwortes fehlt.</value>
         <value xml:lang="en">Password or verify password missing.</value>
         <value xml:lang="es">Falta password o verificación de password</value>
         <value xml:lang="fr">Le mot de passe ou la vérification de mot de passe manque</value>
@@ -619,7 +619,7 @@
         <value xml:lang="zh">没有找到用户。</value>
     </property>
     <property key="loginservices.username_missing">
-        <value xml:lang="de">Benutzername fehlt</value>
+        <value xml:lang="de">Benutzername fehlt.</value>
         <value xml:lang="en">Username missing.</value>
         <value xml:lang="es">Falta usuario</value>
         <value xml:lang="fr">Le nom d'utilisateur manque.</value>
