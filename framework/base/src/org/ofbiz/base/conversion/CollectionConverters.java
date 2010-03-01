@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,39 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {
+    public static class ArrayCreator implements ConverterCreator, ConverterLoader {
+        public void loadConverters() {
+            Converters.registerCreator(this);
+        }
+
+        public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
+            if (!sourceClass.isArray() || targetClass != List.class) {
+                return null;
+            }
+            return UtilGenerics.cast(new ArrayClassToList<S, T>(sourceClass, targetClass));
+        }
+    }
+
+    private static class ArrayClassToList<S, T> extends AbstractConverter<S, T> {
+        public ArrayClassToList(Class<S> sourceClass, Class<T> targetClass) {
+            super(sourceClass, targetClass);
+        }
+
+        public T convert(S obj) throws ConversionException {
+            List<Object> list = FastList.newInstance();
+            int len = Array.getLength(obj);
+            for (int i = 0; i < len; i++) {
+                list.add(Array.get(obj, i));
+            }
+            return UtilGenerics.<T>cast(list);
+        }
+    }
+
     public static class ArrayToList<T> extends AbstractConverter<T[], List<T>> {
         public ArrayToList() {
             super(Object[].class, List.class);
