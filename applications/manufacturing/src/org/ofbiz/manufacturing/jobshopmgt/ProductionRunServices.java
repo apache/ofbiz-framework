@@ -330,6 +330,7 @@ public class ProductionRunServices {
                 serviceContext.put("currentStatusId","PRUN_CREATED");
                 serviceContext.put("workEffortParentId", productionRunId);
                 serviceContext.put("facilityId", facilityId);
+                serviceContext.put("reservPersons", routingTask.get("reservPersons"));
                 serviceContext.put("estimatedStartDate",startDate);
                 serviceContext.put("estimatedCompletionDate",endDate);
                 serviceContext.put("estimatedSetupMillis", routingTask.get("estimatedSetupMillis"));
