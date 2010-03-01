@@ -185,7 +185,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     }
 
     public static void basicTest(String label, Object toConvert) throws GeneralException {
-        //BUG assertEquals(label + ":PlainString", toConvert.toString(), simpleTypeConvert(toConvert, "PlainString", null, null, null, true));
+        assertEquals(label + ":PlainString", toConvert.toString(), simpleTypeConvert(toConvert, "PlainString", null, null, null, true));
         assertSame(label + ":same", toConvert, simpleTypeConvert(toConvert, toConvert.getClass().getName(), null, null, null, true));
         assertSame(label + ":to-Object", toConvert, simpleTypeConvert(toConvert, "Object", null, null, null, true));
         assertSame(label + ":to-java.lang.Object", toConvert, simpleTypeConvert(toConvert, "java.lang.Object", null, null, null, true));
