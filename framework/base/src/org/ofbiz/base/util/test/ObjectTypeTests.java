@@ -319,8 +319,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("SqlDate->String", sqlDt, new String[] {"String", "java.lang.String"}, "dd-MM-yyyy", localeData, "31-12-1969");
         simpleTypeConvertTestSingleMulti("SqlDate->SqlDate", sqlDt, new String[] {"Date", "java.sql.Date"}, new java.sql.Date(-129600000));
         simpleTypeConvertTestSingleMulti("SqlDate->Timestamp", sqlDt, new String[] {"Timestamp", "java.sql.Timestamp"}, new Timestamp(-129600000));
-        //BUG simpleTypeConvertTestSingleMulti("SqlDate->List", sqlDt, new String[] {"List", "java.util.List"}, list(sqlDt));
-        //BUG simpleTypeConvertTestSingleMulti("SqlDate->Set", sqlDt, new String[] {"Set", "java.util.Set"}, set(sqlDt));
+        simpleTypeConvertTestSingleMulti("SqlDate->List", sqlDt, new String[] {"List", "java.util.List"}, list(sqlDt));
+        simpleTypeConvertTestSingleMulti("SqlDate->Set", sqlDt, new String[] {"Set", "java.util.Set"}, set(sqlDt));
         simpleTypeConvertTestSingleMulti("SqlDate->Long", sqlDt, new String[] {"Long", "java.lang.Long"}, Long.valueOf("-129600000"));
         simpleTypeConvertTestError("SqlDate->error", sqlDt, new String[] {/*BUG "Time", "java.sql.Time" */});
     }
@@ -331,8 +331,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("SqlTime->String", sqlTm, new String[] {"String", "java.lang.String"}, "ss:mm:HH", localeData, "56:34:12");
         simpleTypeConvertTestSingleMulti("SqlTime->SqlTime", sqlTm, new String[] {"Time", "java.sql.Time"}, new java.sql.Time(2096000));
         simpleTypeConvertTestSingleMulti("SqlTime->Timestamp", sqlTm, new String[] {"Timestamp", "java.sql.Timestamp"}, new Timestamp(2096000));
-        //BUG simpleTypeConvertTestSingleMulti("SqlTime->List", sqlTm, new String[] {"List", "java.util.List"}, list(sqlTm));
-        //BUG simpleTypeConvertTestSingleMulti("SqlTime->Set", sqlTm, new String[] {"Set", "java.util.Set"}, set(sqlTm));
+        simpleTypeConvertTestSingleMulti("SqlTime->List", sqlTm, new String[] {"List", "java.util.List"}, list(sqlTm));
+        simpleTypeConvertTestSingleMulti("SqlTime->Set", sqlTm, new String[] {"Set", "java.util.Set"}, set(sqlTm));
         //BUG simpleTypeConvertTestError("SqlTime->error", sqlTm, new String[] {/*BUG "Date", "java.sql.Date" */});
     }
 
@@ -343,8 +343,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("Timestamp->Date", tstmp, new String[] {"Date", "java.sql.Date"}, new java.sql.Date(781));
         simpleTypeConvertTestSingleMulti("Timestamp->Time", tstmp, new String[] {"Time", "java.sql.Time"}, new java.sql.Time(781));
         simpleTypeConvertTestSingleMulti("Timestamp->Timestamp", tstmp, new String[] {"Timestamp", "java.sql.Timestamp"}, new Timestamp(781));
-        //BUG simpleTypeConvertTestSingleMulti("Timestamp->List", tstmp, new String[] {"List", "java.util.List"}, list(tstmp));
-        //BUG simpleTypeConvertTestSingleMulti("Timestamp->Set", tstmp, new String[] {"Set", "java.util.Set"}, set(tstmp));
+        simpleTypeConvertTestSingleMulti("Timestamp->List", tstmp, new String[] {"List", "java.util.List"}, list(tstmp));
+        simpleTypeConvertTestSingleMulti("Timestamp->Set", tstmp, new String[] {"Set", "java.util.Set"}, set(tstmp));
         simpleTypeConvertTestSingleMulti("Timestamp->Long", tstmp, new String[] {"Long", "java.lang.Long"}, Long.valueOf("781"));
         simpleTypeConvertTestError("Timestamp->error", tstmp, new String[] {});
     }
@@ -356,8 +356,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("Boolean->String", false, new String[] {"String", "java.lang.String"}, "false");
         simpleTypeConvertTestSingleMulti("Boolean->Integer", true, new String[] {"Integer", "java.lang.Integer"}, Integer.valueOf("1"));
         simpleTypeConvertTestSingleMulti("Boolean->Integer", false, new String[] {"Integer", "java.lang.Integer"}, Integer.valueOf("0"));
-        //BUG simpleTypeConvertTestSingleMulti("Boolean->List", true, new String[] {"List", "java.util.List"}, list(true));
-        //BUG simpleTypeConvertTestSingleMulti("Boolean->Set", true, new String[] {"Set", "java.util.Set"}, set(true));
+        simpleTypeConvertTestSingleMulti("Boolean->List", true, new String[] {"List", "java.util.List"}, list(true));
+        simpleTypeConvertTestSingleMulti("Boolean->Set", true, new String[] {"Set", "java.util.Set"}, set(true));
         simpleTypeConvertTestError("Boolean->error", true, new String[] {});
     }
 
@@ -407,8 +407,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         //BUG simpleTypeConvertTestSingleMulti("TimeDuration->Double", duration, new String[] {"Double", "java.lang.Double"}, Double.valueOf("3661001"));
         //BUG simpleTypeConvertTestSingleMulti("TimeDuration->Float", duration, new String[] {"Float", "java.lang.Float"}, Float.valueOf("3661001"));
         simpleTypeConvertTestSingleMulti("TimeDuration->Long", duration, new String[] {"Long", "java.lang.Long"}, Long.valueOf("3661001"));
-        //BUG simpleTypeConvertTestSingleMulti("TimeDuration->List", duration, new String[] {"List", "java.util.List"}, list(duration));
-        //BUG simpleTypeConvertTestSingleMulti("TimeDuration->Set", duration, new String[] {"Set", "java.util.Set"}, set(duration));
+        simpleTypeConvertTestSingleMulti("TimeDuration->List", duration, new String[] {"List", "java.util.List"}, list(duration));
+        simpleTypeConvertTestSingleMulti("TimeDuration->Set", duration, new String[] {"Set", "java.util.Set"}, set(duration));
         simpleTypeConvertTestError("TimeDuration->error", duration, new String[] {});
     }
 
