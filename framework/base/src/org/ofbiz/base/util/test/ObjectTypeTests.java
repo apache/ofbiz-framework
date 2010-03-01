@@ -201,8 +201,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         //BUG simpleTypeConvertTestSingleMulti("empty-String->anything", "", new String[] {"List", "Map"}, null);
         //BUG simpleTypeConvertTestSingleMulti("empty-String->bad-class", "", new String[] {"no-class"}, null);
         simpleTypeConvertTestError("String->error", "one", new String[] {});
-        simpleTypeConvertTestMultiMulti("String->Boolean(true)", new String[] {"true", /*BUG " true ", " TrUe" */}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.TRUE);
-        simpleTypeConvertTestMultiMulti("String->Boolean(false)", new String[] {"false", /*BUG " false ", " FaLsE" */}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.FALSE);
+        simpleTypeConvertTestMultiMulti("String->Boolean(true)", new String[] {"true", " true ", " TrUe"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.TRUE);
+        simpleTypeConvertTestMultiMulti("String->Boolean(false)", new String[] {"false", " false ", " FaLsE"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.FALSE);
         simpleTypeConvertTestSingleMulti("String->Locale", "en_us", new String[] {"Locale", "java.util.Locale"}, localeData.goodLocale);
         simpleTypeConvertTestError("String->error-Locale", "o", new String[] {"Locale", "java.util.Locale"});
         // TZ can never be null, will default to GMT if it can't be parsed(from the javadocs of java.util.TimeZone)

@@ -56,7 +56,7 @@ public class BooleanConverters implements ConverterLoader {
         }
 
         public Boolean convert(String obj) throws ConversionException {
-            return "TRUE".equals(obj.toUpperCase());
+            return "TRUE".equals(obj.trim().toUpperCase());
         }
     }
 
