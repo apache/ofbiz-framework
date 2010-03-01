@@ -93,6 +93,8 @@ if (orderHeader) {
 } else if (returnHeader) {
     if ("CUSTOMER_RETURN".equals(returnHeader.returnHeaderTypeId) && returnHeader.toPartyId) {
         partyId = returnHeader.toPartyId;
+    } else if ("VENDOR_RETURN".equals(returnHeader.returnHeaderTypeId) && returnHeader.fromPartyId) {
+        partyId = returnHeader.fromPartyId;
     }
 } else if (quote) {
     productStore = quote.getRelatedOne("ProductStore");
