@@ -27,7 +27,6 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
@@ -40,7 +39,13 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (!sourceClass.isArray() || targetClass != List.class) {
+            if (!sourceClass.isArray()) {
+               return null;
+            }
+            if (targetClass != List.class) {
+               return null;
+            }
+            if (!(sourceClass.getComponentType() instanceof Object)) {
                 return null;
             }
             return UtilGenerics.cast(new ArrayClassToList<S, T>(sourceClass, targetClass));
@@ -50,6 +55,10 @@ public class CollectionConverters implements ConverterLoader {
     private static class ArrayClassToList<S, T> extends AbstractConverter<S, T> {
         public ArrayClassToList(Class<S> sourceClass, Class<T> targetClass) {
             super(sourceClass, targetClass);
+        }
+
+        public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
+            return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
         public T convert(S obj) throws ConversionException {
@@ -69,7 +78,16 @@ public class CollectionConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return sourceClass.isArray() && ObjectType.instanceOf(targetClass, this.getTargetClass());
+            if (!sourceClass.isArray()) {
+                return false;
+            }
+            if (!List.class.isAssignableFrom(targetClass)) {
+                return false;
+            }
+            if (Object[].class.isAssignableFrom(sourceClass)) {
+                return true;
+            }
+            return false;
         }
 
         public List<T> convert(T[] obj) throws ConversionException {
