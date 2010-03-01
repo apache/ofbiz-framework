@@ -322,7 +322,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("SqlDate->List", sqlDt, new String[] {"List", "java.util.List"}, list(sqlDt));
         simpleTypeConvertTestSingleMulti("SqlDate->Set", sqlDt, new String[] {"Set", "java.util.Set"}, set(sqlDt));
         simpleTypeConvertTestSingleMulti("SqlDate->Long", sqlDt, new String[] {"Long", "java.lang.Long"}, Long.valueOf("-129600000"));
-        simpleTypeConvertTestError("SqlDate->error", sqlDt, new String[] {/*BUG "Time", "java.sql.Time" */});
+        simpleTypeConvertTestError("SqlDate->error", sqlDt, new String[] {"Time", "java.sql.Time"});
     }
 
     public void testSqlTime() throws GeneralException {
@@ -333,7 +333,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("SqlTime->Timestamp", sqlTm, new String[] {"Timestamp", "java.sql.Timestamp"}, new Timestamp(2096000));
         simpleTypeConvertTestSingleMulti("SqlTime->List", sqlTm, new String[] {"List", "java.util.List"}, list(sqlTm));
         simpleTypeConvertTestSingleMulti("SqlTime->Set", sqlTm, new String[] {"Set", "java.util.Set"}, set(sqlTm));
-        //BUG simpleTypeConvertTestError("SqlTime->error", sqlTm, new String[] {/*BUG "Date", "java.sql.Date" */});
+        simpleTypeConvertTestError("SqlTime->error", sqlTm, new String[] {"Date", "java.sql.Date"});
     }
 
     public void testTimestamp() throws GeneralException {
