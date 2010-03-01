@@ -240,7 +240,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("String->Map", "{one=1, two=2, three=3}", new String[] {"Map", "java.util.Map"}, map);
         simpleTypeConvertTestError("String->Map(error-1)", "{one=1, two=2, three=3", new String[] {"Map", "java.util.Map"});
         simpleTypeConvertTestError("String->Map(error-2)", "one=1, two=2, three=3}", new String[] {"Map", "java.util.Map"});
-        //BUG simpleTypeConvertTestSingleMulti("String->TimeDuration(number)", "3,661,001", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, null, localeData, duration);
+        simpleTypeConvertTestSingleMulti("String->TimeDuration(number)", "3,661,001", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, null, localeData, duration);
         simpleTypeConvertTestMultiMulti("String->TimeDuration(string)", new String[] {"1:1:1:1"}, new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, duration);
         //BUG simpleTypeConvertTestError("String->error-TimeDuration", "o", new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"});
     }
