@@ -484,6 +484,9 @@ public class ObjectType {
             return obj.toString();
         }
         Class<?> sourceClass = obj.getClass();
+        if ("Object".equals(type) || "java.lang.Object".equals(type)) {
+            return obj;
+        }
         if (obj instanceof String && UtilValidate.isEmpty(obj)) {
             return null;
         }
