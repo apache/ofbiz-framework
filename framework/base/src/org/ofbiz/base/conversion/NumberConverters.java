@@ -473,7 +473,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(Integer obj) throws ConversionException {
-            return BigDecimal.valueOf(obj.doubleValue());
+            return BigDecimal.valueOf(obj.intValue());
         }
     }
 
@@ -572,7 +572,7 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(Long obj) throws ConversionException {
-            return BigDecimal.valueOf(obj.doubleValue());
+            return BigDecimal.valueOf(obj.longValue());
         }
     }
 
