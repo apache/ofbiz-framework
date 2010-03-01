@@ -74,6 +74,8 @@ public class CachedClassLoader extends URLClassLoader {
         registerClass(java.util.Set.class);
         registerClass(java.util.Map.class);
         registerClass(java.util.HashMap.class);
+        registerClass(java.util.TimeZone.class);
+        registerClass(java.util.Locale.class);
 
         // setup the primitive types
         registerClass(Boolean.TYPE);
