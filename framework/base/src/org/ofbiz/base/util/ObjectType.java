@@ -484,6 +484,9 @@ public class ObjectType {
             return obj.toString();
         }
         Class<?> sourceClass = obj.getClass();
+        if (sourceClass.getName().equals(type)) {
+            return obj;
+        }
         if ("Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
@@ -495,9 +498,6 @@ public class ObjectType {
             targetClass = loadClass(type);
         } catch (ClassNotFoundException e) {
             throw new GeneralException("Conversion from " + sourceClass.getName() + " to " + type + " not currently supported", e);
-        }
-        if (sourceClass.equals(targetClass)) {
-            return obj;
         }
         Converter<Object,Object> converter = null;
         try {
