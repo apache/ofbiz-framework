@@ -139,18 +139,16 @@ public class CollectionConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToList extends AbstractConverter<String, List<String>> {
+    public static class StringToList extends GenericSingletonToList<String> {
         public StringToList() {
-            super(String.class, List.class);
+            super(String.class);
         }
 
         public List<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toList(obj);
             } else {
-                List<String> tempList = FastList.newInstance();
-                tempList.add(obj);
-                return tempList;
+                return super.convert(obj);
             }
         }
     }
@@ -168,18 +166,16 @@ public class CollectionConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToSet extends AbstractConverter<String, Set<String>> {
+    public static class StringToSet extends GenericSingletonToSet<String> {
         public StringToSet() {
-            super(String.class, Set.class);
+            super(String.class);
         }
 
         public Set<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toSet(obj);
             } else {
-                Set<String> tempSet = FastSet.newInstance();
-                tempSet.add(obj);
-                return tempSet;
+                return super.convert(obj);
             }
         }
     }

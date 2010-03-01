@@ -84,15 +84,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToList extends AbstractConverter<BigDecimal, List<BigDecimal>> {
+    public static class BigDecimalToList extends GenericSingletonToList<BigDecimal> {
         public BigDecimalToList() {
-            super(BigDecimal.class, List.class);
-        }
-
-        public List<BigDecimal> convert(BigDecimal obj) throws ConversionException {
-            List<BigDecimal> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(BigDecimal.class);
         }
     }
 
@@ -106,15 +100,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToSet extends AbstractConverter<BigDecimal, Set<BigDecimal>> {
+    public static class BigDecimalToSet extends GenericSingletonToSet<BigDecimal> {
         public BigDecimalToSet() {
-            super(BigDecimal.class, Set.class);
-        }
-
-        public Set<BigDecimal> convert(BigDecimal obj) throws ConversionException {
-            Set<BigDecimal> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(BigDecimal.class);
         }
     }
 
@@ -173,15 +161,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToList extends AbstractConverter<BigInteger, List<BigInteger>> {
+    public static class BigIntegerToList extends GenericSingletonToList<BigInteger> {
         public BigIntegerToList() {
-            super(BigInteger.class, List.class);
-        }
-
-        public List<BigInteger> convert(BigInteger obj) throws ConversionException {
-            List<BigInteger> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(BigInteger.class);
         }
     }
 
@@ -195,15 +177,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToSet extends AbstractConverter<BigInteger, Set<BigInteger>> {
+    public static class BigIntegerToSet extends GenericSingletonToSet<BigInteger> {
         public BigIntegerToSet() {
-            super(BigInteger.class, Set.class);
-        }
-
-        public Set<BigInteger> convert(BigInteger obj) throws ConversionException {
-            Set<BigInteger> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(BigInteger.class);
         }
     }
 
@@ -252,15 +228,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToList extends AbstractConverter<Byte, List<Byte>> {
+    public static class ByteToList extends GenericSingletonToList<Byte> {
         public ByteToList() {
-            super(Byte.class, List.class);
-        }
-
-        public List<Byte> convert(Byte obj) throws ConversionException {
-            List<Byte> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Byte.class);
         }
     }
 
@@ -274,15 +244,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ByteToSet extends AbstractConverter<Byte, Set<Byte>> {
+    public static class ByteToSet extends GenericSingletonToSet<Byte> {
         public ByteToSet() {
-            super(Byte.class, Set.class);
-        }
-
-        public Set<Byte> convert(Byte obj) throws ConversionException {
-            Set<Byte> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Byte.class);
         }
     }
 
@@ -339,15 +303,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToList extends AbstractConverter<Double, List<Double>> {
+    public static class DoubleToList extends GenericSingletonToList<Double> {
         public DoubleToList() {
-            super(Double.class, List.class);
-        }
-
-        public List<Double> convert(Double obj) throws ConversionException {
-            List<Double> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Double.class);
         }
     }
 
@@ -361,15 +319,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToSet extends AbstractConverter<Double, Set<Double>> {
+    public static class DoubleToSet extends GenericSingletonToSet<Double> {
         public DoubleToSet() {
-            super(Double.class, Set.class);
-        }
-
-        public Set<Double> convert(Double obj) throws ConversionException {
-            Set<Double> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Double.class);
         }
     }
 
@@ -418,15 +370,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToList extends AbstractConverter<Float, List<Float>> {
+    public static class FloatToList extends GenericSingletonToList<Float> {
         public FloatToList() {
-            super(Float.class, List.class);
-        }
-
-        public List<Float> convert(Float obj) throws ConversionException {
-            List<Float> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Float.class);
         }
     }
 
@@ -440,15 +386,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class FloatToSet extends AbstractConverter<Float, Set<Float>> {
+    public static class FloatToSet extends GenericSingletonToSet<Float> {
         public FloatToSet() {
-            super(Float.class, Set.class);
-        }
-
-        public Set<Float> convert(Float obj) throws ConversionException {
-            Set<Float> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Float.class);
         }
     }
 
@@ -507,15 +447,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToList extends AbstractConverter<Integer, List<Integer>> {
+    public static class IntegerToList extends GenericSingletonToList<Integer> {
         public IntegerToList() {
-            super(Integer.class, List.class);
-        }
-
-        public List<Integer> convert(Integer obj) throws ConversionException {
-            List<Integer> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Integer.class);
         }
     }
 
@@ -529,15 +463,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToSet extends AbstractConverter<Integer, Set<Integer>> {
+    public static class IntegerToSet extends GenericSingletonToSet<Integer> {
         public IntegerToSet() {
-            super(Integer.class, Set.class);
-        }
-
-        public Set<Integer> convert(Integer obj) throws ConversionException {
-            Set<Integer> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Integer.class);
         }
     }
 
@@ -616,27 +544,15 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToList extends AbstractConverter<Long, List<Long>> {
+    public static class LongToList extends GenericSingletonToList<Long> {
         public LongToList() {
-            super(Long.class, List.class);
-        }
-
-        public List<Long> convert(Long obj) throws ConversionException {
-            List<Long> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Long.class);
         }
     }
 
-    public static class LongToSet extends AbstractConverter<Long, Set<Long>> {
+    public static class LongToSet extends GenericSingletonToSet<Long> {
         public LongToSet() {
-            super(Long.class, Set.class);
-        }
-
-        public Set<Long> convert(Long obj) throws ConversionException {
-            Set<Long> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Long.class);
         }
     }
 
@@ -695,15 +611,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToList extends AbstractConverter<Short, List<Short>> {
+    public static class ShortToList extends GenericSingletonToList<Short> {
         public ShortToList() {
-            super(Short.class, List.class);
-        }
-
-        public List<Short> convert(Short obj) throws ConversionException {
-            List<Short> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(Short.class);
         }
     }
 
@@ -717,15 +627,9 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class ShortToSet extends AbstractConverter<Short, Set<Short>> {
+    public static class ShortToSet extends GenericSingletonToSet<Short> {
         public ShortToSet() {
-            super(Short.class, Set.class);
-        }
-
-        public Set<Short> convert(Short obj) throws ConversionException {
-            Set<Short> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(Short.class);
         }
     }
 

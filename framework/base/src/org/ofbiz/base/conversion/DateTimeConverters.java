@@ -152,27 +152,15 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class DurationToList extends AbstractConverter<TimeDuration, List<TimeDuration>> {
+    public static class DurationToList extends GenericSingletonToList<TimeDuration> {
         public DurationToList() {
-            super(TimeDuration.class, List.class);
-        }
-
-        public List<TimeDuration> convert(TimeDuration obj) throws ConversionException {
-            List<TimeDuration> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(TimeDuration.class);
         }
     }
 
-    public static class DurationToSet extends AbstractConverter<TimeDuration, Set<TimeDuration>> {
+    public static class DurationToSet extends GenericSingletonToSet<TimeDuration> {
         public DurationToSet() {
-            super(TimeDuration.class, Set.class);
-        }
-
-        public Set<TimeDuration> convert(TimeDuration obj) throws ConversionException {
-            Set<TimeDuration> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(TimeDuration.class);
         }
     }
 
@@ -278,27 +266,15 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class SqlDateToList extends AbstractConverter<java.sql.Date, List<java.sql.Date>> {
+    public static class SqlDateToList extends GenericSingletonToList<java.sql.Date> {
         public SqlDateToList() {
-            super(java.sql.Date.class, List.class);
-        }
-
-        public List<java.sql.Date> convert(java.sql.Date obj) throws ConversionException {
-            List<java.sql.Date> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(java.sql.Date.class);
         }
     }
 
-    public static class SqlDateToSet extends AbstractConverter<java.sql.Date, Set<java.sql.Date>> {
+    public static class SqlDateToSet extends GenericSingletonToSet<java.sql.Date> {
         public SqlDateToSet() {
-            super(java.sql.Date.class, Set.class);
-        }
-
-        public Set<java.sql.Date> convert(java.sql.Date obj) throws ConversionException {
-            Set<java.sql.Date> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(java.sql.Date.class);
         }
     }
 
@@ -343,15 +319,9 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class SqlTimeToList extends AbstractConverter<java.sql.Time, List<java.sql.Time>> {
+    public static class SqlTimeToList extends GenericSingletonToList<java.sql.Time> {
         public SqlTimeToList() {
-            super(java.sql.Time.class, List.class);
-        }
-
-        public List<java.sql.Time> convert(java.sql.Time obj) throws ConversionException {
-            List<java.sql.Time> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(java.sql.Time.class);
         }
     }
 
@@ -365,15 +335,9 @@ public class DateTimeConverters implements ConverterLoader {
        }
     }
 
-    public static class SqlTimeToSet extends AbstractConverter<java.sql.Time, Set<java.sql.Time>> {
+    public static class SqlTimeToSet extends GenericSingletonToSet<java.sql.Time> {
         public SqlTimeToSet() {
-            super(java.sql.Time.class, Set.class);
-        }
-
-        public Set<java.sql.Time> convert(java.sql.Time obj) throws ConversionException {
-            Set<java.sql.Time> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(java.sql.Time.class);
         }
     }
 
@@ -613,27 +577,15 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class TimestampToList extends AbstractConverter<java.sql.Timestamp, List<java.sql.Timestamp>> {
+    public static class TimestampToList extends GenericSingletonToList<java.sql.Timestamp> {
         public TimestampToList() {
-            super(java.sql.Timestamp.class, List.class);
-        }
-
-        public List<java.sql.Timestamp> convert(java.sql.Timestamp obj) throws ConversionException {
-            List<java.sql.Timestamp> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+            super(java.sql.Timestamp.class);
         }
     }
 
-    public static class TimestampToSet extends AbstractConverter<java.sql.Timestamp, Set<java.sql.Timestamp>> {
+    public static class TimestampToSet extends GenericSingletonToSet<java.sql.Timestamp> {
         public TimestampToSet() {
-            super(java.sql.Timestamp.class, Set.class);
-        }
-
-        public Set<java.sql.Timestamp> convert(java.sql.Timestamp obj) throws ConversionException {
-            Set<java.sql.Timestamp> tempSet = FastSet.newInstance();
-            tempSet.add(obj);
-            return tempSet;
+            super(java.sql.Timestamp.class);
         }
     }
 
