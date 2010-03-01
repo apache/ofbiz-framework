@@ -122,15 +122,23 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class DurationToList extends AbstractConverter<TimeDuration, List<TimeDuration>> {
-        public DurationToList() {
-            super(TimeDuration.class, List.class);
+    public static class DurationToDouble extends AbstractConverter<TimeDuration, Double> {
+        public DurationToDouble() {
+            super(TimeDuration.class, Double.class);
         }
 
-        public List<TimeDuration> convert(TimeDuration obj) throws ConversionException {
-            List<TimeDuration> tempList = FastList.newInstance();
-            tempList.add(obj);
-            return tempList;
+        public Double convert(TimeDuration obj) throws ConversionException {
+             return Double.valueOf(TimeDuration.toLong(obj));
+        }
+    }
+
+    public static class DurationToFloat extends AbstractConverter<TimeDuration, Float> {
+        public DurationToFloat() {
+            super(TimeDuration.class, Float.class);
+        }
+
+        public Float convert(TimeDuration obj) throws ConversionException {
+             return Float.valueOf(TimeDuration.toLong(obj));
         }
     }
 
@@ -141,6 +149,18 @@ public class DateTimeConverters implements ConverterLoader {
 
         public Long convert(TimeDuration obj) throws ConversionException {
              return TimeDuration.toLong(obj);
+        }
+    }
+
+    public static class DurationToList extends AbstractConverter<TimeDuration, List<TimeDuration>> {
+        public DurationToList() {
+            super(TimeDuration.class, List.class);
+        }
+
+        public List<TimeDuration> convert(TimeDuration obj) throws ConversionException {
+            List<TimeDuration> tempList = FastList.newInstance();
+            tempList.add(obj);
+            return tempList;
         }
     }
 
