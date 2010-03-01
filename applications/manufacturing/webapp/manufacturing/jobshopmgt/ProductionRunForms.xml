@@ -152,6 +152,7 @@ under the License.
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="reservPersons"><display/></field>
         <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
@@ -166,6 +167,7 @@ under the License.
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="reservPersons"><display/></field>
         <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
@@ -223,6 +225,7 @@ under the License.
         <field name="description">
             <text/>
         </field>
+        <field name="reservPersons"><text/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}">
             <date-time/>
         </field>
@@ -337,6 +340,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
+        <field name="reservPersons"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}" ><display/></field>
         <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}" ><display/></field>

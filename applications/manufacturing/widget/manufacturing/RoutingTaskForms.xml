@@ -147,6 +147,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="reservPersons"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
             <submit button-type="button"/>
         </field>
