@@ -266,11 +266,11 @@ OUTER:
             assertEquals(msg, (Map<?, ?>) wanted, got);
         } else if (wanted == null) {
             TestCase.assertEquals(msg, wanted, got);
+        } else if (wanted instanceof Set) {
+            assertEquals(msg, (Set<?>) wanted, got);
         } else if (wanted instanceof Collection) {
             System.err.println("c");
             assertEquals(msg, (Collection<?>) wanted, got);
-        } else if (wanted instanceof Set) {
-            assertEquals(msg, (Set<?>) wanted, got);
         } else if (wanted.getClass().isArray()) {
             if (got == null) {
                 TestCase.assertEquals(msg, wanted, got);
