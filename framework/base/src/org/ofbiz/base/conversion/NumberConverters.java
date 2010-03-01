@@ -136,42 +136,6 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigDecimalToDouble extends GenericNumberToDouble<BigDecimal> {
-        public BigDecimalToDouble() {
-            super(BigDecimal.class);
-        }
-    }
-
-    public static class BigDecimalToFloat extends GenericNumberToFloat<BigDecimal> {
-        public BigDecimalToFloat() {
-            super(BigDecimal.class);
-        }
-    }
-
-    public static class BigDecimalToInteger extends GenericNumberToInteger<BigDecimal> {
-        public BigDecimalToInteger() {
-            super(BigDecimal.class);
-        }
-    }
-
-    public static class BigDecimalToList extends GenericSingletonToList<BigDecimal> {
-        public BigDecimalToList() {
-            super(BigDecimal.class);
-        }
-    }
-
-    public static class BigDecimalToLong extends GenericNumberToLong<BigDecimal> {
-        public BigDecimalToLong() {
-            super(BigDecimal.class);
-        }
-    }
-
-    public static class BigDecimalToSet extends GenericSingletonToSet<BigDecimal> {
-        public BigDecimalToSet() {
-            super(BigDecimal.class);
-        }
-    }
-
     public static class BigDecimalToString extends AbstractNumberToStringConverter<BigDecimal> {
         public BigDecimalToString() {
             super(BigDecimal.class);
@@ -192,42 +156,6 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class BigIntegerToDouble extends GenericNumberToDouble<BigInteger> {
-        public BigIntegerToDouble() {
-            super(BigInteger.class);
-        }
-    }
-
-    public static class BigIntegerToFloat extends GenericNumberToFloat<BigInteger> {
-        public BigIntegerToFloat() {
-            super(BigInteger.class);
-        }
-    }
-
-    public static class BigIntegerToInteger extends GenericNumberToInteger<BigInteger> {
-        public BigIntegerToInteger() {
-            super(BigInteger.class);
-        }
-    }
-
-    public static class BigIntegerToList extends GenericSingletonToList<BigInteger> {
-        public BigIntegerToList() {
-            super(BigInteger.class);
-        }
-    }
-
-    public static class BigIntegerToLong extends GenericNumberToLong<BigInteger> {
-        public BigIntegerToLong() {
-            super(BigInteger.class);
-        }
-    }
-
-    public static class BigIntegerToSet extends GenericSingletonToSet<BigInteger> {
-        public BigIntegerToSet() {
-            super(BigInteger.class);
-        }
-    }
-
     public static class BigIntegerToString extends AbstractNumberToStringConverter<BigInteger> {
         public BigIntegerToString() {
             super(BigInteger.class);
@@ -235,42 +163,6 @@ public class NumberConverters implements ConverterLoader {
 
         protected String format(BigInteger obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
-        }
-    }
-
-    public static class ByteToDouble extends GenericNumberToDouble<Byte> {
-        public ByteToDouble() {
-            super(Byte.class);
-        }
-    }
-
-    public static class ByteToFloat extends GenericNumberToFloat<Byte> {
-        public ByteToFloat() {
-            super(Byte.class);
-        }
-    }
-
-    public static class ByteToInteger extends GenericNumberToInteger<Byte> {
-        public ByteToInteger() {
-            super(Byte.class);
-        }
-    }
-
-    public static class ByteToList extends GenericSingletonToList<Byte> {
-        public ByteToList() {
-            super(Byte.class);
-        }
-    }
-
-    public static class ByteToLong extends GenericNumberToLong<Byte> {
-        public ByteToLong() {
-            super(Byte.class);
-        }
-    }
-
-    public static class ByteToSet extends GenericSingletonToSet<Byte> {
-        public ByteToSet() {
-            super(Byte.class);
         }
     }
 
@@ -298,36 +190,6 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class DoubleToFloat extends GenericNumberToFloat<Double> {
-        public DoubleToFloat() {
-            super(Double.class);
-        }
-    }
-
-    public static class DoubleToInteger extends GenericNumberToInteger<Double> {
-        public DoubleToInteger() {
-            super(Double.class);
-        }
-    }
-
-    public static class DoubleToList extends GenericSingletonToList<Double> {
-        public DoubleToList() {
-            super(Double.class);
-        }
-    }
-
-    public static class DoubleToLong extends GenericNumberToLong<Double> {
-        public DoubleToLong() {
-            super(Double.class);
-        }
-    }
-
-    public static class DoubleToSet extends GenericSingletonToSet<Double> {
-        public DoubleToSet() {
-            super(Double.class);
-        }
-    }
-
     public static class DoubleToString extends AbstractNumberToStringConverter<Double> {
         public DoubleToString() {
             super(Double.class);
@@ -345,36 +207,6 @@ public class NumberConverters implements ConverterLoader {
 
         public BigDecimal convert(Float obj) throws ConversionException {
             return BigDecimal.valueOf(obj.doubleValue());
-        }
-    }
-
-    public static class FloatToDouble extends GenericNumberToDouble<Float> {
-        public FloatToDouble() {
-            super(Float.class);
-        }
-    }
-
-    public static class FloatToInteger extends GenericNumberToInteger<Float> {
-        public FloatToInteger() {
-            super(Float.class);
-        }
-    }
-
-    public static class FloatToList extends GenericSingletonToList<Float> {
-        public FloatToList() {
-            super(Float.class);
-        }
-    }
-
-    public static class FloatToLong extends GenericNumberToLong<Float> {
-        public FloatToLong() {
-            super(Float.class);
-        }
-    }
-
-    public static class FloatToSet extends GenericSingletonToSet<Float> {
-        public FloatToSet() {
-            super(Float.class);
         }
     }
 
@@ -408,42 +240,6 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class IntegerToDouble extends GenericNumberToDouble<Integer> {
-        public IntegerToDouble() {
-            super(Integer.class);
-        }
-    }
-
-    public static class IntegerToFloat extends GenericNumberToFloat<Integer> {
-        public IntegerToFloat() {
-            super(Integer.class);
-        }
-    }
-
-    public static class IntegerToList extends GenericSingletonToList<Integer> {
-        public IntegerToList() {
-            super(Integer.class);
-        }
-    }
-
-    public static class IntegerToLong extends GenericNumberToLong<Integer> {
-        public IntegerToLong() {
-            super(Integer.class);
-        }
-    }
-
-    public static class IntegerToSet extends GenericSingletonToSet<Integer> {
-        public IntegerToSet() {
-            super(Integer.class);
-        }
-    }
-
-    public static class IntegerToShort extends GenericNumberToShort<Integer> {
-        public IntegerToShort() {
-            super(Integer.class);
-        }
-    }
-
     public static class IntegerToString extends AbstractNumberToStringConverter<Integer> {
         public IntegerToString() {
             super(Integer.class);
@@ -474,42 +270,6 @@ public class NumberConverters implements ConverterLoader {
         }
     }
 
-    public static class LongToDouble extends GenericNumberToDouble<Long> {
-        public LongToDouble() {
-            super(Long.class);
-        }
-    }
-
-    public static class LongToFloat extends GenericNumberToFloat<Long> {
-        public LongToFloat() {
-            super(Long.class);
-        }
-    }
-
-    public static class LongToInteger extends GenericNumberToInteger<Long> {
-        public LongToInteger() {
-            super(Long.class);
-        }
-    }
-
-    public static class LongToList extends GenericSingletonToList<Long> {
-        public LongToList() {
-            super(Long.class);
-        }
-    }
-
-    public static class LongToSet extends GenericSingletonToSet<Long> {
-        public LongToSet() {
-            super(Long.class);
-        }
-    }
-
-    public static class LongToShort extends GenericNumberToShort<Long> {
-        public LongToShort() {
-            super(Long.class);
-        }
-    }
-
     public static class LongToString extends AbstractNumberToStringConverter<Long> {
         public LongToString() {
             super(Long.class);
@@ -517,42 +277,6 @@ public class NumberConverters implements ConverterLoader {
 
         protected String format(Long obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.longValue());
-        }
-    }
-
-    public static class ShortToDouble extends GenericNumberToDouble<Short> {
-        public ShortToDouble() {
-            super(Short.class);
-        }
-    }
-
-    public static class ShortToFloat extends GenericNumberToFloat<Short> {
-        public ShortToFloat() {
-            super(Short.class);
-        }
-    }
-
-    public static class ShortToInteger extends GenericNumberToInteger<Short> {
-        public ShortToInteger() {
-            super(Short.class);
-        }
-    }
-
-    public static class ShortToList extends GenericSingletonToList<Short> {
-        public ShortToList() {
-            super(Short.class);
-        }
-    }
-
-    public static class ShortToLong extends GenericNumberToLong<Short> {
-        public ShortToLong() {
-            super(Short.class);
-        }
-    }
-
-    public static class ShortToSet extends GenericSingletonToSet<Short> {
-        public ShortToSet() {
-            super(Short.class);
         }
     }
 
@@ -658,5 +382,58 @@ public class NumberConverters implements ConverterLoader {
 
     public void loadConverters() {
         Converters.loadContainedConverters(NumberConverters.class);
+
+        Converters.registerConverter(new GenericNumberToDouble<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToDouble<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToDouble<Byte>(Byte.class));
+        Converters.registerConverter(new GenericNumberToDouble<Float>(Float.class));
+        Converters.registerConverter(new GenericNumberToDouble<Integer>(Integer.class));
+        Converters.registerConverter(new GenericNumberToDouble<Long>(Long.class));
+        Converters.registerConverter(new GenericNumberToDouble<Short>(Short.class));
+
+        Converters.registerConverter(new GenericNumberToFloat<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToFloat<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToFloat<Byte>(Byte.class));
+        Converters.registerConverter(new GenericNumberToFloat<Double>(Double.class));
+        Converters.registerConverter(new GenericNumberToFloat<Integer>(Integer.class));
+        Converters.registerConverter(new GenericNumberToFloat<Long>(Long.class));
+        Converters.registerConverter(new GenericNumberToFloat<Short>(Short.class));
+
+        Converters.registerConverter(new GenericNumberToInteger<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToInteger<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToInteger<Byte>(Byte.class));
+        Converters.registerConverter(new GenericNumberToInteger<Double>(Double.class));
+        Converters.registerConverter(new GenericNumberToInteger<Float>(Float.class));
+        Converters.registerConverter(new GenericNumberToInteger<Long>(Long.class));
+        Converters.registerConverter(new GenericNumberToInteger<Short>(Short.class));
+
+        Converters.registerConverter(new GenericSingletonToList<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericSingletonToList<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericSingletonToList<Byte>(Byte.class));
+        Converters.registerConverter(new GenericSingletonToList<Double>(Double.class));
+        Converters.registerConverter(new GenericSingletonToList<Float>(Float.class));
+        Converters.registerConverter(new GenericSingletonToList<Integer>(Integer.class));
+        Converters.registerConverter(new GenericSingletonToList<Long>(Long.class));
+        Converters.registerConverter(new GenericSingletonToList<Short>(Short.class));
+
+        Converters.registerConverter(new GenericNumberToLong<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericNumberToLong<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericNumberToLong<Byte>(Byte.class));
+        Converters.registerConverter(new GenericNumberToLong<Double>(Double.class));
+        Converters.registerConverter(new GenericNumberToLong<Float>(Float.class));
+        Converters.registerConverter(new GenericNumberToLong<Integer>(Integer.class));
+        Converters.registerConverter(new GenericNumberToLong<Short>(Short.class));
+
+        Converters.registerConverter(new GenericSingletonToSet<BigDecimal>(BigDecimal.class));
+        Converters.registerConverter(new GenericSingletonToSet<BigInteger>(BigInteger.class));
+        Converters.registerConverter(new GenericSingletonToSet<Byte>(Byte.class));
+        Converters.registerConverter(new GenericSingletonToSet<Double>(Double.class));
+        Converters.registerConverter(new GenericSingletonToSet<Float>(Float.class));
+        Converters.registerConverter(new GenericSingletonToSet<Integer>(Integer.class));
+        Converters.registerConverter(new GenericSingletonToSet<Long>(Long.class));
+        Converters.registerConverter(new GenericSingletonToSet<Short>(Short.class));
+
+        Converters.registerConverter(new GenericNumberToShort<Integer>(Integer.class));
+        Converters.registerConverter(new GenericNumberToShort<Long>(Long.class));
     }
 }
