@@ -323,6 +323,26 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
+    public static class SqlDateToTime extends AbstractConverter<java.sql.Date, java.sql.Time> {
+        public SqlDateToTime() {
+            super(java.sql.Date.class, java.sql.Time.class);
+        }
+
+        public java.sql.Time convert(java.sql.Date obj) throws ConversionException {
+            throw new ConversionException("Conversion from Date to Time not supported");
+       }
+    }
+
+    public static class SqlTimeToSqlDate extends AbstractConverter<java.sql.Time, java.sql.Date> {
+        public SqlTimeToSqlDate() {
+            super(java.sql.Time.class, java.sql.Date.class);
+        }
+
+        public java.sql.Date convert(java.sql.Time obj) throws ConversionException {
+            throw new ConversionException("Conversion from Time to Date not supported");
+        }
+    }
+
     public static class SqlTimeToList extends AbstractConverter<java.sql.Time, List<java.sql.Time>> {
         public SqlTimeToList() {
             super(java.sql.Time.class, List.class);
