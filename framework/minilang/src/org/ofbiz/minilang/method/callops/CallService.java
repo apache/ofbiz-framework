@@ -124,7 +124,7 @@ public class CallService extends MethodOperation {
         successSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "success-suffix"), "service.success.suffix");
         messagePrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-prefix"), "service.message.prefix");
         messageSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-suffix"), "service.message.suffix");
-        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), "service.default.message");
+        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);//"service.default.message"
 
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
         if (UtilValidate.isNotEmpty(resultsToMapElements)) {
