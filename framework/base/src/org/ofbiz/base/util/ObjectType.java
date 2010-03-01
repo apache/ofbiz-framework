@@ -484,6 +484,9 @@ public class ObjectType {
             return obj.toString();
         }
         Class<?> sourceClass = obj.getClass();
+        if (obj instanceof String && UtilValidate.isEmpty(obj)) {
+            return null;
+        }
         Class<?> targetClass = null;
         try {
             targetClass = loadClass(type);
