@@ -19,7 +19,7 @@
 
  // this script is used to get the company's logo header information for orders, invoices, and returns.  It can either take order, invoice, returnHeader from
  // parameters or use orderId, invoiceId, or returnId to look them up.
- // if none of these parameters are available then fromPartyId is used or "Company" as fallback
+ // if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
@@ -106,7 +106,7 @@ if (!partyId) {
     if (fromPartyId) {
         partyId = fromPartyId;
     } else {
-        partyId = "Company";
+        partyId = UtilProperties.getPropertyValue("general.properties", "ORGANIZATION_PARTY");
     }
 }
 
