@@ -404,8 +404,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     public void testTimeDuration() throws GeneralException {
         simpleTypeConvertTestSingleMulti("TimeDuration->String", duration, new String[] {"String", "java.lang.String"}, "0:0:0:1:1:1:1");
         simpleTypeConvertTestSingleMulti("TimeDuration->BigDecimal", duration, new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("3661001"));
-        //BUG simpleTypeConvertTestSingleMulti("TimeDuration->Double", duration, new String[] {"Double", "java.lang.Double"}, Double.valueOf("3661001"));
-        //BUG simpleTypeConvertTestSingleMulti("TimeDuration->Float", duration, new String[] {"Float", "java.lang.Float"}, Float.valueOf("3661001"));
+        simpleTypeConvertTestSingleMulti("TimeDuration->Double", duration, new String[] {"Double", "java.lang.Double"}, Double.valueOf("3661001"));
+        simpleTypeConvertTestSingleMulti("TimeDuration->Float", duration, new String[] {"Float", "java.lang.Float"}, Float.valueOf("3661001"));
         simpleTypeConvertTestSingleMulti("TimeDuration->Long", duration, new String[] {"Long", "java.lang.Long"}, Long.valueOf("3661001"));
         simpleTypeConvertTestSingleMulti("TimeDuration->List", duration, new String[] {"List", "java.util.List"}, list(duration));
         simpleTypeConvertTestSingleMulti("TimeDuration->Set", duration, new String[] {"Set", "java.util.Set"}, set(duration));
