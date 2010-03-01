@@ -125,7 +125,6 @@ public abstract class GenericTestCaseBase extends TestCase {
     }
 
     public static <T> void assertEquals(Collection<T> wanted, Object got) {
-        System.err.println("a");
         assertEquals(null, wanted, got);
     }
 
@@ -140,7 +139,6 @@ public abstract class GenericTestCaseBase extends TestCase {
         // Need to check the reverse, wanted may not implement equals,
         // which is the case for HashMap.values()
         if (got.equals(wanted)) return;
-        System.err.println("b:" + wanted.getClass());
         msg = msg == null ? "" : msg + ' ';
         assertNotNull(msg + "expected a value", got);
         List<T> list = new ArrayList<T>(wanted);
@@ -269,7 +267,6 @@ OUTER:
         } else if (wanted instanceof Set) {
             assertEquals(msg, (Set<?>) wanted, got);
         } else if (wanted instanceof Collection) {
-            System.err.println("c");
             assertEquals(msg, (Collection<?>) wanted, got);
         } else if (wanted.getClass().isArray()) {
             if (got == null) {
