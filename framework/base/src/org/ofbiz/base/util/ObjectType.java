@@ -480,6 +480,9 @@ public class ObjectType {
             type = type.substring(0, genericsStart);
         }
 
+        if ("PlainString".equals(type)) {
+            return obj.toString();
+        }
         Class<?> sourceClass = obj.getClass();
         Class<?> targetClass = null;
         try {
