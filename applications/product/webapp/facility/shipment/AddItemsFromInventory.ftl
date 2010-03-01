@@ -53,13 +53,13 @@ under the License.
           <#if (item.shipmentItemQty > item.totalQtyIssued)>
             <td>
               <div>
-                <form name="issueInventoryItemToShipment" action="<@ofbizUrl>issueInventoryItemToShipment</@ofbizUrl>" method="post">
+                <form name="issueInventoryItemToShipment_${item_index}" action="<@ofbizUrl>issueInventoryItemToShipment</@ofbizUrl>" method="post">
                   <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                   <input type="hidden" name="shipmentItemSeqId" value="${item.shipmentItemSeqId}"/>
                   <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>
                   <span>
                     <input type="text" size="5" name="inventoryItemId"/>
-                    <a href="javascript:call_fieldlookup2(document.issueInventoryItemToShipment.inventoryItemId,'LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}');">
+                    <a href="javascript:call_fieldlookup2(document.issueInventoryItemToShipment_${item_index}.inventoryItemId,'LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}');">
                       <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}">
                     </a>
                   </span>
