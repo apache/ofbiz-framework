@@ -19,6 +19,7 @@
 package org.ofbiz.base.conversion;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -409,13 +410,32 @@ public class DateTimeConverters implements ConverterLoader {
         }
     }
 
-    public static class StringToDuration extends AbstractConverter<String, TimeDuration> {
+    public static class StringToDuration extends AbstractLocalizedConverter<String, TimeDuration> {
         public StringToDuration() {
             super(String.class, TimeDuration.class);
         }
 
+        public TimeDuration convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
+            return convert(obj, locale, timeZone);
+        }
+
+        public TimeDuration convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
+            if (!obj.contains(":")) {
+                // Encoded duration
+                try {
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
+                    nf.setMaximumFractionDigits(0);
+                    Number number = nf.parse(obj);
+                    return TimeDuration.fromNumber(number);
+                } catch (ParseException e) {
+                    throw new ConversionException(e);
+                }
+            }
+            return convert(obj);
+        }
+
         public TimeDuration convert(String obj) throws ConversionException {
-             return TimeDuration.parseDuration(obj);
+            return TimeDuration.parseDuration(obj);
         }
     }
 
