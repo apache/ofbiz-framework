@@ -192,7 +192,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     }
 
     public void testArray() throws GeneralException {
-        //BUG simpleTypeConvertTestSingleMulti("array->List", new Object[] {"one", "two", "three"}, new String[] {"List", "java.util.List"}, list);
+        simpleTypeConvertTestSingleMulti("array->List", new Object[] {"one", "two", "three"}, new String[] {"List", "java.util.List"}, list);
     }
 
     public void testString() throws GeneralException, Exception {
