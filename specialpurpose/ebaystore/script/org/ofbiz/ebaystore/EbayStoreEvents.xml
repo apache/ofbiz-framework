@@ -140,11 +140,8 @@
             </if-not-empty>
         </if-not-empty>
         <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunCombineOrdersJob"/>
-        <set field="parameters.condition1" type="Integer" default-value="5" from-field="parameters.afterDays"/>
-        <set field="parameters.condition2" default-value="N" type="String" from-field="parameters.isSendCopyEmailToSeller"/>
-        <if-compare field="parameters.enabled" value="N" type="String" operator="equals">
-            <set field="parameters.condition2"  value="N" type="String" />
-        </if-compare>
+        <set field="parameters.condition1" type="String" from-field="parameters.condition1"/>
+        <set field="parameters.condition2" type="String" from-field="parameters.condition2"/>
         <set field="parameters.serviceName" default-value="runCombineOrders" type="String"/>
         <session-to-field field="context.userLogin" session-name="userLogin"/>
         <!-- create new automatically store preferences -->
@@ -156,5 +153,6 @@
                 <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
             </else>
         </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
     </simple-method>
 </simple-methods>
