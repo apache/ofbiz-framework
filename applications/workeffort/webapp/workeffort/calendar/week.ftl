@@ -70,7 +70,11 @@ under the License.
     <#else>
       ${startDate?time?string.short}-${completionDate?time?string.short}
     </#if>
-      <br/><a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&parentTypeId=${parentTypeId?if_exists}&period=week&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
+    <br/>
+    ${setRequestAttribute("periodType", "week")}
+    ${setRequestAttribute("workEffortId", calEntry.workEffort.workEffortId)}
+    ${screens.render("component://workeffort/widget/CalendarScreens.xml#calendarEventContent")}
+    </td>  
     </#if>
     </#list>
     <#if (period.calendarEntries?size < maxConcurrentEntries)>
