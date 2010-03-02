@@ -94,7 +94,7 @@ if (productId) {
 
         // Set the default template for aggregated product (product component configurator ui)
         if (product.productTypeId && "AGGREGATED".equals(product.productTypeId) && context.configproductdetailScreen) {
-            detailScreen = configproductdetailScreen;
+            detailScreen = context.configproductdetailScreen;
         }
 
         productTemplate = product.detailScreen;
