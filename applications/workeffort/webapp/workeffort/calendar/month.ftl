@@ -84,7 +84,9 @@ height: auto;
           ${startDate?time?string.short}-${completionDate?time?string.short}
         </#if>
         <br/>
-        <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&parentTypeId=${parentTypeId?if_exists}&period=month&start=${parameters.start?if_exists}&workEffortId=${calEntry.workEffort.workEffortId}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
+        ${setRequestAttribute("periodType", "month")}
+        ${setRequestAttribute("workEffortId", calEntry.workEffort.workEffortId)}
+        ${screens.render("component://workeffort/widget/CalendarScreens.xml#calendarEventContent")}
         <br/>
       </#list>
     </td>

@@ -223,6 +223,16 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    
+    <screen name="calendarEventContent">
+        <section>
+            <actions>
+                <set field="periodType" value="${groovy: request.getAttribute('periodType');}"/>
+                <set field="workEffortId" value="${groovy: request.getAttribute('workEffortId');}"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/calendar/calendarEventContent.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
