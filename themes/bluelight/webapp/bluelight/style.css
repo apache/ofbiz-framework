@@ -2200,14 +2200,13 @@ Lookups
     position: absolute;
     padding: 3px 1 1 1;
     overflow: visible;
-    z-index: 1000;
+    z-index: 110000;
     visibility: visible;
  }
 
  .fieldLookupHeader{
     border-bottom: 1px solid #aaa;
     border-top: 1px solid #999;
-    margin: 0;
     height: 18px;
     font-size: 12px;
     padding: 3px 0;
@@ -2230,9 +2229,6 @@ Lookups
 
  #fieldLookupContent{
      background-color: #ffffff;
-     margin: 0;
-     padding: 0;
-     border: 0;
      overflow: auto;
      width:100%;
      height:95%;
@@ -2255,4 +2251,14 @@ Lookups
 /* overwrite*/
  #findScreenlet{
      margin-top: 0;
+ }
+
+ #fadedBackground {
+     background: url(images/faded_background.png);
+     position: absolute;
+     overflow: visible;
+     z-index: 109999;
+     visibility: visible;
+     left: 0px;
+     top: 0px;
  }
