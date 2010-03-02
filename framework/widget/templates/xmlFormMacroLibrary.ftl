@@ -96,7 +96,7 @@ under the License.
 <#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru>
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled lookupPresentation lookupWidth lookupHeight lookupPosition></#macro>
+<#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled lookupPresentation lookupWidth lookupHeight lookupPosition fadeBackground></#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete></#macro>

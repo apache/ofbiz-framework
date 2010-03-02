@@ -1953,6 +1953,11 @@ public class MacroFormRenderer implements FormStringRenderer {
             lookupPosition = "";
         }
 
+        String fadeBackground = lookupField.getFadeBackground();
+        if (UtilValidate.isEmpty(fadeBackground)){
+            fadeBackground = "false";
+        }
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -2004,6 +2009,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(lookupWidth);
         sr.append("\" lookupPosition=\"");
         sr.append(lookupPosition);
+        sr.append("\" fadeBackground=\"");
+        sr.append(fadeBackground);
         sr.append("\" />");
         executeMacro(sr.toString());
 

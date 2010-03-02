@@ -1454,23 +1454,21 @@ Project Manager
 Lookups
 ***********************************************/
  .fieldLookup{
-    background: #ffffff;
+    background-color: #ffffff;
     border-right: 2px solid #999;
     border-left: 2px solid #999;
     border-bottom: 3px solid #999;
     position: absolute;
     padding: 3px 1 1 1;
     overflow: visible;
-    z-index: 1000;
+    z-index: 110000;
     visibility: visible;
  }
 
  .fieldLookupHeader{
     border-bottom: 1px solid #aaa;
     border-top: 1px solid #999;
-    margin: 0;
     height: 18px;
-    font-size: 12px;
     padding: 3px 0;
     color: #333;
     background-image: url(../images/header_bg.gif);
@@ -1491,9 +1489,6 @@ Lookups
 
  #fieldLookupContent{
      background-color: #ffffff;
-     margin: 0;
-     padding: 0;
-     border: 0;
      overflow: auto;
      width:100%;
      height:95%;
@@ -1519,4 +1514,14 @@ Lookups
 /* overwrite*/
  #findScreenlet{
      margin-top: 0;
+ }
+
+ #fadedBackground {
+     background: url(../images/faded_background.png);
+     position: absolute;
+     overflow: visible;
+     z-index: 109999;
+     visibility: visible;
+     left: 0px;
+     top: 0px;
  }

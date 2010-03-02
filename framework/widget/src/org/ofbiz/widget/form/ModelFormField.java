@@ -3475,6 +3475,7 @@ public class ModelFormField {
         protected String lookupWidth;
         protected String lookupHeight;
         protected String lookupPosition;
+        protected String fadeBackground;
 
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -3485,6 +3486,7 @@ public class ModelFormField {
             this.lookupHeight = element.getAttribute("height");
             this.lookupWidth = element.getAttribute("width");
             this.lookupPosition = element.getAttribute("position");
+            this.fadeBackground = element.getAttribute("fade-background");
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
@@ -3563,6 +3565,14 @@ public class ModelFormField {
 
         public void setLookupPosition(String str) {
             this.lookupPosition = str;
+        }
+
+        public String getFadeBackground() {
+            return this.fadeBackground;
+        }
+
+        public void setFadeBackground(String str) {
+            this.fadeBackground = str;
         }
     }
 

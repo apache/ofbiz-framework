@@ -45,7 +45,7 @@ function call_fieldlookup(target, viewName, formName, viewWidth, viewheight) {
     if (! viewheight) viewheight = 200;
     fieldLookup.popup(viewName, formName, viewWidth, viewheight);
 }
-function call_fieldlookupLayer(target, viewName, lookupWidth, lookupHeight, lookupPosition) {
+function call_fieldlookupLayer(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground) {
     if (isEmpty(target) || isEmpty(viewName)) {
         return lookup_error("Lookup can't be created, one of these variables is missing: target=" + target + " viewName=" + viewName);
     }
@@ -56,12 +56,12 @@ function call_fieldlookupLayer(target, viewName, lookupWidth, lookupHeight, look
             return;
         }
     }
-    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition);
+    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground);
     fieldLookupPopup.showLookup();
     this.target = target;
 }
 
-function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHeight, lookupPosition) {
+function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground) {
     if (isEmpty(target) || isEmpty(target2) || isEmpty(viewName)) {
         return lookup_error("Lookup can't be created, one of these variables is missing: target=" + target + " target2=" + target2 + " viewName=" + viewName);
     }
@@ -72,7 +72,7 @@ function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHe
             return;
         }
     }
-    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition);
+    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground);
     fieldLookupPopup.showLookup();
     this.target = target;
     this.target2 = target2;
@@ -185,13 +185,17 @@ function close_on_click(evt) {
 * position - normal (under the target field), center (layer is centered) [default: normal] -- !work still in process
 */
 var FieldLookupPopup = Class.create({
-    initialize: function (target, viewName, lookupWidth, lookupHeight, position) {
+    initialize: function (target, viewName, lookupWidth, lookupHeight, position, fadeBackground) {
 
         //removes a existing Lookup
         if (CURRENT_LOOKUP != null) {
             CURRENT_LOOKUP.removeLayer();
         }
 
+        //fade the background if the flag is set
+        if (fadeBackground) {
+            this.createFadedBackground();
+        }
         //set dimension isn't set, set default parameters
         if (isEmpty(lookupWidth)) {
             lookupWidth = '700px';
@@ -296,7 +300,23 @@ var FieldLookupPopup = Class.create({
             }
         });
     },
+    
+    createFadedBackground: function(){
+        //remove the faded Background if exists
+        var fb = $('fadedBackground')
+        if (fb != null) {
+            fb.parentNode.removeChild(fb);
+        }
 
+        var pageSize = this.getPageSize();
+        var fadedBackground = new Element ('DIV', {
+            id: "fadedBackground",
+            style: "width: " + pageSize[0] + "px; height: " + pageSize[1] + "px;"
+            });
+
+        document.body.appendChild(fadedBackground);
+    },
+    
     setPosition: function (lookupDiv) {
         //set layer position
         var bdy = document.body;
@@ -384,8 +404,62 @@ var FieldLookupPopup = Class.create({
         Element.stopObserving(document, "keypress");
         Element.stopObserving(document, "mousedown");
         CURRENT_LOOKUP.divRef.parentNode.removeChild(CURRENT_LOOKUP.divRef);
+        //remove the faded Background if exists
+        var fb = $('fadedBackground')
+        if (fb != null){
+            fb.parentNode.removeChild(fb);
+        }
         CURRENT_LOOKUP = null;
         this.target = null;
+    },
+    
+    getPageSize: function() {
+
+        var xScroll, yScroll;
+
+        if (window.innerHeight && window.scrollMaxY) {
+            xScroll = window.innerWidth + window.scrollMaxX;
+            yScroll = window.innerHeight + window.scrollMaxY;
+        } else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
+            xScroll = document.body.scrollWidth;
+            yScroll = document.body.scrollHeight;
+        } else { // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
+            xScroll = document.body.offsetWidth;
+            yScroll = document.body.offsetHeight;
+        }
+
+        var windowWidth, windowHeight;
+
+        if (self.innerHeight) {    // all except Explorer
+            if (document.documentElement.clientWidth){
+                windowWidth = document.documentElement.clientWidth;
+            } else {
+                windowWidth = self.innerWidth;
+            }
+            windowHeight = self.innerHeight;
+        } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+            windowWidth = document.documentElement.clientWidth;
+            windowHeight = document.documentElement.clientHeight;
+        } else if (document.body) { // other Explorers
+            windowWidth = document.body.clientWidth;
+            windowHeight = document.body.clientHeight;
+        }
+
+        // for small pages with total height less then height of the viewport
+        if (yScroll < windowHeight){
+            pageHeight = windowHeight;
+        } else {
+            pageHeight = yScroll;
+        }
+
+        // for small pages with total width less then width of the viewport
+        if (xScroll < windowWidth){
+            pageWidth = xScroll;
+        } else {
+            pageWidth = windowWidth;
+        }
+
+        return [pageWidth,pageHeight];
     }
 });
 
