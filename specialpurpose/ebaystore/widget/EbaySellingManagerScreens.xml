@@ -390,4 +390,46 @@
             </widgets>
         </section>
     </screen>
+    <screen name="EditEmailTemplate">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="automationPreferences"/>
+                <service service-name="getEbayStoreUser" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <service service-name="getEbayUser" result-map="ebayUser">
+					<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+				</service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+                <set field="emailType" from-field="parameters.emailType"/>
+                <entity-one value-field="emailSetting" entity-name="ProductStoreEmailSetting">
+                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                	<field-map field-name="emailType" from-field="emailType"/>
+                </entity-one>
+                <set field="subject" from-field="emailSetting.subject"/>
+                <set field="bodyScreenLocation" value="component://ebaystore/widget/EbayEmailScreens.xml#EbayEmailTemplate"/>
+               	<set field="fromAddress" from-field="ebayUser.email"/>
+               	<entity-one value-field="userLoginCheck" entity-name="UserLogin">
+               		<field-map field-name="userLoginId" from-field="userLoginId"/>
+               	</entity-one>
+               	<set field="partyId" from-field="userLoginCheck.partyId"/>
+               	<script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetProductStoreEmailTemplate.groovy"/>
+               	<entity-one value-field="templateContent" entity-name="Content"/>
+               	<get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
+               	<get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
+               	<set field="textData" from-field="templateData.textData"/>
+               	<set field="dataResourceId" from-field="templateData.dataResourceId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    	<screenlet title="${uiLabelMap.EbayEditEmailTemplate}">
+                    		<include-form name="EditEmailTemplate"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                    	</screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

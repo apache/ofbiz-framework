@@ -24,6 +24,7 @@
     <Person partyId="DemoEbayAccount" firstName="Demo ebay account" lastName="USA"/>
     <PartyRole partyId="DemoEbayAccount" roleTypeId="EBAY_ACCOUNT"/>
     <PartyRole partyId="DemoEbayAccount" roleTypeId="VENDOR"/>
+    <PartyRole partyId="DemoEbayAccount" roleTypeId="OWNER"/>
     <UserLogin userLoginId="esandbox10543" partyId="DemoEbayAccount" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90100" storeName="OFBiz Ebay Store-USA" companyName="Apache Ofbiz" title="Test esandbox10543 store"
         subtitle="Part of the Open For Business Family of Open Source Software" payTopartyId="DemoEbayAccount" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
@@ -45,4 +46,43 @@
         <token><![CDATA[AgAAAA**AQAAAA**aAAAAA**PC5MSw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wJnY+lCZiGoA2dj6x9nY+seQ**0jgBAA**AAMAAA**YxqcpdWbgFwYg1G+3AhOonR2/yllz3IJ5VoJyU75texuETwabGgsN4f6OfeBGWejUx10heCKG7wcM4JI+Fqk8Zg64L51JL3/Vm7dYo8VHd8wfixWIdMmhheYFwOdBtxcTb93NLeJa6uxvBJYrSS7O0RcQ3KPhOVJvt7KfVT009o2/02tuX7vbMoHV+Meszli4eVAnB9Fbt6ag2nq46+2/AzMIO4rZE23ozLfh6c4W+QkD6BcaFzLmhVE+7Ni9y7y26QHfUUdjBOEF6ewLpZJsSIoQZC9y4J/yF15Ann9NiamtmFj5IeX4uNIKegEt8EwFSqtpxjgVngcAmMaM8/hk9uQVnFKHTjhK3koUrT7zu/+tk2twJfGF9odb+/5uTVJZ8Lywl/LwEdadv2wjpTdQqHF2bV84cSRhOKrlsYr9xFqgqNDpnmCFXkQKGhycWzMzxcBmiRT5VXJfBjbTGGdmfAf7TVcoU/4C3F3kvzEJhcxU9WbMvj58TmW+VvYS7oy4kOyTiyr3alkz/+HJYGIuttnkzqsIVIPaSXyyuFNWQmQL+0GlJ1n7EoKCevuVsTYgayQEN39TPeXg8ADmf5Pf19BlPxRFNkKvANxE0k3ac+whUwpkfBgx6lApOcwKQMXioi7NrN3MROL/1qrO2+N5sl4kr9nbuvEk9mPDJnmNdB7lzgoESo+se3ZmY9KJ6v08uQ02N1/SjHtmeiojayaR/DqeJiFSoAnU4winzA5GQGNjzEHUpSf1Kj+IZudhT9r]]></token>
         <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
     </EbayConfig>
+    
+    <!-- Automatic Preferences -->
+    <DataResource dataResourceId="EBAY_WIN_BUYER_NOTI" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="EBAY_WIN_BUYER_NOTI">
+        <textData><![CDATA[
+			<span style="color: rgb(255, 51, 0);">
+				Demo : Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold.
+			</span>]]>
+		</textData>
+    </ElectronicText>
+    <Content contentId="EBAY_WIN_BUYER_NOTI" contentTypeId="DOCUMENT" dataResourceId="EBAY_WIN_BUYER_NOTI" ownerContentId="EBAY_WIN_BUYER_NOTI" statusId="CTNT_IN_PROGRESS"/>
+    <ContentRole contentId="EBAY_WIN_BUYER_NOTI" partyId="DemoEbayAccount" roleTypeId="OWNER" fromDate="2010-01-01 00:00:00.000"/>
+
+    <DataResource dataResourceId="EBAY_PAY_RECIEVED" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="EBAY_PAY_RECIEVED">
+        <textData><![CDATA[
+			<span style="color: rgb(255, 51, 0);">
+				Demo : Automatically send Payment Received email when payment has been received.
+			</span>]]>
+		</textData>
+    </ElectronicText>
+    <Content contentId="EBAY_PAY_RECIEVED" contentTypeId="DOCUMENT" dataResourceId="EBAY_PAY_RECIEVED" ownerContentId="EBAY_PAY_RECIEVED" statusId="CTNT_IN_PROGRESS"/>
+    <ContentRole contentId="EBAY_PAY_RECIEVED" partyId="DemoEbayAccount" roleTypeId="OWNER" fromDate="2010-01-01 00:00:00.000"/>
+
+    <DataResource dataResourceId="EBAY_FEEBACK_REMIN" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="EBAY_FEEBACK_REMIN">
+        <textData><![CDATA[
+			<span style="color: rgb(255, 51, 0);">
+				Demo : Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent.
+			</span>]]>
+		</textData>
+    </ElectronicText>
+    <Content contentId="EBAY_FEEBACK_REMIN" contentTypeId="DOCUMENT" dataResourceId="EBAY_FEEBACK_REMIN" ownerContentId="EBAY_FEEBACK_REMIN" statusId="CTNT_IN_PROGRESS"/>
+    <ContentRole contentId="EBAY_FEEBACK_REMIN" partyId="DemoEbayAccount" roleTypeId="OWNER" fromDate="2010-01-01 00:00:00.000"/>
+    
+    <ProductStoreEmailSetting productStoreId="90100" emailType="EBAY_WIN_BUYER_NOTI" bccAddress="ofbiztest@yahoo.com" bodyScreenLocation="component://ebaystore/widget/EbayEmailScreens.xml#WinnigBuyerNotification" fromAddress="ofbiztest@yahoo.com" subject="OFBiz Demo - Winnig Buyer Notification #${buyerUserId}" xslfoAttachScreenLocation=""/>
+    <ProductStoreEmailSetting productStoreId="90100" emailType="EBAY_PAY_RECIEVED" bccAddress="ofbiztest@yahoo.com" bodyScreenLocation="component://ebaystore/widget/EbayEmailScreens.xml#PaymentRecieved" fromAddress="ofbiztest@yahoo.com" subject="OFBiz Demo - PaymentRecieved #${buyerUserId}" xslfoAttachScreenLocation=""/>
+    <ProductStoreEmailSetting productStoreId="90100" emailType="EBAY_FEEBACK_REMIN" bccAddress="ofbiztest@yahoo.com" bodyScreenLocation="component://ebaystore/widget/EbayEmailScreens.xml#FeedbackReminder" fromAddress="ofbiztest@yahoo.com" subject="OFBiz Demo - Feedback Reminder #${buyerUserId}" xslfoAttachScreenLocation=""/>
+    
 </entity-engine-xml>

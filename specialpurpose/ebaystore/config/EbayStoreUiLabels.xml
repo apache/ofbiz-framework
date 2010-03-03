@@ -260,4 +260,10 @@
     <property key="EbayEditEmailTemplate">
         <value xml:lang="en">Edit Email Template</value>
     </property>
+    <property key="EbayIncludePayNowButtonAndAcceptPaymentMethods">
+    	<value xml:lang="en">Include the Pay Now button and accepted payment methods</value>
+    </property>
+    <property key="EbayIncludeMyDefaultCrossPromotionInThisEmail">
+    	<value xml:lang="en">Include my default cross-promotion in this email</value>
+    </property>
 </resource>
