@@ -70,10 +70,10 @@ public class GenericDAO {
 
     public static final String module = GenericDAO.class.getName();
 
-    protected static Map<String, GenericDAO> genericDAOs = FastMap.newInstance();
-    protected String helperName;
-    protected ModelFieldTypeReader modelFieldTypeReader = null;
-    protected DatasourceInfo datasourceInfo;
+    private static final Map<String, GenericDAO> genericDAOs = FastMap.newInstance();
+    private final String helperName;
+    private final ModelFieldTypeReader modelFieldTypeReader;
+    private final DatasourceInfo datasourceInfo;
 
     public static GenericDAO getGenericDAO(String helperName) {
         GenericDAO newGenericDAO = (GenericDAO) genericDAOs.get(helperName);
