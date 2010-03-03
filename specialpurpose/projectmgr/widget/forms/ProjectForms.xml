@@ -316,6 +316,9 @@
         <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
         	<text/>
         </field>
+         <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}" also-hidden="false"/>
+         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
         	<display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"/>
          </field>
