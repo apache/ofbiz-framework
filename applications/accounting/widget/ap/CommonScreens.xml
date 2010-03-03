@@ -44,13 +44,19 @@ under the License.
                 <set field="tabButtonItem" value="main"></set>
                 <set field="parameters.portalPageId" value="ApPortalPage"/>
                 <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
-                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <section>
+                            <actions>
+                                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
+                            </actions>
+                            <widgets>
+                                <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
