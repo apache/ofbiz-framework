@@ -35,9 +35,9 @@ public class JNDIConfigUtil {
 
     public static final String module = JNDIConfigUtil.class.getName();
     public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    protected static Map<String, JndiServerInfo> jndiServerInfos = FastMap.newInstance();
+    private static final Map<String, JndiServerInfo> jndiServerInfos = FastMap.newInstance();
 
-    protected static Element getXmlRootElement() throws GenericConfigException {
+    private static Element getXmlRootElement() throws GenericConfigException {
         try {
             return ResourceLoader.getXmlRootElement(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
         } catch (GenericConfigException e) {
@@ -45,7 +45,7 @@ public class JNDIConfigUtil {
         }
     }
 
-    protected static Document getXmlDocument() throws GenericConfigException {
+    private static Document getXmlDocument() throws GenericConfigException {
         try {
             return ResourceLoader.getXmlDocument(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
         } catch (GenericConfigException e) {
