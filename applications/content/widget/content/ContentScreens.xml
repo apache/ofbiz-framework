@@ -494,7 +494,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="LookupDecorator" location="component://commonext/widget/HelpScreens.xml">
+                <decorator-screen name="LookupDecorator" location="component://common/widget/HelpScreens.xml">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -535,7 +535,7 @@ under the License.
             <widgets>
                 <section>
                     <widgets>
-                        <decorator-screen name="LookupDecorator" location="component://commonext/widget/HelpScreens.xml">
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/HelpScreens.xml">
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleLookupContent}">
                                     <container style="left-border">
