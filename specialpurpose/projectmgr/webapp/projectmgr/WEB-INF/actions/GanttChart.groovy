@@ -109,7 +109,7 @@ if (phases) {
                 }
                 taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
                 taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
-                taskInfo.workEffortTypeId = "TASK";
+                taskInfo.workEffortTypeId = task.workEffortTypeId;
                 if (security.hasEntityPermission("PROJECTMGR", "_READ", session) || security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)) {
                     taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
                 } else {

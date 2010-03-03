@@ -158,6 +158,7 @@ under the License.
     <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
     <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
     <WorkEffortType description="Task" hasTable="N" parentTypeId="" workEffortTypeId="TASK"/>
+    <WorkEffortType description="Milestone" hasTable="N" parentTypeId="" workEffortTypeId="MILESTONE"/>
     <WorkEffortType description="Event" hasTable="N" parentTypeId="" workEffortTypeId="EVENT"/>
     <WorkEffortType description="Available" hasTable="N" parentTypeId="" workEffortTypeId="AVAILABLE"/>
     <WorkEffortType description="Program" hasTable="N" parentTypeId="" workEffortTypeId="PROGRAM"/>

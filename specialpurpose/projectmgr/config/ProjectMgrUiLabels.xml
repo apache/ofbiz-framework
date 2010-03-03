@@ -153,6 +153,10 @@
         <value xml:lang="nl">Taak</value>
         <value xml:lang="zh">任务</value>
     </property>
+    <property key="FormFieldTitle_milestone">
+        <value xml:lang="en">Milestone</value>
+        <value xml:lang="fr">Jalon</value>
+    </property>
     <property key="FormFieldTitle_taskName">
         <value xml:lang="de">Aufgabenname</value>
         <value xml:lang="en">Task Name</value>

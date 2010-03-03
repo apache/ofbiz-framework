@@ -313,6 +313,10 @@
         <value xml:lang="it">Incontri</value>
         <value xml:lang="zh">会议</value>
     </property>
+    <property key="WorkEffortType.description.MILESTONE">
+        <value xml:lang="en">Milestone</value>
+        <value xml:lang="fr">Jalon</value>
+    </property>
     <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
         <value xml:lang="en">Personal Time Off</value>
         <value xml:lang="fr">Temps libre personnel</value>
