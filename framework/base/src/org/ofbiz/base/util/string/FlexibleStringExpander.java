@@ -239,12 +239,6 @@ public abstract class FlexibleStringExpander implements Serializable {
         }
     }
 
-    /** Parses an expression and returns an array of <code>FlexibleStringExpander</code>
-     * instances.
-     * @param expression The expression to be parsed
-     * @return An array of <code>FlexibleStringExpander</code>
-     * instances
-     */
     protected static FlexibleStringExpander[] getStrElems(char[] chars, int offset, int length) {
         String expression = new String(chars, 0, length + offset);
         int start = expression.indexOf(openBracket, offset);
@@ -321,13 +315,6 @@ public abstract class FlexibleStringExpander implements Serializable {
         this.chars = chars;
     }
 
-    /** Appends this object's expression result to <code>buffer</code>.
-     *
-     * @param buffer The buffer to append to
-     * @param context The evaluation context
-     * @param timeZone The time zone to be used for localization
-     * @param locale The locale to be used for localization
-     */
     protected abstract Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
 
     private static Locale getLocale(Locale locale, Map<String, ? extends Object> context) {
