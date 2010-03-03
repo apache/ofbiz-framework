@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.base.util.test;
+package org.ofbiz.base.lang.test;
 
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.lang.ComparableRange;
