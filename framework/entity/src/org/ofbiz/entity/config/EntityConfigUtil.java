@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.entity.config;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceLoader;
@@ -40,24 +40,26 @@ public class EntityConfigUtil {
     public static final String module = EntityConfigUtil.class.getName();
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
 
+    private static volatile AtomicReference<EntityConfigUtil> configRef = new AtomicReference<EntityConfigUtil>();
+
     // ========== engine info fields ==========
-    protected static String txFactoryClass;
-    protected static String txFactoryUserTxJndiName;
-    protected static String txFactoryUserTxJndiServerName;
-    protected static String txFactoryTxMgrJndiName;
-    protected static String txFactoryTxMgrJndiServerName;
-    protected static String connFactoryClass;
+    private final String txFactoryClass;
+    private final String txFactoryUserTxJndiName;
+    private final String txFactoryUserTxJndiServerName;
+    private final String txFactoryTxMgrJndiName;
+    private final String txFactoryTxMgrJndiServerName;
+    private final String connFactoryClass;
 
-    protected static Map<String, ResourceLoaderInfo> resourceLoaderInfos = FastMap.newInstance();
-    protected static Map<String, DelegatorInfo> delegatorInfos = FastMap.newInstance();
-    protected static Map<String, EntityModelReaderInfo> entityModelReaderInfos = FastMap.newInstance();
-    protected static Map<String, EntityGroupReaderInfo> entityGroupReaderInfos = FastMap.newInstance();
-    protected static Map<String, EntityEcaReaderInfo> entityEcaReaderInfos = FastMap.newInstance();
-    protected static Map<String, EntityDataReaderInfo> entityDataReaderInfos = FastMap.newInstance();
-    protected static Map<String, FieldTypeInfo> fieldTypeInfos = FastMap.newInstance();
-    protected static Map<String, DatasourceInfo> datasourceInfos = FastMap.newInstance();
+    private final Map<String, ResourceLoaderInfo> resourceLoaderInfos = new HashMap<String, ResourceLoaderInfo>();
+    private final Map<String, DelegatorInfo> delegatorInfos = new HashMap<String, DelegatorInfo>();
+    private final Map<String, EntityModelReaderInfo> entityModelReaderInfos = new HashMap<String, EntityModelReaderInfo>();
+    private final Map<String, EntityGroupReaderInfo> entityGroupReaderInfos = new HashMap<String, EntityGroupReaderInfo>();
+    private final Map<String, EntityEcaReaderInfo> entityEcaReaderInfos = new HashMap<String, EntityEcaReaderInfo>();
+    private final Map<String, EntityDataReaderInfo> entityDataReaderInfos = new HashMap<String, EntityDataReaderInfo>();
+    private final Map<String, FieldTypeInfo> fieldTypeInfos = new HashMap<String, FieldTypeInfo>();
+    private final Map<String, DatasourceInfo> datasourceInfos = new HashMap<String, DatasourceInfo>();
 
-    protected static Element getXmlRootElement() throws GenericEntityConfException {
+    private static Element getXmlRootElement() throws GenericEntityConfException {
         try {
             return ResourceLoader.getXmlRootElement(ENTITY_ENGINE_XML_FILENAME);
         } catch (GenericConfigException e) {
@@ -65,7 +67,7 @@ public class EntityConfigUtil {
         }
     }
 
-    protected static Document getXmlDocument() throws GenericEntityConfException {
+    private static Document getXmlDocument() throws GenericEntityConfException {
         try {
             return ResourceLoader.getXmlDocument(ENTITY_ENGINE_XML_FILENAME);
         } catch (GenericConfigException e) {
@@ -81,7 +83,7 @@ public class EntityConfigUtil {
         }
     }
 
-    public static synchronized void reinitialize() throws GenericEntityException {
+    public static void reinitialize() throws GenericEntityException {
         try {
             ResourceLoader.invalidateDocument(ENTITY_ENGINE_XML_FILENAME);
             initialize(getXmlRootElement());
@@ -91,6 +93,10 @@ public class EntityConfigUtil {
     }
 
     public static void initialize(Element rootElement) throws GenericEntityException {
+        configRef.set(new EntityConfigUtil(rootElement));
+    }
+
+    private EntityConfigUtil(Element rootElement) throws GenericEntityException {
         // load the transaction factory
         Element transactionFactoryElement = UtilXml.firstChildElement(rootElement, "transaction-factory");
         if (transactionFactoryElement == null) {
@@ -177,62 +183,62 @@ public class EntityConfigUtil {
     }
 
     public static String getTxFactoryClass() {
-        return txFactoryClass;
+        return configRef.get().txFactoryClass;
     }
 
     public static String getTxFactoryUserTxJndiName() {
-        return txFactoryUserTxJndiName;
+        return configRef.get().txFactoryUserTxJndiName;
     }
 
     public static String getTxFactoryUserTxJndiServerName() {
-        return txFactoryUserTxJndiServerName;
+        return configRef.get().txFactoryUserTxJndiServerName;
     }
 
     public static String getTxFactoryTxMgrJndiName() {
-        return txFactoryTxMgrJndiName;
+        return configRef.get().txFactoryTxMgrJndiName;
     }
 
     public static String getTxFactoryTxMgrJndiServerName() {
-        return txFactoryTxMgrJndiServerName;
+        return configRef.get().txFactoryTxMgrJndiServerName;
     }
 
     public static String getConnectionFactoryClass() {
-        return connFactoryClass;
+        return configRef.get().connFactoryClass;
     }
 
     public static ResourceLoaderInfo getResourceLoaderInfo(String name) {
-        return resourceLoaderInfos.get(name);
+        return configRef.get().resourceLoaderInfos.get(name);
     }
 
     public static DelegatorInfo getDelegatorInfo(String name) {
-        return delegatorInfos.get(name);
+        return configRef.get().delegatorInfos.get(name);
     }
 
     public static EntityModelReaderInfo getEntityModelReaderInfo(String name) {
-        return entityModelReaderInfos.get(name);
+        return configRef.get().entityModelReaderInfos.get(name);
     }
 
     public static EntityGroupReaderInfo getEntityGroupReaderInfo(String name) {
-        return entityGroupReaderInfos.get(name);
+        return configRef.get().entityGroupReaderInfos.get(name);
     }
 
     public static EntityEcaReaderInfo getEntityEcaReaderInfo(String name) {
-        return entityEcaReaderInfos.get(name);
+        return configRef.get().entityEcaReaderInfos.get(name);
     }
 
     public static EntityDataReaderInfo getEntityDataReaderInfo(String name) {
-        return entityDataReaderInfos.get(name);
+        return configRef.get().entityDataReaderInfos.get(name);
     }
 
     public static FieldTypeInfo getFieldTypeInfo(String name) {
-        return fieldTypeInfos.get(name);
+        return configRef.get().fieldTypeInfos.get(name);
     }
 
     public static DatasourceInfo getDatasourceInfo(String name) {
-        return datasourceInfos.get(name);
+        return configRef.get().datasourceInfos.get(name);
     }
 
     public static Map<String, DatasourceInfo> getDatasourceInfos() {
-        return datasourceInfos;
+        return configRef.get().datasourceInfos;
     }
 }
