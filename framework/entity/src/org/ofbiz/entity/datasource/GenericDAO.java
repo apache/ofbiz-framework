@@ -76,11 +76,11 @@ public class GenericDAO {
     private final DatasourceInfo datasourceInfo;
 
     public static GenericDAO getGenericDAO(String helperName) {
-        GenericDAO newGenericDAO = (GenericDAO) genericDAOs.get(helperName);
+        GenericDAO newGenericDAO = genericDAOs.get(helperName);
 
         if (newGenericDAO == null) { // don't want to block here
             synchronized (GenericDAO.class) {
-                newGenericDAO = (GenericDAO) genericDAOs.get(helperName);
+                newGenericDAO = genericDAOs.get(helperName);
                 if (newGenericDAO == null) {
                     newGenericDAO = new GenericDAO(helperName);
                     genericDAOs.put(helperName, newGenericDAO);
