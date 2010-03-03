@@ -76,8 +76,8 @@ public class ProductStoreWorker {
 
     public static String getProductStoreId(ServletRequest request) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpSession session = httpRequest.getSession();
-        if (session.getAttribute("productStoreId") != null) {
+        HttpSession session = httpRequest.getSession(false);
+        if (session != null && session.getAttribute("productStoreId") != null) {
             return (String) session.getAttribute("productStoreId");
         } else {
             GenericValue webSite = CatalogWorker.getWebSite(request);
