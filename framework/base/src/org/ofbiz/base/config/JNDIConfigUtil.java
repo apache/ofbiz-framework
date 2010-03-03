@@ -63,13 +63,13 @@ public class JNDIConfigUtil {
     public static void initialize(Element rootElement) throws GenericConfigException {
         // jndi-server - jndiServerInfos
         for (Element curElement: UtilXml.childElementList(rootElement, "jndi-server")) {
-            JNDIConfigUtil.JndiServerInfo jndiServerInfo = new JNDIConfigUtil.JndiServerInfo(curElement);
+            JndiServerInfo jndiServerInfo = new JndiServerInfo(curElement);
 
-            JNDIConfigUtil.jndiServerInfos.put(jndiServerInfo.name, jndiServerInfo);
+            jndiServerInfos.put(jndiServerInfo.name, jndiServerInfo);
         }
     }
 
-    public static JNDIConfigUtil.JndiServerInfo getJndiServerInfo(String name) {
+    public static JndiServerInfo getJndiServerInfo(String name) {
         return jndiServerInfos.get(name);
     }
 
