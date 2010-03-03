@@ -147,6 +147,28 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+	<request-map uri="editEmailTemplate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="createEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="updateEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="updateEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
     <request-map uri="autoSendPaymentReceivedEmail">
         <security auth="true" https="true"/>
         <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="autoSendPaymentReceivedEmail"/>
@@ -294,6 +316,8 @@
     <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
     <!-- block out of stock -->
     <view-map name="blockItemOutOfStock" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#blockItemOutOfStock"/>
+    <!-- Selling Manager -->
+    <view-map name="editEmailTemplate" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EditEmailTemplate"/>
     <!-- store Inventory -->
     <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayStoreInventory"/>
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>

@@ -302,8 +302,9 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="afterDays" title="${uiLabelMap.EbayAfter}"  position="1"  tooltip="${uiLabelMap.CommonDays} ${uiLabelMap.EbayIsSendCopyEmailTooltip}" ><text default-value="5" size="5" maxlength="2"></text></field>
         <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
         <field name="emailTemplate" title="Email" tooltip="Edit Feedback Reminder email template">
-            <hyperlink target="#" description="Edit Email Template">
+            <hyperlink target="editEmailTemplate" description="Edit Email Template">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+                <parameter param-name="emailType" value="EBAY_WIN_BUYER_NOTI"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
@@ -323,8 +324,9 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="isAutoSendPayReceivedEmail" tooltip="${uiLabelMap.EbayAutoPaymentReceviedEmail}" position="1" title="${uiLabelMap.EbayIsAutoSendEmail}"><check></check></field>
         <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
         <field name="emailTemplate" title="Email" tooltip="Edit Payment received email template">
-            <hyperlink target="#" description="${uiLabelMap.EbayEditEmailTemplate}">
+            <hyperlink target="editEmailTemplate" description="${uiLabelMap.EbayEditEmailTemplate}">
                 <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+                <parameter param-name="emailType" value="EBAY_PAY_RECIEVED"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
@@ -344,4 +346,89 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="condition2" title="Allow no more than" tooltip-style="h3" tooltip="items per order"><text size="3" default-value="${ebayPrefCombine.condition2}" maxlength="2"></text></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
+	<form name="EditEmailTemplate" type="single"  target="createEmailTemplate"
+        header-row-style="header-row" default-table-style="basic-table">
+         <actions>
+        	<set field="includePayment" value="${groovy:
+        		includePayment = &quot;N&quot;;
+        		if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_PAYMENT&quot;)) includePayment = &quot;Y&quot;;
+	   			if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_PAYMENT&quot;)) subject = subject.replace(&quot;INCLUDE_PAYMENT&quot;, &quot;&quot;);
+	   			return includePayment;
+        		}" type="String"/>
+        	<set field="includeCrossPromotions" value="${groovy:
+        		includeCrossPromotions = &quot;N&quot;;
+        		if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_CROSS_PROMOTIONS&quot;)) includeCrossPromotions = &quot;Y&quot;;
+	   			if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_CROSS_PROMOTIONS&quot;)) subject = subject.replace(&quot;INCLUDE_CROSS_PROMOTIONS&quot;, &quot;&quot;);
+	   			return includeCrossPromotions;
+        		}" type="String"/>
+        </actions>
+        <alt-target use-when="emailSetting!=null" target="updateEmailTemplate"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="bodyScreenLocation"><hidden value="${bodyScreenLocation}"/></field>
+        <field name="emailType"><hidden value="${emailType}"/></field>
+        <field name="fromAddress"><hidden value="${fromAddress}"/></field>
+        <field name="dataResourceId"><hidden value="${dataResourceId}"/></field>
+        <field name="emailDetail" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayEmailDetail}"/></field>
+        <field name="autoText" action="doSelect(this.id)" event="onchange" >
+        	<drop-down allow-empty="true">
+        		<option key="$\{buyerUserId}" description="Buyer User ID"/>
+        		<option key="$\{buyerName}" description="Buyer name"/>
+        		<option key="$\{buyerFirstName}" description="Buyer First name"/>
+        		<option key="$\{buyerLastName}" description="Buyer Last name"/>
+        		<option key="$\{buyerStreet1}" description="Buyer street 1"/>
+        		<option key="$\{buyerStreet2}" description="Buyer street 2"/>
+        		<option key="$\{buyerCity}" description="Buyer City"/>
+        		<option key="$\{buyerState}" description="Buyer State"/>
+        		<option key="$\{buyerZipCode}" description="Buyer zip code"/>
+        		<option key="$\{buyerCountry}" description="Buyer Country"/>
+        		<option key="$\{itemId}" description="Item Number"/>
+        		<option key="$\{itemTitle}" description="Item Title"/>
+        		<option key="$\{linkToListing}" description="Link to listing"/>
+        		<option key="$\{Quantity}" description="Quantity"/>
+        		<option key="$\{favoriteslist}" description="Favorites list"/>
+        		<option key="$\{feedbackLink}" description="Feedback link"/>
+        		<option key="$\{closingDateTime}" description="Closing Date/Time"/>
+        		<option key="$\{totalPrice}" description="Total price"/>
+        		<option key="$\{closingPrice}" description="Closing price"/>
+        		<option key="$\{SHFee}" description="S&amp;H fee"/>
+        		<option key="$\{insuranceCost}" description="Insurance cost"/>
+        		<option key="$\{insuranceOption}" description="Insurance option"/>
+        		<option key="$\{tax}" description="Tax"/>
+        		<option key="$\{taxState}" description="Tax State"/>
+        		<option key="$\{paymentAcceped}" description="Payment accepted"/>
+        		<option key="$\{paymentInstructions}" description="Payment instructions"/>
+        		<option key="$\{sellerUserId}" description="Seller User ID"/>
+        		<option key="$\{sellerName}" description="Seller name"/>
+        		<option key="$\{sellerFirstName}" description="Seller First name"/>
+        		<option key="$\{sellerLastName}" description="Seller Last name"/>
+        		<option key="$\{sellerStreet1}" description="Seller street 1"/>
+        		<option key="$\{sellerStreet2}" description="Seller street 2"/>
+        		<option key="$\{sellerCity}" description="Seller city"/>
+        		<option key="$\{sellerState}" description="Seller state"/>
+        		<option key="$\{sellerZipCode}" description="Seller zip code"/>
+        		<option key="$\{sellerCountry}" description="Seller country"/>
+        		<option key="$\{sellerEmail}" description="Seller email"/>
+        		<option key="$\{sellerPhone}" description="Seller phone"/>
+        		<option key="$\{salesRecordNumber}" description="Sales record number"/>
+        		<option key="$\{shippedDate}" description="Shipped date"/>
+        		<option key="$\{transactionTable}" description="Transaction table"/>
+        		<option key="$\{checkoutLink}" description="Checkout link"/>
+        		<option key="$\{shippingCalculator}" description="Shipping Calculator"/>
+        		<option key="$\{trackShipmentLink}" description="Track shipment link"/>
+        		<option key="$\{shippingOptions}" description="Shipping Options"/>
+        		<option key="$\{notesToBuyer}" description="Notes to buyer"/>
+        		<option key="$\{DiscountsOrCharges}" description="Discounts or Charges"/>
+        		<option key="$\{refundAmount}" description="Refund Amount"/>
+        		<option key="$\{variationDetails}" description="Variation details"/>
+        	</drop-down>
+        </field>
+        <field name="subject"><text/></field>
+        <field name="textData" title="${uiLabelMap.CommonMessage}"><textarea visual-editor-enable="true" rows="20" cols="120" default-value="${textData}"/></field>
+        <!--field name="paymentInfo" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayPaymentInformation}"/></field>
+        <field name="includePayment" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.EbayIncludePayNowButtonAndAcceptPaymentMethods}" tooltip-style="h3"><check/></field>
+        <field name="crossPromotions" title="${uiLabelMap.CommonEmptyHeader}" widget-area-style="h2"><display description="${uiLabelMap.EbayCrossPromotions}"/></field>
+        <field name="includeCrossPromotions" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.EbayIncludeMyDefaultCrossPromotionInThisEmail}" tooltip-style="h3"><check/></field-->
+		<field name="submitButton"><submit/></field>
+	</form>
 </forms>

@@ -26,7 +26,8 @@ under the License.
     <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
 
     <EnumerationType description="Ebay setting auto preferences" enumTypeId="EBAY_AUTO_PREF" hasTable="N" parentTypeId=""/>
-
+    
+	<!-- Automation Preference -->
     <Enumeration enumId="EBAY_AUTO_DISPUTE1" description="Automatic Dispute not complete" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
@@ -34,6 +35,15 @@ under the License.
     <Enumeration enumId="EBAY_AUTO_FB_RMD" description="Automatic send reminder email if feedback has not been received after day? shipping" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_COMB_ORD" description="Automatic combine order" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_PR_EMAIL" description="Automatic send payment received email when has not been received" enumTypeId="EBAY_AUTO_PREF"/>
-
+	
+	<!-- Automation email -->
+	<Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
+	<Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>
+	<Enumeration enumId="EBAY_FEEBACK_REMIN" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent." enumTypeId="PRDS_EMAIL"/>
+	<!-- Content main for specify Enumeration -->
+	<Content contentId="EBAY_WIN_BUYER_NOTI" contentTypeId="TEMPLATE" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold."/>
+    <Content contentId="EBAY_PAY_RECIEVED" contentTypeId="TEMPLATE" description="Automatically send Payment Received email when payment has been received."/>
+    <Content contentId="EBAY_FEEBACK_REMIN" contentTypeId="TEMPLATE" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent"/>
+    
     <ProductType productTypeId="EBAY_ITEM" description="Product From eBay"/>
 </entity-engine-xml>
