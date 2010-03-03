@@ -278,11 +278,11 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </radio>
         </field>
         <field name="headerLabel" title=" " encode-output="false"><display type="text" description="&lt;br/&gt;&lt;b&gt;Your stored positive feedback comments.&lt;/b&gt;"></display></field>
-        <field name="comment_1" title="comments" position="1"><text size="80"></text></field>
-        <field name="comment_3" title=" " position="2"><text size="50"></text></field>
-        <field name="comment_2" title=" " position="1"><text size="80"></text></field>
-        <field name="comment_5" title=" " position="2"><text size="50"></text></field>
-        <field name="comment_4" title=" " position="1"><text size="80"></text></field>
+        <field name="comment_1" title="comments" position="1"><text size="60"></text></field>
+        <field name="comment_3" title=" " position="2"><text size="40"></text></field>
+        <field name="comment_2" title=" " position="1"><text size="60"></text></field>
+        <field name="comment_5" title=" " position="2"><text size="40"></text></field>
+        <field name="comment_4" title=" " position="1"><text size="60"></text></field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
     </form>
     <!-- Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent? -->

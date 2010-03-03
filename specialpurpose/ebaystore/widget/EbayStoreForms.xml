@@ -31,6 +31,17 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton" ><submit button-type="button"/></field>
     </form>
+    <form name="EbayAccountSelection" type="single" list-name="ebayAccountList"  target="getStoreDetail"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/StoreAccount.groovy"/>
+        </actions>
+        <field name="productStoreId" title="Account" action="document.EbayAccountSelection.submit()" event="onchange">
+            <drop-down current="selected" allow-empty="true">
+                <list-options list-name="stores"  description="${firstName} ${lastName}" key-name="productStoreId"/>
+            </drop-down>
+        </field>
+    </form>
     <form name="EbayAccountList" type="single" list-name="ebayAccountList"  target="getStoreDetail"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

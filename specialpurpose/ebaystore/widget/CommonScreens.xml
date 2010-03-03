@@ -65,9 +65,13 @@
                                                 <field-map field-name="userLoginId" from-field="result.userLoginId"/>
                                             </entity-one>
                                             <set field="parameters.partyId" from-field="ebayUser.partyId" global="true"/>
+                                            <entity-one value-field="person" entity-name="Person">
+                                               <field-map field-name="partyId" from-field="parameters.partyId"/>
+                                            </entity-one>
                                         </actions>
                                         <widgets>
-                                            <label text="${uiLabelMap.EbayAccount} : ${userLoginId}" style="h1"></label>
+                                           <include-form location="component://ebaystore/widget/EbayStoreForms.xml" name="EbayAccountSelection"/>
+                                              <label text="${uiLabelMap.EbayAccount} : ${person.firstName} ${person.lastName}" style="h1"></label>
                                             <include-menu name="EbayStoreFunctionTabBar"  location="component://ebaystore/widget/EbayStoreMenus.xml"/>
                                         </widgets>
                                     </section>
