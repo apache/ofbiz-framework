@@ -153,7 +153,7 @@ OUTER:
      *
      * @param <S> The source object type
      * @param <T> The target object type
-     * @param creater The <code>ConverterCreater</code> instance to register
+     * @param creator The <code>ConverterCreater</code> instance to register
      */
     public static <S, T> void registerCreator(ConverterCreator creator) {
         creators.add(creator);
