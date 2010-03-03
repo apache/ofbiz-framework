@@ -106,8 +106,7 @@ public class ModelGroupReader implements Serializable {
     }
 
     public Map<String, String> getGroupCache() {
-        if (this.groupCache == null) // don't want to block here
-        {
+        if (this.groupCache == null) { // don't want to block here
             synchronized (ModelGroupReader.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (this.groupCache == null) {

@@ -73,8 +73,7 @@ public class ModelFieldTypeReader implements Serializable {
         }
         String tempModelName = datasourceInfo.fieldTypeName;
         ModelFieldTypeReader reader = readers.get(tempModelName);
-        if (reader == null)
-        {
+        if (reader == null) {
             synchronized (readers) {
                 FieldTypeInfo fieldTypeInfo = EntityConfigUtil.getFieldTypeInfo(tempModelName);
                 if (fieldTypeInfo == null) {
