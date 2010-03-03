@@ -70,7 +70,7 @@ public class GenericDAO {
 
     public static final String module = GenericDAO.class.getName();
 
-    private static final Map<String, GenericDAO> genericDAOs = FastMap.newInstance();
+    private static final FastMap<String, GenericDAO> genericDAOs = FastMap.newInstance();
     private final String helperName;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final DatasourceInfo datasourceInfo;
@@ -78,14 +78,9 @@ public class GenericDAO {
     public static GenericDAO getGenericDAO(String helperName) {
         GenericDAO newGenericDAO = genericDAOs.get(helperName);
 
-        if (newGenericDAO == null) { // don't want to block here
-            synchronized (GenericDAO.class) {
-                newGenericDAO = genericDAOs.get(helperName);
-                if (newGenericDAO == null) {
-                    newGenericDAO = new GenericDAO(helperName);
-                    genericDAOs.put(helperName, newGenericDAO);
-                }
-            }
+        if (newGenericDAO == null) {
+            genericDAOs.putIfAbsent(helperName, new GenericDAO(helperName));
+            newGenericDAO = genericDAOs.get(helperName);
         }
         return newGenericDAO;
     }
