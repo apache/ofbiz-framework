@@ -55,6 +55,7 @@ under the License.
    <screen name="ListLookupContactList">
         <section>
             <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleListContactList}"/>
