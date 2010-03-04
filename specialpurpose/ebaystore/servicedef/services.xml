@@ -303,7 +303,7 @@ under the License.
         location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayAllBidders" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="itemId" mode="IN" type="String" optional="false"/>
-        <attribute name="bidders" mode="OUT" type="List" optional="true"/>
+        <attribute name="allBidders" mode="OUT" type="List" optional="true"/>
     </service>
     <service name="verifyEbayAddSecondChanceItem" engine="java"  transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="verifyEbayAddSecondChanceItem" auth="true">
@@ -367,7 +367,14 @@ under the License.
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="runCombineOrders" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="runCombineOrders" auth="true">
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="runCombineOrders" auth="false">
+        <description>Automatic service to combine orders from condition in automatically preferences screen</description>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="autoSendWinningBuyerNotification" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendWinningBuyerNotification" auth="false">
+        <description>Automatic service to send notification email to winning buyer on eBay</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>

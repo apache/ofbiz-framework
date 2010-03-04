@@ -246,17 +246,22 @@
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
-                        <include-screen name="combinedOrderSetting"/>
                         <include-screen name="AutomationRelistSoldItems"/>
                         <include-screen name="AutomationDispute"/>
-                        <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="false" initially-collapsed="true">
+                        <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="true" initially-collapsed="true">
                             <include-form name="autoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="false" initially-collapsed="true">
+                        <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="true" initially-collapsed="true">
                             <include-form name="autoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.EbayAutoPaymentReceviedEmail}" id="autoSendPaymentReceivedEmail" collapsible="false" initially-collapsed="true">
+                        <screenlet title="${uiLabelMap.EbayAutoPaymentReceviedEmail}" id="autoSendPaymentReceivedEmail" collapsible="true" initially-collapsed="true">
                             <include-form name="autoSendPaymentReceivedEmail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayCombineOrderSetting}" id="combineOrdersSetting" collapsible="true" initially-collapsed="true">
+                            <include-form name="combineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoSendWinBuyerEmail}" id="winningBuyerNotification" collapsible="true" initially-collapsed="true">
+                            <include-form name="winningBuyerNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -308,15 +313,6 @@
                 <screenlet title="${uiLabelMap.EbayAutomatiionDisputeItems}" collapsible="true" name="AutomationDispute">
                     <include-form name="AutomationDisputeNotComplete"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                     <include-form name="AutomationDisputeNotPay"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="combinedOrderSetting">
-        <section>
-            <widgets>
-                <screenlet title="Combine Orders Setting">
-                    <include-form name="combineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -399,34 +395,34 @@
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </service>
                 <service service-name="getEbayUser" result-map="ebayUser">
-					<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-				</service>
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
                 <set field="userLoginId" from-field="result.userLoginId"/>
                 <set field="emailType" from-field="parameters.emailType"/>
                 <entity-one value-field="emailSetting" entity-name="ProductStoreEmailSetting">
-                	<field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-                	<field-map field-name="emailType" from-field="emailType"/>
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="emailType" from-field="emailType"/>
                 </entity-one>
                 <set field="subject" from-field="emailSetting.subject"/>
                 <set field="bodyScreenLocation" value="component://ebaystore/widget/EbayEmailScreens.xml#EbayEmailTemplate"/>
-               	<set field="fromAddress" from-field="ebayUser.email"/>
-               	<entity-one value-field="userLoginCheck" entity-name="UserLogin">
-               		<field-map field-name="userLoginId" from-field="userLoginId"/>
-               	</entity-one>
-               	<set field="partyId" from-field="userLoginCheck.partyId"/>
-               	<script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetProductStoreEmailTemplate.groovy"/>
-               	<entity-one value-field="templateContent" entity-name="Content"/>
-               	<get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
-               	<get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
-               	<set field="textData" from-field="templateData.textData"/>
-               	<set field="dataResourceId" from-field="templateData.dataResourceId"/>
+                   <set field="fromAddress" from-field="ebayUser.email"/>
+                   <entity-one value-field="userLoginCheck" entity-name="UserLogin">
+                       <field-map field-name="userLoginId" from-field="userLoginId"/>
+                   </entity-one>
+                   <set field="partyId" from-field="userLoginCheck.partyId"/>
+                   <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/email/GetProductStoreEmailTemplate.groovy"/>
+                   <entity-one value-field="templateContent" entity-name="Content"/>
+                   <get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
+                   <get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
+                   <set field="textData" from-field="templateData.textData"/>
+                   <set field="dataResourceId" from-field="templateData.dataResourceId"/>
             </actions>
             <widgets>
                 <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                    	<screenlet title="${uiLabelMap.EbayEditEmailTemplate}">
-                    		<include-form name="EditEmailTemplate"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
-                    	</screenlet>
+                        <screenlet title="${uiLabelMap.EbayEditEmailTemplate}">
+                            <include-form name="EditEmailTemplate"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

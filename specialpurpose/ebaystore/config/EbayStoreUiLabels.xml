@@ -261,9 +261,15 @@
         <value xml:lang="en">Edit Email Template</value>
     </property>
     <property key="EbayIncludePayNowButtonAndAcceptPaymentMethods">
-    	<value xml:lang="en">Include the Pay Now button and accepted payment methods</value>
+        <value xml:lang="en">Include the Pay Now button and accepted payment methods</value>
     </property>
     <property key="EbayIncludeMyDefaultCrossPromotionInThisEmail">
-    	<value xml:lang="en">Include my default cross-promotion in this email</value>
+        <value xml:lang="en">Include my default cross-promotion in this email</value>
+    </property>
+    <property key="EbayAutoSendWinBuyerEmail">
+        <value xml:lang="en">Automatic send notification email to winning buyer on auction items</value>
+    </property>
+    <property key="EbayCombineOrderSetting">
+        <value xml:lang="en">Combine Orders Setting</value>
     </property>
 </resource>
