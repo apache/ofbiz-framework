@@ -272,4 +272,7 @@
     <property key="EbayCombineOrderSetting">
         <value xml:lang="en">Combine Orders Setting</value>
     </property>
+    <property key="EbayAutoSendItemDispatchEmail">
+        <value xml:lang="en">Automatic send item dispatched notification email</value>
+    </property>
 </resource>

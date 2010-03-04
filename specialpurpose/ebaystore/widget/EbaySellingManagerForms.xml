@@ -358,6 +358,18 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="isRunWinnerNotify" position="1" title="Enable send winner buyer notification automatically"><check></check></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
+    <form name="itemDispatchedNotification" type="single" target="settingSendItemDispatchedNotification" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefCombine">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_ITEM_DISP"/>
+            </entity-one>
+            <set field="isRunItemDispatchNotify"  type="String" from-field="ebayPrefCombine.enabled"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isRunItemDispatchNotify" position="1" title="Enable send item dispatched email"><check></check></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
     <form name="EditEmailTemplate" type="single"  target="createEmailTemplate"
         header-row-style="header-row" default-table-style="basic-table">
          <actions>

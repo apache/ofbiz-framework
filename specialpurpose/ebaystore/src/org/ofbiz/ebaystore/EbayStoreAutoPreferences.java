@@ -967,4 +967,63 @@ public class EbayStoreAutoPreferences {
         }
         return result;
     }
+
+    public static Map<String, Object> autoSendItemDispatchedNotification(DispatchContext dctx, Map<String, Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String productStoreId = (String) context.get("productStoreId");
+
+        try {
+            Map<String, Object> resultSold =  dispatcher.runSync("getEbaySoldItems", context);
+            List soldItems = (List) resultSold.get("soldItems");
+            if (soldItems.size() != 0) {
+                for (int i = 0; i < soldItems.size(); i++) {
+                    Map<String, Object> item = (Map<String, Object>) soldItems.get(i);
+                    String shippedStatus = item.get("shippedStatus").toString();
+                    Timestamp lastestTime = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp(), 1);
+                    Date shippedTime = (Date) item.get("shippedTime");
+                    Timestamp shippedTimestamp = UtilDateTime.toTimestamp(shippedTime);
+
+                    if ("SHIPPED".equals(shippedStatus) && shippedTimestamp.equals(lastestTime)) {
+                        String buyerUserId = item.get("buyerUserId").toString();
+                        String buyerEmail = item.get("buyerEmail").toString();
+
+                         Map<String, Object> sendMap = FastMap.newInstance();
+                         GenericValue productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "EBAY_ITEM_DISPATCH"));
+                         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
+                         sendMap.put("bodyScreenUri", bodyScreenLocation);
+                         String subjectString = productStoreEmail.getString("subject");
+                         sendMap.put("userLogin", userLogin);
+                         sendMap.put("subject", subjectString);
+                         sendMap.put("contentType", productStoreEmail.get("contentType"));
+                         sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
+                         sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
+                         sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
+                         sendMap.put("sendTo", buyerEmail);
+
+                         Map<String, Object> bodyParameters = FastMap.newInstance();
+                         bodyParameters.put("buyerUserId", buyerUserId);
+                         sendMap.put("bodyParameters", bodyParameters);
+
+                         try {
+                             dispatcher.runAsync("sendMailFromScreen", sendMap);
+                         } catch (Exception e) {
+                             Debug.logError(e, module);
+                             return ServiceUtil.returnError(e.getMessage());
+                         }
+                        
+                    }
+                }
+            }
+            result = ServiceUtil.returnSuccess();
+        } catch (GenericServiceException e) {
+            result = ServiceUtil.returnError(e.getMessage());
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
 }

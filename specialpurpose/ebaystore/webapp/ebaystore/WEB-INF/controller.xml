@@ -187,6 +187,12 @@
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
+    <request-map uri="settingSendItemDispatchedNotification">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingSendItemDispatchedNotification"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
     <!-- Block item out of stock -->
     <request-map uri="blockItemOutOfStock">
         <security https="true" auth="true"/>
