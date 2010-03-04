@@ -50,6 +50,11 @@ under the License.
           </tr>
           <#if (listSize > 0)>
             <tr><td>
+            <form method="post" action="<@ofbizUrl>updateCategoryProductMember</@ofbizUrl>" name="updateCategoryProductForm">
+              <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
+              <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
+              <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
+              <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
               <#assign rowClass = "2">
               <#assign rowCount = 0>
               <#list productCategoryMembers as productCategoryMember>
@@ -59,11 +64,6 @@ under the License.
                 <#if productCategoryMember.fromDate?exists && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                 <#assign hasExpired = false>
                 <#if productCategoryMember.thruDate?exists && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                <form method="post" action="<@ofbizUrl>updateCategoryProductMember</@ofbizUrl>" name="updateCategoryProductForm">
-                  <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
-                  <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
-                  <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                  <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                   <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td>
                       <#if (product.smallImageUrl)?exists>
@@ -99,17 +99,21 @@ under the License.
                           <input type="hidden" value="${productCategoryMembers.size()}" name="_rowCount">
                       </td>
                   </tr>
-                </form>
-                <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
-                  <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
-                  <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
-                  <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}">
-                  <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
-                  <input type="hidden" name="fromDate" value="${productCategoryMember.getString("fromDate")?if_exists}"/>
-                  <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
-                </form>
-                <#assign rowCount = rowCount + 1>
+                  <#assign rowCount = rowCount + 1>
               </#list>
+            </form>
+            <#assign rowCount = 0>
+            <#list productCategoryMembers as productCategoryMember>
+            <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
+              <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
+              <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
+              <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}">
+              <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
+              <input type="hidden" name="fromDate" value="${productCategoryMember.getString("fromDate")?if_exists}"/>
+              <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
+            </form>
+            <#assign rowCount = rowCount + 1>
+            </#list>
           </#if>
         </table>
     </div>
