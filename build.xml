@@ -137,7 +137,7 @@ under the License.
     <target name="clean">
         <subant target="clean">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
-                <include name="**/build.xml"/>
+                <include name="*/build.xml"/>
             </fileset>
         </subant>
 
@@ -200,7 +200,7 @@ under the License.
         <subant inheritall="false">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
-                <include name="**/build.xml"/>
+                <include name="*/build.xml"/>
             </fileset>
         </subant>
         <antcall target="clean-svninfo"></antcall>
@@ -226,7 +226,7 @@ under the License.
         </subant>
         <subant target="docs">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
-                <include name="**/build.xml"/>
+                <include name="*/build.xml"/>
             </fileset>
         </subant>
 
@@ -284,13 +284,13 @@ under the License.
         <mkdir dir="${site.dir}/api/applications"/>
         <mkdir dir="${site.dir}/api/specialpurpose"/>
         <copy todir="${site.dir}/api/framework">
-            <fileset dir="${basedir}/framework" includes="**/build/javadocs/**"/>
+            <fileset dir="${basedir}/framework" includes="*/build/javadocs/**"/>
         </copy>
         <copy todir="${site.dir}/api/applications">
-            <fileset dir="${basedir}/applications" includes="**/build/javadocs/**"/>
+            <fileset dir="${basedir}/applications" includes="*/build/javadocs/**"/>
         </copy>
         <copy todir="${site.dir}/api/specialpurpose">
-            <fileset dir="${basedir}/specialpurpose" includes="**/build/javadocs/**"/>
+            <fileset dir="${basedir}/specialpurpose" includes="*/build/javadocs/**"/>
         </copy>
     </target>
 
