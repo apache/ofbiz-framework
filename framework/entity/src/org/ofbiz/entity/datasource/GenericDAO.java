@@ -1006,20 +1006,27 @@ public class GenericDAO {
         }
 
         if (findOptions.getDistinct()) {
-            sqlBuffer.append("DISTINCT COUNT(*) ");
-            /* DEJ20100226: this seems to cause too many problems so the line above is used instead; 
+            // old style, not sensitive to selecting limited columns: sqlBuffer.append("DISTINCT COUNT(*) ");
+            /* DEJ20100304: the code below was causing problems so the line above may be used instead, but hopefully this is fixed now 
              * may need varying SQL for different databases, and also in view-entities in some cases it seems to 
              * cause the "COUNT(DISTINCT " to appear twice, causing an attempt to try to count a count (function="count-distinct", distinct=true in find options)
+             */
             if (selectFields != null && selectFields.size() > 0) {
-                sqlBuffer.append("COUNT(DISTINCT ");
-                // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
-                sqlBuffer.append(selectFields.get(0).getColName());
-                // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
-                sqlBuffer.append(")");
+                String fullColName = selectFields.get(0).getColName();
+                
+                if (fullColName.indexOf("COUNT") >= 0) {
+                    // already has a COUNT in the name (generally from a function=count-distinct), so do it the old style
+                    sqlBuffer.append("COUNT(DISTINCT *) ");
+                } else {
+                    sqlBuffer.append("COUNT(DISTINCT ");
+                    // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
+                    sqlBuffer.append(selectFields.get(0).getColName());
+                    // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
+                    sqlBuffer.append(")");
+                }
             } else {
                 sqlBuffer.append("COUNT(DISTINCT *) ");
             }
-            */
         } else {
             // NOTE DEJ20080701 Changed from COUNT(*) to COUNT(1) to improve performance, and should get the same results at least when there is no DISTINCT
             sqlBuffer.append("COUNT(1) ");
