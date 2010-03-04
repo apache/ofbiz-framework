@@ -1012,15 +1012,15 @@ public class GenericDAO {
              * cause the "COUNT(DISTINCT " to appear twice, causing an attempt to try to count a count (function="count-distinct", distinct=true in find options)
              */
             if (selectFields != null && selectFields.size() > 0) {
-                String fullColName = selectFields.get(0).getColName();
-                
-                if (fullColName.indexOf("COUNT") >= 0) {
-                    // already has a COUNT in the name (generally from a function=count-distinct), so do it the old style
+                ModelField firstSelectField = selectFields.get(0);
+                ModelViewEntity.ModelAlias firstModelAlias = modelViewEntity != null ? modelViewEntity.getAlias(firstSelectField.getName()) : null;
+                if (firstModelAlias != null && UtilValidate.isNotEmpty(firstModelAlias.getFunction())) {
+                    // if the field has a function already we don't want to count just it, would be meaningless
                     sqlBuffer.append("COUNT(DISTINCT *) ");
                 } else {
                     sqlBuffer.append("COUNT(DISTINCT ");
                     // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
-                    sqlBuffer.append(selectFields.get(0).getColName());
+                    sqlBuffer.append(firstSelectField.getColName());
                     // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
                     sqlBuffer.append(")");
                 }
