@@ -378,4 +378,10 @@ under the License.
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="autoSendItemDispatchedNotification" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendItemDispatchedNotification" auth="false">
+        <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

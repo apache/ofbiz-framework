@@ -197,6 +197,47 @@
         <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
     </simple-method>
 
+    <simple-method method-name="settingSendItemDispatchedNotification" login-required="false" short-description="Set Automatic send item dispatched email">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_ITEM_DISP"/>
+        </entity-one>
+
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_ITEM_DISP"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunItemDispatchNotify"/>
+        <set field="parameters.serviceName" default-value="autoSendItemDispatchedNotification" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
+    </simple-method>
+
     <simple-method method-name="createEmailTemplate" short-description="Create Email Template">
         <!-- create content -->
         <set field="parameters.dataTemplateTypeId" value="FTL"/>

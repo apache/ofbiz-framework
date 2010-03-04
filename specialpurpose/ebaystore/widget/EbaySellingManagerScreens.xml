@@ -263,6 +263,9 @@
                         <screenlet title="${uiLabelMap.EbayAutoSendWinBuyerEmail}" id="winningBuyerNotification" collapsible="true" initially-collapsed="true">
                             <include-form name="winningBuyerNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoSendItemDispatchEmail}" id="itemDispatchedNotification" collapsible="true" initially-collapsed="true">
+                            <include-form name="itemDispatchedNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
