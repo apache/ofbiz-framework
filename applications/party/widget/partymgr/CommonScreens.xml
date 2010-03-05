@@ -151,8 +151,8 @@ under the License.
                                     <label style="h1" text="${uiLabelMap[labelTitleProperty]} [${groupId}]"/>
                                 </container>
                                 <container style="button-bar">
-                                    <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                    <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
+                                    <link target="EditSecurityGroup" style="buttontext create" text="${uiLabelMap.PartyNewSecurityGroup}"/>
+                                    <link target="EditCertIssuerProvisions" style="buttontext" text="${uiLabelMap.PartyCertIssuers}"/>
                                 </container>
 
                                 <decorator-section-include name="body"/>
