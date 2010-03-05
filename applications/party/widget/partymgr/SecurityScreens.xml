@@ -169,8 +169,8 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditIssuerProvisions}">
                                     <container style="button-bar">
-                                        <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
-                                        <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
+                                        <link target="EditSecurityGroup" style="buttontext create" text="${uiLabelMap.PartyNewSecurityGroup}"/>
+                                        <link target="EditCertIssuerProvisions" style="buttontext" text="${uiLabelMap.PartyCertIssuers}"/>
                                     </container>
                                     <container>
                                         <include-form name="CertIssuerList" location="component://party/widget/partymgr/SecurityForms.xml"/>
