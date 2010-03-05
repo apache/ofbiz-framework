@@ -193,17 +193,11 @@
         <response name="success" type="request-redirect" value="automationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
-    <!-- Block item out of stock -->
-    <request-map uri="blockItemOutOfStock">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="blockItemOutOfStock"/>
-        <response name="error" type="view" value="blockItemOutOfStock"/>
-    </request-map>
     <request-map uri="runBlockItemOutOfStock">
         <security https="true" auth="true"/>
-        <event type="service" invoke="getSellingInventory"/>
-        <response name="success" type="view" value="blockItemOutOfStock"/>
-        <response name="error" type="view" value="blockItemOutOfStock"/>
+        <event type="simple" path="component://ebaystore/script/org/ofbiz/ebaystore/EbayStoreEvents.xml" invoke="settingAutoBlockItemOutOfStock"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
     <!-- Store inventory -->
     <request-map uri="ebayStoreInventory">
@@ -326,8 +320,6 @@
     <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/>
     <!-- AutomationPreferences -->
     <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
-    <!-- block out of stock -->
-    <view-map name="blockItemOutOfStock" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#blockItemOutOfStock"/>
     <!-- Selling Manager -->
     <view-map name="editEmailTemplate" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EditEmailTemplate"/>
     <!-- store Inventory -->

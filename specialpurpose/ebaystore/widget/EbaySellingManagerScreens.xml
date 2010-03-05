@@ -266,6 +266,9 @@
                         <screenlet title="${uiLabelMap.EbayAutoSendItemDispatchEmail}" id="itemDispatchedNotification" collapsible="true" initially-collapsed="true">
                             <include-form name="itemDispatchedNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.EbayBlockItemOutOfStock}" id="blockItemsOutOfStock" collapsible="true" initially-collapsed="true">
+                            <include-form name="blockItemsOutOfStock" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
