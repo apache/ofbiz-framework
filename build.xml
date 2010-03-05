@@ -546,10 +546,10 @@ under the License.
     
     <target name="create-component"
             description="Creates the layout of an OFBiz component in the hot-deploy folder.">
-        <input addproperty="component-name" message="Component name: (e.g. mycomponent)"/>
-        <input addproperty="component-resource-name" message="Component resource name: (e.g. MyComponent)"/>
-        <input addproperty="webapp-name" message="Webapp name: (e.g. mycomponent)"/>
-        <input addproperty="base-permission" message="Base permission: (e.g. MYCOMPONENT)"/>
+        <input addproperty="component-name" message="Component name: (e.g. mycomponent) [Mandatory]"/>
+        <input addproperty="component-resource-name" message="Component resource name: (e.g. MyComponent) [Mandatory]"/>
+        <input addproperty="webapp-name" message="Webapp name: (e.g. mycomponent) [Mandatory]"/>
+        <input addproperty="base-permission" message="Base permission: (e.g. MYCOMPONENT) [Mandatory]"/>
         <echo>The following hot-deploy component will be created:
               Name: ${component-name}
               Resource Name: ${component-resource-name}
@@ -563,7 +563,27 @@ under the License.
                 <equals arg1="${confirm-component-creation}" arg2="N" casesensitive="false"/>
             </condition>
         </fail>
-        <filterset id="replacePlaceholders">
+        <fail message="Component name is mandatory">
+            <condition>
+                <equals arg1="${component-name}" arg2="" casesensitive="false" trim="yes"/>
+            </condition>
+        </fail>
+    	<fail message="Resource name is mandatory">
+            <condition>
+                <equals arg1="${component-resource-name}" arg2="" casesensitive="false" trim="yes"/>
+            </condition>
+        </fail>
+        <fail message="Webapp name is mandatory">
+            <condition>
+                <equals arg1="${webapp-name}" arg2="" casesensitive="false" trim="yes"/>
+            </condition>
+        </fail>
+        <fail message="Base permission is mandatory">
+            <condition>
+                <equals arg1="${base-permission}" arg2="" casesensitive="false" trim="yes"/>
+            </condition>
+        </fail>
+    	<filterset id="replacePlaceholders">
             <filter token="component-name" value="${component-name}"/>
             <filter token="component-resource-name" value="${component-resource-name}"/>
             <filter token="base-permission" value="${base-permission}"/>
