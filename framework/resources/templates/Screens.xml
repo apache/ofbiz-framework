@@ -5,9 +5,10 @@
     <screen name="main">
         <section>
             <actions>
+                <set field="headerItem" value="main"/><!-- this highlights the selected menu-item with name "main" -->
             </actions>
             <widgets>
-                <decorator-screen name="@component-resource-name@CommonDecorator" location="component://@component-name@/widget/CommonScreens.xml">
+                <decorator-screen name="@component-resource-name@CommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                     </decorator-section>
                 </decorator-screen>
