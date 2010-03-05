@@ -35,7 +35,9 @@ under the License.
     <Enumeration enumId="EBAY_AUTO_FB_RMD" description="Automatic send reminder email if feedback has not been received after day? shipping" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_COMB_ORD" description="Automatic combine order" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_PR_EMAIL" description="Automatic send payment received email when has not been received" enumTypeId="EBAY_AUTO_PREF"/>
-	
+    <Enumeration enumId="EBAY_AUTO_ITEM_DISP" description="Automatic send item dispatched email" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_BLK_ITEM" description="Automatic block item that out of stock" enumTypeId="EBAY_AUTO_PREF"/>
+
 	<!-- Automation email -->
 	<Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
 	<Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>

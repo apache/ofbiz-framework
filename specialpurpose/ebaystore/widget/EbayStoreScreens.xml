@@ -160,26 +160,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- block out of stock  -->
-    <screen name="blockItemOutOfStock">
-        <section>
-            <actions>
-                <set field="titleProperty" value="Block items out of stock on eBay"/>
-                <set field="headerItem" value="ebayStore"/>
-                <set field="tabButtonItem" value="blockItemOutOfStock"/>
-                <set field="productStoreId" value="${parameters.productStoreId}"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.BlockItemsOutOfStock}">
-                            <include-form name="blockItemsOutOfStock" location="component://ebaystore/widget/EbayStoreForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <!-- Export product listing  -->
     <screen name="exportProductListing">
         <section>

@@ -52,13 +52,17 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
+import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.AddOrderCall;
 import com.ebay.sdk.call.AddDisputeCall;
+import com.ebay.sdk.call.DeleteSellingManagerTemplateCall;
+import com.ebay.sdk.call.GetSellingManagerInventoryCall;
 import com.ebay.sdk.call.GetSellingManagerSoldListingsCall;
 import com.ebay.sdk.call.GetUserCall;
 import com.ebay.sdk.call.LeaveFeedbackCall;
@@ -70,19 +74,28 @@ import com.ebay.soap.eBLBaseComponents.AutomatedLeaveFeedbackEventCodeType;
 import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
+import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateRequestType;
+import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateResponseType;
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerPaidStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerShippedStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldListingsSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldOrderType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerSoldTransactionType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsArrayType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsType;
 import com.ebay.soap.eBLBaseComponents.TradingRoleCodeType;
 import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
@@ -1026,4 +1039,62 @@ public class EbayStoreAutoPreferences {
         }
         return result;
     }
+
+    public static Map<String,Object> autoBlockItemsOutOfStock(DispatchContext dctx, Map<String,Object> context) {
+        Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
+        Map<String,Object> result = FastMap.newInstance();
+        GetSellingManagerInventoryRequestType req = new GetSellingManagerInventoryRequestType();
+        GetSellingManagerInventoryResponseType resp =  null;
+
+        if (context.get("productStoreId") != null) {
+            GetSellingManagerInventoryCall call = new GetSellingManagerInventoryCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+
+            try {
+                SellingManagerProductType[] returnedSellingManagerProductType = null;
+                resp = (GetSellingManagerInventoryResponseType)call.execute(req);
+                if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
+                    returnedSellingManagerProductType  = resp.getSellingManagerProduct();
+                    //result = ServiceUtil.returnSuccess("load store data success..");
+                    for (int i = 0; i < returnedSellingManagerProductType.length; i++) {
+                       SellingManagerProductDetailsType prodDetailType = returnedSellingManagerProductType[i].getSellingManagerProductDetails();
+                       int qty = prodDetailType.getQuantityAvailable();
+
+                       if (qty == 0) {
+                           SellingManagerTemplateDetailsArrayType sellingTempArr =  returnedSellingManagerProductType[i].getSellingManagerTemplateDetailsArray();
+                           SellingManagerTemplateDetailsType[] selllingTempType = null;
+                           if (UtilValidate.isNotEmpty(sellingTempArr)) {
+                               selllingTempType = sellingTempArr.getSellingManagerTemplateDetails();
+                           }
+
+                           if (selllingTempType.length > 0) {
+                               for (int j = 0; j < selllingTempType.length; j++) {
+                                   Long longTemplete = Long.parseLong(selllingTempType[j].getSaleTemplateID());
+                                   DeleteSellingManagerTemplateCall tcall = new DeleteSellingManagerTemplateCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+                                   DeleteSellingManagerTemplateRequestType treq = new DeleteSellingManagerTemplateRequestType();
+                                   DeleteSellingManagerTemplateResponseType tresp =  null;
+                                   treq.setSaleTemplateID(longTemplete);
+
+                                   tresp = (DeleteSellingManagerTemplateResponseType) tcall.execute(treq);
+                                   if (tresp != null && "SUCCESS".equals(tresp.getAck().toString())) {
+                                      result = ServiceUtil.returnSuccess();
+                                   }
+                               }
+                           }
+                       }
+                    }
+                    result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                }
+                result = ServiceUtil.returnSuccess();
+            } catch (ApiException e) {
+                e.printStackTrace();
+            } catch (SdkSoapException e) {
+                e.printStackTrace();
+            } catch (SdkException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
 }

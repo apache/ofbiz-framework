@@ -170,12 +170,6 @@ under the License.
         <attribute name="period" mode="IN" type="String" optional="true"/>
         <attribute name="soldItems" mode="OUT" type="List" optional="true"/>
     </service>
-    <!-- block out of stock items -->
-    <service name="getSellingInventory" engine="java" transaction-timeout="7200"
-        location="org.ofbiz.ebaystore.EbayStore" invoke="getSellingInventory" auth="true">
-        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-        <attribute name="itemBlocked" type="Map" mode="OUT" optional="true"/>
-    </service>
     <!-- ebay inventory -->
     <service name="reserveEbayProductInventory" engine="simple"
         location="component://ebaystore/script/org/ofbiz/ebaystore/EbayServices.xml" invoke="reserveEbayProductInventory">
@@ -380,6 +374,12 @@ under the License.
     </service>
     <service name="autoSendItemDispatchedNotification" engine="java" transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoSendItemDispatchedNotification" auth="false">
+        <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="autoBlockItemsOutOfStock" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBlockItemsOutOfStock" auth="false">
         <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
