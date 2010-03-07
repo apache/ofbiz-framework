@@ -16,32 +16,17 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-        <#macro tableNav>
-            <div class="nav-pager">
-                <ul>
-                    <#if (viewIndex > 0)>
-                        <li class="nav-first"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonFirst}</a></li>
-                        <li class="nav-previous"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonPrevious}</a></li>
-                    <#else>
-                        <li class="nav-first-disabled"><span>${uiLabelMap.CommonFirst}<span></li>
-                        <li class="nav-previous-disabled"><span>${uiLabelMap.CommonPrevious}<span></li>
-                    </#if>
-                    <#if (arraySize > 0)>
-                        <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${arraySize}</li>
-                    </#if>
-                    <#if (arraySize > highIndex)>
-                        <li class="nav-next"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonNext}</a></li>
-                        <li class="nav-last"><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default("false")}</@ofbizUrl>'>${uiLabelMap.CommonLast}</a></li>
-                    <#else>
-                        <li class="nav-next-disabled"><span>${uiLabelMap.CommonNext}<span></li>
-                        <li class="nav-last-disabled"><span>${uiLabelMap.CommonLast}<span></li>
-                    </#if>
-                </ul>
-                <br class="clear"/>
-            </div>
-        </#macro>
         <#if (arraySize > 0)>
-            <@tableNav/>
+            <#assign commonUrl="FindGeneric?${curFindString}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default(\"false\")}&amp;"/>
+            <#assign firstUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}"/>
+            <#assign previousUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}"/>
+            <#assign nextUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}"/>
+            <#assign lastUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}"/>
+            <#assign selectUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX="/>
+            <#assign selectSizeUrl=commonUrl+"VIEW_SIZE='+this.value+'&amp;VIEW_INDEX=0"/>
+            <#assign commonDisplaying="${uiLabelMap.CommonDisplaying} ${lowIndex} - ${highIndex} of ${arraySize}"/>        
+
+            <@formrenderer.renderNextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
         </#if>
           <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row-2">
@@ -75,5 +60,5 @@ under the License.
             </#if>
         </table>
         <#if (arraySize > 0)>
-            <@tableNav/>
+            <@formrenderer.renderNextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
         </#if>

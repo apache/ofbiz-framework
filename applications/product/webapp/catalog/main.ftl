@@ -31,18 +31,18 @@ under the License.
   <br/>
   <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
   <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
-    <input type="text" size="20" maxlength="20" name="productCategoryId" value=""/>
-    <a href="javascript:call_fieldlookup2(document.EditCategoryForm.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+    <@formrenderer.renderLookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" lookupFieldFormName="LookupProductCategory"/>
     <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit"/>
   </form>
+  <br/>
   <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditCategory</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCategory}</a></div>
   <br/>
   <div class="label">${uiLabelMap.ProductEditProductWithProductId}:</div>
   <form method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
-    <input type="text" size="20" maxlength="20" name="productId" value=""/>
-    <a href="javascript:call_fieldlookup2(document.EditProductForm.productId,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+    <@formrenderer.renderLookupField name="productId" id="productId" formName="EditProductForm" lookupFieldFormName="LookupProduct"/>
     <input type="submit" value=" ${uiLabelMap.ProductEditProduct}" class="smallSubmit"/>
   </form>
+  <br/>
   <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProduct</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></div>
   <br/>
   <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>CreateVirtualWithVariantsForm</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductQuickCreateVirtualFromVariants}</a></div>
