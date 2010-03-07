@@ -5982,7 +5982,7 @@
         <value xml:lang="es">Crear acuerdo</value>
         <value xml:lang="fr">Nouvel accord</value>
         <value xml:lang="hi_IN">अनुबंध बनाएँ</value>
-        <value xml:lang="it">Creare Contratto</value>
+        <value xml:lang="it">Nuovo contratto</value>
         <value xml:lang="nl">Overeenkomst aanmaken</value>
         <value xml:lang="ro">Creaza Contract</value>
         <value xml:lang="ru">Создать договор</value>
@@ -5995,7 +5995,7 @@
         <value xml:lang="es">Crear elemento de acuerdo</value>
         <value xml:lang="fr">Nouvel article d'accord</value>
         <value xml:lang="hi_IN">अनुबंध मद बनाएँ</value>
-        <value xml:lang="it">Creare Riga Contratto</value>
+        <value xml:lang="it">Nuova riga contratto</value>
         <value xml:lang="nl">Overeenkomstregel aanmaken</value>
         <value xml:lang="ro">Creaza Linie Contract</value>
         <value xml:lang="ru">Создать элемент договора</value>
@@ -6009,7 +6009,7 @@
         <value xml:lang="es">Crear término</value>
         <value xml:lang="fr">Ajouter un terme à l'accord</value>
         <value xml:lang="hi_IN">शर्ते बनाएँ</value>
-        <value xml:lang="it">Creare Termine</value>
+        <value xml:lang="it">Nuovo termine</value>
         <value xml:lang="nl">Conditie aanmaken</value>
         <value xml:lang="ro">Creaza Termen</value>
         <value xml:lang="ru">Создать условие</value>
