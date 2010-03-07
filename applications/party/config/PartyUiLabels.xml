@@ -2393,7 +2393,7 @@
         <value xml:lang="en">Visit List</value>
         <value xml:lang="es">Lista de visitas</value>
         <value xml:lang="fr">Liste connexion</value>
-        <value xml:lang="it">Visita Lista</value>
+        <value xml:lang="it">Lista delle visite</value>
         <value xml:lang="nl">Bezoekenlijst</value>
         <value xml:lang="pt_BR">Lista de visitas</value>
         <value xml:lang="pt_PT">Visitar Lista</value>
@@ -7440,7 +7440,7 @@
         <value xml:lang="es">No se encontraron participantes</value>
         <value xml:lang="fr">Aucun acteur trouvé.</value>
         <value xml:lang="hi_IN">कोई भी पार्टी नहीं मिली|</value>
-        <value xml:lang="it">Nessun Soggetto trovato.</value>
+        <value xml:lang="it">Nessun soggetto trovato.</value>
         <value xml:lang="nl">Geen relaties gevonden.</value>
         <value xml:lang="pt_BR">Nenhum participante encontrado</value>
         <value xml:lang="pt_PT">Secções Não Encontradas</value>

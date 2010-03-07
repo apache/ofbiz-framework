@@ -1150,7 +1150,7 @@
         <value xml:lang="en">Visit Id</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Réf. de visite</value>
-        <value xml:lang="it">Numero Visitatore</value>
+        <value xml:lang="it">Codice visita</value>
         <value xml:lang="nl">Bezoek ID</value>
         <value xml:lang="ro">Numar Vizitator</value>
         <value xml:lang="ru">Код посещения</value>
@@ -1162,7 +1162,7 @@
         <value xml:lang="en">Visitor Id</value>
         <value xml:lang="es">Código de visitante</value>
         <value xml:lang="fr">Réf. de visiteur</value>
-        <value xml:lang="it">Numero Visitatore</value>
+        <value xml:lang="it">Codice visitatore</value>
         <value xml:lang="nl">Bezoeker ID</value>
         <value xml:lang="ro">Numar Vizitator</value>
         <value xml:lang="ru">Код посетителя</value>
