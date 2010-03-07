@@ -2419,16 +2419,23 @@ height:95%;
 /* overwrite */
 #fieldLookupContent ul li a {
 display: inherit;
-padding: 2px 3px 2px 3px;
-margin: 0;
 cursor: pointer;
+
+}
+
+#fieldLookupContent td {
+padding-top: 5px;
+padding-bottom: 5px;
 }
 
 #fieldLookupContent td a {
-display: inherit;
 cursor: pointer;
-background-image: none;
+color: #000000;
+background-color: #FCF9E6;
+background-image: url(../images/button_whitegray.jpg);
+padding: 0.4em 0.6em;
 }
+
 
 /* overwrite*/
 #findScreenlet {
