@@ -1728,17 +1728,17 @@ text-decoration: none;
 
 /* ===== Sort field style ===== */
 .basic-table .header-row-2 th .sort-order-asc,.basic-table .header-row-2 td .sort-order-asc {
-background: url(/images/arrow-gr-up.png) no-repeat right;
+background: url(../images/arrow-gr-up.png) no-repeat right;
 padding-right: 20px;
 }
 
 .basic-table .header-row-2 th .sort-order-desc,.basic-table .header-row-2 td .sort-order-desc {
-background: url(/images/arrow-gr-dw.png) no-repeat right;
+background: url(../images/arrow-gr-dw.png) no-repeat right;
 padding-right: 20px;
 }
 
 .basic-table .header-row-2 th .sort-order,.basic-table .header-row-2 td .sort-order {
-background: url(/images/arrow-gr.png) no-repeat right;
+background: transparent;
 padding-right: 20px;
 }
 
