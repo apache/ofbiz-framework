@@ -94,7 +94,7 @@ under the License.
             </ul>
           </#if>
 
-          <#if catalogQuickaddUse>
+          <#if catalogQuickaddUse?has_content && catalogQuickaddUse>
             <!-- Navigation item -->
             <ul>
               <li id="header-bar-quickadd"><a href="<@ofbizUrl>quickadd</@ofbizUrl>">${uiLabelMap.CommonQuickAdd}</a></li>
