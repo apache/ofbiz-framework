@@ -3673,7 +3673,7 @@
         <value xml:lang="th">อียิปต์</value>
         <value xml:lang="zh">埃及</value>
     </property>
-    <property key="Geo.geoName.ENG">
+    <property key="Geo.geoName.ENGL">
         <value xml:lang="de">England</value>
         <value xml:lang="en">England</value>
         <value xml:lang="fr">Angleterre</value>
@@ -3681,13 +3681,6 @@
         <value xml:lang="pt">England</value>
         <value xml:lang="ro">Anglia</value>
         <value xml:lang="ru">Англия</value>
-        <value xml:lang="th">อังกฤษ</value>
-        <value xml:lang="zh">英格兰</value>
-    </property>
-    <property key="Geo.geoName.ENGL">
-        <value xml:lang="en">ENGL</value>
-        <value xml:lang="fr">Angleterre</value>
-        <value xml:lang="it">Inghilterra</value>
         <value xml:lang="th">อังกฤษ</value>
         <value xml:lang="zh">英格兰</value>
     </property>
