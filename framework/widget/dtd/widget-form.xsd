@@ -938,8 +938,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="fade-background" default="false">
-            <xs:annotation><xs:documentation>True = The Background will be faded.</xs:documentation></xs:annotation>
+        <xs:attribute name="fade-background" default="true">
+            <xs:annotation><xs:documentation>True = The window Background will be faded.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="true"/>

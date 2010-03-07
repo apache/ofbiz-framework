@@ -282,10 +282,26 @@ under the License.
 
     <!-- Lookup Layer Example -->
     <form name="ExampleLookupFields" type="single" title="">
-        <!-- Standard LookupLayer -->
-        <field name="partyIdFrom" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyExamplePopup" presentation="layer" position="normal"/></field>
+        <!-- Standard LookupLayer using separated labels is not recommended but here we use only Common labels to avoid dependencies from application to framework-->
+        <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
+            <lookup target-form-name="LookupPartyExamplePopup" presentation="layer" fade-background="false"/>
+        </field>
         <!-- passes the name in one and the id in another field, the layer is centered -->
-        <field name="partyIdTo" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyExamplePopupByName" description-field-name="partyIdTo" presentation="layer" position="center" height="500px" width="600px" fade-background="true"/></field>
+        <field name="partyName" title="${uiLabelMap.CommonName}">
+            <lookup target-form-name="LookupPartyExamplePopupByName" description-field-name="partyIdTo" 
+                presentation="layer"  position="center" height="500px" width="600px"/>
+        </field>
+        <!-- This field may be hidden and the name rendered in partyName using default-value if partyIdTo exists-->
+        <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering  -->
+        <sort-order>
+            <field-group>
+                <sort-field name="partyIdFrom"/>
+            </field-group>
+            <field-group>
+                <sort-field name="partyName"/>
+                <sort-field name="partyIdTo"/>
+            </field-group>
+        </sort-order>
     </form>
 
     <form name="SelectionBoxesExampleForm" type="single">
