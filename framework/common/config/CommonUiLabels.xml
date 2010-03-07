@@ -3482,6 +3482,7 @@
     </property>
     <property key="CommonItemsPerPage">
         <value xml:lang="en">Items per page</value>
+        <value xml:lang="fr">Éléments par page</value>
         <value xml:lang="it">Righe per pagina</value>
     </property>
     <property key="CommonJanuary">
