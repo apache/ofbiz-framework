@@ -84,6 +84,7 @@ public class FreeMarkerWorker {
         newConfig.setLocalizedLookup(false);
         newConfig.setSharedVariable("StringUtil", new BeanModel(new StringUtil(), wrapper));
         newConfig.setTemplateLoader(new FlexibleTemplateLoader());
+        newConfig.setAutoImports(UtilProperties.getProperties("freemarkerImports"));
         try {
             newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
             newConfig.setSetting("number_format", "0.##########");
