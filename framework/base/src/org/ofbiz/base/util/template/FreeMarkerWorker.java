@@ -21,8 +21,10 @@ package org.ofbiz.base.util.template;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -50,6 +52,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.StringUtil.SimpleEncoder;
 import org.ofbiz.base.util.cache.UtilCache;
 
 import freemarker.cache.TemplateLoader;
@@ -61,6 +64,7 @@ import freemarker.template.SimpleHash;
 import freemarker.template.SimpleScalar;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 
@@ -85,6 +89,7 @@ public class FreeMarkerWorker {
         newConfig.setSharedVariable("StringUtil", new BeanModel(new StringUtil(), wrapper));
         newConfig.setTemplateLoader(new FlexibleTemplateLoader());
         newConfig.setAutoImports(UtilProperties.getProperties("freemarkerImports"));
+        newConfig.setTemplateExceptionHandler(new FreeMarkerWorker.OFBizTemplateExceptionHandler());
         try {
             newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
             newConfig.setSetting("number_format", "0.##########");
@@ -619,6 +624,32 @@ public class FreeMarkerWorker {
         }
         public void closeTemplateSource(Object templateSource) throws IOException {
             // do nothing
+        }
+    }
+
+    /**
+     * OFBiz specific TemplateExceptionHandler.  Sanitizes any error messages present in
+     * the stack trace prior to printing to the output writer.
+     *
+     */
+    static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
+
+        @Override
+        public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
+            StringWriter tempWriter = new StringWriter();
+            PrintWriter pw = new PrintWriter(tempWriter, true);
+            te.printStackTrace(pw);
+            String stackTrace = tempWriter.toString();
+
+            StringUtil.SimpleEncoder simpleEncoder = (SimpleEncoder) FreeMarkerWorker.getWrappedObject("simpleEncoder", env);
+            if (simpleEncoder != null) {
+                stackTrace = simpleEncoder.encode(stackTrace);
+            }
+            try {
+                out.write(stackTrace);
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
         }
     }
 }
