@@ -416,6 +416,11 @@
     </form>
     <form name="ListTaskInfo" type="list" list-name="tasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-and entity-name="WorkEffortPartyAssignView" list="resources">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+        </row-actions>
         <field name="wbsId"><display description="${projectId}.${phaseSeqNum}.${sequenceNum}"/></field>
         <field name="task">
             <hyperlink target="taskView" description="${workEffortName}">
@@ -423,10 +428,12 @@
             </hyperlink>
         </field>
         <field name="phaseName"><display/></field>
+        <field name="firstResource"><display description="${resources[0].lastName},${resources[0].firstName} ${resources[0].middleName}"/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="priority"><display/></field>
+        <field name="priority"  title="${uiLabelMap.ProjectMgrProrityAbbr}"><display/></field>
         <field name="startDate"><display type="date"/></field>
-        <field name="completionDate"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ProjectMgrEstimatedCompletionDateAbbr}"><display type="date"/></field>
+        <field name="actualCompletionDate"  title="${uiLabelMap.ProjectMgrActualCompletionDateAbbr}"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
