@@ -412,11 +412,16 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(uniqueItemName);
                 writer.append("\">");
 
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 for (WidgetWorker.Parameter parameter: link.getParameterList()) {
                     writer.append("<input name=\"");
                     writer.append(parameter.getName());
                     writer.append("\" value=\"");
-                    writer.append(parameter.getValue(context));
+                    if (simpleEncoder != null) {
+                        writer.append(simpleEncoder.encode(parameter.getValue(context)));
+                    } else {
+                        writer.append(parameter.getValue(context));
+                    }
                     writer.append("\" type=\"hidden\"/>");
                 }
 
