@@ -30,14 +30,16 @@
         <field name="roleTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
-            <drop-down allow-empty="true" current-description="${result.projectName} -- ${result.phaseName} -- ${result.taskName} ${phaseName}">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
+            <drop-down allow-empty="true" current-description="${result.taskWbsId} ${result.projectName} -- ${result.phaseName} -- ${result.taskName} ${phaseName}">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectId}.${phaseSeqNum}.${sequenceNum} ${projectName} -- ${phaseName} -- ${workEffortName}">
                     <entity-constraint name="projectStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <entity-constraint name="workEffortTypeId" operator="equals" value="TASK"/>
                     <entity-constraint name="partyId" env-name="timesheet.partyId"/>
                     <entity-constraint name="currentStatusId" value="PTS_CREATED"/>
                     <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseSeqNum"/>
                     <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="sequenceNum"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
                 <sub-hyperlink target="taskView" description="${bsh:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
@@ -281,6 +283,7 @@
     <form name="WeekTimesheet" type="list" list-name="timeEntries" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="timesheetId"><hidden/></field>
+        <field name="taskWbsId"><display/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
             <hyperlink target="taskView" description="${workEffortName}">
                 <parameter param-name="workEffortId"/>

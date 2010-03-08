@@ -179,6 +179,7 @@ under the License.
         <attribute name="phaseId" type="String" mode="OUT" optional="true"/>
         <attribute name="phaseName" type="String" mode="OUT" optional="true"/>
         <attribute name="taskName" type="String" mode="OUT" optional="true"/>
+        <attribute name="taskWbsId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="getProjectPhaseList" engine="simple"

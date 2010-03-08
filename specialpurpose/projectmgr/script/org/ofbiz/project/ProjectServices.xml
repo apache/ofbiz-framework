@@ -595,6 +595,8 @@
             <field-to-result field="phase.workEffortName" result-name="phaseName"/>
             <field-to-result field="task.workEffortId" result-name="taskId"/>
             <field-to-result field="task.workEffortName" result-name="taskName"/>
+            <set field="taskWbsId" value="${project.workEffortId}.${phase.sequenceNum}.${task.sequenceNum}"/>
+            <field-to-result field="taskWbsId"/>
         </if-not-empty>
     </simple-method>
 

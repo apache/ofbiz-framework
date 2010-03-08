@@ -1,5 +1,4 @@
 /*
-/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -120,6 +119,7 @@ void retrieveWorkEffortData() {
                 entry.phaseName = result.phaseName;
                 entry.projectId = result.projectId;
                 entry.projectName = result.projectName;
+                entry.taskWbsId = result.taskWbsId;
 
         }
         entry.total = taskTotal;
