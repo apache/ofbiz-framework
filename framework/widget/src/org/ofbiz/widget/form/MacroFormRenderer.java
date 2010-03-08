@@ -95,6 +95,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     protected HttpServletResponse response;
     protected boolean javaScriptEnabled = false;
     protected boolean renderPagination = true;
+    protected String contentType;
 
     public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -106,6 +107,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = StringUtil.getEncoder("string");
+    }
+
+    public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response, String contentType) throws TemplateException, IOException {
+        this(macroLibraryPath, writer, request, response);
+        this.contentType = contentType;
     }
 
     public boolean getRenderPagination() {
@@ -2605,7 +2611,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(title);
             sr.append("\" />");
             executeMacro(sr.toString());
-        } else if (modelFormField.isSortField()) {
+        } else if (modelFormField.isSortField() && !"text/csv".equals(this.getContentType()) && !"application/pdf".equals(this.getContentType())) {
             renderSortField (writer, context, modelFormField, titleText);
         } else if (modelFormField.isRowSubmit()) {
             StringWriter sr = new StringWriter();
@@ -2953,5 +2959,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(id);
         sr.append("\" />");
         executeMacro(sr.toString());
+    }
+
+    public void setContentType(String contentType){
+        this.contentType = contentType;
+    }
+
+    public String getContentType(){
+        return this.contentType;
     }
 }
