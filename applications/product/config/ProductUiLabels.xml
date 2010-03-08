@@ -1631,7 +1631,7 @@
         <value xml:lang="de">Digitales Produkt Hochladen Kategorie ID</value>
         <value xml:lang="en">Dig Prod Upload Category Id</value>
         <value xml:lang="es">Categoría de carga producto digital</value>
-        <value xml:lang="fr">Réf. de catégorie de téléchargement d'articles numériques</value>
+        <value xml:lang="fr">Catégorie de téléchargement d'articles numériques</value>
         <value xml:lang="it">Codice Categoria Caricamento Prodotti Digitali</value>
         <value xml:lang="ro">Cod Categoria Incarcare Produse Digitale</value>
         <value xml:lang="ru">Загружать цифр. продукты в категорию</value>
@@ -2953,7 +2953,7 @@
         <value xml:lang="de">Produktkategorie ID</value>
         <value xml:lang="en">Product Category Id</value>
         <value xml:lang="es">Código Categoría de productos</value>
-        <value xml:lang="fr">Réf. de catégorie</value>
+        <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria Prodotto</value>
         <value xml:lang="ro">Categorie Produs</value>
         <value xml:lang="ru">Код категории продукта</value>
@@ -2997,7 +2997,7 @@
         <value xml:lang="de">Produktmerkmal Kategorie ID</value>
         <value xml:lang="en">Product Feature Category Id</value>
         <value xml:lang="es">Código Categoría de característica de producto</value>
-        <value xml:lang="fr">Réf. de catégorie de caractéristique d'article</value>
+        <value xml:lang="fr">Catégorie de caractéristique d'article</value>
         <value xml:lang="it">Categoria Caratteristica Prodotto</value>
         <value xml:lang="ro">Categorie Caracteristica Produs</value>
         <value xml:lang="ru">Код категории особенности</value>
@@ -8498,7 +8498,7 @@
         <value xml:lang="de">Kategorie ID</value>
         <value xml:lang="en">Category ID</value>
         <value xml:lang="es">Código de Categoría</value>
-        <value xml:lang="fr">Réf. de catég.</value>
+        <value xml:lang="fr">Catég.</value>
         <value xml:lang="it">Codice Categoria</value>
         <value xml:lang="ro">Cod Categorie</value>
         <value xml:lang="ru">Категория</value>
@@ -15429,7 +15429,7 @@
         <value xml:lang="de">Übergeordnete Kategorie [ID]</value>
         <value xml:lang="en">Parent Category [ID]</value>
         <value xml:lang="es">Categoría Padre [CÓDIGO]</value>
-        <value xml:lang="fr">Réf. de catégorie parente</value>
+        <value xml:lang="fr">Catégorie parente</value>
         <value xml:lang="it">Categoria Padre [Codice]</value>
         <value xml:lang="ro">Categorie Parinte [Cod]</value>
         <value xml:lang="ru">Родительская категория [Код]</value>
