@@ -1017,6 +1017,12 @@
         <value xml:lang="th">บุคคลโดยประมาณ</value>
         <value xml:lang="zh">评估人力</value>
     </property>
+    <property key="ProjectMgrActualCompletionDateAbbr">
+        <value xml:lang="en">Act.Compl.</value>
+    </property>
+    <property key="ProjectMgrEstimatedCompletionDateAbbr">
+        <value xml:lang="en">Est.Compl.</value>
+    </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="de">Filter aktivieren</value>
         <value xml:lang="en">Filter on</value>
@@ -1284,6 +1290,9 @@
         <value xml:lang="it">Nota stampabile</value>
         <value xml:lang="nl">Printbare notitie</value>
         <value xml:lang="zh">可打印的便笺</value>
+    </property>
+    <property key="ProjectMgrProrityAbbr">
+        <value xml:lang="en">Prio.</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="de">Privat/Öffentlich</value>
