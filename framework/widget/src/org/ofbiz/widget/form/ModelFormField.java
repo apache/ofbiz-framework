@@ -744,23 +744,22 @@ public class ModelFormField {
                 if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
                     NumberFormat nf = NumberFormat.getInstance(locale);
                     nf.setMaximumFractionDigits(10);
-                    returnValue = nf.format(retVal);
+                    return nf.format(retVal);
                 } else if (retVal instanceof java.sql.Date) {
                     DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
-                    returnValue = df.format((java.util.Date) retVal);
+                    return df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.sql.Time) {
                     DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-                    returnValue = df.format((java.util.Date) retVal);
+                    return df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.sql.Timestamp) {
                     DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
-                    returnValue = df.format((java.util.Date) retVal);
+                    return df.format((java.util.Date) retVal);
                 } else if (retVal instanceof java.util.Date) {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
-                    returnValue = df.format((java.util.Date) retVal);
+                    return df.format((java.util.Date) retVal);
                 } else {
                     returnValue = retVal.toString();
                 }
-                return returnValue; // do not encode date and number type fields
             } else {
                 returnValue = defaultValue;
             }
@@ -2087,6 +2086,12 @@ public class ModelFormField {
             String retVal = null;
             if (this.description != null && !this.description.isEmpty()) {
                 retVal = this.description.expandString(context);
+                if (retVal != null) {
+                    StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                    if (simpleEncoder != null) {
+                        retVal = simpleEncoder.encode(retVal);
+                    }
+                }
             } else {
                 retVal = this.modelFormField.getEntry(context);
             }
