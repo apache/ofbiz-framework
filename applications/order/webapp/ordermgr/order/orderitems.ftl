@@ -50,7 +50,8 @@ under the License.
                 <#if productId?exists && productId == "shoppingcart.CommentLine">
                   <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
                 <#else>
-                  <td colspan="7" valign="top">
+                  <td colspan="7">
+                    <div class="order-item-description">
                       <#if productId?exists>
                         ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                         <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
@@ -61,6 +62,7 @@ under the License.
                       <#else>
                         ${orderItem.itemDescription?if_exists}
                       </#if>
+                    </div>
                       <div style="float:right;">
                         <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
