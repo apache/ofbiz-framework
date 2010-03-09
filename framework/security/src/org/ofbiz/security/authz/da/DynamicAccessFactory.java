@@ -20,9 +20,9 @@ package org.ofbiz.security.authz.da;
 
 import java.util.Set;
 import java.util.Iterator;
+import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.imageio.spi.ServiceRegistry;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -59,7 +59,7 @@ public class DynamicAccessFactory {
     }
 
     private static void loadAccessHandlers(Delegator delegator) {
-        Iterator<DynamicAccessHandler> it = ServiceRegistry.lookupProviders(DynamicAccessHandler.class, DynamicAccessFactory.class.getClassLoader());
+        Iterator<DynamicAccessHandler> it = ServiceLoader.load(DynamicAccessHandler.class, DynamicAccessFactory.class.getClassLoader()).iterator();
         while (it.hasNext()) {
             DynamicAccessHandler handler = it.next();
             handler.setDelegator(delegator);

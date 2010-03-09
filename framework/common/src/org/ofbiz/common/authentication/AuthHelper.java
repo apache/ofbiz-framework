@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Iterator;
-import javax.imageio.spi.ServiceRegistry;
+import java.util.ServiceLoader;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.common.authentication.api.Authenticator;
@@ -90,7 +90,7 @@ public class AuthHelper {
 
     private synchronized static void loadAuthenticators_internal(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
-            Iterator<Authenticator> it = ServiceRegistry.lookupProviders(Authenticator.class, getContextClassLoader());
+            Iterator<Authenticator> it = ServiceLoader.load(Authenticator.class, getContextClassLoader()).iterator();
             while (it.hasNext()) {
                 try {
                     Authenticator auth = it.next();

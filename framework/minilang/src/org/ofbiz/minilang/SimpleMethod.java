@@ -27,9 +27,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 
-import javax.imageio.spi.ServiceRegistry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -94,7 +94,7 @@ public class SimpleMethod {
     private static final Method methodOperationExecMethod;
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
-        Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceRegistry.lookupProviders(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader()));
+        Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceLoader.load(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader()).iterator());
         while (it.hasNext()) {
             MethodOperation.Factory<MethodOperation> factory = it.next();
             mapFactories.put(factory.getName(), factory);

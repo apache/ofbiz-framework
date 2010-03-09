@@ -20,8 +20,7 @@ package org.ofbiz.base.conversion;
 
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
-
-import javax.imageio.spi.ServiceRegistry;
+import java.util.ServiceLoader;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -48,7 +47,7 @@ public class Converters {
         converterMap.setShared(true);
         registerCreator(new PassThruConverterCreator());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Iterator<ConverterLoader> converterLoaders = ServiceRegistry.lookupProviders(ConverterLoader.class, loader);
+        Iterator<ConverterLoader> converterLoaders = ServiceLoader.load(ConverterLoader.class, loader).iterator();
         while (converterLoaders.hasNext()) {
             try {
                 ConverterLoader converterLoader = converterLoaders.next();
