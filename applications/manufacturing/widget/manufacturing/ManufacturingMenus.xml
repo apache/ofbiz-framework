@@ -181,6 +181,105 @@ under the License.
             </link>
         </menu-item>
     </menu>
+    
+    <menu name="ProductionRunStatusTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="cancel" title="${uiLabelMap.ManufacturingCancel}">
+           <link target="cancelProductionRun">
+                <parameter param-name="productionRunId"/>
+           </link>
+        </menu-item>
+        <menu-item name="quickChangeClose" title="${uiLabelMap.ManufacturingQuickClose}">
+            <condition>
+                 <and>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                 </and>
+            </condition>
+           <link target="quickChangeProductionRunStatus">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="statusId" value="PRUN_CLOSED"/>
+           </link>
+        </menu-item>
+        <menu-item name="quickChangeComplete" title="${uiLabelMap.ManufacturingQuickComplete}">
+            <condition>
+                 <and>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                 </and>
+            </condition>
+           <link target="quickChangeProductionRunStatus">
+                <parameter param-name="productionRunId" />
+                <parameter param-name="statusId" value="PRUN_COMPLETED"/>
+           </link>
+        </menu-item>
+        <menu-item name="changeStatusToPrinted" title="${uiLabelMap.ManufacturingConfirmProductionRun}">
+            <condition>
+                 <or>
+                   <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                 </or>
+            </condition>
+            <link target="changeProductionRunStatusToPrinted">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
+        <menu-item name="quickRunAllProductionRunTasks" title="${uiLabelMap.ManufacturingQuickRunAllTasks}">
+            <condition>
+                 <and>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CREATED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_SCHEDULED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                 </and>
+            </condition>
+            <link target="quickStartAllProductionRunTasks">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
+        <menu-item name="quickStartAllProductionRunTasks" title="${uiLabelMap.ManufacturingQuickStartAllTasks}">
+            <condition>
+                 <and>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CREATED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_SCHEDULED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                 </and>
+            </condition>
+            <link target="quickStartAllProductionRunTasks">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
+        <menu-item name="quickChangeComplete2Close" title="${uiLabelMap.ManufacturingQuickClose}">
+            <condition>
+                <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
+            </condition>
+           <link target="quickChangeProductionRunStatus">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="statusId" value="PRUN_CLOSED"/>
+           </link>
+        </menu-item>
+        <menu-item name="schedule" title="${uiLabelMap.ManufacturingSchedule}">
+            <condition>
+                 <or>
+                   <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_CREATED"/>
+                   <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_SCHEDULED"/>
+                 </or>
+            </condition>
+            <link target="scheduleProductionRun">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="statusId" value="PRUN_SCHEDULED"/>
+            </link>
+        </menu-item>
+        <menu-item name="print" title="${uiLabelMap.CommonPrint}">
+            <link target="PrintProductionRun">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
+    </menu>
 
     <menu name="MrpTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="RunMrp" title="${uiLabelMap.ManufacturingRunMrp}">
