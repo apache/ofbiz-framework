@@ -3620,6 +3620,8 @@ public class ModelFormField {
         protected FlexibleStringExpander defaultValue;
         protected FlexibleStringExpander value;
         protected SubHyperlink subHyperlink;
+        protected String description;
+        protected String alternate;
 
         protected ImageField() {
             super();
@@ -3636,6 +3638,8 @@ public class ModelFormField {
         public ImageField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.setValue(element.getAttribute("value"));
+            this.setDescription(element.getAttribute("description"));
+            this.setAlternate(element.getAttribute("alternate"));
 
             String borderStr = element.getAttribute("border");
             try {
@@ -3724,6 +3728,22 @@ public class ModelFormField {
 
         public void setValue(String string) {
             this.value = FlexibleStringExpander.getInstance(string);
+        }
+
+        public String getDescription() {
+                return this.description;
+        }
+
+        public void setDescription(String string) {
+            this.description = string;
+        }
+
+        public String getAlternate() {
+            return this.alternate;
+        }
+
+        public void setAlternate(String string) {
+            this.alternate = string;
         }
 
     }
