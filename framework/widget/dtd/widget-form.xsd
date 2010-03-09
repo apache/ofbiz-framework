@@ -875,6 +875,8 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="height"/>
         <xs:attribute type="xs:string" name="value"/>
         <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute type="xs:string" name="description"/>
+        <xs:attribute type="xs:string" name="alternate"/>
     </xs:attributeGroup>
     <xs:element name="lookup" substitutionGroup="AllFields">
         <xs:complexType>
