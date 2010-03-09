@@ -26,7 +26,7 @@ under the License.
         <br class="clear"/>
     </div>
     <div class="screenlet-body">
-       <table class="basic-table" cellspacing='0'>
+       <table class="order-items basic-table" cellspacing='0'>
           <tr valign="bottom" class="header-row">
             <td width="30%">${uiLabelMap.ProductProduct}</td>
             <td width="33%">${uiLabelMap.CommonStatus}</td>
