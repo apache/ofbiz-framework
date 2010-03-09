@@ -57,7 +57,7 @@ under the License.
                 </#if>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                  <#assign thisURL = thisURL + "/control/main">
+                  <#assign thisURL = StringUtil.wrapString(thisURL) + "/control/main">
                 </#if>
                 <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
                   <!-- do not display this component-->
@@ -86,7 +86,7 @@ under the License.
                 </#if>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                  <#assign thisURL = thisURL + "/control/main">
+                  <#assign thisURL = StringUtil.wrapString(thisURL) + "/control/main">
                 </#if>
                 <#-- Show OFBiz Setup component menu bar when the system not have an organization -->
                 <#if thisApp.equals("/ofbizsetup")>
