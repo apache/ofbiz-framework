@@ -818,6 +818,28 @@ public class ShoppingCart implements Serializable {
         return true;
     }
 
+    /**
+     * Check to see if the ship group contains only Digital Goods, ie no Finished Goods and no Finished/Digital Goods, et cetera.
+     * This is determined by making sure no Product has a type where ProductType.isPhysical!=N.
+     */
+    public boolean containOnlyDigitalGoods(int shipGroupIdx) {
+        CartShipInfo shipInfo = getShipInfo(shipGroupIdx);
+        for (ShoppingCartItem cartItem: shipInfo.getShipItems()) {
+            GenericValue product = cartItem.getProduct();
+            try {
+                GenericValue productType = product.getRelatedOneCache("ProductType");
+                if (productType == null || !"N".equals(productType.getString("isPhysical"))) {
+                    return false;
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error looking up ProductType: " + e.toString(), module);
+                // consider this not a digital good if we don't have "proof"
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** Returns this item's index. */
     public int getItemIndex(ShoppingCartItem item) {
         return cartLines.indexOf(item);
