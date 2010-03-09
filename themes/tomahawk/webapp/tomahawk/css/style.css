@@ -2462,3 +2462,7 @@ background-color:#D4D0C8;
 .basic-table.order-items tr td {
 	vertical-align:top;
 }
+.order-items .order-item-description {
+	display:inline;
+	font-size:145%;
+}
