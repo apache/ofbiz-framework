@@ -2431,9 +2431,9 @@ padding-bottom: 5px;
 #fieldLookupContent td a {
 cursor: pointer;
 color: #000000;
-background-color: #FCF9E6;
-background-image: url(../images/button_whitegray.jpg);
+background: #FCF9E6 url(../images/button_whitegray.jpg);
 padding: 0.4em 0.6em;
+display: inline;
 }
 
 
