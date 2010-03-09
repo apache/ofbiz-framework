@@ -102,7 +102,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private String autoSaveListId = null;
 
     /** Holds value of order adjustments. */
-    private List adjustments = new LinkedList();
+    private List<GenericValue> adjustments = FastList.newInstance();
     // OrderTerms
     private boolean orderTermSet = false;
     private List orderTerms = new LinkedList();
@@ -185,7 +185,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.agreementId = cart.getAgreementId();
         this.quoteId = cart.getQuoteId();
         this.orderAdditionalEmails = cart.getOrderAdditionalEmails();
-        this.adjustments = new LinkedList(cart.getAdjustments());
+        this.adjustments.addAll(cart.getAdjustments());
         this.contactMechIdsMap = new HashMap(cart.getOrderContactMechIds());
         this.freeShippingProductPromoActions = new ArrayList(cart.getFreeShippingProductPromoActions());
         this.desiredAlternateGiftByAction = cart.getAllDesiredAlternateGiftByActionCopy();
@@ -2660,7 +2660,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Get a List of adjustments on the order (ie cart) */
-    public List getAdjustments() {
+    public List<GenericValue> getAdjustments() {
         return adjustments;
     }
 
@@ -2743,11 +2743,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (orderAdjustmentTypeId == null) return;
 
         // make a list of adjustment lists including the cart adjustments and the cartItem adjustments for each item
-        List adjsLists = new LinkedList();
+        List<List<GenericValue>> adjsLists = FastList.newInstance();
 
-        if (this.getAdjustments() != null) {
-            adjsLists.add(this.getAdjustments());
-        }
+        adjsLists.add(this.getAdjustments());
         Iterator cartIterator = this.iterator();
 
         while (cartIterator.hasNext()) {
@@ -2758,14 +2756,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
-        Iterator adjsListsIter = adjsLists.iterator();
-
-        while (adjsListsIter.hasNext()) {
-            List adjs = (List) adjsListsIter.next();
+        for (List<GenericValue> adjs: adjsLists) {
 
             if (adjs != null) {
                 for (int i = 0; i < adjs.size();) {
-                    GenericValue orderAdjustment = (GenericValue) adjs.get(i);
+                    GenericValue orderAdjustment = adjs.get(i);
 
                     if (orderAdjustmentTypeId.equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
                         adjs.remove(i);
@@ -3119,11 +3114,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void clearAllPromotionAdjustments() {
         // remove cart adjustments from promo actions
-        List cartAdjustments = this.getAdjustments();
+        List<GenericValue> cartAdjustments = this.getAdjustments();
         if (cartAdjustments != null) {
-            Iterator cartAdjustmentIter = cartAdjustments.iterator();
+            Iterator<GenericValue> cartAdjustmentIter = cartAdjustments.iterator();
             while (cartAdjustmentIter.hasNext()) {
-                GenericValue checkOrderAdjustment = (GenericValue) cartAdjustmentIter.next();
+                GenericValue checkOrderAdjustment = cartAdjustmentIter.next();
                 if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
@@ -3514,14 +3509,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** make a list of all adjustments including order adjustments, order line adjustments, and special adjustments (shipping and tax if applicable) */
-    public List makeAllAdjustments() {
-        List allAdjs = new LinkedList();
+    public List<GenericValue> makeAllAdjustments() {
+        List<GenericValue> allAdjs = FastList.newInstance();
 
         // before returning adjustments, go through them to find all that need counter adjustments (for instance: free shipping)
-        Iterator allAdjsIter = this.getAdjustments().iterator();
-
-        while (allAdjsIter.hasNext()) {
-            GenericValue orderAdjustment = (GenericValue) allAdjsIter.next();
+        for (GenericValue orderAdjustment: this.getAdjustments()) {
 
             allAdjs.add(orderAdjustment);
 
@@ -3557,13 +3549,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // add all of the item adjustments to this list too
         for (ShoppingCartItem item : cartLines) {
-            Collection adjs = item.getAdjustments();
+            Collection<GenericValue> adjs = item.getAdjustments();
 
             if (adjs != null) {
-                Iterator adjIter = adjs.iterator();
-
-                while (adjIter.hasNext()) {
-                    GenericValue orderAdjustment = (GenericValue) adjIter.next();
+                for (GenericValue orderAdjustment: adjs) {
 
                     orderAdjustment.set("orderItemSeqId", item.getOrderItemSeqId());
                     allAdjs.add(orderAdjustment);
@@ -3606,14 +3595,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** make a list of all quote adjustments including header adjustments, line adjustments, and special adjustments (shipping and tax if applicable).
      *  Internally, the quote adjustments are created from the order adjustments.
      */
-    public List makeAllQuoteAdjustments() {
-        List quoteAdjs = new LinkedList();
+    public List<GenericValue> makeAllQuoteAdjustments() {
+        List<GenericValue> quoteAdjs = FastList.newInstance();
 
-        List orderAdjs = makeAllAdjustments();
-        Iterator orderAdjsIter = orderAdjs.iterator();
-
-        while (orderAdjsIter.hasNext()) {
-            GenericValue orderAdj = (GenericValue) orderAdjsIter.next();
+        for (GenericValue orderAdj: makeAllAdjustments()) {
             GenericValue quoteAdj = this.getDelegator().makeValue("QuoteAdjustment");
             quoteAdj.put("quoteAdjustmentId", orderAdj.get("orderAdjustmentId"));
             quoteAdj.put("quoteAdjustmentTypeId", orderAdj.get("orderAdjustmentTypeId"));
