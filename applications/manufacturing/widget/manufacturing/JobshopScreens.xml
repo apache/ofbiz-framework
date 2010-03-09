@@ -87,34 +87,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <container>
-                                    <link target="PrintProductionRun" style="buttontext" text="${uiLabelMap.CommonPrint}">
-                                        <parameter param-name = "productionRunId" from-field = "productionRunId"/>
-                                    </link>
-                                    <link target="scheduleProductionRun" style="buttontext" text="${uiLabelMap.ManufacturingSchedule}">
-                                        <parameter param-name="productionRunId" from-field="parameters.productionRunId"/>
-                                        <parameter param-name="statusId" value="PRUN_SCHEDULED"/>
-                                    </link>
-                                    <link target="changeProductionRunStatusToPrinted" style="buttontext" text="${uiLabelMap.ManufacturingConfirmProductionRun}">
-                                        <parameter param-name="productionRunId" from-field="parameters.productionRunId"/>
-                                    </link>
-                                    <link target="quickChangeProductionRunStatus" style="buttontext" text="${uiLabelMap.ManufacturingQuickComplete}">
-                                        <parameter param-name="productionRunId" from-field="parameters.productionRunId"/>
-                                        <parameter param-name="statusId" value="PRUN_COMPLETED"/>
-                                    </link>
-                                    <link target="quickChangeProductionRunStatus" style="buttontext" text="${uiLabelMap.ManufacturingQuickClose}">
-                                        <parameter param-name="productionRunId" from-field="parameters.productionRunId"/>
-                                        <parameter param-name="statusId" value="PRUN_CLOSED"/>
-                                    </link>
-                                    <link target="cancelProductionRun" style="buttontext" text="${uiLabelMap.ManufacturingCancel}">
-                                        <parameter param-name="productionRunId" from-field="parameters.productionRunId"/>
-                                    </link>
-                                </container>
-                            </widgets>
-                        </section>
-                        <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}">
+                        <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"  navigation-menu-name="ProductionRunStatusAction">
+                            <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                             <include-form name="UpdateProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/associatedProductionRuns.ftl"/></html>
@@ -156,50 +130,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
-                        <container>
-                            <link target="PrintProductionRun" text="${uiLabelMap.CommonPrint}" style="buttontext">
-                                <parameter param-name="productionRunId"/>
-                            </link>
-                            <section>
-                                <condition>
-                                    <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
-                                </condition>
-                                <widgets>
-                                    <link target="changeProductionRunStatusToClosed" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext">
-                                        <parameter param-name="productionRunId"/>
-                                    </link>
-                                </widgets>
-                            </section>
-                            <section>
-                                <condition>
-                                    <and>
-                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CANCELLED"/>
-                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_COMPLETED"/>
-                                        <if-compare field="productionRun.currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
-                                    </and>
-                                </condition>
-                                <widgets>
-                                    <link target="quickStartAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext">
-                                        <parameter param-name="productionRunId"/>
-                                    </link>
-                                    <link target="quickRunAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext">
-                                        <parameter param-name="productionRunId"/>
-                                    </link>
-                                    <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext">
-                                        <parameter param-name="productionRunId"/>
-                                        <parameter param-name="statusId" value="PRUN_COMPLETED"/>
-                                    </link>
-                                    <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext">
-                                        <parameter param-name="productionRunId"/>
-                                        <parameter param-name="statusId" value="PRUN_CLOSED"/>
-                                    </link>
-                                    <link target="cancelProductionRun" text="${uiLabelMap.ManufacturingCancel}" style="buttontext">
-                                <parameter param-name="productionRunId"/>
-                            </link>
-                                </widgets>
-                            </section>
-                        </container>
-                        <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}">
+                        <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}" navigation-menu-name="ProductionRunStatusAction">
+                            <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
                             <include-form name="ShowProductionRun" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
