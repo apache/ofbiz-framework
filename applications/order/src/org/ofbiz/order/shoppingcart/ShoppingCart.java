@@ -127,7 +127,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private Timestamp defaultShipBeforeDate = null;
 
     /** Contains a List for each productPromoId (key) containing a productPromoCodeId (or empty string for no code) for each use of the productPromoId */
-    private List productPromoUseInfoList = new LinkedList();
+    private List<ProductPromoUseInfo> productPromoUseInfoList = FastList.newInstance();
     /** Contains the promo codes entered */
     private Set productPromoCodes = new HashSet();
     private List freeShippingProductPromoActions = new ArrayList();
@@ -189,7 +189,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.contactMechIdsMap = new HashMap(cart.getOrderContactMechIds());
         this.freeShippingProductPromoActions = new ArrayList(cart.getFreeShippingProductPromoActions());
         this.desiredAlternateGiftByAction = cart.getAllDesiredAlternateGiftByActionCopy();
-        this.productPromoUseInfoList = new LinkedList(cart.productPromoUseInfoList);
+        this.productPromoUseInfoList.addAll(cart.productPromoUseInfoList);
         this.productPromoCodes = new HashSet(cart.productPromoCodes);
         this.locale = cart.getLocale();
         this.currencyUom = cart.getCurrency();
@@ -3032,7 +3032,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public Iterator getProductPromoUseInfoIter() {
+    public Iterator<ProductPromoUseInfo> getProductPromoUseInfoIter() {
         return productPromoUseInfoList.iterator();
     }
 
@@ -3076,9 +3076,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Get total discount for a given ProductPromo, or for ANY ProductPromo if the passed in productPromoId is null. */
     public BigDecimal getProductPromoUseTotalDiscount(String productPromoId) {
         BigDecimal totalDiscount = BigDecimal.ZERO;
-        Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
-        while (productPromoUseInfoIter.hasNext()) {
-            ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
+        for (ProductPromoUseInfo productPromoUseInfo: this.productPromoUseInfoList) {
             if (productPromoId == null || productPromoId.equals(productPromoUseInfo.productPromoId)) {
                 totalDiscount = totalDiscount.add(productPromoUseInfo.getTotalDiscountAmount());
             }
@@ -3089,9 +3087,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public int getProductPromoUseCount(String productPromoId) {
         if (productPromoId == null) return 0;
         int useCount = 0;
-        Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
-        while (productPromoUseInfoIter.hasNext()) {
-            ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
+        for (ProductPromoUseInfo productPromoUseInfo: this.productPromoUseInfoList) {
             if (productPromoId.equals(productPromoUseInfo.productPromoId)) {
                 useCount++;
             }
@@ -3102,9 +3098,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public int getProductPromoCodeUse(String productPromoCodeId) {
         if (productPromoCodeId == null) return 0;
         int useCount = 0;
-        Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
-        while (productPromoUseInfoIter.hasNext()) {
-            ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
+        for (ProductPromoUseInfo productPromoUseInfo: this.productPromoUseInfoList) {
             if (productPromoCodeId.equals(productPromoUseInfo.productPromoCodeId)) {
                 useCount++;
             }
@@ -3716,12 +3710,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public List makeProductPromoUses() {
-        List productPromoUses = new ArrayList(this.productPromoUseInfoList.size());
+        List<GenericValue> productPromoUses = FastList.newInstance();
         String partyId = this.getPartyId();
         int sequenceValue = 0;
-        Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
-        while (productPromoUseInfoIter.hasNext()) {
-            ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
+        for (ProductPromoUseInfo productPromoUseInfo: this.productPromoUseInfoList) {
             GenericValue productPromoUse = this.getDelegator().makeValue("ProductPromoUse");
             productPromoUse.set("promoSequenceId", UtilFormatOut.formatPaddedNumber(sequenceValue, 5));
             productPromoUse.set("productPromoId", productPromoUseInfo.getProductPromoId());
