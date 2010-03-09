@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -137,7 +138,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     private Map contactMechIdsMap = FastMap.newInstance();
     private List orderItemPriceInfos = null;
-    private List itemAdjustments = new LinkedList();
+    private List<GenericValue> itemAdjustments = FastList.newInstance();
     private boolean isPromo = false;
     private BigDecimal promoQuantityUsed = BigDecimal.ZERO;
     private Map quantityUsedPerPromoCandidate = new HashMap();
@@ -676,7 +677,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.attributes = item.getAttributes() == null ? new HashMap() : new HashMap(item.getAttributes());
         this.contactMechIdsMap = item.getOrderItemContactMechIds() == null ? null : new HashMap(item.getOrderItemContactMechIds());
         this.orderItemPriceInfos = item.getOrderItemPriceInfos() == null ? null : new LinkedList(item.getOrderItemPriceInfos());
-        this.itemAdjustments = item.getAdjustments() == null ? null : new LinkedList(item.getAdjustments());
+        this.itemAdjustments.addAll(item.getAdjustments());
         if (this._product == null) {
             this.itemDescription = item.getName();
         }
@@ -2195,16 +2196,16 @@ public class ShoppingCartItem implements java.io.Serializable {
         itemAdjustments.remove(index);
     }
 
-    public List getAdjustments() {
+    public List<GenericValue> getAdjustments() {
         return itemAdjustments;
     }
 
     public void removeFeatureAdjustment(String productFeatureId) {
         if (productFeatureId == null) return;
-        Iterator itemAdjustmentsIter = itemAdjustments.iterator();
+        Iterator<GenericValue> itemAdjustmentsIter = itemAdjustments.iterator();
 
         while (itemAdjustmentsIter.hasNext()) {
-            GenericValue itemAdjustment = (GenericValue) itemAdjustmentsIter.next();
+            GenericValue itemAdjustment = itemAdjustmentsIter.next();
 
             if (productFeatureId.equals(itemAdjustment.getString("productFeatureId"))) {
                 itemAdjustmentsIter.remove();
@@ -2434,11 +2435,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                 // now copy/calc the adjustments
                 Debug.logInfo("Clone's adj: " + item.getAdjustments(), module);
                 if (UtilValidate.isNotEmpty(item.getAdjustments())) {
-                    List adjustments = new LinkedList(item.getAdjustments());
-                    Iterator adjIterator = adjustments.iterator();
-
-                    while (adjIterator.hasNext()) {
-                        GenericValue adjustment = (GenericValue) adjIterator.next();
+                    List<GenericValue> adjustments = UtilMisc.makeListWritable(item.getAdjustments());
+                    for (GenericValue adjustment: adjustments) {
 
                         if (adjustment != null) {
                             item.removeAdjustment(adjustment);
@@ -2466,11 +2464,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
             // re-calc this item's adjustments
             if (UtilValidate.isNotEmpty(this.getAdjustments())) {
-                List adjustments = new LinkedList(this.getAdjustments());
-                Iterator adjIterator = adjustments.iterator();
-
-                while (adjIterator.hasNext()) {
-                    GenericValue adjustment = (GenericValue) adjIterator.next();
+                List<GenericValue> adjustments = UtilMisc.makeListWritable(this.getAdjustments());
+                for (GenericValue adjustment: adjustments) {
 
                     if (adjustment != null) {
                         this.removeAdjustment(adjustment);
