@@ -50,11 +50,7 @@ under the License.
                 <#if productId?exists && productId == "shoppingcart.CommentLine">
                   <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
                 <#else>
-                  <td valign="top">
-                    <#if productId?has_content>
-                      <#assign product = orderItem.getRelatedOneCache("Product")>
-                    </#if>
-                    <div>
+                  <td colspan="7" valign="top">
                       <#if productId?exists>
                         ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                         <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
@@ -65,15 +61,25 @@ under the License.
                       <#else>
                         ${orderItem.itemDescription?if_exists}
                       </#if>
-                    </div>
-                    <#if productId?exists>
-                      <div style="margin-top: 15px; margin-left: 10px;">
+                      <div style="float:right;">
                         <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                         <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
                           <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
                         </#if>
                       </div>
+                  </td>
+                </#if>
+              </tr>
+              <tr<#if itemClass == "1"> class="alternate-row"</#if>>
+                <#if productId?exists && productId == "shoppingcart.CommentLine">
+                  <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
+                <#else>
+                  <td valign="top">
+                    <#if productId?has_content>
+                      <#assign product = orderItem.getRelatedOneCache("Product")>
+                    </#if>
+                    <#if productId?exists>
 
                       <#-- INVENTORY -->
                       <#if (orderHeader.statusId != "ORDER_COMPLETED") && availableToPromiseMap?exists && quantityOnHandMap?exists && availableToPromiseMap.get(productId)?exists && quantityOnHandMap.get(productId)?exists>
