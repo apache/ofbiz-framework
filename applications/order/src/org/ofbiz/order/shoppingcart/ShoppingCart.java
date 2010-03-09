@@ -51,7 +51,7 @@ import java.util.*;
 /**
  * Shopping Cart Object
  */
-public class ShoppingCart implements Serializable {
+public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public static final String module = ShoppingCart.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
@@ -907,7 +907,7 @@ public class ShoppingCart implements Serializable {
     }
 
     /** Returns an iterator of cart items. */
-    public Iterator iterator() {
+    public Iterator<ShoppingCartItem> iterator() {
         return cartLines.iterator();
     }
 
