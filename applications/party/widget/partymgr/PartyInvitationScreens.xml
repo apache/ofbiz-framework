@@ -29,6 +29,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <not><if-empty field="partyInvitation"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PartyInvitationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -41,7 +54,6 @@ under the License.
                                         <not><if-empty field="partyInvitation"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="PartyInvitationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                         <container style="button-bar"><link target="editPartyInvitation" text="${uiLabelMap.PartyInvitationNewPartyInvitation}" style="buttontext create"/></container>
                                         <container style="button-bar"><label style="h1">${uiLabelMap[titleProperty]}</label><label style="h2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
                                     </widgets>
