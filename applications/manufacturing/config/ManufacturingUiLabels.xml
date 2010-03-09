@@ -2673,7 +2673,7 @@
         <value xml:lang="de">Schnellausführung alle Arbeitsgänge</value>
         <value xml:lang="en">Quick Run All Tasks</value>
         <value xml:lang="es">Ejecutar todas las tareas rápido</value>
-        <value xml:lang="fr">Exécuter rapidement toutes les opérations</value>
+        <value xml:lang="fr">Exéc. rapid. toutes opé.</value>
         <value xml:lang="it">Esecuzione Veloce Operazioni</value>
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
@@ -2693,7 +2693,7 @@
         <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
         <value xml:lang="en">Quick Start All Tasks</value>
         <value xml:lang="es">Empezar todas las tareas rápido</value>
-        <value xml:lang="fr">Démarrer rapidement toutes les opérations</value>
+        <value xml:lang="fr">Démarrer rapid. toutes opé.</value>
         <value xml:lang="it">Avvio Veloce Operazioni</value>
         <value xml:lang="zh">快速启动全部任务</value>
     </property>
