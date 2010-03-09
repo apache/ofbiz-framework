@@ -100,7 +100,7 @@ under the License.
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete></#macro>
-<#macro renderImageField value border width height event action></#macro>
+<#macro renderImageField value description alternate border width height event action></#macro>
 <#macro renderBanner style leftStyle rightStyle leftText text rightText></#macro>
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip></#macro>
 <#macro renderFieldGroupClose style id title></#macro>
