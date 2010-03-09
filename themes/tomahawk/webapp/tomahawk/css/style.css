@@ -2466,3 +2466,9 @@ background-color:#D4D0C8;
 	display:inline;
 	font-size:145%;
 }
+.basic-table.order-items .screenlet-body {
+	background-color:#dfdfdf;
+}
+.basic-table.order-items .alternate-row .screenlet-body {
+	background-color:#bfbfbf;
+}

@@ -95,7 +95,7 @@ under the License.
                       <#assign inProductionQuantity = productionProductQuantityMap.get(productId)?default(0)>
                       <#assign unplannedQuantity = requiredQuantity - qohQuantity - inProductionQuantity - onOrderQuantity - mktgPkgQOH>
                       <#if unplannedQuantity < 0><#assign unplannedQuantity = 0></#if>
-                        <div style="margin-top: 15px; margin-left: 20px;">
+                        <div class="screenlet order-item-inventory"><div class="screenlet-body">
                             <table cellspacing="0" cellpadding="0" border="0">
                               <tr><td style="text-align: right; padding-bottom: 10px;">
                                   <a class="buttontext" href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y&amp;externalLoginKey=${externalLoginKey}" target="_blank">${uiLabelMap.ProductInventory}</a>
@@ -121,7 +121,7 @@ under the License.
                               <tr><td>${uiLabelMap.OrderUnplanned}</td>
                                 <td style="padding-left: 15px; text-align: left;">${unplannedQuantity}</td></tr>
                             </table>
-                        </div>
+                        </div></div>
                       </#if>
                     </#if>
                   </td>
@@ -129,6 +129,7 @@ under the License.
                   <#-- now show status details per line item -->
                   <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
                   <td colspan="1" valign="top">
+                    <div class="screenlet order-item-status-list"><div class="screenlet-body">
                     <div><span class="label">${uiLabelMap.CommonCurrent}</span>&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}</div>
                     <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                     <#list orderItemStatuses as orderItemStatus>
@@ -137,6 +138,7 @@ under the License.
                         ${(orderItemStatus.statusDatetime.toString())?if_exists}&nbsp;&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
                       </div>
                     </#list>
+                    </div></div>
                     <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
                     <#if returns?has_content>
                       <#list returns as returnItem>
@@ -151,7 +153,7 @@ under the License.
                   </td>
                   <#-- QUANTITY -->
                   <td align="right" valign="top" nowrap="nowrap">
-                    <table>
+                    <div class="screenlet order-item-quantity"><div class="screenlet-body"><table>
                       <tr valign="top">
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
                         <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId})/>
@@ -230,7 +232,7 @@ under the License.
                           <td>${returnQuantityMap.get(orderItem.orderItemSeqId)?default(0)}</td>
                         </td>
                       </tr>
-                    </table>
+                    </table></div></div>
                   </td>
 
                   <td align="right" valign="top" nowrap="nowrap">
