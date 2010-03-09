@@ -77,7 +77,7 @@ under the License.
         <li class="org">${orgName}</li>
       </#if>
       <#if userLogin.partyId?exists>
-        <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}${externalKeyParam?if_exists}">${userName}</a></li>
+        <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}${StringUtil.wrapString(externalKeyParam!)}">${userName}</a></li>
       <#else>
         <li class="user">${userName}</li>
       </#if>
