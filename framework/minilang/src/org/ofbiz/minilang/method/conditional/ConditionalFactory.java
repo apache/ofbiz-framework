@@ -22,8 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.imageio.spi.ServiceRegistry;
+import java.util.ServiceLoader;
 
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
@@ -36,7 +35,7 @@ public abstract class ConditionalFactory<C extends Conditional> {
     private static final Map<String, ConditionalFactory<?>> conditionalFactories;
     static {
         Map<String, ConditionalFactory<?>> factories = new HashMap<String, ConditionalFactory<?>>();
-        Iterator<ConditionalFactory<?>> it = UtilGenerics.cast(ServiceRegistry.lookupProviders(ConditionalFactory.class, ConditionalFactory.class.getClassLoader()));
+        Iterator<ConditionalFactory<?>> it = UtilGenerics.cast(ServiceLoader.load(ConditionalFactory.class, ConditionalFactory.class.getClassLoader()).iterator());
         while (it.hasNext()) {
             ConditionalFactory<?> factory = it.next();
             factories.put(factory.getName(), factory);

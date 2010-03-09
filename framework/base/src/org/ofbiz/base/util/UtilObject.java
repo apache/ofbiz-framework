@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.InputStream;
 import java.util.Iterator;
-import javax.imageio.spi.ServiceRegistry;
+import java.util.ServiceLoader;
 
 /**
  * UtilObject
@@ -192,7 +192,7 @@ public final class UtilObject {
     }
 
     public static <A, R> R getObjectFromFactory(Class<? extends Factory<R, A>> factoryInterface, A obj) throws ClassNotFoundException {
-        Iterator<? extends Factory<R, A>> it = ServiceRegistry.lookupProviders(factoryInterface);
+        Iterator<? extends Factory<R, A>> it = ServiceLoader.load(factoryInterface).iterator();
         while (it.hasNext()) {
             Factory<R, A> factory = it.next();
             R instance = factory.getInstance(obj);

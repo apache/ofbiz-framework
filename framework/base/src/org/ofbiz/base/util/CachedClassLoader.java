@@ -22,9 +22,8 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
-
-import javax.imageio.spi.ServiceRegistry;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -91,7 +90,7 @@ public class CachedClassLoader extends URLClassLoader {
         registerClass(org.ofbiz.base.util.TimeDuration.class);
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Iterator<Init> cachedClassLoaders = ServiceRegistry.lookupProviders(Init.class, loader);
+        Iterator<Init> cachedClassLoaders = ServiceLoader.load(Init.class, loader).iterator();
         while (cachedClassLoaders.hasNext()) {
             Init cachedClassLoader = cachedClassLoaders.next();
             try {
