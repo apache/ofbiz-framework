@@ -283,31 +283,31 @@ OUTER:
         }
     }
 
-    protected static <T> List<T> list(T value) {
+    public static <T> List<T> list(T value) {
         ArrayList<T> list = new ArrayList<T>(1);
         list.add(value);
         return list;
     }
 
-    protected static <T> List<T> list(T... list) {
+    public static <T> List<T> list(T... list) {
         return Arrays.asList(list);
     }
 
-    protected static <T> Set<T> set(T value) {
+    public static <T> Set<T> set(T value) {
         HashSet<T> set = new HashSet<T>(1);
         set.add(value);
         return set;
     }
 
-    protected static <T> Set<T> set(T... list) {
+    public static <T> Set<T> set(T... list) {
         return new HashSet<T>(Arrays.asList(list));
     }
 
-    protected static <T> Set<T> set(Iterable<T> iterable) {
+    public static <T> Set<T> set(Iterable<T> iterable) {
         return set(iterable.iterator());
     }
 
-    protected static <T> Set<T> set(Iterator<T> it) {
+    public static <T> Set<T> set(Iterator<T> it) {
         HashSet<T> set = new HashSet<T>();
         while (it.hasNext()) {
             T item = it.next();
@@ -317,7 +317,7 @@ OUTER:
     }
 
     @SuppressWarnings("unchecked")
-    protected static <K, V> Map<K, V> map(Object... list) {
+    public static <K, V> Map<K, V> map(Object... list) {
         assertEquals("list has even number of elements", 0, list.length % 2);
         Map<K, V> map = new LinkedHashMap<K, V>();
         for (int i = 0; i < list.length; i += 2) {
