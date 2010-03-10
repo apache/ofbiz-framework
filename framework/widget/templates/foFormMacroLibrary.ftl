@@ -132,7 +132,7 @@ under the License.
 <#macro renderFieldGroupClose style id title></#macro>
 
 <#macro renderHyperlinkTitle name title showSelectAll="N"></#macro>
-<#macro renderSortField style title linkUrl ajaxEnabled></#macro>
+<#macro renderSortField style title linkUrl ajaxEnabled><@renderFieldTitle style title /></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><@renderField description /></#macro>
 <#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc linkUrl targetWindow description confirmation><@makeBlock linkStyle description /></#macro>
