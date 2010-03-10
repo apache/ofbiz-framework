@@ -562,7 +562,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             // set the Calendar to the default time of the form or now()
             Calendar cal = null;
             try {
-                Timestamp defaultTimestamp = Timestamp.valueOf(modelFormField.getEntry(context, defaultDateTimeString));
+                Timestamp defaultTimestamp = Timestamp.valueOf(dateTimeField.getDefaultDateTimeString(context));
                 cal = Calendar.getInstance();
                 cal.setTime(defaultTimestamp);
             } catch (IllegalArgumentException e) {

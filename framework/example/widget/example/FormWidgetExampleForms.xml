@@ -79,7 +79,7 @@ under the License.
         <field name="field4"
                title="${uiLabelMap.ExampleDateField4Title}"
                tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
-            <date-time input-method="time-dropdown" clock="24"/>
+            <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field5  *** -->
@@ -87,7 +87,7 @@ under the License.
         <field name="field5"
                title="${uiLabelMap.ExampleDateField5Title}"
                tooltip="${uiLabelMap.ExampleDateField4Tooltip}">
-            <date-time input-method="time-dropdown" clock="12"/>
+            <date-time input-method="time-dropdown" clock="12" default-value="${exampleDateField}"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field6  *** -->
