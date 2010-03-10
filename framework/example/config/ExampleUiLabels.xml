@@ -439,8 +439,8 @@
         <value xml:lang="zh">详细描述</value>
     </property>
     <property key="ExampleLookupFields">
-        <value xml:lang="en">Examples Lookup Fields</value>
-        <value xml:lang="fr">Exemples de champs de recherche</value>
+        <value xml:lang="en">Examples Lookup Fields (first in 'normal' position, second centered)</value>
+        <value xml:lang="fr">Exemples de champs de recherche (le premier en position 'normal', le second centré)</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
