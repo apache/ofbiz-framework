@@ -23,16 +23,16 @@ under the License.
  -->
 
 <#if recipientName?exists>${recipientName},</#if>
-<br/>
+<br />
 
 <#-- MyCompany.com (not a variable why?) must be adapted - JLR 1/6/5 -->
 ${uiLabelMap.EcommerceYouHaveBeenSent} MyCompany.com <#if senderName?exists> ${uiLabelMap.EcommerceGiftCardFrom} ${senderName}</#if>!
-<br/><br/>
+<br /><br />
 <#if giftMessage?has_content>
   ${uiLabelMap.OrderGiftMessage}
-  <br/><br/>
+  <br /><br />
   ${giftMessage}
-  <br/><br/>
+  <br /><br />
 </#if>
 
 <pre>
