@@ -1367,7 +1367,7 @@ public class ModelFormField {
     }
 
     public boolean isSortField() {
-        return this.sortField != null ? this.sortField.booleanValue() : false;
+        return this.sortField != null && this.sortField.booleanValue();
     }
 
     /**
