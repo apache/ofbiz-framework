@@ -135,7 +135,7 @@ under the License.
 <#if note?exists><p class="tabletext">${note}</p></#if>
 <#if orderHeader?exists>
 ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
-<br/>
+<br />
 ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
 <#else>
 <h1>Order not found with ID [${orderId?if_exists}], or not allowed to view.</h1>

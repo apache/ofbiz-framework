@@ -37,16 +37,16 @@ under the License.
 
 <#if processResult>
   <#-- success -->
-  <br/>
+  <br />
   ${uiLabelMap.EcommerceYourGiftCard} ${displayNumber} ${uiLabelMap.EcommerceYourGiftCardReloaded}
-  <br/>
+  <br />
   ${uiLabelMap.EcommerceGiftCardNewBalance} ${amount} ${uiLabelMap.CommonFrom} ${previousAmount}
-  <br/>
+  <br />
 <#else>
   <#-- fail -->
-  <br/>
+  <br />
   ${uiLabelMap.EcommerceGiftCardReloadFailed} ${responseCode}
-  <br/>
+  <br />
   ${uiLabelMap.EcommerceGiftCardRefunded}
-  <br/>
+  <br />
 </#if>

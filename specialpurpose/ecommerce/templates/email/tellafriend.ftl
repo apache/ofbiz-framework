@@ -20,11 +20,11 @@ under the License.
 <head></head>
 <body>
 ${sendTo},
-<br/>
+<br />
 ${sendFrom} ${uiLabelMap.EcommerceFollowingMessage}
-<br/><br/>
+<br /><br />
 <b>${message}</b>
-<br/><br/>
+<br /><br />
 <a href="${pageUrl}">${pageUrl}</a>
 </body>
 </html>

@@ -21,7 +21,7 @@ under the License.
 <#if shipment?has_content>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <div class="h3">${title?if_exists}<br/><br/></div>
+      <div class="h3">${title?if_exists}<br /><br /></div>
     </div>
     <table border="0" cellpadding="0" cellspacing="0">
       <tbody>
@@ -38,7 +38,7 @@ under the License.
         </#list>
       </tbody>
     </table>
-    <br/>
+    <br />
     <div class="screenlet-title-bar">
       <div class="h3"><b>${uiLabelMap.EcommerceShipmentItems}</b></div>
     </div>

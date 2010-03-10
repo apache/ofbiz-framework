@@ -19,6 +19,6 @@ under the License.
 
 <#-- ReturnHeader and a List of ReturnItem records is available to this template -->
 
-<br/>
+<br />
 ${uiLabelMap.EcommerceReturnRequestNb} ${returnHeader.returnId} ${uiLabelMap.EcommerceReturnRequestCompleted}
-<br/>
+<br />
