@@ -2396,8 +2396,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         String width = "";
         String height = "";
-        String description = imageField.getDescription();
-        String alternate = imageField.getAlternate();
+        String description = imageField.getDescription(context);
+        String alternate = imageField.getAlternate(context);
 
         if(UtilValidate.isEmpty(description)){
             description = imageField.getModelFormField().getTitle(context);
@@ -2427,11 +2427,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" value=\"");
         sr.append(value);
         sr.append("\" description=\"");
-        sr.append(description);
+        sr.append(encode(description, modelFormField, context));
         sr.append("\" alternate=\"");
         sr.append(alternate);
         sr.append("\" border=\"");
-        sr.append(border);
+        sr.append(encode(alternate, modelFormField, context));
         sr.append("\" width=\"");
         sr.append(width);
         sr.append("\" height=\"");

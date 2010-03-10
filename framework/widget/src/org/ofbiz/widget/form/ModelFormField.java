@@ -3620,8 +3620,8 @@ public class ModelFormField {
         protected FlexibleStringExpander defaultValue;
         protected FlexibleStringExpander value;
         protected SubHyperlink subHyperlink;
-        protected String description;
-        protected String alternate;
+        protected FlexibleStringExpander description;
+        protected FlexibleStringExpander alternate;
 
         protected ImageField() {
             super();
@@ -3730,20 +3730,28 @@ public class ModelFormField {
             this.value = FlexibleStringExpander.getInstance(string);
         }
 
-        public String getDescription() {
-                return this.description;
+        public String getDescription(Map<String, Object> context) {
+            if (this.description != null && !this.description.isEmpty()) {
+                return this.description.expandString(context);
+            } else {
+                return "";
+            }
         }
 
-        public void setDescription(String string) {
-            this.description = string;
+        public void setDescription(String description) {
+            this.description = FlexibleStringExpander.getInstance(description);
         }
 
-        public String getAlternate() {
-            return this.alternate;
+        public String getAlternate(Map<String, Object> context) {
+            if (this.alternate != null && !this.alternate.isEmpty()) {
+                return this.alternate.expandString(context);
+            } else {
+                return "";
+            }
         }
 
-        public void setAlternate(String string) {
-            this.alternate = string;
+        public void setAlternate(String alternate) {
+            this.alternate = FlexibleStringExpander.getInstance(alternate);
         }
 
     }
