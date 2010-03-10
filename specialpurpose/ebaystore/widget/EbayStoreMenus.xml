@@ -44,7 +44,7 @@
             </link>
         </menu-item>
         <menu-item name="blockItemOutOfStock" title="${uiLabelMap.EbayBlockItemOutOfStock}">
-            <link target="blockItemOutOfStock">
+            <link target="runBlockItemOutOfStock">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
