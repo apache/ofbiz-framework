@@ -484,8 +484,16 @@ under the License.
         <td>${emailAddress.infoString?if_exists}</td>
         <td>&nbsp;</td>
         <td>
-          <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>
-            <a href="<@ofbizUrl>updateContactListParty?partyId=${party.partyId}&amp;contactListId=${contactListParty.contactListId}&amp;fromDate=${contactListParty.fromDate}&amp;statusId=CLPT_REJECTED</@ofbizUrl>" class="button">${uiLabelMap.EcommerceUnsubscribe}</a>
+          <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>            
+            <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistRejectForm${contactListParty_index}">
+            <div>
+              <input type="hidden" name="partyId" value="${party.partyId}"/>
+              <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
+              <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
+              <input type="hidden" name="statusId" value="CLPT_REJECTED"/>
+              <input type="submit" value="${uiLabelMap.EcommerceUnsubscribe}" class="smallSubmit"/>
+              </div>
+            </form>
           <#elseif (contactListParty.statusId?if_exists == "CLPT_PENDING")>
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistAcceptForm${contactListParty_index}">
             <div>
@@ -498,7 +506,15 @@ under the License.
               </div>
             </form>
           <#elseif (contactListParty.statusId?if_exists == "CLPT_REJECTED")>
-            <a href="<@ofbizUrl>updateContactListParty?partyId=${party.partyId}&amp;contactListId=${contactListParty.contactListId}&amp;fromDate=${contactListParty.fromDate}&amp;statusId=CLPT_PENDING</@ofbizUrl>" class="button">${uiLabelMap.EcommerceSubscribe}</a>
+            <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistPendForm${contactListParty_index}">
+            <div>
+              <input type="hidden" name="partyId" value="${party.partyId}"/>
+              <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
+              <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
+              <input type="hidden" name="statusId" value="CLPT_PENDING"/>
+              <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
+              </div>
+            </form>
           </#if>
         </td>
       </tr>
