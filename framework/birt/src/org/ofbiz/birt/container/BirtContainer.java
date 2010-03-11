@@ -39,7 +39,6 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -99,11 +98,7 @@ public class BirtContainer implements Container {
 
         // get the delegator
         delegatorName = ContainerConfig.getPropertyValue(cc, "delegator-name", "default");
-        try {
-              delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, module);
-        }
+        delegator = DelegatorFactory.getDelegator(delegatorName);
 
         // get the dispatcher
         dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
