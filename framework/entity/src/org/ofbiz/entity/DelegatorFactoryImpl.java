@@ -27,32 +27,13 @@ public class DelegatorFactoryImpl extends DelegatorFactory {
     public static final String module = DelegatorFactoryImpl.class.getName();
 
     public Delegator getInstance(String delegatorName) {
-        if (delegatorName == null) {
-            delegatorName = "default";
-            Debug.logWarning(new Exception("Location where getting delegator with null name"), "Got a getGenericDelegator call with a null delegatorName, assuming default for the name.", module);
+        if (Debug.infoOn()) Debug.logInfo("Creating new delegator [" + delegatorName + "] (" + Thread.currentThread().getName() + ")", module);
+        //Debug.logInfo(new Exception(), "Showing stack where new delegator is being created...", module);
+        try {
+            return new GenericDelegator(delegatorName);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error creating delegator", module);
+            return null;
         }
-        GenericDelegator delegator = GenericDelegator.delegatorCache.get(delegatorName);
-        if (delegator == null) {
-            synchronized (GenericDelegator.delegatorCache) {
-                // must check if null again as one of the blocked threads can still enter
-                delegator = GenericDelegator.delegatorCache.get(delegatorName);
-                if (delegator == null) {
-                    if (Debug.infoOn()) Debug.logInfo("Creating new delegator [" + delegatorName + "] (" + Thread.currentThread().getName() + ")", module);
-                    //Debug.logInfo(new Exception(), "Showing stack where new delegator is being created...", module);
-                    try {
-                        delegator = new GenericDelegator(delegatorName);
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Error creating delegator", module);
-                    }
-                    if (delegator != null) {
-                        GenericDelegator.delegatorCache.put(delegatorName, delegator);
-                    } else {
-                        Debug.logError("Could not create delegator with name " + delegatorName + ", constructor failed (got null value) not sure why/how.", module);
-                    }
-                }
-            }
-        }
-        return delegator;
     }
-
 }

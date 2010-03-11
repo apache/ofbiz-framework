@@ -95,9 +95,6 @@ public class GenericDelegator implements Delegator {
     /** This flag is only here for lower level technical testing, it shouldn't be user configurable (or at least I don't think so yet); when true all operations without a transaction will be wrapped in one; seems to be necessary for some (all?) XA aware connection pools, and should improve overall stability and consistency */
     public static final boolean alwaysUseTransaction = true;
 
-    /** the delegatorCache will now be a HashMap, allowing reload of definitions,
-     * but the delegator will always be the same object for the given name */
-    public static Map<String, GenericDelegator> delegatorCache = FastMap.newInstance();
     protected String delegatorName = null;
     protected DelegatorInfo delegatorInfo = null;
 
@@ -274,8 +271,6 @@ public class GenericDelegator implements Delegator {
         }
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
-        // put the delegator in the master Map by its name
-        GenericDelegator.delegatorCache.put(delegatorName, this);
 
         // setup the crypto class
         this.crypto = new EntityCrypto(this);
@@ -306,15 +301,15 @@ public class GenericDelegator implements Delegator {
         } else {
             Debug.logInfo("Distributed Cache Clear System disabled for delegator [" + delegatorName + "]", module);
         }
-
-        // setup the Entity ECA Handler
-        initEntityEcaHandler();
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#initEntityEcaHandler()
      */
-    public void initEntityEcaHandler() {
+    public synchronized void initEntityEcaHandler() {
+        if (!getDelegatorInfo().useEntityEca || this.entityEcaHandler != null) {
+            return;
+        }
         if (getDelegatorInfo().useEntityEca) {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the entity eca handler
