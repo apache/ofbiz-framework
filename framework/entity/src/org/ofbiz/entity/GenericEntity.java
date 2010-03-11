@@ -121,13 +121,13 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     /** Creates new GenericEntity from existing Map */
-    public static GenericEntity createGenericEntity(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+    public static GenericEntity createGenericEntity(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
 
         GenericEntity newEntity = new GenericEntity();
-        newEntity.init(modelEntity, fields);
+        newEntity.init(delegator, modelEntity, fields);
         return newEntity;
     }
 
@@ -157,12 +157,14 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     /** Creates new GenericEntity from existing Map */
-    protected void init(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+    protected void init(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
         this.modelEntity = modelEntity;
         this.entityName = modelEntity.getEntityName();
+        this.delegatorName = delegator.getDelegatorName();
+        this.internalDelegator = delegator;
         setFields(fields);
 
         // check some things
@@ -172,7 +174,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     /** Creates new GenericEntity from existing Map */
-    protected void init(ModelEntity modelEntity, Object singlePkValue) {
+    protected void init(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
@@ -181,6 +183,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
         this.modelEntity = modelEntity;
         this.entityName = modelEntity.getEntityName();
+        this.delegatorName = delegator.getDelegatorName();
+        this.internalDelegator = delegator;
         set(modelEntity.getOnlyPk().getName(), singlePkValue);
 
         // check some things
@@ -816,9 +820,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             ModelField curField = iter.next();
             pkNames.add(curField.getName());
         }
-        GenericPK newPK = GenericPK.create(getModelEntity(), this.getFields(pkNames));
-        newPK.setDelegator(this.getDelegator());
-        return newPK;
+        return GenericPK.create(this.getDelegator(), getModelEntity(), this.getFields(pkNames));
     }
 
     /** go through the pks and for each one see if there is an entry in fields to set */

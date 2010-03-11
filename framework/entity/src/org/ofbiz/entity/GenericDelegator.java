@@ -544,9 +544,7 @@ public class GenericDelegator implements Delegator {
         if (entity == null) {
             throw new IllegalArgumentException("[GenericDelegator.makeValue] could not find entity for entityName: " + entityName);
         }
-        GenericValue value = GenericValue.create(entity, fields);
-        value.setDelegator(this);
-        return value;
+        return GenericValue.create(this, entity, fields);
     }
 
     /* (non-Javadoc)
@@ -557,9 +555,7 @@ public class GenericDelegator implements Delegator {
         if (entity == null) {
             throw new IllegalArgumentException("[GenericDelegator.makeValue] could not find entity for entityName: " + entityName);
         }
-        GenericValue value = GenericValue.create(entity, singlePkValue);
-        value.setDelegator(this);
-        return value;
+        return GenericValue.create(this, entity, singlePkValue);
     }
 
     /* (non-Javadoc)
@@ -578,9 +574,9 @@ public class GenericDelegator implements Delegator {
             throw new IllegalArgumentException("[GenericDelegator.makeValidValue] could not find entity for entityName: " + entityName);
         }
         GenericValue value = GenericValue.create(entity);
+        value.setDelegator(this);
         value.setPKFields(fields, true);
         value.setNonPKFields(fields, true);
-        value.setDelegator(this);
         return value;
     }
 
@@ -606,10 +602,7 @@ public class GenericDelegator implements Delegator {
         if (entity == null) {
             throw new IllegalArgumentException("[GenericDelegator.makePK] could not find entity for entityName: " + entityName);
         }
-        GenericPK pk = GenericPK.create(entity, fields);
-
-        pk.setDelegator(this);
-        return pk;
+        return GenericPK.create(this, entity, fields);
     }
 
     /* (non-Javadoc)
@@ -620,10 +613,7 @@ public class GenericDelegator implements Delegator {
         if (entity == null) {
             throw new IllegalArgumentException("[GenericDelegator.makePKSingle] could not find entity for entityName: " + entityName);
         }
-        GenericPK pk = GenericPK.create(entity, singlePkValue);
-
-        pk.setDelegator(this);
-        return pk;
+        return GenericPK.create(this, entity, singlePkValue);
     }
 
     /* (non-Javadoc)
@@ -659,7 +649,7 @@ public class GenericDelegator implements Delegator {
             return null;
         }
         ModelEntity entity = this.getModelReader().getModelEntity(entityName);
-        GenericValue genericValue = GenericValue.create(entity, fields);
+        GenericValue genericValue = GenericValue.create(this, entity, fields);
 
         return this.create(genericValue, true);
     }
@@ -672,7 +662,7 @@ public class GenericDelegator implements Delegator {
             return null;
         }
         ModelEntity entity = this.getModelReader().getModelEntity(entityName);
-        GenericValue genericValue = GenericValue.create(entity, singlePkValue);
+        GenericValue genericValue = GenericValue.create(this, entity, singlePkValue);
 
         return this.create(genericValue, true);
     }
@@ -1374,8 +1364,7 @@ public class GenericDelegator implements Delegator {
                 } else {
                     // don't send fields that are the same, and if no fields have changed, update nothing
                     ModelEntity modelEntity = value.getModelEntity();
-                    GenericValue toStore = GenericValue.create(modelEntity, (Map<String, ? extends Object>) value.getPrimaryKey());
-                    toStore.setDelegator(this);
+                    GenericValue toStore = GenericValue.create(this, modelEntity, (Map<String, ? extends Object>) value.getPrimaryKey());
                     boolean atLeastOneField = false;
                     Iterator<ModelField> nonPksIter = modelEntity.getNopksIterator();
                     while (nonPksIter.hasNext()) {
@@ -2397,9 +2386,7 @@ public class GenericDelegator implements Delegator {
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
         }
 
-        GenericPK dummyPK = GenericPK.create(relatedEntity, fields);
-        dummyPK.setDelegator(this);
-        return dummyPK;
+        return GenericPK.create(this, relatedEntity, fields);
     }
 
     /* (non-Javadoc)
@@ -2521,8 +2508,7 @@ public class GenericDelegator implements Delegator {
         //if never cached, then don't bother clearing
         if (entity.getNeverCache()) return;
 
-        GenericValue dummyValue = GenericValue.create(entity, fields);
-        dummyValue.setDelegator(this);
+        GenericValue dummyValue = GenericValue.create(this, entity, fields);
         this.clearCacheLineFlexible(dummyValue);
     }
 
