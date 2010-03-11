@@ -93,6 +93,7 @@ under the License.
 
     <target name="clean-logs">
         <delete verbose="on" dir="../runtime/logs/test-results"/>
+        <delete dir="../runtime/logs/cobertura-report"/>
         <delete verbose="on">
             <fileset dir="../runtime/logs" includes="*">
                 <exclude name="README"/>
