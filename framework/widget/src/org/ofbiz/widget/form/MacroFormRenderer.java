@@ -1162,7 +1162,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                     sr.append(" name=\"");
                     sr.append(modelFormField.getModelForm().getName());
                     sr.append("\" title=\"");
-                    sr.append(title);
+                    sr.append(FreeMarkerWorker.encodeDoubleQuotes(title));
                     sr.append("\" />");
                     executeMacro(sr.toString());
                 } else if (modelFormField.isSortField()) {
@@ -2421,7 +2421,6 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderImageField(Appendable writer, Map<String, Object> context, ImageField imageField) throws IOException {
         ModelFormField modelFormField = imageField.getModelFormField();
 
-        String border = Integer.toString(imageField.getBorder());
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         String width = "";
         String height = "";
