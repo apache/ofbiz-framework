@@ -240,9 +240,8 @@ public class EbayStoreHelper {
             GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
             String jobId = ebayProductPref.getString("autoPrefJobId");
             if (UtilValidate.isNotEmpty(jobId)) {
-                GenericValue job = delegator.findByPrimaryKey("JobSandbox", UtilMisc.toMap("jobId", jobId));
-                job = EbayStoreHelper.getCurrentJob(delegator, userLogin, job);
-                if (!job.getString("statusId").equals("SERVICE_PENDING")) {
+                List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId, "statusId", "SERVICE_PENDING"));
+                if (jobs.size() == 0) {
                     Map<String, Object>inMap = FastMap.newInstance();
                     inMap.put("jobId", jobId);
                     inMap.put("userLogin", userLogin);
@@ -319,31 +318,19 @@ public class EbayStoreHelper {
         try {
             GenericValue ebayProductPref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId));
             String jobId = ebayProductPref.getString("autoPrefJobId");
-            GenericValue job = delegator.findByPrimaryKey("JobSandbox", UtilMisc.toMap("jobId", jobId));
-            job = EbayStoreHelper.getCurrentJob(delegator, userLogin, job);
+            List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId ,"statusId", "SERVICE_PENDING"));
+
             Map<String, Object>inMap = FastMap.newInstance();
             inMap.put("userLogin", userLogin);
-            inMap.put("jobId", job.getString("jobId"));
-            dispatcher.runSync("cancelScheduledJob", inMap);
+            for (int index = 0; index < jobs.size(); index++) {
+                inMap.put("jobId", jobs.get(index).getString("jobId"));
+                dispatcher.runSync("cancelScheduledJob", inMap);
+            }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
-    }
-
-    private static GenericValue getCurrentJob(Delegator delegator, GenericValue userLogin, GenericValue job) {
-        try {
-            List<GenericValue> jobNew = delegator.findByAnd("JobSandbox", UtilMisc.toMap("previousJobId", job.getString("jobId")));
-            if (jobNew.size() != 0) {
-                job = EbayStoreHelper.getCurrentJob(delegator, userLogin, jobNew.get(0));
-            } else {
-                return job;
-            }
-        } catch (GenericEntityException e) {
-            return null;
-        }
-        return job;
     }
 }
