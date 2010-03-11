@@ -77,16 +77,16 @@ public class GenericValue extends GenericEntity implements Reusable {
     }
 
     /** Creates new GenericValue from existing Map */
-    public static GenericValue create(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+    public static GenericValue create(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         GenericValue newValue = genericValueFactory.object();
-        newValue.init(modelEntity, fields);
+        newValue.init(delegator, modelEntity, fields);
         return newValue;
     }
 
     /** Creates new GenericValue from existing Map */
-    public static GenericValue create(ModelEntity modelEntity, Object singlePkValue) {
+    public static GenericValue create(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
         GenericValue newValue = genericValueFactory.object();
-        newValue.init(modelEntity, singlePkValue);
+        newValue.init(delegator, modelEntity, singlePkValue);
         return newValue;
     }
 
@@ -495,9 +495,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      */
     @Override
     public Object clone() {
-        GenericValue newEntity = GenericValue.create(this);
-        newEntity.setDelegator(internalDelegator);
-        return newEntity;
+        return GenericValue.create(this);
     }
 
     protected static class NullGenericValue extends GenericValue implements NULL {

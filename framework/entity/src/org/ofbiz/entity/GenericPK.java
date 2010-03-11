@@ -47,16 +47,16 @@ public class GenericPK extends GenericEntity {
     }
 
     /** Creates new GenericPK from existing Map */
-    public static GenericPK create(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+    public static GenericPK create(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         GenericPK newPK = genericPKFactory.object();
-        newPK.init(modelEntity, fields);
+        newPK.init(delegator, modelEntity, fields);
         return newPK;
     }
 
     /** Creates new GenericPK from existing Map */
-    public static GenericPK create(ModelEntity modelEntity, Object singlePkValue) {
+    public static GenericPK create(Delegator delegator, ModelEntity modelEntity, Object singlePkValue) {
         GenericPK newPK = genericPKFactory.object();
-        newPK.init(modelEntity, singlePkValue);
+        newPK.init(delegator, modelEntity, singlePkValue);
         return newPK;
     }
 
@@ -72,8 +72,6 @@ public class GenericPK extends GenericEntity {
      */
     @Override
     public Object clone() {
-        GenericPK newEntity = GenericPK.create(this);
-        newEntity.setDelegator(internalDelegator);
-        return newEntity;
+        return GenericPK.create(this);
     }
 }
