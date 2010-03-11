@@ -147,7 +147,7 @@
         <response name="success" type="view" value="AutomationPreferences"/>
         <response name="error" type="view" value="AutomationPreferences"/>
     </request-map>
-	<request-map uri="editEmailTemplate">
+    <request-map uri="editEmailTemplate">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editEmailTemplate"/>
     </request-map>
@@ -303,6 +303,11 @@
         <response name="error" type="view" value="MakeSecondChanceOffer"/>
         <response name="success" type="view" value="SoldListing"/>
     </request-map>
+    <!-- Unsold Listing -->
+    <request-map uri="unsoldListing">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="UnsoldListing"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -330,11 +335,13 @@
     <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
     <view-map name="productsearch" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#productsearchexport"/>
     <!-- Active -->
-    <view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayActiveListing"/>
+    <view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ActiveListing"/>
     <view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#AssignAutomaticRule"/>
     <!-- Sold -->
     <view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#SoldListing"/>
     <view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OpenUnpaid"/>
     <view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
+    <!-- Unsold -->
+    <view-map name="UnsoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#UnsoldListing"/>
     <!-- end of view mappings -->
 </site-conf>

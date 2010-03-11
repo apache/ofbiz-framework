@@ -384,4 +384,19 @@ under the License.
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="getMyeBaySelling" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="entriesPerPage" mode="IN" type="String" optional="true"/>
+        <attribute name="pageNumber" mode="IN" type="String" optional="true"/>
+        <attribute name="listingType" mode="IN" type="String" optional="true"/>
+        <attribute name="activeItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="soldItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="unsoldItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="scheduledItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="activeSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="soldSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="unsoldeSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="scheduledSize" mode="OUT" type="Integer" optional="true"/>
+    </service>
 </services>

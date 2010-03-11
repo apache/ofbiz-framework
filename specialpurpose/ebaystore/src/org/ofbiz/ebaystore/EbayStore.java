@@ -63,6 +63,7 @@ import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.*;
+import com.ebay.sdk.util.eBayUtil;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.CheckoutStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
@@ -77,14 +78,20 @@ import com.ebay.soap.eBLBaseComponents.GetStoreOptionsRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreOptionsResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
+import com.ebay.soap.eBLBaseComponents.ItemSortTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
 import com.ebay.soap.eBLBaseComponents.OfferType;
+import com.ebay.soap.eBLBaseComponents.OrderTransactionType;
+import com.ebay.soap.eBLBaseComponents.OrderType;
+import com.ebay.soap.eBLBaseComponents.PaginationType;
 import com.ebay.soap.eBLBaseComponents.SecondChanceOfferDurationCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsArrayType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsType;
+import com.ebay.soap.eBLBaseComponents.SellingStatusType;
 import com.ebay.soap.eBLBaseComponents.SetStoreCategoriesRequestType;
 import com.ebay.soap.eBLBaseComponents.SetStoreCategoriesResponseType;
 import com.ebay.soap.eBLBaseComponents.SetStoreRequestType;
@@ -110,10 +117,14 @@ import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
 import com.ebay.soap.eBLBaseComponents.StoreType; 
 import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.ebay.soap.eBLBaseComponents.UserType;
 import com.ebay.soap.eBLBaseComponents.VerifyAddSecondChanceItemResponseType;
 
 import java.sql.Timestamp;
+
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
  
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemArrayType;
@@ -1818,5 +1829,273 @@ public class EbayStore {
             return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess("Add Second Chance Offer Successful.");
+    }
+
+    public static Map<String, Object> getMyeBaySelling(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object>result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String productStoreId = (String) context.get("productStoreId");
+        List unsoldItems = FastList.newInstance();
+        try {
+            Map<String, Object> inMap = FastMap.newInstance();
+            inMap.put("productStoreId", productStoreId);
+            inMap.put("userLogin", userLogin);
+            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+            String userID = (String) resultUser.get("userLoginId");
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            GetMyeBaySellingCall api = new GetMyeBaySellingCall(apiContext);
+            ItemListCustomizationType itemListType = new ItemListCustomizationType();
+            itemListType.setInclude(Boolean.TRUE);
+            itemListType.setSort(ItemSortTypeCodeType.START_TIME_DESCENDING);
+
+            String entriesPerPage = (String) context.get("entriesPerPage");
+            String pageNumber = (String) context.get("pageNumber");
+            String listingType = (String) context.get("listingType");
+
+            PaginationType page = new PaginationType();
+            if (UtilValidate.isNotEmpty(entriesPerPage)) {
+                page.setEntriesPerPage(Integer.valueOf(entriesPerPage));
+            }
+            if (UtilValidate.isNotEmpty(pageNumber)) {
+                page.setPageNumber(Integer.valueOf(pageNumber));
+            }
+            itemListType.setPagination(page);
+            if (UtilValidate.isNotEmpty(listingType)) {
+                itemListType.setListingType(ListingTypeCodeType.valueOf(listingType));
+            }
+            DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+                    DetailLevelCodeType.RETURN_ALL,
+                    DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                    DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+            };
+            api.setDetailLevel(detailLevels);
+            api.setActiveList(itemListType);
+            api.setScheduledList(itemListType);
+            api.setSoldList(itemListType);
+            api.getMyeBaySelling();
+            ItemType[] tempActiveItems = null;
+            if (api.getReturnedActiveList() != null) tempActiveItems = (api.getReturnedActiveList().getItemArray()).getItem();
+            final ItemType[] activeItems = tempActiveItems;
+            // Display active items in table.
+            TableModel dataModel = new AbstractTableModel() {
+                public int getColumnCount() { return 0; }
+                public int getRowCount() { return activeItems == null ? 0 : activeItems.length;}
+                public Map<String, Object> getValueAt(int row, int col) {
+                    ItemType item = activeItems[row];
+                    return itemToColumns(item);
+                }
+            };
+            //add To List
+            List<Map> activeList = getDataModelToList(dataModel);
+            int activeSize = dataModel.getRowCount();
+            ItemType[] tempItems = null;
+            if (api.getReturnedScheduledList() != null) tempItems = (api.getReturnedScheduledList().getItemArray()).getItem();
+            final ItemType[] scheItems = tempItems;
+            // Display Scheduled items in table.
+            dataModel = new AbstractTableModel() {
+                public int getColumnCount() { return 0; }
+                public int getRowCount() { return scheItems == null ? 0 : scheItems.length;}
+                public Map<String, Object> getValueAt(int row, int col) {
+                    ItemType item = scheItems[row];
+                    return schItemToColumns(item);
+                }
+            };
+            // set data
+            List<Map> scheduledList = getDataModelToList(dataModel);
+            int scheduledSize = dataModel.getRowCount();
+            OrderTransactionType[] tempSoldItems = null;
+            if (api.getReturnedSoldList() != null)
+                tempSoldItems = (api.getReturnedSoldList().getOrderTransactionArray()).getOrderTransaction();
+            final OrderTransactionType[] soldItems = tempSoldItems;
+            // Display Sold items in table.
+            dataModel = new AbstractTableModel() {
+                public int getColumnCount() { return 0; }
+                public int getRowCount() { return soldItems == null ? 0 : soldItems.length;}
+                public Map<String, Object> getValueAt(int row, int col) {
+                    OrderTransactionType orderTrans = soldItems[row];
+                    return OrderToColumns(orderTrans);
+                }
+            };
+            // add to list
+            List<Map> soldList = getDataModelToList(dataModel);
+            int soldSize = dataModel.getRowCount();
+            ItemType[] tempUnSoldItems = null;
+            if (api.getReturnedUnsoldList() != null) tempUnSoldItems = (api.getReturnedUnsoldList().getItemArray()).getItem();
+            final ItemType[] unSoldItems = tempUnSoldItems;
+            // Display unsold items in table.
+            dataModel = new AbstractTableModel() {
+                public int getColumnCount() { return 0; }
+                public int getRowCount() { return unSoldItems == null ? 0 : unSoldItems.length;}
+                public Map<String, Object> getValueAt(int row, int col) {
+                    ItemType item = unSoldItems[row];
+                    return unsoldItemToColumns(item);
+                }
+            };
+            // add to list
+            List<Map> unsoldList = getDataModelToList(dataModel);
+            int unsoldSize = dataModel.getRowCount();
+            //list to result
+            result.put("activeItems", activeList);
+            result.put("soldItems", soldList);
+            result.put("unsoldItems", unsoldList);
+            result.put("scheduledItems", scheduledList);
+            //page control to result;
+            result.put("activeSize", activeSize);
+            result.put("soldSize", soldSize);
+            result.put("unsoldeSize", unsoldSize);
+            result.put("scheduledSize", scheduledSize);
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+    // set output data list (MyeBaySelling)
+    private static List<Map> getDataModelToList(TableModel dataModel) {
+        List<Map> list = FastList.newInstance();
+        for (int rowIndex = 0; rowIndex < dataModel.getRowCount(); rowIndex++) {
+            list.add((Map<String, Object>) dataModel.getValueAt(rowIndex, 0));
+        }
+        return list;
+    }
+    static Map<String, Object> itemToColumns(ItemType item) {
+        Map<String, Object> cols = FastMap.newInstance();
+        int i = 0;
+        cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
+        cols.put("title", item.getTitle() != null ? item.getTitle() : "");
+
+        SellingStatusType sst = item.getSellingStatus();
+        String currentPrice = null;
+        String bidCount = null;
+        if (sst != null) {
+            AmountType amt = sst.getCurrentPrice();
+            currentPrice = amt != null ? (new Double(amt.getValue()).toString()) : "";
+            bidCount = sst.getBidCount() != null ? sst.getBidCount().toString() : "";
+        }
+        cols.put("currentPrice", currentPrice);
+        cols.put("bidCount", bidCount);
+
+        java.util.Calendar startTime = item.getListingDetails() == null ? null : item.getListingDetails().getStartTime();
+        cols.put("startTime", startTime != null ? eBayUtil.toAPITimeString(startTime.getTime()) : "");
+
+        Integer quantity = item.getQuantity();
+        String quantityStr = null;
+        if (quantity != null) {
+            quantityStr = quantity.toString();
+        }
+        cols.put("quantity", quantityStr);
+        cols.put("listingType", item.getListingType().value());
+        return cols;
+    }
+
+    static Map<String, Object> schItemToColumns(ItemType item) {
+        Map<String, Object> cols = FastMap.newInstance();
+        int i = 0;
+        cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
+        cols.put("title", item.getTitle() != null ? item.getTitle() : "");
+
+        java.util.Calendar startTime = item.getListingDetails() == null ? null : item.getListingDetails().getStartTime();
+        cols.put("startTime", startTime != null ? eBayUtil.toAPITimeString(startTime.getTime()) : "");
+        AmountType amt = item.getStartPrice();
+        cols.put("StartPrice", amt != null ? (new Double(amt.getValue()).toString()) : "");
+
+        Integer quantity = item.getQuantity();
+        String quantityStr = null;
+        if (quantity != null) {
+            quantityStr = quantity.toString();
+        }
+        cols.put("quantity", quantityStr);
+        cols.put("listingType", item.getListingType().value());
+        return cols;
+    }
+
+    static Map<String, Object> unsoldItemToColumns(ItemType item) {
+        Map<String, Object> cols = FastMap.newInstance();
+        int i = 0;
+        cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
+        cols.put("title", item.getTitle() != null ? item.getTitle() : "");
+
+        AmountType amt = item.getStartPrice();
+        cols.put("price", amt != null ? (new Double(amt.getValue()).toString()) : "");
+
+        java.util.Calendar startTime = item.getListingDetails() == null ? null : item.getListingDetails().getStartTime();
+        cols.put("startTime", startTime != null ? eBayUtil.toAPITimeString(startTime.getTime()) : "");
+
+        java.util.Calendar endTime = item.getListingDetails() == null ? null : item.getListingDetails().getEndTime();
+        cols.put("endTime", endTime != null ? eBayUtil.toAPITimeString(endTime.getTime()) : "");
+
+        Integer quantity = item.getQuantity();
+        String quantityStr = null;
+        if (quantity != null) {
+            quantityStr = quantity.toString();
+        }
+        cols.put("quantity", quantityStr);
+        cols.put("listingType", item.getListingType().value());
+        return cols;
+    }
+
+    static Map<String, Object> OrderToColumns(OrderTransactionType order) {
+        Map<String, Object> cols = FastMap.newInstance();
+        int i = 0;
+        TransactionType transaction = order.getTransaction();
+        OrderType orders = order.getOrder();
+        ItemType item = transaction.getItem();
+        String itemId = null; 
+        String title = null;
+        String status = null;
+        String endTime = null;
+        if (item != null) {
+            itemId = item.getItemID();
+            title = item.getTitle();
+            SellingStatusType sst = item.getSellingStatus();
+            if (sst != null) status = new Double((sst.getCurrentPrice()).getValue()).toString();
+            endTime = eBayUtil.toAPITimeString(item.getListingDetails().getEndTime().getTime());
+        }
+        cols.put("itemId", itemId);
+        cols.put("title", title);
+        cols.put("price", status);
+        cols.put("endTime", endTime);
+        UserType buyer = transaction.getBuyer();
+        String user = null;
+        if (buyer != null) user = buyer.getUserID();
+        cols.put("buyer", user);
+        cols.put("listingType", item.getListingType().value());
+        Date paidTime = null;
+        String checkoutStatus = null;
+        String shippedStatus = null;
+        String shippedTime = null;
+        String unpaidItemStatus = null;
+        int quantity = 0;
+        String transactionId = null;
+        double totalAmount = 0;
+        String creationTime = null;
+        if (orders.getCheckoutStatus() != null) {
+            checkoutStatus = orders.getCheckoutStatus().getStatus().value();
+        }
+        if (orders.getPaidTime() != null) {
+            paidTime = orders.getPaidTime().getTime();
+        }
+        if (orders.getShippedTime() != null) {
+            shippedTime = eBayUtil.toAPITimeString(orders.getShippedTime().getTime());
+        }
+        if (transaction.getBuyerPaidStatus() != null) {
+            unpaidItemStatus = transaction.getBuyerPaidStatus().values().toString();
+        }
+        quantity = transaction.getQuantityPurchased();
+        transactionId = transaction.getTransactionID().toString();
+        totalAmount = orders.getTotal().getValue();
+        creationTime = orders.getCreatedTime().getTime().toString();
+
+        cols.put("paidTime", paidTime);
+        cols.put("checkoutStatus", checkoutStatus);
+        cols.put("shippedTime", shippedTime);
+        cols.put("unpaidItemStatus", unpaidItemStatus);
+        cols.put("quantity", quantity);
+        cols.put("transactionId", transactionId);
+        cols.put("totalAmount", totalAmount);
+        cols.put("creationTime", creationTime);
+        return cols;
     }
 }

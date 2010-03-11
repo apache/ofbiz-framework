@@ -83,7 +83,6 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="listingType"><display description="${listingType}"/></field>
         <field name="quantity"><display description="${quantity}"/></field>
         <field name="transactionId"><display description="${transactionId}"/></field>
-        <field name="salePrice"><display description="${salePrice}"/></field>
         <field name="totalAmount"><display description="${totalAmount}"/></field>
         <field name="creationTime"><display description="${creationTime}" type="date"/></field>
         <field name="paidTime"><display description="${paidTime}" type="date"/></field>
@@ -466,5 +465,42 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="isRunBlockItem" position="1" title="Enable to automatic block item that out of stock"><check></check></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
+    <!-- Active Listing -->
+    <form name="ActiveItemList" type="list"  target="doAction" list-name="activeItemList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+        <field name="itemId"><display/></field>
+        <field name="title"><display/></field>
+        <field name="price"><display/></field>
+        <field name="bidCount"><display/></field>
+        <field name="startTime"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="listingType"><display/></field>
+    </form>
+    <!-- Unsold Listing -->
+    <form name="UnsoldItemList" type="list"  target="doAction" list-name="unsoldItemList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><display/></field>
+        <field name="title"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="price"><display/></field>
+        <field name="startTime"><display/></field>
+        <field name="endTime"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="listingType"><display/></field>
+    </form>
+    <!-- item list options -->
+    <form name="ItemOption" type="single" target="${target}">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="listingType" action="document.ItemOption.submit()" event="onchange">
+            <drop-down>
+                <option key="" description="All"/>
+                <option key="AUCTION" description="Auction Only"/>
+                <option key="FIXED_PRICE_ITEM" description="Fixed Price Item Only"/>
+                <option key="STORES_FIXED_PRICE" description="Stores Inventory Only"/>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit/></field>
     </form>
 </forms>
