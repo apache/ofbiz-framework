@@ -31,14 +31,12 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -148,8 +146,7 @@ public class FinAccountHelper {
 
          // now we need to get the encrypted version of the fin account code the user passed in to look up against FinAccount
          // we do this by making a temporary generic entity with same finAccountCode and then doing a match
-         ModelEntity finAccountEntity = delegator.getModelEntity("FinAccount");
-         GenericEntity encryptedFinAccount = GenericEntity.createGenericEntity(finAccountEntity, UtilMisc.toMap("finAccountCode", finAccountCode));
+         GenericValue encryptedFinAccount = delegator.makeValue("FinAccount", UtilMisc.toMap("finAccountCode", finAccountCode));
          delegator.encryptFields(encryptedFinAccount);
          String encryptedFinAccountCode = encryptedFinAccount.getString("finAccountCode");
 
