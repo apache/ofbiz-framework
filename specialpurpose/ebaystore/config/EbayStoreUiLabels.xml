@@ -275,4 +275,10 @@
     <property key="EbayAutoSendItemDispatchEmail">
         <value xml:lang="en">Automatic send item dispatched notification email</value>
     </property>
+        <property key="EbayUnsold">
+        <value xml:lang="en">unsold</value>
+    </property>
+    <property key="EbayActive">
+        <value xml:lang="en">Active</value>
+    </property>
 </resource>
