@@ -652,4 +652,8 @@ public class FreeMarkerWorker {
             }
         }
     }
+    
+    public static String encodeDoubleQuotes(String htmlString) {
+        return htmlString.replaceAll("\"", "\\\\\"");
+    }    
 }

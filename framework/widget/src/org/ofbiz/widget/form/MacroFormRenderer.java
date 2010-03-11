@@ -2762,7 +2762,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         StringWriter sr = new StringWriter();
         sr.append("<@renderTooltip ");
         sr.append("tooltip=\"");
-        sr.append(UtilHttp.encodeQuotes(tooltip));
+        sr.append(FreeMarkerWorker.encodeDoubleQuotes(tooltip));
         sr.append("\" tooltipStyle=\"");
         sr.append(modelFormField.getTooltipStyle());
         sr.append("\" />");
