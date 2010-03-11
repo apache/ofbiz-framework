@@ -97,7 +97,7 @@
     </property>
     <property key="ExampleDateField10Tooltip">
         <value xml:lang="en">Same as above, uses the nowTimestamp variable (always available in the form context) to set the default value to now</value>
-        <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à 'maintenant'</value>
+        <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à "maintenant"</value>
         <value xml:lang="it">Lo stesso di sopra, usare la variabile nowTimestamp (sempre disponibile nel contesto della form) per impostare il valore di default ad adesso</value>
         <value xml:lang="zh">同上，使用nowTimstamp变量(在表单中总是可用的)来把缺省值设置为现在</value>
     </property>

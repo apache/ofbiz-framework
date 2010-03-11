@@ -874,6 +874,10 @@ public class UtilHttp {
         return htmlString.replaceAll(" ", "%20");
     }
 
+    public static String encodeQuotes(String htmlString) {
+        return htmlString.replaceAll("\"", "\\\\\"");
+    }
+
     public static String setResponseBrowserProxyNoCache(HttpServletRequest request, HttpServletResponse response) {
         setResponseBrowserProxyNoCache(response);
         return "success";
