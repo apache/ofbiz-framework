@@ -980,21 +980,21 @@ public class ProductPromoWorker {
             if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
             } else {
-                String groupPartyId = condValue;
-                if (partyId.equals(groupPartyId)) {
-                    compareBase = Integer.valueOf(0);
-                } else {
+                 String groupPartyId = condValue;
+                 if (partyId.equals(groupPartyId)) {
+                    compareBase = new Integer(0);
+                 } else {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
-                    List partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
+                     List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
                     // and from/thru date within range
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
-                    // then 0 (equals), otherwise 1 (not equals)
+                            
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
-                        compareBase = Integer.valueOf(0);
-                    } else {
-                        compareBase = Integer.valueOf(1);
-                    }
-                }
+                        compareBase = new Integer(0);
+                    } else { 
+                       compareBase = new Integer(checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyId));
+                    }            
+                 }
             }
         } else if ("PPIP_PARTY_CLASS".equals(inputParamEnumId)) {
             if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
@@ -1002,7 +1002,7 @@ public class ProductPromoWorker {
             } else {
                 String partyClassificationGroupId = condValue;
                 // find any PartyClassification
-                List partyClassificationList = delegator.findByAndCache("PartyClassification", UtilMisc.toMap("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId));
+                List<GenericValue> partyClassificationList = delegator.findByAndCache("PartyClassification", UtilMisc.toMap("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId));
                 // and from/thru date within range
                 partyClassificationList = EntityUtil.filterByDate(partyClassificationList, true);
                 // then 0 (equals), otherwise 1 (not equals)
@@ -1179,6 +1179,21 @@ public class ProductPromoWorker {
         }
         // default to not meeting the condition
         return false;
+    }
+
+    private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
+        List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
+        partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
+        for (GenericValue genericValue : partyRelationshipList) {
+            String partyIdFrom = (String)genericValue.get("partyIdFrom");
+            if (partyIdFrom.equals(groupPartyId)) {
+                return 0;
+            }
+            if (0 == checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyIdFrom)) {
+                return 0;
+            }
+        }        
+        return 1;
     }
 
     public static class ActionResultInfo {

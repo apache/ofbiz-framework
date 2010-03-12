@@ -1198,7 +1198,9 @@ public class PriceServices {
                 if (partyId.equals(groupPartyId)) {
                     compare = 0;
                 } else {
-                    // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
+                    // look for PartyRelationship with
+                    // partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is
+                    // the group member, so the partyIdFrom is the groupPartyId
                     List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
                     // and from/thru date within range
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
@@ -1206,15 +1208,7 @@ public class PriceServices {
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
                         compare = 0;
                     } else {
-                        // before setting 1 try one more query: look for a 2 hop relationship
-                        List<GenericValue> partyRelationshipTwoHopList = delegator.findByAndCache("PartyRelationshipToFrom", UtilMisc.toMap("onePartyIdFrom", groupPartyId, "twoPartyIdTo", partyId, "onePartyRelationshipTypeId", "GROUP_ROLLUP", "twoPartyRelationshipTypeId", "GROUP_ROLLUP"));
-                        partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "oneFromDate", "oneThruDate", true);
-                        partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "twoFromDate", "twoThruDate", true);
-                        if (UtilValidate.isNotEmpty(partyRelationshipTwoHopList)) {
-                            compare = 0;
-                        } else {
-                            compare = 1;
-                        }
+                        compare = checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyId);
                     }
                 }
             }
@@ -1279,6 +1273,22 @@ public class PriceServices {
             return false;
         }
         return false;
+    }
+
+    private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
+        List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
+        partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
+        for (GenericValue genericValue : partyRelationshipList) {
+            String partyIdFrom = (String)genericValue.get("partyIdFrom");
+            if (partyIdFrom.equals(groupPartyId)) {
+                return 0;
+            }
+            if (0 == checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyIdFrom)) {
+                return 0;
+            }
+        }
+        
+        return 1;
     }
 
     /**
