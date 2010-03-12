@@ -110,7 +110,9 @@ under the License.
                 <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
             </then>
         </if>
+        
     </simple-method>
+
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <call-simple-method method-name="checkStatusCustRequest"/>
         <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
@@ -156,7 +158,27 @@ under the License.
         <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
         <set-nonpk-fields map="parameters" value-field="custRequest"/>
         <store-value value-field="custRequest"/>
+        
+        <!-- if story is provided update the first item of the customer request -->
+        <if-not-empty field="parameters.story">
+            <entity-and list="custRequestItems" entity-name="CustRequestItem">
+                <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+            </entity-and>
+            <if-not-empty field="custRequestItems">
+                <first-from-list entry="custRequestItem" list="custRequestItems"/>
+                <set-service-fields service-name="updateCustRequestItem" to-map="updateItem" map="custRequestItem"/>
+                <set field="updateItem.story" from-field="parameters.story"/>
+                <call-service service-name="updateCustRequestItem" in-map-name="updateItem"/>
+                <else>
+                    <set-service-fields service-name="createCustRequestItem" to-map="createItem" map="custRequest"/>
+                    <set field="createItem.story" from-field="parameters.story"/>
+                    <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
+                </else>
+            </if-not-empty>
+        </if-not-empty>
+
     </simple-method>
+
     <simple-method method-name="checkStatusCustRequest" short-description="Check StatusId CustRequest">
         <entity-one entity-name="CustRequest" value-field="custRequest"></entity-one>
         <if-empty field="custRequest">
