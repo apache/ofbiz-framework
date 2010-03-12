@@ -2512,6 +2512,9 @@
         <value xml:lang="en">Customer Request Note added Notification</value>
         <value xml:lang="it">Notifica nota richiesta cliente aggiunta</value>
     </property>
+    <property key="OrderCustRequestShouldHaveFromPartyIdIfNotDraft">
+        <value xml:lang="en">Customer Request should have a 'from' partyId if not in the draft status</value>
+    </property>
     <property key="OrderCustRequestStatusList">
         <value xml:lang="en">Customer Request Status List</value>
         <value xml:lang="it">Lista stato richiesta cliente</value>
